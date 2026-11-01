@@ -4,6 +4,8 @@
 - **Date:** 2026-11-01
 - **Context:** A first "simplification pass" mixed technical fixes with feature cuts. Adam rejected the feature cuts, and the full vision stands. Only these technical corrections were approved. None of them removes anything the user gets.
 
+> Amended by [0013](0013-speech-on-free-gemini.md): speech input checks understanding, not pronunciation.
+
 ## Decisions
 | # | Correction | Amends |
 |---|---|---|

@@ -3,16 +3,16 @@
 **Read this first in every new session.** It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
 - **Last updated:** 2026-11-01
-- **Phase:** M0 (Shape) done. The Gemini speech spike phase 1 is done (verdict: **partial**). Next: M1, once Adam says go.
+- **Phase:** M0 (Shape) done, including the Gemini speech spike (verdict: **partial**, [ADR 0013](../decisions/0013-speech-on-free-gemini.md)). Next: M1, once Adam says go.
 
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0012 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0013 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
-| Gemini speech spike, phase 1 (deck clips) | ✅ **partial**: transcription usable, pronunciation judgment unproven ([results](../../spikes/gemini-speech/README.md#results-phase-1-2026-11-01)). Phase 2 (Adam's voice) waits on his OK. Issue #1 stays open for it. |
+| Gemini speech spike (#1) | ✅ **partial** and closed: transcription usable; pronunciation scoring doesn't work on free Gemini, so feedback uses record-and-compare and ear training ([results](../../spikes/gemini-speech/README.md#results-phase-1-2026-11-01), [ADR 0013](../decisions/0013-speech-on-free-gemini.md)). |
 | App code | none yet; starts with M1 (#12 scaffold) |
 
 ## What to do next (in order)
@@ -21,7 +21,6 @@
    - #15 (Vercel) and #16 (Supabase) need Adam to create free accounts first. Ask him early.
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
 3. **M2: First playable** (#7–#11), after M1.
-4. **Issue #1 phase 2** (Adam's own recordings), whenever Adam approves sending his voice. The plan is in issue #1. It can run alongside M1.
 
 ## Backlog map
 | Milestone | Epic | Issues |
@@ -64,9 +63,9 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Secrets:** `GEMINI_API_KEY` (added 2026-11-01). Never ask for keys in chat; Adam adds them in the environment settings, and a new session picks them up.
 - **Tools present:** Node 22, Python 3, `ffmpeg`, Playwright with a pre-installed Chromium (don't run `playwright install`). The `zstd` CLI is **not always present** (missing on 2026-11-01, and `apt` failed). Node 22 has `zlib.zstdDecompressSync`, so a tiny Node stand-in for `zstd -d IN -o OUT` on `PATH` works.
 - **Deck format:** `.apkg` is a zip. `collection.anki21b` and `media` are zstd-compressed (SQLite plus the media map), and SQLite needs a `unicase` collation registered. **Each media file is also zstd-compressed**, and the media map is protobuf with a font entry in it, so parse it; don't regex the mp3 names. See `spikes/gemini-speech/prep.py`.
-- **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio.
+- **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 
 ## Open questions for Adam
-- **Phase 2 of the speech spike:** OK to send his own recordings to Gemini's free tier, where Google may use them and human reviewers may see them?
-- **Free-tier quota is tight:** the better Flash models allow 20 requests/day each, and only flash-lite has room. This affects ADR 0004 (all AI features, not just the mic). Do we stay on flash-lite, or should Claude research paid-tier pricing? Paid costs money, so it's Adam's call.
+- **In-app mic and data:** any in-app "did it understand you?" check sends his audio to Google's free tier. He declined this for testing. Is it OK in the app when he chooses to use it, or record-and-compare only (no upload)? Default until he answers: opt-in, off (ADR 0013). Not needed before M2 #45.
+- Decided 2026-11-01: free Gemini only, no paid tier; his voice is not sent for testing.
 - Before M1 #15/#16 he needs free Vercel and Supabase accounts.

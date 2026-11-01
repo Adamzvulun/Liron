@@ -37,4 +37,13 @@ node choice.mjs --model gemini-3.5-flash-lite --no-audio
 - **Model:** `gemini-3.5-flash-lite`, the only free model with enough daily quota and good speed (<1 s). The stronger Flash models allow **20 requests/day** on the free tier, and the newest (`3.8-flash`) took about 130 s per clip because of load.
 - **Transcription:** sentence CER 9% / WER 25%. By hand, 24/30 sentences are right or differ only in spelling, and 27/30 keep the meaning. Single words: 15/20. It drifts towards MSA spellings now and then (تلات→ثلاث, هادي→هذي).
 - **Pronunciation (minimal pairs):** the yes/no judge accepts the one-letter-wrong text 98% of the time, so it's useless. Forced choice scores 92% with audio but 96% *without* audio, so it reflects language knowledge, not hearing.
-- **Next (phase 2):** Adam's own recordings, including deliberate mistakes. Needs his OK first, since they go to Google's free tier.
+- **Follow-up (v2.mjs, no human voice):** a dialect-aware prompt brings sentence CER to 7.5%. In a synthetic-mistake test (free Gemini TTS says a one-consonant-wrong copy), 11 of 15 came back as the correct word and only 2 were caught. Pronunciation scoring is off the table on the free tier.
+- **Decision:** [ADR 0013](../../docs/decisions/0013-speech-on-free-gemini.md): free Gemini only, check *understanding* of sentences, pronunciation via record-and-compare and ear training. Adam's voice is not sent (his call, 2026-11-01), so phase 2 is dropped.
+
+```bash
+node v2.mjs --part deck
+```
+```bash
+node v2.mjs --part synth
+```
+(`synth` uses the TTS models, about 10 calls/day each on the free tier. Its audio goes to `synth-clips/`, which is git-ignored.)
