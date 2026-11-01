@@ -13,8 +13,17 @@ The best spoken-Palestinian material (Lingualism decks, the Elihay deck/book, na
   - No public sign-up.
   - Not indexed by search engines.
   - Content is served only to logged-in friends.
-- Paid source files are kept out of the public git repo. They live in private storage and are loaded at build or run time.
+- Copyrighted source files (paid or free) are kept out of the public git repo. See the amendment below.
 - A `content/SOURCES.md` file records where each piece of content came from.
+
+## Amendment (2026-11-01): start free, buy later only if needed
+Adam chose option **(c)**:
+- **Start with free sources:**
+  - The Elihay *Speaking Arabic* community deck (phrases + audio).
+  - The Maknuune lexicon (Arabic spelling, roots, glosses).
+  - The Madrasa course as an ordering reference.
+- **Buy a deck** (e.g. Lingualism) only if the free content feels thin in real use. That would be its own explicit decision, with the price shown first.
+- **Storage:** the Elihay deck is copyrighted even though it's free, and the repo is public. Copyrighted content is therefore imported by a script into Supabase (database + private storage bucket). It's readable only by logged-in users, and never committed or bundled into the site's files.
 
 ## Consequences
 - Non-commercial use doesn't by itself make redistribution legal. Keeping the site private and small keeps that risk low, which Adam accepts.
