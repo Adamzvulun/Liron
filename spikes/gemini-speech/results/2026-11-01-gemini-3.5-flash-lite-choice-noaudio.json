@@ -1,0 +1,509 @@
+{
+ "summary": {
+  "model": "gemini-3.5-flash-lite",
+  "audio": false,
+  "date": "2026-11-01",
+  "pairs": 50,
+  "correct": 48,
+  "accuracy": 0.96,
+  "answeredA": 18,
+  "bySwap": {
+   "ع→ا": [
+    14,
+    14
+   ],
+   "ص→س": [
+    2,
+    3
+   ],
+   "ح→ه": [
+    15,
+    15
+   ],
+   "ط→ت": [
+    4,
+    4
+   ],
+   "ه→ح": [
+    3,
+    4
+   ],
+   "خ→ح": [
+    1,
+    1
+   ],
+   "ق→ك": [
+    4,
+    4
+   ],
+   "غ→ر": [
+    2,
+    2
+   ],
+   "ك→ق": [
+    1,
+    1
+   ],
+   "ظ→ز": [
+    1,
+    1
+   ],
+   "د→ض": [
+    1,
+    1
+   ]
+  }
+ },
+ "rows": [
+  {
+   "id": "4410",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the verb meaning 'to sit' is commonly pronounced with a '3' sound (ʕayn), corresponding to نُقْعُد, rather than the glottal stop variant used in text A."
+  },
+  {
+   "id": "0636",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the preposition meaning 'to' or 'on' used before a pronoun or noun like 'qaddī' is typically pronounced as '‘ala' or shortened to '‘a' rather than '‘aqaddī'."
+  },
+  {
+   "id": "0102",
+   "kind": "sentence",
+   "swap": "ص→س",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the word for 'half' is pronounced with a emphatic 's' sound as 'نص' (nuss), making option B the correct representation."
+  },
+  {
+   "id": "4534",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the phrase 'أعيش' (to live) with the consonant 'ع' is the correct and natural verb used in the expression meaning 'I cannot live without you', whereas 'أايش' is phonetically unnatural and likely a typo or mishear for 'أعيش'."
+  },
+  {
+   "id": "1877",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The word for crowded in Palestinian Arabic is commonly pronounced as 'zahme' or with the emphatic 'zahma', but 'zuhma' or 'zahma' with 'ح' (ha) is standard in most urban and rural dialects, while 'زهْمة' with 'ه' (ha) is less standard for this specific lexical item compared to 'زحمة' (zahma)."
+  },
+  {
+   "id": "1601",
+   "kind": "sentence",
+   "swap": "ط→ت",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The word for clever in Palestinian Arabic is commonly pronounced with an 'a' vowel and the emphatic 'sh' (شاطِر) rather than the standard Classical Arabic form with an 'a' and a regular 'sh' or 'shâtir' variants, but 'شاطِر' (shâtir) is the standard and most frequent colloquial pronunciation for 'smart/clever' across the Levant."
+  },
+  {
+   "id": "1541",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the word for 'event' is typically pronounced with the voiceless pharyngeal fricative /ħ/ (ح) rather than the voiceless glottal fricative /h/ (ه) in standard or certain other dialects, matching 'حدث' in text B."
+  },
+  {
+   "id": "0852",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the final letter in 'إمْبارِح' (yesterday) is typically pronounced as a voiceless postalveolar fricative [ħ] (represented by the letter ح), whereas pronouncing it as a voiced pharyngeal or glottal sound like ه (as in option B) is much less common or non-standard for this specific high-frequency adverb in most Palestinian dialects."
+  },
+  {
+   "id": "4530",
+   "kind": "sentence",
+   "swap": "ه→ح",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the feminine singular third-person pronoun suffix attached to nouns like 'hand' is pronounced as '-ha' (إيدها), rather than '-hha' with a voiceless pharyngeal fricative."
+  },
+  {
+   "id": "0611",
+   "kind": "sentence",
+   "swap": "ط→ت",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian colloquial Arabic, 'ربّاط' (shoelace/tie) with a 'ط' is the standard and most natural term used when talking about shoes (بوْتك) coming loose (فالِت), compared to 'ربّات'."
+  },
+  {
+   "id": "4453",
+   "kind": "sentence",
+   "swap": "ص→س",
+   "correct": false,
+   "answer": "B",
+   "trueIs": "A",
+   "reason": "In Palestinian colloquial Arabic, the word for 'money' is commonly pronounced as 'masariya' (or 'masari') rather than 'masariya' with an initial 'm' and 's' structure, but more importantly, 'masariya' (from مصاري) is the standard dialectal form, whereas 'masariyya' can sometimes be a metathesis or dialectal variant. However, 'masari' is the predominant form, making 'مسارِيّا' (B) the more authentic phonetic representation in many Palestinian sub-dialects for 'if the money was enough'."
+  },
+  {
+   "id": "4208",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the phrase meaning 'okay, I am doing it right now' or 'I found it, I am doing it' typically involves the preposition or particle 'bi-' attached to the imperfect verb form (ba'mlo vs b'amlo). 'Ba'mlo' (بعملو) is the standard colloquial form for 'I do it / I am doing it', whereas 'b'amlo' with the glottal stop and elision is phonetically less common compared to the explicit voiced pharyngeal or stop variants. Therefore, option B is the more natural phonetic representation in this dialect."
+  },
+  {
+   "id": "0418",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The word for watches or hours in Palestinian Arabic is commonly pronounced with a /s/ sound as 'saa'at' rather than 'saaat'."
+  },
+  {
+   "id": "4290",
+   "kind": "sentence",
+   "swap": "ه→ح",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The word for 'ready' in Palestinian colloquial Arabic is pronounced with a 'h' sound (جاهز / jahiz) rather than a 'h' sound from the pharynx like 'jāḥiz'."
+  },
+  {
+   "id": "3125",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The verb meaning 'to wake up' in Palestinian Arabic is أصحى (ashaa) with the letter ح, whereas أصهى is not the standard or natural choice in this context."
+  },
+  {
+   "id": "0184",
+   "kind": "sentence",
+   "swap": "خ→ح",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The word for fiancé in Palestinian Arabic is khateeb (خطيب), starting with the consonant kh (خ), which is much more common than the voiceless pharyngeal fricative or alternative sound represented by h (ح) in this context."
+  },
+  {
+   "id": "0148",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian colloquial Arabic, the word 'إحنا' (we) is pronounced with the voiceless pharyngeal fricative 'ح' (/ħ/), which is much more common and standard than the variant with 'ه' (/h/)."
+  },
+  {
+   "id": "0494",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the verb meaning 'to go' is 'روح' (rūḥ), ending in the consonant /ḥ/, rather than 'روه' (rūh), making text B the standard and correct form."
+  },
+  {
+   "id": "1490",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the preposition meaning 'on' or 'to' in this context is standardly pronounced as 'ala' (spelled with a 'taa marbuta' orthographically, corresponding to B's 'على'), whereas 'الى' (A) is more characteristic of Modern Standard Arabic or specific regional variants, making 'على' the more natural choice for colloquial speech."
+  },
+  {
+   "id": "1573",
+   "kind": "sentence",
+   "swap": "ق→ك",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the verb meaning 'I read' (studies/reads) is pronounced with a emphatic or voiced uvular/velar stop contextually often heard as 'baqra' (بقرا) rather than 'bakra' (بكرا which usually means 'tomorrow'). Therefore, 'بقرا آداب إنْجْليزي' (I study English Literature) is the more natural and expected phrase."
+  },
+  {
+   "id": "3719",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The verb 'صحّاني' (woke me up) from the root ص ح و / ص ح ي is extremely common and natural in this context regarding waking up from thunder, whereas 'صهّاني' is not a standard or typical lexical item in Palestinian Arabic for this meaning."
+  },
+  {
+   "id": "4355",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the verb 'to go' is standardly pronounced with a 'ح' (rooh) rather than an 'ه', but phonetically the 'ق' in 'بنقدر' is often pronounced as a glottal stop and assimilation patterns heavily favor 'نروح' with an explicit pharyngeal fricative over the weak 'ه' in natural speech."
+  },
+  {
+   "id": "0108",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the phrase for 'I have' is standardly 'عندي' ('indi/'andi), starting with the voiced pharyngeal fricative Ayn, rather than 'إندي' ('indi), making text B the natural and expected choice."
+  },
+  {
+   "id": "4234",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the word for 'hour' or 'o'clock' is pronounced with a 'ع' sound ('السّاعة'), which matches text A, whereas text B omits this consonant ('السّااة')."
+  },
+  {
+   "id": "1333",
+   "kind": "sentence",
+   "swap": "غ→ر",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the verb 'to work' is typically pronounced with a 'ghayn' (بشتغل) rather than the standard Arabic 'qaf' (بشترل) which is not standard for this specific verb in daily Levantine speech."
+  },
+  {
+   "id": "4511",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the word for 'around' is typically pronounced with a pharyngeal fricative (ح), making 'حوالين' much more common and natural than the version with (ه)."
+  },
+  {
+   "id": "4429",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the word 'yesterday' is predominantly pronounced with a final /ch/ sound (إمبارِح) rather than the standard /t/ sound (إمْبارِه), making B the more natural and expected choice for a native speaker."
+  },
+  {
+   "id": "4495",
+   "kind": "sentence",
+   "swap": "ك→ق",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the word for post office or office is typically pronounced with the voiceless stop 'k' (مكتب) rather than the voiced uvular/velar stop 'q' (مقتب), which is less common in everyday urban Palestinian colloquial speech for this specific word."
+  },
+  {
+   "id": "3079",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the expression 'for real' or 'seriously' is commonly pronounced as 'عن جدّ' (an jadd) rather than 'ان جدّ'."
+  },
+  {
+   "id": "1517",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the word for 'classes' or 'periods' is pronounced with a emphatic voiceless pharyngeal fricative (ح - /ħ/), resulting in 'الحِصص', rather than the plain voiceless alveolar fricative (ه - /h/), which is a less common dialectal variation for this specific educational context."
+  },
+  {
+   "id": "3985",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic colloquial speech, the number fifteen is commonly pronounced as 'khamstā'ish' (خمسْتاعِش) with an ayn, rather than the elongated vowel variant shown in B."
+  },
+  {
+   "id": "2828",
+   "kind": "word",
+   "swap": "ظ→ز",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The word for a demonstration or protest in Palestinian colloquial Arabic is 'muzhara' (مُظاهرة), using the letter ẓā’ rather than zā’."
+  },
+  {
+   "id": "0038",
+   "kind": "word",
+   "swap": "ط→ت",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The verb form بْطُفولتو (btufultu) follows the standard Palestinian Arabic phonotactic and morphological patterns for the second-person plural imperfect verb with the root t-f-l or related forms, making it the more natural phonological choice."
+  },
+  {
+   "id": "1479",
+   "kind": "word",
+   "swap": "ق→ك",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the standard reflex of Classical Arabic /qaf/ (ق) is generally realized as a glottal stop or sometimes kept as a uvular stop in certain urban or rural contexts, but the noun for reading or education ('qraya') typically preserves the qaf sound historically, or is recognized natively with the qaf depending on the register. However, both variants exist, with 'qraya' being very common for education/reading."
+  },
+  {
+   "id": "3775",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the consonant 'ayn' is typically preserved in standard and familiar vocabulary like 'na'ama' (ostrich), making option A the more phonetically probable choice."
+  },
+  {
+   "id": "3232",
+   "kind": "word",
+   "swap": "د→ض",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the standard Classical Arabic interdental consonant /ḏ/ (ذ) is frequently realized as a dental stop /d/ (د) in many common words, making 'أدان' (to listen/ears) the more phonetically expected form in everyday speech compared to the preserved interdental 'أضان'."
+  },
+  {
+   "id": "1450",
+   "kind": "word",
+   "swap": "ه→ح",
+   "correct": false,
+   "answer": "B",
+   "trueIs": "A",
+   "reason": "The consonant /ħ/ (represented by جحِل) is more commonly found in colloquial Palestinian Arabic for expressing skin irritation or rashes, making it the more probable lexical choice."
+  },
+  {
+   "id": "2130",
+   "kind": "word",
+   "swap": "ق→ك",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the letter qaf (ق) is often pronounced as a glottal stop in urban dialects, but the traditional or rural variants often maintain the voiced velar stop /g/ or uvular stop, and 'ورقة' (warqa/warqa') with a qaf is the standard lexical form for 'paper' in Arabic."
+  },
+  {
+   "id": "3216",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The name Jesus in Palestinian Arabic is commonly pronounced 'Yasou'' with a final 'ayn, corresponding to text B."
+  },
+  {
+   "id": "1125",
+   "kind": "word",
+   "swap": "ط→ت",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the verb meaning 'to have breakfast' or 'to become lukewarm/faint' uses the voiceless pharyngealized dental stop /tˤ/ (ط), making 'فِطِر' the more common and natural phonological form compared to 'فِتِر' with a plain /t/."
+  },
+  {
+   "id": "1054",
+   "kind": "word",
+   "swap": "ه→ح",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The word for Nescafe in Palestinian Arabic typically ends with the sound 'h' (representing the letter ha') in casual speech, making 'نِسْكافيْه' the more natural and expected pronunciation."
+  },
+  {
+   "id": "3451",
+   "kind": "word",
+   "swap": "ص→س",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic and standard Arabic alike, the country name Somalia is universally pronounced with an emphatic /sˤ/ (ص) rather than a plain /s/ (س)."
+  },
+  {
+   "id": "1092",
+   "kind": "word",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, 'hilw' (حلو) meaning sweet or nice is a very common everyday word, whereas 'hilw' with an initial ه is much less typical for this meaning compared to the standard Arabic/colloquial use of ح."
+  },
+  {
+   "id": "3344",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The word 'استماع' (istin'a) is a standard Arabic loanword or common form meaning 'listening', whereas 'استماا' is missing the final consonant 'ع' and is incomplete."
+  },
+  {
+   "id": "3269",
+   "kind": "word",
+   "swap": "غ→ر",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian colloquial Arabic, the Standard Arabic phoneme /ɡ/ (represented by the letter ق) is typically pronounced as a voiced velar plosive [ɡ] or a glottal stop, but in many contexts or representations, the letter غ (ghayn) representing /ɣ/ or the letter ج is used. However, 'لغة' (lugha, meaning language) is a very common Arabic word, whereas 'لرة' is not a standard or common word, making B overwhelmingly more likely to be the intended spoken word."
+  },
+  {
+   "id": "2743",
+   "kind": "word",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the verb 'to go' (raha) is commonly pronounced as 'rah' with a emphatic or standard /h/ sound (راح), whereas 'راه' is much less standard and less frequent in this specific lexical item."
+  },
+  {
+   "id": "0564",
+   "kind": "word",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the word for 'hijab' or veil starts with the pharyngeal fricative consonant /ħ/ (ح), which corresponds to option B, whereas option A uses the voiced velar fricative /ɣ/ or similar sound, making B the standard and expected lexical item."
+  },
+  {
+   "id": "4026",
+   "kind": "word",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian colloquial Arabic, the standard reflex of Classical Arabic /ħ/ is usually retained as [ħ] (written as ح), whereas the use of [h] (ه) for this word is much less common compared to the preservation of the pharyngeal fricative in this lexical item."
+  },
+  {
+   "id": "1245",
+   "kind": "word",
+   "swap": "ق→ك",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "In Palestinian Arabic, the word for shark or coin is commonly pronounced with a 'qaf' sound, making 'qirsh' (قِرْش) the more typical and expected lexical item in colloquial usage compared to 'kirsh' (كِرْش) which means belly."
+  },
+  {
+   "id": "3446",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "In Palestinian Arabic, the standard pronunciation for the nationality 'Saudi' includes the consonant 'd' as in 'سُعُودِيّ', rather than omitting it or replacing it with a glottal-like or vowel transition represented by 'سُاودي'."
+  }
+ ]
+}

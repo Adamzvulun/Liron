@@ -21,7 +21,20 @@ python3 -I prep.py
 ```bash
 node run.mjs
 ```
-The key is read from the `GEMINI_API_KEY` environment variable. Options: `--model <id>`, `--delay <ms>` between calls (default 7000, to stay under free-tier rate limits), `--limit <n>`. Results go to `results/`.
+The key is read from the `GEMINI_API_KEY` environment variable. Options: `--model <id>`, `--delay <ms>` between calls (default 7000, to stay under free-tier rate limits), `--limit <n>`. Results go to `results/`. The run saves a checkpoint after each clip and resumes from it if stopped (for example by a daily quota).
 
-## Results
-Not run yet. The `GEMINI_API_KEY` secret was added on 2026-11-01, and a new session will have it.
+Follow-up test, forced-choice minimal pairs, plus a no-audio control:
+```bash
+node choice.mjs --model gemini-3.5-flash-lite
+```
+```bash
+node choice.mjs --model gemini-3.5-flash-lite --no-audio
+```
+
+## Results (phase 1, 2026-11-01)
+**Verdict: partial.** Transcription works well enough to use with care. Pronunciation judgment is unproven, and the deck clips cannot prove it. Details: [`results/2026-11-01-analysis.md`](results/2026-11-01-analysis.md), raw table: [`results/2026-11-01-gemini-3.5-flash-lite.md`](results/2026-11-01-gemini-3.5-flash-lite.md).
+
+- **Model:** `gemini-3.5-flash-lite`, the only free model with enough daily quota and good speed (<1 s). The stronger Flash models allow **20 requests/day** on the free tier, and the newest (`3.8-flash`) took about 130 s per clip because of load.
+- **Transcription:** sentence CER 9% / WER 25%. By hand, 24/30 sentences are right or differ only in spelling, and 27/30 keep the meaning. Single words: 15/20. It drifts towards MSA spellings now and then (تلات→ثلاث, هادي→هذي).
+- **Pronunciation (minimal pairs):** the yes/no judge accepts the one-letter-wrong text 98% of the time, so it's useless. Forced choice scores 92% with audio but 96% *without* audio, so it reflects language knowledge, not hearing.
+- **Next (phase 2):** Adam's own recordings, including deliberate mistakes. Needs his OK first, since they go to Google's free tier.

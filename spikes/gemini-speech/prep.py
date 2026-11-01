@@ -9,13 +9,28 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 APKG = os.path.join(HERE, '..', '..', 'sources', 'arabic', 'lingualism-palestinian-vocabulary', 'lingualism-pcav.apkg')
 HARD = set('حهعءأإؤئقخغصضطظ')
 
+def varint(b, i):
+    v = s = 0
+    while True:
+        c = b[i]; i += 1; v |= (c & 0x7f) << s; s += 7
+        if c < 0x80: return v, i
+
+def media_names(b):
+    """The media map is protobuf: repeated entry {1: name, ...}. A file's number is its entry position.
+    Parse every entry (the deck also holds a font), or the numbering shifts after it."""
+    names, i = [], 0
+    while i < len(b):
+        assert b[i] == 0x0a; ln, i = varint(b, i + 1); entry = b[i:i + ln]; i += ln
+        assert entry[0] == 0x0a; nl, j = varint(entry, 1); names.append(entry[j:j + nl].decode())
+    return names
+
 def main():
     tmp = tempfile.mkdtemp()
     with zipfile.ZipFile(APKG) as z:
         z.extractall(tmp)
     subprocess.run(['zstd', '-q', '-d', '-f', os.path.join(tmp, 'collection.anki21b'), '-o', os.path.join(tmp, 'col.sqlite')], check=True)
     subprocess.run(['zstd', '-q', '-d', '-f', os.path.join(tmp, 'media'), '-o', os.path.join(tmp, 'media.bin')], check=True)
-    names = [n.decode() for n in re.findall(rb'pcav\d+-\d+\.mp3', open(os.path.join(tmp, 'media.bin'), 'rb').read())]
+    names = media_names(open(os.path.join(tmp, 'media.bin'), 'rb').read())
     index = {n: str(i) for i, n in enumerate(names)}
     db = sqlite3.connect(os.path.join(tmp, 'col.sqlite'))
     db.create_collation('unicase', lambda a, b: (a.lower() > b.lower()) - (a.lower() < b.lower()))
