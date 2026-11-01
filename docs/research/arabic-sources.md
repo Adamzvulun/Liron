@@ -132,5 +132,6 @@ We use these as **structure and ordering references**. We don't copy their conte
 | Learn Levantine ([learnlevantine.com](https://learnlevantine.com/)) | 300+ Levantine lessons (includes Palestinian), dictionary with native audio, verb conjugator | Free to read | Site description only | Mixed Levantine, not only Palestinian |
 | ~~Isleem, *Colloquial Palestinian Arabic*~~ | 384-page textbook | $40–65 | Listings | ❌ Readers report **no audio included**. Not recommended. |
 
-### Open structural question
-The Madrasa courses are **external video courses**. Their videos can't be imported into Waymark (copyright, and the platform format). How they fit into the hub is a product decision for Adam.
+### Outcome (2026-11-01, ADR 0012)
+- **Option (b):** Waymark teaches the script and the grammar itself. The Madrasa courses serve as structure references; Zaytuna and Learn Levantine as free references; the deck's sentences as examples.
+- **No more purchases**, so *Palestinian Arabic Verbs* is not bought.

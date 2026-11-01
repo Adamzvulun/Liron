@@ -30,6 +30,9 @@ Adam chose option **(c)**:
 - Adam's rule: **if the best source costs under $20, he'll buy it.** The best verified candidate is the Lingualism *Palestinian Colloquial Arabic Vocabulary* Anki deck at **$17.99**: Arabic script, 4,800+ items, native audio. Caveats: Gaza dialect, and one reported translation error. **✅ Bought by Adam (2026-11-01) for $25.** The $17.99 found by search was outdated or excluded something, so prices from search results must be treated as estimates.
 - Maknuune (CC BY-SA 4.0) stays as the reference dictionary.
 
+## Amendment 3 (2026-11-01)
+**No more purchases** (Adam). The content principle is clarified in [ADR 0012](0012-content-principle.md).
+
 ## Correction (2026-11-01): the repo is private
 Earlier amendments said "the repo is public". **That was wrong.** Claude concluded it from an API check that went through this environment's GitHub-authenticated proxy, so it succeeded even though the repo is private. Claude didn't verify further.
 - Raw sources are stored in `sources/` in this private repo (see `sources/README.md`).
