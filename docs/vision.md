@@ -31,8 +31,25 @@
 - The AI the user chats with must use a **free model**.
 - Built fresh; nothing is reused from morsehub except the idea.
 - The product is named **Waymark**. The repo keeps the name `Liron`.
-- **Use existing sources; don't author source material.** We curate, sequence, and present. See `docs/research/arabic-sources.md`.
+- **Use existing sources; don't author source material.** We import and present them (ADR 0008, 0011).
 - No native-speaker helpers are available, so audio comes from existing recordings and dialect TTS.
+
+## v1 scope: the single source of truth
+*(After the simplification pass, [ADR 0011](decisions/0011-simplification-pass.md). If a discovery doc disagrees, this section wins.)*
+
+| Area | v1 |
+|---|---|
+| **Site** | A regular responsive website on Vercel, with login. Private and invite-only. |
+| **Data** | Supabase: login, progress, and the imported paid content (logged-in users only; never in the public repo). |
+| **City** | One illustrated, clickable screen: Signal Tower, Caravanserai, Your House, Market, Notice Board panel, locked Arena, construction plots |
+| **Avatar** | Base customization + 3 gear slots (head, body, hand) |
+| **Progress** | XP/level, gold, streak, daily goal; guild ranks (milestones) + plain Elo (Morse: Receive and Send; Arabic: one) |
+| **Quests** | Main questline, daily contracts, trials |
+| **Market** | Fixed stock: gear, streak freeze, hint |
+| **Morse** | Koch at 20 wpm with automatic Farnsworth; recognition game; spacebar/tap straight key with decoder; then words, callsigns, AI radio QSO |
+| **Arabic** | Script with auto Hebrew transliteration; purchased decks in their own level order, with deck audio and FSRS reviews; then AI café partners (text first, voice input to Gemini) |
+| **AI** | Gemini through a Vercel function, with a daily cap; partners stay in character, remember a running summary, and leave messages in an inbox |
+| **Later** | Gems, pets, decorations, more quest types, Glicko/item ratings, voice replies, social (M5) |
 
 ## Non-goals (for now)
 - Cross-subject mechanics.

@@ -1,5 +1,8 @@
 # 04 — World & lore (draft for Adam to react to)
 
+
+> 📚 **Historical record.** The current truth is [`vision.md`](../vision.md) and the ADRs, including the simplification pass [0011](../decisions/0011-simplification-pass.md).
+
 - **Status:** Draft
 - **Date:** 2026-11-01
 - **Direction from Adam:** less childish, more like an MMO RPG with quests. Friendly, not cut-throat competition.

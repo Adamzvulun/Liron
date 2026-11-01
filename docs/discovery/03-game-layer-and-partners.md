@@ -1,5 +1,8 @@
 # 03 — The game layer & the partner cast
 
+
+> 📚 **Historical record.** The current truth is [`vision.md`](../vision.md) and the ADRs, including the simplification pass [0011](../decisions/0011-simplification-pass.md).
+
 - **Status:** Partly superseded by [04-world-and-lore](04-world-and-lore.md) (MMO tone, revised cast, friendly social). Progression and economy still apply.
 - **Date:** 2026-11-01
 - **Builds on:** ADR 0003 (hub), 0006 (art), 0007 (partners)
