@@ -10,7 +10,7 @@
 | 0.1 | Vision locked, name chosen (Waymark) | ✅ |
 | 0.2 | Core ADRs: Arabic variety, hub model, AI, stack, art, partners, sourcing, Morse speed, rating | ✅ |
 | 0.3 | **Visual concept:** style guide v0 + one illustrated city screen + one guild hall interior | ⏭️ next |
-| 0.4 | Arabic source: Lingualism Palestinian deck bought; Maknuune as reference dictionary | ✅ |
+| 0.4 | Arabic sources settled: Lingualism deck (bought), Maknuune; script and grammar taught in-house, based on the Madrasa course structure (ADR 0012) | ✅ |
 | 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic) | ⏳ |
 | 0.6 | Convert M1–M2 into GitHub issues and milestones | ⏳ |
 
@@ -32,14 +32,14 @@
 |---|---|
 | **E6 Signal Tower: receive** | Web Audio Morse engine; Koch path at 20 wpm with auto Farnsworth (ADR 0009); instant-recognition game; "The Silent Beacon" ch. 1–2 |
 | **E7 Signal Tower: send** | Spacebar/tap straight key; real-time decoder; fist timing analysis |
-| **E8 Caravanserai: script** | Sounds via Hebrew bridge; letter families; positional forms; harakat; reading and writing drills; "The Long Road In" ch. 1 |
+| **E8 Caravanserai: script** | Sounds via Hebrew bridge; letter families; positional forms; harakat; reading and writing drills; "The Long Road In" ch. 1. Taught in-house, ordered after the Madrasa script course (ADR 0012) |
 | **E9 Caravanserai: survival** | First phrases with audio, imported from the chosen sources |
 | **E10 Quests & rewards** | Quest board (daily contracts); main-questline tracking; reward chest; Market v1 |
 
 ## M3 — Depth
 | Epic | Contents |
 |---|---|
-| **E11 Arabic core words** | First 300 → 1,000 words in sentences with audio, using FSRS and ratings; just-in-time grammar cards |
+| **E11 Arabic core words** | First 300 → 1,000 words in sentences with audio, using FSRS and ratings; just-in-time grammar cards built in-house from the Madrasa beginners structure + deck sentences (ADR 0012) |
 | **E12 Morse words & head copy** | Common words, Q-codes, prosigns; callsign rush (overspeed) |
 | **E13 Ranks & trials** | Guild ranks (milestone + rating); boss trials; achievements and titles |
 | **E14 Mic practice** | Shadowing and record-yourself (STT if the M0 spike succeeds) |

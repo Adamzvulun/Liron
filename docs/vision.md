@@ -31,7 +31,8 @@
 - The AI the user chats with must use a **free model**.
 - Built fresh; nothing is reused from morsehub except the idea.
 - The product is named **Waymark**. The repo keeps the name `Liron`.
-- **Use existing sources; don't author source material.** We curate, sequence, and present. See `docs/research/arabic-sources.md`.
+- **Learning is based on existing knowledge and courses, and we create and tailor freely on top** (ADR 0012).
+- **No more purchases.** The Lingualism deck ($25) is the only paid source.
 - No native-speaker helpers are available, so audio comes from existing recordings and dialect TTS.
 
 ## Costs & commitments (everything that may cost money or has strings attached)
