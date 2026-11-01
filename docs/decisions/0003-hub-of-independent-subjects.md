@@ -3,6 +3,9 @@
 - **Status:** Accepted
 - **Date:** 2026-11-01
 
+
+> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
+
 ## Context
 Adam's vision: the site is a lobby/hub with no connection between themes. It should expand later with more things he wants to learn. Progression and tracking should feel like Duolingo, and the look should be cute and game-like.
 

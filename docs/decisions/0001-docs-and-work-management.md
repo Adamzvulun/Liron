@@ -3,6 +3,9 @@
 - **Status:** Accepted
 - **Date:** 2026-11-01
 
+
+> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
+
 ## Context
 We want to work like a real team: creative, software, documentation, and work management.
 The skill library's workflow commands assume Jira and Confluence, which we don't use.

@@ -3,6 +3,9 @@
 - **Status:** Accepted (2026-11-01)
 - **Date:** 2026-11-01
 
+
+> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
+
 ## Context
 The AI that users chat with (Arabic conversation partner, Morse radio operator) must be free.
 Free tiers change often and have rate limits. Some free tiers may use inputs for training. Once friends join, all their usage would share our quota.
