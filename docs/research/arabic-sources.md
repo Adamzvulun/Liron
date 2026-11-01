@@ -4,6 +4,8 @@
 - **Question:** Are there enough good *existing* sources to teach spoken Levantine Arabic in Arabic script, without creating our own content?
 - **Short answer: yes.** Spoken Palestinian Arabic is well covered, and a lot of it was made specifically for Hebrew speakers. The gaps are **licensing** (much of the best material is commercial) and **audio** (free TTS is mostly MSA, though open Palestinian TTS models now exist).
 
+> ⚠️ **Several claims in this doc were corrected by the [fact-check](../research/fact-check-2026-11-01.md)**: Elihay deck quality and dialect, Elihay's bio, MADAR license, Sofelia license, XTTS license.
+
 > ⚠️ Licenses and current availability must be verified before anything is bundled into the app, especially once friends use it. The policy is in §5.
 
 ## 1. Vocabulary & lexicons

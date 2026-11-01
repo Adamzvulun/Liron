@@ -17,6 +17,7 @@ Free tiers change often and have rate limits. Some free tiers may use inputs for
 ## Decision
 - A thin server-side adapter with the interface `chat(persona, learnerContext, messages)`. API keys never reach the browser.
 - **Default: Gemini free tier. Fallback: one OpenRouter free model.**
+  - ⚠️ Fact-check: OpenRouter `:free` models allow only **50 requests/day** per account unless $10 of credits was ever bought (then 1,000/day). So the backup is thin without that $10. If it's needed, it comes to Adam as a cost question.
 - Per-user daily caps, so shared use stays within free limits.
 - Optionally, a user can paste their own free API key, so heavy users don't drain the shared quota.
 - **The Morse operator mostly doesn't need a big model.** A scripted QSO engine fills in standard exchanges, and the LLM adds personality and chit-chat.

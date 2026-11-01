@@ -7,7 +7,7 @@
 ## Decisions
 | # | Correction | Amends |
 |---|---|---|
-| 1 | **Partners who message first:** a regular website can't send phone notifications, so the messages wait in an **in-site inbox** shown when you open Waymark. No email notifications. | 0007 |
+| 1 | **Partners who message first:** ~~a regular website can't send phone notifications~~ ⚠️ *Corrected by fact-check: Android and desktop browsers **can** get web push from a regular website; iPhone needs the site added to the Home Screen first.* Decision for now: the messages wait in an **in-site inbox** shown when you open Waymark. No email notifications. | 0007 |
 | 2 | **Speech input:** recorded audio is sent **directly to Gemini**, which understands audio. No separate speech-to-text service. The research task becomes "test Gemini on recorded Palestinian speech". | 0007, research |
 | 3 | **AI endpoint** is a **Vercel serverless function** in the same repo and deploy, not a Supabase Edge Function. One less runtime. | 0004, 0005 |
 | 4 | **No user-supplied API keys.** Shared key, with a daily cap per user. | 0004 |

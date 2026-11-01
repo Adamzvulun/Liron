@@ -25,6 +25,11 @@ Adam chose option **(c)**:
 - **Buy a deck** (e.g. Lingualism) only if the free content feels thin in real use. That would be its own explicit decision, with the price shown first.
 - **Storage:** the Elihay deck is copyrighted even though it's free, and the repo is public. Copyrighted content is therefore imported by a script into Supabase (database + private storage bucket). It's readable only by logged-in users, and never committed or bundled into the site's files.
 
+## Amendment 2 (2026-11-01): fact-check changes the starting point
+- The "Elihay" deck turned out to be a third-party deck, standardized to **Jordanian**, with mostly English computer-voice audio and reported errors. **It is no longer the main source.**
+- Adam's rule: **if the best source costs under $20, he'll buy it.** The best verified candidate is the Lingualism *Palestinian Colloquial Arabic Vocabulary* Anki deck at **$17.99**: Arabic script, 4,800+ items, native audio. Caveats: Gaza dialect, and one reported translation error. **Awaiting Adam's go-ahead.**
+- Maknuune (CC BY-SA 4.0) stays as the reference dictionary.
+
 ## Consequences
 - Non-commercial use doesn't by itself make redistribution legal. Keeping the site private and small keeps that risk low, which Adam accepts.
 - If the project ever becomes public, revisit this ADR and fall back to openly licensed sources (Maknuune, Curras, open TTS).

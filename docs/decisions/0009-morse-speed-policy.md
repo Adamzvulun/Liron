@@ -7,7 +7,7 @@
 Adam asked how operator and lesson speed should be set for the best learning, and how it's usually done.
 
 ## How it's usually done
-- **Character speed is never slowed down.** Koch (LCWO, G4FON) and CW Academy teach at ~20 wpm character speed or faster from day one. Slow characters get learned as dot-counting, which becomes a plateau around 10–12 wpm that is hard to unlearn.
+- **Character speed is never slowed down.** Koch (LCWO, G4FON) and CW Academy teach at ~20 wpm character speed or faster from day one. Slow characters get learned as dot-counting, which practitioners say causes a plateau around **7–10 wpm** that is hard to unlearn. This is widely repeated advice, not a rigorously studied finding (see [fact-check](../research/fact-check-2026-11-01.md)).
 - **Farnsworth spacing:** to give the learner time, the *gaps* between characters and words are stretched instead. The "effective" speed starts low and the gaps shrink over time until effective speed equals character speed.
 - **Accuracy gate:** move on at about ≥90% copy accuracy (Koch). Below that, stay; well above it, push.
 - **Overspeed practice:** short drills slightly *above* comfort (RufzXP, Morse Code Ninja) raise the ceiling.
