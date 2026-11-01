@@ -66,6 +66,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 
 ## Open questions for Adam
+- **Speech API (not Gemini):** research in [speech-apis](../research/speech-apis.md). Proposed test: Groq Whisper (2,000/day) for understanding, Azure Pronunciation Assessment (`ar-SA`) for sounds. Needs free accounts and keys from Adam (Azure may ask for a card to verify identity) and his OK to send the deck and synthetic clips to them.
 - **In-app mic and data:** any in-app "did it understand you?" check sends his audio to Google's free tier. He declined this for testing. Is it OK in the app when he chooses to use it, or record-and-compare only (no upload)? Default until he answers: opt-in, off (ADR 0013). Not needed before M2 #45.
 - Decided 2026-11-01: free Gemini only, no paid tier; his voice is not sent for testing.
 - Before M1 #15/#16 he needs free Vercel and Supabase accounts.
