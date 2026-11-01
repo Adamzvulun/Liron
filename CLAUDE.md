@@ -30,6 +30,13 @@ See [`docs/process/WORKFLOW.md`](docs/process/WORKFLOW.md). In short:
 4. **Build**: one issue per branch and PR. A PR references its issue, includes tests, and updates docs.
 5. **Reflect**: write a short retro per milestone in `docs/process/retros/`.
 
+## Rules for Claude (from Adam)
+
+- **Research before suggesting.** Verify facts, sources, licenses, prices, and feasibility *before* proposing something to Adam. Don't propose something and leave "to be verified" for later. If something truly can't be verified, say so clearly and up front.
+- **Be transparent.** Anything that costs money, shares data, or locks us in comes to Adam as an explicit question, never as a line buried in a doc.
+- **Ordering is not cutting.** Use the roadmap to decide *when* things are built. Never quietly drop features from the vision.
+- **Don't over-engineer.** Check each choice against what's actually needed (e.g. a regular website, not a PWA).
+
 ## Conventions
 
 - Docs are Markdown in git. If code and docs disagree, fix whichever one is wrong in the same PR.
