@@ -16,7 +16,7 @@ The Arabic spoken around him is **Palestinian / Levantine colloquial Arabic**. M
 Option 3.
 - **Script:** learn the Arabic alphabet early. Colloquial Arabic is written in Arabic script in real life (WhatsApp, signs, social media).
 - **Hebrew as a bridge:**
-  - Hebrew letters map naturally to Arabic sounds (ח ע ק צ ט and more). Early cards show Hebrew transliteration with diacritics where needed (ג׳ ח׳ ד׳ ת׳ ט׳ ע׳ / ר׳). It fades out as script skill grows.
+  - Hebrew letters map naturally to Arabic sounds (ח ע ק צ ט and more). Early cards show Hebrew transliteration with a geresh where needed: ج=ג׳, خ=ח׳, ث=ת׳, ذ=ד׳, ظ=ט׳, ض=צ׳, and غ=ע׳ or ר׳ (the two forms for غ are disputed). See the [fact-check](../research/fact-check-2026-11-01.md). It fades out as script skill grows.
   - Shared Semitic roots (שלום/سلام، בית/بيت، כתב/كتب) get a "you already know this" badge.
   - Hebrew grammar parallels (binyanim ↔ verb forms, smikhut ↔ idafa) get short explanations.
 - **MSA is a later optional layer** (news, signs), not the spine.

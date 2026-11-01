@@ -37,12 +37,13 @@
 ## Costs & commitments (everything that may cost money or has strings attached)
 | Item | Cost | Strings attached | Status |
 |---|---|---|---|
-| **Paid Arabic decks** (e.g. Lingualism Palestinian vocabulary deck: ~4,800 cards with native audio; Adros Verse graded levels) | One-time purchase per deck. **Prices not yet checked.** | Copyrighted: personal use. Must not be stored in the public repo. | ⏸️ Not now. Start free; buy only if free content feels thin (0008) |
-| **Free Arabic sources** (Elihay "Speaking Arabic" community deck with audio; Maknuune lexicon; Madrasa course as a structure reference) | Free | The Elihay deck is a free share of copyrighted material. Maknuune's license is unverified. | ✅ Starting point (0008) |
-| **Gemini API** | Free tier | Google may use free-tier chats to improve its models; daily limits | Accepted (0004) |
+| **Lingualism Palestinian vocabulary Anki deck** (4,800+ items, Arabic script, native Gazan audio) | **$17.99** one-time (indexed price; confirm on the page) | Copyrighted: personal use, kept out of the public repo | ❓ Awaiting Adam (under his $20 rule) |
+| **Free Arabic sources** (Maknuune lexicon, CC BY-SA 4.0; Lingualism's free book audio; Madrasa as an ordering reference) | Free | Maknuune requires attribution and share-alike | ✅ |
+| **Gemini API** | Free tier | Google may use free-tier chats to improve its products, and **human reviewers may read them**; daily limits | Accepted (0004) |
 | **Gemini paid tier** | Pay-per-use | — | Maybe later (0004) |
-| **Supabase** | Free tier | Free projects are **paused after about a week of inactivity** (one click to resume); storage and DB size limits | Accepted (0005) |
+| **Supabase** | Free tier | Pauses after **7 days** inactive (data kept; manual restore); 500 MB DB, 1 GB files, 2 projects, no backups | Accepted (0005) |
 | **Vercel** | Free (Hobby) tier | Hobby plan is for personal, non-commercial use, which fits | Accepted (0005) |
+| **OpenRouter backup** | Free: 50 requests/day; $10 one-time credit raises it to 1,000/day | Data policy varies per model | Only if Gemini fails us; ask Adam first |
 | **Domain name** (e.g. waymark.something) | ~$10–20/year, optional | — | Not decided |
 
 ## Non-goals (for now)
