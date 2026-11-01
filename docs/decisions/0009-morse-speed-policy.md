@@ -1,6 +1,6 @@
 # 0009 — Morse speed policy
 
-- **Status:** Proposed
+- **Status:** Accepted (2026-11-01)
 - **Date:** 2026-11-01
 
 ## Context
