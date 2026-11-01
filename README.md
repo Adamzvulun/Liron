@@ -10,6 +10,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 
 | Path | What |
 |---|---|
+| [`docs/vision.md`](docs/vision.md) | North star: what we are building |
 | [`docs/discovery/`](docs/discovery/) | Brainstorms and explorations. Start with [`01-brainstorm.md`](docs/discovery/01-brainstorm.md) |
 | [`docs/research/`](docs/research/) | Research notes on methods, apps, and sources |
 | [`docs/decisions/`](docs/decisions/) | Architecture & product decision records (ADRs) |

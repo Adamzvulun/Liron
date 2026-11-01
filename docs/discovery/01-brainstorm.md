@@ -1,6 +1,6 @@
 # 01 — Brainstorm: what is this hub?
 
-- **Status:** Open (living doc)
+- **Status:** Superseded in part by [02-direction](02-direction.md) and [vision](../vision.md). Cross-subject ideas dropped (ADR 0003).
 - **Owners:** Adam (PO) and Claude
 - **Started:** 2026-11-01
 
