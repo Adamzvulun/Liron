@@ -4,6 +4,8 @@
 - **Date:** 2026-11-01
 - **Amends:** [0004](0004-free-llm-provider-agnostic.md). The adapter and free-model policy stand; this ADR defines *behaviour*.
 
+> Amended by [0011](0011-technical-corrections.md): in-site inbox for partner messages; voice input goes straight to Gemini.
+
 ## Context
 Adam: the AI the user practices with **simulates a real person on the other end**. It's not a teacher or a chatbot.
 
@@ -25,7 +27,7 @@ Every partner is a **character**, and the experience is built around keeping the
 
 **4. Realistic channel.**
 - **Morse:** the operator only "hears" what you actually keyed. Your timing is decoded, so sloppy sending produces garbled text, and they reply "AGN?" or "PSE RPT". They answer in audio, with band noise, fading (QSB), interference (QRM), and their own "fist" (timing quirks). The QSO follows real conventions: CQ, callsigns, RST, name, QTH, rig, WX, 73.
-- **Arabic:** text chat (WhatsApp-style) and voice (mic → speech-to-text → partner → TTS).
+- **Arabic:** text chat (WhatsApp-style) and voice (mic → audio sent directly to Gemini → partner reply → TTS).
 
 **5. Learning happens outside the conversation.** A separate, silent **Coach** layer reviews the transcript *after* the chat.
 - The debrief covers what you said wrong, better ways to say it, and new words heard.
