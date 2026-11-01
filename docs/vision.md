@@ -37,8 +37,8 @@
 ## Costs & commitments (everything that may cost money or has strings attached)
 | Item | Cost | Strings attached | Status |
 |---|---|---|---|
-| **Paid Arabic decks** (e.g. Lingualism Palestinian vocabulary deck: ~4,800 cards with native audio; Adros Verse graded levels) | One-time purchase per deck. **Prices not yet checked.** | Copyrighted: personal use. Must not be stored in the public repo. | ❓ Adam to decide |
-| **Free Arabic sources** (Elihay "Speaking Arabic" community deck with audio; Maknuune lexicon; Madrasa course as a structure reference) | Free | The Elihay deck is a free share of copyrighted material. Maknuune's license is unverified. | Available |
+| **Paid Arabic decks** (e.g. Lingualism Palestinian vocabulary deck: ~4,800 cards with native audio; Adros Verse graded levels) | One-time purchase per deck. **Prices not yet checked.** | Copyrighted: personal use. Must not be stored in the public repo. | ⏸️ Not now. Start free; buy only if free content feels thin (0008) |
+| **Free Arabic sources** (Elihay "Speaking Arabic" community deck with audio; Maknuune lexicon; Madrasa course as a structure reference) | Free | The Elihay deck is a free share of copyrighted material. Maknuune's license is unverified. | ✅ Starting point (0008) |
 | **Gemini API** | Free tier | Google may use free-tier chats to improve its models; daily limits | Accepted (0004) |
 | **Gemini paid tier** | Pay-per-use | — | Maybe later (0004) |
 | **Supabase** | Free tier | Free projects are **paused after about a week of inactivity** (one click to resume); storage and DB size limits | Accepted (0005) |
