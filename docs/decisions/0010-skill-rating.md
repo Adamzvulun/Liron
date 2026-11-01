@@ -1,10 +1,7 @@
 # 0010 — Skill rating (Elo/Glicko-style) alongside ranks
 
-- **Status:** Accepted, simplified to plain Elo by 0011
+- **Status:** Accepted in principle (2026-11-01); exact thresholds tuned in M3
 - **Date:** 2026-11-01
-
-
-> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
 
 ## Context
 Adam wants an Elo-like system that goes hand in hand with the guild ranks.

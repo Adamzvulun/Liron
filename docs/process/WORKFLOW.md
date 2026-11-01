@@ -4,7 +4,7 @@ This adapts the discovery → planning → execution → retrospective lifecycle
 GitHub replaces Jira, and `docs/` replaces Confluence.
 
 ```
-Idea ──► Discovery doc ──► ADR(s) ──► Milestone + issues ──► PRs ──► Milestone retro
+Idea ──► Discovery doc ──► ADR(s) ──► Epic issue ──► Feature issues ──► PRs ──► Milestone retro
          docs/discovery     docs/decisions  GitHub          GitHub           GitHub    docs/process/retros
 ```
 
@@ -19,11 +19,11 @@ Idea ──► Discovery doc ──► ADR(s) ──► Milestone + issues ─�
 
 ## 3. Planning (GitHub)
 - **Milestones** are time-boxed releases, for example `M1 – Foundations`.
-- **The milestone is the epic.** No separate epic issues (ADR 0011).
+- **Epics** are issues labeled `type:epic`, each with a checklist of its feature issues.
 - **Features, tasks, and bugs** are issues with acceptance criteria. `feature-forge` writes them in EARS / Given-When-Then format.
 - **Labels:**
   - `track:core`, `track:arabic`, `track:morse`
-  - `type:feature|bug|research|content|design|chore`
+  - `type:epic|feature|bug|research|content|design|chore`
   - `prio:p0|p1|p2`
 
 ## 4. Execution

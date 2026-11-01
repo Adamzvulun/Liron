@@ -3,9 +3,6 @@
 - **Status:** Accepted (2026-11-01)
 - **Date:** 2026-11-01
 
-
-> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
-
 ## Context
 Requirements:
 - Phone and desktop equally, as a **regular responsive website** (not installable, no offline mode).
@@ -20,7 +17,7 @@ Requirements:
 | App | **TypeScript + React + Vite, as a regular responsive website** | One codebase for phone and desktop in the browser. No PWA, no install, no offline (Adam, 2026-11-01). |
 | Lobby / game visuals | **SVG + CSS/Framer Motion.** The lobby is an **illustrated screen with clickable buildings**, not a walkable world (Adam, 2026-11-01). | Crisp at any size, animatable, and Claude can produce it as code. Can grow into a scene engine later if ever wanted. |
 | Audio | **Web Audio API** | Precise Morse timing |
-| Backend | **Supabase** (Postgres, Auth, Realtime, Edge Functions), free tier | Auth and leaderboards for sharing, Realtime for head-to-head challenges, the LLM adapter runs as a Vercel serverless function (ADR 0011) |
+| Backend | **Supabase** (Postgres, Auth, Realtime, Edge Functions), free tier | Auth and leaderboards for sharing, Realtime for head-to-head challenges, Edge Functions for the LLM adapter (ADR 0004) |
 | Progress storage | **Supabase from day one**; you log in (just Adam at first) | Phone and desktop share one progress record without any sync logic. Simpler than local-first. |
 | SRS | **FSRS** (`ts-fsrs` library) | Modern open algorithm |
 | Hosting / CI | **Vercel** + GitHub Actions | Free, with preview deploys per PR |
