@@ -3,6 +3,8 @@
 This repo (`Liron`) holds **Waymark**: a personal, game-like learning hub. The first two tracks are **Arabic** and **Morse code**.
 It is built by a team of two: **Adam** (product owner, creative director, and the learner) and **Claude** (who covers the roles below).
 
+**New session? Read [`docs/process/STATUS.md`](docs/process/STATUS.md) first.** It holds the current state, the next steps and the environment facts. Update it before ending a session.
+
 ## Roles (the hats Claude wears)
 
 | Hat | Responsibility | Skills to load |

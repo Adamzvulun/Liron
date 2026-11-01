@@ -1,6 +1,6 @@
 # Spike: can Gemini (free tier) hear Palestinian Arabic?
 
-Roadmap M0 item 0.5. Decides whether the mic features (speaking practice, voice chats with partners, ADR 0004/0007) can rely on Gemini's free tier.
+Roadmap M0 item 0.5, GitHub issue #1. Decides whether the mic features (speaking practice, voice chats with partners, ADR 0004/0007) can rely on Gemini's free tier.
 
 ## What it tests
 50 native-speaker clips from the Lingualism deck (fixed sample, seed 42): 30 sentences and 20 single words containing hard sounds (ح ع ق خ غ ص ض ط ظ ء).
@@ -24,4 +24,4 @@ node run.mjs
 The key is read from the `GEMINI_API_KEY` environment variable. Options: `--model <id>`, `--delay <ms>` between calls (default 7000, to stay under free-tier rate limits), `--limit <n>`. Results go to `results/`.
 
 ## Results
-Not run yet: waiting for the API key.
+Not run yet. The `GEMINI_API_KEY` secret was added on 2026-11-01, and a new session will have it.
