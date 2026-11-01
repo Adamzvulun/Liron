@@ -12,7 +12,9 @@
 - **Room to grow.** There are empty plots in the lobby for subjects to be added later. Adding a subject means building a new place, not redesigning the hub.
 - **Progression like Duolingo:** small daily lessons, a visible path, streaks. But every lesson teaches something that *actually matters*.
 - **Social later, designed for from the start:** friends, leaderboards, shared progress, head-to-head challenges.
-- **Creatively stunning.** Art direction is a first-class workstream, not polish at the end.
+- **Creatively stunning.** Art direction is a first-class workstream, not polish at the end. Bold cartoon arena-town style (ADR 0006), with a customizable avatar.
+- **Partners are people.** The AI you practice with simulates a real person on the other end, never a tutor (ADR 0007).
+- **Rewards are cosmetic and functional** (gear, pets, streak freezes, hints), but mastery can't be bought.
 
 ## Learner goals (Adam)
 | Subject | Goal | Daily time |
@@ -26,6 +28,8 @@
 - The AI the user chats with must use a **free model**.
 - Built fresh; nothing is reused from morsehub except the idea.
 - "Liron" is a **placeholder name**.
+- **Use existing sources; don't author source material.** We curate, sequence, and present. See `docs/research/arabic-sources.md`.
+- No native-speaker helpers are available, so audio comes from existing recordings and dialect TTS.
 
 ## Non-goals (for now)
 - Cross-subject mechanics.
