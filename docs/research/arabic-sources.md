@@ -65,3 +65,37 @@ We use these as **structure and ordering references**. We don't copy their conte
 - Palestinian TTS write-up: https://medium.com/@salahadawi/generating-palestinian-arabic-text-to-speech-tts-salah-adawi-c6b4aaa827c3
 - Buckwalter & Parkinson: https://www.routledge.com/9780415444347
 - Speech datasets: https://huggingface.co/datasets/moaead/dialectal-arabic-voices
+
+---
+
+## 7. Verification round (2026-11-01, after choosing "start free")
+
+**Method:** web search only. Direct page fetches were blocked by this environment's network policy (palestine-lexicon.org, arxiv.org, hadithunlocked.com, ankiweb.net, lingualism.com).
+
+### Verified (via search results quoting the source page)
+- **Maknuune license:** the official download page (sites.google.com/nyu.edu/palestine-lexicon/download) says the data is **CC BY-SA 4.0**. Available as TSV (~2 MB, versioned) and PDF. 36K+ entries, 17K lemmas, 3.7K roots. Attribution: *Dibas, Khairallah, Habash et al. (2022)*.
+- **The "Elihay" Anki deck** is actually *Levantine Arabic Conversations (Jordanian & Palestinian)* (ankiweb.net/shared/info/15997591), a third-party deck based on Elihay's book:
+  - 4,500+ phrases and sentences. **Arabic script was added by the deck's creator**; the book itself is mostly romanized.
+  - The dialect was **standardized to Jordanian**, not Palestinian.
+  - It has **1,886 audio files** for 4,500+ cards. Reviewers report **mostly an English computer voice**, with only occasional native audio.
+  - Reviewers also report **numerous mistakes** in sentences and spelling. Last updated 2023-09-26.
+  - **Conclusion: weaker than first described.** It's usable as a phrase source, but not as the main course or the audio source.
+- **Lingualism Palestinian Colloquial Arabic Vocabulary:**
+  - 4,800+ words and phrases in 57 themes, in Arabic script with transcription, in the **Gazan** dialect.
+  - The Anki deck price was **not found**. Related Lingualism decks are listed at $7.99–$10.99.
+  - Search results state that the **book's native-speaker audio (MP3) is a free download**. *Not verified on the page itself.*
+
+### Not yet verified (needs page access)
+- Whether Maknuune offers audio. One review article mentions free audio files, but it's unclear what that refers to.
+- Lingualism's free MP3s: are they really free, and how are the files named and organized?
+- Madrasa (madrasafree.net): the free online course for Hebrew speakers, with video lessons and exercises. Whether its content is in Arabic script or only Hebrew transliteration is **unknown**.
+- Tfaddalu (tfaddalu.com/guides): Palestinian guides with audio on every word. License and size unknown.
+
+### Sources
+- https://sites.google.com/nyu.edu/palestine-lexicon/download
+- https://ankiweb.net/shared/info/15997591
+- https://lingualism.com/products/palestinian-colloquial-arabic-vocabulary
+- https://lingualism.com/product/palestinian-colloquial-arabic-vocabulary-anki-flashcards
+- https://arabic-for-nerds.com/dialects/dictionaries-palestinian-arabic/
+- https://leichtag.org/madrasa/
+- https://tfaddalu.com/guides
