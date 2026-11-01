@@ -1,6 +1,6 @@
 # Roadmap: Waymark
 
-- **Status:** Draft v1 (2026-11-01). Each epic becomes a GitHub epic issue with feature issues once Adam approves.
+- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. Current state: [STATUS.md](STATUS.md).
 - **Inputs:** [vision](../vision.md), ADRs 0002–0010, discovery 02–04.
 - **Rhythm:** milestones are goal-based, not date-based. Retros go in `retros/`.
 
@@ -11,8 +11,8 @@
 | 0.2 | Core ADRs: Arabic variety, hub model, AI, stack, art, partners, sourcing, Morse speed, rating | ✅ |
 | 0.3 | **Visual concept:** style guide v0 + city screen + Signal Tower interior ([docs/design/concept-v0](../design/concept-v0/README.md)) | ✅ city approved "for now" (v3). Later: Signal Tower interior repaint, phone layout |
 | 0.4 | Arabic sources settled: Lingualism deck (bought), Maknuune; script and grammar taught in-house, based on the Madrasa course structure (ADR 0012) | ✅ |
-| 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic) | ⏳ |
-| 0.6 | Convert M1–M2 into GitHub issues and milestones | ⏳ |
+| 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic), issue #1 | ⏳ next: code ready in `spikes/gemini-speech/` |
+| 0.6 | Convert M1–M2 into GitHub issues: epics #2–#11 with sub-issues #12–#49; milestones as `milestone:Mn` labels (see [STATUS](STATUS.md)) | ✅ |
 
 ## M1 — Foundations
 **Goal:** the platform skeleton is deployed. You can open Waymark in the browser on your phone or desktop, log in, and see the city.

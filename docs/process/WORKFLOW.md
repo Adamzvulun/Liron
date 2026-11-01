@@ -18,7 +18,7 @@ Idea ──► Discovery doc ──► ADR(s) ──► Epic issue ──► Fea
 - Status moves through `Proposed` → `Accepted` (Adam approves), and later possibly → `Superseded by NNNN`.
 
 ## 3. Planning (GitHub)
-- **Milestones** are time-boxed releases, for example `M1 – Foundations`.
+- **Milestones** are goal-based releases, for example `M1 – Foundations`. In GitHub they are labels (`milestone:M1`), because Claude's GitHub tools can't create real milestones.
 - **Epics** are issues labeled `type:epic`, each with a checklist of its feature issues.
 - **Features, tasks, and bugs** are issues with acceptance criteria. `feature-forge` writes them in EARS / Given-When-Then format.
 - **Labels:**
