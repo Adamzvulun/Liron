@@ -24,7 +24,8 @@ a{color:#F6E7C4}a:hover{color:#FFD36B}
 .st-still *{animation:none !important}
 </style>
 </helmet>
-<div class="{{rootClass}}" style="width: 1440px; height: 900px; position: relative; overflow: hidden; font-family: 'Alegreya Sans', system-ui, sans-serif; color: #24160E; background: #1E2636">
+<div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #1E2636">
+<div class="{{rootClass}}" style="width: 1440px; height: 900px; position: absolute; left: 96px; top: 0; transform: scale(1.2); transform-origin: top left; overflow: hidden; font-family: 'Alegreya Sans', system-ui, sans-serif; color: #24160E; background: #1E2636">
 
   <!-- ROOM -->
   <svg aria-hidden="true" width="1440" height="900" viewBox="0 0 1440 900" style="position: absolute; left: 0; top: 0">
@@ -178,8 +179,9 @@ a{color:#F6E7C4}a:hover{color:#FFD36B}
     </section>
   </div>
 </div>
+</div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"animate":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":900}}'>
+<script type="text/x-dc" data-dc-script data-props='{"animate":{"editor":"boolean","default":true},"$preview":{"width":1920,"height":1080}}'>
 class Component extends DCLogic {
   renderVals() {
     const animate = this.props.animate ?? true;

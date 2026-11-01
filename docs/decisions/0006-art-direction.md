@@ -22,6 +22,16 @@ Adam chose the **Swords and Sandals** feel (option A in discovery 02): a cartoon
 ## Amendment (2026-11-01)
 The tone moves from "cute" to **heroic-stylized MMO**: bold and colorful, but not childish. See discovery 04.
 
+## Amendment 2 (2026-11-01): resolution and depth
+- **Design resolution: 1920×1080** (standard desktop). The phone layout is derived from it.
+- **Depth, after Adam's reference** (a classic browser-RPG town screen; principles only, nothing copied):
+  1. **Low eye level, standing in the square.** Little sky; buildings fill the frame.
+  2. **Buildings in a ring around a dirt plaza, turned toward the centre**, packed and overlapping.
+  3. **Three depth bands:** large near buildings at the frame edges; mid buildings; small, hazy back rooftops (atmospheric perspective). A distant landmark (our locked Arena) fades in the haze.
+  4. **Volume:** front faces light, side faces dark, roof planes shaded, plaster and stone texture, contact shadows.
+  5. **Varied roof colours, chimneys, and hanging icon banners** on each building.
+  6. **Dark foreground framing** at the bottom edge, plus a warm edge vignette.
+
 ## Consequences
 - We need a style guide doc and a small set of reference illustrations before building screens (M1).
 - SVG keeps everything crisp on phone and desktop, themeable, and versionable in git.
