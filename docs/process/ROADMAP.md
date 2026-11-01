@@ -9,7 +9,7 @@
 |---|---|---|
 | 0.1 | Vision locked, name chosen (Waymark) | ✅ |
 | 0.2 | Core ADRs: Arabic variety, hub model, AI, stack, art, partners, sourcing, Morse speed, rating | ✅ |
-| 0.3 | **Visual concept:** style guide v0 + city screen + Signal Tower interior ([docs/design/concept-v0](../design/concept-v0/README.md)) | 👀 awaiting Adam's feedback |
+| 0.3 | **Visual concept:** style guide v0 + city screen + Signal Tower interior ([docs/design/concept-v0](../design/concept-v0/README.md)) | ✅ city approved "for now" (v3). Later: Signal Tower interior repaint, phone layout |
 | 0.4 | Arabic sources settled: Lingualism deck (bought), Maknuune; script and grammar taught in-house, based on the Madrasa course structure (ADR 0012) | ✅ |
 | 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic) | ⏳ |
 | 0.6 | Convert M1–M2 into GitHub issues and milestones | ⏳ |
