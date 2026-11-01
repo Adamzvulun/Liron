@@ -1,0 +1,41 @@
+"""Pick a fixed sample of clips from the Lingualism deck for the Gemini speech spike.
+
+Usage: python3 -I prep.py   (needs the `zstd` CLI)
+Writes clips/ (git-ignored audio) and manifest.json (text + metadata).
+"""
+import json, os, random, re, shutil, sqlite3, subprocess, tempfile, zipfile
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+APKG = os.path.join(HERE, '..', '..', 'sources', 'arabic', 'lingualism-palestinian-vocabulary', 'lingualism-pcav.apkg')
+HARD = set('حهعءأإؤئقخغصضطظ')
+
+def main():
+    tmp = tempfile.mkdtemp()
+    with zipfile.ZipFile(APKG) as z:
+        z.extractall(tmp)
+    subprocess.run(['zstd', '-q', '-d', '-f', os.path.join(tmp, 'collection.anki21b'), '-o', os.path.join(tmp, 'col.sqlite')], check=True)
+    subprocess.run(['zstd', '-q', '-d', '-f', os.path.join(tmp, 'media'), '-o', os.path.join(tmp, 'media.bin')], check=True)
+    names = [n.decode() for n in re.findall(rb'pcav\d+-\d+\.mp3', open(os.path.join(tmp, 'media.bin'), 'rb').read())]
+    index = {n: str(i) for i, n in enumerate(names)}
+    db = sqlite3.connect(os.path.join(tmp, 'col.sqlite'))
+    db.create_collation('unicase', lambda a, b: (a.lower() > b.lower()) - (a.lower() < b.lower()))
+    notes = []
+    for flds, tags in db.execute('select flds, tags from notes'):
+        order, arabic, translit, english, audio, section = flds.split('\x1f')[:6]
+        m = re.search(r'\[sound:(.+?)\]', audio)
+        if not m or m.group(1) not in index:
+            continue
+        level = next((t for t in tags.split() if t in ('A1', 'A2', 'B1', 'B2')), '')
+        notes.append(dict(id=order, arabic=arabic, translit=translit, english=english, section=section, level=level, file=m.group(1)))
+    rnd = random.Random(42)
+    sentences = [n for n in notes if re.search(r'[.?!]$', n['arabic'].strip()) and len(n['arabic'].split()) >= 3]
+    words = [n for n in notes if len(n['arabic'].split()) == 1 and HARD & set(n['arabic'])]
+    sample = [dict(n, kind='sentence') for n in rnd.sample(sentences, 30)] + [dict(n, kind='word') for n in rnd.sample(words, 20)]
+    clips = os.path.join(HERE, 'clips'); os.makedirs(clips, exist_ok=True)
+    for n in sample:
+        shutil.copy(os.path.join(tmp, index[n['file']]), os.path.join(clips, n['file']))
+    json.dump(sample, open(os.path.join(HERE, 'manifest.json'), 'w'), ensure_ascii=False, indent=1)
+    shutil.rmtree(tmp)
+    print(f'{len(sample)} clips -> {clips}')
+
+main()
