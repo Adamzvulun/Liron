@@ -4,9 +4,6 @@
 - **Date:** 2026-11-01
 - **Supersedes:** the policy in `docs/research/arabic-sources.md` §5
 
-
-> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
-
 ## Context
 The best spoken-Palestinian material (Lingualism decks, the Elihay deck/book, native audio) is copyrighted. Adam's position: the project is non-commercial and private among friends, so we use the best material.
 

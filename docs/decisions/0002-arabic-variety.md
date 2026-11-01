@@ -3,9 +3,6 @@
 - **Status:** Accepted. The Hebrew-bridge details are still Proposed.
 - **Date:** 2026-11-01
 
-
-> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
-
 ## Context
 Adam lives in Israel and wants to understand and speak the Arabic around him: basic speech, reading, and writing, enough to converse. He's a native Hebrew speaker.
 The Arabic spoken around him is **Palestinian / Levantine colloquial Arabic**. Modern Standard Arabic (MSA) is the language of news and formal texts, but nobody speaks it in daily life.

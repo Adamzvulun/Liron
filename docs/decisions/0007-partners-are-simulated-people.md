@@ -4,9 +4,6 @@
 - **Date:** 2026-11-01
 - **Amends:** [0004](0004-free-llm-provider-agnostic.md). The adapter and free-model policy stand; this ADR defines *behaviour*.
 
-
-> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
-
 ## Context
 Adam: the AI the user practices with **simulates a real person on the other end**. It's not a teacher or a chatbot.
 

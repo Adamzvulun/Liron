@@ -1,8 +1,5 @@
 # 02 — Direction: Adam's answers and what they change
 
-
-> 📚 **Historical record.** The current truth is [`vision.md`](../vision.md) and the ADRs, including the simplification pass [0011](../decisions/0011-simplification-pass.md).
-
 - **Status:** Open
 - **Date:** 2026-11-01
 - **Follows:** [01-brainstorm](01-brainstorm.md). Its cross-subject ideas are dropped per [ADR 0003](../decisions/0003-hub-of-independent-subjects.md).

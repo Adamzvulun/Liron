@@ -1,8 +1,5 @@
 # Research: existing sources for spoken Palestinian/Levantine Arabic
 
-
-> 📚 **Historical record.** The current truth is [`vision.md`](../vision.md) and the ADRs, including the simplification pass [0011](../decisions/0011-simplification-pass.md).
-
 - **Date:** 2026-11-01
 - **Question:** Are there enough good *existing* sources to teach spoken Levantine Arabic in Arabic script, without creating our own content?
 - **Short answer: yes.** Spoken Palestinian Arabic is well covered, and a lot of it was made specifically for Hebrew speakers. The gaps are **licensing** (much of the best material is commercial) and **audio** (free TTS is mostly MSA, though open Palestinian TTS models now exist).

@@ -3,9 +3,6 @@
 - **Status:** Accepted
 - **Date:** 2026-11-01
 
-
-> **Amended by [0011](0011-simplification-pass.md)** (simplification pass). Where they conflict, 0011 wins.
-
 ## Context
 Adam chose the **Swords and Sandals** feel (option A in discovery 02): a cartoon town lobby, a customizable avatar, and chunky, warm game UI.
 
