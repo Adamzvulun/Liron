@@ -15,12 +15,12 @@
 | 0.6 | Convert M1–M2 into GitHub issues and milestones | ⏳ |
 
 ## M1 — Foundations
-**Goal:** the platform skeleton is deployed. You can open Waymark on your phone and see the city.
+**Goal:** the platform skeleton is deployed. You can open Waymark in the browser on your phone or desktop, log in, and see the city.
 
 | Epic | Contents |
 |---|---|
-| **E1 Project setup** | Vite + React + TS PWA, lint/format, Vitest, Playwright, GitHub Actions CI, Vercel deploys (preview per PR) |
-| **E2 Platform core** | Subject-module contract (ADR 0003); profile; XP/level; gold and gems; streak + daily goal; local storage (IndexedDB) |
+| **E1 Project setup** | Vite + React + TS (regular responsive website), lint/format, Vitest, Playwright, GitHub Actions CI, Vercel deploys (preview per PR) |
+| **E2 Platform core** | Subject-module contract (ADR 0003); profile; XP/level; gold and gems; streak + daily goal; Supabase project, login (just Adam), progress stored in Supabase |
 | **E3 Learning engine** | FSRS service (`ts-fsrs`); Glicko-2 rating service (learner + item); item and content data format |
 | **E4 City v0** | Waymark city screen in the final art style; clickable Signal Tower, Caravanserai, Your House, Market, Notice Board; locked Arena; construction plots |
 | **E5 Avatar v0** | Paper-doll SVG system; base customization; 3–4 starter gear slots |
@@ -54,7 +54,7 @@
 ## M5 — Fellowship
 | Epic | Contents |
 |---|---|
-| **E18 Accounts & invites** | Supabase auth, invite-only, cloud sync of local progress |
+| **E18 Invites** | Invite friends (invite-only sign-up); profiles visible to friends |
 | **E19 Social** | Friends; visiting halls; party feed; gifting; opt-in challenges; rating-matched pairing |
 | **E20 Live Morse** | Friend-to-friend live QSO in the Signal Tower (Supabase Realtime) |
 
