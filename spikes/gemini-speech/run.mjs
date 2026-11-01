@@ -27,7 +27,7 @@ async function generate(model, parts, schema) {
     let r;
     try { r = await fetch(`${API}/models/${model}:generateContent`, { method: 'POST', headers, body: JSON.stringify(body), signal: AbortSignal.timeout(90000) }); }
     catch (e) { console.log(`  ${e.name}, retrying`); await sleep(15000); continue; }
-    if (r.status === 429 || r.status >= 500) { const wait = 15000 * 2 ** attempt; console.log(`  ${r.status}, retrying in ${wait / 1000}s`); await sleep(wait); continue; }
+    if (r.status === 429 || r.status >= 500) { const wait = 15000 * 2 ** attempt; const why = (await r.text()).match(/"(?:quotaId|message)": "([^"]{0,120})/g)?.slice(0, 2).join(' ') || ''; console.log(`  ${r.status}, retrying in ${wait / 1000}s ${why}`); await sleep(wait); continue; }
     const j = await r.json();
     if (!r.ok) throw new Error(`${r.status} ${JSON.stringify(j)}`);
     return (j.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
@@ -74,8 +74,14 @@ const TRANSCRIBE = 'This clip is a native speaker of Palestinian colloquial Arab
 const MATCH = t => `This clip is a native speaker of Palestinian colloquial Arabic. A learner wrote down what they think was said: «${t}». Ignore diacritics and ordinary spelling variation, but pay close attention to each consonant (for example ح vs ه, ع vs ا, ق vs ك, ص vs س). Does the audio contain exactly these words and consonants?`;
 const MATCH_SCHEMA = { type: 'OBJECT', properties: { matches: { type: 'BOOLEAN' }, reason: { type: 'STRING' } }, required: ['matches', 'reason'] };
 
+// Checkpoint after every clip so a rate-limit stop can resume (rows with an error are retried).
+fs.mkdirSync(path.join(HERE, 'results'), { recursive: true });
+const CKPT = path.join(HERE, 'results', `.partial-${MODEL}.json`);
+const done = new Map(fs.existsSync(CKPT) ? JSON.parse(fs.readFileSync(CKPT, 'utf8')).filter(r => !r.error).map(r => [r.id, r]) : []);
+if (done.size) console.log(`Resuming: ${done.size} clips already done`);
 const results = [];
 for (const [i, n] of manifest.entries()) {
+  if (done.has(n.id)) { results.push(done.get(n.id)); continue; }
   const row = { id: n.id, kind: n.kind, level: n.level, ref: n.arabic, english: n.english };
   try {
     row.hyp = await generate(MODEL, [audioPart(n.file), { text: TRANSCRIBE }]);
@@ -89,6 +95,7 @@ for (const [i, n] of manifest.entries()) {
     }
   } catch (e) { row.error = String(e.message || e); console.log('  error:', row.error.slice(0, 200)); }
   results.push(row);
+  fs.writeFileSync(CKPT, JSON.stringify([...results, ...[...done.values()].filter(r => !results.includes(r))]));
   console.log(`${i + 1}/${manifest.length} ${n.kind} CER ${row.cer ?? '-'} | ${n.arabic} → ${row.hyp ?? ''}`);
 }
 
@@ -103,10 +110,10 @@ const summary = {
   wordCER: avg(ok.filter(r => r.kind === 'word'), 'cer'),
   acceptsTrue: mp.filter(r => r.acceptsTrue).length / (mp.length || 1), rejectsWrong: mp.filter(r => r.rejectsWrong).length / (mp.length || 1),
 };
-fs.mkdirSync(path.join(HERE, 'results'), { recursive: true });
 const base = path.join(HERE, 'results', `${summary.date}-${MODEL}`);
 fs.writeFileSync(base + '.json', JSON.stringify({ summary, results }, null, 1));
 let md = `# ${MODEL} · ${summary.date}\n\n| Measure | Result |\n|---|---|\n| Clips (errors) | ${summary.clips} (${summary.errors}) |\n| Sentences: character error rate | ${pct(summary.sentenceCER)} |\n| Sentences: word error rate | ${pct(summary.sentenceWER)} |\n| Single words: character error rate | ${pct(summary.wordCER)} |\n| Minimal pairs: accepts the correct text | ${pct(summary.acceptsTrue)} |\n| Minimal pairs: rejects the one-letter-wrong text | ${pct(summary.rejectsWrong)} |\n\n## Side by side\n\n| # | Deck | Gemini heard | CER | Pair test |\n|---|---|---|---|---|\n`;
 for (const r of results) md += `| ${r.id} | ${r.ref} | ${r.hyp ?? r.error ?? ''} | ${r.cer ?? ''} | ${r.swap ? `${r.swap}: ${r.acceptsTrue ? '✔' : '✘'} / ${r.rejectsWrong ? '✔' : '✘'}` : ''} |\n`;
 fs.writeFileSync(base + '.md', md);
+if (!summary.errors) fs.rmSync(CKPT, { force: true });
 console.log('\n', summary, '\nWrote', base + '.md');
