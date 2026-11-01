@@ -6,8 +6,8 @@
 
 | Artboard | What it shows |
 |---|---|
-| `Main.dc.html` | The Waymark city at dusk: Signal Tower, Caravanserai, Your House, Market, the locked Arena, two empty guild plots, your character, the HUD (level, XP, gold, gems, streak), and the Notice Board with day-one quests. **The Signal Tower and its quest are clickable.** |
+| `Main.dc.html` | **v2 (1920×1080, depth pass):** the city square in golden light, buildings ringed around the plaza: Signal Tower, Caravanserai, Your House, Market, the locked Arena, two empty guild plots, your character, the HUD (level, XP, gold, gems, streak), and the Notice Board with day-one quests. **The Signal Tower and its quest are clickable.** |
 | `SignalTower.dc.html` | Inside the tower. Left: guild rank, Elo ratings, speed settings. Center: "The Silent Beacon · Chapter I" lamp path in Koch order. Right: next lesson, Instant Recognition, sending practice (spacebar/tap key), locked Radio Room. |
 | `StyleGuide.dc.html` | Palette, guild hues, type (Cinzel · Alegreya Sans · Noto Naskh Arabic · Noto Sans Hebrew), line/shape/light rules, components, do/don't. |
 
-These are concept comps at 1440×900 (desktop). The real build is responsive; the phone layout comes next once the look is approved.
+Design resolution is 1920×1080 (ADR 0006, amendment 2). The Signal Tower interior is still the v1 layout, scaled to fit, until its own depth pass. The real build is responsive; the phone layout comes next once the look is approved.
