@@ -10,8 +10,8 @@
 | 0.1 | Vision locked, name chosen (Waymark) | ✅ |
 | 0.2 | Core ADRs: Arabic variety, hub model, AI, stack, art, partners, sourcing, Morse speed, rating | ✅ |
 | 0.3 | **Visual concept:** style guide v0 + one illustrated city screen + one guild hall interior | ⏭️ next |
-| 0.4 | Content sourcing plan: which decks and lexicons to buy or download, and how they're imported | ⏳ |
-| 0.5 | Research spike: Palestinian Arabic speech-to-text (for the mic) | ⏳ |
+| 0.4 | **Adam decides: buy content or free-only** (see vision → Costs & commitments); then the sourcing plan | ⏳ |
+| 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic) | ⏳ |
 | 0.6 | Convert M1–M2 into GitHub issues and milestones | ⏳ |
 
 ## M1 — Foundations
@@ -47,7 +47,7 @@
 ## M4 — The people
 | Epic | Contents |
 |---|---|
-| **E15 AI adapter** | Supabase Edge Function; Gemini + backup; caps; eval set (ADR 0004) |
+| **E15 AI adapter** | Vercel serverless function; Gemini + backup; caps; eval set (ADR 0004) |
 | **E16 Radio QSO** | QSO state machine; operator personas; noise/QSB/QRM; speed matching; AGN on garbled input (ADR 0007) |
 | **E17 Café conversations** | Persona bibles; memory; reputation; WhatsApp-style chat, then voice; the silent Coach debrief → FSRS |
 
