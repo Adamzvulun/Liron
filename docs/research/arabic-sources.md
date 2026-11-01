@@ -42,7 +42,7 @@ We use these as **structure and ordering references**. We don't copy their conte
 - Generate audio for open content with Sofelia (or Azure as fallback), then cache it as static files so TTS isn't called at runtime.
 - Native audio comes in through imported decks.
 
-## 5. Policy proposal
+## 5. Policy proposal (superseded by ADR 0008)
 1. **Bundled content** (shared with friends) comes only from openly licensed sources: Maknuune, Curras, and MADAR (if the license allows), plus our own lesson *sequencing* on top. Sequencing is "curating", not "creating sources".
 2. **"Bring your own deck"**: users can import Anki decks they own (e.g., Lingualism). These stay private to that user.
 3. **Frequency order** comes from the Curras lemma counts, cross-checked against Elihay/Madrasa topic order and the dialect notes in Buckwalter.

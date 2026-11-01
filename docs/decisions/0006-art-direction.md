@@ -19,6 +19,9 @@ Adam chose the **Swords and Sandals** feel (option A in discovery 02): a cartoon
   - Base layers: body, skin tone, face, hair.
   - Gear slots: head, torso, legs, feet, hand, back, plus a companion pet.
 
+## Amendment (2026-11-01)
+The tone moves from "cute" to **heroic-stylized MMO**: bold and colorful, but not childish. See discovery 04.
+
 ## Consequences
 - We need a style guide doc and a small set of reference illustrations before building screens (M1).
 - SVG keeps everything crisp on phone and desktop, themeable, and versionable in git.

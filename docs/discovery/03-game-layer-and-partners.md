@@ -1,6 +1,6 @@
 # 03 — The game layer & the partner cast
 
-- **Status:** Open
+- **Status:** Partly superseded by [04-world-and-lore](04-world-and-lore.md) (MMO tone, revised cast, friendly social). Progression and economy still apply.
 - **Date:** 2026-11-01
 - **Builds on:** ADR 0003 (hub), 0006 (art), 0007 (partners)
 
