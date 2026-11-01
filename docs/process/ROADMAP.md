@@ -10,7 +10,7 @@
 | 0.1 | Vision locked, name chosen (Waymark) | ✅ |
 | 0.2 | Core ADRs: Arabic variety, hub model, AI, stack, art, partners, sourcing, Morse speed, rating | ✅ |
 | 0.3 | **Visual concept:** style guide v0 + one illustrated city screen + one guild hall interior | ⏭️ next |
-| 0.4 | ✅ Decision: start free. Then verify what the Elihay deck actually contains (Arabic script or transliteration only? audio quality?) and check the Maknuune license | ⏳ |
+| 0.4 | Arabic source: Lingualism Palestinian deck bought; Maknuune as reference dictionary | ✅ |
 | 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic) | ⏳ |
 | 0.6 | Convert M1–M2 into GitHub issues and milestones | ⏳ |
 

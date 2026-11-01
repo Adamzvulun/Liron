@@ -27,7 +27,7 @@ Adam chose option **(c)**:
 
 ## Amendment 2 (2026-11-01): fact-check changes the starting point
 - The "Elihay" deck turned out to be a third-party deck, standardized to **Jordanian**, with mostly English computer-voice audio and reported errors. **It is no longer the main source.**
-- Adam's rule: **if the best source costs under $20, he'll buy it.** The best verified candidate is the Lingualism *Palestinian Colloquial Arabic Vocabulary* Anki deck at **$17.99**: Arabic script, 4,800+ items, native audio. Caveats: Gaza dialect, and one reported translation error. **Awaiting Adam's go-ahead.**
+- Adam's rule: **if the best source costs under $20, he'll buy it.** The best verified candidate is the Lingualism *Palestinian Colloquial Arabic Vocabulary* Anki deck at **$17.99**: Arabic script, 4,800+ items, native audio. Caveats: Gaza dialect, and one reported translation error. **✅ Bought by Adam (2026-11-01) for $25.** The $17.99 found by search was outdated or excluded something, so prices from search results must be treated as estimates.
 - Maknuune (CC BY-SA 4.0) stays as the reference dictionary.
 
 ## Consequences
