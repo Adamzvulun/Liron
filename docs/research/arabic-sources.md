@@ -101,3 +101,13 @@ We use these as **structure and ordering references**. We don't copy their conte
 - https://arabic-for-nerds.com/dialects/dictionaries-palestinian-arabic/
 - https://leichtag.org/madrasa/
 - https://tfaddalu.com/guides
+
+---
+
+## 8. The purchased deck (from Lingualism's *Anki Quick Start* PDF, provided by Adam)
+- **Lingualism *Palestinian Colloquial Arabic Vocabulary*, bought 2026-11-01 for $25.**
+- 4,823 words, expressions, and example sentences. Cards go in both directions (Arabic→English and English→Arabic).
+- **Audio is included** in the `.apkg` package (~35 MB).
+- **57 topic subdecks**, matching the book's sections (food, travel, family…).
+- **Each item has exactly one level tag: A1, A2, B1, or B2.** These are Lingualism's *suggested* CEFR levels, based on usefulness, not an official CEFR list. This gives us a ready-made learning order, with no frequency mining needed.
+- **File transfer:** this environment can only reach GitHub. The file goes into a separate **private** GitHub repo (`waymark-content`), never into this public repo (ADR 0008).
