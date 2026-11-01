@@ -18,6 +18,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 | [`docs/decisions/`](docs/decisions/) | Architecture & product decision records (ADRs) |
 | [`docs/process/`](docs/process/) | How we work ([`WORKFLOW.md`](docs/process/WORKFLOW.md)), the [`ROADMAP.md`](docs/process/ROADMAP.md), and retros |
 | [`CLAUDE.md`](CLAUDE.md) | Team charter: roles, conventions, skills |
+| [`sources/`](sources/) | Raw learning material (books, decks). Upload new files to `sources/_inbox/` |
 | `.claude/` | Claude Code skills, commands, and settings |
 
 ## Credits

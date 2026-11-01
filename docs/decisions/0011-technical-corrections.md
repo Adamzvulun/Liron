@@ -11,5 +11,5 @@
 | 2 | **Speech input:** recorded audio is sent **directly to Gemini**, which understands audio. No separate speech-to-text service. The research task becomes "test Gemini on recorded Palestinian speech". | 0007, research |
 | 3 | **AI endpoint** is a **Vercel serverless function** in the same repo and deploy, not a Supabase Edge Function. One less runtime. | 0004, 0005 |
 | 4 | **No user-supplied API keys.** Shared key, with a daily cap per user. | 0004 |
-| 5 | **Copyrighted content storage:** imported by a script into Supabase, readable only after login, never in the public repo or the site's files. (Resolved after Adam chose "start free".) | 0008 |
+| 5 | **Copyrighted content storage:** raw files in `sources/` in this **private** repo; imported by a script into Supabase and served only after login, never bundled into the site's files. (Resolved after Adam chose "start free".) | 0008 |
 
