@@ -24,7 +24,9 @@ async function generate(model, parts, schema) {
   const body = { contents: [{ role: 'user', parts }], generationConfig: { temperature: 0 } };
   if (schema) Object.assign(body.generationConfig, { responseMimeType: 'application/json', responseSchema: schema });
   for (let attempt = 0; attempt < 5; attempt++) {
-    const r = await fetch(`${API}/models/${model}:generateContent`, { method: 'POST', headers, body: JSON.stringify(body) });
+    let r;
+    try { r = await fetch(`${API}/models/${model}:generateContent`, { method: 'POST', headers, body: JSON.stringify(body), signal: AbortSignal.timeout(90000) }); }
+    catch (e) { console.log(`  ${e.name}, retrying`); await sleep(15000); continue; }
     if (r.status === 429 || r.status >= 500) { const wait = 15000 * 2 ** attempt; console.log(`  ${r.status}, retrying in ${wait / 1000}s`); await sleep(wait); continue; }
     const j = await r.json();
     if (!r.ok) throw new Error(`${r.status} ${JSON.stringify(j)}`);
@@ -60,7 +62,11 @@ function distractor(text) {
 const manifest = JSON.parse(fs.readFileSync(path.join(HERE, 'manifest.json'), 'utf8')).slice(0, LIMIT);
 const models = await listModels();
 console.log('Models with generateContent:', models.join(', '));
-const MODEL = arg('model', models.filter(m => /flash/.test(m) && !/lite|tts|image|live|preview|exp/.test(m)).sort().pop());
+// Default: the newest plain "gemini-X.Y-flash" (sorted by version, not alphabetically,
+// so names like gemini-omni-*-flash, which had no free-tier quota, aren't picked).
+const ver = m => m.match(/^gemini-([\d.]+)-flash$/)?.[1].split('.').map(Number);
+const newest = models.filter(ver).sort((a, b) => { const [x, y] = [ver(a), ver(b)]; return (x[0] - y[0]) || ((x[1] || 0) - (y[1] || 0)); }).pop();
+const MODEL = arg('model', newest);
 console.log('Using', MODEL);
 
 const audioPart = file => ({ inlineData: { mimeType: 'audio/mp3', data: fs.readFileSync(path.join(HERE, 'clips', file)).toString('base64') } });
