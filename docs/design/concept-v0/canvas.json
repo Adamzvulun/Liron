@@ -1,1 +1,54 @@
-{"v":3,"createdOnFiles":{"v":1,"at":"2026-11-01T19:30:00Z"},"title":"Waymark Visual Concept","launch":{"view":"canvas"},"pages":[],"boards":{"Main.dc.html":{"x":0,"y":0,"w":1920,"h":1080,"title":"Waymark city","is_interactive":true},"SignalTower.dc.html":{"x":2000,"y":0,"w":1920,"h":1080,"title":"Signal Tower interior","is_interactive":true},"StyleGuide.dc.html":{"x":0,"y":1200,"w":1440,"h":1180,"title":"Style guide v0"}},"order":["Main.dc.html","SignalTower.dc.html","StyleGuide.dc.html"],"notes":{"title":{"x":0,"y":-300,"text":"Waymark — visual concept v1","kind":"title1","maxW":3920}},"designSystems":[]}
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Main.dc.html": {
+      "h": 1080,
+      "is_interactive": true,
+      "title": "Waymark city",
+      "w": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "SignalTower.dc.html": {
+      "h": 1080,
+      "is_interactive": true,
+      "title": "Signal Tower interior",
+      "w": 1920,
+      "x": 2000,
+      "y": 0
+    },
+    "StyleGuide.dc.html": {
+      "h": 1180,
+      "title": "Style guide v0",
+      "w": 1440,
+      "x": 0,
+      "y": 1200
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-01T19:30:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "title": {
+      "kind": "title1",
+      "maxW": 3920,
+      "text": "Waymark — visual concept v3 (painted city)",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "SignalTower.dc.html",
+    "StyleGuide.dc.html"
+  ],
+  "pages": [],
+  "title": "Waymark Visual Concept"
+}

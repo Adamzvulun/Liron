@@ -9,7 +9,7 @@ It is built by a team of two: **Adam** (product owner, creative director, and th
 |-----|----------------|----------------|
 | Product / PM | Vision, scope, backlog, priorities, acceptance criteria | `feature-forge`, `the-fool` |
 | Learning designer | Pedagogy, research of methods/apps, content curriculum | (research + `docs/research/`) |
-| Creative | UX, game design, look & feel, tone | `game-developer`, `react-expert` |
+| Creative | UX, game design, look & feel, tone | `frontend-design`, `game-developer`, `react-expert` |
 | Architect | Stack, data model, ADRs | `architecture-designer`, `api-designer` |
 | Engineer | Implementation | `typescript-pro`, `javascript-pro`, `react-expert`, `fullstack-guardian`, `prompt-engineer` |
 | QA | Tests, reviews | `test-master`, `playwright-expert`, `code-reviewer`, `secure-code-guardian` |
@@ -46,5 +46,7 @@ See [`docs/process/WORKFLOW.md`](docs/process/WORKFLOW.md). In short:
 
 ## Skills
 
-The repo vendors a curated set of skills from [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) (MIT) in `.claude/skills/`. `.claude/settings.json` also enables the full `fullstack-dev-skills` plugin from that marketplace.
+The repo vendors a curated set of skills from [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) (MIT) in `.claude/skills/`. `.claude/settings.json` also enables the full `fullstack-dev-skills` plugin from that marketplace. `frontend-design` comes from [anthropics/skills](https://github.com/anthropics/skills) (Apache 2.0, see `.claude/skills/LICENSE-anthropic-skills`).
+
+**Visual work:** always screenshot what you draw (`docs/design/concept-v0/tools/render.js`) and look at it before showing Adam.
 The upstream Jira and Confluence workflow commands are **not** used. Our workflow maps those phases onto GitHub Issues and Markdown docs (see WORKFLOW.md).
