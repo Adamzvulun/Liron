@@ -13,7 +13,7 @@ The best spoken-Palestinian material (Lingualism decks, the Elihay deck/book, na
   - No public sign-up.
   - Not indexed by search engines.
   - Content is served only to logged-in friends.
-- Copyrighted source files (paid or free) are kept out of the public git repo. See the amendment below.
+- Raw source files live in `sources/` in **this repo, which is private**. The repo must stay private.
 - A `content/SOURCES.md` file records where each piece of content came from.
 
 ## Amendment (2026-11-01): start free, buy later only if needed
@@ -29,6 +29,11 @@ Adam chose option **(c)**:
 - The "Elihay" deck turned out to be a third-party deck, standardized to **Jordanian**, with mostly English computer-voice audio and reported errors. **It is no longer the main source.**
 - Adam's rule: **if the best source costs under $20, he'll buy it.** The best verified candidate is the Lingualism *Palestinian Colloquial Arabic Vocabulary* Anki deck at **$17.99**: Arabic script, 4,800+ items, native audio. Caveats: Gaza dialect, and one reported translation error. **✅ Bought by Adam (2026-11-01) for $25.** The $17.99 found by search was outdated or excluded something, so prices from search results must be treated as estimates.
 - Maknuune (CC BY-SA 4.0) stays as the reference dictionary.
+
+## Correction (2026-11-01): the repo is private
+Earlier amendments said "the repo is public". **That was wrong.** Claude concluded it from an API check that went through this environment's GitHub-authenticated proxy, so it succeeded even though the repo is private. Claude didn't verify further.
+- Raw sources are stored in `sources/` in this private repo (see `sources/README.md`).
+- **Still true:** the deployed website is reachable by anyone with its URL. So content reaches users through Supabase, behind login, and is never bundled into the site's public files.
 
 ## Consequences
 - Non-commercial use doesn't by itself make redistribution legal. Keeping the site private and small keeps that risk low, which Adam accepts.
