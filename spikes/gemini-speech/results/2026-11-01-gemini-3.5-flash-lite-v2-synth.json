@@ -1,0 +1,57 @@
+{
+ "summary": {
+  "model": "gemini-3.5-flash-lite",
+  "prompt": "v2",
+  "date": "2026-11-01",
+  "pairs": 3,
+  "caught": 0,
+  "fixedToRealWord": 2,
+  "unclear": 1,
+  "falseAlarmsOnCorrect": 1,
+  "bySwap": {
+   "ع→ا": {
+    "n": 2,
+    "caught": 0
+   },
+   "ص→س": {
+    "n": 1,
+    "caught": 0
+   }
+  }
+ },
+ "rows": [
+  {
+   "id": "4410",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "right": "خلّينا نُقْعُد برّا.",
+   "wrong": "خلّينا نُقْاُد برّا.",
+   "heardRight": "خلينا نقعد برّا.",
+   "heardWrong": "خلينا نعد برّا.",
+   "rightAudioHeardAs": "right",
+   "wrongAudioHeardAs": "right"
+  },
+  {
+   "id": "0636",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "right": "مِش جاي عَ قدّي.",
+   "wrong": "مِش جاي اَ قدّي.",
+   "heardRight": "مش جايّ أدي",
+   "heardWrong": "مش زي هلقيت",
+   "rightAudioHeardAs": "wrong",
+   "wrongAudioHeardAs": "unclear"
+  },
+  {
+   "id": "0102",
+   "kind": "sentence",
+   "swap": "ص→س",
+   "right": "أنا الوَلد اللي بالنُّص.",
+   "wrong": "أنا الوَلد اللي بالنُّس.",
+   "heardRight": "أنا الولد اللي بالنص.",
+   "heardWrong": "انا الولد اللي بالنص",
+   "rightAudioHeardAs": "right",
+   "wrongAudioHeardAs": "right"
+  }
+ ]
+}
