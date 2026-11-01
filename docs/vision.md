@@ -37,7 +37,7 @@
 ## Costs & commitments (everything that may cost money or has strings attached)
 | Item | Cost | Strings attached | Status |
 |---|---|---|---|
-| **Lingualism Palestinian vocabulary Anki deck** (4,800+ items, Arabic script, native Gazan audio) | **$17.99** one-time (indexed price; confirm on the page) | Copyrighted: personal use, kept out of the public repo | ❓ Awaiting Adam (under his $20 rule) |
+| **Lingualism Palestinian vocabulary Anki deck** (4,800+ items, Arabic script, native Gazan audio) | **$25** one-time (paid) | Copyrighted: personal use, kept out of the public repo | ✅ Bought 2026-11-01 |
 | **Free Arabic sources** (Maknuune lexicon, CC BY-SA 4.0; Lingualism's free book audio; Madrasa as an ordering reference) | Free | Maknuune requires attribution and share-alike | ✅ |
 | **Gemini API** | Free tier | Google may use free-tier chats to improve its products, and **human reviewers may read them**; daily limits | Accepted (0004) |
 | **Gemini paid tier** | Pay-per-use | — | Maybe later (0004) |
