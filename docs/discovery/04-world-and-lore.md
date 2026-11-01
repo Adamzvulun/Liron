@@ -19,7 +19,11 @@ This keeps the **game world** (quests, gear, ranks) and the **real people** (ADR
 - The world is the fantasy frame.
 - The conversations are realistic and modern. They happen "through" the radio, or over coffee at the Caravanserai.
 
-### City name ideas (also candidates for the hub name)
+**Adam's answer: a mix.**
+- The world blends fantasy with the modern: a timeless city where stone guild halls sit next to brass radios, lantern-lit cafés, and the occasional modern detail.
+- The quests and the world use RPG language, and the people you talk to are fully modern.
+
+### City name ideas (also candidates for the hub's real name, replacing "Liron")
 1. **Meridian**: where all paths cross.
 2. **Waymark**: a guidepost for travelers.
 3. **Crossroads Keep**
@@ -109,7 +113,12 @@ Names are placeholders. Each partner gets a full persona bible later.
 - **Challenges** are opt-in and score-based ("beat my callsign run"), with personal bests front and centre.
 - **Live Morse QSO between friends** in the Signal Tower: practice with each other, not against each other.
 
-## 8. Questions for Adam
+## 8. Answers so far
+- Frame: **a mix** of fantasy and modern (see §2).
+- Arabic-word rank titles: ✅. Add a **skill rating** alongside the ranks (ADR 0010).
+- Questline tone: ✅.
+
+## 9. Original questions
 1. **Frame:** fantasy crossroads city with doors to the real world (the radio and the Caravanserai), OK? Or should the whole world be modern-realistic?
 2. **City and hub name:** do any of the five catch you?
 3. **Ranks:** do you like using real Arabic words as Caravanserai rank titles?
