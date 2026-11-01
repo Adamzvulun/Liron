@@ -3,6 +3,8 @@
 - **Status:** Accepted (2026-11-01)
 - **Date:** 2026-11-01
 
+> Amended by [0013](0013-speech-on-free-gemini.md): free tier only; audio on `gemini-3.5-flash-lite`; the stronger Flash models allow 20 requests/day.
+
 > Amended by [0011](0011-technical-corrections.md): Vercel function, no user-supplied keys.
 
 ## Context
