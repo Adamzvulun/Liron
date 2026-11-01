@@ -1,10 +1,11 @@
 # Vision
 
-- **Status:** Living doc. This is the north star; when it changes, record why in an ADR.
+- **Status:** 🔒 **Locked v1 (2026-11-01).** Living doc: changes need an ADR.
+- **Name:** **Waymark**, a guidepost for travelers. It's the name of the hub and of the crossroads city.
 - **Last updated:** 2026-11-01
 
 ## In one line
-**A stylized, MMO-like hub (a crossroads city of guilds) where Adam learns the things he wants to learn. Each subject is its own self-contained world with Duolingo-style progression. Friends can join, compete, and learn together.**
+**Waymark: a stylized, MMO-like hub (a crossroads city of guilds) where Adam learns the things he wants to learn. Each subject is its own self-contained world with Duolingo-style progression. Friends can join, compete, and learn together.**
 
 ## The shape
 - **The lobby is the product.** It's an illustrated, game-like hub, with the warmth and chunkiness of a classic browser-RPG town screen. *Swords and Sandals 3 is the mood reference: we borrow the feeling, not the assets or layout.* You have a character, a level, and rewards. Each subject is a **place** you enter.
@@ -29,7 +30,7 @@
 - Morse input is a **keyboard key** (desktop) or a **tap pad** (phone). No hardware paddle.
 - The AI the user chats with must use a **free model**.
 - Built fresh; nothing is reused from morsehub except the idea.
-- "Liron" is a **placeholder name**.
+- The product is named **Waymark**. The repo keeps the name `Liron`.
 - **Use existing sources; don't author source material.** We curate, sequence, and present. See `docs/research/arabic-sources.md`.
 - No native-speaker helpers are available, so audio comes from existing recordings and dialect TTS.
 

@@ -1,6 +1,6 @@
 # CLAUDE.md — Team Charter & Working Agreement
 
-This repo is **Liron** (working name): a personal learning hub. The first two tracks are **Arabic** and **Morse code**.
+This repo (`Liron`) holds **Waymark**: a personal, game-like learning hub. The first two tracks are **Arabic** and **Morse code**.
 It is built by a team of two: **Adam** (product owner, creative director, and the learner) and **Claude** (who covers the roles below).
 
 ## Roles (the hats Claude wears)

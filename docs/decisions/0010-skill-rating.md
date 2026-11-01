@@ -1,6 +1,6 @@
 # 0010 — Skill rating (Elo/Glicko-style) alongside ranks
 
-- **Status:** Proposed
+- **Status:** Accepted in principle (2026-11-01); exact thresholds tuned in M3
 - **Date:** 2026-11-01
 
 ## Context

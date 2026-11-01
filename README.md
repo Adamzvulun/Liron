@@ -1,10 +1,12 @@
-# Liron — personal learning hub
+# Waymark — a personal learning hub
+
+*(repo: `Liron`)*
 
 A personal learning hub, designed and owned by Adam. It combines the best ideas from existing apps and learning methods into one focused site.
 
 **First tracks:** 🇸🇦 Arabic · 📻 Morse code
 
-> Status: **M0 – Shape** (brainstorming and planning). No app code yet.
+> Status: **M0 – Shape**. The vision is locked; final planning is underway. No app code yet.
 
 ## Where things live
 
@@ -14,7 +16,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 | [`docs/discovery/`](docs/discovery/) | Brainstorms and explorations. Start with [`01-brainstorm.md`](docs/discovery/01-brainstorm.md) |
 | [`docs/research/`](docs/research/) | Research notes on methods, apps, and sources |
 | [`docs/decisions/`](docs/decisions/) | Architecture & product decision records (ADRs) |
-| [`docs/process/`](docs/process/) | How we work ([`WORKFLOW.md`](docs/process/WORKFLOW.md)), plus retros |
+| [`docs/process/`](docs/process/) | How we work ([`WORKFLOW.md`](docs/process/WORKFLOW.md)), the [`ROADMAP.md`](docs/process/ROADMAP.md), and retros |
 | [`CLAUDE.md`](CLAUDE.md) | Team charter: roles, conventions, skills |
 | `.claude/` | Claude Code skills, commands, and settings |
 
