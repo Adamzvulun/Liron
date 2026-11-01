@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Waymark — city</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500;700;800&amp;family=Cinzel:wght@700;900&amp;family=Noto+Naskh+Arabic:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#F6E7C4}a:hover{color:#FFD36B}
+@keyframes wm-pulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.18)}}
+@keyframes wm-flicker{0%,100%{opacity:1}45%{opacity:.8}55%{opacity:.95}70%{opacity:.75}}
+@keyframes wm-steam{0%{opacity:0;transform:translateY(6px)}30%{opacity:.8}100%{opacity:0;transform:translateY(-22px)}}
+@keyframes wm-twinkle{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes wm-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes wm-smoke{0%{opacity:0;transform:translate(0,4px) scale(.8)}40%{opacity:.6}100%{opacity:0;transform:translate(8px,-26px) scale(1.3)}}
+.wm-pulse{animation:wm-pulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.wm-flicker{animation:wm-flicker 1.9s ease-in-out infinite}
+.wm-steam{animation:wm-steam 2.6s ease-out infinite;transform-box:fill-box}
+.wm-steam2{animation:wm-steam 2.6s ease-out 1.3s infinite;transform-box:fill-box}
+.wm-twinkle{animation:wm-twinkle 3s ease-in-out infinite}
+.wm-bob{animation:wm-bob 2.8s ease-in-out infinite}
+.wm-smoke{animation:wm-smoke 3.4s ease-out infinite;transform-box:fill-box}
+.wm-place{transition:transform .18s ease, filter .18s ease}
+.wm-place:hover,.wm-place:focus-visible{transform:translateY(-6px);filter:drop-shadow(0 0 14px rgba(255,211,107,.75))}
+.wm-place:focus-visible{outline:3px solid #FFD36B;outline-offset:4px;border-radius:12px}
+.wm-still *{animation:none !important}
+</style>
+</helmet>
+<div class="{{rootClass}}" style="width: 1440px; height: 900px; position: relative; overflow: hidden; font-family: 'Alegreya Sans', system-ui, sans-serif; color: #24160E; background: #1F2A55">
+
+  <!-- SKY -->
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, #1B2550 0%, #33397A 34%, #8A4F78 58%, #D9784F 76%, #F2A65A 88%)"></div>
+  <svg aria-hidden="true" width="1440" height="420" viewBox="0 0 1440 420" style="position: absolute; left: 0; top: 0">
+    <g fill="#FFF3D0">
+      <circle class="wm-twinkle" cx="120" cy="120" r="2"></circle>
+      <circle class="wm-twinkle" cx="300" cy="70" r="1.6" style="animation-delay:.8s"></circle>
+      <circle class="wm-twinkle" cx="520" cy="140" r="2.2" style="animation-delay:1.6s"></circle>
+      <circle class="wm-twinkle" cx="700" cy="60" r="1.5" style="animation-delay:.4s"></circle>
+      <circle class="wm-twinkle" cx="860" cy="130" r="1.8" style="animation-delay:2.1s"></circle>
+      <circle class="wm-twinkle" cx="1010" cy="90" r="1.4" style="animation-delay:1.1s"></circle>
+      <circle class="wm-twinkle" cx="640" cy="200" r="1.4" style="animation-delay:2.6s"></circle>
+      <circle class="wm-twinkle" cx="420" cy="230" r="1.3" style="animation-delay:.2s"></circle>
+    </g>
+    <circle cx="1010" cy="250" r="54" fill="#FFE3A3" stroke="#24160E" stroke-width="4"></circle>
+    <path d="M985 232 a10 10 0 1 0 0.1 0" fill="#F4C978"></path>
+    <circle cx="1030" cy="270" r="7" fill="#F4C978"></circle>
+  </svg>
+
+  <!-- FAR HILLS + CITY WALL -->
+  <svg aria-hidden="true" width="1440" height="420" viewBox="0 0 1440 420" style="position: absolute; left: 0; top: 330px">
+    <path d="M0 150 C140 70 260 120 380 90 C520 55 600 130 760 100 C900 70 1000 120 1140 80 C1260 50 1360 100 1440 90 L1440 420 L0 420 Z" fill="#5B3F6E"></path>
+    <path d="M0 190 C160 140 300 180 460 150 C640 118 780 190 960 160 C1120 135 1280 175 1440 150 L1440 420 L0 420 Z" fill="#7A4A64"></path>
+    <g stroke="#24160E" stroke-width="4" stroke-linejoin="round">
+      <path d="M0 230 L1440 230 L1440 300 L0 300 Z" fill="#9E7B5E"></path>
+      <path d="M0 230 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18 h40 v-18 h30 v18" fill="#9E7B5E"></path>
+    </g>
+    <g stroke="#7E5E45" stroke-width="2">
+      <path d="M0 255 H1440 M0 278 H1440"></path>
+    </g>
+  </svg>
+
+  <!-- PLAZA -->
+  <svg aria-hidden="true" width="1440" height="340" viewBox="0 0 1440 340" style="position: absolute; left: 0; top: 560px">
+    <rect x="0" y="40" width="1440" height="300" fill="#B98E62"></rect>
+    <ellipse cx="720" cy="190" rx="560" ry="130" fill="#D8B587" stroke="#24160E" stroke-width="4"></ellipse>
+    <ellipse cx="720" cy="190" rx="430" ry="92" fill="none" stroke="#B8946A" stroke-width="3"></ellipse>
+    <ellipse cx="720" cy="190" rx="290" ry="58" fill="none" stroke="#B8946A" stroke-width="3"></ellipse>
+    <g stroke="#B8946A" stroke-width="3">
+      <path d="M720 60 V320 M300 190 H1140 M430 100 L1010 280 M1010 100 L430 280"></path>
+    </g>
+    <ellipse cx="720" cy="190" rx="70" ry="20" fill="#E8A93A" stroke="#24160E" stroke-width="4"></ellipse>
+    <path d="M720 176 l8 14 -8 14 -8 -14 Z" fill="#24160E"></path>
+  </svg>
+
+  <!-- ARENA (locked) -->
+  <div role="img" aria-label="The Arena, locked until the Fellowship opens" style="position: absolute; left: 540px; top: 318px; width: 340px; height: 190px; filter: saturate(.55) brightness(.9)">
+    <svg aria-hidden="true" width="340" height="190" viewBox="0 0 340 190">
+      <g stroke="#24160E" stroke-width="4" stroke-linejoin="round">
+        <path d="M20 170 L20 70 Q170 20 320 70 L320 170 Z" fill="#B7A48C"></path>
+        <path d="M20 70 Q170 20 320 70 L320 92 Q170 44 20 92 Z" fill="#CDBBA2"></path>
+        <path d="M20 120 Q170 80 320 120" fill="none"></path>
+      </g>
+      <g fill="#5E4A3A" stroke="#24160E" stroke-width="3">
+        <path d="M44 120 v-22 a10 10 0 0 1 20 0 v22 Z"></path><path d="M84 112 v-22 a10 10 0 0 1 20 0 v22 Z"></path><path d="M124 106 v-22 a10 10 0 0 1 20 0 v22 Z"></path><path d="M164 104 v-22 a10 10 0 0 1 20 0 v22 Z"></path><path d="M204 106 v-22 a10 10 0 0 1 20 0 v22 Z"></path><path d="M244 112 v-22 a10 10 0 0 1 20 0 v22 Z"></path><path d="M284 120 v-22 a10 10 0 0 1 20 0 v22 Z"></path>
+        <path d="M44 166 v-26 a10 10 0 0 1 20 0 v26 Z"></path><path d="M94 160 v-26 a10 10 0 0 1 20 0 v26 Z"></path><path d="M226 160 v-26 a10 10 0 0 1 20 0 v26 Z"></path><path d="M276 166 v-26 a10 10 0 0 1 20 0 v26 Z"></path>
+      </g>
+      <path d="M140 170 v-44 a30 30 0 0 1 60 0 v44 Z" fill="#3A2A20" stroke="#24160E" stroke-width="4"></path>
+      <path d="M134 128 Q170 150 206 128" fill="none" stroke="#6D6A72" stroke-width="5" stroke-dasharray="8 5"></path>
+      <rect x="156" y="132" width="28" height="24" rx="4" fill="#C9A24A" stroke="#24160E" stroke-width="3"></rect>
+      <path d="M162 132 v-8 a8 8 0 0 1 16 0 v8" fill="none" stroke="#24160E" stroke-width="3"></path>
+    </svg>
+    <div style="position: absolute; left: 92px; top: -30px; padding: 4px 12px; background: #4A3A30; border: 3px solid #24160E; border-radius: 8px; font-family: Cinzel, serif; font-weight: 700; font-size: 14px; letter-spacing: .06em; color: #E9DCC0">THE ARENA · LOCKED</div>
+  </div>
+
+  <!-- CONSTRUCTION PLOT 1 -->
+  <div role="img" aria-label="Empty plot for a future guild" style="position: absolute; left: 500px; top: 548px; width: 170px; height: 120px">
+    <svg aria-hidden="true" width="170" height="120" viewBox="0 0 170 120">
+      <path d="M10 110 L160 110 L150 92 L20 92 Z" fill="#9C7650" stroke="#24160E" stroke-width="3"></path>
+      <g stroke="#7A4A26" stroke-width="6" stroke-linecap="round"><path d="M40 92 V30 M120 92 V30 M34 40 H126 M34 70 H126"></path></g>
+      <g stroke="#24160E" stroke-width="2"><path d="M40 92 L120 40 M40 40 L120 92" stroke="#5A341A" stroke-width="4"></path></g>
+      <rect x="58" y="6" width="74" height="36" rx="4" fill="#EAD6A8" stroke="#24160E" stroke-width="3"></rect>
+      <path d="M95 42 V58" stroke="#24160E" stroke-width="4"></path>
+      <text x="95" y="21" text-anchor="middle" font-family="Cinzel, serif" font-weight="700" font-size="10" fill="#3A2414">GUILD SEEKS</text>
+      <text x="95" y="34" text-anchor="middle" font-family="Cinzel, serif" font-weight="700" font-size="10" fill="#3A2414">FOUNDERS</text>
+    </svg>
+  </div>
+
+  <!-- SIGNAL TOWER (link) -->
+  <a class="wm-place" href="SignalTower.dc.html" aria-label="Enter the Signal Tower: Morse code" style="position: absolute; left: 250px; top: 96px; width: 220px; height: 600px; display: block; text-decoration: none">
+    <svg aria-hidden="true" width="220" height="560" viewBox="0 0 220 560">
+      <circle class="wm-pulse" cx="110" cy="122" r="46" fill="#FFE08A" opacity=".7"></circle>
+      <g stroke="#24160E" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M110 6 V58" fill="none"></path>
+        <path d="M94 24 H126 M98 40 H122" fill="none"></path>
+        <circle cx="110" cy="6" r="5" fill="#E8A93A"></circle>
+        <path d="M66 98 L110 52 L154 98 Z" fill="#1E5F6E"></path>
+        <path d="M110 52 L122 98" fill="none" stroke="#2E8FA3" stroke-width="5"></path>
+        <rect x="76" y="98" width="68" height="50" rx="4" fill="#FFE08A"></rect>
+        <path d="M98 98 V148 M122 98 V148" fill="none"></path>
+        <rect x="56" y="148" width="108" height="20" rx="3" fill="#C98B3A"></rect>
+        <path d="M56 148 v-10 h12 v10 M84 148 v-10 h12 v10 M112 148 v-10 h12 v10 M140 148 v-10 h12 v10" fill="#C98B3A"></path>
+        <path d="M66 168 L154 168 L178 540 L42 540 Z" fill="#A6957F"></path>
+      </g>
+      <g stroke="#857463" stroke-width="3" fill="none">
+        <path d="M64 210 H156 M60 260 H160 M57 310 H163 M53 360 H167 M50 410 H170 M47 460 H173 M44 505 H176"></path>
+        <path d="M92 168 V210 M128 210 V260 M88 260 V310 M134 310 V360 M80 360 V410 M140 410 V460 M100 460 V505"></path>
+      </g>
+      <g stroke="#24160E" stroke-width="4">
+        <path d="M98 230 v-26 a12 12 0 0 1 24 0 v26 Z" fill="#7FD1DE" class="wm-flicker"></path>
+        <path d="M98 350 v-26 a12 12 0 0 1 24 0 v26 Z" fill="#7FD1DE" class="wm-flicker" style="animation-delay:.7s"></path>
+        <path d="M84 540 v-52 a26 26 0 0 1 52 0 v52 Z" fill="#6B3F20"></path>
+      </g>
+      <path d="M110 488 V540" stroke="#24160E" stroke-width="3"></path>
+      <circle cx="122" cy="514" r="3" fill="#E8A93A"></circle>
+      <g stroke="#24160E" stroke-width="4" stroke-linejoin="round">
+        <path d="M168 200 V300" fill="none"></path>
+        <path d="M168 204 L210 214 L198 236 L210 258 L168 250 Z" fill="#2E8FA3"></path>
+      </g>
+      <g fill="none" stroke="#F6E7C4" stroke-width="3" stroke-linecap="round">
+        <path d="M180 226 q6 6 0 12"></path><path d="M186 221 q10 11 0 22"></path>
+      </g>
+      <path d="M30 540 H190 L196 556 H24 Z" fill="#8B7A66" stroke="#24160E" stroke-width="4" stroke-linejoin="round"></path>
+    </svg>
+    <div style="position: absolute; left: 22px; top: 556px; width: 176px; padding: 6px 0; text-align: center; background: #5A341A; border: 3px solid #24160E; border-radius: 10px; box-shadow: inset 0 2px 0 #8A5A33, 0 4px 0 #24160E; font-family: Cinzel, serif; font-weight: 900; font-size: 16px; letter-spacing: .05em; color: #F6E7C4">SIGNAL TOWER</div>
+  </a>
+
+  <!-- YOUR HOUSE -->
+  <div class="wm-place" role="img" aria-label="Your House: wardrobe, trophies and stats" style="position: absolute; left: 40px; top: 560px; width: 210px; height: 230px">
+    <svg aria-hidden="true" width="210" height="196" viewBox="0 0 210 196">
+      <ellipse class="wm-smoke" cx="160" cy="20" rx="10" ry="8" fill="#E9DCC0"></ellipse>
+      <g stroke="#24160E" stroke-width="4" stroke-linejoin="round">
+        <rect x="146" y="30" width="22" height="40" fill="#8B7A66"></rect>
+        <path d="M20 90 L105 26 L190 90 Z" fill="#B5462E"></path>
+        <path d="M34 90 H176 V190 H34 Z" fill="#EBD7AE"></path>
+        <path d="M34 120 H176 M34 156 H176 M70 90 V190 M140 90 V190" fill="none" stroke="#7A4A26" stroke-width="5"></path>
+        <path d="M88 190 v-44 a17 17 0 0 1 34 0 v44 Z" fill="#6B3F20"></path>
+        <circle cx="105" cy="66" r="12" fill="#FFC56B" class="wm-flicker"></circle>
+        <rect x="42" y="128" width="22" height="22" fill="#FFC56B"></rect>
+        <rect x="148" y="128" width="22" height="22" fill="#FFC56B"></rect>
+      </g>
+    </svg>
+    <div style="position: absolute; left: 40px; top: 194px; width: 130px; padding: 5px 0; text-align: center; background: #5A341A; border: 3px solid #24160E; border-radius: 10px; box-shadow: inset 0 2px 0 #8A5A33, 0 4px 0 #24160E; font-family: Cinzel, serif; font-weight: 900; font-size: 14px; letter-spacing: .05em; color: #F6E7C4">YOUR HOUSE</div>
+  </div>
+
+  <!-- CARAVANSERAI -->
+  <div class="wm-place" role="img" aria-label="The Caravanserai: Palestinian Arabic" style="position: absolute; left: 780px; top: 380px; width: 360px; height: 330px">
+    <svg aria-hidden="true" width="360" height="290" viewBox="0 0 360 290">
+      <g stroke="#24160E" stroke-width="4" stroke-linejoin="round">
+        <path d="M318 290 V170" fill="none" stroke="#6B3F20" stroke-width="10"></path>
+        <path d="M318 172 q-34 -8 -52 14 q24 -26 52 -14 q-14 -30 -46 -30 q34 -6 46 30 q10 -32 42 -36 q-30 12 -42 36 q34 -12 40 12 q-20 -10 -40 -12 Z" fill="#3E7A3A"></path>
+        <path d="M76 70 a34 34 0 0 1 68 0 Z" fill="#C8553D"></path>
+        <path d="M196 70 a34 34 0 0 1 68 0 Z" fill="#C8553D"></path>
+        <path d="M110 30 V36 M230 30 V36" fill="none"></path>
+        <path d="M14 290 V80 H306 V290 Z" fill="#E3B47A"></path>
+        <path d="M14 80 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14" fill="#E3B47A"></path>
+        <path d="M120 290 v-110 a40 40 0 0 1 80 0 v110 Z" fill="#FFC56B"></path>
+        <path d="M120 290 v-110 a40 40 0 0 1 80 0 v110" fill="none" stroke-width="6"></path>
+        <path d="M34 200 v-40 a16 16 0 0 1 32 0 v40 Z" fill="#7A3A22"></path>
+        <path d="M254 200 v-40 a16 16 0 0 1 32 0 v40 Z" fill="#7A3A22"></path>
+        <path d="M34 140 v-26 a16 16 0 0 1 32 0 v26 Z" fill="#FFC56B" class="wm-flicker"></path>
+        <path d="M254 140 v-26 a16 16 0 0 1 32 0 v26 Z" fill="#FFC56B" class="wm-flicker" style="animation-delay:.9s"></path>
+        <path d="M24 214 H104 L112 236 H16 Z" fill="#E8A93A"></path>
+        <path d="M216 214 H296 L304 236 H208 Z" fill="#E8A93A"></path>
+      </g>
+      <g fill="#C8553D"><path d="M36 214 h12 l-3 22 h-12 Z M60 214 h12 l-1 22 h-12 Z M84 214 h12 l1 22 h-12 Z M228 214 h12 l-3 22 h-12 Z M252 214 h12 l-1 22 h-12 Z M276 214 h12 l1 22 h-12 Z"></path></g>
+      <g stroke="#24160E" stroke-width="3">
+        <path d="M160 140 V152" fill="none"></path>
+        <path d="M150 152 h20 l-4 20 h-12 Z" fill="#FFD36B" class="wm-flicker"></path>
+      </g>
+      <g stroke="#24160E" stroke-width="3" stroke-linejoin="round">
+        <rect x="222" y="252" width="56" height="10" fill="#7A4A26"></rect>
+        <path d="M232 262 V288 M268 262 V288" fill="none"></path>
+        <path d="M240 240 h16 l-2 12 h-12 Z" fill="#F6E7C4"></path>
+      </g>
+      <g fill="none" stroke="#F6E7C4" stroke-width="3" stroke-linecap="round">
+        <path class="wm-steam" d="M244 236 q-4 -6 0 -12 q4 -6 0 -12"></path>
+        <path class="wm-steam2" d="M252 236 q-4 -6 0 -12 q4 -6 0 -12"></path>
+      </g>
+    </svg>
+    <div style="position: absolute; left: 70px; top: 292px; width: 180px; padding: 4px 0 6px; text-align: center; background: #7A3A22; border: 3px solid #24160E; border-radius: 10px; box-shadow: inset 0 2px 0 #A85A3C, 0 4px 0 #24160E; color: #F6E7C4">
+      <div style="font-family: Cinzel, serif; font-weight: 900; font-size: 15px; letter-spacing: .05em">CARAVANSERAI</div>
+      <div lang="ar" dir="rtl" style="font-family: 'Noto Naskh Arabic', serif; font-weight: 700; font-size: 16px; line-height: 1.1">الخان</div>
+    </div>
+  </div>
+
+  <!-- MARKET -->
+  <div class="wm-place" role="img" aria-label="The Market: gear and items" style="position: absolute; left: 1100px; top: 676px; width: 220px; height: 210px">
+    <svg aria-hidden="true" width="220" height="168" viewBox="0 0 220 168">
+      <g stroke="#24160E" stroke-width="4" stroke-linejoin="round">
+        <path d="M14 60 H206 L196 26 H24 Z" fill="#F6E7C4"></path>
+        <path d="M24 26 h24 l-4 34 h-30 Z M72 26 h24 l2 34 h-30 Z M120 26 h24 l8 34 h-30 Z M168 26 h24 l14 34 h-30 Z" fill="#2E8FA3"></path>
+        <path d="M24 60 V160 M196 60 V160" fill="none" stroke="#6B3F20" stroke-width="7"></path>
+        <rect x="18" y="112" width="184" height="48" fill="#8B5A2B"></rect>
+        <rect x="34" y="92" width="40" height="20" fill="#C98B3A"></rect>
+        <circle cx="120" cy="100" r="11" fill="#E8A93A"></circle>
+        <circle cx="146" cy="102" r="9" fill="#E8A93A"></circle>
+        <path d="M168 112 v-22 l14 -8 l14 8 v22 Z" fill="#7FD1DE"></path>
+      </g>
+      <circle cx="110" cy="10" r="10" fill="#E8A93A" stroke="#24160E" stroke-width="3"></circle>
+      <path d="M110 4 v12" stroke="#24160E" stroke-width="3"></path>
+    </svg>
+    <div style="position: absolute; left: 50px; top: 168px; width: 120px; padding: 5px 0; text-align: center; background: #5A341A; border: 3px solid #24160E; border-radius: 10px; box-shadow: inset 0 2px 0 #8A5A33, 0 4px 0 #24160E; font-family: Cinzel, serif; font-weight: 900; font-size: 14px; letter-spacing: .05em; color: #F6E7C4">MARKET</div>
+  </div>
+
+  <!-- CONSTRUCTION PLOT 2 -->
+  <div role="img" aria-label="Empty plot for a future guild" style="position: absolute; left: 1300px; top: 560px; width: 130px; height: 100px">
+    <svg aria-hidden="true" width="130" height="100" viewBox="0 0 130 100">
+      <path d="M6 94 L124 94 L116 78 L14 78 Z" fill="#9C7650" stroke="#24160E" stroke-width="3"></path>
+      <g stroke="#7A4A26" stroke-width="5" stroke-linecap="round"><path d="M30 78 V30 M100 78 V30 M24 40 H106 M24 62 H106"></path></g>
+      <path d="M30 78 L100 40" stroke="#5A341A" stroke-width="4"></path>
+      <rect x="42" y="4" width="64" height="26" rx="4" fill="#EAD6A8" stroke="#24160E" stroke-width="3"></rect>
+      <text x="74" y="21" text-anchor="middle" font-family="Cinzel, serif" font-weight="700" font-size="10" fill="#3A2414">COMING SOON</text>
+    </svg>
+  </div>
+
+  <!-- AVATAR -->
+  <div role="img" aria-label="Your character, Level 1 Wanderer" class="wm-bob" style="position: absolute; left: 676px; top: 640px; width: 88px; height: 150px">
+    <svg aria-hidden="true" width="88" height="150" viewBox="0 0 88 150">
+      <ellipse cx="44" cy="142" rx="30" ry="7" fill="#24160E" opacity=".25"></ellipse>
+      <g stroke="#24160E" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M22 66 Q10 110 18 138 L70 138 Q78 110 66 66 Z" fill="#C8553D"></path>
+        <path d="M32 106 L30 138 H42 L44 110 L46 138 H58 L56 106 Z" fill="#4A3A5A"></path>
+        <path d="M28 132 h16 v8 h-18 Z M46 132 h16 v8 h-18 Z" fill="#5A341A"></path>
+        <path d="M30 62 H58 L62 108 H26 Z" fill="#2E8FA3"></path>
+        <path d="M28 88 H60" fill="none" stroke="#5A341A" stroke-width="6"></path>
+        <rect x="40" y="84" width="9" height="8" fill="#E8A93A"></rect>
+        <path d="M58 66 L70 96" fill="none" stroke="#7A4A26" stroke-width="4"></path>
+        <rect x="62" y="92" width="16" height="14" rx="3" fill="#8B5A2B"></rect>
+        <circle cx="44" cy="40" r="20" fill="#E0A77C"></circle>
+        <path d="M24 38 Q26 16 44 16 Q64 16 64 36 Q56 26 44 28 Q32 26 24 38 Z" fill="#3A2414"></path>
+        <path d="M37 42 v3 M51 42 v3" fill="none"></path>
+        <path d="M39 51 q5 4 10 0" fill="none" stroke-width="3"></path>
+      </g>
+    </svg>
+  </div>
+
+  <!-- HUD -->
+  <div style="position: absolute; left: 24px; top: 18px; right: 24px; height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 14px">
+      <div role="img" aria-label="Character portrait" style="width: 68px; height: 68px; border-radius: 50%; background: #2E8FA3; border: 4px solid #24160E; box-shadow: inset 0 0 0 4px #E8A93A; display: flex; align-items: flex-end; justify-content: center; overflow: hidden">
+        <svg aria-hidden="true" width="60" height="56" viewBox="0 0 60 56"><circle cx="30" cy="30" r="16" fill="#E0A77C" stroke="#24160E" stroke-width="3"></circle><path d="M14 28 Q16 10 30 10 Q46 10 46 26 Q40 18 30 20 Q20 18 14 28 Z" fill="#3A2414" stroke="#24160E" stroke-width="3"></path><path d="M8 56 Q12 44 30 44 Q48 44 52 56 Z" fill="#C8553D" stroke="#24160E" stroke-width="3"></path></svg>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 8px 14px; background: rgba(36,22,14,.78); border: 3px solid #24160E; border-radius: 12px">
+        <div style="font-weight: 800; font-size: 17px; color: #F6E7C4">Adam <span style="font-weight: 500; color: #E9CF9A">· Wanderer · Lv 1</span></div>
+        <div style="display: flex; align-items: center; gap: 8px">
+          <div style="width: 180px; height: 12px; background: #4A3426; border: 2px solid #24160E; border-radius: 8px; overflow: hidden"><div style="width: 40%; height: 100%; background: #E8A93A"></div></div>
+          <div style="font-size: 13px; font-weight: 700; color: #E9CF9A">40 / 100 XP</div>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <div style="font-family: Cinzel, serif; font-weight: 900; font-size: 40px; letter-spacing: .12em; color: #FFE3A3; text-shadow: 0 3px 0 #24160E, 0 0 18px rgba(232,169,58,.6)">WAYMARK</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <div aria-label="Gold: 25" style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(36,22,14,.78); border: 3px solid #24160E; border-radius: 999px; color: #F6E7C4; font-weight: 800; font-size: 17px">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="#E8A93A" stroke="#24160E" stroke-width="2.5"></circle><path d="M10 6 v8" stroke="#24160E" stroke-width="2"></path></svg>25
+      </div>
+      <div aria-label="Gems: 0" style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(36,22,14,.78); border: 3px solid #24160E; border-radius: 999px; color: #F6E7C4; font-weight: 800; font-size: 17px">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path d="M10 2 L17 8 L10 18 L3 8 Z" fill="#7FD1DE" stroke="#24160E" stroke-width="2.5" stroke-linejoin="round"></path></svg>0
+      </div>
+      <div aria-label="Streak: 1 day" style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(36,22,14,.78); border: 3px solid #24160E; border-radius: 999px; color: #F6E7C4; font-weight: 800; font-size: 17px">
+        <svg aria-hidden="true" width="18" height="22" viewBox="0 0 18 22"><path d="M9 1 C12 6 16 8 16 14 A7 7 0 0 1 2 14 C2 10 5 9 6 5 C7 8 9 8 9 1 Z" fill="#F2A65A" stroke="#24160E" stroke-width="2.5" stroke-linejoin="round"></path></svg>1 day
+      </div>
+      <button type="button" aria-label="Settings" style="width: 46px; height: 46px; border-radius: 12px; background: #5A341A; border: 3px solid #24160E; box-shadow: inset 0 2px 0 #8A5A33, 0 3px 0 #24160E; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F6E7C4" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- NOTICE BOARD -->
+  <section aria-label="Notice board" style="position: absolute; left: 1138px; top: 110px; width: 278px; padding: 10px; background: #6B3F20; border: 4px solid #24160E; border-radius: 14px; box-shadow: inset 0 3px 0 #8A5A33, 0 6px 0 #24160E">
+    <div style="background: #F3E2BC; border: 3px solid #24160E; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-family: Cinzel, serif; font-weight: 900; font-size: 17px; letter-spacing: .08em; color: #3A2414; text-align: center">NOTICE BOARD</h2>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; color: #3A2414"><span>Daily goal</span><span>0 / 15 min</span></div>
+        <div style="height: 12px; background: #E2C68F; border: 2px solid #24160E; border-radius: 8px"></div>
+      </div>
+      <a href="SignalTower.dc.html" style="display: flex; gap: 10px; padding: 8px; background: #FBF1D8; border: 2px solid #24160E; border-radius: 8px; text-decoration: none; color: #3A2414">
+        <div aria-hidden="true" style="width: 10px; flex-shrink: 0; border-radius: 4px; background: #2E8FA3"></div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <div style="font-size: 12px; font-weight: 800; letter-spacing: .06em; color: #1E5F6E">MAIN QUEST · SIGNAL TOWER</div>
+          <div style="font-size: 15px; font-weight: 700">The Silent Beacon I: hear K and M</div>
+          <div style="font-size: 13px; font-weight: 600; color: #6B4A2E">+20 XP · 10 gold</div>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; padding: 8px; background: #FBF1D8; border: 2px solid #24160E; border-radius: 8px">
+        <div aria-hidden="true" style="width: 10px; flex-shrink: 0; border-radius: 4px; background: #C8553D"></div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <div style="font-size: 12px; font-weight: 800; letter-spacing: .06em; color: #8E3A26">MAIN QUEST · CARAVANSERAI</div>
+          <div style="font-size: 15px; font-weight: 700">The Long Road In I: <span lang="ar" dir="rtl" style="font-family: 'Noto Naskh Arabic', serif">ا ب ت ث</span></div>
+          <div style="font-size: 13px; font-weight: 600; color: #6B4A2E">+20 XP · 10 gold</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px; padding: 8px; background: #FBF1D8; border: 2px solid #24160E; border-radius: 8px">
+        <div aria-hidden="true" style="width: 10px; flex-shrink: 0; border-radius: 4px; background: #E8A93A"></div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <div style="font-size: 12px; font-weight: 800; letter-spacing: .06em; color: #7A5212">DAILY CONTRACT</div>
+          <div style="font-size: 15px; font-weight: 700">Practice 15 minutes today</div>
+          <div style="font-size: 13px; font-weight: 600; color: #6B4A2E">+30 XP · 15 gold</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HINT -->
+  <div style="position: absolute; left: 600px; top: 846px; width: 240px; padding: 7px 0; text-align: center; background: #F3E2BC; border: 3px solid #24160E; border-radius: 10px; font-weight: 800; font-size: 15px; color: #3A2414">Choose a place to enter</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"animate":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const animate = this.props.animate ?? true;
+    return { rootClass: animate ? 'wm-anim' : 'wm-still' };
+  }
+}
+</script>
+</body>
+</html>
