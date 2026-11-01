@@ -111,3 +111,26 @@ We use these as **structure and ordering references**. We don't copy their conte
 - **57 topic subdecks**, matching the book's sections (food, travel, family…).
 - **Each item has exactly one level tag: A1, A2, B1, or B2.** These are Lingualism's *suggested* CEFR levels, based on usefulness, not an official CEFR list. This gives us a ready-made learning order, with no frequency mining needed.
 - **Stored in** `sources/arabic/lingualism-palestinian-vocabulary/` in this private repo, along with the full 285-page book PDF. The full inspection is in that folder's README.
+
+---
+
+## 9. Filling the two gaps: script and grammar (researched 2026-11-01, web search only)
+
+### Gap 1: learning to read and write the Arabic script
+| Option | What | Cost | Verified | Notes |
+|---|---|---|---|---|
+| **Madrasa: "הכתב הערבי"** ([course page](https://courses.madrasafree.com/courses/course-v1:madrasa+arabic_alphabet+2020_1/about)) | **In Hebrew.** ~12 interactive hours over a month. Videos on recognizing and reading letters, writing shown on a board, handwriting and typing exercises. | Free (Madrasa's online courses are free for Hebrew speakers) | Course exists and its contents are described on its page | The enrollment page itself couldn't be opened |
+| שפה1 "קוראים וכותבים ערבית" ([page](https://safa1.co.il/readarabic/)) | In Hebrew. 28 letters + first 150 words, ~10 h self-study | Free | Page exists | The site looks old and may be inactive |
+| English options (Arabic Quick, Learn Arabic Online, Madinah Arabic reading course) | Alphabet courses with audio | Free | Vendor claims only | Less suited: English-language, mostly MSA or Quranic pronunciation |
+
+### Gap 2: grammar and structure of spoken Palestinian
+| Option | What | Cost | Verified | Notes |
+|---|---|---|---|---|
+| **Madrasa: "ערבית מדוברת: מתחילים"** ([catalog](https://pop.education.gov.il/sherutey-tiksuv-bachinuch/students-online-courses/course-catalogue/spoken-arabic/)) | In Hebrew. 8 lessons, 54 units: videos, audio exercises, games. Ends with basic everyday conversation plus the most important grammar. Also a free podcast. | Free | Course structure described on its page | **Probably taught in Hebrew transliteration, not Arabic script** (unconfirmed) |
+| **Lingualism: *Palestinian Arabic Verbs*** ([product](https://lingualism.com/products/palestinian-arabic-verbs)) | 100 conjugation tables with example sentences, a grammar reference, a 750-verb index. Arabic script + transcription. A1–B1. **Same Gaza dialect and same author team as our deck.** Native audio (free download, possibly needs an account). | **PDF price not confirmed.** One listing shows $22.99, another shows a $28.88 bundle. Paperback $23–28. | Contents verified via listings | Probably **over Adam's $20 line**. Search prices were already wrong once ($17.99 vs $25 paid). |
+| Zaytuna Knowledge ([learnpalestinian.com](https://learnpalestinian.com/)) | Free Palestinian/Jordanian grammar, stories, dictionary | Free | Site description only | License unknown, so use as a reference only |
+| Learn Levantine ([learnlevantine.com](https://learnlevantine.com/)) | 300+ Levantine lessons (includes Palestinian), dictionary with native audio, verb conjugator | Free to read | Site description only | Mixed Levantine, not only Palestinian |
+| ~~Isleem, *Colloquial Palestinian Arabic*~~ | 384-page textbook | $40–65 | Listings | ❌ Readers report **no audio included**. Not recommended. |
+
+### Open structural question
+The Madrasa courses are **external video courses**. Their videos can't be imported into Waymark (copyright, and the platform format). How they fit into the hub is a product decision for Adam.
