@@ -33,7 +33,11 @@ def main():
     sample = [dict(n, kind='sentence') for n in rnd.sample(sentences, 30)] + [dict(n, kind='word') for n in rnd.sample(words, 20)]
     clips = os.path.join(HERE, 'clips'); os.makedirs(clips, exist_ok=True)
     for n in sample:
-        shutil.copy(os.path.join(tmp, index[n['file']]), os.path.join(clips, n['file']))
+        src, dst = os.path.join(tmp, index[n['file']]), os.path.join(clips, n['file'])
+        if open(src, 'rb').read(4) == b'\x28\xb5\x2f\xfd':  # anki21b also zstd-compresses each media file
+            subprocess.run(['zstd', '-q', '-d', '-f', src, '-o', dst], check=True)
+        else:
+            shutil.copy(src, dst)
     json.dump(sample, open(os.path.join(HERE, 'manifest.json'), 'w'), ensure_ascii=False, indent=1)
     shutil.rmtree(tmp)
     print(f'{len(sample)} clips -> {clips}')
