@@ -4,7 +4,7 @@ Waymark is hosted on **Vercel's free Hobby plan**, connected to this GitHub repo
 
 | Branch | Vercel environment | Who sees it |
 |---|---|---|
-| `main` | **Production**: the live site | Anyone with the link (the app itself will require login, #16) |
+| `main` | **Production**: the live site, **https://waymark-phi.vercel.app** | Anyone with the link (the app itself will require login, #16) |
 | `dev` | **Preview**, at the stable branch URL `waymark-git-dev-<scope>.vercel.app`: the live dev site | Only people logged into the Vercel account (Deployment Protection) |
 | feature branches / PRs | **Preview**, one URL per push, plus a stable per-branch URL | Same as `dev` |
 
@@ -17,7 +17,9 @@ Do this only **after `main` contains the app** (the first release, `v0.1.0`). Im
 2. Pick **Liron**. Name the project **`waymark`**; the name becomes part of the URLs. Vercel reads the framework and build settings from `vercel.json`, so leave them alone. **Deploy.**
 3. **Settings → Environments → Production → Branch Tracking:** check that it says **`main`**.
 4. **Settings → Deployment Protection:** turn on **Vercel Authentication** with **Standard Protection**. That keeps every preview, including the dev site, private to you, while production stays reachable.
-5. Send Claude the two URLs (they're not secrets): the production one (**Domains**, e.g. `waymark.vercel.app`) and the dev one (open a deployment from `dev`, and copy the `…-git-dev-…` domain).
+5. Send Claude the two URLs (they're not secrets): the production one (**Domains**) and the dev one.
+   - **Where to find the dev URL:** it only exists after `dev` has deployed once, so after the first merge into `dev` following the import. Then go to the project → **Deployments**, filter **Branch: `dev`**, open the newest one, and under **Domains** copy the address that looks like `waymark-git-dev-<your-scope>.vercel.app`. That one never changes. The address with a random hash only shows that single deploy.
+   - Vercel's bot also posts preview links on each PR.
 
 After that, every push deploys automatically: `dev` updates the dev site, PRs get previews, and merging a release into `main` updates the live site.
 

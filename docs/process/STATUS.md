@@ -3,7 +3,7 @@
 **Read this first in every new session.** It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
 - **Last updated:** 2026-11-02
-- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. #15 (Vercel) is in progress. **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
+- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is released to `main` and live at https://waymark-phi.vercel.app** (2026-11-02). #15: the dev URL is still to be recorded. **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
 | Item | State |
@@ -14,14 +14,12 @@
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
 | Gemini speech spike (#1) | ✅ **partial** and closed: transcription usable; pronunciation scoring doesn't work on free Gemini, so feedback uses record-and-compare and ear training ([results](../../spikes/gemini-speech/README.md#results-phase-1-2026-11-01), [ADR 0013](../decisions/0013-speech-on-free-gemini.md)). |
 | Non-Gemini speech API | ✅ **Groq `whisper-large-v3`** is the speech model (2026-11-02): 28/30 deck sentences usable vs Gemini's 24/30, 2,000 requests/day free. It catches no pronunciation mistakes either (ح/ه 0/6), so there's still no per-sound scoring. ([analysis](../../spikes/gemini-speech/results/2026-11-02-groq-analysis.md), [ADR 0014](../decisions/0014-groq-whisper-for-speech.md)) |
-| App code | ✅ scaffold (#12), tests (#13), CI (#14), merged into `dev`. ⏳ hosting (#15, [DEPLOY](DEPLOY.md)). Not live yet. |
+| App code | ✅ v0.1.0 live: https://waymark-phi.vercel.app (placeholder lobby). Scaffold (#12), tests (#13), CI (#14). ⏳ #15: dev URL ([DEPLOY](DEPLOY.md)) |
 
 ## What to do next (in order)
-1. **#15 Vercel**, in this order (details in [DEPLOY](DEPLOY.md)):
-   1. Adam merges the #15 PR (`vercel.json`, DEPLOY.md) into `dev`.
-   2. Adam merges the release PR **v0.1.0** (`dev` → `main`), so `main` has the app. **Don't import into Vercel before this:** Vercel would serve the raw repo files, `sources/` included.
-   3. Adam imports the repo in Vercel (project `waymark`), checks that the production branch is `main`, turns on Vercel Authentication, and sends Claude the production URL and the dev URL.
-   4. Claude tags `v0.1.0`, records the URLs here, and closes #15.
+1. **#15 Vercel: finish.** Done: the import, production = `main`, live at https://waymark-phi.vercel.app. Verified 2026-11-02: it renders on phone and desktop, and repo files (`sources/`, `docs/`) return 404.
+   - Left: after this PR merges into `dev`, Adam copies the `waymark-git-dev-…` URL (how: [DEPLOY](DEPLOY.md)). Claude records it and checks that Deployment Protection is on (the dev URL should ask for a Vercel login), then closes #15.
+   - Adam creates the `v0.1.0` tag in GitHub Releases (target `main`). The session's git proxy refuses tag pushes.
    - Adam deletes the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` in GitHub (both already in `dev`; Claude's session isn't allowed to delete branches).
 2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → ~~CI (#14)~~ → Vercel (#15, above).
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
@@ -73,6 +71,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
   - Reachable (checked 2026-11-01): GitHub, `generativelanguage.googleapis.com` (Gemini), `registry.npmjs.org`, `supabase.com`, `api.vercel.com`.
   - Blocked: `openrouter.ai` and most websites. Use web search for research, and say when a fact comes only from search snippets.
 - **Secrets:** `GEMINI_API_KEY` (added 2026-11-01) and the Groq key (added 2026-11-02). **The Groq secret is actually named `GROQ_KEY`**, not `GROQ_API_KEY`; `groq.mjs` reads either. Rename it in the environment settings if you want them to match. Never ask for keys in chat; Adam adds them in the environment settings, and a new session picks them up.
+- **Git tags:** the session's git proxy disconnects on `git push` of a tag, and the GitHub tools can't create tags, so Adam tags releases in GitHub → Releases.
 - **npm gotcha:** npm 10 (Node 22's npm) crashes (`reading 'edgesOut'`) when it resolves vitest's optional peers from scratch. Installing from the lockfile works. To add or upgrade dependencies, run `npx -y npm@12.2.1 install …`, which updates the lockfile.
 - **Pinning:** exact versions, using releases at least two weeks old. `@playwright/test` stays at the pre-installed Playwright version (1.63.0) so it finds `/opt/pw-browsers`.
 - **Tools present:** Node 22, Python 3, `ffmpeg`, Playwright with a pre-installed Chromium (don't run `playwright install`). The `zstd` CLI is **not always present** (missing on 2026-11-01, and `apt` failed). `prep.py` falls back to Node 22's built-in `zlib.zstdDecompressSync`, so it works either way.
