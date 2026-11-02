@@ -43,7 +43,7 @@
 | **Gemini API** | Free tier | Google may use free-tier chats to improve its products, and **human reviewers may read them**; daily limits | Accepted (0004) |
 | **Groq API** (Whisper speech-to-text) | Free tier: 2,000 requests/day, 7,200 audio-s/hour | Audio not retained by default, except up to 30 days of abuse/reliability logs; in-app use is opt-in until Adam decides | Accepted (0014) |
 | **Gemini paid tier** | Pay-per-use | — | Maybe later (0004) |
-| **Supabase** | Free tier | Pauses after **7 days** inactive (data kept; manual restore); 500 MB DB, 1 GB files, 2 projects, no backups | Accepted (0005) |
+| **Supabase** | Free tier | Pauses after **7 days** inactive (data kept; manual restore); 500 MB DB, 1 GB files, 2 projects (we use both: prod + dev), no backups. Built-in email: 2/hour, team members only, so friends (M5) will need a custom SMTP server, possibly paid; ask Adam then | Accepted (0005, 0015, 0016) |
 | **Vercel** | Free (Hobby) tier | Hobby plan is for personal, non-commercial use, which fits | Accepted (0005) |
 | **OpenRouter backup** | Free: 50 requests/day; $10 one-time credit raises it to 1,000/day | Data policy varies per model | Only if Gemini fails us; ask Adam first |
 | **Domain name** (e.g. waymark.something) | ~$10–20/year, optional | — | Not decided |

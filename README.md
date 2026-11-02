@@ -34,7 +34,7 @@ npm install
 ```bash
 npm run dev
 ```
-Then open the address it prints (usually http://localhost:5173).
+Then open the address it prints (usually http://localhost:5173). For the login to work, first copy `.env.example` to `.env.local` and fill in the `waymark-dev` Supabase values ([SUPABASE](docs/process/SUPABASE.md)).
 
 | Script | What it does |
 |---|---|

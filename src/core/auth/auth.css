@@ -1,0 +1,120 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 48px 16px;
+}
+
+.auth__brand {
+  margin: 0 0 24px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(40px, 10vw, 56px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--lamplight);
+  text-shadow: 0 4px 0 var(--ink);
+}
+
+.auth__panel {
+  width: 100%;
+  padding: 24px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: var(--parchment);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.auth__title {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth__label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.auth__input {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: var(--outline-ui);
+  border-radius: 8px;
+  background: var(--vellum);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 500;
+}
+
+.auth__input:focus-visible,
+.auth__button:focus-visible,
+.auth__link:focus-visible {
+  outline: 3px solid var(--brass);
+  outline-offset: 2px;
+}
+
+.auth__button {
+  min-height: 48px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  background: var(--brass);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  font-size: 19px;
+  box-shadow: 0 4px 0 var(--ink);
+  cursor: pointer;
+}
+
+.auth__button:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.auth__button:disabled,
+.auth__link:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.auth__link {
+  min-height: 44px;
+  border: none;
+  background: none;
+  color: var(--wood);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.auth__link-action {
+  display: block;
+}
+
+.auth__message {
+  margin: 0;
+  font-weight: 700;
+}
+
+.auth__message--error {
+  color: #9b2c1c;
+}
+
+.auth__text {
+  margin: 0 0 12px;
+}

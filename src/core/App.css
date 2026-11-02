@@ -4,6 +4,26 @@
   padding: 48px 16px;
 }
 
+.lobby__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.lobby__signout {
+  min-height: 44px;
+  padding: 0 16px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  box-shadow: 0 4px 0 var(--ink);
+  cursor: pointer;
+}
+
 .lobby__title {
   margin: 0;
   font-family: var(--font-display);
