@@ -5,6 +5,7 @@
 }
 
 .lobby__top {
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,7 +37,7 @@
 }
 
 .lobby__lead {
-  margin: 8px 0 32px;
+  margin: 24px 0 24px;
   font-size: 19px;
 }
 

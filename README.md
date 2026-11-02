@@ -20,6 +20,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 | [`docs/research/`](docs/research/) | Research notes on methods, apps, and sources |
 | [`docs/decisions/`](docs/decisions/) | Architecture & product decision records (ADRs) |
 | [`docs/design/`](docs/design/) | Visual concepts and the city generator |
+| [`docs/game/`](docs/game/) | Game rules and numbers: [economy](docs/game/economy.md) (XP, levels, gold, gems) |
 | [`spikes/`](spikes/) | Throwaway experiments that answer one question |
 | [`docs/process/`](docs/process/) | Current status ([`STATUS.md`](docs/process/STATUS.md)), how we work ([`WORKFLOW.md`](docs/process/WORKFLOW.md)), the [`ROADMAP.md`](docs/process/ROADMAP.md), and retros |
 | [`CLAUDE.md`](CLAUDE.md) | Team charter: roles, conventions, skills |
