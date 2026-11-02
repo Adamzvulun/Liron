@@ -3,7 +3,7 @@
 **Read this first in every new session.** It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
 - **Last updated:** 2026-11-02
-- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is released to `main` and live at https://waymark-phi.vercel.app** (2026-11-02). #15: the dev URL is still to be recorded. **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
+- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
 | Item | State |
@@ -14,14 +14,11 @@
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
 | Gemini speech spike (#1) | ✅ **partial** and closed: transcription usable; pronunciation scoring doesn't work on free Gemini, so feedback uses record-and-compare and ear training ([results](../../spikes/gemini-speech/README.md#results-phase-1-2026-11-01), [ADR 0013](../decisions/0013-speech-on-free-gemini.md)). |
 | Non-Gemini speech API | ✅ **Groq `whisper-large-v3`** is the speech model (2026-11-02): 28/30 deck sentences usable vs Gemini's 24/30, 2,000 requests/day free. It catches no pronunciation mistakes either (ح/ه 0/6), so there's still no per-sound scoring. ([analysis](../../spikes/gemini-speech/results/2026-11-02-groq-analysis.md), [ADR 0014](../decisions/0014-groq-whisper-for-speech.md)) |
-| App code | ✅ v0.1.0 live: https://waymark-phi.vercel.app (placeholder lobby). Scaffold (#12), tests (#13), CI (#14). ⏳ #15: dev URL ([DEPLOY](DEPLOY.md)) |
+| App code | ✅ E1 done: scaffold (#12), tests (#13), CI (#14), hosting (#15, [DEPLOY](DEPLOY.md)). Live: https://waymark-phi.vercel.app · dev: https://waymark-git-dev-adamzvuluns-projects.vercel.app |
 
 ## What to do next (in order)
-1. **#15 Vercel: finish.** Done: the import, production = `main`, live at https://waymark-phi.vercel.app. Verified 2026-11-02: it renders on phone and desktop, and repo files (`sources/`, `docs/`) return 404.
-   - Left: after this PR merges into `dev`, Adam copies the `waymark-git-dev-…` URL (how: [DEPLOY](DEPLOY.md)). Claude records it and checks that Deployment Protection is on (the dev URL should ask for a Vercel login), then closes #15.
-   - Adam creates the `v0.1.0` tag in GitHub Releases (target `main`). The session's git proxy refuses tag pushes.
-   - Adam deletes the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` in GitHub (both already in `dev`; Claude's session isn't allowed to delete branches).
-2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → ~~CI (#14)~~ → Vercel (#15, above).
+1. **Leftovers for Adam:** create the `v0.1.0` tag in GitHub Releases (target `main`; the session's git proxy refuses tag pushes). Delete the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` (both already in `dev`; Claude's session isn't allowed to delete branches).
+2. **M1: Foundations**: ~~E1 (#2)~~ is done. Next is E2 (#3), starting with #16 (Supabase, invite-only login).
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam creates them in the Supabase dashboard; Claude gives the steps.
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
