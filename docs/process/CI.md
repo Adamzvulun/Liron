@@ -11,8 +11,9 @@
 ## "A red check blocks merging": not available on our plan
 GitHub's plan page lists **protected branches for private repositories as a GitHub Pro feature** (paid). Rulesets are described for Team and Enterprise. GitHub Free for personal accounts doesn't list either for private repos. So on Free, GitHub itself **can't** block merging on a red check in this repo.
 
-Options (Adam decides):
-1. **Process rule (free, current default):** a PR with a red check doesn't get merged. Claude never merges or asks to merge one. The red ✗ still shows on the PR.
+**Decided (Adam, 2026-11-02): option 1, the process rule.**
+
+1. **Process rule (free, chosen):** a PR with a red check doesn't get merged. Claude never merges or asks to merge one. The red ✗ still shows on the PR.
 2. **GitHub Pro** (paid): then turn on the rule as below.
 3. **Make the repo public:** not possible while copyrighted sources live in `sources/` (ADR 0011).
 
