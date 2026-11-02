@@ -1,6 +1,6 @@
 # 0013 — Speech features on free Gemini: understanding, not pronunciation scoring
 
-- **Status:** Accepted
+- **Status:** Accepted, amended by [0014](0014-groq-whisper-for-speech.md) (the mic's model is now Groq Whisper)
 - **Date:** 2026-11-01
 - **Amends:** [0004](0004-free-llm-provider-agnostic.md) (which model), [0011](0011-technical-corrections.md) #2 (speech input)
 

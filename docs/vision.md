@@ -41,6 +41,7 @@
 | **Lingualism Palestinian vocabulary Anki deck** (4,800+ items, Arabic script, native Gazan audio) | **$25** one-time (paid) | Copyrighted: personal use, kept out of the public repo | ✅ Bought 2026-11-01 |
 | **Free Arabic sources** (Maknuune lexicon, CC BY-SA 4.0; Lingualism's free book audio; Madrasa as an ordering reference) | Free | Maknuune requires attribution and share-alike | ✅ |
 | **Gemini API** | Free tier | Google may use free-tier chats to improve its products, and **human reviewers may read them**; daily limits | Accepted (0004) |
+| **Groq API** (Whisper speech-to-text) | Free tier: 2,000 requests/day, 7,200 audio-s/hour | Audio not retained by default, except up to 30 days of abuse/reliability logs; in-app use is opt-in until Adam decides | Accepted (0014) |
 | **Gemini paid tier** | Pay-per-use | — | Maybe later (0004) |
 | **Supabase** | Free tier | Pauses after **7 days** inactive (data kept; manual restore); 500 MB DB, 1 GB files, 2 projects, no backups | Accepted (0005) |
 | **Vercel** | Free (Hobby) tier | Hobby plan is for personal, non-commercial use, which fits | Accepted (0005) |
