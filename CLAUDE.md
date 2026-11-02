@@ -29,7 +29,7 @@ See [`docs/process/WORKFLOW.md`](docs/process/WORKFLOW.md). In short:
 1. **Discover**: brainstorm and research in `docs/discovery/` and `docs/research/`.
 2. **Decide**: record decisions as ADRs in `docs/decisions/` (one decision per file, numbered).
 3. **Plan**: break work into GitHub Issues grouped into epics and milestones.
-4. **Build**: one issue per branch and PR. A PR references its issue, includes tests, and updates docs.
+4. **Build**: one branch per issue or feature, from `dev`. Its PR goes into `dev`, references its issue, includes tests, and updates docs. Adam checks the live dev site, then a release PR takes `dev` to `main`, the live site ([ADR 0015](docs/decisions/0015-branches-and-environments.md)).
 5. **Reflect**: write a short retro per milestone in `docs/process/retros/`.
 
 ## Rules for Claude (from Adam)
