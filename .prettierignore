@@ -7,3 +7,5 @@ sources
 .github
 *.md
 package-lock.json
+test-results
+playwright-report
