@@ -43,8 +43,12 @@ Then open the address it prints (usually http://localhost:5173).
 | `npm run lint` | ESLint, plus a Prettier formatting check |
 | `npm run format` | Rewrite files with Prettier |
 | `npm run typecheck` | TypeScript only |
+| `npm test` | Unit tests (Vitest), files named `src/**/*.test.ts` |
+| `npm run e2e` | Browser smoke tests (Playwright, `e2e/`) at desktop and phone sizes, against a production build |
 
-Dependencies are pinned to exact versions (`.npmrc` has `save-exact=true`). Fonts are self-hosted from npm (`@fontsource/*`), so the site never calls Google Fonts.
+`npm run e2e` needs a Chromium for Playwright. On your own machine, run `npx playwright install chromium` once. In the Claude cloud session it's already installed, so don't run that there.
+
+Dependencies are pinned to exact versions (`.npmrc` has `save-exact=true`). `@playwright/test` is pinned to the same version as the Playwright pre-installed in the Claude cloud session (1.63.0), so its Chromium matches. Fonts are self-hosted from npm (`@fontsource/*`), so the site never calls Google Fonts.
 
 ## Credits
 Skills in `.claude/skills/` come from [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) (MIT).
