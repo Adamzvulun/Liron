@@ -8,7 +8,7 @@
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0016 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0018 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -18,7 +18,12 @@
 
 ## What to do next (in order)
 1. **Leftovers for Adam:** create the `v0.1.0` tag in GitHub Releases (target `main`; the session's git proxy refuses tag pushes). Delete the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` (both already in `dev`; Claude's session isn't allowed to delete branches).
-2. **M1: Foundations**: ~~E1 (#2)~~ is done. E2 (#3): **#16 login is built** (ADR 0016) and in a PR into `dev`. Before merging it, Adam does steps 1–5 in [SUPABASE](SUPABASE.md) (two projects, sign-ups off, env vars in Vercel); afterwards, step 7 (invite himself). Then #17.
+2. **M1: Foundations**: ~~E1 (#2)~~ is done. E2 (#3):
+   - ~~#16 login~~: done. Adam is signed in on the dev site (2026-11-02).
+   - **#17 schema**: in a PR, together with **automatic migrations** (ADR 0018: merging into `dev` or `main` applies them).
+     - Before merging, Adam adds the GitHub secrets `SUPABASE_DEV_DB_URL` and `SUPABASE_PROD_DB_URL` ([SUPABASE → Migrations](SUPABASE.md#migrations)).
+     - Never apply migrations by hand.
+   - Then #18 (subject contract), #19 (XP and levels), #20 (streak and daily goal).
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam's steps: [SUPABASE](SUPABASE.md).
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
@@ -69,6 +74,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
   - Blocked: `openrouter.ai` and most websites. Use web search for research, and say when a fact comes only from search snippets.
 - **Secrets:** `GEMINI_API_KEY` (added 2026-11-01) and the Groq key (added 2026-11-02). **The Groq secret is actually named `GROQ_KEY`**, not `GROQ_API_KEY`; `groq.mjs` reads either. Rename it in the environment settings if you want them to match. Never ask for keys in chat; Adam adds them in the environment settings, and a new session picks them up.
 - **Git tags:** the session's git proxy disconnects on `git push` of a tag, and the GitHub tools can't create tags, so Adam tags releases in GitHub → Releases.
+- **Adam's working rule (2026-11-02):** automate everything. Hand steps only where it's truly impossible otherwise (account creation, secrets, approvals). Say why each time.
 - **npm gotcha:** npm 10 (Node 22's npm) crashes (`reading 'edgesOut'`) when it resolves vitest's optional peers from scratch. Installing from the lockfile works. To add or upgrade dependencies, run `npx -y npm@12.2.1 install …`, which updates the lockfile.
 - **Pinning:** exact versions, using releases at least two weeks old. `@playwright/test` stays at the pre-installed Playwright version (1.63.0) so it finds `/opt/pw-browsers`.
 - **Tools present:** Node 22, Python 3, `ffmpeg`, Playwright with a pre-installed Chromium (don't run `playwright install`). The `zstd` CLI is **not always present** (missing on 2026-11-01, and `apt` failed). `prep.py` falls back to Node 22's built-in `zlib.zstdDecompressSync`, so it works either way.
