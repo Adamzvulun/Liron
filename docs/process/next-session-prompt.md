@@ -8,6 +8,6 @@ We're continuing work on Waymark, my personal learning hub for Arabic and Morse 
 
 Before you do anything, read `docs/process/STATUS.md` and `CLAUDE.md`, and follow them.
 
-Your task: start M1 (Foundations) with E1 (#2), beginning with #12 (app scaffold), following the stack in ADR 0005. Then #13 (tests) and #14 (CI). For #15 (Vercel) and #16 (Supabase), ask me first: I need to create the free accounts.
+Your task: continue M1 (Foundations). #12 and #13 are done, and #14 (CI) waits on my answers in STATUS. Next comes #15 (Vercel); ask me first, because I need to create the free accounts for Vercel and Supabase (#16).
 
 Speech is decided (ADR 0013 + 0014): Groq `whisper-large-v3` for "did it understand you?", no per-sound scoring. Nothing in E1 needs it yet.
