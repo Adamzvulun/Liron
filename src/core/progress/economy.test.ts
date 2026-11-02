@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { levelForXp, levelProgress, rewardsFor, titleForLevel, xpForLevel } from './economy.ts';
+import {
+  addDays,
+  dailyChest,
+  levelForXp,
+  levelProgress,
+  rewardsFor,
+  streakFrom,
+  titleForLevel,
+  xpForLevel,
+} from './economy.ts';
 
 describe('level curve', () => {
   it('is fast early: level 2 at 20 XP, 5 at 140, 10 at 540, 20 at 2,090', () => {
@@ -61,5 +70,29 @@ describe('titles', () => {
       'Legend',
       'Legend',
     ]);
+  });
+});
+
+describe('streak and daily chest', () => {
+  it('counts goal days back from today, or from yesterday while today is open', () => {
+    const days = ['2026-10-30', '2026-10-31', '2026-11-01'];
+    expect(streakFrom(days, '2026-11-01')).toBe(3);
+    expect(streakFrom(days, '2026-11-02')).toBe(3); // today not reached yet: still alive
+    expect(streakFrom([...days, '2026-11-02'], '2026-11-02')).toBe(4);
+    expect(streakFrom(days, '2026-11-03')).toBe(0); // missed yesterday: reset
+    expect(streakFrom(['2026-10-28', '2026-10-30', '2026-10-31'], '2026-10-31')).toBe(2);
+    expect(streakFrom([], '2026-11-02')).toBe(0);
+  });
+
+  it('crosses months and years', () => {
+    expect(streakFrom(['2025-12-31', '2026-01-01'], '2026-01-01')).toBe(2);
+    expect(addDays('2028-02-28', 1)).toBe('2028-02-29');
+  });
+
+  it('pays 20 gold, and a gem on every 7th streak day', () => {
+    expect(dailyChest(1)).toEqual({ gold: 20, gems: 0 });
+    expect(dailyChest(7)).toEqual({ gold: 20, gems: 1 });
+    expect(dailyChest(13)).toEqual({ gold: 20, gems: 0 });
+    expect(dailyChest(14)).toEqual({ gold: 20, gems: 1 });
   });
 });

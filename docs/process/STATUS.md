@@ -8,7 +8,7 @@
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0020 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0021 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -22,8 +22,8 @@
    - ~~#16 login~~: done. Adam is signed in on the dev site (2026-11-02).
    - ~~#17 schema~~: done, with **automatic migrations** (ADR 0018). The first run applied it to `waymark-dev` (2026-11-02). Never apply migrations by hand.
    - ~~#18 subject contract~~ ([ADR 0019](../decisions/0019-subject-contract.md)): done; its migration applied itself to `waymark-dev`.
-   - **#19 XP, levels, gold, gems** ([ADR 0020](../decisions/0020-fast-levels-and-rewards.md), [economy](../game/economy.md)): in a PR. Adam chose a fast pace (level 5 on day one).
-   - Then #20 (streak and daily goal, with the daily-goal chest and the 7-day-streak gem from the economy doc).
+   - ~~#19 XP, levels, gold, gems~~ ([ADR 0020](../decisions/0020-fast-levels-and-rewards.md), [economy](../game/economy.md)): done. Adam chose a fast pace (level 5 on day one).
+   - **#20 streak and daily goal** ([ADR 0021](../decisions/0021-streak-and-daily-goal.md)): in a PR. With it, E2 is complete; next is E3 (#21 FSRS, #22, #23).
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam's steps: [SUPABASE](SUPABASE.md).
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).

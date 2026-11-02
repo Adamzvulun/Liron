@@ -57,7 +57,7 @@ describe('awards', () => {
     await api.awardXP(25);
     await api.recordPractice(3);
     expect(awards).toEqual([
-      {
+      expect.objectContaining({
         xp: 25,
         gold: 15, // 5 for 25 XP + 10 for reaching level 2
         gems: 0,
@@ -66,7 +66,7 @@ describe('awards', () => {
         gemsEarned: 0,
         levelBefore: 1,
         level: 2,
-      },
+      }),
       expect.objectContaining({ xp: 25, xpEarned: 0, goldEarned: 0, level: 2 }),
     ]);
   });

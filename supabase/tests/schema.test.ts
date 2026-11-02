@@ -3,7 +3,13 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { levelForXp, rewardsFor, xpForLevel } from '../../src/core/progress/economy.ts';
+import {
+  addDays,
+  levelForXp,
+  rewardsFor,
+  streakFrom,
+  xpForLevel,
+} from '../../src/core/progress/economy.ts';
 import { supabaseStore } from '../../src/core/progress/supabaseStore.ts';
 
 // Runs the real migrations in PGlite (Postgres compiled to WebAssembly, in-process) on top of a
@@ -335,7 +341,7 @@ describe('supabaseStore against the real functions', () => {
     await as(ADAM, async () => {
       const store = supabaseStore(fakeClient);
       expect(await store.loadState('morse')).toBeNull(); // row exists, state never saved
-      expect(await store.record('morse', 12, 2)).toEqual({
+      expect(await store.record('morse', 12, 2)).toMatchObject({
         xp: 12,
         gold: 2,
         gems: 0,
@@ -379,7 +385,7 @@ describe('levels and rewards (ADR 0020)', () => {
       const earned = rewardsFor(before, before + xp);
       gold += earned.gold;
       gems += earned.gems;
-      expect((r as { result: unknown }).result).toEqual({
+      expect((r as { result: unknown }).result).toMatchObject({
         xp: before + xp,
         gold,
         gems,
@@ -404,5 +410,102 @@ describe('levels and rewards (ADR 0020)', () => {
       gold_earned: 98,
       gems_earned: 1,
     });
+  });
+});
+
+describe('daily goal and streak (ADR 0021)', () => {
+  type Json = Record<string, unknown>;
+  const one = async (sql: string, params: unknown[] = []) =>
+    ((await as(ADAM, () => rows(`select ${sql} as r`, params)))[0] as { r: Json }).r;
+  const today = async () => (await one('public.player_today()::text')) as unknown as string;
+  /** Adam's goal days, as offsets from today (0 = today, 1 = yesterday, ...). */
+  const goalDays = async (offsets: number[]) => {
+    const t = await today();
+    await rows(`delete from daily_activity where user_id = $1`, [ADAM]);
+    for (const o of offsets) {
+      await rows(
+        `insert into daily_activity (user_id, day, minutes, goal_reached) values ($1, $2, 15, true)`,
+        [ADAM, addDays(t, -o)],
+      );
+    }
+    return t;
+  };
+
+  beforeEach(() => rows(`delete from daily_activity where user_id = $1`, [ADAM]));
+
+  it('reaching the goal pays the chest once, and reports today', async () => {
+    const first = await one(`record_progress('morse', 0, 10)`);
+    expect(first.today).toMatchObject({ minutes: 10, goal_minutes: 15, goal_reached_now: false });
+    const second = await one(`record_progress('morse', 0, 5)`);
+    expect(second.today).toMatchObject({
+      minutes: 15,
+      goal_reached: true,
+      goal_reached_now: true,
+      streak: 1,
+      chest_gold: 20,
+      chest_gems: 0,
+    });
+    expect(second.gold).toBe(20);
+    const third = await one(`record_progress('morse', 0, 5)`);
+    expect(third.today).toMatchObject({ goal_reached_now: false, chest_gold: 0, streak: 1 });
+    expect(third.gold).toBe(20);
+  });
+
+  it('the streak matches streakFrom in src/core/progress/economy.ts', async () => {
+    const patterns = [
+      [],
+      [0],
+      [1],
+      [0, 1, 2],
+      [1, 2, 3],
+      [2, 3],
+      [0, 2, 3],
+      [1, 3],
+      [0, 1, 2, 3, 4, 5, 6, 8],
+    ];
+    for (const offsets of patterns) {
+      const t = await goalDays(offsets);
+      const expected = streakFrom(
+        offsets.map((o) => addDays(t, -o)),
+        t,
+      );
+      expect([offsets, await one('public.current_streak()')]).toEqual([offsets, expected]);
+    }
+  });
+
+  it('the 7th day of a streak puts a gem in the chest', async () => {
+    await goalDays([1, 2, 3, 4, 5, 6]);
+    const r = await one(`record_progress('arabic', 0, 15)`);
+    expect(r.today).toMatchObject({ streak: 7, chest_gold: 20, chest_gems: 1 });
+  });
+
+  it('changing the goal never rewrites past days; lowering it can reach today', async () => {
+    await goalDays([1, 2]);
+    await one(`record_progress('morse', 0, 6)`);
+    let r = await one('set_daily_goal(60)');
+    expect(r).toMatchObject({ goal_minutes: 60, goal_reached: false, streak: 2 });
+    r = await one('set_daily_goal(5)');
+    expect(r).toMatchObject({ goal_reached_now: true, streak: 3, chest_gold: 20 });
+    expect(r.wallet).toEqual({ xp: 0, gold: 20, gems: 0 });
+    await expect(one('set_daily_goal(1)')).rejects.toThrow(/check/);
+  });
+
+  it('a missed day resets the streak', async () => {
+    await goalDays([2, 3, 4]);
+    expect(await one('today_status()')).toMatchObject({ streak: 0, minutes: 0 });
+  });
+
+  it('accepts real time zones only', async () => {
+    await one(`set_time_zone('Asia/Jerusalem')`);
+    expect(await rows(`select time_zone from profiles where id = $1`, [ADAM])).toEqual([
+      { time_zone: 'Asia/Jerusalem' },
+    ]);
+    await expect(one(`set_time_zone('Mars/Olympus')`)).rejects.toThrow(/unknown time zone/);
+  });
+
+  it('only works for signed-in users', async () => {
+    for (const fn of ['today_status()', 'check_daily_goal()', 'set_daily_goal(20)']) {
+      await expect(as(null, () => rows(`select ${fn}`))).rejects.toThrow(/permission denied/);
+    }
   });
 });
