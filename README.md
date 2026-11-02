@@ -13,6 +13,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 | Path | What |
 |---|---|
 | [`src/`](src/) | The app (Vite + React + TypeScript). `src/core/` is the platform, `src/subjects/<id>/` holds one subject each (ADR 0003) |
+| [`docs/process/DEPLOY.md`](docs/process/DEPLOY.md) | Hosting on Vercel: live site (`main`), dev site (`dev`), environment variables |
 | [`content/`](content/) | Learning content as data (letters, words, Morse characters, lessons) |
 | [`docs/vision.md`](docs/vision.md) | North star: what we are building |
 | [`docs/discovery/`](docs/discovery/) | Brainstorms and explorations. Start with [`01-brainstorm.md`](docs/discovery/01-brainstorm.md) |
