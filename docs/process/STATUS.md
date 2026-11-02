@@ -3,7 +3,7 @@
 **Read this first in every new session.** It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
 - **Last updated:** 2026-11-02
-- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are in [PR #50](https://github.com/Adamzvulun/Liron/pull/50) into `dev`. **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
+- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. #15 (Vercel) is in progress. **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
 | Item | State |
@@ -14,14 +14,18 @@
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
 | Gemini speech spike (#1) | ✅ **partial** and closed: transcription usable; pronunciation scoring doesn't work on free Gemini, so feedback uses record-and-compare and ear training ([results](../../spikes/gemini-speech/README.md#results-phase-1-2026-11-01), [ADR 0013](../decisions/0013-speech-on-free-gemini.md)). |
 | Non-Gemini speech API | ✅ **Groq `whisper-large-v3`** is the speech model (2026-11-02): 28/30 deck sentences usable vs Gemini's 24/30, 2,000 requests/day free. It catches no pronunciation mistakes either (ح/ه 0/6), so there's still no per-sound scoring. ([analysis](../../spikes/gemini-speech/results/2026-11-02-groq-analysis.md), [ADR 0014](../decisions/0014-groq-whisper-for-speech.md)) |
-| App code | ✅ scaffold (#12): Vite 8 + React 19 + TS 6 at the repo root, placeholder lobby. ✅ tests (#13): Vitest + Playwright smoke. ✅ CI (#14): workflow plus the process rule "red check = no merge" ([CI](CI.md)). All three are in one PR, waiting for merge |
+| App code | ✅ scaffold (#12), tests (#13), CI (#14), merged into `dev`. ⏳ hosting (#15, [DEPLOY](DEPLOY.md)). Not live yet. |
 
 ## What to do next (in order)
-1. **Adam:** set GitHub's default branch to `dev`, then merge PR #50 into `dev`. Decided 2026-11-02: one PR for all three, and a **process rule** instead of branch protection: a PR with a red check is never merged ([CI](CI.md)).
-   - After that, delete the old `claude/learning-hub-arabic-morse-20ckww` branch (ask Adam first). The stale `claude/nifty-cray-n4594x` branch can go too.
-2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → CI (#14, in the E1 PR) → Vercel (#15): production branch `main`, a stable dev URL, and a Deployment Protection check (ADR 0015).
+1. **#15 Vercel**, in this order (details in [DEPLOY](DEPLOY.md)):
+   1. Adam merges the #15 PR (`vercel.json`, DEPLOY.md) into `dev`.
+   2. Adam merges the release PR **v0.1.0** (`dev` → `main`), so `main` has the app. **Don't import into Vercel before this:** Vercel would serve the raw repo files, `sources/` included.
+   3. Adam imports the repo in Vercel (project `waymark`), checks that the production branch is `main`, turns on Vercel Authentication, and sends Claude the production URL and the dev URL.
+   4. Claude tags `v0.1.0`, records the URLs here, and closes #15.
+   - Adam deletes the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` in GitHub (both already in `dev`; Claude's session isn't allowed to delete branches).
+2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → ~~CI (#14)~~ → Vercel (#15, above).
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
-   - #16 (Supabase): ask Adam whether to use two free projects (prod + dev, ADR 0015) or one.
+   - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam creates them in the Supabase dashboard; Claude gives the steps.
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
 3. **M2: First playable** (#7–#11), after M1.
 
@@ -76,7 +80,6 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 
 ## Open questions for Adam
-- **Merge the E1 PR** (#12–#14 in one PR, Adam's choice 2026-11-02) once CI is green.
 - **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
 - **In-app mic and data:** any in-app "did it understand you?" check now sends his audio to **Groq** (ADR 0014). Groq keeps no audio by default, except up to 30 days of abuse logs. Is it OK in the app when he chooses to use it, or record-and-compare only (no upload)? Default until he answers: opt-in, off. Not needed before M2 #45.
 - Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure; nothing runs locally (no in-browser or on-machine models); hosted free APIs only. He wants one stable model rather than hopping between models.

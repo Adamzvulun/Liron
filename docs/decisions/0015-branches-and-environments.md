@@ -37,8 +37,8 @@ Checked in Vercel's docs (2026-11-02), for the free Hobby plan:
 
 **Environments and secrets**
 - **Vercel:** Production = `main`, Preview = everything else. Secrets such as the Gemini and Groq keys are set separately for Production and Preview. They're server-side only and never in the browser bundle (ADR 0011).
-- **Supabase:** the free plan allows 2 projects. Proposal for #16: one for production (`main`) and one for dev and previews, so testing never touches real progress. The catch is that both free projects are then used up, and the dev project may pause after 7 days of no use. Adam decides in #16.
-- **Who sees the dev site:** Vercel Authentication can restrict previews to people logged into the Vercel account (available on all plans). Adam checks the default under Project Settings → Deployment Protection in #15.
+- **Supabase:** **two free projects** (Adam, 2026-11-02): `waymark-prod` for production (`main`) and `waymark-dev` for `dev` and previews, so testing never touches real progress. That uses both free projects. The dev one may pause after 7 days of no use (data kept; restored by hand).
+- **Who sees the dev site:** Vercel Authentication can restrict previews to people logged into the Vercel account (available on all plans). Turned on in #15 ([DEPLOY](../process/DEPLOY.md)).
 
 ## Consequences
 - Users only ever see what Adam has checked on dev.
@@ -46,3 +46,4 @@ Checked in Vercel's docs (2026-11-02), for the free Hobby plan:
 - **Adam does once in GitHub:** Settings → General → Default branch → `dev`. Until then, `Closes #N` in PRs to `dev` doesn't auto-close issues; GitHub only does that on the default branch.
 - The old branch `claude/learning-hub-arabic-morse-20ckww` is replaced by `dev` and `main` (same content on 2026-11-02). Delete it after the default branch is switched, with Adam's OK.
 - CI runs on every PR and on pushes to `dev` and `main`.
+- **Never import into Vercel while `main` has no app:** Vercel would then serve the raw repo files, `sources/` included. `vercel.json` pins the Vite build so only `dist/` is published ([DEPLOY](../process/DEPLOY.md)).
