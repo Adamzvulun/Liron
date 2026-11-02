@@ -4,14 +4,18 @@ import { describe, expect, it } from 'vitest';
 
 // ADR 0003: "No feature may depend on two subjects at once." ADR 0019 turns that into import
 // rules, checked here on every test run:
-//  1. A subject's files import only from their own folder, from src/core/ and from packages.
+//  1. A subject's files import only from their own folder, its own content/<id>/ folder,
+//     src/core/ and packages.
 //  2. Platform code (src/core/) never imports a particular subject. It may only use the registry
 //     (src/subjects/index.ts), which lists them all.
 //  3. Only the scheduler (src/core/srs/scheduler.ts) imports ts-fsrs (ADR 0022): subjects grade
 //     answers through the contract and never talk to the library.
+//  4. Nothing in src/ imports from sources/ or scripts/, so copyrighted material can't end up in
+//     the site bundle (ADR 0011, 0023).
 const SRC = join(import.meta.dirname, '..', 'src');
 const SUBJECTS = join(SRC, 'subjects');
 const CORE = join(SRC, 'core');
+const CONTENT = join(SRC, '..', 'content');
 const REGISTRY_FILES = new Set(['index.ts', 'registry.ts', 'subjects.test.ts']);
 
 function sourceFiles(dir: string): string[] {
@@ -54,13 +58,24 @@ export function violations(file: string, code: string): string[] {
     if (allowed && relative(SRC, file) !== allowed)
       out.push(`imports ${spec}; only ${allowed} may`);
   }
+  for (const target of localImports(file, code)) {
+    for (const banned of ['sources', 'scripts']) {
+      if (target.startsWith(join(SRC, '..', banned) + sep)) {
+        out.push(`imports ${relative(join(SRC, '..'), target)}; the site never imports ${banned}/`);
+      }
+    }
+  }
   const own = subjectOf(file);
   for (const target of localImports(file, code)) {
     const name = relative(SRC, target);
     const other = subjectOf(target);
     if (own) {
       if (other && other !== own) out.push(`subject "${own}" imports subject "${other}" (${name})`);
-      else if (!other && !target.startsWith(CORE + sep))
+      else if (
+        !other &&
+        !target.startsWith(CORE + sep) &&
+        !target.startsWith(join(CONTENT, own) + sep)
+      )
         out.push(`subject "${own}" imports ${name}, outside its folder and src/core/`);
     } else if (file.startsWith(CORE + sep) && other) {
       out.push(`platform file imports subject "${other}" directly (${name}); use the registry`);
@@ -90,6 +105,10 @@ describe('subject boundaries', () => {
       [],
     );
     expect(violations(file, `import { y } from './sounds.ts';`)).toEqual([]);
+    expect(violations(file, `import c from '../../../content/morse/characters.json';`)).toEqual([]);
+    expect(violations(file, `import l from '../../../content/arabic/letters.json';`)).toHaveLength(
+      1,
+    );
   });
 
   it('catches anything but the scheduler importing ts-fsrs', () => {
@@ -99,6 +118,14 @@ describe('subject boundaries', () => {
     expect(
       violations(join(CORE, 'srs', 'scheduler.ts'), `import { fsrs } from 'ts-fsrs';`),
     ).toEqual([]);
+  });
+
+  it('catches site code importing sources/ or scripts/', () => {
+    const file = join(CORE, 'content', 'x.ts');
+    expect(violations(file, `import d from '../../../sources/arabic/deck.json';`)).toHaveLength(1);
+    expect(
+      violations(file, `import { b } from '../../../scripts/content/lingualism.ts';`),
+    ).toHaveLength(1);
   });
 
   it('catches platform code importing a particular subject', () => {
