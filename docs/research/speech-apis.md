@@ -23,7 +23,7 @@ For scale: our clips are about 1.7 s on average. Groq's 2,000 requests/day is ab
 2. **Azure Pronunciation Assessment (`ar-SA`) for pronunciation.** It's the only hosted free option that actually scores sounds against a target. Risks: Saudi locale vs Palestinian text, F0 coverage, and the card at sign-up. Test it on the 15 synthetic right/wrong pairs from `v2.mjs` (Gemini TTS, no human voice): does the swapped word score clearly lower?
 3. Skip Cloudflare (same model as Groq, less headroom) and Hugging Face (no real free tier).
 
-Needs Adam: free accounts and keys as environment secrets (`GROQ_API_KEY`; `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION`), and his OK to send the deck clips and synthetic clips to these two providers.
+**Adam's answer (2026-11-02):** Groq yes, and he added `GROQ_API_KEY`. **No Azure.** Nothing runs locally. So the test is Groq only (`spikes/gemini-speech/groq.mjs`), and pronunciation scoring stays off (ADR 0013). The key reaches only sessions started after it was added, so the test runs in the next session.
 
 ## Sources
 - Groq rate limits ✅ https://console.groq.com/docs/rate-limits · data ✅ https://console.groq.com/docs/your-data · third-party free-tier guides ⚠️ https://spokenly.app/blog/free-speech-to-text-apis, https://www.developersdigest.tech/models/free-api/groq
