@@ -28,7 +28,7 @@ Set them in **Settings → Environment Variables**, never in git (`.env*` is git
 
 | Variable | Production (`main`) | Preview (`dev`, PRs) | Note |
 |---|---|---|---|
-| `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` | prod Supabase project | dev Supabase project | Added in #16. `VITE_` variables end up in the browser bundle. That's fine for Supabase's anon key, which is designed to be public and protected by row-level security. |
+| `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` | `waymark-prod` project | `waymark-dev` project | #16, steps in [SUPABASE](SUPABASE.md). `VITE_` variables end up in the browser bundle. That's fine for the publishable key, which is designed to be public; Row Level Security guards the data. **Set them before merging the code that uses them**, or that deploy shows "Not set up yet". |
 | `GEMINI_API_KEY`, `GROQ_API_KEY` | ✓ | ✓ | Added with the AI adapter (E15). **No `VITE_` prefix**: server-only, used inside the Vercel function, never sent to the browser. |
 
 ## Free-plan limits (checked 2026-11-02 on vercel.com/docs)

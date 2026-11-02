@@ -1,0 +1,39 @@
+# Supabase setup (issue #16)
+
+Two free projects ([ADR 0015](../decisions/0015-branches-and-environments.md)): **`waymark-prod`** for the live site (`main`) and **`waymark-dev`** for the dev site and PR previews. Login works as described in [ADR 0016](../decisions/0016-invite-only-password-login.md).
+
+Facts checked on supabase.com on 2026-11-02:
+- The free plan has 2 active projects, a 500 MB database and 50,000 monthly active users. **Projects pause after 1 week without activity**; you restore them in the dashboard and the data is kept.
+- The **publishable key** (`sb_publishable_…`) is made for browsers: "safe to expose", and Row Level Security decides what it can reach. The older `anon` key is being phased out by the end of 2026, so we use the publishable one.
+- Supabase's **built-in email** only sends to members of the project's team, at most **2 emails per hour**, and is "not meant for production". That's fine while Adam is the only user, since he owns the projects. Friends (M5, E18) will need a custom SMTP server; that's a decision for then.
+
+## Steps for Adam (do both projects)
+1. supabase.com → **New project**.
+   - Name: `waymark-prod`, then again for `waymark-dev`.
+   - Region: the one closest to you, e.g. Central EU (Frankfurt).
+   - Database password: save it in your password manager. Waymark itself never needs it.
+2. **Authentication → Sign In / Providers:**
+   - **Email** on.
+   - **Allow new users to sign up: off.** That's what makes it invite-only.
+   - Leave "Confirm email" on.
+3. **Authentication → URL Configuration → Site URL:**
+   - `waymark-prod`: `https://waymark-phi.vercel.app`
+   - `waymark-dev`: `https://waymark-git-dev-adamzvuluns-projects.vercel.app`
+   - Under **Redirect URLs**, also add `http://localhost:5173` for running it locally.
+
+   Emailed links send you back here.
+4. **Connect** (top of the project page): copy the **Project URL** and the **publishable key**. They aren't secret, but they go in Vercel, not in git.
+5. In **Vercel → waymark → Settings → Environment Variables**, add both variables. Uncheck "Development".
+   - `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` with the **`waymark-prod`** values, environment **Production** only.
+   - The same two names with the **`waymark-dev`** values, environment **Preview** only.
+6. After Claude's #16 PR is merged into `dev`, the dev site shows the login screen.
+7. In **`waymark-dev`**: **Authentication → Users → Add user → Send invitation**, with your email. Open the link in the email and choose a password on the screen it opens.
+   - If the invite refuses because sign-ups are off (Supabase's docs don't say whether it does), switch sign-ups on, send the invite, and switch them off again.
+   - If the link lands on the login screen instead, type your email there and use **"Email me a link"**.
+8. At the next release, do step 7 in **`waymark-prod`** too.
+
+## Running it locally
+Create `.env.local` (git-ignored) from [`.env.example`](../../.env.example) with the `waymark-dev` values. Without it, the app shows a "Not set up yet" screen that names what's missing.
+
+## Tests
+The tests never touch a real project. The e2e build points at a fake address, and `e2e/fake-supabase.ts` answers the auth calls (login, logout, reset, set password). So CI needs no Supabase secrets.
