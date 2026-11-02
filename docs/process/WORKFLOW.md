@@ -27,7 +27,11 @@ Idea ──► Discovery doc ──► ADR(s) ──► Epic issue ──► Fea
   - `prio:p0|p1|p2`
 
 ## 4. Execution
-- Branch per issue. A PR says `Closes #N`.
+- **Branches** ([ADR 0015](../decisions/0015-branches-and-environments.md)): `main` is the live site, `dev` is the live dev site and the default branch, and feature branches are created from `dev`.
+  - Branch per issue or feature, from `dev`. A PR into `dev` says `Closes #N`.
+  - **Release:** when Adam is happy with the dev site, a PR from `dev` into `main` (`Release vX.Y.Z`, merge commit, then tag `main`).
+  - **Hotfix:** branch from `main`, PR into `main`, then merge `main` back into `dev`.
+  - Never merge a red PR. Only Adam merges into `main`. Nobody pushes directly to `dev` or `main`.
 - **Definition of Done:**
   - Acceptance criteria are met.
   - Tests pass, with a new test where logic changed.
