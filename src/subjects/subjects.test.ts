@@ -31,7 +31,7 @@ describe('a new subject needs no platform changes', () => {
 
     expect(await api.progressSummary()).toEqual({ xp: 10, minutes: 5 });
     expect(await api.loadState()).toEqual({ drillsDone: 2 });
-    expect(store.wallet.xp).toBe(10);
+    expect(await store.wallet()).toEqual({ xp: 10, gold: 2, gems: 0 });
     // Other subjects are untouched.
     expect(await store.summary('morse')).toEqual({ xp: 0, minutes: 0 });
   });
