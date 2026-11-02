@@ -29,6 +29,14 @@ function fakeSession() {
 
 /** The wallet the fake database returns. */
 export const WALLET = { xp: 65, gold: 31, gems: 2 };
+/** Today: 6 of 15 minutes, a 2-day streak alive from yesterday. */
+export const TODAY = {
+  day: '2026-11-02',
+  minutes: 6,
+  goal_minutes: 15,
+  goal_reached: false,
+  streak: 2,
+};
 
 /**
  * Answers Supabase Auth calls (password login: only PASSWORD works; logout; reset email) and
@@ -52,6 +60,25 @@ export async function fakeSupabase(page: Page, passwordUpdates: unknown[] = []) 
     }
     if (url.pathname === '/auth/v1/logout') return route.fulfill({ status: 204 });
     if (url.pathname === '/auth/v1/recover') return route.fulfill({ json: {} });
+    if (url.pathname === '/rest/v1/rpc/set_time_zone') return route.fulfill({ json: null });
+    if (url.pathname === '/rest/v1/rpc/today_status') return route.fulfill({ json: TODAY });
+    if (url.pathname === '/rest/v1/rpc/set_daily_goal') {
+      // Like the database: a goal at or below today's minutes reaches it and pays the chest.
+      const { p_minutes } = route.request().postDataJSON() as { p_minutes: number };
+      const reached = TODAY.minutes >= p_minutes;
+      return route.fulfill({
+        json: {
+          ...TODAY,
+          goal_minutes: p_minutes,
+          goal_reached: reached,
+          goal_reached_now: reached,
+          streak: reached ? TODAY.streak + 1 : TODAY.streak,
+          chest_gold: reached ? 20 : 0,
+          chest_gems: 0,
+          wallet: { ...WALLET, gold: WALLET.gold + (reached ? 20 : 0) },
+        },
+      });
+    }
     if (url.pathname === '/rest/v1/wallets') {
       // supabase-js asks for a single object with this Accept header (maybeSingle).
       const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');
