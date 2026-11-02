@@ -1,6 +1,6 @@
 # 0017 — Player data: four tables, your rows only, derived level and streak
 
-- **Status:** Accepted (part of #17), amended by [0018](0018-automatic-db-migrations.md) (migrations apply automatically)
+- **Status:** Accepted (part of #17), amended by [0018](0018-automatic-db-migrations.md) (migrations apply automatically) and [0021](0021-streak-and-daily-goal.md) (each day stores whether its goal was reached)
 - **Date:** 2026-11-02
 
 ## Context
