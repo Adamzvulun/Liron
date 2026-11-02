@@ -3,6 +3,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { levelForXp, rewardsFor, xpForLevel } from '../../src/core/progress/economy.ts';
 import { supabaseStore } from '../../src/core/progress/supabaseStore.ts';
 
 // Runs the real migrations in PGlite (Postgres compiled to WebAssembly, in-process) on top of a
@@ -308,23 +309,25 @@ describe('supabaseStore against the real functions', () => {
       const names = Object.keys(args);
       const call = names.map((n, i) => `${n} => $${i + 1}`).join(', ');
       try {
-        await rows(`select public.${fn}(${call})`, Object.values(args));
-        return { error: null };
+        const [r] = await rows(`select public.${fn}(${call}) as result`, Object.values(args));
+        return { data: (r as { result: unknown }).result, error: null };
       } catch (e) {
         return { error: { message: (e as Error).message } };
       }
     },
     from: (table: string) => ({
-      select: (cols: string) => ({
-        eq: (col: string, value: string) => ({
-          async maybeSingle() {
-            const found = await rows(`select ${cols} from public.${table} where ${col} = $1`, [
-              value,
-            ]);
-            return { data: found[0] ?? null, error: null };
-          },
-        }),
-      }),
+      select: (cols: string) => {
+        const one = async (where = '', params: unknown[] = []) => {
+          const found = await rows(`select ${cols} from public.${table} ${where}`, params);
+          return { data: found[0] ?? null, error: null };
+        };
+        return {
+          maybeSingle: () => one(),
+          eq: (col: string, value: string) => ({
+            maybeSingle: () => one(`where ${col} = $1`, [value]),
+          }),
+        };
+      },
     }),
   } as unknown as SupabaseClient;
 
@@ -332,12 +335,74 @@ describe('supabaseStore against the real functions', () => {
     await as(ADAM, async () => {
       const store = supabaseStore(fakeClient);
       expect(await store.loadState('morse')).toBeNull(); // row exists, state never saved
-      await store.record('morse', 12, 2);
+      expect(await store.record('morse', 12, 2)).toEqual({
+        xp: 12,
+        gold: 2,
+        gems: 0,
+        xpEarned: 12,
+        goldEarned: 2,
+        gemsEarned: 0,
+        levelBefore: 1,
+        level: 1,
+      });
+      expect(await store.wallet()).toEqual({ xp: 12, gold: 2, gems: 0 });
       await store.saveState('morse', { koch: 2 });
       expect(await store.summary('morse')).toEqual({ xp: 12, minutes: 2 });
       expect(await store.loadState('morse')).toEqual({ koch: 2 });
       expect(await store.summary('arabic')).toEqual({ xp: 0, minutes: 0 });
       await expect(store.record('morse', 0, 0)).rejects.toThrow(/Couldn't save morse progress/);
+    });
+  });
+});
+
+describe('levels and rewards (ADR 0020)', () => {
+  it('the database curve matches src/core/progress/economy.ts', async () => {
+    const xps = [0, 1, 19, 20, 21, 49, 50, 139, 140, 539, 540, 2089, 2090, 12740, 50489, 50490];
+    for (let l = 1; l <= 300; l += 7) xps.push(xpForLevel(l) - 1, xpForLevel(l));
+    const [r] = await rows(
+      `select array_agg(public.level_for_xp(x) order by i) as levels
+         from unnest($1::bigint[]) with ordinality as t(x, i)`,
+      [xps],
+    );
+    expect((r as { levels: number[] }).levels).toEqual(xps.map(levelForXp));
+  });
+
+  it('pays gold and gems exactly as rewardsFor says, and reports the level-up', async () => {
+    const steps = [15, 5, 120, 10000, 3, 400];
+    let before = 0;
+    let gold = 0;
+    let gems = 0;
+    for (const xp of steps) {
+      const [r] = await as(ADAM, () =>
+        rows(`select record_progress('morse', $1, 0) as result`, [xp]),
+      );
+      const earned = rewardsFor(before, before + xp);
+      gold += earned.gold;
+      gems += earned.gems;
+      expect((r as { result: unknown }).result).toEqual({
+        xp: before + xp,
+        gold,
+        gems,
+        xp_earned: xp,
+        gold_earned: earned.gold,
+        gems_earned: earned.gems,
+        level_before: levelForXp(before),
+        level: levelForXp(before + xp),
+      });
+      before += xp;
+    }
+    expect(await rows(`select xp, gold, gems from wallets where user_id = $1`, [ADAM])).toEqual([
+      { xp: before, gold, gems },
+    ]);
+  });
+
+  it('reaching level 5 from scratch pays 98 gold and a gem', async () => {
+    const [r] = await as(ADAM, () => rows(`select record_progress('arabic', 140, 0) as result`));
+    expect((r as { result: Record<string, number> }).result).toMatchObject({
+      level_before: 1,
+      level: 5,
+      gold_earned: 98,
+      gems_earned: 1,
     });
   });
 });

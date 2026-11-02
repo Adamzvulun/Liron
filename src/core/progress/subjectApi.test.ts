@@ -12,7 +12,7 @@ describe('subjectApi', () => {
     expect(morse.subjectId).toBe('morse');
     expect(await morse.progressSummary()).toEqual({ xp: 7, minutes: 0 });
     expect(await arabic.progressSummary()).toEqual({ xp: 0, minutes: 4 });
-    expect(store.wallet.xp).toBe(7);
+    expect((await store.wallet()).xp).toBe(7);
   });
 
   it('refuses invalid subject ids', () => {
@@ -47,5 +47,27 @@ describe('subjectApi', () => {
     expect(await api.loadState()).toEqual({ level: 2 });
     expect(await store.loadState('arabic')).toBeNull();
     await expect(api.saveState([] as unknown as { level: number })).rejects.toThrow(TypeError);
+  });
+});
+
+describe('awards', () => {
+  it('tell the platform about every award, including level-ups and what they paid', async () => {
+    const awards: unknown[] = [];
+    const api = subjectApi({ id: 'morse' }, memoryStore(), (a) => awards.push(a));
+    await api.awardXP(25);
+    await api.recordPractice(3);
+    expect(awards).toEqual([
+      {
+        xp: 25,
+        gold: 15, // 5 for 25 XP + 10 for reaching level 2
+        gems: 0,
+        xpEarned: 25,
+        goldEarned: 15,
+        gemsEarned: 0,
+        levelBefore: 1,
+        level: 2,
+      },
+      expect.objectContaining({ xp: 25, xpEarned: 0, goldEarned: 0, level: 2 }),
+    ]);
   });
 });

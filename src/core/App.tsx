@@ -1,8 +1,16 @@
+import { useEffect } from 'react';
 import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
+import { Hud } from './player/Hud.tsx';
+import { LevelUp } from './player/LevelUp.tsx';
+import { createPlayer, usePlayer, type Player } from './player/player.ts';
+import { supabaseStore } from './progress/supabaseStore.ts';
 import './App.css';
+
+// The signed-in player. Subjects' APIs report awards to it (ADR 0019, 0020).
+const player: Player | null = supabase ? createPlayer(supabaseStore(supabase)) : null;
 
 export function App() {
   if (!supabase) return <NotConfiguredScreen missing={missingConfig} />;
@@ -19,12 +27,14 @@ function AuthGate() {
     case 'setPassword':
       return <SetPasswordScreen onDone={passwordChosen} />;
     case 'signedIn':
-      return <Lobby />;
+      return player && <Lobby player={player} />;
   }
 }
 
 // Placeholder lobby until the city (E4) replaces it.
-function Lobby() {
+function Lobby({ player }: { player: Player }) {
+  const state = usePlayer(player);
+  useEffect(() => void player.load(), [player]);
   return (
     <main className="lobby">
       <div className="lobby__top">
@@ -37,6 +47,7 @@ function Lobby() {
           Sign out
         </button>
       </div>
+      <Hud state={state} />
       <p className="lobby__lead">Choose where to go.</p>
       <ul className="lobby__places">
         {subjects.map((s) => (
@@ -46,6 +57,7 @@ function Lobby() {
           </li>
         ))}
       </ul>
+      {state.levelUp && <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />}
     </main>
   );
 }

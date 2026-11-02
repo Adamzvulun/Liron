@@ -1,13 +1,17 @@
 import { SUBJECT_ID, type SubjectApi, type SubjectInfo } from '../subject.ts';
-import type { ProgressStore } from './store.ts';
+import type { Award, ProgressStore } from './store.ts';
 
 const MAX_XP = 10_000; // per call; the same limits are enforced again in the database
 const MAX_MINUTES = 240;
 
-/** Builds the API the platform hands to one subject, bound to that subject's id. */
+/**
+ * Builds the API the platform hands to one subject, bound to that subject's id.
+ * `onAward` lets the platform update the HUD and celebrate level-ups.
+ */
 export function subjectApi<State extends object>(
   subject: Pick<SubjectInfo, 'id'>,
   store: ProgressStore,
+  onAward: (award: Award) => void = () => {},
 ): SubjectApi<State> {
   const id = subject.id;
   if (!SUBJECT_ID.test(id)) throw new Error(`Invalid subject id: "${id}"`);
@@ -17,7 +21,7 @@ export function subjectApi<State extends object>(
       if (!Number.isInteger(amount) || amount < 1 || amount > MAX_XP) {
         throw new RangeError(`awardXP: expected a whole number from 1 to ${MAX_XP}, got ${amount}`);
       }
-      await store.record(id, amount, 0);
+      onAward(await store.record(id, amount, 0));
     },
     async recordPractice(minutes) {
       if (!Number.isFinite(minutes) || minutes < 0 || minutes > MAX_MINUTES) {
@@ -26,7 +30,7 @@ export function subjectApi<State extends object>(
         );
       }
       const whole = Math.round(minutes);
-      if (whole > 0) await store.record(id, 0, whole);
+      if (whole > 0) onAward(await store.record(id, 0, whole));
     },
     progressSummary: () => store.summary(id),
     loadState: () => store.loadState(id) as Promise<State | null>,
