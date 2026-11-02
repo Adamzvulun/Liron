@@ -1,0 +1,45 @@
+# CI for Waymark (issue #14): lint, typecheck, unit tests, build, Playwright smoke.
+# Runs on every PR and on pushes to dev and main (branch flow: ADR 0015).
+# Private repo on GitHub Free: about 2,000 Linux minutes/month are included ($12 of compute).
+# Without a payment method, runs are blocked (not billed) once that's used up.
+# Kept cheap: one job, Chromium only, superseded runs on the same branch are cancelled.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [dev, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      # Fine on GitHub's runners. In the Claude cloud session Chromium is pre-installed instead.
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+        env:
+          CI: true
+      - if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playwright-report
+          path: test-results/
+          retention-days: 7

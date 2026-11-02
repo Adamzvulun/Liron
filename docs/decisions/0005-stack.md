@@ -28,6 +28,12 @@ Requirements:
 ## Amendment (2026-11-01)
 PWA, installability, and offline mode are dropped: Waymark is a regular website. Progress therefore lives in Supabase from M1, and login is required (invite-only, ADR 0008).
 
+## Amendment 2 (2026-11-02, issue #12): repo layout
+- The app lives at the **repo root** (`package.json`, `src/`, `index.html`), not in an `app/` folder. There's only one app, and Vercel and CI work with no extra root-directory setting. `docs/`, `spikes/` and `sources/` sit next to it and are excluded from lint and formatting.
+- `src/core/` is the platform, `src/subjects/<id>/` holds one module per subject (ADR 0003), and `content/` holds learning data.
+- Versions: TypeScript 6.0 (typescript-eslint doesn't support 7 yet), Vite 8, React 19. Dependencies are pinned exactly, using releases at least two weeks old.
+- Fonts are self-hosted via `@fontsource/*`, so no visitor request goes to Google Fonts.
+
 ## Consequences
 - Supabase lock-in is moderate, since it's plain Postgres underneath.
 - The lobby is a clickable illustrated screen. A walkable world is out of scope.

@@ -1,0 +1,61 @@
+/* Design tokens from the style guide v0 (docs/design/concept-v0/StyleGuide.dc.html). */
+:root {
+  --ink: #24160e;
+  --parchment: #f3e2bc;
+  --wood: #6b3f20;
+  --brass: #e8a93a;
+  --stone: #a6957f;
+  --night: #1e2636;
+  --dusk: #33397a;
+  --ember: #d9784f;
+  --lamplight: #ffd36b;
+  --vellum: #fbf1d8;
+
+  /* Guilds: each subject owns one hue. */
+  --guild-morse: #2e8fa3;
+  --guild-arabic: #c8553d;
+
+  --font-display: 'Cinzel', serif;
+  --font-ui: 'Alegreya Sans', system-ui, sans-serif;
+  --font-arabic: 'Noto Naskh Arabic', serif;
+  --font-hebrew: 'Noto Sans Hebrew', sans-serif;
+
+  --outline-ui: 3px solid var(--ink);
+  --radius-card: 14px;
+
+  color-scheme: dark;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--vellum);
+  background: var(--night);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--dusk) 0%, var(--night) 70%);
+}
+
+:lang(ar) {
+  font-family: var(--font-arabic);
+  font-size: max(22px, 1em);
+}
+
+:lang(he) {
+  font-family: var(--font-hebrew);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
