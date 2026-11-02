@@ -1,0 +1,9 @@
+# Prettier only formats the app; docs and research keep their hand formatting.
+dist
+docs
+spikes
+sources
+.claude
+.github
+*.md
+package-lock.json
