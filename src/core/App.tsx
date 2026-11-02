@@ -3,6 +3,7 @@ import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
+import { GoalReached } from './player/GoalReached.tsx';
 import { Hud } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
@@ -47,7 +48,7 @@ function Lobby({ player }: { player: Player }) {
           Sign out
         </button>
       </div>
-      <Hud state={state} />
+      <Hud state={state} onGoalChange={(m) => void player.setDailyGoal(m)} />
       <p className="lobby__lead">Choose where to go.</p>
       <ul className="lobby__places">
         {subjects.map((s) => (
@@ -57,7 +58,12 @@ function Lobby({ player }: { player: Player }) {
           </li>
         ))}
       </ul>
-      {state.levelUp && <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />}
+      {/* One celebration at a time: the level-up first, then the daily goal. */}
+      {state.levelUp ? (
+        <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
+      ) : (
+        state.goalReached && <GoalReached day={state.goalReached} onDone={player.dismissGoal} />
+      )}
     </main>
   );
 }

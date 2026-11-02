@@ -1,26 +1,45 @@
 import { useSyncExternalStore } from 'react';
-import type { Award, ProgressStore, Wallet } from '../progress/store.ts';
+import type { Award, DayResult, ProgressStore, Today, Wallet } from '../progress/store.ts';
+
+/** What the level-up card shows. Several level-ups before it's dismissed merge into one. */
+export type LevelUpInfo = Pick<
+  Award,
+  'level' | 'levelBefore' | 'xpEarned' | 'goldEarned' | 'gemsEarned'
+>;
 
 export interface PlayerState {
   /** null while loading. */
   wallet: Wallet | null;
+  today: Today | null;
   error: string | null;
   /** The level-up waiting to be celebrated, if any. */
-  levelUp: Award | null;
+  levelUp: LevelUpInfo | null;
+  /** The daily goal just reached, waiting to be celebrated, if any. */
+  goalReached: DayResult | null;
 }
 
+/** The browser's time zone, e.g. "Asia/Jerusalem". */
+export const browserTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
+
 /**
- * The signed-in player's wallet, kept current as awards come in. The platform passes
- * `applyAward` to every subject's API (ADR 0019), so the HUD updates and level-ups are
- * celebrated wherever XP is earned.
+ * The signed-in player's wallet, day and streak, kept current as awards come in. The platform
+ * passes `applyAward` to every subject's API (ADR 0019), so the HUD updates and level-ups and
+ * daily goals are celebrated wherever they happen.
  */
-export function createPlayer(store: ProgressStore) {
-  let state: PlayerState = { wallet: null, error: null, levelUp: null };
+export function createPlayer(store: ProgressStore, timeZone: () => string = browserTimeZone) {
+  let state: PlayerState = {
+    wallet: null,
+    today: null,
+    error: null,
+    levelUp: null,
+    goalReached: null,
+  };
   const listeners = new Set<() => void>();
   const set = (next: Partial<PlayerState>) => {
     state = { ...state, ...next };
     listeners.forEach((l) => l());
   };
+  const fail = (e: unknown) => set({ error: (e as Error).message });
   return {
     subscribe(listener: () => void) {
       listeners.add(listener);
@@ -29,9 +48,12 @@ export function createPlayer(store: ProgressStore) {
     getSnapshot: () => state,
     async load() {
       try {
-        set({ wallet: await store.wallet(), error: null });
+        // The day follows the browser's time zone. If saving it fails, the last one still works.
+        await store.setTimeZone(timeZone()).catch(() => {});
+        const [wallet, today] = await Promise.all([store.wallet(), store.today()]);
+        set({ wallet, today, error: null });
       } catch (e) {
-        set({ error: (e as Error).message });
+        fail(e);
       }
     },
     applyAward(award: Award) {
@@ -42,7 +64,7 @@ export function createPlayer(store: ProgressStore) {
       if (award.level > award.levelBefore) {
         levelUp = prev
           ? {
-              ...award,
+              level: award.level,
               levelBefore: prev.levelBefore,
               xpEarned: prev.xpEarned + award.xpEarned,
               goldEarned: prev.goldEarned + award.goldEarned,
@@ -50,10 +72,26 @@ export function createPlayer(store: ProgressStore) {
             }
           : award;
       }
-      set({ wallet, levelUp });
+      set({
+        wallet,
+        today: award.today,
+        levelUp,
+        goalReached: award.today.goalReachedNow ? award.today : state.goalReached,
+      });
+    },
+    async setDailyGoal(minutes: number) {
+      try {
+        const { wallet, today } = await store.setDailyGoal(minutes);
+        set({ wallet, today, goalReached: today.goalReachedNow ? today : state.goalReached });
+      } catch (e) {
+        fail(e);
+      }
     },
     dismissLevelUp() {
       set({ levelUp: null });
+    },
+    dismissGoal() {
+      set({ goalReached: null });
     },
   };
 }

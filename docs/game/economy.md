@@ -1,6 +1,6 @@
 # Economy: XP, levels, gold and gems
 
-The numbers that make progress feel like a game. They're meant to be tuned: change them here, in [`src/core/progress/economy.ts`](../../src/core/progress/economy.ts), and in a new migration (the database applies the same rules; a test fails if the two disagree). Decision: [ADR 0020](../decisions/0020-fast-levels-and-rewards.md).
+The numbers that make progress feel like a game. They're meant to be tuned: change them here, in [`src/core/progress/economy.ts`](../../src/core/progress/economy.ts), and in a new migration (the database applies the same rules; a test fails if the two disagree). Decisions: [ADR 0020](../decisions/0020-fast-levels-and-rewards.md) (levels, gold, gems), [ADR 0021](../decisions/0021-streak-and-daily-goal.md) (daily goal, streak).
 
 **Pace (Adam, 2026-11-02: "faster"):** level 2 in the first couple of minutes, level 5 on day one, level 10 by day four. Then each level gets a little longer, but never a grind.
 
@@ -30,18 +30,26 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 ## Gold
 - **1 gold per 5 XP**, counted on your XP total so nothing is lost to rounding. About 30 gold on a 15-minute day.
 - **Reaching level *L* pays 5 × *L* gold.** For example, level 5 pays 25 gold.
+- **Daily chest:** 20 gold (below).
 - Spent in the Market (E10).
 
 ## Gems (rare)
 - **1 gem at every 5th level** (5, 10, 15, …). Early on that's about one a week.
+- **1 gem in the daily chest on every 7th streak day.**
+
+## Daily goal and streak
+- **Daily goal:** 15 minutes by default; you pick 5, 10, 15, 20, 30, 45 or 60 in the HUD. Practice minutes from every subject count.
+- **Your day** follows your browser's time zone, saved to your profile each time you open Waymark.
+- **Streak:** consecutive days on which you reached the goal. Today counts once you reach it; until then the streak from yesterday stays alive. A missed day resets it to 0. Streak protection items come later, from the Market (E10).
+- **Daily chest:** reaching the goal pays **20 gold**, once a day. On every **7th day** of a streak (7, 14, 21, …) the chest also holds **1 gem**.
+- Changing the goal never rewrites past days. Lowering it below what you've already done today reaches today's goal straight away.
 
 ## Coming later (not dropped)
 | Reward | Where |
 |---|---|
-| Daily-goal chest: gold, sometimes a gem | #20 (daily goal) |
-| 1 gem for each 7-day streak | #20 (streak) |
 | Combo bonus inside activities, end-of-activity screen | each subject's activities (E6–E9), through the contract |
 | Daily quests and chests, quest gold | E10 (quests and rewards) |
+| Streak protection items | E10 (Market) |
 | Weekly league | M5 (friends) |
 | Achievements and boss challenges paying gems | later epics |
 

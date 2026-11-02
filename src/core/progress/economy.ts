@@ -54,3 +54,38 @@ const TITLES: readonly [number, string][] = [
 export function titleForLevel(level: number): string {
   return TITLES.find(([min]) => level >= min)?.[1] ?? 'Wanderer';
 }
+
+export const DEFAULT_DAILY_GOAL = 15;
+export const DAILY_GOAL_CHOICES = [5, 10, 15, 20, 30, 45, 60] as const;
+export const DAILY_CHEST_GOLD = 20;
+export const STREAK_GEM_EVERY = 7; // the chest holds a gem on every 7th day of a streak
+
+/** What reaching the daily goal pays, given the streak including today. */
+export function dailyChest(streak: number): { gold: number; gems: number } {
+  return {
+    gold: DAILY_CHEST_GOLD,
+    gems: streak > 0 && streak % STREAK_GEM_EVERY === 0 ? 1 : 0,
+  };
+}
+
+/** Adds `n` days to an ISO date (YYYY-MM-DD). */
+export function addDays(day: string, n: number): string {
+  const d = new Date(`${day}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+/**
+ * Consecutive goal days ending today, or ending yesterday while today's goal is still open.
+ * A missed day resets it.
+ */
+export function streakFrom(goalDays: Iterable<string>, today: string): number {
+  const days = new Set(goalDays);
+  let day = days.has(today) ? today : addDays(today, -1);
+  let streak = 0;
+  while (days.has(day)) {
+    streak++;
+    day = addDays(day, -1);
+  }
+  return streak;
+}

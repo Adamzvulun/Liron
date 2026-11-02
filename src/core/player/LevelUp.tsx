@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { titleForLevel } from '../progress/economy.ts';
-import type { Award } from '../progress/store.ts';
+import type { LevelUpInfo } from './player.ts';
 import { CoinIcon, GemIcon } from './Hud.tsx';
 import './player.css';
 
 /** The level-up celebration. Shown over the page until the player moves on. */
-export function LevelUp({ award, onDone }: { award: Award; onDone: () => void }) {
+export function LevelUp({ award, onDone }: { award: LevelUpInfo; onDone: () => void }) {
   const button = useRef<HTMLButtonElement>(null);
   useEffect(() => button.current?.focus(), []);
   const newTitle =
