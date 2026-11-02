@@ -1,6 +1,6 @@
 """Pick a fixed sample of clips from the Lingualism deck for the Gemini speech spike.
 
-Usage: python3 -I prep.py   (needs the `zstd` CLI)
+Usage: python3 -I prep.py   (uses the `zstd` CLI, or Node 22's built-in zstd if the CLI is missing)
 Writes clips/ (git-ignored audio) and manifest.json (text + metadata).
 """
 import json, os, random, re, shutil, sqlite3, subprocess, tempfile, zipfile
@@ -8,6 +8,12 @@ import json, os, random, re, shutil, sqlite3, subprocess, tempfile, zipfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 APKG = os.path.join(HERE, '..', '..', 'sources', 'arabic', 'lingualism-palestinian-vocabulary', 'lingualism-pcav.apkg')
 HARD = set('حهعءأإؤئقخغصضطظ')
+
+def unzstd(src, dst):
+    if shutil.which('zstd'):
+        unzstd(src, dst)
+    else:  # Node 22+ ships zstd in zlib
+        subprocess.run(['node', '-e', "const fs=require('fs');fs.writeFileSync(process.argv[2],require('zlib').zstdDecompressSync(fs.readFileSync(process.argv[1])))", src, dst], check=True)
 
 def varint(b, i):
     v = s = 0
@@ -28,8 +34,8 @@ def main():
     tmp = tempfile.mkdtemp()
     with zipfile.ZipFile(APKG) as z:
         z.extractall(tmp)
-    subprocess.run(['zstd', '-q', '-d', '-f', os.path.join(tmp, 'collection.anki21b'), '-o', os.path.join(tmp, 'col.sqlite')], check=True)
-    subprocess.run(['zstd', '-q', '-d', '-f', os.path.join(tmp, 'media'), '-o', os.path.join(tmp, 'media.bin')], check=True)
+    unzstd(os.path.join(tmp, 'collection.anki21b'), os.path.join(tmp, 'col.sqlite'))
+    unzstd(os.path.join(tmp, 'media'), os.path.join(tmp, 'media.bin'))
     names = media_names(open(os.path.join(tmp, 'media.bin'), 'rb').read())
     index = {n: str(i) for i, n in enumerate(names)}
     db = sqlite3.connect(os.path.join(tmp, 'col.sqlite'))
@@ -50,7 +56,7 @@ def main():
     for n in sample:
         src, dst = os.path.join(tmp, index[n['file']]), os.path.join(clips, n['file'])
         if open(src, 'rb').read(4) == b'\x28\xb5\x2f\xfd':  # anki21b also zstd-compresses each media file
-            subprocess.run(['zstd', '-q', '-d', '-f', src, '-o', dst], check=True)
+            unzstd(src, dst)
         else:
             shutil.copy(src, dst)
     json.dump(sample, open(os.path.join(HERE, 'manifest.json'), 'w'), ensure_ascii=False, indent=1)

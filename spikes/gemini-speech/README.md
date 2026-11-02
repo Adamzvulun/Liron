@@ -47,3 +47,13 @@ node v2.mjs --part deck
 node v2.mjs --part synth
 ```
 (`synth` uses the TTS models, about 10 calls/day each on the free tier. Its audio goes to `synth-clips/`, which is git-ignored.)
+
+## Non-Gemini candidate: Groq Whisper (2026-11-02)
+Research: [`docs/research/speech-apis.md`](../../docs/research/speech-apis.md). The same deck clips plus the synthetic pairs in `synth-clips/` (Gemini TTS, no human voice; committed so the test needs no TTS quota) go through Groq's hosted `whisper-large-v3`. Free tier: 20 requests/min, 2,000/day.
+```bash
+python3 -I prep.py
+```
+```bash
+node groq.mjs
+```
+Results: not run yet. The key was added on 2026-11-02, after this session started.
