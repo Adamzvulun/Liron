@@ -1,4 +1,5 @@
 import type { SubjectProgress } from '../subject.ts';
+import type { ScheduledReview, StoredCard } from '../srs/scheduler.ts';
 import {
   addDays,
   dailyChest,
@@ -55,12 +56,23 @@ export interface ProgressStore {
   summary(subjectId: string): Promise<SubjectProgress>;
   loadState(subjectId: string): Promise<object | null>;
   saveState(subjectId: string, state: object): Promise<void>;
+  /** Stored FSRS cards for the given items (missing items have never been reviewed). */
+  reviewCards(subjectId: string, itemIds: readonly string[]): Promise<Map<string, StoredCard>>;
+  /** Items due at `now`, most overdue first. */
+  dueCards(subjectId: string, now: Date, limit: number): Promise<{ itemId: string; due: Date }[]>;
+  /** Saves a review: the card's new state and the log entry, together. */
+  saveReview(
+    subjectId: string,
+    itemId: string,
+    review: ScheduledReview,
+    reviewedAt: Date,
+  ): Promise<void>;
 }
 
 /** An in-memory store with the same rules as the database, for tests. */
 export function memoryStore(
   clock: { today: () => string } = { today: () => new Date().toISOString().slice(0, 10) },
-): ProgressStore & { travel(days: number): void } {
+): ProgressStore & { travel(days: number): void; reviewLog: readonly object[] } {
   const subjects = new Map<string, SubjectProgress & { state: object | null }>();
   const get = (id: string) => {
     let s = subjects.get(id);
@@ -69,6 +81,8 @@ export function memoryStore(
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
   const days = new Map<string, { minutes: number; reached: boolean }>();
+  const cards = new Map<string, { due: Date; card: StoredCard }>(); // key: subject/item
+  const reviewLog: { subjectId: string; itemId: string; rating: number; at: Date }[] = [];
   let goal = DEFAULT_DAILY_GOAL;
   let offset = 0;
   const todayIs = () => addDays(clock.today(), offset);
@@ -97,8 +111,28 @@ export function memoryStore(
     return { ...status(), goalReachedNow: now, chestGold: chest.gold, chestGems: chest.gems };
   };
   return {
+    reviewLog,
     travel(n) {
       offset += n;
+    },
+    async reviewCards(subjectId, itemIds) {
+      const found = new Map<string, StoredCard>();
+      for (const id of itemIds) {
+        const c = cards.get(`${subjectId}/${id}`);
+        if (c) found.set(id, structuredClone(c.card));
+      }
+      return found;
+    },
+    async dueCards(subjectId, now, limit) {
+      return [...cards]
+        .filter(([key, c]) => key.startsWith(`${subjectId}/`) && c.due <= now)
+        .sort(([, a], [, b]) => a.due.getTime() - b.due.getTime())
+        .slice(0, limit)
+        .map(([key, c]) => ({ itemId: key.slice(subjectId.length + 1), due: c.due }));
+    },
+    async saveReview(subjectId, itemId, review, reviewedAt) {
+      cards.set(`${subjectId}/${itemId}`, { due: review.due, card: structuredClone(review.card) });
+      reviewLog.push({ subjectId, itemId, rating: review.rating, at: reviewedAt });
     },
     async record(id, xp, minutes) {
       const s = get(id);

@@ -10,6 +10,7 @@ import {
   streakFrom,
   xpForLevel,
 } from '../../src/core/progress/economy.ts';
+import { subjectApi } from '../../src/core/progress/subjectApi.ts';
 import { supabaseStore } from '../../src/core/progress/supabaseStore.ts';
 
 // Runs the real migrations in PGlite (Postgres compiled to WebAssembly, in-process) on top of a
@@ -23,7 +24,14 @@ const migrations = readdirSync(join(root, 'migrations'))
 
 const ADAM = '00000000-0000-0000-0000-00000000000a';
 const OTHER = '00000000-0000-0000-0000-00000000000b';
-const TABLES = ['profiles', 'wallets', 'daily_activity', 'subject_progress'] as const;
+const TABLES = [
+  'profiles',
+  'wallets',
+  'daily_activity',
+  'subject_progress',
+  'review_cards',
+  'review_log',
+] as const;
 
 let db: PGlite;
 
@@ -69,6 +77,16 @@ beforeAll(async () => {
       [id],
     );
     await db.query(`insert into subject_progress (user_id, subject_id) values ($1, 'morse')`, [id]);
+    await db.query(
+      `insert into review_cards (user_id, subject_id, item_id, due, state, card)
+       values ($1, 'morse', 'char:E', now(), 0, '{}')`,
+      [id],
+    );
+    await db.query(
+      `insert into review_log (user_id, subject_id, item_id, rating, reviewed_at, log)
+       values ($1, 'morse', 'char:E', 3, now(), '{}')`,
+      [id],
+    );
   }
 });
 
@@ -112,6 +130,13 @@ describe('row-level security', () => {
     });
 
     it(`${table}: a user can't change someone else's rows`, async () => {
+      if (table === 'review_log') {
+        // Append-only: nobody can change any row, their own included.
+        await expect(
+          as(ADAM, () => run(`update review_log set rating = 4 where user_id = $1`, [OTHER])),
+        ).rejects.toThrow(/permission denied/);
+        return;
+      }
       const result = await as(ADAM, () =>
         run(`update ${table} set updated_at = now() where ${owner} = $1`, [OTHER]),
       );
@@ -321,21 +346,83 @@ describe('supabaseStore against the real functions', () => {
         return { error: { message: (e as Error).message } };
       }
     },
-    from: (table: string) => ({
-      select: (cols: string) => {
-        const one = async (where = '', params: unknown[] = []) => {
-          const found = await rows(`select ${cols} from public.${table} ${where}`, params);
-          return { data: found[0] ?? null, error: null };
-        };
-        return {
-          maybeSingle: () => one(),
-          eq: (col: string, value: string) => ({
-            maybeSingle: () => one(`where ${col} = $1`, [value]),
-          }),
-        };
-      },
-    }),
+    // A small PostgREST stand-in: select with eq / in / lte / order / limit, then
+    // maybeSingle() or await for all rows.
+    from: (table: string) => {
+      const where: string[] = [];
+      const params: unknown[] = [];
+      let cols = '*';
+      let tail = '';
+      const run = async () =>
+        rows(
+          `select ${cols} from public.${table} ${where.length ? `where ${where.join(' and ')}` : ''} ${tail}`,
+          params,
+        );
+      const q = {
+        select(c: string) {
+          cols = c;
+          return q;
+        },
+        eq(col: string, v: unknown) {
+          params.push(v);
+          where.push(`${col} = $${params.length}`);
+          return q;
+        },
+        in(col: string, vs: unknown[]) {
+          params.push(vs);
+          where.push(`${col} = any($${params.length})`);
+          return q;
+        },
+        lte(col: string, v: unknown) {
+          params.push(v);
+          where.push(`${col} <= $${params.length}`);
+          return q;
+        },
+        order(col: string) {
+          tail += ` order by ${col}`;
+          return q;
+        },
+        limit(n: number) {
+          tail += ` limit ${n}`;
+          return q;
+        },
+        async maybeSingle() {
+          return { data: (await run())[0] ?? null, error: null };
+        },
+        then<T>(resolve: (r: { data: unknown[]; error: null }) => T) {
+          return run().then((data) => resolve({ data, error: null }));
+        },
+      };
+      return q;
+    },
   } as unknown as SupabaseClient;
+
+  it('records reviews and finds due items through the real functions (ADR 0022)', async () => {
+    await as(ADAM, async () => {
+      const morse = subjectApi({ id: 'morse' }, supabaseStore(fakeClient));
+      const t0 = new Date(Date.now() - 3 * 86_400_000); // three days ago
+      await morse.recordReview('char:K', 'again', t0);
+      await morse.recordReview('char:M', 'easy', t0);
+      await morse.recordReview('char:K', 'good', new Date(t0.getTime() + 60_000));
+      const status = await morse.reviewStatus(['char:K', 'char:M', 'char:X']);
+      expect([...status.keys()].sort()).toEqual(['char:K', 'char:M']);
+      expect(status.get('char:K')).toMatchObject({ reps: 2 });
+      const due = await morse.dueItems();
+      expect(due.map((d) => d.itemId)).toContain('char:K');
+      const times = due.map((d) => d.due.getTime());
+      expect(times).toEqual([...times].sort((a, b) => a - b));
+    });
+    expect(
+      await rows(
+        `select item_id, rating from review_log where user_id = $1 and item_id <> 'char:E' order by id`,
+        [ADAM],
+      ),
+    ).toEqual([
+      { item_id: 'char:K', rating: 1 },
+      { item_id: 'char:M', rating: 4 },
+      { item_id: 'char:K', rating: 3 },
+    ]);
+  });
 
   it('records, sums and saves state for the signed-in user', async () => {
     await as(ADAM, async () => {
@@ -507,5 +594,27 @@ describe('daily goal and streak (ADR 0021)', () => {
     for (const fn of ['today_status()', 'check_daily_goal()', 'set_daily_goal(20)']) {
       await expect(as(null, () => rows(`select ${fn}`))).rejects.toThrow(/permission denied/);
     }
+  });
+});
+
+describe('spaced repetition tables (ADR 0022)', () => {
+  it('the review log is append-only', async () => {
+    const upd = await as(ADAM, () =>
+      run(`update review_log set rating = 4 where user_id = $1`, [ADAM]).catch((e: Error) => e),
+    );
+    expect(String(upd)).toMatch(/permission denied/);
+  });
+
+  it('record_review refuses future times, bad ratings and logged-out visitors', async () => {
+    const call = (rating: number, at: string) =>
+      rows(`select record_review('morse', 'k', $1, $2::timestamptz, now(), 1, '{}', '{}')`, [
+        rating,
+        at,
+      ]);
+    await expect(as(ADAM, () => call(3, '2999-01-01'))).rejects.toThrow(/future/);
+    await expect(as(ADAM, () => call(5, new Date().toISOString()))).rejects.toThrow(/check/);
+    await expect(as(null, () => call(3, new Date().toISOString()))).rejects.toThrow(
+      /permission denied/,
+    );
   });
 });
