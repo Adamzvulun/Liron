@@ -1,0 +1,44 @@
+# Applies new database migrations (supabase/migrations/) automatically (ADR 0018):
+#   push to dev  -> waymark-dev  (secret SUPABASE_DEV_DB_URL)
+#   push to main -> waymark-prod (secret SUPABASE_PROD_DB_URL)
+# `supabase db push` applies only migrations not yet in the project's history table
+# (supabase_migrations.schema_migrations), so re-running it is safe.
+# Secrets are only available to pushes on this repo, never to pull requests.
+name: DB migrate
+
+on:
+  push:
+    branches: [dev, main]
+    paths: ['supabase/migrations/**']
+  workflow_dispatch:
+
+concurrency:
+  group: db-migrate-${{ github.ref_name }}
+  cancel-in-progress: false # never stop a migration halfway
+
+permissions:
+  contents: read
+
+jobs:
+  migrate:
+    if: github.ref_name == 'dev' || github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DB_URL: ${{ github.ref_name == 'main' && secrets.SUPABASE_PROD_DB_URL || secrets.SUPABASE_DEV_DB_URL }}
+      TARGET: ${{ github.ref_name == 'main' && 'waymark-prod' || 'waymark-dev' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: supabase/setup-cli@689adcfb80d947100a1eab127289b97d1fb07b13 # v3.2.0
+        with:
+          version: 2.121.0
+      - name: Check the secret is set
+        run: |
+          if [ -z "$DB_URL" ]; then
+            echo "::error::No database URL secret for $TARGET. See docs/process/SUPABASE.md#migrations."
+            exit 1
+          fi
+      - name: Show pending migrations for ${{ env.TARGET }}
+        run: supabase db push --db-url "$DB_URL" --dry-run
+      - name: Apply them to ${{ env.TARGET }}
+        run: supabase db push --db-url "$DB_URL" --yes
