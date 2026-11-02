@@ -8,7 +8,7 @@
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0018 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0019 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -20,10 +20,9 @@
 1. **Leftovers for Adam:** create the `v0.1.0` tag in GitHub Releases (target `main`; the session's git proxy refuses tag pushes). Delete the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` (both already in `dev`; Claude's session isn't allowed to delete branches).
 2. **M1: Foundations**: ~~E1 (#2)~~ is done. E2 (#3):
    - ~~#16 login~~: done. Adam is signed in on the dev site (2026-11-02).
-   - **#17 schema**: in a PR, together with **automatic migrations** (ADR 0018: merging into `dev` or `main` applies them).
-     - Before merging, Adam adds the GitHub secrets `SUPABASE_DEV_DB_URL` and `SUPABASE_PROD_DB_URL` ([SUPABASE → Migrations](SUPABASE.md#migrations)).
-     - Never apply migrations by hand.
-   - Then #18 (subject contract), #19 (XP and levels), #20 (streak and daily goal).
+   - ~~#17 schema~~: done, with **automatic migrations** (ADR 0018). The first run applied it to `waymark-dev` (2026-11-02). Never apply migrations by hand.
+   - **#18 subject contract** ([ADR 0019](../decisions/0019-subject-contract.md)): in a PR. Its migration applies itself to `waymark-dev` on merge.
+   - Then #19 (XP and levels), #20 (streak and daily goal).
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam's steps: [SUPABASE](SUPABASE.md).
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
