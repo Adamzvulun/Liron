@@ -1,7 +1,9 @@
 import { PGlite } from '@electric-sql/pglite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { supabaseStore } from '../../src/core/progress/supabaseStore.ts';
 
 // Runs the real migrations in PGlite (Postgres compiled to WebAssembly, in-process) on top of a
 // small stand-in for Supabase's auth schema, then checks row-level security as each role.
@@ -197,5 +199,145 @@ describe('constraints', () => {
       const owner = table === 'profiles' ? 'id' : 'user_id';
       expect(await rows(`select 1 from ${table} where ${owner} = $1`, [OTHER])).toEqual([]);
     }
+  });
+});
+
+describe('record_progress and save_subject_state (ADR 0019)', () => {
+  const today = async (zone: string) => {
+    const [r] = await rows(`select to_char((now() at time zone $1)::date, 'YYYY-MM-DD') as d`, [
+      zone,
+    ]);
+    return (r as { d: string }).d;
+  };
+
+  it('adds XP and minutes to the subject, to today and to the wallet, in one call', async () => {
+    await rows(`update profiles set time_zone = 'Asia/Jerusalem' where id = $1`, [ADAM]);
+    await as(ADAM, async () => {
+      await rows(`select record_progress('morse', 30, 4)`);
+      await rows(`select record_progress('arabic', 10, 0)`);
+      await rows(`select record_progress('morse', 0, 3)`);
+    });
+    const day = await today('Asia/Jerusalem');
+    expect(
+      await rows(
+        `select subject_id, xp, minutes from subject_progress where user_id = $1 order by subject_id`,
+        [ADAM],
+      ),
+    ).toEqual([
+      { subject_id: 'arabic', xp: 10, minutes: 0 },
+      { subject_id: 'morse', xp: 30, minutes: 7 },
+    ]);
+    expect(
+      await rows(`select xp, minutes from daily_activity where user_id = $1 and day = $2::date`, [
+        ADAM,
+        day,
+      ]),
+    ).toEqual([{ xp: 40, minutes: 7 + (day === '2026-11-02' ? 5 : 0) }]);
+    expect(await rows(`select xp from wallets where user_id = $1`, [ADAM])).toEqual([{ xp: 40 }]);
+    // The other player is untouched.
+    expect(await rows(`select xp from wallets where user_id = $1`, [OTHER])).toEqual([{ xp: 0 }]);
+  });
+
+  it('falls back to UTC when the profile has an unknown time zone', async () => {
+    await rows(`update profiles set time_zone = 'Not/AZone' where id = $1`, [ADAM]);
+    await as(ADAM, () => rows(`select record_progress('morse', 5, 1)`));
+    const day = await today('UTC');
+    expect(
+      await rows(`select xp from daily_activity where user_id = $1 and day = $2::date`, [
+        ADAM,
+        day,
+      ]),
+    ).toEqual([{ xp: 5 }]);
+  });
+
+  it('rejects empty, negative and absurd amounts', async () => {
+    for (const [xp, minutes] of [
+      [0, 0],
+      [-1, 0],
+      [0, -1],
+      [10001, 0],
+      [0, 241],
+    ]) {
+      await expect(
+        as(ADAM, () => rows(`select record_progress('morse', $1, $2)`, [xp, minutes])),
+      ).rejects.toThrow(/invalid amounts/);
+    }
+  });
+
+  it('rejects malformed subject ids', async () => {
+    await expect(
+      as(ADAM, () => rows(`select record_progress('Morse Code', 5, 0)`)),
+    ).rejects.toThrow(/check/);
+  });
+
+  it('saves only the subject state, replacing the previous one', async () => {
+    await as(ADAM, async () => {
+      await rows(`select save_subject_state('morse', '{"koch": 3}')`);
+      await rows(`select save_subject_state('morse', '{"koch": 4}')`);
+      await rows(`select save_subject_state('new-subject', '{"a": 1}')`);
+    });
+    expect(
+      await rows(
+        `select subject_id, xp, state from subject_progress where user_id = $1 order by subject_id`,
+        [ADAM],
+      ),
+    ).toEqual([
+      { subject_id: 'morse', xp: 0, state: { koch: 4 } },
+      { subject_id: 'new-subject', xp: 0, state: { a: 1 } },
+    ]);
+    await expect(as(ADAM, () => rows(`select save_subject_state('morse', '[1]')`))).rejects.toThrow(
+      /JSON object/,
+    );
+  });
+
+  it('only works for signed-in users', async () => {
+    await expect(as(null, () => rows(`select record_progress('morse', 5, 0)`))).rejects.toThrow(
+      /permission denied/,
+    );
+    await expect(as(null, () => rows(`select save_subject_state('morse', '{}')`))).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+});
+
+describe('supabaseStore against the real functions', () => {
+  // Just enough of supabase-js for supabaseStore: rpc() calls the function with named
+  // arguments (as PostgREST does), from().select().eq().maybeSingle() reads one row.
+  const fakeClient = {
+    async rpc(fn: string, args: Record<string, unknown>) {
+      const names = Object.keys(args);
+      const call = names.map((n, i) => `${n} => $${i + 1}`).join(', ');
+      try {
+        await rows(`select public.${fn}(${call})`, Object.values(args));
+        return { error: null };
+      } catch (e) {
+        return { error: { message: (e as Error).message } };
+      }
+    },
+    from: (table: string) => ({
+      select: (cols: string) => ({
+        eq: (col: string, value: string) => ({
+          async maybeSingle() {
+            const found = await rows(`select ${cols} from public.${table} where ${col} = $1`, [
+              value,
+            ]);
+            return { data: found[0] ?? null, error: null };
+          },
+        }),
+      }),
+    }),
+  } as unknown as SupabaseClient;
+
+  it('records, sums and saves state for the signed-in user', async () => {
+    await as(ADAM, async () => {
+      const store = supabaseStore(fakeClient);
+      expect(await store.loadState('morse')).toBeNull(); // row exists, state never saved
+      await store.record('morse', 12, 2);
+      await store.saveState('morse', { koch: 2 });
+      expect(await store.summary('morse')).toEqual({ xp: 12, minutes: 2 });
+      expect(await store.loadState('morse')).toEqual({ koch: 2 });
+      expect(await store.summary('arabic')).toEqual({ xp: 0, minutes: 0 });
+      await expect(store.record('morse', 0, 0)).rejects.toThrow(/Couldn't save morse progress/);
+    });
   });
 });
