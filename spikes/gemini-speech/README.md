@@ -56,4 +56,13 @@ python3 -I prep.py
 ```bash
 node groq.mjs
 ```
-Results: not run yet. The key was added on 2026-11-02, after this session started.
+The key is read from `GROQ_API_KEY`, or `GROQ_KEY` (the name the environment secret actually has). Options: `--model`, `--delay` (default 3500 ms, under 20/min), `--limit`.
+
+### Results (2026-11-02)
+**Verdict: Groq Whisper is the speech model** for "did it understand you?"; there's still no pronunciation scoring. Details: [`results/2026-11-02-groq-analysis.md`](results/2026-11-02-groq-analysis.md), raw table: [`results/2026-11-02-groq-whisper-large-v3.md`](results/2026-11-02-groq-whisper-large-v3.md).
+
+- **Transcription:** sentence CER 4.3% / WER 19% (Gemini flash-lite: 9.1% / 25%). By hand, **28/30 sentences** are usable (Gemini: 24/30). Single words: 16/20 (Gemini: 15/20). It keeps dialect spelling (هادي, تلت, هلقيت). ق said as /g/ comes back as ج or غ.
+- **Pronunciation:** by hand, 3/15 synthetic mistakes were caught (Gemini: 2/15). Every ح/ه swap was fixed back to the real word, and Whisper even wrote a native ح as ه (حلو→هلو). There's no signal to build per-sound scoring on.
+- **Quota:** 80 calls, no 429s. This account's headers show 2,000 requests/day and 7,200 audio-s/hour.
+- **Caveat:** most synthetic clips start with the TTS reading its instruction aloud. Whisper transcribes that too and sometimes drops the sentence after it. Trim the preamble before reusing them.
+- **Decision:** [ADR 0014](../../docs/decisions/0014-groq-whisper-for-speech.md) (amends 0013).

@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const HERE = path.dirname(new URL(import.meta.url).pathname);
-const KEY = process.env.GROQ_API_KEY;
+const KEY = process.env.GROQ_API_KEY || process.env.GROQ_KEY; // the environment secret is named GROQ_KEY
 if (!KEY) { console.error('Set GROQ_API_KEY first (environment secret; a new session picks it up).'); process.exit(1); }
 const arg = (n, d) => { const i = process.argv.indexOf(`--${n}`); return i > 0 ? process.argv[i + 1] : d; };
 const MODEL = arg('model', 'whisper-large-v3'), DELAY = +arg('delay', 3500), LIMIT = +arg('limit', 50);

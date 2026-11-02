@@ -11,7 +11,7 @@
 | 0.2 | Core ADRs: Arabic variety, hub model, AI, stack, art, partners, sourcing, Morse speed, rating | ✅ |
 | 0.3 | **Visual concept:** style guide v0 + city screen + Signal Tower interior ([docs/design/concept-v0](../design/concept-v0/README.md)) | ✅ city approved "for now" (v3). Later: Signal Tower interior repaint, phone layout |
 | 0.4 | Arabic sources settled: Lingualism deck (bought), Maknuune; script and grammar taught in-house, based on the Madrasa course structure (ADR 0012) | ✅ |
-| 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic), issue #1 | ✅ **partial**: transcription usable, no pronunciation scoring on free Gemini ([ADR 0013](../decisions/0013-speech-on-free-gemini.md)) |
+| 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic), issue #1 | ✅ done: no pronunciation scoring on free models ([ADR 0013](../decisions/0013-speech-on-free-gemini.md)); Groq Whisper hears the mic ([ADR 0014](../decisions/0014-groq-whisper-for-speech.md)) |
 | 0.6 | Convert M1–M2 into GitHub issues: epics #2–#11 with sub-issues #12–#49; milestones as `milestone:Mn` labels (see [STATUS](STATUS.md)) | ✅ |
 
 ## M1 — Foundations
@@ -42,12 +42,12 @@
 | **E11 Arabic core words** | First 300 → 1,000 words in sentences with audio, using FSRS and ratings; just-in-time grammar cards built in-house from the Madrasa beginners structure + deck sentences (ADR 0012) |
 | **E12 Morse words & head copy** | Common words, Q-codes, prosigns; callsign rush (overspeed) |
 | **E13 Ranks & trials** | Guild ranks (milestone + rating); boss trials; achievements and titles |
-| **E14 Mic practice** | Shadowing, record-and-compare, minimal-pair ear training; optional "did Gemini understand you?" sentence check (ADR 0013) |
+| **E14 Mic practice** | Shadowing, record-and-compare, minimal-pair ear training; optional "did it understand you?" sentence check via Groq Whisper (ADR 0013, 0014) |
 
 ## M4 — The people
 | Epic | Contents |
 |---|---|
-| **E15 AI adapter** | Vercel serverless function; Gemini + backup; caps; eval set (ADR 0004) |
+| **E15 AI adapter** | Vercel serverless function; Gemini + backup; Groq Whisper for speech; caps; eval set (ADR 0004, 0014) |
 | **E16 Radio QSO** | QSO state machine; operator personas; noise/QSB/QRM; speed matching; AGN on garbled input (ADR 0007) |
 | **E17 Café conversations** | Persona bibles; memory; reputation; WhatsApp-style chat, then voice; the silent Coach debrief → FSRS |
 
