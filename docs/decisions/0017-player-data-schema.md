@@ -1,6 +1,6 @@
 # 0017 — Player data: four tables, your rows only, derived level and streak
 
-- **Status:** Accepted (part of #17)
+- **Status:** Accepted (part of #17), amended by [0018](0018-automatic-db-migrations.md) (migrations apply automatically)
 - **Date:** 2026-11-02
 
 ## Context
@@ -24,7 +24,7 @@ Migration: [`supabase/migrations/20261102190000_profile_and_progress.sql`](../..
   - Nobody can delete rows through the API; rows go with the account (`on delete cascade`).
 - **New accounts get a profile and an empty wallet automatically** (a trigger on `auth.users`). Accounts that existed before the migration get theirs from the migration itself.
 - **Tested** with the real migration in PGlite (Postgres compiled to WebAssembly, run inside Vitest): `supabase/tests/schema.test.ts`. A test-only stand-in supplies Supabase's `auth.users` and `auth.uid()`. I checked that the tests fail when row-level security or the ownership check is removed.
-- **Applied by hand** in the Supabase SQL editor, `waymark-dev` first and `waymark-prod` at release ([SUPABASE](../process/SUPABASE.md#migrations)). Automating this with the Supabase CLI in CI would need a Supabase access token stored in GitHub, so that's a question for Adam if hand-applying gets tedious.
+- ~~Applied by hand in the SQL editor.~~ **Applied automatically** on merge, by a GitHub Actions workflow ([ADR 0018](0018-automatic-db-migrations.md)).
 
 ## Consequences
 - **The app can write its own XP and gold.** That's fine for one learner. Before friends and leaderboards (M5), awards should move to a server-side function, so nobody can give themselves XP. Revisit in E18.

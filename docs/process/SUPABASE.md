@@ -36,16 +36,21 @@ Facts checked on supabase.com on 2026-11-02:
 ## Migrations
 Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrations/), applied in name order. Never edit one that's already applied; add a new file instead. Schema: [ADR 0017](../decisions/0017-player-data-schema.md).
 
-**To apply one (Adam):**
-1. In the project: **SQL Editor → New query**.
-2. Paste the whole file and **Run**. It should say "Success. No rows returned".
-3. Tell Claude, who records it below.
+**They apply themselves** ([ADR 0018](../decisions/0018-automatic-db-migrations.md)): merging into `dev` updates `waymark-dev`, and a release to `main` updates `waymark-prod`, through `.github/workflows/db-migrate.yml`. **Never paste a migration into the SQL editor.** The migration history wouldn't know about it, and the next automatic run would fail.
 
-Apply to `waymark-dev` when its PR merges into `dev`, and to `waymark-prod` when the release goes to `main`.
+**One-time setup (Adam), for each project:**
+1. Supabase → the project → **Connect** → **Session pooler**, and copy the connection string. It looks like `postgresql://postgres.<ref>:[YOUR-PASSWORD]@aws-…pooler.supabase.com:5432/postgres`.
+   - Use the session pooler, not "Direct connection": GitHub's runners only have IPv4, and the direct connection is IPv6-only on the free plan.
+2. Replace `[YOUR-PASSWORD]` with the project's database password, the one from project creation.
+   - Forgotten it? Use **Project Settings → Database → Reset database password**.
+   - If the password contains symbols such as `@ : / ? # %`, they must be percent-encoded (e.g. `@` → `%40`). A letters-and-digits password avoids this.
+3. GitHub → Liron → **Settings → Secrets and variables → Actions → New repository secret**:
+   - `SUPABASE_DEV_DB_URL` = the `waymark-dev` string
+   - `SUPABASE_PROD_DB_URL` = the `waymark-prod` string
 
-| Migration | `waymark-dev` | `waymark-prod` |
-|---|---|---|
-| `20261102190000_profile_and_progress.sql` | not yet | not yet |
+   Never paste these into chat; they contain the password.
+
+If a run fails because a secret is missing, add it and start the workflow again: **Actions → DB migrate → Run workflow** on the right branch, or ask Claude, who can start it.
 
 ## Running it locally
 Create `.env.local` (git-ignored) from [`.env.example`](../../.env.example) with the `waymark-dev` values. Without it, the app shows a "Not set up yet" screen that names what's missing.

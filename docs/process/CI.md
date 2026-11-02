@@ -1,5 +1,7 @@
 # CI (issue #14)
 
+`.github/workflows/db-migrate.yml` applies database migrations on pushes to `dev` and `main` (ADR 0018); it takes well under a minute per run.
+
 `.github/workflows/ci.yml` runs on every pull request and on pushes to `dev` and `main` (branch flow: [ADR 0015](../decisions/0015-branches-and-environments.md)). It has one job: `npm ci` → lint → typecheck → unit tests → build → Playwright smoke test (Chromium, desktop and phone).
 
 ## Cost (checked 2026-11-02 on docs.github.com)
