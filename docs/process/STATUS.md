@@ -57,6 +57,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
   - Feature branches come from `dev`; PRs go into `dev` (`Closes #N`). Several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks.
   - Releases are PRs from `dev` into `main`; only Adam merges them.
   - **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
+  - **Always watch the PRs you open** (Adam, 2026-11-02): subscribe to PR activity right after creating a PR, fix red CI and answer review comments. Merging stays with Adam.
   - Claude's session branch (`claude/…`) is the feature branch. If it doesn't start from `dev`, rebase it onto `dev` first.
 - **Rules from Adam:**
   - Research before suggesting.
