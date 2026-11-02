@@ -24,6 +24,7 @@ Facts checked on supabase.com on 2026-11-02:
    Emailed links send you back here.
 4. **Connect** (top of the project page): copy the **Project URL** and the **publishable key**. They aren't secret, but they go in Vercel, not in git.
 5. In **Vercel → waymark → Settings → Environment Variables**, add both variables. Uncheck "Development".
+   - ⚠️ The names must start with **`VITE_`**. Supabase's Connect dialog suggests `NEXT_PUBLIC_…` names (that's for Next.js). Vite ignores those, and the site then says "Not set up yet". This happened on 2026-11-02. After renaming, **redeploy**, because variables only apply to new builds.
    - `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` with the **`waymark-prod`** values, environment **Production** only.
    - The same two names with the **`waymark-dev`** values, environment **Preview** only.
 6. After Claude's #16 PR is merged into `dev`, the dev site shows the login screen.
@@ -32,8 +33,24 @@ Facts checked on supabase.com on 2026-11-02:
    - If the link lands on the login screen instead, type your email there and use **"Email me a link"**.
 8. At the next release, do step 7 in **`waymark-prod`** too.
 
+## Migrations
+Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrations/), applied in name order. Never edit one that's already applied; add a new file instead. Schema: [ADR 0017](../decisions/0017-player-data-schema.md).
+
+**To apply one (Adam):**
+1. In the project: **SQL Editor → New query**.
+2. Paste the whole file and **Run**. It should say "Success. No rows returned".
+3. Tell Claude, who records it below.
+
+Apply to `waymark-dev` when its PR merges into `dev`, and to `waymark-prod` when the release goes to `main`.
+
+| Migration | `waymark-dev` | `waymark-prod` |
+|---|---|---|
+| `20261102190000_profile_and_progress.sql` | not yet | not yet |
+
 ## Running it locally
 Create `.env.local` (git-ignored) from [`.env.example`](../../.env.example) with the `waymark-dev` values. Without it, the app shows a "Not set up yet" screen that names what's missing.
 
 ## Tests
+`supabase/tests/schema.test.ts` runs the migrations in PGlite (Postgres in WebAssembly, inside Vitest) and checks row-level security as a signed-in user, another user and a logged-out visitor.
+
 The tests never touch a real project. The e2e build points at a fake address, and `e2e/fake-supabase.ts` answers the auth calls (login, logout, reset, set password). So CI needs no Supabase secrets.
