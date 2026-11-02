@@ -14,11 +14,11 @@
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
 | Gemini speech spike (#1) | ✅ **partial** and closed: transcription usable; pronunciation scoring doesn't work on free Gemini, so feedback uses record-and-compare and ear training ([results](../../spikes/gemini-speech/README.md#results-phase-1-2026-11-01), [ADR 0013](../decisions/0013-speech-on-free-gemini.md)). |
 | Non-Gemini speech API | ✅ **Groq `whisper-large-v3`** is the speech model (2026-11-02): 28/30 deck sentences usable vs Gemini's 24/30, 2,000 requests/day free. It catches no pronunciation mistakes either (ح/ه 0/6), so there's still no per-sound scoring. ([analysis](../../spikes/gemini-speech/results/2026-11-02-groq-analysis.md), [ADR 0014](../decisions/0014-groq-whisper-for-speech.md)) |
-| App code | ✅ scaffold (#12): Vite 8 + React 19 + TS 6 at the repo root, placeholder lobby. ✅ tests (#13): Vitest + Playwright smoke. ⏳ CI (#14): workflow written, waiting for Adam (merge and branch-protection questions below; see [CI](CI.md)) |
+| App code | ✅ scaffold (#12): Vite 8 + React 19 + TS 6 at the repo root, placeholder lobby. ✅ tests (#13): Vitest + Playwright smoke. ✅ CI (#14): workflow plus the process rule "red check = no merge" ([CI](CI.md)). All three are in one PR, waiting for merge |
 
 ## What to do next (in order)
-1. **Adam's answers on #12–#14** (see open questions): merge the branch, and how "red check blocks merging" should work on GitHub Free.
-2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → CI (#14, waiting for Adam) → Vercel (#15).
+1. **E1 PR (#12–#14) waits for CI and Adam's merge.** Decided 2026-11-02: one PR for all three, and a **process rule** instead of branch protection: a PR with a red check is never merged ([CI](CI.md)).
+2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → CI (#14, in the E1 PR) → Vercel (#15).
    - #15 (Vercel) and #16 (Supabase) need Adam to create free accounts first. Ask him early.
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
 3. **M2: First playable** (#7–#11), after M1.
@@ -47,7 +47,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Gotcha:** creating an issue *with a parent* fails if one of its labels doesn't exist yet. Create the issue first, then attach it with the sub-issue tool. Issues without a parent create missing labels automatically.
 
 ## How to work (short version of [WORKFLOW](WORKFLOW.md) and [CLAUDE.md](../../CLAUDE.md))
-- **Branch:** `claude/learning-hub-arabic-morse-20ckww` is currently the repo's only and default branch. From M1 on: one branch and PR per issue (`Closes #N`), but only open PRs when Adam asks.
+- **Branch:** `claude/learning-hub-arabic-morse-20ckww` is the default branch. From M1 on: a branch and PR per piece of work (`Closes #N`); several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks. **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
 - **Rules from Adam:**
   - Research before suggesting.
   - Disclose anything that costs money, shares data, or locks us in, as an explicit question.
@@ -70,8 +70,8 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 
 ## Open questions for Adam
-- **Merge #12–#14:** they're on `claude/fervent-bardeen-pzcusv` (one branch for E1, not one per issue). Open a PR into the default branch, or merge directly? CI only starts running once it's on the default branch or in a PR.
-- **CI "red blocks merge" (#14):** branch protection for private repos needs GitHub Pro (paid). Options: a process rule (free, default), Pro, or a public repo (not possible: copyrighted sources). See [CI](CI.md). Also check *Settings → Billing → Budgets*, so Actions can never bill you.
+- **Merge the E1 PR** (#12–#14 in one PR, Adam's choice 2026-11-02) once CI is green.
+- **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
 - **In-app mic and data:** any in-app "did it understand you?" check now sends his audio to **Groq** (ADR 0014). Groq keeps no audio by default, except up to 30 days of abuse logs. Is it OK in the app when he chooses to use it, or record-and-compare only (no upload)? Default until he answers: opt-in, off. Not needed before M2 #45.
 - Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure; nothing runs locally (no in-browser or on-machine models); hosted free APIs only. He wants one stable model rather than hopping between models.
 - Before M1 #15/#16 he needs free Vercel and Supabase accounts.
