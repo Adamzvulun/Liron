@@ -1,0 +1,344 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own",
+  "items": [
+    {
+      "id": "letter:alef",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ا",
+        "name": "ألف",
+        "nameLatin": "alif",
+        "alphabetPosition": 1,
+        "connectsForward": false
+      }
+    },
+    {
+      "id": "letter:beh",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ب",
+        "name": "باء",
+        "nameLatin": "bāʾ",
+        "alphabetPosition": 2,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:teh",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ت",
+        "name": "تاء",
+        "nameLatin": "tāʾ",
+        "alphabetPosition": 3,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:theh",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ث",
+        "name": "ثاء",
+        "nameLatin": "thāʾ",
+        "alphabetPosition": 4,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:jeem",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ج",
+        "name": "جيم",
+        "nameLatin": "jīm",
+        "alphabetPosition": 5,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:hah",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ح",
+        "name": "حاء",
+        "nameLatin": "ḥāʾ",
+        "alphabetPosition": 6,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:khah",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "خ",
+        "name": "خاء",
+        "nameLatin": "khāʾ",
+        "alphabetPosition": 7,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:dal",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "د",
+        "name": "دال",
+        "nameLatin": "dāl",
+        "alphabetPosition": 8,
+        "connectsForward": false
+      }
+    },
+    {
+      "id": "letter:thal",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ذ",
+        "name": "ذال",
+        "nameLatin": "dhāl",
+        "alphabetPosition": 9,
+        "connectsForward": false
+      }
+    },
+    {
+      "id": "letter:reh",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ر",
+        "name": "راء",
+        "nameLatin": "rāʾ",
+        "alphabetPosition": 10,
+        "connectsForward": false
+      }
+    },
+    {
+      "id": "letter:zain",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ز",
+        "name": "زاي",
+        "nameLatin": "zāy",
+        "alphabetPosition": 11,
+        "connectsForward": false
+      }
+    },
+    {
+      "id": "letter:seen",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "س",
+        "name": "سين",
+        "nameLatin": "sīn",
+        "alphabetPosition": 12,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:sheen",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ش",
+        "name": "شين",
+        "nameLatin": "shīn",
+        "alphabetPosition": 13,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:sad",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ص",
+        "name": "صاد",
+        "nameLatin": "ṣād",
+        "alphabetPosition": 14,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:dad",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ض",
+        "name": "ضاد",
+        "nameLatin": "ḍād",
+        "alphabetPosition": 15,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:tah",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ط",
+        "name": "طاء",
+        "nameLatin": "ṭāʾ",
+        "alphabetPosition": 16,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:zah",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ظ",
+        "name": "ظاء",
+        "nameLatin": "ẓāʾ",
+        "alphabetPosition": 17,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:ain",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ع",
+        "name": "عين",
+        "nameLatin": "ʿayn",
+        "alphabetPosition": 18,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:ghain",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "غ",
+        "name": "غين",
+        "nameLatin": "ghayn",
+        "alphabetPosition": 19,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:feh",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ف",
+        "name": "فاء",
+        "nameLatin": "fāʾ",
+        "alphabetPosition": 20,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:qaf",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ق",
+        "name": "قاف",
+        "nameLatin": "qāf",
+        "alphabetPosition": 21,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:kaf",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ك",
+        "name": "كاف",
+        "nameLatin": "kāf",
+        "alphabetPosition": 22,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:lam",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ل",
+        "name": "لام",
+        "nameLatin": "lām",
+        "alphabetPosition": 23,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:meem",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "م",
+        "name": "ميم",
+        "nameLatin": "mīm",
+        "alphabetPosition": 24,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:noon",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ن",
+        "name": "نون",
+        "nameLatin": "nūn",
+        "alphabetPosition": 25,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:heh",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ه",
+        "name": "هاء",
+        "nameLatin": "hāʾ",
+        "alphabetPosition": 26,
+        "connectsForward": true
+      }
+    },
+    {
+      "id": "letter:waw",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "و",
+        "name": "واو",
+        "nameLatin": "wāw",
+        "alphabetPosition": 27,
+        "connectsForward": false
+      }
+    },
+    {
+      "id": "letter:yeh",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ي",
+        "name": "ياء",
+        "nameLatin": "yāʾ",
+        "alphabetPosition": 28,
+        "connectsForward": true
+      }
+    }
+  ],
+  "lessons": []
+}
