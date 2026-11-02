@@ -3,7 +3,7 @@
 **Read this first in every new session.** It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
 - **Last updated:** 2026-11-02
-- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12 scaffold and #13 tests are done, and #14 CI is written. All three are on branch `claude/fervent-bardeen-pzcusv`, not yet merged into the default branch.
+- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are in [PR #50](https://github.com/Adamzvulun/Liron/pull/50) into `dev`. **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
 | Item | State |
@@ -17,9 +17,11 @@
 | App code | ✅ scaffold (#12): Vite 8 + React 19 + TS 6 at the repo root, placeholder lobby. ✅ tests (#13): Vitest + Playwright smoke. ✅ CI (#14): workflow plus the process rule "red check = no merge" ([CI](CI.md)). All three are in one PR, waiting for merge |
 
 ## What to do next (in order)
-1. **E1 PR (#12–#14) waits for CI and Adam's merge.** Decided 2026-11-02: one PR for all three, and a **process rule** instead of branch protection: a PR with a red check is never merged ([CI](CI.md)).
-2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → CI (#14, in the E1 PR) → Vercel (#15).
-   - #15 (Vercel) and #16 (Supabase) need Adam to create free accounts first. Ask him early.
+1. **Adam:** set GitHub's default branch to `dev`, then merge PR #50 into `dev`. Decided 2026-11-02: one PR for all three, and a **process rule** instead of branch protection: a PR with a red check is never merged ([CI](CI.md)).
+   - After that, delete the old `claude/learning-hub-arabic-morse-20ckww` branch (ask Adam first). The stale `claude/nifty-cray-n4594x` branch can go too.
+2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → CI (#14, in the E1 PR) → Vercel (#15): production branch `main`, a stable dev URL, and a Deployment Protection check (ADR 0015).
+   - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
+   - #16 (Supabase): ask Adam whether to use two free projects (prod + dev, ADR 0015) or one.
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
 3. **M2: First playable** (#7–#11), after M1.
 
@@ -47,7 +49,11 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Gotcha:** creating an issue *with a parent* fails if one of its labels doesn't exist yet. Create the issue first, then attach it with the sub-issue tool. Issues without a parent create missing labels automatically.
 
 ## How to work (short version of [WORKFLOW](WORKFLOW.md) and [CLAUDE.md](../../CLAUDE.md))
-- **Branch:** `claude/learning-hub-arabic-morse-20ckww` is the default branch. From M1 on: a branch and PR per piece of work (`Closes #N`); several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks. **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
+- **Branches ([ADR 0015](../decisions/0015-branches-and-environments.md)):** `main` is the live site, and `dev` is the live dev site and the default branch (once Adam switches it).
+  - Feature branches come from `dev`; PRs go into `dev` (`Closes #N`). Several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks.
+  - Releases are PRs from `dev` into `main`; only Adam merges them.
+  - **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
+  - Claude's session branch (`claude/…`) is the feature branch. If it doesn't start from `dev`, rebase it onto `dev` first.
 - **Rules from Adam:**
   - Research before suggesting.
   - Disclose anything that costs money, shares data, or locks us in, as an explicit question.
@@ -74,4 +80,4 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
 - **In-app mic and data:** any in-app "did it understand you?" check now sends his audio to **Groq** (ADR 0014). Groq keeps no audio by default, except up to 30 days of abuse logs. Is it OK in the app when he chooses to use it, or record-and-compare only (no upload)? Default until he answers: opt-in, off. Not needed before M2 #45.
 - Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure; nothing runs locally (no in-browser or on-machine models); hosted free APIs only. He wants one stable model rather than hopping between models.
-- Before M1 #15/#16 he needs free Vercel and Supabase accounts.
+- Decided 2026-11-02: git flow feature → dev → main with two live sites (ADR 0015). Vercel and Supabase accounts created.

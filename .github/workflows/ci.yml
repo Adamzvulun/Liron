@@ -1,4 +1,5 @@
 # CI for Waymark (issue #14): lint, typecheck, unit tests, build, Playwright smoke.
+# Runs on every PR and on pushes to dev and main (branch flow: ADR 0015).
 # Private repo on GitHub Free: about 2,000 Linux minutes/month are included ($12 of compute).
 # Without a payment method, runs are blocked (not billed) once that's used up.
 # Kept cheap: one job, Chromium only, superseded runs on the same branch are cancelled.
@@ -7,7 +8,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [claude/learning-hub-arabic-morse-20ckww]
+    branches: [dev, main]
 
 concurrency:
   group: ci-${{ github.ref }}

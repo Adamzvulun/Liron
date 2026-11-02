@@ -1,6 +1,6 @@
 # CI (issue #14)
 
-`.github/workflows/ci.yml` runs on every pull request and on pushes to the default branch. It has one job: `npm ci` → lint → typecheck → unit tests → build → Playwright smoke test (Chromium, desktop and phone).
+`.github/workflows/ci.yml` runs on every pull request and on pushes to `dev` and `main` (branch flow: [ADR 0015](../decisions/0015-branches-and-environments.md)). It has one job: `npm ci` → lint → typecheck → unit tests → build → Playwright smoke test (Chromium, desktop and phone).
 
 ## Cost (checked 2026-11-02 on docs.github.com)
 - The repo is **private**. GitHub Free for personal accounts includes **$12/month of Actions compute**. On the standard Linux runner ($0.006/min) that's about **2,000 minutes/month**.
@@ -19,7 +19,7 @@ GitHub's plan page lists **protected branches for private repositories as a GitH
 
 ### Steps if the plan ever allows it
 1. GitHub → the repo → **Settings → Branches → Add branch protection rule** (or **Settings → Rules → Rulesets → New branch ruleset**).
-2. Branch name pattern: the default branch (`claude/learning-hub-arabic-morse-20ckww`).
+2. Branch name patterns: `main` and `dev`.
 3. Turn on **Require status checks to pass before merging**, and pick the check **`check`** (the CI job name). It only appears in the list after CI has run once.
 4. Optionally turn on **Require a pull request before merging**. Save.
 
