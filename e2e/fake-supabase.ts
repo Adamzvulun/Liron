@@ -27,7 +27,13 @@ function fakeSession() {
   };
 }
 
-/** Answers Supabase Auth calls: password login (only PASSWORD works), logout, reset email. */
+/** The wallet the fake database returns. */
+export const WALLET = { xp: 65, gold: 31, gems: 2 };
+
+/**
+ * Answers Supabase Auth calls (password login: only PASSWORD works; logout; reset email) and
+ * the wallet read.
+ */
 export async function fakeSupabase(page: Page, passwordUpdates: unknown[] = []) {
   await page.route(`${FAKE_SUPABASE_URL}/**`, async (route) => {
     const url = new URL(route.request().url());
@@ -46,6 +52,11 @@ export async function fakeSupabase(page: Page, passwordUpdates: unknown[] = []) 
     }
     if (url.pathname === '/auth/v1/logout') return route.fulfill({ status: 204 });
     if (url.pathname === '/auth/v1/recover') return route.fulfill({ json: {} });
+    if (url.pathname === '/rest/v1/wallets') {
+      // supabase-js asks for a single object with this Accept header (maybeSingle).
+      const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');
+      return route.fulfill({ json: single ? WALLET : [WALLET] });
+    }
     return route.fulfill({ status: 404, json: {} });
   });
 }

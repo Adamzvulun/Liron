@@ -1,5 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { ProgressStore } from './store.ts';
+import type { Award, ProgressStore } from './store.ts';
 
 /**
  * Progress kept in Supabase. Writes go through the database functions from ADR 0019, which
@@ -18,12 +18,41 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
   };
   return {
     async record(subjectId, xp, minutes) {
-      const { error } = await client.rpc('record_progress', {
+      const { data, error } = await client.rpc('record_progress', {
         p_subject: subjectId,
         p_xp: xp,
         p_minutes: minutes,
       });
       if (error) throw new Error(`Couldn't save ${subjectId} progress: ${error.message}`);
+      const r = data as {
+        xp: number;
+        gold: number;
+        gems: number;
+        xp_earned: number;
+        gold_earned: number;
+        gems_earned: number;
+        level_before: number;
+        level: number;
+      };
+      const award: Award = {
+        xp: Number(r.xp),
+        gold: r.gold,
+        gems: r.gems,
+        xpEarned: r.xp_earned,
+        goldEarned: r.gold_earned,
+        gemsEarned: r.gems_earned,
+        levelBefore: r.level_before,
+        level: r.level,
+      };
+      return award;
+    },
+    async wallet() {
+      const { data, error } = await client
+        .from('wallets')
+        .select('xp, gold, gems')
+        .maybeSingle<{ xp: number; gold: number; gems: number }>();
+      if (error) throw new Error(`Couldn't read the wallet: ${error.message}`);
+      return { xp: Number(data?.xp ?? 0), gold: data?.gold ?? 0, gems: data?.gems ?? 0 };
     },
     async summary(subjectId) {
       const data = await row(subjectId);

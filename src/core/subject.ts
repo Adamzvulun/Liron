@@ -30,7 +30,10 @@ export interface SubjectProgress {
  */
 export interface SubjectApi<State extends object = Record<string, unknown>> {
   readonly subjectId: string;
-  /** Earned XP (a whole number, 1 to 10,000). Counts towards the level, today and this subject. */
+  /**
+   * Earned XP (a whole number, 1 to 10,000). Counts towards the level, today and this subject,
+   * and pays gold and gems (docs/game/economy.md). Guideline: about 10 XP per minute of learning.
+   */
   awardXP(amount: number): Promise<void>;
   /** Time spent practising, in minutes (rounded to whole minutes; under 30 s counts as nothing). */
   recordPractice(minutes: number): Promise<void>;
