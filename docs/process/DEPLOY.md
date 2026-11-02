@@ -5,7 +5,7 @@ Waymark is hosted on **Vercel's free Hobby plan**, connected to this GitHub repo
 | Branch | Vercel environment | Who sees it |
 |---|---|---|
 | `main` | **Production**: the live site, **https://waymark-phi.vercel.app** | Anyone with the link (the app itself will require login, #16) |
-| `dev` | **Preview**, at the stable branch URL `waymark-git-dev-<scope>.vercel.app`: the live dev site | Only people logged into the Vercel account (Deployment Protection) |
+| `dev` | **Preview**, at the stable branch URL **https://waymark-git-dev-adamzvuluns-projects.vercel.app**: the live dev site | Only people logged into the Vercel account (Deployment Protection) |
 | feature branches / PRs | **Preview**, one URL per push, plus a stable per-branch URL | Same as `dev` |
 
 `vercel.json` pins the build: framework Vite, `npm ci`, `npm run build`, and **only `dist/` is published**. That matters because the repo also holds `docs/`, `spikes/` and the copyrighted `sources/` (ADR 0011). Without a build, Vercel would serve the repo's files as they are. `package.json` pins Node `22.x`, the same as CI. Without that, Vercel would pick its newest Node.
