@@ -1753,135 +1753,16 @@ export function paintCity() {
   }
 
   // ---------- AVATAR ----------
+  // Only the ground shadow is painted here; the figure itself is the player's paper-doll
+  // avatar (src/core/avatar, #28), placed on top by City.tsx.
   let avatar = '';
   {
     const cx = 1010,
       fy = 938;
     avatar += castShadow(cx - 26, cx + 26, fy, 60, 0, 0.35) + contact(cx, fy, 34, 0.5);
-    const skin = rad(
-      [
-        [0, '#F6C9A2'],
-        [0.7, '#E0A77C'],
-        [1, '#B8774E'],
-      ],
-      0.38,
-      0.35,
-      0.75,
-    );
-    avatar += `<path d="${soft(
-      [
-        [cx - 52, fy - 120],
-        [cx - 12, fy - 136],
-        [cx + 12, fy - 136],
-        [cx + 52, fy - 120],
-        [cx + 46, fy - 22],
-        [cx - 46, fy - 22],
-      ],
-      10,
-      2,
-    )}" fill="${lin(
-      [
-        [0, '#E36E52'],
-        [0.6, '#C8553D'],
-        [1, '#6E2618'],
-      ],
-      0,
-      0,
-      1,
-      1,
-    )}" ${OUT(0, 3.5)}></path>`;
-    avatar += `<path d="${soft(
-      [
-        [cx - 22, fy - 40],
-        [cx - 6, fy - 40],
-        [cx - 6, fy - 6],
-        [cx - 22, fy - 6],
-      ],
-      4,
-      0.4,
-    )}" fill="${lin([
-      [0, '#4A5A7A'],
-      [1, '#26324A'],
-    ])}" ${OUT(0, 3)}></path><path d="${soft(
-      [
-        [cx + 6, fy - 40],
-        [cx + 22, fy - 40],
-        [cx + 22, fy - 6],
-        [cx + 6, fy - 6],
-      ],
-      4,
-      0.4,
-    )}" fill="${lin([
-      [0, '#4A5A7A'],
-      [1, '#26324A'],
-    ])}" ${OUT(0, 3)}></path>`;
-    avatar += `<path d="${soft(
-      [
-        [cx - 26, fy - 10],
-        [cx - 4, fy - 10],
-        [cx - 2, fy + 2],
-        [cx - 28, fy + 2],
-      ],
-      5,
-      0.4,
-    )}" fill="#3A2414" ${OUT(0, 2.6)}></path><path d="${soft(
-      [
-        [cx + 4, fy - 10],
-        [cx + 26, fy - 10],
-        [cx + 28, fy + 2],
-        [cx + 2, fy + 2],
-      ],
-      5,
-      0.4,
-    )}" fill="#3A2414" ${OUT(0, 2.6)}></path>`;
-    avatar += `<path d="${soft(
-      [
-        [cx - 34, fy - 112],
-        [cx + 34, fy - 112],
-        [cx + 30, fy - 38],
-        [cx - 30, fy - 38],
-      ],
-      12,
-      1.5,
-    )}" fill="${lin(
-      [
-        [0, '#5FC0D2'],
-        [0.5, '#2E8FA3'],
-        [1, '#174E5A'],
-      ],
-      0,
-      0,
-      1,
-      0.6,
-    )}" ${OUT(0, 3.5)}></path>`;
-    avatar += `<path d="M${cx - 31} ${fy - 62} H${cx + 31}" stroke="${INK}" stroke-width="10" stroke-linecap="round"></path><path d="M${cx - 30} ${fy - 62} H${cx + 30}" stroke="#7A4A28" stroke-width="5"></path><rect x="${cx - 7}" y="${fy - 69}" width="14" height="14" rx="3" fill="${lin(
-      [
-        [0, '#FFE39A'],
-        [1, '#B07A2A'],
-      ],
-    )}" stroke="${INK}" stroke-width="2.4"></rect>`;
-    avatar += `<path d="${soft(
-      [
-        [cx + 30, fy - 70],
-        [cx + 54, fy - 74],
-        [cx + 56, fy - 46],
-        [cx + 32, fy - 44],
-      ],
-      5,
-      0.6,
-    )}" fill="${lin([
-      [0, '#B07A4A'],
-      [1, '#5A3418'],
-    ])}" ${OUT(0, 3)}></path>`;
-    avatar += `<path d="M${cx - 34} ${fy - 104} Q${cx - 52} ${fy - 84} ${cx - 44} ${fy - 58}" stroke="${INK}" stroke-width="16" stroke-linecap="round" fill="none"></path><path d="M${cx - 34} ${fy - 104} Q${cx - 52} ${fy - 84} ${cx - 44} ${fy - 58}" stroke="#2E8FA3" stroke-width="10" stroke-linecap="round" fill="none"></path><circle cx="${cx - 44}" cy="${fy - 56}" r="8" fill="${skin}" stroke="${INK}" stroke-width="2.6"></circle>`;
-    avatar += `<circle cx="${cx}" cy="${fy - 148}" r="34" fill="${skin}" ${OUT(0, 3.5)}></circle>`;
-    avatar += `<path d="M${cx - 36} ${fy - 150} Q${cx - 40} ${fy - 190} ${cx} ${fy - 190} Q${cx + 40} ${fy - 190} ${cx + 36} ${fy - 148} Q${cx + 28} ${fy - 170} ${cx + 6} ${fy - 168} Q${cx - 14} ${fy - 176} ${cx - 22} ${fy - 160} Q${cx - 30} ${fy - 168} ${cx - 36} ${fy - 150} Z" fill="${lin(
-      [
-        [0, '#6A4228'],
-        [1, '#2E1A0E'],
-      ],
-    )}" ${OUT(0, 3)}></path><path d="M${cx - 20} ${fy - 182} Q${cx - 4} ${fy - 190} ${cx + 14} ${fy - 184}" stroke="#A8784E" stroke-width="3" fill="none" stroke-linecap="round"></path>`;
-    avatar += `<ellipse cx="${cx - 12}" cy="${fy - 146}" rx="4" ry="5.5" fill="${INK}"></ellipse><ellipse cx="${cx + 12}" cy="${fy - 146}" rx="4" ry="5.5" fill="${INK}"></ellipse><circle cx="${cx - 11}" cy="${fy - 148}" r="1.4" fill="#FFF"></circle><circle cx="${cx + 13}" cy="${fy - 148}" r="1.4" fill="#FFF"></circle><path d="M${cx - 10} ${fy - 130} Q${cx} ${fy - 122} ${cx + 10} ${fy - 130}" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"></path><ellipse cx="${cx - 22}" cy="${fy - 134}" rx="6" ry="3.5" fill="#E8836A" opacity=".5"></ellipse><ellipse cx="${cx + 22}" cy="${fy - 134}" rx="6" ry="3.5" fill="#E8836A" opacity=".5"></ellipse>`;
+    // The old figure drew 60 random numbers. Draw them still, so everything painted after
+    // it (plots, foreground) stays exactly as approved.
+    for (let i = 0; i < 60; i++) R(0, 1);
   }
 
   // ---------- EMPTY PLOTS (room for future guilds, ADR 0003) ----------

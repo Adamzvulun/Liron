@@ -1,3 +1,4 @@
+import { parseLook } from '../avatar/looks.ts';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Award, DayResult, ProgressStore, Today } from './store.ts';
 import type { StoredRating } from '../rating/ratings.ts';
@@ -131,10 +132,17 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
     async profile() {
       const { data, error } = await client
         .from('profiles')
-        .select('display_name')
-        .maybeSingle<{ display_name: string }>();
+        .select('display_name, avatar')
+        .maybeSingle<{ display_name: string; avatar: unknown }>();
       if (error) throw new Error(`Couldn't read your profile: ${error.message}`);
-      return { displayName: data?.display_name ?? '' };
+      return { displayName: data?.display_name ?? '', avatar: parseLook(data?.avatar) };
+    },
+    async setAvatar(look) {
+      const { data } = await client.auth.getSession();
+      const id = data.session?.user.id;
+      if (!id) throw new Error("Couldn't save your look: not signed in");
+      const { error } = await client.from('profiles').update({ avatar: look }).eq('id', id);
+      if (error) throw new Error(`Couldn't save your look: ${error.message}`);
     },
     async setDisplayName(name) {
       // Row-level security limits the update to the signed-in player's own profile.

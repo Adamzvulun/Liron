@@ -1,0 +1,45 @@
+import { describe, expect, it } from 'vitest';
+import { DEFAULT_LOOK, GEAR, parseLook, SLOTS } from './looks.ts';
+import { paintAvatar, PAINTED_GEAR } from './paint.ts';
+
+describe('avatar looks', () => {
+  it('gives new players the default look', () => {
+    expect(parseLook({})).toEqual(DEFAULT_LOOK);
+    expect(parseLook(null)).toEqual(DEFAULT_LOOK);
+  });
+
+  it('keeps known choices and replaces unknown ones with the default', () => {
+    const look = parseLook({ skin: 'umber', hair: 'mohawk', face: 'bold', gear: 'nope' });
+    expect(look.skin).toBe('umber');
+    expect(look.hair).toBe(DEFAULT_LOOK.hair);
+    expect(look.face).toBe('bold');
+    expect(look.gear).toEqual({});
+  });
+
+  it('takes off locked gear and gear worn in the wrong slot', () => {
+    const look = parseLook({
+      ...DEFAULT_LOOK,
+      gear: { head: 'headset', back: 'staff', hand: 'staff' },
+    });
+    expect(look.gear).toEqual({ hand: 'staff' });
+  });
+
+  it('has 3–4 starter items, and art for every item', () => {
+    const starters = GEAR.filter((g) => g.starter);
+    expect(starters.length).toBeGreaterThanOrEqual(3);
+    expect(starters.length).toBeLessThanOrEqual(4);
+    for (const item of GEAR) {
+      expect(PAINTED_GEAR).toContain(item.id);
+      expect(SLOTS.map((s) => s.id)).toContain(item.slot);
+      if (!item.starter) expect(item.earn).toBeTruthy();
+    }
+  });
+
+  it('paints with gradient ids unique to each avatar', () => {
+    const a = paintAvatar(DEFAULT_LOOK, { idPrefix: ':r1:' });
+    const b = paintAvatar(DEFAULT_LOOK, { idPrefix: ':r2:' });
+    const ids = (svg: string) => [...svg.matchAll(/id="([^"]+)"/g)].map((m) => m[1]);
+    expect(ids(a).length).toBeGreaterThan(0);
+    expect(ids(a).some((id) => ids(b).includes(id))).toBe(false);
+  });
+});

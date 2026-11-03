@@ -12,16 +12,22 @@ export function PlaceScreen({
   place,
   resident,
   children,
+  wide,
 }: {
   place: PlaceId;
   resident?: SubjectInfo;
   /** What the place already offers, shown instead of the "coming" note. */
   children?: ReactNode;
+  /** Room for a two-column screen, like the wardrobe in Your House. */
+  wide?: boolean;
 }) {
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => title.current?.focus(), [place]);
   return (
-    <main className="place-screen" style={{ borderTopColor: resident?.guildColor }}>
+    <main
+      className={`place-screen${wide ? ' place-screen--wide' : ''}`}
+      style={{ borderTopColor: resident?.guildColor }}
+    >
       <Link className="place-screen__back" href="/">
         ← Back to the square
       </Link>
