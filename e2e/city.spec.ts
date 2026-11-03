@@ -50,11 +50,16 @@ test.describe('the city square (#24)', () => {
     await page.goto('/');
     await page.getByText('Adam', { exact: true }).waitFor();
     const view = page.locator('.city__view');
-    const box = await page.locator('.city__stage').boundingBox();
-    const viewBox = await view.boundingBox();
-    expect(box && viewBox).toBeTruthy();
-    if (!box || !viewBox) return;
-    expect(box.height).toBeCloseTo(viewBox.height, 0);
+    const stage = page.locator('.city__stage');
+    // The view shrinks once the HUD has loaded above it; the stage follows.
+    await expect
+      .poll(async () => {
+        const [b, v] = [await stage.boundingBox(), await view.boundingBox()];
+        return b && v ? Math.abs(b.height - v.height) : Infinity;
+      })
+      .toBeLessThan(1);
+    const box = await stage.boundingBox();
+    if (!box) return;
     expect(box.width / box.height).toBeCloseTo(1920 / 1080, 2);
     // The compass (x = 1010 of 1920) starts in the middle of the view.
     const centre = await view.evaluate(
