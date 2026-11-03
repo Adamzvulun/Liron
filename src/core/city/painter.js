@@ -1886,6 +1886,76 @@ export function paintCity() {
     avatar += `<ellipse cx="${cx - 12}" cy="${fy - 146}" rx="4" ry="5.5" fill="${INK}"></ellipse><ellipse cx="${cx + 12}" cy="${fy - 146}" rx="4" ry="5.5" fill="${INK}"></ellipse><circle cx="${cx - 11}" cy="${fy - 148}" r="1.4" fill="#FFF"></circle><circle cx="${cx + 13}" cy="${fy - 148}" r="1.4" fill="#FFF"></circle><path d="M${cx - 10} ${fy - 130} Q${cx} ${fy - 122} ${cx + 10} ${fy - 130}" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"></path><ellipse cx="${cx - 22}" cy="${fy - 134}" rx="6" ry="3.5" fill="#E8836A" opacity=".5"></ellipse><ellipse cx="${cx + 22}" cy="${fy - 134}" rx="6" ry="3.5" fill="#E8836A" opacity=".5"></ellipse>`;
   }
 
+  // ---------- EMPTY PLOTS (room for future guilds, ADR 0003) ----------
+  // A roped-off patch of earth with four stakes and a blank sign: a guild could build here.
+  function plot(cx, cy) {
+    const w = 170,
+      d = 44;
+    const corners = [
+      [cx - w / 2, cy],
+      [cx - w / 2 + 26, cy - d],
+      [cx + w / 2 - 26, cy - d],
+      [cx + w / 2, cy],
+    ];
+    let o = contact(cx, cy + 6, w / 2 + 10, 0.3);
+    o += `<path d="${soft(corners, 10, 2)}" fill="${lin([
+      [0, '#9A7350'],
+      [1, '#6E4A2C'],
+    ])}" ${OUT(0, 2.6)}></path>`;
+    for (let i = 0; i < 9; i++) {
+      const x = cx + R(-w / 2 + 30, w / 2 - 30),
+        y = cy - R(6, d - 8);
+      o += `<path d="M${f(x - 9)} ${f(y)} q9 -4 18 0" stroke="#5A3A20" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"></path>`;
+    }
+    const tops = corners.map(([x, y]) => [x, y - 34]);
+    const rope = (a, b) =>
+      `<path d="M${f(a[0])} ${f(a[1] + 6)} Q${f((a[0] + b[0]) / 2)} ${f((a[1] + b[1]) / 2 + 16)} ${f(b[0])} ${f(b[1] + 6)}" stroke="#E8D3A0" stroke-width="3" fill="none"></path>`;
+    o += rope(tops[1], tops[2]);
+    for (const [x, y] of corners) {
+      o += `<path d="${soft(
+        [
+          [x - 4, y + 2],
+          [x - 4, y - 34],
+          [x + 4, y - 36],
+          [x + 4, y + 2],
+        ],
+        2,
+        0.4,
+      )}" fill="${lin(
+        [
+          [0, '#B07A4A'],
+          [1, '#5A3418'],
+        ],
+        0,
+        0,
+        1,
+        0,
+      )}" ${OUT(0, 2.2)}></path>`;
+    }
+    o += rope(tops[0], tops[1]) + rope(tops[2], tops[3]) + rope(tops[0], tops[3]);
+    // the signpost, planted in the middle of the plot
+    o += `<path d="M${cx} ${cy - 14} V${cy - 70}" stroke="${INK}" stroke-width="9" stroke-linecap="round"></path><path d="M${cx} ${cy - 14} V${cy - 70}" stroke="#8A5530" stroke-width="5" stroke-linecap="round"></path>`;
+    o += `<path d="${soft(
+      [
+        [cx - 44, cy - 100],
+        [cx + 44, cy - 104],
+        [cx + 46, cy - 70],
+        [cx - 42, cy - 68],
+      ],
+      6,
+      1,
+    )}" fill="${lin([
+      [0, '#E9C48E'],
+      [1, '#B98A55'],
+    ])}" ${OUT(0, 2.6)}></path>`;
+    o += `<path d="M${cx - 28} ${cy - 90} H${cx + 28} M${cx - 22} ${cy - 80} H${cx + 18}" stroke="#7A5230" stroke-width="2.4" stroke-linecap="round" opacity=".5"></path>`;
+    return o;
+  }
+  const plots = [
+    { cx: 640, cy: 1012 },
+    { cx: 1300, cy: 1004 },
+  ].map(({ cx, cy }) => ({ box: { x: cx - 95, y: cy - 110, w: 190, h: 126 }, svg: plot(cx, cy) }));
+
   // ---------- FOREGROUND (out of focus) + grade ----------
   let fg = '';
   fg += `<g filter="url(#fx-dof)">`;
@@ -1954,5 +2024,6 @@ export function paintCity() {
       market: { box: box(1400, 590, 520, 360), svg: marketShadow + market },
     },
     avatar: { box: box(950, 740, 120, 210), svg: avatar },
+    plots,
   };
 }

@@ -33,10 +33,47 @@
 }
 
 .city__place,
-.city__avatar {
+.city__avatar,
+.city__plot {
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+/* Places are links (#25). Only their painted shapes and plaques take the pointer, so
+   overlapping boxes never steal each other's clicks. */
+.city__place {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+  transition:
+    transform 0.18s ease,
+    filter 0.18s ease;
+}
+
+.city__place .city__part * {
+  pointer-events: visiblePainted;
+}
+
+.city__place .city__plaque {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.city__place:hover,
+.city__place:focus-visible {
+  transform: translateY(-6px);
+  filter: drop-shadow(0 0 18px rgba(255, 211, 107, 0.85));
+}
+
+.city__place:focus-visible .city__plaque {
+  outline: 4px solid #ffd36b;
+  outline-offset: 4px;
+}
+
+.city__plot .city__part * {
+  pointer-events: visiblePainted;
 }
 
 .city__plaque {
@@ -77,6 +114,7 @@
 
 .city__sign--arena {
   position: absolute;
+  cursor: pointer;
   padding: 4px 14px;
   background: linear-gradient(#6b5e52, #4a3f36);
   border: 2px solid #2a1f18;
@@ -91,6 +129,13 @@
   opacity: 0.9;
 }
 
+.city__sign--arena:hover,
+.city__sign--arena:focus-visible {
+  opacity: 1;
+  outline: 3px solid #ffd36b;
+  outline-offset: 3px;
+}
+
 /* The HUD and other screen-space UI, unscaled, above the stage. */
 .city__overlay {
   position: absolute;
@@ -100,6 +145,28 @@
 
 .city__overlay > * {
   pointer-events: auto;
+}
+
+/* A short message, e.g. after knocking on the locked Arena. */
+.city__notice:empty {
+  display: none;
+}
+
+.city__notice {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  max-width: calc(100% - 32px);
+  margin: 0;
+  padding: 12px 20px;
+  transform: translateX(-50%);
+  border: var(--outline-ui);
+  border-radius: 12px;
+  background: var(--parchment);
+  color: var(--ink);
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 4px 0 var(--ink);
 }
 
 /* Ambient life, from the concept. */
@@ -222,6 +289,9 @@
 @media (prefers-reduced-motion: reduce) {
   .city * {
     animation: none !important;
+  }
+  .city__place {
+    transition: none;
   }
 }
 

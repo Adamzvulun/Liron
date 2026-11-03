@@ -76,6 +76,20 @@
   font-weight: 700;
 }
 
+/* Only the HUD's panels take clicks; the gaps between them belong to the city. */
+.city__overlay .lobby__top {
+  pointer-events: none;
+}
+
+.lobby__top > *,
+.lobby__top .hud > * {
+  pointer-events: auto;
+}
+
+.lobby__top .hud {
+  pointer-events: none;
+}
+
 /* In the city, the HUD follows the concept: the player's plate top left, the purse and today's
    goal top right, clear of the Signal Tower. The full HUD pass is #26; phones keep the stacked
    HUD until their own layout (#27). */
@@ -102,4 +116,49 @@
     grid-area: goal;
     width: min(380px, 100%);
   }
+}
+
+/* A place's screen (#25), until halls and houses get their own content. */
+.place-screen {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+  border-top: 12px solid var(--lamplight);
+}
+
+.place-screen__back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+  color: var(--parchment);
+}
+
+.place-screen__title {
+  margin: 16px 0 8px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(32px, 7vw, 56px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--lamplight);
+  text-shadow: 0 4px 0 var(--ink);
+  outline: none;
+}
+
+.place-screen__tagline {
+  margin: 0 0 24px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.place-screen__soon {
+  margin: 0;
+  padding: 20px 24px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: var(--parchment);
+  color: var(--ink);
+  font-size: 18px;
+  box-shadow: 0 5px 0 var(--ink);
 }

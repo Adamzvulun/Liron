@@ -1,6 +1,15 @@
-import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { Link } from '../Link.tsx';
 import type { SubjectInfo } from '../subject.ts';
-import { ARENA_SIGN, PLACE_LABELS, PLAQUES, STAGE, SUBJECT_BUILDINGS } from './layout.ts';
+import {
+  ARENA_LOCKED,
+  ARENA_SIGN,
+  PLACE_LABELS,
+  PLACE_PATHS,
+  PLAQUES,
+  residentsOf,
+  STAGE,
+} from './layout.ts';
 import { paintCity, type PaintedPart, type PlaceId } from './painter.js';
 import './city.css';
 
@@ -63,7 +72,8 @@ function Part({ part }: { part: PaintedPart }) {
 
 /**
  * The city square (issue #24): the approved concept v3, painted in the browser and scaled to
- * fit the window. `children` (the HUD) sit on top, outside the scaled stage.
+ * fit the window. Each place is a link to its screen (#25). `children` (the HUD) sit on top,
+ * outside the scaled stage.
  */
 export function City({
   subjects,
@@ -74,11 +84,13 @@ export function City({
 }) {
   const city = scene();
   const [ref, scale] = useStageScale();
-  const residents = new Map<PlaceId, SubjectInfo>();
-  for (const s of subjects) {
-    const building = SUBJECT_BUILDINGS[s.id];
-    if (building) residents.set(building, s);
-  }
+  const residents = residentsOf(subjects);
+  const [knocked, setKnocked] = useState(false);
+  useEffect(() => {
+    if (!knocked) return;
+    const t = setTimeout(() => setKnocked(false), 5000);
+    return () => clearTimeout(t);
+  }, [knocked]);
   return (
     <main className="city" ref={ref}>
       <h1 className="visually-hidden">Waymark</h1>
@@ -93,18 +105,32 @@ export function City({
         <Layer svg={`<defs>${city.defs}</defs>${city.layers.sky}`} />
         <Layer svg={city.layers.ground} />
         <Layer svg={city.layers.mid} />
-        <div
+        <button
+          type="button"
           className="city__sign city__sign--arena"
           style={{ left: ARENA_SIGN.x, top: ARENA_SIGN.y }}
+          onClick={() => setKnocked(true)}
         >
           {ARENA_SIGN.text}
-        </div>
+        </button>
+        {city.plots.map((plot, i) => (
+          <div
+            key={i}
+            className="city__plot"
+            role="img"
+            aria-label="An empty plot, where a new guild can build"
+            title="An empty plot: a new guild can build here"
+          >
+            <Part part={plot} />
+          </div>
+        ))}
         {(Object.keys(city.places) as PlaceId[]).map((id) => {
           const plaque = PLAQUES[id];
           const resident = residents.get(id);
           return (
-            <section
+            <Link
               key={id}
+              href={PLACE_PATHS[id]}
               className={`city__place city__place--${id}`}
               aria-label={`${resident?.place ?? plaque.title}: ${resident?.tagline ?? PLACE_LABELS[id]}`}
             >
@@ -120,7 +146,7 @@ export function City({
                   </span>
                 )}
               </h2>
-            </section>
+            </Link>
           );
         })}
         <div className="city__avatar" role="img" aria-label="Your character">
@@ -128,7 +154,12 @@ export function City({
         </div>
         <Layer svg={city.layers.front} className="city__layer--front" />
       </div>
-      <div className="city__overlay">{children}</div>
+      <div className="city__overlay">
+        {children}
+        <p className="city__notice" role="status">
+          {knocked && ARENA_LOCKED}
+        </p>
+      </div>
     </main>
   );
 }
