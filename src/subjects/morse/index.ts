@@ -1,5 +1,5 @@
 import type { SubjectInfo } from '../../core/subject.ts';
-import { KochLesson } from './lesson/Lesson.tsx';
+import { TowerHall } from './TowerHall.tsx';
 
 export const morse: SubjectInfo = {
   id: 'morse',
@@ -7,5 +7,5 @@ export const morse: SubjectInfo = {
   tagline: 'Morse code by sound and light',
   guildColor: 'var(--guild-morse)',
   skills: ['receive', 'send', 'head-copy'],
-  Hall: KochLesson,
+  Hall: TowerHall,
 };
