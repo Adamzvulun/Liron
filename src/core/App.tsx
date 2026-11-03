@@ -9,7 +9,7 @@ import { PlaceScreen } from './city/PlaceScreen.tsx';
 import { Link } from './Link.tsx';
 import { usePath } from './router.ts';
 import { GoalReached } from './player/GoalReached.tsx';
-import { Hud } from './player/Hud.tsx';
+import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
@@ -51,7 +51,13 @@ function Lobby({ player }: { player: Player }) {
   if (place) {
     return (
       <>
-        <PlaceScreen place={place} resident={residentsOf(subjects).get(place)} />
+        <PlaceScreen place={place} resident={residentsOf(subjects).get(place)}>
+          {place === 'board' && state.today && (
+            <div className="hud">
+              <QuestTracker today={state.today} />
+            </div>
+          )}
+        </PlaceScreen>
         {celebrations}
       </>
     );
