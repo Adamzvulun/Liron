@@ -1,5 +1,6 @@
 import type { SubjectProgress } from '../subject.ts';
 import type { ScheduledReview, StoredCard } from '../srs/scheduler.ts';
+import type { StoredRating } from '../rating/ratings.ts';
 import {
   addDays,
   dailyChest,
@@ -67,12 +68,33 @@ export interface ProgressStore {
     review: ScheduledReview,
     reviewedAt: Date,
   ): Promise<void>;
+  /** The learner's stored ratings in this subject, by skill. */
+  skillRatings(subjectId: string): Promise<Map<string, StoredRating>>;
+  /** Stored ratings of the given items in one skill. */
+  itemRatings(
+    subjectId: string,
+    skill: string,
+    itemIds: readonly string[],
+  ): Promise<Map<string, StoredRating>>;
+  /** Saves one result: both new ratings and the log entry, together. */
+  saveResult(
+    subjectId: string,
+    skill: string,
+    itemId: string,
+    score: number,
+    learner: StoredRating,
+    item: StoredRating,
+  ): Promise<void>;
 }
 
 /** An in-memory store with the same rules as the database, for tests. */
 export function memoryStore(
   clock: { today: () => string } = { today: () => new Date().toISOString().slice(0, 10) },
-): ProgressStore & { travel(days: number): void; reviewLog: readonly object[] } {
+): ProgressStore & {
+  travel(days: number): void;
+  reviewLog: readonly object[];
+  ratingLog: readonly object[];
+} {
   const subjects = new Map<string, SubjectProgress & { state: object | null }>();
   const get = (id: string) => {
     let s = subjects.get(id);
@@ -83,6 +105,9 @@ export function memoryStore(
   const days = new Map<string, { minutes: number; reached: boolean }>();
   const cards = new Map<string, { due: Date; card: StoredCard }>(); // key: subject/item
   const reviewLog: { subjectId: string; itemId: string; rating: number; at: Date }[] = [];
+  const skillRatings = new Map<string, StoredRating>(); // key: subject/skill
+  const itemRatings = new Map<string, StoredRating>(); // key: subject/skill/item
+  const ratingLog: { subjectId: string; skill: string; itemId: string; score: number }[] = [];
   let goal = DEFAULT_DAILY_GOAL;
   let offset = 0;
   const todayIs = () => addDays(clock.today(), offset);
@@ -112,6 +137,27 @@ export function memoryStore(
   };
   return {
     reviewLog,
+    ratingLog,
+    async skillRatings(subjectId) {
+      const found = new Map<string, StoredRating>();
+      for (const [key, r] of skillRatings) {
+        if (key.startsWith(`${subjectId}/`)) found.set(key.slice(subjectId.length + 1), { ...r });
+      }
+      return found;
+    },
+    async itemRatings(subjectId, skill, itemIds) {
+      const found = new Map<string, StoredRating>();
+      for (const id of itemIds) {
+        const r = itemRatings.get(`${subjectId}/${skill}/${id}`);
+        if (r) found.set(id, { ...r });
+      }
+      return found;
+    },
+    async saveResult(subjectId, skill, itemId, score, learner, item) {
+      skillRatings.set(`${subjectId}/${skill}`, { ...learner });
+      itemRatings.set(`${subjectId}/${skill}/${itemId}`, { ...item });
+      ratingLog.push({ subjectId, skill, itemId, score });
+    },
     travel(n) {
       offset += n;
     },

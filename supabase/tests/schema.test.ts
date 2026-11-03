@@ -32,7 +32,11 @@ const TABLES = [
   'subject_progress',
   'review_cards',
   'review_log',
+  'skill_ratings',
+  'item_ratings',
+  'rating_log',
 ] as const;
+const APPEND_ONLY: readonly string[] = ['review_log', 'rating_log'];
 
 let db: PGlite;
 
@@ -88,6 +92,23 @@ beforeAll(async () => {
        values ($1, 'morse', 'char:E', 3, now(), '{}')`,
       [id],
     );
+    await db.query(
+      `insert into skill_ratings (user_id, subject_id, skill, rating, rd, volatility, games, rated_at)
+       values ($1, 'morse', 'receive', 1000, 350, 0.06, 0, now())`,
+      [id],
+    );
+    await db.query(
+      `insert into item_ratings
+         (user_id, subject_id, skill, item_id, rating, rd, volatility, games, rated_at)
+       values ($1, 'morse', 'receive', 'char:E', 1000, 350, 0.06, 0, now())`,
+      [id],
+    );
+    await db.query(
+      `insert into rating_log
+         (user_id, subject_id, skill, item_id, score, rated_at, learner_rating, item_rating)
+       values ($1, 'morse', 'receive', 'char:E', 1, now(), 1000, 1000)`,
+      [id],
+    );
   }
 });
 
@@ -131,10 +152,10 @@ describe('row-level security', () => {
     });
 
     it(`${table}: a user can't change someone else's rows`, async () => {
-      if (table === 'review_log') {
+      if (APPEND_ONLY.includes(table)) {
         // Append-only: nobody can change any row, their own included.
         await expect(
-          as(ADAM, () => run(`update review_log set rating = 4 where user_id = $1`, [OTHER])),
+          as(ADAM, () => run(`update ${table} set item_id = 'x' where user_id = $1`, [OTHER])),
         ).rejects.toThrow(/permission denied/);
         return;
       }
@@ -624,6 +645,56 @@ describe('spaced repetition tables (ADR 0022)', () => {
     await expect(as(null, () => call(3, new Date().toISOString()))).rejects.toThrow(
       /permission denied/,
     );
+  });
+});
+
+describe('skill ratings (ADR 0024)', () => {
+  it('records results through the real function and reads them back', async () => {
+    await as(ADAM, async () => {
+      const morse = subjectApi(
+        { id: 'morse', skills: ['receive', 'send'] },
+        supabaseStore(fakeClient),
+      );
+      const at = new Date(Date.now() - 60_000);
+      const first = await morse.recordResult('receive', 'char:K', 1, { at });
+      await morse.recordResult('receive', 'char:K', 0, { at: new Date(at.getTime() + 1000) });
+      await morse.recordResult('send', 'char:M', 1, { at, itemSeed: 1200 });
+      expect(first.learner).toMatchObject({ games: 1, provisional: true }); // seeded row had 0
+      const skills = await morse.skillRatings();
+      expect(skills.get('receive')).toMatchObject({ games: 2 });
+      expect(skills.get('send')).toMatchObject({ games: 1 });
+      const items = await morse.itemRatings('receive', ['char:K', 'char:E', 'char:X']);
+      expect([...items.keys()].sort()).toEqual(['char:E', 'char:K']);
+      expect(items.get('char:K')).toMatchObject({ games: 2 });
+      const send = await morse.itemRatings('send', ['char:M']);
+      expect(send.get('char:M')?.rating).toBeLessThan(1200);
+    });
+    expect(
+      await rows(
+        `select skill, item_id, score from rating_log where user_id = $1 and item_id <> 'char:E'
+         order by id`,
+        [ADAM],
+      ),
+    ).toEqual([
+      { skill: 'receive', item_id: 'char:K', score: 1 },
+      { skill: 'receive', item_id: 'char:K', score: 0 },
+      { skill: 'send', item_id: 'char:M', score: 1 },
+    ]);
+  });
+
+  it('record_result refuses future times, bad numbers and logged-out visitors', async () => {
+    const call = (score: number, at: string, rd = 200) =>
+      rows(
+        `select record_result('morse', 'receive', 'k', $1, $2::timestamptz,
+           jsonb_build_object('rating', 1000, 'rd', $3::float8, 'volatility', 0.06, 'games', 1),
+           '{"rating": 1000, "rd": 200, "volatility": 0.06, "games": 1}')`,
+        [score, at, rd],
+      );
+    const now = new Date().toISOString();
+    await expect(as(ADAM, () => call(1, '2999-01-01'))).rejects.toThrow(/future/);
+    await expect(as(ADAM, () => call(2, now))).rejects.toThrow(/check/);
+    await expect(as(ADAM, () => call(1, now, 400))).rejects.toThrow(/check/);
+    await expect(as(null, () => call(1, now))).rejects.toThrow(/permission denied/);
   });
 });
 
