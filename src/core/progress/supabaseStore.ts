@@ -1,5 +1,31 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Award, DayResult, ProgressStore, Today } from './store.ts';
+import type { StoredRating } from '../rating/ratings.ts';
+
+interface RatingRow {
+  rating: number;
+  rd: number;
+  volatility: number;
+  games: number;
+  rated_at: string;
+}
+
+const RATING_COLUMNS = 'rating, rd, volatility, games, rated_at';
+
+const toRating = (r: RatingRow): StoredRating => ({
+  rating: Number(r.rating),
+  rd: Number(r.rd),
+  volatility: Number(r.volatility),
+  games: Number(r.games),
+  ratedAt: new Date(r.rated_at),
+});
+
+const ratingArg = (r: StoredRating) => ({
+  rating: r.rating,
+  rd: r.rd,
+  volatility: r.volatility,
+  games: r.games,
+});
 
 interface TodayRow {
   day: string;
@@ -153,6 +179,44 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
           p_log: review.log,
         },
         `save a ${subjectId} review`,
+      );
+    },
+    async skillRatings(subjectId) {
+      const { data, error } = await client
+        .from('skill_ratings')
+        .select(`skill, ${RATING_COLUMNS}`)
+        .eq('subject_id', subjectId);
+      if (error) throw new Error(`Couldn't read ${subjectId} ratings: ${error.message}`);
+      return new Map(
+        (data as (RatingRow & { skill: string })[]).map((r) => [r.skill, toRating(r)]),
+      );
+    },
+    async itemRatings(subjectId, skill, itemIds) {
+      if (itemIds.length === 0) return new Map();
+      const { data, error } = await client
+        .from('item_ratings')
+        .select(`item_id, ${RATING_COLUMNS}`)
+        .eq('subject_id', subjectId)
+        .eq('skill', skill)
+        .in('item_id', [...itemIds]);
+      if (error) throw new Error(`Couldn't read ${subjectId} item ratings: ${error.message}`);
+      return new Map(
+        (data as (RatingRow & { item_id: string })[]).map((r) => [r.item_id, toRating(r)]),
+      );
+    },
+    async saveResult(subjectId, skill, itemId, score, learner, item) {
+      await call(
+        'record_result',
+        {
+          p_subject: subjectId,
+          p_skill: skill,
+          p_item: itemId,
+          p_score: score,
+          p_rated_at: learner.ratedAt.toISOString(),
+          p_learner: ratingArg(learner),
+          p_item_rating: ratingArg(item),
+        },
+        `save a ${subjectId} result`,
       );
     },
     async saveState(subjectId, state) {
