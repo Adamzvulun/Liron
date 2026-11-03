@@ -2,13 +2,13 @@
 
 **Read this first in every new session.** It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
-- **Last updated:** 2026-11-02
+- **Last updated:** 2026-11-03
 - **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0023 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0024 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -24,7 +24,7 @@
    - ~~#18 subject contract~~ ([ADR 0019](../decisions/0019-subject-contract.md)): done; its migration applied itself to `waymark-dev`.
    - ~~#19 XP, levels, gold, gems~~ ([ADR 0020](../decisions/0020-fast-levels-and-rewards.md), [economy](../game/economy.md)): done. Adam chose a fast pace (level 5 on day one).
    - ~~#20 streak and daily goal~~ ([ADR 0021](../decisions/0021-streak-and-daily-goal.md)): done. **E2 is complete** (2026-11-02); all its migrations are applied to `waymark-dev`.
-   - **E3:** **#21 FSRS** ([ADR 0022](../decisions/0022-fsrs-spaced-repetition.md)) is in a PR. **#23 content format and private pipeline** ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)) is in a PR, built on #21's branch so the migrations land in order. Adam approved the deck in Supabase and the two secret keys (2026-11-02). Before merging, he adds `SUPABASE_DEV_SECRET_KEY` and `SUPABASE_PROD_SECRET_KEY` ([SUPABASE → Private content](SUPABASE.md#private-content)). Then #22 (Glicko-2, p1).
+   - **E3:** ~~#21 FSRS~~ ([ADR 0022](../decisions/0022-fsrs-spaced-repetition.md)) and ~~#23 content format and private pipeline~~ ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)) are merged (2026-11-03), with their migrations applied to `waymark-dev`. Both secret keys are set. **#22 Glicko-2 skill ratings** ([ADR 0024](../decisions/0024-glicko2-skill-ratings.md)) is in a PR; it completes E3.
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam's steps: [SUPABASE](SUPABASE.md).
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).

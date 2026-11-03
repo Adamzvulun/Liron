@@ -1,6 +1,7 @@
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
+import type { SkillRating } from './rating/ratings.ts';
 
-export type { ReviewGrade, ReviewPhase };
+export type { ReviewGrade, ReviewPhase, SkillRating };
 
 // The contract between the platform and a subject (ADR 0003, ADR 0019).
 // A subject is a self-contained module in src/subjects/<id>/. It describes itself with
@@ -20,6 +21,11 @@ export interface SubjectInfo {
   tagline: string;
   /** CSS colour for the subject's guild hue. */
   guildColor: string;
+  /**
+   * The skills this subject rates separately (ADR 0010), e.g. Morse: receive, send, head-copy.
+   * Same format as subject ids. If listed, ratings for any other skill are refused.
+   */
+  skills?: readonly string[];
 }
 
 /** Where one item stands in spaced repetition. */
@@ -64,4 +70,19 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
   dueItems(options?: { limit?: number; now?: Date }): Promise<{ itemId: string; due: Date }[]>;
   /** Review status of the given items. Items missing from the map have never been reviewed. */
   reviewStatus(itemIds: readonly string[]): Promise<Map<string, ReviewStatus>>;
+  /**
+   * Skill ratings (Glicko-2, ADR 0024). Records one answer to an item in one skill: `score` is
+   * 1 for right, 0 for wrong, or anything between for partial credit. Both the learner's skill
+   * rating and the item's rating move. A never-rated item starts at `itemSeed` (default 1000).
+   */
+  recordResult(
+    skill: string,
+    itemId: string,
+    score: number,
+    options?: { at?: Date; itemSeed?: number },
+  ): Promise<{ learner: SkillRating; item: SkillRating }>;
+  /** The learner's rating in each skill they have results in. */
+  skillRatings(): Promise<Map<string, SkillRating>>;
+  /** The given items' ratings in one skill. Items missing from the map are not rated yet. */
+  itemRatings(skill: string, itemIds: readonly string[]): Promise<Map<string, SkillRating>>;
 }
