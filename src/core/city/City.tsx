@@ -9,6 +9,7 @@ import {
   PLAQUES,
   residentsOf,
   STAGE,
+  stageFit,
 } from './layout.ts';
 import { paintCity, type PaintedPart, type PlaceId } from './painter.js';
 import './city.css';
@@ -34,21 +35,22 @@ const panning = (el: HTMLElement) => el.clientWidth < 900 && el.clientHeight > e
 const START_X = 1010;
 
 /**
- * Scale for the 1920×1080 stage. Wide windows fit the whole stage without distorting it;
- * upright phones fill the height and scroll sideways, starting at the compass.
+ * Scale and position for the 1920×1080 stage. Wide windows are filled (`stageFit`); upright
+ * phones fill the height and scroll sideways, starting at the compass.
  */
 function useStageScale() {
   const ref = useRef<HTMLDivElement>(null);
-  const [view, setView] = useState({ scale: 1, pan: false });
+  const [view, setView] = useState({ scale: 1, x: 0, y: 0, pan: false });
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
     const fit = () => {
       const pan = panning(el);
-      const scale = pan
-        ? el.clientHeight / STAGE.height
-        : Math.min(el.clientWidth / STAGE.width, el.clientHeight / STAGE.height);
-      setView({ scale, pan });
+      setView(
+        pan
+          ? { scale: el.clientHeight / STAGE.height, x: 0, y: 0, pan }
+          : { ...stageFit(el.clientWidth, el.clientHeight), pan },
+      );
     };
     fit();
     const observer = new ResizeObserver(fit);
@@ -113,7 +115,7 @@ export function City({
   children?: ReactNode;
 }) {
   const city = scene();
-  const [ref, { scale, pan }] = useStageScale();
+  const [ref, { scale, x, y, pan }] = useStageScale();
   const residents = residentsOf(subjects);
   const [knocked, setKnocked] = useState(false);
   useEffect(() => {
@@ -136,7 +138,7 @@ export function City({
           style={{
             width: STAGE.width,
             height: STAGE.height,
-            transform: pan ? `scale(${scale})` : `translate(-50%, -50%) scale(${scale})`,
+            transform: `translate(${x}px, ${y}px) scale(${scale})`,
           }}
         >
           <Layer svg={`<defs>${city.defs}</defs>${city.layers.sky}`} />
