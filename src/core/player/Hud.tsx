@@ -239,7 +239,8 @@ function GoalPicker({
   );
 }
 
-function QuestTracker({ today }: { today: NonNullable<PlayerState['today']> }) {
+/** Today's quests and the daily goal bar, in the HUD and on the Notice Board. */
+export function QuestTracker({ today }: { today: NonNullable<PlayerState['today']> }) {
   const shown = Math.min(today.minutes, today.goalMinutes);
   return (
     <section className="hud__quests" aria-labelledby="hud-quests">
