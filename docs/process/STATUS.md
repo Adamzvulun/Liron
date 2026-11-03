@@ -30,7 +30,10 @@
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam's steps: [SUPABASE](SUPABASE.md).
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
-3. **M2: First playable** (#7–#11): **next.** Per the M1 retro, start with something learnable (E6 hear Morse, E8 Arabic letters), design first, and measure learning from day one.
+3. **M2: First playable** (#7–#11): **next.** Per the M1 retro: design first, and measure learning from day one.
+   - **Sprints, one theme each, never mixed** (Adam, 2026-11-03).
+   - **The Morse sprint comes first** (E6 receive, E7 send), then the Arabic sprint (E8, E9).
+   - Before the Morse lessons are built, Adam decides the letter order. The research is open on the Koch order (K M…) vs starting with E and I.
 
 ## Backlog map
 | Milestone | Epic | Issues |
