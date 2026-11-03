@@ -7,6 +7,8 @@ import { describe, expect, it } from 'vitest';
 //  1. A subject's files import only from their own folder, from src/core/ and from packages.
 //  2. Platform code (src/core/) never imports a particular subject. It may only use the registry
 //     (src/subjects/index.ts), which lists them all.
+//  3. Only the scheduler (src/core/srs/scheduler.ts) imports ts-fsrs (ADR 0022): subjects grade
+//     answers through the contract and never talk to the library.
 const SRC = join(import.meta.dirname, '..', 'src');
 const SUBJECTS = join(SRC, 'subjects');
 const CORE = join(SRC, 'core');
@@ -24,10 +26,14 @@ function sourceFiles(dir: string): string[] {
 
 const IMPORT = /(?:import|export)\s[^'"]*?from\s*['"]([^'"]+)['"]|import\s*\(?\s*['"]([^'"]+)['"]/g;
 
+/** Package imports only one file may use. */
+const ONLY_IN: Record<string, string> = { 'ts-fsrs': join('core', 'srs', 'scheduler.ts') };
+
+const specifiers = (code: string) => [...code.matchAll(IMPORT)].map((m) => m[1] ?? m[2] ?? '');
+
 /** Relative imports in `code`, resolved to absolute paths. */
 export function localImports(file: string, code: string): string[] {
-  return [...code.matchAll(IMPORT)]
-    .map((m) => m[1] ?? m[2] ?? '')
+  return specifiers(code)
     .filter((spec) => spec.startsWith('.'))
     .map((spec) => resolve(dirname(file), spec));
 }
@@ -43,6 +49,11 @@ function subjectOf(path: string): string | null {
 /** Broken rules for one file, as readable messages. */
 export function violations(file: string, code: string): string[] {
   const out: string[] = [];
+  for (const spec of specifiers(code)) {
+    const allowed = ONLY_IN[spec];
+    if (allowed && relative(SRC, file) !== allowed)
+      out.push(`imports ${spec}; only ${allowed} may`);
+  }
   const own = subjectOf(file);
   for (const target of localImports(file, code)) {
     const name = relative(SRC, target);
@@ -79,6 +90,15 @@ describe('subject boundaries', () => {
       [],
     );
     expect(violations(file, `import { y } from './sounds.ts';`)).toEqual([]);
+  });
+
+  it('catches anything but the scheduler importing ts-fsrs', () => {
+    const subject = join(SUBJECTS, 'morse', 'drill.ts');
+    expect(violations(subject, `import { fsrs } from 'ts-fsrs';`)).toHaveLength(1);
+    expect(violations(join(CORE, 'App.tsx'), `import { fsrs } from 'ts-fsrs';`)).toHaveLength(1);
+    expect(
+      violations(join(CORE, 'srs', 'scheduler.ts'), `import { fsrs } from 'ts-fsrs';`),
+    ).toEqual([]);
   });
 
   it('catches platform code importing a particular subject', () => {

@@ -111,6 +111,50 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       // A row can exist with the default empty state; that means "never saved".
       return data && Object.keys(data.state).length > 0 ? data.state : null;
     },
+    async reviewCards(subjectId, itemIds) {
+      const found = new Map<string, Record<string, unknown>>();
+      if (itemIds.length === 0) return found;
+      const { data, error } = await client
+        .from('review_cards')
+        .select('item_id, card')
+        .eq('subject_id', subjectId)
+        .in('item_id', [...itemIds]);
+      if (error) throw new Error(`Couldn't read ${subjectId} reviews: ${error.message}`);
+      for (const r of data as { item_id: string; card: Record<string, unknown> }[]) {
+        found.set(r.item_id, r.card);
+      }
+      return found;
+    },
+    async dueCards(subjectId, now, limit) {
+      const { data, error } = await client
+        .from('review_cards')
+        .select('item_id, due')
+        .eq('subject_id', subjectId)
+        .lte('due', now.toISOString())
+        .order('due')
+        .limit(limit);
+      if (error) throw new Error(`Couldn't read due ${subjectId} reviews: ${error.message}`);
+      return (data as { item_id: string; due: string }[]).map((r) => ({
+        itemId: r.item_id,
+        due: new Date(r.due),
+      }));
+    },
+    async saveReview(subjectId, itemId, review, reviewedAt) {
+      await call(
+        'record_review',
+        {
+          p_subject: subjectId,
+          p_item: itemId,
+          p_rating: review.rating,
+          p_reviewed_at: reviewedAt.toISOString(),
+          p_due: review.due.toISOString(),
+          p_state: review.state,
+          p_card: review.card,
+          p_log: review.log,
+        },
+        `save a ${subjectId} review`,
+      );
+    },
     async saveState(subjectId, state) {
       await call(
         'save_subject_state',
