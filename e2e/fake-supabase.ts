@@ -49,6 +49,7 @@ export async function fakeSupabase(
   page: Page,
   passwordUpdates: unknown[] = [],
   profileUpdates: unknown[] = [],
+  subjectCalls: SubjectCall[] = [],
 ) {
   await page.route(`${FAKE_SUPABASE_URL}/**`, async (route) => {
     const url = new URL(route.request().url());
@@ -86,26 +87,74 @@ export async function fakeSupabase(
         },
       });
     }
+    // A subject's progress: no saved state, nothing reviewed or rated yet. Writes are recorded.
+    const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');
+    if (
+      [
+        '/rest/v1/subject_progress',
+        '/rest/v1/review_cards',
+        '/rest/v1/skill_ratings',
+        '/rest/v1/item_ratings',
+      ].includes(url.pathname)
+    ) {
+      // PostgREST answers "no row" for a single-object request like this; supabase-js's
+      // maybeSingle() turns it into null.
+      return single
+        ? route.fulfill({
+            status: 406,
+            json: { code: 'PGRST116', details: 'The result contains 0 rows', message: 'No rows' },
+          })
+        : route.fulfill({ json: [] });
+    }
+    const rpc = url.pathname.replace('/rest/v1/rpc/', '');
+    if (['save_subject_state', 'record_review', 'record_result'].includes(rpc)) {
+      subjectCalls.push({ rpc, args: route.request().postDataJSON() });
+      return route.fulfill({ json: null });
+    }
+    if (rpc === 'record_progress') {
+      const args = route.request().postDataJSON() as { p_xp: number; p_minutes: number };
+      subjectCalls.push({ rpc, args });
+      return route.fulfill({
+        json: {
+          ...WALLET,
+          xp: WALLET.xp + args.p_xp,
+          xp_earned: args.p_xp,
+          gold_earned: 0,
+          gems_earned: 0,
+          level_before: 3,
+          level: 3,
+          today: { ...TODAY, minutes: TODAY.minutes + args.p_minutes },
+        },
+      });
+    }
     if (url.pathname === '/rest/v1/profiles') {
       if (route.request().method() === 'PATCH') {
         profileUpdates.push(route.request().postDataJSON());
         return route.fulfill({ status: 204 });
       }
-      const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');
       return route.fulfill({ json: single ? PROFILE : [PROFILE] });
     }
     if (url.pathname === '/rest/v1/wallets') {
       // supabase-js asks for a single object with this Accept header (maybeSingle).
-      const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');
       return route.fulfill({ json: single ? WALLET : [WALLET] });
     }
     return route.fulfill({ status: 404, json: {} });
   });
 }
 
+/** A write a subject made through the database functions (rpc name and arguments). */
+export interface SubjectCall {
+  rpc: string;
+  args: unknown;
+}
+
 /** Starts the page already logged in, the way a returning visitor would be. */
-export async function signedIn(page: Page, profileUpdates: unknown[] = []) {
-  await fakeSupabase(page, [], profileUpdates);
+export async function signedIn(
+  page: Page,
+  profileUpdates: unknown[] = [],
+  subjectCalls: SubjectCall[] = [],
+) {
+  await fakeSupabase(page, [], profileUpdates, subjectCalls);
   await page.addInitScript(
     ([key, session]) => {
       if (!sessionStorage.getItem('e2e-seeded')) {

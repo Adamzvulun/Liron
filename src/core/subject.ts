@@ -27,8 +27,12 @@ export interface SubjectInfo {
    * Same format as subject ids. If listed, ratings for any other skill are refused.
    */
   skills?: readonly string[];
-  /** What the subject shows inside its place in the city (its hall). */
-  Hall?: ComponentType;
+  /**
+   * What the subject shows inside its place in the city (its hall). The platform hands it the
+   * subject's own API.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- each subject has its own state
+  Hall?: ComponentType<{ api: SubjectApi<any> }>;
 }
 
 /** Where one item stands in spaced repetition. */
