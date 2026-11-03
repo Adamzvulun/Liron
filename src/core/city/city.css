@@ -1,0 +1,238 @@
+/* The city square (issue #24). Stage sizes are in design pixels (1920×1080); the stage is scaled
+   as a whole to fit the window. Animations come from concept v3 (Main.dc.html). */
+
+.city {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  /* Windows taller than 16:9 show sky above and ground below, in the scene's edge colours. */
+  background: linear-gradient(#5d7fa8, #6182a9 50%, #5a3f2b 50%, #3e2a1c);
+}
+
+.city__stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+  transform-origin: center;
+  font-family: var(--font-ui);
+  color: #24160e;
+  background: #8fb0d6;
+}
+
+.city__layer,
+.city__part {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+.city__layer--front {
+  pointer-events: none;
+}
+
+.city__place,
+.city__avatar {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.city__plaque {
+  position: absolute;
+  margin: 0;
+  padding: 7px 0 8px;
+  text-align: center;
+  background: linear-gradient(#8a5a33, #5a341a 55%, #43240f);
+  border: 3px solid #24160e;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 214, 150, 0.55),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.25),
+    0 5px 0 #24160e,
+    0 10px 16px rgba(30, 12, 4, 0.45);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #fbebc8;
+  text-shadow: 0 2px 0 #24160e;
+}
+
+.city__plaque--small {
+  font-size: 15px;
+}
+
+.city__plaque-sub {
+  display: block;
+  padding-top: 2px;
+  font-family: var(--font-arabic);
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
+.city__sign--arena {
+  position: absolute;
+  padding: 4px 14px;
+  background: linear-gradient(#6b5e52, #4a3f36);
+  border: 2px solid #2a1f18;
+  border-radius: 10px;
+  box-shadow: 0 3px 0 #2a1f18;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #eadfcb;
+  opacity: 0.9;
+}
+
+/* The HUD and other screen-space UI, unscaled, above the stage. */
+.city__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.city__overlay > * {
+  pointer-events: auto;
+}
+
+/* Ambient life, from the concept. */
+@keyframes wm-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+@keyframes wm-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.82;
+  }
+  55% {
+    opacity: 0.96;
+  }
+  72% {
+    opacity: 0.78;
+  }
+}
+@keyframes wm-steam {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  30% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+}
+@keyframes wm-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+@keyframes wm-smoke {
+  0% {
+    opacity: 0;
+    transform: translate(0, 4px) scale(0.8);
+  }
+  40% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(14px, -40px) scale(1.5);
+  }
+}
+@keyframes wm-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(22px);
+  }
+}
+@keyframes wm-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.city .wm-pulse {
+  animation: wm-pulse 2.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.city .wm-flicker {
+  animation: wm-flicker 1.9s ease-in-out infinite;
+}
+.city .wm-steam {
+  animation: wm-steam 2.6s ease-out infinite;
+  transform-box: fill-box;
+}
+.city .wm-steam2 {
+  animation: wm-steam 2.6s ease-out 1.3s infinite;
+  transform-box: fill-box;
+}
+.city .wm-bob {
+  animation: wm-bob 2.8s ease-in-out infinite;
+}
+.city .wm-smoke {
+  animation: wm-smoke 3.6s ease-out infinite;
+  transform-box: fill-box;
+}
+.city .wm-smoke2 {
+  animation: wm-smoke 3.6s ease-out 1.8s infinite;
+  transform-box: fill-box;
+}
+.city .wm-drift {
+  animation: wm-drift 28s ease-in-out infinite;
+}
+.city .wm-sway {
+  animation: wm-sway 4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: top center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city * {
+    animation: none !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
