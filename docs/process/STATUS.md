@@ -3,7 +3,7 @@
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
 - **Last updated:** 2026-11-03 (E5 avatar)
-- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
+- **Phase:** **M1 (Foundations) is done** (2026-11-03; [retro](retros/M1.md)). **Next: M2, first playable**: the first release, v1.0.0 (ADR 0027), comes once it has something to learn. History: M1 started when Adam said go (2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
 | Item | State |
@@ -26,11 +26,11 @@
    - ~~#20 streak and daily goal~~ ([ADR 0021](../decisions/0021-streak-and-daily-goal.md)): done. **E2 is complete** (2026-11-02); all its migrations are applied to `waymark-dev`.
    - **E3:** ~~#21 FSRS~~ ([ADR 0022](../decisions/0022-fsrs-spaced-repetition.md)) and ~~#23 content format and private pipeline~~ ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)) are merged (2026-11-03), with their migrations applied to `waymark-dev`. Both secret keys are set. ~~#22 Glicko-2 skill ratings~~ ([ADR 0024](../decisions/0024-glicko2-skill-ratings.md)) is merged (2026-11-03). **E3 is complete.**
    - ~~**E4 city v0**~~: done (2026-11-03). #24 city screen ([ADR 0025](../decisions/0025-city-painted-in-the-browser.md)), #25 clickable places ([ADR 0026](../decisions/0026-routing-without-a-library.md)), #26 HUD with real data, #27 phone layout. Adam reviewed it on PC and an iPhone 16 and approved it after three fixes: the scene fills the window, the Arena's flags are gone, the phone HUD is slim. The deck's audio upload now runs 8 at a time (PR #64).
-   - **E5 avatar v0 (#6):** #28 paper-doll avatar and #29 the wardrobe in Your House are in [PR #68](https://github.com/Adamzvulun/Liron/pull/68). Adam approved the concept on 2026-11-03 ("looks good for now, we can add more stuff later"). See [avatar](../game/avatar.md). **Next:** once Adam merges #68, M1 is done. Then write the M1 retro in `docs/process/retros/` and start M2. **No release to `main` yet:** Adam releases only when there is something to learn (2026-11-03). That means M2 content, not just the city and styling.
+   - ~~**E5 avatar v0 (#6)**~~: done, merged in [PR #68](https://github.com/Adamzvulun/Liron/pull/68) (2026-11-03). #28 is the paper-doll avatar and #29 the wardrobe in Your House. Adam approved the concept on 2026-11-03 ("looks good for now, we can add more stuff later"). See [avatar](../game/avatar.md). **M1 is done**, and the [M1 retro](retros/M1.md) is written. Next is M2. **No release to `main` yet:** Adam releases only when there is something to learn (2026-11-03). That means M2 content, not just the city and styling.
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam's steps: [SUPABASE](SUPABASE.md).
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
-3. **M2: First playable** (#7–#11), after M1.
+3. **M2: First playable** (#7–#11): **next.** Per the M1 retro, start with something learnable (E6 hear Morse, E8 Arabic letters), design first, and measure learning from day one.
 
 ## Backlog map
 | Milestone | Epic | Issues |
