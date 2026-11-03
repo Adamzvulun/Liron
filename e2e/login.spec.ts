@@ -41,6 +41,7 @@ test('"email me a link" confirms without saying whether the account exists', asy
 test('signing out returns to the login screen and stays there after a reload', async ({ page }) => {
   await signedIn(page);
   await page.goto('/');
+  await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('button', { name: 'Sign out' }).click();
   await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
   await page.reload();

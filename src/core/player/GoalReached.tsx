@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { DayResult } from '../progress/store.ts';
-import { CoinIcon, FlameIcon, GemIcon } from './Hud.tsx';
+import { CoinIcon, FlameIcon, GemIcon } from './icons.tsx';
 import './player.css';
 
 /** The daily-goal celebration: the streak and the daily chest. */

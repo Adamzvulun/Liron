@@ -1,5 +1,13 @@
 import { useSyncExternalStore } from 'react';
-import type { Award, DayResult, ProgressStore, Today, Wallet } from '../progress/store.ts';
+import {
+  MAX_NAME_LENGTH,
+  type Award,
+  type DayResult,
+  type Profile,
+  type ProgressStore,
+  type Today,
+  type Wallet,
+} from '../progress/store.ts';
 
 /** What the level-up card shows. Several level-ups before it's dismissed merge into one. */
 export type LevelUpInfo = Pick<
@@ -11,6 +19,7 @@ export interface PlayerState {
   /** null while loading. */
   wallet: Wallet | null;
   today: Today | null;
+  profile: Profile | null;
   error: string | null;
   /** The level-up waiting to be celebrated, if any. */
   levelUp: LevelUpInfo | null;
@@ -30,6 +39,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
   let state: PlayerState = {
     wallet: null,
     today: null,
+    profile: null,
     error: null,
     levelUp: null,
     goalReached: null,
@@ -50,8 +60,12 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       try {
         // The day follows the browser's time zone. If saving it fails, the last one still works.
         await store.setTimeZone(timeZone()).catch(() => {});
-        const [wallet, today] = await Promise.all([store.wallet(), store.today()]);
-        set({ wallet, today, error: null });
+        const [wallet, today, profile] = await Promise.all([
+          store.wallet(),
+          store.today(),
+          store.profile(),
+        ]);
+        set({ wallet, today, profile, error: null });
       } catch (e) {
         fail(e);
       }
@@ -85,6 +99,20 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
         set({ wallet, today, goalReached: today.goalReachedNow ? today : state.goalReached });
       } catch (e) {
         fail(e);
+      }
+    },
+    /** Saves the player's name (trimmed, at most 40 characters). Returns false if refused. */
+    async setDisplayName(name: string): Promise<boolean> {
+      const clean = name.trim().replace(/\s+/g, ' ');
+      if (clean.length > MAX_NAME_LENGTH) return false;
+      const before = state.profile;
+      set({ profile: { displayName: clean } });
+      try {
+        await store.setDisplayName(clean);
+        return true;
+      } catch {
+        set({ profile: before });
+        return false;
       }
     },
     dismissLevelUp() {
