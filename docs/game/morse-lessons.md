@@ -82,10 +82,12 @@ The Signal Tower's second tab (Adam approved the design on 2026-11-03). Code: `s
 
 ## The tower hall and "The Silent Beacon" (#33, #34)
 Adam approved the hall, the story text and the trial rewards on 2026-11-03.
-- **The hall** (`src/subjects/morse/hall/`) opens when you enter the tower:
-  - **Your standing:** guild rank (Initiate → Listener at all 26 letters, discovery 04), receive rating, speed and letters.
-  - **The questline:** a painted stair with one lamp per letter of the current chapter, the newest lamp's story line, and the chapter's trial.
-  - **The doors:** the Koch lesson, Instant Recognition, sending practice (E7) and the locked Radio Room.
+- **The hall** (`src/subjects/morse/hall/`) opens when you enter the tower. It is a **painted room** in the city's style (`paintTower.ts`, painted in the browser like the city, ADR 0025). Claude painted it overnight on 2026-11-03 while Adam was away, on his instruction to make the calls he would make; it awaits his review.
+  - **The questline:** a stone stair climbs the back wall, with one brass lamp per letter of the current chapter (lit lamps glow, the next one flickers) and the trial's gate at the top. The gate glows, and a plaque opens the trial, when every lamp is lit.
+  - **The scroll** on the left wall carries the chapter, the newest lamp's story line, and the trial.
+  - **The guild's banner** on the right wall carries your rank (Initiate → Listener at all 26 letters, discovery 04), receive and send ratings, and speed.
+  - **The stations** on the floor: the listening desk (the Koch lesson), the signal lamp (Instant Recognition), the telegraph table under a dust sheet (sending, E7) and the locked Radio Room door. The painting and its plaque are one button.
+  - **Window shapes:** windows narrower than 16:9 show the whole room, and the ceiling fills the space above it; wider windows crop a little from the top and bottom. On an upright phone the room pans sideways (as the city does), and the scroll, the stations and the banner follow below it as cards. The same happens whenever the room is drawn too small to read.
 - **The story** lives in `content/morse/questline.json`, a content pack: each chapter is an item (letters, intro, trial, outro), each lamp's line is an item, and each chapter is a lesson. Chapter I "Embers" covers K M U R E S N A; chapter II "The Upper Stair" covers P T L W I . J Z.
 - **Trials hold the gate:**
   - When every lamp of a chapter is lit, the next letter stays locked until the chapter's trial is passed. Lessons can still be practised meanwhile.
