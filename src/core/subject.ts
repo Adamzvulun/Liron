@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
 
@@ -26,6 +27,8 @@ export interface SubjectInfo {
    * Same format as subject ids. If listed, ratings for any other skill are refused.
    */
   skills?: readonly string[];
+  /** What the subject shows inside its place in the city (its hall). */
+  Hall?: ComponentType;
 }
 
 /** Where one item stands in spaced repetition. */

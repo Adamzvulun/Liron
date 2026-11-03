@@ -50,13 +50,12 @@ function Lobby({ player }: { player: Player }) {
     state.goalReached && <GoalReached day={state.goalReached} onDone={player.dismissGoal} />
   );
   if (place) {
+    const resident = residentsOf(subjects).get(place);
+    const Hall = resident?.Hall;
     return (
       <>
-        <PlaceScreen
-          place={place}
-          resident={residentsOf(subjects).get(place)}
-          wide={place === 'house'}
-        >
+        <PlaceScreen place={place} resident={resident} wide={place === 'house' || !!Hall}>
+          {Hall && <Hall />}
           {place === 'board' && state.today && (
             <div className="hud">
               <QuestTracker today={state.today} />
