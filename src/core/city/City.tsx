@@ -1,9 +1,13 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { Avatar } from '../avatar/Avatar.tsx';
+import { AVATAR_BOX } from '../avatar/paint.ts';
+import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import { Link } from '../Link.tsx';
 import type { SubjectInfo } from '../subject.ts';
 import {
   ARENA_LOCKED,
   ARENA_SIGN,
+  AVATAR_SPOT,
   PLACE_LABELS,
   PLACE_PATHS,
   PLAQUES,
@@ -109,9 +113,12 @@ function Part({ part }: { part: PaintedPart }) {
  */
 export function City({
   subjects,
+  look = DEFAULT_LOOK,
   children,
 }: {
   subjects: readonly SubjectInfo[];
+  /** The player's avatar; the default traveller until the profile loads. */
+  look?: Look;
   children?: ReactNode;
 }) {
   const city = scene();
@@ -190,6 +197,17 @@ export function City({
           })}
           <div className="city__avatar" role="img" aria-label="Your character">
             <Part part={city.avatar} />
+            <Avatar
+              look={look}
+              shadow={false}
+              className="city__figure"
+              width={AVATAR_BOX.width * AVATAR_SPOT.scale}
+              height={(AVATAR_BOX.height + 10) * AVATAR_SPOT.scale}
+              style={{
+                left: AVATAR_SPOT.x - (AVATAR_BOX.width / 2) * AVATAR_SPOT.scale,
+                top: AVATAR_SPOT.feetY - AVATAR_BOX.feetY * AVATAR_SPOT.scale,
+              }}
+            />
           </div>
           <Layer svg={city.layers.front} className="city__layer--front" />
         </div>

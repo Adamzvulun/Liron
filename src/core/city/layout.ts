@@ -82,6 +82,9 @@ export const PLACE_SOON: Record<PlaceId, string> = {
   market: 'Gear and items will be for sale here.',
 };
 
+/** Where the player's avatar stands in the square: by the compass, 190 design px tall. */
+export const AVATAR_SPOT = { x: 1010, feetY: 938, scale: 0.74 } as const;
+
 /** The Arena's message when someone knocks. */
 export const ARENA_LOCKED = 'The Arena opens with the Fellowship, when friends can join you.';
 
