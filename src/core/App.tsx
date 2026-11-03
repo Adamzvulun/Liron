@@ -13,11 +13,20 @@ import { GoalReached } from './player/GoalReached.tsx';
 import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
+import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import './App.css';
 
 // The signed-in player. Subjects' APIs report awards to it (ADR 0019, 0020).
-const player: Player | null = supabase ? createPlayer(supabaseStore(supabase)) : null;
+const store = supabase ? supabaseStore(supabase) : null;
+const player: Player | null = store ? createPlayer(store) : null;
+
+/** Each subject's API, bound to its id and reporting awards to the player. */
+const apis = new Map(
+  store && player
+    ? subjects.map((s) => [s.id, subjectApi(s, store, player.applyAward)] as const)
+    : [],
+);
 
 export function App() {
   if (!supabase) return <NotConfiguredScreen missing={missingConfig} />;
@@ -52,10 +61,11 @@ function Lobby({ player }: { player: Player }) {
   if (place) {
     const resident = residentsOf(subjects).get(place);
     const Hall = resident?.Hall;
+    const api = resident && apis.get(resident.id);
     return (
       <>
         <PlaceScreen place={place} resident={resident} wide={place === 'house' || !!Hall}>
-          {Hall && <Hall />}
+          {Hall && api && <Hall api={api} />}
           {place === 'board' && state.today && (
             <div className="hud">
               <QuestTracker today={state.today} />

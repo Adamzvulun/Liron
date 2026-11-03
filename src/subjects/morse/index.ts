@@ -6,5 +6,6 @@ export const morse: SubjectInfo = {
   place: 'Signal Tower',
   tagline: 'Morse code by sound and light',
   guildColor: 'var(--guild-morse)',
+  skills: ['receive', 'send', 'head-copy'],
   Hall: KochLesson,
 };
