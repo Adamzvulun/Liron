@@ -642,8 +642,6 @@ export function paintCity() {
       }
       arena += `<path d="M${cx - rx} ${y - 6} A${rx} 40 0 0 0 ${cx + rx} ${y - 6}" stroke="${hz('#A68F72', hzv)}" stroke-width="2" fill="none"></path>`;
     }
-    for (const fx of [cx - 170, cx, cx + 170])
-      arena += `<path d="M${fx} ${by - h - 30} V${by - h - 70}" stroke="${hz(INK, 0.5)}" stroke-width="3"></path><path class="wm-sway" d="M${fx} ${by - h - 70} q16 4 30 0 q-6 8 0 16 q-14 4 -30 0 Z" fill="${hz('#C8553D', 0.45)}"></path>`;
   }
   // haze band (smooth, no hard edges)
   const hazeBand = `<rect x="0" y="330" width="1920" height="300" fill="${lin([

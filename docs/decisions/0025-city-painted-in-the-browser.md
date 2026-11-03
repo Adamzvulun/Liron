@@ -23,7 +23,8 @@ Both end up as the same ~5,300 SVG elements in the page, so rendering costs the 
   - The file stays plain JavaScript with a small type file (`painter.d.ts`); rewriting 600 lines of drawing code in TypeScript buys nothing.
   - The concept copy in `docs/` stays as the design record.
   - Gradient and filter ids are prefixed `wm-`, so they can't clash with the rest of the page.
-- **Scaling:** the 1920×1080 stage is scaled as a whole by `min(width / 1920, height / 1080)` and centred. When the window shape differs from 16:9, the leftover space shows the scene's sky above and ground below.
+- **Scaling (changed 2026-11-03 after Adam's review):** the 1920×1080 stage fills the window without distortion. Edges are cut off where the window's shape differs, at most 18% of the width or the height (`stageFit` in `layout.ts`). Height comes 70% off the top (sky), so the plaques at the bottom stay. Only windows further than that from 16:9, such as 5:4, show the scene's sky and ground colours around it. (The first version fitted the whole stage inside the window and left bands, which looked broken on wide windows.)
+- **The Arena's flags are gone** (Adam found them distracting).
 - **Which subject lives where** is a small map in `src/core/city/layout.ts` (`morse` → Signal Tower, `arabic` → Caravanserai). It matches subjects by id, so the city never imports a subject. The plaque shows the subject's own place name.
 - **Motion:** the concept's ambient animations (smoke, flicker, steam, drifting clouds, swaying signs, pulsing lamp) all stop under `prefers-reduced-motion: reduce`.
 - **Paint time is recorded** as the `city:paint` performance measure, so it can be checked in the browser's tools.
