@@ -191,6 +191,7 @@
   position: relative;
   order: 1;
   flex: 1;
+  min-height: 0; /* else the sizer keeps the view from shrinking when the HUD loads */
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
