@@ -57,50 +57,76 @@
   }
 }
 
-/* Phones held upright (#27): a compact HUD bar with the daily goal; the quests themselves are
-   behind the dock's Quests button. */
+/* Phones held upright (#27): a slim HUD, so the square gets the screen. One row for who you
+   are, one for the purse and today's goal; the quests are behind the dock's Quests button. */
 .city--pan .lobby__top {
   position: static;
-  padding: 8px;
+  padding: 6px 8px;
 }
 
 .city--pan .hud {
   flex: 1;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: 6px;
 }
 
-.city--pan .hud__questlist {
+.city--pan .hud__quests,
+.city--pan .hud__banner {
   display: none;
 }
 
-.city--pan .hud__quests {
-  gap: 6px;
-  padding: 8px 12px;
-}
-
-.city--pan .hud__queststitle {
-  font-size: 16px;
+.city--pan .hud__player {
+  gap: 8px;
 }
 
 .city--pan .hud__portrait {
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   border-width: 3px;
+  box-shadow:
+    inset 0 0 0 3px var(--brass),
+    0 3px 0 var(--ink);
 }
 
 .city--pan .hud__portrait svg {
-  width: 46px;
-  height: 42px;
+  width: 36px;
+  height: 33px;
 }
 
 .city--pan .hud__plate {
   flex: 1;
-  padding: 6px 12px;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px;
+  border-radius: 10px;
 }
 
 .city--pan .hud__who {
-  font-size: 17px;
+  flex-wrap: nowrap;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.city--pan .hud__name {
+  overflow: hidden;
+  max-width: 8em;
+  text-overflow: ellipsis;
+}
+
+.city--pan .hud__xp {
+  flex: 1;
+  gap: 6px;
+}
+
+.city--pan .hud__bar {
+  min-width: 40px;
+  height: 10px;
+  border-width: 2px;
+}
+
+.city--pan .hud__xptext {
+  font-size: 13px;
 }
 
 .city--pan .hud__purse {
@@ -109,15 +135,32 @@
 }
 
 .city--pan .hud__chip {
-  min-height: 40px;
-  padding: 4px 10px;
-  font-size: 16px;
+  min-height: 34px;
+  gap: 5px;
+  padding: 2px 9px;
+  font-size: 14px;
+  box-shadow:
+    inset 0 0 0 2px #8a5a33,
+    0 3px 0 var(--ink);
+}
+
+.city--pan .hud__chip svg {
+  width: 18px;
+  height: 18px;
+}
+
+.city--pan .hud__chip--goal {
+  display: inline-flex;
+}
+
+.city--pan .hud__settings {
+  margin-left: auto;
 }
 
 .city--pan .hud__gear {
-  width: 44px;
-  height: 44px;
-  margin-left: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
 }
 
 /* A place's screen (#25), until halls and houses get their own content. */

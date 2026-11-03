@@ -1,5 +1,12 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { signedIn } from './fake-supabase.ts';
+
+/** Phones show the daily goal as a chip; wider screens in the quest panel (#27). */
+const onPhone = () => test.info().project.name === 'phone';
+const goal = (page: Page, done: number, of: number) =>
+  onPhone()
+    ? page.getByLabel(`Daily goal: ${done} of ${of} minutes`)
+    : page.getByText(`${done} / ${of} min`);
 
 test('the lobby shows your level, XP bar, gold and gems', async ({ page }) => {
   await signedIn(page);
@@ -20,10 +27,10 @@ test('the HUD shows the streak and today’s goal, and the goal can change', asy
   await signedIn(page);
   await page.goto('/');
   await expect(page.getByLabel('Streak: 2 days')).toBeVisible();
-  await expect(page.getByText('6 / 15 min')).toBeVisible();
+  await expect(goal(page, 6, 15)).toBeVisible();
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByLabel('Minutes a day').selectOption('20');
-  await expect(page.getByText('6 / 20 min')).toBeVisible();
+  await expect(goal(page, 6, 20)).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
@@ -39,7 +46,11 @@ test('reaching the daily goal opens the chest and grows the streak', async ({ pa
   await dialog.getByRole('button', { name: 'Onward' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.getByLabel('Streak: 3 days')).toBeVisible();
-  await expect(page.getByText('Daily goal done! 6 min')).toBeVisible();
+  await expect(
+    onPhone()
+      ? page.getByText('Goal done', { exact: true })
+      : page.getByText('Daily goal done! 6 min'),
+  ).toBeVisible();
 });
 
 test('the HUD shows your name and today’s quests, which lead to their places', async ({ page }) => {
@@ -47,9 +58,15 @@ test('the HUD shows your name and today’s quests, which lead to their places',
   await page.goto('/');
   await expect(page.getByText('Adam', { exact: true })).toBeVisible();
   await expect(page.getByRole('img', { name: 'Your portrait' })).toBeVisible();
+  if (onPhone()) {
+    // On the phone the quests are behind the dock's Quests button (#27).
+    await page
+      .getByRole('navigation', { name: 'Places' })
+      .getByRole('link', { name: 'Quests' })
+      .click();
+  }
   const quests = page.getByRole('region', { name: 'Quests' });
   await expect(quests).toBeVisible();
-  if (test.info().project.name === 'phone') return; // the list waits for the phone layout (#27)
   await expect(quests.getByRole('link')).toHaveCount(3);
   await quests.getByRole('link', { name: /hear K and M/ }).click();
   await expect(page).toHaveURL(/\/signal-tower$/);
