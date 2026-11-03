@@ -20,7 +20,8 @@
 
 ## Next (in order)
 1. **M2: first playable (#7–#11).** M1 is done: [PR #68](https://github.com/Adamzvulun/Liron/pull/68) (E5 avatar) was merged on 2026-11-03, and the [M1 retro](retros/M1.md) is written.
-   - **Start with something learnable,** per the retro: E6 Signal Tower receive (#7) and E8 Caravanserai script (#9). Ask Adam which comes first.
+   - **Sprints, one theme each, never mixed** (Adam, 2026-11-03): **Morse first** (E6 #7, E7 #8), then Arabic (E8 #9, E9 #10).
+   - **Open:** the Koch letter order (K M…, in ADR 0009, #31 and `content/morse/characters.json`) vs Adam's "start with E and I". See the session's research. Settle it in an ADR before building #31.
    - **Design first:** a screenshotted concept of each lesson screen, approved by Adam, as with #27 and #28.
    - **Measure learning from day one.** The M2 retro must say whether Waymark teaches Adam.
 2. **Release:** only when there's something to learn. Adam decides when. It will be **v1.0.0** ([ADR 0027](../decisions/0027-release-versioning.md)). The release PR sets `package.json`'s version; Adam merges it and creates the tag.
