@@ -69,14 +69,12 @@ function Lobby({ player }: { player: Player }) {
   return (
     <City subjects={subjects}>
       <div className="lobby__top">
-        <Hud state={state} onGoalChange={(m) => void player.setDailyGoal(m)} />
-        <button
-          className="lobby__signout"
-          type="button"
-          onClick={() => void supabase?.auth.signOut({ scope: 'local' })}
-        >
-          Sign out
-        </button>
+        <Hud
+          state={state}
+          onGoalChange={(m) => void player.setDailyGoal(m)}
+          onNameChange={player.setDisplayName}
+          onSignOut={() => void supabase?.auth.signOut({ scope: 'local' })}
+        />
       </div>
       {/* One celebration at a time: the level-up first, then the daily goal. */}
       {celebrations}

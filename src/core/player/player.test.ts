@@ -101,3 +101,29 @@ describe('player', () => {
     expect(player.getSnapshot().today?.streak).toBe(0);
   });
 });
+
+describe('the player’s name', () => {
+  it('loads with the profile, saves trimmed, and refuses names over 40 characters', async () => {
+    const store = memoryStore();
+    await store.setDisplayName('Adam');
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    expect(player.getSnapshot().profile).toEqual({ displayName: 'Adam' });
+    expect(await player.setDisplayName('  Adam   Zvulun ')).toBe(true);
+    expect(player.getSnapshot().profile).toEqual({ displayName: 'Adam Zvulun' });
+    expect(await store.profile()).toEqual({ displayName: 'Adam Zvulun' });
+    expect(await player.setDisplayName('x'.repeat(41))).toBe(false);
+    expect(player.getSnapshot().profile).toEqual({ displayName: 'Adam Zvulun' });
+  });
+
+  it('puts the old name back if saving fails', async () => {
+    const store = memoryStore();
+    const player = createPlayer(
+      { ...store, setDisplayName: () => Promise.reject(new Error('offline')) },
+      () => 'UTC',
+    );
+    await player.load();
+    expect(await player.setDisplayName('Adam')).toBe(false);
+    expect(player.getSnapshot().profile).toEqual({ displayName: '' });
+  });
+});
