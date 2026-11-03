@@ -13,6 +13,13 @@
 ## Next (in order)
 1. **Adam reviews PR #73.** He checks the painted room, the sending drill and its fist analysis on the preview, then merges or asks for changes.
 2. **Then the Morse sprint (E6, E7) is complete,** and the Arabic sprint starts: E8 (Caravanserai: script, #38–#43), then E9 (survival phrases, #44, #45). Design first: a screenshotted concept that Adam approves before building.
+   - **Overnight drafts for E8, sent to Adam as files** (not in the repo, so the sprints don't mix):
+     - the lesson design `arabic-script-lessons.md`: shape-family order, Hebrew bridge, native audio from the Lingualism deck, the 90%-twice gate;
+     - a concept of the first lesson's three screens;
+     - a painted concept of the Caravanserai courtyard, with "The Long Road In" as milestones;
+     - chapter I story text, `long-road-in-ch1.md`.
+
+     Ask Adam to approve or change them. Then commit them on a fresh branch from `dev` as `docs/game/arabic-script-lessons.md`, before building.
 3. **Release v1.0.0** when Adam decides there's enough to learn. Morse is now playable end to end.
 
 ## Things the next session should know
