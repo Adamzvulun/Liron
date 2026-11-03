@@ -35,7 +35,7 @@
    - **The Morse sprint comes first** (E6 receive, E7 send), then the Arabic sprint (E8, E9).
    - Letter order settled: Koch order, K and M first (Adam: "A", [ADR 0028](../decisions/0028-morse-koch-order-and-gate.md)). How lessons work: [morse-lessons.md](../game/morse-lessons.md).
    - Morse sprint order: #30 audio engine → lesson concept (screenshotted, Adam approves) → #31 → #32 → #33, #34 → E7 (#35–#37).
-   - **Done:** #30 sound engine and the lesson concept ([PR #71](https://github.com/Adamzvulun/Liron/pull/71)); Adam approved the lesson design (2026-11-03, "thats great"). The city's hanging banners were removed at his request ([PR #72](https://github.com/Adamzvulun/Liron/pull/72)). **In progress:** #31, saving progress, FSRS, receive ratings and XP. **Next:** #32 Instant Recognition.
+   - **Done:** #30 sound engine and the lesson concept ([PR #71](https://github.com/Adamzvulun/Liron/pull/71)); Adam approved the lesson design (2026-11-03, "thats great"). The city's hanging banners were removed at his request ([PR #72](https://github.com/Adamzvulun/Liron/pull/72)). #31 (Koch lessons that save progress) merged in [PR #72](https://github.com/Adamzvulun/Liron/pull/72), with the Instant Recognition concept; Adam approved it (2026-11-03). **In progress:** #32, saving rounds (best, ratings, XP). **Next:** #33 tower hall repaint and #34 "The Silent Beacon" ch. 1–2.
    - E10 (quests and rewards) gets its own sprint after the Arabic sprint (reasoning in morse-lessons.md).
 
 ## Backlog map

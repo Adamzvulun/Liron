@@ -24,6 +24,14 @@ const progressSchema = z.object({
   accuracy: z.record(z.string(), z.number().min(0).max(1)).catch({}),
   lastRunAt: z.string().nullable().catch(null),
   runs: z.number().int().min(0).catch(0),
+  /** Instant Recognition (#32): personal best, rounds played, each letter's reaction time. */
+  recognition: z
+    .object({
+      best: z.number().int().min(0).catch(0),
+      rounds: z.number().int().min(0).catch(0),
+      avgMs: z.record(z.string(), z.number().min(0)).catch({}),
+    })
+    .catch({ best: 0, rounds: 0, avgMs: {} }),
 });
 
 export type MorseProgress = z.infer<typeof progressSchema>;
