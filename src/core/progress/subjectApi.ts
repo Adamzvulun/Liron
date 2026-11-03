@@ -1,5 +1,6 @@
 import { SUBJECT_ID, type ReviewStatus, type SubjectApi, type SubjectInfo } from '../subject.ts';
 import { phaseOf, scheduleReview, type StoredCard } from '../srs/scheduler.ts';
+import { rateResult, toSkillRating } from '../rating/ratings.ts';
 import type { Award, ProgressStore } from './store.ts';
 
 const MAX_XP = 10_000; // per call; the same limits are enforced again in the database
@@ -11,6 +12,8 @@ const checkItemId = (itemId: string) => {
     throw new RangeError(`Item ids are 1-128 characters, got "${String(itemId)}"`);
   }
 };
+
+const MAX_RATED_ITEMS = 500;
 
 const statusOf = (card: StoredCard): ReviewStatus => ({
   due: new Date(String(card.due)),
@@ -24,12 +27,24 @@ const statusOf = (card: StoredCard): ReviewStatus => ({
  * `onAward` lets the platform update the HUD and celebrate level-ups.
  */
 export function subjectApi<State extends object>(
-  subject: Pick<SubjectInfo, 'id'>,
+  subject: Pick<SubjectInfo, 'id' | 'skills'>,
   store: ProgressStore,
   onAward: (award: Award) => void = () => {},
 ): SubjectApi<State> {
   const id = subject.id;
   if (!SUBJECT_ID.test(id)) throw new Error(`Invalid subject id: "${id}"`);
+  const skills = subject.skills;
+  for (const skill of skills ?? []) {
+    if (!SUBJECT_ID.test(skill)) throw new Error(`Invalid skill id: "${skill}"`);
+  }
+  const checkSkill = (skill: string) => {
+    if (typeof skill !== 'string' || !SUBJECT_ID.test(skill)) {
+      throw new RangeError(`Invalid skill id: "${String(skill)}"`);
+    }
+    if (skills && !skills.includes(skill)) {
+      throw new RangeError(`${id} has no skill "${skill}" (it has: ${skills.join(', ')})`);
+    }
+  };
   return {
     subjectId: id,
     async awardXP(amount) {
@@ -72,6 +87,44 @@ export function subjectApi<State extends object>(
       itemIds.forEach(checkItemId);
       const cards = await store.reviewCards(id, itemIds);
       return new Map([...cards].map(([item, card]) => [item, statusOf(card)]));
+    },
+    async recordResult(skill, itemId, score, { at = new Date(), itemSeed } = {}) {
+      checkSkill(skill);
+      checkItemId(itemId);
+      if (typeof score !== 'number' || !(score >= 0 && score <= 1)) {
+        throw new RangeError(`recordResult: score is 0 to 1, got ${score}`);
+      }
+      if (itemSeed !== undefined && !(Number.isFinite(itemSeed) && Math.abs(itemSeed) < 5000)) {
+        throw new RangeError(`recordResult: itemSeed must be a sane rating, got ${itemSeed}`);
+      }
+      const [learners, items] = await Promise.all([
+        store.skillRatings(id),
+        store.itemRatings(id, skill, [itemId]),
+      ]);
+      const rated = rateResult(
+        learners.get(skill) ?? null,
+        items.get(itemId) ?? null,
+        score,
+        at,
+        itemSeed,
+      );
+      await store.saveResult(id, skill, itemId, score, rated.learner, rated.item);
+      return { learner: toSkillRating(rated.learner, at), item: toSkillRating(rated.item, at) };
+    },
+    async skillRatings() {
+      const now = new Date();
+      const stored = await store.skillRatings(id);
+      return new Map([...stored].map(([skill, r]) => [skill, toSkillRating(r, now)]));
+    },
+    async itemRatings(skill, itemIds) {
+      checkSkill(skill);
+      itemIds.forEach(checkItemId);
+      if (itemIds.length > MAX_RATED_ITEMS) {
+        throw new RangeError(`itemRatings: at most ${MAX_RATED_ITEMS} items at a time`);
+      }
+      const now = new Date();
+      const stored = await store.itemRatings(id, skill, itemIds);
+      return new Map([...stored].map(([item, r]) => [item, toSkillRating(r, now)]));
     },
   };
 }
