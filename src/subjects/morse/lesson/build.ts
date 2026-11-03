@@ -29,10 +29,12 @@ export function buildRun(
     newChar?: string;
     weights?: ReadonlyMap<string, number>;
     seconds?: number;
+    /** A fixed number of characters instead of a length in time (trials: 50). */
+    count?: number;
   } = {},
 ): RunPlan {
   if (unlocked.length < 2) throw new RangeError('A run needs at least two characters');
-  const { random = Math.random, newChar, weights, seconds = RUN_SECONDS } = options;
+  const { random = Math.random, newChar, weights, seconds = RUN_SECONDS, count } = options;
   const others = unlocked.filter((c) => c !== newChar);
   const weightOf = (c: string) => Math.max(0.2, weights?.get(c) ?? 1);
   const total = others.reduce((sum, c) => sum + weightOf(c), 0);
@@ -50,9 +52,11 @@ export function buildRun(
   // Length of one group with its word gap, at this speed. Characters differ in length, so
   // measure as we go rather than guessing.
   const groups: string[] = [];
-  while (schedule(groups.join(' '), speed).duration < seconds) {
-    groups.push(Array.from({ length: GROUP_SIZE }, pick).join(''));
-  }
+  const more = () =>
+    count !== undefined
+      ? groups.length * GROUP_SIZE < count
+      : schedule(groups.join(' '), speed).duration < seconds;
+  while (more()) groups.push(Array.from({ length: GROUP_SIZE }, pick).join(''));
   return { groups, chars: groups.join('').split('') };
 }
 

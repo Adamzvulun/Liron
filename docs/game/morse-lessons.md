@@ -80,6 +80,20 @@ The Signal Tower's second tab (Adam approved the design on 2026-11-03). Code: `s
   - XP is about 0.4 per right answer (about 10 a minute), plus the round's minutes.
 - **The result screen** shows points, a new personal best, right answers, average reaction time, XP, and each letter from slowest to fastest.
 
+## The tower hall and "The Silent Beacon" (#33, #34)
+Adam approved the hall, the story text and the trial rewards on 2026-11-03.
+- **The hall** (`src/subjects/morse/hall/`) opens when you enter the tower:
+  - **Your standing:** guild rank (Initiate → Listener at all 26 letters, discovery 04), receive rating, speed and letters.
+  - **The questline:** a painted stair with one lamp per letter of the current chapter, the newest lamp's story line, and the chapter's trial.
+  - **The doors:** the Koch lesson, Instant Recognition, sending practice (E7) and the locked Radio Room.
+- **The story** lives in `content/morse/questline.json`, a content pack: each chapter is an item (letters, intro, trial, outro), each lamp's line is an item, and each chapter is a lesson. Chapter I "Embers" covers K M U R E S N A; chapter II "The Upper Stair" covers P T L W I . J Z.
+- **Trials hold the gate:**
+  - When every lamp of a chapter is lit, the next letter stays locked until the chapter's trial is passed. Lessons can still be practised meanwhile.
+  - The trial is 50 characters from all your letters, and passes at 90% or better.
+  - Passing unlocks the next chapter's first letter and pays bonus XP: 50 for the Gatekeeper, 75 for the Warden of the Stair.
+  - Failing costs only the attempt. The run still counts as practice (reviews, ratings, speed).
+- **Ranks don't come from trials.** They follow discovery 04 (Adam, 2026-11-03).
+
 ## What we record (measuring learning)
 Per run: date and time, length, characters played, accuracy overall and per character, effective speed, and whether it passed. From these:
 - characters unlocked over time

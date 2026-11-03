@@ -1,7 +1,11 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { SubjectApi } from '../../../core/subject.ts';
+import { CHAPTERS } from '../questline.ts';
+import { buildRun } from './build.ts';
 import {
   applyRun,
+  applyTrial,
+  pendingTrial,
   isWarmup,
   NEW_PROGRESS,
   newestChar,
@@ -91,5 +95,40 @@ describe('reportRun', () => {
       'xp 1',
       'minutes 2',
     ]);
+  });
+});
+
+describe('chapter trials (#34)', () => {
+  const ch1 = CHAPTERS[0];
+  const atEnd = { ...NEW_PROGRESS, unlocked: 8, recent: [0.95] };
+  const perfect = (n: number) => run('K'.repeat(n), 'K'.repeat(n));
+
+  it('waits at the end of a chapter until its trial is passed', () => {
+    expect(pendingTrial(NEW_PROGRESS)).toBeUndefined();
+    expect(pendingTrial(atEnd)?.trial.name).toBe('The Gatekeeper');
+    expect(pendingTrial({ ...atEnd, trials: [1] })).toBeUndefined();
+    expect(pendingTrial({ ...atEnd, unlocked: 16, trials: [1] })?.trial.name).toBe(
+      'The Warden of the Stair',
+    );
+  });
+
+  it('holds the gate: two good runs don’t unlock the next chapter’s first letter', () => {
+    const { next, unlockedNow } = applyRun(atEnd, perfect(10), at);
+    expect(unlockedNow).toBe(false);
+    expect(next.unlocked).toBe(8);
+  });
+
+  it('opens the gate at 90% over 50 characters, unlocking the next letter', () => {
+    if (!ch1) throw new Error('no chapter I');
+    const passed = applyTrial(atEnd, ch1, perfect(50), at);
+    expect(passed.passed).toBe(true);
+    expect(passed.next).toMatchObject({ unlocked: 9, trials: [1], recent: [] });
+    expect(applyTrial(atEnd, ch1, run('K'.repeat(50), 'K'.repeat(40)), at).passed).toBe(false);
+    expect(applyTrial(atEnd, ch1, perfect(20), at).passed).toBe(false);
+    expect(applyTrial(atEnd, ch1, run('KMKMK', 'KMKMK'), at).next.recent).toEqual([0.95]);
+  });
+
+  it('builds a trial of exactly 50 characters', () => {
+    expect(buildRun(['K', 'M'], { charWpm: 20, effWpm: 10 }, { count: 50 }).chars).toHaveLength(50);
   });
 });

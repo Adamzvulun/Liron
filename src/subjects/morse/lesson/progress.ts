@@ -4,6 +4,7 @@
 import { z } from 'zod';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MORSE_CHARS } from '../code.ts';
+import { CHAPTERS, type Chapter } from '../questline.ts';
 import { passesGate, nextEffectiveWpm, type RunScore } from './score.ts';
 
 export const CHAR_WPM = 20;
@@ -24,6 +25,8 @@ const progressSchema = z.object({
   accuracy: z.record(z.string(), z.number().min(0).max(1)).catch({}),
   lastRunAt: z.string().nullable().catch(null),
   runs: z.number().int().min(0).catch(0),
+  /** Questline chapters whose trial is passed (#34). */
+  trials: z.array(z.number().int().positive()).catch([]),
   /** Instant Recognition (#32): personal best, rounds played, each letter's reaction time. */
   recognition: z
     .object({
@@ -69,6 +72,19 @@ export function weightsFor(p: MorseProgress, due: ReadonlySet<string>): Map<stri
   );
 }
 
+/**
+ * The trial waiting at the end of a chapter (#34): every lamp of the chapter is lit, the next
+ * character would start the next chapter, and the trial isn't passed yet. It holds the gate.
+ */
+export function pendingTrial(p: MorseProgress): Chapter | undefined {
+  let end = 0;
+  for (const chapter of CHAPTERS) {
+    end += chapter.letters.length;
+    if (p.unlocked === end && !p.trials.includes(chapter.number)) return chapter;
+  }
+  return undefined;
+}
+
 /** XP for a run: about 10 a minute (docs/game/economy.md), plus 10 for lighting a lamp. */
 export const xpFor = (score: RunScore, unlockedNow: boolean) =>
   Math.round(score.right / 5) + (unlockedNow ? 10 : 0);
@@ -86,7 +102,7 @@ export function applyRun(
     accuracy[c] = c in accuracy ? 0.6 * (accuracy[c] ?? run) + 0.4 * run : run;
   }
   const recent = warmup ? p.recent : [...p.recent, score.accuracy].slice(-20);
-  const unlockedNow = !warmup && passesGate(recent) && p.unlocked < KOCH.length;
+  const unlockedNow = !warmup && passesGate(recent) && p.unlocked < KOCH.length && !pendingTrial(p);
   return {
     unlockedNow,
     next: {
@@ -97,6 +113,28 @@ export function applyRun(
       accuracy,
       lastRunAt: at.toISOString(),
       runs: p.runs + 1,
+    },
+  };
+}
+
+/** A trial run: at the chapter's accuracy over its full length, the gate opens. */
+export function applyTrial(
+  p: MorseProgress,
+  chapter: Chapter,
+  score: RunScore,
+  at: Date,
+): { next: MorseProgress; passed: boolean } {
+  // Speed and accuracy move as for any run; the gate's run history is left alone.
+  const { next } = applyRun(p, score, at, true);
+  const passed = score.played >= chapter.trial.chars && score.accuracy >= chapter.trial.accuracy;
+  if (!passed) return { next, passed };
+  return {
+    passed,
+    next: {
+      ...next,
+      trials: [...p.trials, chapter.number],
+      unlocked: Math.min(KOCH.length, p.unlocked + 1),
+      recent: [],
     },
   };
 }
