@@ -29,6 +29,9 @@ function fakeSession() {
 
 /** The wallet the fake database returns. */
 export const WALLET = { xp: 65, gold: 31, gems: 2 };
+/** The player's profile row. */
+export const PROFILE = { display_name: 'Adam' };
+
 /** Today: 6 of 15 minutes, a 2-day streak alive from yesterday. */
 export const TODAY = {
   day: '2026-11-02',
@@ -42,7 +45,11 @@ export const TODAY = {
  * Answers Supabase Auth calls (password login: only PASSWORD works; logout; reset email) and
  * the wallet read.
  */
-export async function fakeSupabase(page: Page, passwordUpdates: unknown[] = []) {
+export async function fakeSupabase(
+  page: Page,
+  passwordUpdates: unknown[] = [],
+  profileUpdates: unknown[] = [],
+) {
   await page.route(`${FAKE_SUPABASE_URL}/**`, async (route) => {
     const url = new URL(route.request().url());
     if (url.pathname === '/auth/v1/token' && url.searchParams.get('grant_type') === 'password') {
@@ -79,6 +86,14 @@ export async function fakeSupabase(page: Page, passwordUpdates: unknown[] = []) 
         },
       });
     }
+    if (url.pathname === '/rest/v1/profiles') {
+      if (route.request().method() === 'PATCH') {
+        profileUpdates.push(route.request().postDataJSON());
+        return route.fulfill({ status: 204 });
+      }
+      const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');
+      return route.fulfill({ json: single ? PROFILE : [PROFILE] });
+    }
     if (url.pathname === '/rest/v1/wallets') {
       // supabase-js asks for a single object with this Accept header (maybeSingle).
       const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');
@@ -89,8 +104,8 @@ export async function fakeSupabase(page: Page, passwordUpdates: unknown[] = []) 
 }
 
 /** Starts the page already logged in, the way a returning visitor would be. */
-export async function signedIn(page: Page) {
-  await fakeSupabase(page);
+export async function signedIn(page: Page, profileUpdates: unknown[] = []) {
+  await fakeSupabase(page, [], profileUpdates);
   await page.addInitScript(
     ([key, session]) => {
       if (!sessionStorage.getItem('e2e-seeded')) {

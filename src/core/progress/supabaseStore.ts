@@ -128,6 +128,22 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
     async setTimeZone(zone) {
       await call('set_time_zone', { p_zone: zone }, 'save the time zone');
     },
+    async profile() {
+      const { data, error } = await client
+        .from('profiles')
+        .select('display_name')
+        .maybeSingle<{ display_name: string }>();
+      if (error) throw new Error(`Couldn't read your profile: ${error.message}`);
+      return { displayName: data?.display_name ?? '' };
+    },
+    async setDisplayName(name) {
+      // Row-level security limits the update to the signed-in player's own profile.
+      const { data } = await client.auth.getSession();
+      const id = data.session?.user.id;
+      if (!id) throw new Error("Couldn't save your name: not signed in");
+      const { error } = await client.from('profiles').update({ display_name: name }).eq('id', id);
+      if (error) throw new Error(`Couldn't save your name: ${error.message}`);
+    },
     async summary(subjectId) {
       const data = await row(subjectId);
       return { xp: Number(data?.xp ?? 0), minutes: data?.minutes ?? 0 };

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { titleForLevel } from '../progress/economy.ts';
 import type { LevelUpInfo } from './player.ts';
-import { CoinIcon, GemIcon } from './Hud.tsx';
+import { CoinIcon, GemIcon } from './icons.tsx';
 import './player.css';
 
 /** The level-up celebration. Shown over the page until the player moves on. */
