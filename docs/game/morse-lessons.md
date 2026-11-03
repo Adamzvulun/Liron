@@ -5,8 +5,8 @@ How the Signal Tower teaches you to hear Morse: the Koch lessons (#31) and how t
 ## The short version (for Adam)
 - **You only ever hear Morse and see letters.** No dot-dash charts, no "dah-di-dah" spelled out. That is Koch's core idea and the reason the method works (sound patterns, not counting).
 - **Characters always play at 20 wpm.** What slows down for a beginner is the *gap between* characters (Farnsworth). The gap closes by itself as you get better (ADR 0009).
-- **A lesson is a few short runs.** One run is 50 characters in groups of 5, about 2–3 minutes. You copy what you hear as it plays. A good Morse day is about 10 minutes (3–4 runs); research and practitioners agree that short daily sessions beat long rare ones.
-- **A new character unlocks after two runs in a row at 90% or better.** Two runs are about 100 characters, roughly the 5 minutes of continuous copy that older Koch guides use as the test.
+- **A lesson is a few short runs.** One run is 2 minutes of sound, in groups of 5 characters (about 100 characters at 10 wpm overall). You copy what you hear as it plays. A good Morse day is about 10 minutes (3–4 runs); research and practitioners agree that short daily sessions beat long rare ones.
+- **A new character unlocks after two runs in a row at 90% or better.** Two runs are about 4 minutes of copy, close to the 5 minutes of continuous copy that older Koch guides use as the test.
 - **When a character is new, you meet it first:** it plays three times with its letter shown big, then a 20-second "this one or that one?" drill against characters you already know. Then it joins the runs.
 - **Weak characters come up more often.** Each character's accuracy and its spaced-repetition record decide how often it appears. Nothing you've unlocked ever disappears from the mix.
 - **On a phone you tap big buttons**, one for each unlocked character. On a computer you type.
@@ -14,7 +14,7 @@ How the Signal Tower teaches you to hear Morse: the Koch lessons (#31) and how t
 
 ### Where I had to choose without a source
 I checked; these points aren't settled by research I could find, so they're my choices, marked so we can revisit them with real numbers:
-- **Two runs in a row** (rather than one test, or three). One run is shorter than Koch's 5-minute test, so one run alone is too easy to pass by luck. Three felt slow for a game; one learner's rule of thumb uses three.
+- **Two runs in a row** (rather than one test, or three). One 2-minute run is shorter than Koch's 5-minute test, so one run alone is too easy to pass by luck. Three felt slow for a game; one learner's rule of thumb uses three.
 - **The new character appears more often** (about 1 in 4 characters in its first lessons). I found no source that confirms or rejects this.
 - **The meeting drill** for a new character. Koch tools usually just add the character to the random mix. A short introduction fits a game better and still uses sound only.
 - **The Farnsworth steps** (below). ADR 0009 says "automatic"; the step sizes are mine.
@@ -22,7 +22,7 @@ I checked; these points aren't settled by research I could find, so they're my c
 ## A lesson, step by step
 1. **Warm-up (returning players).** If you've been away a day or more, the first run uses only characters you already have, with the ones due in spaced repetition weighted up. It can't unlock anything; it gets your ear back.
 2. **Meet the new character** (only the first time it appears). It plays three times with the letter shown large. Then 10 quick "which was it?" choices between it and two characters you know, with an instant replay when you miss.
-3. **Runs.** 50 characters in groups of 5, from all unlocked characters. You type or tap as you hear. A character you don't catch can be skipped (space on a keyboard, the "?" button on a phone). Guessing is fine.
+3. **Runs.** 2 minutes of sound in groups of 5, from all unlocked characters. You type or tap as you hear. A character you don't catch can be skipped (space on a keyboard, the "?" button on a phone). Guessing is fine.
 4. **After each run:** your score, a side-by-side of what played and what you copied, and replay buttons for every miss. If you passed the gate, the next character is announced and the meeting starts.
 
 ## Scoring and the gate
@@ -53,6 +53,15 @@ I checked; these points aren't settled by research I could find, so they're my c
 - **Phone:** a grid of big buttons, one per unlocked character, always in Koch order so their places don't move. 48 px or larger, the same tap-target size as elsewhere. Plus a "?" skip button.
 - iOS mutes Web Audio when the silent switch is on. Deferred (Adam, 2026-11-03); it belongs with #30 later.
 
+## Sound engine (#30)
+`src/subjects/morse/player.ts` plays text as Morse; `timing.ts` holds the maths.
+- **Timing:** PARIS standard (a dit lasts 1.2 ÷ wpm seconds). Farnsworth gaps use the ARRL formula (Jon Bloom, KE3Z, QEX 1990): only the gaps between characters and words stretch, in a 3:7 ratio.
+- **Accuracy:** every key-down is scheduled on the audio clock, not with timers. Measured in Chromium (offline render, 2026-11-03), every tone started within the 2 ms measuring window of its planned time.
+- **No clicks:** each key-down rises and falls over 5 ms.
+- **Settings:** character speed, effective speed, pitch (default 600 Hz) and volume.
+- **Browsers:** sound starts only from a tap or click (`unlock()` or `play()` in the handler). Android Chrome uses the same engine as desktop Chrome. It has not been tried on a real phone yet; that happens when Adam tries the first lesson.
+- **Later (E16):** `route` lets noise, fading and interference sit between the tone and the speakers. Nothing is built for it yet.
+
 ## What we record (measuring learning)
 Per run: date and time, length, characters played, accuracy overall and per character, effective speed, and whether it passed. From these:
 - characters unlocked over time
@@ -60,7 +69,7 @@ Per run: date and time, length, characters played, accuracy overall and per char
 - minutes of Morse practice per day (`recordPractice`)
 - effective speed over time
 
-XP follows the economy guideline (about 10 XP per minute): a run pays about 1 XP per 2 characters copied right, plus a bonus for unlocking a character.
+XP follows the economy guideline (about 10 XP per minute): a run pays about 1 XP per 5 characters copied right (about 18 XP for a good 2-minute run), plus a bonus for unlocking a character.
 
 ## Quests and rewards (E10): where they go
 **My recommendation: E10 is its own sprint, after the Arabic sprint.** Reasoning:
