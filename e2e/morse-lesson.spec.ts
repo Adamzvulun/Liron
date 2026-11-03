@@ -7,7 +7,7 @@ test.describe('the Koch lesson in the Signal Tower (#31 concept)', () => {
     const calls: SubjectCall[] = [];
     await signedIn(page, [], calls);
     // run=short: an 8-second run instead of 2 minutes, for tests.
-    await page.goto('/signal-tower?run=short');
+    await page.goto('/signal-tower?open=koch&run=short');
     await expect(page.getByRole('heading', { name: 'Hear K and M' })).toBeVisible();
     await page.getByRole('button', { name: 'Begin' }).click();
 

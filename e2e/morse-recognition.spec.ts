@@ -10,7 +10,7 @@ test.describe('Instant Recognition in the Signal Tower (#32)', () => {
     await signedIn(page, [], calls);
     // run=short: a 10-second round instead of 60.
     await page.goto('/signal-tower?run=short');
-    await page.getByRole('tab', { name: 'Instant Recognition' }).click();
+    await page.getByRole('button', { name: /Instant Recognition/ }).click();
     await expect(page.getByText('Your letters: K M')).toBeVisible();
     await page.getByRole('button', { name: 'Start round' }).click();
 

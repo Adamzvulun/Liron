@@ -1,34 +1,28 @@
 import { useState } from 'react';
 import type { SubjectApi } from '../../core/subject.ts';
+import { Hall, type HallDoor } from './hall/Hall.tsx';
 import { KochLesson } from './lesson/Lesson.tsx';
 import { Recognition } from './recognition/Recognition.tsx';
-import './recognition/recognition.css';
+import './hall/hall.css';
 
-const TABS = [
-  { id: 'koch', label: 'Koch lessons' },
-  { id: 'recognition', label: 'Instant Recognition' },
-] as const;
-
-/** Inside the Signal Tower: the Koch lessons (#31) and Instant Recognition (#32). */
+/**
+ * Inside the Signal Tower: the hall (#33) with the questline and the doors, and behind them the
+ * Koch lessons (#31) and Instant Recognition (#32). Opening a door with ?open=koch or
+ * ?open=recognition in the address goes straight there (for tests).
+ */
 export function TowerHall({ api }: { api: SubjectApi }) {
-  const [tab, setTab] = useState<(typeof TABS)[number]['id']>('koch');
+  const [view, setView] = useState<'hall' | HallDoor>(() => {
+    const open =
+      typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('open');
+    return open === 'koch' || open === 'recognition' ? open : 'hall';
+  });
+  if (view === 'hall') return <Hall api={api} onOpen={setView} />;
   return (
     <>
-      <div className="tower__tabs" role="tablist" aria-label="Signal Tower">
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            role="tab"
-            className="tower__tab"
-            aria-selected={tab === t.id}
-            onClick={() => setTab(t.id)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-      {tab === 'koch' ? <KochLesson api={api} /> : <Recognition api={api} />}
+      <button type="button" className="hall__back" onClick={() => setView('hall')}>
+        ← Tower hall
+      </button>
+      {view === 'koch' ? <KochLesson api={api} /> : <Recognition api={api} />}
     </>
   );
 }

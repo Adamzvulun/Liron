@@ -1,0 +1,229 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (story text written for Waymark)",
+  "items": [
+    {
+      "id": "beacon:1",
+      "subject": "morse",
+      "type": "chapter",
+      "data": {
+        "questline": "The Silent Beacon",
+        "number": 1,
+        "title": "Embers",
+        "letters": ["K", "M", "U", "R", "E", "S", "N", "A"],
+        "intro": "The Signal Tower has been dark for forty winters. Its beacon once answered ships, caravans and storms; now pigeons nest in the lantern room. The Guildmaster hands you a pair of brass headphones. “The tower doesn’t need eyes,” she says. “It needs ears. Every sound you learn lights a lamp on the stair. Light enough of them, and the beacon may remember how to speak.”",
+        "trial": {
+          "name": "The Gatekeeper",
+          "text": "The stair narrows at an iron gate. Behind it, a voice in the static sends without pause and never repeats. Copy 50 characters at 90% or better and the gate will open.",
+          "chars": 50,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "The gate swings open onto the upper stair. For the first time in forty winters, a faint glow shows in the lantern room, and down in the square, people stop to look up."
+      }
+    },
+    {
+      "id": "beacon:1:lamp:K",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "K",
+        "text": "The first lamp on the stair takes the flame. Somewhere below, old wiring hums awake."
+      }
+    },
+    {
+      "id": "beacon:1:lamp:M",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "M",
+        "text": "A second lamp. The Guildmaster doesn’t look up from her ledger. “Two sounds. Everyone starts with two.”"
+      }
+    },
+    {
+      "id": "beacon:1:lamp:U",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "U",
+        "text": "Dust lifts from the steps as the third lamp wakes. On the landing lies the last operator’s logbook, its final entry unfinished."
+      }
+    },
+    {
+      "id": "beacon:1:lamp:R",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "R",
+        "text": "The fourth lamp shows a brass key on the sill, warm, as if someone had only just set it down."
+      }
+    },
+    {
+      "id": "beacon:1:lamp:E",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "E",
+        "text": "The shortest sound of all, and the brightest lamp yet. The pigeons leave the lantern room."
+      }
+    },
+    {
+      "id": "beacon:1:lamp:S",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "S",
+        "text": "Six lamps. Out on the water, a fishing boat flashes its deck light at the tower. Coincidence, surely."
+      }
+    },
+    {
+      "id": "beacon:1:lamp:N",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "N",
+        "text": "The seventh lamp lights a door marked RADIO ROOM. It is locked from the inside."
+      }
+    },
+    {
+      "id": "beacon:1:lamp:A",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "A",
+        "text": "Eight lamps burn on the stair. The Guildmaster closes her ledger. “The Gatekeeper will want a word with you.”"
+      }
+    },
+    {
+      "id": "beacon:2",
+      "subject": "morse",
+      "type": "chapter",
+      "data": {
+        "questline": "The Silent Beacon",
+        "number": 2,
+        "title": "The Upper Stair",
+        "letters": ["P", "T", "L", "W", "I", ".", "J", "Z"],
+        "intro": "Above the gate the stair turns cold and narrow. The logbook speaks of “the far voice”: a station that kept calling the tower long after it went dark.",
+        "trial": {
+          "name": "The Warden of the Stair",
+          "text": "The Warden sends faster than the Gatekeeper and mixes every sound you know. Copy 50 characters at 90% or better.",
+          "chars": 50,
+          "accuracy": 0.9,
+          "xp": 75
+        },
+        "outro": "The second gate opens. The lantern room is close now, and somewhere in the static you are sure you heard someone call the tower by name."
+      }
+    },
+    {
+      "id": "beacon:2:lamp:P",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "P",
+        "text": "The ninth lamp, and a draught from a broken pane. You stop the gap with a page from the logbook’s empty back."
+      }
+    },
+    {
+      "id": "beacon:2:lamp:T",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "T",
+        "text": "The tenth lamp. The next page of the logbook is dated the night the beacon failed."
+      }
+    },
+    {
+      "id": "beacon:2:lamp:L",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "L",
+        "text": "Lamp eleven shows a callsign scratched into the rail, half worn away by forty winters of hands."
+      }
+    },
+    {
+      "id": "beacon:2:lamp:W",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "W",
+        "text": "Twelve lamps. Music drifts up from the Caravanserai; the city keeps later hours now that the tower glows."
+      }
+    },
+    {
+      "id": "beacon:2:lamp:I",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "I",
+        "text": "The thirteenth lamp. In a hurried hand, the logbook says: “The far voice is getting weaker. I will answer tomorrow.”"
+      }
+    },
+    {
+      "id": "beacon:2:lamp:dot",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": ".",
+        "text": "The full stop lights the fourteenth lamp. Sentences can end now, and so can messages."
+      }
+    },
+    {
+      "id": "beacon:2:lamp:J",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "J",
+        "text": "Lamp fifteen. The locked radio room hums whenever you pass its door."
+      }
+    },
+    {
+      "id": "beacon:2:lamp:Z",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "Z",
+        "text": "Sixteen lamps. At the top of the stair waits a second gate, older than the first, with a speaking grille."
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "beacon-ch1",
+      "subject": "morse",
+      "title": "The Silent Beacon, Chapter I: Embers",
+      "order": 1,
+      "items": [
+        "beacon:1",
+        "beacon:1:lamp:K",
+        "beacon:1:lamp:M",
+        "beacon:1:lamp:U",
+        "beacon:1:lamp:R",
+        "beacon:1:lamp:E",
+        "beacon:1:lamp:S",
+        "beacon:1:lamp:N",
+        "beacon:1:lamp:A"
+      ],
+      "tags": ["questline"]
+    },
+    {
+      "id": "beacon-ch2",
+      "subject": "morse",
+      "title": "The Silent Beacon, Chapter II: The Upper Stair",
+      "order": 2,
+      "items": [
+        "beacon:2",
+        "beacon:2:lamp:P",
+        "beacon:2:lamp:T",
+        "beacon:2:lamp:L",
+        "beacon:2:lamp:W",
+        "beacon:2:lamp:I",
+        "beacon:2:lamp:dot",
+        "beacon:2:lamp:J",
+        "beacon:2:lamp:Z"
+      ],
+      "tags": ["questline"]
+    }
+  ]
+}
