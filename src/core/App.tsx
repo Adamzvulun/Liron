@@ -3,6 +3,7 @@ import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
+import { City } from './city/City.tsx';
 import { GoalReached } from './player/GoalReached.tsx';
 import { Hud } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
@@ -32,14 +33,14 @@ function AuthGate() {
   }
 }
 
-// Placeholder lobby until the city (E4) replaces it.
+// The city square (E4) with the HUD on top. Clickable places come with #25.
 function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
   useEffect(() => void player.load(), [player]);
   return (
-    <main className="lobby">
+    <City subjects={subjects}>
       <div className="lobby__top">
-        <h1 className="lobby__title">Waymark</h1>
+        <Hud state={state} onGoalChange={(m) => void player.setDailyGoal(m)} />
         <button
           className="lobby__signout"
           type="button"
@@ -48,22 +49,12 @@ function Lobby({ player }: { player: Player }) {
           Sign out
         </button>
       </div>
-      <Hud state={state} onGoalChange={(m) => void player.setDailyGoal(m)} />
-      <p className="lobby__lead">Choose where to go.</p>
-      <ul className="lobby__places">
-        {subjects.map((s) => (
-          <li key={s.id} className="place" style={{ borderLeftColor: s.guildColor }}>
-            <h2 className="place__sign">{s.place}</h2>
-            <p className="place__tagline">{s.tagline}</p>
-          </li>
-        ))}
-      </ul>
       {/* One celebration at a time: the level-up first, then the daily goal. */}
       {state.levelUp ? (
         <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
       ) : (
         state.goalReached && <GoalReached day={state.goalReached} onDone={player.dismissGoal} />
       )}
-    </main>
+    </City>
   );
 }

@@ -13,6 +13,8 @@
 Design resolution is 1920×1080 (ADR 0006, amendment 2). The Signal Tower interior is still the v1 layout, scaled to fit, until its own depth pass. The real build is responsive; the phone layout comes next once the look is approved.
 
 ## How the city is made (v3)
+
+> **Since #24 the app paints the city itself** from `src/core/city/painter.js`, a copy of `tools/city.js` ([ADR 0025](../../decisions/0025-city-painted-in-the-browser.md)). Change the art there; this tool stays as the design record.
 The city art is **generated**, not hand-placed: `tools/city.js` draws every building from shared painters (gradient-shaded faces, one sun from the upper left, cast and contact shadows, scalloped roof tiles, plaster texture, perspective cobbles, depth haze). Change a rule once and every building follows it.
 
 ```bash
