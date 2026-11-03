@@ -1016,17 +1016,6 @@ export function paintCity() {
     tower += `<path d="M${cx} ${gy - 194} V${gy - 262}" stroke="${INK}" stroke-width="5" stroke-linecap="round"></path><path d="M${cx} ${gy - 196} V${gy - 260}" stroke="#C9B392" stroke-width="2"></path>`;
     tower += `<path d="M${cx - 20} ${gy - 240} H${cx + 20} M${cx - 13} ${gy - 222} H${cx + 13}" stroke="${INK}" stroke-width="4" stroke-linecap="round"></path>`;
     tower += `<circle class="wm-pulse" cx="${cx}" cy="${gy - 266}" r="7" fill="#FF6B4A" stroke="${INK}" stroke-width="2"></circle>`;
-    // teal banner with radio icon
-    tower += `<g class="wm-sway" style="transform-origin: ${cx + 96}px 404px"><path d="M${cx + 74} 404 H${cx + 120}" stroke="${INK}" stroke-width="6" stroke-linecap="round"></path><path d="M${cx + 80} 406 H${cx + 116} V474 L${cx + 98} 460 L${cx + 80} 474 Z" fill="${lin(
-      [
-        [0, '#3FA6BA'],
-        [1, '#1E5F6E'],
-      ],
-      0,
-      0,
-      1,
-      0,
-    )}" ${OUT(0, 3)}></path><circle cx="${cx + 98}" cy="432" r="4" fill="#F6E7C4"></circle><path d="M${cx + 107} 424 q7 8 0 16 M${cx + 89} 424 q-7 8 0 16" stroke="#F6E7C4" stroke-width="2.4" fill="none" stroke-linecap="round"></path></g>`;
     tower += contact(cx, base + 16, 64);
   }
 
@@ -1396,17 +1385,6 @@ export function paintCity() {
         0.4,
         0.8,
       )}" ${OUT(0, 2.6)}></path>`;
-    // coffee-pot banner on the left corner
-    cara += `<g class="wm-sway" style="transform-origin: 994px 420px"><path d="M972 420 H1018" stroke="${INK}" stroke-width="6" stroke-linecap="round"></path><path d="M978 422 H1012 V494 L995 480 L978 494 Z" fill="${lin(
-      [
-        [0, '#E36E52'],
-        [1, '#7A3A22'],
-      ],
-      0,
-      0,
-      1,
-      0,
-    )}" ${OUT(0, 3)}></path><path d="M987 456 q0 -12 8 -12 q8 0 8 12 Z M995 444 v-5 M1003 448 l7 -5" fill="#F6E7C4" stroke="#F6E7C4" stroke-width="2" stroke-linejoin="round"></path><path d="M985 458 h20" stroke="#F6E7C4" stroke-width="3" stroke-linecap="round"></path></g>`;
     cara += contact((x0 + x1) / 2 - 30, base + 4, 270, 0.4);
   }
 
@@ -1533,17 +1511,6 @@ export function paintCity() {
     0,
   )}" ${OUT(0, 3.5)}></path><path d="M106 884 H154 M108 916 H152" stroke="#3A2410" stroke-width="5"></path><path d="M106 884 H154" stroke="#C9A06A" stroke-width="1.6"></path>`;
   yhExtra += contact(130, 934, 34);
-  // key banner
-  yhExtra += `<g class="wm-sway" style="transform-origin: 528px 640px"><path d="M506 640 H552" stroke="${INK}" stroke-width="7" stroke-linecap="round"></path><path d="M512 642 H546 V716 L529 702 L512 716 Z" fill="${lin(
-    [
-      [0, '#FFD36B'],
-      [1, '#B07A2A'],
-    ],
-    0,
-    0,
-    1,
-    0,
-  )}" ${OUT(0, 3)}></path><circle cx="529" cy="664" r="7" fill="none" stroke="${INK}" stroke-width="3"></circle><path d="M529 671 V690 M529 682 h6 M529 688 h5" stroke="${INK}" stroke-width="3" stroke-linecap="round"></path></g>`;
   // lantern by the door
   yhExtra += `<circle class="wm-pulse" cx="398" cy="760" r="34" fill="${rad([
     [0, '#FFE7A0', 0.7],
