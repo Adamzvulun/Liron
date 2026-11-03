@@ -11,10 +11,10 @@
 
 .city__stage {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 0;
+  top: 0;
   overflow: hidden;
-  transform-origin: center;
+  transform-origin: top left;
   font-family: var(--font-ui);
   color: #24160e;
   background: #8fb0d6;
