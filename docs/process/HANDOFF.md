@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, at the end of the session that built E5 (the avatar, PR #68).
+- **Written:** 2026-11-03, at the end of the session that finished M1 (E5 avatar, PR #68; M1 retro).
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 
 ## State right now
@@ -8,6 +8,7 @@
   - E2: #16–#20 (login, schema, subject contract, XP and levels, streak).
   - E3: #21 FSRS, #22 Glicko-2, #23 content pipeline.
   - E4: #24 city screen, #25 clickable places, #26 HUD, #27 phone layout.
+  - E5: #28 paper-doll avatar, #29 wardrobe in Your House (PR #68), plus ADR 0027 (release versions).
   - PR #64, which uploads audio 8 files at a time.
 - **`main` (the live site) is still v0.1.0.** A release PR from `dev` to `main` is Adam's call; only Adam merges into `main`.
 - **`waymark-dev` (Supabase)** has every migration up to `20261103020000_skill_ratings.sql`, plus the whole Lingualism deck: 4,823 items, 57 lessons and 4,823 MP3s.
@@ -18,15 +19,12 @@
   - The phone HUD is two slim rows.
 
 ## Next (in order)
-1. **E5 avatar v0 (#6) is in [PR #68](https://github.com/Adamzvulun/Liron/pull/68).**
-   - It holds #28 (the paper-doll avatar) and #29 (the wardrobe in Your House).
-   - Adam approved the concept on 2026-11-03: "looks good for now, we can add more stuff later".
-   - Merging is Adam's call. The details are in [avatar](../game/avatar.md).
-   - The locked items' names and earn conditions are placeholders until E10.
-2. **After #68 is merged, M1 is done.**
-   - Write the M1 retro in `docs/process/retros/`.
-   - **Don't suggest a release yet.** Adam releases to `main` only when there's something to learn, not just the city and styling (2026-11-03). That comes with M2's first lessons. It will be **v1.0.0** ([ADR 0027](../decisions/0027-release-versioning.md): every release to `main` is a new major version).
-3. **Then M2: first playable (#7–#11).**
+1. **M2: first playable (#7–#11).** M1 is done: [PR #68](https://github.com/Adamzvulun/Liron/pull/68) (E5 avatar) was merged on 2026-11-03, and the [M1 retro](retros/M1.md) is written.
+   - **Sprints, one theme each, never mixed** (Adam, 2026-11-03): **Morse first** (E6 #7, E7 #8), then Arabic (E8 #9, E9 #10).
+   - **Open:** the Koch letter order (K M…, in ADR 0009, #31 and `content/morse/characters.json`) vs Adam's "start with E and I". See the session's research. Settle it in an ADR before building #31.
+   - **Design first:** a screenshotted concept of each lesson screen, approved by Adam, as with #27 and #28.
+   - **Measure learning from day one.** The M2 retro must say whether Waymark teaches Adam.
+2. **Release:** only when there's something to learn. Adam decides when. It will be **v1.0.0** ([ADR 0027](../decisions/0027-release-versioning.md)). The release PR sets `package.json`'s version; Adam merges it and creates the tag.
 
 ## Things the next session should know
 - **Where the avatar code lives:** `src/core/avatar/` (`looks.ts` holds options and items as data, `paint.ts` is the SVG painter, `Avatar.tsx`, `Wardrobe.tsx`). In the city, the painter paints only the avatar's shadow; `City.tsx` puts the figure on top.

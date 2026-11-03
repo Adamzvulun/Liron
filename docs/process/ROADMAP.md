@@ -26,6 +26,8 @@
 | **E5 Avatar v0** | Paper-doll SVG system; base customization; 3–4 starter gear slots |
 
 ## M2 — First playable
+**Built in sprints, one theme at a time, never mixed (Adam, 2026-11-03): first the Morse sprint (E6, E7), then the Arabic sprint (E8, E9).**
+
 **Goal:** a real daily habit. 15–20 min/day for both subjects.
 
 | Epic | Contents |
