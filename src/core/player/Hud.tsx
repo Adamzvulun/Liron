@@ -113,6 +113,14 @@ function Purse({ state, ...actions }: { state: PlayerState } & HudActions) {
         <FlameIcon lit={Boolean(today?.goalReached)} />
         {today ? days : '…'}
       </span>
+      {today && (
+        <span
+          className="hud__chip hud__chip--goal"
+          aria-label={`Daily goal: ${today.minutes} of ${today.goalMinutes} minutes`}
+        >
+          {today.goalReached ? 'Goal done' : `${today.minutes}/${today.goalMinutes} min`}
+        </span>
+      )}
       <Settings state={state} {...actions} />
     </div>
   );
