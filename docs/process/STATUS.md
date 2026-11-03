@@ -1,6 +1,6 @@
 # Status: start here
 
-**Read this first in every new session.** It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
+**Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
 - **Last updated:** 2026-11-03
 - **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
@@ -14,7 +14,7 @@
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
 | Gemini speech spike (#1) | ✅ **partial** and closed: transcription usable; pronunciation scoring doesn't work on free Gemini, so feedback uses record-and-compare and ear training ([results](../../spikes/gemini-speech/README.md#results-phase-1-2026-11-01), [ADR 0013](../decisions/0013-speech-on-free-gemini.md)). |
 | Non-Gemini speech API | ✅ **Groq `whisper-large-v3`** is the speech model (2026-11-02): 28/30 deck sentences usable vs Gemini's 24/30, 2,000 requests/day free. It catches no pronunciation mistakes either (ح/ه 0/6), so there's still no per-sound scoring. ([analysis](../../spikes/gemini-speech/results/2026-11-02-groq-analysis.md), [ADR 0014](../decisions/0014-groq-whisper-for-speech.md)) |
-| App code | ✅ E1 done: scaffold (#12), tests (#13), CI (#14), hosting (#15, [DEPLOY](DEPLOY.md)). Live: https://waymark-phi.vercel.app · dev: https://waymark-git-dev-adamzvuluns-projects.vercel.app |
+| App code | ✅ E1–E4 done (2026-11-03): scaffold, tests, CI, hosting ([DEPLOY](DEPLOY.md)); login, player data, XP/levels/streak; FSRS, Glicko-2, content pipeline; the painted city with clickable places, HUD and phone layout. Live: https://waymark-phi.vercel.app · dev: https://waymark-git-dev-adamzvuluns-projects.vercel.app |
 
 ## What to do next (in order)
 1. **Leftovers for Adam:** create the `v0.1.0` tag in GitHub Releases (target `main`; the session's git proxy refuses tag pushes). Delete the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` (both already in `dev`; Claude's session isn't allowed to delete branches).
@@ -25,7 +25,8 @@
    - ~~#19 XP, levels, gold, gems~~ ([ADR 0020](../decisions/0020-fast-levels-and-rewards.md), [economy](../game/economy.md)): done. Adam chose a fast pace (level 5 on day one).
    - ~~#20 streak and daily goal~~ ([ADR 0021](../decisions/0021-streak-and-daily-goal.md)): done. **E2 is complete** (2026-11-02); all its migrations are applied to `waymark-dev`.
    - **E3:** ~~#21 FSRS~~ ([ADR 0022](../decisions/0022-fsrs-spaced-repetition.md)) and ~~#23 content format and private pipeline~~ ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)) are merged (2026-11-03), with their migrations applied to `waymark-dev`. Both secret keys are set. ~~#22 Glicko-2 skill ratings~~ ([ADR 0024](../decisions/0024-glicko2-skill-ratings.md)) is merged (2026-11-03). **E3 is complete.**
-   - **E4 city v0:** **#24 city screen** ([ADR 0025](../decisions/0025-city-painted-in-the-browser.md)) is in a PR: the concept v3 scene, painted in the browser and scaled to fit. **#25 clickable places** ([ADR 0026](../decisions/0026-routing-without-a-library.md)) is in a PR built on #24's branch. **#26 HUD with real data** is in a PR built on #25's branch: merge #24, #25, #26 in that order. **#27 phone layout** is a draft PR on #26's branch: a working concept (scene fills the height and pans from the compass, compact HUD, dock of places) waiting for Adam's approval.
+   - ~~**E4 city v0**~~: done (2026-11-03). #24 city screen ([ADR 0025](../decisions/0025-city-painted-in-the-browser.md)), #25 clickable places ([ADR 0026](../decisions/0026-routing-without-a-library.md)), #26 HUD with real data, #27 phone layout. Adam reviewed it on PC and an iPhone 16 and approved it after three fixes: the scene fills the window, the Arena's flags are gone, the phone HUD is slim. The deck's audio upload now runs 8 at a time (PR #64).
+   - **Next: E5 avatar v0 (#6):** #28 paper-doll avatar (layered SVG in the city style; gear slots as data; renders in the city, HUD portrait and Your House) and #29 customisation in Your House. **Design first:** show Adam a concept of the character and its options, screenshotted, and get his approval before building (as with #27). Then M1 is done: write the M1 retro in `docs/process/retros/`.
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam's steps: [SUPABASE](SUPABASE.md).
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
@@ -59,7 +60,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
   - Feature branches come from `dev`; PRs go into `dev` (`Closes #N`). Several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks.
   - Releases are PRs from `dev` into `main`; only Adam merges them.
   - **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
-  - **Always watch the PRs you open** (Adam, 2026-11-02): subscribe to PR activity right after creating a PR, fix red CI and answer review comments. Merging stays with Adam.
+  - **Always watch the PRs you open** (Adam, 2026-11-02): subscribe to PR activity right after creating a PR, fix red CI and answer review comments. Merging stays with Adam, unless he explicitly asks Claude to merge into `dev`.
   - Claude's session branch (`claude/…`) is the feature branch. If it doesn't start from `dev`, rebase it onto `dev` first.
 - **Rules from Adam:**
   - Research before suggesting.
