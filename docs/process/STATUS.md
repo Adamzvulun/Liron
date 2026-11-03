@@ -8,7 +8,7 @@
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0026 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0027 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -17,7 +17,7 @@
 | App code | ✅ E1–E4 done (2026-11-03): scaffold, tests, CI, hosting ([DEPLOY](DEPLOY.md)); login, player data, XP/levels/streak; FSRS, Glicko-2, content pipeline; the painted city with clickable places, HUD and phone layout. Live: https://waymark-phi.vercel.app · dev: https://waymark-git-dev-adamzvuluns-projects.vercel.app |
 
 ## What to do next (in order)
-1. **Leftovers for Adam:** create the `v0.1.0` tag in GitHub Releases (target `main`; the session's git proxy refuses tag pushes). Delete the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` (both already in `dev`; Claude's session isn't allowed to delete branches).
+1. **Leftovers for Adam:** optionally create the `v0.1.0` tag in GitHub Releases for the record (target `main`; the session's git proxy refuses tag pushes). The next tag is `v1.0.0` (ADR 0027). Delete the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` (both already in `dev`; Claude's session isn't allowed to delete branches).
 2. **M1: Foundations**: ~~E1 (#2)~~ is done. E2 (#3):
    - ~~#16 login~~: done. Adam is signed in on the dev site (2026-11-02).
    - ~~#17 schema~~: done, with **automatic migrations** (ADR 0018). The first run applied it to `waymark-dev` (2026-11-02). Never apply migrations by hand.
@@ -60,6 +60,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
   - Feature branches come from `dev`; PRs go into `dev` (`Closes #N`). Several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks.
   - Releases are PRs from `dev` into `main`; only Adam merges them.
   - **When to release (Adam, 2026-11-03):** only when the game has a real base, meaning something the user can learn. Decor and styling alone are not a release. The first candidate is once M2 has lessons (e.g. E6 hearing Morse, E8 Arabic letters); Adam decides.
+  - **Version numbers ([ADR 0027](../decisions/0027-release-versioning.md)):** each release to `main` is a new X in X.Y.Z. **The first playable release is v1.0.0.** Y is a rare small addition between releases, and Z is a hotfix. 0.y.z means nothing is playable yet. The release PR sets `package.json`'s version, and Adam creates the tag.
   - **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
   - **Always watch the PRs you open** (Adam, 2026-11-02): subscribe to PR activity right after creating a PR, fix red CI and answer review comments. Merging stays with Adam, unless he explicitly asks Claude to merge into `dev`.
   - Claude's session branch (`claude/…`) is the feature branch. If it doesn't start from `dev`, rebase it onto `dev` first.

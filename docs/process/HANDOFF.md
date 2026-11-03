@@ -25,7 +25,7 @@
    - The locked items' names and earn conditions are placeholders until E10.
 2. **After #68 is merged, M1 is done.**
    - Write the M1 retro in `docs/process/retros/`.
-   - **Don't suggest a release yet.** Adam releases to `main` only when there's something to learn, not just the city and styling (2026-11-03). That comes with M2's first lessons.
+   - **Don't suggest a release yet.** Adam releases to `main` only when there's something to learn, not just the city and styling (2026-11-03). That comes with M2's first lessons. It will be **v1.0.0** ([ADR 0027](../decisions/0027-release-versioning.md): every release to `main` is a new major version).
 3. **Then M2: first playable (#7–#11).**
 
 ## Things the next session should know
@@ -41,4 +41,4 @@
 - **Stacked PRs:** when a fix belongs to an earlier branch in a stack, commit it there and merge it forward. Never rebase; merge commits only.
 - **Merging into `dev`:** only when Adam asks in so many words. He did on 2026-11-03 for #63–#67. Otherwise open the PR, watch it, and leave the merge to him.
 - **Hanging pushes:** `git push` occasionally hangs. Run it with `timeout 60` and retry.
-- **Leftovers for Adam:** still open from earlier, see STATUS → "What to do next" item 1 (the v0.1.0 tag and two old branches). Before friends join (M5), add a per-user rule for the deck (personal-use licence).
+- **Leftovers for Adam:** still open from earlier, see STATUS → "What to do next" item 1 (the optional v0.1.0 tag and two old branches). Before friends join (M5), add a per-user rule for the deck (personal-use licence).
