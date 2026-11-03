@@ -4,6 +4,10 @@ import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/Auth
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
 import { City } from './city/City.tsx';
+import { placeAt, residentsOf } from './city/layout.ts';
+import { PlaceScreen } from './city/PlaceScreen.tsx';
+import { Link } from './Link.tsx';
+import { usePath } from './router.ts';
 import { GoalReached } from './player/GoalReached.tsx';
 import { Hud } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
@@ -33,10 +37,35 @@ function AuthGate() {
   }
 }
 
-// The city square (E4) with the HUD on top. Clickable places come with #25.
+// The city square (E4) with the HUD on top, or the screen of the place you entered (#25).
 function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
+  const path = usePath();
   useEffect(() => void player.load(), [player]);
+  const place = placeAt(path);
+  const celebrations = state.levelUp ? (
+    <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
+  ) : (
+    state.goalReached && <GoalReached day={state.goalReached} onDone={player.dismissGoal} />
+  );
+  if (place) {
+    return (
+      <>
+        <PlaceScreen place={place} resident={residentsOf(subjects).get(place)} />
+        {celebrations}
+      </>
+    );
+  }
+  if (path !== '/') {
+    return (
+      <main className="place-screen">
+        <h1 className="place-screen__title">Lost?</h1>
+        <p className="place-screen__soon">
+          There's no such place in Waymark. <Link href="/">Back to the square</Link>
+        </p>
+      </main>
+    );
+  }
   return (
     <City subjects={subjects}>
       <div className="lobby__top">
@@ -50,11 +79,7 @@ function Lobby({ player }: { player: Player }) {
         </button>
       </div>
       {/* One celebration at a time: the level-up first, then the daily goal. */}
-      {state.levelUp ? (
-        <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
-      ) : (
-        state.goalReached && <GoalReached day={state.goalReached} onDone={player.dismissGoal} />
-      )}
+      {celebrations}
     </City>
   );
 }

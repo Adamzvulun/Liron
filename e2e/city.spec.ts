@@ -8,7 +8,7 @@ test.describe('the city square (#24)', () => {
     for (const name of ['Signal Tower', 'Caravanserai', 'Notice Board', 'Your House', 'Market']) {
       await expect(page.getByRole('heading', { name })).toBeVisible();
     }
-    await expect(page.getByRole('region', { name: /Signal Tower: / })).toBeAttached();
+    await expect(page.getByRole('link', { name: /Signal Tower: / })).toBeAttached();
     await expect(page.getByRole('img', { name: 'Your character' })).toBeAttached();
     await expect(page.getByText('The Arena · Locked')).toBeVisible();
   });
