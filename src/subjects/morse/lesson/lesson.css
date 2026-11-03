@@ -56,6 +56,22 @@
   font-size: 15px;
 }
 
+.lesson__loading {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--lamplight);
+}
+
+.lesson__warning {
+  margin: 0;
+  padding: 10px 14px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  background: #f6c9b6;
+  color: var(--ink);
+  font-weight: 700;
+}
+
 .lesson__card {
   padding: 20px 22px;
   border: var(--outline-ui);

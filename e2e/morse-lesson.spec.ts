@@ -1,10 +1,11 @@
 import { expect, test } from '@playwright/test';
-import { signedIn } from './fake-supabase.ts';
+import { signedIn, type SubjectCall } from './fake-supabase.ts';
 
 test.describe('the Koch lesson in the Signal Tower (#31 concept)', () => {
   test('meet K and M, copy a short run, and see the result', async ({ page }) => {
     test.setTimeout(60_000);
-    await signedIn(page, []);
+    const calls: SubjectCall[] = [];
+    await signedIn(page, [], calls);
     // run=short: an 8-second run instead of 2 minutes, for tests.
     await page.goto('/signal-tower?run=short');
     await expect(page.getByRole('heading', { name: 'Hear K and M' })).toBeVisible();
@@ -30,5 +31,20 @@ test.describe('the Koch lesson in the Signal Tower (#31 concept)', () => {
     await expect(page.locator('.lesson__pct')).toBeVisible({ timeout: 20_000 });
     await expect(page.getByLabel(/of 2 runs at 90%/)).toBeVisible();
     await expect(page.getByRole('button', { name: /Next run|Meet U/ })).toBeVisible();
+
+    // Progress is saved: the letters met, then the run (state, then each letter's review and
+    // rating). XP and minutes are only sent when there are any, so they may not appear here.
+    await expect.poll(() => calls.filter((c) => c.rpc === 'record_result').length).toBe(2);
+    const states = calls.filter((c) => c.rpc === 'save_subject_state');
+    expect(states.at(-1)?.args).toMatchObject({
+      p_subject: 'morse',
+      p_state: { unlocked: 2, met: ['K', 'M'], runs: 1 },
+    });
+    expect(calls.filter((c) => c.rpc === 'record_review').map((c) => c.args)).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ p_subject: 'morse', p_item: 'char:K' }),
+        expect.objectContaining({ p_subject: 'morse', p_item: 'char:M' }),
+      ]),
+    );
   });
 });
