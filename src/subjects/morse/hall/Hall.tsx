@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import type { SkillRating, SubjectApi } from '../../../core/subject.ts';
 import { MORSE_CHARS } from '../code.ts';
-import { CHAR_WPM, parseProgress, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
+import {
+  CHAR_WPM,
+  parseProgress,
+  pendingTrial,
+  unlockedChars,
+  type MorseProgress,
+} from '../lesson/progress.ts';
 import { questStatus, roman } from '../questline.ts';
 import { LampPath } from './LampPath.tsx';
 import './hall.css';
@@ -24,7 +30,7 @@ function rankOf(p: MorseProgress) {
       };
 }
 
-export type HallDoor = 'koch' | 'recognition';
+export type HallDoor = 'koch' | 'recognition' | 'trial';
 
 export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor) => void }) {
   const [progress, setProgress] = useState<MorseProgress | null>(null);
@@ -59,6 +65,7 @@ export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor
   const quest = questStatus(unlocked);
   const rank = rankOf(progress);
   const lessonNo = progress.unlocked - 1;
+  const trial = pendingTrial(progress);
 
   return (
     <div className="hall">
@@ -124,14 +131,29 @@ export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor
       )}
 
       <nav className="hall__doors" aria-label="Signal Tower">
+        {trial && (
+          <button
+            type="button"
+            className="hall__card hall__door is-main is-trial"
+            onClick={() => onOpen('trial')}
+          >
+            <span className="hall__kicker">Trial · Chapter {roman(trial.number)}</span>
+            <span className="hall__door-title">Face {trial.trial.name}</span>
+            <span className="hall__door-go">Open the gate →</span>
+          </button>
+        )}
         <button
           type="button"
-          className="hall__card hall__door is-main"
+          className={`hall__card hall__door${trial ? '' : ' is-main'}`}
           onClick={() => onOpen('koch')}
         >
           <span className="hall__kicker">Lesson {lessonNo} · Koch method</span>
           <span className="hall__door-title">
-            {lessonNo === 1 ? 'Hear K and M' : `Add ${unlocked.slice(-1)[0]}`}
+            {trial
+              ? 'Practise your letters'
+              : lessonNo === 1
+                ? 'Hear K and M'
+                : `Add ${unlocked.slice(-1)[0]}`}
           </span>
           <span className="hall__door-go">Begin lesson →</span>
         </button>

@@ -189,6 +189,13 @@ button.hall__door:active {
   background: linear-gradient(180deg, #ffe39a, var(--brass));
 }
 
+.hall__door.is-trial {
+  background: linear-gradient(180deg, #ffe7a0, var(--ember));
+  box-shadow:
+    0 5px 0 var(--ink),
+    0 0 24px 4px rgba(255, 211, 107, 0.45);
+}
+
 .hall__door-title {
   font-family: var(--font-display);
   font-weight: 900;
