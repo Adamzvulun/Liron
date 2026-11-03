@@ -26,7 +26,8 @@
 }
 
 .city__layer,
-.city__part {
+.city__part,
+.city__figure {
   position: absolute;
   left: 0;
   top: 0;

@@ -3,6 +3,7 @@ import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
+import { Wardrobe } from './avatar/Wardrobe.tsx';
 import { City } from './city/City.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
@@ -51,11 +52,22 @@ function Lobby({ player }: { player: Player }) {
   if (place) {
     return (
       <>
-        <PlaceScreen place={place} resident={residentsOf(subjects).get(place)}>
+        <PlaceScreen
+          place={place}
+          resident={residentsOf(subjects).get(place)}
+          wide={place === 'house'}
+        >
           {place === 'board' && state.today && (
             <div className="hud">
               <QuestTracker today={state.today} />
             </div>
+          )}
+          {place === 'house' && state.profile && (
+            <Wardrobe
+              look={state.profile.avatar}
+              name={state.profile.displayName}
+              onSave={player.setAvatar}
+            />
           )}
         </PlaceScreen>
         {celebrations}
@@ -73,7 +85,7 @@ function Lobby({ player }: { player: Player }) {
     );
   }
   return (
-    <City subjects={subjects}>
+    <City subjects={subjects} look={state.profile?.avatar}>
       <div className="lobby__top">
         <Hud
           state={state}
