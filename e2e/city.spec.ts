@@ -18,7 +18,7 @@ test.describe('the city square (#24)', () => {
     for (const size of [
       { width: 1366, height: 768 },
       { width: 1280, height: 1024 },
-      { width: 412, height: 915 },
+      { width: 915, height: 412 }, // a phone on its side
     ]) {
       await page.setViewportSize(size);
       await page.goto('/');
@@ -40,5 +40,48 @@ test.describe('the city square (#24)', () => {
     expect(await smoke.evaluate((el) => getComputedStyle(el).animationName)).toBe('wm-smoke');
     await page.emulateMedia({ reducedMotion: 'reduce' });
     expect(await smoke.evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+  });
+
+  test('an upright phone fills the height, pans from the compass, and has a dock', async ({
+    page,
+  }) => {
+    await signedIn(page);
+    await page.setViewportSize({ width: 412, height: 915 });
+    await page.goto('/');
+    await page.getByText('Adam', { exact: true }).waitFor();
+    const view = page.locator('.city__view');
+    const box = await page.locator('.city__stage').boundingBox();
+    const viewBox = await view.boundingBox();
+    expect(box && viewBox).toBeTruthy();
+    if (!box || !viewBox) return;
+    expect(box.height).toBeCloseTo(viewBox.height, 0);
+    expect(box.width / box.height).toBeCloseTo(1920 / 1080, 2);
+    // The compass (x = 1010 of 1920) starts in the middle of the view.
+    const centre = await view.evaluate(
+      (el) => (el.scrollLeft + el.clientWidth / 2) / (el.scrollWidth / 1920),
+    );
+    expect(Math.abs(centre - 1010)).toBeLessThan(5);
+    // No sideways page scroll: only the view pans.
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+      412,
+    );
+    const dock = page.getByRole('navigation', { name: 'Places' });
+    for (const name of ['Signal Tower', 'Caravanserai', 'Quests', 'House', 'Market']) {
+      const link = dock.getByRole('link', { name });
+      await expect(link).toBeVisible();
+      const b = await link.boundingBox();
+      expect(b?.height ?? 0).toBeGreaterThanOrEqual(48); // thumb-sized
+    }
+    await dock.getByRole('link', { name: 'Quests' }).click();
+    await expect(page.getByRole('heading', { level: 1, name: 'Notice Board' })).toBeVisible();
+    await expect(page.getByRole('link', { name: /hear K and M/ })).toBeVisible();
+  });
+
+  test('wide screens have no dock', async ({ page }) => {
+    await signedIn(page);
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.goto('/');
+    await page.getByText('Adam', { exact: true }).waitFor();
+    await expect(page.getByRole('navigation', { name: 'Places' })).toHaveCount(0);
   });
 });

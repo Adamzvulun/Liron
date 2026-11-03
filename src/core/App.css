@@ -57,15 +57,67 @@
   }
 }
 
-/* Phones: everything stacks; the quest list waits for the phone layout (#27). */
-@media (max-width: 899px) {
-  .lobby__top .hud {
-    flex: 1;
-  }
+/* Phones held upright (#27): a compact HUD bar with the daily goal; the quests themselves are
+   behind the dock's Quests button. */
+.city--pan .lobby__top {
+  position: static;
+  padding: 8px;
+}
 
-  .lobby__top .hud__questlist {
-    display: none;
-  }
+.city--pan .hud {
+  flex: 1;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.city--pan .hud__questlist {
+  display: none;
+}
+
+.city--pan .hud__quests {
+  gap: 6px;
+  padding: 8px 12px;
+}
+
+.city--pan .hud__queststitle {
+  font-size: 16px;
+}
+
+.city--pan .hud__portrait {
+  width: 52px;
+  height: 52px;
+  border-width: 3px;
+}
+
+.city--pan .hud__portrait svg {
+  width: 46px;
+  height: 42px;
+}
+
+.city--pan .hud__plate {
+  flex: 1;
+  padding: 6px 12px;
+}
+
+.city--pan .hud__who {
+  font-size: 17px;
+}
+
+.city--pan .hud__purse {
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.city--pan .hud__chip {
+  min-height: 40px;
+  padding: 4px 10px;
+  font-size: 16px;
+}
+
+.city--pan .hud__gear {
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
 }
 
 /* A place's screen (#25), until halls and houses get their own content. */
