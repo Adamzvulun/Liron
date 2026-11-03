@@ -21,6 +21,8 @@ export interface PaintedCity {
   layers: { sky: string; ground: string; mid: string; front: string };
   places: Record<PlaceId, PaintedPart>;
   avatar: PaintedPart;
+  /** Empty plots where future guilds can build. */
+  plots: PaintedPart[];
 }
 
 export function paintCity(): PaintedCity;
