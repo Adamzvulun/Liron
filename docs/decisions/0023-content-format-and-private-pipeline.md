@@ -44,7 +44,7 @@ Content is data, not code (CLAUDE.md). #23 asks for one schema for items, lesson
 
 - **Upload:** `scripts/content/upload-private.ts` checks the packs and enforces a **500 MB audio budget** (Supabase's free plan has 1 GB of storage per project; the deck is 35.8 MB). It then:
   - upserts the rows, and removes ones the source no longer has;
-  - uploads only audio files the bucket doesn't have yet.
+  - uploads only audio files the bucket doesn't have yet, 8 at a time (one at a time, the first full upload took about 26 minutes, over the job's 20-minute limit).
 
   It runs as the `content` job of the "DB migrate" workflow, after migrations, on pushes to `dev` (→ `waymark-dev`) and `main` (→ `waymark-prod`) that touch sources, content scripts, the schema or migrations.
 - **Secrets:** `SUPABASE_DEV_SECRET_KEY` and `SUPABASE_PROD_SECRET_KEY`, Supabase's secret keys. They are used only in that job, never in the browser. The project URL is read from the database URL secret, so there's nothing else to configure.
