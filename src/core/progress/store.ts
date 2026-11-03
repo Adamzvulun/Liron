@@ -44,11 +44,22 @@ export interface Award extends Wallet {
   today: DayResult;
 }
 
+/** The player's own profile fields the app shows. */
+export interface Profile {
+  /** The name the player chose; empty until they choose one. */
+  displayName: string;
+}
+
+/** Names are 1-40 characters after trimming (the database checks the length too). */
+export const MAX_NAME_LENGTH = 40;
+
 /** Where progress is kept. Supabase in the app, memory in tests. Not used by subjects directly. */
 export interface ProgressStore {
   /** Adds XP and minutes to a subject, to today and to the wallet; pays gold, gems, chests. */
   record(subjectId: string, xp: number, minutes: number): Promise<Award>;
   wallet(): Promise<Wallet>;
+  profile(): Promise<Profile>;
+  setDisplayName(name: string): Promise<void>;
   today(): Promise<Today>;
   /** Changes the daily goal; lowering it below today's minutes reaches today's goal at once. */
   setDailyGoal(minutes: number): Promise<{ wallet: Wallet; today: DayResult }>;
@@ -102,6 +113,7 @@ export function memoryStore(
     return s;
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
+  const profile: Profile = { displayName: '' };
   const days = new Map<string, { minutes: number; reached: boolean }>();
   const cards = new Map<string, { due: Date; card: StoredCard }>(); // key: subject/item
   const reviewLog: { subjectId: string; itemId: string; rating: number; at: Date }[] = [];
@@ -206,6 +218,12 @@ export function memoryStore(
     },
     async wallet() {
       return { ...wallet };
+    },
+    async profile() {
+      return { ...profile };
+    },
+    async setDisplayName(name) {
+      profile.displayName = name;
     },
     async today() {
       return status();
