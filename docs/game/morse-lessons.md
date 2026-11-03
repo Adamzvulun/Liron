@@ -96,6 +96,25 @@ Adam approved the hall, the story text and the trial rewards on 2026-11-03.
   - Failing costs only the attempt. The run still counts as practice (reviews, ratings, speed).
 - **Ranks don't come from trials.** They follow discovery 04 (Adam, 2026-11-03).
 
+## Sending at the telegraph table (#35, #36, #37)
+Built overnight on 2026-11-03 while Adam was away (his instruction: keep going and make the calls he'd make). It awaits his review.
+- **The drill:** key 5 groups of 3 letters, drawn from the letters you've learned to hear. Receiving comes first, the usual order. Letters light up teal when the tower reads them right and ember when it reads them wrong.
+- **The key** (#35):
+  - Hold the space bar on a computer. Auto-repeat is ignored, and leaving the window lets the key go.
+  - On a phone, hold the big brass key. It doesn't scroll, zoom or open a menu while you key.
+  - The sidetone's oscillator runs the whole time and only its volume switches, with a ~5 ms edge. That's the shortest path from press to sound in the browser. Times come from the input events' own timestamps.
+- **The decoder** (#36, `send/decoder.ts`) reads every key-down as a dit or a dah, and every gap as an element, letter or word gap:
+  - It judges each one against your own dit, with gap cut-offs at 2 and 5 dits, between the standard 1:3:7.
+  - It re-reads the whole drill on every press. It sorts your key-downs into a short and a long group (two-means on their log lengths), so it finds your speed from the first dah and copes with dahs only twice a dit. Decoders that learn one element at a time can lock onto a wrong speed: a slow sender's first dit, read as a dah, teaches them a speed that's too fast.
+  - Until you've keyed both kinds, it uses your speed from the last drill (12 wpm the first time).
+  - Codes we don't teach read as "?".
+- **Scoring:** the letters you keyed against what the tower read, with spaces ignored and the same alignment as the Koch runs. Each letter gets a **send** rating (Glicko, ADR 0010). XP is about 10 a minute.
+- **Your fist** (#37, `send/fist.ts`):
+  - Five measures, each drawn as a gauge against its ideal: dah ÷ dit (ideal 3, fine 2.5–3.6), gaps inside letters (1 dit, fine 0.6–1.7), between letters (3, fine 2.3–4.5), between words (7, fine 5–10), and steadiness (how alike your dits and dahs are).
+  - One tip names the worst habit, e.g. "Your letters run together. Leave a gap of about one dah between letters."
+  - A timing strip shows your last 8 seconds of keying as bars on a line. Nothing shows dots and dashes as a chart.
+- **Saved:** the number of drills and your dit length, which sets your speed for the next drill and appears on the hall's sending station.
+
 ## What we record (measuring learning)
 Per run: date and time, length, characters played, accuracy overall and per character, effective speed, and whether it passed. From these:
 - characters unlocked over time

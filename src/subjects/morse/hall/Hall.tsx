@@ -42,7 +42,7 @@ function rankOf(p: MorseProgress) {
       };
 }
 
-export type HallDoor = 'koch' | 'recognition' | 'trial';
+export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending';
 
 // The room never changes, so it's painted once per page load.
 let painted: ReturnType<typeof paintTower> | undefined;
@@ -179,7 +179,7 @@ function Lamps({ letters, lit }: { letters: readonly string[]; lit: readonly str
 
 export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor) => void }) {
   const [progress, setProgress] = useState<MorseProgress | null>(null);
-  const [receive, setReceive] = useState<SkillRating | null>(null);
+  const [ratings, setRatings] = useState<ReadonlyMap<string, SkillRating>>(new Map());
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -188,7 +188,7 @@ export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor
       ([state, ratings]) => {
         if (!live) return;
         setProgress(parseProgress(state));
-        setReceive(ratings.get('receive') ?? null);
+        setRatings(ratings);
       },
       () => live && setFailed(true),
     );
@@ -205,16 +205,16 @@ export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor
     );
   }
   if (!progress) return <p className="lesson__loading">Lighting the lamps…</p>;
-  return <Room progress={progress} receive={receive} onOpen={onOpen} />;
+  return <Room progress={progress} ratings={ratings} onOpen={onOpen} />;
 }
 
 function Room({
   progress,
-  receive,
+  ratings,
   onOpen,
 }: {
   progress: MorseProgress;
-  receive: SkillRating | null;
+  ratings: ReadonlyMap<string, SkillRating>;
   onOpen: (door: HallDoor) => void;
 }) {
   const [ref, { scale, x, y, pan }] = useStage(GATE.x, towerFit);
@@ -253,7 +253,10 @@ function Room({
       id: 'sending',
       plaque: { x: 1210, y: 950 },
       title: 'Sending',
-      text: 'Coming soon · the straight key',
+      text: progress.sending.drills
+        ? `Your fist: ${Math.round(1200 / (progress.sending.ditMs ?? 100))} wpm`
+        : 'Key letters with the straight key',
+      open: 'sending',
     },
     {
       id: 'radio',
@@ -284,17 +287,18 @@ function Room({
 
   const stats = (
     <dl className="tower__stats">
-      <div>
-        <dt>Receive</dt>
-        <dd>
-          {receive ? Math.round(receive.rating) : '—'}
-          {receive?.provisional && <small> provisional</small>}
-        </dd>
-      </div>
-      <div>
-        <dt>Send</dt>
-        <dd>—</dd>
-      </div>
+      {(['receive', 'send'] as const).map((skill) => {
+        const r = ratings.get(skill);
+        return (
+          <div key={skill}>
+            <dt>{skill === 'receive' ? 'Receive' : 'Send'}</dt>
+            <dd>
+              {r ? Math.round(r.rating) : '—'}
+              {r?.provisional && <small> provisional</small>}
+            </dd>
+          </div>
+        );
+      })}
       <div>
         <dt>Speed</dt>
         <dd>

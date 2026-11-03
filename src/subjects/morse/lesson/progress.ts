@@ -35,6 +35,13 @@ const progressSchema = z.object({
       avgMs: z.record(z.string(), z.number().min(0)).catch({}),
     })
     .catch({ best: 0, rounds: 0, avgMs: {} }),
+  /** Sending drills (#36): how many, and your dit length (your keying speed) from the last one. */
+  sending: z
+    .object({
+      drills: z.number().int().min(0).catch(0),
+      ditMs: z.number().min(20).max(400).nullable().catch(null),
+    })
+    .catch({ drills: 0, ditMs: null }),
 });
 
 export type MorseProgress = z.infer<typeof progressSchema>;
