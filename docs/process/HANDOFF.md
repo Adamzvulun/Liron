@@ -1,42 +1,32 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, at the end of the session that finished M1 (E5 avatar, PR #68; M1 retro).
+- **Written:** 2026-11-03, during the overnight run. Adam went to sleep and told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 
 ## State right now
-- **Merged into `dev`:**
-  - E2: #16–#20 (login, schema, subject contract, XP and levels, streak).
-  - E3: #21 FSRS, #22 Glicko-2, #23 content pipeline.
-  - E4: #24 city screen, #25 clickable places, #26 HUD, #27 phone layout.
-  - E5: #28 paper-doll avatar, #29 wardrobe in Your House (PR #68), plus ADR 0027 (release versions).
-  - PR #64, which uploads audio 8 files at a time.
-- **`main` (the live site) is still v0.1.0.** A release PR from `dev` to `main` is Adam's call; only Adam merges into `main`.
-- **`waymark-dev` (Supabase)** has every migration up to `20261103020000_skill_ratings.sql`, plus the whole Lingualism deck: 4,823 items, 57 lessons and 4,823 MP3s.
-- **`waymark-prod` (Supabase)** gets the same automatically on the first merge to `main`. With PR #64, the first upload should fit within the content job's 20-minute limit. Check that job's log at the release.
-- **Adam approved** the city on PC and on an iPhone 16 (2026-11-03), after these fixes:
-  - The scene fills the window. At most 18% of an edge is cut off, mostly sky (`stageFit` in `src/core/city/layout.ts`).
-  - The Arena's flags are removed.
-  - The phone HUD is two slim rows.
+- **Open: [PR #73](https://github.com/Adamzvulun/Liron/pull/73)** into `dev`, on branch `claude/brave-ride-j0hcmv`. It closes #32–#37. **Don't merge it; Adam does.** It holds:
+  - **Approved by Adam (2026-11-03):** #32 saving Instant Recognition rounds, #33 the tower hall, and #34 "The Silent Beacon" I–II with trials. CI passed on 639fbe9.
+  - **Overnight, awaiting Adam's review:** the tower's **painted room** (#33, commit bf4ef15) and **sending with a straight key** (#35 sidetone and key, #36 decoder, #37 fist analysis). Each is its own commit, so either can be reverted alone.
+- **Why one PR:** this session can push only to its one designated branch, and the Stop hook pushes every commit. So the overnight work landed on the open PR. Its description marks which parts are approved.
+- **Merged into `dev` before this:** M1 (E1–E5); #30 sound engine and #31 Koch lessons (PR #71, #72). `main` is still v0.1.0.
 
 ## Next (in order)
-1. **M2: first playable (#7–#11).** M1 is done: [PR #68](https://github.com/Adamzvulun/Liron/pull/68) (E5 avatar) was merged on 2026-11-03, and the [M1 retro](retros/M1.md) is written.
-   - **Sprints, one theme each, never mixed** (Adam, 2026-11-03): **Morse first** (E6 #7, E7 #8), then Arabic (E8 #9, E9 #10).
-   - **Settled:** Koch order, K and M first (ADR 0028). Lesson rules: `docs/game/morse-lessons.md`. iOS silent-switch audio is deferred (Adam: "we'll tackle that later").
-   - **Design first:** a screenshotted concept of each lesson screen, approved by Adam, as with #27 and #28.
-   - **Measure learning from day one.** The M2 retro must say whether Waymark teaches Adam.
-2. **Release:** only when there's something to learn. Adam decides when. It will be **v1.0.0** ([ADR 0027](../decisions/0027-release-versioning.md)). The release PR sets `package.json`'s version; Adam merges it and creates the tag.
+1. **Adam reviews PR #73.** He checks the painted room, the sending drill and its fist analysis on the preview, then merges or asks for changes.
+2. **Then the Morse sprint (E6, E7) is complete,** and the Arabic sprint starts: E8 (Caravanserai: script, #38–#43), then E9 (survival phrases, #44, #45). Design first: a screenshotted concept that Adam approves before building.
+3. **Release v1.0.0** when Adam decides there's enough to learn. Morse is now playable end to end.
 
 ## Things the next session should know
-- **Where the avatar code lives:** `src/core/avatar/` (`looks.ts` holds options and items as data, `paint.ts` is the SVG painter, `Avatar.tsx`, `Wardrobe.tsx`). In the city, the painter paints only the avatar's shadow; `City.tsx` puts the figure on top.
-- **Where the city code lives:**
-  - `src/core/city/`: `painter.js` paints the scene, deterministic from one seed. `City.tsx` places it, `layout.ts` holds positions, paths and `stageFit`, and `PlaceScreen.tsx` is the place screens.
-  - Navigation is our own ~40 lines (`src/core/router.ts`, `src/core/Link.tsx`; ADR 0026).
-  - `vercel.json` rewrites every path to `index.html` so deep links work.
-- **Painter caveat:** the painter draws with a seeded random sequence. Adding drawing calls that use `R()` before other parts shifts everything painted after them. Add new elements late, or check the screenshot.
-- **Phone mode** means an upright window under 900 px wide (`city--pan`). The view pans; it keeps its centre through resizes (`centre` ref in `City.tsx`). The view needs `min-height: 0`, or it can't shrink when the HUD loads; CI caught that once.
+- **Morse code map (`src/subjects/morse/`):**
+  - `player.ts` plays Morse.
+  - `lesson/` holds the Koch runs, progress and the trials.
+  - `recognition/` is the Instant Recognition game.
+  - `hall/` is the painted room: `paintTower.ts` paints it, `Hall.tsx` places lamps, writing and stations on it.
+  - `send/` is the straight key: `decoder.ts`, `fist.ts`, `sidetone.ts`, `drill.ts`, `SendDrill.tsx`.
+  - `TowerHall.tsx` switches between the hall and the activities. `?open=koch|recognition|trial|sending` opens one directly, for tests.
+- **Full-window halls:** a place screen whose child has the class `.place-scene` gets the whole window (`App.css`, `:has()`). Halls that paint a room use this.
+- **`useStage`** (`src/core/city/useStage.ts`) scales a 1920×1080 painted stage and pans it on upright phones; the city and the tower share it. The tower passes its own fit, `towerFit`, which keeps the room's sides and lets the ceiling fill tall windows.
+- **The decoder** re-reads the whole drill on every press (two-means on log key-down lengths), so don't "optimise" it into one-element-at-a-time learning: that misreads slow senders (see `docs/game/morse-lessons.md`).
 - **Screenshots:** write a temporary `e2e/zz-shots.spec.ts` using `signedIn()` from `e2e/fake-supabase.ts` and run it with Playwright. Delete it before committing.
-- **The e2e fake Supabase** answers wallets, today, profiles (GET and PATCH) and the RPCs. Extend it when the app reads new tables.
-- **Stacked PRs:** when a fix belongs to an earlier branch in a stack, commit it there and merge it forward. Never rebase; merge commits only.
-- **Merging into `dev`:** only when Adam asks in so many words. He did on 2026-11-03 for #63–#67. Otherwise open the PR, watch it, and leave the merge to him.
 - **Hanging pushes:** `git push` occasionally hangs. Run it with `timeout 60` and retry.
-- **Leftovers for Adam:** still open from earlier, see STATUS → "What to do next" item 1 (the optional v0.1.0 tag and two old branches). Before friends join (M5), add a per-user rule for the deck (personal-use licence).
+- **Merging into `dev`:** only when Adam asks in so many words.
+- **Leftovers for Adam:** see STATUS → "What to do next" item 1 (the optional v0.1.0 tag and two old branches). Before friends join (M5), add a per-user rule for the deck (personal-use licence).
