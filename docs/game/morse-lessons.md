@@ -53,6 +53,15 @@ I checked; these points aren't settled by research I could find, so they're my c
 - **Phone:** a grid of big buttons, one per unlocked character, always in Koch order so their places don't move. 48 px or larger, the same tap-target size as elsewhere. Plus a "?" skip button.
 - iOS mutes Web Audio when the silent switch is on. Deferred (Adam, 2026-11-03); it belongs with #30 later.
 
+## Sound engine (#30)
+`src/subjects/morse/player.ts` plays text as Morse; `timing.ts` holds the maths.
+- **Timing:** PARIS standard (a dit lasts 1.2 ÷ wpm seconds). Farnsworth gaps use the ARRL formula (Jon Bloom, KE3Z, QEX 1990): only the gaps between characters and words stretch, in a 3:7 ratio.
+- **Accuracy:** every key-down is scheduled on the audio clock, not with timers. Measured in Chromium (offline render, 2026-11-03), every tone started within the 2 ms measuring window of its planned time.
+- **No clicks:** each key-down rises and falls over 5 ms.
+- **Settings:** character speed, effective speed, pitch (default 600 Hz) and volume.
+- **Browsers:** sound starts only from a tap or click (`unlock()` or `play()` in the handler). Android Chrome uses the same engine as desktop Chrome. It has not been tried on a real phone yet; that happens when Adam tries the first lesson.
+- **Later (E16):** `route` lets noise, fading and interference sit between the tone and the speakers. Nothing is built for it yet.
+
 ## What we record (measuring learning)
 Per run: date and time, length, characters played, accuracy overall and per character, effective speed, and whether it passed. From these:
 - characters unlocked over time
