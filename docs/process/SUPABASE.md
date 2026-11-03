@@ -36,7 +36,7 @@ Facts checked on supabase.com on 2026-11-02:
 ## Migrations
 Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrations/), applied in name order. Never edit one that's already applied; add a new file instead. Schema: [ADR 0017](../decisions/0017-player-data-schema.md).
 
-**They apply themselves** ([ADR 0018](../decisions/0018-automatic-db-migrations.md)): merging into `dev` updates `waymark-dev`, and a release to `main` updates `waymark-prod`, through `.github/workflows/db-migrate.yml`. **Never paste a migration into the SQL editor.** The migration history wouldn't know about it, and the next automatic run would fail.
+**They apply themselves** ([ADR 0018](../decisions/0018-automatic-db-migrations.md)), and the [private content](#private-content) uploads right after: merging into `dev` updates `waymark-dev`, and a release to `main` updates `waymark-prod`, through `.github/workflows/db-migrate.yml`. **Never paste a migration into the SQL editor.** The migration history wouldn't know about it, and the next automatic run would fail.
 
 **One-time setup (Adam), for each project:**
 1. Supabase → the project → **Connect** → **Session pooler**, and copy the connection string. It looks like `postgresql://postgres.<ref>:[YOUR-PASSWORD]@aws-…pooler.supabase.com:5432/postgres`.
@@ -51,6 +51,19 @@ Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrat
    Never paste these into chat; they contain the password.
 
 If a run fails because a secret is missing, add it and start the workflow again: **Actions → DB migrate → Run workflow** on the right branch, or ask Claude, who can start it.
+
+## Private content
+Copyrighted content (the Lingualism deck) is uploaded to each project automatically, right after migrations ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)). It's readable only by signed-in users. The workflow needs each project's **secret key**.
+
+**One-time setup (Adam), for each project:**
+1. Supabase → the project → **Project Settings → API Keys** → **Secret keys** → copy the default secret key (`sb_secret_…`), or create one named `github-actions`.
+2. GitHub → Liron → **Settings → Secrets and variables → Actions → New repository secret**:
+   - `SUPABASE_DEV_SECRET_KEY` = the `waymark-dev` key
+   - `SUPABASE_PROD_SECRET_KEY` = the `waymark-prod` key
+
+   Never paste these into chat. A secret key bypasses row-level security and gives full access to the project.
+
+If the content job fails because a key is missing, add it, then **Actions → DB migrate → Run workflow** on the right branch, or ask Claude to start it.
 
 ## Running it locally
 Create `.env.local` (git-ignored) from [`.env.example`](../../.env.example) with the `waymark-dev` values. Without it, the app shows a "Not set up yet" screen that names what's missing.

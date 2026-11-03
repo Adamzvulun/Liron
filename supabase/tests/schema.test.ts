@@ -12,6 +12,7 @@ import {
 } from '../../src/core/progress/economy.ts';
 import { subjectApi } from '../../src/core/progress/subjectApi.ts';
 import { supabaseStore } from '../../src/core/progress/supabaseStore.ts';
+import { loadPrivatePack } from '../../src/core/content/privateContent.ts';
 
 // Runs the real migrations in PGlite (Postgres compiled to WebAssembly, in-process) on top of a
 // small stand-in for Supabase's auth schema, then checks row-level security as each role.
@@ -332,71 +333,78 @@ describe('record_progress and save_subject_state (ADR 0019)', () => {
   });
 });
 
-describe('supabaseStore against the real functions', () => {
-  // Just enough of supabase-js for supabaseStore: rpc() calls the function with named
-  // arguments (as PostgREST does), from().select().eq().maybeSingle() reads one row.
-  const fakeClient = {
-    async rpc(fn: string, args: Record<string, unknown>) {
-      const names = Object.keys(args);
-      const call = names.map((n, i) => `${n} => $${i + 1}`).join(', ');
-      try {
-        const [r] = await rows(`select public.${fn}(${call}) as result`, Object.values(args));
-        return { data: (r as { result: unknown }).result, error: null };
-      } catch (e) {
-        return { error: { message: (e as Error).message } };
-      }
-    },
-    // A small PostgREST stand-in: select with eq / in / lte / order / limit, then
-    // maybeSingle() or await for all rows.
-    from: (table: string) => {
-      const where: string[] = [];
-      const params: unknown[] = [];
-      let cols = '*';
-      let tail = '';
-      const run = async () =>
-        rows(
-          `select ${cols} from public.${table} ${where.length ? `where ${where.join(' and ')}` : ''} ${tail}`,
-          params,
-        );
-      const q = {
-        select(c: string) {
-          cols = c;
-          return q;
-        },
-        eq(col: string, v: unknown) {
-          params.push(v);
-          where.push(`${col} = $${params.length}`);
-          return q;
-        },
-        in(col: string, vs: unknown[]) {
-          params.push(vs);
-          where.push(`${col} = any($${params.length})`);
-          return q;
-        },
-        lte(col: string, v: unknown) {
-          params.push(v);
-          where.push(`${col} <= $${params.length}`);
-          return q;
-        },
-        order(col: string) {
-          tail += ` order by ${col}`;
-          return q;
-        },
-        limit(n: number) {
-          tail += ` limit ${n}`;
-          return q;
-        },
-        async maybeSingle() {
-          return { data: (await run())[0] ?? null, error: null };
-        },
-        then<T>(resolve: (r: { data: unknown[]; error: null }) => T) {
-          return run().then((data) => resolve({ data, error: null }));
-        },
-      };
-      return q;
-    },
-  } as unknown as SupabaseClient;
+// Just enough of supabase-js for supabaseStore: rpc() calls the function with named
+// arguments (as PostgREST does), from().select().eq().maybeSingle() reads one row.
+const fakeClient = {
+  async rpc(fn: string, args: Record<string, unknown>) {
+    const names = Object.keys(args);
+    const call = names.map((n, i) => `${n} => $${i + 1}`).join(', ');
+    try {
+      const [r] = await rows(`select public.${fn}(${call}) as result`, Object.values(args));
+      return { data: (r as { result: unknown }).result, error: null };
+    } catch (e) {
+      return { error: { message: (e as Error).message } };
+    }
+  },
+  // A small PostgREST stand-in: select with eq / in / lte / order / limit, then
+  // maybeSingle() or await for all rows.
+  from: (table: string) => {
+    const where: string[] = [];
+    const params: unknown[] = [];
+    let cols = '*';
+    let tail = '';
+    const run = async () =>
+      rows(
+        `select ${cols} from public.${table} ${where.length ? `where ${where.join(' and ')}` : ''} ${tail}`,
+        params,
+      );
+    const q = {
+      select(c: string) {
+        cols = c;
+        return q;
+      },
+      eq(col: string, v: unknown) {
+        params.push(v);
+        where.push(`${col} = $${params.length}`);
+        return q;
+      },
+      in(col: string, vs: unknown[]) {
+        params.push(vs);
+        where.push(`${col} = any($${params.length})`);
+        return q;
+      },
+      lte(col: string, v: unknown) {
+        params.push(v);
+        where.push(`${col} <= $${params.length}`);
+        return q;
+      },
+      order(col: string) {
+        tail += ` order by ${col}`;
+        return q;
+      },
+      limit(n: number) {
+        tail += ` limit ${n}`;
+        return q;
+      },
+      range(from: number, to: number) {
+        tail += ` offset ${from} limit ${to - from + 1}`;
+        return q;
+      },
+      async maybeSingle() {
+        return { data: (await run())[0] ?? null, error: null };
+      },
+      then<T>(
+        resolve: (r: { data: unknown[]; error: null }) => T,
+        reject: (e: unknown) => unknown,
+      ) {
+        return run().then((data) => resolve({ data, error: null }), reject);
+      },
+    };
+    return q;
+  },
+} as unknown as SupabaseClient;
 
+describe('supabaseStore against the real functions', () => {
   it('records reviews and finds due items through the real functions (ADR 0022)', async () => {
     await as(ADAM, async () => {
       const morse = subjectApi({ id: 'morse' }, supabaseStore(fakeClient));
@@ -616,5 +624,91 @@ describe('spaced repetition tables (ADR 0022)', () => {
     await expect(as(null, () => call(3, new Date().toISOString()))).rejects.toThrow(
       /permission denied/,
     );
+  });
+});
+
+describe('private content (ADR 0023)', () => {
+  beforeEach(async () => {
+    await rows(
+      `insert into content_items (subject_id, item_id, source, type, data)
+       values ('arabic', 'pcav:0001', 'lingualism-pcav', 'vocab', '{"arabic": "حَياة"}')`,
+    );
+    await rows(
+      `insert into storage.objects (bucket_id, name)
+       values ('private-media', 'lingualism-pcav/pcav01-1.mp3')`,
+    );
+  });
+
+  it('signed-in users can read the text and the audio', async () => {
+    expect(
+      await as(ADAM, () =>
+        rows(`select item_id from content_items where source = 'lingualism-pcav'`),
+      ),
+    ).toEqual([{ item_id: 'pcav:0001' }]);
+    expect(await as(OTHER, () => rows(`select name from storage.objects`))).toEqual([
+      { name: 'lingualism-pcav/pcav01-1.mp3' },
+    ]);
+  });
+
+  it('logged-out visitors get neither', async () => {
+    await expect(as(null, () => rows(`select * from content_items`))).rejects.toThrow(
+      /permission denied/,
+    );
+    await expect(as(null, () => rows(`select * from content_lessons`))).rejects.toThrow(
+      /permission denied/,
+    );
+    expect(await as(null, () => rows(`select name from storage.objects`))).toEqual([]);
+  });
+
+  it('nobody can change content through the API', async () => {
+    for (const sql of [
+      `update content_items set type = 'x'`,
+      `insert into content_items (subject_id, item_id, source, type, data) values ('arabic', 'x', 's', 't', '{}')`,
+      `delete from content_lessons`,
+    ]) {
+      await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/permission denied/);
+    }
+  });
+
+  it('loadPrivatePack reads items and lessons through the API, paging past 1,000', async () => {
+    await rows(
+      `insert into content_items (subject_id, item_id, source, type, data, tags)
+       select 'arabic', 'pcav:' || lpad(n::text, 4, '0'), 'lingualism-pcav', 'vocab',
+              jsonb_build_object('order', n), array['A1']
+       from generate_series(2, 1201) n`,
+    );
+    await rows(
+      `insert into content_lessons (subject_id, lesson_id, source, title, position, items)
+       values ('arabic', 'pcav-section:01', 'lingualism-pcav', 'Life and Death', 1, '{pcav:0001}')`,
+    );
+    const pack = await as(ADAM, () => loadPrivatePack(fakeClient, 'arabic', 'lingualism-pcav'));
+    expect(pack.items).toHaveLength(1201);
+    expect(pack.items[0]).toEqual({
+      id: 'pcav:0001',
+      subject: 'arabic',
+      type: 'vocab',
+      data: { arabic: 'حَياة' },
+      media: [],
+      tags: [],
+    });
+    expect(pack.lessons).toEqual([
+      {
+        id: 'pcav-section:01',
+        subject: 'arabic',
+        title: 'Life and Death',
+        order: 1,
+        items: ['pcav:0001'],
+        tags: [],
+      },
+    ]);
+    await expect(
+      as(null, () => loadPrivatePack(fakeClient, 'arabic', 'lingualism-pcav')),
+    ).rejects.toThrow(/permission denied/);
+  });
+
+  it('the bucket is private', async () => {
+    expect(await rows(`select public from storage.buckets where id = 'private-media'`)).toEqual([
+      { public: false },
+    ]);
   });
 });

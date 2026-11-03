@@ -4,3 +4,13 @@ Learning content as **data**, not code (CLAUDE.md): Morse characters, Arabic let
 
 - One folder per subject: `content/morse/`, `content/arabic/`.
 - Only content we may publish goes here. Copyrighted material (the Lingualism deck and book) stays in `sources/` and later in Supabase behind login. It never goes into the site bundle (ADR 0011).
+
+## Format
+Each file is a **content pack** ([ADR 0023](../docs/decisions/0023-content-format-and-private-pipeline.md), schema in [`src/core/content/schema.ts`](../src/core/content/schema.ts)): `subject`, `source`, `license`, `items` (each with a stable `id`, a `type`, the subject's own `data`, optional `media` and `tags`) and `lessons` (an `order` and a list of item ids). Every file here is checked on each test run.
+
+| File | What |
+|---|---|
+| `morse/characters.json` | 41 characters in LCWO Koch order with ITU codes; 40 Koch lessons |
+| `arabic/letters.json` | The 28 letters: names, alphabet position, whether they connect forward |
+
+Copyrighted packs are built from `sources/` by `scripts/content/` and uploaded to Supabase, never written here.
