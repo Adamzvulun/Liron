@@ -26,7 +26,8 @@ Sources are in [the lesson design](../game/morse-lessons.md#sources).
 **The gate:**
 - Accuracy is scored per character.
 - The next character unlocks after **two runs in a row at 90% or better**.
-- One run is 50 characters, so two runs are about the length of Koch's 5-minute test.
+- One run is 2 minutes of sound, so two runs (about 4 minutes) come close to Koch's 5-minute test.
+- *Corrected 2026-11-03:* the first version said a run was 50 characters. At 10 wpm overall that is only about 1 minute, too short for the comparison, so a run is now set by time.
 - The details are in [the lesson design](../game/morse-lessons.md).
 
 ## Consequences

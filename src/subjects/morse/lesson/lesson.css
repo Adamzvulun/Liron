@@ -1,0 +1,457 @@
+/* The Koch lesson (#31): parchment cards on the tower's night, lamps in lamplight, the Morse
+   guild's teal for progress. Sound first: letters are big, nothing shows dots or dashes. */
+
+.lesson {
+  display: grid;
+  gap: 16px;
+}
+
+.lesson__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  font-weight: 700;
+}
+
+.lesson__badge {
+  padding: 4px 12px;
+  border: var(--outline-ui);
+  border-radius: 999px;
+  background: var(--guild-morse);
+  color: var(--vellum);
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+.lesson__letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.lesson__letters span {
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255, 211, 107, 0.16);
+  color: var(--lamplight);
+  font-family: var(--font-display);
+  font-weight: 900;
+}
+
+.lesson__letters .is-new {
+  background: var(--lamplight);
+  color: var(--ink);
+}
+
+.lesson__speed {
+  margin-left: auto;
+  color: var(--parchment);
+  opacity: 0.85;
+  font-size: 15px;
+}
+
+.lesson__card {
+  padding: 20px 22px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--parchment), #e8d2a4);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.lesson__card p {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.lesson__start,
+.lesson__meet {
+  width: min(100%, 760px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.lesson__title {
+  margin: 8px 0 10px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: 0.03em;
+  color: var(--wood);
+}
+
+.lesson__subtitle {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--wood);
+}
+
+.lesson__kicker {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px !important;
+  color: #6b5640;
+}
+
+.lesson__note {
+  font-weight: 700;
+  color: var(--guild-morse);
+}
+
+/* A lamp: the letter glowing in lamplight. */
+.lesson__lamps {
+  display: flex;
+  gap: 12px;
+}
+
+.lesson__lamp {
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  margin: 6px 0 16px;
+  border: 5px solid var(--ink);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff6d6, var(--lamplight) 45%, var(--brass) 100%);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 88px;
+  line-height: 1;
+  box-shadow:
+    0 0 0 6px var(--wood),
+    0 0 46px 14px rgba(255, 211, 107, 0.55);
+}
+
+.lesson__lamp--small {
+  width: 84px;
+  height: 84px;
+  font-size: 48px;
+  box-shadow:
+    0 0 0 4px var(--wood),
+    0 0 28px 8px rgba(255, 211, 107, 0.5);
+}
+
+.lesson__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.lesson__go,
+.lesson__plain {
+  min-height: 52px;
+  padding: 10px 26px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 19px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.lesson__go {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+  color: var(--ink);
+}
+
+.lesson__plain {
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  color: var(--vellum);
+}
+
+.lesson__go:active,
+.lesson__plain:active,
+.lesson__key:active,
+.lesson__choice:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+.lesson__choices {
+  display: flex;
+  gap: 14px;
+  margin: 4px 0 16px;
+}
+
+.lesson__choice {
+  width: 96px;
+  height: 96px;
+  border: var(--outline-ui);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fff6df, #ead3a3);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 52px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.lesson__choice.is-right {
+  background: linear-gradient(180deg, #a9e3b0, #5fae6a);
+}
+
+.lesson__choice.is-answer {
+  background: linear-gradient(180deg, #ffe39a, var(--lamplight));
+  outline: 4px solid var(--ember);
+}
+
+/* The run */
+.lesson__run {
+  display: grid;
+  gap: 16px;
+}
+
+.lesson__progress {
+  height: 12px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #d9bf8a;
+}
+
+.lesson__progress span {
+  display: block;
+  height: 100%;
+  background: var(--guild-morse);
+}
+
+.lesson__copied {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  min-height: 92px;
+  padding: 12px 14px;
+  border: 3px dashed rgba(42, 23, 12, 0.35);
+  border-radius: 12px;
+  background: var(--vellum);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 30px;
+  letter-spacing: 0.14em;
+}
+
+.lesson__hint {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #8a7258;
+}
+
+.lesson__keys {
+  margin: 10px 0 0 !important;
+  font-size: 15px !important;
+  color: #6b5640;
+}
+
+.lesson__pad {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 10px;
+}
+
+.lesson__key {
+  min-height: 72px;
+  border: var(--outline-ui);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fff6df, #ead3a3);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 34px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+  touch-action: manipulation;
+}
+
+.lesson__aux {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 320px;
+}
+
+.lesson__key--aux {
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  color: var(--vellum);
+}
+
+/* The result */
+.lesson__result {
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.lesson__score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.lesson__pct {
+  margin: 0 !important;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 76px !important;
+  line-height: 1.1;
+  color: var(--ember);
+}
+
+.lesson__pct.is-good {
+  color: var(--guild-morse);
+}
+
+.lesson__gate {
+  display: flex;
+  gap: 10px;
+  margin: 4px 0 12px;
+}
+
+.lesson__gate span {
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: #b9a37f;
+}
+
+.lesson__gate .is-lit {
+  background: radial-gradient(circle at 40% 35%, #fff6d6, var(--lamplight) 50%, var(--brass));
+  box-shadow: 0 0 14px 4px rgba(255, 211, 107, 0.7);
+}
+
+.lesson__groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 16px;
+}
+
+.lesson__group {
+  display: flex;
+  gap: 2px;
+}
+
+.lesson__cell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 26px;
+  padding: 2px 2px 0;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.lesson__cell.is-miss {
+  background: rgba(217, 120, 79, 0.28);
+  color: #9a3a1c;
+  cursor: pointer;
+}
+
+.lesson__cell small {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  color: #6b5640;
+}
+
+.lesson__bars {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lesson__bars li {
+  display: grid;
+  grid-template-columns: 28px 1fr 48px;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+}
+
+.lesson__bar-char {
+  font-family: var(--font-display);
+  font-size: 22px;
+}
+
+.lesson__bar {
+  height: 14px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #d9bf8a;
+}
+
+.lesson__bar span {
+  display: block;
+  height: 100%;
+  background: var(--guild-morse);
+}
+
+.lesson__bar-pct {
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .lesson__result {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson__speed {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+
+  .lesson__lamp {
+    width: 120px;
+    height: 120px;
+    font-size: 70px;
+  }
+
+  .lesson__card {
+    padding: 16px;
+  }
+
+  .lesson__pad {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .lesson__aux {
+    max-width: none;
+  }
+}
+
+/* Touch screens have no keyboard: drop the keyboard hint. */
+@media (hover: none) {
+  .lesson__copy .lesson__keys {
+    display: none;
+  }
+}

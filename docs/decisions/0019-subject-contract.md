@@ -13,7 +13,7 @@ ADR 0003 says subjects are self-contained modules that report progress to the pl
 3. **One API per subject, bound to its id by the platform, backed by database functions.** Chosen.
 
 ## Decision
-**A subject is a folder `src/subjects/<id>/`** that exports its `SubjectInfo` (id, place in the city, tagline, guild colour). It's listed in the registry `src/subjects/index.ts`, which checks ids and places are valid and unique. Nothing in `src/core/` changes when a subject is added.
+**A subject is a folder `src/subjects/<id>/`** that exports its `SubjectInfo` (id, place in the city, tagline, guild colour, and optionally its `Hall`: the screen shown inside its place, added 2026-11-03 for the Signal Tower). It's listed in the registry `src/subjects/index.ts`, which checks ids and places are valid and unique. Nothing in `src/core/` changes when a subject is added.
 
 **The platform hands each subject a `SubjectApi`** (`src/core/subject.ts`), already bound to that subject's id:
 
