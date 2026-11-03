@@ -68,6 +68,18 @@ I checked; these points aren't settled by research I could find, so they're my c
 - **After each run**, in order: state, then each letter's review (FSRS) and receive rating, then XP, then minutes.
 - **The Signal Tower is the Morse subject's `Hall`**: the platform hands it the subject's API, so the lesson never touches the database directly.
 
+## Instant Recognition (#32)
+The Signal Tower's second tab (Adam approved the design on 2026-11-03). Code: `src/subjects/morse/recognition/`.
+- **A round** is 60 seconds and uses only the letters unlocked in the Koch lessons.
+- **Each letter** plays once, and the lamp starts dimming when the sound ends. You have 3 seconds to press it.
+- **Points:** a right answer scores 10, plus up to 30 for speed (timed on the audio clock from the end of the sound). A wrong answer or a timeout shows and replays the right letter.
+- **Letter choice:** slow letters come up more often, weighted by each letter's saved reaction time. The same letter never comes three times in a row.
+- **After a round:**
+  - The saved state keeps the personal best, the rounds played and each letter's smoothed reaction time. A letter never answered right counts as 3 seconds.
+  - Each letter played gets one receive rating: the mean of its answers' scores, where right and instant is 1, right at the last moment is 0.5, and wrong is 0.
+  - XP is about 0.4 per right answer (about 10 a minute), plus the round's minutes.
+- **The result screen** shows points, a new personal best, right answers, average reaction time, XP, and each letter from slowest to fastest.
+
 ## What we record (measuring learning)
 Per run: date and time, length, characters played, accuracy overall and per character, effective speed, and whether it passed. From these:
 - characters unlocked over time
