@@ -1,76 +1,116 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { SubjectApi } from '../../../core/subject.ts';
 import { MORSE_CHARS } from '../code.ts';
 import { MorsePlayer } from '../player.ts';
 import { schedule } from '../timing.ts';
 import { buildRun, GROUP_SIZE, RUN_SECONDS } from './build.ts';
-import { GATE_RUNS, nextEffectiveWpm, passesGate, scoreCopy, type RunScore } from './score.ts';
+import {
+  applyRun,
+  CHAR_WPM,
+  isWarmup,
+  newestChar,
+  nextChar,
+  parseProgress,
+  reportRun,
+  toMeet as charsToMeet,
+  unlockedChars,
+  weightsFor,
+  type MorseProgress,
+} from './progress.ts';
+import { GATE_RUNS, scoreCopy, type RunScore } from './score.ts';
 import './lesson.css';
 
-// The Koch receive lesson (#31), as a working concept for Adam's approval: meet the new
-// character, copy a run, see the result. Nothing is saved yet; that comes once the design is
-// approved (FSRS, ratings, XP and the saved Koch position).
+// The Koch receive lesson (#31): meet each new character, copy two-minute runs, and light the
+// next lamp after two runs in a row at 90% (docs/game/morse-lessons.md, ADR 0028). Progress is
+// the Morse subject's saved state; every run feeds spaced repetition, the receive rating and XP.
 
-const CHAR_WPM = 20;
-const START_EFF_WPM = 10;
 const MEET_TRIALS = 10;
 const KOCH = MORSE_CHARS.map((c) => c.char);
 
 type Stage =
   | { kind: 'start' }
   | { kind: 'meet'; char: string; step: 'listen' | 'drill' }
-  | { kind: 'run' }
-  | { kind: 'result'; score: RunScore; passed: boolean };
+  | { kind: 'run'; warmup: boolean }
+  | { kind: 'result'; score: RunScore; passed: boolean; warmup: boolean };
 
-/** Options read from the address, for testing and screenshots (`?koch=5&run=short`). */
-function addressOptions() {
-  const q = new URLSearchParams(typeof location === 'undefined' ? '' : location.search);
-  const koch = Math.min(KOCH.length, Math.max(2, Number(q.get('koch')) || 2));
-  return { unlockedCount: koch, runSeconds: q.get('run') === 'short' ? 8 : RUN_SECONDS };
-}
+/** `?run=short` makes a run 8 seconds instead of 2 minutes (for tests). */
+const runSeconds = () =>
+  typeof location !== 'undefined' && new URLSearchParams(location.search).get('run') === 'short'
+    ? 8
+    : RUN_SECONDS;
 
-export function KochLesson() {
-  const [options] = useState(addressOptions);
+export function KochLesson({ api }: { api: SubjectApi }) {
   const player = useMemo(() => new MorsePlayer(), []);
   useEffect(() => () => player.stop(), [player]);
+  const [seconds] = useState(runSeconds);
 
-  const [unlockedCount, setUnlockedCount] = useState(options.unlockedCount);
-  const [effWpm, setEffWpm] = useState(START_EFF_WPM);
-  const [history, setHistory] = useState<number[]>([]);
+  const [progress, setProgress] = useState<MorseProgress | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
+  const [due, setDue] = useState<Set<string>>(new Set());
   const [stage, setStage] = useState<Stage>({ kind: 'start' });
-  const [met, setMet] = useState<Set<string>>(new Set());
 
-  const unlocked = KOCH.slice(0, unlockedCount);
-  const newest = unlocked[unlocked.length - 1] ?? 'M';
-  const lessonNo = unlockedCount - 1;
-  const toMeet = unlocked.filter(
-    (c, i) => (unlockedCount === 2 || i === unlockedCount - 1) && !met.has(c),
-  );
-  const speed = { charWpm: CHAR_WPM, effWpm };
+  useEffect(() => {
+    let live = true;
+    Promise.all([api.loadState(), api.dueItems({ limit: 100 })])
+      .then(([state, dueItems]) => {
+        if (!live) return;
+        setProgress(parseProgress(state));
+        setDue(new Set(dueItems.map((d) => d.itemId.replace(/^char:/, ''))));
+      })
+      .catch(() => live && setFailed(true));
+    return () => {
+      live = false;
+    };
+  }, [api]);
+
+  if (failed) {
+    return (
+      <p className="lesson__card">
+        The tower’s records couldn’t be read. Check your connection and reload the page.
+      </p>
+    );
+  }
+  if (!progress) return <p className="lesson__loading">Lighting the lamps…</p>;
+
+  const unlocked = unlockedChars(progress);
+  const newest = newestChar(progress);
+  const lessonNo = progress.unlocked - 1;
+  const meeting = charsToMeet(progress);
+  const speed = { charWpm: CHAR_WPM, effWpm: progress.effWpm };
+
+  const save = (next: MorseProgress) => {
+    setProgress(next);
+    api.saveState(next).catch(() => setSaveFailed(true));
+  };
+
+  const startRun = () => setStage({ kind: 'run', warmup: isWarmup(progress, new Date()) });
 
   const begin = () => {
     void player.unlock();
-    const first = toMeet[0];
-    setStage(first ? { kind: 'meet', char: first, step: 'listen' } : { kind: 'run' });
+    const first = meeting[0];
+    if (first) setStage({ kind: 'meet', char: first, step: 'listen' });
+    else startRun();
   };
 
   const doneMeeting = (char: string) => {
-    const nowMet = new Set(met).add(char);
-    setMet(nowMet);
-    const next = toMeet.find((c) => !nowMet.has(c));
-    setStage(next ? { kind: 'meet', char: next, step: 'listen' } : { kind: 'run' });
+    const next = { ...progress, met: [...progress.met, char] };
+    save(next);
+    const another = charsToMeet(next)[0];
+    if (another) setStage({ kind: 'meet', char: another, step: 'listen' });
+    else startRun();
   };
 
-  const finishRun = (score: RunScore) => {
-    const nextHistory = [...history, score.accuracy];
-    const passed = passesGate(nextHistory);
-    setHistory(passed ? [] : nextHistory);
-    setEffWpm((w) => nextEffectiveWpm(w, score.accuracy, CHAR_WPM));
-    setStage({ kind: 'result', score, passed });
-  };
-
-  const unlockNext = () => {
-    setUnlockedCount((n) => Math.min(KOCH.length, n + 1));
-    setStage({ kind: 'start' });
+  const finishRun = (score: RunScore, warmup: boolean) => {
+    const at = new Date();
+    const { next, unlockedNow } = applyRun(progress, score, at, warmup);
+    setProgress(next);
+    setStage({ kind: 'result', score, passed: unlockedNow, warmup });
+    reportRun(api, next, score, unlockedNow, seconds, at).then(
+      () => setSaveFailed(false),
+      () => setSaveFailed(true),
+    );
+    setDue((d) => new Set([...d].filter((c) => !score.byChar.has(c))));
   };
 
   return (
@@ -79,21 +119,27 @@ export function KochLesson() {
         <span className="lesson__badge">Lesson {lessonNo}</span>
         <span className="lesson__letters" aria-label="Letters you have">
           {unlocked.map((c) => (
-            <span key={c} className={c === newest && lessonNo > 1 ? 'is-new' : undefined}>
+            <span key={c} className={c === newest ? 'is-new' : undefined}>
               {c}
             </span>
           ))}
         </span>
         <span className="lesson__speed">
-          {CHAR_WPM} wpm letters · {effWpm} wpm overall
+          {CHAR_WPM} wpm letters · {progress.effWpm} wpm overall
         </span>
       </header>
+      {saveFailed && (
+        <p className="lesson__warning" role="alert">
+          Your last run couldn’t be saved. It will be kept with the next one that saves.
+        </p>
+      )}
 
       {stage.kind === 'start' && (
         <StartCard
           lessonNo={lessonNo}
-          newChars={toMeet.length ? toMeet : [newest]}
-          gateDone={trailingPasses(history)}
+          newChars={meeting.length ? meeting : newest ? [newest] : unlocked}
+          gateDone={trailingPasses(progress.recent)}
+          warmup={isWarmup(progress, new Date())}
           onBegin={begin}
         />
       )}
@@ -111,22 +157,24 @@ export function KochLesson() {
       {stage.kind === 'run' && (
         <Run
           unlocked={unlocked}
-          newChar={lessonNo > 1 ? newest : undefined}
+          newChar={stage.warmup ? undefined : newest}
+          weights={weightsFor(progress, due)}
           speed={speed}
-          seconds={options.runSeconds}
+          seconds={seconds}
           player={player}
-          onDone={finishRun}
+          onDone={(score) => finishRun(score, stage.warmup)}
         />
       )}
       {stage.kind === 'result' && (
         <Result
           score={stage.score}
           passed={stage.passed}
-          runsAtGate={stage.passed ? GATE_RUNS : trailingPasses(history)}
-          nextChar={KOCH[unlockedCount]}
+          warmup={stage.warmup}
+          runsAtGate={stage.passed ? GATE_RUNS : trailingPasses(progress.recent)}
+          nextChar={stage.passed ? unlocked[unlocked.length - 1] : nextChar(progress)}
           player={player}
-          onAgain={() => setStage({ kind: 'run' })}
-          onUnlock={unlockNext}
+          onAgain={startRun}
+          onUnlock={() => setStage({ kind: 'start' })}
         />
       )}
     </section>
@@ -144,11 +192,13 @@ function StartCard({
   lessonNo,
   newChars,
   gateDone,
+  warmup,
   onBegin,
 }: {
   lessonNo: number;
   newChars: string[];
   gateDone: number;
+  warmup: boolean;
   onBegin: () => void;
 }) {
   return (
@@ -167,7 +217,11 @@ function StartCard({
         Characters play at full speed. Type or tap each one as you hear it. Two runs in a row at 90%
         light the next lamp.
       </p>
-      {gateDone > 0 && <p className="lesson__note">1 of 2 runs done. One more at 90%.</p>}
+      {warmup ? (
+        <p className="lesson__note">Welcome back. The first run is a warm-up for your ear.</p>
+      ) : (
+        gateDone > 0 && <p className="lesson__note">1 of 2 runs done. One more at 90%.</p>
+      )}
       <button type="button" className="lesson__go" onClick={onBegin}>
         Begin
       </button>
@@ -292,6 +346,7 @@ function pickTarget(newChar: string, choices: string[]): string {
 function Run({
   unlocked,
   newChar,
+  weights,
   speed,
   seconds,
   player,
@@ -299,13 +354,14 @@ function Run({
 }: {
   unlocked: string[];
   newChar?: string;
+  weights: ReadonlyMap<string, number>;
   speed: { charWpm: number; effWpm: number };
   seconds: number;
   player: MorsePlayer;
   onDone: (score: RunScore) => void;
 }) {
   const plan = useMemo(
-    () => buildRun(unlocked, speed, { newChar, seconds }),
+    () => buildRun(unlocked, speed, { newChar, weights, seconds }),
     // A new run each time the component mounts.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -422,6 +478,7 @@ function Run({
 function Result({
   score,
   passed,
+  warmup,
   runsAtGate,
   nextChar,
   player,
@@ -430,6 +487,7 @@ function Result({
 }: {
   score: RunScore;
   passed: boolean;
+  warmup: boolean;
   runsAtGate: number;
   nextChar?: string;
   player: MorsePlayer;
@@ -471,9 +529,13 @@ function Result({
         ) : (
           <>
             <p>
-              {score.accuracy >= 0.9
-                ? 'One more run at 90% lights the next lamp.'
-                : 'Keep going: two runs in a row at 90% light the next lamp.'}
+              {warmup
+                ? 'Warm-up done. Now the runs count towards the next lamp.'
+                : !nextChar
+                  ? 'Every letter is lit. Keep your ear sharp.'
+                  : score.accuracy >= 0.9
+                    ? 'One more run at 90% lights the next lamp.'
+                    : 'Keep going: two runs in a row at 90% light the next lamp.'}
             </p>
             <button type="button" className="lesson__go" onClick={onAgain}>
               Next run

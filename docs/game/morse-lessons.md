@@ -44,7 +44,7 @@ I checked; these points aren't settled by research I could find, so they're my c
 - **The Koch gate decides what's unlocked. FSRS only decides the mix.** Every run includes all unlocked characters, so spaced repetition never hides one.
 - Each character's weight in a run comes from: its FSRS due date (overdue weighs more), its recent accuracy (weak weighs more), and the new-character boost. No character goes below a small floor, so all of them keep coming.
 - **After each run, every character that played is recorded:**
-  - **FSRS** (`recordReview`, item `char:K` etc.): *Again* if missed at least once, *Good* if always right, *Easy* if always right at the fastest speed you've reached.
+  - **FSRS** (`recordReview`, item `char:K` etc.): *Again* if missed at least once, *Good* if always right. (*Easy* is not used yet; it may come once we track speed per character.)
   - **Receive rating** (`recordResult('receive', 'char:K', score)`): the score is that character's accuracy in the run (0 to 1).
 - **Instant Recognition (#32)** uses the same items: one character plays, you press it, and your reaction time joins the score. It rates items (Glicko) and favours the slow ones.
 
@@ -61,6 +61,12 @@ I checked; these points aren't settled by research I could find, so they're my c
 - **Settings:** character speed, effective speed, pitch (default 600 Hz) and volume.
 - **Browsers:** sound starts only from a tap or click (`unlock()` or `play()` in the handler). Android Chrome uses the same engine as desktop Chrome. It has not been tried on a real phone yet; that happens when Adam tries the first lesson.
 - **Later (E16):** `route` lets noise, fading and interference sit between the tone and the speakers. Nothing is built for it yet.
+
+## Where it lives (#31)
+- `src/subjects/morse/lesson/`: `Lesson.tsx` (the screens), `progress.ts` (saved progress, the gate, warm-ups, weights, XP, and reporting a run), `score.ts`, `build.ts`.
+- **Saved state** (the Morse subject's state, ADR 0019): letters unlocked, effective speed, recent run scores since the last unlock, letters met, each letter's smoothed accuracy, the last run's time and the number of runs. Unknown or broken values fall back to a fresh start.
+- **After each run**, in order: state, then each letter's review (FSRS) and receive rating, then XP, then minutes.
+- **The Signal Tower is the Morse subject's `Hall`**: the platform hands it the subject's API, so the lesson never touches the database directly.
 
 ## What we record (measuring learning)
 Per run: date and time, length, characters played, accuracy overall and per character, effective speed, and whether it passed. From these:

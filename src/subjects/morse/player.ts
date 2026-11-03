@@ -121,4 +121,9 @@ export class MorsePlayer {
   stop(): void {
     this.current?.stop();
   }
+
+  /** The audio clock, in seconds (0 before the first sound). Playback times use this clock. */
+  now(): number {
+    return this.ctx?.currentTime ?? 0;
+  }
 }
