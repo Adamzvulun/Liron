@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, at the end of the session that finished E3 and E4.
+- **Written:** 2026-11-03, at the end of the session that built E5 (the avatar, PR #68).
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 
 ## State right now
@@ -18,15 +18,18 @@
   - The phone HUD is two slim rows.
 
 ## Next (in order)
-1. **E5 avatar v0 (#6):**
-   - #28 is a paper-doll avatar: a layered SVG in the city style, with gear slots as data. It renders in the city, the HUD portrait and Your House.
-   - #29 is customisation in Your House: body, skin tone, face, hair and 3–4 starter items, saved to `profiles.avatar` (jsonb, already in the schema).
-   - **Design first:** make a working concept, screenshot it at desktop and phone sizes, look at it, then ask Adam to approve it before finishing. #27 went this way, and Adam's review caught real sizing problems.
-   - The current avatar is drawn in `src/core/city/painter.js` (the `AVATAR` section). The HUD portrait in `src/core/player/Hud.tsx` is a stand-in.
-2. **After E5, M1 is done.** Write the M1 retro in `docs/process/retros/`. Suggest to Adam a release PR from `dev` to `main`, and tag v0.2.0 (Adam creates tags in GitHub → Releases).
+1. **E5 avatar v0 (#6) is in [PR #68](https://github.com/Adamzvulun/Liron/pull/68).**
+   - It holds #28 (the paper-doll avatar) and #29 (the wardrobe in Your House).
+   - Adam approved the concept on 2026-11-03: "looks good for now, we can add more stuff later".
+   - Merging is Adam's call. The details are in [avatar](../game/avatar.md).
+   - The locked items' names and earn conditions are placeholders until E10.
+2. **After #68 is merged, M1 is done.**
+   - Write the M1 retro in `docs/process/retros/`.
+   - Suggest to Adam a release PR from `dev` to `main`, and a v0.2.0 tag. Adam creates tags in GitHub → Releases.
 3. **Then M2: first playable (#7–#11).**
 
 ## Things the next session should know
+- **Where the avatar code lives:** `src/core/avatar/` (`looks.ts` holds options and items as data, `paint.ts` is the SVG painter, `Avatar.tsx`, `Wardrobe.tsx`). In the city, the painter paints only the avatar's shadow; `City.tsx` puts the figure on top.
 - **Where the city code lives:**
   - `src/core/city/`: `painter.js` paints the scene, deterministic from one seed. `City.tsx` places it, `layout.ts` holds positions, paths and `stageFit`, and `PlaceScreen.tsx` is the place screens.
   - Navigation is our own ~40 lines (`src/core/router.ts`, `src/core/Link.tsx`; ADR 0026).
