@@ -25,7 +25,7 @@
    - The locked items' names and earn conditions are placeholders until E10.
 2. **After #68 is merged, M1 is done.**
    - Write the M1 retro in `docs/process/retros/`.
-   - Suggest to Adam a release PR from `dev` to `main`, and a v0.2.0 tag. Adam creates tags in GitHub → Releases.
+   - **Don't suggest a release yet.** Adam releases to `main` only when there's something to learn, not just the city and styling (2026-11-03). That comes with M2's first lessons.
 3. **Then M2: first playable (#7–#11).**
 
 ## Things the next session should know
