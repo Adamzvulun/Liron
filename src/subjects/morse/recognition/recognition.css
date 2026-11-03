@@ -83,32 +83,6 @@
   background: var(--lamplight) !important;
 }
 
-/* The tower's tabs: Koch lessons and Instant Recognition. */
-.tower__tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.tower__tab {
-  min-height: 44px;
-  padding: 8px 18px;
-  border: var(--outline-ui);
-  border-radius: 999px;
-  background: linear-gradient(180deg, #7a5a40, var(--wood));
-  color: var(--vellum);
-  font: inherit;
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow: 0 3px 0 var(--ink);
-}
-
-.tower__tab[aria-selected='true'] {
-  background: linear-gradient(180deg, #ffe39a, var(--brass));
-  color: var(--ink);
-}
-
 @media (max-width: 760px) {
   .ir__lamp {
     width: 120px;

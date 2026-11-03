@@ -50,6 +50,8 @@ export async function fakeSupabase(
   passwordUpdates: unknown[] = [],
   profileUpdates: unknown[] = [],
   subjectCalls: SubjectCall[] = [],
+  /** The Morse subject's saved state, if the test wants one. */
+  morseState: object | null = null,
 ) {
   await page.route(`${FAKE_SUPABASE_URL}/**`, async (route) => {
     const url = new URL(route.request().url());
@@ -99,6 +101,10 @@ export async function fakeSupabase(
     ) {
       // PostgREST answers "no row" for a single-object request like this; supabase-js's
       // maybeSingle() turns it into null.
+      if (url.pathname === '/rest/v1/subject_progress' && morseState) {
+        const row = { xp: 0, minutes: 0, state: morseState };
+        return route.fulfill({ json: single ? row : [row] });
+      }
       return single
         ? route.fulfill({
             status: 406,
@@ -153,8 +159,9 @@ export async function signedIn(
   page: Page,
   profileUpdates: unknown[] = [],
   subjectCalls: SubjectCall[] = [],
+  morseState: object | null = null,
 ) {
-  await fakeSupabase(page, [], profileUpdates, subjectCalls);
+  await fakeSupabase(page, [], profileUpdates, subjectCalls, morseState);
   await page.addInitScript(
     ([key, session]) => {
       if (!sessionStorage.getItem('e2e-seeded')) {
