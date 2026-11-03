@@ -1,4 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import { Avatar } from '../avatar/Avatar.tsx';
+import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import { Link } from '../Link.tsx';
 import { DAILY_GOAL_CHOICES, levelProgress, titleForLevel } from '../progress/economy.ts';
 import { MAX_NAME_LENGTH } from '../progress/store.ts';
@@ -30,7 +32,12 @@ export function Hud({ state, ...actions }: { state: PlayerState } & HudActions) 
   const { wallet, today, profile } = state;
   return (
     <div className="hud" aria-busy={!wallet}>
-      <PlayerPlate xp={wallet?.xp} name={profile?.displayName ?? ''} loaded={Boolean(wallet)} />
+      <PlayerPlate
+        xp={wallet?.xp}
+        name={profile?.displayName ?? ''}
+        look={profile?.avatar ?? DEFAULT_LOOK}
+        loaded={Boolean(wallet)}
+      />
       <div className="hud__banner" aria-hidden="true">
         Waymark
       </div>
@@ -40,12 +47,22 @@ export function Hud({ state, ...actions }: { state: PlayerState } & HudActions) 
   );
 }
 
-function PlayerPlate({ xp, name, loaded }: { xp?: number; name: string; loaded: boolean }) {
+function PlayerPlate({
+  xp,
+  name,
+  look,
+  loaded,
+}: {
+  xp?: number;
+  name: string;
+  look: Look;
+  loaded: boolean;
+}) {
   const { level, into, needed } = levelProgress(xp ?? 0);
   const pct = Math.round((into / needed) * 100);
   return (
     <div className="hud__player">
-      <Portrait />
+      <Portrait look={look} />
       <div className="hud__plate">
         <div className="hud__who">
           {name && <span className="hud__name">{name}</span>}
@@ -70,25 +87,11 @@ function PlayerPlate({ xp, name, loaded }: { xp?: number; name: string; loaded: 
   );
 }
 
-/** A stand-in portrait until the avatar epic (E5) draws the real one. */
-function Portrait() {
+/** Head and shoulders of the player's avatar (#28). */
+function Portrait({ look }: { look: Look }) {
   return (
     <div className="hud__portrait" role="img" aria-label="Your portrait">
-      <svg aria-hidden="true" width="76" height="70" viewBox="0 0 60 56">
-        <circle cx="30" cy="30" r="16" fill="#e0a77c" stroke="#24160e" strokeWidth="3" />
-        <path
-          d="M14 28 Q16 10 30 10 Q46 10 46 26 Q40 18 30 20 Q20 18 14 28 Z"
-          fill="#3a2414"
-          stroke="#24160e"
-          strokeWidth="3"
-        />
-        <path
-          d="M8 56 Q12 44 30 44 Q48 44 52 56 Z"
-          fill="#c8553d"
-          stroke="#24160e"
-          strokeWidth="3"
-        />
-      </svg>
+      <Avatar look={look} view="portrait" className="hud__face" />
     </div>
   );
 }

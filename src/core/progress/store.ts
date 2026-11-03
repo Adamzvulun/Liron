@@ -1,3 +1,4 @@
+import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import type { SubjectProgress } from '../subject.ts';
 import type { ScheduledReview, StoredCard } from '../srs/scheduler.ts';
 import type { StoredRating } from '../rating/ratings.ts';
@@ -48,6 +49,8 @@ export interface Award extends Wallet {
 export interface Profile {
   /** The name the player chose; empty until they choose one. */
   displayName: string;
+  /** How the player's avatar looks (#28, #29). */
+  avatar: Look;
 }
 
 /** Names are 1-40 characters after trimming (the database checks the length too). */
@@ -60,6 +63,7 @@ export interface ProgressStore {
   wallet(): Promise<Wallet>;
   profile(): Promise<Profile>;
   setDisplayName(name: string): Promise<void>;
+  setAvatar(look: Look): Promise<void>;
   today(): Promise<Today>;
   /** Changes the daily goal; lowering it below today's minutes reaches today's goal at once. */
   setDailyGoal(minutes: number): Promise<{ wallet: Wallet; today: DayResult }>;
@@ -113,7 +117,7 @@ export function memoryStore(
     return s;
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
-  const profile: Profile = { displayName: '' };
+  const profile: Profile = { displayName: '', avatar: DEFAULT_LOOK };
   const days = new Map<string, { minutes: number; reached: boolean }>();
   const cards = new Map<string, { due: Date; card: StoredCard }>(); // key: subject/item
   const reviewLog: { subjectId: string; itemId: string; rating: number; at: Date }[] = [];
@@ -224,6 +228,9 @@ export function memoryStore(
     },
     async setDisplayName(name) {
       profile.displayName = name;
+    },
+    async setAvatar(look) {
+      profile.avatar = look;
     },
     async today() {
       return status();

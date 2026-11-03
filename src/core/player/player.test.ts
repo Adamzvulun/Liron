@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { DEFAULT_LOOK } from '../avatar/looks.ts';
 import { memoryStore } from '../progress/store.ts';
 import { subjectApi } from '../progress/subjectApi.ts';
 import { createPlayer } from './player.ts';
@@ -108,12 +109,18 @@ describe('the player’s name', () => {
     await store.setDisplayName('Adam');
     const player = createPlayer(store, () => 'UTC');
     await player.load();
-    expect(player.getSnapshot().profile).toEqual({ displayName: 'Adam' });
+    expect(player.getSnapshot().profile).toEqual({ displayName: 'Adam', avatar: DEFAULT_LOOK });
     expect(await player.setDisplayName('  Adam   Zvulun ')).toBe(true);
-    expect(player.getSnapshot().profile).toEqual({ displayName: 'Adam Zvulun' });
-    expect(await store.profile()).toEqual({ displayName: 'Adam Zvulun' });
+    expect(player.getSnapshot().profile).toEqual({
+      displayName: 'Adam Zvulun',
+      avatar: DEFAULT_LOOK,
+    });
+    expect(await store.profile()).toEqual({ displayName: 'Adam Zvulun', avatar: DEFAULT_LOOK });
     expect(await player.setDisplayName('x'.repeat(41))).toBe(false);
-    expect(player.getSnapshot().profile).toEqual({ displayName: 'Adam Zvulun' });
+    expect(player.getSnapshot().profile).toEqual({
+      displayName: 'Adam Zvulun',
+      avatar: DEFAULT_LOOK,
+    });
   });
 
   it('puts the old name back if saving fails', async () => {
@@ -124,6 +131,25 @@ describe('the player’s name', () => {
     );
     await player.load();
     expect(await player.setDisplayName('Adam')).toBe(false);
-    expect(player.getSnapshot().profile).toEqual({ displayName: '' });
+    expect(player.getSnapshot().profile).toEqual({ displayName: '', avatar: DEFAULT_LOOK });
+  });
+});
+
+describe('the player’s look', () => {
+  it('saves a new look and keeps the old one if saving fails', async () => {
+    const store = memoryStore();
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    const look = { ...DEFAULT_LOOK, hair: 'curly' as const };
+    expect(await player.setAvatar(look)).toBe(true);
+    expect((await store.profile()).avatar).toEqual(look);
+
+    const offline = createPlayer(
+      { ...store, setAvatar: () => Promise.reject(new Error('offline')) },
+      () => 'UTC',
+    );
+    await offline.load();
+    expect(await offline.setAvatar(DEFAULT_LOOK)).toBe(false);
+    expect(offline.getSnapshot().profile?.avatar).toEqual(look);
   });
 });

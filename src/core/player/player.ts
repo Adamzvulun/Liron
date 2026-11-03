@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react';
+import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import {
   MAX_NAME_LENGTH,
   type Award,
@@ -106,9 +107,21 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       const clean = name.trim().replace(/\s+/g, ' ');
       if (clean.length > MAX_NAME_LENGTH) return false;
       const before = state.profile;
-      set({ profile: { displayName: clean } });
+      set({ profile: { ...(before ?? { avatar: DEFAULT_LOOK }), displayName: clean } });
       try {
         await store.setDisplayName(clean);
+        return true;
+      } catch {
+        set({ profile: before });
+        return false;
+      }
+    },
+    /** Saves the avatar's look (#29). Returns false, keeping the old look, if it couldn't. */
+    async setAvatar(look: Look): Promise<boolean> {
+      const before = state.profile;
+      set({ profile: { ...(before ?? { displayName: '' }), avatar: look } });
+      try {
+        await store.setAvatar(look);
         return true;
       } catch {
         set({ profile: before });
