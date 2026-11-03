@@ -10,7 +10,7 @@
 | `SignalTower.dc.html` | Inside the tower. Left: guild rank, Elo ratings, speed settings. Center: "The Silent Beacon · Chapter I" lamp path in Koch order. Right: next lesson, Instant Recognition, sending practice (spacebar/tap key), locked Radio Room. |
 | `StyleGuide.dc.html` | Palette, guild hues, type (Cinzel · Alegreya Sans · Noto Naskh Arabic · Noto Sans Hebrew), line/shape/light rules, components, do/don't. |
 
-Design resolution is 1920×1080 (ADR 0006, amendment 2). The Signal Tower interior is still the v1 layout, scaled to fit, until its own depth pass. The real build is responsive; the phone layout comes next once the look is approved.
+Design resolution is 1920×1080 (ADR 0006, amendment 2). The Signal Tower interior is still the v1 layout, scaled to fit, until its own depth pass. The real build is responsive. **Phone layout (#27, approved by Adam 2026-11-03):** held upright, the scene fills the height between a slim HUD and a dock of places and pans sideways from the compass; turned sideways it fills the screen like a desktop.
 
 ## How the city is made (v3)
 
