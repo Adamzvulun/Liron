@@ -10,6 +10,8 @@ import { buildLingualism, type PrivateBuild } from './lingualism.ts';
 
 /** Supabase's free plan has 1 GB of storage per project; keep well under it. */
 export const STORAGE_BUDGET_BYTES = 500 * 1024 * 1024;
+/** Audio uploads in flight at once. */
+const UPLOAD_CONCURRENCY = 8;
 const BUCKET = 'private-media';
 const BATCH = 500;
 
@@ -101,15 +103,20 @@ async function upload(builds: PrivateBuild[], url: string, key: string) {
       for (const f of data ?? []) existing.add(`${folder}/${f.name}`);
       if (!data || data.length < 1000) break;
     }
+    // A few uploads at a time: one by one, the first upload of the deck took about 26 minutes.
+    const queue = [...media].filter(([path]) => !existing.has(path));
     let uploaded = 0;
-    for (const [path, file] of media) {
-      if (existing.has(path)) continue;
-      const { error } = await db.storage
-        .from(BUCKET)
-        .upload(path, file, { contentType: 'audio/mpeg', upsert: false });
-      fail(`Uploading ${path}`, error);
-      if (++uploaded % 500 === 0) console.log(`  ${uploaded} audio files uploaded…`);
-    }
+    const worker = async () => {
+      for (let next = queue.shift(); next; next = queue.shift()) {
+        const [path, file] = next;
+        const { error } = await db.storage
+          .from(BUCKET)
+          .upload(path, file, { contentType: 'audio/mpeg', upsert: false });
+        fail(`Uploading ${path}`, error);
+        if (++uploaded % 500 === 0) console.log(`  ${uploaded} audio files uploaded…`);
+      }
+    };
+    await Promise.all(Array.from({ length: UPLOAD_CONCURRENCY }, worker));
     console.log(
       `${pack.source}: ${items.length} items, ${lessons.length} lessons, ${stale.length} removed, ` +
         `${uploaded} new audio files (${existing.size} already there).`,
