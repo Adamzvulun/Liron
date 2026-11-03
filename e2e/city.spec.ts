@@ -13,12 +13,12 @@ test.describe('the city square (#24)', () => {
     await expect(page.getByText('The Arena · Locked')).toBeVisible();
   });
 
-  test('scales to fit the window without distortion', async ({ page }) => {
+  test('fills the window without distortion', async ({ page }) => {
     await signedIn(page);
     for (const size of [
       { width: 1366, height: 768 },
-      { width: 1280, height: 1024 },
-      { width: 915, height: 412 }, // a phone on its side
+      { width: 1866, height: 935 },
+      { width: 1600, height: 1000 },
     ]) {
       await page.setViewportSize(size);
       await page.goto('/');
@@ -26,10 +26,11 @@ test.describe('the city square (#24)', () => {
       expect(box).not.toBeNull();
       if (!box) return;
       expect(box.width / box.height).toBeCloseTo(1920 / 1080, 2);
-      // Fits: touches two opposite edges, never spills over.
-      expect(box.width).toBeLessThanOrEqual(size.width + 0.5);
-      expect(box.height).toBeLessThanOrEqual(size.height + 0.5);
-      expect(Math.max(box.width / size.width, box.height / size.height)).toBeCloseTo(1, 2);
+      // Covers the whole window: no empty bands.
+      expect(box.x).toBeLessThanOrEqual(0.5);
+      expect(box.y).toBeLessThanOrEqual(0.5);
+      expect(box.x + box.width).toBeGreaterThanOrEqual(size.width - 0.5);
+      expect(box.y + box.height).toBeGreaterThanOrEqual(size.height - 0.5);
     }
   });
 
