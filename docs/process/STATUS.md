@@ -33,7 +33,9 @@
 3. **M2: First playable** (#7–#11): **next.** Per the M1 retro: design first, and measure learning from day one.
    - **Sprints, one theme each, never mixed** (Adam, 2026-11-03).
    - **The Morse sprint comes first** (E6 receive, E7 send), then the Arabic sprint (E8, E9).
-   - Before the Morse lessons are built, Adam decides the letter order. The research is open on the Koch order (K M…) vs starting with E and I.
+   - Letter order settled: Koch order, K and M first (Adam: "A", [ADR 0028](../decisions/0028-morse-koch-order-and-gate.md)). How lessons work: [morse-lessons.md](../game/morse-lessons.md).
+   - Morse sprint order: #30 audio engine → lesson concept (screenshotted, Adam approves) → #31 → #32 → #33, #34 → E7 (#35–#37).
+   - E10 (quests and rewards) gets its own sprint after the Arabic sprint (reasoning in morse-lessons.md).
 
 ## Backlog map
 | Milestone | Epic | Issues |
