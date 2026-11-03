@@ -143,6 +143,10 @@
   font-variant-numeric: tabular-nums;
 }
 
+.hud__chip--goal {
+  display: none; /* only on phones, where the quest panel is hidden (#27) */
+}
+
 .hud__settings {
   position: relative;
 }

@@ -113,6 +113,14 @@ function Purse({ state, ...actions }: { state: PlayerState } & HudActions) {
         <FlameIcon lit={Boolean(today?.goalReached)} />
         {today ? days : '…'}
       </span>
+      {today && (
+        <span
+          className="hud__chip hud__chip--goal"
+          aria-label={`Daily goal: ${today.minutes} of ${today.goalMinutes} minutes`}
+        >
+          {today.goalReached ? 'Goal done' : `${today.minutes}/${today.goalMinutes} min`}
+        </span>
+      )}
       <Settings state={state} {...actions} />
     </div>
   );
@@ -239,7 +247,8 @@ function GoalPicker({
   );
 }
 
-function QuestTracker({ today }: { today: NonNullable<PlayerState['today']> }) {
+/** Today's quests and the daily goal bar, in the HUD and on the Notice Board. */
+export function QuestTracker({ today }: { today: NonNullable<PlayerState['today']> }) {
   const shown = Math.min(today.minutes, today.goalMinutes);
   return (
     <section className="hud__quests" aria-labelledby="hud-quests">
