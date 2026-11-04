@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
-- **Last updated:** 2026-11-04. E6 and E7 are merged (PR #73). E8 and E9's first part are built on `dev` (PRs #74–#82): letters, lessons, courtyard, "The Long Road In" ch. I, vowel marks, the slate, the Latin fade and the coffee corner. Adam's report: [reports/2026-11-04.md](reports/2026-11-04.md)
+- **Last updated:** 2026-11-04, evening. E6 and E7 are merged (PR #73). E8 and E9's first part are built on `dev` (PRs #74–#82). The full review's fixes and all ten of Adam's review decisions are merged (PRs #88–#112), except one UX fix (#110, open). Adam's report: [reports/2026-11-04.md](reports/2026-11-04.md)
 - **Phase:** **M1 (Foundations) is done** (2026-11-03; [retro](retros/M1.md)). **Next: M2, first playable**: the first release, v1.0.0 (ADR 0027), comes once it has something to learn. History: M1 started when Adam said go (2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
@@ -56,7 +56,10 @@
      - [#89](https://github.com/Adamzvulun/Liron/pull/89): Morse copy scoring can't be passed by mashing keys; the coffee corner's "Next:" message.
      - [#90](https://github.com/Adamzvulun/Liron/pull/90): the microphone and Morse audio contexts are always released.
      - [#92](https://github.com/Adamzvulun/Liron/pull/92)–[#96](https://github.com/Adamzvulun/Liron/pull/96): the Hebrew bridge, empty-practice crash and error boundary, button contrast and Koch feedback, CI secrets and audio links, two Arabic progress loopholes.
-   - **Next:** the rest of the review's fix list (in the full review, in order), then the Groq "understood" check, then E10 (ADRs first, from 0030). Ten decisions for Adam are listed at the end of the full review.
+     - [#98](https://github.com/Adamzvulun/Liron/pull/98)–[#107](https://github.com/Adamzvulun/Liron/pull/107), Adam's ten decisions: final k is כ; a lesson passes on two different days; لا in lesson 3 and ة in lesson 5; Guest rank is reading only; Arabic XP at 2 per answer; coverage reports (ADR 0030); set 6 gets "I didn't understand" and the missing phrases are scheduled ([audio sources](../research/phrase-audio-sources.md)); well-known words are read by picking their recording (Latin optional); fair FSRS grades (`gradeFrom`); Listen skips words said as another letter.
+     - [#108](https://github.com/Adamzvulun/Liron/pull/108): security headers and a strict CSP ([DEPLOY](DEPLOY.md#security-headers)). [#109](https://github.com/Adamzvulun/Liron/pull/109): guild-coloured text passes AA. [#111](https://github.com/Adamzvulun/Liron/pull/111): security L2 and L6 fixed, L5 checked (not a gap). [#112](https://github.com/Adamzvulun/Liron/pull/112): reveals show how the speaker says the word. [#110](https://github.com/Adamzvulun/Liron/pull/110) (open): the slate's plaque no longer covers the questline scroll.
+   - **Next:** the review's remaining items: Read distractors with one lookalike letter swapped, the slate requiring the dots, tanween order in the converter, deterministic pass/fail e2e tests with a stateful fake database, and the doc/code mismatches and stale issues. Then the Groq "understood" check, then E10 (ADRs first, from 0031).
+   - **Audio for the missing phrases:** no source is usable yet. Lingua Libre is the lead (a CC0 *nšallah* found); the speakers' origin is unverified because lingualibre.org timed out. Nothing is used until Adam has seen the files ([research](../research/phrase-audio-sources.md)).
 
 ## Backlog map
 | Milestone | Epic | Issues |
@@ -115,7 +118,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 
 ## Open questions for Adam
 - **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
-- **The review's decisions** (end of [the full review](reviews/2026-11-04-full-review.md)). Decided 2026-11-04: prod keys in GitHub (risk accepted: only Adam pushes), the lesson gate (second pass on a later day), the final k (כּ). Still open: Arabic XP pace, the Latin stage, moving لا and ة, phrases the deck lacks, forms for a woman, the Guest rank, and a coverage tool.
+- ~~**The review's decisions**~~ (end of [the full review](reviews/2026-11-04-full-review.md)): all decided 2026-11-04. Adam answered three (prod keys in GitHub, the second-day gate, the final k) and left the rest to Claude ("do what you think is best"); all are built.
 - ~~In-app mic and data~~: decided 2026-11-04, the Groq check is approved, opt-in, through a server-side function.
 - Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure; nothing runs locally (no in-browser or on-machine models); hosted free APIs only. He wants one stable model rather than hopping between models.
 - Decided 2026-11-02: git flow feature → dev → main with two live sites (ADR 0015). Vercel and Supabase accounts created.
