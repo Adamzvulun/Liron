@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
+import type { Item, Lesson } from './content/schema.ts';
 
 export type { ReviewGrade, ReviewPhase, SkillRating };
 
@@ -92,4 +93,12 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
   skillRatings(): Promise<Map<string, SkillRating>>;
   /** The given items' ratings in one skill. Items missing from the map are not rated yet. */
   itemRatings(skill: string, itemIds: readonly string[]): Promise<Map<string, SkillRating>>;
+  /**
+   * One of this subject's private content packs (ADR 0023), by source, e.g. `lingualism-pcav`:
+   * copyrighted content that lives in Supabase, readable only when signed in (ADR 0011). Loaded
+   * once and kept for the session.
+   */
+  privateContent(source: string): Promise<{ items: Item[]; lessons: Lesson[] }>;
+  /** A short-lived link to a private media file named in this subject's content (`media.path`). */
+  mediaUrl(path: string): Promise<string>;
 }

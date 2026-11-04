@@ -24,6 +24,7 @@ ADR 0003 says subjects are self-contained modules that report progress to the pl
 | `progressSummary()` | The subject's XP and minutes. |
 | `loadState()` / `saveState(state)` | The subject's own saved data (a JSON object). The platform stores it and never reads it. |
 
+- **Private content, added 2026-11-04 for Arabic (#44):** `privateContent(source)` returns one of the subject's own copyrighted packs (ADR 0023), loaded once per session (a failed load is tried again next time), and `mediaUrl(path)` gives a short-lived link to one of its media files. Both refuse odd sources and paths, and both are bound to the subject like everything else. Behind them is a small `ContentSource`: Supabase in the app, a fake in tests.
 - **Spaced repetition is added by #21**, as `recordReview` and a due-items call on the same API, so subjects never talk to the FSRS library directly. Gold and gems arrive with #19.
 - **Writes go through two database functions** (migration `20261102210000_record_progress.sql`):
   - `record_progress(subject, xp, minutes)` updates the subject's totals, today's row (today in the profile's time zone, or UTC if that zone name is unknown) and the wallet in **one transaction**, so the wallet can't drift from the subject totals.
