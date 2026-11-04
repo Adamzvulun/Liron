@@ -496,8 +496,8 @@
         "hebrew": "ה / ת",
         "sound": "a / at",
         "family": "extras",
-        "lesson": 8,
-        "note": "Ends words, mostly feminine ones. Said a, or at when the word is joined to the next."
+        "lesson": 5,
+        "note": "Ends words, mostly feminine ones: ه's shape with ت's two dots. Said a, or at when the word is joined to the next."
       }
     },
     {
@@ -545,7 +545,7 @@
         "hebrew": "לא",
         "sound": "laː",
         "family": "extras",
-        "lesson": 8,
+        "lesson": 3,
         "note": "ل followed by ا always joins into this one shape. It also means \"no\"."
       }
     }
@@ -570,9 +570,9 @@
     {
       "id": "script:3",
       "subject": "arabic",
-      "title": "Dal, dhal, meem, lam",
+      "title": "Dal, dhal, meem, lam, and لا",
       "order": 3,
-      "items": ["letter:dal", "letter:thal", "letter:lam", "letter:meem"],
+      "items": ["letter:dal", "letter:thal", "letter:lam", "letter:meem", "letter:lam-alef"],
       "tags": ["script"]
     },
     {
@@ -586,9 +586,9 @@
     {
       "id": "script:5",
       "subject": "arabic",
-      "title": "The cup family, and heh",
+      "title": "The cup family, heh, and ة",
       "order": 5,
-      "items": ["letter:jeem", "letter:hah", "letter:khah", "letter:heh"],
+      "items": ["letter:jeem", "letter:hah", "letter:khah", "letter:heh", "letter:teh-marbuta"],
       "tags": ["script"]
     },
     {
@@ -610,9 +610,9 @@
     {
       "id": "script:8",
       "subject": "arabic",
-      "title": "The extras",
+      "title": "Hamza and alif maqsura",
       "order": 8,
-      "items": ["letter:teh-marbuta", "letter:hamza", "letter:alef-maqsura", "letter:lam-alef"],
+      "items": ["letter:hamza", "letter:alef-maqsura"],
       "tags": ["script"]
     }
   ]
