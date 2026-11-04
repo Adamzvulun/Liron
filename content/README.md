@@ -11,6 +11,6 @@ Each file is a **content pack** ([ADR 0023](../docs/decisions/0023-content-forma
 | File | What |
 |---|---|
 | `morse/characters.json` | 41 characters in LCWO Koch order with ITU codes; 40 Koch lessons |
-| `arabic/letters.json` | The 28 letters: names, alphabet position, whether they connect forward |
+| `arabic/letters.json` | The 28 letters plus ة ء ى لا: names, alphabet position, whether they connect forward, the Hebrew bridge, sound, shape family and lesson; the 8 script lessons ([design](../docs/game/arabic-script-lessons.md)) |
 
 Copyrighted packs are built from `sources/` by `scripts/content/` and uploaded to Supabase, never written here.
