@@ -12,7 +12,7 @@ import {
 } from './letters.ts';
 import { applySession, NEW_PROGRESS, parseProgress } from './progress.ts';
 import { readableWith, wordsFrom } from './words.ts';
-import { listenQuestions, readQuestions, seeded } from './lesson/questions.ts';
+import { heardAsAnother, listenQuestions, readQuestions, seeded } from './lesson/questions.ts';
 import { reportSession, scoreOf, xpFor, type Answer } from './lesson/report.ts';
 
 // Everyday words (not the deck's rows), shaped like deck items.
@@ -224,6 +224,23 @@ describe('a session’s questions', () => {
     }
     // دار has a lesson-3 letter: still in Hebrew letters.
     expect(later.find((q) => q.word.arabic === 'دار')?.script).toBe('he');
+  });
+
+  it('doesn’t ask Listen about a word whose first letter is said as another (ث as s)', () => {
+    const said = (id: string, arabic: string, sound: string): Item => ({
+      ...vocab(id, arabic),
+      data: { arabic, pronunciation: sound, english: '' },
+    });
+    const ws = wordsFrom([
+      said('t:1', 'ثانوي', 'sānawi'),
+      said('t:2', 'ثقافة', 'ŧaqāfa'),
+      said('t:3', 'ذكي', 'záki'),
+      said('t:4', 'قبر', 'gábur'),
+    ]);
+    expect(ws.map(heardAsAnother)).toEqual([true, false, true, false]);
+    const asked = listenQuestions(ws, 8, seeded(3), 10).map((q) => q.word.arabic);
+    expect(asked).not.toContain('ثانوي');
+    expect(asked).not.toContain('ذكي');
   });
 
   it('is the same session for the same seed', () => {
