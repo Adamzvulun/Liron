@@ -164,10 +164,38 @@ describe('a session’s questions', () => {
     const qs = readQuestions(words, 1, seeded(2));
     expect(qs.length).toBe(8);
     for (const q of qs) {
-      expect(q.choices).toContain(q.word.hebrew);
+      expect(q.choices).toContain(q.answer);
       expect(new Set(q.choices).size).toBe(q.choices.length);
+      // Lesson 1 teaches fatha, kasra and damma only: no sukun or shadda is shown yet.
+      expect(q.shown).not.toMatch(/[\u0651\u0652]/);
       expect(q.word.letters.every((l) => l.lesson === 1)).toBe(true);
     }
+  });
+
+  it('writes the marks into the choices as niqqud, with a vowel-swapped twin', () => {
+    const qs = readQuestions(words, 3, seeded(4));
+    const girl = qs.find((q) => q.word.arabic === 'بِنْت');
+    if (girl) {
+      expect(girl.answer).toBe('בִּנְת'.normalize('NFC'));
+      expect(
+        girl.choices.some(
+          (c) => c === 'בַּנְת'.normalize('NFC') || c === 'בֻּנְת'.normalize('NFC'),
+        ),
+      ).toBe(true);
+      expect(girl.marks.map((m) => m.id)).toEqual(['mark:kasra', 'mark:sukun']);
+    }
+    for (const q of qs) expect(q.choices).toContain(q.answer);
+  });
+
+  it('shows every other word bare from lesson 4, as real signs are', () => {
+    const qs = readQuestions(words, 4, seeded(5));
+    qs.forEach((q, i) => {
+      if (i % 2 === 1) {
+        expect(q.shown).not.toMatch(/[\u064b-\u0652]/);
+        expect(q.answer).toBe(q.word.hebrew);
+        expect(q.marks).toHaveLength(0);
+      }
+    });
   });
 
   it('is the same session for the same seed', () => {

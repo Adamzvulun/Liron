@@ -103,7 +103,15 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
   - When all 8 are lit, the gate opens on **the Painted Sign** (`lesson/Trial.tsx`). You read 30 words from every letter, and 90% passes.
   - Passing pays +50 XP and makes you ضيف (Guest) on the house banner. Before that you're غريب (Stranger).
   - The chapter covers all 8 lessons, not 1–3 as section 6 first said: one milestone per lesson reads better on the road.
+- **Vowel marks** (#40, `content/arabic/marks.json`, `marks.ts`):
+  - **Taught as the design above says:** fatha, kasra and damma in lesson 1; sukun in 2; shadda in 3; tanween in 5. Each is a "Meet a vowel mark" card after the lesson's letters. The card shows the mark on ب ت ن, its Hebrew twin (patah, hiriq, kubutz, shva, dagesh), a note and deck words that carry it.
+  - **Read words show only the marks you know.** The Hebrew choices carry them as niqqud: بِنْت → בִּנְת. One wrong choice is often the same word with a vowel changed (בַּנְת), so you have to read the mark, not just the letters. ب and ك always get a dagesh, since they're always b and k.
+  - **Fading:** from lesson 4, every other Read word is shown bare with bare choices, because real signs and messages have no marks.
+  - **Reviews:** each mark is its own FSRS item (`mark:kasra`), reviewed by the Read answers that showed it.
+  - **Dialect honesty, taken from the deck itself:**
+    - It leaves most fathas out (118 of 1,803 single words have one), so an unmarked letter usually takes a.
+    - It writes a sukun over و/ي for the Palestinian ō and ē (موْت mōt, عيْلة ēla).
+    - It has 127 words that start with two consonants, which textbook Arabic never does: لْسان lsān for lisān.
 - **Not built yet (ordered, not dropped):**
   - writing by tracing (#41's second half);
-  - fading the Hebrew choices to Latin, and then to none;
-  - vowel-mark lessons (#40).
+  - fading the Hebrew choices to Latin, and then to none.
