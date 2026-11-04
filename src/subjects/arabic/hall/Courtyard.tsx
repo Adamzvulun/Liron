@@ -13,7 +13,7 @@ import './khan.css';
 // rank on the house banner, and each activity is a station in the courtyard. On an upright
 // phone the courtyard pans sideways and the same things follow below it as cards.
 
-export type CourtyardDoor = 'lesson' | 'listen' | 'read' | 'trial';
+export type CourtyardDoor = 'lesson' | 'listen' | 'read' | 'write' | 'trial';
 
 let painted: ReturnType<typeof paintKhan> | undefined;
 const courtyard = () => (painted ??= paintKhan());
@@ -134,7 +134,7 @@ function Scene({
       ),
       open: 'lesson',
     },
-    { id: 'slate', title: 'The slate', text: 'Writing · soon' },
+    { id: 'slate', title: 'The slate', text: 'Write the letters you know', open: 'write' },
     { id: 'fountain', title: 'The fountain', text: 'Listen: which letter?', open: 'listen' },
     { id: 'storyteller', title: 'The storyteller', text: 'Read short words', open: 'read' },
     { id: 'coffee', title: 'Coffee corner', text: 'Phrases · soon' },
