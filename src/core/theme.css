@@ -14,6 +14,10 @@
   /* Guilds: each subject owns one hue. */
   --guild-morse: #2e8fa3;
   --guild-arabic: #c8553d;
+  /* Darker inks of the same hues for text on parchment: at least 4.5:1 (AA). Bright hues stay for fills. */
+  --guild-morse-ink: #1f6675;
+  --guild-arabic-ink: #8f3524;
+  --ember-ink: #9a3f1f;
 
   --font-display: 'Cinzel', serif;
   --font-ui: 'Alegreya Sans', system-ui, sans-serif;
