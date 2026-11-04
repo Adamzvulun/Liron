@@ -18,6 +18,9 @@ test.describe('the Koch lesson in the Signal Tower (#31 concept)', () => {
       for (let i = 1; i <= 10; i++) {
         await expect(page.getByText(`Which one was it? ${i} / 10`)).toBeVisible();
         await page.getByRole('button', { name: 'K', exact: true }).click();
+        // Every answer is told in words, not only by colour (UX review H4).
+        if (i === 1)
+          await expect(page.getByText(/^(Right!|Not quite: it was [KM]\.)$/)).toBeVisible();
       }
     }
 

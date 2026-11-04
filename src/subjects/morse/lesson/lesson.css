@@ -226,6 +226,36 @@
   outline: 4px solid var(--ember);
 }
 
+/* The key you chose when it was wrong (UX review H4): marked, not only by colour. */
+.lesson__choice.is-wrong {
+  position: relative;
+  background: linear-gradient(180deg, #f2c3b6, #d9826c);
+  animation: lesson-shake 0.3s;
+}
+
+.lesson__choice.is-wrong::after {
+  content: '✕';
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  font-size: 22px;
+}
+
+@keyframes lesson-shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson__choice.is-wrong {
+    animation: none;
+  }
+}
+
 /* The run */
 .lesson__run {
   display: grid;
@@ -470,4 +500,10 @@
   .lesson__copy .lesson__keys {
     display: none;
   }
+}
+
+.lesson__feedback {
+  min-height: 1.5em;
+  margin: 8px 0 0;
+  font-weight: 800;
 }
