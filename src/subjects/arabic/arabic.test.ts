@@ -11,7 +11,7 @@ import {
   lookalikes,
 } from './letters.ts';
 import { applySession, NEW_PROGRESS, parseProgress } from './progress.ts';
-import { readableWith, wordsFrom } from './words.ts';
+import { readableWith, spokenHebrew, wordsFrom } from './words.ts';
 import { heardAsAnother, listenQuestions, readQuestions, seeded } from './lesson/questions.ts';
 import { reportSession, scoreOf, xpFor, type Answer } from './lesson/report.ts';
 
@@ -137,6 +137,17 @@ describe('words from the deck', () => {
       'w:8',
       'w:9',
     ]);
+  });
+});
+
+describe('the spoken form on a reveal (review concern 2)', () => {
+  it('writes the speaker’s pronunciation in Hebrew letters, so ق said g shows as ג', () => {
+    expect(spokenHebrew({ sound: 'gáhwa' })).toMatch(/^ג/);
+    expect(spokenHebrew({ sound: 'gáhwa' })).not.toMatch(/[קa-z]/i);
+  });
+  it('is empty when the word has no romanisation', () => {
+    expect(spokenHebrew({ sound: '' })).toBe('');
+    expect(spokenHebrew({ sound: 'بيت' })).toBe('');
   });
 });
 
