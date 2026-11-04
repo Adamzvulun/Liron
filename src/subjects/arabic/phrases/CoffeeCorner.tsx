@@ -8,14 +8,13 @@ import {
   PHRASE_SETS,
   phrasesOf,
   SET_PASS,
+  coffeeXp,
   understandQuestions,
   type Phrase,
   type UnderstandQuestion,
 } from './sets.ts';
 import { useRecorder } from './useRecorder.ts';
 
-/** XP for passing a set, on top of 1 per phrase understood and 1 per phrase said. */
-export const SET_BONUS = 20;
 /** Due phrases from earlier sets mixed into a session. */
 const REVIEWS = 5;
 
@@ -124,7 +123,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
         await api.recordReview(p.id, !ok ? 'again' : said.includes(p.id) ? 'good' : 'hard', at);
         await api.recordResult('listen', p.id, ok ? 1 : 0, { at });
       }
-      const xp = right.length + said.length + (passed ? SET_BONUS : 0);
+      const xp = coffeeXp(right.length, said.length, passed);
       if (xp > 0) await api.awardXP(xp);
       await api.recordPractice((now - started) / 60000);
     })().then(
@@ -242,7 +241,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
                 : `Understood by ear. Reach ${Math.round(SET_PASS * 100)}% to pass the set.`}
           </p>
           <p className="arabic__xp">
-            +{stage.right.length + stage.said.length + (stage.passed ? SET_BONUS : 0)} XP
+            +{coffeeXp(stage.right.length, stage.said.length, stage.passed)} XP
           </p>
           <button type="button" className="lesson__go" onClick={() => setStage({ kind: 'start' })}>
             Another round
