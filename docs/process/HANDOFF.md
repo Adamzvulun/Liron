@@ -1,36 +1,41 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04. Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git, and repeated it on 2026-11-04.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 after the Arabic sprint's first four PRs. Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git, and repeated it on 2026-11-04.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 
 ## State right now
-- **Open: [PR #73](https://github.com/Adamzvulun/Liron/pull/73)** into `dev`, on branch `claude/brave-ride-j0hcmv`. It closes #32–#37. **Don't merge it; Adam does.** It holds:
-  - **Approved by Adam (2026-11-03):** #32 saving Instant Recognition rounds, #33 the tower hall, and #34 "The Silent Beacon" I–II with trials. CI passed on 639fbe9.
-  - **Adam's review (2026-11-04):** "The room needs more depth"; everything else looks OK; he hasn't tried sending yet. Since then: the room is repainted in true perspective (`project()` in `paintTower.ts`), and every audio context asks Safari for a playback session, so the iOS silent switch no longer mutes Morse (`src/core/audio.ts`; still to check on a real iPhone).
-  - **Overnight, awaiting Adam's review:** the tower's **painted room** (#33, commit bf4ef15) and **sending with a straight key** (#35 sidetone and key, #36 decoder, #37 fist analysis). Each is its own commit, so either can be reverted alone.
-- **Why one PR:** this session can push only to its one designated branch, and the Stop hook pushes every commit. So the overnight work landed on the open PR. Its description marks which parts are approved.
-- **Merged into `dev` before this:** M1 (E1–E5); #30 sound engine and #31 Koch lessons (PR #71, #72). `main` is still v0.1.0.
+- **Adam's instruction (2026-11-04):**
+  - Keep working without stopping.
+  - One branch per major feature, each with its own PR into `dev`.
+  - **Merge into `dev` yourself once CI is green and the work checks out.** Only Adam merges into `main`.
+  - Keep a report ready for him: [reports/2026-11-04.md](reports/2026-11-04.md) lists what was done, what needs his approval and what he should try.
+- **Merged into `dev` (2026-11-04):**
+  - #73: the Morse sprint (E6, E7), merged by Adam.
+  - #74: the Arabic design doc and letter data.
+  - #75: `privateContent` and `mediaUrl` in the subject contract.
+  - #76: the Arabic Meet/Listen/Read lessons.
+  - #77: the painted courtyard, "The Long Road In" ch. I and the Painted Sign trial.
+- `main` is still v0.1.0. Whether to release v1.0.0 is Adam's call; the report asks him.
 
 ## Next (in order)
-1. **Adam reviews PR #73.** He checks the painted room, the sending drill and its fist analysis on the preview, then merges or asks for changes.
-2. **Then the Morse sprint (E6, E7) is complete,** and the Arabic sprint starts: E8 (Caravanserai: script, #38–#43), then E9 (survival phrases, #44, #45). Design first: a screenshotted concept that Adam approves before building.
-   - **Overnight drafts for E8, sent to Adam as files** (not in the repo, so the sprints don't mix):
-     - the lesson design `arabic-script-lessons.md`: shape-family order, Hebrew bridge, native audio from the Lingualism deck, the 90%-twice gate;
-     - a concept of the first lesson's three screens;
-     - a painted concept of the Caravanserai courtyard, with "The Long Road In" as milestones;
-     - chapter I story text, `long-road-in-ch1.md` (milestone 7 now uses صِفِر/سفر, both in the deck);
-     - `minimal-pairs.md`: the deck's exact word pairs for the sounds Hebrew lacks. There are only 13, so the Listen drill puts the confusable twin in the options instead;
-     - `khan2.png` (2026-11-04): the courtyard repainted in perspective, after Adam's "more depth" note on the tower. Its painter, `khan2.mjs`, uses the same one-camera approach as `paintTower.ts`;
-     - `letters.draft.json`: the 32 letters (28 plus ة ء ى لا) with Hebrew bridge, sound, shape family, lesson and a note where Hebrew misleads, in 8 lessons. It passes `checkPack`. It extends `content/arabic/letters.json`;
-     - `readable-words.md`: deck words readable after each lesson (18 after lesson 1, 43 new after lesson 2, then hundreds).
-
-     These lived in the session's scratchpad, which doesn't survive the session. Adam has every one as a file sent in the conversation, so ask him for them if they're gone.
-
-     Ask Adam to approve or change them. Then commit them on a fresh branch from `dev` as `docs/game/arabic-script-lessons.md`, before building.
-3. **E10 draft (2026-11-04, sent to Adam as `e10-quests-and-rewards.md`):** 3 daily contracts paying gold, a questline line in the HUD, chests rolled on the server from data drop tables, a 4-slot Market, and the streak shield as the first functional item. It needs 3 ADRs and about 18 new gear items drawn. For E10's own sprint, after Arabic.
-4. **Release v1.0.0** when Adam decides there's enough to learn. Morse is now playable end to end.
+1. **Adam goes through the report:** approvals, and the things he should try on his phone.
+2. **Finish E8:**
+   - **#40, vowel marks.** Design first: a screenshotted concept of how harakat are introduced.
+   - **#41, writing by tracing** on the courtyard's slate. Design first.
+   - **Fade the Hebrew read choices** to Latin and then to none, after a lesson is passed.
+3. **E9: survival phrases** (#44, #45) at the coffee corner, design first.
+4. **E10** after that: the draft is `e10-quests-and-rewards.md`, which Adam has as a file.
 
 ## Things the next session should know
+- **Arabic code map (`src/subjects/arabic/`):**
+  - `letters.ts`: letters, lessons, shapes, Hebrew spelling, lookalikes.
+  - `words.ts`: the deck's words.
+  - `progress.ts`: saved state, the pass gate, `applyTrial`.
+  - `questline.ts`: "The Long Road In".
+  - `lesson/`: `ScriptLesson.tsx` (with `only='listen'|'read'` for the fountain and the storyteller), `Trial.tsx`, `questions.ts`, `report.ts`.
+  - `hall/`: `paintKhan.ts` paints the courtyard; `Courtyard.tsx` places milestones, the scroll, the banner and the stations.
+  - `Caravanserai.tsx` switches views. `?open=lesson|listen|read|trial` opens one directly, for tests.
+  - `ArabicText` isolates Arabic runs inside English text.
 - **Morse code map (`src/subjects/morse/`):**
   - `player.ts` plays Morse.
   - `lesson/` holds the Koch runs, progress and the trials.
@@ -43,5 +48,5 @@
 - **The decoder** re-reads the whole drill on every press (two-means on log key-down lengths), so don't "optimise" it into one-element-at-a-time learning: that misreads slow senders (see `docs/game/morse-lessons.md`).
 - **Screenshots:** write a temporary `e2e/zz-shots.spec.ts` using `signedIn()` from `e2e/fake-supabase.ts` and run it with Playwright. Delete it before committing.
 - **Hanging pushes:** `git push` occasionally hangs. Run it with `timeout 60` and retry.
-- **Merging into `dev`:** only when Adam asks in so many words.
+- **Merging into `dev`:** Claude merges its own green PRs (Adam, 2026-11-04). Subscribe to each PR, and unsubscribe after merging.
 - **Leftovers for Adam:** see STATUS → "What to do next" item 1 (the optional v0.1.0 tag and two old branches). Before friends join (M5), add a per-user rule for the deck (personal-use licence).
