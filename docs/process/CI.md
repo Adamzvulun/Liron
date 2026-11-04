@@ -1,6 +1,6 @@
 # CI (issue #14)
 
-`.github/workflows/db-migrate.yml` applies database migrations on pushes to `dev` and `main` (ADR 0018); it takes well under a minute per run.
+`.github/workflows/db-migrate.yml` applies database migrations on pushes to `dev` and `main` that touch `supabase/migrations/`, `sources/`, `scripts/content/` or `src/core/content/` (ADR 0018), or when run by hand. The `migrate` job takes well under a minute. A second job, `content`, then uploads the private content (ADR 0023); it has a 20-minute limit, and the first full upload took about 26 minutes.
 
 `.github/workflows/ci.yml` runs on every pull request and on pushes to `dev` and `main` (branch flow: [ADR 0015](../decisions/0015-branches-and-environments.md)). It has one job: `npm ci` → lint → typecheck → unit tests → build → Playwright smoke test (Chromium, desktop and phone).
 

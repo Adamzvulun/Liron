@@ -5,7 +5,9 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import {
   addDays,
+  dailyChest,
   levelForXp,
+  STREAK_GEM_EVERY,
   rewardsFor,
   streakFrom,
   xpForLevel,
@@ -589,13 +591,13 @@ describe('daily goal and streak (ADR 0021)', () => {
       goal_reached: true,
       goal_reached_now: true,
       streak: 1,
-      chest_gold: 20,
-      chest_gems: 0,
+      chest_gold: dailyChest(1).gold,
+      chest_gems: dailyChest(1).gems,
     });
-    expect(second.gold).toBe(20);
+    expect(second.gold).toBe(dailyChest(1).gold);
     const third = await one(`record_progress('morse', 0, 5)`);
     expect(third.today).toMatchObject({ goal_reached_now: false, chest_gold: 0, streak: 1 });
-    expect(third.gold).toBe(20);
+    expect(third.gold).toBe(dailyChest(1).gold);
   });
 
   it('the streak matches streakFrom in src/core/progress/economy.ts', async () => {
@@ -620,10 +622,18 @@ describe('daily goal and streak (ADR 0021)', () => {
     }
   });
 
+  // The chest's numbers come from economy.ts, so changing them there alone fails here (review:
+  // the SQL had its own 20 and 7 that no test compared).
   it('the 7th day of a streak puts a gem in the chest', async () => {
-    await goalDays([1, 2, 3, 4, 5, 6]);
+    await goalDays(Array.from({ length: STREAK_GEM_EVERY - 1 }, (_, i) => i + 1));
     const r = await one(`record_progress('arabic', 0, 15)`);
-    expect(r.today).toMatchObject({ streak: 7, chest_gold: 20, chest_gems: 1 });
+    const chest = dailyChest(STREAK_GEM_EVERY);
+    expect(chest.gems).toBe(1);
+    expect(r.today).toMatchObject({
+      streak: STREAK_GEM_EVERY,
+      chest_gold: chest.gold,
+      chest_gems: chest.gems,
+    });
   });
 
   it('changing the goal never rewrites past days; lowering it can reach today', async () => {
@@ -632,8 +642,8 @@ describe('daily goal and streak (ADR 0021)', () => {
     let r = await one('set_daily_goal(60)');
     expect(r).toMatchObject({ goal_minutes: 60, goal_reached: false, streak: 2 });
     r = await one('set_daily_goal(5)');
-    expect(r).toMatchObject({ goal_reached_now: true, streak: 3, chest_gold: 20 });
-    expect(r.wallet).toEqual({ xp: 0, gold: 20, gems: 0 });
+    expect(r).toMatchObject({ goal_reached_now: true, streak: 3, chest_gold: dailyChest(3).gold });
+    expect(r.wallet).toEqual({ xp: 0, gold: dailyChest(3).gold, gems: 0 });
     await expect(one('set_daily_goal(1)')).rejects.toThrow(/check/);
   });
 

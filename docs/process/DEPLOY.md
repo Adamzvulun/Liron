@@ -4,7 +4,7 @@ Waymark is hosted on **Vercel's free Hobby plan**, connected to this GitHub repo
 
 | Branch | Vercel environment | Who sees it |
 |---|---|---|
-| `main` | **Production**: the live site, **https://waymark-phi.vercel.app** | Anyone with the link (the app itself will require login, #16) |
+| `main` | **Production**: the live site, **https://waymark-phi.vercel.app** | Anyone with the link; the app requires login (#16) |
 | `dev` | **Preview**, at the stable branch URL **https://waymark-git-dev-adamzvuluns-projects.vercel.app**: the live dev site | Only people logged into the Vercel account (Deployment Protection) |
 | feature branches / PRs | **Preview**, one URL per push, plus a stable per-branch URL | Same as `dev` |
 
