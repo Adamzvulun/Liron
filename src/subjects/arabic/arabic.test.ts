@@ -280,8 +280,8 @@ describe('reporting a session', () => {
   it('scores and pays about 10 XP a minute, plus 30 for passing a lesson', () => {
     expect(scoreOf(answers)).toBeCloseTo(2 / 3);
     expect(scoreOf([])).toBe(0);
-    expect(xpFor(answers, 0)).toBe(2);
-    expect(xpFor(answers, 30)).toBe(32);
+    expect(xpFor(answers, 0)).toBe(4);
+    expect(xpFor(answers, 30)).toBe(34);
   });
 
   it('saves, reviews each letter, rates listen by letter and read by word, then XP and minutes', async () => {
@@ -305,7 +305,7 @@ describe('reporting a session', () => {
       ['recordResult', 'listen', 'letter:beh', 1],
       ['recordResult', 'read', 'w:2', 0],
       ['recordResult', 'read', 'w:1', 1],
-      ['awardXP', 2],
+      ['awardXP', 4],
       ['recordPractice', 2],
     ]);
   });
