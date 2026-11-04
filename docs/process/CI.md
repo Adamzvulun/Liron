@@ -27,3 +27,5 @@ GitHub's plan page lists **protected branches for private repositories as a GitH
 
 ## Locally
 The same steps are `npm run lint`, `npm run typecheck`, `npm test`, `npm run build` and `npm run e2e` (see the README).
+
+`npm run coverage` shows which lines the unit tests reach (summary in the terminal, HTML in `coverage/`). It is a report, not a CI step or a gate ([ADR 0030](../decisions/0030-coverage-reports.md)).
