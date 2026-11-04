@@ -6,7 +6,7 @@ Written 2026-11-04 during the autonomous run. It still needs Adam's review: thes
 The Caravanserai's coffee corner teaches **phrases for a first week** of daily life in Israel. It runs alongside the script lessons and is open from day one, because it's taught by ear: you don't need to read Arabic for it.
 
 ## The sets
-Nine sets of 10 phrases, each from the Lingualism deck with its native recording. `content/arabic/phrases.json` holds only the deck ids and our own titles. The phrases stay private (ADR 0011).
+Nine sets of 10 phrases (set 6 has 11), each from the Lingualism deck with its native recording. `content/arabic/phrases.json` holds only the deck ids and our own titles. The phrases stay private (ADR 0011).
 
 | Set | Title | From the deck's sections |
 |---|---|---|
@@ -15,7 +15,7 @@ Nine sets of 10 phrases, each from the Lingualism deck with its native recording
 | 3 | Counting | one to ten |
 | 4 | Questions | what, who, where, how, why, how much, "what's this?", "what do you want?", "where do you live?", "how old are you?" |
 | 5 | At the shop | "how much is it?" (two ways), expensive, cheap, shekel, change, "do you want a bag?", the bill, "can you break this note?" |
-| 6 | Getting to know you | "what's your name?", "where are you from?", "nice to meet you", "are you married?", "can you speak Arabic?", "I speak a little Arabic", slowly, again, "see you later" |
+| 6 | Getting to know you | "what's your name?", "where are you from?", "nice to meet you", "are you married?", "can you speak Arabic?", "I speak a little Arabic", slowly, again, "I didn't understand a word you said" (added 2026-11-04), "see you later" |
 | 7 | At the coffee corner | coffee, Turkish coffee, tea, water, milk, sugar, without sugar, with a little sugar, "how would you like your coffee?", menu |
 | 8 | Which way | right, left, "turn right/left!", "go straight!", near, bus, taxi, "I need the bathroom", "is there wifi here?" |
 | 9 | Today and tomorrow | today, tomorrow, yesterday, now, later, "what time is it?", one and two o'clock, tomorrow morning, when |
@@ -23,6 +23,19 @@ Nine sets of 10 phrases, each from the Lingualism deck with its native recording
 Phrases with a blank in the deck ("My name is __.") are left out, because the blank can't be heard. No phrase is in two sets (a test checks).
 
 Religious set phrases (prayers, hajj, condolences) and the long congratulations are left for later sets: they matter, but not in week one.
+
+## Scheduled: what the deck doesn't have
+Adam approved these on 2026-11-04 (full review, decisions 7 and 8). They're **scheduled, not built**: the deck has no recording of them, and a phrase you can't hear can't be taught by ear. Each one needs a sourced spelling and a recording before it goes into a set.
+
+- **Phrases the deck lacks:** السلام عليكم and its answer وعليكم السلام, صباح النور (the answer to صباح الخير), إن شاء الله. Searched on 2026-11-04: none is in the deck. The deck does have ما شاء الله (pcav:4821), but only as "said about a child".
+- **"I don't understand":** the deck has *mā fhímtiš íši min ílli gúltu* ("I didn't understand a word you said", pcav:4558), with a recording. It's now in set 6, so this one is done.
+- **Forms for a woman:** the phrases that speak *to* someone ("how are you?", "what's your name?", "here you are", "see you later", "excuse me", "would you like a bag?", "where are you from?" and others) are in the masculine form in the deck. "I'm sorry" (آسف) is in the form a man says it. The deck has no feminine forms of any of them. Its only one is إنْتي, "you" said to a woman (pcav:4270). Until there's a recording, the session shows nothing for these.
+
+**Where the audio could come from.** No purchases (ADR 0012) and no native-speaker helpers (vision), so there are two free routes. Both are still to be verified, and both come to Adam before they're used:
+1. **Dialect TTS** (the vision allows "existing recordings and dialect TTS"): Sofelia-TTS-82M speaks Palestinian Arabic, but its own licence is unverified ([fact-check](../research/fact-check-2026-11-01.md)). It also needs a listening check against the deck's speaker.
+2. **Free licensed recordings** (for example Wikimedia Commons), checked case by case. They're mixed licences and usually not Palestinian.
+
+The spelling of each line is checked against a reputable source before it ships (ADR 0012, point 5).
 
 ## A session
 1. **Meet** each phrase once:
