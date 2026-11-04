@@ -517,6 +517,7 @@ function Result({
         <p className={`lesson__pct${score.accuracy >= 0.9 ? ' is-good' : ''}`}>{pct}%</p>
         <p className="lesson__kicker">
           {score.right} of {score.played} right
+          {score.extra > 0 ? ` · ${score.extra} extra` : ''}
         </p>
         <div className="lesson__gate" aria-label={`${runsAtGate} of ${GATE_RUNS} runs at 90%`}>
           {Array.from({ length: GATE_RUNS }, (_, i) => (

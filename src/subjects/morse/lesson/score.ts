@@ -13,7 +13,9 @@ export interface RunScore {
   results: CharResult[];
   right: number;
   played: number;
-  /** right ÷ played, 0 to 1. */
+  /** Copied characters that line up with nothing that played (they count as errors). */
+  extra: number;
+  /** right ÷ (played + extra), 0 to 1, so mashing keys can't score well. */
   accuracy: number;
   /** Accuracy for each character that played. */
   byChar: Map<string, { right: number; played: number }>;
@@ -39,18 +41,20 @@ export function scoreCopy(played: readonly string[], copied: readonly string[]):
   const results: CharResult[] = [];
   let i = n;
   let j = m;
-  while (i > 0) {
+  let extra = 0;
+  while (i > 0 || j > 0) {
     const p = played[i - 1] ?? '';
     const c = copied[j - 1] ?? '';
     const same = p === c ? 0 : 1;
-    if (j > 0 && at(i, j) === at(i - 1, j - 1) + same) {
+    if (i > 0 && j > 0 && at(i, j) === at(i - 1, j - 1) + same) {
       results.push({ char: p, copied: c, right: same === 0 });
       i--;
       j--;
-    } else if (at(i, j) === at(i - 1, j) + 1) {
+    } else if (i > 0 && at(i, j) === at(i - 1, j) + 1) {
       results.push({ char: p, copied: '', right: false });
       i--;
     } else {
+      extra++;
       j--;
     }
   }
@@ -64,7 +68,8 @@ export function scoreCopy(played: readonly string[], copied: readonly string[]):
     byChar.set(r.char, tally);
   }
   const right = results.filter((r) => r.right).length;
-  return { results, right, played: n, accuracy: n ? right / n : 0, byChar };
+  const total = n + extra;
+  return { results, right, played: n, extra, accuracy: n ? right / total : 0, byChar };
 }
 
 /** Koch gate (ADR 0028): two runs in a row at 90% or better. */
