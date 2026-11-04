@@ -37,9 +37,11 @@ const deckItem = (id: string, arabic: string, pronunciation: string, english: st
 });
 
 describe('the coffee corner’s sets (#45)', () => {
-  it('has five sets of deck phrases, each at least four long', () => {
-    expect(PHRASE_SETS.map((s) => s.order)).toEqual([1, 2, 3, 4, 5]);
+  it('has nine sets of deck phrases, in order, and no phrase in two sets', () => {
+    expect(PHRASE_SETS.map((s) => s.order)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     for (const s of PHRASE_SETS) expect(s.items.every((id) => /^pcav:\d{4}$/.test(id))).toBe(true);
+    const all = PHRASE_SETS.flatMap((s) => s.items);
+    expect(new Set(all).size).toBe(all.length);
   });
 
   it('builds a set’s phrases from the deck, in order, skipping missing ones', () => {
