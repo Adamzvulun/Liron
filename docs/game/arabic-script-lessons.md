@@ -15,14 +15,15 @@
 |---|---|---|---|
 | 1 | ا ب ت ن ي | Alif plus the "teeth with dots" family: dots are the whole difference | أنا (I), إنتَ (you), تين (figs), يابا (dad), باي! (goodbye), بين (between) |
 | 2 | ث و ر ز | ث completes the dotted teeth; و ر ز are the first that **don't join forward** | زيت, رُزّ (rice), توت (berries), زتون (olives) |
-| 3 | د ذ م ل | د ذ also don't join; م and ل are very common | دمّ (blood), دار (home), يَمّا (mom) |
+| 3 | د ذ م ل لا | د ذ also don't join; م and ل are very common; ل + ا always join as لا, so it's taught with ل | دمّ (blood), دار (home), يَمّا (mom) |
 | 4 | س ش ك | the "saw" family; ك | سِتّ (grandma), ناس (people), شباب (youth) |
-| 5 | ج ح خ ه | the cup family; ح against ه is the first throat pair | |
+| 5 | ج ح خ ه ة | the cup family; ح against ه is the first throat pair; ة is ه's shape with ت's dots | |
 | 6 | ع غ ف ق | ع and ق need extra listening | |
 | 7 | ص ض ط ظ | the heavy (emphatic) letters, taught against their light twins س د ت ذ | |
-| 8 | ة ء ى لا | the extras you see everywhere | |
+| 8 | ء ى | hamza and alif maqsura | |
 
-- **Readable words grow fast** (single deck words, vowel marks ignored): 18 after lesson 1, then 43, 137, 215, 262, 351, 183 and 406 new ones after lessons 2–8.
+- **Readable words grow fast** (single deck words, vowel marks ignored): 18 after lesson 1, then 43, 137, 215, 440, 466, 252 and 44 new ones after lessons 2–8.
+- **Changed 2026-11-04 (review, Claude's call at Adam's request):** لا moved from lesson 8 to 3 and ة from 8 to 5. لا already appeared in words from lesson 3 (the app reads it as ل + ا) before its shape was taught, and 178 words that waited only on ة now come at lesson 5. Before the move the counts were 262, 351, 183 and 406 for lessons 5–8.
 
 - **Basis:** grouping by shape family is the usual approach of script courses: issue #39, and the Cambridge worksheet among others.
 - **Madrasa:** I could not verify Madrasa's own letter order; its course page didn't open in research, so this is my order, not theirs. If you can see their course, tell me the order and I'll compare.
