@@ -19,7 +19,12 @@
      - a concept of the first lesson's three screens;
      - a painted concept of the Caravanserai courtyard, with "The Long Road In" as milestones;
      - chapter I story text, `long-road-in-ch1.md` (milestone 7 now uses صِفِر/سفر, both in the deck);
-     - `minimal-pairs.md`: the deck's exact word pairs for the sounds Hebrew lacks. There are only 13, so the Listen drill puts the confusable twin in the options instead.
+     - `minimal-pairs.md`: the deck's exact word pairs for the sounds Hebrew lacks. There are only 13, so the Listen drill puts the confusable twin in the options instead;
+     - `khan2.png` (2026-11-04): the courtyard repainted in perspective, after Adam's "more depth" note on the tower. Its painter, `khan2.mjs`, uses the same one-camera approach as `paintTower.ts`;
+     - `letters.draft.json`: the 32 letters (28 plus ة ء ى لا) with Hebrew bridge, sound, shape family, lesson and a note where Hebrew misleads, in 8 lessons. It passes `checkPack`. It extends `content/arabic/letters.json`;
+     - `readable-words.md`: deck words readable after each lesson (18 after lesson 1, 43 new after lesson 2, then hundreds).
+
+     These lived in the session's scratchpad, which doesn't survive the session. Adam has every one as a file sent in the conversation, so ask him for them if they're gone.
 
      Ask Adam to approve or change them. Then commit them on a fresh branch from `dev` as `docs/game/arabic-script-lessons.md`, before building.
 3. **Release v1.0.0** when Adam decides there's enough to learn. Morse is now playable end to end.
