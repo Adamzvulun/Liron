@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 after the Arabic sprint's first four PRs. Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git, and repeated it on 2026-11-04.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 after the Arabic sprint (PRs #74–#82). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git, and repeated it on 2026-11-04.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 
 ## State right now
@@ -15,16 +15,14 @@
   - #75: `privateContent` and `mediaUrl` in the subject contract.
   - #76: the Arabic Meet/Listen/Read lessons.
   - #77: the painted courtyard, "The Long Road In" ch. I and the Painted Sign trial.
+  - #79: vowel marks. #80: the slate. #81: the Latin fade. #82: the coffee corner (survival phrases).
 - `main` is still v0.1.0. Whether to release v1.0.0 is Adam's call; the report asks him.
 
 ## Next (in order)
 1. **Adam goes through the report:** approvals, and the things he should try on his phone.
-2. **Finish E8:**
-   - **#40, vowel marks.** Design first: a screenshotted concept of how harakat are introduced.
-   - **#41, writing by tracing** on the courtyard's slate. Design first.
-   - **Fade the Hebrew read choices** to Latin and then to none, after a lesson is passed.
-3. **E9: survival phrases** (#44, #45) at the coffee corner, design first.
-4. **E10** after that: the draft is `e10-quests-and-rewards.md`, which Adam has as a file.
+2. **Waiting on Adam:** the Groq speech check (then the final fade to no choices), closing #44, release v1.0.0.
+3. **More phrase sets** for the coffee corner (`content/arabic/phrases.json`, deck ids only).
+4. **E10** once Adam approves the draft (`e10-quests-and-rewards.md`, which he has as a file) and its Notice Board concept.
 
 ## Things the next session should know
 - **Arabic code map (`src/subjects/arabic/`):**
@@ -36,6 +34,10 @@
   - `hall/`: `paintKhan.ts` paints the courtyard; `Courtyard.tsx` places milestones, the scroll, the banner and the stations.
   - `Caravanserai.tsx` switches views. `?open=lesson|listen|read|trial` opens one directly, for tests.
   - `ArabicText` isolates Arabic runs inside English text.
+  - `marks.ts`: vowel marks, vowelled Hebrew (`inHebrewVowelled`, NFC output: compare Hebrew in tests with `.normalize('NFC')`).
+  - `write/`: `trace.ts` scores a drawing on a 64×64 grid; `Slate.tsx`.
+  - `phrases/`: `sets.ts`, `hebrew.ts` (Latin → Hebrew letters), `useRecorder.ts`, `CoffeeCorner.tsx`.
+  - **Gotcha:** never return `play()`'s promise from a `useEffect` (use braces); it broke the page.
 - **Morse code map (`src/subjects/morse/`):**
   - `player.ts` plays Morse.
   - `lesson/` holds the Koch runs, progress and the trials.
