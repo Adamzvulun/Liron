@@ -28,8 +28,8 @@ Adam asked: "Run agents each in its own field of expertise… to check everythin
 ## Still to fix (Claude, in this order)
 1. ~~Content converters~~ (#92; tanween order is latent and still to do).
 2. ~~Crashes and wrong messages~~ (#93, #96).
-3. **Fair grading** (code, learning): ~~spaced-repetition grades are all-or-nothing per session; coffee reviews are never graded "good"~~ (fixed: `gradeFrom`). Left: Listen asks for ث/ذ/ق words the speaker says as s/z/g.
-4. **Look and feel** (UX): ~~brass button contrast~~ and ~~Koch wrong answers~~ (#94). Left: the slate plaque covers the scroll's goal line on desktop; guild-coloured text is below AA contrast.
+3. **Fair grading** (code, learning): ~~spaced-repetition grades are all-or-nothing per session; coffee reviews are never graded "good"~~ (fixed: `gradeFrom`). ~~Listen asks for ث/ذ words the speaker says as s/z~~ (#107: Listen skips words whose first letter is said as another letter; ظ and ض too). ق stays: its card teaches the deck's g.
+4. **Look and feel** (UX): ~~brass button contrast~~ and ~~Koch wrong answers~~ (#94). ~~guild-coloured text below AA~~ (darker `--guild-*-ink` and `--ember-ink` text tokens, 5.1–6.1:1 on parchment). Left: the slate plaque covers the scroll's goal line on desktop.
 5. **Remaining security items:** ~~M2, L1~~ (#95), ~~M3~~ (security headers and CSP). Left: L2, L5, L6.
 6. **Docs:** 39 small doc/code mismatches (STATUS stops at #82, stale "coming soon" text, CI.md); stale GitHub issues.
 7. **Tests:** e2e flows that click the first choice and accept any outcome, so pass/fail gates are never checked end to end. Add deterministic pass and fail tests, and a fake database that keeps state.
