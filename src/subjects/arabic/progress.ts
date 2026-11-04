@@ -1,5 +1,6 @@
 // The Arabic subject's saved state (#38, #39): which script lesson you're on and how close you
-// are to passing it. A lesson is passed at 90% in two sessions in a row, like Morse (ADR 0028).
+// are to passing it. A lesson is passed at 90% in two sessions in a row, the second on a later
+// day than the first (Adam, 2026-11-04: spaced, not massed; see docs/game/arabic-script-lessons.md).
 import { z } from 'zod';
 import { LESSON_COUNT } from './letters.ts';
 
@@ -11,6 +12,8 @@ const Progress = z.object({
   lesson: z.number().int().min(1).max(LESSON_COUNT).catch(1),
   /** Sessions in a row at 90% or better in this lesson. */
   streak: z.number().int().min(0).max(PASSES_NEEDED).catch(0),
+  /** The day (YYYY-MM-DD, local) the streak's first good session was on. */
+  passDay: z.string().nullable().catch(null),
   /** Letters you've met (their introduction cards), by id. */
   met: z.array(z.string()).catch([]),
   /** Every script lesson passed. */
@@ -28,6 +31,7 @@ export type ArabicProgress = z.infer<typeof Progress>;
 export const NEW_PROGRESS: ArabicProgress = {
   lesson: 1,
   streak: 0,
+  passDay: null,
   met: [],
   done: false,
   sessions: 0,
@@ -42,23 +46,36 @@ export function parseProgress(state: unknown): ArabicProgress {
   return parsed.success ? parsed.data : NEW_PROGRESS;
 }
 
-/** After a session: count a pass, and move on after two in a row. */
+/** Today in the browser's time zone, as YYYY-MM-DD. */
+export function localDay(now = new Date()): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+}
+
+/**
+ * After a session: count a pass, and move on after two in a row on different days. A second
+ * good session on the same day keeps the first one counted but doesn't pass (`sameDay`).
+ */
 export function applySession(
   p: ArabicProgress,
   score: number,
   met: readonly string[],
-): { next: ArabicProgress; passed: boolean } {
+  day: string = localDay(),
+): { next: ArabicProgress; passed: boolean; sameDay: boolean } {
   const good = score >= PASS_SCORE;
-  const streak = good ? p.streak + 1 : 0;
+  const sameDay = good && p.streak > 0 && p.passDay === day;
+  const streak = !good ? 0 : sameDay ? p.streak : p.streak + 1;
   // After the last lesson, sessions are practice: no second pass (or bonus) for it.
   const passed = !p.done && streak >= PASSES_NEEDED;
   const last = p.lesson >= LESSON_COUNT;
   return {
     passed,
+    sameDay: sameDay && !p.done,
     next: {
       ...p,
       lesson: passed && !last ? p.lesson + 1 : p.lesson,
       streak: passed ? 0 : streak,
+      passDay: passed || !good ? null : streak === 1 && !sameDay ? day : p.passDay,
       met: [...new Set([...p.met, ...met])],
       done: p.done || (passed && last),
       sessions: p.sessions + 1,
