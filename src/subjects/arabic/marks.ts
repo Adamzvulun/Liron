@@ -82,14 +82,21 @@ interface Cell {
 export function inHebrewVowelled(word: string): string | null {
   const cells: Cell[] = [];
   let tanween = false;
+  // The mark just before this letter was tanween: a silent alif after it is dropped (شكرًا).
+  let afterTanween = false;
   for (const c of word) {
     const mark = BY_CHAR.get(c);
     const cell = cells[cells.length - 1];
+    const silentAlif = afterTanween && letterOf(c)?.letter === 'ا';
+    afterTanween = false;
+    // Tanween written before its alif (رًا, the order Unicode prefers): the alif is silent.
+    if (silentAlif) continue;
     if (mark) {
       if (!cell) continue;
       if (mark.id === 'mark:shadda') cell.dagesh = true;
       else if (mark.id === 'mark:tanween') {
         tanween = true;
+        afterTanween = c === 'ً';
         if (cell.letter.letter === 'ا' && cells.length > 1) {
           cells.pop();
           const before = cells[cells.length - 1];
