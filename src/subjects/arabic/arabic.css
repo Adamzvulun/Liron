@@ -442,3 +442,85 @@
   font-family: var(--font-ui);
   font-weight: 800;
 }
+
+/* The coffee corner (#45): a phrase's four faces, and recording yourself. */
+.arabic__phrase {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  align-items: center;
+  width: 100%;
+  margin: 8px 0 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 246, 223, 0.8);
+  text-align: left;
+}
+
+.arabic__phrase .arabic__play {
+  grid-row: span 4;
+}
+
+.arabic__phrase-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.arabic__phrase-he {
+  font-family: 'Noto Sans Hebrew', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: right;
+}
+
+.arabic__phrase-latin {
+  font-style: italic;
+  font-size: 18px;
+  color: #6b5640;
+}
+
+.arabic__phrase-meaning {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.arabic__compare {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.arabic__rec.is-on {
+  animation: arabic-rec 1s ease-in-out infinite;
+}
+
+@keyframes arabic-rec {
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arabic__rec.is-on {
+    animation: none;
+  }
+}
+
+.arabic__choices.is-meanings .arabic__choice {
+  min-height: 64px;
+  padding: 8px 12px;
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.arabic__feedback .arabic__phrase {
+  width: min(100%, 460px);
+  margin-inline: auto;
+}

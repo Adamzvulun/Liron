@@ -153,3 +153,52 @@ test.describe('the slate (#41)', () => {
     expect(rated.every((c) => (c.args as { p_skill: string }).p_skill === 'write')).toBe(true);
   });
 });
+
+test.describe('the coffee corner (#45)', () => {
+  // Everyday greetings under the first set's deck ids (not the deck's own rows).
+  const GREETINGS = [
+    ['4761', 'مرحبا', 'márɧaba', 'Hello'],
+    ['4762', 'هلا', 'hála', 'Hi'],
+    ['4764', 'صباح الخير', 'ʂabāɧ ilxēr', 'Good morning'],
+    ['4765', 'كيف حالك؟', 'kēf ɧālak?', 'How are you?'],
+    ['4767', 'تمام', 'tamām', 'Fine'],
+    ['4766', 'الحمد لله', 'ilɧamdu lillāh', 'Thank God'],
+    ['4780', 'أهلا وسهلا', 'áhla w sáhla', 'Welcome'],
+    ['4771', 'باي', 'bāy', 'Bye'],
+    ['4772', 'سلام', 'salām', 'Peace'],
+    ['4773', 'تصبح على خير', 'tíʂbaɧ 3ála xēr', 'Good night'],
+  ].map(([n, arabic, sound, english]) => ({
+    ...deckWord(Number(n), arabic ?? '', english ?? ''),
+    data: { order: Number(n), arabic, pronunciation: sound, english, section: 57 },
+  }));
+
+  test('meet a set, understand it by ear, say it, and it is saved', async ({ page }) => {
+    const calls: SubjectCall[] = [];
+    await signedIn(page, [], calls, null, GREETINGS);
+    await page.goto('/caravanserai');
+    await page.getByRole('button', { name: /Coffee corner/ }).click();
+    await expect(page.getByRole('heading', { name: 'At the door' })).toBeVisible();
+    await page.getByRole('button', { name: 'Meet the phrases' }).click();
+    await expect(page.getByText('Meet a phrase · 1 of 10')).toBeVisible();
+    await expect(page.getByText('מַרחַבַּא'.normalize('NFC'))).toBeVisible();
+    for (let i = 0; i < 9; i++) await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByRole('button', { name: 'Start practice' }).click();
+
+    for (let i = 0; i < 10; i++) {
+      await expect(page.getByText(`Understand · ${i + 1} of 10`)).toBeVisible();
+      await page.getByRole('group', { name: 'Choices' }).getByRole('button').first().click();
+      await page.getByRole('button', { name: 'Next' }).click();
+    }
+    for (let i = 0; i < 10; i++) {
+      await expect(page.getByText(`Say it · ${i + 1} of 10`)).toBeVisible();
+      await page.getByRole('button', { name: 'Close enough' }).click();
+    }
+    await expect(page.getByText('Coffee corner · done')).toBeVisible();
+    await expect.poll(() => calls.some((c) => c.rpc === 'record_progress')).toBe(true);
+    const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
+      p_state: { phrasesMet: string[] };
+    };
+    expect(saved.p_state.phrasesMet).toHaveLength(10);
+    expect(calls.filter((c) => c.rpc === 'record_review')).toHaveLength(10);
+  });
+});
