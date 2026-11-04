@@ -230,7 +230,7 @@ describe('a session’s questions', () => {
   });
 });
 
-describe('progress: 90% twice in a row passes a lesson', () => {
+describe('progress: 90% twice in a row, on different days, passes a lesson', () => {
   it('reads odd saved state as a fresh start', () => {
     expect(parseProgress(null)).toEqual(NEW_PROGRESS);
     expect(parseProgress({ lesson: 99, streak: 'x' })).toMatchObject({ lesson: 1, streak: 0 });
@@ -238,14 +238,31 @@ describe('progress: 90% twice in a row passes a lesson', () => {
 
   it('counts passes in a row and moves on after two', () => {
     let p = NEW_PROGRESS;
-    p = applySession(p, 0.95, ['letter:beh']).next;
+    p = applySession(p, 0.95, ['letter:beh'], '2026-11-04').next;
     expect(p).toMatchObject({ lesson: 1, streak: 1, met: ['letter:beh'], sessions: 1 });
-    p = applySession(p, 0.8, []).next;
+    p = applySession(p, 0.8, [], '2026-11-04').next;
     expect(p.streak).toBe(0);
-    p = applySession(p, 0.9, []).next;
-    const last = applySession(p, 1, ['letter:teh']);
+    p = applySession(p, 0.9, [], '2026-11-04').next;
+    const last = applySession(p, 1, ['letter:teh'], '2026-11-05');
     expect(last.passed).toBe(true);
     expect(last.next).toMatchObject({ lesson: 2, streak: 0, met: ['letter:beh', 'letter:teh'] });
+  });
+
+  it('needs the second 90% on a later day (spaced, not massed)', () => {
+    let p = applySession(NEW_PROGRESS, 1, [], '2026-11-04').next;
+    expect(p).toMatchObject({ streak: 1, passDay: '2026-11-04' });
+    const again = applySession(p, 1, [], '2026-11-04');
+    expect(again).toMatchObject({ passed: false, sameDay: true });
+    expect(again.next).toMatchObject({ lesson: 1, streak: 1, passDay: '2026-11-04' });
+    p = applySession(again.next, 0.95, [], '2026-11-06').next;
+    expect(p).toMatchObject({ lesson: 2, streak: 0, passDay: null });
+  });
+
+  it('a miss on the same day still resets the run', () => {
+    let p = applySession(NEW_PROGRESS, 1, [], '2026-11-04').next;
+    p = applySession(p, 0.5, [], '2026-11-04').next;
+    expect(p).toMatchObject({ streak: 0, passDay: null });
+    expect(applySession(p, 1, [], '2026-11-05').passed).toBe(false);
   });
 
   it('finishes the script after the last lesson', () => {

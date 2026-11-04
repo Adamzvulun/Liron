@@ -115,7 +115,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 
 ## Open questions for Adam
 - **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
-- **The review's ten decisions** (end of [the full review](reviews/2026-11-04-full-review.md)): prod keys in GitHub (one option costs money), the lesson gate, Arabic XP pace, the Latin stage, moving لا and ة, the final k, phrases the deck lacks, forms for a woman, the Guest rank, and a coverage tool.
+- **The review's decisions** (end of [the full review](reviews/2026-11-04-full-review.md)). Decided 2026-11-04: prod keys in GitHub (risk accepted: only Adam pushes), the lesson gate (second pass on a later day), the final k (כּ). Still open: Arabic XP pace, the Latin stage, moving لا and ة, phrases the deck lacks, forms for a woman, the Guest rank, and a coverage tool.
 - ~~In-app mic and data~~: decided 2026-11-04, the Groq check is approved, opt-in, through a server-side function.
 - Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure; nothing runs locally (no in-browser or on-machine models); hosted free APIs only. He wants one stable model rather than hopping between models.
 - Decided 2026-11-02: git flow feature → dev → main with two live sites (ADR 0015). Vercel and Supabase accounts created.

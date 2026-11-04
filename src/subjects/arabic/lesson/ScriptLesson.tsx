@@ -11,7 +11,14 @@ import { useAudio } from './useAudio.ts';
 type Stage =
   | { kind: 'meet'; index: number }
   | { kind: 'practice'; questions: Question[]; index: number; answers: Answer[]; startedAt: number }
-  | { kind: 'result'; answers: Answer[]; passed: boolean; next: ArabicProgress };
+  | {
+      kind: 'result';
+      answers: Answer[];
+      passed: boolean;
+      /** A second 90% on the same day: it passes only on a later day. */
+      sameDay: boolean;
+      next: ArabicProgress;
+    };
 
 const stripMarks = (w: string) => withMarks(w, []);
 const secondsSince = (t: number) => (performance.now() - t) / 1000;
@@ -107,15 +114,15 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
   };
 
   const finish = (answers: Answer[], startedAt: number) => {
-    const { next, passed } = only
-      ? { next: { ...progress, sessions: progress.sessions + 1 }, passed: false }
+    const { next, passed, sameDay } = only
+      ? { next: { ...progress, sessions: progress.sessions + 1 }, passed: false, sameDay: false }
       : applySession(
           progress,
           scoreOf(answers),
           cards.map((c) => c.id),
         );
     setProgress(next);
-    setStage({ kind: 'result', answers, passed, next });
+    setStage({ kind: 'result', answers, passed, sameDay, next });
     reportSession(api, next, answers, passed ? LESSON_BONUS : 0, secondsSince(startedAt)).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
@@ -267,7 +274,7 @@ function Start({
       </p>
       <p>
         Listen for each word’s first letter, then read short words. Score 90% in {PASSES_NEEDED}{' '}
-        sessions in a row to learn these letters
+        sessions in a row, on different days, to learn these letters
         {progress.streak > 0 ? ` (you have ${progress.streak} of ${PASSES_NEEDED})` : ''}.
       </p>
       {progress.done && (
@@ -601,7 +608,7 @@ function Result({
   only?: Only;
   onAgain: () => void;
 }) {
-  const { answers, passed, next } = stage;
+  const { answers, passed, sameDay, next } = stage;
   const score = scoreOf(answers);
   const pct = Math.round(score * 100);
   const missed = [
@@ -622,9 +629,11 @@ function Result({
             ? next.done
               ? 'You’ve passed the last script lesson. Every letter is yours.'
               : `Lesson passed! Next: lesson ${next.lesson}, ${LESSONS[next.lesson - 1]?.title ?? ''}.`
-            : score >= 0.9
-              ? `90% or better: one more session like this passes the lesson.`
-              : 'Under 90% this time. Another session will sharpen it.'}
+            : sameDay
+              ? '90% again! Come back tomorrow: one more like this on another day passes the lesson.'
+              : score >= 0.9
+                ? '90% or better: one more like this on another day passes the lesson.'
+                : 'Under 90% this time. Another session will sharpen it.'}
       </p>
       {missed.length > 0 && (
         <p className="arabic__note">
