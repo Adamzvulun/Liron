@@ -62,3 +62,17 @@ export async function privateMediaUrl(client: SupabaseClient, path: string): Pro
   if (error || !data) throw new Error(`Couldn't open ${path}: ${error?.message ?? 'no link'}`);
   return data.signedUrl;
 }
+
+/** Where a subject's private content comes from: Supabase in the app, a fake in tests. */
+export interface ContentSource {
+  pack(subject: string, source: string): Promise<{ items: Item[]; lessons: Lesson[] }>;
+  mediaUrl(path: string): Promise<string>;
+}
+
+/** Private content from Supabase, for the signed-in user (ADR 0011, ADR 0023). */
+export function supabaseContent(client: SupabaseClient): ContentSource {
+  return {
+    pack: (subject, source) => loadPrivatePack(client, subject, source),
+    mediaUrl: (path) => privateMediaUrl(client, path),
+  };
+}
