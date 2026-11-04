@@ -234,7 +234,7 @@ test.describe('the slate (#41)', () => {
       await page.mouse.move(box.x + box.width / 2, box.y + box.height * 0.66, { steps: 8 });
       await page.mouse.up();
       await page.getByRole('button', { name: 'Check' }).click();
-      await expect(page.getByText(/Good shape!|missing|outside/)).toBeVisible();
+      await expect(page.getByText(/Good shape!|missing|outside|dots/)).toBeVisible();
       await page.getByRole('button', { name: 'Next' }).click();
     }
     await expect(page.getByText('The slate · done')).toBeVisible();
@@ -242,6 +242,78 @@ test.describe('the slate (#41)', () => {
     const rated = calls.filter((c) => c.rpc === 'record_result');
     expect(rated).toHaveLength(5);
     expect(rated.every((c) => (c.args as { p_skill: string }).p_skill === 'write')).toBe(true);
+  });
+
+  test('a letter written without its dots isn’t passed (review concern 4)', async ({ page }) => {
+    await signedIn(
+      page,
+      [],
+      [],
+      { lesson: 1, streak: 0, met: ['letter:beh'], done: false, sessions: 1 },
+      WORDS,
+    );
+    await page.goto('/caravanserai');
+    await page.getByRole('button', { name: /The slate/ }).click();
+    const pad = page.getByLabel('Trace the letter here');
+    await expect(pad).toBeVisible();
+    await page.waitForTimeout(500); // the guide is painted once the font has loaded
+    // Read the faint guide off the pad: its cells on a 32-cell grid, split into the body (the
+    // largest part) and the rest (the dot).
+    const shape = await pad.evaluate((c: HTMLCanvasElement) => {
+      const n = 32;
+      const d = c.getContext('2d')?.getImageData(0, 0, c.width, c.height).data ?? [];
+      const on = new Set<number>();
+      for (let y = 0; y < c.height; y++)
+        for (let x = 0; x < c.width; x++)
+          if ((d[(y * c.width + x) * 4 + 3] ?? 0) > 0)
+            on.add(Math.floor((y * n) / c.height) * n + Math.floor((x * n) / c.width));
+      const groups: number[][] = [];
+      const seen = new Set<number>();
+      for (const start of on) {
+        if (seen.has(start)) continue;
+        const group: number[] = [];
+        const stack = [start];
+        seen.add(start);
+        while (stack.length) {
+          const j = stack.pop() as number;
+          group.push(j);
+          for (const k of [j - 1, j + 1, j - n, j + n, j - n - 1, j - n + 1, j + n - 1, j + n + 1])
+            if (on.has(k) && !seen.has(k)) {
+              seen.add(k);
+              stack.push(k);
+            }
+        }
+        groups.push(group);
+      }
+      groups.sort((a, b) => b.length - a.length);
+      const xy = (g: number[]) =>
+        g.map((j) => [((j % n) + 0.5) / n, (Math.floor(j / n) + 0.5) / n]);
+      return { body: xy(groups[0] ?? []), dots: groups.slice(1).map(xy) };
+    });
+    expect(shape.dots.length).toBe(1);
+    const ink = async (cells: number[][]) => {
+      const box = await page.getByLabel(/(Trace|Write) the letter here/).boundingBox();
+      if (!box) throw new Error('no pad');
+      for (const [x, y] of cells) {
+        const px = box.x + (x ?? 0) * box.width;
+        const py = box.y + (y ?? 0) * box.height;
+        await page.mouse.move(px, py);
+        await page.mouse.down();
+        await page.mouse.move(px + 1, py);
+        await page.mouse.up();
+      }
+    };
+    // Tracing: the body only.
+    await ink(shape.body);
+    await page.getByRole('button', { name: 'Check' }).click();
+    await expect(page.getByText('Don’t forget the dots.')).toBeVisible();
+    await page.getByRole('button', { name: 'Next' }).click();
+    // From memory: the body and the dot.
+    await expect(page.getByLabel('Write the letter here')).toBeVisible();
+    await expect(page.getByText('Don’t forget the dots.')).toBeHidden();
+    await ink([...shape.body, ...shape.dots.flat()]);
+    await page.getByRole('button', { name: 'Check' }).click();
+    await expect(page.getByText('Good shape!')).toBeVisible();
   });
 });
 
