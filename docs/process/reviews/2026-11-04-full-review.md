@@ -13,19 +13,24 @@ Adam asked: "Run agents each in its own field of expertise… to check everythin
 
 **The short version:** the core is sound and the tests are green and not flaky (78 browser tests passed twice, plus 145 stress runs). The serious problems were in what the tests didn't check: the browser could write its own rewards, Morse copy runs could be passed by mashing keys, and a few messages and content conversions are wrong.
 
-## Already fixed (merged or in review)
+## Already fixed (all merged into `dev`)
 | PR | Fix |
 |---|---|
 | [#88](https://github.com/Adamzvulun/Liron/pull/88) | **Security (High):** only the database writes rewards; the daily chest pays once; known subjects only, 3,000 XP a day, the time zone changes at most every 20 hours; the deck is read by licensees only ([ADR 0029](../../decisions/0029-database-is-the-only-writer-of-rewards.md)) |
 | [#89](https://github.com/Adamzvulun/Liron/pull/89) | **Morse (High):** mashing keys no longer scores 100%; extras count as errors. **Coffee corner:** "Next:" names the right set |
 | [#90](https://github.com/Adamzvulun/Liron/pull/90) | The microphone is always released (needed before the speech check); Morse audio contexts are closed |
+| [#92](https://github.com/Adamzvulun/Liron/pull/92) | Hebrew bridge: niqqud on the letter, not the geresh; no stray letters in number phrases; one alef for an initial ā |
+| [#93](https://github.com/Adamzvulun/Liron/pull/93) | No blank screen when practice has no words; an app-wide error boundary; "Reach 90%" after every set; long sessions no longer report a failed save |
+| [#94](https://github.com/Adamzvulun/Liron/pull/94) | Readable brass "Play again" buttons; a wrong Koch answer is marked ✕ and said in words |
+| [#95](https://github.com/Adamzvulun/Liron/pull/95) | Security M2: CI secrets only on the steps that use them, `npm ci --ignore-scripts`; L1: audio links last 10 minutes and are renewed |
+| [#96](https://github.com/Adamzvulun/Liron/pull/96) | The last Arabic lesson can't be re-passed for its bonus; the Painted Sign waits for all 8 milestones |
 
 ## Still to fix (Claude, in this order)
-1. **Content converters** (learning): stray letters in three number phrases (`tál(a)t __`); niqqud placed on the geresh instead of the letter (ח׳ַ shows a dotted circle in most fonts); initial ā; tanween order.
-2. **Crashes and wrong messages** (QA, code): Practise goes blank if a lesson has no usable word (needs a guard and an app-wide error boundary); "Reach 90% to pass" after every set is done; "couldn't be saved" after a long session that did save; a lesson re-passes after it's done; a trial can be opened by URL before it's unlocked.
+1. ~~Content converters~~ (#92; tanween order is latent and still to do).
+2. ~~Crashes and wrong messages~~ (#93, #96).
 3. **Fair grading** (code, learning): spaced-repetition grades are all-or-nothing per session; coffee reviews are never graded "good"; Listen asks for ث/ذ/ق words the speaker says as s/z/g.
-4. **Look and feel** (UX): the brass "Play again" buttons have white text at 1.4:1 contrast; the slate plaque covers the scroll's goal line on desktop; a wrong Koch answer isn't marked or announced; guild-coloured text is below AA contrast.
-5. **Remaining security items:** M2 (CI env), M3 (security headers), L1 (audio links expire after an hour and then fail silently).
+4. **Look and feel** (UX): ~~brass button contrast~~ and ~~Koch wrong answers~~ (#94). Left: the slate plaque covers the scroll's goal line on desktop; guild-coloured text is below AA contrast.
+5. **Remaining security items:** ~~M2, L1~~ (#95). Left: M3 (security headers), L2, L5, L6.
 6. **Docs:** 39 small doc/code mismatches (STATUS stops at #82, stale "coming soon" text, CI.md); stale GitHub issues.
 7. **Tests:** e2e flows that click the first choice and accept any outcome, so pass/fail gates are never checked end to end. Add deterministic pass and fail tests, and a fake database that keeps state.
 
