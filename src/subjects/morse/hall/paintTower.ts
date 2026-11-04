@@ -35,14 +35,44 @@ export interface PaintedTower {
   front: string;
 }
 
-/** Where the stair climbs: bottom to top, through the lamps to the gate. */
-export const STAIR: readonly (readonly [number, number])[] = [
-  [610, 900],
-  [1330, 742],
-  [610, 560],
-  [1300, 392],
-  [960, 236],
+// ---------- the room in perspective ----------
+// The tower is a cylinder of radius 1, seen from a little outside its open front (a stage
+// cut-away): the back wall is far and small, the sides near and big, the floor and ceiling
+// converge. Every wall, stair and door point goes through `project`, which is what gives the
+// room its depth.
+const VIEW = 1.2; // how far the eye stands from the tower's centre
+const FOCAL = 1576;
+const HORIZON = 540;
+const MID = 960;
+/** World heights (eye level is 0): the floor, the top of the wall. */
+export const FLOOR_Y = -0.5;
+export const TOP_Y = 0.544;
+
+/** A point on a ring of radius `r` at angle `theta` (0 = straight ahead), at height `y`. */
+export function project(theta: number, y: number, r = 1): [number, number] {
+  const z = r * Math.cos(theta) + VIEW;
+  return [MID + (FOCAL * r * Math.sin(theta)) / z, HORIZON - (FOCAL * y) / z];
+}
+
+/** The stair's turns, bottom to top: [angle, height]. It ends at the gate, straight ahead. */
+export const FLIGHTS: readonly (readonly [number, number])[] = [
+  [-0.48, FLOOR_Y],
+  [0.52, -0.27],
+  [-0.5, -0.04],
+  [0.5, 0.19],
+  [0, 0.424],
 ];
+/** How far the steps stand out from the wall. */
+const TREAD = 0.11;
+
+/** Where the stair climbs on screen: along the front edge of the treads, bottom to top. */
+export const STAIR: readonly (readonly [number, number])[] = FLIGHTS.slice(1).flatMap((b, i) => {
+  const a = FLIGHTS[i] ?? b;
+  return Array.from({ length: i === FLIGHTS.length - 2 ? 13 : 12 }, (_, k) => {
+    const t = k / 12;
+    return project(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, 1 - TREAD / 2);
+  });
+});
 
 /** The eight lamps, evenly spaced along the stair, bottom first. */
 export function lampSpots(count = 8): { x: number; y: number }[] {
@@ -179,90 +209,123 @@ export function paintTower(): PaintedTower {
     `<ellipse cx="${f(cx)}" cy="${f(y)}" rx="${f(rx)}" ry="${f(rx * 0.1 + 4)}" fill="#120A08" opacity="${op}" filter="url(#tw-b3)"></ellipse>`;
 
   // ---------- the wall: the inside of a round stone tower ----------
-  // Columns of blocks follow the curve: narrow at the sides, wide in the middle.
-  const CX = 960;
-  const RADIUS = 1180;
-  const FLOOR_MID = 900; // where the wall meets the floor, straight ahead
-  const floorAt = (x: number) => {
-    const s = (x - CX) / RADIUS;
-    return FLOOR_MID + 210 * (1 - Math.sqrt(Math.max(0, 1 - s * s)));
+  const P = project;
+  /** A patch of wall between two angles and two heights, as a polygon (curved edges sampled). */
+  const patch = (t0: number, t1: number, y0: number, y1: number, r = 1, n = 2): Pt[] => {
+    const top: Pt[] = [];
+    const bottom: Pt[] = [];
+    for (let i = 0; i <= n; i++) {
+      const t = t0 + ((t1 - t0) * i) / n;
+      top.push(P(t, y1, r));
+      bottom.unshift(P(t, y0, r));
+    }
+    return [...top, ...bottom];
   };
+  const poly = (pts: readonly Pt[]) =>
+    'M' + pts.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L') + ' Z';
+  const SPAN = 1.32; // the wall's angles reach past the stage's sides
   let back = '';
-  back += `<rect width="1920" height="1080" fill="${lin([
-    [0, '#2B2340'],
-    [0.5, '#4A3B4A'],
+  back += `<rect y="-900" width="1920" height="1980" fill="${lin([
+    [0, '#120C18'],
+    [0.5, '#2B2340'],
     [1, '#5C4636'],
   ])}"></rect>`;
-  // stone blocks
+  // stone blocks: courses curve with the wall, near blocks big, far ones small
   const STONE = ['#6E5E5A', '#75645C', '#665858', '#7B6A5E', '#6A5C5E'];
-  const ROW = 50;
-  for (let row = 0, y = 70; y < 1000; row++, y += ROW) {
-    const off = row % 2 ? 0.5 : 0;
-    const n = 24;
-    for (let k = -1; k < n; k++) {
-      const a0 = -1.32 + ((k + off) / n) * 2.64;
-      const a1 = a0 + 2.64 / n;
-      const x0 = CX + Math.sin(Math.max(-1.32, a0)) * RADIUS * 0.9;
-      const x1 = CX + Math.sin(Math.min(1.32, a1)) * RADIUS * 0.9;
-      if (x1 - x0 < 4) continue;
-      const mid = (a0 + a1) / 2;
-      const shade = 0.12 + 0.62 * Math.abs(Math.sin(mid)) ** 1.6;
-      const height = y < 260 ? 0.25 * (1 - (y - 70) / 190) : 0;
+  const COURSE = 0.058;
+  const COL = 0.1;
+  for (let row = 0, y = FLOOR_Y; y < TOP_Y; row++, y += COURSE) {
+    const off = row % 2 ? COL / 2 : 0;
+    const yTop = Math.min(TOP_Y, y + COURSE);
+    for (let t = -SPAN - off; t < SPAN; t += COL) {
+      const t0 = Math.max(-SPAN, t);
+      const t1 = Math.min(SPAN, t + COL);
+      if (t1 - t0 < 0.01) continue;
+      const g = 0.006;
+      const pts = patch(t0 + g, t1 - g, y + g, yTop - g);
+      const mid = (t0 + t1) / 2;
+      // nearer (the sides) is darker, out of the lamps' light; up high is darker too
+      const shade =
+        0.14 + 0.55 * Math.abs(Math.sin(mid)) ** 1.5 + 0.3 * Math.max(0, y / TOP_Y) ** 2;
       const base = STONE[Math.floor(rnd() * STONE.length)] ?? '#6E5E5A';
-      const c = dk(lit(base, 0.12 * (y / 1000)), Math.min(0.85, shade + height));
-      back += `<path d="${soft(
-        [
-          [x0 + 2, y + 2],
-          [x1 - 2, y + 2],
-          [x1 - 2, y + ROW - 2],
-          [x0 + 2, y + ROW - 2],
-        ],
-        5,
-        1.4,
-      )}" fill="${c}" stroke="#1A1018" stroke-opacity=".55" stroke-width="2.5"></path>`;
-      if (rnd() > 0.7)
-        back += `<path d="M${f(x0 + 8)} ${f(y + 8)} H${f(x0 + (x1 - x0) * 0.5)}" stroke="#FFFFFF" stroke-opacity=".08" stroke-width="3" stroke-linecap="round"></path>`;
+      const c = dk(lit(base, 0.14 * (1 - Math.abs(mid))), Math.min(0.88, shade));
+      back += `<path d="${soft(pts, 5, 1.2)}" fill="${c}" stroke="#1A1018" stroke-opacity=".55" stroke-width="2.5"></path>`;
+      if (rnd() > 0.7) {
+        const [a, b] = [P(t0 + 0.02, yTop - 0.015), P(t0 + (t1 - t0) * 0.55, yTop - 0.015)];
+        back += `<path d="M${f(a[0])} ${f(a[1])} L${f(b[0])} ${f(b[1])}" stroke="#FFFFFF" stroke-opacity=".08" stroke-width="3" stroke-linecap="round"></path>`;
+      }
     }
   }
-  back += `<rect width="1920" height="1080" filter="url(#tw-stone)" opacity=".5"></rect>`;
-  // the ceiling: a ring of beams, dark
-  // (it reaches far above the stage: tall windows show more of it)
-  back += `<path d="M0 -900 H1920 V96 Q960 150 0 96 Z" fill="${lin([
-    [0, '#120C18'],
-    [0.8, '#1A1220'],
-    [1, '#33241E'],
-  ])}"></path>`;
-  for (let i = 0; i < 9; i++) {
-    const x = 100 + i * 215;
-    const curve = 96 + 54 * Math.sin((x / 1920) * Math.PI);
-    back += `<path d="${soft(
+  back += `<rect width="1920" height="1080" filter="url(#tw-stone)" opacity=".45"></rect>`;
+  // the wall turns away into shadow at both sides
+  back += `<rect y="-900" width="1920" height="1980" fill="${lin(
+    [
+      [0, '#0C0814', 0.75],
+      [0.2, '#0C0814', 0.15],
+      [0.5, '#0C0814', 0],
+      [0.8, '#0C0814', 0.15],
+      [1, '#0C0814', 0.75],
+    ],
+    0,
+    0,
+    1,
+    0,
+  )}"></rect>`;
+
+  // the ceiling: beams radiating from a hub over the middle of the tower
+  {
+    const CEIL = TOP_Y + 0.07;
+    const hub = P(0, CEIL, 0);
+    back += `<path d="${poly([[0, -900], [1920, -900], ...patch(-SPAN, SPAN, TOP_Y, TOP_Y, 1, 24).slice(0, 25).reverse()])}" fill="${lin(
       [
-        [x - 24, -900],
-        [x + 24, -900],
-        [x + 20, curve + 8],
-        [x - 20, curve + 8],
+        [0, '#0E0912'],
+        [0.75, '#1A1220'],
+        [1, '#2E2020'],
       ],
-      4,
-      1,
-    )}" fill="${lin(
-      [
-        [0, '#5A3A24'],
-        [1, '#2E1C14'],
-      ],
-      0,
-      0,
-      1,
-      0,
-    )}" ${OUT(3)}></path>`;
-    back += `<rect x="${x - 24}" y="-900" width="48" height="${f(curve + 908)}" fill="${lin([
-      [0, '#000000', 0.6],
-      [0.9, '#000000', 0],
-    ])}"></rect>`;
+    )}"></path>`;
+    // boards between the beams, rings around the hub
+    for (const r of [0.25, 0.45, 0.65, 0.85]) {
+      let d = '';
+      for (let i = 0; i <= 24; i++) {
+        const [x, y] = P(-SPAN + (2 * SPAN * i) / 24, CEIL, r);
+        d += `${i ? ' L' : 'M'}${f(x)} ${f(y)}`;
+      }
+      back += `<path d="${d}" stroke="#000000" stroke-opacity=".35" stroke-width="3" fill="none"></path>`;
+    }
+    for (let i = -4; i <= 4; i++) {
+      const t = i * 0.3;
+      const w = 0.035;
+      const bottom = CEIL - 0.035;
+      const face: Pt[] = [
+        P(t - w, bottom),
+        P(t + w, bottom),
+        P(t + w * 0.2, bottom, 0.1),
+        P(t - w * 0.2, bottom, 0.1),
+      ];
+      // the beam's side, facing the middle, then its underside
+      const sideFace: Pt[] = [
+        P(t + (t > 0 ? -w : w), bottom),
+        P(t + (t > 0 ? -w : w), CEIL),
+        [hub[0], hub[1]],
+        P(t + (t > 0 ? -w : w) * 0.2, bottom, 0.1),
+      ];
+      back += `<path d="${soft(sideFace, 3, 0.5)}" fill="#2A1A12" ${OUT(2.5)}></path>`;
+      back += `<path d="${soft(face, 3, 0.5)}" fill="${lin([
+        [0, '#2E1C14'],
+        [1, '#6A4628'],
+      ])}" ${OUT(3)}></path>`;
+    }
+    back += `<circle cx="${f(hub[0])}" cy="${f(hub[1])}" r="46" fill="#3A2416" ${OUT(3)}></circle>`;
+    back += `<circle cx="${f(hub[0])}" cy="${f(hub[1])}" r="20" fill="#E8A93A" ${OUT(2.5)}></circle>`;
+    // the wall plate: a heavy ring beam on top of the stones
+    const ring = [...patch(-SPAN, SPAN, TOP_Y - 0.035, TOP_Y + 0.02, 1, 30)];
+    back += `<path d="${poly(ring)}" fill="${lin([
+      [0, '#7A5030'],
+      [1, '#3A2416'],
+    ])}" ${OUT(3)}></path>`;
+    const under = patch(-SPAN, SPAN, TOP_Y - 0.06, TOP_Y - 0.035, 1, 30);
+    back += `<path d="${poly(under)}" fill="#120A10" opacity=".45" filter="url(#tw-b3)"></path>`;
   }
-  back += `<path d="M0 96 Q960 150 1920 96 L1920 118 Q960 172 0 118 Z" fill="${lin([
-    [0, '#6B4528'],
-    [1, '#3A2416'],
-  ])}" ${OUT(3)}></path>`;
 
   // the questline's scroll, hung on the left wall: the hall writes the chapter onto it
   {
@@ -327,83 +390,137 @@ export function paintTower(): PaintedTower {
     back += `<path d="M${x - 11} ${y + 50} h22 v32 h-22 z" fill="#3A2416"></path><circle cx="${x}" cy="${y + 65}" r="7" fill="#FFE9B8"></circle>`;
   }
 
-  // the floor: worn boards, curving with the tower
+  // the floor: boards running back to the far wall, so they converge
   {
-    let floor = `M0 ${f(floorAt(0))}`;
-    for (let x = 0; x <= 1920; x += 40) floor += ` L${x} ${f(floorAt(x))}`;
-    floor += ' L1920 1080 L0 1080 Z';
-    back += `<path d="${floor}" fill="${lin([
-      [0, '#5A3A26'],
-      [0.4, '#6E4A2E'],
-      [1, '#3A2416'],
+    const edge = patch(-SPAN, SPAN, FLOOR_Y, FLOOR_Y, 1, 40).slice(0, 41);
+    const floorPath = poly([...edge, [1920 + 200, 1080], [-200, 1080]]);
+    defs.push(`<clipPath id="tw-floor"><path d="${floorPath}"></path></clipPath>`);
+    back += `<path d="${floorPath}" fill="${lin([
+      [0, '#4A3020'],
+      [0.35, '#6E4A2E'],
+      [1, '#4A2C18'],
     ])}"></path>`;
-    for (let i = -14; i <= 14; i++) {
-      const x0 = CX + i * 70;
-      const y0 = floorAt(x0);
-      const x1 = CX + i * 210;
-      back += `<path d="M${f(x0)} ${f(y0)} L${f(x1)} 1080" stroke="#2A170C" stroke-opacity=".5" stroke-width="3"></path>`;
+    let boards = '';
+    // a point on the floor, by its place in the tower's plan (x across, depth back from the eye)
+    const onFloor = (x: number, z: number): Pt => [
+      MID + (FOCAL * x) / z,
+      HORIZON - (FOCAL * FLOOR_Y) / z,
+    ];
+    for (let i = -16; i <= 16; i++) {
+      const x = i * 0.085;
+      const a = onFloor(x, Math.sqrt(Math.max(0, 1 - x * x)) + VIEW);
+      const b = onFloor(x, 0.9);
+      boards += `<path d="M${f(a[0])} ${f(a[1])} L${f(b[0])} ${f(b[1])}" stroke="#2A170C" stroke-opacity=".55" stroke-width="2.5"></path>`;
     }
-    for (let y = 940; y < 1080; y += 46)
-      back += `<path d="M0 ${y + 30} Q960 ${y - 10} 1920 ${y + 30}" stroke="#2A170C" stroke-opacity=".2" stroke-width="2" fill="none"></path>`;
-    let skirt = `M0 ${f(floorAt(0))}`;
-    for (let x = 0; x <= 1920; x += 40) skirt += ` L${x} ${f(floorAt(x))}`;
-    back += `<path d="${skirt}" fill="none" stroke="#1A1018" stroke-width="8" stroke-opacity=".7"></path>`;
-    // a round rug in the middle, where the light falls
-    back += `<ellipse cx="960" cy="985" rx="300" ry="58" fill="${rad([
+    // board ends, staggered
+    for (let z = 2.15, k = 0; z > 1.3; z -= 0.09, k++) {
+      for (let i = -16; i < 16; i++) {
+        if ((i + k) % 3) continue;
+        const a = onFloor(i * 0.085, z);
+        const b = onFloor((i + 1) * 0.085, z);
+        boards += `<path d="M${f(a[0])} ${f(a[1])} L${f(b[0])} ${f(b[1])}" stroke="#2A170C" stroke-opacity=".45" stroke-width="2"></path>`;
+      }
+    }
+    back += `<g clip-path="url(#tw-floor)">${boards}</g>`;
+    // where the wall meets the floor: a dark seam, and the wall's shadow on the boards
+    back += `<path d="${'M' + edge.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L')}" fill="none" stroke="#120A10" stroke-width="22" stroke-opacity=".45" filter="url(#tw-b8)" clip-path="url(#tw-floor)"></path>`;
+    back += `<path d="${'M' + edge.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L')}" fill="none" stroke="#1A1018" stroke-width="6" stroke-opacity=".8"></path>`;
+    // a round rug in the middle of the floor, in perspective
+    const rug = (r: number) => {
+      const pts: Pt[] = [];
+      for (let i = 0; i < 48; i++) {
+        const a = (i / 48) * Math.PI * 2;
+        pts.push(onFloor(Math.cos(a) * r, 1.72 + Math.sin(a) * r));
+      }
+      return poly(pts);
+    };
+    back += `<path d="${rug(0.32)}" fill="${rad([
       [0, '#B5523C'],
       [0.7, '#8A3A2E'],
       [1, '#5A2420'],
-    ])}" ${OUT(3)}></ellipse>`;
-    back += `<ellipse cx="960" cy="985" rx="250" ry="44" fill="none" stroke="#E8A93A" stroke-width="5" stroke-dasharray="14 10"></ellipse>`;
-    back += `<ellipse cx="960" cy="985" rx="120" ry="20" fill="none" stroke="#E8A93A" stroke-width="4"></ellipse>`;
+    ])}" ${OUT(3)}></path>`;
+    back += `<path d="${rug(0.26)}" fill="none" stroke="#E8A93A" stroke-width="5" stroke-dasharray="14 10"></path>`;
+    back += `<path d="${rug(0.12)}" fill="none" stroke="#E8A93A" stroke-width="4"></path>`;
   }
 
-  // ---------- the stair: stone steps built out from the wall ----------
+  // ---------- the stair: stone steps built out from the wall, climbing around it ----------
   {
-    const DEPTH = 34; // how far the treads stand out
+    const RISE = 0.0115;
+    const ROUT = 1 - TREAD;
+    const SLAB = 0.06; // the stair's thickness under the steps
     let stair = '';
-    for (let s = 0; s < STAIR.length - 1; s++) {
-      const a = STAIR[s];
-      const b = STAIR[s + 1];
+    for (let s = 0; s < FLIGHTS.length - 1; s++) {
+      const a = FLIGHTS[s];
+      const b = FLIGHTS[s + 1];
       if (!a || !b) continue;
-      const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
-      const steps = Math.round(len / 34);
-      const dx = (b[0] - a[0]) / steps;
+      const steps = Math.max(4, Math.round((b[1] - a[1]) / RISE));
+      const dt = (b[0] - a[0]) / steps;
       const dy = (b[1] - a[1]) / steps;
-      // the underside, in shadow, then each tread
-      stair += `<path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]} L${b[0]} ${b[1] + 52} L${a[0]} ${a[1] + 52} Z" fill="${dk('#5A4A44', 0.35)}" ${OUT(3)}></path>`;
+      // its shadow on the wall below it
+      stair += `<path d="${poly([
+        ...patch(a[0], b[0], a[1] - SLAB, a[1] - SLAB, 1, 8).slice(0, 9),
+        P(b[0], b[1] - SLAB - 0.09),
+        P(a[0], a[1] - SLAB - 0.09),
+      ])}" fill="#120A10" opacity=".45" filter="url(#tw-b8)"></path>`;
+      let profile: Pt[] = [];
+      let faces = '';
       for (let i = 0; i < steps; i++) {
-        const x = a[0] + dx * i;
-        const y = a[1] + dy * i;
-        const top = lit('#A89880', 0.15 + 0.2 * (1 - Math.abs((x - CX) / 900)));
-        stair += `<path d="${soft(
-          [
-            [x, y - DEPTH * 0.3],
-            [x + dx, y + dy - DEPTH * 0.3],
-            [x + dx, y + dy + 2],
-            [x, y + 2],
-          ],
-          3,
-          0.6,
-        )}" fill="${top}" stroke="${INK}" stroke-width="2.2"></path>`;
-        stair += `<path d="M${f(x)} ${f(y + 2)} L${f(x + dx)} ${f(y + dy + 2)} L${f(x + dx)} ${f(y + dy + 16)} L${f(x)} ${f(y + 16)} Z" fill="${dk('#8A7A68', 0.25)}" stroke="${INK}" stroke-width="2"></path>`;
+        const t0 = a[0] + dt * i;
+        const t1 = t0 + dt;
+        const y0 = a[1] + dy * i;
+        const y1 = y0 + dy;
+        // the riser: the step's face toward the bottom of the flight
+        faces += `<path d="${poly([P(t0, y0, 1), P(t0, y1, 1), P(t0, y1, ROUT), P(t0, y0, ROUT)])}" fill="${dk('#8A7A68', 0.3)}" stroke="${INK}" stroke-width="1.6"></path>`;
+        // the tread, seen from above while it's below the eye
+        if (y1 < -0.01) {
+          const light = 0.12 + 0.25 * (1 - Math.abs(t0));
+          faces += `<path d="${poly([P(t0, y1, 1), P(t1, y1, 1), P(t1, y1, ROUT), P(t0, y1, ROUT)])}" fill="${lit('#A89880', light)}" stroke="${INK}" stroke-width="1.6"></path>`;
+        }
+        profile.push(P(t0, y1, ROUT), P(t1, y1, ROUT));
       }
-      // the stair's shadow on the wall below it
-      stair += `<path d="M${a[0]} ${a[1] + 52} L${b[0]} ${b[1] + 52} L${b[0] + 30} ${b[1] + 110} L${a[0] + 30} ${a[1] + 110} Z" fill="#120A10" opacity=".35" filter="url(#tw-b8)"></path>`;
+      // the flight's face toward the room: a saw-tooth of steps on a stone slab
+      profile = [
+        P(a[0], a[1], ROUT),
+        ...profile,
+        P(b[0], b[1] - SLAB, ROUT),
+        P(a[0], a[1] - SLAB, ROUT),
+      ];
+      // the slab's underside: seen only where the flight climbs above the eye
+      const under: Pt[] = [];
+      for (let k = 0; k <= 8; k++) {
+        const t = a[0] + ((b[0] - a[0]) * k) / 8;
+        const y = a[1] + ((b[1] - a[1]) * k) / 8 - SLAB;
+        under.push(P(t, y, 1));
+        under.unshift(P(t, y, ROUT));
+      }
+      stair += `<path d="${poly(under)}" fill="${dk('#5A4A44', 0.5)}" stroke="${INK}" stroke-width="2"></path>`;
+      stair += faces;
+      stair += `<path d="${poly(profile)}" fill="${lin([
+        [0, dk('#8A7A68', 0.15)],
+        [1, dk('#5A4A44', 0.4)],
+      ])}" stroke="${INK}" stroke-width="2.6" stroke-linejoin="round"></path>`;
+      // a lit edge along the top of each tread
+      for (let i = 0; i < steps; i++) {
+        const t0 = a[0] + dt * i;
+        const y1 = a[1] + dy * (i + 1);
+        const p = P(t0, y1, ROUT);
+        const q = P(t0 + dt, y1, ROUT);
+        stair += `<path d="M${f(p[0])} ${f(p[1] + 2)} L${f(q[0])} ${f(q[1] + 2)}" stroke="#FFE9B8" stroke-opacity=".22" stroke-width="2.5"></path>`;
+      }
     }
-    // landings at each turn
-    for (const [x, y] of STAIR.slice(1, -1)) {
-      stair += `<path d="${soft(
-        [
-          [x - 60, y - 14],
-          [x + 60, y - 14],
-          [x + 60, y + 40],
-          [x - 60, y + 40],
-        ],
-        6,
-        1,
-      )}" fill="${dk('#8A7A68', 0.2)}" ${OUT(3)}></path>`;
-      stair += `<path d="M${x - 60} ${y - 14} H${x + 60} V${y - 2} H${x - 60} Z" fill="${lit('#A89880', 0.2)}" ${OUT(2.5)}></path>`;
+    // landings at each turn, held up by a stone corbel
+    for (const [t, y] of FLIGHTS.slice(1, -1)) {
+      const w = 0.075;
+      stair += `<path d="${poly([P(t - 0.045, y - SLAB, ROUT), P(t + 0.045, y - SLAB, ROUT), P(t + 0.02, y - SLAB - 0.07, 1), P(t - 0.02, y - SLAB - 0.07, 1)])}" fill="${dk('#6A5A50', 0.35)}" ${OUT(2.5)}></path>`;
+      stair += `<path d="${poly([P(t - w, y, 1), P(t + w, y, 1), P(t + w, y, ROUT), P(t - w, y, ROUT)])}" fill="${lit('#A89880', 0.2)}" ${OUT(2.5)}></path>`;
+      stair += `<path d="${poly([P(t - w, y, ROUT), P(t + w, y, ROUT), P(t + w, y - SLAB, ROUT), P(t - w, y - SLAB, ROUT)])}" fill="${dk('#8A7A68', 0.2)}" ${OUT(3)}></path>`;
+    }
+    // the top landing, in front of the gate
+    {
+      const [t, y] = FLIGHTS[FLIGHTS.length - 1] ?? [0, 0];
+      const w = 0.09;
+      stair += `<path d="${poly([P(t - w, y, 1), P(t + w, y, 1), P(t + w, y, ROUT), P(t - w, y, ROUT)])}" fill="${dk('#8A7A68', 0.25)}" ${OUT(2.5)}></path>`;
+      stair += `<path d="${poly([P(t - w, y, ROUT), P(t + w, y, ROUT), P(t + w, y - SLAB, ROUT), P(t - w, y - SLAB, ROUT)])}" fill="${dk('#8A7A68', 0.2)}" ${OUT(3)}></path>`;
     }
     back += stair;
   }
@@ -414,7 +531,7 @@ export function paintTower(): PaintedTower {
   // The listening desk (lessons): a writing desk with a brass sounder, headphones and a copy pad.
   {
     const x = 130;
-    const y = 780; // desk top
+    const y = 830; // desk top
     let o = contact(x + 210, 1000, 230);
     const wood = lin(
       [
@@ -584,45 +701,90 @@ export function paintTower(): PaintedTower {
     stations.sending = { svg: o, box: { x: x - 60, y: y - 70, w: 360, h: 180 } };
   }
 
-  // The Radio Room's door (locked): heavy planks, iron bands and a padlock.
+  // The Radio Room's door (locked): set deep in the curving wall, planks, iron bands, a padlock.
   {
-    const x = 1730;
-    const y = 540;
-    const w = 150;
-    const h = 380;
+    const TC = 1.1; // the door's angle round the wall
+    const HW = 0.075;
+    const SPRING = FLOOR_Y + 0.3;
+    /** The door's arch outline at radius r, `grow` wider all round (for the stone frame). */
+    const arch = (r: number, grow = 0): Pt[] => {
+      const pts: Pt[] = [P(TC - HW - grow, FLOOR_Y, r)];
+      for (let i = 0; i <= 16; i++) {
+        const a = Math.PI - (i / 16) * Math.PI;
+        pts.push(P(TC + Math.cos(a) * (HW + grow), SPRING + Math.sin(a) * (0.085 + grow), r));
+      }
+      pts.push(P(TC + HW + grow, FLOOR_Y, r));
+      return pts;
+    };
+    const DEEP = 1.06;
     let o = '';
-    o += `<path d="M${x - 24} ${y + h} V${y + 70} Q${x - 24} ${y - 26} ${x + w / 2} ${y - 26} Q${x + w + 24} ${y - 26} ${x + w + 24} ${y + 70} V${y + h} Z" fill="${lin(
+    o += `<path d="${soft(arch(1, 0.028), 4, 0.8)}" fill="${lin([
+      [0, '#7A6A62'],
+      [1, '#3A2E30'],
+    ])}" ${OUT(3.5)}></path>`;
+    for (let i = 1; i < 9; i++) {
+      const a = Math.PI - (i / 9) * Math.PI;
+      const p = P(TC + Math.cos(a) * HW, SPRING + Math.sin(a) * 0.085);
+      const q = P(TC + Math.cos(a) * (HW + 0.028), SPRING + Math.sin(a) * (0.085 + 0.028));
+      o += `<path d="M${f(p[0])} ${f(p[1])} L${f(q[0])} ${f(q[1])}" stroke="${INK}" stroke-width="2" opacity=".6"></path>`;
+    }
+    // the opening, dark, and the door set back in it
+    o += `<path d="${poly(arch(1))}" fill="#120C10" ${OUT(3)}></path>`;
+    defs.push(`<clipPath id="tw-door"><path d="${poly(arch(1))}"></path></clipPath>`);
+    let door = `<path d="${poly(arch(DEEP))}" fill="${lin(
       [
-        [0, '#6A5A54'],
-        [1, '#3A2E30'],
-      ],
-    )}" ${OUT(3.5)}></path>`;
-    o += `<path d="M${x} ${y + h} V${y + 70} Q${x} ${y} ${x + w / 2} ${y} Q${x + w} ${y} ${x + w} ${y + 70} V${y + h} Z" fill="${lin(
-      [
-        [0, '#5A3A24'],
-        [0.6, '#3E2616'],
-        [1, '#2A1A10'],
+        [0, '#2A1A10'],
+        [0.35, '#5A3A24'],
+        [1, '#3E2616'],
       ],
       0,
       0,
       1,
       0,
-    )}" ${OUT(4)}></path>`;
-    for (let i = 1; i < 4; i++)
-      o += `<path d="M${x + (w * i) / 4} ${y + 6} V${y + h}" stroke="${INK}" stroke-width="2.5" opacity=".6"></path>`;
-    for (const by of [y + 100, y + 280])
-      o += `<path d="M${x} ${by} H${x + w}" stroke="#2A2626" stroke-width="16"></path><path d="M${x} ${by - 5} H${x + w}" stroke="#5A5656" stroke-width="3"></path>`;
+    )}" ${OUT(3)}></path>`;
+    for (let i = 1; i < 4; i++) {
+      const t = TC - HW + (2 * HW * i) / 4;
+      const p = P(t, FLOOR_Y, DEEP);
+      const q = P(t, SPRING + 0.1, DEEP);
+      door += `<path d="M${f(p[0])} ${f(p[1])} L${f(q[0])} ${f(q[1])}" stroke="${INK}" stroke-width="2.5" opacity=".6"></path>`;
+    }
+    for (const by of [FLOOR_Y + 0.08, FLOOR_Y + 0.25]) {
+      const p = P(TC - HW, by, DEEP);
+      const q = P(TC + HW, by, DEEP);
+      door += `<path d="M${f(p[0])} ${f(p[1])} L${f(q[0])} ${f(q[1])}" stroke="#2A2626" stroke-width="16"></path><path d="M${f(p[0])} ${f(p[1] - 5)} L${f(q[0])} ${f(q[1] - 5)}" stroke="#5A5656" stroke-width="3"></path>`;
+    }
+    // the deep wall's shadow falling across the door
+    const jamb = [
+      P(TC - HW, FLOOR_Y),
+      P(TC - HW, SPRING),
+      P(TC - HW + 0.03, SPRING, DEEP),
+      P(TC - HW + 0.03, FLOOR_Y, DEEP),
+    ];
+    door += `<path d="${poly(jamb)}" fill="#0C0810" opacity=".55" filter="url(#tw-b3)"></path>`;
     // padlock
-    o += `<path d="M${x + w - 50} ${y + 180} q0 -30 20 -30 q20 0 20 30" stroke="#8A8A8A" stroke-width="7" fill="none"></path>`;
-    o += `<rect x="${x + w - 58}" y="${y + 178}" width="56" height="46" rx="8" fill="${lin([
+    const [lx, ly] = P(TC + 0.01, FLOOR_Y + 0.17, DEEP);
+    door += `<path d="M${f(lx - 20)} ${f(ly)} q0 -30 20 -30 q20 0 20 30" stroke="#8A8A8A" stroke-width="7" fill="none"></path>`;
+    door += `<rect x="${f(lx - 28)}" y="${f(ly - 2)}" width="56" height="46" rx="8" fill="${lin([
       [0, '#FFD98A'],
       [1, '#9A6A20'],
-    ])}" ${OUT(3)}></rect><circle cx="${x + w - 30}" cy="${y + 198}" r="6" fill="${INK}"></circle>`;
+    ])}" ${OUT(3)}></rect><circle cx="${f(lx)}" cy="${f(ly + 18)}" r="6" fill="${INK}"></circle>`;
+    o += `<g clip-path="url(#tw-door)">${door}</g>`;
     // a sign over it: lightning between two masts
-    o += `<path d="M${x + w / 2 - 34} ${y - 60} l12 -30 M${x + w / 2 + 34} ${y - 60} l-12 -30" stroke="#8A8A8A" stroke-width="5"></path>`;
-    o += `<path d="M${x + w / 2 - 8} ${y - 98} l14 18 h-10 l12 20" stroke="#FFD36B" stroke-width="4" fill="none" stroke-linejoin="round"></path>`;
-    o += contact(x + w / 2, y + h + 4, w * 0.7, 0.4);
-    stations.radio = { svg: o, box: { x: x - 30, y: y - 110, w: w + 60, h: h + 120 } };
+    const [sx, sy] = P(TC, SPRING + 0.2);
+    o += `<path d="M${f(sx - 34)} ${f(sy + 30)} l12 -30 M${f(sx + 34)} ${f(sy + 30)} l-12 -30" stroke="#8A8A8A" stroke-width="5"></path>`;
+    o += `<path d="M${f(sx - 8)} ${f(sy - 8)} l14 18 h-10 l12 20" stroke="#FFD36B" stroke-width="4" fill="none" stroke-linejoin="round"></path>`;
+    const frame = arch(1, 0.028);
+    const xs = frame.map((p) => p[0]);
+    const ys = [...frame.map((p) => p[1]), sy - 20];
+    const box = {
+      x: Math.floor(Math.min(...xs)) - 10,
+      y: Math.floor(Math.min(...ys)) - 10,
+      w: 0,
+      h: 0,
+    };
+    box.w = Math.min(1920, Math.ceil(Math.max(...xs)) + 10) - box.x;
+    box.h = Math.min(1080, Math.ceil(Math.max(...ys)) + 10) - box.y;
+    stations.radio = { svg: o, box };
   }
 
   // ---------- the gate at the top of the stair ----------
