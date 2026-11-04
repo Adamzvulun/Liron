@@ -50,6 +50,7 @@ The rules:
   - understood and said → good;
   - understood but not said → hard;
   - missed → again.
+  - An earlier phrase that's due for review is only asked by ear, so understanding it is good (before 2026-11-04 it could never be better than hard).
 - **The next step needs Adam's decision:** an opt-in "did it understand you?" check (Groq Whisper) would send his audio to Groq. It's still an open question for Adam in STATUS.
 
 ## Saved

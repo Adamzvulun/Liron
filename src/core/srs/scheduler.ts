@@ -5,6 +5,17 @@ import { createEmptyCard, fsrs, generatorParameters, Rating, type Card, type Gra
 /** How well the learner knew an item. Subjects map their own results onto these four. */
 export type ReviewGrade = 'again' | 'hard' | 'good' | 'easy';
 
+/**
+ * A session's grade for one item from how many of its answers were right (code review,
+ * 2026-11-04): all right is good, at least half is hard, fewer is again. One slip among many
+ * right answers says the item is shaky, not forgotten, so it shouldn't reset the item.
+ */
+export function gradeFrom(right: number, asked: number): ReviewGrade {
+  if (asked <= 0 || right <= 0) return 'again';
+  if (right >= asked) return 'good';
+  return right * 2 >= asked ? 'hard' : 'again';
+}
+
 /** Where an item is in learning. */
 export type ReviewPhase = 'new' | 'learning' | 'review' | 'relearning';
 
