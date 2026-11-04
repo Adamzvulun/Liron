@@ -556,3 +556,10 @@
   width: min(100%, 460px);
   margin-inline: auto;
 }
+
+/* How the deck's speaker says the word, under the spelling on a reveal. */
+.arabic__said {
+  margin-top: 4px;
+  font-size: 15px;
+  color: #6b5640;
+}
