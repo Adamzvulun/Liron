@@ -53,6 +53,6 @@ Content is data, not code (CLAUDE.md). #23 asks for one schema for items, lesson
 
 ## Consequences
 - **A copy of the deck sits in both Supabase projects** (Adam approved, 2026-11-02). Removing it means emptying the tables and the bucket; that could be a workflow step if ever needed.
-- **The secret keys give full access to their project.** Pull requests from forks can't read them. *Corrected 2026-11-04:* repository secrets are readable by a workflow on **any** branch pushed to this repo, not only `dev` and `main` (security review M1, a decision for Adam).
+- **The secret keys give full access to their project.** Pull requests from forks can't read them. *Corrected 2026-11-04:* repository secrets are readable by a workflow on **any** branch pushed to this repo, not only `dev` and `main` (security review M1). Adam accepted this risk on 2026-11-04: only he pushes to this repo, including Claude's sessions, which push under his account.
 - **Friends (M5) would be able to read the deck too**, because any signed-in user can. Lingualism's terms are personal use, so this needs a per-user rule before friends join (E18).
 - #44 is mostly done by this change. What's left there is choosing the first survival phrases (#45).
