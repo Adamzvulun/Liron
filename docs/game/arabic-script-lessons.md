@@ -112,6 +112,11 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
     - It leaves most fathas out (118 of 1,803 single words have one), so an unmarked letter usually takes a.
     - It writes a sukun over و/ي for the Palestinian ō and ē (موْت mōt, عيْلة ēla).
     - It has 127 words that start with two consonants, which textbook Arabic never does: لْسان lsān for lisān.
-- **Not built yet (ordered, not dropped):**
-  - writing by tracing (#41's second half);
-  - fading the Hebrew choices to Latin, and then to none.
+- **Writing at the slate** (#41, `write/Slate.tsx`, `write/trace.ts`):
+  - **The session:** 5 letters you've met, newest lesson first. You trace each one over a faint guide, then write it from memory, with a finger or the mouse.
+  - **The check is a rough shape check, not handwriting recognition:**
+    - Both the font's letter and your ink are read onto a 64×64 grid.
+    - It passes if you covered enough of the letter (75% tracing, 55% from memory) and kept your ink near it (at most 25% or 40% outside, with a margin for a shaky hand).
+    - There's no stroke order. That's honest about what a rough check can tell, and it keeps us free of handwriting AI.
+  - **Saved:** a **write** rating per letter (a pass from memory counts more than a traced one), 2 XP per good shape, and practice minutes. Like the fountain and the storyteller, it's practice: it never passes a lesson.
+- **Not built yet (ordered, not dropped):** fading the Hebrew choices to Latin, and then to none.
