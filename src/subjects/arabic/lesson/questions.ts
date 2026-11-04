@@ -72,6 +72,15 @@ function pick<T>(first: readonly T[], rest: readonly T[], n: number, rand: Rand)
 /** Short words read best and are quickest to hear. */
 const short = (w: Word) => w.letters.length <= 6;
 
+/** Whether the word's first letter is said with another letter's sound (its `saidAs`). */
+export function heardAsAnother(w: Word): boolean {
+  const said = w.letters[0]?.saidAs ?? [];
+  const start = latinOf(w)
+    .replace(/^[^\p{L}]+/u, '')
+    .toLowerCase();
+  return said.some((s) => start.startsWith(s));
+}
+
 /** Hear a word, pick its first letter: mostly the lesson's new letters, some older ones. */
 export function listenQuestions(
   words: readonly Word[],
@@ -82,8 +91,14 @@ export function listenQuestions(
   const known = lettersUpTo(lesson);
   const fresh = new Set(LESSONS[lesson - 1]?.letters.map((l) => l.id));
   // Alif rarely starts a spoken word (its hamza does), so it's asked in the middle only: skip it.
+  // A word whose first letter the speaker says as another letter's sound (ثانوي as sānawi) would
+  // mark a right ear wrong, so it isn't asked.
   const usable = words.filter(
-    (w) => short(w) && w.letters[0]?.letter !== 'ا' && known.some((k) => k.id === w.letters[0]?.id),
+    (w) =>
+      short(w) &&
+      w.letters[0]?.letter !== 'ا' &&
+      known.some((k) => k.id === w.letters[0]?.id) &&
+      !heardAsAnother(w),
   );
   const freshWords = usable.filter((w) => fresh.has(w.letters[0]?.id ?? ''));
   const chosen = pick(freshWords, usable, count, rand);

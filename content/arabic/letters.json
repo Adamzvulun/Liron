@@ -68,7 +68,8 @@
         "family": "teeth",
         "lesson": 2,
         "note": "Written th, but in city speech you mostly hear t or s.",
-        "latin": "ŧ"
+        "latin": "ŧ",
+        "saidAs": ["s"]
       }
     },
     {
@@ -155,7 +156,8 @@
         "family": "non-joining",
         "lesson": 3,
         "note": "Written dh, but in city speech you mostly hear d or z.",
-        "latin": "đ"
+        "latin": "đ",
+        "saidAs": ["z"]
       }
     },
     {
@@ -258,7 +260,8 @@
         "family": "heavy",
         "lesson": 7,
         "note": "A heavy d. Its light twin is د.",
-        "latin": "ɖ"
+        "latin": "ɖ",
+        "saidAs": ["d"]
       }
     },
     {
@@ -294,7 +297,8 @@
         "family": "heavy",
         "lesson": 7,
         "note": "A heavy dh, mostly said as a heavy z. Its light twin is ذ.",
-        "latin": "ʐ"
+        "latin": "ʐ",
+        "saidAs": ["z"]
       }
     },
     {
