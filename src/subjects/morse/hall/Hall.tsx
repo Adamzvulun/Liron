@@ -260,7 +260,7 @@ function Room({
     },
     {
       id: 'radio',
-      plaque: { x: 1790, y: 660 },
+      plaque: { x: 1800, y: 790 },
       title: 'Radio Room',
       text: 'Locked · Operator rank',
     },
