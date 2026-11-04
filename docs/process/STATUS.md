@@ -55,6 +55,7 @@
      - [#88](https://github.com/Adamzvulun/Liron/pull/88): the database is the only writer of rewards ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)). Applied to `waymark-dev`. **The deck is now read only by `content_licensees`** ([SUPABASE](SUPABASE.md#adding-a-licensee)).
      - [#89](https://github.com/Adamzvulun/Liron/pull/89): Morse copy scoring can't be passed by mashing keys; the coffee corner's "Next:" message.
      - [#90](https://github.com/Adamzvulun/Liron/pull/90): the microphone and Morse audio contexts are always released.
+     - [#92](https://github.com/Adamzvulun/Liron/pull/92)–[#96](https://github.com/Adamzvulun/Liron/pull/96): the Hebrew bridge, empty-practice crash and error boundary, button contrast and Koch feedback, CI secrets and audio links, two Arabic progress loopholes.
    - **Next:** the rest of the review's fix list (in the full review, in order), then the Groq "understood" check, then E10 (ADRs first, from 0030). Ten decisions for Adam are listed at the end of the full review.
 
 ## Backlog map
