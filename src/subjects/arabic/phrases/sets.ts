@@ -5,7 +5,7 @@
 import { z } from 'zod';
 import type { Item } from '../../../core/content/schema.ts';
 import pack from '../../../../content/arabic/phrases.json';
-import { latinToHebrew } from './hebrew.ts';
+import { dropGroups, latinToHebrew } from './hebrew.ts';
 
 const PhraseSet = z.object({
   order: z.number().int().positive(),
@@ -33,8 +33,9 @@ export interface Phrase {
 }
 
 /** Deck notes that don't belong in a phrase: blanks for a noun, "(plural)" forms, "[m.]". */
+// A construct form with a blank, "تلاتة (تلات __)", is dropped: a phrase shows its counting form.
 const tidy = (s: string) =>
-  s
+  dropGroups(s, (g) => !g.includes('_'))
     .replace(/_+\s*/g, '')
     .replace(/\s*\[[^\]]*\]/g, '')
     .replace(/\s+/g, ' ')
