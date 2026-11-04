@@ -102,12 +102,28 @@ describe('Morse characters', () => {
 });
 
 describe('Arabic letters', () => {
-  const letters = pack('arabic/letters.json').items.map(
-    (i) => i.data as { letter: string; connectsForward: boolean },
-  );
+  interface Letter {
+    letter: string;
+    connectsForward: boolean;
+    alphabetPosition?: number;
+    hebrew: string;
+    sound: string;
+    family: string;
+    lesson: number;
+  }
+  const arabic = pack('arabic/letters.json');
+  const all = arabic.items.map((i) => i.data as unknown as Letter);
+  // The 28 letters of the alphabet; the extras (ة ء ى لا) have no alphabet position.
+  const letters = all.filter((l) => l.alphabetPosition !== undefined);
 
-  it('has the 28 letters in alphabetical order', () => {
+  it('has the 28 letters in alphabetical order, then the 4 extras', () => {
     expect(letters.map((l) => l.letter).join('')).toBe('ابتثجحخدذرزسشصضطظعغفقكلمنهوي');
+    expect(all.filter((l) => l.alphabetPosition === undefined).map((l) => l.letter)).toEqual([
+      'ة',
+      'ء',
+      'ى',
+      'لا',
+    ]);
   });
 
   it('marks exactly ا د ذ ر ز و as not connecting forward', () => {
@@ -117,5 +133,27 @@ describe('Arabic letters', () => {
         .map((l) => l.letter)
         .join(' '),
     ).toBe('ا د ذ ر ز و');
+  });
+
+  it('gives every letter a Hebrew bridge, a sound, a family and a lesson', () => {
+    for (const l of all) {
+      expect(l.hebrew).toMatch(/^[\u05D0-\u05EA׳ /]+$/);
+      expect(l.sound.length).toBeGreaterThan(0);
+      expect(l.family.length).toBeGreaterThan(0);
+      expect(l.lesson).toBeGreaterThanOrEqual(1);
+    }
+  });
+
+  it('teaches every letter in exactly one of the 8 script lessons, in order', () => {
+    expect(arabic.lessons.map((l) => l.order)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+    const taught = arabic.lessons.flatMap((l) => l.items);
+    expect(new Set(taught).size).toBe(taught.length);
+    expect(taught.sort()).toEqual(arabic.items.map((i) => i.id).sort());
+    for (const lesson of arabic.lessons) {
+      for (const id of lesson.items) {
+        const item = arabic.items.find((i) => i.id === id);
+        expect((item?.data as unknown as Letter).lesson).toBe(lesson.order);
+      }
+    }
   });
 });
