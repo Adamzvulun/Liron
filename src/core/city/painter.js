@@ -834,7 +834,7 @@ export function paintCity() {
     side.body += hs.body;
   });
   // inn sign + banner on the side houses
-  side.body += `<path d="M240 520 H300" stroke="${INK}" stroke-width="6" stroke-linecap="round"></path><g class="wm-sway" style="transform-origin: 290px 520px"><path d="M268 522 V530 M292 522 V530" stroke="${INK}" stroke-width="2"></path><path d="${soft(
+  side.body += `<path d="M240 520 H300" stroke="${INK}" stroke-width="6" stroke-linecap="round"></path><g class="wm-sway wm-sway-sign"><path d="M268 522 V530 M292 522 V530" stroke="${INK}" stroke-width="2"></path><path d="${soft(
     [
       [262, 530],
       [298, 530],
@@ -960,7 +960,7 @@ export function paintCity() {
       [0, '#FFF3C4', 0.9],
       [0.35, '#FFD36B', 0.45],
       [1, '#FFD36B', 0],
-    ])}" style="mix-blend-mode: screen"></circle>`;
+    ])}" class="wm-screen"></circle>`;
     // lantern room
     tower += `<path d="${soft(
       [
@@ -1248,7 +1248,7 @@ export function paintCity() {
         [0, '#FFE3A0', 0.7],
         [1, '#FFC56B', 0],
       ],
-    )}" style="mix-blend-mode: screen"></ellipse></g>`;
+    )}" class="wm-screen"></ellipse></g>`;
     // open doors
     cara += `<path d="${soft(
       [
@@ -1834,7 +1834,7 @@ export function paintCity() {
     )}"></path>`;
   }
   const grade =
-    `<g style="mix-blend-mode: screen" opacity=".35" filter="url(#fx-b14)">${rays}</g>` +
+    `<g class="wm-screen" opacity=".35" filter="url(#fx-b14)">${rays}</g>` +
     `<rect width="1920" height="1080" fill="${rad(
       [
         [0, '#000', 0],
@@ -1845,7 +1845,7 @@ export function paintCity() {
       0.45,
       0.75,
     )}"></rect>` +
-    `<rect width="1920" height="1080" filter="url(#fx-grain)" opacity=".18" style="mix-blend-mode: overlay"></rect>`;
+    `<rect width="1920" height="1080" filter="url(#fx-grain)" opacity=".18" class="wm-overlay"></rect>`;
 
   const box = (x, y, w, h) => ({ x, y, w, h });
   return {

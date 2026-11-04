@@ -366,6 +366,16 @@
   transform-box: fill-box;
   transform-origin: top center;
 }
+/* The painter's markup carries classes, not style attributes: the CSP forbids inline styles. */
+.city .wm-sway.wm-sway-sign {
+  transform-origin: 290px 520px;
+}
+.city .wm-screen {
+  mix-blend-mode: screen;
+}
+.city .wm-overlay {
+  mix-blend-mode: overlay;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .city * {
