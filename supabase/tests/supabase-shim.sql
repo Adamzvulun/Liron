@@ -8,8 +8,13 @@ create table auth.users (id uuid primary key, email text);
 create function auth.uid() returns uuid language sql stable as $$
   select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid
 $$;
+-- Supabase's auth.jwt() returns the request's JWT claims; tests set them with
+-- set_config('request.jwt.claims', ...) when they need one (e.g. is_anonymous).
+create function auth.jwt() returns jsonb language sql stable as $$
+  select coalesce(nullif(current_setting('request.jwt.claims', true), ''), '{}')::jsonb
+$$;
 grant usage on schema auth to anon, authenticated;
-grant execute on function auth.uid() to anon, authenticated;
+grant execute on function auth.uid(), auth.jwt() to anon, authenticated;
 grant usage on schema public to anon, authenticated;
 
 -- Supabase Storage's tables, reduced to what our migrations touch. RLS is on, as in Supabase.
