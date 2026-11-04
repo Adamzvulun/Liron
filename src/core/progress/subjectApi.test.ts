@@ -83,7 +83,16 @@ describe('private content (ADR 0023)', () => {
         asked.push(`${subject}/${from}`);
         if (from === 'broken') throw new Error('offline');
         return {
-          items: [{ id: 'pcav:0001', subject, type: 'vocab', data: {}, media: [], tags: [] }],
+          items: [
+            {
+              id: 'pcav:0001',
+              subject,
+              type: 'vocab',
+              data: {},
+              media: [{ kind: 'audio', store: 'private', path: `${from}/pcav01-1.mp3` }],
+              tags: [],
+            },
+          ],
           lessons: [],
         };
       },
@@ -112,6 +121,11 @@ describe('private content (ADR 0023)', () => {
     await expect(api.privateContent('../profiles')).rejects.toThrow(RangeError);
     await expect(api.mediaUrl('../../secret')).rejects.toThrow(RangeError);
     await expect(api.mediaUrl('lingualism-pcav/../x')).rejects.toThrow(RangeError);
+    // Only files a loaded pack of this subject names (security review L2).
+    await expect(api.mediaUrl('lingualism-pcav/pcav01-1.mp3')).rejects.toThrow(/doesn't name/);
+    await api.privateContent('lingualism-pcav');
+    await expect(api.mediaUrl('lingualism-pcav/other.mp3')).rejects.toThrow(/doesn't name/);
+    await expect(api.mediaUrl('another-deck/pcav01-1.mp3')).rejects.toThrow(/doesn't name/);
     expect(await api.mediaUrl('lingualism-pcav/pcav01-1.mp3')).toBe(
       'https://media.test/lingualism-pcav/pcav01-1.mp3',
     );

@@ -30,7 +30,7 @@ Adam asked: "Run agents each in its own field of expertise… to check everythin
 2. ~~Crashes and wrong messages~~ (#93, #96).
 3. **Fair grading** (code, learning): ~~spaced-repetition grades are all-or-nothing per session; coffee reviews are never graded "good"~~ (fixed: `gradeFrom`). ~~Listen asks for ث/ذ words the speaker says as s/z~~ (#107: Listen skips words whose first letter is said as another letter; ظ and ض too). ق stays: its card teaches the deck's g.
 4. **Look and feel** (UX): ~~brass button contrast~~ and ~~Koch wrong answers~~ (#94). ~~guild-coloured text below AA~~ (darker `--guild-*-ink` and `--ember-ink` text tokens, 5.1–6.1:1 on parchment). ~~the slate plaque covers the scroll's goal line on desktop~~ (the scroll hangs higher and is capped above the plaques; an e2e test checks 1280×720, 1366×768 and 1920×1080).
-5. **Remaining security items:** ~~M2, L1~~ (#95), ~~M3~~ (security headers and CSP). Left: L2, L5, L6.
+5. **Remaining security items:** ~~M2, L1~~ (#95), ~~M3~~ (security headers and CSP). ~~L2, L6~~ fixed; L5 checked and not a gap (sign-out already revokes the session on the server).
 6. **Docs:** 39 small doc/code mismatches (STATUS stops at #82, stale "coming soon" text, CI.md); stale GitHub issues.
 7. **Tests:** e2e flows that click the first choice and accept any outcome, so pass/fail gates are never checked end to end. Add deterministic pass and fail tests, and a fake database that keeps state.
 
@@ -38,7 +38,7 @@ Adam asked: "Run agents each in its own field of expertise… to check everythin
 - **UX "focus mode":** keep activities inside the painted room with one slim bar, which gives the phone back about a third of its height. Plus a shared result card that animates the lamp or milestone you earned.
 - **Read distractors with one lookalike letter swapped** (ب/ت/ث/ن/ي, ج/ح/خ…), since the dots are what's hard for Hebrew readers (Ibrahim, Eviatar & Aharon-Peretz 2002).
 - **The slate should require the dots:** today ث can pass written as ب.
-- **Show the spoken form on Read reveals** (قهوة is spelled with ق but said *gahwa* by this speaker).
+- ~~**Show the spoken form on Read reveals**~~ (قهوة is spelled with ق but said *gahwa* by this speaker). Done: every Read and Listen reveal adds "Said here:" with the deck's pronunciation in Hebrew letters (`spokenHebrew`).
 - **Architecture before E10:** save each session in one all-or-nothing call (today it's 20–40 separate requests); move subject knowledge out of core (the Notice Board's quest list is hard-coded and promises rewards nothing pays).
 
 ## Decisions only Adam can make

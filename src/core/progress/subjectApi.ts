@@ -37,6 +37,9 @@ export function subjectApi<State extends object>(
   content: ContentSource | null = null,
 ): SubjectApi<State> {
   const packs = new Map<string, Promise<{ items: Item[]; lessons: Lesson[] }>>();
+  // The private media each loaded pack names: a subject may only link files its own content names
+  // (ADR 0019; security review L2).
+  const named = new Map<string, Promise<Set<string>>>();
   const id = subject.id;
   if (!SUBJECT_ID.test(id)) throw new Error(`Invalid subject id: "${id}"`);
   const skills = subject.skills;
@@ -141,8 +144,24 @@ export function subjectApi<State extends object>(
       if (!pack) {
         pack = content.pack(id, source);
         // A failed load isn't kept, so the next ask tries again.
-        pack.catch(() => packs.delete(source));
+        pack.catch(() => {
+          packs.delete(source);
+          named.delete(source);
+        });
         packs.set(source, pack);
+        named.set(
+          source,
+          pack.then(
+            ({ items }) =>
+              new Set(
+                items.flatMap((i) =>
+                  i.media.filter((m) => m.store === 'private').map((m) => m.path),
+                ),
+              ),
+            // A pack that failed to load names nothing (its failure is the caller's to handle).
+            () => new Set<string>(),
+          ),
+        );
       }
       return pack;
     },
@@ -151,7 +170,13 @@ export function subjectApi<State extends object>(
         return Promise.reject(new RangeError(`Invalid media path: "${String(path)}"`));
       }
       if (!content) return Promise.reject(new Error('No content source in this app'));
-      return content.mediaUrl(path);
+      const source = content;
+      return Promise.allSettled(named.values()).then((sets) => {
+        if (!sets.some((r) => r.status === 'fulfilled' && r.value.has(path))) {
+          throw new RangeError(`${id}'s content doesn't name "${path}"`);
+        }
+        return source.mediaUrl(path);
+      });
     },
   };
 }
