@@ -45,6 +45,24 @@ export interface Award extends Wallet {
   today: DayResult;
 }
 
+/** A finished session, worked out and ready to save in one go (ADR 0031). */
+export interface SessionWrite {
+  /** Made by the app when the session ends; the same id is never applied twice. */
+  sessionId: string;
+  /** The subject's new state, or null to leave it as it is. */
+  state: object | null;
+  reviews: { itemId: string; review: ScheduledReview; reviewedAt: Date }[];
+  results: {
+    skill: string;
+    itemId: string;
+    score: number;
+    learner: StoredRating;
+    item: StoredRating;
+  }[];
+  xp: number;
+  minutes: number;
+}
+
 /** The player's own profile fields the app shows. */
 export interface Profile {
   /** The name the player chose; empty until they choose one. */
@@ -100,6 +118,14 @@ export interface ProgressStore {
     learner: StoredRating,
     item: StoredRating,
   ): Promise<void>;
+  /**
+   * Saves a whole session in one transaction (ADR 0031). A session id seen before applies
+   * nothing and returns `duplicate: true`. `award` is null when there was no XP or time.
+   */
+  saveSession(
+    subjectId: string,
+    session: SessionWrite,
+  ): Promise<{ duplicate: boolean; award: Award | null }>;
 }
 
 /** An in-memory store with the same rules as the database, for tests. */
@@ -124,6 +150,7 @@ export function memoryStore(
   const skillRatings = new Map<string, StoredRating>(); // key: subject/skill
   const itemRatings = new Map<string, StoredRating>(); // key: subject/skill/item
   const ratingLog: { subjectId: string; skill: string; itemId: string; score: number }[] = [];
+  const savedSessions = new Set<string>();
   let goal = DEFAULT_DAILY_GOAL;
   let offset = 0;
   const todayIs = () => addDays(clock.today(), offset);
@@ -151,9 +178,25 @@ export function memoryStore(
     }
     return { ...status(), goalReachedNow: now, chestGold: chest.gold, chestGems: chest.gems };
   };
-  return {
+  const store: ProgressStore & {
+    travel(days: number): void;
+    reviewLog: readonly object[];
+    ratingLog: readonly object[];
+  } = {
     reviewLog,
     ratingLog,
+    async saveSession(subjectId, s) {
+      if (savedSessions.has(s.sessionId)) return { duplicate: true, award: null };
+      savedSessions.add(s.sessionId);
+      if (s.state) await store.saveState(subjectId, s.state);
+      for (const r of s.reviews)
+        await store.saveReview(subjectId, r.itemId, r.review, r.reviewedAt);
+      for (const r of s.results)
+        await store.saveResult(subjectId, r.skill, r.itemId, r.score, r.learner, r.item);
+      const award =
+        s.xp > 0 || s.minutes > 0 ? await store.record(subjectId, s.xp, s.minutes) : null;
+      return { duplicate: false, award };
+    },
     async skillRatings(subjectId) {
       const found = new Map<string, StoredRating>();
       for (const [key, r] of skillRatings) {
@@ -253,4 +296,5 @@ export function memoryStore(
       get(id).state = structuredClone(state);
     },
   };
+  return store;
 }

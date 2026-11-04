@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { SubjectApi } from '../../../core/subject.ts';
+import type { ReviewGrade, SubjectApi } from '../../../core/subject.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import { seeded } from '../lesson/questions.ts';
 import { useAudio } from '../lesson/useAudio.ts';
@@ -117,19 +117,26 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
     const at = new Date();
     const heard = [...phrases, ...reviews];
     (async () => {
-      await api.saveState(next);
-      for (const p of heard) {
+      const reviewGrades = heard.map((p) => {
         const ok = right.includes(p.id);
         // A due review is only understood, never said: understanding it is a good review.
         // A new phrase is good once you've also said it, hard if only understood.
         const review = !phrases.some((x) => x.id === p.id);
-        const grade = !ok ? 'again' : review || said.includes(p.id) ? 'good' : 'hard';
-        await api.recordReview(p.id, grade, at);
-        await api.recordResult('listen', p.id, ok ? 1 : 0, { at });
-      }
-      const xp = coffeeXp(right.length, said.length, passed);
-      if (xp > 0) await api.awardXP(xp);
-      await api.recordPractice((now - started) / 60000);
+        const grade: ReviewGrade = !ok ? 'again' : review || said.includes(p.id) ? 'good' : 'hard';
+        return { itemId: p.id, grade };
+      });
+      await api.saveSession({
+        state: next,
+        reviews: reviewGrades,
+        results: heard.map((p) => ({
+          skill: 'listen',
+          itemId: p.id,
+          score: right.includes(p.id) ? 1 : 0,
+        })),
+        xp: coffeeXp(right.length, said.length, passed),
+        minutes: (now - started) / 60000,
+        at,
+      });
     })().then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),

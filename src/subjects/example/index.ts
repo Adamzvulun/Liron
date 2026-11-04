@@ -20,8 +20,11 @@ export async function finishDrill(
   api: SubjectApi<ExampleState>,
   drill: { correct: number; minutes: number },
 ): Promise<void> {
-  if (drill.correct > 0) await api.awardXP(drill.correct * 2);
-  await api.recordPractice(drill.minutes);
   const state = (await api.loadState()) ?? { drillsDone: 0 };
-  await api.saveState({ drillsDone: state.drillsDone + 1 });
+  // One save for the whole session (ADR 0031): all of it is kept, or none of it.
+  await api.saveSession({
+    state: { drillsDone: state.drillsDone + 1 },
+    xp: drill.correct * 2,
+    minutes: drill.minutes,
+  });
 }
