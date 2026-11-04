@@ -30,14 +30,23 @@ export interface ReadQuestion {
   shown: string;
   /** The marks shown, so each one's review counts this answer. */
   marks: readonly Mark[];
-  /** The right choice: the word in Hebrew letters (niqqud when it has marks), or in Latin. */
+  /**
+   * The right choice: the word in Hebrew letters (niqqud when it has marks), in Latin, or its
+   * recording's path.
+   */
   answer: string;
-  /** The choices' script: Hebrew letters first; Latin once the word's letters are well known. */
-  script: 'he' | 'latin';
+  /**
+   * The choices: Hebrew letters first. Once the word's letters are well known, recordings to
+   * pick from (or Latin, if you chose it).
+   */
+  script: 'he' | 'sound' | 'latin';
   choices: string[];
 }
 
-/** A word's choices turn Latin once all its letters were taught this many lessons ago. */
+/** How a well-known word's choices are given: recordings (the default) or Latin letters. */
+export type KnownChoices = 'sound' | 'latin';
+
+/** A word's choices stop being Hebrew once all its letters were taught this many lessons ago. */
 export const LATIN_AFTER = 2;
 
 /** The deck's romanisation without its notes ("nās [pl.]" → "nās"). */
@@ -122,6 +131,7 @@ export function readQuestions(
   lesson: number,
   rand: Rand,
   count = READ_COUNT,
+  mode: KnownChoices = 'sound',
 ): ReadQuestion[] {
   const known = new Set(lettersUpTo(lesson).map((l) => l.id));
   const fresh = new Set(LESSONS[lesson - 1]?.letters.map((l) => l.id));
@@ -136,7 +146,29 @@ export function readQuestions(
     const bare = lesson >= FADE_FROM && i % 2 === 1;
     const shown = withMarks(word.arabic, bare ? [] : marks);
     const latin = latinOf(word);
-    if (latin && word.letters.every((l) => l.lesson <= lesson - LATIN_AFTER)) {
+    const wellKnown = word.letters.every((l) => l.lesson <= lesson - LATIN_AFTER);
+    if (wellKnown && mode === 'sound') {
+      // Other readable words that sound different: similar length, so length alone doesn't tell.
+      const others = [
+        ...new Map(
+          readable
+            .filter((w) => w.audio !== word.audio && w.arabic !== word.arabic)
+            .map((w) => [w.audio, w]),
+        ).values(),
+      ];
+      const close = others.filter((w) => Math.abs(w.letters.length - word.letters.length) <= 1);
+      const wrong = pick(close, others, CHOICES - 1, rand);
+      return {
+        kind: 'read',
+        word,
+        shown,
+        marks: bare ? [] : marksIn(shown),
+        answer: word.audio,
+        script: 'sound',
+        choices: shuffle([word.audio, ...wrong.map((w) => w.audio)], rand),
+      };
+    }
+    if (latin && wellKnown) {
       const pool = latinPool.filter((l) => l !== latin);
       const close = pool.filter((l) => Math.abs(l.length - latin.length) <= 2);
       return {

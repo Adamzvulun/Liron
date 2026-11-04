@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { deckWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // Everyday words made of lesson 1's letters (ا ب ت ن ي), shaped like the deck's rows.
@@ -16,6 +16,17 @@ const WORDS = [
   deckWord(11, 'تيت', 'aunt'),
   deckWord(12, 'نت', 'internet'),
 ];
+
+/** Answers a Read question with its first choice: a recording (play, then "This one") or a word. */
+async function answerFirst(page: Page) {
+  const sounds = page.getByRole('group', { name: 'Recordings' });
+  if (await sounds.isVisible()) {
+    await sounds.getByRole('button').first().click();
+    await page.getByRole('button', { name: /^This one/ }).click();
+  } else {
+    await page.getByRole('group', { name: 'Choices' }).getByRole('button').first().click();
+  }
+}
 
 test.describe('Arabic script lessons (#38–#41)', () => {
   test('meet the first letters, practise, and the session is saved', async ({ page }) => {
@@ -92,7 +103,7 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
     await expect(page.getByText(/^Read · 1 of /)).toBeVisible();
     for (let i = 0; i < 40; i++) {
       if (await page.getByText(/^\d+%$/).isVisible()) break;
-      await page.getByRole('group', { name: 'Choices' }).getByRole('button').first().click();
+      await answerFirst(page);
       await page.getByRole('button', { name: 'Next' }).click();
     }
     await expect(page.getByText(/^\d+%$/)).toBeVisible();
@@ -102,6 +113,48 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
     };
     expect(saved.p_state.sessions).toBe(21);
     expect(typeof saved.p_state.guest).toBe('boolean');
+  });
+
+  test('words you know well are read by picking their recording, or Latin if you choose', async ({
+    page,
+  }) => {
+    const calls: SubjectCall[] = [];
+    const state = { lesson: 4, streak: 0, met: [], done: false, sessions: 4 };
+    await signedIn(page, [], calls, state, WORDS);
+    await page.goto('/caravanserai');
+    await page.getByRole('button', { name: /The storyteller/ }).click();
+    const latin = page.getByLabel(/show Latin letters instead of recordings/);
+    await expect(latin).not.toBeChecked();
+    await page.getByRole('button', { name: 'Begin' }).click();
+
+    // Every word here uses lesson 1's letters, taught two lessons ago: all by recording.
+    await expect(page.getByRole('heading', { name: 'Which recording says it?' })).toBeVisible();
+    const sounds = page.getByRole('group', { name: 'Recordings' });
+    await expect(sounds.getByRole('button')).toHaveCount(4);
+    const confirm = page.getByRole('button', { name: /^(Play the recordings|This one)/ });
+    await expect(confirm).toBeDisabled();
+    await sounds.getByRole('button', { name: '▶ 2' }).click();
+    await expect(sounds.getByRole('button', { name: '▶ 2' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    await page.getByRole('button', { name: 'This one: 2' }).click();
+    await expect(page.getByText(/^(Right!|Not quite\.)$/)).toBeVisible();
+    await expect(sounds.getByRole('button', { name: /✓/ })).toHaveCount(1);
+
+    // Back at the start, choose Latin: it's saved with your progress.
+    await page.goto('/caravanserai');
+    await page.getByRole('button', { name: /The storyteller/ }).click();
+    await page.getByLabel(/show Latin letters instead of recordings/).check();
+    await expect
+      .poll(() =>
+        calls.some(
+          (c) =>
+            c.rpc === 'save_subject_state' &&
+            (c.args as { p_state: { knownChoices?: string } }).p_state.knownChoices === 'latin',
+        ),
+      )
+      .toBe(true);
   });
 
   test('the fountain is listening practice that doesn’t pass a lesson', async ({ page }) => {
