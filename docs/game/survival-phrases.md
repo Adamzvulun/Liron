@@ -35,7 +35,7 @@ Religious set phrases (prayers, hajj, condolences) and the long congratulations 
 
 ## The Hebrew bridge for phrases
 It's written from the deck's **Latin**, not its Arabic script (`phrases/hebrew.ts`). The Latin has every vowel the Gaza speaker says, while the Arabic leaves most short vowels out. So the Hebrew reads the way the recording sounds:
-- kēf ɧālak? → כֵּיף חַאלַךּ?
+- kēf ɧālak? → כֵּיף חַאלַכּ?
 - gaddēš ɧággu? → גַדֵּיש חַגּוּ?
 
 The rules:

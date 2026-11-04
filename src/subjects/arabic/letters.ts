@@ -95,7 +95,8 @@ export function formsOf(l: Letter): {
   };
 }
 
-const FINAL_HEBREW: Record<string, string> = { כ: 'ך', מ: 'ם', נ: 'ן', פ: 'ף', צ: 'ץ' };
+// No final ך: k at the end stays כ, so it never reads as kh (Adam, 2026-11-04).
+const FINAL_HEBREW: Record<string, string> = { מ: 'ם', נ: 'ן', פ: 'ף', צ: 'ץ' };
 
 /**
  * A word in Hebrew letters, the common Israeli way: each Arabic letter as its Hebrew bridge,
