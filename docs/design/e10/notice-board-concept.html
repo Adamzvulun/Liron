@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Notice Board concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500;700;800;900&family=Cinzel:wght@700;900&family=Noto+Naskh+Arabic:wght@700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #24160e; --parchment: #f3e2bc; --wood: #6b3f20; --brass: #e8a93a;
+    --night: #1e2636; --dusk: #33397a; --lamplight: #ffd36b; --vellum: #fbf1d8;
+    --guild-morse: #2e8fa3; --guild-arabic: #c8553d; --habit: #b8862a;
+    --font-display: 'Cinzel', serif; --font-ui: 'Alegreya Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; color: var(--vellum); font: 500 18px/1.4 var(--font-ui);
+    background: linear-gradient(180deg, var(--dusk) 0%, var(--night) 70%);
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+  .back { color: var(--vellum); font-weight: 700; }
+  h1 {
+    margin: 18px 0 18px; font: 900 44px/1 var(--font-display); color: var(--lamplight);
+    text-shadow: 0 4px 0 var(--ink); letter-spacing: 0.02em;
+  }
+  .cols { display: grid; gap: 22px; grid-template-columns: 1.35fr 1fr; align-items: start; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } h1 { font-size: 36px; } .board__title, .stall__title { font-size: 20px; } .stamp { font-size: 17px; } }
+
+  /* The board: planks with pinned parchment notes. */
+  .board {
+    position: relative; padding: 18px 18px 20px; border: 4px solid var(--ink); border-radius: 16px;
+    background:
+      repeating-linear-gradient(180deg, transparent 0 62px, rgba(0,0,0,.28) 62px 65px),
+      linear-gradient(90deg, #6e4224, #7d4c2a 40%, #6a3f22);
+    box-shadow: 0 6px 0 var(--ink), inset 0 0 0 3px #9a6a3e;
+  }
+  .board__head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+  .board__title { margin: 0; font: 900 24px var(--font-display); color: var(--lamplight); text-shadow: 0 3px 0 var(--ink); }
+  .board__date { white-space: nowrap; font-weight: 800; color: #f1d7a6; font-size: 16px; }
+  .notes { display: grid; gap: 14px; }
+  .note {
+    position: relative; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center;
+    padding: 14px 16px 12px 18px; border: 3px solid var(--ink); border-radius: 6px;
+    background: linear-gradient(180deg, var(--parchment), #e6cf9f); color: var(--ink);
+    box-shadow: 0 4px 0 rgba(0,0,0,.45); transform: rotate(var(--tilt, 0deg));
+  }
+  .note::before { /* the pin */
+    content: ''; position: absolute; top: -8px; left: 50%; width: 16px; height: 16px; margin-left: -8px;
+    border: 3px solid var(--ink); border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ffe7a0, var(--brass));
+  }
+  .note__giver { grid-column: 1; font-weight: 900; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
+  .note__text { grid-column: 1; font-weight: 800; font-size: 19px; line-height: 1.25; }
+  .note__text [lang=ar] { font-family: 'Noto Naskh Arabic', serif; font-size: 22px; }
+  .note__bar { grid-column: 1; height: 8px; margin-top: 6px; border-radius: 99px; background: rgba(36,22,14,.18); overflow: hidden; }
+  .note__bar span { display: block; height: 100%; background: var(--c); }
+  .note__nums { grid-column: 1; font-size: 14px; font-weight: 700; color: #6b5640; }
+  .pay {
+    grid-column: 2; grid-row: 1 / span 4; display: grid; justify-items: center; gap: 0;
+    font-weight: 900; font-size: 20px; color: var(--ink);
+  }
+  .pay small { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #6b5640; }
+  .note.is-done { --tilt: -1.2deg; }
+  .note.is-done .note__text { text-decoration: line-through 2px; text-decoration-color: rgba(36,22,14,.45); }
+  .stamp {
+    position: absolute; right: 64px; bottom: 6px; padding: 2px 10px; border: 3px solid #a3281a; border-radius: 6px;
+    color: #a3281a; font: 900 22px var(--font-display); letter-spacing: .1em; transform: rotate(-10deg);
+    opacity: .85; background: rgba(255,240,220,.35);
+  }
+
+  /* The chest at the foot of the board. */
+  .chest {
+    display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center; margin-top: 18px;
+    padding: 12px 14px; border: 3px solid var(--ink); border-radius: 12px; background: rgba(30,20,12,.55);
+  }
+  .chest svg { grid-row: span 2; }
+  .chest__title { font-weight: 900; font-size: 18px; color: var(--lamplight); }
+  .seals { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 15px; font-weight: 700; color: #f1d7a6; }
+  .seal { flex: none; width: 26px; height: 26px; border: 3px solid var(--ink); border-radius: 50%; background: #4a3020; }
+  .seal.is-on { background: radial-gradient(circle at 35% 35%, #ffe7a0, var(--brass)); }
+
+  /* The questline strip. */
+  .roads { margin-top: 18px; display: grid; gap: 8px; }
+  .road {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; padding: 8px 12px;
+    border-left: 6px solid var(--c); border-radius: 8px; background: rgba(251,241,216,.08); color: var(--vellum); text-decoration: none;
+  }
+  .road b { font-weight: 800; }
+  .road span { color: #d8c4a0; font-size: 15px; }
+  .lamps { display: flex; gap: 4px; }
+  .lamps i { width: 10px; height: 14px; border-radius: 3px 3px 5px 5px; background: #3a3550; border: 2px solid var(--ink); }
+  .lamps i.on { background: var(--lamplight); box-shadow: 0 0 6px var(--lamplight); }
+
+  /* The Market stall. */
+  .stall { border: 4px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 0 var(--ink); background: #3b2516; }
+  .awning {
+    height: 44px; border-bottom: 4px solid var(--ink);
+    background: repeating-linear-gradient(90deg, var(--guild-arabic) 0 36px, var(--parchment) 36px 72px);
+    -webkit-mask: radial-gradient(18px at 18px 44px, #0000 98%, #000) 0 0 / 36px 100%;
+  }
+  .stall__body { padding: 8px 16px 18px; }
+  .stall__head { display: flex; justify-content: space-between; align-items: baseline; }
+  .stall__title { margin: 0; font: 900 24px var(--font-display); color: var(--lamplight); text-shadow: 0 3px 0 var(--ink); }
+  .purse { font-weight: 900; color: var(--lamplight); display: flex; gap: 6px; align-items: center; }
+  .stall__sub { margin: 2px 0 12px; color: #d8c4a0; font-size: 15px; }
+  .wares { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .ware {
+    display: grid; justify-items: center; gap: 4px; padding: 12px 8px 10px; text-align: center;
+    border: 3px solid var(--ink); border-radius: 12px; background: linear-gradient(180deg, var(--parchment), #e2c891); color: var(--ink);
+    box-shadow: 0 4px 0 var(--ink);
+  }
+  .ware__name { font-weight: 800; font-size: 16px; line-height: 1.15; }
+  .ware__tag { font-size: 11px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 1px 8px; border-radius: 99px; color: var(--vellum); background: var(--r); }
+  .buy {
+    margin-top: 4px; min-height: 40px; width: 100%; border: 3px solid var(--ink); border-radius: 10px; font: inherit; font-weight: 900; font-size: 16px;
+    background: linear-gradient(180deg, #ffe39a, var(--brass)); color: var(--ink); display: flex; gap: 6px; justify-content: center; align-items: center;
+  }
+  .buy[disabled] { background: #c9b48c; color: #6b5640; }
+  .ware.is-owned { opacity: .7; }
+  .ware__note { font-size: 13px; font-weight: 700; color: #6b5640; }
+  .restock { margin: 12px 0 0; text-align: center; font-size: 14px; color: #d8c4a0; }
+  .coin { display: inline-block; width: 16px; height: 16px; border: 2px solid var(--ink); border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff1b8, var(--brass)); }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="#">← Back to the square</a>
+  <h1>Notice Board</h1>
+
+  <div class="cols">
+    <section class="board" aria-labelledby="t-contracts">
+      <div class="board__head">
+        <h2 class="board__title" id="t-contracts">Contracts</h2>
+        <span class="board__date">Wed 4 Nov</span>
+      </div>
+
+      <div class="notes">
+        <article class="note is-done" style="--c: var(--habit)">
+          <span class="note__giver">The Guildhall · habit</span>
+          <span class="note__text">Practise 15 minutes today</span>
+          <div class="note__bar"><span style="width:100%"></span></div>
+          <span class="note__nums">15 / 15 min</span>
+          <span class="stamp">Done</span>
+          <span class="pay">10 <span class="coin"></span><small>gold</small></span>
+        </article>
+
+        <article class="note" style="--c: var(--guild-morse); --tilt: .8deg">
+          <span class="note__giver">Signal Tower</span>
+          <span class="note__text">Pass a Koch run at 90%</span>
+          <div class="note__bar"><span style="width:0%"></span></div>
+          <span class="note__nums">Best today: 84%</span>
+          <span class="pay">20 <span class="coin"></span><small>gold</small></span>
+        </article>
+
+        <article class="note" style="--c: var(--guild-arabic); --tilt: -.6deg">
+          <span class="note__giver">Caravanserai</span>
+          <span class="note__text">Read 10 words with <span lang="ar" dir="rtl">د ر ز</span></span>
+          <div class="note__bar"><span style="width:40%"></span></div>
+          <span class="note__nums">4 / 10 words</span>
+          <span class="pay">15 <span class="coin"></span><small>gold</small></span>
+        </article>
+      </div>
+
+      <div class="chest">
+        <svg width="78" height="64" viewBox="0 0 78 64" aria-hidden="true">
+          <path d="M8 28 Q8 6 39 6 Q70 6 70 28 Z" fill="#8a5a30" stroke="#24160e" stroke-width="3.5"/>
+          <path d="M14 26 Q16 12 39 12 Q62 12 64 26" fill="none" stroke="#5c3a1d" stroke-width="3"/>
+          <rect x="6" y="28" width="66" height="30" rx="3" fill="#7a4c27" stroke="#24160e" stroke-width="3.5"/>
+          <path d="M6 40 H72" stroke="#5c3a1d" stroke-width="3"/>
+          <rect x="18" y="6" width="7" height="52" fill="#c98f35" stroke="#24160e" stroke-width="2.5"/>
+          <rect x="53" y="6" width="7" height="52" fill="#c98f35" stroke="#24160e" stroke-width="2.5"/>
+          <rect x="32" y="24" width="14" height="16" rx="2" fill="#e8a93a" stroke="#24160e" stroke-width="3"/>
+          <circle cx="39" cy="31" r="2.5" fill="#24160e"/>
+        </svg>
+        <span class="chest__title">The contract chest</span>
+        <span class="seals"><i class="seal is-on"></i><i class="seal"></i><i class="seal"></i> <span>1 of 3 · finish all three to open it</span></span>
+      </div>
+
+      <div class="roads" aria-label="Your questlines">
+        <a class="road" href="#" style="--c: var(--guild-morse)">
+          <span><b>The Silent Beacon</b> · Embers</span>
+          <span class="lamps"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        </a>
+        <a class="road" href="#" style="--c: var(--guild-arabic)">
+          <span><b>The Long Road In</b> · I</span>
+          <span class="lamps"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="stall" aria-labelledby="t-market">
+      <div class="awning"></div>
+      <div class="stall__body">
+        <div class="stall__head">
+          <h2 class="stall__title" id="t-market">The Market</h2>
+          <span class="purse"><span class="coin"></span> 146</span>
+        </div>
+        <p class="stall__sub">Four wares a day. Gold only, earned by learning.</p>
+        <div class="wares">
+          <div class="ware" style="--r: #2f7a52">
+            <svg width="64" height="56" viewBox="0 0 64 56" aria-hidden="true">
+              <path d="M32 4 L56 12 Q56 38 32 52 Q8 38 8 12 Z" fill="#4f8fbf" stroke="#24160e" stroke-width="3.5"/>
+              <path d="M32 12 L48 17 Q48 34 32 44 Q16 34 16 17 Z" fill="#9cc7e6" stroke="#24160e" stroke-width="2.5"/>
+              <path d="M32 18 Q38 26 32 36 Q26 26 32 18Z" fill="#ffd36b" stroke="#24160e" stroke-width="2"/>
+            </svg>
+            <span class="ware__name">Streak shield</span>
+            <span class="ware__note">Saves a missed day</span>
+            <span class="ware__tag" style="--r:#33397a">Useful</span>
+            <button class="buy"><span class="coin"></span>120</button>
+          </div>
+          <div class="ware" style="--r: #6b5640">
+            <svg width="64" height="56" viewBox="0 0 64 56" aria-hidden="true">
+              <path d="M10 40 Q12 14 32 12 Q52 14 54 40 Z" fill="#c8553d" stroke="#24160e" stroke-width="3.5"/>
+              <path d="M6 40 H58 V46 H6 Z" fill="#8a2e1e" stroke="#24160e" stroke-width="3"/>
+              <path d="M32 12 Q36 4 42 6" fill="none" stroke="#24160e" stroke-width="3"/>
+            </svg>
+            <span class="ware__name">Red tarboosh</span>
+            <span class="ware__tag" style="--r:#6b5640">Common</span>
+            <button class="buy"><span class="coin"></span>60</button>
+          </div>
+          <div class="ware" style="--r: #2e8fa3">
+            <svg width="64" height="56" viewBox="0 0 64 56" aria-hidden="true">
+              <rect x="22" y="6" width="20" height="10" rx="2" fill="#e8a93a" stroke="#24160e" stroke-width="3"/>
+              <path d="M16 16 H48 L44 48 H20 Z" fill="#2e8fa3" stroke="#24160e" stroke-width="3.5"/>
+              <circle cx="32" cy="32" r="8" fill="#ffd36b" stroke="#24160e" stroke-width="3"/>
+            </svg>
+            <span class="ware__name">Brass signal lamp</span>
+            <span class="ware__note">34 more gold</span>
+            <span class="ware__tag" style="--r:#2e8fa3">Rare</span>
+            <button class="buy" disabled><span class="coin"></span>180</button>
+          </div>
+          <div class="ware is-owned" style="--r: #8a4fa3">
+            <svg width="64" height="56" viewBox="0 0 64 56" aria-hidden="true">
+              <path d="M14 10 H50 L54 50 H10 Z" fill="#8a4fa3" stroke="#24160e" stroke-width="3.5"/>
+              <path d="M14 22 H50 M12 36 H52" stroke="#ffd36b" stroke-width="3"/>
+            </svg>
+            <span class="ware__name">Violet cloak dye</span>
+            <span class="ware__tag" style="--r:#8a4fa3">Look</span>
+            <button class="buy" disabled>Yours ✓</button>
+          </div>
+        </div>
+        <p class="restock">New wares at dawn tomorrow</p>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>
