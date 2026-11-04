@@ -30,11 +30,18 @@ export interface ReadQuestion {
   shown: string;
   /** The marks shown, so each one's review counts this answer. */
   marks: readonly Mark[];
-  /** The right choice: the word in Hebrew letters, with niqqud when the word has marks. */
+  /** The right choice: the word in Hebrew letters (niqqud when it has marks), or in Latin. */
   answer: string;
-  /** Choices in Hebrew letters. */
+  /** The choices' script: Hebrew letters first; Latin once the word's letters are well known. */
+  script: 'he' | 'latin';
   choices: string[];
 }
+
+/** A word's choices turn Latin once all its letters were taught this many lessons ago. */
+export const LATIN_AFTER = 2;
+
+/** The deck's romanisation without its notes ("nās [pl.]" → "nās"). */
+export const latinOf = (w: Word) => w.sound.replace(/\s*\[.*?\]\s*/g, '').trim();
 
 /** From this lesson on, every other Read word is shown bare: real signs and messages are. */
 export const FADE_FROM = 4;
@@ -109,9 +116,24 @@ export function readQuestions(
   const chosen = pick(withFresh, readable, count, rand);
   const spell = (w: Word, bare: boolean) =>
     bare ? w.hebrew : (inHebrewVowelled(withMarks(w.arabic, marks)) ?? w.hebrew);
-  return chosen.map((word, i) => {
+  const latinPool = [...new Set(readable.map(latinOf))].filter((l) => l && !/\s/.test(l));
+  return chosen.map((word, i): ReadQuestion => {
     const bare = lesson >= FADE_FROM && i % 2 === 1;
     const shown = withMarks(word.arabic, bare ? [] : marks);
+    const latin = latinOf(word);
+    if (latin && word.letters.every((l) => l.lesson <= lesson - LATIN_AFTER)) {
+      const pool = latinPool.filter((l) => l !== latin);
+      const close = pool.filter((l) => Math.abs(l.length - latin.length) <= 2);
+      return {
+        kind: 'read',
+        word,
+        shown,
+        marks: bare ? [] : marksIn(shown),
+        answer: latin,
+        script: 'latin',
+        choices: shuffle([latin, ...pick(close, pool, CHOICES - 1, rand)], rand),
+      };
+    }
     const answer = spell(word, bare);
     const swaps = bare
       ? []
@@ -132,6 +154,7 @@ export function readQuestions(
       shown,
       marks: bare ? [] : marksIn(shown),
       answer,
+      script: 'he',
       choices: shuffle([answer, ...wrong], rand),
     };
   });

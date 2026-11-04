@@ -1,0 +1,60 @@
+# Survival phrases: the coffee corner (E9, #44, #45)
+
+Written 2026-11-04 during the autonomous run. It still needs Adam's review: these are Claude's picks, made as he asked ("take the answer you think I would've picked").
+
+## What it is
+The Caravanserai's coffee corner teaches **phrases for a first week** of daily life in Israel. It runs alongside the script lessons and is open from day one, because it's taught by ear: you don't need to read Arabic for it.
+
+## The sets
+Five sets of 10 phrases, each from the Lingualism deck with its native recording. `content/arabic/phrases.json` holds only the deck ids and our own titles. The phrases stay private (ADR 0011).
+
+| Set | Title | From the deck's sections |
+|---|---|---|
+| 1 | At the door | greetings: hello, good morning, how are you, fine, welcome, bye, good night |
+| 2 | Please and thanks | yes, no, please, thank you, you're welcome, here you are, sorry, excuse me, يعطيك العافية and its answer |
+| 3 | Counting | one to ten |
+| 4 | Questions | what, who, where, how, why, how much, "what's this?", "what do you want?", "where do you live?", "how old are you?" |
+| 5 | At the shop | "how much is it?" (two ways), expensive, cheap, shekel, change, "do you want a bag?", the bill, "can you break this note?" |
+
+Religious set phrases (prayers, hajj, condolences) and the long congratulations are left for later sets: they matter, but not in week one.
+
+## A session
+1. **Meet** each phrase once:
+   - the recording plays;
+   - the Arabic, the **Hebrew bridge**, the deck's Latin and the meaning;
+   - **Record yourself** and play yourself and the speaker side by side.
+2. **Understand** by ear: the phrase plays, and you pick its meaning from 4. Due phrases from earlier sets (FSRS) are mixed in, up to 5.
+3. **Say it:** see the meaning, say it (recording optional), compare, and judge it yourself: "Close enough" or "Not yet".
+4. **Pass:** understand 90% of the set's phrases to move on to the next set.
+
+## The Hebrew bridge for phrases
+It's written from the deck's **Latin**, not its Arabic script (`phrases/hebrew.ts`). The Latin has every vowel the Gaza speaker says, while the Arabic leaves most short vowels out. So the Hebrew reads the way the recording sounds:
+- kēf ɧālak? → כֵּיף חַאלַךּ?
+- gaddēš ɧággu? → גַדֵּיש חַגּוּ?
+
+The rules:
+- Each consonant uses the letter's bridge (ع ע, ح ח, خ ח׳, the Gaza ق as ג).
+- Vowels are niqqud, and long vowels are written with a letter.
+- A doubled consonant takes a dagesh.
+- A final vowel is written with a letter (מַרחַבַּא), the way Israeli Arabic transliteration does it.
+
+## Speaking, honestly (ADR 0013, ADR 0014)
+- **The comparison:** record-and-compare runs in the browser only. The recording stays in the tab and is never uploaded, and the microphone is released when you stop.
+- **No score:** there's no automatic pronunciation score. The free speech models can't judge sounds (spike #1), so you judge yourself, and that judgement only sets the review's grade:
+  - understood and said → good;
+  - understood but not said → hard;
+  - missed → again.
+- **The next step needs Adam's decision:** an opt-in "did it understand you?" check (Groq Whisper) would send his audio to Groq. It's still an open question for Adam in STATUS.
+
+## Saved
+- **State:** `phraseSet` (the set you're on) and `phrasesMet`.
+- **Reviews:** an FSRS review per phrase, keyed by its deck id (`pcav:4757`).
+- **Ratings:** a **listen** rating per phrase.
+- **XP:** 1 per phrase understood, 1 per phrase said, and 20 for passing a set.
+- **Practice minutes.**
+
+## Picks for Adam to change
+1. **Which phrases:** the five sets above.
+2. **The order:** sets in order, each passed at 90% understanding, not twice in a row, since speaking is self-judged.
+3. **Hebrew from the Latin** (the spoken form), not from the Arabic letters.
+4. **Self-judged speaking** until he decides on the Groq check.

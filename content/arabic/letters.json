@@ -67,7 +67,8 @@
         "sound": "θ",
         "family": "teeth",
         "lesson": 2,
-        "note": "Written th, but in city speech you mostly hear t or s."
+        "note": "Written th, but in city speech you mostly hear t or s.",
+        "latin": "ŧ"
       }
     },
     {
@@ -101,7 +102,8 @@
         "sound": "ħ",
         "family": "cup",
         "lesson": 5,
-        "note": "The deep ח from the throat, which most Israeli Hebrew has lost. Not ه."
+        "note": "The deep ח from the throat, which most Israeli Hebrew has lost. Not ه.",
+        "latin": "ɧ"
       }
     },
     {
@@ -118,7 +120,8 @@
         "sound": "x",
         "family": "cup",
         "lesson": 5,
-        "note": "The ח / כ most Israelis say: kh."
+        "note": "The ח / כ most Israelis say: kh.",
+        "latin": "x"
       }
     },
     {
@@ -151,7 +154,8 @@
         "sound": "ð",
         "family": "non-joining",
         "lesson": 3,
-        "note": "Written dh, but in city speech you mostly hear d or z."
+        "note": "Written dh, but in city speech you mostly hear d or z.",
+        "latin": "đ"
       }
     },
     {
@@ -217,7 +221,8 @@
         "sound": "ʃ",
         "family": "saw",
         "lesson": 4,
-        "note": "Always sh, never s the way שׂ can be."
+        "note": "Always sh, never s the way שׂ can be.",
+        "latin": "š"
       }
     },
     {
@@ -234,7 +239,8 @@
         "sound": "sˤ",
         "family": "heavy",
         "lesson": 7,
-        "note": "A heavy s, not ts like צ. Its light twin is س."
+        "note": "A heavy s, not ts like צ. Its light twin is س.",
+        "latin": "ʂ"
       }
     },
     {
@@ -251,7 +257,8 @@
         "sound": "dˤ",
         "family": "heavy",
         "lesson": 7,
-        "note": "A heavy d. Its light twin is د."
+        "note": "A heavy d. Its light twin is د.",
+        "latin": "ɖ"
       }
     },
     {
@@ -268,7 +275,8 @@
         "sound": "tˤ",
         "family": "heavy",
         "lesson": 7,
-        "note": "A heavy t. Its light twin is ت."
+        "note": "A heavy t. Its light twin is ت.",
+        "latin": "ʈ"
       }
     },
     {
@@ -285,7 +293,8 @@
         "sound": "ðˤ / zˤ",
         "family": "heavy",
         "lesson": 7,
-        "note": "A heavy dh, mostly said as a heavy z. Its light twin is ذ."
+        "note": "A heavy dh, mostly said as a heavy z. Its light twin is ذ.",
+        "latin": "ʐ"
       }
     },
     {
@@ -302,7 +311,8 @@
         "sound": "ʕ",
         "family": "ain",
         "lesson": 6,
-        "note": "A real consonant from the throat, not silent like ע in most Israeli Hebrew."
+        "note": "A real consonant from the throat, not silent like ע in most Israeli Hebrew.",
+        "latin": "3"
       }
     },
     {
@@ -319,7 +329,8 @@
         "sound": "ɣ",
         "family": "ain",
         "lesson": 6,
-        "note": "A gargled g, like a French r. Israeli sources write it ע׳ or ר׳; we use ע׳."
+        "note": "A gargled g, like a French r. Israeli sources write it ע׳ or ר׳; we use ע׳.",
+        "latin": "ɣ"
       }
     },
     {
@@ -353,7 +364,8 @@
         "sound": "q",
         "family": "feh",
         "lesson": 6,
-        "note": "Said three ways: a glottal stop in towns, k in villages, g in Gaza. Listen to who is talking."
+        "note": "Said three ways: a glottal stop in towns, k in villages, g in Gaza. Listen to who is talking.",
+        "latin": "g"
       }
     },
     {
@@ -501,7 +513,8 @@
         "sound": "ʔ",
         "family": "extras",
         "lesson": 8,
-        "note": "A glottal stop, the catch in \"uh-oh\". It sits alone or on a seat: أ إ ؤ ئ."
+        "note": "A glottal stop, the catch in \"uh-oh\". It sits alone or on a seat: أ إ ؤ ئ.",
+        "latin": "ʔ"
       }
     },
     {
