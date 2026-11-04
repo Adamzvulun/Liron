@@ -174,7 +174,8 @@ describe('a session’s questions', () => {
   });
 
   it('writes the marks into the choices as niqqud, with a vowel-swapped twin', () => {
-    const qs = readQuestions(words, 3, seeded(4));
+    // These test words have no Latin, so the 'latin' mode keeps every choice in Hebrew letters.
+    const qs = readQuestions(words, 3, seeded(4), undefined, 'latin');
     const girl = qs.find((q) => q.word.arabic === 'بِنْت');
     if (girl) {
       expect(girl.answer).toBe('בִּנְת'.normalize('NFC'));
@@ -189,7 +190,7 @@ describe('a session’s questions', () => {
   });
 
   it('shows every other word bare from lesson 4, as real signs are', () => {
-    const qs = readQuestions(words, 4, seeded(5));
+    const qs = readQuestions(words, 4, seeded(5), undefined, 'latin');
     qs.forEach((q, i) => {
       if (i % 2 === 1) {
         expect(q.shown).not.toMatch(/[\u064b-\u0652]/);
@@ -199,7 +200,7 @@ describe('a session’s questions', () => {
     });
   });
 
-  it('turns the choices Latin once a word’s letters were taught two lessons ago', () => {
+  it('asks for the recording once a word’s letters were taught two lessons ago, or Latin if chosen', () => {
     const said = (id: string, arabic: string, sound: string): Item => ({
       ...vocab(id, arabic),
       data: { arabic, pronunciation: sound, english: '' },
@@ -214,7 +215,18 @@ describe('a session’s questions', () => {
     ]);
     const early = readQuestions(ws, 2, seeded(1));
     expect(early.every((q) => q.script === 'he')).toBe(true);
-    const later = readQuestions(ws, 3, seeded(1));
+    const heard = readQuestions(ws, 3, seeded(1));
+    const sound = heard.filter((q) => q.script === 'sound');
+    expect(sound.length).toBeGreaterThan(0);
+    for (const q of sound) {
+      expect(q.word.letters.every((l) => l.lesson <= 1)).toBe(true);
+      expect(q.answer).toBe(q.word.audio);
+      expect(q.choices).toContain(q.answer);
+      expect(new Set(q.choices).size).toBe(q.choices.length);
+      expect(q.choices.length).toBeGreaterThanOrEqual(2);
+    }
+    expect(heard.some((q) => q.script === 'latin')).toBe(false);
+    const later = readQuestions(ws, 3, seeded(1), undefined, 'latin');
     const latin = later.filter((q) => q.script === 'latin');
     expect(latin.length).toBeGreaterThan(0);
     for (const q of latin) {

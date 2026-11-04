@@ -40,7 +40,7 @@
   - **Minimal pairs for the sounds Hebrew lacks:** ع against ا, ح against ه, ق against ك, ص against س, ض against د, ط against ت, ظ against ذ. They come up more until they're right (issue #38).
     - The deck has few exact word pairs (13; none for ح/ه, ط/ت, ظ/ذ; the deck has 13 exact word pairs across these contrasts), so the twin is in the *options*, not in a second word. Exact pairs, where they exist, make a bonus round.
 - **Read** (concept card 3): see a word made only of letters you know, pick how it sounds.
-  - The options are in Hebrew letters with niqqud. That scaffolding fades: later the options become Latin, then disappear (type or say it).
+  - The options are in Hebrew letters with niqqud. That scaffolding fades: later the options are recordings (or Latin, if you choose), then disappear (type or say it).
   - After answering, you hear it and see its meaning.
 - **Write** (#41, after Read): trace the letter with a finger or mouse, then draw it free, checked roughly against the stroke shape. No handwriting AI.
 
@@ -78,7 +78,7 @@
 
 ## 7. My picks, for you to change
 1. **Shape-family order** as in the table above.
-2. **Read options in Hebrew letters first,** fading to Latin, then none.
+2. **Read options in Hebrew letters first,** fading to recordings, then none.
 3. **No audio for letter names.**
 4. **The 90%-twice gate,** the second pass on a later day (changed 2026-11-04, see Gate above).
 5. **Writing comes after reading** in each lesson, not before.
@@ -121,8 +121,10 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
     - It passes if you covered enough of the letter (75% tracing, 55% from memory) and kept your ink near it (at most 25% or 40% outside, with a margin for a shaky hand).
     - There's no stroke order. That's honest about what a rough check can tell, and it keeps us free of handwriting AI.
   - **Saved:** a **write** rating per letter (a pass from memory counts more than a traced one), 2 XP per good shape, and practice minutes. Like the fountain and the storyteller, it's practice: it never passes a lesson.
-- **Hebrew choices fade to Latin** (`LATIN_AFTER` in `lesson/questions.ts`):
-  - **When:** once every letter of a word was taught at least 2 lessons ago, its Read choices are the deck's own romanisation (bint, tīn, bēt).
+- **Hebrew choices fade to recordings** (`LATIN_AFTER` in `lesson/questions.ts`; changed 2026-11-04, review decision 4):
+  - **When:** once every letter of a word was taught at least 2 lessons ago, its Read question asks **"Which recording says it?"**. Four play buttons hold the word's recording and three other readable words of about the same length. You play them, then press "This one". After a wrong pick, the right recording plays, and the buttons keep playing after you answer.
+  - **Why:** Latin was a third script for a Hebrew reader. Picking the sound itself tests reading without it and trains the ear on the deck's speaker.
+  - **Latin is still there:** a checkbox on the scribe's table (from lesson 3) and the storyteller's start card, "Words you know well: show Latin letters instead of recordings". It's saved with your progress (`knownChoices`) and used by the Painted Sign too. Latin choices are the deck's own romanisation (bint, tīn, bēt).
   - **The key:** each Latin question shows a key for the deck's special letters in its choices, e.g. 3 = ع, ɧ = ح, ʂ = ص, and g = ق, the Gaza speaker's ق. Those letters carry a `latin` field in `letters.json`.
   - So new letters are read with the Hebrew bridge, and old ones without it.
 - **Not built yet (ordered, not dropped):** the last fade, to no choices at all: typing or saying the word. That needs the speech decision (#45, ADR 0014), so it comes with E9.
