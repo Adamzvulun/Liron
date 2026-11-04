@@ -141,17 +141,52 @@ export async function fakeSupabase(
     if (rpc === 'record_progress') {
       const args = route.request().postDataJSON() as { p_xp: number; p_minutes: number };
       subjectCalls.push({ rpc, args });
+      return route.fulfill({ json: award(args.p_xp, args.p_minutes) });
+    }
+    // One save per session (ADR 0031): applied the way the database applies it, and recorded
+    // as the calls it stands for, so specs can check each part.
+    if (rpc === 'save_session') {
+      const a = route.request().postDataJSON() as SaveSessionArgs;
+      const p_subject = a.p_subject;
+      if (a.p_state) {
+        saved.set(p_subject, a.p_state);
+        subjectCalls.push({ rpc: 'save_subject_state', args: { p_subject, p_state: a.p_state } });
+      }
+      for (const r of a.p_reviews ?? [])
+        subjectCalls.push({
+          rpc: 'record_review',
+          args: {
+            p_subject,
+            p_item: r.item,
+            p_rating: r.rating,
+            p_reviewed_at: r.reviewed_at,
+            p_due: r.due,
+            p_state: r.state,
+            p_card: r.card,
+            p_log: r.log,
+          },
+        });
+      for (const r of a.p_results ?? [])
+        subjectCalls.push({
+          rpc: 'record_result',
+          args: {
+            p_subject,
+            p_skill: r.skill,
+            p_item: r.item,
+            p_score: r.score,
+            p_rated_at: r.rated_at,
+            p_learner: r.learner,
+            p_item_rating: r.item_rating,
+          },
+        });
+      const paid = a.p_xp > 0 || a.p_minutes > 0;
+      if (paid)
+        subjectCalls.push({
+          rpc: 'record_progress',
+          args: { p_xp: a.p_xp, p_minutes: a.p_minutes },
+        });
       return route.fulfill({
-        json: {
-          ...WALLET,
-          xp: WALLET.xp + args.p_xp,
-          xp_earned: args.p_xp,
-          gold_earned: 0,
-          gems_earned: 0,
-          level_before: 3,
-          level: 3,
-          today: { ...TODAY, minutes: TODAY.minutes + args.p_minutes },
-        },
+        json: { duplicate: false, award: paid ? award(a.p_xp, a.p_minutes) : null },
       });
     }
     if (url.pathname === '/rest/v1/profiles') {
@@ -309,4 +344,28 @@ export async function signedIn(
 export function emailLinkFragment(type: 'invite' | 'recovery') {
   const s = fakeSession();
   return `#access_token=${s.access_token}&refresh_token=${s.refresh_token}&expires_in=3600&expires_at=${s.expires_at}&token_type=bearer&type=${type}`;
+}
+
+/** What save_session receives (supabaseStore's saveSession). */
+interface SaveSessionArgs {
+  p_subject: string;
+  p_state: object | null;
+  p_reviews: Record<string, unknown>[] | null;
+  p_results: Record<string, unknown>[] | null;
+  p_xp: number;
+  p_minutes: number;
+}
+
+/** record_progress's answer: the fake wallet plus what was paid (no gold or gems, no level). */
+function award(xp: number, minutes: number) {
+  return {
+    ...WALLET,
+    xp: WALLET.xp + xp,
+    xp_earned: xp,
+    gold_earned: 0,
+    gems_earned: 0,
+    level_before: 3,
+    level: 3,
+    today: { ...TODAY, minutes: TODAY.minutes + minutes },
+  };
 }

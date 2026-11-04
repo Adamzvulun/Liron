@@ -54,6 +54,30 @@ const toDayResult = (r: TodayRow): DayResult => ({
   chestGems: r.chest_gems ?? 0,
 });
 
+interface AwardRow {
+  xp: number;
+  gold: number;
+  gems: number;
+  xp_earned: number;
+  gold_earned: number;
+  gems_earned: number;
+  level_before: number;
+  level: number;
+  today: TodayRow;
+}
+
+const toAward = (r: AwardRow): Award => ({
+  xp: Number(r.xp),
+  gold: r.gold,
+  gems: r.gems,
+  xpEarned: r.xp_earned,
+  goldEarned: r.gold_earned,
+  gemsEarned: r.gems_earned,
+  levelBefore: r.level_before,
+  level: r.level,
+  today: toDayResult(r.today),
+});
+
 /**
  * Progress kept in Supabase. Writes go through the database functions (ADR 0019, 0020, 0021),
  * which update the subject, today, the wallet and the streak in one transaction. Reads rely on
@@ -76,33 +100,44 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
   };
   return {
     async record(subjectId, xp, minutes) {
-      const r = await call<{
-        xp: number;
-        gold: number;
-        gems: number;
-        xp_earned: number;
-        gold_earned: number;
-        gems_earned: number;
-        level_before: number;
-        level: number;
-        today: TodayRow;
-      }>(
-        'record_progress',
-        { p_subject: subjectId, p_xp: xp, p_minutes: minutes },
-        `save ${subjectId} progress`,
+      return toAward(
+        await call<AwardRow>(
+          'record_progress',
+          { p_subject: subjectId, p_xp: xp, p_minutes: minutes },
+          `save ${subjectId} progress`,
+        ),
       );
-      const award: Award = {
-        xp: Number(r.xp),
-        gold: r.gold,
-        gems: r.gems,
-        xpEarned: r.xp_earned,
-        goldEarned: r.gold_earned,
-        gemsEarned: r.gems_earned,
-        levelBefore: r.level_before,
-        level: r.level,
-        today: toDayResult(r.today),
-      };
-      return award;
+    },
+    async saveSession(subjectId, session) {
+      const r = await call<{ duplicate: boolean; award: AwardRow | null }>(
+        'save_session',
+        {
+          p_subject: subjectId,
+          p_session: session.sessionId,
+          p_state: session.state,
+          p_reviews: session.reviews.map(({ itemId, review, reviewedAt }) => ({
+            item: itemId,
+            rating: review.rating,
+            reviewed_at: reviewedAt.toISOString(),
+            due: review.due.toISOString(),
+            state: review.state,
+            card: review.card,
+            log: review.log,
+          })),
+          p_results: session.results.map(({ skill, itemId, score, learner, item }) => ({
+            skill,
+            item: itemId,
+            score,
+            rated_at: learner.ratedAt.toISOString(),
+            learner: ratingArg(learner),
+            item_rating: ratingArg(item),
+          })),
+          p_xp: session.xp,
+          p_minutes: session.minutes,
+        },
+        `save the ${subjectId} session`,
+      );
+      return { duplicate: r.duplicate, award: r.award ? toAward(r.award) : null };
     },
     async wallet() {
       const { data, error } = await client

@@ -40,11 +40,15 @@ export async function reportDrill(
   seconds: number,
   at = new Date(),
 ): Promise<void> {
-  await api.saveState(next);
-  for (const [c, t] of score.byChar) {
-    await api.recordResult('send', `char:${c}`, t.right / t.played, { at });
-  }
-  const xp = xpForDrill(score);
-  if (xp > 0) await api.awardXP(xp);
-  await api.recordPractice(seconds / 60);
+  await api.saveSession({
+    state: next,
+    results: [...score.byChar].map(([c, t]) => ({
+      skill: 'send',
+      itemId: `char:${c}`,
+      score: t.right / t.played,
+    })),
+    xp: xpForDrill(score),
+    minutes: seconds / 60,
+    at,
+  });
 }

@@ -160,13 +160,17 @@ export async function reportRun(
   seconds: number,
   at = new Date(),
 ): Promise<void> {
-  await api.saveState(next);
-  for (const [c, t] of score.byChar) {
-    const item = `char:${c}`;
-    await api.recordReview(item, gradeFrom(t.right, t.played), at);
-    await api.recordResult('receive', item, t.right / t.played, { at });
-  }
-  const xp = xpFor(score, unlockedNow);
-  if (xp > 0) await api.awardXP(xp);
-  await api.recordPractice(seconds / 60);
+  const chars = [...score.byChar].map(([c, t]) => ({ itemId: `char:${c}`, t }));
+  await api.saveSession({
+    state: next,
+    reviews: chars.map(({ itemId, t }) => ({ itemId, grade: gradeFrom(t.right, t.played) })),
+    results: chars.map(({ itemId, t }) => ({
+      skill: 'receive',
+      itemId,
+      score: t.right / t.played,
+    })),
+    xp: xpFor(score, unlockedNow),
+    minutes: seconds / 60,
+    at,
+  });
 }
