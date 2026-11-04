@@ -7,6 +7,7 @@
 // - Hook for later (E16: noise, fading, interference): `route` gets the keyed tone and returns
 //   the node to send to the speakers. Nothing is built for it yet.
 
+import { newAudioContext } from '../../core/audio.ts';
 import { schedule, type PlayedChar, type Speed } from './timing.ts';
 
 /** Rise and fall of each key-down, in seconds. ~5 ms is the usual choice for click-free CW. */
@@ -49,7 +50,7 @@ export class MorsePlayer {
 
   /** Call from a tap or click. Creates or resumes the audio context. */
   async unlock(): Promise<BaseAudioContext> {
-    const ctx = (this.ctx ??= new AudioContext());
+    const ctx = (this.ctx ??= newAudioContext());
     // A live context starts suspended until a tap. (An offline one, for tests, is left alone.)
     const live = typeof AudioContext !== 'undefined' && ctx instanceof AudioContext;
     if (live && ctx.state === 'suspended') await ctx.resume();

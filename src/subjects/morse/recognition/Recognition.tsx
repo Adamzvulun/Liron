@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
-import { CHAR_WPM, parseProgress, unlockedChars } from '../lesson/progress.ts';
+import { CHAR_WPM, parseProgress, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
+import { applyRound, reportRound, xpForRound } from './report.ts';
 import {
   FUSE_MS,
   pickNext,
@@ -14,9 +15,10 @@ import {
 import '../lesson/lesson.css';
 import './recognition.css';
 
-// Instant Recognition (#32), a working concept for Adam's approval: a character plays, you press
-// it before the lamp goes out. Only characters unlocked in the Koch lessons are used. Rounds
-// aren't saved yet; ratings, personal bests and XP come once the design is approved.
+// Instant Recognition (#32): a character plays, you press it before the lamp goes out. Only
+// characters unlocked in the Koch lessons are used. Each round saves the personal best and each
+// letter's reaction time (slow letters come up more next time), rates each letter in the receive
+// skill, and pays XP (report.ts).
 
 /** `?run=short` makes a round 10 seconds (for tests). */
 const roundSeconds = () =>
@@ -27,30 +29,61 @@ const roundSeconds = () =>
 type Phase = 'ready' | 'playing' | 'done';
 
 export function Recognition({ api }: { api: SubjectApi }) {
-  const [chars, setChars] = useState<string[] | null>(null);
+  const [progress, setProgress] = useState<MorseProgress | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
   const [phase, setPhase] = useState<Phase>('ready');
   const [summary, setSummary] = useState<RoundSummary | null>(null);
-  const [best, setBest] = useState(0);
+  const [bestBefore, setBestBefore] = useState(0);
   const [seconds] = useState(roundSeconds);
-  const finish = useCallback((attempts: Attempt[]) => {
-    const s = summarize(attempts);
-    setSummary(s);
-    setBest((b) => Math.max(b, s.points));
-    setPhase('done');
-  }, []);
+  /** The latest progress, for the round's end (the round must not restart when it changes). */
+  const latest = useRef<MorseProgress | null>(null);
+
+  const finish = useCallback(
+    (attempts: Attempt[]) => {
+      const before = latest.current;
+      if (!before) return;
+      const s = summarize(attempts);
+      const next = applyRound(before, s);
+      latest.current = next;
+      setBestBefore(before.recognition.best);
+      setProgress(next);
+      setSummary(s);
+      setPhase('done');
+      reportRound(api, next, attempts, s, seconds).then(
+        () => setSaveFailed(false),
+        () => setSaveFailed(true),
+      );
+    },
+    [api, seconds],
+  );
 
   useEffect(() => {
     let live = true;
-    api
-      .loadState()
-      .then((s) => live && setChars(unlockedChars(parseProgress(s))))
-      .catch(() => live && setChars(unlockedChars(parseProgress(null))));
+    api.loadState().then(
+      (s) => {
+        if (!live) return;
+        const p = parseProgress(s);
+        latest.current = p;
+        setProgress(p);
+      },
+      () => live && setFailed(true),
+    );
     return () => {
       live = false;
     };
   }, [api]);
 
-  if (!chars) return <p className="lesson__loading">Lighting the lamps…</p>;
+  if (failed) {
+    return (
+      <p className="lesson__card">
+        The tower’s records couldn’t be read. Check your connection and reload the page.
+      </p>
+    );
+  }
+  if (!progress) return <p className="lesson__loading">Lighting the lamps…</p>;
+  const chars = unlockedChars(progress);
+  const best = progress.recognition.best;
 
   return (
     <section className="lesson ir" aria-label="Instant Recognition">
@@ -65,14 +98,33 @@ export function Recognition({ api }: { api: SubjectApi }) {
             points you score. The round lasts {seconds} seconds.
           </p>
           <p className="lesson__note">Your letters: {chars.join(' ')}</p>
+          {best > 0 && <p className="lesson__keys">Your best: {best} points</p>}
           <button type="button" className="lesson__go" onClick={() => setPhase('playing')}>
             Start round
           </button>
         </div>
       )}
-      {phase === 'playing' && <Round chars={chars} seconds={seconds} onDone={finish} />}
+      {saveFailed && (
+        <p className="lesson__warning" role="alert">
+          Your last round couldn’t be saved. Your next round will try again.
+        </p>
+      )}
+      {phase === 'playing' && (
+        <Round
+          chars={chars}
+          seconds={seconds}
+          startAvg={progress.recognition.avgMs}
+          onDone={finish}
+        />
+      )}
       {phase === 'done' && summary && (
-        <Summary summary={summary} best={best} onAgain={() => setPhase('playing')} />
+        <Summary
+          summary={summary}
+          best={best}
+          isBest={summary.points > bestBefore}
+          xp={xpForRound(summary)}
+          onAgain={() => setPhase('playing')}
+        />
       )}
     </section>
   );
@@ -90,10 +142,13 @@ interface Current {
 function Round({
   chars,
   seconds,
+  startAvg,
   onDone,
 }: {
   chars: string[];
   seconds: number;
+  /** Each letter's saved reaction time, so slow letters come up more from the start. */
+  startAvg: Readonly<Record<string, number>>;
   onDone: (attempts: Attempt[]) => void;
 }) {
   const [current, setCurrent] = useState<Current | null>(null);
@@ -109,7 +164,7 @@ function Round({
   useEffect(() => {
     const player = new MorsePlayer();
     const attempts: Attempt[] = [];
-    const avg = new Map<string, number>();
+    const avg = new Map<string, number>(Object.entries(startAvg));
     const recent: string[] = [];
     const startedAt = performance.now();
     let now: Current | null = null;
@@ -187,7 +242,9 @@ function Round({
       window.removeEventListener('keydown', onKey);
       player.stop();
     };
-  }, [chars, seconds, onDone]);
+    // The round runs once per mount; its inputs don't change while it plays.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="ir__round">
@@ -236,16 +293,19 @@ function Round({
 function Summary({
   summary,
   best,
+  isBest,
+  xp,
   onAgain,
 }: {
   summary: RoundSummary;
   best: number;
+  isBest: boolean;
+  xp: number;
   onAgain: () => void;
 }) {
   const slowest = [...summary.byChar.entries()].sort(
     (a, b) => (b[1].right ? b[1].avgMs : 1e9) - (a[1].right ? a[1].avgMs : 1e9),
   );
-  const isBest = summary.points > 0 && summary.points >= best;
   return (
     <div className="lesson__result">
       <div className="lesson__card lesson__score">
@@ -256,7 +316,9 @@ function Summary({
           {summary.right} of {summary.answered} right
           {summary.avgMs > 0 && <> · {summary.avgMs} ms on average</>}
         </p>
-        <p className="lesson__keys">Best this visit: {best}</p>
+        <p className="lesson__keys">
+          Your best: {best} · +{xp} XP
+        </p>
         <button type="button" className="lesson__go" onClick={onAgain}>
           Play again
         </button>

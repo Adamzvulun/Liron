@@ -1,0 +1,496 @@
+/* The Signal Tower hall (#33): a painted room (paintTower.ts) with the writing on its walls and
+   a station per activity. When the room is too small to read (an upright phone), the writing
+   and the doors follow below it as cards (.hall__*). */
+
+.tower {
+  position: relative;
+  background: #1c1426;
+}
+
+.tower__view {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.tower__stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+.tower__layer,
+.tower__part {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible; /* the ceiling reaches above the stage */
+  pointer-events: none;
+}
+
+.tower__lamp-char {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 32px;
+}
+
+.tower__flicker {
+  animation: lamp-flicker 2.4s ease-in-out infinite;
+}
+
+.tower__gate-glow {
+  animation: lamp-flicker 3.2s ease-in-out infinite;
+}
+
+@keyframes lamp-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tower__flicker,
+  .tower__gate-glow {
+    animation: none;
+  }
+}
+
+/* The writing on the walls, in stage pixels (scaled with the room). */
+.tower__scroll {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 34px 40px 30px;
+  overflow: hidden;
+  color: var(--ink);
+}
+
+.tower__kicker {
+  margin: 0 0 6px;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a3a2e;
+}
+
+.tower__chapter {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 1.15;
+  color: var(--wood);
+}
+
+.tower__beat {
+  margin: 0 0 14px;
+  padding: 0 0 0 16px;
+  border-left: 5px solid var(--brass);
+  font-size: 23px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.tower__trial {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.tower__trial strong {
+  color: #8a3a2e;
+}
+
+.tower__banner {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 104px 18px 0;
+  text-align: center;
+  color: var(--vellum);
+  text-shadow: 0 2px 0 rgba(20, 10, 20, 0.6);
+}
+
+.tower__guild {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lamplight);
+}
+
+.tower__rank {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 34px;
+}
+
+.tower__next {
+  margin: 2px 0 8px;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.tower__stats {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  font-size: 18px;
+}
+
+.tower__stats div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tower__stats dt {
+  font-weight: 800;
+}
+
+.tower__stats dd {
+  margin: 0;
+  font-weight: 800;
+}
+
+.tower__stats small {
+  font-weight: 600;
+  font-size: 0.8em;
+}
+
+/* Stations: the painted thing and its plaque are one button, placed at the painting's box.
+   Only the painting and the plaque take clicks, not the empty corners of the box. */
+.tower__station,
+.tower__gate {
+  all: unset;
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.tower__station .tower__part * {
+  pointer-events: visiblePainted;
+}
+
+.tower__plaque {
+  pointer-events: auto;
+}
+
+.tower__gate {
+  pointer-events: auto;
+}
+
+.tower__station .tower__part {
+  transition: filter 0.15s;
+}
+
+button.tower__station,
+.tower__gate {
+  cursor: pointer;
+}
+
+button.tower__station:hover .tower__part,
+button.tower__station:focus-visible .tower__part {
+  filter: drop-shadow(0 0 18px rgba(255, 211, 107, 0.85));
+}
+
+.tower__plaque {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  gap: 2px;
+  width: max-content;
+  max-width: 320px;
+  padding: 8px 18px 9px;
+  transform: translateX(-50%);
+  text-align: center;
+  background: linear-gradient(#8a5a33, #5a341a 55%, #43240f);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 214, 150, 0.55),
+    0 5px 0 var(--ink),
+    0 10px 16px rgba(30, 12, 4, 0.45);
+  color: #fbebc8;
+  transition: transform 0.15s;
+}
+
+.tower__plaque-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 0 var(--ink);
+}
+
+.tower__plaque-text {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+button.tower__station:hover .tower__plaque,
+.tower__gate:hover .tower__plaque {
+  transform: translateX(-50%) translateY(-4px);
+}
+
+button.tower__station:focus-visible .tower__plaque,
+.tower__gate:focus-visible .tower__plaque {
+  outline: 4px solid var(--lamplight);
+  outline-offset: 4px;
+}
+
+.tower__station.is-locked .tower__plaque {
+  background: linear-gradient(#5a4a44, #3a2e30);
+  color: #d9c49a;
+}
+
+.tower__plaque--trial {
+  background: linear-gradient(#ffe7a0, var(--ember));
+  color: var(--ink);
+  box-shadow:
+    0 5px 0 var(--ink),
+    0 0 30px 6px rgba(255, 211, 107, 0.6);
+}
+
+.tower__plaque--trial .tower__plaque-title {
+  color: var(--wood);
+  text-shadow: none;
+}
+
+/* An upright phone: the room pans sideways, and the writing follows below it. */
+@media (max-width: 899px) and (orientation: portrait) {
+  .tower__view {
+    height: 62svh;
+  }
+}
+
+.tower--pan .tower__view {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.tower--pan .tower__view::-webkit-scrollbar {
+  display: none;
+}
+
+.tower--pan .tower__sizer {
+  pointer-events: none;
+}
+
+.tower__below {
+  display: grid;
+  gap: 12px;
+  padding: 16px 16px 40px;
+}
+
+.tower__below .tower__stats {
+  margin-top: 12px;
+}
+
+.hall__card {
+  padding: 16px 18px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--parchment), #e8d2a4);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.hall__kicker {
+  display: block;
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b5640;
+}
+
+.hall__rank {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 34px;
+  color: var(--guild-morse);
+}
+
+.hall__next {
+  margin: 2px 0 8px;
+  font-size: 16px;
+}
+
+.hall__meter {
+  display: block;
+  height: 12px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #d9bf8a;
+}
+
+.hall__meter span {
+  display: block;
+  height: 100%;
+  background: var(--guild-morse);
+}
+
+.hall__stats {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 0;
+}
+
+.hall__stats div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 2px dashed rgba(107, 63, 32, 0.3);
+}
+
+.hall__stats dt {
+  font-weight: 800;
+}
+
+.hall__stats dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  text-align: right;
+}
+
+.hall__stats small {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 13px;
+  color: #6b5640;
+}
+
+/* The questline: dark tower stone instead of parchment, so the lamps can glow. */
+.hall__quest {
+  background: linear-gradient(180deg, #2a2438, #3b2f2a);
+  color: var(--parchment);
+}
+
+.hall__quest .hall__kicker {
+  color: var(--lamplight);
+}
+
+.hall__quest .tower__kicker {
+  color: var(--lamplight);
+}
+
+.hall__quest .tower__chapter {
+  font-size: 26px;
+  color: var(--parchment);
+}
+
+.hall__quest .tower__beat {
+  font-size: 17px;
+}
+
+.hall__quest .tower__trial {
+  font-size: 15px;
+  color: #e8d9b8;
+}
+
+.hall__quest .tower__trial strong {
+  color: var(--lamplight);
+}
+
+.hall__doors {
+  display: grid;
+  gap: 12px;
+}
+
+.hall__door {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+button.hall__door:hover {
+  transform: translateY(-2px);
+}
+
+button.hall__door:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+.hall__door.is-main {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+}
+
+.hall__door.is-trial {
+  background: linear-gradient(180deg, #ffe7a0, var(--ember));
+  box-shadow:
+    0 5px 0 var(--ink),
+    0 0 24px 4px rgba(255, 211, 107, 0.45);
+}
+
+.hall__door-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--wood);
+}
+
+.hall__door-text {
+  font-size: 15px;
+}
+
+.hall__door-go {
+  margin-top: 4px;
+  font-weight: 800;
+}
+
+.hall__door.is-locked {
+  cursor: default;
+  border-style: dashed;
+  border-color: rgba(243, 226, 188, 0.45);
+  background: rgba(20, 16, 28, 0.45);
+  box-shadow: none;
+  color: var(--parchment);
+}
+
+.hall__door.is-locked .hall__kicker {
+  color: var(--stone);
+}
+
+.hall__door.is-locked .hall__door-title {
+  color: #d9c49a;
+}
+
+/* A sub-screen's way back to the hall. */
+.hall__back {
+  min-height: 44px;
+  margin-bottom: 12px;
+  padding: 6px 14px;
+  border: var(--outline-ui);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  color: var(--vellum);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* Too small to read in the room: the cards below say it instead. */
+.tower.is-compact .tower__plaque {
+  display: none;
+}

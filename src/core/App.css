@@ -170,6 +170,40 @@
   max-width: 1140px;
 }
 
+/* A hall that paints its own room (a child with .place-scene) gets the whole window; the way
+   back floats over the room and the title is left for screen readers. */
+.place-screen:has(> .place-scene) {
+  position: relative;
+  max-width: none;
+  padding: 0;
+  border-top: 0;
+}
+
+.place-screen:has(> .place-scene) > .place-screen__back {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  left: 12px;
+  padding: 4px 16px;
+  border: var(--outline-ui);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  box-shadow: 0 4px 0 var(--ink);
+  color: var(--vellum);
+  text-decoration: none;
+}
+
+.place-screen:has(> .place-scene) > .place-screen__title,
+.place-screen:has(> .place-scene) > .place-screen__tagline {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 .place-screen__back {
   display: inline-flex;
   align-items: center;
