@@ -292,6 +292,7 @@ function Drill({
   const [trial, setTrial] = useState(0);
   const [answer, setAnswer] = useState(() => pickTarget(char, choices));
   const [feedback, setFeedback] = useState<'right' | 'wrong' | null>(null);
+  const [picked, setPicked] = useState<string | null>(null);
 
   useEffect(() => {
     void hear(answer);
@@ -301,9 +302,11 @@ function Drill({
     if (feedback) return;
     const right = c === answer;
     setFeedback(right ? 'right' : 'wrong');
+    setPicked(c);
     window.setTimeout(
       () => {
         setFeedback(null);
+        setPicked(null);
         if (trial + 1 >= MEET_TRIALS) return onDone();
         setTrial((t) => t + 1);
         setAnswer(pickTarget(char, choices));
@@ -323,13 +326,20 @@ function Drill({
           <button
             key={c}
             type="button"
-            className={`lesson__choice${feedback && c === answer ? ` is-${feedback === 'right' ? 'right' : 'answer'}` : ''}`}
+            className={`lesson__choice${feedback && c === answer ? ` is-${feedback === 'right' ? 'right' : 'answer'}` : ''}${feedback === 'wrong' && c === picked ? ' is-wrong' : ''}`}
             onClick={() => choose(c)}
           >
             {c}
           </button>
         ))}
       </div>
+      <p className="lesson__feedback" aria-live="polite">
+        {feedback === 'wrong'
+          ? `Not quite: it was ${answer}.`
+          : feedback === 'right'
+            ? 'Right!'
+            : ''}
+      </p>
       <button type="button" className="lesson__plain" onClick={() => void hear(answer)}>
         Play again
       </button>
