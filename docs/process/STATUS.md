@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
-- **Last updated:** 2026-11-04. E6 and E7 are merged (PR #73). E8 is mostly built: the Arabic letters, lessons, courtyard and "The Long Road In" ch. I are on `dev` (PRs #74–#77). Adam's report: [reports/2026-11-04.md](reports/2026-11-04.md)
+- **Last updated:** 2026-11-04. E6 and E7 are merged (PR #73). E8 and E9's first part are built on `dev` (PRs #74–#82): letters, lessons, courtyard, "The Long Road In" ch. I, vowel marks, the slate, the Latin fade and the coffee corner. Adam's report: [reports/2026-11-04.md](reports/2026-11-04.md)
 - **Phase:** **M1 (Foundations) is done** (2026-11-03; [retro](retros/M1.md)). **Next: M2, first playable**: the first release, v1.0.0 (ADR 0027), comes once it has something to learn. History: M1 started when Adam said go (2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
@@ -41,10 +41,13 @@
      - [#75](https://github.com/Adamzvulun/Liron/pull/75): private content for subjects.
      - [#76](https://github.com/Adamzvulun/Liron/pull/76): Meet/Listen/Read lessons (#41's reading half).
      - [#77](https://github.com/Adamzvulun/Liron/pull/77): the painted courtyard and "The Long Road In" ch. I with the Painted Sign trial (#42, #43).
-   - **Awaiting Adam's approval:** the picks listed in [reports/2026-11-04.md](reports/2026-11-04.md).
-   - **Left in E8:** vowel marks (#40), writing by tracing (#41), fading the Hebrew choices.
-   - **Then:** E9.
-   - E10 (quests and rewards) gets its own sprint after the Arabic sprint (reasoning in morse-lessons.md).
+     - [#79](https://github.com/Adamzvulun/Liron/pull/79): vowel marks (#40).
+     - [#80](https://github.com/Adamzvulun/Liron/pull/80): the slate, tracing and writing from memory (#41).
+     - [#81](https://github.com/Adamzvulun/Liron/pull/81): Read choices fade from Hebrew to Latin.
+     - [#82](https://github.com/Adamzvulun/Liron/pull/82): the coffee corner, survival phrases (#45). #44 (importing the deck) looks done; Adam is asked to confirm.
+   - **Awaiting Adam's approval:** the picks listed in [reports/2026-11-04.md](reports/2026-11-04.md), and the Groq speech check for "Say it" (it shares recordings with Groq).
+   - **Left:** the final fade to no choices (waits for the speech decision); more phrase sets.
+   - E10 (quests and rewards) gets its own sprint after the Arabic sprint (reasoning in morse-lessons.md). A Notice Board concept (contracts, chest, Market) is screenshotted for Adam; nothing is built until he approves the draft.
 
 ## Backlog map
 | Milestone | Epic | Issues |
