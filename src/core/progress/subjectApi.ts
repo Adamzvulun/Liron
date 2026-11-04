@@ -1,8 +1,9 @@
 import { SUBJECT_ID, type ReviewStatus, type SubjectApi, type SubjectInfo } from '../subject.ts';
+import type { StoredRating } from '../rating/ratings.ts';
 import type { Item, Lesson } from '../content/schema.ts';
 import { phaseOf, scheduleReview, type StoredCard } from '../srs/scheduler.ts';
 import { rateResult, toSkillRating } from '../rating/ratings.ts';
-import type { Award, ProgressStore } from './store.ts';
+import type { Award, ProgressStore, SessionWrite } from './store.ts';
 import type { ContentSource } from '../content/privateContent.ts';
 import { ContentPack, Media } from '../content/schema.ts';
 
@@ -17,6 +18,8 @@ const checkItemId = (itemId: string) => {
 };
 
 const MAX_RATED_ITEMS = 500;
+/** Per session; the database enforces the same limits (ADR 0031). */
+const MAX_SESSION_ITEMS = 200;
 
 const statusOf = (card: StoredCard): ReviewStatus => ({
   due: new Date(String(card.due)),
@@ -46,6 +49,16 @@ export function subjectApi<State extends object>(
   for (const skill of skills ?? []) {
     if (!SUBJECT_ID.test(skill)) throw new Error(`Invalid skill id: "${skill}"`);
   }
+  const checkScore = (score: number) => {
+    if (typeof score !== 'number' || !(score >= 0 && score <= 1)) {
+      throw new RangeError(`recordResult: score is 0 to 1, got ${score}`);
+    }
+  };
+  const checkSeed = (itemSeed: number | undefined) => {
+    if (itemSeed !== undefined && !(Number.isFinite(itemSeed) && Math.abs(itemSeed) < 5000)) {
+      throw new RangeError(`recordResult: itemSeed must be a sane rating, got ${itemSeed}`);
+    }
+  };
   const checkSkill = (skill: string) => {
     if (typeof skill !== 'string' || !SUBJECT_ID.test(skill)) {
       throw new RangeError(`Invalid skill id: "${String(skill)}"`);
@@ -70,6 +83,83 @@ export function subjectApi<State extends object>(
       // the save (state, reviews, XP) isn't reported as failed (2026-11-04 QA review, B6).
       const whole = Math.round(Math.min(minutes, MAX_MINUTES));
       if (whole > 0) onAward(await store.record(id, 0, whole));
+    },
+    async saveSession({
+      state,
+      reviews = [],
+      results = [],
+      xp = 0,
+      minutes = 0,
+      at = new Date(),
+      sessionId = crypto.randomUUID(),
+    }) {
+      // Checked up front, so a bad report sends nothing at all.
+      if (
+        state !== undefined &&
+        (state === null || typeof state !== 'object' || Array.isArray(state))
+      ) {
+        throw new TypeError('saveSession: state must be a plain object');
+      }
+      if (reviews.length > MAX_SESSION_ITEMS || results.length > MAX_SESSION_ITEMS) {
+        throw new RangeError(`saveSession: at most ${MAX_SESSION_ITEMS} reviews and results`);
+      }
+      reviews.forEach((r) => checkItemId(r.itemId));
+      for (const r of results) {
+        checkSkill(r.skill);
+        checkItemId(r.itemId);
+        checkScore(r.score);
+        checkSeed(r.itemSeed);
+      }
+      if (!Number.isInteger(xp) || xp < 0 || xp > MAX_XP) {
+        throw new RangeError(`saveSession: xp is a whole number from 0 to ${MAX_XP}, got ${xp}`);
+      }
+      if (!Number.isFinite(minutes) || minutes < 0) {
+        throw new RangeError(`saveSession: expected 0 or more minutes, got ${minutes}`);
+      }
+
+      // One read per kind, then each answer builds on the one before it, in memory.
+      const skillsUsed = [...new Set(results.map((r) => r.skill))];
+      const [cards, learners, ...itemsBySkill] = await Promise.all([
+        reviews.length
+          ? store.reviewCards(id, [...new Set(reviews.map((r) => r.itemId))])
+          : Promise.resolve(new Map<string, StoredCard>()),
+        results.length ? store.skillRatings(id) : Promise.resolve(new Map<string, StoredRating>()),
+        ...skillsUsed.map((skill) =>
+          store.itemRatings(id, skill, [
+            ...new Set(results.filter((r) => r.skill === skill).map((r) => r.itemId)),
+          ]),
+        ),
+      ]);
+      const items = new Map(skillsUsed.map((skill, i) => [skill, itemsBySkill[i] ?? new Map()]));
+
+      const write: SessionWrite = {
+        sessionId,
+        state: state ?? null,
+        reviews: [],
+        results: [],
+        xp,
+        minutes: Math.round(Math.min(minutes, MAX_MINUTES)),
+      };
+      for (const { itemId, grade } of reviews) {
+        const review = scheduleReview(cards.get(itemId) ?? null, grade, at);
+        cards.set(itemId, review.card);
+        write.reviews.push({ itemId, review, reviewedAt: at });
+      }
+      for (const { skill, itemId, score, itemSeed } of results) {
+        const skillItems = items.get(skill) ?? new Map<string, StoredRating>();
+        const rated = rateResult(
+          learners.get(skill) ?? null,
+          skillItems.get(itemId) ?? null,
+          score,
+          at,
+          itemSeed,
+        );
+        learners.set(skill, rated.learner);
+        skillItems.set(itemId, rated.item);
+        write.results.push({ skill, itemId, score, learner: rated.learner, item: rated.item });
+      }
+      const { award } = await store.saveSession(id, write);
+      if (award) onAward(award);
     },
     progressSummary: () => store.summary(id),
     loadState: () => store.loadState(id) as Promise<State | null>,
@@ -100,12 +190,8 @@ export function subjectApi<State extends object>(
     async recordResult(skill, itemId, score, { at = new Date(), itemSeed } = {}) {
       checkSkill(skill);
       checkItemId(itemId);
-      if (typeof score !== 'number' || !(score >= 0 && score <= 1)) {
-        throw new RangeError(`recordResult: score is 0 to 1, got ${score}`);
-      }
-      if (itemSeed !== undefined && !(Number.isFinite(itemSeed) && Math.abs(itemSeed) < 5000)) {
-        throw new RangeError(`recordResult: itemSeed must be a sane rating, got ${itemSeed}`);
-      }
+      checkScore(score);
+      checkSeed(itemSeed);
       const [learners, items] = await Promise.all([
         store.skillRatings(id),
         store.itemRatings(id, skill, [itemId]),

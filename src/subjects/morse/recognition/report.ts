@@ -48,11 +48,15 @@ export async function reportRound(
   seconds: number,
   at = new Date(),
 ): Promise<void> {
-  await api.saveState(next);
-  for (const [c, score] of letterScores(attempts)) {
-    await api.recordResult('receive', `char:${c}`, score, { at });
-  }
-  const xp = xpForRound(summary);
-  if (xp > 0) await api.awardXP(xp);
-  await api.recordPractice(seconds / 60);
+  await api.saveSession({
+    state: next,
+    results: [...letterScores(attempts)].map(([c, score]) => ({
+      skill: 'receive',
+      itemId: `char:${c}`,
+      score,
+    })),
+    xp: xpForRound(summary),
+    minutes: seconds / 60,
+    at,
+  });
 }

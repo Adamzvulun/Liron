@@ -20,9 +20,9 @@
 - `main` is still v0.1.0. Whether to release v1.0.0 is Adam's call; the report asks him.
 
 ## Next (in order)
-1. **The review's last item** (STATUS → Next): "architecture before E10": one all-or-nothing save call per session, and subject knowledge out of `src/core/` (ADR 0019; the city's building map, the quest list, the avatar unlock text).
+1. **The review's last item** (STATUS → Next): subject knowledge out of `src/core/` (ADR 0019; the city's building map, the quest list, the avatar unlock text). The one-save-per-session half is done (ADR 0031): a finished session uses `api.saveSession(report)`, never the single calls in sequence.
 2. **The Groq "understood" check** (approved by Adam): a server-side Vercel function; the key never reaches the browser.
-3. **E10** (approved): ADRs first, from 0031.
+3. **E10** (approved): ADRs first, from 0032. Contract events ride `save_session` (ADR 0031).
 4. **Audio for the missing phrases:** retry lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect, and search the rest of the ajp file names. Never use a file before Adam has seen it.
 5. **No v1.0.0** until Adam says so.
 

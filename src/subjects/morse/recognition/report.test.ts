@@ -40,27 +40,25 @@ describe('saving an Instant Recognition round', () => {
     expect(xpForRound(summarize(Array.from({ length: 25 }, () => at('K', 'K', 400))))).toBe(10);
   });
 
-  it('reports state, one rating per letter, XP, then minutes', async () => {
-    const calls: string[] = [];
-    const log = (name: string) =>
-      vi.fn(async (...args: unknown[]) => {
-        calls.push(`${name} ${args.slice(0, 3).map(String).join(' ')}`);
-        return undefined as never;
-      });
-    const api = {
-      saveState: log('state'),
-      recordResult: log('result'),
-      awardXP: log('xp'),
-      recordPractice: log('minutes'),
-    } as unknown as SubjectApi;
+  it('reports state, one rating per letter, XP and minutes in one save', async () => {
+    const saveSession = vi.fn(async () => undefined);
+    const api = { saveSession } as unknown as SubjectApi;
     const s = summarize(attempts);
-    await reportRound(api, applyRound(NEW_PROGRESS, s), attempts, s, 60);
-    expect(calls).toEqual([
-      'state [object Object]',
-      'result receive char:K 0.75',
-      'result receive char:M 0.375',
-      'xp 1',
-      'minutes 1',
+    const next = applyRound(NEW_PROGRESS, s);
+    await reportRound(api, next, attempts, s, 60);
+    expect(saveSession.mock.calls).toEqual([
+      [
+        {
+          state: next,
+          results: [
+            { skill: 'receive', itemId: 'char:K', score: 0.75 },
+            { skill: 'receive', itemId: 'char:M', score: 0.375 },
+          ],
+          xp: 1,
+          minutes: 1,
+          at: expect.any(Date),
+        },
+      ],
     ]);
   });
 });
