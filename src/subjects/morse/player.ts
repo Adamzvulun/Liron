@@ -123,6 +123,20 @@ export class MorsePlayer {
     this.current?.stop();
   }
 
+  /**
+   * Stops and closes the audio context this player made (browsers allow only a few at once). A
+   * context passed in by the caller is left open. Playing again later makes a new one.
+   */
+  close(): void {
+    this.stop();
+    this.current = undefined;
+    const own = this.ctx && this.ctx !== this.options.context ? this.ctx : undefined;
+    if (own && typeof AudioContext !== 'undefined' && own instanceof AudioContext) {
+      void own.close().catch(() => undefined);
+    }
+    if (own) this.ctx = undefined;
+  }
+
   /** The audio clock, in seconds (0 before the first sound). Playback times use this clock. */
   now(): number {
     return this.ctx?.currentTime ?? 0;

@@ -26,7 +26,7 @@ type Stage =
 
 export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }) {
   const player = useMemo(() => new MorsePlayer(), []);
-  useEffect(() => () => player.stop(), [player]);
+  useEffect(() => () => player.close(), [player]);
   const [progress, setProgress] = useState<MorseProgress | null>(null);
   const [failed, setFailed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
