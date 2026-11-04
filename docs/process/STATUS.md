@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
-- **Last updated:** 2026-11-04 (E6 and E7 in PR #73; the room repainted for depth)
+- **Last updated:** 2026-11-04. E6 and E7 are merged (PR #73). E8 is mostly built: the Arabic letters, lessons, courtyard and "The Long Road In" ch. I are on `dev` (PRs #74–#77). Adam's report: [reports/2026-11-04.md](reports/2026-11-04.md)
 - **Phase:** **M1 (Foundations) is done** (2026-11-03; [retro](retros/M1.md)). **Next: M2, first playable**: the first release, v1.0.0 (ADR 0027), comes once it has something to learn. History: M1 started when Adam said go (2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
@@ -35,7 +35,15 @@
    - **The Morse sprint comes first** (E6 receive, E7 send), then the Arabic sprint (E8, E9).
    - Letter order settled: Koch order, K and M first (Adam: "A", [ADR 0028](../decisions/0028-morse-koch-order-and-gate.md)). How lessons work: [morse-lessons.md](../game/morse-lessons.md).
    - Morse sprint order: #30 audio engine → lesson concept (screenshotted, Adam approves) → #31 → #32 → #33, #34 → E7 (#35–#37).
-   - **Done:** #30 sound engine and the lesson concept ([PR #71](https://github.com/Adamzvulun/Liron/pull/71)); Adam approved the lesson design (2026-11-03, "thats great"). The city's hanging banners were removed at his request ([PR #72](https://github.com/Adamzvulun/Liron/pull/72)). #31 (Koch lessons that save progress) merged in [PR #72](https://github.com/Adamzvulun/Liron/pull/72), with the Instant Recognition concept; Adam approved it (2026-11-03). **In [PR #73](https://github.com/Adamzvulun/Liron/pull/73), awaiting Adam's merge:** #32 (saving rounds), #33 (tower hall) and #34 ("The Silent Beacon" ch. I–II with playable trials), which Adam approved on 2026-11-03. **Built overnight on Adam's instruction, awaiting his review:** the tower's painted room (#33) and E7 sending (#35 straight key and sidetone, #36 decoder, #37 fist analysis). **2026-11-04:** Adam reviewed the preview: "the room needs more depth", the rest looks OK (sending not tried yet). The room is now painted in true perspective, and Morse plays through the iOS silent switch. **Next:** once #73 is merged, the Morse sprint is done and the Arabic sprint (E8, E9) starts, design first.
+   - **Done:** #30 sound engine and the lesson concept ([PR #71](https://github.com/Adamzvulun/Liron/pull/71)); Adam approved the lesson design (2026-11-03, "thats great"). The city's hanging banners were removed at his request ([PR #72](https://github.com/Adamzvulun/Liron/pull/72)). #31 (Koch lessons that save progress) merged in [PR #72](https://github.com/Adamzvulun/Liron/pull/72), with the Instant Recognition concept; Adam approved it (2026-11-03). **In [PR #73](https://github.com/Adamzvulun/Liron/pull/73), awaiting Adam's merge:** #32 (saving rounds), #33 (tower hall) and #34 ("The Silent Beacon" ch. I–II with playable trials), which Adam approved on 2026-11-03. **Built overnight on Adam's instruction, awaiting his review:** the tower's painted room (#33) and E7 sending (#35 straight key and sidetone, #36 decoder, #37 fist analysis). **2026-11-04:** Adam reviewed the preview: "the room needs more depth", the rest looks OK (sending not tried yet). The room is now painted in true perspective, and Morse plays through the iOS silent switch. **#73 merged by Adam (2026-11-04): the Morse sprint is done.**
+   - **Arabic sprint (E8), 2026-11-04.** Adam told Claude to keep working, one branch per feature, and to merge into `dev` when green. Merged into `dev` so far:
+     - [#74](https://github.com/Adamzvulun/Liron/pull/74): design and letter data (#38, #39).
+     - [#75](https://github.com/Adamzvulun/Liron/pull/75): private content for subjects.
+     - [#76](https://github.com/Adamzvulun/Liron/pull/76): Meet/Listen/Read lessons (#41's reading half).
+     - [#77](https://github.com/Adamzvulun/Liron/pull/77): the painted courtyard and "The Long Road In" ch. I with the Painted Sign trial (#42, #43).
+   - **Awaiting Adam's approval:** the picks listed in [reports/2026-11-04.md](reports/2026-11-04.md).
+   - **Left in E8:** vowel marks (#40), writing by tracing (#41), fading the Hebrew choices.
+   - **Then:** E9.
    - E10 (quests and rewards) gets its own sprint after the Arabic sprint (reasoning in morse-lessons.md).
 
 ## Backlog map
@@ -68,7 +76,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
   - **When to release (Adam, 2026-11-03):** only when the game has a real base, meaning something the user can learn. Decor and styling alone are not a release. The first candidate is once M2 has lessons (e.g. E6 hearing Morse, E8 Arabic letters); Adam decides.
   - **Version numbers ([ADR 0027](../decisions/0027-release-versioning.md)):** each release to `main` is a new X in X.Y.Z. **The first playable release is v1.0.0.** Y is a rare small addition between releases, and Z is a hotfix. 0.y.z means nothing is playable yet. The release PR sets `package.json`'s version, and Adam creates the tag.
   - **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
-  - **Always watch the PRs you open** (Adam, 2026-11-02): subscribe to PR activity right after creating a PR, fix red CI and answer review comments. Merging stays with Adam, unless he explicitly asks Claude to merge into `dev`.
+  - **Always watch the PRs you open** (Adam, 2026-11-02): subscribe to PR activity right after creating a PR, fix red CI and answer review comments. Claude may merge its own PRs into `dev` once CI is green and it has checked the work (Adam, 2026-11-04). Only Adam merges into `main`.
   - Claude's session branch (`claude/…`) is the feature branch. If it doesn't start from `dev`, rebase it onto `dev` first.
 - **Rules from Adam:**
   - Research before suggesting.
