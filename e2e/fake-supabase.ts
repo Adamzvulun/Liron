@@ -55,6 +55,9 @@ export async function fakeSupabase(
   /** Private content rows (content_items), e.g. a few deck words for Arabic. */
   content: ContentRow[] = [],
 ) {
+  // Like the database, a saved state is what the next read of that subject returns, so a test
+  // can play a session, reload and see where it left off.
+  const saved = new Map<string, object>();
   await page.route(`${FAKE_SUPABASE_URL}/**`, async (route) => {
     const url = new URL(route.request().url());
     if (url.pathname === '/auth/v1/token' && url.searchParams.get('grant_type') === 'password') {
@@ -114,8 +117,10 @@ export async function fakeSupabase(
     ) {
       // PostgREST answers "no row" for a single-object request like this; supabase-js's
       // maybeSingle() turns it into null.
-      if (url.pathname === '/rest/v1/subject_progress' && morseState) {
-        const row = { xp: 0, minutes: 0, state: morseState };
+      const subject = url.searchParams.get('subject_id')?.replace(/^eq\./, '') ?? '';
+      const state = saved.get(subject) ?? morseState;
+      if (url.pathname === '/rest/v1/subject_progress' && state) {
+        const row = { xp: 0, minutes: 0, state };
         return route.fulfill({ json: single ? row : [row] });
       }
       return single
@@ -127,7 +132,10 @@ export async function fakeSupabase(
     }
     const rpc = url.pathname.replace('/rest/v1/rpc/', '');
     if (['save_subject_state', 'record_review', 'record_result'].includes(rpc)) {
-      subjectCalls.push({ rpc, args: route.request().postDataJSON() });
+      const args = route.request().postDataJSON() as { p_subject?: string; p_state?: object };
+      subjectCalls.push({ rpc, args });
+      if (rpc === 'save_subject_state' && args.p_subject && args.p_state)
+        saved.set(args.p_subject, args.p_state);
       return route.fulfill({ json: null });
     }
     if (rpc === 'record_progress') {
@@ -202,6 +210,28 @@ const SILENT_WAV = (() => {
 export interface SubjectCall {
   rpc: string;
   args: unknown;
+}
+
+/**
+ * Records the path of every recording the page plays (the signed link names it), so a test
+ * can tell which word it heard. Read them with `played(page)`.
+ */
+export async function listenForAudio(page: Page) {
+  await page.addInitScript(() => {
+    const heard: string[] = [];
+    (window as unknown as { __played: string[] }).__played = heard;
+    const Real = window.Audio;
+    window.Audio = function (src?: string) {
+      if (src) heard.push(src);
+      return new Real(src);
+    } as unknown as typeof Audio;
+  });
+}
+
+/** The recordings played so far, as their media paths (`lingualism-pcav/w3.mp3`). */
+export async function played(page: Page): Promise<string[]> {
+  const urls = await page.evaluate(() => (window as unknown as { __played: string[] }).__played);
+  return urls.map((u) => new URL(u, 'http://x').pathname.replace(/^.*\/object\/sign\/[^/]+\//, ''));
 }
 
 /** Starts the page already logged in, the way a returning visitor would be. */
