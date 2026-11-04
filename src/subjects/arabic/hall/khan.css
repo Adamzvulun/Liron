@@ -306,7 +306,7 @@ button.khan__station:focus-visible .khan__plaque,
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 28px;
-  color: var(--guild-arabic);
+  color: var(--guild-arabic-ink);
 }
 
 .khan__card-rank bdi {
