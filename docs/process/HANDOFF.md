@@ -20,7 +20,7 @@
 - `main` is still v0.1.0. Whether to release v1.0.0 is Adam's call; the report asks him.
 
 ## Next (in order)
-1. **The review's last items** (STATUS → Next): a pass/fail e2e test for the Morse Koch gate (its run is synthesised sound; record the characters the player schedules, the way `listenForAudio` records recordings), then "architecture before E10": one all-or-nothing save call per session, and subject knowledge out of `src/core/` (ADR 0019; the city's building map, the quest list, the avatar unlock text).
+1. **The review's last item** (STATUS → Next): "architecture before E10": one all-or-nothing save call per session, and subject knowledge out of `src/core/` (ADR 0019; the city's building map, the quest list, the avatar unlock text).
 2. **The Groq "understood" check** (approved by Adam): a server-side Vercel function; the key never reaches the browser.
 3. **E10** (approved): ADRs first, from 0031.
 4. **Audio for the missing phrases:** retry lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect, and search the rest of the ajp file names. Never use a file before Adam has seen it.
@@ -54,7 +54,7 @@
 - **Hanging pushes:** `git push` occasionally hangs. Run it with `timeout 60` and retry.
 - **Merging into `dev`:** Claude merges its own green PRs (Adam, 2026-11-04). Subscribe to each PR, and unsubscribe after merging.
 - **Vitest:** check for `Errors` as well as `Tests` in its summary. Unhandled rejections fail CI even when every test passes.
-- **e2e can import app code:** JSON imports in `src/` carry `with { type: 'json' }`, so a spec can import pure modules (e.g. `lettersOf`, `inHebrewVowelled`) to work out the right answer. Keep that attribute on new JSON imports. `listenForAudio()` + `played()` in `e2e/fake-supabase.ts` tell a test which recording played, and the fake database returns the state a session saved (by subject).
+- **e2e can import app code:** JSON imports in `src/` carry `with { type: 'json' }`, so a spec can import pure modules (e.g. `lettersOf`, `inHebrewVowelled`) to work out the right answer. Keep that attribute on new JSON imports. `listenForAudio()` + `played()` in `e2e/fake-supabase.ts` tell a test which recording played, `listenForMorse()` + `morseRuns()` decode the Morse a run schedules, and the fake database returns the state a session saved (by subject).
 - **CSP (#108):** no inline `style` attributes in painted SVG strings (use classes), and zod runs `jitless` (`src/core/strictCsp.ts`, imported first). `e2e/headers.spec.ts` fails on any CSP violation.
 - **Wikimedia rate limits:** Commons returns 429 to this container after a few hundred calls; lingualibre.org often times out. Go slowly, in the background.
 - **Leftovers for Adam:** see STATUS → "What to do next" item 1 (the optional v0.1.0 tag and two old branches). Before friends join (M5), add a per-user rule for the deck (personal-use licence).
