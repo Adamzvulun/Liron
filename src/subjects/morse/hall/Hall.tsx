@@ -33,7 +33,11 @@ const LETTERS = MORSE_CHARS.filter((c) => c.kind === 'letter').map((c) => c.char
 function rankOf(p: MorseProgress) {
   const letters = unlockedChars(p).filter((c) => LETTERS.includes(c)).length;
   return letters >= LETTERS.length
-    ? { rank: 'Listener', next: 'Keyer', need: 'Clean sending of every letter (coming soon)' }
+    ? {
+        rank: 'Listener',
+        next: 'Keyer',
+        need: 'Clean sending of every letter (the rank comes later)',
+      }
     : {
         rank: 'Initiate',
         next: 'Listener',

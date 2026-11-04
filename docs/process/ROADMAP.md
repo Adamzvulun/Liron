@@ -1,10 +1,10 @@
 # Roadmap: Waymark
 
-- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. Current state: [STATUS.md](STATUS.md).
+- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. **Where we are (2026-11-04):** M0 and M1 are done; M2 is mostly built (E6–E9), with E10 next. Current state: [STATUS.md](STATUS.md).
 - **Inputs:** [vision](../vision.md), ADRs 0002–0010, discovery 02–04.
 - **Rhythm:** milestones are goal-based, not date-based. Retros go in `retros/`.
 
-## M0 — Shape *(now)*
+## M0 — Shape *(done)*
 | # | Item | State |
 |---|---|---|
 | 0.1 | Vision locked, name chosen (Waymark) | ✅ |
@@ -14,7 +14,7 @@
 | 0.5 | Spike: test Gemini on recorded Palestinian speech (for the mic), issue #1 | ✅ done: no pronunciation scoring on free models ([ADR 0013](../decisions/0013-speech-on-free-gemini.md)); Groq Whisper hears the mic ([ADR 0014](../decisions/0014-groq-whisper-for-speech.md)) |
 | 0.6 | Convert M1–M2 into GitHub issues: epics #2–#11 with sub-issues #12–#49; milestones as `milestone:Mn` labels (see [STATUS](STATUS.md)) | ✅ |
 
-## M1 — Foundations
+## M1 — Foundations *(done 2026-11-03, [retro](retros/M1.md))*
 **Goal:** the platform skeleton is deployed. You can open Waymark in the browser on your phone or desktop, log in, and see the city.
 
 | Epic | Contents |
@@ -25,7 +25,7 @@
 | **E4 City v0** | Waymark city screen in the final art style; clickable Signal Tower, Caravanserai, Your House, Market, Notice Board; locked Arena; construction plots |
 | **E5 Avatar v0** | Paper-doll SVG system; base customization; 3–4 starter gear slots |
 
-## M2 — First playable
+## M2 — First playable *(in progress)*
 **Built in sprints, one theme at a time, never mixed (Adam, 2026-11-03): first the Morse sprint (E6, E7), then the Arabic sprint (E8, E9), then quests and rewards (E10).**
 
 **Goal:** a real daily habit. 15–20 min/day for both subjects.
@@ -36,6 +36,7 @@
 | **E7 Signal Tower: send** | Spacebar/tap straight key; real-time decoder; fist timing analysis |
 | **E8 Caravanserai: script** | Sounds via Hebrew bridge; letter families; positional forms; harakat; reading and writing drills; "The Long Road In" ch. 1. Taught in-house, ordered after the Madrasa script course (ADR 0012) |
 | **E9 Caravanserai: survival** | First phrases with audio, imported from the chosen sources |
+| *Before E10* | The "did it understand you?" check: "Say it" sends a recording to Groq Whisper through a server-side Vercel function (Adam approved it, PR #87). It's the first slice of E14 and E15, brought forward; the rest of them stays in M3–M4. |
 | **E10 Quests & rewards** | Quest board (daily contracts); main-questline tracking; reward chest; Market v1 |
 
 ## M3 — Depth
