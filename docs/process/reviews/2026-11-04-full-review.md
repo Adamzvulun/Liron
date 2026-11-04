@@ -37,7 +37,7 @@ Adam asked: "Run agents each in its own field of expertise… to check everythin
 ## Bigger ideas the reviewers recommend (ordered, not dropped)
 - **UX "focus mode":** keep activities inside the painted room with one slim bar, which gives the phone back about a third of its height. Plus a shared result card that animates the lamp or milestone you earned.
 - ~~**Read distractors with one lookalike letter swapped**~~ (done: `dotSwaps`, one dots-only twin among the Hebrew choices) (ب/ت/ث/ن/ي, ج/ح/خ…), since the dots are what's hard for Hebrew readers (Ibrahim, Eviatar & Aharon-Peretz 2002).
-- **The slate should require the dots:** today ث can pass written as ب.
+- ~~**The slate should require the dots:** today ث can pass written as ب.~~ Done: each dot needs ink of its own (`trace.ts`), with an e2e test that traces ب without its dot.
 - ~~**Show the spoken form on Read reveals**~~ (قهوة is spelled with ق but said *gahwa* by this speaker). Done: every Read and Listen reveal adds "Said here:" with the deck's pronunciation in Hebrew letters (`spokenHebrew`).
 - **Architecture before E10:** save each session in one all-or-nothing call (today it's 20–40 separate requests); move subject knowledge out of core (the Notice Board's quest list is hard-coded and promises rewards nothing pays).
 

@@ -177,9 +177,11 @@ export function Slate({ api }: { api: SubjectApi }) {
               <p className={score.passed ? 'arabic__good' : 'arabic__bad'}>
                 {score.passed
                   ? 'Good shape!'
-                  : score.coverage < (step === 'trace' ? TRACE_PASS : FREE_PASS).coverage
-                    ? 'Some of the letter is missing.'
-                    : 'Too much ink outside the letter.'}
+                  : score.dots < 1
+                    ? 'Don’t forget the dots.'
+                    : score.coverage < (step === 'trace' ? TRACE_PASS : FREE_PASS).coverage
+                      ? 'Some of the letter is missing.'
+                      : 'Too much ink outside the letter.'}
               </p>
               <button type="button" className="lesson__go" onClick={next} autoFocus>
                 Next
