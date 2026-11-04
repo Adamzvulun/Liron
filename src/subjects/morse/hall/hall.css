@@ -321,7 +321,7 @@ button.tower__station:focus-visible .tower__plaque,
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 34px;
-  color: var(--guild-morse);
+  color: var(--guild-morse-ink);
 }
 
 .hall__next {
