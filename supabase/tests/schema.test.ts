@@ -37,6 +37,8 @@ const TABLES = [
   'rating_log',
 ] as const;
 const APPEND_ONLY: readonly string[] = ['review_log', 'rating_log'];
+// Written only by the database functions (security review, 2026-11-04).
+const FUNCTIONS_ONLY: readonly string[] = ['wallets', 'daily_activity', 'subject_progress'];
 
 let db: PGlite;
 
@@ -159,8 +161,16 @@ describe('row-level security', () => {
         ).rejects.toThrow(/permission denied/);
         return;
       }
+      if (FUNCTIONS_ONLY.includes(table)) {
+        await expect(
+          as(ADAM, () => run(`update ${table} set updated_at = now() where user_id = $1`, [OTHER])),
+        ).rejects.toThrow(/permission denied/);
+        return;
+      }
+      const column = table === 'profiles' ? 'display_name' : 'updated_at';
+      const value = table === 'profiles' ? `'x'` : 'now()';
       const result = await as(ADAM, () =>
-        run(`update ${table} set updated_at = now() where ${owner} = $1`, [OTHER]),
+        run(`update ${table} set ${column} = ${value} where ${owner} = $1`, [OTHER]),
       );
       expect(result.affectedRows).toBe(0);
     });
@@ -177,38 +187,38 @@ describe('row-level security', () => {
       as(ADAM, () =>
         rows(`insert into daily_activity (user_id, day) values ($1, '2026-11-03')`, [OTHER]),
       ),
-    ).rejects.toThrow(/row-level security/);
+    ).rejects.toThrow(/permission denied|row-level security/);
     await expect(
       as(ADAM, () =>
         rows(`insert into subject_progress (user_id, subject_id) values ($1, 'arabic')`, [OTHER]),
       ),
-    ).rejects.toThrow(/row-level security/);
+    ).rejects.toThrow(/permission denied|row-level security/);
   });
 
   it("a user can't move their row to someone else", async () => {
     await expect(
       as(ADAM, () => rows(`update wallets set user_id = $1 where user_id = $2`, [OTHER, ADAM])),
-    ).rejects.toThrow(/row-level security/);
+    ).rejects.toThrow(/permission denied|row-level security/);
   });
 
-  it('a user can update their own rows and add their own activity', async () => {
+  it('a user edits only their own name and look; rewards go through the functions', async () => {
     await as(ADAM, async () => {
-      await rows(`update wallets set xp = 120, gold = 3 where user_id = $1`, [ADAM]);
-      await rows(
-        `insert into daily_activity (user_id, day, minutes, xp) values ($1, '2026-11-03', 16, 40)`,
-        [ADAM],
-      );
-      await rows(
-        `update profiles set display_name = 'Adam', time_zone = 'Asia/Jerusalem' where id = $1`,
-        [ADAM],
-      );
+      await rows(`update profiles set display_name = 'Adam', avatar = '{}' where id = $1`, [ADAM]);
+      for (const sql of [
+        `update wallets set xp = 120, gold = 999999 where user_id = '${ADAM}'`,
+        `insert into daily_activity (user_id, day, minutes, xp) values ('${ADAM}', '2026-11-03', 16, 40)`,
+        `update daily_activity set goal_reached = false where user_id = '${ADAM}'`,
+        `update subject_progress set xp = 99999 where user_id = '${ADAM}'`,
+        `update profiles set time_zone = 'Asia/Jerusalem' where id = '${ADAM}'`,
+        `update profiles set daily_goal_minutes = 5 where id = '${ADAM}'`,
+        `insert into daily_chests (user_id, day, gold, gems) values ('${ADAM}', '2026-11-03', 0, 0)`,
+      ]) {
+        await expect(rows(sql), sql).rejects.toThrow(/permission denied/);
+      }
     });
-    expect(await rows(`select xp, gold from wallets where user_id = $1`, [ADAM])).toEqual([
-      { xp: 120, gold: 3 },
+    expect(await rows(`select display_name from profiles where id = $1`, [ADAM])).toEqual([
+      { display_name: 'Adam' },
     ]);
-    expect(
-      await rows(`select count(*)::int as n from daily_activity where user_id = $1`, [ADAM]),
-    ).toEqual([{ n: 2 }]);
   });
 
   it('nobody can delete rows through the API', async () => {
@@ -321,14 +331,35 @@ describe('record_progress and save_subject_state (ADR 0019)', () => {
   it('rejects malformed subject ids', async () => {
     await expect(
       as(ADAM, () => rows(`select record_progress('Morse Code', 5, 0)`)),
-    ).rejects.toThrow(/check/);
+    ).rejects.toThrow(/unknown subject/);
+  });
+
+  it('takes only subjects that exist', async () => {
+    for (const fn of [
+      `record_progress('zzz-fake', 10000, 0)`,
+      `save_subject_state('zzz-fake', '{}')`,
+    ]) {
+      await expect(as(ADAM, () => rows(`select ${fn}`))).rejects.toThrow(/unknown subject/);
+    }
+  });
+
+  it('counts at most 3,000 XP a day', async () => {
+    const [a] = await as(ADAM, () => rows(`select record_progress('morse', 2500, 0) as r`));
+    const [b] = await as(ADAM, () => rows(`select record_progress('arabic', 2500, 0) as r`));
+    const [c] = await as(ADAM, () => rows(`select record_progress('arabic', 100, 5) as r`));
+    expect((a as { r: { xp_earned: number } }).r.xp_earned).toBe(2500);
+    expect((b as { r: { xp_earned: number } }).r.xp_earned).toBe(500);
+    expect((c as { r: { xp_earned: number; xp: number } }).r).toMatchObject({
+      xp_earned: 0,
+      xp: 3000,
+    });
   });
 
   it('saves only the subject state, replacing the previous one', async () => {
     await as(ADAM, async () => {
       await rows(`select save_subject_state('morse', '{"koch": 3}')`);
       await rows(`select save_subject_state('morse', '{"koch": 4}')`);
-      await rows(`select save_subject_state('new-subject', '{"a": 1}')`);
+      await rows(`select save_subject_state('arabic', '{"a": 1}')`);
     });
     expect(
       await rows(
@@ -336,8 +367,8 @@ describe('record_progress and save_subject_state (ADR 0019)', () => {
         [ADAM],
       ),
     ).toEqual([
+      { subject_id: 'arabic', xp: 0, state: { a: 1 } },
       { subject_id: 'morse', xp: 0, state: { koch: 4 } },
-      { subject_id: 'new-subject', xp: 0, state: { a: 1 } },
     ]);
     await expect(as(ADAM, () => rows(`select save_subject_state('morse', '[1]')`))).rejects.toThrow(
       /JSON object/,
@@ -490,7 +521,7 @@ describe('levels and rewards (ADR 0020)', () => {
   });
 
   it('pays gold and gems exactly as rewardsFor says, and reports the level-up', async () => {
-    const steps = [15, 5, 120, 10000, 3, 400];
+    const steps = [15, 5, 120, 2000, 3, 400];
     let before = 0;
     let gold = 0;
     let gems = 0;
@@ -619,6 +650,14 @@ describe('daily goal and streak (ADR 0021)', () => {
     await expect(one(`set_time_zone('Mars/Olympus')`)).rejects.toThrow(/unknown time zone/);
   });
 
+  it('changes the time zone at most once every 20 hours, so zone-hopping pays no extra chest', async () => {
+    await one(`set_time_zone('Pacific/Kiritimati')`);
+    await one(`set_time_zone('Etc/GMT+12')`);
+    expect(await rows(`select time_zone from profiles where id = $1`, [ADAM])).toEqual([
+      { time_zone: 'Pacific/Kiritimati' },
+    ]);
+  });
+
   it('only works for signed-in users', async () => {
     for (const fn of ['today_status()', 'check_daily_goal()', 'set_daily_goal(20)']) {
       await expect(as(null, () => rows(`select ${fn}`))).rejects.toThrow(/permission denied/);
@@ -710,15 +749,28 @@ describe('private content (ADR 0023)', () => {
     );
   });
 
-  it('signed-in users can read the text and the audio', async () => {
+  it('the licensee can read the text and the audio', async () => {
     expect(
       await as(ADAM, () =>
         rows(`select item_id from content_items where source = 'lingualism-pcav'`),
       ),
     ).toEqual([{ item_id: 'pcav:0001' }]);
-    expect(await as(OTHER, () => rows(`select name from storage.objects`))).toEqual([
+    expect(await as(ADAM, () => rows(`select name from storage.objects`))).toEqual([
       { name: 'lingualism-pcav/pcav01-1.mp3' },
     ]);
+  });
+
+  it('other signed-in accounts, and anonymous sessions, read nothing (ADR 0011)', async () => {
+    // OTHER signed up after the migration, so it isn't a licensee.
+    expect(await as(OTHER, () => rows(`select item_id from content_items`))).toEqual([]);
+    expect(await as(OTHER, () => rows(`select lesson_id from content_lessons`))).toEqual([]);
+    expect(await as(OTHER, () => rows(`select name from storage.objects`))).toEqual([]);
+    await rows(`select set_config('request.jwt.claims', '{"is_anonymous": true}', true)`);
+    expect(await as(ADAM, () => rows(`select item_id from content_items`))).toEqual([]);
+    await rows(`select set_config('request.jwt.claims', '', true)`);
+    await expect(as(ADAM, () => rows(`select * from content_licensees`))).rejects.toThrow(
+      /permission denied/,
+    );
   });
 
   it('logged-out visitors get neither', async () => {
