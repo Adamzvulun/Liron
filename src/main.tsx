@@ -1,3 +1,4 @@
+import './core/strictCsp.ts';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './core/fonts.ts';
