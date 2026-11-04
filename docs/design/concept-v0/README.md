@@ -10,6 +10,8 @@
 | `SignalTower.dc.html` | Inside the tower. Left: guild rank, Elo ratings, speed settings. Center: "The Silent Beacon · Chapter I" lamp path in Koch order. Right: next lesson, Instant Recognition, sending practice (spacebar/tap key), locked Radio Room. |
 | `StyleGuide.dc.html` | Palette, guild hues, type (Cinzel · Alegreya Sans · Noto Naskh Arabic · Noto Sans Hebrew), line/shape/light rules, components, do/don't. |
 
+**Text on parchment** uses darker "ink" versions of the guild hues and ember (`--guild-morse-ink`, `--guild-arabic-ink`, `--ember-ink` in `src/core/theme.css`), at least 4.5:1 (WCAG AA). The bright hues are for fills, bars and borders.
+
 Design resolution is 1920×1080 (ADR 0006, amendment 2). The Signal Tower interior here is still the v1 layout; **the app now paints the tower room itself** (`src/subjects/morse/hall/paintTower.ts`, 2026-11-03, awaiting Adam's review), in the city's v3 style. The real build is responsive. **Phone layout (#27, approved by Adam 2026-11-03):** held upright, the scene fills the height between a slim HUD and a dock of places and pans sideways from the compass; turned sideways it fills the screen like a desktop.
 
 ## How the city is made (v3)
