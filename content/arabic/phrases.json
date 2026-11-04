@@ -112,6 +112,94 @@
           "pcav:2904"
         ]
       }
+    },
+    {
+      "id": "phrases:6",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 6,
+        "title": "Getting to know you",
+        "intro": "Names, where people are from, and asking them to slow down.",
+        "items": [
+          "pcav:0215",
+          "pcav:3410",
+          "pcav:4784",
+          "pcav:0186",
+          "pcav:3328",
+          "pcav:3331",
+          "pcav:4395",
+          "pcav:4336",
+          "pcav:4342",
+          "pcav:4777"
+        ]
+      }
+    },
+    {
+      "id": "phrases:7",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 7,
+        "title": "At the coffee corner",
+        "intro": "Coffee, tea and how sweet you like it.",
+        "items": [
+          "pcav:1043",
+          "pcav:1045",
+          "pcav:1055",
+          "pcav:1022",
+          "pcav:1067",
+          "pcav:1192",
+          "pcav:1047",
+          "pcav:1048",
+          "pcav:1046",
+          "pcav:2204"
+        ]
+      }
+    },
+    {
+      "id": "phrases:8",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 8,
+        "title": "Which way",
+        "intro": "Right, left, straight on: buses, taxis and the bathroom.",
+        "items": [
+          "pcav:1852",
+          "pcav:1850",
+          "pcav:1853",
+          "pcav:1851",
+          "pcav:1856",
+          "pcav:4496",
+          "pcav:1835",
+          "pcav:1843",
+          "pcav:0494",
+          "pcav:1777"
+        ]
+      }
+    },
+    {
+      "id": "phrases:9",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 9,
+        "title": "Today and tomorrow",
+        "intro": "Days, the time, and when things happen.",
+        "items": [
+          "pcav:4093",
+          "pcav:4101",
+          "pcav:4089",
+          "pcav:4204",
+          "pcav:4218",
+          "pcav:4224",
+          "pcav:4225",
+          "pcav:4226",
+          "pcav:4102",
+          "pcav:4249"
+        ]
+      }
     }
   ]
 }
