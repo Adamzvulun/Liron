@@ -6,7 +6,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 
 **First tracks:** 🇸🇦 Arabic · 📻 Morse code
 
-> Status: **M1 – Foundations** in progress. The app scaffold exists; the city, login and lessons come next. **Start here: [`docs/process/STATUS.md`](docs/process/STATUS.md).**
+> Status: **M1 – Foundations** is done. **M2 – First playable** is mostly built on `dev`: Morse receive and send, the Arabic script lessons, the slate and the coffee corner. Quests and rewards (E10) come next. **Start here: [`docs/process/STATUS.md`](docs/process/STATUS.md).**
 
 ## Where things live
 

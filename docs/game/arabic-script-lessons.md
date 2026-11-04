@@ -36,9 +36,9 @@
   - Its name, its four forms (alone, start, middle, end), and whether it joins the next letter.
   - 2–3 words with native audio, the letter coloured.
   - One short note where Hebrew misleads, e.g. "ب is always b, never v the way ב can be".
-- **Listen** (concept card 2): hear a word, pick its first letter from the lesson's letters, about 12 per session.
+- **Listen** (concept card 2): hear a word, pick its first letter from the lesson's letters, 10 per session (`LISTEN_COUNT`).
   - **Minimal pairs for the sounds Hebrew lacks:** ع against ا, ح against ه, ق against ك, ص against س, ض against د, ط against ت, ظ against ذ. They come up more until they're right (issue #38).
-    - The deck has few exact word pairs (13; none for ح/ه, ط/ت, ظ/ذ; the deck has 13 exact word pairs across these contrasts), so the twin is in the *options*, not in a second word. Exact pairs, where they exist, make a bonus round.
+    - The deck has 13 exact word pairs across these contrasts, and none for ح/ه, ط/ت or ظ/ذ, so the twin is in the *options*, not in a second word. Exact pairs, where they exist, make a bonus round.
 - **Read** (concept card 3): see a word made only of letters you know, pick how it sounds.
   - The options are in Hebrew letters with niqqud. That scaffolding fades: later the options are recordings (or Latin, if you choose), then disappear (type or say it).
   - After answering, you hear it and see its meaning.
@@ -72,8 +72,8 @@
 
 ## 6. Saving and measuring
 - **Spaced repetition:** each letter is an FSRS item, `letter:beh`. Reads and listens feed it (#39, #41).
-- **Ratings:** a Glicko rating per skill, "read" and "listen" (ADR 0010).
-- **The questline:** "The Long Road In" (#43) wraps lessons 1–3 in story beats, with a trial that grants ضيف (Guest), the same pattern as the Silent Beacon.
+- **Ratings:** a Glicko rating per skill: "listen" and "read" from lessons, "write" from the slate, "speak" from the coffee corner (ADR 0010).
+- **The questline:** "The Long Road In" (#43) wraps all 8 lessons in story beats, with a trial that grants ضيف (Guest), the same pattern as the Silent Beacon.
 - **Measured for the M2 retro:** letters learned over time, accuracy per letter (especially the throat and heavy letters), and minutes a day.
 
 ## 7. My picks, for you to change
@@ -85,11 +85,11 @@
 
 ## 8. What's built (2026-11-04)
 Code: `src/subjects/arabic/`. Each step below is the design above, made real.
-- **The hall** (`Caravanserai.tsx`) shows the scribe's table (your lesson, its letters, passes so far) and the coffee corner (phrases, soon). The painted courtyard (#42) replaces this simple hall. `?open=lesson` opens the lesson directly, for tests.
+- **The hall** (`Caravanserai.tsx`) shows the scribe's table (your lesson, its letters, passes so far) and the coffee corner (phrases). The painted courtyard (#42) replaces this simple hall. `?open=lesson` opens the lesson directly, for tests.
 - **A session** (`lesson/ScriptLesson.tsx`):
   1. **Meet** each new letter once: the letter, "Like ב", its name and sound, its four shapes (made by the font with zero-width joiners), whether it joins the next letter, the note, and up to 3 deck words with their recordings. "Meet the letters again" brings the cards back.
   2. **Listen** (10 questions): the word plays, you pick its first letter from 4. The choices always include its twin or a shape sibling you know (`lookalikes` in `letters.ts`). Alif is never asked as a first letter, since in speech its hamza starts the word. Nor is a word whose first letter the deck's speaker says with another letter's sound (`saidAs` in `letters.json`: ث as s, ذ and ظ as z, ض as d; e.g. ثانوي *sānawi*): you'd hear س and be marked wrong. ق said as g stays, since g is how this course teaches ق.
-  3. **Read** (8 questions): a word you can read in full, with its vowel marks; you pick its sound from 4 choices **in Hebrew letters**. They're made from each letter's bridge (بيت → בית, short vowels left out, final forms at the end), the common Israeli way of writing Arabic. One wrong choice is the same word with one letter swapped for a known letter that differs only in its dots (بيت → בנת; the groups are ب/ت/ث/ن/ي, ج/ح/خ, د/ذ, ر/ز, س/ش, ص/ض, ط/ظ, ع/غ and ف/ق), because the dots are what's hard for Hebrew readers (Ibrahim, Eviatar & Aharon-Peretz 2002). The others are other readable words of about the same length. After you answer, the word plays. The reveal also shows how the deck's speaker says it, in Hebrew letters from the deck's romanisation ("Said here: גַהוַא" under the spelling קהוה), so a spelling the speaker doesn't follow teaches rather than confuses (full review, concern 2). Listen reveals show it too.
+  3. **Read** (8 questions): a word you can read in full, with its vowel marks; you pick its sound from 4 choices **in Hebrew letters**. They're made from each letter's bridge (بيت → בית, with the vowel marks you've met as niqqud (#79), final forms at the end), the common Israeli way of writing Arabic. One wrong choice is the same word with one letter swapped for a known letter that differs only in its dots (بيت → בנת; the groups are ب/ت/ث/ن/ي, ج/ح/خ, د/ذ, ر/ز, س/ش, ص/ض, ط/ظ, ع/غ and ف/ق), because the dots are what's hard for Hebrew readers (Ibrahim, Eviatar & Aharon-Peretz 2002). The others are other readable words of about the same length. After you answer, the word plays. The reveal also shows how the deck's speaker says it, in Hebrew letters from the deck's romanisation ("Said here: גַהוַא" under the spelling קהוה), so a spelling the speaker doesn't follow teaches rather than confuses (full review, concern 2). Listen reveals show it too.
   4. **The result:** the score, how close you are to passing (90% in 2 sessions in a row, on different days), the letters to listen for again, and XP.
 - **Saved and measured** (`lesson/report.ts`): the state (lesson, passes in a row, letters met); an FSRS review per letter (`letter:beh`, graded by `gradeFrom` from the answers that tested it: all right is good, at least half is hard, fewer is again); a Glicko **listen** rating per letter and a **read** rating per word; XP (2 per right answer, +30 for passing a lesson; raised from 1 on 2026-11-04 to reach about 10 XP a minute); practice minutes.
 - **The words** come from the Lingualism deck through `api.privateContent('lingualism-pcav')` (signed in only, ADR 0011), and each recording through `api.mediaUrl`. Only single words made entirely of taught letters are used. If the deck isn't in the database, the lesson says so.
@@ -98,7 +98,7 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
   - **Fountain:** a Listen-only round of 12. It's practice: it feeds reviews, ratings and XP but never passes a lesson.
   - **Storyteller:** a Read-only round of 12, the same kind of practice.
   - **Slate:** tracing and writing the letters you've met.
-  - **Coffee corner:** phrases, soon.
+  - **Coffee corner:** phrases (#80, #82, #85).
   - On an upright phone, the courtyard pans and the same things follow below it as cards.
 - **"The Long Road In", chapter I** (#43, `content/arabic/questline.json`, `questline.ts`):
   - The road has a milestone per lesson. Each passed lesson lights one, and its story beat shows on the scroll.

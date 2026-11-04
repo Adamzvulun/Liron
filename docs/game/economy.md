@@ -1,6 +1,6 @@
 # Economy: XP, levels, gold and gems
 
-The numbers that make progress feel like a game. They're meant to be tuned: change them here, in [`src/core/progress/economy.ts`](../../src/core/progress/economy.ts), and in a new migration (the database applies the same rules; a test fails if the two disagree). Decisions: [ADR 0020](../decisions/0020-fast-levels-and-rewards.md) (levels, gold, gems), [ADR 0021](../decisions/0021-streak-and-daily-goal.md) (daily goal, streak).
+The numbers that make progress feel like a game. They're meant to be tuned: change them here, in [`src/core/progress/economy.ts`](../../src/core/progress/economy.ts), and in a new migration (the database applies the same rules; `supabase/tests/schema.test.ts` compares the curve, gold, streak and daily chest with this file, so changing one side alone fails). Decisions: [ADR 0020](../decisions/0020-fast-levels-and-rewards.md) (levels, gold, gems), [ADR 0021](../decisions/0021-streak-and-daily-goal.md) (daily goal, streak).
 
 **Pace (Adam, 2026-11-02: "faster"):** level 2 in the first couple of minutes, level 5 on day one, level 10 by day four. Then each level gets a little longer, but never a grind.
 
@@ -48,7 +48,7 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 ## Coming later (not dropped)
 | Reward | Where |
 |---|---|
-| Combo bonus inside activities, end-of-activity screen | each subject's activities (E6–E9), through the contract |
+| Combo bonus inside activities | E10 (quests and rewards). It was planned for E6–E9 but not built there; the end-of-activity screens were. |
 | Daily quests and chests, quest gold | E10 (quests and rewards) |
 | Streak protection items | E10 (Market) |
 | Weekly league | M5 (friends) |

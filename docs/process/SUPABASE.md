@@ -44,7 +44,7 @@ select id from auth.users where email = 'their@email';
 Only add people the deck's licence covers (ADR 0011).
 
 ## Migrations
-Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrations/), applied in name order. Never edit one that's already applied; add a new file instead. Schema: [ADR 0017](../decisions/0017-player-data-schema.md).
+Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrations/), applied in name order. Never edit one that's already applied; add a new file instead. Schema: [ADR 0017](../decisions/0017-player-data-schema.md). (The first migration's header still says "Apply with the Supabase SQL editor": that predates ADR 0018 and is wrong, but the file stays as it was applied.)
 
 **They apply themselves** ([ADR 0018](../decisions/0018-automatic-db-migrations.md)), and the [private content](#private-content) uploads right after: merging into `dev` updates `waymark-dev`, and a release to `main` updates `waymark-prod`, through `.github/workflows/db-migrate.yml`. **Never paste a migration into the SQL editor.** The migration history wouldn't know about it, and the next automatic run would fail.
 
