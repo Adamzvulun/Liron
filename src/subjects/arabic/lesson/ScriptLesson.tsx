@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { formsOf, LESSONS, type Letter } from '../letters.ts';
+import { marksOfLesson, marksUpTo, withMarks, type Mark } from '../marks.ts';
 import { applySession, parseProgress, PASSES_NEEDED, type ArabicProgress } from '../progress.ts';
 import { DECK, readableWith, wordsFrom, type Word } from '../words.ts';
 import { listenQuestions, readQuestions, seeded, type Question } from './questions.ts';
@@ -11,6 +12,17 @@ type Stage =
   | { kind: 'meet'; index: number }
   | { kind: 'practice'; questions: Question[]; index: number; answers: Answer[]; startedAt: number }
   | { kind: 'result'; answers: Answer[]; passed: boolean; next: ArabicProgress };
+
+const stripMarks = (w: string) => withMarks(w, []);
+const secondsSince = (t: number) => (performance.now() - t) / 1000;
+
+/** What a lesson introduces, in order: its letters, then its vowel marks (#40). */
+type Card = Letter | Mark;
+const cardsOf = (lesson: number): Card[] => [
+  ...(LESSONS[lesson - 1]?.letters ?? []),
+  ...marksOfLesson(lesson),
+];
+const isMark = (c: Card): c is Mark => 'mark' in c;
 
 /** An Arabic word, right to left, in the Arabic font. */
 export function Ar({ children, className }: { children: string; className?: string }) {
@@ -48,8 +60,9 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
         const p = parseProgress(state);
         setProgress(p);
         setWords(wordsFrom(pack.items));
-        const fresh = LESSONS[p.lesson - 1]?.letters.filter((l) => !p.met.includes(l.id)) ?? [];
-        setStage(fresh.length && !only ? { kind: 'meet', index: 0 } : null);
+        // Meet what you haven't met yet, from the first such card.
+        const first = cardsOf(p.lesson).findIndex((c) => !p.met.includes(c.id));
+        setStage(first >= 0 && !only ? { kind: 'meet', index: first } : null);
       },
       () =>
         live &&
@@ -70,6 +83,7 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
 
   // A fountain or storyteller round uses the letters you've met: this lesson's once you've
   // met them, the ones before it otherwise.
+  const cards = cardsOf(lesson.order);
   const metAll = lesson.letters.every((l) => progress.met.includes(l.id));
   const knownLesson = progress.done || metAll ? lesson.order : Math.max(1, lesson.order - 1);
 
@@ -98,21 +112,22 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
       : applySession(
           progress,
           scoreOf(answers),
-          lesson.letters.map((l) => l.id),
+          cards.map((c) => c.id),
         );
     setProgress(next);
     setStage({ kind: 'result', answers, passed, next });
-    reportSession(
-      api,
-      next,
-      answers,
-      passed ? LESSON_BONUS : 0,
-      (performance.now() - startedAt) / 1000,
-    ).then(
+    reportSession(api, next, answers, passed ? LESSON_BONUS : 0, secondsSince(startedAt)).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
     );
   };
+
+  const meetIndex = stage?.kind === 'meet' ? stage.index : -1;
+  const meetCard = cards[meetIndex];
+  const nextCard = () =>
+    meetIndex + 1 < cards.length
+      ? setStage({ kind: 'meet', index: meetIndex + 1 })
+      : startPractice();
 
   return (
     <section className="lesson arabic" aria-label="Script lesson">
@@ -132,19 +147,26 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
           onStart={startPractice}
         />
       )}
-      {stage?.kind === 'meet' && (
-        <Meet
-          letter={lesson.letters[stage.index] as Letter}
-          count={lesson.letters.length}
-          index={stage.index}
+      {meetCard && isMark(meetCard) && (
+        <MeetMark
+          mark={meetCard}
+          index={meetIndex}
+          count={cards.length}
           words={words}
           known={lesson.order}
           play={play}
-          onNext={() =>
-            stage.index + 1 < lesson.letters.length
-              ? setStage({ kind: 'meet', index: stage.index + 1 })
-              : startPractice()
-          }
+          onNext={nextCard}
+        />
+      )}
+      {meetCard && !isMark(meetCard) && (
+        <Meet
+          letter={meetCard}
+          count={cards.length}
+          index={meetIndex}
+          words={words}
+          known={lesson.order}
+          play={play}
+          onNext={nextCard}
         />
       )}
       {stage?.kind === 'practice' && (
@@ -166,7 +188,7 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
           stage={stage}
           only={only}
           onAgain={() =>
-            !only && lesson.letters.some((l) => !stage.next.met.includes(l.id))
+            !only && cards.some((c) => !stage.next.met.includes(c.id))
               ? setStage({ kind: 'meet', index: 0 })
               : startPractice()
           }
@@ -349,7 +371,87 @@ function Meet({
         </ul>
       )}
       <button type="button" className="lesson__go" onClick={onNext}>
-        {index + 1 < count ? 'Next letter' : 'Start practice'}
+        {index + 1 < count ? 'Next' : 'Start practice'}
+      </button>
+    </div>
+  );
+}
+
+/** Meet a vowel mark (#40): on a letter you know, with its niqqud twin and deck words. */
+function MeetMark({
+  mark,
+  index,
+  count,
+  words,
+  known,
+  play,
+  onNext,
+}: {
+  mark: Mark;
+  index: number;
+  count: number;
+  words: readonly Word[];
+  known: number;
+  play: (path: string) => void;
+  onNext: () => void;
+}) {
+  const carriers = ['ب', 'ت', 'ن'];
+  // Tanween sits on a final alif: بًا is how it looks in words like شكراً.
+  const onLetter = (c: string) =>
+    mark.id === 'mark:tanween' ? `${c}${mark.mark}ا` : `${c}${mark.mark}`;
+  const examples = useMemo(() => {
+    const knownIds = new Set(LESSONS.slice(0, known).flatMap((l) => l.letters.map((x) => x.id)));
+    const has = (w: Word) => w.arabic.includes(mark.mark) && w.letters.length <= 6;
+    const readable = readableWith(words, knownIds).filter(has);
+    return [...new Set([...readable, ...words.filter(has)])].slice(0, 3);
+  }, [words, mark, known]);
+  return (
+    <div className="lesson__card arabic__meet">
+      <p className="lesson__kicker">
+        Meet a vowel mark · {index + 1} of {count}
+      </p>
+      <div className="arabic__hero">
+        <Ar className="arabic__big">{onLetter('ب')}</Ar>
+        <div>
+          <p className="arabic__bridge">
+            Like <bdi lang="he">{`בּ${mark.hebrew}`.normalize('NFC')}</bdi>
+          </p>
+          <p className="arabic__name">
+            <Ar>{mark.name}</Ar> · {mark.nameLatin} · <bdi lang="he">{mark.hebrewName}</bdi>
+          </p>
+          <p className="arabic__sound">Sound: {mark.sound}</p>
+        </div>
+      </div>
+      <div className="arabic__forms" role="list" aria-label="On letters you know">
+        {carriers.map((c) => (
+          <div key={c} className="arabic__form" role="listitem">
+            <Ar className="arabic__form-glyph">{onLetter(c)}</Ar>
+          </div>
+        ))}
+      </div>
+      <p className="arabic__note">{mark.note}</p>
+      {examples.length > 0 && (
+        <ul className="arabic__examples">
+          {examples.map((w) => (
+            <li key={w.id}>
+              <button
+                type="button"
+                className="arabic__play"
+                onClick={() => play(w.audio)}
+                aria-label={`Play ${w.meaning || w.sound}`}
+              >
+                ▶
+              </button>
+              <Ar className="arabic__example">{withMarks(w.arabic, marksUpTo(known))}</Ar>
+              <span>
+                {w.sound} · {w.meaning}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      <button type="button" className="lesson__go" onClick={onNext}>
+        {index + 1 < count ? 'Next' : 'Start practice'}
       </button>
     </div>
   );
@@ -373,7 +475,7 @@ export function Practice({
   const listen = question.kind === 'listen';
   const right = listen
     ? question.choices.findIndex((c) => c.id === question.answer.id)
-    : question.choices.indexOf(word.hebrew);
+    : question.choices.indexOf(question.answer);
   const played = useRef(false);
   useEffect(() => {
     if (listen && !played.current) {
@@ -391,7 +493,9 @@ export function Practice({
     onAnswered({
       kind: question.kind,
       wordId: word.id,
-      letters: listen ? [question.answer.id] : [...new Set(word.letters.map((l) => l.id))],
+      letters: listen
+        ? [question.answer.id]
+        : [...new Set(word.letters.map((l) => l.id)), ...question.marks.map((m) => m.id)],
       right: picked === right,
     });
 
@@ -413,7 +517,10 @@ export function Practice({
       ) : (
         <>
           <h2 className="lesson__subtitle">How does it sound?</h2>
-          <Ar className="arabic__word">{word.arabic}</Ar>
+          <Ar className="arabic__word">{question.shown}</Ar>
+          {question.shown === stripMarks(question.shown) && word.arabic !== question.shown && (
+            <p className="arabic__note">No marks this time, the way real signs are written.</p>
+          )}
         </>
       )}
       <div
@@ -446,8 +553,8 @@ export function Practice({
             {picked === right ? 'Right!' : 'Not quite.'}
           </p>
           <p>
-            <Ar className="arabic__example">{word.arabic}</Ar> · <bdi lang="he">{word.hebrew}</bdi>{' '}
-            · {word.sound}
+            <Ar className="arabic__example">{word.arabic}</Ar> ·{' '}
+            <bdi lang="he">{listen ? word.hebrew : question.answer}</bdi> · {word.sound}
             {word.meaning ? ` · ${word.meaning}` : ''}
           </p>
           <button type="button" className="lesson__go" onClick={next} autoFocus>

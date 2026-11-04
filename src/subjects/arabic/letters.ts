@@ -57,6 +57,11 @@ const MARKS = /[ً-ْٰـ]/g;
 // Alif with hamza is read as alif from lesson 1; hamza on waw or yeh needs hamza (lesson 8).
 const ALIASES: Record<string, string> = { أ: 'ا', إ: 'ا', آ: 'ا', ٱ: 'ا', ؤ: 'ء', ئ: 'ء' };
 
+/** The letter a written character stands for (hamza seats and alif forms included). */
+export function letterOf(c: string): Letter | undefined {
+  return byChar.get(ALIASES[c] ?? c);
+}
+
 /** The letters of a written word, in order, or null if it holds anything else. */
 export function lettersOf(word: string): Letter[] | null {
   const out: Letter[] = [];

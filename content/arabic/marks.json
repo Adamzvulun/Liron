@@ -1,0 +1,103 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own",
+  "items": [
+    {
+      "id": "mark:fatha",
+      "subject": "arabic",
+      "type": "arabic-mark",
+      "data": {
+        "mark": "َ",
+        "name": "فتحة",
+        "nameLatin": "fatḥa",
+        "sound": "a",
+        "hebrew": "ַ",
+        "hebrewName": "פַּתָּח",
+        "lesson": 1,
+        "order": 1,
+        "note": "A short a, written as a small stroke above the letter. The deck leaves most fathas out: a letter with no mark usually takes a, so حياة is still ḥayā."
+      }
+    },
+    {
+      "id": "mark:kasra",
+      "subject": "arabic",
+      "type": "arabic-mark",
+      "data": {
+        "mark": "ِ",
+        "name": "كسرة",
+        "nameLatin": "kasra",
+        "sound": "i",
+        "hebrew": "ִ",
+        "hebrewName": "חִירִיק",
+        "lesson": 1,
+        "order": 2,
+        "note": "A short i, written as a small stroke below the letter."
+      }
+    },
+    {
+      "id": "mark:damma",
+      "subject": "arabic",
+      "type": "arabic-mark",
+      "data": {
+        "mark": "ُ",
+        "name": "ضمة",
+        "nameLatin": "ḍamma",
+        "sound": "u",
+        "hebrew": "ֻ",
+        "hebrewName": "קֻבּוּץ",
+        "lesson": 1,
+        "order": 3,
+        "note": "A short u, written as a small curl above the letter."
+      }
+    },
+    {
+      "id": "mark:sukun",
+      "subject": "arabic",
+      "type": "arabic-mark",
+      "data": {
+        "mark": "ْ",
+        "name": "سكون",
+        "nameLatin": "sukūn",
+        "sound": "no vowel",
+        "hebrew": "ְ",
+        "hebrewName": "שְׁוָא נָח",
+        "lesson": 2,
+        "order": 4,
+        "note": "A small circle: this letter has no vowel after it. Spoken Palestinian drops many of the textbook's short vowels, so a word can even start with two consonants: لْسان lsān (tongue) is lisān in the textbook, جْبين jbīn (forehead) is jabīn. Over و or ي the deck uses a sukun for the Palestinian ō and ē: موْت mōt (death), عيْلة ēla (family)."
+      }
+    },
+    {
+      "id": "mark:shadda",
+      "subject": "arabic",
+      "type": "arabic-mark",
+      "data": {
+        "mark": "ّ",
+        "name": "شدة",
+        "nameLatin": "šadda",
+        "sound": "doubled",
+        "hebrew": "ּ",
+        "hebrewName": "דָּגֵשׁ חָזָק",
+        "lesson": 3,
+        "order": 5,
+        "note": "A small w-shape: say the letter twice, held longer. بنّ is bunn, coffee beans."
+      }
+    },
+    {
+      "id": "mark:tanween",
+      "subject": "arabic",
+      "type": "arabic-mark",
+      "data": {
+        "mark": "ً",
+        "name": "تنوين",
+        "nameLatin": "tanwīn",
+        "sound": "-an",
+        "hebrew": "ַן",
+        "hebrewName": "תַּנְוִין",
+        "lesson": 5,
+        "order": 6,
+        "note": "A doubled fatha, usually on a final alif, adds -an. In speech it lives on in set words: شكراً šúkran (thank you), أبداً ábadan (never)."
+      }
+    }
+  ]
+}

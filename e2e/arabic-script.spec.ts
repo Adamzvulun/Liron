@@ -25,13 +25,19 @@ test.describe('Arabic script lessons (#38–#41)', () => {
     await page.getByRole('button', { name: /The scribe’s table/ }).click();
 
     // Meet: each of lesson 1's five letters, with its Hebrew bridge and four shapes.
-    await expect(page.getByText('Meet a letter · 1 of 5')).toBeVisible();
+    await expect(page.getByText('Meet a letter · 1 of 8')).toBeVisible();
     await expect(page.getByText('Like א', { exact: true })).toBeVisible();
     await expect(page.getByRole('list', { name: 'Its shapes' }).getByRole('listitem')).toHaveCount(
       4,
     );
-    for (let i = 0; i < 4; i++) await page.getByRole('button', { name: 'Next letter' }).click();
+    for (let i = 0; i < 4; i++) await page.getByRole('button', { name: 'Next' }).click();
     await expect(page.getByText('Like י', { exact: true })).toBeVisible();
+    // Then lesson 1's vowel marks (#40): fatha, kasra, damma, each with its niqqud twin.
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page.getByText('Meet a vowel mark · 6 of 8')).toBeVisible();
+    await expect(page.getByText(/fatḥa/)).toBeVisible();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByRole('button', { name: 'Next' }).click();
     await page.getByRole('button', { name: 'Start practice' }).click();
 
     // Practice: answer every question (the first choice), then see the result.
@@ -49,7 +55,7 @@ test.describe('Arabic script lessons (#38–#41)', () => {
     const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
       p_state: { met: string[]; sessions: number };
     };
-    expect(saved.p_state.met).toHaveLength(5);
+    expect(saved.p_state.met).toHaveLength(8);
     expect(saved.p_state.sessions).toBe(1);
     const reviewed = calls.filter((c) => c.rpc === 'record_review');
     expect(reviewed.length).toBeGreaterThan(0);
