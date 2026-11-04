@@ -8,21 +8,23 @@
 - **Each letter is met through the Hebrew letter you know,** with its four forms. You hear it in 2–3 short words spoken by the deck's native speaker.
 - **Practice is sound first,** like Morse: hear a word, pick the letter; see a word, pick how it sounds (in Hebrew letters, which fade later). Writing by tracing comes after.
 - **Audio: the Lingualism deck you already own.** No new source, nothing to buy. It has native words for all 28 letters, already uploaded to `waymark-dev` behind login.
-- **Gate:** a lesson's letters are yours at 90% in two sessions in a row, the same rule as Morse. Then FSRS keeps them fresh.
+- **Gate:** a lesson's letters are yours at 90% in two sessions in a row, **the second on a later day than the first** (Adam, 2026-11-04). Then FSRS keeps them fresh.
+  - *Why a later day:* a session has only 18 questions, so 90% allows one mistake. A learner truly at 90% passes two sessions in a row only about 20% of the time, and two back-to-back sessions are massed practice. Research on successive relearning supports reaching the criterion in separate, spaced sessions ([Rawson & Dunlosky 2022](https://journals.sagepub.com/doi/full/10.1177/09637214221100484)). A second 90% on the same day keeps the first counted and says "come back tomorrow". Morse keeps its rule: a run has about 100 characters, so its gate is already gentle (ADR 0028).
 
 ## 1. Order: shape families (#39)
 | Lesson | Letters | Why together | Words you can read after it (all in the deck, with audio) |
 |---|---|---|---|
 | 1 | ا ب ت ن ي | Alif plus the "teeth with dots" family: dots are the whole difference | أنا (I), إنتَ (you), تين (figs), يابا (dad), باي! (goodbye), بين (between) |
 | 2 | ث و ر ز | ث completes the dotted teeth; و ر ز are the first that **don't join forward** | زيت, رُزّ (rice), توت (berries), زتون (olives) |
-| 3 | د ذ م ل | د ذ also don't join; م and ل are very common | دمّ (blood), دار (home), يَمّا (mom) |
+| 3 | د ذ م ل لا | د ذ also don't join; م and ل are very common; ل + ا always join as لا, so it's taught with ل | دمّ (blood), دار (home), يَمّا (mom) |
 | 4 | س ش ك | the "saw" family; ك | سِتّ (grandma), ناس (people), شباب (youth) |
-| 5 | ج ح خ ه | the cup family; ح against ه is the first throat pair | |
+| 5 | ج ح خ ه ة | the cup family; ح against ه is the first throat pair; ة is ه's shape with ت's dots | |
 | 6 | ع غ ف ق | ع and ق need extra listening | |
 | 7 | ص ض ط ظ | the heavy (emphatic) letters, taught against their light twins س د ت ذ | |
-| 8 | ة ء ى لا | the extras you see everywhere | |
+| 8 | ء ى | hamza and alif maqsura | |
 
-- **Readable words grow fast** (single deck words, vowel marks ignored): 18 after lesson 1, then 43, 137, 215, 262, 351, 183 and 406 new ones after lessons 2–8.
+- **Readable words grow fast** (single deck words, vowel marks ignored): 18 after lesson 1, then 43, 137, 215, 440, 466, 252 and 44 new ones after lessons 2–8.
+- **Changed 2026-11-04 (review, Claude's call at Adam's request):** لا moved from lesson 8 to 3 and ة from 8 to 5. لا already appeared in words from lesson 3 (the app reads it as ل + ا) before its shape was taught, and 178 words that waited only on ة now come at lesson 5. Before the move the counts were 262, 351, 183 and 406 for lessons 5–8.
 
 - **Basis:** grouping by shape family is the usual approach of script courses: issue #39, and the Cambridge worksheet among others.
 - **Madrasa:** I could not verify Madrasa's own letter order; its course page didn't open in research, so this is my order, not theirs. If you can see their course, tell me the order and I'll compare.
@@ -78,7 +80,7 @@
 1. **Shape-family order** as in the table above.
 2. **Read options in Hebrew letters first,** fading to Latin, then none.
 3. **No audio for letter names.**
-4. **The 90%-twice gate,** the same as Morse.
+4. **The 90%-twice gate,** the second pass on a later day (changed 2026-11-04, see Gate above).
 5. **Writing comes after reading** in each lesson, not before.
 
 ## 8. What's built (2026-11-04)
@@ -88,7 +90,7 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
   1. **Meet** each new letter once: the letter, "Like ב", its name and sound, its four shapes (made by the font with zero-width joiners), whether it joins the next letter, the note, and up to 3 deck words with their recordings. "Meet the letters again" brings the cards back.
   2. **Listen** (10 questions): the word plays, you pick its first letter from 4. The choices always include its twin or a shape sibling you know (`lookalikes` in `letters.ts`). Alif is never asked as a first letter, since in speech its hamza starts the word.
   3. **Read** (8 questions): a word you can read in full, with its vowel marks; you pick its sound from 4 choices **in Hebrew letters**. They're made from each letter's bridge (بيت → בית, short vowels left out, final forms at the end), the common Israeli way of writing Arabic. Wrong choices are other readable words of about the same length. After you answer, the word plays.
-  4. **The result:** the score, how close you are to passing (90% in 2 sessions in a row), the letters to listen for again, and XP.
+  4. **The result:** the score, how close you are to passing (90% in 2 sessions in a row, on different days), the letters to listen for again, and XP.
 - **Saved and measured** (`lesson/report.ts`): the state (lesson, passes in a row, letters met); an FSRS review per letter (`letter:beh`: good only if every answer that tested it was right); a Glicko **listen** rating per letter and a **read** rating per word; XP (2 per right answer, +30 for passing a lesson; raised from 1 on 2026-11-04 to reach about 10 XP a minute); practice minutes.
 - **The words** come from the Lingualism deck through `api.privateContent('lingualism-pcav')` (signed in only, ADR 0011), and each recording through `api.mediaUrl`. Only single words made entirely of taught letters are used. If the deck isn't in the database, the lesson says so.
 - **The courtyard** (`hall/paintKhan.ts`, `hall/Courtyard.tsx`, #42) replaces the simple hall. It's the approved concept, painted in the browser at 1920×1080 with one perspective camera:
