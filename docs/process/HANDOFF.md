@@ -27,7 +27,8 @@
      These lived in the session's scratchpad, which doesn't survive the session. Adam has every one as a file sent in the conversation, so ask him for them if they're gone.
 
      Ask Adam to approve or change them. Then commit them on a fresh branch from `dev` as `docs/game/arabic-script-lessons.md`, before building.
-3. **Release v1.0.0** when Adam decides there's enough to learn. Morse is now playable end to end.
+3. **E10 draft (2026-11-04, sent to Adam as `e10-quests-and-rewards.md`):** 3 daily contracts paying gold, a questline line in the HUD, chests rolled on the server from data drop tables, a 4-slot Market, and the streak shield as the first functional item. It needs 3 ADRs and about 18 new gear items drawn. For E10's own sprint, after Arabic.
+4. **Release v1.0.0** when Adam decides there's enough to learn. Morse is now playable end to end.
 
 ## Things the next session should know
 - **Morse code map (`src/subjects/morse/`):**
