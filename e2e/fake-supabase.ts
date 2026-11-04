@@ -234,6 +234,57 @@ export async function played(page: Page): Promise<string[]> {
   return urls.map((u) => new URL(u, 'http://x').pathname.replace(/^.*\/object\/sign\/[^/]+\//, ''));
 }
 
+/**
+ * Records every tone the page schedules on Web Audio (each gain's ramps up and down), so a test
+ * can read back the Morse a run plays. Read it with `morseHeard(page)`.
+ */
+export async function listenForMorse(page: Page) {
+  await page.addInitScript(() => {
+    const keys: { ups: number[]; downs: number[] }[] = [];
+    (window as unknown as { __keys: typeof keys }).__keys = keys;
+    const seen = new WeakMap<AudioParam, { ups: number[]; downs: number[] }>();
+    const ramp = AudioParam.prototype.linearRampToValueAtTime;
+    AudioParam.prototype.linearRampToValueAtTime = function (value: number, time: number) {
+      let k = seen.get(this);
+      if (!k) {
+        k = { ups: [], downs: [] };
+        seen.set(this, k);
+        keys.push(k);
+      }
+      (value > 0 ? k.ups : k.downs).push(time);
+      return ramp.call(this, value, time);
+    };
+  });
+}
+
+/**
+ * The runs of Morse scheduled so far (any stretch of 5 tones or more, so not a single letter),
+ * each as dots and dashes split into characters: a tone over two dits is a dash, a gap over two
+ * dits ends a character.
+ */
+export async function morseRuns(page: Page, ditSeconds: number): Promise<string[][]> {
+  const keys = await page.evaluate(
+    () => (window as unknown as { __keys: { ups: number[]; downs: number[] }[] }).__keys,
+  );
+  return keys
+    .filter((k) => k.ups.length >= 5)
+    .map((run) => {
+      const chars: string[] = [];
+      let code = '';
+      run.ups.forEach((up, i) => {
+        const down = run.downs[i] ?? up;
+        const gap = i > 0 ? up - (run.downs[i - 1] ?? up) : 0;
+        if (i > 0 && gap > 2 * ditSeconds) {
+          chars.push(code);
+          code = '';
+        }
+        code += down - up > 2 * ditSeconds ? '-' : '.';
+      });
+      if (code) chars.push(code);
+      return chars;
+    });
+}
+
 /** Starts the page already logged in, the way a returning visitor would be. */
 export async function signedIn(
   page: Page,
