@@ -124,6 +124,16 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
     };
     expect(saved.p_state).toMatchObject({ lesson: 1, streak: 1 });
   });
+
+  test('with no readable words, practice says so instead of crashing', async ({ page }) => {
+    const met = ['letter:alef', 'letter:beh', 'letter:teh', 'letter:noon', 'letter:yeh'];
+    const state = { lesson: 1, streak: 1, met, done: false, sessions: 1 };
+    await signedIn(page, [], [], state, [deckWord(1, 'شمس', 'sun')]);
+    await page.goto('/caravanserai');
+    await page.getByRole('button', { name: /The fountain/ }).click();
+    await page.getByRole('button', { name: 'Begin' }).click();
+    await expect(page.getByText(/No words are ready for this yet/)).toBeVisible();
+  });
 });
 
 test.describe('the slate (#41)', () => {

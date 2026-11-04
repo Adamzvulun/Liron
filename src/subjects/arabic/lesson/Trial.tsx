@@ -78,6 +78,7 @@ export function Trial({ api }: { api: SubjectApi }) {
     );
   };
 
+  const current = stage.kind === 'practice' ? stage.questions[stage.index] : undefined;
   return (
     <section className="lesson arabic" aria-label="Trial">
       {saveFailed && (
@@ -98,10 +99,16 @@ export function Trial({ api }: { api: SubjectApi }) {
           </button>
         </div>
       )}
-      {stage.kind === 'practice' && (
+      {stage.kind === 'practice' && stage.questions.length === 0 && (
+        <p className="lesson__card">
+          No words are ready for this yet: the deck has none that use only the letters you’ve met.
+          Meet the next letters first.
+        </p>
+      )}
+      {stage.kind === 'practice' && current && (
         <Practice
           key={stage.index}
-          question={stage.questions[stage.index] as Question}
+          question={current}
           index={stage.index}
           count={stage.questions.length}
           play={play}

@@ -133,6 +133,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
     );
   };
 
+  const current = stage.kind === 'understand' ? stage.questions[stage.index] : undefined;
   return (
     <section className="lesson arabic" aria-label="Coffee corner">
       {saveFailed && (
@@ -190,10 +191,13 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
           }
         />
       )}
-      {stage.kind === 'understand' && (
+      {stage.kind === 'understand' && stage.questions.length === 0 && (
+        <p className="lesson__card">This set’s phrases haven’t been loaded into Waymark yet.</p>
+      )}
+      {stage.kind === 'understand' && current && (
         <Understand
           key={stage.index}
-          question={stage.questions[stage.index] as UnderstandQuestion}
+          question={current}
           index={stage.index}
           count={stage.questions.length}
           play={play}
@@ -233,7 +237,9 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
               ? stage.nextTitle
                 ? `Set passed! Next: ${stage.nextTitle}.`
                 : 'Set passed! That’s every set: your first week’s Arabic.'
-              : `Understood by ear. Reach ${Math.round(SET_PASS * 100)}% to pass the set.`}
+              : allDone
+                ? 'Every set is passed already: this round was practice.'
+                : `Understood by ear. Reach ${Math.round(SET_PASS * 100)}% to pass the set.`}
           </p>
           <p className="arabic__xp">
             +{stage.right.length + stage.said.length + (stage.passed ? SET_BONUS : 0)} XP
