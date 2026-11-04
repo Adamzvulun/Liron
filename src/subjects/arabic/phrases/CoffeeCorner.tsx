@@ -120,7 +120,11 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
       await api.saveState(next);
       for (const p of heard) {
         const ok = right.includes(p.id);
-        await api.recordReview(p.id, !ok ? 'again' : said.includes(p.id) ? 'good' : 'hard', at);
+        // A due review is only understood, never said: understanding it is a good review.
+        // A new phrase is good once you've also said it, hard if only understood.
+        const review = !phrases.some((x) => x.id === p.id);
+        const grade = !ok ? 'again' : review || said.includes(p.id) ? 'good' : 'hard';
+        await api.recordReview(p.id, grade, at);
         await api.recordResult('listen', p.id, ok ? 1 : 0, { at });
       }
       const xp = coffeeXp(right.length, said.length, passed);

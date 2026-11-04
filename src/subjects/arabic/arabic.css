@@ -440,6 +440,36 @@
   color: #6b5640;
 }
 
+/* Read by recording: four play buttons, the one you last heard marked, then "This one". */
+.arabic__sound {
+  font-family: var(--font-ui);
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.arabic__sound.is-heard {
+  background: linear-gradient(180deg, #fff1b8, #f0c560);
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.arabic__toggle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0 14px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.arabic__toggle input {
+  width: 20px;
+  height: 20px;
+  color-scheme: light;
+  accent-color: var(--ink);
+}
+
 .arabic__choice:lang(en) {
   font-family: var(--font-ui);
   font-weight: 800;

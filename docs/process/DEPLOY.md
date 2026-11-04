@@ -43,3 +43,10 @@ See [ADR 0015](../decisions/0015-branches-and-environments.md) and [WORKFLOW](WO
 2. Open a PR from `dev` into `main` titled `Release vX.Y.Z`, with a short list of changes.
 3. When CI is green, Adam merges it with a **merge commit**.
 4. Tag `main` with `vX.Y.Z`.
+
+## Security headers
+`vercel.json` sends a strict Content-Security-Policy and the other security headers (security review M3, 2026-11-04). Scripts and styles come only from our own site, with no inline styles and no eval. The only outside host is Supabase (`https://*.supabase.co`, and `wss://` for realtime).
+- **Adding anything from another host** (a font, an API, an analytics script) means adding it to the CSP, or the browser blocks it.
+- **Painted SVG markup** must use classes, not `style="…"` attributes: the CSP blocks inline styles.
+- `e2e/headers.spec.ts` loads the app with these exact headers and fails on any violation, so CI catches a break.
+- The Vercel toolbar on preview deployments (comments) isn't allowed by the CSP, so it may not load there. The site itself is unaffected.

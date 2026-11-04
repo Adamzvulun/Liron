@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { phaseOf, scheduleReview } from './scheduler.ts';
+import { gradeFrom, phaseOf, scheduleReview } from './scheduler.ts';
 
 const t0 = new Date('2026-11-02T09:00:00Z');
 const minutes = (a: Date, b: Date) => (b.getTime() - a.getTime()) / 60_000;
@@ -52,5 +52,21 @@ describe('scheduleReview', () => {
 
   it('rejects unknown grades', () => {
     expect(() => scheduleReview(null, 'perfect' as never, t0)).toThrow(RangeError);
+  });
+});
+
+describe('gradeFrom: a session’s answers for one item', () => {
+  it('is good when all were right, hard from half, again below that', () => {
+    expect(gradeFrom(5, 5)).toBe('good');
+    expect(gradeFrom(4, 5)).toBe('hard');
+    expect(gradeFrom(1, 2)).toBe('hard');
+    expect(gradeFrom(2, 5)).toBe('again');
+    expect(gradeFrom(0, 3)).toBe('again');
+    expect(gradeFrom(1, 1)).toBe('good');
+    expect(gradeFrom(0, 1)).toBe('again');
+  });
+
+  it('is again when nothing was asked', () => {
+    expect(gradeFrom(0, 0)).toBe('again');
   });
 });
