@@ -33,9 +33,11 @@ describe('subjectApi', () => {
     await api.recordPractice(0.4);
     await api.recordPractice(2.6);
     expect(await api.progressSummary()).toEqual({ xp: 0, minutes: 3 });
-    for (const bad of [-1, 241, Number.POSITIVE_INFINITY]) {
+    for (const bad of [-1, Number.NaN, Number.POSITIVE_INFINITY]) {
       await expect(api.recordPractice(bad)).rejects.toThrow(RangeError);
     }
+    await api.recordPractice(600); // a screen left open: counted as the 240-minute maximum
+    expect(await api.progressSummary()).toEqual({ xp: 0, minutes: 243 });
   });
 
   it('keeps state per subject and returns copies', async () => {
