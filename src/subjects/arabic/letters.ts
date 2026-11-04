@@ -135,6 +135,21 @@ const TWINS: readonly (readonly [string, string])[] = [
   ['ز', 'ر'],
 ];
 
+/**
+ * Letters that share one body and differ only in their dots: what's hard for Hebrew readers
+ * (Ibrahim, Eviatar & Aharon-Peretz 2002; full review, concern 3).
+ */
+const DOT_GROUPS: readonly string[] = ['بتثني', 'جحخ', 'دذ', 'رز', 'سش', 'صض', 'طظ', 'عغ', 'فق'];
+
+/** The letters that differ from this one only by their dots, e.g. ت, ث, ن and ي for ب. */
+export function dotSiblings(l: Letter): Letter[] {
+  const group = DOT_GROUPS.find((g) => g.includes(l.letter)) ?? '';
+  return [...group]
+    .filter((c) => c !== l.letter)
+    .map((c) => byChar.get(c))
+    .filter((x): x is Letter => !!x);
+}
+
 /** The letters most easily mistaken for this one: its twins, then its shape family. */
 export function lookalikes(l: Letter): Letter[] {
   const twins = TWINS.filter((p) => p.includes(l.letter))
