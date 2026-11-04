@@ -58,6 +58,9 @@ function drawGlyph(g: CanvasRenderingContext2D, letter: string, color: string) {
  * The slate (#41): trace a letter you know over a faint guide, then write it from memory.
  * A rough shape check, not handwriting recognition: no stroke order, a margin for a shaky hand.
  */
+
+/** Writing is slow: 4 XP per good shape keeps the slate near 10 XP a minute (2026-11-04 review). */
+const XP_PER_SHAPE = 4;
 export function Slate({ api }: { api: SubjectApi }) {
   const [progress, setProgress] = useState<ArabicProgress | null>(null);
   const [failed, setFailed] = useState(false);
@@ -111,7 +114,7 @@ export function Slate({ api }: { api: SubjectApi }) {
     const at = new Date();
     (async () => {
       for (const [id, s] of byLetter) await api.recordResult('write', id, s, { at });
-      const xp = all.filter((a) => a.score.passed).length * 2;
+      const xp = all.filter((a) => a.score.passed).length * XP_PER_SHAPE;
       if (xp > 0) await api.awardXP(xp);
       await api.recordPractice((Date.now() - started) / 60000);
     })().then(
@@ -192,7 +195,9 @@ export function Slate({ api }: { api: SubjectApi }) {
             {attempts.filter((a) => a.score.passed).length} / {attempts.length}
           </p>
           <p>Shapes that looked right. Writing helps the letters stick when you read.</p>
-          <p className="arabic__xp">+{attempts.filter((a) => a.score.passed).length * 2} XP</p>
+          <p className="arabic__xp">
+            +{attempts.filter((a) => a.score.passed).length * XP_PER_SHAPE} XP
+          </p>
         </div>
       )}
     </section>
