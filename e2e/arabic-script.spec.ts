@@ -125,3 +125,31 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
     expect(saved.p_state).toMatchObject({ lesson: 1, streak: 1 });
   });
 });
+
+test.describe('the slate (#41)', () => {
+  test('trace and write the letters you’ve met, and the writing is rated', async ({ page }) => {
+    const calls: SubjectCall[] = [];
+    const met = ['letter:alef', 'letter:beh', 'letter:teh', 'letter:noon', 'letter:yeh'];
+    await signedIn(page, [], calls, { lesson: 1, streak: 0, met, done: false, sessions: 1 }, WORDS);
+    await page.goto('/caravanserai');
+    await page.getByRole('button', { name: /The slate/ }).click();
+    for (let i = 0; i < 10; i++) {
+      const pad = page.getByLabel(/(Trace|Write) the letter here/);
+      const box = await pad.boundingBox();
+      if (!box) throw new Error('no pad');
+      // A stroke down the middle (an alif would pass; others are a near miss).
+      await page.mouse.move(box.x + box.width / 2, box.y + box.height * 0.25);
+      await page.mouse.down();
+      await page.mouse.move(box.x + box.width / 2, box.y + box.height * 0.66, { steps: 8 });
+      await page.mouse.up();
+      await page.getByRole('button', { name: 'Check' }).click();
+      await expect(page.getByText(/Good shape!|missing|outside/)).toBeVisible();
+      await page.getByRole('button', { name: 'Next' }).click();
+    }
+    await expect(page.getByText('The slate · done')).toBeVisible();
+    await expect.poll(() => calls.some((c) => c.rpc === 'record_progress')).toBe(true);
+    const rated = calls.filter((c) => c.rpc === 'record_result');
+    expect(rated).toHaveLength(5);
+    expect(rated.every((c) => (c.args as { p_skill: string }).p_skill === 'write')).toBe(true);
+  });
+});
