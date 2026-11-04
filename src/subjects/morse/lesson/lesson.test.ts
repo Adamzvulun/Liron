@@ -21,6 +21,22 @@ describe('scoreCopy', () => {
   it('ignores an extra character', () => {
     const s = scoreCopy(split('KMK'), split('KMMK'));
     expect(s.right).toBe(3);
+    expect(s.extra).toBe(1);
+    expect(s.accuracy).toBeCloseTo(3 / 4);
+  });
+
+  it("can't be passed by mashing keys (extra characters count as errors)", () => {
+    const played = Array.from({ length: 100 }, (_, i) => ((i * 7) % 3 === 0 ? 'K' : 'M'));
+    const mashed = Array.from({ length: 200 }, (_, i) => (i % 2 ? 'M' : 'K'));
+    const s = scoreCopy(played, mashed);
+    expect(s.right).toBe(100);
+    expect(s.accuracy).toBeLessThanOrEqual(0.5);
+  });
+
+  it('counts extra characters at the start too', () => {
+    const s = scoreCopy(split('KM'), split('MMKM'));
+    expect(s.extra).toBe(2);
+    expect(s.accuracy).toBeCloseTo(0.5);
   });
 
   it('marks a skip ("?") and a wrong letter as misses', () => {

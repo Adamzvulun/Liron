@@ -125,6 +125,7 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
           </p>
           <p className="lesson__kicker">
             {stage.score.right} of {stage.score.played} right
+            {stage.score.extra > 0 ? ` · ${stage.score.extra} extra` : ''}
           </p>
           {stage.passed ? (
             <>
