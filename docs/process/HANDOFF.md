@@ -1,11 +1,12 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run. Adam went to sleep and told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04. Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git, and repeated it on 2026-11-04.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 
 ## State right now
 - **Open: [PR #73](https://github.com/Adamzvulun/Liron/pull/73)** into `dev`, on branch `claude/brave-ride-j0hcmv`. It closes #32–#37. **Don't merge it; Adam does.** It holds:
   - **Approved by Adam (2026-11-03):** #32 saving Instant Recognition rounds, #33 the tower hall, and #34 "The Silent Beacon" I–II with trials. CI passed on 639fbe9.
+  - **Adam's review (2026-11-04):** "The room needs more depth"; everything else looks OK; he hasn't tried sending yet. Since then: the room is repainted in true perspective (`project()` in `paintTower.ts`), and every audio context asks Safari for a playback session, so the iOS silent switch no longer mutes Morse (`src/core/audio.ts`; still to check on a real iPhone).
   - **Overnight, awaiting Adam's review:** the tower's **painted room** (#33, commit bf4ef15) and **sending with a straight key** (#35 sidetone and key, #36 decoder, #37 fist analysis). Each is its own commit, so either can be reverted alone.
 - **Why one PR:** this session can push only to its one designated branch, and the Stop hook pushes every commit. So the overnight work landed on the open PR. Its description marks which parts are approved.
 - **Merged into `dev` before this:** M1 (E1–E5); #30 sound engine and #31 Koch lessons (PR #71, #72). `main` is still v0.1.0.
@@ -17,7 +18,8 @@
      - the lesson design `arabic-script-lessons.md`: shape-family order, Hebrew bridge, native audio from the Lingualism deck, the 90%-twice gate;
      - a concept of the first lesson's three screens;
      - a painted concept of the Caravanserai courtyard, with "The Long Road In" as milestones;
-     - chapter I story text, `long-road-in-ch1.md`.
+     - chapter I story text, `long-road-in-ch1.md` (milestone 7 now uses صِفِر/سفر, both in the deck);
+     - `minimal-pairs.md`: the deck's exact word pairs for the sounds Hebrew lacks. There are only 13, so the Listen drill puts the confusable twin in the options instead.
 
      Ask Adam to approve or change them. Then commit them on a fresh branch from `dev` as `docs/game/arabic-script-lessons.md`, before building.
 3. **Release v1.0.0** when Adam decides there's enough to learn. Morse is now playable end to end.
