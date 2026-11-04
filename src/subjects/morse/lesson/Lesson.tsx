@@ -6,6 +6,7 @@ import { schedule } from '../timing.ts';
 import { buildRun, GROUP_SIZE, RUN_SECONDS } from './build.ts';
 import {
   applyRun,
+  pendingTrial,
   CHAR_WPM,
   isWarmup,
   newestChar,
@@ -171,6 +172,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           passed={stage.passed}
           warmup={stage.warmup}
           runsAtGate={stage.passed ? GATE_RUNS : trailingPasses(progress.recent)}
+          trialName={pendingTrial(progress)?.trial.name}
           nextChar={stage.passed ? unlocked[unlocked.length - 1] : nextChar(progress)}
           player={player}
           onAgain={startRun}
@@ -343,12 +345,13 @@ function pickTarget(newChar: string, choices: string[]): string {
 }
 
 /** One copy run: groups play, you type or tap what you hear. */
-function Run({
+export function Run({
   unlocked,
   newChar,
   weights,
   speed,
   seconds,
+  count,
   player,
   onDone,
 }: {
@@ -357,11 +360,13 @@ function Run({
   weights: ReadonlyMap<string, number>;
   speed: { charWpm: number; effWpm: number };
   seconds: number;
+  /** A fixed number of characters instead of a length in time (trials). */
+  count?: number;
   player: MorsePlayer;
   onDone: (score: RunScore) => void;
 }) {
   const plan = useMemo(
-    () => buildRun(unlocked, speed, { newChar, weights, seconds }),
+    () => buildRun(unlocked, speed, { newChar, weights, seconds, count }),
     // A new run each time the component mounts.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -479,6 +484,7 @@ function Result({
   score,
   passed,
   warmup,
+  trialName,
   runsAtGate,
   nextChar,
   player,
@@ -488,6 +494,8 @@ function Result({
   score: RunScore;
   passed: boolean;
   warmup: boolean;
+  /** The chapter's trial, if it holds the gate now. */
+  trialName?: string;
   runsAtGate: number;
   nextChar?: string;
   player: MorsePlayer;
@@ -529,13 +537,15 @@ function Result({
         ) : (
           <>
             <p>
-              {warmup
-                ? 'Warm-up done. Now the runs count towards the next lamp.'
-                : !nextChar
-                  ? 'Every letter is lit. Keep your ear sharp.'
-                  : score.accuracy >= 0.9
-                    ? 'One more run at 90% lights the next lamp.'
-                    : 'Keep going: two runs in a row at 90% light the next lamp.'}
+              {trialName
+                ? `Every lamp of this chapter is lit. ${trialName} waits in the tower hall; these runs keep your ear sharp.`
+                : warmup
+                  ? 'Warm-up done. Now the runs count towards the next lamp.'
+                  : !nextChar
+                    ? 'Every letter is lit. Keep your ear sharp.'
+                    : score.accuracy >= 0.9
+                      ? 'One more run at 90% lights the next lamp.'
+                      : 'Keep going: two runs in a row at 90% light the next lamp.'}
             </p>
             <button type="button" className="lesson__go" onClick={onAgain}>
               Next run
