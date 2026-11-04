@@ -91,7 +91,7 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
   2. **Listen** (10 questions): the word plays, you pick its first letter from 4. The choices always include its twin or a shape sibling you know (`lookalikes` in `letters.ts`). Alif is never asked as a first letter, since in speech its hamza starts the word.
   3. **Read** (8 questions): a word you can read in full, with its vowel marks; you pick its sound from 4 choices **in Hebrew letters**. They're made from each letter's bridge (بيت → בית, short vowels left out, final forms at the end), the common Israeli way of writing Arabic. Wrong choices are other readable words of about the same length. After you answer, the word plays.
   4. **The result:** the score, how close you are to passing (90% in 2 sessions in a row, on different days), the letters to listen for again, and XP.
-- **Saved and measured** (`lesson/report.ts`): the state (lesson, passes in a row, letters met); an FSRS review per letter (`letter:beh`: good only if every answer that tested it was right); a Glicko **listen** rating per letter and a **read** rating per word; XP (1 per right answer, +30 for passing a lesson); practice minutes.
+- **Saved and measured** (`lesson/report.ts`): the state (lesson, passes in a row, letters met); an FSRS review per letter (`letter:beh`: good only if every answer that tested it was right); a Glicko **listen** rating per letter and a **read** rating per word; XP (2 per right answer, +30 for passing a lesson; raised from 1 on 2026-11-04 to reach about 10 XP a minute); practice minutes.
 - **The words** come from the Lingualism deck through `api.privateContent('lingualism-pcav')` (signed in only, ADR 0011), and each recording through `api.mediaUrl`. Only single words made entirely of taught letters are used. If the deck isn't in the database, the lesson says so.
 - **The courtyard** (`hall/paintKhan.ts`, `hall/Courtyard.tsx`, #42) replaces the simple hall. It's the approved concept, painted in the browser at 1920×1080 with one perspective camera:
   - **Scribe's table:** your lesson.
@@ -120,7 +120,7 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
     - Both the font's letter and your ink are read onto a 64×64 grid.
     - It passes if you covered enough of the letter (75% tracing, 55% from memory) and kept your ink near it (at most 25% or 40% outside, with a margin for a shaky hand).
     - There's no stroke order. That's honest about what a rough check can tell, and it keeps us free of handwriting AI.
-  - **Saved:** a **write** rating per letter (a pass from memory counts more than a traced one), 2 XP per good shape, and practice minutes. Like the fountain and the storyteller, it's practice: it never passes a lesson.
+  - **Saved:** a **write** rating per letter (a pass from memory counts more than a traced one), 4 XP per good shape (2 before 2026-11-04), and practice minutes. Like the fountain and the storyteller, it's practice: it never passes a lesson.
 - **Hebrew choices fade to Latin** (`LATIN_AFTER` in `lesson/questions.ts`):
   - **When:** once every letter of a word was taught at least 2 lessons ago, its Read choices are the deck's own romanisation (bint, tīn, bēt).
   - **The key:** each Latin question shows a key for the deck's special letters in its choices, e.g. 3 = ع, ɧ = ح, ʂ = ص, and g = ق, the Gaza speaker's ق. Those letters carry a `latin` field in `letters.json`.
