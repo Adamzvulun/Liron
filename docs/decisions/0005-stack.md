@@ -17,7 +17,7 @@ Requirements:
 | Layer | Choice | Why |
 |---|---|---|
 | App | **TypeScript + React + Vite, as a regular responsive website** | One codebase for phone and desktop in the browser. No PWA, no install, no offline (Adam, 2026-11-01). |
-| Lobby / game visuals | **SVG + CSS/Framer Motion.** The lobby is an **illustrated screen with clickable buildings**, not a walkable world (Adam, 2026-11-01). | Crisp at any size, animatable, and Claude can produce it as code. Can grow into a scene engine later if ever wanted. |
+| Lobby / game visuals | **SVG + CSS** (Framer Motion only if CSS isn't enough; it isn't a dependency today). The lobby is an **illustrated screen with clickable buildings**, not a walkable world (Adam, 2026-11-01). | Crisp at any size, animatable, and Claude can produce it as code. Can grow into a scene engine later if ever wanted. |
 | Audio | **Web Audio API** | Precise Morse timing |
 | Backend | **Supabase** (Postgres, Auth, Realtime, Edge Functions), free tier | Auth and leaderboards for sharing, Realtime for head-to-head challenges, the LLM adapter runs as a Vercel serverless function (ADR 0011) |
 | Progress storage | **Supabase from day one**; you log in (just Adam at first) | Phone and desktop share one progress record without any sync logic. Simpler than local-first. |

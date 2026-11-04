@@ -32,4 +32,4 @@ Both end up as the same ~5,300 SVG elements in the page, so rendering costs the 
 ## Consequences
 - **Changing the art** means editing `painter.js` (the concept tool is no longer the source).
 - **If first paint ever gets slow,** the cobbles are the place to cut, by drawing fewer and larger stones; a static export stays possible because the painter is deterministic.
-- **Phones:** on phones, the scene shows letterboxed, with the HUD stacked above it, until the phone layout is designed and approved (#27).
+- **Phones:** on phones, the scene showed letterboxed until the phone layout was designed (#27). *Update:* #27 is done: on an upright phone the scene pans sideways (`useStage`) and its contents follow below as cards.
