@@ -431,3 +431,14 @@
   touch-action: none;
   cursor: crosshair;
 }
+
+.arabic__key {
+  margin: 10px 0 0 !important;
+  font-size: 15px !important;
+  color: #6b5640;
+}
+
+.arabic__choice:lang(en) {
+  font-family: var(--font-ui);
+  font-weight: 800;
+}

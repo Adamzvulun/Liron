@@ -119,4 +119,8 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
     - It passes if you covered enough of the letter (75% tracing, 55% from memory) and kept your ink near it (at most 25% or 40% outside, with a margin for a shaky hand).
     - There's no stroke order. That's honest about what a rough check can tell, and it keeps us free of handwriting AI.
   - **Saved:** a **write** rating per letter (a pass from memory counts more than a traced one), 2 XP per good shape, and practice minutes. Like the fountain and the storyteller, it's practice: it never passes a lesson.
-- **Not built yet (ordered, not dropped):** fading the Hebrew choices to Latin, and then to none.
+- **Hebrew choices fade to Latin** (`LATIN_AFTER` in `lesson/questions.ts`):
+  - **When:** once every letter of a word was taught at least 2 lessons ago, its Read choices are the deck's own romanisation (bint, tīn, bēt).
+  - **The key:** each Latin question shows a key for the deck's special letters in its choices, e.g. 3 = ع, ɧ = ح, ʂ = ص, and g = ق, the Gaza speaker's ق. Those letters carry a `latin` field in `letters.json`.
+  - So new letters are read with the Hebrew bridge, and old ones without it.
+- **Not built yet (ordered, not dropped):** the last fade, to no choices at all: typing or saying the word. That needs the speech decision (#45, ADR 0014), so it comes with E9.
