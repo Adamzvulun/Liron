@@ -80,3 +80,15 @@
 3. **No audio for letter names.**
 4. **The 90%-twice gate,** the same as Morse.
 5. **Writing comes after reading** in each lesson, not before.
+
+## 8. What's built (2026-11-04)
+Code: `src/subjects/arabic/`. Each step below is the design above, made real.
+- **The hall** (`Caravanserai.tsx`) shows the scribe's table (your lesson, its letters, passes so far) and the coffee corner (phrases, soon). The painted courtyard (#42) replaces this simple hall. `?open=lesson` opens the lesson directly, for tests.
+- **A session** (`lesson/ScriptLesson.tsx`):
+  1. **Meet** each new letter once: the letter, "Like ב", its name and sound, its four shapes (made by the font with zero-width joiners), whether it joins the next letter, the note, and up to 3 deck words with their recordings. "Meet the letters again" brings the cards back.
+  2. **Listen** (10 questions): the word plays, you pick its first letter from 4. The choices always include its twin or a shape sibling you know (`lookalikes` in `letters.ts`). Alif is never asked as a first letter, since in speech its hamza starts the word.
+  3. **Read** (8 questions): a word you can read in full, with its vowel marks; you pick its sound from 4 choices **in Hebrew letters**. They're made from each letter's bridge (بيت → בית, short vowels left out, final forms at the end), the common Israeli way of writing Arabic. Wrong choices are other readable words of about the same length. After you answer, the word plays.
+  4. **The result:** the score, how close you are to passing (90% in 2 sessions in a row), the letters to listen for again, and XP.
+- **Saved and measured** (`lesson/report.ts`): the state (lesson, passes in a row, letters met); an FSRS review per letter (`letter:beh`: good only if every answer that tested it was right); a Glicko **listen** rating per letter and a **read** rating per word; XP (1 per right answer, +30 for passing a lesson); practice minutes.
+- **The words** come from the Lingualism deck through `api.privateContent('lingualism-pcav')` (signed in only, ADR 0011), and each recording through `api.mediaUrl`. Only single words made entirely of taught letters are used. If the deck isn't in the database, the lesson says so.
+- **Not built yet (ordered, not dropped):** writing by tracing (#41's second half), fading the Hebrew choices to Latin and then to none, vowel-mark lessons (#40), and the painted courtyard with "The Long Road In" (#42, #43).

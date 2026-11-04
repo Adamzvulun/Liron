@@ -1,0 +1,378 @@
+/* The Caravanserai's screens (#38–#41). Shared card and button styles come from Morse's lesson
+   look, repeated here so subjects stay independent (ADR 0019). */
+.arabic,
+.arabic__hall {
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+
+.arabic .lesson__card,
+.arabic__hall .arabic__door {
+  width: min(100%, 760px);
+  padding: 20px 22px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--parchment), #e8d2a4);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.arabic .lesson__card p {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.arabic .lesson__start,
+.arabic__meet,
+.arabic__question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.arabic .lesson__kicker {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px !important;
+  color: #6b5640;
+}
+
+.arabic .lesson__title,
+.arabic .lesson__subtitle,
+.arabic__door-title {
+  margin: 4px 0 10px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 26px;
+  color: var(--wood);
+}
+
+.arabic .lesson__subtitle {
+  font-size: 20px;
+}
+
+.arabic .lesson__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.arabic .lesson__go,
+.arabic .lesson__plain,
+.arabic__back {
+  min-height: 52px;
+  padding: 10px 26px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 19px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.arabic .lesson__go {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+  color: var(--ink);
+}
+
+.arabic .lesson__plain,
+.arabic__back {
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  color: var(--vellum);
+}
+
+.arabic__back {
+  justify-self: start;
+  min-height: 44px;
+  font-size: 17px;
+}
+
+.arabic .lesson__warning {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #fbe3dc;
+  color: #7a2416;
+  font-weight: 700;
+}
+
+.arabic__loading {
+  color: var(--vellum);
+  font-weight: 700;
+}
+
+.arabic__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 4px 0 12px;
+}
+
+.arabic__chip {
+  display: inline-grid;
+  place-items: center;
+  min-width: 48px;
+  height: 48px;
+  padding: 0 8px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: #fff6df;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.arabic__note {
+  font-weight: 700;
+  color: var(--guild-arabic);
+}
+
+/* Meet a letter */
+.arabic__hero {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 6px 0 12px;
+  text-align: start;
+}
+
+.arabic__hero p {
+  margin: 0 0 4px !important;
+}
+
+.arabic__big {
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+  border: var(--outline-ui);
+  border-radius: 22px;
+  background: radial-gradient(circle at 40% 35%, #fff6df, #ead3a3);
+  box-shadow: 0 5px 0 var(--ink);
+  font-size: 84px;
+  line-height: 1;
+}
+
+.arabic__bridge {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px !important;
+  color: var(--wood);
+}
+
+.arabic__bridge bdi {
+  font-family: var(--font-hebrew);
+  font-size: 30px;
+}
+
+.arabic__name {
+  font-weight: 700;
+}
+
+.arabic__forms {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.arabic__form {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: #fff6df;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.arabic__form-glyph {
+  font-size: 40px;
+  line-height: 1.5;
+}
+
+.arabic__form.is-none {
+  opacity: 0.45;
+}
+
+.arabic__joins {
+  font-weight: 700;
+}
+
+.arabic__examples {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  text-align: start;
+}
+
+.arabic__examples li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255, 246, 223, 0.7);
+}
+
+.arabic__example {
+  font-size: 30px;
+}
+
+.arabic__play,
+.arabic__listen {
+  min-width: 44px;
+  min-height: 44px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.arabic__listen {
+  padding: 8px 20px;
+  margin-bottom: 14px;
+}
+
+/* A question */
+.arabic__bar {
+  width: 100%;
+  height: 8px;
+  margin-bottom: 12px;
+  border-radius: 99px;
+  background: rgba(36, 22, 14, 0.15);
+  overflow: hidden;
+}
+
+.arabic__bar span {
+  display: block;
+  height: 100%;
+  background: var(--guild-arabic);
+}
+
+.arabic__word {
+  margin: 4px 0 16px;
+  font-size: 64px;
+  line-height: 1.4;
+}
+
+.arabic__choices {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.arabic__choices.is-words {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.arabic__choice {
+  min-height: 84px;
+  border: var(--outline-ui);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff6df, #ead3a3);
+  color: var(--ink);
+  font-size: 44px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.arabic__choices.is-words .arabic__choice {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.arabic__choice:disabled {
+  cursor: default;
+}
+
+.arabic__choice.is-right {
+  background: linear-gradient(180deg, #d9f2c4, #9fd27a);
+}
+
+.arabic__choice.is-wrong {
+  background: linear-gradient(180deg, #fbd6cc, #e58b74);
+}
+
+.arabic__feedback {
+  display: grid;
+  justify-items: center;
+}
+
+.arabic__good {
+  color: #2f6b1e;
+  font-weight: 800;
+}
+
+.arabic__bad {
+  color: #8a2a18;
+  font-weight: 800;
+}
+
+.arabic__pct {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 56px !important;
+  color: var(--wood);
+}
+
+.arabic__xp {
+  font-weight: 800;
+  color: var(--wood);
+}
+
+/* The hall, until the painted courtyard (#42) */
+.arabic__door {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  text-align: center;
+  font: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.arabic__door.is-soon {
+  cursor: default;
+  opacity: 0.6;
+  border-style: dashed;
+}
+
+.arabic__known {
+  color: var(--vellum);
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .arabic__hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .arabic__forms {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .arabic__choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .arabic__word {
+    font-size: 52px;
+  }
+}
