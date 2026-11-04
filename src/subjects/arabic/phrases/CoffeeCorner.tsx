@@ -24,7 +24,15 @@ type Stage =
   | { kind: 'meet'; index: number }
   | { kind: 'understand'; questions: UnderstandQuestion[]; index: number; right: string[] }
   | { kind: 'say'; index: number; right: string[]; said: string[] }
-  | { kind: 'result'; right: string[]; said: string[]; asked: number; passed: boolean };
+  | {
+      kind: 'result';
+      right: string[];
+      said: string[];
+      asked: number;
+      passed: boolean;
+      /** The set that comes after the one just passed, or null if it was the last. */
+      nextTitle: string | null;
+    };
 
 /**
  * The coffee corner (#45): survival phrases from the deck. Meet a set's phrases (hear them,
@@ -104,7 +112,9 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
       sessions: progress.sessions + 1,
     };
     setProgress(next);
-    setStage({ kind: 'result', right, said, asked, passed });
+    // Read the next set's title now: after setProgress, setNo already points past this set.
+    const nextTitle = PHRASE_SETS[progress.phraseSet]?.title ?? null;
+    setStage({ kind: 'result', right, said, asked, passed, nextTitle });
     const at = new Date();
     const heard = [...phrases, ...reviews];
     (async () => {
@@ -220,8 +230,8 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
           </p>
           <p>
             {stage.passed
-              ? setNo < PHRASE_SETS.length
-                ? `Set passed! Next: ${PHRASE_SETS[setNo]?.title ?? ''}.`
+              ? stage.nextTitle
+                ? `Set passed! Next: ${stage.nextTitle}.`
                 : 'Set passed! That’s every set: your first week’s Arabic.'
               : `Understood by ear. Reach ${Math.round(SET_PASS * 100)}% to pass the set.`}
           </p>
