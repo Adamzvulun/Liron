@@ -10,9 +10,16 @@ import {
   lettersUpTo,
   lookalikes,
 } from './letters.ts';
+import { inHebrewVowelled } from './marks.ts';
 import { applySession, NEW_PROGRESS, parseProgress } from './progress.ts';
 import { readableWith, spokenHebrew, wordsFrom } from './words.ts';
-import { heardAsAnother, listenQuestions, readQuestions, seeded } from './lesson/questions.ts';
+import {
+  dotSwaps,
+  heardAsAnother,
+  listenQuestions,
+  readQuestions,
+  seeded,
+} from './lesson/questions.ts';
 import { reportSession, scoreOf, xpFor, type Answer } from './lesson/report.ts';
 
 // Everyday words (not the deck's rows), shaped like deck items.
@@ -198,6 +205,28 @@ describe('a session’s questions', () => {
       expect(girl.marks.map((m) => m.id)).toEqual(['mark:kasra', 'mark:sukun']);
     }
     for (const q of qs) expect(q.choices).toContain(q.answer);
+  });
+
+  it('swaps one letter for a known letter that differs only in its dots (review concern 3)', () => {
+    const known = new Set(['letter:alif', 'letter:beh', 'letter:teh', 'letter:noon', 'letter:yeh']);
+    const swapped = dotSwaps('بَيت', known);
+    expect(swapped).toEqual(expect.arrayContaining(['تَيت', 'نَيت', 'بَبت', 'بَيب']));
+    // The vowel mark stays; ث isn't known yet, so it's never used; ا has no dot twins.
+    expect(swapped.every((w) => w.includes('َ'))).toBe(true);
+    expect(swapped.some((w) => w.includes('ث'))).toBe(false);
+    expect(dotSwaps('ا', known)).toEqual([]);
+  });
+
+  it('puts a dots-only twin among the Hebrew choices', () => {
+    const qs = readQuestions(words, 1, seeded(2), undefined, 'latin');
+    const he = qs.filter((q) => q.script === 'he');
+    expect(he.length).toBeGreaterThan(0);
+    const known = new Set(LESSONS[0]?.letters.map((l) => l.id));
+    for (const q of he) {
+      if (dotSwaps(q.shown, known).length === 0) continue;
+      const twins = dotSwaps(q.shown, known).map((a) => inHebrewVowelled(a));
+      expect(q.choices.some((c) => twins.includes(c))).toBe(true);
+    }
   });
 
   it('shows every other word bare from lesson 4, as real signs are', () => {
