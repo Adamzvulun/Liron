@@ -35,6 +35,8 @@ describe('vowel marks (#40)', () => {
     expect(inHebrewVowelled('بَيْت')).toBe('בֵּית'.normalize('NFC'));
     // Tanween: -an, and ة before it is said t.
     expect(inHebrewVowelled('شُكْراً')).toBe('שֻכְּרַן'.normalize('NFC'));
+    // Tanween before its alif (the order Unicode prefers) reads the same: no stray alef (C5).
+    expect(inHebrewVowelled('شُكْرًا')).toBe('שֻכְּרַן'.normalize('NFC'));
     expect(inHebrewVowelled('عادةً')).toBe('עאדתַן'.normalize('NFC'));
     // Words starting with two consonants keep their shva.
     expect(inHebrewVowelled('لْسان')).toBe('לְסאן'.normalize('NFC'));

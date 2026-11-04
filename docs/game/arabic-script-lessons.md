@@ -97,7 +97,7 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
   - **Scribe's table:** your lesson.
   - **Fountain:** a Listen-only round of 12. It's practice: it feeds reviews, ratings and XP but never passes a lesson.
   - **Storyteller:** a Read-only round of 12, the same kind of practice.
-  - **Slate:** writing, soon.
+  - **Slate:** tracing and writing the letters you've met.
   - **Coffee corner:** phrases, soon.
   - On an upright phone, the courtyard pans and the same things follow below it as cards.
 - **"The Long Road In", chapter I** (#43, `content/arabic/questline.json`, `questline.ts`):
@@ -118,7 +118,7 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
   - **The session:** 5 letters you've met, newest lesson first. You trace each one over a faint guide, then write it from memory, with a finger or the mouse.
   - **The check is a rough shape check, not handwriting recognition:**
     - Both the font's letter and your ink are read onto a 64×64 grid.
-    - It passes if you covered enough of the letter (75% tracing, 55% from memory) and kept your ink near it (at most 25% or 40% outside, with a margin for a shaky hand).
+    - It passes if you covered enough of the letter (75% tracing, 55% from memory), kept your ink near it (at most 25% or 40% outside, with a margin for a shaky hand), **and gave every dot ink of its own**. The letter's separate small parts (its dots, or ك's inner stroke) each need ink within 2 cells (tracing) or 4 cells (from memory) of the 64-cell grid, off the body. Otherwise it says "Don't forget the dots." Without this, a body alone covered about 89% of ب and passed (full review, concern 4).
     - There's no stroke order. That's honest about what a rough check can tell, and it keeps us free of handwriting AI.
   - **Saved:** a **write** rating per letter (a pass from memory counts more than a traced one), 4 XP per good shape (2 before 2026-11-04), and practice minutes. Like the fountain and the storyteller, it's practice: it never passes a lesson.
 - **Hebrew choices fade to recordings** (`LATIN_AFTER` in `lesson/questions.ts`; changed 2026-11-04, review decision 4):

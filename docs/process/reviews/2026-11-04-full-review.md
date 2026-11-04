@@ -26,7 +26,7 @@ Adam asked: "Run agents each in its own field of expertise… to check everythin
 | [#96](https://github.com/Adamzvulun/Liron/pull/96) | The last Arabic lesson can't be re-passed for its bonus; the Painted Sign waits for all 8 milestones |
 
 ## Still to fix (Claude, in this order)
-1. ~~Content converters~~ (#92; tanween order is latent and still to do).
+1. ~~Content converters~~ (#92; the tanween order too: شكرًا no longer gains a stray alef).
 2. ~~Crashes and wrong messages~~ (#93, #96).
 3. **Fair grading** (code, learning): ~~spaced-repetition grades are all-or-nothing per session; coffee reviews are never graded "good"~~ (fixed: `gradeFrom`). ~~Listen asks for ث/ذ words the speaker says as s/z~~ (#107: Listen skips words whose first letter is said as another letter; ظ and ض too). ق stays: its card teaches the deck's g.
 4. **Look and feel** (UX): ~~brass button contrast~~ and ~~Koch wrong answers~~ (#94). ~~guild-coloured text below AA~~ (darker `--guild-*-ink` and `--ember-ink` text tokens, 5.1–6.1:1 on parchment). ~~the slate plaque covers the scroll's goal line on desktop~~ (the scroll hangs higher and is capped above the plaques; an e2e test checks 1280×720, 1366×768 and 1920×1080).
@@ -37,7 +37,7 @@ Adam asked: "Run agents each in its own field of expertise… to check everythin
 ## Bigger ideas the reviewers recommend (ordered, not dropped)
 - **UX "focus mode":** keep activities inside the painted room with one slim bar, which gives the phone back about a third of its height. Plus a shared result card that animates the lamp or milestone you earned.
 - ~~**Read distractors with one lookalike letter swapped**~~ (done: `dotSwaps`, one dots-only twin among the Hebrew choices) (ب/ت/ث/ن/ي, ج/ح/خ…), since the dots are what's hard for Hebrew readers (Ibrahim, Eviatar & Aharon-Peretz 2002).
-- **The slate should require the dots:** today ث can pass written as ب.
+- ~~**The slate should require the dots:** today ث can pass written as ب.~~ Done: each dot needs ink of its own (`trace.ts`), with an e2e test that traces ب without its dot.
 - ~~**Show the spoken form on Read reveals**~~ (قهوة is spelled with ق but said *gahwa* by this speaker). Done: every Read and Listen reveal adds "Said here:" with the deck's pronunciation in Hebrew letters (`spokenHebrew`).
 - **Architecture before E10:** save each session in one all-or-nothing call (today it's 20–40 separate requests); move subject knowledge out of core (the Notice Board's quest list is hard-coded and promises rewards nothing pays).
 
