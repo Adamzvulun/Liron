@@ -52,6 +52,8 @@ export async function fakeSupabase(
   subjectCalls: SubjectCall[] = [],
   /** The Morse subject's saved state, if the test wants one. */
   morseState: object | null = null,
+  /** Private content rows (content_items), e.g. a few deck words for Arabic. */
+  content: ContentRow[] = [],
 ) {
   await page.route(`${FAKE_SUPABASE_URL}/**`, async (route) => {
     const url = new URL(route.request().url());
@@ -88,6 +90,17 @@ export async function fakeSupabase(
           wallet: { ...WALLET, gold: WALLET.gold + (reached ? 20 : 0) },
         },
       });
+    }
+    // Private content (ADR 0023): the rows the test gave, and a short silent recording for
+    // every media link.
+    if (url.pathname === '/rest/v1/content_items') return route.fulfill({ json: content });
+    if (url.pathname === '/rest/v1/content_lessons') return route.fulfill({ json: [] });
+    if (url.pathname.startsWith('/storage/v1/object/sign/')) {
+      if (route.request().method() === 'POST') {
+        const path = url.pathname.replace('/storage/v1', '');
+        return route.fulfill({ json: { signedURL: `${path}?token=e2e` } });
+      }
+      return route.fulfill({ contentType: 'audio/wav', body: SILENT_WAV });
     }
     // A subject's progress: no saved state, nothing reviewed or rated yet. Writes are recorded.
     const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');
@@ -148,6 +161,43 @@ export async function fakeSupabase(
   });
 }
 
+/** One private content row, as the content_items table returns it. */
+export interface ContentRow {
+  item_id: string;
+  type: string;
+  data: object;
+  media: object[];
+  tags: string[];
+}
+
+/** A deck-like word for Arabic tests (everyday words, not the deck's own rows). */
+export const deckWord = (n: number, arabic: string, english: string): ContentRow => ({
+  item_id: `pcav:${String(n).padStart(4, '0')}`,
+  type: 'vocab',
+  data: { order: n, arabic, pronunciation: arabic, english, section: 1 },
+  media: [{ kind: 'audio', store: 'private', path: `lingualism-pcav/w${n}.mp3` }],
+  tags: [],
+});
+
+/** 0.1 s of silence, as a WAV file. */
+const SILENT_WAV = (() => {
+  const samples = 800;
+  const b = Buffer.alloc(44 + samples * 2);
+  b.write('RIFF', 0);
+  b.writeUInt32LE(36 + samples * 2, 4);
+  b.write('WAVEfmt ', 8);
+  b.writeUInt32LE(16, 16);
+  b.writeUInt16LE(1, 20);
+  b.writeUInt16LE(1, 22);
+  b.writeUInt32LE(8000, 24);
+  b.writeUInt32LE(16000, 28);
+  b.writeUInt16LE(2, 32);
+  b.writeUInt16LE(16, 34);
+  b.write('data', 36);
+  b.writeUInt32LE(samples * 2, 40);
+  return b;
+})();
+
 /** A write a subject made through the database functions (rpc name and arguments). */
 export interface SubjectCall {
   rpc: string;
@@ -160,8 +210,9 @@ export async function signedIn(
   profileUpdates: unknown[] = [],
   subjectCalls: SubjectCall[] = [],
   morseState: object | null = null,
+  content: ContentRow[] = [],
 ) {
-  await fakeSupabase(page, [], profileUpdates, subjectCalls, morseState);
+  await fakeSupabase(page, [], profileUpdates, subjectCalls, morseState, content);
   await page.addInitScript(
     ([key, session]) => {
       if (!sessionStorage.getItem('e2e-seeded')) {
