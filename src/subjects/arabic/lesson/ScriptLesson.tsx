@@ -3,7 +3,7 @@ import type { SubjectApi } from '../../../core/subject.ts';
 import { formsOf, LESSONS, LETTERS, type Letter } from '../letters.ts';
 import { marksOfLesson, marksUpTo, withMarks, type Mark } from '../marks.ts';
 import { applySession, parseProgress, PASSES_NEEDED, type ArabicProgress } from '../progress.ts';
-import { DECK, readableWith, wordsFrom, type Word } from '../words.ts';
+import { DECK, readableWith, spokenHebrew, wordsFrom, type Word } from '../words.ts';
 import {
   LATIN_AFTER,
   listenQuestions,
@@ -571,6 +571,7 @@ export function Practice({
   const word = question.word;
   const listen = question.kind === 'listen';
   const sound = question.kind === 'read' && question.script === 'sound';
+  const spoken = spokenHebrew(word);
   const right = listen
     ? question.choices.findIndex((c) => c.id === question.answer.id)
     : question.choices.indexOf(question.answer);
@@ -706,6 +707,11 @@ export function Practice({
             <bdi lang="he">{listen || sound ? word.hebrew : question.answer}</bdi> · {word.sound}
             {word.meaning ? ` · ${word.meaning}` : ''}
           </p>
+          {spoken && (
+            <p className="arabic__said">
+              Said here: <bdi lang="he">{spoken}</bdi>
+            </p>
+          )}
           <button type="button" className="lesson__go" onClick={next} autoFocus>
             Next
           </button>

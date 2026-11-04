@@ -2,6 +2,7 @@
 // each with its native recording. Read and Listen drills are built from them (#38, #41).
 import type { Item } from '../../core/content/schema.ts';
 import { inHebrew, lettersOf, type Letter } from './letters.ts';
+import { latinToHebrew } from './phrases/hebrew.ts';
 
 export const DECK = 'lingualism-pcav';
 
@@ -51,4 +52,13 @@ export function wordsFrom(items: readonly Item[]): Word[] {
 /** Words you can read: every letter is one you know. */
 export function readableWith(words: readonly Word[], known: ReadonlySet<string>): Word[] {
   return words.filter((w) => w.letters.every((l) => known.has(l.id)));
+}
+
+/**
+ * How the deck's speaker says a word, in Hebrew letters, from its romanisation (review concern 2):
+ * قهوة is spelled with ق but said gáhwa here, so a reveal shows גַהוַא next to the spelling. Empty
+ * when the word has no romanisation.
+ */
+export function spokenHebrew(word: Pick<Word, 'sound'>): string {
+  return /[a-z]/i.test(word.sound) ? latinToHebrew(word.sound) : '';
 }
