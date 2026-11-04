@@ -56,9 +56,14 @@ export async function loadPrivatePack(
   return { items, lessons };
 }
 
+/** How long a signed media link lives (security review L1: short, since a link is a bearer pass). */
+export const MEDIA_LINK_SECONDS = 600;
+
 /** A short-lived link to a private audio file, for an <audio> element. */
 export async function privateMediaUrl(client: SupabaseClient, path: string): Promise<string> {
-  const { data, error } = await client.storage.from('private-media').createSignedUrl(path, 3600);
+  const { data, error } = await client.storage
+    .from('private-media')
+    .createSignedUrl(path, MEDIA_LINK_SECONDS);
   if (error || !data) throw new Error(`Couldn't open ${path}: ${error?.message ?? 'no link'}`);
   return data.signedUrl;
 }
