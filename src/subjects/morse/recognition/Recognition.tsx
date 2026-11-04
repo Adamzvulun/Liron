@@ -240,7 +240,7 @@ function Round({
       window.clearTimeout(fuse);
       window.clearTimeout(pause);
       window.removeEventListener('keydown', onKey);
-      player.stop();
+      player.close();
     };
     // The round runs once per mount; its inputs don't change while it plays.
     // eslint-disable-next-line react-hooks/exhaustive-deps
