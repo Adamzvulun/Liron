@@ -53,6 +53,7 @@ export function listenQuestions(
   words: readonly Word[],
   lesson: number,
   rand: Rand,
+  count = LISTEN_COUNT,
 ): ListenQuestion[] {
   const known = lettersUpTo(lesson);
   const fresh = new Set(LESSONS[lesson - 1]?.letters.map((l) => l.id));
@@ -61,7 +62,7 @@ export function listenQuestions(
     (w) => short(w) && w.letters[0]?.letter !== 'ا' && known.some((k) => k.id === w.letters[0]?.id),
   );
   const freshWords = usable.filter((w) => fresh.has(w.letters[0]?.id ?? ''));
-  const chosen = pick(freshWords, usable, LISTEN_COUNT, rand);
+  const chosen = pick(freshWords, usable, count, rand);
   return chosen.map((word) => {
     const answer = word.letters[0] as Letter;
     const near = lookalikes(answer).filter((l) => known.some((k) => k.id === l.id));
@@ -72,12 +73,17 @@ export function listenQuestions(
 }
 
 /** See a word you can read, pick its sound: other readable words make the wrong choices. */
-export function readQuestions(words: readonly Word[], lesson: number, rand: Rand): ReadQuestion[] {
+export function readQuestions(
+  words: readonly Word[],
+  lesson: number,
+  rand: Rand,
+  count = READ_COUNT,
+): ReadQuestion[] {
   const known = new Set(lettersUpTo(lesson).map((l) => l.id));
   const fresh = new Set(LESSONS[lesson - 1]?.letters.map((l) => l.id));
   const readable = readableWith(words, known).filter(short);
   const withFresh = readable.filter((w) => w.letters.some((l) => fresh.has(l.id)));
-  const chosen = pick(withFresh, readable, READ_COUNT, rand);
+  const chosen = pick(withFresh, readable, count, rand);
   return chosen.map((word) => {
     // Wrong choices look alike: the same length if possible.
     const pool = [...new Set(readable.map((w) => w.hebrew))].filter((h) => h !== word.hebrew);

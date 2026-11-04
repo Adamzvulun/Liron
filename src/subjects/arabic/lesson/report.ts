@@ -16,16 +16,20 @@ export function scoreOf(answers: readonly Answer[]): number {
   return answers.length ? answers.filter((a) => a.right).length / answers.length : 0;
 }
 
-/** About 10 XP a minute: a session of 18 answers takes 2–3 minutes. Passing a lesson pays 30. */
-export function xpFor(answers: readonly Answer[], passedLesson: boolean): number {
-  return answers.filter((a) => a.right).length + (passedLesson ? 30 : 0);
+/** Passing a lesson pays 30 XP on top of the answers. */
+export const LESSON_BONUS = 30;
+
+/** About 10 XP a minute: a session of 18 answers takes 2–3 minutes; a pass adds its bonus. */
+export function xpFor(answers: readonly Answer[], bonus: number): number {
+  return answers.filter((a) => a.right).length + bonus;
 }
 
 export async function reportSession(
   api: SubjectApi,
   next: ArabicProgress,
   answers: readonly Answer[],
-  passedLesson: boolean,
+  /** Extra XP: a lesson passed (LESSON_BONUS), the Painted Sign passed (its trial's xp). */
+  bonus: number,
   seconds: number,
   at = new Date(),
 ): Promise<void> {
@@ -41,7 +45,7 @@ export async function reportSession(
       await api.recordResult('listen', a.letters[0] ?? a.wordId, a.right ? 1 : 0, { at });
     else await api.recordResult('read', a.wordId, a.right ? 1 : 0, { at });
   }
-  const xp = xpFor(answers, passedLesson);
+  const xp = xpFor(answers, bonus);
   if (xp > 0) await api.awardXP(xp);
   await api.recordPractice(seconds / 60);
 }

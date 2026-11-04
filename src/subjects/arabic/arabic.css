@@ -376,3 +376,27 @@
     font-size: 52px;
   }
 }
+
+.arabic__beat {
+  margin: 0 0 12px;
+  padding-left: 14px;
+  border-left: 5px solid var(--brass);
+  font-size: 18px;
+  font-style: italic;
+  text-align: left;
+}
+
+.arabic__rank-won {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px !important;
+  color: var(--wood);
+}
+
+.arabic-run {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.1em;
+  line-height: 1;
+}

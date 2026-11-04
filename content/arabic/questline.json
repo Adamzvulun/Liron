@@ -1,0 +1,99 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (story text written for Waymark)",
+  "items": [
+    {
+      "id": "road:1",
+      "subject": "arabic",
+      "type": "chapter",
+      "data": {
+        "questline": "The Long Road In",
+        "number": 1,
+        "title": "The Stranger at the Gate",
+        "lessons": 8,
+        "intro": "Dust on your boots, the sun going down behind you. The caravanserai’s gate stands open, and lamplight spills across the courtyard. Over the arch, words are painted that you can’t read. The innkeeper, a broad woman with flour on her sleeves, looks you over. “You can’t read the signs on the road? Then sit. Every traveller starts with a few letters.”",
+        "trial": {
+          "name": "The Painted Sign",
+          "text": "The innkeeper hands you the sign from over the arch. Read 30 words from all your letters at 90% or better, and she’ll write your name in her book.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "You read it aloud, every word. The innkeeper writes your name in her book, in Arabic, and turns it so you can read that too. “ضيف,” she says. “Guest. Your cup is filled first now.”"
+      }
+    },
+    {
+      "id": "road:1:milestone:1",
+      "subject": "arabic",
+      "type": "milestone",
+      "data": {
+        "lesson": 1,
+        "text": "The innkeeper taps the table: بيت. “House. You’re in one. Now you can say so.” The first milestone on the road catches the light."
+      }
+    },
+    {
+      "id": "road:1:milestone:2",
+      "subject": "arabic",
+      "type": "milestone",
+      "data": {
+        "lesson": 2,
+        "text": "A boy runs past with a sack of rice. رز, he shouts, and grins when you read it off the sack."
+      }
+    },
+    {
+      "id": "road:1:milestone:3",
+      "subject": "arabic",
+      "type": "milestone",
+      "data": {
+        "lesson": 3,
+        "text": "An old man by the fountain taps his wrist. “دم,” he says: blood. “Family is written there first.”"
+      }
+    },
+    {
+      "id": "road:1:milestone:4",
+      "subject": "arabic",
+      "type": "milestone",
+      "data": {
+        "lesson": 4,
+        "text": "Two merchants argue over شاي. You read the word on the tin before they do. One of them laughs and pours you a glass."
+      }
+    },
+    {
+      "id": "road:1:milestone:5",
+      "subject": "arabic",
+      "type": "milestone",
+      "data": {
+        "lesson": 5,
+        "text": "The kitchen door opens: جاج on the board tonight. The cook calls something from deep in the throat, a ح that no Hebrew letter quite holds. You try it. She nods: almost."
+      }
+    },
+    {
+      "id": "road:1:milestone:6",
+      "subject": "arabic",
+      "type": "milestone",
+      "data": {
+        "lesson": 6,
+        "text": "A traveller from the south says ق like a g, a man from the hills like a k, the innkeeper not at all. “Three ways, one letter,” she shrugs. “Listen to who’s talking.”"
+      }
+    },
+    {
+      "id": "road:1:milestone:7",
+      "subject": "arabic",
+      "type": "milestone",
+      "data": {
+        "lesson": 7,
+        "text": "The heavy letters. The storyteller makes them sound like a door closing. A merchant counts his coins: صفر, zero. A pilgrim sighs: سفر, the road. One heavy letter apart, and now you hear it."
+      }
+    },
+    {
+      "id": "road:1:milestone:8",
+      "subject": "arabic",
+      "type": "milestone",
+      "data": {
+        "lesson": 8,
+        "text": "The last milestone. The innkeeper takes down the painted sign over the arch and hands it to you. “Read it.”"
+      }
+    }
+  ]
+}
