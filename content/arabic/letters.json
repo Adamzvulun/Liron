@@ -12,7 +12,12 @@
         "name": "ألف",
         "nameLatin": "alif",
         "alphabetPosition": 1,
-        "connectsForward": false
+        "connectsForward": false,
+        "hebrew": "א",
+        "sound": "ʔ / aː",
+        "family": "alef",
+        "lesson": 1,
+        "note": "At the start of a word it carries a vowel (hamza seat); in the middle it is a long ā."
       }
     },
     {
@@ -24,7 +29,12 @@
         "name": "باء",
         "nameLatin": "bāʾ",
         "alphabetPosition": 2,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ב",
+        "sound": "b",
+        "family": "teeth",
+        "lesson": 1,
+        "note": "Always b, never v the way ב can be."
       }
     },
     {
@@ -36,7 +46,11 @@
         "name": "تاء",
         "nameLatin": "tāʾ",
         "alphabetPosition": 3,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ת",
+        "sound": "t",
+        "family": "teeth",
+        "lesson": 1
       }
     },
     {
@@ -48,7 +62,12 @@
         "name": "ثاء",
         "nameLatin": "thāʾ",
         "alphabetPosition": 4,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ת׳",
+        "sound": "θ",
+        "family": "teeth",
+        "lesson": 2,
+        "note": "Written th, but in city speech you mostly hear t or s."
       }
     },
     {
@@ -60,7 +79,12 @@
         "name": "جيم",
         "nameLatin": "jīm",
         "alphabetPosition": 5,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ג׳",
+        "sound": "d͡ʒ / ʒ",
+        "family": "cup",
+        "lesson": 5,
+        "note": "Palestinian speech says it j as in \"jam\", or zh."
       }
     },
     {
@@ -72,7 +96,12 @@
         "name": "حاء",
         "nameLatin": "ḥāʾ",
         "alphabetPosition": 6,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ח",
+        "sound": "ħ",
+        "family": "cup",
+        "lesson": 5,
+        "note": "The deep ח from the throat, which most Israeli Hebrew has lost. Not ه."
       }
     },
     {
@@ -84,7 +113,12 @@
         "name": "خاء",
         "nameLatin": "khāʾ",
         "alphabetPosition": 7,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ח׳",
+        "sound": "x",
+        "family": "cup",
+        "lesson": 5,
+        "note": "The ח / כ most Israelis say: kh."
       }
     },
     {
@@ -96,7 +130,11 @@
         "name": "دال",
         "nameLatin": "dāl",
         "alphabetPosition": 8,
-        "connectsForward": false
+        "connectsForward": false,
+        "hebrew": "ד",
+        "sound": "d",
+        "family": "non-joining",
+        "lesson": 3
       }
     },
     {
@@ -108,7 +146,12 @@
         "name": "ذال",
         "nameLatin": "dhāl",
         "alphabetPosition": 9,
-        "connectsForward": false
+        "connectsForward": false,
+        "hebrew": "ד׳",
+        "sound": "ð",
+        "family": "non-joining",
+        "lesson": 3,
+        "note": "Written dh, but in city speech you mostly hear d or z."
       }
     },
     {
@@ -120,7 +163,12 @@
         "name": "راء",
         "nameLatin": "rāʾ",
         "alphabetPosition": 10,
-        "connectsForward": false
+        "connectsForward": false,
+        "hebrew": "ר",
+        "sound": "r",
+        "family": "non-joining",
+        "lesson": 2,
+        "note": "A rolled r, at the tip of the tongue, not the Hebrew throat ר."
       }
     },
     {
@@ -132,7 +180,11 @@
         "name": "زاي",
         "nameLatin": "zāy",
         "alphabetPosition": 11,
-        "connectsForward": false
+        "connectsForward": false,
+        "hebrew": "ז",
+        "sound": "z",
+        "family": "non-joining",
+        "lesson": 2
       }
     },
     {
@@ -144,7 +196,11 @@
         "name": "سين",
         "nameLatin": "sīn",
         "alphabetPosition": 12,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ס",
+        "sound": "s",
+        "family": "saw",
+        "lesson": 4
       }
     },
     {
@@ -156,7 +212,12 @@
         "name": "شين",
         "nameLatin": "shīn",
         "alphabetPosition": 13,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ש",
+        "sound": "ʃ",
+        "family": "saw",
+        "lesson": 4,
+        "note": "Always sh, never s the way שׂ can be."
       }
     },
     {
@@ -168,7 +229,12 @@
         "name": "صاد",
         "nameLatin": "ṣād",
         "alphabetPosition": 14,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "צ",
+        "sound": "sˤ",
+        "family": "heavy",
+        "lesson": 7,
+        "note": "A heavy s, not ts like צ. Its light twin is س."
       }
     },
     {
@@ -180,7 +246,12 @@
         "name": "ضاد",
         "nameLatin": "ḍād",
         "alphabetPosition": 15,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "צ׳",
+        "sound": "dˤ",
+        "family": "heavy",
+        "lesson": 7,
+        "note": "A heavy d. Its light twin is د."
       }
     },
     {
@@ -192,7 +263,12 @@
         "name": "طاء",
         "nameLatin": "ṭāʾ",
         "alphabetPosition": 16,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ט",
+        "sound": "tˤ",
+        "family": "heavy",
+        "lesson": 7,
+        "note": "A heavy t. Its light twin is ت."
       }
     },
     {
@@ -204,7 +280,12 @@
         "name": "ظاء",
         "nameLatin": "ẓāʾ",
         "alphabetPosition": 17,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ט׳",
+        "sound": "ðˤ / zˤ",
+        "family": "heavy",
+        "lesson": 7,
+        "note": "A heavy dh, mostly said as a heavy z. Its light twin is ذ."
       }
     },
     {
@@ -216,7 +297,12 @@
         "name": "عين",
         "nameLatin": "ʿayn",
         "alphabetPosition": 18,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ע",
+        "sound": "ʕ",
+        "family": "ain",
+        "lesson": 6,
+        "note": "A real consonant from the throat, not silent like ע in most Israeli Hebrew."
       }
     },
     {
@@ -228,7 +314,12 @@
         "name": "غين",
         "nameLatin": "ghayn",
         "alphabetPosition": 19,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ע׳",
+        "sound": "ɣ",
+        "family": "ain",
+        "lesson": 6,
+        "note": "A gargled g, like a French r. Israeli sources write it ע׳ or ר׳; we use ע׳."
       }
     },
     {
@@ -240,7 +331,12 @@
         "name": "فاء",
         "nameLatin": "fāʾ",
         "alphabetPosition": 20,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "פ",
+        "sound": "f",
+        "family": "feh",
+        "lesson": 6,
+        "note": "Always f, never p the way פ can be."
       }
     },
     {
@@ -252,7 +348,12 @@
         "name": "قاف",
         "nameLatin": "qāf",
         "alphabetPosition": 21,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ק",
+        "sound": "q",
+        "family": "feh",
+        "lesson": 6,
+        "note": "Said three ways: a glottal stop in towns, k in villages, g in Gaza. Listen to who is talking."
       }
     },
     {
@@ -264,7 +365,12 @@
         "name": "كاف",
         "nameLatin": "kāf",
         "alphabetPosition": 22,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "כ",
+        "sound": "k",
+        "family": "kaf",
+        "lesson": 4,
+        "note": "Always k, never kh the way כ can be."
       }
     },
     {
@@ -276,7 +382,11 @@
         "name": "لام",
         "nameLatin": "lām",
         "alphabetPosition": 23,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ל",
+        "sound": "l",
+        "family": "tall",
+        "lesson": 3
       }
     },
     {
@@ -288,7 +398,11 @@
         "name": "ميم",
         "nameLatin": "mīm",
         "alphabetPosition": 24,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "מ",
+        "sound": "m",
+        "family": "round",
+        "lesson": 3
       }
     },
     {
@@ -300,7 +414,11 @@
         "name": "نون",
         "nameLatin": "nūn",
         "alphabetPosition": 25,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "נ",
+        "sound": "n",
+        "family": "teeth",
+        "lesson": 1
       }
     },
     {
@@ -312,7 +430,12 @@
         "name": "هاء",
         "nameLatin": "hāʾ",
         "alphabetPosition": 26,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "ה",
+        "sound": "h",
+        "family": "heh",
+        "lesson": 5,
+        "note": "A light h, always pronounced, even at the end of a word."
       }
     },
     {
@@ -324,7 +447,12 @@
         "name": "واو",
         "nameLatin": "wāw",
         "alphabetPosition": 27,
-        "connectsForward": false
+        "connectsForward": false,
+        "hebrew": "ו",
+        "sound": "w / uː",
+        "family": "non-joining",
+        "lesson": 2,
+        "note": "Like ו: w as a consonant, a long ū as a vowel. Never v."
       }
     },
     {
@@ -336,9 +464,143 @@
         "name": "ياء",
         "nameLatin": "yāʾ",
         "alphabetPosition": 28,
-        "connectsForward": true
+        "connectsForward": true,
+        "hebrew": "י",
+        "sound": "j / iː",
+        "family": "teeth",
+        "lesson": 1,
+        "note": "Like י: y as a consonant, a long ī as a vowel."
+      }
+    },
+    {
+      "id": "letter:teh-marbuta",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ة",
+        "name": "تاء مربوطة",
+        "nameLatin": "tāʾ marbūṭa",
+        "connectsForward": false,
+        "hebrew": "ה / ת",
+        "sound": "a / at",
+        "family": "extras",
+        "lesson": 8,
+        "note": "Ends words, mostly feminine ones. Said a, or at when the word is joined to the next."
+      }
+    },
+    {
+      "id": "letter:hamza",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ء",
+        "name": "همزة",
+        "nameLatin": "hamza",
+        "connectsForward": false,
+        "hebrew": "א",
+        "sound": "ʔ",
+        "family": "extras",
+        "lesson": 8,
+        "note": "A glottal stop, the catch in \"uh-oh\". It sits alone or on a seat: أ إ ؤ ئ."
+      }
+    },
+    {
+      "id": "letter:alef-maqsura",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "ى",
+        "name": "ألف مقصورة",
+        "nameLatin": "alif maqṣūra",
+        "connectsForward": false,
+        "hebrew": "א / י",
+        "sound": "aː",
+        "family": "extras",
+        "lesson": 8,
+        "note": "Looks like ي without dots, and is said ā. Only at the end of a word."
+      }
+    },
+    {
+      "id": "letter:lam-alef",
+      "subject": "arabic",
+      "type": "arabic-letter",
+      "data": {
+        "letter": "لا",
+        "name": "لام ألف",
+        "nameLatin": "lām alif",
+        "connectsForward": false,
+        "hebrew": "לא",
+        "sound": "laː",
+        "family": "extras",
+        "lesson": 8,
+        "note": "ل followed by ا always joins into this one shape. It also means \"no\"."
       }
     }
   ],
-  "lessons": []
+  "lessons": [
+    {
+      "id": "script:1",
+      "subject": "arabic",
+      "title": "Alif and the dotted teeth",
+      "order": 1,
+      "items": ["letter:alef", "letter:beh", "letter:teh", "letter:noon", "letter:yeh"],
+      "tags": ["script"]
+    },
+    {
+      "id": "script:2",
+      "subject": "arabic",
+      "title": "More teeth, and letters that don’t join",
+      "order": 2,
+      "items": ["letter:theh", "letter:reh", "letter:zain", "letter:waw"],
+      "tags": ["script"]
+    },
+    {
+      "id": "script:3",
+      "subject": "arabic",
+      "title": "Dal, dhal, meem, lam",
+      "order": 3,
+      "items": ["letter:dal", "letter:thal", "letter:lam", "letter:meem"],
+      "tags": ["script"]
+    },
+    {
+      "id": "script:4",
+      "subject": "arabic",
+      "title": "The saw, and kaf",
+      "order": 4,
+      "items": ["letter:seen", "letter:sheen", "letter:kaf"],
+      "tags": ["script"]
+    },
+    {
+      "id": "script:5",
+      "subject": "arabic",
+      "title": "The cup family, and heh",
+      "order": 5,
+      "items": ["letter:jeem", "letter:hah", "letter:khah", "letter:heh"],
+      "tags": ["script"]
+    },
+    {
+      "id": "script:6",
+      "subject": "arabic",
+      "title": "Ain, ghain, feh, qaf",
+      "order": 6,
+      "items": ["letter:ain", "letter:ghain", "letter:feh", "letter:qaf"],
+      "tags": ["script"]
+    },
+    {
+      "id": "script:7",
+      "subject": "arabic",
+      "title": "The heavy letters",
+      "order": 7,
+      "items": ["letter:sad", "letter:dad", "letter:tah", "letter:zah"],
+      "tags": ["script"]
+    },
+    {
+      "id": "script:8",
+      "subject": "arabic",
+      "title": "The extras",
+      "order": 8,
+      "items": ["letter:teh-marbuta", "letter:hamza", "letter:alef-maqsura", "letter:lam-alef"],
+      "tags": ["script"]
+    }
+  ]
 }
