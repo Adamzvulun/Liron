@@ -16,6 +16,8 @@ const Progress = z.object({
   /** Every script lesson passed. */
   done: z.boolean().catch(false),
   sessions: z.number().int().min(0).catch(0),
+  /** Passed the Painted Sign (#43): a guest of the house. */
+  guest: z.boolean().catch(false),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -25,6 +27,7 @@ export const NEW_PROGRESS: ArabicProgress = {
   met: [],
   done: false,
   sessions: 0,
+  guest: false,
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
@@ -51,6 +54,17 @@ export function applySession(
       met: [...new Set([...p.met, ...met])],
       done: p.done || (passed && last),
       sessions: p.sessions + 1,
+      guest: p.guest,
     },
   };
+}
+
+/** After the Painted Sign: passing makes you a guest (once; trying again later is practice). */
+export function applyTrial(
+  p: ArabicProgress,
+  score: number,
+  accuracy: number,
+): { next: ArabicProgress; passed: boolean } {
+  const passed = !p.guest && score >= accuracy;
+  return { passed, next: { ...p, guest: p.guest || passed, sessions: p.sessions + 1 } };
 }

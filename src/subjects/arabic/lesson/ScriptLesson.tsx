@@ -4,7 +4,7 @@ import { formsOf, LESSONS, type Letter } from '../letters.ts';
 import { applySession, parseProgress, PASSES_NEEDED, type ArabicProgress } from '../progress.ts';
 import { DECK, readableWith, wordsFrom, type Word } from '../words.ts';
 import { listenQuestions, readQuestions, seeded, type Question } from './questions.ts';
-import { reportSession, scoreOf, xpFor, type Answer } from './report.ts';
+import { LESSON_BONUS, reportSession, scoreOf, xpFor, type Answer } from './report.ts';
 import { useAudio } from './useAudio.ts';
 
 type Stage =
@@ -21,8 +21,18 @@ export function Ar({ children, className }: { children: string; className?: stri
   );
 }
 
-/** A script lesson (#38–#41): meet the new letters, then Listen and Read, then the result. */
-export function ScriptLesson({ api }: { api: SubjectApi }) {
+/** Practice of one kind only, from the courtyard: the fountain (listen), the storyteller (read). */
+export type Only = 'listen' | 'read';
+
+/** Questions in a fountain or storyteller round. */
+export const ONLY_COUNT = 12;
+
+/**
+ * A script lesson (#38–#41): meet the new letters, then Listen and Read, then the result.
+ * With `only`, a round of one kind over the letters you know: practice that feeds your reviews
+ * and ratings but doesn't count toward passing a lesson.
+ */
+export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
   const [progress, setProgress] = useState<ArabicProgress | null>(null);
   const [words, setWords] = useState<Word[] | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
@@ -39,7 +49,7 @@ export function ScriptLesson({ api }: { api: SubjectApi }) {
         setProgress(p);
         setWords(wordsFrom(pack.items));
         const fresh = LESSONS[p.lesson - 1]?.letters.filter((l) => !p.met.includes(l.id)) ?? [];
-        setStage(fresh.length ? { kind: 'meet', index: 0 } : null);
+        setStage(fresh.length && !only ? { kind: 'meet', index: 0 } : null);
       },
       () =>
         live &&
@@ -48,7 +58,7 @@ export function ScriptLesson({ api }: { api: SubjectApi }) {
     return () => {
       live = false;
     };
-  }, [api]);
+  }, [api, only]);
 
   if (failed) return <p className="lesson__card">{failed}</p>;
   if (!progress || !words) return <p className="arabic__loading">Lighting the lamps…</p>;
@@ -58,14 +68,24 @@ export function ScriptLesson({ api }: { api: SubjectApi }) {
   const lesson = LESSONS[progress.lesson - 1];
   if (!lesson) return null;
 
+  // A fountain or storyteller round uses the letters you've met: this lesson's once you've
+  // met them, the ones before it otherwise.
+  const metAll = lesson.letters.every((l) => progress.met.includes(l.id));
+  const knownLesson = progress.done || metAll ? lesson.order : Math.max(1, lesson.order - 1);
+
   const startPractice = () => {
     const rand = seeded(Date.now());
     setStage({
       kind: 'practice',
-      questions: [
-        ...listenQuestions(words, lesson.order, rand),
-        ...readQuestions(words, lesson.order, rand),
-      ],
+      questions:
+        only === 'listen'
+          ? listenQuestions(words, knownLesson, rand, ONLY_COUNT)
+          : only === 'read'
+            ? readQuestions(words, knownLesson, rand, ONLY_COUNT)
+            : [
+                ...listenQuestions(words, lesson.order, rand),
+                ...readQuestions(words, lesson.order, rand),
+              ],
       index: 0,
       answers: [],
       startedAt: performance.now(),
@@ -73,14 +93,22 @@ export function ScriptLesson({ api }: { api: SubjectApi }) {
   };
 
   const finish = (answers: Answer[], startedAt: number) => {
-    const { next, passed } = applySession(
-      progress,
-      scoreOf(answers),
-      lesson.letters.map((l) => l.id),
-    );
+    const { next, passed } = only
+      ? { next: { ...progress, sessions: progress.sessions + 1 }, passed: false }
+      : applySession(
+          progress,
+          scoreOf(answers),
+          lesson.letters.map((l) => l.id),
+        );
     setProgress(next);
     setStage({ kind: 'result', answers, passed, next });
-    reportSession(api, next, answers, passed, (performance.now() - startedAt) / 1000).then(
+    reportSession(
+      api,
+      next,
+      answers,
+      passed ? LESSON_BONUS : 0,
+      (performance.now() - startedAt) / 1000,
+    ).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
     );
@@ -93,7 +121,8 @@ export function ScriptLesson({ api }: { api: SubjectApi }) {
           Your session couldn’t be saved. Check your connection and try again.
         </p>
       )}
-      {!stage && (
+      {!stage && only && <OnlyStart only={only} lesson={knownLesson} onStart={startPractice} />}
+      {!stage && !only && (
         <Start
           lesson={lesson.order}
           title={lesson.title}
@@ -132,8 +161,50 @@ export function ScriptLesson({ api }: { api: SubjectApi }) {
           }}
         />
       )}
-      {stage?.kind === 'result' && <Result stage={stage} onAgain={startPractice} />}
+      {stage?.kind === 'result' && (
+        <Result
+          stage={stage}
+          only={only}
+          onAgain={() =>
+            !only && lesson.letters.some((l) => !stage.next.met.includes(l.id))
+              ? setStage({ kind: 'meet', index: 0 })
+              : startPractice()
+          }
+        />
+      )}
     </section>
+  );
+}
+
+const ONLY_TEXT = {
+  listen: {
+    place: 'The fountain',
+    title: 'Which letter?',
+    text: 'Travellers call out words by the water. Name the first letter of each.',
+  },
+  read: {
+    place: 'The storyteller',
+    title: 'Short words',
+    text: 'The storyteller points at words in her book. Say how each one sounds.',
+  },
+} as const;
+
+function OnlyStart({ only, lesson, onStart }: { only: Only; lesson: number; onStart: () => void }) {
+  const t = ONLY_TEXT[only];
+  return (
+    <div className="lesson__card lesson__start">
+      <p className="lesson__kicker">
+        {t.place} · letters up to lesson {lesson}
+      </p>
+      <h2 className="lesson__title">{t.title}</h2>
+      <p>{t.text}</p>
+      <p className="arabic__note">
+        Practice: {ONLY_COUNT} questions. It sharpens your letters but doesn’t pass a lesson.
+      </p>
+      <button type="button" className="lesson__go" onClick={onStart}>
+        Begin
+      </button>
+    </div>
   );
 }
 
@@ -284,7 +355,7 @@ function Meet({
   );
 }
 
-function Practice({
+export function Practice({
   question,
   index,
   count,
@@ -390,9 +461,11 @@ function Practice({
 
 function Result({
   stage,
+  only,
   onAgain,
 }: {
   stage: Extract<Stage, { kind: 'result' }>;
+  only?: Only;
   onAgain: () => void;
 }) {
   const { answers, passed, next } = stage;
@@ -408,13 +481,17 @@ function Result({
       <p className="lesson__kicker">Session done</p>
       <p className="arabic__pct">{pct}%</p>
       <p>
-        {passed
-          ? next.done
-            ? 'You’ve passed the last script lesson. Every letter is yours.'
-            : `Lesson passed! Next: lesson ${next.lesson}, ${LESSONS[next.lesson - 1]?.title ?? ''}.`
-          : score >= 0.9
-            ? `90% or better: one more session like this passes the lesson.`
-            : 'Under 90% this time. Another session will sharpen it.'}
+        {only
+          ? score >= 0.9
+            ? 'Sharp. Those letters are settling in.'
+            : 'Good practice. The letters you missed are below.'
+          : passed
+            ? next.done
+              ? 'You’ve passed the last script lesson. Every letter is yours.'
+              : `Lesson passed! Next: lesson ${next.lesson}, ${LESSONS[next.lesson - 1]?.title ?? ''}.`
+            : score >= 0.9
+              ? `90% or better: one more session like this passes the lesson.`
+              : 'Under 90% this time. Another session will sharpen it.'}
       </p>
       {missed.length > 0 && (
         <p className="arabic__note">
@@ -426,7 +503,7 @@ function Result({
           ))}
         </p>
       )}
-      <p className="arabic__xp">+{xpFor(answers, passed)} XP</p>
+      <p className="arabic__xp">+{xpFor(answers, passed ? LESSON_BONUS : 0)} XP</p>
       <button type="button" className="lesson__go" onClick={onAgain}>
         Practise again
       </button>
