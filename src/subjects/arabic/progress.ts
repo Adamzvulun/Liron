@@ -50,7 +50,8 @@ export function applySession(
 ): { next: ArabicProgress; passed: boolean } {
   const good = score >= PASS_SCORE;
   const streak = good ? p.streak + 1 : 0;
-  const passed = streak >= PASSES_NEEDED;
+  // After the last lesson, sessions are practice: no second pass (or bonus) for it.
+  const passed = !p.done && streak >= PASSES_NEEDED;
   const last = p.lesson >= LESSON_COUNT;
   return {
     passed,

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { LESSON_COUNT } from '../letters.ts';
 import { applyTrial, parseProgress, type ArabicProgress } from '../progress.ts';
-import { CHAPTER } from '../questline.ts';
+import { CHAPTER, questStatus } from '../questline.ts';
 import { ArabicText } from '../ArabicText.tsx';
 import { DECK, wordsFrom, type Word } from '../words.ts';
 import { readQuestions, seeded, type Question } from './questions.ts';
@@ -52,6 +52,13 @@ export function Trial({ api }: { api: SubjectApi }) {
   if (!progress || !words) return <p className="arabic__loading">Lighting the lamps…</p>;
   if (words.length === 0)
     return <p className="lesson__card">The deck’s words haven’t been loaded into Waymark yet.</p>;
+  // Reached by its address before every milestone is lit (code review, 2026-11-04).
+  if (!progress.guest && !questStatus(progress).trialReady)
+    return (
+      <p className="lesson__card">
+        Not yet: light all {CHAPTER.lessons} milestones on the road first.
+      </p>
+    );
 
   const begin = () =>
     setStage({
