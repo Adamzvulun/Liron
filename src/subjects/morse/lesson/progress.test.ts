@@ -70,30 +70,28 @@ describe('Morse progress', () => {
 });
 
 describe('reportRun', () => {
-  it('saves state, then reviews and rates each character, then XP and minutes', async () => {
-    const calls: string[] = [];
-    const log = (name: string) =>
-      vi.fn(async (...args: unknown[]) => {
-        calls.push(`${name} ${args.slice(0, 3).map(String).join(' ')}`);
-        return undefined as never;
-      });
-    const api = {
-      saveState: log('state'),
-      recordReview: log('review'),
-      recordResult: log('result'),
-      awardXP: log('xp'),
-      recordPractice: log('minutes'),
-    } as unknown as SubjectApi;
+  it('saves state, reviews and ratings of each character, XP and minutes in one save', async () => {
+    const saveSession = vi.fn(async () => undefined);
+    const api = { saveSession } as unknown as SubjectApi;
     const score = run('KMKMK', 'KMKKK');
     await reportRun(api, NEW_PROGRESS, score, false, 120, at);
-    expect(calls).toEqual([
-      'state [object Object]',
-      `review char:K good ${at}`,
-      'result receive char:K 1',
-      `review char:M hard ${at}`,
-      'result receive char:M 0.5',
-      'xp 1',
-      'minutes 2',
+    expect(saveSession.mock.calls).toEqual([
+      [
+        {
+          state: NEW_PROGRESS,
+          reviews: [
+            { itemId: 'char:K', grade: 'good' },
+            { itemId: 'char:M', grade: 'hard' },
+          ],
+          results: [
+            { skill: 'receive', itemId: 'char:K', score: 1 },
+            { skill: 'receive', itemId: 'char:M', score: 0.5 },
+          ],
+          xp: 1,
+          minutes: 2,
+          at,
+        },
+      ],
     ]);
   });
 });

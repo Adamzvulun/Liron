@@ -113,10 +113,12 @@ export function Slate({ api }: { api: SubjectApi }) {
     }
     const at = new Date();
     (async () => {
-      for (const [id, s] of byLetter) await api.recordResult('write', id, s, { at });
-      const xp = all.filter((a) => a.score.passed).length * XP_PER_SHAPE;
-      if (xp > 0) await api.awardXP(xp);
-      await api.recordPractice((Date.now() - started) / 60000);
+      await api.saveSession({
+        results: [...byLetter].map(([itemId, score]) => ({ skill: 'write', itemId, score })),
+        xp: all.filter((a) => a.score.passed).length * XP_PER_SHAPE,
+        minutes: (Date.now() - started) / 60000,
+        at,
+      });
     })().then(
       () => setSaved('yes'),
       () => setSaved('failed'),

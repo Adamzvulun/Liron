@@ -51,6 +51,31 @@ export interface SubjectProgress {
 }
 
 /**
+ * A finished session, saved all at once (ADR 0031): either all of it is stored or none of it.
+ * Every part is optional; what's there is applied in this order: state, reviews, results, then
+ * XP and minutes.
+ */
+export interface SessionReport<State extends object = Record<string, unknown>> {
+  /** The subject's new state (replaces the old one). */
+  state?: State;
+  /** Spaced-repetition reviews, in order (an item may appear twice; the second builds on it). */
+  reviews?: readonly { itemId: string; grade: ReviewGrade }[];
+  /** Rated answers, in order, as for `recordResult`. */
+  results?: readonly { skill: string; itemId: string; score: number; itemSeed?: number }[];
+  /** XP earned (a whole number, 0 to 10,000). */
+  xp?: number;
+  /** Minutes practised (rounded as for `recordPractice`). */
+  minutes?: number;
+  /** When the session ended (default: now). */
+  at?: Date;
+  /**
+   * The session's id. Sending the same id again applies nothing, so pass the same one when
+   * retrying a save. Default: a new random id.
+   */
+  sessionId?: string;
+}
+
+/**
  * Everything a subject may ask of the platform. `State` is the subject's own saved data
  * (any JSON object); the platform stores it and never looks inside.
  */
@@ -63,6 +88,11 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
   awardXP(amount: number): Promise<void>;
   /** Time spent practising, in minutes (rounded to whole minutes; under 30 s counts as nothing). */
   recordPractice(minutes: number): Promise<void>;
+  /**
+   * Saves a finished session in one go (ADR 0031): its state, reviews, ratings, XP and time.
+   * Use this at the end of a session; the single calls below are for one-off actions.
+   */
+  saveSession(report: SessionReport<State>): Promise<void>;
   /** This subject's totals. */
   progressSummary(): Promise<SubjectProgress>;
   /** The subject's saved state, or null if it never saved any. */

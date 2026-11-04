@@ -510,6 +510,105 @@ describe('supabaseStore against the real functions', () => {
   });
 });
 
+describe('save_session: one save per session (ADR 0031)', () => {
+  const SESSION = '5e5510a0-0000-4000-8000-000000000001';
+  const report = (sessionId = SESSION) => ({
+    state: { runs: 1 },
+    reviews: [
+      { itemId: 'char:K', grade: 'good' as const },
+      { itemId: 'char:K', grade: 'good' as const },
+    ],
+    results: [
+      { skill: 'receive', itemId: 'char:K', score: 1 },
+      { skill: 'receive', itemId: 'char:M', score: 0 },
+    ],
+    xp: 12,
+    minutes: 3,
+    sessionId,
+  });
+  const counts = async () =>
+    (
+      await rows(
+        `select
+           (select count(*)::int from review_log where user_id = $1 and item_id = 'char:K') as reviews,
+           (select count(*)::int from rating_log where user_id = $1 and item_id in ('char:K', 'char:M')) as results,
+           (select xp from wallets where user_id = $1) as xp,
+           (select state from subject_progress where user_id = $1 and subject_id = 'morse') as state`,
+        [ADAM],
+      )
+    )[0];
+
+  it('saves the whole session through subjectApi in one call', async () => {
+    const calls: string[] = [];
+    const client = {
+      ...fakeClient,
+      rpc: (fn: string, args: object) => {
+        calls.push(fn);
+        return fakeClient.rpc(fn, args);
+      },
+    } as unknown as SupabaseClient;
+    await as(ADAM, () => subjectApi({ id: 'morse' }, supabaseStore(client)).saveSession(report()));
+    expect(calls).toEqual(['save_session']);
+    expect(await counts()).toEqual({ reviews: 2, results: 2, xp: 12, state: { runs: 1 } });
+    const card = await rows(
+      `select card->>'reps' as reps from review_cards where user_id = $1 and item_id = 'char:K'`,
+      [ADAM],
+    );
+    expect(card).toEqual([{ reps: '2' }]);
+  });
+
+  it('applies a session id once', async () => {
+    const morse = () => subjectApi({ id: 'morse' }, supabaseStore(fakeClient));
+    await as(ADAM, () => morse().saveSession(report()));
+    await as(ADAM, () => morse().saveSession(report()));
+    expect(await counts()).toEqual({ reviews: 2, results: 2, xp: 12, state: { runs: 1 } });
+    // Another player may use the same id: ids are per player.
+    await as(OTHER, () => morse().saveSession(report()));
+    expect(await rows(`select xp from wallets where user_id = $1`, [OTHER])).toEqual([{ xp: 12 }]);
+  });
+
+  it('saves nothing when any part fails', async () => {
+    const bad = `select save_session('morse', $1, '{"runs": 9}', $2, '[]', 12, 3) as r`;
+    const reviews = JSON.stringify([
+      {
+        item: 'char:K',
+        rating: 3,
+        reviewed_at: new Date().toISOString(),
+        due: new Date().toISOString(),
+        state: 1,
+        card: {},
+        log: {},
+      },
+      // A review dated far in the future is refused by record_review.
+      {
+        item: 'char:M',
+        rating: 3,
+        reviewed_at: '2099-01-01T00:00:00Z',
+        due: new Date().toISOString(),
+        state: 1,
+        card: {},
+        log: {},
+      },
+    ]);
+    await expect(as(ADAM, () => rows(bad, [SESSION, reviews]))).rejects.toThrow(/future/);
+    expect(await counts()).toMatchObject({ reviews: 0, results: 0, state: {} });
+    // Nothing was recorded for the id either, so the session can be sent again.
+    expect(await rows(`select count(*)::int as n from saved_sessions`)).toEqual([{ n: 0 }]);
+  });
+
+  it('refuses the signed-out, unknown subjects and oversized sessions', async () => {
+    const call = (subject: string, reviews = '[]') =>
+      rows(`select save_session($1, $2, null, $3::jsonb, '[]', 0, 0)`, [subject, SESSION, reviews]);
+    await expect(as(null, () => call('morse'))).rejects.toThrow(/permission denied/);
+    await expect(as(ADAM, () => call('chess'))).rejects.toThrow();
+    const many = JSON.stringify(Array.from({ length: 201 }, () => ({})));
+    await expect(as(ADAM, () => call('morse', many))).rejects.toThrow(/at most 200/);
+    await expect(as(ADAM, () => rows(`select * from saved_sessions`))).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+});
+
 describe('levels and rewards (ADR 0020)', () => {
   it('the database curve matches src/core/progress/economy.ts', async () => {
     const xps = [0, 1, 19, 20, 21, 49, 50, 139, 140, 539, 540, 2089, 2090, 12740, 50489, 50490];

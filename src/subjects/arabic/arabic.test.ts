@@ -372,29 +372,30 @@ describe('reporting a session', () => {
   });
 
   it('saves, reviews each letter, rates listen by letter and read by word, then XP and minutes', async () => {
-    const calls: unknown[][] = [];
-    const api = new Proxy(
-      {},
-      {
-        get:
-          (_, name) =>
-          async (...args: unknown[]) =>
-            void calls.push([name, ...args.slice(0, 3)]),
-      },
-    ) as SubjectApi;
+    const reports: unknown[] = [];
+    const api = {
+      saveSession: async (report: unknown) => void reports.push(report),
+    } as unknown as SubjectApi;
     await reportSession(api, NEW_PROGRESS, answers, 0, 120);
-    expect(calls).toEqual([
-      ['saveState', NEW_PROGRESS],
-      ['recordReview', 'letter:beh', 'good', expect.any(Date)],
-      // Right once of twice: shaky, not forgotten.
-      ['recordReview', 'letter:teh', 'hard', expect.any(Date)],
-      ['recordReview', 'letter:yeh', 'hard', expect.any(Date)],
-      ['recordReview', 'letter:noon', 'again', expect.any(Date)],
-      ['recordResult', 'listen', 'letter:beh', 1],
-      ['recordResult', 'read', 'w:2', 0],
-      ['recordResult', 'read', 'w:1', 1],
-      ['awardXP', 4],
-      ['recordPractice', 2],
+    expect(reports).toEqual([
+      {
+        state: NEW_PROGRESS,
+        reviews: [
+          { itemId: 'letter:beh', grade: 'good' },
+          // Right once of twice: shaky, not forgotten.
+          { itemId: 'letter:teh', grade: 'hard' },
+          { itemId: 'letter:yeh', grade: 'hard' },
+          { itemId: 'letter:noon', grade: 'again' },
+        ],
+        results: [
+          { skill: 'listen', itemId: 'letter:beh', score: 1 },
+          { skill: 'read', itemId: 'w:2', score: 0 },
+          { skill: 'read', itemId: 'w:1', score: 1 },
+        ],
+        xp: 4,
+        minutes: 2,
+        at: expect.any(Date),
+      },
     ]);
   });
 });

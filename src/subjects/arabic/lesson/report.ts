@@ -1,5 +1,5 @@
 // Reports a finished script session (#38, #41): saved state, spaced repetition for each letter,
-// the listen and read ratings, XP and practice time. One request at a time, in order.
+// the listen and read ratings, XP and practice time. All in one save (ADR 0031).
 import { gradeFrom } from '../../../core/srs/scheduler.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import type { ArabicProgress } from '../progress.ts';
@@ -39,7 +39,6 @@ export async function reportSession(
   seconds: number,
   at = new Date(),
 ): Promise<void> {
-  await api.saveState(next);
   // Each letter (and mark): graded by how many of the answers that tested it were right.
   const letters = new Map<string, { right: number; asked: number }>();
   for (const a of answers)
@@ -47,14 +46,16 @@ export async function reportSession(
       const t = letters.get(l) ?? { right: 0, asked: 0 };
       letters.set(l, { right: t.right + (a.right ? 1 : 0), asked: t.asked + 1 });
     }
-  for (const [letter, t] of letters)
-    await api.recordReview(letter, gradeFrom(t.right, t.asked), at);
-  for (const a of answers) {
-    if (a.kind === 'listen')
-      await api.recordResult('listen', a.letters[0] ?? a.wordId, a.right ? 1 : 0, { at });
-    else await api.recordResult('read', a.wordId, a.right ? 1 : 0, { at });
-  }
-  const xp = xpFor(answers, bonus);
-  if (xp > 0) await api.awardXP(xp);
-  await api.recordPractice(seconds / 60);
+  await api.saveSession({
+    state: next,
+    reviews: [...letters].map(([itemId, t]) => ({ itemId, grade: gradeFrom(t.right, t.asked) })),
+    results: answers.map((a) =>
+      a.kind === 'listen'
+        ? { skill: 'listen', itemId: a.letters[0] ?? a.wordId, score: a.right ? 1 : 0 }
+        : { skill: 'read', itemId: a.wordId, score: a.right ? 1 : 0 },
+    ),
+    xp: xpFor(answers, bonus),
+    minutes: seconds / 60,
+    at,
+  });
 }

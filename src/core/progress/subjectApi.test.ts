@@ -1,6 +1,6 @@
 import type { ContentSource } from '../content/privateContent.ts';
 import { describe, expect, it } from 'vitest';
-import { memoryStore } from './store.ts';
+import { memoryStore, type Award } from './store.ts';
 import { subjectApi } from './subjectApi.ts';
 
 describe('subjectApi', () => {
@@ -132,5 +132,67 @@ describe('private content (ADR 0023)', () => {
     const bare = subjectApi({ id: 'arabic' }, memoryStore());
     await expect(bare.privateContent('lingualism-pcav')).rejects.toThrow(/No content source/);
     await expect(bare.mediaUrl('lingualism-pcav/a.mp3')).rejects.toThrow(/No content source/);
+  });
+});
+
+describe('saveSession (ADR 0031)', () => {
+  it('saves state, reviews, ratings, XP and time in one write, chaining repeats', async () => {
+    const store = memoryStore();
+    const writes: unknown[] = [];
+    const saveSession = store.saveSession.bind(store);
+    store.saveSession = (subject, s) => {
+      writes.push(s);
+      return saveSession(subject, s);
+    };
+    const awards: Award[] = [];
+    const api = subjectApi({ id: 'morse', skills: ['receive'] }, store, (a) => awards.push(a));
+    const at = new Date('2026-11-04T10:00:00Z');
+    await api.saveSession({
+      state: { runs: 1 },
+      reviews: [
+        { itemId: 'char:K', grade: 'good' },
+        { itemId: 'char:K', grade: 'good' },
+      ],
+      results: [
+        { skill: 'receive', itemId: 'char:K', score: 1 },
+        { skill: 'receive', itemId: 'char:K', score: 1 },
+      ],
+      xp: 12,
+      minutes: 2.4,
+      at,
+    });
+    expect(writes).toHaveLength(1);
+    expect(await api.loadState()).toEqual({ runs: 1 });
+    expect(store.reviewLog).toHaveLength(2);
+    expect((await api.reviewStatus(['char:K'])).get('char:K')?.reps).toBe(2);
+    // The second answer builds on the first: two games played.
+    expect((await api.skillRatings()).get('receive')?.games).toBe(2);
+    expect((await api.itemRatings('receive', ['char:K'])).get('char:K')?.games).toBe(2);
+    expect(await api.progressSummary()).toEqual({ xp: 12, minutes: 2 });
+    expect(awards).toHaveLength(1);
+  });
+
+  it('applies a session id once', async () => {
+    const store = memoryStore();
+    const api = subjectApi({ id: 'morse' }, store);
+    const report = { state: { n: 1 }, xp: 5, sessionId: 'b5d3c7a0-0000-4000-8000-000000000001' };
+    await api.saveSession(report);
+    await api.saveSession(report);
+    expect(await api.progressSummary()).toEqual({ xp: 5, minutes: 0 });
+  });
+
+  it('checks the whole report before sending anything', async () => {
+    const store = memoryStore();
+    const api = subjectApi({ id: 'morse', skills: ['receive'] }, store);
+    await expect(
+      api.saveSession({ state: { n: 1 }, results: [{ skill: 'send', itemId: 'x', score: 1 }] }),
+    ).rejects.toThrow(/no skill "send"/);
+    await expect(api.saveSession({ xp: 2.5 })).rejects.toThrow(/whole number/);
+    await expect(
+      api.saveSession({
+        reviews: Array.from({ length: 201 }, () => ({ itemId: 'a', grade: 'good' as const })),
+      }),
+    ).rejects.toThrow(/at most 200/);
+    expect(await api.loadState()).toBeNull();
   });
 });
