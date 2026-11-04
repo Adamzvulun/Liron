@@ -292,6 +292,7 @@ function Compare({ phrase, play }: { phrase: Phrase; play: (path: string) => voi
         <button
           type="button"
           className="lesson__plain arabic__rec"
+          disabled={rec.state === 'starting'}
           onClick={() => void rec.start()}
         >
           ● {rec.url ? 'Record again' : 'Record yourself'}

@@ -42,7 +42,7 @@ const runSeconds = () =>
 
 export function KochLesson({ api }: { api: SubjectApi }) {
   const player = useMemo(() => new MorsePlayer(), []);
-  useEffect(() => () => player.stop(), [player]);
+  useEffect(() => () => player.close(), [player]);
   const [seconds] = useState(runSeconds);
 
   const [progress, setProgress] = useState<MorseProgress | null>(null);
