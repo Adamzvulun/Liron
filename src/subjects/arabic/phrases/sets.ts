@@ -86,3 +86,9 @@ export function understandQuestions(
     return { phrase, choices: shuffle([phrase.meaning, ...shuffle(others).slice(0, 3)]) };
   });
 }
+
+/** XP for passing a set, on top of 2 per phrase understood and 2 per phrase said. */
+export const SET_BONUS = 20;
+/** About 10 XP a minute over a 6–8 minute round (2026-11-04 review). */
+export const coffeeXp = (understood: number, said: number, passed: boolean) =>
+  2 * understood + 2 * said + (passed ? SET_BONUS : 0);

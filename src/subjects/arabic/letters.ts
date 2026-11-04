@@ -21,6 +21,11 @@ export interface Letter {
   note?: string;
   /** How the deck's romanisation writes it, where that isn't plain Latin (ع as 3, ق as g). */
   latin?: string;
+  /**
+   * The deck's speaker sometimes says it with another letter's sound, written this way in the
+   * romanisation (ث as s, ذ as z). Listen skips words that start like that: you'd hear س.
+   */
+  saidAs?: readonly string[];
   /** Its place in the alphabet; the extras (ة ء ى لا) have none. */
   alphabetPosition?: number;
 }

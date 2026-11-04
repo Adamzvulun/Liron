@@ -57,7 +57,7 @@ The rules:
 - **State:** `phraseSet` (the set you're on) and `phrasesMet`.
 - **Reviews:** an FSRS review per phrase, keyed by its deck id (`pcav:4757`).
 - **Ratings:** a **listen** rating per phrase.
-- **XP:** 1 per phrase understood, 1 per phrase said, and 20 for passing a set.
+- **XP:** 2 per phrase understood, 2 per phrase said, and 20 for passing a set (doubled on 2026-11-04 to reach about 10 XP a minute).
 - **Practice minutes.**
 
 ## Picks for Adam to change

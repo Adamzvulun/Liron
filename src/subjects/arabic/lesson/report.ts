@@ -20,9 +20,14 @@ export function scoreOf(answers: readonly Answer[]): number {
 /** Passing a lesson pays 30 XP on top of the answers. */
 export const LESSON_BONUS = 30;
 
-/** About 10 XP a minute: a session of 18 answers takes 2–3 minutes; a pass adds its bonus. */
+/**
+ * XP per right answer. A session (18 answers, with listening and the meet cards) takes about
+ * 4 minutes, so 2 a right answer is close to the economy's 10 XP a minute (2026-11-04 review).
+ */
+export const XP_PER_RIGHT = 2;
+
 export function xpFor(answers: readonly Answer[], bonus: number): number {
-  return answers.filter((a) => a.right).length + bonus;
+  return answers.filter((a) => a.right).length * XP_PER_RIGHT + bonus;
 }
 
 export async function reportSession(
