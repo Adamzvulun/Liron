@@ -31,9 +31,9 @@ Adam approved these on 2026-11-04 (full review, decisions 7 and 8). They're **sc
 - **"I don't understand":** the deck has *mā fhímtiš íši min ílli gúltu* ("I didn't understand a word you said", pcav:4558), with a recording. It's now in set 6, so this one is done.
 - **Forms for a woman:** the phrases that speak *to* someone ("how are you?", "what's your name?", "here you are", "see you later", "excuse me", "would you like a bag?", "where are you from?" and others) are in the masculine form in the deck. "I'm sorry" (آسف) is in the form a man says it. The deck has no feminine forms of any of them. Its only one is إنْتي, "you" said to a woman (pcav:4270). Until there's a recording, the session shows nothing for these.
 
-**Where the audio could come from.** No purchases (ADR 0012) and no native-speaker helpers (vision), so there are two free routes. Both are still to be verified, and both come to Adam before they're used:
-1. **Dialect TTS** (the vision allows "existing recordings and dialect TTS"): Sofelia-TTS-82M speaks Palestinian Arabic, but its own licence is unverified ([fact-check](../research/fact-check-2026-11-01.md)). It also needs a listening check against the deck's speaker.
-2. **Free licensed recordings** (for example Wikimedia Commons), checked case by case. They're mixed licences and usually not Palestinian.
+**Where the audio could come from.** No purchases (ADR 0012) and no native-speaker helpers (vision). The free sources were searched and fact-checked on 2026-11-04 ([research](../research/phrase-audio-sources.md)):
+- **Dialect TTS is out.** Sofelia, the only Palestinian model, is Apache-2.0, but its code turns ح into a breathy h and ع into something close to غ. That would teach wrong sounds.
+- **Lingua Libre (Wikimedia Commons) is the lead:** 3,323 South Levantine recordings, CC BY-SA 4.0 or CC0 per file. Still to check: which speakers are Palestinian (their lingualibre.org pages didn't load) and whether they recorded our phrases. Nothing is used until Adam has seen the files and their licences.
 
 The spelling of each line is checked against a reputable source before it ships (ADR 0012, point 5).
 
