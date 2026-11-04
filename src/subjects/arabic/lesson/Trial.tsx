@@ -63,7 +63,13 @@ export function Trial({ api }: { api: SubjectApi }) {
   const begin = () =>
     setStage({
       kind: 'practice',
-      questions: readQuestions(words, LESSON_COUNT, seeded(Date.now()), trial.words),
+      questions: readQuestions(
+        words,
+        LESSON_COUNT,
+        seeded(Date.now()),
+        trial.words,
+        progress.knownChoices,
+      ),
       index: 0,
       answers: [],
       startedAt: performance.now(),
