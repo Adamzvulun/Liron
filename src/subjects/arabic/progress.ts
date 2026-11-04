@@ -25,6 +25,8 @@ const Progress = z.object({
   phraseSet: z.number().int().min(1).catch(1),
   /** Phrases you've met (deck ids). */
   phrasesMet: z.array(z.string()).catch([]),
+  /** Read choices for well-known words: recordings, or Latin letters if you prefer them. */
+  knownChoices: z.enum(['sound', 'latin']).catch('sound'),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -38,6 +40,7 @@ export const NEW_PROGRESS: ArabicProgress = {
   guest: false,
   phraseSet: 1,
   phrasesMet: [],
+  knownChoices: 'sound',
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */

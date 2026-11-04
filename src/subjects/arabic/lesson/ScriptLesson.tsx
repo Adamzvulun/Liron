@@ -4,7 +4,14 @@ import { formsOf, LESSONS, LETTERS, type Letter } from '../letters.ts';
 import { marksOfLesson, marksUpTo, withMarks, type Mark } from '../marks.ts';
 import { applySession, parseProgress, PASSES_NEEDED, type ArabicProgress } from '../progress.ts';
 import { DECK, readableWith, wordsFrom, type Word } from '../words.ts';
-import { listenQuestions, readQuestions, seeded, type Question } from './questions.ts';
+import {
+  LATIN_AFTER,
+  listenQuestions,
+  readQuestions,
+  seeded,
+  type KnownChoices,
+  type Question,
+} from './questions.ts';
 import { LESSON_BONUS, reportSession, scoreOf, xpFor, type Answer } from './report.ts';
 import { useAudio } from './useAudio.ts';
 
@@ -102,10 +109,10 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
         only === 'listen'
           ? listenQuestions(words, knownLesson, rand, ONLY_COUNT)
           : only === 'read'
-            ? readQuestions(words, knownLesson, rand, ONLY_COUNT)
+            ? readQuestions(words, knownLesson, rand, ONLY_COUNT, progress.knownChoices)
             : [
                 ...listenQuestions(words, lesson.order, rand),
-                ...readQuestions(words, lesson.order, rand),
+                ...readQuestions(words, lesson.order, rand, undefined, progress.knownChoices),
               ],
       index: 0,
       answers: [],
@@ -129,6 +136,15 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
     );
   };
 
+  const setKnownChoices = (knownChoices: KnownChoices) => {
+    const next = { ...progress, knownChoices };
+    setProgress(next);
+    api.saveState(next).then(
+      () => setSaveFailed(false),
+      () => setSaveFailed(true),
+    );
+  };
+
   const meetIndex = stage?.kind === 'meet' ? stage.index : -1;
   const meetCard = cards[meetIndex];
   const nextCard = () =>
@@ -144,7 +160,15 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
           Your session couldn’t be saved. Check your connection and try again.
         </p>
       )}
-      {!stage && only && <OnlyStart only={only} lesson={knownLesson} onStart={startPractice} />}
+      {!stage && only && (
+        <OnlyStart
+          only={only}
+          lesson={knownLesson}
+          onStart={startPractice}
+          choices={only === 'read' ? progress.knownChoices : undefined}
+          onChoices={setKnownChoices}
+        />
+      )}
       {!stage && !only && (
         <Start
           lesson={lesson.order}
@@ -153,6 +177,7 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
           progress={progress}
           onMeet={() => setStage({ kind: 'meet', index: 0 })}
           onStart={startPractice}
+          onChoices={setKnownChoices}
         />
       )}
       {meetCard && isMark(meetCard) && (
@@ -225,7 +250,39 @@ const ONLY_TEXT = {
   },
 } as const;
 
-function OnlyStart({ only, lesson, onStart }: { only: Only; lesson: number; onStart: () => void }) {
+/** Latin instead of recordings for well-known words: a choice, for readers who like it. */
+function ChoicesToggle({
+  choices,
+  onChoices,
+}: {
+  choices: KnownChoices;
+  onChoices: (c: KnownChoices) => void;
+}) {
+  return (
+    <label className="arabic__toggle">
+      <input
+        type="checkbox"
+        checked={choices === 'latin'}
+        onChange={(e) => onChoices(e.target.checked ? 'latin' : 'sound')}
+      />
+      Words you know well: show Latin letters instead of recordings
+    </label>
+  );
+}
+
+function OnlyStart({
+  only,
+  lesson,
+  onStart,
+  choices,
+  onChoices,
+}: {
+  only: Only;
+  lesson: number;
+  onStart: () => void;
+  choices?: KnownChoices;
+  onChoices: (c: KnownChoices) => void;
+}) {
   const t = ONLY_TEXT[only];
   return (
     <div className="lesson__card lesson__start">
@@ -237,6 +294,7 @@ function OnlyStart({ only, lesson, onStart }: { only: Only; lesson: number; onSt
       <p className="arabic__note">
         Practice: {ONLY_COUNT} questions. It sharpens your letters but doesn’t pass a lesson.
       </p>
+      {choices && <ChoicesToggle choices={choices} onChoices={onChoices} />}
       <button type="button" className="lesson__go" onClick={onStart}>
         Begin
       </button>
@@ -251,6 +309,7 @@ function Start({
   progress,
   onMeet,
   onStart,
+  onChoices,
 }: {
   lesson: number;
   title: string;
@@ -258,6 +317,7 @@ function Start({
   progress: ArabicProgress;
   onMeet: () => void;
   onStart: () => void;
+  onChoices: (c: KnownChoices) => void;
 }) {
   return (
     <div className="lesson__card lesson__start">
@@ -279,6 +339,9 @@ function Start({
       </p>
       {progress.done && (
         <p className="arabic__note">You’ve learned every letter. Keep them sharp.</p>
+      )}
+      {lesson > LATIN_AFTER && (
+        <ChoicesToggle choices={progress.knownChoices} onChoices={onChoices} />
       )}
       <div className="lesson__actions">
         <button type="button" className="lesson__plain" onClick={onMeet}>
@@ -503,8 +566,11 @@ export function Practice({
   onAnswered: (a: Answer) => void;
 }) {
   const [picked, setPicked] = useState<number | null>(null);
+  /** The recording you last played, for a choice of recordings: answered with "This one". */
+  const [heard, setHeard] = useState<number | null>(null);
   const word = question.word;
   const listen = question.kind === 'listen';
+  const sound = question.kind === 'read' && question.script === 'sound';
   const right = listen
     ? question.choices.findIndex((c) => c.id === question.answer.id)
     : question.choices.indexOf(question.answer);
@@ -519,7 +585,8 @@ export function Practice({
   const choose = (i: number) => {
     if (picked !== null) return;
     setPicked(i);
-    if (!listen) play(word.audio);
+    // A recording you picked was just heard; after a wrong one, hear the right one.
+    if (!listen && (!sound || i !== right)) play(word.audio);
   };
   const next = () =>
     onAnswered({
@@ -548,37 +615,86 @@ export function Practice({
         </>
       ) : (
         <>
-          <h2 className="lesson__subtitle">How does it sound?</h2>
+          <h2 className="lesson__subtitle">
+            {sound ? 'Which recording says it?' : 'How does it sound?'}
+          </h2>
           <Ar className="arabic__word">{question.shown}</Ar>
           {question.shown === stripMarks(question.shown) && word.arabic !== question.shown && (
             <p className="arabic__note">No marks this time, the way real signs are written.</p>
           )}
         </>
       )}
-      <div
-        className={`arabic__choices${listen ? '' : ' is-words'}`}
-        role="group"
-        aria-label="Choices"
-      >
-        {question.choices.map((c, i) => {
-          const label = typeof c === 'string' ? c : c.letter;
-          const state =
-            picked === null ? '' : i === right ? ' is-right' : i === picked ? ' is-wrong' : '';
-          return (
+      {sound ? (
+        <>
+          <div className="arabic__choices is-sounds" role="group" aria-label="Recordings">
+            {question.choices.map((c, i) => {
+              const state =
+                picked === null
+                  ? i === heard
+                    ? ' is-heard'
+                    : ''
+                  : i === right
+                    ? ' is-right'
+                    : i === picked
+                      ? ' is-wrong'
+                      : '';
+              return (
+                <button
+                  key={c}
+                  type="button"
+                  className={`arabic__choice arabic__sound${state}`}
+                  aria-pressed={picked === null ? i === heard : undefined}
+                  onClick={() => {
+                    play(c);
+                    if (picked === null) setHeard(i);
+                  }}
+                >
+                  ▶ {i + 1}
+                  {picked !== null && i === right && <span className="arabic__mark"> ✓</span>}
+                  {picked !== null && i === picked && i !== right && (
+                    <span className="arabic__mark"> ✕</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          {picked === null && (
             <button
-              key={label}
               type="button"
-              className={`arabic__choice${state}`}
-              onClick={() => choose(i)}
-              disabled={picked !== null}
-              lang={listen ? 'ar' : question.script === 'latin' ? 'en' : 'he'}
-              dir={!listen && question.script === 'latin' ? 'ltr' : 'rtl'}
+              className="lesson__go"
+              disabled={heard === null}
+              onClick={() => heard !== null && choose(heard)}
             >
-              {label}
+              {heard === null ? 'Play the recordings' : `This one: ${heard + 1}`}
             </button>
-          );
-        })}
-      </div>
+          )}
+        </>
+      ) : (
+        <div
+          className={`arabic__choices${listen ? '' : ' is-words'}`}
+          role="group"
+          aria-label="Choices"
+        >
+          {question.choices.map((c, i) => {
+            const label = typeof c === 'string' ? c : c.letter;
+            const state =
+              picked === null ? '' : i === right ? ' is-right' : i === picked ? ' is-wrong' : '';
+            return (
+              <button
+                key={label}
+                type="button"
+                className={`arabic__choice${state}`}
+                onClick={() => choose(i)}
+                disabled={picked !== null}
+                lang={listen ? 'ar' : question.script === 'latin' ? 'en' : 'he'}
+                dir={!listen && question.script === 'latin' ? 'ltr' : 'rtl'}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      )}
       {!listen && question.script === 'latin' && <LatinKey choices={question.choices} />}
       {picked !== null && (
         <div className="arabic__feedback" aria-live="polite">
@@ -587,7 +703,7 @@ export function Practice({
           </p>
           <p>
             <Ar className="arabic__example">{word.arabic}</Ar> ·{' '}
-            <bdi lang="he">{listen ? word.hebrew : question.answer}</bdi> · {word.sound}
+            <bdi lang="he">{listen || sound ? word.hebrew : question.answer}</bdi> · {word.sound}
             {word.meaning ? ` · ${word.meaning}` : ''}
           </p>
           <button type="button" className="lesson__go" onClick={next} autoFocus>
