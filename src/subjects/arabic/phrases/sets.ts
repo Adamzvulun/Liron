@@ -4,7 +4,7 @@
 // Latin, the Hebrew bridge made from that Latin, and its meaning.
 import { z } from 'zod';
 import type { Item } from '../../../core/content/schema.ts';
-import pack from '../../../../content/arabic/phrases.json';
+import pack from '../../../../content/arabic/phrases.json' with { type: 'json' };
 import { dropGroups, latinToHebrew } from './hebrew.ts';
 
 const PhraseSet = z.object({

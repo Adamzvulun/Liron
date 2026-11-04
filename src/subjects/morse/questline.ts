@@ -3,7 +3,7 @@
 // content/morse/questline.json.
 
 import { z } from 'zod';
-import questline from '../../../content/morse/questline.json';
+import questline from '../../../content/morse/questline.json' with { type: 'json' };
 
 const Trial = z.object({
   name: z.string(),

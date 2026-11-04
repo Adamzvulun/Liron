@@ -1,6 +1,6 @@
 // The Arabic letters and script lessons (#38, #39), from content/arabic/letters.json.
 // Design: docs/game/arabic-script-lessons.md.
-import pack from '../../../content/arabic/letters.json';
+import pack from '../../../content/arabic/letters.json' with { type: 'json' };
 
 export interface Letter {
   /** Stable id, e.g. `letter:beh`. Spaced repetition and ratings point at it. */
