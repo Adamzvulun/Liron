@@ -158,6 +158,8 @@ export function subjectApi<State extends object>(
                   i.media.filter((m) => m.store === 'private').map((m) => m.path),
                 ),
               ),
+            // A pack that failed to load names nothing (its failure is the caller's to handle).
+            () => new Set<string>(),
           ),
         );
       }
