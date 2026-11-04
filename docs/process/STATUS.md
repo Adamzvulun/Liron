@@ -44,10 +44,15 @@
      - [#79](https://github.com/Adamzvulun/Liron/pull/79): vowel marks (#40).
      - [#80](https://github.com/Adamzvulun/Liron/pull/80): the slate, tracing and writing from memory (#41).
      - [#81](https://github.com/Adamzvulun/Liron/pull/81): Read choices fade from Hebrew to Latin.
-     - [#82](https://github.com/Adamzvulun/Liron/pull/82): the coffee corner, survival phrases (#45). #44 (importing the deck) looks done; Adam is asked to confirm.
-   - **Awaiting Adam's approval:** the picks listed in [reports/2026-11-04.md](reports/2026-11-04.md), and the Groq speech check for "Say it" (it shares recordings with Groq).
-   - **Left:** the final fade to no choices (waits for the speech decision); more phrase sets.
-   - E10 (quests and rewards) gets its own sprint after the Arabic sprint (reasoning in morse-lessons.md). A Notice Board concept (contracts, chest, Market) is screenshotted for Adam; nothing is built until he approves the draft.
+     - [#82](https://github.com/Adamzvulun/Liron/pull/82), [#85](https://github.com/Adamzvulun/Liron/pull/85): the coffee corner, survival phrases (#45), 9 sets. #44 (importing the deck) is closed as done.
+   - **Adam's decisions (2026-11-04, "yes to all except 1.0.0"):**
+     - He approved every pick in [reports/2026-11-04.md](reports/2026-11-04.md).
+     - **The Groq speech check is approved:** "Say it" may send a recording to Groq Whisper (ADR 0014) through a server-side Vercel function. The key never reaches the browser.
+     - #44 is closed.
+     - **E10's draft and Notice Board concept are approved:** [quests-and-rewards.md](../game/quests-and-rewards.md).
+     - **No v1.0.0 release yet.**
+   - **Review (2026-11-04):** Adam asked for a full check of the work so far by specialist reviewers (code, security, QA, learning design, UX, architecture). The fixes go in their own PRs.
+   - **Next:** fixes from the review, then the Groq "understood" check, then E10 (ADRs first).
 
 ## Backlog map
 | Milestone | Epic | Issues |
