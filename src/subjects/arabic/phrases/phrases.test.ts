@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Item } from '../../../core/content/schema.ts';
 import { seeded } from '../lesson/questions.ts';
 import { NEW_PROGRESS, parseProgress } from '../progress.ts';
-import { latinToHebrew } from './hebrew.ts';
+import { dropGroups, latinToHebrew } from './hebrew.ts';
 import { PHRASE_SETS, phrasesOf, understandQuestions } from './sets.ts';
 
 const he = (s: string) => s.normalize('NFC');
@@ -11,7 +11,7 @@ describe('the Hebrew bridge for phrases (#45)', () => {
   it('writes the deck’s Latin in Hebrew letters with niqqud', () => {
     expect(latinToHebrew('tamām')).toBe(he('תַמַאם'));
     expect(latinToHebrew('kēf ɧālak?')).toBe(he('כֵּיף חַאלַךּ?'));
-    expect(latinToHebrew('ʂabāɧ ilxēr!')).toBe(he('צַבַּאח אִלח׳ֵיר!'));
+    expect(latinToHebrew('ʂabāɧ ilxēr!')).toBe(he('צַבַּאח אִלחֵ׳יר!'));
   });
 
   it('doubles with a dagesh and writes final vowels with a letter', () => {
@@ -22,8 +22,25 @@ describe('the Hebrew bridge for phrases (#45)', () => {
 
   it('drops the deck’s notes, blanks and hyphens', () => {
     expect(latinToHebrew('__ wāɧad [m.]')).toBe(he('וַאחַד'));
-    expect(latinToHebrew('b-xēr')).toBe(he('בּח׳ֵיר'));
+    expect(latinToHebrew('b-xēr')).toBe(he('בּחֵ׳יר'));
     expect(latinToHebrew('laʔ/lā')).toBe(he('לַא / לַא'));
+  });
+
+  // Found in the 2026-11-04 learning review.
+  it('puts niqqud on the letter, never after a geresh', () => {
+    for (const latin of ['ilxēr', 'xámsa', 'ɣāli', 'tfáɖɖal', 'xūd']) {
+      expect(latinToHebrew(latin)).not.toMatch(/׳[\u05B0-\u05BC]/);
+    }
+    expect(latinToHebrew('tfáɖɖal')).toBe(he('תפַצַּ׳ל'));
+  });
+
+  it('drops nested construct forms without leaving stray letters', () => {
+    expect(latinToHebrew('talāta (tál(a)t __)')).toBe(he('תַלַאתַא'));
+    expect(latinToHebrew('xámsa (xámas(t) __)')).toBe(he('חַ׳מסַא'));
+  });
+
+  it('writes a long ā at the start with one alef', () => {
+    expect(latinToHebrew('āsif')).toBe(he('אַסִף'));
   });
 });
 
@@ -34,6 +51,14 @@ const deckItem = (id: string, arabic: string, pronunciation: string, english: st
   data: { arabic, pronunciation, english },
   media: [{ kind: 'audio', store: 'private', path: `deck/${id}.mp3` }],
   tags: [],
+});
+
+describe('dropGroups', () => {
+  it('removes balanced groups, nested ones too, and can keep some', () => {
+    expect(dropGroups('تلاتة (تلات __)', (g) => !g.includes('_')).trim()).toBe('تلاتة');
+    expect(dropGroups('a (b (c) d) e')).toBe('a  e');
+    expect(dropGroups('Thanks (to a man)', (g) => !g.includes('_'))).toBe('Thanks (to a man)');
+  });
 });
 
 describe('the coffee corner’s sets (#45)', () => {
