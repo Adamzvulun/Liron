@@ -19,6 +19,8 @@ export interface Letter {
   connectsForward: boolean;
   /** Where Hebrew misleads, or the deck's speakers differ. */
   note?: string;
+  /** How the deck's romanisation writes it, where that isn't plain Latin (ع as 3, ق as g). */
+  latin?: string;
   /** Its place in the alphabet; the extras (ة ء ى لا) have none. */
   alphabetPosition?: number;
 }

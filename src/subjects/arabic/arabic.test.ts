@@ -198,6 +198,33 @@ describe('a session’s questions', () => {
     });
   });
 
+  it('turns the choices Latin once a word’s letters were taught two lessons ago', () => {
+    const said = (id: string, arabic: string, sound: string): Item => ({
+      ...vocab(id, arabic),
+      data: { arabic, pronunciation: sound, english: '' },
+    });
+    const ws = wordsFrom([
+      said('l:1', 'بيت', 'bēt'),
+      said('l:2', 'تين', 'tīn'),
+      said('l:3', 'بنت', 'bint'),
+      said('l:4', 'نبي', 'nabi'),
+      said('l:5', 'يابا', 'yāba'),
+      said('l:6', 'دار', 'dār [pl.]'),
+    ]);
+    const early = readQuestions(ws, 2, seeded(1));
+    expect(early.every((q) => q.script === 'he')).toBe(true);
+    const later = readQuestions(ws, 3, seeded(1));
+    const latin = later.filter((q) => q.script === 'latin');
+    expect(latin.length).toBeGreaterThan(0);
+    for (const q of latin) {
+      expect(q.word.letters.every((l) => l.lesson <= 1)).toBe(true);
+      expect(q.choices).toContain(q.answer);
+      expect(q.answer).not.toMatch(/\[/);
+    }
+    // دار has a lesson-3 letter: still in Hebrew letters.
+    expect(later.find((q) => q.word.arabic === 'دار')?.script).toBe('he');
+  });
+
   it('is the same session for the same seed', () => {
     expect(readQuestions(words, 1, seeded(9))).toEqual(readQuestions(words, 1, seeded(9)));
   });
