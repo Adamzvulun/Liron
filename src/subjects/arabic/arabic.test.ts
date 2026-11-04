@@ -219,8 +219,8 @@ describe('reporting a session', () => {
   it('scores and pays about 10 XP a minute, plus 30 for passing a lesson', () => {
     expect(scoreOf(answers)).toBeCloseTo(2 / 3);
     expect(scoreOf([])).toBe(0);
-    expect(xpFor(answers, false)).toBe(2);
-    expect(xpFor(answers, true)).toBe(32);
+    expect(xpFor(answers, 0)).toBe(2);
+    expect(xpFor(answers, 30)).toBe(32);
   });
 
   it('saves, reviews each letter, rates listen by letter and read by word, then XP and minutes', async () => {
@@ -234,7 +234,7 @@ describe('reporting a session', () => {
             void calls.push([name, ...args.slice(0, 3)]),
       },
     ) as SubjectApi;
-    await reportSession(api, NEW_PROGRESS, answers, false, 120);
+    await reportSession(api, NEW_PROGRESS, answers, 0, 120);
     expect(calls).toEqual([
       ['saveState', NEW_PROGRESS],
       ['recordReview', 'letter:beh', 'good', expect.any(Date)],

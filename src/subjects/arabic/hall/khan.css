@@ -1,0 +1,395 @@
+/* The Caravanserai's courtyard (#42): a painted stage (paintKhan.ts) with the questline on a
+   scroll, your rank on the house banner, and a station per activity. When the courtyard is too
+   small to read (an upright phone), the writing and the doors follow below it as cards.
+   Repeats the Signal Tower's patterns under its own names, so subjects stay independent. */
+
+.khan {
+  position: relative;
+  background: #1a1d48;
+}
+
+.khan__view {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.khan__stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+.khan__layer,
+.khan__part {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.khan__milestone.is-next .khan__milestone-lamp {
+  animation: khan-flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes khan-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .khan__milestone.is-next .khan__milestone-lamp {
+    animation: none;
+  }
+}
+
+/* The questline's scroll, hung on the left wall, in stage pixels. */
+.khan__scroll {
+  position: absolute;
+  left: 40px;
+  top: 200px;
+  width: 480px;
+  box-sizing: border-box;
+  padding: 26px 30px 22px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: linear-gradient(#f6e6c2, #d8b87e);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: var(--ink);
+}
+
+.khan__kicker {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a3a2e;
+}
+
+.khan__chapter {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.15;
+  color: var(--wood);
+}
+
+.khan__beat {
+  margin: 0 0 12px;
+  padding: 0 0 0 14px;
+  border-left: 5px solid var(--brass);
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.khan__trial {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.khan__trial strong {
+  color: #8a3a2e;
+}
+
+.khan__ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-weight: 700;
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+/* The house banner: your rank, written on the cloth. */
+.khan__banner {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 18px 4px 0;
+  text-align: center;
+  color: #fbf1d8;
+  text-shadow: 0 2px 0 rgba(20, 10, 20, 0.5);
+}
+
+.khan__banner p {
+  margin: 0;
+}
+
+.khan__house {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lamplight);
+}
+
+.khan__rank-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.3;
+}
+
+.khan__rank {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.khan__letters {
+  margin-top: 6px !important;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Stations: the painting and its plaque are one button; only they take clicks. */
+.khan__station,
+.khan__gate {
+  all: unset;
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.khan__station .khan__part * {
+  pointer-events: visiblePainted;
+}
+
+.khan__plaque,
+.khan__gate {
+  pointer-events: auto;
+}
+
+.khan__station .khan__part {
+  transition: filter 0.15s;
+}
+
+button.khan__station,
+.khan__gate {
+  cursor: pointer;
+}
+
+button.khan__station:hover .khan__part,
+button.khan__station:focus-visible .khan__part {
+  filter: drop-shadow(0 0 18px rgba(255, 211, 107, 0.85));
+}
+
+.khan__plaque {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  gap: 2px;
+  width: max-content;
+  padding: 8px 18px 9px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  text-align: center;
+  background: linear-gradient(#8a5a33, #5a341a 55%, #43240f);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 214, 150, 0.55),
+    0 5px 0 var(--ink),
+    0 10px 16px rgba(30, 12, 4, 0.45);
+  color: #fbebc8;
+  transition: transform 0.15s;
+}
+
+.khan__plaque-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 0 var(--ink);
+}
+
+.khan__plaque-text {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+button.khan__station:hover .khan__plaque,
+.khan__gate:hover .khan__plaque {
+  transform: translateX(-50%) translateY(-4px);
+}
+
+button.khan__station:focus-visible .khan__plaque,
+.khan__gate:focus-visible .khan__plaque {
+  outline: 4px solid var(--lamplight);
+  outline-offset: 4px;
+}
+
+.khan__station.is-locked .khan__plaque {
+  background: linear-gradient(#5a4a44, #3a2e30);
+  color: #d9c49a;
+}
+
+.khan__plaque--trial {
+  background: linear-gradient(#ffe7a0, var(--ember));
+  color: var(--ink);
+  box-shadow:
+    0 5px 0 var(--ink),
+    0 0 30px 6px rgba(255, 211, 107, 0.6);
+}
+
+.khan__plaque--trial .khan__plaque-title {
+  color: var(--wood);
+  text-shadow: none;
+}
+
+/* An upright phone: the courtyard pans sideways, and the writing follows below it. */
+@media (max-width: 899px) and (orientation: portrait) {
+  .khan__view {
+    height: 62svh;
+  }
+}
+
+.khan--pan .khan__view {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.khan--pan .khan__view::-webkit-scrollbar {
+  display: none;
+}
+
+.khan--pan .khan__sizer {
+  pointer-events: none;
+}
+
+.khan.is-compact .khan__plaque {
+  display: none;
+}
+
+.khan__below {
+  display: grid;
+  gap: 12px;
+  padding: 16px 16px 40px;
+}
+
+.khan__card {
+  padding: 16px 18px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--parchment), #e8d2a4);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.khan__card p {
+  margin: 0;
+}
+
+.khan__card-kicker {
+  display: block;
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b5640;
+}
+
+.khan__card-rank {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  color: var(--guild-arabic);
+}
+
+.khan__card-rank bdi {
+  font-family: 'Noto Naskh Arabic', serif;
+}
+
+.khan__card-next {
+  margin-top: 4px !important;
+  font-size: 16px;
+}
+
+/* The questline card: the scroll's own parchment, smaller type. */
+.khan__quest .khan__chapter {
+  font-size: 24px;
+}
+
+.khan__quest .khan__beat {
+  font-size: 17px;
+}
+
+.khan__quest .khan__trial {
+  font-size: 15px;
+}
+
+.khan__doors {
+  display: grid;
+  gap: 12px;
+}
+
+.khan__door {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+button.khan__door:hover {
+  transform: translateY(-2px);
+}
+
+button.khan__door:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+.khan__door.is-main {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+}
+
+.khan__door.is-trial {
+  background: linear-gradient(180deg, #ffe7a0, var(--ember));
+  box-shadow:
+    0 5px 0 var(--ink),
+    0 0 24px 4px rgba(255, 211, 107, 0.45);
+}
+
+.khan__door-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--wood);
+}
+
+.khan__door-text {
+  font-size: 15px;
+}
+
+.khan__door-go {
+  margin-top: 4px;
+  font-weight: 800;
+}
+
+.khan__door.is-locked {
+  cursor: default;
+  border-style: dashed;
+  border-color: rgba(243, 226, 188, 0.45);
+  background: rgba(20, 16, 28, 0.45);
+  box-shadow: none;
+  color: var(--parchment);
+}
+
+.khan__door.is-locked .khan__door-title {
+  color: #d9c49a;
+}

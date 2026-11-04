@@ -91,4 +91,19 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
   4. **The result:** the score, how close you are to passing (90% in 2 sessions in a row), the letters to listen for again, and XP.
 - **Saved and measured** (`lesson/report.ts`): the state (lesson, passes in a row, letters met); an FSRS review per letter (`letter:beh`: good only if every answer that tested it was right); a Glicko **listen** rating per letter and a **read** rating per word; XP (1 per right answer, +30 for passing a lesson); practice minutes.
 - **The words** come from the Lingualism deck through `api.privateContent('lingualism-pcav')` (signed in only, ADR 0011), and each recording through `api.mediaUrl`. Only single words made entirely of taught letters are used. If the deck isn't in the database, the lesson says so.
-- **Not built yet (ordered, not dropped):** writing by tracing (#41's second half), fading the Hebrew choices to Latin and then to none, vowel-mark lessons (#40), and the painted courtyard with "The Long Road In" (#42, #43).
+- **The courtyard** (`hall/paintKhan.ts`, `hall/Courtyard.tsx`, #42) replaces the simple hall. It's the approved concept, painted in the browser at 1920×1080 with one perspective camera:
+  - **Scribe's table:** your lesson.
+  - **Fountain:** a Listen-only round of 12. It's practice: it feeds reviews, ratings and XP but never passes a lesson.
+  - **Storyteller:** a Read-only round of 12, the same kind of practice.
+  - **Slate:** writing, soon.
+  - **Coffee corner:** phrases, soon.
+  - On an upright phone, the courtyard pans and the same things follow below it as cards.
+- **"The Long Road In", chapter I** (#43, `content/arabic/questline.json`, `questline.ts`):
+  - The road has a milestone per lesson. Each passed lesson lights one, and its story beat shows on the scroll.
+  - When all 8 are lit, the gate opens on **the Painted Sign** (`lesson/Trial.tsx`). You read 30 words from every letter, and 90% passes.
+  - Passing pays +50 XP and makes you ضيف (Guest) on the house banner. Before that you're غريب (Stranger).
+  - The chapter covers all 8 lessons, not 1–3 as section 6 first said: one milestone per lesson reads better on the road.
+- **Not built yet (ordered, not dropped):**
+  - writing by tracing (#41's second half);
+  - fading the Hebrew choices to Latin, and then to none;
+  - vowel-mark lessons (#40).

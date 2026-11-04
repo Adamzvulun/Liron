@@ -69,3 +69,53 @@ test.describe('Arabic script lessons (#38–#41)', () => {
     ).toBeVisible();
   });
 });
+
+test.describe('the Caravanserai courtyard (#42, #43)', () => {
+  test('the road’s milestones show your lessons, and the Painted Sign makes you a guest', async ({
+    page,
+  }) => {
+    const calls: SubjectCall[] = [];
+    const done = { lesson: 8, streak: 0, met: [], done: true, sessions: 20 };
+    await signedIn(page, [], calls, done, WORDS);
+    await page.goto('/caravanserai');
+    await expect(page.getByRole('img', { name: '8 of 8 milestones lit' })).toBeAttached();
+    await expect(page.getByLabel('Your standing in the house')).toContainText('Stranger');
+
+    await page.getByRole('button', { name: /Read The Painted Sign/ }).click();
+    await page.getByRole('button', { name: 'Read the sign' }).click();
+    await expect(page.getByText(/^Read · 1 of /)).toBeVisible();
+    for (let i = 0; i < 40; i++) {
+      if (await page.getByText(/^\d+%$/).isVisible()) break;
+      await page.getByRole('group', { name: 'Choices' }).getByRole('button').first().click();
+      await page.getByRole('button', { name: 'Next' }).click();
+    }
+    await expect(page.getByText(/^\d+%$/)).toBeVisible();
+    await expect.poll(() => calls.some((c) => c.rpc === 'save_subject_state')).toBe(true);
+    const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
+      p_state: { guest: boolean; sessions: number };
+    };
+    expect(saved.p_state.sessions).toBe(21);
+    expect(typeof saved.p_state.guest).toBe('boolean');
+  });
+
+  test('the fountain is listening practice that doesn’t pass a lesson', async ({ page }) => {
+    const calls: SubjectCall[] = [];
+    const met = ['letter:alef', 'letter:beh', 'letter:teh', 'letter:noon', 'letter:yeh'];
+    await signedIn(page, [], calls, { lesson: 1, streak: 1, met, done: false, sessions: 1 }, WORDS);
+    await page.goto('/caravanserai');
+    await page.getByRole('button', { name: /The fountain/ }).click();
+    await page.getByRole('button', { name: 'Begin' }).click();
+    for (let i = 0; i < 20; i++) {
+      if (await page.getByText('Session done').isVisible()) break;
+      await expect(page.getByText(/^Listen · \d+ of /)).toBeVisible();
+      await page.getByRole('group', { name: 'Choices' }).getByRole('button').first().click();
+      await page.getByRole('button', { name: 'Next' }).click();
+    }
+    await expect(page.getByText('Session done')).toBeVisible();
+    await expect.poll(() => calls.some((c) => c.rpc === 'save_subject_state')).toBe(true);
+    const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
+      p_state: { lesson: number; streak: number };
+    };
+    expect(saved.p_state).toMatchObject({ lesson: 1, streak: 1 });
+  });
+});
