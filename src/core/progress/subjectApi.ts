@@ -1,7 +1,10 @@
 import { SUBJECT_ID, type ReviewStatus, type SubjectApi, type SubjectInfo } from '../subject.ts';
+import type { Item, Lesson } from '../content/schema.ts';
 import { phaseOf, scheduleReview, type StoredCard } from '../srs/scheduler.ts';
 import { rateResult, toSkillRating } from '../rating/ratings.ts';
 import type { Award, ProgressStore } from './store.ts';
+import type { ContentSource } from '../content/privateContent.ts';
+import { ContentPack, Media } from '../content/schema.ts';
 
 const MAX_XP = 10_000; // per call; the same limits are enforced again in the database
 const MAX_MINUTES = 240;
@@ -24,13 +27,16 @@ const statusOf = (card: StoredCard): ReviewStatus => ({
 
 /**
  * Builds the API the platform hands to one subject, bound to that subject's id.
- * `onAward` lets the platform update the HUD and celebrate level-ups.
+ * `onAward` lets the platform update the HUD and celebrate level-ups. `content` serves the
+ * subject's private content; without it, asking for content fails.
  */
 export function subjectApi<State extends object>(
   subject: Pick<SubjectInfo, 'id' | 'skills'>,
   store: ProgressStore,
   onAward: (award: Award) => void = () => {},
+  content: ContentSource | null = null,
 ): SubjectApi<State> {
+  const packs = new Map<string, Promise<{ items: Item[]; lessons: Lesson[] }>>();
   const id = subject.id;
   if (!SUBJECT_ID.test(id)) throw new Error(`Invalid subject id: "${id}"`);
   const skills = subject.skills;
@@ -125,6 +131,27 @@ export function subjectApi<State extends object>(
       const now = new Date();
       const stored = await store.itemRatings(id, skill, itemIds);
       return new Map([...stored].map(([item, r]) => [item, toSkillRating(r, now)]));
+    },
+    privateContent(source) {
+      if (!ContentPack.shape.source.safeParse(source).success) {
+        return Promise.reject(new RangeError(`Invalid content source: "${String(source)}"`));
+      }
+      if (!content) return Promise.reject(new Error('No content source in this app'));
+      let pack = packs.get(source);
+      if (!pack) {
+        pack = content.pack(id, source);
+        // A failed load isn't kept, so the next ask tries again.
+        pack.catch(() => packs.delete(source));
+        packs.set(source, pack);
+      }
+      return pack;
+    },
+    mediaUrl(path) {
+      if (!Media.shape.path.safeParse(path).success || path.split('/').includes('..')) {
+        return Promise.reject(new RangeError(`Invalid media path: "${String(path)}"`));
+      }
+      if (!content) return Promise.reject(new Error('No content source in this app'));
+      return content.mediaUrl(path);
     },
   };
 }
