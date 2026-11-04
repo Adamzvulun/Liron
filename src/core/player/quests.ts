@@ -24,7 +24,7 @@ export function todaysQuests(goalMinutes: number): Quest[] {
     {
       giver: 'Caravanserai',
       text: 'The Long Road In I:',
-      arabic: 'ا ب ت ث',
+      arabic: 'ا ب ت ن ي',
       reward: '+20 XP · 10 gold',
       href: '/caravanserai',
       color: 'var(--guild-arabic)',
