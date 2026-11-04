@@ -17,6 +17,15 @@ describe('subject registry', () => {
     expect(() => defineSubjects([morse, { ...example, id: 'morse' }])).toThrow(/id "morse"/);
     expect(() => defineSubjects([morse, { ...example, place: morse.place }])).toThrow(/place/);
   });
+
+  it('gives each subject its own building, one of the city’s halls', () => {
+    expect(subjects.map((s) => s.building)).toEqual(['tower', 'caravanserai']);
+    expect(() => defineSubjects([morse, { ...example, building: 'tower' }])).toThrow(
+      /building "tower"/,
+    );
+    const nowhere = { ...example, building: 'market' } as unknown as typeof example;
+    expect(() => defineSubjects([nowhere])).toThrow(/Unknown building/);
+  });
 });
 
 describe('a new subject needs no platform changes', () => {

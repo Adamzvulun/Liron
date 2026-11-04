@@ -300,7 +300,7 @@
   font-weight: 700;
 }
 
-.hud__questarabic {
+.hud__questscript:lang(ar) {
   font-family: var(--font-arabic);
 }
 
