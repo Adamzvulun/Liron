@@ -60,12 +60,12 @@ export function subjectApi<State extends object>(
       onAward(await store.record(id, amount, 0));
     },
     async recordPractice(minutes) {
-      if (!Number.isFinite(minutes) || minutes < 0 || minutes > MAX_MINUTES) {
-        throw new RangeError(
-          `recordPractice: expected 0 to ${MAX_MINUTES} minutes, got ${minutes}`,
-        );
+      if (!Number.isFinite(minutes) || minutes < 0) {
+        throw new RangeError(`recordPractice: expected 0 or more minutes, got ${minutes}`);
       }
-      const whole = Math.round(minutes);
+      // A screen left open for hours counts as the most one call may report, so the rest of
+      // the save (state, reviews, XP) isn't reported as failed (2026-11-04 QA review, B6).
+      const whole = Math.round(Math.min(minutes, MAX_MINUTES));
       if (whole > 0) onAward(await store.record(id, 0, whole));
     },
     progressSummary: () => store.summary(id),
