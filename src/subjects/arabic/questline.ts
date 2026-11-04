@@ -2,7 +2,7 @@
 // milestone per script lesson and ends with a trial, the Painted Sign, that makes you ضيف
 // (Guest). The text is content data in content/arabic/questline.json.
 import { z } from 'zod';
-import questline from '../../../content/arabic/questline.json';
+import questline from '../../../content/arabic/questline.json' with { type: 'json' };
 import type { ArabicProgress } from './progress.ts';
 
 const Trial = z.object({

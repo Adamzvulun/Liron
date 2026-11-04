@@ -1,7 +1,7 @@
 // The vowel marks (harakat, #40): data in content/arabic/marks.json. Taught alongside the
 // letters (fatha, kasra and damma in lesson 1; sukun in 2; shadda in 3; tanween in 5), and
 // written into the Hebrew read choices as niqqud, so reading a word means reading its marks.
-import pack from '../../../content/arabic/marks.json';
+import pack from '../../../content/arabic/marks.json' with { type: 'json' };
 import { letterOf, type Letter } from './letters.ts';
 
 export interface Mark {
