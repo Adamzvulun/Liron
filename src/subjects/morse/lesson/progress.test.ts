@@ -90,7 +90,7 @@ describe('reportRun', () => {
       'state [object Object]',
       `review char:K good ${at}`,
       'result receive char:K 1',
-      `review char:M again ${at}`,
+      `review char:M hard ${at}`,
       'result receive char:M 0.5',
       'xp 1',
       'minutes 2',

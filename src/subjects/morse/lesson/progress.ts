@@ -2,6 +2,7 @@
 // to it. Saved as the Morse subject's state (ADR 0019); the platform never looks inside.
 
 import { z } from 'zod';
+import { gradeFrom } from '../../../core/srs/scheduler.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MORSE_CHARS } from '../code.ts';
 import { CHAPTERS, type Chapter } from '../questline.ts';
@@ -162,7 +163,7 @@ export async function reportRun(
   await api.saveState(next);
   for (const [c, t] of score.byChar) {
     const item = `char:${c}`;
-    await api.recordReview(item, t.right === t.played ? 'good' : 'again', at);
+    await api.recordReview(item, gradeFrom(t.right, t.played), at);
     await api.recordResult('receive', item, t.right / t.played, { at });
   }
   const xp = xpFor(score, unlockedNow);
