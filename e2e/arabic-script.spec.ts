@@ -78,6 +78,34 @@ test.describe('Arabic script lessons (#38–#41)', () => {
     expect([...skills].sort()).toEqual(['listen', 'read']);
   });
 
+  test('no plaque covers the questline scroll on desktop (UX review H3)', async ({ page }) => {
+    test.skip(
+      test.info().project.name !== 'desktop',
+      'the scroll only hangs in the wide courtyard',
+    );
+    for (const [width, height] of [
+      [1280, 720],
+      [1366, 768],
+      [1920, 1080],
+    ] as const) {
+      await page.setViewportSize({ width, height });
+      await signedIn(page, []);
+      await page.goto('/caravanserai');
+      const scroll = await page.getByRole('region', { name: 'Main questline' }).boundingBox();
+      expect(scroll).not.toBeNull();
+      for (const plaque of await page.locator('.khan__plaque').all()) {
+        const p = await plaque.boundingBox();
+        if (!p || !scroll) continue;
+        const overlaps =
+          p.x < scroll.x + scroll.width &&
+          scroll.x < p.x + p.width &&
+          p.y < scroll.y + scroll.height &&
+          scroll.y < p.y + p.height;
+        expect(overlaps, `${await plaque.textContent()} at ${width}×${height}`).toBe(false);
+      }
+    }
+  });
+
   test('says so when the deck isn’t loaded', async ({ page }) => {
     await signedIn(page, [], [], null, []);
     await page.goto('/caravanserai?open=lesson');
