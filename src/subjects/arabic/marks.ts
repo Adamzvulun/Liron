@@ -49,8 +49,9 @@ export function withMarks(word: string, known: readonly Mark[]): string {
   return [...word].filter((c) => !BY_CHAR.has(c) || keep.has(BY_CHAR.get(c)?.id ?? '')).join('');
 }
 
-const FINAL_HEBREW: Record<string, string> = { כ: 'ך', מ: 'ם', נ: 'ן', פ: 'ף', צ: 'ץ' };
-/** Final letters keep no dagesh (בּן, not בּןּ); final ך keeps its own, as in Hebrew. */
+// No final ך: k at the end stays כּ, so it never reads as kh (Adam, 2026-11-04).
+const FINAL_HEBREW: Record<string, string> = { מ: 'ם', נ: 'ן', פ: 'ף', צ: 'ץ' };
+/** Final letters keep no dagesh (בּן, not בּןּ). */
 const FINAL_FORMS: Record<string, true> = { ם: true, ן: true, ף: true, ץ: true };
 const POINT: Record<string, string> = {
   'mark:fatha': 'ַ',

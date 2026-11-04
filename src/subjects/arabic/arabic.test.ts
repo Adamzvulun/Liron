@@ -61,6 +61,7 @@ describe('the letters (#38, #39)', () => {
     expect(he('جبنة')).toBe('ג׳בנה');
     expect(he('خبز')).toBe('ח׳בז');
     expect(he('أرض')).toBe('ארץ׳');
+    expect(he('ملك')).toBe('מלכ'); // a final k is never ך, which reads as kh
   });
 
   it('shapes each letter in its four positions', () => {

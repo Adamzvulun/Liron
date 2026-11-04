@@ -1,8 +1,8 @@
 // The Hebrew bridge for whole phrases (#45, ADR 0002): written from the deck's Latin
 // romanisation rather than the Arabic script, because the Latin has every vowel the speaker
 // says (the Arabic leaves most of them out). The result reads the way the recording sounds,
-// in Hebrew letters with niqqud: tamām → תַמַאם, šúkran → שֻכּרַן. A final k is ךּ for now
-// (which convention reads best as k is a question for Adam, 2026-11-04 review).
+// in Hebrew letters with niqqud: tamām → תַמַאם, šúkran → שֻכּרַן. A final k stays כּ
+// (never ך, which reads as kh: Adam, 2026-11-04).
 
 /** Each Latin consonant of the deck's notation as its Hebrew bridge (geresh where needed). */
 const CONSONANTS: Record<string, string> = {
@@ -66,7 +66,7 @@ const VOWELS: Record<string, [string, string]> = {
   ō: ['', 'וֹ'],
 };
 
-const FINAL: Record<string, string> = { כ: 'ך', מ: 'ם', נ: 'ן', פ: 'ף', צ: 'ץ' };
+const FINAL: Record<string, string> = { מ: 'ם', נ: 'ן', פ: 'ף', צ: 'ץ' };
 const GERESH = '׳';
 
 /** Adds a point or dagesh to a letter cluster: on the letter, before any geresh (ח׳ + ַ → חַ׳). */
@@ -132,15 +132,15 @@ function word(latin: string): string {
   if (end !== undefined) {
     const base = end[0] ?? '';
     const final = FINAL[base];
-    // A final letter keeps no dagesh (בּן, not בּןּ), except ך, which Hebrew writes so too.
-    if (final) out[last] = final + end.slice(1).replace(base === 'כ' ? '' : DAGESH, '');
+    // A final letter keeps no dagesh (בּן, not בּןּ).
+    if (final) out[last] = final + end.slice(1).replace(DAGESH, '');
   }
   return out.join('').normalize('NFC');
 }
 
 /**
  * A phrase from the deck's romanisation in Hebrew letters: stress accents and notes like
- * "[pl.]" or "(i)" dropped, hyphens joined, punctuation kept. "kēf ɧālak?" → "כֵּיף חַאלַךּ?".
+ * "[pl.]" or "(i)" dropped, hyphens joined, punctuation kept. "kēf ɧālak?" → "כֵּיף חַאלַכּ?".
  */
 export function latinToHebrew(latin: string): string {
   const clean = dropGroups(latin.toLowerCase())
