@@ -54,6 +54,7 @@
 - **Hanging pushes:** `git push` occasionally hangs. Run it with `timeout 60` and retry.
 - **Merging into `dev`:** Claude merges its own green PRs (Adam, 2026-11-04). Subscribe to each PR, and unsubscribe after merging.
 - **Vitest:** check for `Errors` as well as `Tests` in its summary. Unhandled rejections fail CI even when every test passes.
+- **e2e can import app code:** JSON imports in `src/` carry `with { type: 'json' }`, so a spec can import pure modules (e.g. `lettersOf`, `inHebrewVowelled`) to work out the right answer. Keep that attribute on new JSON imports. `listenForAudio()` + `played()` in `e2e/fake-supabase.ts` tell a test which recording played, and the fake database returns the state a session saved (by subject).
 - **CSP (#108):** no inline `style` attributes in painted SVG strings (use classes), and zod runs `jitless` (`src/core/strictCsp.ts`, imported first). `e2e/headers.spec.ts` fails on any CSP violation.
 - **Wikimedia rate limits:** Commons returns 429 to this container after a few hundred calls; lingualibre.org often times out. Go slowly, in the background.
 - **Leftovers for Adam:** see STATUS → "What to do next" item 1 (the optional v0.1.0 tag and two old branches). Before friends join (M5), add a per-user rule for the deck (personal-use licence).
