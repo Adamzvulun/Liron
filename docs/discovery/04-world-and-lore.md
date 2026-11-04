@@ -55,12 +55,14 @@ Ranks use real Arabic words, so the title itself is a word you learn:
 | Rank | Earned by |
 |---|---|
 | غريب *Gharīb* (Stranger) | Join |
-| ضيف *Ḍēf* (Guest) | Read and write the whole script |
-| مسافر *Msāfer* (Traveler) | 300 words + survival phrases |
+| ضيف *Ḍēf* (Guest) | Read the whole script (the Painted Sign trial) |
+| مسافر *Msāfer* (Traveler) | 300 words + survival phrases + write the whole script by hand (the slate) |
 | جار *Jār* (Neighbor) | First real conversation with a partner |
 | صاحب *Ṣāḥeb* (Friend) | 1,000 words + 20 conversations |
 | ابن البلد *Ibn il-Balad* (Local) | 2,000 words, 10-minute conversation without English |
 | حكواتي *Ḥakawāti* (Storyteller) *(legendary)* | Tell a story to a partner and understand theirs |
+
+*Changed 2026-11-04:* Guest asked for reading and writing, but the built trial (the Painted Sign) tests reading only. Adam left the call to Claude: Guest stays reading only, and writing the script moves to Traveler, so a rank is never held back by the slate's rough shape check.
 
 **Main questline: "The Long Road In."** You arrive knowing nothing. Learning the script opens the inn's ledger. Each chapter of words introduces a new regular who takes a seat at your table. Reputation with each of them deepens your conversations.
 
