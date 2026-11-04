@@ -105,7 +105,7 @@ export const GEAR: readonly GearItem[] = [
     slot: 'legs',
     name: "Rider's breeches",
     starter: false,
-    earn: 'Learn all 28 Arabic letters',
+    earn: 'Pass a first-chapter trial in any guild',
   },
 ];
 

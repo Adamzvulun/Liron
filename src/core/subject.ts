@@ -13,6 +13,17 @@ export type { ReviewGrade, ReviewPhase, SkillRating };
 /** Same rule as the database's `subject_progress.subject_id` check. */
 export const SUBJECT_ID = /^[a-z][a-z0-9-]{1,31}$/;
 
+/** The square's buildings that can hold a subject's hall (the city's art has two so far). */
+export const HALL_BUILDINGS = ['tower', 'caravanserai'] as const;
+export type HallBuilding = (typeof HALL_BUILDINGS)[number];
+
+/** A subject's line on the Notice Board. */
+export interface SubjectQuest {
+  text: string;
+  /** Words in the subject's own script, shown after the text with their language and direction. */
+  script?: { text: string; lang: string; dir: 'ltr' | 'rtl' };
+}
+
 /** What the platform knows about a subject. */
 export interface SubjectInfo {
   /** Stable id, used in URLs and storage keys. Never change it once used. */
@@ -23,6 +34,16 @@ export interface SubjectInfo {
   tagline: string;
   /** CSS colour for the subject's guild hue. */
   guildColor: string;
+  /**
+   * The city building its hall is in: one of the square's hall buildings (ADR 0019). A subject
+   * with none isn't in the city yet: a new building is new city art (an empty plot painted).
+   */
+  building?: HallBuilding;
+  /**
+   * Its line on the Notice Board: where a learner picks up today, linking to its building.
+   * Shown with no reward until quests are real (E10, #46).
+   */
+  quest?: SubjectQuest;
   /**
    * The skills this subject rates separately (ADR 0010), e.g. Morse: receive, send, head-copy.
    * Same format as subject ids. If listed, ratings for any other skill are refused.

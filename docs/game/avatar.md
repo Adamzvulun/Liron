@@ -34,7 +34,7 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 | Signaller's headset | head | reach level 5 in the Signal Tower |
 | Merchant cloak | back | keep a 7-day streak |
 | Copper-toe boots | feet | finish 10 quests |
-| Rider's breeches | legs | learn all 28 Arabic letters |
+| Rider's breeches | legs | pass a first-chapter trial in any guild |
 
 **The locked items' names and conditions are placeholders.** E10 (quests and rewards) makes them real; until then they only show how they'll be earned. Adam may rename them.
 

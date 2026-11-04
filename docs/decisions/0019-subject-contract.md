@@ -1,6 +1,6 @@
 # 0019 — The subject contract: one bound API per subject, checked import boundaries
 
-- **Status:** Accepted (part of #18). Amended by [0029](0029-database-is-the-only-writer-of-rewards.md) and [0031](0031-one-save-per-session.md) (`saveSession`: a finished session is saved in one call).
+- **Status:** Accepted (part of #18). Amended by [0029](0029-database-is-the-only-writer-of-rewards.md) and [0031](0031-one-save-per-session.md) (`saveSession`: a finished session is saved in one call). Amended 2026-11-04: subjects name their own building and Notice Board line (below).
 - **Date:** 2026-11-02
 - **Builds on:** [0003](0003-hub-of-independent-subjects.md) (independent subjects), [0017](0017-player-data-schema.md) (player data)
 
@@ -14,6 +14,11 @@ ADR 0003 says subjects are self-contained modules that report progress to the pl
 
 ## Decision
 **A subject is a folder `src/subjects/<id>/`** that exports its `SubjectInfo` (id, place in the city, tagline, guild colour, and optionally its `Hall`: the screen shown inside its place, added 2026-11-03 for the Signal Tower). It's listed in the registry `src/subjects/index.ts`, which checks ids and places are valid and unique. Nothing in `src/core/` changes when a subject is added.
+
+- **Amended 2026-11-04 (full review, "architecture before E10"):** the platform had learnt things about Morse and Arabic: which building each lives in, their screen-reader labels and "coming soon" lines, the Notice Board's quest list (with rewards nothing paid), and an avatar unlock that named Arabic. Now:
+  - `SubjectInfo.building` names the city building its hall is in, one of `HALL_BUILDINGS` (today the tower and the caravanserai). The registry refuses unknown or shared buildings. A subject with none isn't in the city yet: a new building is new city art, a platform change by nature.
+  - `SubjectInfo.quest` is its Notice Board line, with optional words in its own script (`lang`, `dir`). The board shows subject lines with no reward until quests are real (E10, #46); only the daily contract names its reward (the daily chest).
+  - The city's labels and notes for an empty hall are generic. The Rider's breeches unlock reads "Pass a first-chapter trial in any guild".
 
 **The platform hands each subject a `SubjectApi`** (`src/core/subject.ts`), already bound to that subject's id:
 
