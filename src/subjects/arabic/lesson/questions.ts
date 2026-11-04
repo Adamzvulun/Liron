@@ -1,7 +1,15 @@
 // One script session's questions (#38, #41): Listen (hear a word, pick its first letter) and
 // Read (see a word, pick how it sounds, in Hebrew letters). Built from the deck's words and the
 // letters you know; the letter you're likeliest to confuse is always among the choices.
-import { lettersUpTo, lookalikes, type Letter, LESSONS } from '../letters.ts';
+import {
+  dotSiblings,
+  inHebrew,
+  lettersOf,
+  lettersUpTo,
+  lookalikes,
+  type Letter,
+  LESSONS,
+} from '../letters.ts';
 import {
   inHebrewVowelled,
   marksIn,
@@ -126,6 +134,24 @@ export function listenQuestions(
  * marks are read too. Other readable words make the rest. From FADE_FROM, every other word is
  * shown bare, with bare choices.
  */
+/**
+ * The word with one letter swapped for a known letter that differs only in its dots (بيت → تيت),
+ * keeping its marks: the distractor that makes you read the dots (full review, concern 3).
+ */
+export function dotSwaps(word: string, known: ReadonlySet<string>): string[] {
+  const out: string[] = [];
+  const chars = [...word];
+  chars.forEach((c, i) => {
+    const letter = lettersOf(c)?.[0];
+    if (!letter || letter.letter !== c) return;
+    for (const twin of dotSiblings(letter)) {
+      if (known.has(twin.id))
+        out.push([...chars.slice(0, i), twin.letter, ...chars.slice(i + 1)].join(''));
+    }
+  });
+  return out;
+}
+
 export function readQuestions(
   words: readonly Word[],
   lesson: number,
@@ -182,19 +208,24 @@ export function readQuestions(
       };
     }
     const answer = spell(word, bare);
+    const hebrewOf = (arabic: string) =>
+      bare ? inHebrew(lettersOf(arabic) ?? []) || null : inHebrewVowelled(arabic);
+    const dots = [...new Set(dotSwaps(shown, known).map(hebrewOf))].filter(
+      (h): h is string => !!h && h !== answer,
+    );
     const swaps = bare
       ? []
       : [...new Set(vowelSwaps(shown).map((w) => inHebrewVowelled(w)))].filter(
-          (h): h is string => !!h && h !== answer,
+          (h): h is string => !!h && h !== answer && !dots.includes(h),
         );
+    // One wrong choice differs only in a letter's dots, one only in a vowel; the rest are other
+    // readable words of about the same length.
+    const near = [...shuffle(dots, rand).slice(0, 1), ...shuffle(swaps, rand).slice(0, 1)];
     const pool = [...new Set(readable.map((w) => spell(w, bare)))].filter(
-      (h) => h !== answer && !swaps.includes(h),
+      (h) => h !== answer && !near.includes(h),
     );
     const close = pool.filter((h) => Math.abs(h.length - answer.length) <= 2);
-    const wrong = [
-      ...shuffle(swaps, rand).slice(0, 1),
-      ...pick(close, pool, CHOICES - 1 - Math.min(1, swaps.length), rand),
-    ];
+    const wrong = [...near, ...pick(close, pool, CHOICES - 1 - near.length, rand)];
     return {
       kind: 'read',
       word,
