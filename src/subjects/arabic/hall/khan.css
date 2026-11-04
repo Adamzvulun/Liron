@@ -50,12 +50,17 @@
   }
 }
 
-/* The questline's scroll, hung on the left wall, in stage pixels. */
+/* The questline's scroll, hung on the left wall, in stage pixels. It ends above the slate's
+   plaque (which starts near y = 520), so its last line, the trial, is never covered. A longer
+   chapter scrolls inside it. */
 .khan__scroll {
   position: absolute;
   left: 40px;
-  top: 200px;
+  top: 110px;
   width: 480px;
+  max-height: 400px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   box-sizing: border-box;
   padding: 26px 30px 22px;
   border: 3px solid var(--ink);
