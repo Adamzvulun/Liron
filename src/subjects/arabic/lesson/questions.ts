@@ -2,6 +2,14 @@
 // Read (see a word, pick how it sounds, in Hebrew letters). Built from the deck's words and the
 // letters you know; the letter you're likeliest to confuse is always among the choices.
 import { lettersUpTo, lookalikes, type Letter, LESSONS } from '../letters.ts';
+import {
+  inHebrewVowelled,
+  marksIn,
+  marksUpTo,
+  vowelSwaps,
+  withMarks,
+  type Mark,
+} from '../marks.ts';
 import { readableWith, type Word } from '../words.ts';
 
 export const LISTEN_COUNT = 10;
@@ -18,9 +26,18 @@ export interface ListenQuestion {
 export interface ReadQuestion {
   kind: 'read';
   word: Word;
-  /** Choices in Hebrew letters; the right one is the word's own. */
+  /** The word as shown: with the marks you know, or bare (no marks) once they start fading. */
+  shown: string;
+  /** The marks shown, so each one's review counts this answer. */
+  marks: readonly Mark[];
+  /** The right choice: the word in Hebrew letters, with niqqud when the word has marks. */
+  answer: string;
+  /** Choices in Hebrew letters. */
   choices: string[];
 }
+
+/** From this lesson on, every other Read word is shown bare: real signs and messages are. */
+export const FADE_FROM = 4;
 
 export type Question = ListenQuestion | ReadQuestion;
 
@@ -72,7 +89,12 @@ export function listenQuestions(
   });
 }
 
-/** See a word you can read, pick its sound: other readable words make the wrong choices. */
+/**
+ * See a word you can read, pick its sound. The word shows the marks you know, and the choices
+ * carry them as niqqud: one wrong choice is often the same word with a vowel changed, so the
+ * marks are read too. Other readable words make the rest. From FADE_FROM, every other word is
+ * shown bare, with bare choices.
+ */
 export function readQuestions(
   words: readonly Word[],
   lesson: number,
@@ -81,15 +103,37 @@ export function readQuestions(
 ): ReadQuestion[] {
   const known = new Set(lettersUpTo(lesson).map((l) => l.id));
   const fresh = new Set(LESSONS[lesson - 1]?.letters.map((l) => l.id));
+  const marks = marksUpTo(lesson);
   const readable = readableWith(words, known).filter(short);
   const withFresh = readable.filter((w) => w.letters.some((l) => fresh.has(l.id)));
   const chosen = pick(withFresh, readable, count, rand);
-  return chosen.map((word) => {
-    // Wrong choices look alike: the same length if possible.
-    const pool = [...new Set(readable.map((w) => w.hebrew))].filter((h) => h !== word.hebrew);
-    const close = pool.filter((h) => Math.abs(h.length - word.hebrew.length) <= 1);
-    const wrong = pick(close, pool, CHOICES - 1, rand);
-    return { kind: 'read', word, choices: shuffle([word.hebrew, ...wrong], rand) };
+  const spell = (w: Word, bare: boolean) =>
+    bare ? w.hebrew : (inHebrewVowelled(withMarks(w.arabic, marks)) ?? w.hebrew);
+  return chosen.map((word, i) => {
+    const bare = lesson >= FADE_FROM && i % 2 === 1;
+    const shown = withMarks(word.arabic, bare ? [] : marks);
+    const answer = spell(word, bare);
+    const swaps = bare
+      ? []
+      : [...new Set(vowelSwaps(shown).map((w) => inHebrewVowelled(w)))].filter(
+          (h): h is string => !!h && h !== answer,
+        );
+    const pool = [...new Set(readable.map((w) => spell(w, bare)))].filter(
+      (h) => h !== answer && !swaps.includes(h),
+    );
+    const close = pool.filter((h) => Math.abs(h.length - answer.length) <= 2);
+    const wrong = [
+      ...shuffle(swaps, rand).slice(0, 1),
+      ...pick(close, pool, CHOICES - 1 - Math.min(1, swaps.length), rand),
+    ];
+    return {
+      kind: 'read',
+      word,
+      shown,
+      marks: bare ? [] : marksIn(shown),
+      answer,
+      choices: shuffle([answer, ...wrong], rand),
+    };
   });
 }
 
