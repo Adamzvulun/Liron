@@ -99,6 +99,9 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
    * once and kept for the session.
    */
   privateContent(source: string): Promise<{ items: Item[]; lessons: Lesson[] }>;
-  /** A short-lived link to a private media file named in this subject's content (`media.path`). */
+  /**
+   * A short-lived link to a private media file named in this subject's content (`media.path`).
+   * Load the pack first: a path no loaded pack of this subject names is refused.
+   */
   mediaUrl(path: string): Promise<string>;
 }

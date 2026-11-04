@@ -14,6 +14,8 @@ export const STORAGE_BUDGET_BYTES = 500 * 1024 * 1024;
 const UPLOAD_CONCURRENCY = 8;
 const BUCKET = 'private-media';
 const BATCH = 500;
+/** Lesson ids as our packs make them, e.g. `pcav-section:3`: nothing a PostgREST filter would parse. */
+const SAFE_LESSON_ID = /^[a-z0-9][a-z0-9:._-]*$/i;
 
 const mb = (bytes: number) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 
@@ -85,13 +87,19 @@ async function upload(builds: PrivateBuild[], url: string, key: string) {
         .in('item_id', stale.slice(i, i + BATCH));
       fail('Removing old items', error);
     }
+    // Lesson ids go into a PostgREST filter, so only plain ids pass (security review L6). With no
+    // lessons kept, `not in ()` would be malformed: remove the source's lessons outright instead.
     const keepLessons = lessons.map((l) => l.lesson_id);
-    const { error: lessonError } = await db
+    const odd = keepLessons.find((l) => !SAFE_LESSON_ID.test(l));
+    if (odd !== undefined) throw new Error(`Lesson id "${odd}" has characters a filter can't hold`);
+    const oldLessons = db
       .from('content_lessons')
       .delete()
       .eq('subject_id', pack.subject)
-      .eq('source', pack.source)
-      .not('lesson_id', 'in', `(${keepLessons.map((l) => `"${l}"`).join(',')})`);
+      .eq('source', pack.source);
+    const { error: lessonError } = await (keepLessons.length
+      ? oldLessons.not('lesson_id', 'in', `(${keepLessons.map((l) => `"${l}"`).join(',')})`)
+      : oldLessons);
     fail('Removing old lessons', lessonError);
 
     // Upload only audio the bucket doesn't have yet (files never change once published).
