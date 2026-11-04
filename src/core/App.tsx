@@ -15,6 +15,7 @@ import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
+import { supabaseContent } from './content/privateContent.ts';
 import './App.css';
 
 // The signed-in player. Subjects' APIs report awards to it (ADR 0019, 0020).
@@ -24,7 +25,13 @@ const player: Player | null = store ? createPlayer(store) : null;
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
   store && player
-    ? subjects.map((s) => [s.id, subjectApi(s, store, player.applyAward)] as const)
+    ? subjects.map(
+        (s) =>
+          [
+            s.id,
+            subjectApi(s, store, player.applyAward, supabase ? supabaseContent(supabase) : null),
+          ] as const,
+      )
     : [],
 );
 

@@ -1,3 +1,4 @@
+import type { ContentSource } from '../content/privateContent.ts';
 import { describe, expect, it } from 'vitest';
 import { memoryStore } from './store.ts';
 import { subjectApi } from './subjectApi.ts';
@@ -69,5 +70,51 @@ describe('awards', () => {
       }),
       expect.objectContaining({ xp: 25, xpEarned: 0, goldEarned: 0, level: 2 }),
     ]);
+  });
+});
+
+describe('private content (ADR 0023)', () => {
+  const fakeContent = () => {
+    const asked: string[] = [];
+    const source: ContentSource = {
+      async pack(subject, from) {
+        asked.push(`${subject}/${from}`);
+        if (from === 'broken') throw new Error('offline');
+        return {
+          items: [{ id: 'pcav:0001', subject, type: 'vocab', data: {}, media: [], tags: [] }],
+          lessons: [],
+        };
+      },
+      mediaUrl: async (path) => `https://media.test/${path}`,
+    };
+    return { source, asked };
+  };
+
+  it("loads this subject's pack once, and asks again after a failure", async () => {
+    const { source, asked } = fakeContent();
+    const api = subjectApi({ id: 'arabic' }, memoryStore(), undefined, source);
+    const [a, b] = await Promise.all([
+      api.privateContent('lingualism-pcav'),
+      api.privateContent('lingualism-pcav'),
+    ]);
+    expect(a).toBe(b);
+    expect(a.items[0]?.subject).toBe('arabic');
+    await expect(api.privateContent('broken')).rejects.toThrow('offline');
+    await expect(api.privateContent('broken')).rejects.toThrow('offline');
+    expect(asked).toEqual(['arabic/lingualism-pcav', 'arabic/broken', 'arabic/broken']);
+  });
+
+  it('refuses odd sources and paths, and works only with a content source', async () => {
+    const { source } = fakeContent();
+    const api = subjectApi({ id: 'arabic' }, memoryStore(), undefined, source);
+    await expect(api.privateContent('../profiles')).rejects.toThrow(RangeError);
+    await expect(api.mediaUrl('../../secret')).rejects.toThrow(RangeError);
+    await expect(api.mediaUrl('lingualism-pcav/../x')).rejects.toThrow(RangeError);
+    expect(await api.mediaUrl('lingualism-pcav/pcav01-1.mp3')).toBe(
+      'https://media.test/lingualism-pcav/pcav01-1.mp3',
+    );
+    const bare = subjectApi({ id: 'arabic' }, memoryStore());
+    await expect(bare.privateContent('lingualism-pcav')).rejects.toThrow(/No content source/);
+    await expect(bare.mediaUrl('lingualism-pcav/a.mp3')).rejects.toThrow(/No content source/);
   });
 });
