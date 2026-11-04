@@ -252,6 +252,12 @@ describe('progress: 90% twice in a row passes a lesson', () => {
     const p = { ...NEW_PROGRESS, lesson: 8, streak: 1 };
     expect(applySession(p, 1, []).next).toMatchObject({ lesson: 8, done: true });
   });
+
+  it('never passes the last lesson twice once the script is done', () => {
+    const p = { ...NEW_PROGRESS, lesson: 8, streak: 1, done: true };
+    expect(applySession(p, 1, []).passed).toBe(false);
+    expect(applySession(applySession(p, 1, []).next, 1, []).passed).toBe(false);
+  });
 });
 
 describe('reporting a session', () => {
