@@ -8,7 +8,7 @@
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0027 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0029 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -51,8 +51,11 @@
      - #44 is closed.
      - **E10's draft and Notice Board concept are approved:** [quests-and-rewards.md](../game/quests-and-rewards.md).
      - **No v1.0.0 release yet.**
-   - **Review (2026-11-04):** Adam asked for a full check of the work so far by specialist reviewers (code, security, QA, learning design, UX, architecture). The fixes go in their own PRs.
-   - **Next:** fixes from the review, then the Groq "understood" check, then E10 (ADRs first).
+   - **Review (2026-11-04):** Adam asked for a full check of the work so far by specialist reviewers (code, security, QA, learning design, UX, architecture). Results: [full review](reviews/2026-11-04-full-review.md) and [security](reviews/2026-11-04-security.md). Fixes so far:
+     - [#88](https://github.com/Adamzvulun/Liron/pull/88): the database is the only writer of rewards ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)). Applied to `waymark-dev`. **The deck is now read only by `content_licensees`** ([SUPABASE](SUPABASE.md#adding-a-licensee)).
+     - [#89](https://github.com/Adamzvulun/Liron/pull/89): Morse copy scoring can't be passed by mashing keys; the coffee corner's "Next:" message.
+     - [#90](https://github.com/Adamzvulun/Liron/pull/90): the microphone and Morse audio contexts are always released.
+   - **Next:** the rest of the review's fix list (in the full review, in order), then the Groq "understood" check, then E10 (ADRs first, from 0030). Ten decisions for Adam are listed at the end of the full review.
 
 ## Backlog map
 | Milestone | Epic | Issues |
@@ -111,6 +114,7 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 
 ## Open questions for Adam
 - **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
-- **In-app mic and data:** any in-app "did it understand you?" check now sends his audio to **Groq** (ADR 0014). Groq keeps no audio by default, except up to 30 days of abuse logs. Is it OK in the app when he chooses to use it, or record-and-compare only (no upload)? Default until he answers: opt-in, off. Not needed before M2 #45.
+- **The review's ten decisions** (end of [the full review](reviews/2026-11-04-full-review.md)): prod keys in GitHub (one option costs money), the lesson gate, Arabic XP pace, the Latin stage, moving لا and ة, the final k, phrases the deck lacks, forms for a woman, the Guest rank, and a coverage tool.
+- ~~In-app mic and data~~: decided 2026-11-04, the Groq check is approved, opt-in, through a server-side function.
 - Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure; nothing runs locally (no in-browser or on-machine models); hosted free APIs only. He wants one stable model rather than hopping between models.
 - Decided 2026-11-02: git flow feature → dev → main with two live sites (ADR 0015). Vercel and Supabase accounts created.
