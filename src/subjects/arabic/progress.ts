@@ -18,6 +18,10 @@ const Progress = z.object({
   sessions: z.number().int().min(0).catch(0),
   /** Passed the Painted Sign (#43): a guest of the house. */
   guest: z.boolean().catch(false),
+  /** The coffee corner's phrase set you're on (#45); earlier sets are passed. */
+  phraseSet: z.number().int().min(1).catch(1),
+  /** Phrases you've met (deck ids). */
+  phrasesMet: z.array(z.string()).catch([]),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -28,6 +32,8 @@ export const NEW_PROGRESS: ArabicProgress = {
   done: false,
   sessions: 0,
   guest: false,
+  phraseSet: 1,
+  phrasesMet: [],
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
@@ -49,12 +55,12 @@ export function applySession(
   return {
     passed,
     next: {
+      ...p,
       lesson: passed && !last ? p.lesson + 1 : p.lesson,
       streak: passed ? 0 : streak,
       met: [...new Set([...p.met, ...met])],
       done: p.done || (passed && last),
       sessions: p.sessions + 1,
-      guest: p.guest,
     },
   };
 }

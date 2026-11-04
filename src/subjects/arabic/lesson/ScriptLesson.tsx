@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
-import { formsOf, LESSONS, type Letter } from '../letters.ts';
+import { formsOf, LESSONS, LETTERS, type Letter } from '../letters.ts';
 import { marksOfLesson, marksUpTo, withMarks, type Mark } from '../marks.ts';
 import { applySession, parseProgress, PASSES_NEEDED, type ArabicProgress } from '../progress.ts';
 import { DECK, readableWith, wordsFrom, type Word } from '../words.ts';
@@ -457,6 +457,24 @@ function MeetMark({
   );
 }
 
+/** The deck's special Latin letters that appear in these choices, with their Arabic letters. */
+function LatinKey({ choices }: { choices: readonly string[] }) {
+  const used = LETTERS.filter((l) => l.latin && choices.some((c) => c.includes(l.latin ?? '')));
+  if (!used.length) return null;
+  return (
+    <p className="arabic__key">
+      Key:{' '}
+      {used.map((l, i) => (
+        <span key={l.id}>
+          {i > 0 && ' · '}
+          {l.latin} = <Ar>{l.letter}</Ar>
+        </span>
+      ))}
+      . Accents mark the stressed vowel; ā ī ū are long.
+    </p>
+  );
+}
+
 export function Practice({
   question,
   index,
@@ -539,14 +557,15 @@ export function Practice({
               className={`arabic__choice${state}`}
               onClick={() => choose(i)}
               disabled={picked !== null}
-              lang={listen ? 'ar' : 'he'}
-              dir="rtl"
+              lang={listen ? 'ar' : question.script === 'latin' ? 'en' : 'he'}
+              dir={!listen && question.script === 'latin' ? 'ltr' : 'rtl'}
             >
               {label}
             </button>
           );
         })}
       </div>
+      {!listen && question.script === 'latin' && <LatinKey choices={question.choices} />}
       {picked !== null && (
         <div className="arabic__feedback" aria-live="polite">
           <p className={picked === right ? 'arabic__good' : 'arabic__bad'}>
