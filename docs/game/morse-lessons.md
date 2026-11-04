@@ -51,7 +51,7 @@ I checked; these points aren't settled by research I could find, so they're my c
 ## Input
 - **Computer:** type the letter. Space skips one you missed.
 - **Phone:** a grid of big buttons, one per unlocked character, always in Koch order so their places don't move. 48 px or larger, the same tap-target size as elsewhere. Plus a "?" skip button.
-- iOS mutes Web Audio when the silent switch is on. Deferred (Adam, 2026-11-03); it belongs with #30 later.
+- **iOS silent switch:** Safari treats web audio as "ambient" by default, so the silent switch mutes it. Every audio context is made by `newAudioContext()` (`src/core/audio.ts`), which first asks for a "playback" session with the [Audio Session API](https://bugs.webkit.org/show_bug.cgi?id=264473) (Safari 16.4+, feature-detected; other browsers don't need it). So Morse plays through the switch like a music app. Done 2026-11-04; still to check on a real iPhone.
 
 ## Sound engine (#30)
 `src/subjects/morse/player.ts` plays text as Morse; `timing.ts` holds the maths.

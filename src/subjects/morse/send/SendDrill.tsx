@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { newAudioContext } from '../../../core/audio.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
 import { parseProgress, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
@@ -36,7 +37,7 @@ export function SendDrill({ api }: { api: SubjectApi }) {
   const audioRef = useRef<Audio | null>(null);
   const audio = useCallback((): Audio | null => {
     if (!audioRef.current && typeof AudioContext !== 'undefined') {
-      const ctx = new AudioContext({ latencyHint: 'interactive' });
+      const ctx = newAudioContext({ latencyHint: 'interactive' });
       audioRef.current = {
         ctx,
         tone: new Sidetone(ctx),
