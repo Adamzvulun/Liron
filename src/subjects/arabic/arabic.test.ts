@@ -317,8 +317,9 @@ describe('reporting a session', () => {
     expect(calls).toEqual([
       ['saveState', NEW_PROGRESS],
       ['recordReview', 'letter:beh', 'good', expect.any(Date)],
-      ['recordReview', 'letter:teh', 'again', expect.any(Date)],
-      ['recordReview', 'letter:yeh', 'again', expect.any(Date)],
+      // Right once of twice: shaky, not forgotten.
+      ['recordReview', 'letter:teh', 'hard', expect.any(Date)],
+      ['recordReview', 'letter:yeh', 'hard', expect.any(Date)],
       ['recordReview', 'letter:noon', 'again', expect.any(Date)],
       ['recordResult', 'listen', 'letter:beh', 1],
       ['recordResult', 'read', 'w:2', 0],

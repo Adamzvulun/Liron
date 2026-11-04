@@ -44,7 +44,7 @@ I checked; these points aren't settled by research I could find, so they're my c
 - **The Koch gate decides what's unlocked. FSRS only decides the mix.** Every run includes all unlocked characters, so spaced repetition never hides one.
 - Each character's weight in a run comes from: its FSRS due date (overdue weighs more), its recent accuracy (weak weighs more), and the new-character boost. No character goes below a small floor, so all of them keep coming.
 - **After each run, every character that played is recorded:**
-  - **FSRS** (`recordReview`, item `char:K` etc.): *Again* if missed at least once, *Good* if always right. (*Easy* is not used yet; it may come once we track speed per character.)
+  - **FSRS** (`recordReview`, item `char:K` etc.): *Good* if always right, *Hard* if right at least half the time, *Again* below that (`gradeFrom` in `core/srs/scheduler.ts`, changed 2026-11-04: one slip among many right answers no longer resets a character). (*Easy* is not used yet; it may come once we track speed per character.)
   - **Receive rating** (`recordResult('receive', 'char:K', score)`): the score is that character's accuracy in the run (0 to 1).
 - **Instant Recognition (#32)** uses the same items: one character plays, you press it, and your reaction time joins the score. It rates items (Glicko) and favours the slow ones.
 
