@@ -6,7 +6,7 @@ Written 2026-11-04 during the autonomous run. It still needs Adam's review: thes
 The Caravanserai's coffee corner teaches **phrases for a first week** of daily life in Israel. It runs alongside the script lessons and is open from day one, because it's taught by ear: you don't need to read Arabic for it.
 
 ## The sets
-Five sets of 10 phrases, each from the Lingualism deck with its native recording. `content/arabic/phrases.json` holds only the deck ids and our own titles. The phrases stay private (ADR 0011).
+Nine sets of 10 phrases, each from the Lingualism deck with its native recording. `content/arabic/phrases.json` holds only the deck ids and our own titles. The phrases stay private (ADR 0011).
 
 | Set | Title | From the deck's sections |
 |---|---|---|
@@ -15,6 +15,12 @@ Five sets of 10 phrases, each from the Lingualism deck with its native recording
 | 3 | Counting | one to ten |
 | 4 | Questions | what, who, where, how, why, how much, "what's this?", "what do you want?", "where do you live?", "how old are you?" |
 | 5 | At the shop | "how much is it?" (two ways), expensive, cheap, shekel, change, "do you want a bag?", the bill, "can you break this note?" |
+| 6 | Getting to know you | "what's your name?", "where are you from?", "nice to meet you", "are you married?", "can you speak Arabic?", "I speak a little Arabic", slowly, again, "see you later" |
+| 7 | At the coffee corner | coffee, Turkish coffee, tea, water, milk, sugar, without sugar, with a little sugar, "how would you like your coffee?", menu |
+| 8 | Which way | right, left, "turn right/left!", "go straight!", near, bus, taxi, "I need the bathroom", "is there wifi here?" |
+| 9 | Today and tomorrow | today, tomorrow, yesterday, now, later, "what time is it?", one and two o'clock, tomorrow morning, when |
+
+Phrases with a blank in the deck ("My name is __.") are left out, because the blank can't be heard. No phrase is in two sets (a test checks).
 
 Religious set phrases (prayers, hajj, condolences) and the long congratulations are left for later sets: they matter, but not in week one.
 
@@ -54,7 +60,7 @@ The rules:
 - **Practice minutes.**
 
 ## Picks for Adam to change
-1. **Which phrases:** the five sets above.
+1. **Which phrases:** the nine sets above (sets 6–9 added on 2026-11-04).
 2. **The order:** sets in order, each passed at 90% understanding, not twice in a row, since speaking is self-judged.
 3. **Hebrew from the Latin** (the spoken form), not from the Arabic letters.
 4. **Self-judged speaking** until he decides on the Groq check.
