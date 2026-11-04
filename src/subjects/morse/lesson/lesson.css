@@ -122,7 +122,7 @@
 
 .lesson__note {
   font-weight: 700;
-  color: var(--guild-morse);
+  color: var(--guild-morse-ink);
 }
 
 /* A lamp: the letter glowing in lamplight. */
@@ -359,11 +359,11 @@
   font-weight: 900;
   font-size: 76px !important;
   line-height: 1.1;
-  color: var(--ember);
+  color: var(--ember-ink);
 }
 
 .lesson__pct.is-good {
-  color: var(--guild-morse);
+  color: var(--guild-morse-ink);
 }
 
 .lesson__gate {
