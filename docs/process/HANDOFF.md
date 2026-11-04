@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 after the Arabic sprint (PRs #74–#82) and again that evening after the review fixes (PRs #88–#112). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git, and repeated it on 2026-11-04.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 after the Arabic sprint (PRs #74–#82) and again that evening after the review fixes (PRs #88–#118). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git, and repeated it on 2026-11-04.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 
 ## State right now
@@ -15,12 +15,12 @@
   - #75: `privateContent` and `mediaUrl` in the subject contract.
   - #76: the Arabic Meet/Listen/Read lessons.
   - #77: the painted courtyard, "The Long Road In" ch. I and the Painted Sign trial.
-  - #79: vowel marks. #80: the slate. #81: the Latin fade. #82: the coffee corner (survival phrases).
-  - #88–#112: the full review's fixes and Adam's ten review decisions (list in STATUS). #110 (slate plaque) is open and green-pending.
+  - #79: vowel marks. #80: the slate. #81: the Latin fade. #82, #85: the coffee corner (survival phrases, 9 sets). #84: the Notice Board quest fix. #83, #86: docs.
+  - #88–#118: the full review's fixes and Adam's ten review decisions (list in STATUS).
 - `main` is still v0.1.0. Whether to release v1.0.0 is Adam's call; the report asks him.
 
 ## Next (in order)
-1. **The review's remaining items** (STATUS → Next): lookalike Read distractors, dots in the slate check, tanween order, deterministic pass/fail e2e tests with a stateful fake database, doc/code mismatches and stale issues.
+1. **The review's last items** (STATUS → Next): a pass/fail e2e test for the Morse Koch gate (its run is synthesised sound; record the characters the player schedules, the way `listenForAudio` records recordings), then "architecture before E10": one all-or-nothing save call per session, and subject knowledge out of `src/core/` (ADR 0019; the city's building map, the quest list, the avatar unlock text).
 2. **The Groq "understood" check** (approved by Adam): a server-side Vercel function; the key never reaches the browser.
 3. **E10** (approved): ADRs first, from 0031.
 4. **Audio for the missing phrases:** retry lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect, and search the rest of the ajp file names. Never use a file before Adam has seen it.
@@ -34,7 +34,7 @@
   - `questline.ts`: "The Long Road In".
   - `lesson/`: `ScriptLesson.tsx` (with `only='listen'|'read'` for the fountain and the storyteller), `Trial.tsx`, `questions.ts`, `report.ts`.
   - `hall/`: `paintKhan.ts` paints the courtyard; `Courtyard.tsx` places milestones, the scroll, the banner and the stations.
-  - `Caravanserai.tsx` switches views. `?open=lesson|listen|read|trial` opens one directly, for tests.
+  - `Caravanserai.tsx` switches views. `?open=lesson|listen|read|trial|write|phrases` opens one directly, for tests.
   - `ArabicText` isolates Arabic runs inside English text.
   - `marks.ts`: vowel marks, vowelled Hebrew (`inHebrewVowelled`, NFC output: compare Hebrew in tests with `.normalize('NFC')`).
   - `write/`: `trace.ts` scores a drawing on a 64×64 grid; `Slate.tsx`.
