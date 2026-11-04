@@ -26,7 +26,7 @@ Checked on 2026-11-02 in Supabase's and GitHub's docs, and by running the CLI he
 - **Never apply a migration by hand** in the SQL editor. The history table wouldn't know about it, and the next push would try to apply it again and fail.
 
 ## Consequences
-- **Credentials in GitHub:** two repository secrets hold database connection strings, including the passwords. They give full control of each database, and only workflows in this repo can read them. Pull requests don't get them.
+- **Credentials in GitHub:** two repository secrets hold database connection strings, including the passwords. They give full control of each database, and only workflows in this repo can read them. Pull requests from forks don't get them. *Corrected 2026-11-04:* a workflow on any branch pushed to this repo can read them, so anyone who can push can reach them (security review M1).
 - **Adam's one-time step:** add the two secrets (GitHub → Settings → Secrets and variables → Actions). It can't be automated: Claude has no tool to set GitHub secrets and must never receive passwords in chat. Steps: [SUPABASE](../process/SUPABASE.md#migrations).
 - Merging a migration into `dev` changes the dev database; releasing to `main` changes production. The schema tests (PGlite) run in CI before either.
 - Cost: a run takes well under a minute of the free Actions allowance ([CI](../process/CI.md)).

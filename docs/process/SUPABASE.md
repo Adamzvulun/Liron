@@ -29,9 +29,19 @@ Facts checked on supabase.com on 2026-11-02:
    - The same two names with the **`waymark-dev`** values, environment **Preview** only.
 6. After Claude's #16 PR is merged into `dev`, the dev site shows the login screen.
 7. In **`waymark-dev`**: **Authentication → Users → Add user → Send invitation**, with your email. Open the link in the email and choose a password on the screen it opens.
-   - If the invite refuses because sign-ups are off (Supabase's docs don't say whether it does), switch sign-ups on, send the invite, and switch them off again.
+   - If the invite refuses because sign-ups are off (Supabase's official docs don't say; third-party guides say an admin invite still works), switch sign-ups on, send the invite, and switch them off again. Since [ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md), an account made in that window still can't read the deck: only licensees can.
    - If the link lands on the login screen instead, type your email there and use **"Email me a link"**.
 8. At the next release, do step 7 in **`waymark-prod`** too.
+
+### Adding a licensee
+Only accounts listed in `content_licensees` can read the Lingualism deck ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)). Every account that existed when that migration ran was added, and so is the first account a fresh project ever gets. To add someone else, in that project's **SQL editor** (this is data, not a schema change, so it's fine to run by hand):
+
+```sql
+insert into public.content_licensees (user_id)
+select id from auth.users where email = 'their@email';
+```
+
+Only add people the deck's licence covers (ADR 0011).
 
 ## Migrations
 Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrations/), applied in name order. Never edit one that's already applied; add a new file instead. Schema: [ADR 0017](../decisions/0017-player-data-schema.md).

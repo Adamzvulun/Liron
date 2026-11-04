@@ -39,9 +39,10 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 
 ## Daily goal and streak
 - **Daily goal:** 15 minutes by default; you pick 5, 10, 15, 20, 30, 45 or 60 in the HUD. Practice minutes from every subject count.
-- **Your day** follows your browser's time zone, saved to your profile each time you open Waymark.
+- **Your day** follows your browser's time zone, saved to your profile when you open Waymark. It can change at most once every 20 hours, so travelling can't make two "todays" in one real day ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)).
+- **At most 3,000 XP a day** across all subjects. Minutes still count after that. A normal day earns far less.
 - **Streak:** consecutive days on which you reached the goal. Today counts once you reach it; until then the streak from yesterday stays alive. A missed day resets it to 0. Streak protection items come later, from the Market (E10).
-- **Daily chest:** reaching the goal pays **20 gold**, once a day. On every **7th day** of a streak (7, 14, 21, …) the chest also holds **1 gem**.
+- **Daily chest:** reaching the goal pays **20 gold**, once a day (the database records each chest, so it can't be paid twice). On every **7th day** of a streak (7, 14, 21, …) the chest also holds **1 gem**.
 - Changing the goal never rewrites past days. Lowering it below what you've already done today reaches today's goal straight away.
 
 ## Coming later (not dropped)
