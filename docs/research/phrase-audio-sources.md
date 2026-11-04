@@ -16,6 +16,7 @@
 
 ## Lingua Libre: what's checked and what isn't
 - **Checked:** the ajp category exists with 3,323 recordings by about a dozen speakers (Khalil.rantissi 516+, Akram 345+, Muhammad 370+…). Licences are per file: CC BY-SA 4.0 needs credit, CC0 needs nothing. In the first ~1,500 file names there are greetings like *kīf l-ħāl* and *ʔahla fīk*, but none of our target phrases. The Arabic (ara) category has إن شاء الله by Fjmustak (CC BY-SA 4.0).
+- **Found on a second pass (2026-11-04):** a colloquial إن شاء الله, *nšallah*, by Akram (recorded by Fazlake), 26 August 2023, **CC0 1.0**, labelled South Levantine (ajp). The Commons page states no place or dialect for the speaker. Akram also has *mašallah* and *biddo*. The second pass reached about 1,640 of the 3,323 names before Commons rate-limited it again: no *salām*, *ṣabāħ*, *nūr*, *fhimt* or feminine forms (*kīfik*, *tfaḍḍali*) among them.
 - **Not checked yet:** each speaker's origin. That's on lingualibre.org, which didn't load (timeouts, then 503). Commons doesn't state it, and we don't guess from names. The other ~1,800 ajp file names weren't searched either, because Commons rate-limited this container.
 - **Next:** when lingualibre.org loads, read each speaker's item (place, dialect), then search the rest of the names for the target phrases and the feminine forms. If a Palestinian speaker has them, bring the files to Adam with their licence and the credit line.
 
@@ -30,3 +31,4 @@
 - https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-Fjmustak-إن_شاء_الله.wav
 - https://commons.wikimedia.org/wiki/File:LL-Q55633582_(ajp)-Khalil.rantissi-آلة.wav
 - https://commons.wikimedia.org/wiki/File:LL-Q55633582_(ajp)-Akram_(Fazlake)-kīf_l-ħāl.wav
+- https://commons.wikimedia.org/wiki/File:LL-Q55633582_(ajp)-Akram_(Fazlake)-nšallah.wav
