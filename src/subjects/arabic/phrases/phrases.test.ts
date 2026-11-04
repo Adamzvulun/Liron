@@ -10,7 +10,7 @@ const he = (s: string) => s.normalize('NFC');
 describe('the Hebrew bridge for phrases (#45)', () => {
   it('writes the deck’s Latin in Hebrew letters with niqqud', () => {
     expect(latinToHebrew('tamām')).toBe(he('תַמַאם'));
-    expect(latinToHebrew('kēf ɧālak?')).toBe(he('כֵּיף חַאלַךּ?'));
+    expect(latinToHebrew('kēf ɧālak?')).toBe(he('כֵּיף חַאלַכּ?'));
     expect(latinToHebrew('ʂabāɧ ilxēr!')).toBe(he('צַבַּאח אִלחֵ׳יר!'));
   });
 

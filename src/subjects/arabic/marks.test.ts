@@ -26,6 +26,7 @@ describe('vowel marks (#40)', () => {
 
   it('spells words in Hebrew with niqqud', () => {
     expect(inHebrewVowelled('بِنْت')).toBe('בִּנְת'.normalize('NFC'));
+    expect(inHebrewVowelled('مَلِك')).toBe('מַלִכּ'.normalize('NFC'));
     expect(inHebrewVowelled('تِبِن')).toBe('תִבִּן'.normalize('NFC'));
     // Shadda is a dagesh; a final letter drops it.
     expect(inHebrewVowelled('بنّ')).toBe('בּן'.normalize('NFC'));
