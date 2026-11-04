@@ -1,4 +1,4 @@
-import characters from '../../../content/morse/characters.json';
+import characters from '../../../content/morse/characters.json' with { type: 'json' };
 
 /** One Morse character from the content pack (content/morse/characters.json). */
 export interface MorseChar {
