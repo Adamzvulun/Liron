@@ -12,7 +12,7 @@ import {
 } from './letters.ts';
 import { inHebrewVowelled } from './marks.ts';
 import { applySession, NEW_PROGRESS, parseProgress } from './progress.ts';
-import { readableWith, spokenHebrew, wordsFrom } from './words.ts';
+import { NO_REVIEW, readableWith, spokenHebrew, wordsFrom } from './words.ts';
 import {
   dotSwaps,
   heardAsAnother,
@@ -107,7 +107,7 @@ describe('the letters (#38, #39)', () => {
 });
 
 describe('words from the deck', () => {
-  const words = wordsFrom(ITEMS);
+  const words = wordsFrom(ITEMS, NO_REVIEW);
 
   it('keeps single words we can spell, once each, with their audio and Hebrew', () => {
     expect(words.map((w) => w.id)).toEqual([
@@ -147,6 +147,70 @@ describe('words from the deck', () => {
   });
 });
 
+describe('reviewed lesson words, verbs, tags and homographs (#125)', () => {
+  const said = (id: string, arabic: string, sound: string, english = ''): Item => ({
+    ...vocab(id, arabic),
+    data: { arabic, pronunciation: sound, english },
+  });
+
+  it('uses only the listed words in a reviewed lesson, with our gloss and Latin', () => {
+    const review = {
+      lessons: new Set([1]),
+      words: new Map([['r:1', { gloss: 'dad; also the Pope', latin: 'bāba' }]]),
+    };
+    const ws = wordsFrom(
+      [
+        said('r:1', 'بابا', 'bāba [m.]', 'pope'),
+        said('r:2', 'تين', 'tīn', 'figs'),
+        said('r:3', 'دار', 'dār [pl.]', 'house'),
+      ],
+      review,
+    );
+    expect(ws.map((w) => [w.id, w.meaning, w.sound])).toEqual([
+      ['r:1', 'dad; also the Pope', 'bāba'],
+      ['r:3', 'house', 'dār'],
+    ]);
+  });
+
+  it('strips grammar tags and leaves verbs out of unreviewed lessons', () => {
+    const ws = wordsFrom(
+      [said('v:1', 'نزّلت', 'názzalat [55] [f.]', 'x'), said('v:2', 'بدّل', 'báddal', 'to change')],
+      NO_REVIEW,
+    );
+    expect(ws.map((w) => w.sound)).toEqual(['názzalat']);
+  });
+
+  it('keeps words that differ only in their marks as homographs, never shown bare', () => {
+    const ws = wordsFrom(
+      [
+        said('h:1', 'لُوَز', 'lúwaz', 'tonsils'),
+        said('h:2', 'لوْز', 'lōz', 'almonds'),
+        said('h:3', 'برْد', 'bard', 'cold'),
+        said('h:4', 'برد', 'barad', 'hail'),
+        said('h:5', 'دار', 'dār', 'home'),
+        said('h:6', 'مرا', 'mára', 'woman'),
+        said('h:7', 'موز', 'mōz', 'bananas'),
+        said('h:8', 'لبن', 'lában', 'yogurt'),
+      ],
+      NO_REVIEW,
+    );
+    expect(ws.map((w) => [w.id, w.homograph])).toEqual([
+      ['h:1', true],
+      ['h:2', true],
+      ['h:3', false],
+      ['h:5', false],
+      ['h:6', false],
+      ['h:7', false],
+      ['h:8', false],
+    ]);
+    for (let seed = 1; seed < 20; seed++) {
+      for (const q of readQuestions(ws, 4, seeded(seed))) {
+        if (q.word.homograph) expect(q.shown, q.word.id).toMatch(/[\u064b-\u0652]/);
+      }
+    }
+  });
+});
+
 describe('the spoken form on a reveal (review concern 2)', () => {
   it('writes the speaker’s pronunciation in Hebrew letters, so ق said g shows as ג', () => {
     expect(spokenHebrew({ sound: 'gáhwa' })).toMatch(/^ג/);
@@ -159,7 +223,7 @@ describe('the spoken form on a reveal (review concern 2)', () => {
 });
 
 describe('a session’s questions', () => {
-  const words = wordsFrom(ITEMS);
+  const words = wordsFrom(ITEMS, NO_REVIEW);
 
   it('asks Listen about known first letters, never alif, with the answer among 4 choices', () => {
     const qs = listenQuestions(words, 1, seeded(1));
@@ -245,14 +309,17 @@ describe('a session’s questions', () => {
       ...vocab(id, arabic),
       data: { arabic, pronunciation: sound, english: '' },
     });
-    const ws = wordsFrom([
-      said('l:1', 'بيت', 'bēt'),
-      said('l:2', 'تين', 'tīn'),
-      said('l:3', 'بنت', 'bint'),
-      said('l:4', 'نبي', 'nabi'),
-      said('l:5', 'يابا', 'yāba'),
-      said('l:6', 'دار', 'dār [pl.]'),
-    ]);
+    const ws = wordsFrom(
+      [
+        said('l:1', 'بيت', 'bēt'),
+        said('l:2', 'تين', 'tīn'),
+        said('l:3', 'بنت', 'bint'),
+        said('l:4', 'نبي', 'nabi'),
+        said('l:5', 'يابا', 'yāba'),
+        said('l:6', 'دار', 'dār [pl.]'),
+      ],
+      NO_REVIEW,
+    );
     const early = readQuestions(ws, 2, seeded(1));
     expect(early.every((q) => q.script === 'he')).toBe(true);
     const heard = readQuestions(ws, 3, seeded(1));
@@ -283,12 +350,15 @@ describe('a session’s questions', () => {
       ...vocab(id, arabic),
       data: { arabic, pronunciation: sound, english: '' },
     });
-    const ws = wordsFrom([
-      said('t:1', 'ثانوي', 'sānawi'),
-      said('t:2', 'ثقافة', 'ŧaqāfa'),
-      said('t:3', 'ذكي', 'záki'),
-      said('t:4', 'قبر', 'gábur'),
-    ]);
+    const ws = wordsFrom(
+      [
+        said('t:1', 'ثانوي', 'sānawi'),
+        said('t:2', 'ثقافة', 'ŧaqāfa'),
+        said('t:3', 'ذكي', 'záki'),
+        said('t:4', 'قبر', 'gábur'),
+      ],
+      NO_REVIEW,
+    );
     expect(ws.map(heardAsAnother)).toEqual([true, false, true, false]);
     const asked = listenQuestions(ws, 8, seeded(3), 10).map((q) => q.word.arabic);
     expect(asked).not.toContain('ثانوي');
