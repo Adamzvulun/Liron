@@ -155,4 +155,10 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
    * Load the pack first: a path no loaded pack of this subject names is refused.
    */
   mediaUrl(path: string): Promise<string>;
+  /**
+   * Links to several media files in one request (#124), e.g. a session's recordings as it
+   * starts, at most `MAX_MEDIA_LINKS`. Every path must be named, as for `mediaUrl`. Paths the
+   * store couldn't sign are missing from the map.
+   */
+  mediaUrls(paths: readonly string[]): Promise<Map<string, string>>;
 }

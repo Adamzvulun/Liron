@@ -96,9 +96,32 @@ export async function fakeSupabase(
     }
     // Private content (ADR 0023): the rows the test gave, and a short silent recording for
     // every media link.
-    if (url.pathname === '/rest/v1/content_items') return route.fulfill({ json: content });
+    if (url.pathname === '/rest/v1/content_items') {
+      // The deck's version check (#124): the row count and the latest change.
+      if (url.searchParams.get('select') === 'updated_at') {
+        return route.fulfill({
+          json: content.length ? [{ updated_at: '2026-11-01T00:00:00Z' }] : [],
+          headers: {
+            'Content-Range': `0-0/${content.length}`,
+            'Access-Control-Expose-Headers': 'Content-Range',
+          },
+        });
+      }
+      return route.fulfill({ json: content });
+    }
     if (url.pathname === '/rest/v1/content_lessons') return route.fulfill({ json: [] });
     if (url.pathname.startsWith('/storage/v1/object/sign/')) {
+      if (route.request().method() === 'POST' && url.pathname.endsWith('/sign/private-media')) {
+        // Several links in one request (createSignedUrls, #124).
+        const { paths } = route.request().postDataJSON() as { paths: string[] };
+        return route.fulfill({
+          json: paths.map((p) => ({
+            error: null,
+            path: p,
+            signedURL: `/object/sign/private-media/${p}?token=e2e`,
+          })),
+        });
+      }
       if (route.request().method() === 'POST') {
         const path = url.pathname.replace('/storage/v1', '');
         return route.fulfill({ json: { signedURL: `${path}?token=e2e` } });

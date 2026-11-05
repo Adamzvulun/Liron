@@ -56,6 +56,35 @@ export async function loadPrivatePack(
   return { items, lessons };
 }
 
+/**
+ * A pack's version, in two small requests (#124): how many items and lessons it has, and when
+ * each last changed. Any upload that adds, removes or changes a row changes it.
+ */
+export async function privatePackVersion(
+  client: SupabaseClient,
+  subject: string,
+  source: string,
+): Promise<string> {
+  const latest = async (table: 'content_items' | 'content_lessons'): Promise<string> => {
+    const { data, count, error } = await client
+      .from(table)
+      .select('updated_at', { count: 'exact' })
+      .eq('subject_id', subject)
+      .eq('source', source)
+      .order('updated_at', { ascending: false })
+      .limit(1);
+    if (error) throw new Error(`Couldn't check ${source}: ${error.message}`);
+    const at = (data?.[0] as { updated_at?: string } | undefined)?.updated_at;
+    if (count === null || !at) throw new Error(`No version for ${source}`);
+    return `${count}@${at}`;
+  };
+  const [items, lessons] = await Promise.all([
+    latest('content_items'),
+    latest('content_lessons').catch(() => '0'),
+  ]);
+  return `${items};${lessons}`;
+}
+
 /** How long a signed media link lives (security review L1: short, since a link is a bearer pass). */
 export const MEDIA_LINK_SECONDS = 600;
 
@@ -68,10 +97,26 @@ export async function privateMediaUrl(client: SupabaseClient, path: string): Pro
   return data.signedUrl;
 }
 
+/** Short-lived links to several private audio files in one request (#124). */
+export async function privateMediaUrls(
+  client: SupabaseClient,
+  paths: readonly string[],
+): Promise<Map<string, string>> {
+  const { data, error } = await client.storage
+    .from('private-media')
+    .createSignedUrls([...paths], MEDIA_LINK_SECONDS);
+  if (error || !data) throw new Error(`Couldn't open recordings: ${error?.message ?? 'no links'}`);
+  return new Map(
+    data.flatMap((d) => (d.path && d.signedUrl && !d.error ? [[d.path, d.signedUrl]] : [])),
+  );
+}
+
 /** Where a subject's private content comes from: Supabase in the app, a fake in tests. */
 export interface ContentSource {
   pack(subject: string, source: string): Promise<{ items: Item[]; lessons: Lesson[] }>;
   mediaUrl(path: string): Promise<string>;
+  /** Several links in one request; a source without it is asked one path at a time. */
+  mediaUrls?(paths: readonly string[]): Promise<Map<string, string>>;
 }
 
 /** Private content from Supabase, for the signed-in user (ADR 0011, ADR 0023). */
@@ -79,5 +124,6 @@ export function supabaseContent(client: SupabaseClient): ContentSource {
   return {
     pack: (subject, source) => loadPrivatePack(client, subject, source),
     mediaUrl: (path) => privateMediaUrl(client, path),
+    mediaUrls: (paths) => privateMediaUrls(client, paths),
   };
 }

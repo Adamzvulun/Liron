@@ -238,6 +238,17 @@ export function readQuestions(
   });
 }
 
+/** Every recording a session can play: its words, and the choices of a recording question. */
+export function sessionAudio(questions: readonly Question[]): string[] {
+  return [
+    ...new Set(
+      questions.flatMap((q) =>
+        q.kind === 'read' && q.script === 'sound' ? [q.word.audio, ...q.choices] : [q.word.audio],
+      ),
+    ),
+  ];
+}
+
 /** A seeded random number generator (mulberry32), so a session can be replayed in tests. */
 export function seeded(seed: number): Rand {
   let s = seed | 0;
