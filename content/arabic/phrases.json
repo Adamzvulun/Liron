@@ -22,7 +22,12 @@
           "pcav:4771",
           "pcav:4772",
           "pcav:4773"
-        ]
+        ],
+        "glosses": {
+          "pcav:4765": "How are you? (to a man)",
+          "pcav:4767": "Fine, all good",
+          "pcav:4766": "Praise God! (= I’m fine)"
+        }
       }
     },
     {
@@ -44,7 +49,16 @@
           "pcav:4754",
           "pcav:4818",
           "pcav:4819"
-        ]
+        ],
+        "glosses": {
+          "pcav:4754": "Excuse me (to a man)",
+          "pcav:4756": "Here you are! / Go ahead!",
+          "pcav:4818": "God give you strength! (thanks for your effort, to a man)",
+          "pcav:4819": "God keep you well! (the reply, to a man)"
+        },
+        "latin": {
+          "pcav:4753": "laʔ"
+        }
       }
     },
     {
@@ -88,7 +102,13 @@
           "pcav:4299",
           "pcav:4306",
           "pcav:4325"
-        ]
+        ],
+        "glosses": {
+          "pcav:4314": "how much, how many",
+          "pcav:4299": "What do you want? (to a man)",
+          "pcav:4306": "Where do you live? (to a man)",
+          "pcav:4325": "How old are you? (to a man)"
+        }
       }
     },
     {
@@ -110,7 +130,14 @@
           "pcav:2165",
           "pcav:2210",
           "pcav:2904"
-        ]
+        ],
+        "glosses": {
+          "pcav:4318": "How much is it?",
+          "pcav:4319": "How much is this?",
+          "pcav:2194": "Would you like a bag? (to a man)",
+          "pcav:2210": "Excuse me, the bill please",
+          "pcav:2904": "Could you break this bill, please? (to a man)"
+        }
       }
     },
     {
@@ -133,7 +160,17 @@
           "pcav:4342",
           "pcav:4558",
           "pcav:4777"
-        ]
+        ],
+        "glosses": {
+          "pcav:0215": "What’s your name? (to a man)",
+          "pcav:3410": "Where are you from? (to a man)",
+          "pcav:4784": "Nice to meet you (to a man)",
+          "pcav:0186": "Are you married? (to a man)",
+          "pcav:3328": "Can you speak Arabic? (to a man)",
+          "pcav:4395": "You speak Arabic well (to a man)",
+          "pcav:4558": "I didn’t understand a thing you said",
+          "pcav:4777": "See you later! (to a man)"
+        }
       }
     },
     {
@@ -155,7 +192,10 @@
           "pcav:1048",
           "pcav:1046",
           "pcav:2204"
-        ]
+        ],
+        "glosses": {
+          "pcav:1046": "How do you take your coffee? (to a man)"
+        }
       }
     },
     {
@@ -199,7 +239,10 @@
           "pcav:4226",
           "pcav:4102",
           "pcav:4249"
-        ]
+        ],
+        "glosses": {
+          "pcav:4204": "right now / just now"
+        }
       }
     }
   ]

@@ -12,6 +12,10 @@ const PhraseSet = z.object({
   title: z.string(),
   intro: z.string(),
   items: z.array(z.string()).min(4),
+  /** Our own meaning where the deck's needs context: who it's said to, what it's for (#125). */
+  glosses: z.record(z.string(), z.string()).default({}),
+  /** Our own Latin where the deck's gives two forms ("laʔ/lā"). */
+  latin: z.record(z.string(), z.string()).default({}),
 });
 export type PhraseSet = z.infer<typeof PhraseSet>;
 
@@ -49,14 +53,16 @@ export function phrasesOf(set: PhraseSet, items: readonly Item[]): Phrase[] {
     const d = item?.data as { arabic?: unknown; pronunciation?: unknown; english?: unknown };
     const audio = item?.media.find((m) => m.kind === 'audio')?.path;
     if (!item || !audio || typeof d.arabic !== 'string') return [];
-    const latin = tidy(typeof d.pronunciation === 'string' ? d.pronunciation : '');
+    const latin = set.latin[id] ?? tidy(typeof d.pronunciation === 'string' ? d.pronunciation : '');
     return [
       {
         id,
         arabic: tidy(d.arabic),
         latin,
         hebrew: latinToHebrew(latin),
-        meaning: tidy(typeof d.english === 'string' ? d.english : '').replace(/;\s*/g, ' / '),
+        meaning:
+          set.glosses[id] ??
+          tidy(typeof d.english === 'string' ? d.english : '').replace(/;\s*/g, ' / '),
         audio,
       },
     ];

@@ -104,6 +104,8 @@ The words in the lessons come straight from the Lingualism deck: each row's own 
 - **Review:** Adam (a Hebrew speaker learning Palestinian Arabic) checks the list.
 - **Adam's report:** issue #125 asks Adam which words he saw that were wrong, so that his cases are covered first.
 
+**Done (2026-11-05, #125):** `content/arabic/lesson-words.json` lists the 187 words of lessons 1–3 with our glosses and 17 left out with reasons. A second look corrected point 2: بابا, أمّي and مرا each have only one deck row, so the fix is our gloss, not picking another row. The real same-letter pairs differ by their marks (لُوَز/لوْز, برْد/برد, دُبّان/دِبّان) or are spelled identically (نِت, ملْيان, مُتلّت, مِن…). The first are kept as homographs, never shown bare; for the second one row is kept with both meanings in its gloss. Phrase sets carry our glosses where needed (`glosses` in `phrases.json`), and the counting row's blanks were already tidied (now tested). A test checks the list against the deck: every word in its lesson, used, and none missed. Waiting for Adam's review.
+
 ## 3. American spelling
 The site mixes British and American spelling. The rank is "Traveler", but the wardrobe has "Traveller's tunic".
 
