@@ -25,7 +25,7 @@ export function todaysQuests(subjects: readonly SubjectInfo[], goalMinutes: numb
     ...fromSubjects,
     {
       giver: 'Daily contract',
-      text: `Practise ${goalMinutes} minutes today`,
+      text: `Practice ${goalMinutes} minutes today`,
       reward: 'The daily chest',
       href: '/notice-board',
       color: '#e8a93a',

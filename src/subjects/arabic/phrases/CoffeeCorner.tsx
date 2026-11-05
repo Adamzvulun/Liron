@@ -181,7 +181,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
             </button>
             {phrases.every((p) => progress.phrasesMet.includes(p.id)) && (
               <button type="button" className="lesson__go" onClick={() => begin(Date.now())}>
-                Practise
+                Practice
               </button>
             )}
           </div>
