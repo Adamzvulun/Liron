@@ -25,7 +25,7 @@ const byPath = new Map(
   WORDS.map((w) => [(w.media[0] as { path: string }).path, (w.data as { arabic: string }).arabic]),
 );
 
-/** Lesson 1 with every card met, so the scribe's table opens on "Practise". */
+/** Lesson 1 with every card met, so the scribe's table opens on "Practice". */
 const MET = [
   'letter:alef',
   'letter:beh',
@@ -67,7 +67,7 @@ async function rightChoice(page: Page, n: number): Promise<string> {
 /** Plays one practice session, answering every question right or every one wrong. */
 async function session(page: Page, right: boolean) {
   const first = (await played(page)).length;
-  await page.getByRole('button', { name: 'Practise', exact: true }).click();
+  await page.getByRole('button', { name: 'Practice', exact: true }).click();
   for (let i = 0; i < 30; i++) {
     if (await page.getByText('Session done').isVisible()) return;
     await expect(page.locator('.arabic__question')).toBeVisible();
@@ -153,7 +153,7 @@ test.describe('the scribe’s table: passing and failing (review item 7)', () =>
     // Reloaded, the count is back to zero.
     await page.reload();
     await page.getByRole('button', { name: /The scribe’s table/ }).click();
-    await expect(page.getByRole('button', { name: 'Practise', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Practice', exact: true })).toBeVisible();
     await expect(page.getByText(/you have \d of 2/)).toHaveCount(0);
   });
 });
