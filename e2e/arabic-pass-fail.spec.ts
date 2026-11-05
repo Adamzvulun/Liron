@@ -84,9 +84,10 @@ async function session(page: Page, right: boolean) {
   throw new Error('the session never ended');
 }
 
+/** The last saved state, or undefined until the first save arrives (polls wait for it). */
 function lastState(calls: SubjectCall[]) {
   const saves = calls.filter((c) => c.rpc === 'save_subject_state');
-  return (saves.at(-1)?.args as { p_state: Record<string, unknown> }).p_state;
+  return (saves.at(-1)?.args as { p_state: Record<string, unknown> } | undefined)?.p_state;
 }
 
 test.describe('the scribe’s table: passing and failing (review item 7)', () => {

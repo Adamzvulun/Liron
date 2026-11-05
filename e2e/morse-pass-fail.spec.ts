@@ -33,9 +33,12 @@ async function run(page: Page, start: 'Begin' | 'Next run', right: boolean) {
   });
 }
 
+/** The last saved state, or undefined until the first save arrives (polls wait for it). */
 function lastState(calls: SubjectCall[]) {
   const saves = calls.filter((c) => c.rpc === 'save_subject_state');
-  return (saves.at(-1)?.args as { p_state: { unlocked: number; recent: number[] } }).p_state;
+  const last = saves.at(-1)?.args as
+    { p_state: { unlocked: number; recent: number[] } } | undefined;
+  return last?.p_state;
 }
 
 test.describe('the Koch gate: passing and failing (review item 7)', () => {
@@ -55,7 +58,7 @@ test.describe('the Koch gate: passing and failing (review item 7)', () => {
     await run(page, 'Next run', true);
     await expect(page.getByText('Two in a row! U is next.')).toBeVisible();
     await expect.poll(() => lastState(calls)?.unlocked).toBe(3);
-    expect(lastState(calls).recent).toEqual([]);
+    expect(lastState(calls)?.recent).toEqual([]);
 
     // Reloaded, the lesson opens on the new letter.
     await page.reload();
@@ -78,6 +81,6 @@ test.describe('the Koch gate: passing and failing (review item 7)', () => {
     await expect(page.getByLabel('1 of 2 runs at 90%')).toBeVisible();
     await expect(page.getByRole('button', { name: /^Meet / })).toHaveCount(0);
     await expect.poll(() => lastState(calls)?.recent).toEqual([1, 0, 1]);
-    expect(lastState(calls).unlocked).toBe(2);
+    expect(lastState(calls)?.unlocked).toBe(2);
   });
 });
