@@ -33,3 +33,29 @@ Both end up as the same ~5,300 SVG elements in the page, so rendering costs the 
 - **Changing the art** means editing `painter.js` (the concept tool is no longer the source).
 - **If first paint ever gets slow,** the cobbles are the place to cut, by drawing fewer and larger stones; a static export stays possible because the painter is deterministic.
 - **Phones:** on phones, the scene showed letterboxed until the phone layout was designed (#27). *Update:* #27 is done: on an upright phone the scene pans sideways (`useStage`) and its contents follow below as cards.
+
+## Amendment (2026-11-05, #123): a still scene with small moving layers
+**Why:** Adam found the square "super slow and laggy" on his PC in Chrome. Measured with a Chrome trace ([research](../research/dev-site-problems-2026-11-05.md#4-the-square-measured-again-before-fixing-it-123-2026-11-05-second-session)), the cost was not the filters themselves, which are drawn once and cached:
+- The small ambient animations ran inside the SVG, under two full-stage blend modes (sun rays `screen`, grain `overlay`), so the compositor redrew the whole scene every frame.
+- Hovering animated `filter: drop-shadow()` on a whole building, which re-rasterised it every frame.
+
+**Options weighed:**
+- **(B)** draw the scene once into a canvas;
+- **(W)** ship pre-rendered WebP images;
+- **(C)** keep the live SVG but make it still.
+
+(B) froze a phone for 2.4 s while drawing. (W) adds 285–404 KB for phones and a generated file to keep in step with the painter. (C) was as fast as a bitmap with neither cost. **Adam chose (C)** on 2026-11-05.
+
+**Decision:**
+- **The painted scene is still.** `paintCity()` cuts every animated piece (lamps, flame, steam, smoke, clouds, the inn sign) out of the static markup with `anim(motion, box, svg, origin?)`. Layers and parts are now lists of *segments*, static markup and sprites in paint order, so whatever was drawn over a piece (the lantern's bars over its flame, the tower over a cloud) still is.
+- **Each sprite is its own small HTML layer** (`.city__sprite`) that animates only `transform` and `opacity`. Both Chromium and WebKit move such a layer without repainting; WebKit doesn't composite animations of elements *inside* an SVG.
+- **No blend modes.** The rays and grain use plain transparency (the rays' opacity went from .35 to .45 to keep their light). The screenshots compared frozen are near-identical.
+- **Hover glow is drawn once:** each place has a `.city__glow` copy filtered to a gold silhouette (the old drop-shadow's colour and size), faded in by opacity. The plaque's glow is a box-shadow on a pseudo-element, also faded by opacity. The lift (`translateY(-6px)`) stays.
+- **Two fixes on the way:**
+  - The tower's halo had two `class` attributes, so it was never screen-blended. Its look is unchanged.
+  - The inn sign rotated about a point far off its box (`transform-origin: 290px 520px` in its fill-box), so it slid about 30 px. It now swings from its bar.
+- **Guard:** `e2e/city-speed.spec.ts` checks that only sprites animate, only `transform`/`opacity`, with no blend modes and no hover filter. It also holds a frame budget at 4× CPU throttle (frame p95 ≤ 34 ms idle and hovering, idle compositor < 650 ms/s, hover raster < 90 ms/s). The old square fails it.
+
+**Consequences:**
+- **When adding motion to the scene:** wrap it in `anim()`, never a class inside the markup. Never put a blend mode or a CSS filter on anything in the stage.
+- **The halls** (Signal Tower, Caravanserai) still use a hover `drop-shadow` on their stations. They measured smooth (60 fps idle), so they were left alone. If they ever lag, use the same glow approach.
