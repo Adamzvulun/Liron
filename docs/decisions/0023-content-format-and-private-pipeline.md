@@ -48,7 +48,7 @@ Content is data, not code (CLAUDE.md). #23 asks for one schema for items, lesson
 
   It runs as the `content` job of the "DB migrate" workflow, after migrations, on pushes to `dev` (→ `waymark-dev`) and `main` (→ `waymark-prod`) that touch sources, content scripts, the schema or migrations.
 - **Secrets:** `SUPABASE_DEV_SECRET_KEY` and `SUPABASE_PROD_SECRET_KEY`, Supabase's secret keys. They are used only in that job, never in the browser. The project URL is read from the database URL secret, so there's nothing else to configure.
-- **Reading:** `loadPrivatePack` (items and lessons, paging past 1,000 rows) and `privateMediaUrl` (a one-hour signed link) in `src/core/content/privateContent.ts`.
+- **Reading:** `loadPrivatePack` (items and lessons, paging past 1,000 rows) and `privateMediaUrl` (a signed link; *corrected:* it lives 10 minutes since the security review, not one hour) in `src/core/content/privateContent.ts`.
 - **Boundaries:** a subject may import its own `content/<id>/` files, but not another subject's (boundary test).
 
 ## Consequences
@@ -56,3 +56,10 @@ Content is data, not code (CLAUDE.md). #23 asks for one schema for items, lesson
 - **The secret keys give full access to their project.** Pull requests from forks can't read them. *Corrected 2026-11-04:* repository secrets are readable by a workflow on **any** branch pushed to this repo, not only `dev` and `main` (security review M1). Adam accepted this risk on 2026-11-04: only he pushes to this repo, including Claude's sessions, which push under his account.
 - **Friends (M5) would be able to read the deck too**, because any signed-in user can. Lingualism's terms are personal use, so this needs a per-user rule before friends join (E18).
 - #44 is mostly done by this change. What's left there is choosing the first survival phrases (#45).
+
+## Amendment (2026-11-05, #124): the deck kept in the browser, and links signed together
+- **What's kept:** a signed-in browser keeps a copy of each private pack in IndexedDB (database `waymark-content`), so the deck downloads once, not on every visit. Code: `src/core/content/packCache.ts`.
+- **When it's reused:** a visit first asks for the pack's version, which is the row count and the latest `updated_at` of its items and of its lessons (two small requests). The kept copy is used only if the version matches. If the version or the store fails, the pack is loaded from Supabase as before.
+- **Same boundary as before:** the copy lives only in that browser and is reached only through the signed-in app. **Signing out wipes it.** It never goes into `content/`, the bundle or git (ADR 0011). One difference: a copy now stays on the device between visits. That is the same as the browser's HTTP cache holding the responses, and it is less than the Anki deck Adam already has on his own devices.
+- **Links signed together:** a session's recordings are signed in one `createSignedUrls` request, at most 100 at a time. The rules stay the same: the same 10-minute lifetime, path checks and named-pack check as single links (`SubjectApi.mediaUrls`).
+- No new dependency: IndexedDB is built into the browser.
