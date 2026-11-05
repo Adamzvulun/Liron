@@ -100,6 +100,22 @@ export function paintCity() {
   const defs = [];
   let uid = 0;
   const id = (p) => `wm-${p}${++uid}`;
+  // Animated pieces (#123, ADR 0025 amended). Each one is cut out of the static scene and
+  // returned as its own small sprite, in paint order, so the page can animate it as a separate
+  // layer (transform and opacity only) while the rest of the scene stays still and is drawn
+  // once. `box` is the piece's own box on the stage; motions that scale or rotate turn about
+  // the origin given (stage pixels), else about the box's centre.
+  const sprites = [];
+  function anim(motion, box, svg, origin) {
+    sprites.push({ motion, box, svg, ...(origin ? { origin } : {}) });
+    return `<!--wm-sprite:${sprites.length - 1}-->`;
+  }
+  /** Splits markup into static runs and the sprites cut out of it, in paint order. */
+  const segments = (markup) =>
+    markup
+      .split(/<!--wm-sprite:(\d+)-->/)
+      .map((part, i) => (i % 2 ? sprites[Number(part)] : part))
+      .filter((part) => part !== '');
   function lin(stops, x1 = 0, y1 = 0, x2 = 0, y2 = 1, extra = '') {
     const i = id('g');
     defs.push(
@@ -365,7 +381,20 @@ export function paintCity() {
         0.3,
       )}" fill="${hz('#6B5C50', haze)}" ${OUT(haze, 2.4 * s)}></path>`;
       if (!haze || haze < 0.3)
-        b += `<g class="wm-smoke" opacity=".6"><circle cx="${f(cx)}" cy="${f(cy - 44 * s)}" r="${f(9 * s)}" fill="#F4EEE6" filter="url(#fx-b2)"></circle></g><g class="wm-smoke2" opacity=".5"><circle cx="${f(cx + 4)}" cy="${f(cy - 50 * s)}" r="${f(7 * s)}" fill="#F4EEE6" filter="url(#fx-b2)"></circle></g>`;
+        // Smoke scales from its top-left corner, as it did inside the SVG.
+        b +=
+          anim(
+            'wm-smoke',
+            { x: cx - 9 * s, y: cy - 53 * s, w: 18 * s, h: 18 * s },
+            `<circle cx="${f(cx)}" cy="${f(cy - 44 * s)}" r="${f(9 * s)}" fill="#F4EEE6" filter="url(#fx-b2)"></circle>`,
+            { x: cx - 9 * s, y: cy - 53 * s },
+          ) +
+          anim(
+            'wm-smoke2',
+            { x: cx + 4 - 7 * s, y: cy - 57 * s, w: 14 * s, h: 14 * s },
+            `<circle cx="${f(cx + 4)}" cy="${f(cy - 50 * s)}" r="${f(7 * s)}" fill="#F4EEE6" filter="url(#fx-b2)"></circle>`,
+            { x: cx + 4 - 7 * s, y: cy - 57 * s },
+          );
     }
     // front face incl. gable
     const frontP = [[x, base], [x, top], apex, [x + w, top], [x + w, base]];
@@ -559,7 +588,11 @@ export function paintCity() {
     [0.7, '#FFF3C8'],
     [1, '#FFE6A0', 0],
   ])}"></circle>`;
-  sky += `<g class="wm-drift">${cloud(150, 120, 300)}${cloud(1240, 120, 420)}${cloud(820, 240, 230)}${cloud(1720, 250, 260)}</g>`;
+  sky += anim(
+    'wm-drift',
+    { x: 0, y: 0, w: 1920, h: 320 },
+    `${cloud(150, 120, 300)}${cloud(1240, 120, 420)}${cloud(820, 240, 230)}${cloud(1720, 250, 260)}`,
+  );
   // birds
   for (const [bx, by, bs] of [
     [520, 190, 1],
@@ -834,19 +867,26 @@ export function paintCity() {
     side.body += hs.body;
   });
   // inn sign + banner on the side houses
-  side.body += `<path d="M240 520 H300" stroke="${INK}" stroke-width="6" stroke-linecap="round"></path><g class="wm-sway wm-sway-sign"><path d="M268 522 V530 M292 522 V530" stroke="${INK}" stroke-width="2"></path><path d="${soft(
-    [
-      [262, 530],
-      [298, 530],
-      [298, 560],
-      [262, 560],
-    ],
-    4,
-    0.5,
-  )}" fill="${lin([
-    [0, '#9C6A3E'],
-    [1, '#5A3820'],
-  ])}" ${OUT(0, 2.6)}></path><path d="M272 538 h16 v10 q-8 8 -16 0 Z" fill="#E8A93A" stroke="${INK}" stroke-width="1.6"></path></g>`;
+  side.body +=
+    `<path d="M240 520 H300" stroke="${INK}" stroke-width="6" stroke-linecap="round"></path>` +
+    anim(
+      'wm-sway',
+      { x: 258, y: 518, w: 44, h: 46 },
+      `<path d="M268 522 V530 M292 522 V530" stroke="${INK}" stroke-width="2"></path><path d="${soft(
+        [
+          [262, 530],
+          [298, 530],
+          [298, 560],
+          [262, 560],
+        ],
+        4,
+        0.5,
+      )}" fill="${lin([
+        [0, '#9C6A3E'],
+        [1, '#5A3820'],
+      ])}" ${OUT(0, 2.6)}></path><path d="M272 538 h16 v10 q-8 8 -16 0 Z" fill="#E8A93A" stroke="${INK}" stroke-width="1.6"></path>`,
+      { x: 280, y: 521 },
+    );
 
   // ---------- SIGNAL TOWER ----------
   let tower = '',
@@ -956,11 +996,15 @@ export function paintCity() {
       0,
     )}" ${OUT(0, 3.5)}></ellipse>`;
     // halo
-    tower += `<circle class="wm-pulse" cx="${cx}" cy="${gy - 62}" r="150" fill="${rad([
-      [0, '#FFF3C4', 0.9],
-      [0.35, '#FFD36B', 0.45],
-      [1, '#FFD36B', 0],
-    ])}" class="wm-screen"></circle>`;
+    tower += anim(
+      'wm-pulse',
+      { x: cx - 150, y: gy - 212, w: 300, h: 300 },
+      `<circle cx="${cx}" cy="${gy - 62}" r="150" fill="${rad([
+        [0, '#FFF3C4', 0.9],
+        [0.35, '#FFD36B', 0.45],
+        [1, '#FFD36B', 0],
+      ])}"></circle>`,
+    );
     // lantern room
     tower += `<path d="${soft(
       [
@@ -981,7 +1025,11 @@ export function paintCity() {
       0.5,
       0.7,
     )}" ${OUT(0, 4)}></path>`;
-    tower += `<path class="wm-flicker" d="${blob(cx, gy - 54, 20, 26, 8, 0.1)}" fill="#FFFFFF" opacity=".85" filter="url(#fx-b2)"></path>`;
+    tower += anim(
+      'wm-flicker',
+      { x: cx - 26, y: gy - 84, w: 52, h: 60 },
+      `<path d="${blob(cx, gy - 54, 20, 26, 8, 0.1)}" fill="#FFFFFF" filter="url(#fx-b2)"></path>`,
+    );
     for (const k of [-24, 0, 24])
       tower += `<path d="M${cx + k} ${gy - 102} V${gy - 6}" stroke="${INK}" stroke-width="5"></path><path d="M${cx + k - 1.5} ${gy - 100} V${gy - 8}" stroke="#E8A93A" stroke-width="1.6"></path>`;
     tower += `<path d="M${cx - 44} ${gy - 56} H${cx + 44}" stroke="${INK}" stroke-width="4"></path>`;
@@ -1015,7 +1063,11 @@ export function paintCity() {
     // antenna mast (the modern note) with insulators and a wire down to the right
     tower += `<path d="M${cx} ${gy - 194} V${gy - 262}" stroke="${INK}" stroke-width="5" stroke-linecap="round"></path><path d="M${cx} ${gy - 196} V${gy - 260}" stroke="#C9B392" stroke-width="2"></path>`;
     tower += `<path d="M${cx - 20} ${gy - 240} H${cx + 20} M${cx - 13} ${gy - 222} H${cx + 13}" stroke="${INK}" stroke-width="4" stroke-linecap="round"></path>`;
-    tower += `<circle class="wm-pulse" cx="${cx}" cy="${gy - 266}" r="7" fill="#FF6B4A" stroke="${INK}" stroke-width="2"></circle>`;
+    tower += anim(
+      'wm-pulse',
+      { x: cx - 7, y: gy - 273, w: 14, h: 14 },
+      `<circle cx="${cx}" cy="${gy - 266}" r="7" fill="#FF6B4A" stroke="${INK}" stroke-width="2"></circle>`,
+    );
     tower += contact(cx, base + 16, 64);
   }
 
@@ -1243,12 +1295,14 @@ export function paintCity() {
       4,
     );
     cara += `<path d="M${gx + 40} ${base} V${base - 90} Q${gx + 68} ${base - 120} ${gx + 96} ${base - 90} V${base}" fill="#5A2E14" opacity=".35"></path>`;
-    cara += `<g class="wm-flicker"><ellipse cx="${gx + gw / 2}" cy="${base - 60}" rx="120" ry="90" fill="${rad(
-      [
+    cara += anim(
+      'wm-flicker',
+      { x: gx + gw / 2 - 120, y: base - 150, w: 240, h: 180 },
+      `<ellipse cx="${gx + gw / 2}" cy="${base - 60}" rx="120" ry="90" fill="${rad([
         [0, '#FFE3A0', 0.7],
         [1, '#FFC56B', 0],
-      ],
-    )}" class="wm-screen"></ellipse></g>`;
+      ])}"></ellipse>`,
+    );
     // open doors
     cara += `<path d="${soft(
       [
@@ -1359,15 +1413,21 @@ export function paintCity() {
       1,
       0,
     )}" ${OUT(0, 2.4)}></path>`;
-    cara += `<g class="wm-steam" opacity=".7"><path d="M1400 ${base - 56} q-6 -10 0 -20 q6 -10 0 -20" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"></path></g>`;
+    cara += anim(
+      'wm-steam',
+      { x: 1390, y: base - 98, w: 20, h: 44 },
+      `<path d="M1400 ${base - 56} q-6 -10 0 -20 q6 -10 0 -20" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"></path>`,
+    );
     // hanging lanterns
     for (const lx of [1150, 1330])
-      cara += `<path d="M${lx} 454 V474" stroke="${INK}" stroke-width="2.4"></path><circle class="wm-pulse" cx="${lx}" cy="488" r="30" fill="${rad(
-        [
+      cara += `<path d="M${lx} 454 V474" stroke="${INK}" stroke-width="2.4"></path>${anim(
+        'wm-pulse',
+        { x: lx - 30, y: 458, w: 60, h: 60 },
+        `<circle cx="${lx}" cy="488" r="30" fill="${rad([
           [0, '#FFE7A0', 0.8],
           [1, '#FFD36B', 0],
-        ],
-      )}"></circle><path d="${soft(
+        ])}"></circle>`,
+      )}<path d="${soft(
         [
           [lx - 9, 474],
           [lx + 9, 474],
@@ -1512,10 +1572,14 @@ export function paintCity() {
   )}" ${OUT(0, 3.5)}></path><path d="M106 884 H154 M108 916 H152" stroke="#3A2410" stroke-width="5"></path><path d="M106 884 H154" stroke="#C9A06A" stroke-width="1.6"></path>`;
   yhExtra += contact(130, 934, 34);
   // lantern by the door
-  yhExtra += `<circle class="wm-pulse" cx="398" cy="760" r="34" fill="${rad([
-    [0, '#FFE7A0', 0.7],
-    [1, '#FFD36B', 0],
-  ])}"></circle><path d="${soft(
+  yhExtra += `${anim(
+    'wm-pulse',
+    { x: 364, y: 726, w: 68, h: 68 },
+    `<circle cx="398" cy="760" r="34" fill="${rad([
+      [0, '#FFE7A0', 0.7],
+      [1, '#FFD36B', 0],
+    ])}"></circle>`,
+  )}<path d="${soft(
     [
       [388, 748],
       [408, 748],
@@ -1834,7 +1898,7 @@ export function paintCity() {
     )}"></path>`;
   }
   const grade =
-    `<g class="wm-screen" opacity=".35" filter="url(#fx-b14)">${rays}</g>` +
+    `<g opacity=".45" filter="url(#fx-b14)">${rays}</g>` +
     `<rect width="1920" height="1080" fill="${rad(
       [
         [0, '#000', 0],
@@ -1845,31 +1909,35 @@ export function paintCity() {
       0.45,
       0.75,
     )}"></rect>` +
-    `<rect width="1920" height="1080" filter="url(#fx-grain)" opacity=".18" class="wm-overlay"></rect>`;
+    `<rect width="1920" height="1080" filter="url(#fx-grain)" opacity=".18"></rect>`;
 
   const box = (x, y, w, h) => ({ x, y, w, h });
-  return {
+  const part = (b, svg) => ({ box: b, segments: segments(svg) });
+  const city = {
     defs: defs.join(''),
     layers: {
-      sky: `${sky}${arena}${hazeBand}`,
-      ground: `${ground}${bt}${back.shadow}${back.body}<rect x="0" y="380" width="1920" height="200" fill="${lin(
-        [
-          [0, HAZE, 0],
-          [0.6, HAZE, 0.3],
-          [1, HAZE, 0],
-        ],
-      )}"></rect>`,
-      mid: `${tufts}${side.shadow}${side.body}${towerShadow}${caraShadow}`,
-      front: `${fg}${grade}`,
+      sky: segments(`${sky}${arena}${hazeBand}`),
+      ground: segments(
+        `${ground}${bt}${back.shadow}${back.body}<rect x="0" y="380" width="1920" height="200" fill="${lin(
+          [
+            [0, HAZE, 0],
+            [0.6, HAZE, 0.3],
+            [1, HAZE, 0],
+          ],
+        )}"></rect>`,
+      ),
+      mid: segments(`${tufts}${side.shadow}${side.body}${towerShadow}${caraShadow}`),
+      front: segments(`${fg}${grade}`),
     },
     places: {
-      tower: { box: box(600, 30, 230, 700), svg: tower },
-      caravanserai: { box: box(930, 220, 640, 500), svg: cara },
-      board: { box: box(794, 600, 180, 210), svg: board },
-      house: { box: box(90, 470, 560, 470), svg: yh.shadow + yh.body + yhExtra },
-      market: { box: box(1400, 590, 520, 360), svg: marketShadow + market },
+      tower: part(box(600, 30, 230, 700), tower),
+      caravanserai: part(box(930, 220, 640, 500), cara),
+      board: part(box(794, 600, 180, 210), board),
+      house: part(box(90, 470, 560, 470), yh.shadow + yh.body + yhExtra),
+      market: part(box(1400, 590, 520, 360), marketShadow + market),
     },
-    avatar: { box: box(950, 740, 120, 210), svg: avatar },
-    plots,
+    avatar: part(box(950, 740, 120, 210), avatar),
+    plots: plots.map((p) => part(p.box, p.svg)),
   };
+  return city;
 }
