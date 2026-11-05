@@ -18,13 +18,19 @@ type Measured = { p95: number; compositor: number; raster: number };
 /**
  * How many times the reference's compositor work the square may cost, still and while hovered.
  * Best of three, 4x CPU, reference 99-164 ms/s:
- * - The square: idle 3.5x locally, 2.8x on CI; hover 5.2x locally, 4.0x on CI.
+ * - The square: idle 3.5x locally, 2.5-2.8x on CI; hover 5.2x locally, 3.3-4.0x on CI.
  * - The square before #123: idle 7.2x, hover 8.9x (and hover frame p95 50 ms, raster 76 ms/s).
  * Hover's frame gaps are not compared: CI composites in software, so with the mouse moving they
- * show the runner's compositing speed (33-50 ms for the same square), not the square's.
+ * show the runner's compositing speed (33-67 ms for the same square), not the square's.
  */
 const IDLE_RATIO = 5;
 const HOVER_RATIO = 7;
+/**
+ * The rasteriser's work while hovering, also against the reference's compositor work, because
+ * it too slows with the runner (the square: 25 ms/s locally, 36-53 on CI; 0.22-0.25 of the
+ * reference every time). The square before #123: 72-76 ms/s, 0.72.
+ */
+const HOVER_RASTER_RATIO = 0.45;
 
 test.describe('the city square stays fast (#123)', () => {
   test('only small sprite layers animate, and nothing blends or filters on hover', async ({
@@ -196,6 +202,6 @@ test.describe('the city square stays fast (#123)', () => {
     expect(idle.p95).toBeLessThanOrEqual(ref.p95 + frame);
     expect(idle.compositor).toBeLessThan(ref.compositor * IDLE_RATIO);
     expect(hover.compositor).toBeLessThan(ref.compositor * HOVER_RATIO);
-    expect(hover.raster).toBeLessThan(60);
+    expect(hover.raster).toBeLessThan(ref.compositor * HOVER_RASTER_RATIO);
   });
 });
