@@ -75,7 +75,7 @@ function Lobby({ player }: { player: Player }) {
           {Hall && api && <Hall api={api} />}
           {place === 'board' && state.today && (
             <div className="hud">
-              <QuestTracker today={state.today} />
+              <QuestTracker today={state.today} subjects={subjects} />
             </div>
           )}
           {place === 'house' && state.profile && (
@@ -105,6 +105,7 @@ function Lobby({ player }: { player: Player }) {
       <div className="lobby__top">
         <Hud
           state={state}
+          subjects={subjects}
           onGoalChange={(m) => void player.setDailyGoal(m)}
           onNameChange={player.setDisplayName}
           onSignOut={() => void supabase?.auth.signOut({ scope: 'local' })}

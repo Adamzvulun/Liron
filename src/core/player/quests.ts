@@ -1,34 +1,28 @@
-// Today's quests on the Notice Board (#26). A fixed list until quests are real (E10, #46).
-export interface Quest {
+// Today's quests on the Notice Board (#26). Each subject names its own line (ADR 0019); the
+// platform adds the daily contract. Subject lines carry no reward until quests are real (E10,
+// #46), so the board never promises what nothing pays (2026-11-04 review).
+import { PLACE_PATHS } from '../city/layout.ts';
+import type { SubjectInfo, SubjectQuest } from '../subject.ts';
+
+export interface Quest extends SubjectQuest {
   /** Who gives the quest, shown in capitals above it. */
   giver: string;
-  /** The quest itself. `arabic` is shown in Arabic script after the text. */
-  text: string;
-  arabic?: string;
-  reward: string;
+  /** What it pays, if anything. */
+  reward?: string;
   /** Where to go for it. */
   href: string;
   /** CSS colour of its guild. */
   color: string;
 }
 
-export function todaysQuests(goalMinutes: number): Quest[] {
+export function todaysQuests(subjects: readonly SubjectInfo[], goalMinutes: number): Quest[] {
+  const fromSubjects = subjects.flatMap((s) =>
+    s.quest && s.building
+      ? [{ ...s.quest, giver: s.place, href: PLACE_PATHS[s.building], color: s.guildColor }]
+      : [],
+  );
   return [
-    {
-      giver: 'Signal Tower',
-      text: 'The Silent Beacon I: hear K and M',
-      reward: '+20 XP · 10 gold',
-      href: '/signal-tower',
-      color: 'var(--guild-morse)',
-    },
-    {
-      giver: 'Caravanserai',
-      text: 'The Long Road In I:',
-      arabic: 'ا ب ت ن ي',
-      reward: '+20 XP · 10 gold',
-      href: '/caravanserai',
-      color: 'var(--guild-arabic)',
-    },
+    ...fromSubjects,
     {
       giver: 'Daily contract',
       text: `Practise ${goalMinutes} minutes today`,

@@ -5,6 +5,7 @@ import { Link } from '../Link.tsx';
 import { DAILY_GOAL_CHOICES, levelProgress, titleForLevel } from '../progress/economy.ts';
 import { MAX_NAME_LENGTH } from '../progress/store.ts';
 import { CoinIcon, FlameIcon, GearIcon, GemIcon } from './icons.tsx';
+import type { SubjectInfo } from '../subject.ts';
 import type { PlayerState } from './player.ts';
 import { todaysQuests } from './quests.ts';
 import { useCountUp } from './useCountUp.ts';
@@ -21,7 +22,11 @@ export interface HudActions {
  * The HUD from the city concept (#26): portrait, name, title, level and XP on the left; the
  * Waymark banner; gold, gems, streak and settings on the right; today's quests below them.
  */
-export function Hud({ state, ...actions }: { state: PlayerState } & HudActions) {
+export function Hud({
+  state,
+  subjects,
+  ...actions
+}: { state: PlayerState; subjects: readonly SubjectInfo[] } & HudActions) {
   if (state.error) {
     return (
       <p className="hud__error" role="status">
@@ -42,7 +47,7 @@ export function Hud({ state, ...actions }: { state: PlayerState } & HudActions) 
         Waymark
       </div>
       <Purse state={state} {...actions} />
-      {today && <QuestTracker today={today} />}
+      {today && <QuestTracker today={today} subjects={subjects} />}
     </div>
   );
 }
@@ -251,7 +256,13 @@ function GoalPicker({
 }
 
 /** Today's quests and the daily goal bar, in the HUD and on the Notice Board. */
-export function QuestTracker({ today }: { today: NonNullable<PlayerState['today']> }) {
+export function QuestTracker({
+  today,
+  subjects,
+}: {
+  today: NonNullable<PlayerState['today']>;
+  subjects: readonly SubjectInfo[];
+}) {
   const shown = Math.min(today.minutes, today.goalMinutes);
   return (
     <section className="hud__quests" aria-labelledby="hud-quests">
@@ -279,7 +290,7 @@ export function QuestTracker({ today }: { today: NonNullable<PlayerState['today'
         />
       </div>
       <ul className="hud__questlist">
-        {todaysQuests(today.goalMinutes).map((q) => (
+        {todaysQuests(subjects, today.goalMinutes).map((q) => (
           <li key={q.giver}>
             <Link className="hud__quest" href={q.href} style={{ borderLeftColor: q.color }}>
               <span className="hud__questgiver" style={{ color: q.color }}>
@@ -287,16 +298,16 @@ export function QuestTracker({ today }: { today: NonNullable<PlayerState['today'
               </span>
               <span className="hud__questtext">
                 {q.text}
-                {q.arabic && (
+                {q.script && (
                   <>
                     {' '}
-                    <span lang="ar" dir="rtl" className="hud__questarabic">
-                      {q.arabic}
+                    <span lang={q.script.lang} dir={q.script.dir} className="hud__questscript">
+                      {q.script.text}
                     </span>
                   </>
                 )}
               </span>
-              <span className="hud__questreward">{q.reward}</span>
+              {q.reward && <span className="hud__questreward">{q.reward}</span>}
             </Link>
           </li>
         ))}

@@ -1,5 +1,6 @@
 // Where things stand in the painted square (stage coordinates, 1920×1080), and which subject
-// lives in which building. Subjects are matched by id, so the city never imports a subject.
+// lives in which building. Each subject names its building (ADR 0019), so the city never
+// imports a subject.
 import type { SubjectInfo } from '../subject.ts';
 import type { PlaceId } from './painter.js';
 
@@ -46,16 +47,10 @@ export const PLAQUES: Record<PlaceId, Plaque> = {
   market: { x: 1560, y: 944, width: 160, title: 'Market' },
 };
 
-/** The building each subject's hall is in. */
-export const SUBJECT_BUILDINGS: Readonly<Record<string, PlaceId>> = {
-  morse: 'tower',
-  arabic: 'caravanserai',
-};
-
-/** What each building is, for screen readers. */
+/** What each building is, for screen readers. A hall's resident subject gives its own. */
 export const PLACE_LABELS: Record<PlaceId, string> = {
-  tower: 'Morse code',
-  caravanserai: 'Palestinian Arabic',
+  tower: 'An empty guild hall',
+  caravanserai: 'An empty guild hall',
   board: "Today's quests",
   house: 'Wardrobe, trophies and stats',
   market: 'Gear and items',
@@ -75,8 +70,8 @@ export const PLACE_PATHS: Record<PlaceId, string> = {
 
 /** What each place's screen says until its real content arrives. */
 export const PLACE_SOON: Record<PlaceId, string> = {
-  tower: 'The tower’s first lessons open in the next milestone: hearing K and M.',
-  caravanserai: 'The caravanserai’s first lessons open in the next milestone: the Arabic letters.',
+  tower: 'No guild has moved in yet.',
+  caravanserai: 'No guild has moved in yet.',
   board: 'Today’s quests will be posted here.',
   house: 'Your wardrobe, trophies and stats will live here.',
   market: 'Gear and items will be for sale here.',
@@ -92,8 +87,7 @@ export const ARENA_LOCKED = 'The Arena opens with the Fellowship, when friends c
 export function residentsOf(subjects: readonly SubjectInfo[]): Map<PlaceId, SubjectInfo> {
   const residents = new Map<PlaceId, SubjectInfo>();
   for (const s of subjects) {
-    const building = SUBJECT_BUILDINGS[s.id];
-    if (building) residents.set(building, s);
+    if (s.building) residents.set(s.building, s);
   }
   return residents;
 }
