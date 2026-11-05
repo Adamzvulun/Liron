@@ -1,9 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { signedIn } from './fake-supabase.ts';
 
-/** The calibration workload's time (ms) on the machine the budgets below were measured on. */
-const REFERENCE_MS = 57;
-
 // The square's frame budget (#123, ADR 0025 amended). The square was slow because small
 // animations ran under full-stage blend modes and hovering re-filtered a whole building.
 // The first test checks the rules that keep it fast; the second times it, with margins wide
@@ -70,33 +67,11 @@ test.describe('the city square stays fast (#123)', () => {
     browser,
   }, info) => {
     test.skip(info.project.name !== 'desktop', 'hovering needs a mouse; one viewport is enough');
-    test.setTimeout(60_000);
+    test.setTimeout(90_000);
     await openSquare(page);
     await page.waitForTimeout(500);
-    // The same slow machine everywhere: this workload takes ~57 ms on the machine the budgets
-    // were measured on, so a slower one (a CI runner) is throttled less, by its own speed.
-    const workload = await page.evaluate(() => {
-      const runs: number[] = [];
-      for (let r = 0; r < 5; r++) {
-        const t = performance.now();
-        let x = 0;
-        for (let i = 0; i < 3e6; i++) x = (x + Math.sqrt(i) * 1.0001) % 1e9;
-        const box = document.createElement('div');
-        for (let i = 0; i < 2000; i++) {
-          const c = document.createElement('span');
-          c.textContent = String(i + x);
-          box.appendChild(c);
-        }
-        document.body.appendChild(box);
-        void box.offsetHeight;
-        box.remove();
-        runs.push(performance.now() - t);
-      }
-      return runs.sort((a, b) => a - b)[2] ?? 49;
-    });
-    const slower = Math.max(1, workload / REFERENCE_MS);
     const cdp = await page.context().newCDPSession(page);
-    await cdp.send('Emulation.setCPUThrottlingRate', { rate: Math.max(1, 4 / slower) });
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
     /** Frame gaps (rAF) and, from a Chrome trace, the compositor's and the rasteriser's work. */
     async function measure(ms: number, hover: boolean) {
@@ -140,17 +115,24 @@ test.describe('the city square stays fast (#123)', () => {
       return { p95, compositor: busy('Display::DrawAndSwap'), raster: busy('RasterTask') };
     }
 
-    const idle = await measure(3000, false);
-    const hover = await measure(2000, true);
-    console.log(
-      `square (machine ${slower.toFixed(2)}× slower) idle ${JSON.stringify(idle)} hover ${JSON.stringify(hover)}`,
-    );
+    // A shared CI runner adds noise, and noise only ever adds time: the best of three runs is
+    // the square's own cost. The old square's slowness was systematic, so its best is still slow.
+    const best = async (ms: number, hover: boolean) => {
+      const runs: Awaited<ReturnType<typeof measure>>[] = [];
+      for (let i = 0; i < 3; i++) runs.push(await measure(ms, hover));
+      const min = (k: 'p95' | 'compositor' | 'raster') =>
+        Math.min(...runs.map((r) => r[k] ?? Infinity));
+      return { p95: min('p95'), compositor: min('compositor'), raster: min('raster') };
+    };
+    const idle = await best(2000, false);
+    const hover = await best(2000, true);
+    console.log(`square idle ${JSON.stringify(idle)} hover ${JSON.stringify(hover)}`);
     // Before #123 (same method): idle compositor 750–830 ms/s; hover p95 50 ms, raster ~105 ms/s.
-    // After: idle compositor ~370, hover p95 17 ms, raster ~45.
+    // After: idle compositor ~370, hover p95 17 ms, raster ~45 (best of three: 343, 17, 10;
+    // the old square's best: 783, 50, 79).
     expect(idle.p95).toBeLessThanOrEqual(34);
     expect(hover.p95).toBeLessThanOrEqual(34);
-    // The compositor runs unthrottled, so its time grows with the machine's slowness.
-    expect(idle.compositor).toBeLessThan(650 * slower);
-    expect(hover.raster).toBeLessThan(90);
+    expect(idle.compositor).toBeLessThan(650);
+    expect(hover.raster).toBeLessThan(60);
   });
 });
