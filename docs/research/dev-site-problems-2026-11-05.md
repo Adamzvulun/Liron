@@ -173,3 +173,17 @@ The scene with blend modes set to normal is nearly identical (screenshots compar
 
 ### What can't be measured here
 **Safari.** Only Chromium is installed in this environment. Sources say WebKit has not composited animations of elements *inside* an SVG (they repaint), while transform/opacity animations on HTML elements are composited ([Igalia 2019](https://blogs.igalia.com/nzimmermann/posts/2019-12-12-3d-transformations/), [Igalia 2021](https://blogs.igalia.com/nzimmermann/posts/2021-10-29-layer-based-svg-engine/page/2/)). Chromium composites both ([Chrome blog](https://developer.chrome.com/blog/hardware-accelerated-animations)). So on an iPhone, today's square probably repaints the filtered SVG around each animated piece every frame, which is worse than these Chromium numbers. Moving the animated pieces into small HTML-level layers is the fix that holds in both engines.
+
+### After the fix (#123, option C, same method)
+Built as [ADR 0025's amendment](../decisions/0025-city-painted-in-the-browser.md#amendment-2026-11-05-123-a-still-scene-with-small-moving-layers) describes. Three runs each, 4× CPU throttle, 1 worker:
+
+| | Before | After |
+|---|---|---|
+| Desktop idle, rAF avg / p95 | 16.7 / 17 ms | 16.7 / 17 ms |
+| Desktop hover, rAF avg / p95 | 29–33 / 50 ms | **17 / 17 ms** |
+| Desktop hover, frames drawn per second | 29–34 | **58–60** |
+| Desktop hover, raster | 96–126 ms/s | **33–55 ms/s** |
+| Desktop idle, compositor | 750–856 ms/s | **370–430 ms/s** |
+| Phone idle, compositor | 263–295 ms/s | **121–133 ms/s** |
+
+The remaining idle compositor work is the compositor redrawing the rectangle that spans all the moving lamps, through the still layers above them. Those layers must stay above the lamps, or the lantern bars and the tower wouldn't cover them. Per motion: the five pulsing lamps 229 ms/s, the two flickers 116, the clouds 167, smoke 56, steam and sign 13 each. This headless Chromium composites in software; on a machine with a GPU the same drawing is texture copies, so treat these numbers as an upper bound. The work that blocked frames on any machine (re-rasterising the building on hover, redoing blend passes) is gone.
