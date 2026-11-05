@@ -62,7 +62,8 @@
      - GitHub: epics #2–#5 closed (M1 is done). #38 and #39 are built and labelled `needs:adam`.
    - **Adam, when you have a minute:** try the script lessons (#38, #39), the vowel marks (#40), the slate (#41) and the coffee corner (#45) on the dev site. They're closed or labelled `needs:adam`, but the Definition of Done asks for your try.
    - **One save per session ([ADR 0031](../decisions/0031-one-save-per-session.md)):** a finished session is saved by one `save_session` call, all or nothing; a repeated session id applies nothing. Every session report uses `saveSession`. **Adam:** its migration reaches prod with the next release (ADR 0018).
-   - **Next:** the review's last item, subject knowledge out of core (ADR 0019). Then the Groq "understood" check, then E10 (ADRs first, from 0032).
+   - **Subject knowledge out of core (ADR 0019, amended):** each subject names its building and its Notice Board line; the board no longer promises rewards nothing pays. The Rider's breeches now unlock with "Pass a first-chapter trial in any guild" (was "Learn all 28 Arabic letters"). **Adam:** say if you want the old wording back. **The full review is done.**
+   - **Next:** the Groq "understood" check, then E10 (ADRs first, from 0032).
    - **Audio for the missing phrases:** no source is usable yet. Lingua Libre is the lead (a CC0 *nšallah* found); the speakers' origin is unverified because lingualibre.org timed out. Nothing is used until Adam has seen the files ([research](../research/phrase-audio-sources.md)).
 
 ## Backlog map
