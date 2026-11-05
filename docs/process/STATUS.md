@@ -2,13 +2,13 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
 
-- **Last updated:** 2026-11-04, evening. E6 and E7 are merged (PR #73). E8 and E9's first part are built on `dev` (PRs #74–#85). The full review's fixes and all ten of Adam's review decisions are merged (PRs #88–#117); the doc fixes are #118. Adam's report: [reports/2026-11-04.md](reports/2026-11-04.md)
+- **Last updated:** 2026-11-05. E6 and E7 are merged (PR #73). E8 and E9's first part are built on `dev` (PRs #74–#85). The full review is done (PRs #88–#122). **Adam tried the dev site on 2026-11-05 and found three problems, now issues [#123](https://github.com/Adamzvulun/Liron/issues/123)–[#126](https://github.com/Adamzvulun/Liron/issues/126): they come first.** Adam's report: [reports/2026-11-05.md](reports/2026-11-05.md) (the whole run since 2026-11-03 night); the day-by-day detail is in [reports/2026-11-04.md](reports/2026-11-04.md).
 - **Phase:** **M1 (Foundations) is done** (2026-11-03; [retro](retros/M1.md)). **Next: M2, first playable**: the first release, v1.0.0 (ADR 0027), comes once it has something to learn. History: M1 started when Adam said go (2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. **v0.1.0 is live at https://waymark-phi.vercel.app**; the dev site is https://waymark-git-dev-adamzvuluns-projects.vercel.app (behind a Vercel login). E1 is done (2026-11-02). **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
 
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0030 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0031 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -63,7 +63,12 @@
    - **Adam, when you have a minute:** try the script lessons (#38, #39), the vowel marks (#40), the slate (#41) and the coffee corner (#45) on the dev site. They're closed or labelled `needs:adam`, but the Definition of Done asks for your try.
    - **One save per session ([ADR 0031](../decisions/0031-one-save-per-session.md)):** a finished session is saved by one `save_session` call, all or nothing; a repeated session id applies nothing. Every session report uses `saveSession`. **Adam:** its migration reaches prod with the next release (ADR 0018).
    - **Subject knowledge out of core (ADR 0019, amended):** each subject names its building and its Notice Board line; the board no longer promises rewards nothing pays. The Rider's breeches now unlock with "Pass a first-chapter trial in any guild" (was "Learn all 28 Arabic letters"). **Adam:** say if you want the old wording back. **The full review is done.**
-   - **Next:** the Groq "understood" check, then E10 (ADRs first, from 0032).
+   - **Adam's findings (2026-11-05), measured and filed** ([research](../research/dev-site-problems-2026-11-05.md)):
+     - [#123](https://github.com/Adamzvulun/Liron/issues/123) (p0): the city square is slow: one 1920×1080 SVG with turbulence and blur filters and 9 animations inside it (≈34 fps idle, ≈17 fps on hover at 4× CPU throttle). Halls are smooth.
+     - [#124](https://github.com/Adamzvulun/Liron/issues/124) (p1): loading: one 815 KB bundle, two round trips per question's audio, the deck re-downloaded every visit.
+     - [#125](https://github.com/Adamzvulun/Liron/issues/125) (p0): Arabic meanings come straight from deck rows: section context lost (وزير "queen"), homographs (بابا "pope"), verb forms, grammar tags in the romanisation, unsuitable early words.
+     - [#126](https://github.com/Adamzvulun/Liron/issues/126) (p1): American spelling in everything players see ("Practice", "Traveler", "color", "gray").
+   - **Next:** #123, #125, #126, #124 (in that order), then the Groq "understood" check, then E10 (ADRs first, from 0032).
    - **Audio for the missing phrases:** no source is usable yet. Lingua Libre is the lead (a CC0 *nšallah* found); the speakers' origin is unverified because lingualibre.org timed out. Nothing is used until Adam has seen the files ([research](../research/phrase-audio-sources.md)).
 
 ## Backlog map
