@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122, and Adam's three findings filed as #123–#126). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 - **Starting prompt:** [next-session-prompt.md](next-session-prompt.md) is what Adam pastes to start the next session.
 
@@ -19,19 +19,19 @@
   - #79: vowel marks. #80: the slate. #81: the Latin fade. #82, #85: the coffee corner (survival phrases, 9 sets). #84: the Notice Board quest fix. #83, #86: docs.
   - #88–#118: the full review's fixes and Adam's ten review decisions (list in STATUS).
   - #120: Morse Koch gate pass/fail e2e. #121: one save per session (ADR 0031). #122: subjects name their building and Notice Board line (ADR 0019 amended). **The full review is done.**
-- **Open issues from Adam's try (2026-11-05):** #123–#126, below. Nothing is fixed yet; Adam asked for them documented first.
+- **Adam's findings (2026-11-05), all fixed:**
+  - #128: the square's speed (#123).
+  - #129: Arabic meanings (#125). It stays open until Adam reviews the list.
+  - #130: spelling (#126).
+  - #131: loading (#124).
 - `main` is still v0.1.0. Whether to release v1.0.0 is Adam's call; the report asks him.
 
 ## Next (in order)
-1. **[#123](https://github.com/Adamzvulun/Liron/issues/123) (p0): the city square's speed.** Research first (rasterise the static scene; animate only small layers with transform/opacity; a glow image instead of the hover drop-shadow), amend ADR 0025, add a frame-time e2e budget. Method and numbers: [dev-site-problems-2026-11-05](../research/dev-site-problems-2026-11-05.md).
-2. **[#125](https://github.com/Adamzvulun/Liron/issues/125) (p0): Arabic meanings.** A reviewed lesson-word list in `content/arabic/` with our own glosses where the deck's need context; strip `[pl.]`/`[55]`-style tags from the romanisation; homographs by vowel marks; no verbs before verbs are taught; drop unsuitable words. Ask Adam which words he saw.
-3. **[#126](https://github.com/Adamzvulun/Liron/issues/126) (p1): American spelling** in every visible string (list in the issue); add the rule to CLAUDE.md's conventions.
-4. **[#124](https://github.com/Adamzvulun/Liron/issues/124) (p1): loading.** `React.lazy` per hall, sign a session's audio in one go, cache the deck in IndexedDB.
-5. **The rules from the review's last item:** a finished session uses `api.saveSession(report)` (ADR 0031), and a subject names its own `building` and `quest` in `SubjectInfo` (ADR 0019, amended), so `src/core/` never names a subject.
-6. **The Groq "understood" check** (approved by Adam): a server-side Vercel function; the key never reaches the browser.
-7. **E10** (approved): ADRs first, from 0032. Contract events ride `save_session` (ADR 0031).
-8. **Audio for the missing phrases:** retry lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect, and search the rest of the ajp file names. Never use a file before Adam has seen it.
-9. **No v1.0.0** until Adam says so.
+1. **#125 review:** when Adam answers about the lesson 1–3 list, edit `content/arabic/lesson-words.json` (glosses by deck id). Then set its `reviewed` field to "Adam, <date>" and close #125. To rebuild the human-readable table, run a scratchpad script that joins the list with `buildLingualism()`. Never commit that table.
+2. **The Groq "understood" check** (approved by Adam): a server-side Vercel function, so the key never reaches the browser. Ask Adam about cost, limits and data sharing before building it.
+3. **E10** (approved): ADRs first, from 0032. Contract events go through `save_session` (ADR 0031).
+4. **Audio for the missing phrases:** retry the lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect. Never use a file before Adam has seen it.
+5. **No v1.0.0** until Adam says so.
 
 ## Things the next session should know
 - **Arabic code map (`src/subjects/arabic/`):**
@@ -58,6 +58,12 @@
 - **`useStage`** (`src/core/city/useStage.ts`) scales a 1920×1080 painted stage and pans it on upright phones; the city and the tower share it. The tower passes its own fit, `towerFit`, which keeps the room's sides and lets the ceiling fill tall windows.
 - **The decoder** re-reads the whole drill on every press (two-means on log key-down lengths), so don't "optimise" it into one-element-at-a-time learning: that misreads slow senders (see `docs/game/morse-lessons.md`).
 - **Measuring speed:** a temporary e2e spec can throttle the CPU (`page.context().newCDPSession(page)` → `Emulation.setCPUThrottlingRate` 4) and record `requestAnimationFrame` gaps and `PerformanceObserver('longtask')` per screen; count Supabase requests with `page.on('request')` (port 54321 is the fake). Headless Chromium paints without a GPU, so confirm on a real phone.
+- **Lesson words (#125):** a reviewed lesson (`REVIEWS` in `words.ts`) uses only the listed deck ids, with our gloss. Unreviewed lessons drop verbs. The e2e fake must use reviewed ids: use `lessonWord(n, …)` in `e2e/fake-supabase.ts`.
+- **Frame budget (#123):** `e2e/city-speed.spec.ts` reads Chrome trace metrics, using the best of 3 runs because shared CI runners only ever add time. If it fails, look for an animation that isn't transform/opacity, or a filter on hover. Don't loosen the budget.
+- **Loading (#124):**
+  - `cachedContent` (`src/core/content/packCache.ts`) keys the kept deck by `privatePackVersion`.
+  - The e2e fake answers the version check with `Content-Range` plus `Access-Control-Expose-Headers`; without that header, the count is unreadable and the cache never hits.
+  - `useAudio(api, upcoming)` signs in a layout effect, so it runs before a child question plays.
 - **Checking deck meanings:** the deck is in `sources/arabic/lingualism-palestinian-vocabulary/` (private, never committed). A throwaway script in `scripts/` can call `buildLingualism()` (`scripts/content/lingualism.ts`) and `wordsFrom()` (`src/subjects/arabic/words.ts`) and print id, Arabic, romanisation, English and tags (`section:NN`) to the scratchpad; run it with `npx tsx`. Don't commit the dump.
 - **Screenshots:** write a temporary `e2e/zz-shots.spec.ts` using `signedIn()` from `e2e/fake-supabase.ts` and run it with Playwright. Delete it before committing.
 - **Hanging pushes:** `git push` occasionally hangs. Run it with `timeout 60` and retry.
