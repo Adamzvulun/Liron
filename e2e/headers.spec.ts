@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, test, type Page } from '@playwright/test';
-import { FAKE_SUPABASE_URL, deckWord, signedIn } from './fake-supabase.ts';
+import { FAKE_SUPABASE_URL, lessonWord, signedIn } from './fake-supabase.ts';
 
 // The live site's security headers (vercel.json, security review M3). `vite preview` doesn't
 // send them, so this test adds them to every page it loads and fails on any CSP violation.
@@ -51,11 +51,11 @@ test('the live site’s security headers are complete and break nothing', async 
   expect(csp).not.toContain('unsafe-eval');
 
   await signedIn(page, [], [], { lesson: 4, streak: 0, met: [], done: false, sessions: 4 }, [
-    deckWord(1, 'بيت', 'house'),
-    deckWord(2, 'تين', 'figs'),
-    deckWord(3, 'بنت', 'girl'),
-    deckWord(4, 'نبي', 'prophet'),
-    deckWord(5, 'باب', 'door'),
+    lessonWord(1, 'بيت', 'house'),
+    lessonWord(2, 'تين', 'figs'),
+    lessonWord(3, 'بنت', 'girl'),
+    lessonWord(4, 'نبي', 'prophet'),
+    lessonWord(5, 'باب', 'door'),
   ]);
   const violations = await withHeaders(page);
 
