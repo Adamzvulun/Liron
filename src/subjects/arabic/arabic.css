@@ -531,6 +531,40 @@
   animation: arabic-rec 1s ease-in-out infinite;
 }
 
+/* "Would they understand me?" (ADR 0014): a full-width row under the recording buttons. */
+.arabic__check {
+  flex-basis: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.arabic__check .arabic__note {
+  margin: 0;
+  font-size: 15px;
+}
+
+.arabic__heard {
+  margin: 0;
+  padding: 6px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+.arabic__heard.is-right {
+  background: #d9efc4;
+}
+
+.arabic__heard.is-wrong {
+  background: #f6dcc8;
+}
+
+.arabic__heard-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 24px;
+}
+
 @keyframes arabic-rec {
   50% {
     opacity: 0.6;

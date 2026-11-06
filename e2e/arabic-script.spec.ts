@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { deckWord, lessonWord, signedIn, type SubjectCall } from './fake-supabase.ts';
+import { GREETINGS, deckWord, lessonWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // Everyday words made of lesson 1's letters (ا ب ت ن ي), shaped like the deck's rows.
 const WORDS = [
@@ -318,23 +318,6 @@ test.describe('the slate (#41)', () => {
 });
 
 test.describe('the coffee corner (#45)', () => {
-  // Everyday greetings under the first set's deck ids (not the deck's own rows).
-  const GREETINGS = [
-    ['4761', 'مرحبا', 'márɧaba', 'Hello'],
-    ['4762', 'هلا', 'hála', 'Hi'],
-    ['4764', 'صباح الخير', 'ʂabāɧ ilxēr', 'Good morning'],
-    ['4765', 'كيف حالك؟', 'kēf ɧālak?', 'How are you?'],
-    ['4767', 'تمام', 'tamām', 'Fine'],
-    ['4766', 'الحمد لله', 'ilɧamdu lillāh', 'Thank God'],
-    ['4780', 'أهلا وسهلا', 'áhla w sáhla', 'Welcome'],
-    ['4771', 'باي', 'bāy', 'Bye'],
-    ['4772', 'سلام', 'salām', 'Peace'],
-    ['4773', 'تصبح على خير', 'tíʂbaɧ 3ála xēr', 'Good night'],
-  ].map(([n, arabic, sound, english]) => ({
-    ...deckWord(Number(n), arabic ?? '', english ?? ''),
-    data: { order: Number(n), arabic, pronunciation: sound, english, section: 57 },
-  }));
-
   test('meet a set, understand it by ear, say it, and it is saved', async ({ page }) => {
     const calls: SubjectCall[] = [];
     await signedIn(page, [], calls, null, GREETINGS);
