@@ -63,6 +63,13 @@ These are not decided yet.
 **Deck:**
 - Cache it in the browser (IndexedDB) under its version, so it downloads once, not once per visit.
 
+**Done (#124, 2026-11-05):**
+- **Bundle:** each hall (the Caravanserai and the Signal Tower) is its own chunk, loaded when you go in. The first load is now 642 KB (188 KB gzipped), down from 815 KB (239 KB). The halls are 87 KB and 90 KB. The rest of the main chunk is mostly framework code (React, the Supabase client, zod). Splitting that further would not make the first load smaller, so we left it.
+- **Audio:** a session's recordings (each word, plus the choices of the listening questions) are signed in one `createSignedUrls` request as soon as the session starts. After that, each question needs only the `GET`. The recording itself is not preloaded: the browser fetches it when it plays.
+- **Deck:** the pack is kept in this browser's IndexedDB under its version, which is the row count and latest change of its items and lessons. A visit checks the version in two small requests and downloads the deck only when it changed. Signing out wipes the copy (ADR 0023 amendment).
+- **Guard:** `e2e/loading.spec.ts` checks that the square loads no hall chunk, that a session makes one signing request, and that the deck loads once, even after a reload.
+- **Not done:** the profile, wallet, today and time zone are still fetched on every page load. They are small and change often, so caching them isn't worth the risk of stale coins.
+
 **Guard:**
 - Add a frame-time budget test for the square in e2e, so a regression shows in CI.
 
@@ -103,6 +110,8 @@ The words in the lessons come straight from the Lingualism deck: each row's own 
 - **Clean-up:** strip the bracketed tags from the romanisation, tell homographs apart by their vowel marks, and leave verbs out until verbs are taught.
 - **Review:** Adam (a Hebrew speaker learning Palestinian Arabic) checks the list.
 - **Adam's report:** issue #125 asks Adam which words he saw that were wrong, so that his cases are covered first.
+
+**Done (2026-11-05, #125):** `content/arabic/lesson-words.json` lists the 187 words of lessons 1–3 with our glosses and 17 left out with reasons. A second look corrected point 2: بابا, أمّي and مرا each have only one deck row, so the fix is our gloss, not picking another row. The real same-letter pairs differ by their marks (لُوَز/لوْز, برْد/برد, دُبّان/دِبّان) or are spelled identically (نِت, ملْيان, مُتلّت, مِن…). The first are kept as homographs, never shown bare; for the second one row is kept with both meanings in its gloss. Phrase sets carry our glosses where needed (`glosses` in `phrases.json`), and the counting row's blanks were already tidied (now tested). A test checks the list against the deck: every word in its lesson, used, and none missed. Waiting for Adam's review.
 
 ## 3. American spelling
 The site mixes British and American spelling. The rank is "Traveler", but the wardrobe has "Traveller's tunic".

@@ -1,5 +1,9 @@
+import { lazy } from 'react';
 import type { SubjectInfo } from '../../core/subject.ts';
-import { Caravanserai } from './Caravanserai.tsx';
+// The hall loads when you enter it, so the square doesn't wait for it (#124).
+const Caravanserai = lazy(() =>
+  import('./Caravanserai.tsx').then((m) => ({ default: m.Caravanserai })),
+);
 
 export const arabic: SubjectInfo = {
   id: 'arabic',

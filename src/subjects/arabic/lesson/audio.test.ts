@@ -27,4 +27,27 @@ describe('linkCache (security review L1)', () => {
     await Promise.resolve();
     expect(await get('a.mp3')).toBe('a.mp3');
   });
+
+  it('signs a session’s links in one request, and asks singly for any it missed (#124)', async () => {
+    const single: string[] = [];
+    const batches: string[][] = [];
+    const get = linkCache(
+      async (p) => {
+        single.push(p);
+        return `${p}?one`;
+      },
+      () => 0,
+      async (ps) => {
+        batches.push([...ps]);
+        return new Map(ps.filter((p) => p !== 'c.mp3').map((p) => [p, `${p}?batch`]));
+      },
+    );
+    get.prepare(['a.mp3', 'b.mp3', 'a.mp3', 'c.mp3']);
+    get.prepare(['a.mp3']); // already asked for: no new request
+    expect(await get('a.mp3')).toBe('a.mp3?batch');
+    expect(await get('b.mp3')).toBe('b.mp3?batch');
+    expect(await get('c.mp3')).toBe('c.mp3?one');
+    expect(batches).toEqual([['a.mp3', 'b.mp3', 'c.mp3']]);
+    expect(single).toEqual(['c.mp3']);
+  });
 });

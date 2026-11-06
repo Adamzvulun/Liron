@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import { REVIEWS } from '../src/subjects/arabic/words.ts';
 
 // The e2e build points at this address (playwright.config.ts). Nothing listens there:
 // every request is answered by page.route below, so tests never touch a real project.
@@ -96,9 +97,32 @@ export async function fakeSupabase(
     }
     // Private content (ADR 0023): the rows the test gave, and a short silent recording for
     // every media link.
-    if (url.pathname === '/rest/v1/content_items') return route.fulfill({ json: content });
+    if (url.pathname === '/rest/v1/content_items') {
+      // The deck's version check (#124): the row count and the latest change.
+      if (url.searchParams.get('select') === 'updated_at') {
+        return route.fulfill({
+          json: content.length ? [{ updated_at: '2026-11-01T00:00:00Z' }] : [],
+          headers: {
+            'Content-Range': `0-0/${content.length}`,
+            'Access-Control-Expose-Headers': 'Content-Range',
+          },
+        });
+      }
+      return route.fulfill({ json: content });
+    }
     if (url.pathname === '/rest/v1/content_lessons') return route.fulfill({ json: [] });
     if (url.pathname.startsWith('/storage/v1/object/sign/')) {
+      if (route.request().method() === 'POST' && url.pathname.endsWith('/sign/private-media')) {
+        // Several links in one request (createSignedUrls, #124).
+        const { paths } = route.request().postDataJSON() as { paths: string[] };
+        return route.fulfill({
+          json: paths.map((p) => ({
+            error: null,
+            path: p,
+            signedURL: `/object/sign/private-media/${p}?token=e2e`,
+          })),
+        });
+      }
       if (route.request().method() === 'POST') {
         const path = url.pathname.replace('/storage/v1', '');
         return route.fulfill({ json: { signedURL: `${path}?token=e2e` } });
@@ -221,6 +245,16 @@ export const deckWord = (n: number, arabic: string, english: string): ContentRow
   media: [{ kind: 'audio', store: 'private', path: `lingualism-pcav/w${n}.mp3` }],
   tags: [],
 });
+
+/**
+ * A deck-like lesson-1 word under the id of the `n`th word in the reviewed lesson-1 list
+ * (content/arabic/lesson-words.json, #125): a reviewed lesson uses only listed ids.
+ */
+export const lessonWord = (n: number, arabic: string, english: string): ContentRow => {
+  const id = REVIEWS.find((r) => r.lesson === 1)?.words[n - 1]?.deck;
+  if (!id) throw new Error(`no reviewed lesson-1 word number ${n}`);
+  return { ...deckWord(n, arabic, english), item_id: id };
+};
 
 /** 0.1 s of silence, as a WAV file. */
 const SILENT_WAV = (() => {
