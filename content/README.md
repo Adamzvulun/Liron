@@ -14,7 +14,8 @@ Each file is a **content pack** ([ADR 0023](../docs/decisions/0023-content-forma
 | `arabic/letters.json` | The 28 letters plus ة ء ى لا: names, alphabet position, whether they connect forward, the Hebrew bridge, sound, shape family and lesson; the 8 script lessons ([design](../docs/game/arabic-script-lessons.md)) |
 | `arabic/marks.json` | The vowel marks (harakat): fatha, kasra, damma, sukun, shadda and tanween, each with its Hebrew niqqud twin, the lesson that teaches it, and a note on how the deck and Palestinian speech use it (#40) |
 | `arabic/questline.json` | "The Long Road In", chapter I: the story, one milestone beat per script lesson, and the Painted Sign trial (#43) |
-| `arabic/phrases.json` | The coffee corner's phrase sets (#45, #85): each set names deck rows by id. The phrases themselves are the Lingualism deck's and stay private (ADR 0011) |
+| `arabic/phrases.json` | The coffee corner's phrase sets (#45, #85): each set names deck rows by id, with our own gloss where the deck's English needs context (#125). The phrases themselves are the Lingualism deck's and stay private (ADR 0011) |
+| `arabic/lesson-words.json` | The reviewed words of script lessons 1–3 (#125): the deck ids each lesson uses, with our own glosses, and the ids left out with the reason (verbs, unsuitable, unreadable homographs). Only ids and our words: no deck text |
 | `morse/questline.json` | "The Silent Beacon", chapters I–II: each chapter's story and trial, and one lamp beat per Koch letter |
 
 Copyrighted packs are built from `sources/` by `scripts/content/` and uploaded to Supabase, never written here.
