@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import type { Heard } from './speech.ts';
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
 import type { Item, Lesson } from './content/schema.ts';
@@ -161,4 +162,11 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
    * store couldn't sign are missing from the map.
    */
   mediaUrls(paths: readonly string[]): Promise<Map<string, string>>;
+  /**
+   * "Did it understand you?" (ADR 0014): what the speech model hears in a recording of the
+   * learner (Palestinian Arabic for now). Sends the audio to Groq through our own function, so
+   * call it only when the learner asks for the check. Fails with a `SpeechError`, e.g. when
+   * today's checks are used up.
+   */
+  transcribe(audio: Blob): Promise<Heard>;
 }

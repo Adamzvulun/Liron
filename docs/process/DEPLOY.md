@@ -8,7 +8,7 @@ Waymark is hosted on **Vercel's free Hobby plan**, connected to this GitHub repo
 | `dev` | **Preview**, at the stable branch URL **https://waymark-git-dev-adamzvuluns-projects.vercel.app**: the live dev site | Only people logged into the Vercel account (Deployment Protection) |
 | feature branches / PRs | **Preview**, one URL per push, plus a stable per-branch URL | Same as `dev` |
 
-`vercel.json` pins the build: framework Vite, `npm ci`, `npm run build`, and **only `dist/` is published**. That matters because the repo also holds `docs/`, `spikes/` and the copyrighted `sources/` (ADR 0011). Without a build, Vercel would serve the repo's files as they are. `package.json` pins Node `22.x`, the same as CI. Without that, Vercel would pick its newest Node.
+`vercel.json` pins the build: framework Vite, `npm ci`, `npm run build`, and **only `dist/` is published**, plus the functions in `api/` (Vercel builds each on its own, so they import nothing from `src/`). Every path except `/api/` falls back to `index.html`. That matters because the repo also holds `docs/`, `spikes/` and the copyrighted `sources/` (ADR 0011). Without a build, Vercel would serve the repo's files as they are. `package.json` pins Node `22.x`, the same as CI. Without that, Vercel would pick its newest Node.
 
 ## One-time setup (Adam, in the Vercel dashboard)
 Do this only **after `main` contains the app** (the first release, `v0.1.0`). Importing while `main` has no app would publish the raw repo files.
@@ -29,7 +29,8 @@ Set them in **Settings → Environment Variables**, never in git (`.env*` is git
 | Variable | Production (`main`) | Preview (`dev`, PRs) | Note |
 |---|---|---|---|
 | `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` | `waymark-prod` project | `waymark-dev` project | #16, steps in [SUPABASE](SUPABASE.md). `VITE_` variables end up in the browser bundle. That's fine for the publishable key, which is designed to be public; Row Level Security guards the data. **Set them before merging the code that uses them**, or that deploy shows "Not set up yet". |
-| `GEMINI_API_KEY`, `GROQ_API_KEY` | ✓ | ✓ | Added with the AI adapter (E15). **No `VITE_` prefix**: server-only, used inside the Vercel function, never sent to the browser. |
+| `GROQ_API_KEY` | ✓ | ✓ | The "understood" check (ADR 0014), in `api/understood.ts`. **No `VITE_` prefix**: server-only, never sent to the browser. Use separate keys for Production and Preview if you can. The function also reads the two Supabase variables above, at run time. |
+| `GEMINI_API_KEY` | ✓ | ✓ | Added with the AI adapter (E15). Server-only, like the Groq key. |
 
 ## Free-plan limits (checked 2026-11-02 on vercel.com/docs)
 - 100 deployments/day, 1 build at a time, 45 min per build.

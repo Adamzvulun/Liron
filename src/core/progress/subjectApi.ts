@@ -5,6 +5,7 @@ import { phaseOf, scheduleReview, type StoredCard } from '../srs/scheduler.ts';
 import { rateResult, toSkillRating } from '../rating/ratings.ts';
 import type { Award, ProgressStore, SessionWrite } from './store.ts';
 import type { ContentSource } from '../content/privateContent.ts';
+import { SpeechError, type SpeechSource } from '../speech.ts';
 import { ContentPack, Media } from '../content/schema.ts';
 
 const MAX_XP = 10_000; // per call; the same limits are enforced again in the database
@@ -40,6 +41,7 @@ export function subjectApi<State extends object>(
   store: ProgressStore,
   onAward: (award: Award) => void = () => {},
   content: ContentSource | null = null,
+  speech: SpeechSource | null = null,
 ): SubjectApi<State> {
   const packs = new Map<string, Promise<{ items: Item[]; lessons: Lesson[] }>>();
   // The private media each loaded pack names: a subject may only link files its own content names
@@ -281,6 +283,10 @@ export function subjectApi<State extends object>(
         const urls = await Promise.all(unique.map((p) => source.mediaUrl(p)));
         return new Map(unique.map((p, i) => [p, urls[i] ?? '']));
       });
+    },
+    transcribe(audio) {
+      if (!speech) return Promise.reject(new SpeechError('not-set-up'));
+      return speech.transcribe(audio);
     },
   };
 }

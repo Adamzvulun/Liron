@@ -14,6 +14,8 @@ import {
   type UnderstandQuestion,
 } from './sets.ts';
 import { useRecorder } from './useRecorder.ts';
+import { judge, type Verdict } from './understood.ts';
+import { SpeechError, type Heard, type SpeechProblem } from '../../../core/speech.ts';
 
 /** Due phrases from earlier sets mixed into a session. */
 const REVIEWS = 5;
@@ -231,6 +233,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
           index={stage.index}
           count={phrases.length}
           play={play}
+          check={(audio) => api.transcribe(audio)}
           onRated={(ok, now) => {
             const p = phrases[stage.index];
             const said = ok && p ? [...stage.said, p.id] : stage.said;
@@ -291,8 +294,19 @@ function PhraseCard({ phrase, play }: { phrase: Phrase; play: (path: string) => 
   );
 }
 
-/** Record yourself and play it back beside the speaker (nothing leaves the browser). */
-function Compare({ phrase, play }: { phrase: Phrase; play: (path: string) => void }) {
+/**
+ * Record yourself and play it back beside the speaker. Nothing leaves the browser unless the
+ * learner presses the "understood" check (`check`, on the Say it cards only).
+ */
+function Compare({
+  phrase,
+  play,
+  check,
+}: {
+  phrase: Phrase;
+  play: (path: string) => void;
+  check?: (audio: Blob) => Promise<Heard>;
+}) {
   const rec = useRecorder();
   if (rec.state === 'unsupported')
     return <p className="arabic__note">Say it aloud, then play the speaker again to compare.</p>;
@@ -326,11 +340,82 @@ function Compare({ phrase, play }: { phrase: Phrase; play: (path: string) => voi
           </button>
         </>
       )}
+      {rec.url && rec.blob && check && (
+        <UnderstoodCheck key={rec.url} audio={rec.blob} target={phrase.arabic} check={check} />
+      )}
       {rec.state === 'denied' && (
         <p className="arabic__note">
           No microphone, so no recording: say it aloud and compare by ear.
         </p>
       )}
+    </div>
+  );
+}
+
+const PROBLEMS: Record<SpeechProblem, string> = {
+  'daily-limit': 'That’s all of today’s checks. Judge it by ear; more tomorrow.',
+  busy: 'Groq is busy right now. Try again in a minute.',
+  'too-big': 'That one’s too long to check. Keep it under half a minute.',
+  'not-set-up': 'The check isn’t set up yet. Judge it by ear.',
+  'signed-out': 'Sign in again to use the check.',
+  failed: 'Couldn’t check that one. Try again, or judge it by ear.',
+};
+
+type Checked =
+  | { kind: 'ready' }
+  | { kind: 'checking' }
+  | { kind: 'heard'; heard: string; verdict: Verdict; left: number }
+  | { kind: 'problem'; problem: SpeechProblem };
+
+/**
+ * "Did it understand you?" (ADR 0014): on request, sends this one recording to Groq and shows
+ * what it heard. It only advises; the learner still rates the phrase.
+ */
+function UnderstoodCheck({
+  audio,
+  target,
+  check,
+}: {
+  audio: Blob;
+  target: string;
+  check: (audio: Blob) => Promise<Heard>;
+}) {
+  const [state, setState] = useState<Checked>({ kind: 'ready' });
+  const run = () => {
+    setState({ kind: 'checking' });
+    check(audio).then(
+      ({ text, left }) =>
+        setState({ kind: 'heard', heard: text, verdict: judge(text, target), left }),
+      (e: unknown) =>
+        setState({ kind: 'problem', problem: e instanceof SpeechError ? e.problem : 'failed' }),
+    );
+  };
+  return (
+    <div className="arabic__check" aria-live="polite">
+      {(state.kind === 'ready' || state.kind === 'checking') && (
+        <>
+          <button
+            type="button"
+            className="lesson__plain"
+            disabled={state.kind === 'checking'}
+            onClick={run}
+          >
+            {state.kind === 'checking' ? 'Listening…' : 'Would they understand me?'}
+          </button>
+          <p className="arabic__note">
+            Sends this recording to Groq, which writes down what it heard.
+          </p>
+        </>
+      )}
+      {state.kind === 'heard' && (
+        <p className={`arabic__heard ${state.verdict.understood ? 'is-right' : 'is-wrong'}`}>
+          {state.verdict.understood ? 'Understood ✓' : 'Not quite'} · Groq heard{' '}
+          <bdi lang="ar" dir="rtl" className="arabic__heard-ar">
+            {state.heard || '(nothing)'}
+          </bdi>
+        </p>
+      )}
+      {state.kind === 'problem' && <p className="arabic__note">{PROBLEMS[state.problem]}</p>}
     </div>
   );
 }
@@ -430,12 +515,14 @@ function SayIt({
   index,
   count,
   play,
+  check,
   onRated,
 }: {
   phrase: Phrase;
   index: number;
   count: number;
   play: (path: string) => void;
+  check: (audio: Blob) => Promise<Heard>;
   onRated: (said: boolean, now: number) => void;
 }) {
   return (
@@ -445,7 +532,7 @@ function SayIt({
       </p>
       <h2 className="lesson__subtitle">Say “{phrase.meaning}”</h2>
       <PhraseCard phrase={phrase} play={play} />
-      <Compare phrase={phrase} play={play} />
+      <Compare phrase={phrase} play={play} check={check} />
       <p className="arabic__note">Did yours sound like the speaker?</p>
       <div className="lesson__actions">
         <button type="button" className="lesson__plain" onClick={() => onRated(false, Date.now())}>

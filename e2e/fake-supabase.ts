@@ -403,3 +403,20 @@ function award(xp: number, minutes: number) {
     today: { ...TODAY, minutes: TODAY.minutes + minutes },
   };
 }
+
+/** The coffee corner's first set: everyday greetings under its deck ids (not the deck's own rows). */
+export const GREETINGS = [
+  ['4761', 'مرحبا', 'márɧaba', 'Hello'],
+  ['4762', 'هلا', 'hála', 'Hi'],
+  ['4764', 'صباح الخير', 'ʂabāɧ ilxēr', 'Good morning'],
+  ['4765', 'كيف حالك؟', 'kēf ɧālak?', 'How are you?'],
+  ['4767', 'تمام', 'tamām', 'Fine'],
+  ['4766', 'الحمد لله', 'ilɧamdu lillāh', 'Thank God'],
+  ['4780', 'أهلا وسهلا', 'áhla w sáhla', 'Welcome'],
+  ['4771', 'باي', 'bāy', 'Bye'],
+  ['4772', 'سلام', 'salām', 'Peace'],
+  ['4773', 'تصبح على خير', 'tíʂbaɧ 3ála xēr', 'Good night'],
+].map(([n, arabic, sound, english]) => ({
+  ...deckWord(Number(n), arabic ?? '', english ?? ''),
+  data: { order: Number(n), arabic, pronunciation: sound, english, section: 57 },
+}));
