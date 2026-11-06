@@ -3,14 +3,34 @@ import { signedIn } from './fake-supabase.ts';
 
 // The square's frame budget (#123, ADR 0025 amended). The square was slow because small
 // animations ran under full-stage blend modes and hovering re-filtered a whole building.
-// The first test checks the rules that keep it fast; the second times it, with margins wide
-// enough for a slow CI machine (the numbers it would have failed on are in the comments).
+// The first test checks the rules that keep it fast. The second times it against a reference
+// scene drawn on the same machine in the same minutes, because a shared CI runner can be slow
+// for a whole test, and only a comparison tells the square's cost from the machine's.
 
 async function openSquare(page: Page) {
   await signedIn(page);
   await page.goto('/');
   await page.getByRole('heading', { name: 'Signal Tower' }).waitFor();
 }
+
+type Measured = { p95: number; compositor: number; raster: number };
+
+/**
+ * How many times the reference's compositor work the square may cost, still and while hovered.
+ * Best of three, 4x CPU, reference 99-164 ms/s:
+ * - The square: idle 3.5x locally, 2.5-2.8x on CI; hover 5.2x locally, 3.3-4.0x on CI.
+ * - The square before #123: idle 7.2x, hover 8.9x (and hover frame p95 50 ms, raster 76 ms/s).
+ * Hover's frame gaps are not compared: CI composites in software, so with the mouse moving they
+ * show the runner's compositing speed (33-67 ms for the same square), not the square's.
+ */
+const IDLE_RATIO = 5;
+const HOVER_RATIO = 7;
+/**
+ * The rasteriser's work while hovering, also against the reference's compositor work, because
+ * it too slows with the runner (the square: 25 ms/s locally, 36-53 on CI; 0.22-0.25 of the
+ * reference every time). The square before #123: 72-76 ms/s, 0.72.
+ */
+const HOVER_RASTER_RATIO = 0.45;
 
 test.describe('the city square stays fast (#123)', () => {
   test('only small sprite layers animate, and nothing blends or filters on hover', async ({
@@ -67,14 +87,14 @@ test.describe('the city square stays fast (#123)', () => {
     browser,
   }, info) => {
     test.skip(info.project.name !== 'desktop', 'hovering needs a mouse; one viewport is enough');
-    test.setTimeout(90_000);
+    test.setTimeout(120_000);
     await openSquare(page);
     await page.waitForTimeout(500);
     const cdp = await page.context().newCDPSession(page);
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
     /** Frame gaps (rAF) and, from a Chrome trace, the compositor's and the rasteriser's work. */
-    async function measure(ms: number, hover: boolean) {
+    async function measure(ms: number, hover: boolean): Promise<Measured> {
       await page.evaluate(() => {
         const w = window as unknown as { gaps: number[]; stop: boolean };
         w.gaps = [];
@@ -115,24 +135,73 @@ test.describe('the city square stays fast (#123)', () => {
       return { p95, compositor: busy('Display::DrawAndSwap'), raster: busy('RasterTask') };
     }
 
-    // A shared CI runner adds noise, and noise only ever adds time: the best of three runs is
-    // the square's own cost. The old square's slowness was systematic, so its best is still slow.
-    const best = async (ms: number, hover: boolean) => {
-      const runs: Awaited<ReturnType<typeof measure>>[] = [];
-      for (let i = 0; i < 3; i++) runs.push(await measure(ms, hover));
-      const min = (k: 'p95' | 'compositor' | 'raster') =>
-        Math.min(...runs.map((r) => r[k] ?? Infinity));
+    /**
+     * A reference scene drawn on the same machine, in the same minutes: a full-window still
+     * picture with 16 small layers moving by transform and opacity. That is what the square should
+     * cost the compositor, so it measures how fast this machine composites right now. A busy
+     * runner slows both alike; the old square's blend modes cost far more than it.
+     * (Built with the DOM and Web Animations, which the strict CSP allows.)
+     */
+    const reference = (on: boolean) =>
+      page.evaluate((on) => {
+        const city = document.querySelector<HTMLElement>('.city');
+        if (city) city.style.display = on ? 'none' : '';
+        document.getElementById('frame-reference')?.remove();
+        if (!on) return;
+        const ref = document.createElement('div');
+        ref.id = 'frame-reference';
+        Object.assign(ref.style, {
+          position: 'fixed',
+          inset: '0',
+          background: 'linear-gradient(160deg, #3b2a1a, #b98b4e 40%, #6d4c2c 70%, #1f150c)',
+        });
+        for (let i = 0; i < 16; i++) {
+          const dot = document.createElement('div');
+          Object.assign(dot.style, {
+            position: 'absolute',
+            left: `${(i * 6 + 3) % 96}%`,
+            top: `${(i * 23 + 10) % 85}%`,
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            background: 'radial-gradient(#ffd98a, transparent 70%)',
+          });
+          dot.animate(
+            [
+              { transform: 'translateY(0)', opacity: 0.6 },
+              { transform: 'translateY(-12px)', opacity: 1 },
+            ],
+            { duration: 1200 + i * 90, iterations: Infinity, direction: 'alternate' },
+          );
+          ref.append(dot);
+        }
+        document.body.append(ref);
+      }, on);
+
+    // Noise on a shared runner only ever adds time, so each figure is the best of three rounds,
+    // and the reference is measured in the same rounds, right before the square.
+    const runs = { ref: [] as Measured[], idle: [] as Measured[], hover: [] as Measured[] };
+    for (let i = 0; i < 3; i++) {
+      await reference(true);
+      await page.waitForTimeout(500);
+      runs.ref.push(await measure(2000, false));
+      await reference(false);
+      await page.waitForTimeout(1500); // the square repaints once when it comes back
+      runs.idle.push(await measure(2000, false));
+      runs.hover.push(await measure(2000, true));
+    }
+    const best = (rs: Measured[]) => {
+      const min = (k: keyof Measured) => Math.min(...rs.map((r) => r[k] ?? Infinity));
       return { p95: min('p95'), compositor: min('compositor'), raster: min('raster') };
     };
-    const idle = await best(2000, false);
-    const hover = await best(2000, true);
-    console.log(`square idle ${JSON.stringify(idle)} hover ${JSON.stringify(hover)}`);
-    // Before #123 (same method): idle compositor 750–830 ms/s; hover p95 50 ms, raster ~105 ms/s.
-    // After: idle compositor ~370, hover p95 17 ms, raster ~45 (best of three: 343, 17, 10;
-    // the old square's best: 783, 50, 79).
-    expect(idle.p95).toBeLessThanOrEqual(34);
-    expect(hover.p95).toBeLessThanOrEqual(34);
-    expect(idle.compositor).toBeLessThan(650);
-    expect(hover.raster).toBeLessThan(60);
+    const [ref, idle, hover] = [best(runs.ref), best(runs.idle), best(runs.hover)];
+    console.log(
+      `reference ${JSON.stringify(ref)} square idle ${JSON.stringify(idle)} hover ${JSON.stringify(hover)}`,
+    );
+    const frame = 1000 / 60;
+    expect(idle.p95).toBeLessThanOrEqual(ref.p95 + frame);
+    expect(idle.compositor).toBeLessThan(ref.compositor * IDLE_RATIO);
+    expect(hover.compositor).toBeLessThan(ref.compositor * HOVER_RATIO);
+    expect(hover.raster).toBeLessThan(ref.compositor * HOVER_RASTER_RATIO);
   });
 });
