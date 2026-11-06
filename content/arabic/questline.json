@@ -12,7 +12,7 @@
         "number": 1,
         "title": "The Stranger at the Gate",
         "lessons": 8,
-        "intro": "Dust on your boots, the sun going down behind you. The caravanserai’s gate stands open, and lamplight spills across the courtyard. Over the arch, words are painted that you can’t read. The innkeeper, a broad woman with flour on her sleeves, looks you over. “You can’t read the signs on the road? Then sit. Every traveller starts with a few letters.”",
+        "intro": "Dust on your boots, the sun going down behind you. The caravanserai’s gate stands open, and lamplight spills across the courtyard. Over the arch, words are painted that you can’t read. The innkeeper, a broad woman with flour on her sleeves, looks you over. “You can’t read the signs on the road? Then sit. Every traveler starts with a few letters.”",
         "trial": {
           "name": "The Painted Sign",
           "text": "The innkeeper hands you the sign from over the arch. Read 30 words from all your letters at 90% or better, and she’ll write your name in her book.",
@@ -74,7 +74,7 @@
       "type": "milestone",
       "data": {
         "lesson": 6,
-        "text": "A traveller from the south says ق like a g, a man from the hills like a k, the innkeeper not at all. “Three ways, one letter,” she shrugs. “Listen to who’s talking.”"
+        "text": "A traveler from the south says ق like a g, a man from the hills like a k, the innkeeper not at all. “Three ways, one letter,” she shrugs. “Listen to who’s talking.”"
       }
     },
     {

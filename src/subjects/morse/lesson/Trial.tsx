@@ -140,7 +140,7 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
             <>
               <h2 className="lesson__title">The gate holds</h2>
               <p>
-                {trial.name} needs {Math.round(trial.accuracy * 100)}%. Practise in the lessons, or
+                {trial.name} needs {Math.round(trial.accuracy * 100)}%. Practice in the lessons, or
                 try again now.
               </p>
               <div className="lesson__actions">

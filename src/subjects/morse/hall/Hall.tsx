@@ -238,7 +238,7 @@ function Room({
       plaque: { x: 360, y: 900 },
       title: 'Lessons',
       text: trial
-        ? 'Practise your letters'
+        ? 'Practice your letters'
         : lessonNo === 1
           ? 'Lesson 1 · Hear K and M'
           : `Lesson ${lessonNo} · Add ${newest ?? ''}`,
