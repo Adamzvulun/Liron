@@ -1,25 +1,25 @@
 import { expect, test, type Page } from '@playwright/test';
 import { lettersOf } from '../src/subjects/arabic/letters.ts';
 import { inHebrewVowelled } from '../src/subjects/arabic/marks.ts';
-import { deckWord, listenForAudio, played, signedIn, type SubjectCall } from './fake-supabase.ts';
+import { lessonWord, listenForAudio, played, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // Review item 7: earlier flows clicked the first choice and accepted any outcome. These answer
 // on purpose, right or wrong, so the 90%-twice-on-different-days gate is checked end to end.
 
 // Everyday words made of lesson 1's letters (ا ب ت ن ي), shaped like the deck's rows.
 const WORDS = [
-  deckWord(1, 'بيت', 'house'),
-  deckWord(2, 'تين', 'figs'),
-  deckWord(3, 'أنا', 'I'),
-  deckWord(4, 'بنت', 'girl'),
-  deckWord(5, 'نبي', 'prophet'),
-  deckWord(6, 'يابا', 'dad'),
-  deckWord(7, 'بنّ', 'coffee beans'),
-  deckWord(8, 'تبن', 'hay'),
-  deckWord(9, 'باب', 'door'),
-  deckWord(10, 'بابا', 'pope'),
-  deckWord(11, 'تيت', 'aunt'),
-  deckWord(12, 'نت', 'internet'),
+  lessonWord(1, 'بيت', 'house'),
+  lessonWord(2, 'تين', 'figs'),
+  lessonWord(3, 'أنا', 'I'),
+  lessonWord(4, 'بنت', 'girl'),
+  lessonWord(5, 'نبي', 'prophet'),
+  lessonWord(6, 'يابا', 'dad'),
+  lessonWord(7, 'بنّ', 'coffee beans'),
+  lessonWord(8, 'تبن', 'hay'),
+  lessonWord(9, 'باب', 'door'),
+  lessonWord(10, 'بابا', 'pope'),
+  lessonWord(11, 'تيت', 'aunt'),
+  lessonWord(12, 'نت', 'internet'),
 ];
 const byPath = new Map(
   WORDS.map((w) => [(w.media[0] as { path: string }).path, (w.data as { arabic: string }).arabic]),
