@@ -18,6 +18,8 @@ const checkItemId = (itemId: string) => {
 };
 
 const MAX_RATED_ITEMS = 500;
+/** At most this many media links in one `mediaUrls` request. */
+export const MAX_MEDIA_LINKS = 100;
 /** Per session; the database enforces the same limits (ADR 0031). */
 const MAX_SESSION_ITEMS = 200;
 
@@ -66,6 +68,20 @@ export function subjectApi<State extends object>(
     if (skills && !skills.includes(skill)) {
       throw new RangeError(`${id} has no skill "${skill}" (it has: ${skills.join(', ')})`);
     }
+  };
+  /** The content source, once `path` is checked: a safe path some loaded pack of ours names. */
+  const checkedSource = (path: string): Promise<ContentSource> => {
+    if (!Media.shape.path.safeParse(path).success || path.split('/').includes('..')) {
+      return Promise.reject(new RangeError(`Invalid media path: "${String(path)}"`));
+    }
+    if (!content) return Promise.reject(new Error('No content source in this app'));
+    const source = content;
+    return Promise.allSettled(named.values()).then((sets) => {
+      if (!sets.some((r) => r.status === 'fulfilled' && r.value.has(path))) {
+        throw new RangeError(`${id}'s content doesn't name "${path}"`);
+      }
+      return source;
+    });
   };
   return {
     subjectId: id,
@@ -252,16 +268,18 @@ export function subjectApi<State extends object>(
       return pack;
     },
     mediaUrl(path) {
-      if (!Media.shape.path.safeParse(path).success || path.split('/').includes('..')) {
-        return Promise.reject(new RangeError(`Invalid media path: "${String(path)}"`));
+      return checkedSource(path).then((source) => source.mediaUrl(path));
+    },
+    mediaUrls(paths) {
+      if (paths.length > MAX_MEDIA_LINKS) {
+        return Promise.reject(new RangeError(`mediaUrls: at most ${MAX_MEDIA_LINKS} at a time`));
       }
-      if (!content) return Promise.reject(new Error('No content source in this app'));
-      const source = content;
-      return Promise.allSettled(named.values()).then((sets) => {
-        if (!sets.some((r) => r.status === 'fulfilled' && r.value.has(path))) {
-          throw new RangeError(`${id}'s content doesn't name "${path}"`);
-        }
-        return source.mediaUrl(path);
+      const unique = [...new Set(paths)];
+      return Promise.all(unique.map(checkedSource)).then(async ([source]) => {
+        if (!source) return new Map<string, string>();
+        if (source.mediaUrls) return source.mediaUrls(unique);
+        const urls = await Promise.all(unique.map((p) => source.mediaUrl(p)));
+        return new Map(unique.map((p, i) => [p, urls[i] ?? '']));
       });
     },
   };

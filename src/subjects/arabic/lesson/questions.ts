@@ -18,7 +18,7 @@ import {
   withMarks,
   type Mark,
 } from '../marks.ts';
-import { readableWith, type Word } from '../words.ts';
+import { readableWith, untagged, type Word } from '../words.ts';
 
 export const LISTEN_COUNT = 10;
 export const READ_COUNT = 8;
@@ -58,7 +58,7 @@ export type KnownChoices = 'sound' | 'latin';
 export const LATIN_AFTER = 2;
 
 /** The deck's romanisation without its notes ("nās [pl.]" → "nās"). */
-export const latinOf = (w: Word) => w.sound.replace(/\s*\[.*?\]\s*/g, '').trim();
+export const latinOf = (w: Word) => untagged(w.sound);
 
 /** From this lesson on, every other Read word is shown bare: real signs and messages are. */
 export const FADE_FROM = 4;
@@ -132,7 +132,7 @@ export function listenQuestions(
  * See a word you can read, pick its sound. The word shows the marks you know, and the choices
  * carry them as niqqud: one wrong choice is often the same word with a vowel changed, so the
  * marks are read too. Other readable words make the rest. From FADE_FROM, every other word is
- * shown bare, with bare choices.
+ * shown bare, with bare choices, unless only its marks tell it from another word.
  */
 /**
  * The word with one letter swapped for a known letter that differs only in its dots (بيت → تيت),
@@ -169,7 +169,8 @@ export function readQuestions(
     bare ? w.hebrew : (inHebrewVowelled(withMarks(w.arabic, marks)) ?? w.hebrew);
   const latinPool = [...new Set(readable.map(latinOf))].filter((l) => l && !/\s/.test(l));
   return chosen.map((word, i): ReadQuestion => {
-    const bare = lesson >= FADE_FROM && i % 2 === 1;
+    // A homograph keeps its marks: without them it could be either word.
+    const bare = lesson >= FADE_FROM && i % 2 === 1 && !word.homograph;
     const shown = withMarks(word.arabic, bare ? [] : marks);
     const latin = latinOf(word);
     const wellKnown = word.letters.every((l) => l.lesson <= lesson - LATIN_AFTER);
@@ -236,6 +237,17 @@ export function readQuestions(
       choices: shuffle([answer, ...wrong], rand),
     };
   });
+}
+
+/** Every recording a session can play: its words, and the choices of a recording question. */
+export function sessionAudio(questions: readonly Question[]): string[] {
+  return [
+    ...new Set(
+      questions.flatMap((q) =>
+        q.kind === 'read' && q.script === 'sound' ? [q.word.audio, ...q.choices] : [q.word.audio],
+      ),
+    ),
+  ];
 }
 
 /** A seeded random number generator (mulberry32), so a session can be replayed in tests. */

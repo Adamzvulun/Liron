@@ -46,7 +46,11 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
   const [saveFailed, setSaveFailed] = useState(false);
   const [stage, setStage] = useState<Stage>({ kind: 'start' });
   const [started, setStarted] = useState(0);
-  const play = useAudio(api);
+  // The set's recordings, signed together as soon as it's known (#124).
+  const setAudio = (all?.[Math.min(progress?.phraseSet ?? 1, PHRASE_SETS.length) - 1] ?? []).map(
+    (p) => p.audio,
+  );
+  const play = useAudio(api, setAudio);
 
   useEffect(() => {
     let live = true;
