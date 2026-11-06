@@ -61,8 +61,10 @@ test.describe('Arabic script lessons (#38–#41)', () => {
     await expect(page.getByText('Session done')).toBeVisible();
     await expect(page.getByText(/^\d+%$/)).toBeVisible();
 
-    // Saved: the lesson's letters met, reviews for letters, ratings for listen and read.
-    await expect.poll(() => calls.some((c) => c.rpc === 'record_progress')).toBe(true);
+    // Saved: the lesson's letters met, reviews for letters, ratings for listen and read. Wait
+    // for the save itself: XP (and so record_progress) depends on whether the random questions'
+    // first choices were right, and a session of only wrong answers earns none.
+    await expect.poll(() => calls.some((c) => c.rpc === 'save_subject_state')).toBe(true);
     const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
       p_state: { met: string[]; sessions: number };
     };
