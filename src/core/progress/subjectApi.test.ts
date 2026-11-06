@@ -133,6 +133,30 @@ describe('private content (ADR 0023)', () => {
     await expect(bare.privateContent('lingualism-pcav')).rejects.toThrow(/No content source/);
     await expect(bare.mediaUrl('lingualism-pcav/a.mp3')).rejects.toThrow(/No content source/);
   });
+
+  it('signs several named files in one request, and refuses any unnamed one (#124)', async () => {
+    const { source } = fakeContent();
+    const batches: string[][] = [];
+    const api = subjectApi({ id: 'arabic' }, memoryStore(), undefined, {
+      ...source,
+      mediaUrls: async (paths) => {
+        batches.push([...paths]);
+        return new Map(paths.map((p) => [p, `https://media.test/${p}`]));
+      },
+    });
+    await api.privateContent('lingualism-pcav');
+    const ok = 'lingualism-pcav/pcav01-1.mp3';
+    expect(await api.mediaUrls([ok, ok])).toEqual(new Map([[ok, `https://media.test/${ok}`]]));
+    expect(batches).toEqual([[ok]]);
+    await expect(api.mediaUrls([ok, 'lingualism-pcav/other.mp3'])).rejects.toThrow(/doesn't name/);
+    await expect(api.mediaUrls([ok, '../x'])).rejects.toThrow(RangeError);
+    await expect(api.mediaUrls(Array(101).fill(ok))).rejects.toThrow(/at most 100/);
+    expect(batches).toHaveLength(1);
+    // A source without batches is asked one path at a time.
+    const single = subjectApi({ id: 'arabic' }, memoryStore(), undefined, source);
+    await single.privateContent('lingualism-pcav');
+    expect(await single.mediaUrls([ok])).toEqual(new Map([[ok, `https://media.test/${ok}`]]));
+  });
 });
 
 describe('saveSession (ADR 0031)', () => {

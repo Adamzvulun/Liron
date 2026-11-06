@@ -5,7 +5,7 @@ import { applyTrial, parseProgress, type ArabicProgress } from '../progress.ts';
 import { CHAPTER, questStatus } from '../questline.ts';
 import { ArabicText } from '../ArabicText.tsx';
 import { DECK, wordsFrom, type Word } from '../words.ts';
-import { readQuestions, seeded, type Question } from './questions.ts';
+import { readQuestions, seeded, type Question, sessionAudio } from './questions.ts';
 import { reportSession, scoreOf, xpFor, type Answer } from './report.ts';
 import { Practice } from './ScriptLesson.tsx';
 import { useAudio } from './useAudio.ts';
@@ -25,7 +25,7 @@ export function Trial({ api }: { api: SubjectApi }) {
   const [failed, setFailed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
   const [stage, setStage] = useState<Stage>({ kind: 'start' });
-  const play = useAudio(api);
+  const play = useAudio(api, stage?.kind === 'practice' ? sessionAudio(stage.questions) : []);
   const trial = CHAPTER.trial;
 
   useEffect(() => {
