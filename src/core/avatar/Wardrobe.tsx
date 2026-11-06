@@ -50,7 +50,7 @@ export function Wardrobe({
         <div className="wardrobe__mirror">
           <div className="wardrobe__room" aria-hidden="true" />
           <Avatar look={look} className="wardrobe__figure" />
-          <p className="wardrobe__name">{name || 'Traveller'}</p>
+          <p className="wardrobe__name">{name || 'Traveler'}</p>
         </div>
 
         <div className="wardrobe__actions">
@@ -147,7 +147,7 @@ export function Wardrobe({
             </Option>
           ))}
         </Choice>
-        <Choice label="Hair colour">
+        <Choice label="Hair color">
           {HAIR_COLOURS.map((c) => (
             <Option
               key={c.id}

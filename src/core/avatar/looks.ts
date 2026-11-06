@@ -40,7 +40,7 @@ export const HAIR_COLOURS = [
   { id: 'brown', label: 'Brown', light: '#7A4E30', dark: '#2E1A0E' },
   { id: 'auburn', label: 'Auburn', light: '#B0583A', dark: '#5A2214' },
   { id: 'blond', label: 'Blond', light: '#F0D08A', dark: '#A8783A' },
-  { id: 'grey', label: 'Grey', light: '#D8D4CC', dark: '#7A746C' },
+  { id: 'grey', label: 'Gray', light: '#D8D4CC', dark: '#7A746C' },
 ] as const;
 
 export const BEARDS = [
@@ -75,7 +75,7 @@ export interface GearItem {
  * An empty slot shows the plain clothes underneath (linen shirt, trousers, shoes).
  */
 export const GEAR: readonly GearItem[] = [
-  { id: 'tunic', slot: 'torso', name: "Traveller's tunic", starter: true },
+  { id: 'tunic', slot: 'torso', name: "Traveler's tunic", starter: true },
   { id: 'wrap', slot: 'head', name: 'Desert wrap', starter: true },
   { id: 'satchel', slot: 'back', name: 'Courier satchel', starter: true },
   { id: 'staff', slot: 'hand', name: 'Walking staff', starter: true },
@@ -130,7 +130,7 @@ export const lookSchema = z.object({
 });
 export type Look = z.infer<typeof lookSchema>;
 
-/** The look a new player starts with: the traveller from the city concept. */
+/** The look a new player starts with: the traveler from the city concept. */
 export const DEFAULT_LOOK: Look = {
   build: 'average',
   skin: 'sand',

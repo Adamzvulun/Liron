@@ -29,7 +29,7 @@ async function answerFirst(page: Page) {
 }
 
 test.describe('Arabic script lessons (#38–#41)', () => {
-  test('meet the first letters, practise, and the session is saved', async ({ page }) => {
+  test('meet the first letters, practice, and the session is saved', async ({ page }) => {
     const calls: SubjectCall[] = [];
     await signedIn(page, [], calls, null, WORDS);
     await page.goto('/caravanserai');

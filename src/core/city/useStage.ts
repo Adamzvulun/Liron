@@ -31,13 +31,13 @@ export function useStage(startX: number, fit: typeof stageFit = stageFit) {
   }, [fit]);
   // Keep the same spot in the middle when the scale changes (the HUD loading above shrinks the
   // view); start at `startX`.
-  const centre = useRef(startX);
+  const center = useRef(startX);
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || !view.pan) return;
-    el.scrollLeft = centre.current * view.scale - el.clientWidth / 2;
+    el.scrollLeft = center.current * view.scale - el.clientWidth / 2;
     const remember = () => {
-      centre.current = (el.scrollLeft + el.clientWidth / 2) / view.scale;
+      center.current = (el.scrollLeft + el.clientWidth / 2) / view.scale;
     };
     el.addEventListener('scroll', remember, { passive: true });
     return () => el.removeEventListener('scroll', remember);
