@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import { REVIEWS } from '../src/subjects/arabic/words.ts';
 
 // The e2e build points at this address (playwright.config.ts). Nothing listens there:
 // every request is answered by page.route below, so tests never touch a real project.
@@ -244,6 +245,16 @@ export const deckWord = (n: number, arabic: string, english: string): ContentRow
   media: [{ kind: 'audio', store: 'private', path: `lingualism-pcav/w${n}.mp3` }],
   tags: [],
 });
+
+/**
+ * A deck-like lesson-1 word under the id of the `n`th word in the reviewed lesson-1 list
+ * (content/arabic/lesson-words.json, #125): a reviewed lesson uses only listed ids.
+ */
+export const lessonWord = (n: number, arabic: string, english: string): ContentRow => {
+  const id = REVIEWS.find((r) => r.lesson === 1)?.words[n - 1]?.deck;
+  if (!id) throw new Error(`no reviewed lesson-1 word number ${n}`);
+  return { ...deckWord(n, arabic, english), item_id: id };
+};
 
 /** 0.1 s of silence, as a WAV file. */
 const SILENT_WAV = (() => {
