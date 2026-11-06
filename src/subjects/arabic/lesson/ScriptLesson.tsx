@@ -11,6 +11,7 @@ import {
   seeded,
   type KnownChoices,
   type Question,
+  sessionAudio,
 } from './questions.ts';
 import { LESSON_BONUS, reportSession, scoreOf, xpFor, type Answer } from './report.ts';
 import { useAudio } from './useAudio.ts';
@@ -64,7 +65,7 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
   const [failed, setFailed] = useState<string | null>(null);
   const [saveFailed, setSaveFailed] = useState(false);
   const [stage, setStage] = useState<Stage | null>(null);
-  const play = useAudio(api);
+  const play = useAudio(api, stage?.kind === 'practice' ? sessionAudio(stage.questions) : []);
 
   useEffect(() => {
     let live = true;
