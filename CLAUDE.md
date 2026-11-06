@@ -42,6 +42,7 @@ See [`docs/process/WORKFLOW.md`](docs/process/WORKFLOW.md). In short:
 ## Conventions
 
 - Docs are Markdown in git. If code and docs disagree, fix whichever one is wrong in the same PR.
+- **American English** in everything a player sees: practice (not practise), traveler, color, gray, center. `tests/spelling.test.ts` checks the app and `content/`. Stored ids and keys (`hairColour`, the `grey` hair id) stay as saved profiles use them. Fix docs to American as you touch them (#126).
 - Content (letters, words, Morse characters, lessons) is **data**, not code. It lives in `content/` once that exists.
 - Commits are small, written in the imperative mood, and reference an issue where one exists.
 - Don't pick a technology without an ADR.

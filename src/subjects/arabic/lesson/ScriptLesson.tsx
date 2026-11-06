@@ -242,7 +242,7 @@ const ONLY_TEXT = {
   listen: {
     place: 'The fountain',
     title: 'Which letter?',
-    text: 'Travellers call out words by the water. Name the first letter of each.',
+    text: 'Travelers call out words by the water. Name the first letter of each.',
   },
   read: {
     place: 'The storyteller',
@@ -349,7 +349,7 @@ function Start({
           Meet the letters again
         </button>
         <button type="button" className="lesson__go" onClick={onStart}>
-          Practise
+          Practice
         </button>
       </div>
     </div>
@@ -770,7 +770,7 @@ function Result({
       )}
       <p className="arabic__xp">+{xpFor(answers, passed ? LESSON_BONUS : 0)} XP</p>
       <button type="button" className="lesson__go" onClick={onAgain}>
-        Practise again
+        Practice again
       </button>
     </div>
   );

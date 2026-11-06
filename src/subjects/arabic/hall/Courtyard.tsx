@@ -126,7 +126,7 @@ function Scene({
       id: 'scribe',
       title: 'The scribe’s table',
       text: progress.done ? (
-        'Every letter learned · practise'
+        'Every letter learned · practice'
       ) : (
         <>
           Lesson {progress.lesson} · <Ar>{lesson?.letters.map((l) => l.letter).join(' ') ?? ''}</Ar>
