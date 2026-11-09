@@ -43,11 +43,31 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 9 | A day's work | Work, School and Education |
 | 10 | Sun, wind and heart | Weather, Feelings, Likes and Dislikes |
 
+- **Words 301–600 (#163, 2026-11-09):** 10 more chapters from the rest of the deck's A1 words, in the same way. They keep the first 300's order rules and gloss rules:
+
+| Chapter | Theme | Deck sections it draws on |
+|---|---|---|
+| 11 | Clothes and colors | Clothing, Colors, The Human Body, Quantity |
+| 12 | Family and friends | Life and Death, Family, Love, Names, Personality, Religion |
+| 13 | Breakfast to dinner | Food and Drink |
+| 14 | Home comforts | The House, Adjectives, Verbs |
+| 15 | School days | School and Education, Books, Language, The Mind |
+| 16 | Letters and screens | Technology, Post Office, Recreation |
+| 17 | Time off | Recreation, Music, Games and Sports, Around Town |
+| 18 | The long road | Travel, Getting Around, Countries (the lands around Palestine), Earth |
+| 19 | Wild and tame | Earth and Space, Weather, Animals, Agriculture, Plant Life |
+| 20 | Counting higher | Numbers (11–90, a thousand), Time (weekdays), Measurements |
+
+  - **Left out as the same word:** where the deck lists a word again in another section with the same Arabic (teacher, bank, sun, *why*…), the path teaches it once.
+  - **Variants are in:** where the deck gives a second common word for the same thing (بيْت *house* beside دار, كُنْدرة *shoes* beside جزْمة), the second comes in these chapters, so both are heard.
+  - **131 of the 600 words carry a deck sentence.** The matching is the same as for the first 300. By eye I removed 8 wrong matches, where the sentence holds a related word but not the word itself (*to have*, *to make dinner*, *to make coffee*, *to turn the TV on* and *off*, *to play a game*, *to book*, *to take the train*).
+  - **Still to come (ordered, not cut):** the rest of A1 (the months, the hundreds and thousands, more countries and languages, and some small words), then A2 up to word 1,000. The regulars of "The Long Road In" cover chapters 1–10; the story for chapters 11 onward comes with that next step.
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
 - **Not picked for the first 300:** near-duplicates (the deck has three ways to say *hi*; one is taught), brand names, and adult words. Every other A1 word waits for words 301–1,000; none is dropped.
-- **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters. That's later in E11 (#163); it's ordered, not cut.
+- **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters (#163). Words 301–600 are in (below); the rest is ordered, not cut.
 
 - **The list** is `content/arabic/core-words.json`, made from the deck by a script that checks every id is A1 and appears once.
 

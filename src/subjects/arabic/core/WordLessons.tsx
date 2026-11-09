@@ -275,7 +275,7 @@ export function WordLessons({ api }: { api: SubjectApi }) {
           <p>
             {stage.passed
               ? progress.words.done
-                ? 'Chapter passed! That’s all 300 words.'
+                ? `Chapter passed! That’s all ${WORD_CHAPTERS.length * 30} words.`
                 : `Chapter passed! Next: ${WORD_CHAPTERS[progress.words.chapter - 1]?.title ?? ''}.`
               : stage.sameDay
                 ? 'Another good session. Come back tomorrow for the second pass.'
