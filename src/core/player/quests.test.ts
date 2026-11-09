@@ -34,4 +34,29 @@ describe("today's quests (ADR 0019)", () => {
     expect(quests).toHaveLength(2);
     expect(quests[0]?.reward).toBeUndefined();
   });
+
+  it('tracks a started questline in place of its plain line (#47)', () => {
+    const status = {
+      questline: 'The Silent Beacon',
+      chapter: 'I: Embers',
+      done: 8,
+      total: 8,
+      unit: 'lamps',
+      next: 'Trial: The Gatekeeper',
+    };
+    const [line] = todaysQuests([tower], 15, new Map([['beacon', status]]));
+    expect(line).toEqual({
+      giver: 'Beacon Hall',
+      text: 'The Silent Beacon I: Embers',
+      progress: '8/8 lamps · Trial: The Gatekeeper',
+      href: '/signal-tower',
+      color: 'red',
+    });
+    const [plain] = todaysQuests(
+      [tower],
+      15,
+      new Map([['beacon', { ...status, next: undefined }]]),
+    );
+    expect(plain?.progress).toBe('8/8 lamps');
+  });
 });

@@ -25,6 +25,25 @@ export interface SubjectQuest {
   script?: { text: string; lang: string; dir: 'ltr' | 'rtl' };
 }
 
+/**
+ * Where a subject's main questline stands (ADR 0032, #47), e.g. The Silent Beacon, chapter
+ * "I: Embers", 6 of 8 lamps. The platform shows it on the Notice Board and in the HUD, linking
+ * to the subject's building; the story itself stays in the subject's content.
+ */
+export interface QuestlineStatus {
+  /** The questline's name. */
+  questline: string;
+  /** The chapter the learner is in, with its number. */
+  chapter: string;
+  /** Steps done in this chapter, and how many it has. */
+  done: number;
+  total: number;
+  /** What a step is called, plural ("lamps", "milestones"). */
+  unit: string;
+  /** What's next when it isn't another step, e.g. the chapter's trial. */
+  next?: string;
+}
+
 /** What the platform knows about a subject. */
 export interface SubjectInfo {
   /** Stable id, used in URLs and storage keys. Never change it once used. */
@@ -45,6 +64,12 @@ export interface SubjectInfo {
    * Shown with no reward until quests are real (E10, #46).
    */
   quest?: SubjectQuest;
+  /**
+   * Where its main questline stands, from its own saved state (ADR 0032), or null before the
+   * learner has started it. Async so a subject can load its questline lazily, keeping the
+   * square's first load small (#124).
+   */
+  questStatus?: (state: unknown) => Promise<QuestlineStatus | null>;
   /**
    * The skills this subject rates separately (ADR 0010), e.g. Morse: receive, send, head-copy.
    * Same format as subject ids. If listed, ratings for any other skill are refused.

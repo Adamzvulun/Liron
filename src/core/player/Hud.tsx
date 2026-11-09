@@ -7,6 +7,7 @@ import { MAX_NAME_LENGTH } from '../progress/store.ts';
 import { CoinIcon, FlameIcon, GearIcon, GemIcon } from './icons.tsx';
 import type { SubjectInfo } from '../subject.ts';
 import type { PlayerState } from './player.ts';
+import type { Questlines } from './questlines.ts';
 import { todaysQuests } from './quests.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
@@ -25,8 +26,13 @@ export interface HudActions {
 export function Hud({
   state,
   subjects,
+  questlines,
   ...actions
-}: { state: PlayerState; subjects: readonly SubjectInfo[] } & HudActions) {
+}: {
+  state: PlayerState;
+  subjects: readonly SubjectInfo[];
+  questlines?: Questlines;
+} & HudActions) {
   if (state.error) {
     return (
       <p className="hud__error" role="status">
@@ -47,7 +53,7 @@ export function Hud({
         Waymark
       </div>
       <Purse state={state} {...actions} />
-      {today && <QuestTracker today={today} subjects={subjects} />}
+      {today && <QuestTracker today={today} subjects={subjects} questlines={questlines} />}
     </div>
   );
 }
@@ -259,9 +265,12 @@ function GoalPicker({
 export function QuestTracker({
   today,
   subjects,
+  questlines,
 }: {
   today: NonNullable<PlayerState['today']>;
   subjects: readonly SubjectInfo[];
+  /** Started questlines, shown in place of their subjects' plain lines (#47). */
+  questlines?: Questlines;
 }) {
   const shown = Math.min(today.minutes, today.goalMinutes);
   return (
@@ -290,7 +299,7 @@ export function QuestTracker({
         />
       </div>
       <ul className="hud__questlist">
-        {todaysQuests(subjects, today.goalMinutes).map((q) => (
+        {todaysQuests(subjects, today.goalMinutes, questlines).map((q) => (
           <li key={q.giver}>
             <Link className="hud__quest" href={q.href} style={{ borderLeftColor: q.color }}>
               <span className="hud__questgiver" style={{ color: q.color }}>
@@ -307,6 +316,7 @@ export function QuestTracker({
                   </>
                 )}
               </span>
+              {q.progress && <span className="hud__questprogress">{q.progress}</span>}
               {q.reward && <span className="hud__questreward">{q.reward}</span>}
             </Link>
           </li>
