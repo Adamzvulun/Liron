@@ -40,6 +40,6 @@ A chest whose contents are rolled in the browser can be rerolled by reloading. A
 
 ## Consequences
 - Every reward in E10 is paid by the database. The browser only shows what it's told.
-- About 18 more gear items need drawing (3 per slot) before the Market has enough to sell. That's E10's biggest art job.
+- About 18 more gear items need drawing (3 per slot) before the Market has enough to sell. That's E10's biggest art job. *(Built in #49: 16 wares, 2 or 3 per slot, plus 4 tunic dyes as the `color` kind. A dye is saved in the look as `dye` and kept only if owned.)*
 - The catalogue lives in JSON and in migrations. Changing an item means a new migration; the test keeps them equal.
 - The seed comes from the chest id, so the drop table at opening time decides the contents. A chest granted before a table change opens with the new table. That's fine.

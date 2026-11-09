@@ -1,4 +1,4 @@
-import { HAIR_COLOURS, SKINS, type Look, type SlotId } from './looks.ts';
+import { DYES, HAIR_COLOURS, SKINS, type Look, type SlotId } from './looks.ts';
 
 // Paints the paper-doll avatar (#28) as SVG markup, in the city's style (ADR 0006 amendment 3):
 // every surface a gradient lit from the upper left, ink outlines, a shadow cast to the lower
@@ -58,6 +58,22 @@ export const PAINTED_GEAR = [
   'staff',
   'wrap',
   'headset',
+  'tarboosh',
+  'sunhat',
+  'turban',
+  'vest',
+  'robe',
+  'coat',
+  'sirwal',
+  'silks',
+  'sandals',
+  'ridingboots',
+  'flags',
+  'scroll',
+  'lamp',
+  'bedroll',
+  'oud',
+  'banner',
 ];
 
 export interface PaintOptions {
@@ -113,35 +129,107 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     )}" ${OUT()}/>`;
   }
 
+  if (wear('back') === 'bedroll') {
+    // A rolled blanket across the shoulders, behind the head.
+    back += `<rect x="${cx - sh - 24}" y="114" width="${2 * sh + 48}" height="26" rx="13" fill="${g.lin(
+      [
+        [0, '#D9785A'],
+        [0.6, '#A8452E'],
+        [1, '#5E2214'],
+      ],
+      0,
+      1,
+    )}" ${OUT(3)}/>`;
+    for (const x of [-0.75, 0, 0.75])
+      back += `<path d="M${cx + x * (sh + 16)} 115 V139" stroke="#F2D49A" stroke-width="4"/>`;
+  }
+  if (wear('back') === 'oud') {
+    // The lute's round body peeks out at the viewer's left; its neck rises over the shoulder.
+    back += `<path d="M${cx - 6} 168 L${cx - sh - 26} 70" stroke="${INK}" stroke-width="12" stroke-linecap="round"/><path d="M${cx - 6} 168 L${cx - sh - 26} 70" stroke="#8A5530" stroke-width="7" stroke-linecap="round"/>`;
+    back += `<path d="M${cx - sh - 26} 72 L${cx - sh - 40} 58" stroke="${INK}" stroke-width="10" stroke-linecap="round"/><path d="M${cx - sh - 26} 72 L${cx - sh - 40} 58" stroke="#5A3418" stroke-width="5" stroke-linecap="round"/>`;
+    back += `<ellipse cx="${cx - sh - 4}" cy="206" rx="26" ry="34" fill="${g.rad([
+      [0, '#E0A060'],
+      [0.6, '#A8642E'],
+      [1, '#5A3010'],
+    ])}" ${OUT()} transform="rotate(25 ${cx - sh - 4} 206)"/>`;
+    back += `<circle cx="${cx - sh - 10}" cy="200" r="6" fill="${INK}" opacity=".7"/>`;
+  }
+  if (wear('back') === 'banner') {
+    // A pole behind the viewer's right shoulder, with the guild's gold pennant.
+    const px = cx + sh + 14;
+    back += `<path d="M${px} 296 L${px + 4} 22" stroke="${INK}" stroke-width="10" stroke-linecap="round"/><path d="M${px} 296 L${px + 4} 22" stroke="#B07A2A" stroke-width="5" stroke-linecap="round"/>`;
+    back += `<path d="M${px + 4} 30 L${px + 56} 38 L${px + 42} 58 L${px + 56} 78 L${px + 4} 82 Z" fill="${g.lin(
+      [
+        [0, '#FFE39A'],
+        [1, '#C8902A'],
+      ],
+    )}" ${OUT(3)}/>`;
+    back += `<circle cx="${px + 24}" cy="56" r="9" fill="#2E8FA3" stroke="${INK}" stroke-width="2.4"/><circle cx="${px + 24}" cy="56" r="3.5" fill="#FFD36B"/>`;
+    back += `<circle cx="${px + 4}" cy="20" r="6" fill="#FFD36B" stroke="${INK}" stroke-width="2.4"/>`;
+  }
+
   // ---- back hair (falls behind the shoulders)
   if (look.hair === 'long') {
     back += `<path d="M${cx - 40} 84 Q${cx - 50} 150 ${cx - 36} 166 Q${cx} 174 ${cx + 36} 166 Q${cx + 50} 150 ${cx + 40} 84 Z" fill="${hair}" ${OUT()}/>`;
   }
 
-  // ---- legs (trousers, or breeches)
-  const breeches = wear('legs') === 'breeches';
-  const legFill = breeches
-    ? g.lin([
-        [0, '#C9A06A'],
-        [1, '#7A5530'],
-      ])
-    : g.lin([
-        [0, '#5A6A8A'],
-        [1, '#26324A'],
-      ]);
+  // ---- legs (trousers, breeches, sirwal or silks)
+  const legs = wear('legs');
+  const breeches = legs === 'breeches';
+  const [legLight, legDark] =
+    legs === 'breeches'
+      ? ['#C9A06A', '#7A5530']
+      : legs === 'sirwal'
+        ? ['#E6D3AE', '#8A7A52']
+        : legs === 'silks'
+          ? ['#6A7AC8', '#1E2660']
+          : ['#5A6A8A', '#26324A'];
+  const legFill = g.lin([
+    [0, legLight],
+    [1, legDark],
+  ]);
   const legW = sh * 0.36 + 5;
   for (const side of [-1, 1]) {
     const x0 = cx + side * 3;
     const x1 = cx + side * (legW + 4);
     const [l, r] = side < 0 ? [x1, x0] : [x0, x1];
+    if (legs === 'sirwal') {
+      // Baggy, gathered at the ankle.
+      body += `<path d="M${x0} 212 L${x1} 212 Q${x1 + side * 14} 252 ${x1 - side * 3} 282 L${x0 + side * 2} 282 Q${x0 - side * 4} 250 ${x0} 212 Z" fill="${legFill}" ${OUT(3)}/>`;
+      body += `<path d="M${x1 - side * 4} 280 L${x0 + side * 3} 280 L${x0 + side * 3} 290 L${x1 - side * 4} 290 Z" fill="#8A7A52" ${OUT(2.6)}/>`;
+      continue;
+    }
     body += `<path d="M${l} 212 L${r} 212 L${r - side * 1} 290 Q${(l + r) / 2} 293 ${l + side * 1} 290 Z" fill="${legFill}" ${OUT(3)}/>`;
+    if (legs === 'silks')
+      body += `<path d="M${x1 - side * 4} 216 L${x1 - side * 5} 286" stroke="#FFD36B" stroke-width="3.2" stroke-linecap="round"/>`;
     if (breeches)
       body += `<path d="M${l + 1} 262 H${r - 1}" stroke="#5A3418" stroke-width="5"/><path d="M${l + 1} 262 H${r - 1}" stroke="${INK}" stroke-width="1.6" opacity=".6"/>`;
   }
 
   // ---- feet
   const boots = wear('feet') === 'boots';
+  const riding = wear('feet') === 'ridingboots';
+  const sandals = wear('feet') === 'sandals';
   for (const side of [-1, 1]) {
+    if (sandals || riding) {
+      const inner = cx + side * 2;
+      const outer = cx + side * (legW + 10);
+      const [l, r] = side < 0 ? [outer, inner] : [inner, outer];
+      if (sandals) {
+        body += `<path d="M${l + 3} 288 H${r - 3} Q${r + 2} ${fy - 4} ${r} ${fy} H${l} Q${l - 2} ${fy - 4} ${l + 3} 288 Z" fill="${skinFlat}" ${OUT(2.6)}/>`;
+        body += `<path d="M${l - 1} ${fy} H${r + 1}" stroke="#5A3418" stroke-width="4" stroke-linecap="round"/><path d="M${l + 2} 292 L${r - 2} 296 M${r - 2} 292 L${l + 2} 296" stroke="#8A5530" stroke-width="3" stroke-linecap="round"/>`;
+      } else {
+        const top = 238;
+        body += `<path d="M${l + 1} ${top} H${r - 1} Q${r + 2} ${fy - 4} ${r} ${fy} H${l} Q${l - 2} ${fy - 4} ${l + 1} ${top} Z" fill="${g.lin(
+          [
+            [0, '#4A3A34'],
+            [1, '#120C0A'],
+          ],
+        )}" ${OUT(2.8)}/>`;
+        body += `<path d="M${l} ${top + 3} H${r}" stroke="#7A5A44" stroke-width="7"/><rect x="${(l + r) / 2 - 5}" y="${top + 18}" width="10" height="9" rx="2" fill="#FFD36B" stroke="${INK}" stroke-width="2"/>`;
+      }
+      continue;
+    }
     const inner = cx + side * 2;
     const outer = cx + side * (legW + 10);
     const [l, r] = side < 0 ? [outer, inner] : [inner, outer];
@@ -158,41 +246,62 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       body += `<path d="M${l + 1} ${fy - 6} H${r - 1}" stroke="#E0965A" stroke-width="4" stroke-linecap="round"/><path d="M${l + 2} ${top + 6} H${r - 2}" stroke="#5A3418" stroke-width="3"/>`;
   }
 
-  // ---- torso: plain linen shirt, or the tunic
-  const tunic = wear('torso') === 'tunic';
-  const hem = tunic ? 236 : 218;
+  // ---- torso: plain linen shirt, the tunic (in its dye), or a ware
+  const top = wear('torso');
+  const tunic = top === 'tunic';
+  const dye = DYES.find((d) => d.id === look.dye);
+  const cloth = tunic
+    ? dye
+      ? ([dye.light, dye.mid, dye.dark] as const)
+      : (['#5FC0D2', '#2E8FA3', '#174E5A'] as const)
+    : top === 'robe'
+      ? (['#6A7AC8', '#2E3A8A', '#141A44'] as const)
+      : top === 'coat'
+        ? (['#E0665A', '#A8302A', '#4A0E0C'] as const)
+        : (['#FBF1D8', '#E6D3AE', '#A8916A'] as const);
+  const hem = tunic ? 236 : top === 'robe' ? 266 : top === 'coat' ? 258 : 218;
   const torso = `M${cx - 12} 128 Q${cx} 132 ${cx + 12} 128 L${cx + sh} 140 Q${cx + sh + 4} 150 ${cx + sh - 2} 166 L${cx + sh - 6} ${hem} Q${cx} ${hem + 6} ${cx - sh + 6} ${hem} L${cx - sh + 2} 166 Q${cx - sh - 4} 150 ${cx - sh} 140 Z`;
   body += `<path d="M${cx - 9} 112 H${cx + 9} V136 H${cx - 9} Z" fill="${skinFlat}" ${OUT(3)}/>`;
-  body += `<path d="${torso}" fill="${
-    tunic
-      ? g.lin(
-          [
-            [0, '#5FC0D2'],
-            [0.5, '#2E8FA3'],
-            [1, '#174E5A'],
-          ],
-          1,
-          0.6,
-        )
-      : g.lin(
-          [
-            [0, '#FBF1D8'],
-            [0.6, '#E6D3AE'],
-            [1, '#A8916A'],
-          ],
-          1,
-          0.6,
-        )
-  }" ${OUT()}/>`;
+  body += `<path d="${torso}" fill="${g.lin(
+    [
+      [0, cloth[0]],
+      [0.55, cloth[1]],
+      [1, cloth[2]],
+    ],
+    1,
+    0.6,
+  )}" ${OUT()}/>`;
+  const trim = (d: string) =>
+    `<path d="${d}" stroke="${INK}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="${d}" stroke="#FFD36B" stroke-width="3.4" fill="none" stroke-linecap="round"/>`;
+  if (top === 'robe') {
+    body += trim(`M${cx} 132 L${cx} ${hem + 2}`);
+    body += trim(`M${cx - sh + 7} ${hem - 2} Q${cx} ${hem + 4} ${cx + sh - 7} ${hem - 2}`);
+    body += `<path d="M${cx - sh + 4} 198 Q${cx} 204 ${cx + sh - 4} 198" stroke="${INK}" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M${cx - sh + 4} 198 Q${cx} 204 ${cx + sh - 4} 198" stroke="#E8A93A" stroke-width="6" fill="none"/>`;
+  } else if (top === 'coat') {
+    body += trim(`M${cx} 134 L${cx} ${hem + 2}`);
+    for (const y of [160, 184, 208])
+      body += `<circle cx="${cx + 7}" cy="${y}" r="4.5" fill="#FFD36B" stroke="${INK}" stroke-width="2"/>`;
+    for (const side of [-1, 1])
+      body += `<path d="M${cx + side * (sh - 12)} 134 Q${cx + side * (sh + 6)} 136 ${cx + side * (sh + 4)} 150" stroke="${INK}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M${cx + side * (sh - 12)} 134 Q${cx + side * (sh + 6)} 136 ${cx + side * (sh + 4)} 150" stroke="#FFD36B" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  } else if (top === 'vest') {
+    // Over the linen shirt: two dark panels with gold stitching.
+    for (const side of [-1, 1]) {
+      const d = `M${cx + side * 11} 129 L${cx + side * sh} 140 Q${cx + side * (sh + 4)} 150 ${cx + side * (sh - 2)} 166 L${cx + side * (sh - 6)} 220 L${cx + side * 7} 222 L${cx + side * 5} 152 Z`;
+      body += `<path d="${d}" fill="${g.lin([
+        [0, '#7A3A3A'],
+        [1, '#3A1414'],
+      ])}" ${OUT(3)}/><path d="M${cx + side * 10} 150 L${cx + side * 11} 214" stroke="#FFD36B" stroke-width="2.4" stroke-dasharray="4 4"/>`;
+    }
+  }
   if (tunic) {
     // collar, belt with a brass buckle
-    body += `<path d="M${cx - 12} 129 L${cx} 150 L${cx + 12} 129" fill="none" stroke="#174E5A" stroke-width="3"/>`;
+    body += `<path d="M${cx - 12} 129 L${cx} 150 L${cx + 12} 129" fill="none" stroke="${cloth[2]}" stroke-width="3"/>`;
     body += `<path d="M${cx - sh + 4} 200 Q${cx} 205 ${cx + sh - 4} 200" stroke="${INK}" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M${cx - sh + 4} 200 Q${cx} 205 ${cx + sh - 4} 200" stroke="#7A4A28" stroke-width="5" fill="none"/>`;
     body += `<rect x="${cx - 7}" y="195" width="14" height="13" rx="3" fill="${g.lin([
       [0, '#FFE39A'],
       [1, '#B07A2A'],
     ])}" stroke="${INK}" stroke-width="2.4"/>`;
-  } else {
+  } else if (!top || top === 'vest') {
     body += `<path d="M${cx - 10} 129 Q${cx} 142 ${cx + 10} 129" fill="none" stroke="#A8916A" stroke-width="2.6"/>`;
     body += `<path d="M${cx - sh + 8} 212 Q${cx} 216 ${cx + sh - 8} 212" stroke="#A8916A" stroke-width="2.4" fill="none" opacity=".8"/>`;
   }
@@ -227,8 +336,29 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     )}" stroke-width="6" stroke-linecap="round"/><path d="M${handL[0] - 10} 104 Q${handL[0] - 4} 88 ${handL[0] + 4} 100" stroke="${INK}" stroke-width="3" fill="none"/>`;
   }
 
+  if (wear('hand') === 'flags') {
+    // A semaphore flag (red and yellow) on a short stick, held up in the right hand.
+    body += `<path d="M${handL[0]} 214 L${handL[0] - 4} 140" stroke="${INK}" stroke-width="8" stroke-linecap="round"/><path d="M${handL[0]} 214 L${handL[0] - 4} 140" stroke="#C08A55" stroke-width="4" stroke-linecap="round"/>`;
+    body += `<path d="M${handL[0] - 4} 142 L${handL[0] - 38} 146 L${handL[0] - 36} 176 L${handL[0] - 2} 172 Z" fill="#FFD36B" ${OUT(3)}/><path d="M${handL[0] - 4} 142 L${handL[0] - 36} 176 L${handL[0] - 2} 172 Z" fill="#C8302A"/>`;
+    body += `<path d="M${handL[0] - 4} 142 L${handL[0] - 38} 146 L${handL[0] - 36} 176 L${handL[0] - 2} 172 Z" fill="none" ${OUT(3)}/>`;
+  }
+  if (wear('hand') === 'scroll') {
+    // A rolled map, held across the left hand.
+    const [hx, hy] = handR;
+    body += `<rect x="${hx - 30}" y="${hy - 8}" width="44" height="16" rx="5" fill="${g.lin(
+      [
+        [0, '#FBF1D8'],
+        [1, '#C9A87A'],
+      ],
+      0,
+      1,
+    )}" ${OUT(3)}/><path d="M${hx - 30} ${hy - 1} H${hx + 14}" stroke="#C8553D" stroke-width="2.4"/>`;
+    for (const x of [hx - 32, hx + 12])
+      body += `<rect x="${x}" y="${hy - 11}" width="6" height="22" rx="3" fill="#8A5530" stroke="${INK}" stroke-width="2.2"/>`;
+  }
+
   // ---- arms (sleeves) and big hands
-  const sleeve = tunic ? '#2E8FA3' : '#E6D3AE';
+  const sleeve = tunic || top === 'robe' || top === 'coat' ? cloth[1] : '#E6D3AE';
   for (const [side, hand] of [
     [-1, handL],
     [1, handR],
@@ -236,7 +366,28 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     const s = cx + side * (sh - 3);
     const d = `M${s} 146 Q${s + side * 16} 176 ${hand[0]} ${hand[1] - 8}`;
     body += `<path d="${d}" stroke="${INK}" stroke-width="20" stroke-linecap="round" fill="none"/><path d="${d}" stroke="${sleeve}" stroke-width="13" stroke-linecap="round" fill="none"/>`;
+    if (top === 'coat') {
+      const cuff = `M${hand[0] - side * 8} ${hand[1] - 22} L${hand[0] + side * 3} ${hand[1] - 13}`;
+      body += `<path d="${cuff}" stroke="${INK}" stroke-width="15" stroke-linecap="round"/><path d="${cuff}" stroke="#FFD36B" stroke-width="9" stroke-linecap="round"/>`;
+    }
     body += `<circle cx="${hand[0]}" cy="${hand[1]}" r="10.5" fill="${skin}" ${OUT(3)}/>`;
+  }
+  if (wear('hand') === 'lamp') {
+    // A brass signal lamp hanging from the left hand, its glass lit.
+    const [hx, hy] = handR;
+    body += `<path d="M${hx} ${hy + 6} V${hy + 18}" stroke="${INK}" stroke-width="4"/>`;
+    body += `<path d="M${hx - 13} ${hy + 26} L${hx} ${hy + 16} L${hx + 13} ${hy + 26} Z" fill="#E8A93A" ${OUT(2.6)}/>`;
+    body += `<rect x="${hx - 11}" y="${hy + 26}" width="22" height="26" rx="3" fill="${g.rad(
+      [
+        [0, '#FFF6C8'],
+        [0.5, '#FFD36B'],
+        [1, '#D9902A'],
+      ],
+      0.5,
+      0.5,
+      0.7,
+    )}" ${OUT(2.6)}/><path d="M${hx} ${hy + 27} V${hy + 51}" stroke="#B07A2A" stroke-width="2"/>`;
+    body += `<rect x="${hx - 14}" y="${hy + 50}" width="28" height="7" rx="2" fill="#B07A2A" ${OUT(2.4)}/>`;
   }
 
   // ---- head
@@ -253,7 +404,8 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
 
   // ---- front hair (hidden under the wrap, except long hair at the sides)
   const wrap = wear('head') === 'wrap';
-  if (!wrap) front += hairFront(look.hair, cx, hair, hairT.light);
+  const turban = wear('head') === 'turban';
+  if (!wrap && !turban) front += hairFront(look.hair, cx, hair, hairT.light);
 
   // ---- head gear
   if (wrap) {
@@ -279,6 +431,44 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
         [1, '#174E5A'],
       ])}" ${OUT(3)}/>`;
     front += `<path d="M${cx - 38} 100 Q${cx - 34} 118 ${cx - 14} 116" stroke="${INK}" stroke-width="3" fill="none"/><circle cx="${cx - 13}" cy="116" r="4" fill="#FFD36B" stroke="${INK}" stroke-width="2"/>`;
+  } else if (turban) {
+    const cloth = g.lin(
+      [
+        [0, '#FFFFFF'],
+        [0.5, '#F2E6CC'],
+        [1, '#A8916A'],
+      ],
+      1,
+      1,
+    );
+    front += `<path d="M${cx - 41} 84 Q${cx - 50} 28 ${cx} 24 Q${cx + 50} 28 ${cx + 41} 84 Q${cx + 20} 68 ${cx} 68 Q${cx - 20} 68 ${cx - 41} 84 Z" fill="${cloth}" ${OUT()}/>`;
+    front += `<path d="M${cx - 38} 70 Q${cx - 4} 34 ${cx + 36} 46 M${cx - 40} 54 Q${cx} 30 ${cx + 30} 34 M${cx - 30} 76 Q${cx + 10} 50 ${cx + 40} 66" stroke="#A8916A" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".8"/>`;
+    front += `<path d="M${cx} 64 Q${cx - 4} 40 ${cx + 6} 26" stroke="#3E7A4A" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+    front += `<ellipse cx="${cx}" cy="62" rx="7" ry="8" fill="#3EB87A" stroke="${INK}" stroke-width="2.4"/><circle cx="${cx - 2}" cy="59" r="2" fill="#FFF"/>`;
+  } else if (wear('head') === 'tarboosh') {
+    front += `<path d="M${cx - 25} 58 L${cx - 19} 22 Q${cx} 18 ${cx + 19} 22 L${cx + 25} 58 Q${cx} 64 ${cx - 25} 58 Z" fill="${g.lin(
+      [
+        [0, '#E8604A'],
+        [0.6, '#B8302A'],
+        [1, '#5E1210'],
+      ],
+      1,
+      0.4,
+    )}" ${OUT()}/>`;
+    front += `<path d="M${cx} 21 Q${cx + 22} 22 ${cx + 26} 42" stroke="${INK}" stroke-width="3" fill="none"/><path d="M${cx + 22} 40 L${cx + 30} 40 L${cx + 32} 58 L${cx + 20} 58 Z" fill="${INK}"/>`;
+  } else if (wear('head') === 'sunhat') {
+    const straw = g.lin(
+      [
+        [0, '#FBE7A8'],
+        [0.6, '#E0B860'],
+        [1, '#8A6A2A'],
+      ],
+      1,
+      1,
+    );
+    front += `<ellipse cx="${cx}" cy="58" rx="62" ry="13" fill="${straw}" ${OUT()}/>`;
+    front += `<path d="M${cx - 30} 58 Q${cx - 32} 20 ${cx} 18 Q${cx + 32} 20 ${cx + 30} 58 Q${cx} 64 ${cx - 30} 58 Z" fill="${straw}" ${OUT()}/>`;
+    front += `<path d="M${cx - 30} 50 Q${cx} 56 ${cx + 30} 50" stroke="#C8553D" stroke-width="6" fill="none"/>`;
   }
 
   return `<defs>${g.defs.join('')}</defs>${back}${body}${front}`;

@@ -169,6 +169,10 @@
   border-radius: 50%;
 }
 
+.wardrobe__swatch--teal {
+  background: linear-gradient(160deg, #5fc0d2, #174e5a);
+}
+
 .wardrobe__label {
   font-weight: 700;
   font-size: 15px;
