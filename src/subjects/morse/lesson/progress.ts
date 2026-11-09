@@ -50,6 +50,14 @@ const progressSchema = z.object({
       best: z.number().int().min(0).catch(0),
     })
     .catch({ rounds: 0, best: 0 }),
+  /** The callsign rush (#156): runs, best score, and the fastest call copied right. */
+  rush: z
+    .object({
+      runs: z.number().int().min(0).catch(0),
+      best: z.number().int().min(0).catch(0),
+      topWpm: z.number().int().min(0).catch(0),
+    })
+    .catch({ runs: 0, best: 0, topWpm: 0 }),
 });
 
 export type MorseProgress = z.infer<typeof progressSchema>;
