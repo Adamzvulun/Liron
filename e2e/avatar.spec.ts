@@ -49,6 +49,19 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     });
   });
 
+  test('a dye you own colors the tunic; others are locked (#49)', async ({ page }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], null, [], { owned: ['indigo-dye', 'coat'] });
+    await page.goto('/house');
+    await expect(page.getByText('Crimson dye (locked)')).toBeVisible();
+    await page.locator('label[title="Indigo dye"]').click();
+    await expect(page.getByRole('radio', { name: 'Indigo dye' })).toBeChecked();
+    await expect(page.getByText("Guildmaster's coat (locked)")).toHaveCount(0);
+    if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, fullPage: true });
+    await page.getByRole('button', { name: 'Save my look' }).click();
+    expect(updates).toContainEqual({ avatar: expect.objectContaining({ dye: 'indigo-dye' }) });
+  });
+
   test('undo puts the saved look back', async ({ page }) => {
     await signedIn(page);
     await page.goto('/house');

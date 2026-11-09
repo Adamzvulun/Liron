@@ -27,22 +27,35 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 
 | Item | Slot | How you get it |
 |---|---|---|
-| Traveller's tunic | torso | starter |
+| Traveler's tunic | torso | starter |
 | Desert wrap | head | starter |
 | Courier satchel | back | starter |
 | Walking staff | hand | starter |
 | Signaller's headset | head | reach level 5 in the Signal Tower |
 | Merchant cloak | back | keep a 7-day streak |
-| Copper-toe boots | feet | finish 10 quests |
+| Copper-toe boots | feet | finish 10 daily contracts |
 | Rider's breeches | legs | pass a first-chapter trial in any guild |
 
-**The locked items are earned (#48, ADR 0033).** The database gives each one when its milestone is met: the headset at level 5 in the Signal Tower, the cloak on a 7-day streak, the boots after 10 daily contracts, the breeches when a first-chapter trial is passed. Chests and the Market will also give them. Adam may rename them.
+**The Market's wares (#49).** No milestone gives these: they come out of chests and are sold in the Market. Prices by rarity: common 60 gold, rare 180, epic 450 (`content/core/items.json`). Adam may rename them.
+
+| Slot | Common | Rare | Epic |
+|---|---|---|---|
+| Head | Red tarboosh, Straw sun hat | Scholar's turban | |
+| Torso | Embroidered vest (over the shirt) | Scholar's robe | Guildmaster's coat |
+| Legs | Sirwal trousers | Indigo silks | |
+| Feet | Leather sandals | Riding boots | |
+| Hand | Signal flags, Map scroll | Brass signal lamp | |
+| Back | Bedroll | Oud | Guild banner |
+
+**Tunic dyes (#49):** crimson, saffron, indigo and forest, 60 gold each. They're color items, not gear: an owned dye recolors the traveler's tunic, picked under "Tunic dye" in the wardrobe. Without one the tunic stays teal.
+
+**The locked items are earned (#48, ADR 0033).** The database gives each one when its milestone is met: the headset at level 5 in the Signal Tower, the cloak on a 7-day streak, the boots after 10 daily contracts, the breeches when a first-chapter trial is passed. Chests can also give them, and the Market sells them. Adam may rename them.
 
 ## Saved data
 - The look is stored in `profiles.avatar` (jsonb). There's no migration: the column has been there since the E2 schema, and players can only update their own row.
-- The shape is `{ build, skin, face, hair, hairColour, beard, gear: { head?, torso?, legs?, feet?, hand?, back? } }`. A new player has `{}`, which reads as the default traveller: average build, sand skin, cheerful face, brown crop, tunic and satchel.
+- The shape is `{ build, skin, face, hair, hairColour, beard, dye?, gear: { head?, torso?, legs?, feet?, hand?, back? } }`. A new player has `{}`, which reads as the default traveller: average build, sand skin, cheerful face, brown crop, tunic and satchel.
 - **Reading is forgiving.** An unknown value falls back to its default. Gear that's locked or in the wrong slot is taken off, so a hand-edited row can't wear locked items.
-- **Unlocks live in the database** (`owned_items`), not in the look. Reading the look takes off gear the player doesn't own.
+- **Unlocks live in the database** (`owned_items`), not in the look. Reading the look takes off gear and a dye the player doesn't own.
 
 ## Ideas for later (Adam: "we can add more stuff later")
-More clothing colours, more items per slot, a headscarf as a look option, and the companion pet.
+More items per slot, a headscarf as a look option, and the companion pet.

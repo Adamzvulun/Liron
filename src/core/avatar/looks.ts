@@ -107,7 +107,126 @@ export const GEAR: readonly GearItem[] = [
     starter: false,
     earn: 'Pass a first-chapter trial in any guild',
   },
+  // Wares (#49): given only by chests and the Market (ADR 0033).
+  {
+    id: 'tarboosh',
+    slot: 'head',
+    name: 'Red tarboosh',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'sunhat',
+    slot: 'head',
+    name: 'Straw sun hat',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'turban',
+    slot: 'head',
+    name: "Scholar's turban",
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'vest',
+    slot: 'torso',
+    name: 'Embroidered vest',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'robe',
+    slot: 'torso',
+    name: "Scholar's robe",
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'coat',
+    slot: 'torso',
+    name: "Guildmaster's coat",
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'sirwal',
+    slot: 'legs',
+    name: 'Sirwal trousers',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'silks',
+    slot: 'legs',
+    name: 'Indigo silks',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'sandals',
+    slot: 'feet',
+    name: 'Leather sandals',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'ridingboots',
+    slot: 'feet',
+    name: 'Riding boots',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'flags',
+    slot: 'hand',
+    name: 'Signal flags',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'scroll',
+    slot: 'hand',
+    name: 'Map scroll',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'lamp',
+    slot: 'hand',
+    name: 'Brass signal lamp',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'bedroll',
+    slot: 'back',
+    name: 'Bedroll',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  { id: 'oud', slot: 'back', name: 'Oud', starter: false, earn: 'From chests and the Market' },
+  {
+    id: 'banner',
+    slot: 'back',
+    name: 'Guild banner',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
 ];
+
+/**
+ * Dyes for the tunic (#49): color items, bought or found like gear. Without one, the tunic is
+ * the guild teal.
+ */
+export const DYES = [
+  { id: 'crimson-dye', label: 'Crimson dye', light: '#E8806A', mid: '#B8402E', dark: '#5E1A12' },
+  { id: 'saffron-dye', label: 'Saffron dye', light: '#FFD98A', mid: '#D9A12E', dark: '#7A5210' },
+  { id: 'indigo-dye', label: 'Indigo dye', light: '#8A9AE0', mid: '#3E4E9E', dark: '#1A2250' },
+  { id: 'forest-dye', label: 'Forest dye', light: '#8AC88A', mid: '#3E7A4A', dark: '#16381E' },
+] as const;
+export type DyeId = (typeof DYES)[number]['id'];
 
 const ids = <T extends readonly { id: string }[]>(list: T) =>
   list.map((o) => o.id) as [T[number]['id'], ...T[number]['id'][]];
@@ -120,6 +239,8 @@ export const lookSchema = z.object({
   hair: z.enum(ids(HAIRS)).catch('crop'),
   hairColour: z.enum(ids(HAIR_COLOURS)).catch('brown'),
   beard: z.enum(ids(BEARDS)).catch('none'),
+  /** The tunic's dye, if the player owns one (#49). */
+  dye: z.enum(ids(DYES)).optional().catch(undefined),
   gear: z
     .object(
       Object.fromEntries(
@@ -157,5 +278,6 @@ export function parseLook(raw: unknown, owned: ReadonlySet<string> = new Set()):
     const found = GEAR.find((g) => g.id === item);
     if (found && found.slot === slot && canWear(found, owned)) gear[slot] = item;
   }
-  return { ...look, gear };
+  const { dye, ...rest } = look;
+  return dye && owned.has(dye) ? { ...rest, gear, dye } : { ...rest, gear };
 }
