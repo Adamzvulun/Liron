@@ -13,6 +13,7 @@ import { GoalReached } from './player/GoalReached.tsx';
 import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
+import { useQuestlines } from './player/questlines.ts';
 import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
@@ -55,6 +56,9 @@ const apis = new Map(
     : [],
 );
 
+/** A subject's saved state, for its questline status (#47). */
+const loadState = (subjectId: string) => apis.get(subjectId)?.loadState() ?? Promise.resolve(null);
+
 export function App() {
   if (!supabase) return <NotConfiguredScreen missing={missingConfig} />;
   return <AuthGate />;
@@ -80,6 +84,8 @@ function Lobby({ player }: { player: Player }) {
   const path = usePath();
   useEffect(() => void player.load(), [player]);
   const place = placeAt(path);
+  // Read again on every move, so coming back from a hall shows the lamp just lit.
+  const questlines = useQuestlines(subjects, loadState, path);
   const celebrations = state.levelUp ? (
     <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
   ) : (
@@ -99,7 +105,7 @@ function Lobby({ player }: { player: Player }) {
           )}
           {place === 'board' && state.today && (
             <div className="hud">
-              <QuestTracker today={state.today} subjects={subjects} />
+              <QuestTracker today={state.today} subjects={subjects} questlines={questlines} />
             </div>
           )}
           {place === 'house' && state.profile && (
@@ -130,6 +136,7 @@ function Lobby({ player }: { player: Player }) {
         <Hud
           state={state}
           subjects={subjects}
+          questlines={questlines}
           onGoalChange={(m) => void player.setDailyGoal(m)}
           onNameChange={player.setDisplayName}
           onSignOut={() => {
