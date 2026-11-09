@@ -270,10 +270,14 @@ function Room({
     },
   ];
 
+  /** The chapter's trial is behind you: only after the last chapter, the beacon relit. */
+  const passed = !!quest && progress.trials.includes(quest.chapter.number);
   const trialLine = quest
-    ? quest.trialReady
-      ? quest.chapter.trial.text
-      : `Light all ${quest.chapter.letters.length} lamps to face it. ${quest.lit.length} lit.`
+    ? passed
+      ? 'Passed.'
+      : quest.trialReady
+        ? quest.chapter.trial.text
+        : `Light all ${quest.chapter.letters.length} lamps to face it. ${quest.lit.length} lit.`
     : '';
 
   const story: ReactNode = quest && (
@@ -282,7 +286,9 @@ function Room({
       <h2 className="tower__chapter">
         Chapter {roman(quest.chapter.number)}: {quest.chapter.title}
       </h2>
-      <blockquote className="tower__beat">{quest.beat ?? quest.chapter.intro}</blockquote>
+      <blockquote className="tower__beat">
+        {passed ? quest.chapter.outro : (quest.beat ?? quest.chapter.intro)}
+      </blockquote>
       <p className="tower__trial">
         <strong>Trial: {quest.chapter.trial.name}.</strong> {trialLine}
       </p>

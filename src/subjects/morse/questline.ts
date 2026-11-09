@@ -1,5 +1,6 @@
-// "The Silent Beacon", the Signal Tower's main questline (#34, discovery 04): each chapter is
-// eight Koch characters, one lamp each, and ends with a trial. The text is content data in
+// "The Silent Beacon", the Signal Tower's main questline (#34, discovery 04): five chapters
+// cover the whole Koch order, eight characters each (nine in the last), one lamp each, and each
+// ends with a trial. The text is content data in
 // content/morse/questline.json.
 
 import { z } from 'zod';
@@ -59,7 +60,7 @@ export function questStatus(unlocked: readonly string[]) {
     chapter,
     lit,
     beat: lit.length ? beat : undefined,
-    /** All eight lamps lit: the trial is next. */
+    /** Every lamp of the chapter lit: the trial is next. */
     trialReady: lit.length === chapter.letters.length,
   };
 }
