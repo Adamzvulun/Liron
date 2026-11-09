@@ -1311,3 +1311,205 @@ describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', 
     );
   });
 });
+
+describe('reward chests (ADR 0033, #48)', () => {
+  type Opened = {
+    kind: string;
+    gold: number;
+    gems: number;
+    item: string | null;
+    item_gold: number;
+    shield: boolean;
+    shield_gold: number;
+    already_open: boolean;
+    wallet?: { gold: number; gems: number; streak_shields: number };
+  };
+  const day = async () =>
+    ((await as(ADAM, () => rows(`select player_today()::text as d`)))[0] as { d: string }).d;
+  const chests = async () =>
+    (await as(ADAM, () =>
+      rows(`select kind, source, source_key, opened_at is not null as opened from chests
+            order by source, source_key`),
+    )) as { kind: string; source: string; source_key: string; opened: boolean }[];
+  const boardOpens = () => as(ADAM, () => rows(`select todays_contracts()`));
+  const open = async (id: string, userId = ADAM) =>
+    ((await as(userId, () => rows(`select open_chest($1) as o`, [id])))[0] as { o: Opened }).o;
+  const wallet = async () =>
+    (
+      await rows(`select gold, gems, streak_shields from wallets where user_id = $1`, [ADAM])
+    )[0] as { gold: number; gems: number; streak_shields: number };
+  /** A chest of `kind` for Adam whose id makes roll `roll` fall below or above `chance`. */
+  const chestWith = async (kind: string, roll: number, below: boolean, chance: number) => {
+    for (let i = 0; i < 500; i++) {
+      const id = `d0d0d0d0-0000-4000-8000-${String(i).padStart(12, '0')}`;
+      const r = ((await rows(`select chest_roll($1, $2) as r`, [id, roll]))[0] as { r: number }).r;
+      if (r < chance === below) {
+        await rows(
+          `insert into chests (id, user_id, kind, source, source_key) values ($1::uuid, $2, $3, 'trial', $1::text)`,
+          [id, ADAM, kind],
+        );
+        return id;
+      }
+    }
+    throw new Error('no such id in 500 tries');
+  };
+
+  beforeEach(() => rows(`delete from daily_activity where user_id = $1`, [ADAM]));
+
+  it('holds exactly the drop tables in content/core/chests.json', async () => {
+    const pack = JSON.parse(
+      readFileSync(join(root, '..', 'content', 'core', 'chests.json'), 'utf8'),
+    ) as { items: { id: string; type: string; data: Record<string, unknown> }[] };
+    const drops = pack.items
+      .filter((i) => i.type === 'chest')
+      .map(({ id, data: d }) => {
+        const [goldMin, goldMax] = d.gold as number[];
+        const [gemsMin, gemsMax] = d.gems as number[];
+        return {
+          kind: id,
+          name: d.name,
+          gold_min: goldMin,
+          gold_max: goldMax,
+          gem_chance: d.gemChance,
+          gems_min: gemsMin,
+          gems_max: gemsMax,
+          gear_chance: d.gearChance,
+          shield_chance: d.shieldChance,
+        };
+      })
+      .sort((a, b) => a.kind.localeCompare(b.kind));
+    const got = (await rows(`select * from chest_drops order by kind`)) as Record<string, number>[];
+    // Postgres reals: compare the chances to 6 places.
+    const round = (r: Record<string, unknown>) =>
+      Object.fromEntries(
+        Object.entries(r).map(([k, v]) => [k, typeof v === 'number' ? Math.round(v * 1e6) : v]),
+      );
+    expect(got.map(round)).toEqual(drops.map(round));
+    const sources = pack.items
+      .filter((i) => i.type === 'chest-source')
+      .map(({ id, data: d }) => ({ id, source: d.source, days: d.days ?? null, chest: d.chest }))
+      .sort((a, b) => a.id.localeCompare(b.id));
+    expect(await rows(`select * from chest_sources order by id`)).toEqual(sources);
+  });
+
+  it('a day with all 3 contracts done gives a wooden chest, once', async () => {
+    const t = await day();
+    for (const [i, id] of ['habit-sessions', 'morse-runs', 'morse-run-90'].entries())
+      await rows(
+        `insert into daily_contracts (user_id, day, template_id, slot, paid_gold) values ($1, $2, $3, $4, $5)`,
+        [ADAM, t, id, i + 1, i < 2 ? 10 : null],
+      );
+    await boardOpens();
+    expect(await chests()).toEqual([]);
+    await rows(`update daily_contracts set paid_gold = 20 where user_id = $1`, [ADAM]);
+    await boardOpens();
+    await boardOpens();
+    expect(await chests()).toEqual([
+      { kind: 'wooden', source: 'contracts', source_key: t, opened: false },
+    ]);
+  });
+
+  it('each trial passed gives a brass chest, once', async () => {
+    for (let i = 0; i < 2; i++)
+      await as(ADAM, () =>
+        rows(`select save_session('morse', $1, null, '[]', '[]', 0, 0, $2::jsonb)`, [
+          `c2c2c2c2-0000-4000-8000-00000000000${i}`,
+          JSON.stringify([{ kind: 'trial-1' }, { kind: 'trial-2' }]),
+        ]),
+      );
+    expect(await chests()).toEqual([
+      { kind: 'brass', source: 'trial', source_key: 'morse:1', opened: false },
+      { kind: 'brass', source: 'trial', source_key: 'morse:2', opened: false },
+    ]);
+  });
+
+  it('streak days 7 and 30 give a chest; a shielded day never does by itself', async () => {
+    const t = await day();
+    const goals = async (offsets: number[]) => {
+      await rows(`delete from daily_activity where user_id = $1`, [ADAM]);
+      for (const o of offsets)
+        await rows(
+          `insert into daily_activity (user_id, day, minutes, goal_reached) values ($1, $2, 15, true)`,
+          [ADAM, addDays(t, -o)],
+        );
+    };
+    await goals([0, 1, 2, 3, 4, 5]);
+    await boardOpens();
+    expect(await chests()).toEqual([]);
+    await goals([0, 1, 2, 3, 4, 5, 6]);
+    await boardOpens();
+    await goals(Array.from({ length: 30 }, (_, i) => i));
+    await boardOpens();
+    // Sorted as text: "…:30" before "…:7".
+    expect(await chests()).toEqual([
+      { kind: 'jeweled', source: 'streak', source_key: `${t}:30`, opened: false },
+      { kind: 'brass', source: 'streak', source_key: `${t}:7`, opened: false },
+    ]);
+  });
+
+  it('opening rolls from the drop table, pays once, and the same chest always gives the same', async () => {
+    await rows(`update wallets set gold = 0, gems = 0 where user_id = $1`, [ADAM]);
+    const id = await chestWith('brass', 4, false, 0.4);
+    const first = await open(id);
+    expect(first.already_open).toBe(false);
+    expect(first.gold).toBeGreaterThanOrEqual(40);
+    expect(first.gold).toBeLessThanOrEqual(80);
+    expect(first.item).toBeNull();
+    const paid = first.gold + first.shield_gold;
+    expect(await wallet()).toMatchObject({ gold: paid, gems: first.gems });
+    expect(first.wallet).toMatchObject({ gold: paid, gems: first.gems });
+    const again = await open(id);
+    expect(again).toEqual({ ...first, wallet: again.wallet, already_open: true });
+    expect(again.wallet).toBeUndefined();
+    expect(await wallet()).toMatchObject({ gold: paid, gems: first.gems });
+    expect(await chests()).toContainEqual(expect.objectContaining({ opened: true }));
+  });
+
+  it('gives gear not owned yet, or its price when all is owned; a 3rd shield is gold', async () => {
+    await rows(`update wallets set gold = 0, streak_shields = 2 where user_id = $1`, [ADAM]);
+    const gear = await chestWith('jeweled', 4, true, 0.6);
+    const opened = await open(gear);
+    expect(['boots', 'breeches', 'cloak', 'headset']).toContain(opened.item);
+    expect(opened.item_gold).toBe(0);
+    expect(
+      await rows(`select source from owned_items where user_id = $1 and item_id = $2`, [
+        ADAM,
+        opened.item,
+      ]),
+    ).toEqual([{ source: 'chest' }]);
+
+    for (const item of ['boots', 'breeches', 'cloak', 'headset'])
+      await rows(
+        `insert into owned_items (user_id, item_id, source) values ($1, $2, 'market') on conflict do nothing`,
+        [ADAM, item],
+      );
+    await rows(`delete from chests where user_id = $1`, [ADAM]);
+    const owned = await chestWith('jeweled', 4, true, 0.6);
+    const second = await open(owned);
+    expect(second.item_gold).toBeGreaterThan(0);
+
+    await rows(`delete from chests where user_id = $1`, [ADAM]);
+    const shield = await chestWith('jeweled', 6, true, 0.4);
+    const third = await open(shield);
+    expect(third).toMatchObject({ shield: true, shield_gold: 120 });
+    expect((await wallet()).streak_shields).toBe(2);
+  });
+
+  it('only database functions grant chests, and only the owner sees or opens one', async () => {
+    const id = await chestWith('wooden', 1, true, 1);
+    expect(await as(OTHER, () => rows(`select * from chests`))).toEqual([]);
+    await expect(open(id, OTHER)).rejects.toThrow(/no such chest/);
+    for (const sql of [
+      `insert into chests (user_id, kind, source, source_key) values ('${OTHER}', 'jeweled', 'trial', 'x')`,
+      `update chests set opened_at = null`,
+      `select * from chest_drops`,
+      `select grant_chests('${OTHER}', '2026-01-01')`,
+      `select chest_roll('${id}', 1)`,
+    ]) {
+      await expect(as(OTHER, () => rows(sql))).rejects.toThrow(/permission denied/);
+    }
+    await expect(as(null, () => rows(`select open_chest('${id}')`))).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+});

@@ -8,7 +8,7 @@ import { CoinIcon, FlameIcon, GearIcon, GemIcon, ShieldIcon } from './icons.tsx'
 import type { SubjectInfo } from '../subject.ts';
 import type { PlayerState } from './player.ts';
 import type { Questlines } from './questlines.ts';
-import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
+import { chestQuests, contractQuests, shieldNote, todaysQuests } from './quests.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
 
@@ -59,6 +59,7 @@ export function Hud({
           subjects={subjects}
           questlines={questlines}
           contracts={state.contracts}
+          chests={state.chests.length}
         />
       )}
     </div>
@@ -282,6 +283,7 @@ export function QuestTracker({
   subjects,
   questlines,
   contracts = null,
+  chests = 0,
   full = false,
 }: {
   today: NonNullable<PlayerState['today']>;
@@ -290,6 +292,8 @@ export function QuestTracker({
   questlines?: Questlines;
   /** Today's contracts (#46). */
   contracts?: PlayerState['contracts'];
+  /** Chests waiting to be opened; the board shows them on its shelf instead. */
+  chests?: number;
   /** On the Notice Board: every contract, not just how many are done. */
   full?: boolean;
 }) {
@@ -330,6 +334,7 @@ export function QuestTracker({
         {[
           ...todaysQuests(subjects, today.goalMinutes, questlines),
           ...contractQuests(subjects, contracts, full),
+          ...(full ? [] : chestQuests(chests)),
         ].map((q) => (
           <li key={q.key ?? q.giver}>
             <Link

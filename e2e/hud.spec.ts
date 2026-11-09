@@ -141,3 +141,35 @@ test('the streak shows the shields you hold, and says when one saved it (ADR 003
   await page.goto('/notice-board');
   await expect(page.getByText('A streak shield saved your 2-day streak')).toBeVisible();
 });
+
+test('chests wait on the Notice Board and open once, paying what they held (ADR 0033)', async ({
+  page,
+}) => {
+  await signedIn(page, [], [], null, [], {
+    chests: [{ id: 'c1', kind: 'brass', source: 'streak', source_key: '2026-11-02:7' }],
+  });
+  await page.goto('/');
+  if (!onPhone()) {
+    await expect(
+      page.getByRole('region', { name: 'Quests' }).getByRole('link', { name: /Chests/ }),
+    ).toContainText('1 to open');
+  }
+  await page.goto('/notice-board');
+  const shelf = page.getByRole('region', { name: 'Chests' });
+  await expect(shelf).toContainText('Brass chest');
+  await expect(shelf).toContainText('For a 7-day streak');
+  // Today's contract chest stays locked until all three are done.
+  await expect(shelf).toContainText('Finish all three of today’s contracts to open it');
+  await expect(shelf).toContainText('0 of 3 done');
+
+  await shelf.getByRole('button', { name: 'Open' }).click();
+  const opened = page.getByRole('dialog', { name: 'Brass chest' });
+  await expect(opened).toContainText('+30 gold');
+  await expect(opened).toContainText('+1 gem');
+  await expect(opened).toContainText('Copper-toe boots, new to wear');
+  await expect(opened).toContainText('A streak shield');
+  await opened.getByRole('button', { name: 'Collect' }).click();
+  await expect(opened).toBeHidden();
+  await expect(shelf.getByRole('button', { name: 'Open' })).toHaveCount(0);
+  await expect(shelf).not.toContainText('Brass chest');
+});
