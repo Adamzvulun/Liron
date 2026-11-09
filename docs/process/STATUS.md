@@ -84,6 +84,9 @@
    - **#49 Market, part 2 (buying):** the Market building sells 4 wares a day for gold (`market_today`, `buy_item`). E10 is complete once it merges.
    - **E10 is complete** (#46–#49 merged 2026-11-09).
    - **[#137](https://github.com/Adamzvulun/Liron/issues/137) speed, measured (2026-11-09):** the biggest cost is the city's 5,871 SVG shapes (paint 0.28 s and layout 0.7 s on a slowed phone; about 0.2 s redraw on every return to the square, even on desktop). Startup data now loads in parallel (#144). Adam: hovering the buildings felt slow, and yes to pre-rendering the scenery. Hover fix: each place is its own layer and lights up in 0.08 s (raster during hovers about 5× less). Merged (#145). Pre-rendering the scenery was prototyped and measured: it made coming back to the square about 30% faster on desktop, but phones were slower to show the whole scene, so it is not built ([report](reports/2026-11-09.md)).
+   - **The Silent Beacon is finished** ([#148](https://github.com/Adamzvulun/Liron/pull/148), #147): chapters III–V cover Koch characters 17–41 (chapter V has nine lamps), with trials at +100, +125 and +150 XP. After a passed trial the hall shows the chapter's outro and the tracker says "Trial passed". Written while Adam slept; listed in the [report](reports/2026-11-09.md).
+   - **M2 is done; M3 is in GitHub:** epics #149 (E12, Morse words and head copy; tasks #153–#156), #150 (E11, Arabic core words), #151 (E13, ranks and trials) and #152 (E14, mic practice). The order is Morse, then Arabic, one theme per sprint.
+   - **E12, built 2026-11-09** ([design](../game/morse-words.md)): word lists (`content/morse/words.json`, `words.ts`, #153), prosigns in the engine and decoder (`<AR>`, `sendable()`, #155), the Codebook word drill (`words/drill.ts`, `WordDrill.tsx`, a lectern station in the hall, `?open=words`, #154) and the callsign rush (`words/rush.ts`, `Rush.tsx`, #156). New state: `words` and `rush` in the Morse progress. New events (`words-round`, `words-perfect`, `rush-round`, `rush-best`, `rush-fast`) have no contract templates yet.
    - **Audio for the missing phrases:** no source is usable yet. Lingua Libre is the lead (a CC0 *nšallah* found); the speakers' origin is unverified because lingualibre.org timed out. Nothing is used until Adam has seen the files ([research](../research/phrase-audio-sources.md)).
 
 ## Backlog map
@@ -100,8 +103,13 @@
 | M2 | E8 Caravanserai: script | #9 → #38 #39 #40 #41 #42 #43 |
 | M2 | E9 Survival phrases | #10 → #44 #45 |
 | M2 | E10 Quests & rewards | #11 → #46 #47 #48 #49 |
+| M2 | The Silent Beacon III–V | #147 |
+| M3 | E12 Morse words & head copy | #149 → #153 #154 #155 #156 |
+| M3 | E11 Arabic core words | #150 (tasks when its sprint starts) |
+| M3 | E13 Ranks, trials & achievements | #151 (tasks when its sprint starts) |
+| M3 | E14 Mic practice | #152 (tasks when its sprint starts) |
 
-M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into issues when M2 is nearly done.
+M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.md) as docs until M3 is nearly done.
 
 ## How the backlog is organised in GitHub
 - **Milestones are labels** (`milestone:M0`, `milestone:M1`, `milestone:M2`), because the GitHub tools available to Claude can't create real milestones. Adam can convert them in the GitHub UI if he wants.
