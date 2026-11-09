@@ -48,7 +48,7 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 - Changing the goal never rewrites past days. Lowering it below what you've already done today reaches today's goal straight away.
 
 ## Daily contracts
-Three a day on the Notice Board ([ADR 0032](../decisions/0032-subject-events-and-daily-contracts.md), #46): one habit, then one from each subject you've started (two from it if you've started only one). They're picked by the database once a day and don't change if you start a subject later. Each pays **gold only**, never XP, once, as soon as it's done. The templates are data in `content/core/contracts.json` and each subject's `contracts.json`.
+Three a day on the Notice Board ([ADR 0032](../decisions/0032-subject-events-and-daily-contracts.md), #46): one habit, then one from each subject you've started (two from it if you've started only one). They're picked by the database once a day and don't change if you start a subject later. Each pays **gold only**, never XP, once, as soon as it's done. The templates are data in `content/core/contracts.json` and each subject's `contracts.json`. A template can `require` an event you sent on an earlier day, so a drill that opens late (the Codebook, the rush, the innkeeper's table) never gives a contract you can't do yet.
 
 | Contract | Target | Gold |
 |---|---|---|
@@ -56,7 +56,10 @@ Three a day on the Notice Board ([ADR 0032](../decisions/0032-subject-events-and
 | Finish sessions today | 3 sessions | 10 |
 | Practice two subjects today (only once two are started) | 2 subjects | 15 |
 | Morse: a Koch run at 90% · 3 Koch runs · 2 recognition rounds · a recognition best · a sending drill at 80% | 1 · 3 · 2 · 1 · 1 | 20 · 15 · 15 · 20 · 15 |
+| Morse, once you've played the Codebook on an earlier day: 2 Codebook rounds · a whole round right | 2 · 1 | 15 · 20 |
+| Morse, once you've run a callsign rush on an earlier day: a rush · 3 callsigns above your speed | 1 · 3 | 15 · 20 |
 | Arabic: a letters session at 90% · 2 letters sessions · a slate page · a coffee corner visit | 1 · 2 · 1 · 1 | 20 · 15 · 15 · 15 |
+| Arabic, once you've had a session at the innkeeper's table on an earlier day: 2 word sessions · a word session at 90% | 2 · 1 | 15 · 20 |
 
 ## Reward chests
 Separate from the daily-goal chest above, which pays at once. These wait on the Notice Board until you open them ([ADR 0033](../decisions/0033-inventory-chests-and-market.md), #48). Each source gives one chest. What's inside is rolled by the database when you open it, seeded by the chest, so reloading can't change it. The drop tables are data in `content/core/chests.json`.

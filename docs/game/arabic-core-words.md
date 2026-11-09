@@ -72,7 +72,7 @@ I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories ma
   - each word is an FSRS item `word:pcav:<n>`: right first time is Good, right after a miss is Hard, wrong is Again;
   - each answer is a result in the `listen` or `read` skill, so word practice moves the same ratings as the letters;
   - XP is about 10 a minute (economy);
-  - events `word-session`, and `word-90` for 90% or better. Their daily contracts come in the same migration style as the Morse drills' (a template only offered once you've played the drill), after that migration is merged.
+  - events `word-session`, and `word-90` for 90% or better. Their daily contracts (2 word sessions, 15 gold; a session at 90%, 20 gold) are only offered once you've had a word session on an earlier day ([economy](economy.md#daily-contracts)).
 - **The chapter gate:** like the letters, 90% in two sessions in a row, the second on a later day. Then the next chapter's words start coming.
 
 ## 5. The regulars ("The Long Road In", chapter 2 onward) (#161)
