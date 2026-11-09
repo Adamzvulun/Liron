@@ -5,7 +5,7 @@
 
 ## The short version
 - **The word path opens after the script course.** It starts once you pass "The Painted Sign" (chapter 1 of "The Long Road In"), when every letter is yours.
-- **The first 300 words come from the deck's A1 words, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–1,000 come later in E11: the rest of A1, then A2.
+- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–1,000 come later in E11: the rest of A1, then A2.
 - **Each word is met with its native recording, its meaning, how it sounds in Hebrew letters, and a deck sentence when the deck has one.** The deck has few sentences, so this is the main open question (section 3).
 - **Practice is the same four moves as the letters:** meet, listen, read, recall. FSRS schedules each word, and Glicko rates you in listen and read.
 - **Each chapter brings a new regular to the innkeeper's table** ("The Long Road In" chapter 2 onward), with a trial at its end.
@@ -24,10 +24,11 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 - Single words: the Arabic is one word, not counting a plural given in brackets.
 - The other items are phrases ("dark brown hair"), verb pairs and sentences.
 - **Sentences:** only **492** items in the whole deck are real sentences (3 words or more, with an end mark), e.g. "أنا عايِش في غزّة." (I live in Gaza.).
+- **A1 verbs:** 151 items start with "to", 90 of them a plain past/present pair (شاف، يْشوف); the rest are phrases ("to wash one's face").
 - **Of the 831 A1 words, 229 appear as they are in one of those sentences.** About 140 more appear with a prefix or suffix attached (a rough count).
 
 ## 2. Which words, in what order (#159)
-- **The first 300:** A1 single words, picked by hand from the deck in topic chapters. My choice of order puts the words you need to talk first:
+- **The first 300:** A1 single words and verbs, picked by hand from the deck in topic chapters. A verb is learned as the deck gives it, past and present together (شاف، يْشوف *he saw, he sees*); the deck has 90 such A1 verbs. My choice of order puts the words you need to talk first:
 
 | Chapter | Theme | Deck sections it draws on |
 |---|---|---|
@@ -42,6 +43,7 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 9 | A day's work | Work, School and Education |
 | 10 | Sun, wind and heart | Weather, Feelings, Likes and Dislikes |
 
+- **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words that appear in a deck sentence go first,** so more of the 300 come with a sentence (my choice).
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
 - **Left out, with a reason each,** as in #125: rude or adult words, near-duplicates, words that are mostly B-level in use.
