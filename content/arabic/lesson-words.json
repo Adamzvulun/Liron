@@ -9,7 +9,7 @@
       "type": "lesson-words",
       "data": {
         "lesson": 1,
-        "reviewed": "Claude, 2026-11-09 (#125): cut to the most useful words at Adam's request; waiting for Adam",
+        "reviewed": "Adam, 2026-11-09 (#125): approved, after Claude cut it to the most useful words",
         "words": [
           {
             "deck": "pcav:4267",
@@ -94,7 +94,7 @@
       "type": "lesson-words",
       "data": {
         "lesson": 2,
-        "reviewed": "Claude, 2026-11-09 (#125): cut to the most useful words at Adam's request; waiting for Adam",
+        "reviewed": "Adam, 2026-11-09 (#125): approved, after Claude cut it to the most useful words",
         "words": [
           {
             "deck": "pcav:4271",
@@ -279,7 +279,7 @@
       "type": "lesson-words",
       "data": {
         "lesson": 3,
-        "reviewed": "Claude, 2026-11-09 (#125): cut to the most useful words at Adam's request; waiting for Adam",
+        "reviewed": "Adam, 2026-11-09 (#125): approved, after Claude cut it to the most useful words",
         "words": [
           {
             "deck": "pcav:0084",
