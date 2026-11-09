@@ -1,6 +1,6 @@
 # 0021 — Daily goal and streak: stored per day, paid by the database
 
-- **Status:** Accepted (part of #20)
+- **Status:** Accepted (part of #20). Amended by [0029](0029-database-is-the-only-writer-of-rewards.md) and [0034](0034-streak-shields.md) (streak shields cover missed days).
 - **Date:** 2026-11-02
 - **Builds on:** [0017](0017-player-data-schema.md) (streak derived from daily activity), [0020](0020-fast-levels-and-rewards.md) (rewards paid by the database)
 - **Amends:** 0017. Each day now stores whether its goal was reached, instead of comparing its minutes with today's goal.
