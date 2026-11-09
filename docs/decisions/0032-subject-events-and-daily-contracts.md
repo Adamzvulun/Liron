@@ -16,24 +16,28 @@ ADR 0029 says the browser never writes rewards, and the database pays. ADR 0031 
 3. **Subjects report named events. Contracts are data that count events. The database picks, checks and pays.** Chosen.
 
 ## Decision
-**Subject events**
-- New contract call `reportEvent(kind, count = 1)`. A subject calls it at a moment that matters, e.g. Morse `run-passed`, `drill-passed`; Arabic `letter-learned`, `words-read`. The kind is a short id (`^[a-z][a-z0-9-]{1,31}$`).
-- Events are **sent with the session save** (a new `p_events` array in `save_session`), so they are saved all or nothing with the session (ADR 0031). Up to 50 per session.
-- They are stored per player, day and subject in `subject_events(user_id, day, subject_id, kind, count)`. The day is `player_today()`, the same day as the daily goal (ADR 0021).
-- Each subject declares its kinds in `subject_event_kinds`. Unknown kinds are refused, so a subject can't fill the table with junk. Each kind has a daily cap (default 100).
+**Subject events** (built in #46, migration `20261109000000_daily_contracts.sql`)
+- A session report (`saveSession`) takes `events`, e.g. `[{ kind: 'run' }, { kind: 'run-90' }]`. A subject adds them at moments that matter: Morse `run`, `run-90`, `recognition-round`, `recognition-best`, `drill`, `drill-80`; Arabic `letters-session`, `letters-90`, `slate`, `coffee`. A kind is a short id (`^[a-z][a-z0-9-]{1,31}$`); `count` is 1 to 100.
+- Events are **sent with the session save** (a new `p_events` array in `save_session`), so they are saved all or nothing with the session (ADR 0031). Up to 50 per session. (The first draft had a separate `reportEvent` call; riding on the save is simpler and can't half-fail.)
+- They are stored per player, day and subject in `subject_events(user_id, day, subject_id, kind, count)`. The day is `player_today()`, the same day as the daily goal (ADR 0021). Every save also counts the platform's own `session` event.
+- The kinds a subject may report are the ones its contract templates count (`subject_event_kinds`), each capped at 100 a day. **Other kinds are ignored**, not refused: a subject can't fill the table with junk, and a typo never loses a session.
 
 **Contract templates are data**
-- `content/core/contracts.json` lists templates: id, subject (or none for a habit contract), what is counted, the target and the gold. A habit counts minutes or subjects practiced today, from `daily_activity`; a subject contract counts one event kind.
-- A migration copies them into `contract_templates`. A test compares the table with the JSON, the same way economy.md is checked against the database, so they can't drift apart.
+- `content/core/contracts.json` (habits) and each subject's `content/<subject>/contracts.json` list templates: id, what is counted (`event` with its kind, or the habits' `minutes`, `sessions`, `subjects`), the target, the gold and the text.
+- The migration copies them into `contract_templates`. A schema test compares the table with the JSON files, so they can't drift apart; changing a template means a new migration.
 
-**Picking 3 a day: `todays_contracts()`**
-- 1 habit contract, then 1 from each subject the player has started (has a `subject_progress` row), or 2 from it when only one is started. Never one for a subject not opened yet.
-- Picked in the database, seeded by the player's id and the day (`md5`), so it's the same on every device all day. It returns each contract with its progress, target, gold and whether it's paid.
+**Picking 3 a day**
+- 1 habit contract, then 1 from each subject the player has started (has a `subject_progress` row; up to 2 subjects, chosen by the seed), or 2 from it when only one is started. Never one for a subject not opened yet, and "practice two subjects" only once two are started.
+- Picked in the database, seeded by the player's id and the day (`md5`), and **stored** in `daily_contracts` the first time the day's board is asked for. Starting a subject later that day doesn't reshuffle it.
 
-**Paying: `claim_contracts()`**
-- Runs at the end of `save_session` (and when the board opens). For each of today's contracts that is complete and not yet paid, it writes `contract_payouts(user_id, day, template_id)` and adds the gold. The primary key makes it pay once, like `daily_chests` (ADR 0021).
-- When all 3 are paid, it grants the day's wooden contract chest (ADR 0033).
-- Gold only, never XP: XP keeps meaning "learning time". About 15 gold a contract (habit 10, harder 20).
+**Paying**
+- `claim_contracts` runs at the end of `save_session` and in `todays_contracts()` (the board). For each of today's contracts that is complete and unpaid, it sets `daily_contracts.paid_gold` and adds the gold. The update only takes unpaid rows, so it pays once, even with two saves at once.
+- `save_session` returns the contracts paid and the wallet's new gold in its award; `todays_contracts()` returns the board, the contracts paid just now and the gold.
+- Gold only, never XP: XP keeps meaning "learning time". Habits 10–15 gold, subject contracts 15 or 20, so a full day is about 45.
+- **The contract chest** for finishing all 3 arrives with chests (#48, ADR 0033). Until then the board promises only the gold.
+
+**Where they show**
+- The Notice Board lists each contract (its giver, text, progress and gold; finished ones read "Done"). The HUD has one line: "1 of 3 done today · 30 gold left to earn". The app asks for the board when the square opens and again on each move, so a session in a hall shows up on return.
 
 **Questline status (#47)**
 - Optional `SubjectInfo.questStatus(state)`, resolving to `{ questline, chapter, done, total, unit, next? }`, or null before the questline is started. It's computed in the browser from the subject's own saved state. It shows progress and pays nothing, so it needn't be checked by the database.
@@ -43,5 +47,5 @@ ADR 0029 says the browser never writes rewards, and the database pays. ADR 0031 
 ## Consequences
 - A subject adds contracts by adding event kinds and templates. No new database functions per subject.
 - **What this doesn't stop** (as ADR 0029): a player who writes their own requests can report fake events, up to the daily caps. Acceptable for a personal app; the caps bound the gold.
-- `save_session` gets one more parameter. Old callers send no events and keep working.
+- `save_session` gets one more parameter (`p_events`, default none). Old callers send no events and keep working.
 - Templates live in two places (JSON and a migration). The test keeps them equal; changing one alone fails CI.

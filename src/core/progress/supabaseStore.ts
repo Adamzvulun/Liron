@@ -1,6 +1,6 @@
 import { parseLook } from '../avatar/looks.ts';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Award, DayResult, ProgressStore, Today } from './store.ts';
+import type { Award, Contract, DayResult, ProgressStore, Today } from './store.ts';
 import type { StoredRating } from '../rating/ratings.ts';
 
 interface RatingRow {
@@ -108,6 +108,15 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
         ),
       );
     },
+    async todaysContracts() {
+      const r = await call<{
+        day: string;
+        contracts: Contract[];
+        paid_now: string[];
+        gold: number;
+      }>('todays_contracts', {}, "load today's contracts");
+      return { day: r.day, contracts: r.contracts, paidNow: r.paid_now, gold: r.gold };
+    },
     async saveSession(subjectId, session) {
       const r = await call<{ duplicate: boolean; award: AwardRow | null }>(
         'save_session',
@@ -134,6 +143,7 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
           })),
           p_xp: session.xp,
           p_minutes: session.minutes,
+          p_events: session.events,
         },
         `save the ${subjectId} session`,
       );

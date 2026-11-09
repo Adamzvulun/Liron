@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { SubjectInfo } from '../subject.ts';
-import { todaysQuests } from './quests.ts';
+import { contractQuests, todaysQuests } from './quests.ts';
 
 const tower: SubjectInfo = {
   id: 'beacon',
@@ -22,7 +22,7 @@ describe("today's quests (ADR 0019)", () => {
         href: '/signal-tower',
         color: 'red',
       },
-      expect.objectContaining({ giver: 'Daily contract', reward: 'The daily chest' }),
+      expect.objectContaining({ giver: 'Daily goal', reward: 'The daily chest' }),
     ]);
   });
 
@@ -58,5 +58,55 @@ describe("today's quests (ADR 0019)", () => {
       new Map([['beacon', { ...status, next: undefined }]]),
     );
     expect(plain?.progress).toBe('8/8 lamps');
+  });
+
+  it("lists each of today's contracts on the board, and a summary in the HUD (#46)", () => {
+    const today = {
+      day: '2026-11-09',
+      gold: 50,
+      paidNow: [],
+      contracts: [
+        {
+          id: 'habit',
+          subject: null,
+          text: 'Finish 3 sessions today',
+          progress: 1,
+          target: 3,
+          gold: 10,
+          paid: false,
+        },
+        {
+          id: 'b1',
+          subject: 'beacon',
+          text: 'Light it',
+          progress: 1,
+          target: 1,
+          gold: 20,
+          paid: true,
+        },
+      ],
+    };
+    expect(contractQuests([tower], today, true)).toEqual([
+      expect.objectContaining({
+        key: 'habit',
+        giver: 'Habit contract',
+        progress: '1/3',
+        reward: '10 gold',
+        href: '/notice-board',
+        done: false,
+      }),
+      expect.objectContaining({
+        key: 'b1',
+        giver: 'Beacon Hall contract',
+        progress: 'Done',
+        href: '/signal-tower',
+        color: 'red',
+        done: true,
+      }),
+    ]);
+    expect(contractQuests([tower], today, false)).toEqual([
+      expect.objectContaining({ text: '1 of 2 done today', reward: '10 gold left to earn' }),
+    ]);
+    expect(contractQuests([tower], null, false)).toEqual([]);
   });
 });

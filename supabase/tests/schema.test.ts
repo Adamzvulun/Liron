@@ -989,3 +989,178 @@ describe('the daily cap on speech checks (ADR 0011 #4, ADR 0014)', () => {
     }
   });
 });
+
+describe('daily contracts (ADR 0032)', () => {
+  type Board = {
+    day: string;
+    contracts: {
+      id: string;
+      subject: string | null;
+      progress: number;
+      target: number;
+      paid: boolean;
+      gold: number;
+    }[];
+    paid_now: string[];
+    gold: number;
+  };
+  const board = async (userId: string) =>
+    ((await as(userId, () => rows(`select todays_contracts() as b`)))[0] as { b: Board }).b;
+  const today = async (userId: string) =>
+    ((await as(userId, () => rows(`select player_today()::text as d`)))[0] as { d: string }).d;
+  let n = 0;
+  const save = (subject: string, events: unknown[], xp = 0, minutes = 0) =>
+    as(ADAM, async () => {
+      n += 1;
+      const id = `c0c0c0c0-0000-4000-8000-${String(n).padStart(12, '0')}`;
+      return (
+        (
+          await rows(`select save_session($1, $2, null, '[]', '[]', $3, $4, $5::jsonb) as r`, [
+            subject,
+            id,
+            xp,
+            minutes,
+            JSON.stringify(events),
+          ])
+        )[0] as { r: { award: { gold: number } | null; contracts_paid: string[] } }
+      ).r;
+    });
+  /** Sets today's contracts by hand, so a test knows what it has to do. */
+  const setBoard = async (ids: string[]) => {
+    const day = await today(ADAM);
+    for (const [i, id] of ids.entries())
+      await rows(
+        `insert into daily_contracts (user_id, day, template_id, slot) values ($1, $2, $3, $4)`,
+        [ADAM, day, id, i + 1],
+      );
+  };
+  const gold = async () =>
+    ((await rows(`select gold from wallets where user_id = $1`, [ADAM]))[0] as { gold: number })
+      .gold;
+
+  it('holds exactly the templates in content/', async () => {
+    const files = ['core', 'morse', 'arabic'].map(
+      (s) =>
+        JSON.parse(readFileSync(join(root, '..', 'content', s, 'contracts.json'), 'utf8')) as {
+          subject: string;
+          items: { id: string; data: Record<string, unknown> }[];
+        },
+    );
+    const want = files
+      .flatMap((f) =>
+        f.items.map((i) => ({
+          id: i.id,
+          subject_id: f.subject === 'core' ? null : f.subject,
+          metric: i.data.metric,
+          kind: i.data.kind ?? null,
+          target: i.data.target,
+          gold: i.data.gold,
+          text: i.data.text,
+        })),
+      )
+      .sort((a, b) => a.id.localeCompare(b.id));
+    expect(await rows(`select * from contract_templates order by id`)).toEqual(want);
+  });
+
+  it('picks a habit and two contracts from the only subject started, the same all day', async () => {
+    const first = await board(ADAM);
+    expect(first.contracts.map((c) => c.subject)).toEqual([null, 'morse', 'morse']);
+    expect(first.contracts[0]?.id).not.toBe('habit-subjects');
+    expect(first.contracts.every((c) => c.progress === 0 && !c.paid)).toBe(true);
+    // Starting a second subject later in the day doesn't reshuffle the board.
+    await rows(`insert into subject_progress (user_id, subject_id) values ($1, 'arabic')`, [ADAM]);
+    expect((await board(ADAM)).contracts.map((c) => c.id)).toEqual(
+      first.contracts.map((c) => c.id),
+    );
+  });
+
+  it('picks one contract from each of two subjects started', async () => {
+    await rows(`insert into subject_progress (user_id, subject_id) values ($1, 'arabic')`, [ADAM]);
+    const subjects = (await board(ADAM)).contracts.map((c) => c.subject);
+    expect(subjects[0]).toBeNull();
+    expect(subjects.slice(1).sort()).toEqual(['arabic', 'morse']);
+  });
+
+  it('counts events from saved sessions, and pays a finished contract once', async () => {
+    await setBoard(['habit-sessions', 'morse-runs', 'morse-run-90']);
+    const before = await gold();
+    await save('morse', [{ kind: 'run' }, { kind: 'run-90' }]);
+    let b = await board(ADAM);
+    expect(b.contracts.map((c) => [c.id, c.progress, c.paid])).toEqual([
+      ['habit-sessions', 1, false],
+      ['morse-runs', 1, false],
+      ['morse-run-90', 1, true],
+    ]);
+    expect(await gold()).toBe(before + 20);
+    // Paid in the save itself, so the board has nothing left to pay.
+    expect(b.paid_now).toEqual([]);
+    await save('morse', [{ kind: 'run' }, { kind: 'run-90' }]);
+    const r = await save('morse', [{ kind: 'run', count: 1 }], 5, 1);
+    expect(r.contracts_paid.sort()).toEqual(['habit-sessions', 'morse-runs']);
+    expect(r.award?.gold).toBe(await gold());
+    b = await board(ADAM);
+    expect(b.contracts.every((c) => c.paid && c.progress === c.target)).toBe(true);
+    // 20 + 10 + 15, and XP's own gold from the last save.
+    const xpGold = (await gold()) - before - 45;
+    expect(xpGold).toBeGreaterThanOrEqual(0);
+    await save('morse', [{ kind: 'run' }, { kind: 'run-90' }]);
+    expect(await gold()).toBe(before + 45 + xpGold);
+  });
+
+  it('counts minutes and subjects for habits, and pays when the board opens', async () => {
+    await setBoard(['habit-minutes', 'habit-subjects']);
+    await save('morse', [], 0, 0);
+    expect((await save('arabic', [], 0, 0)).contracts_paid).toEqual(['habit-subjects']);
+    // Minutes reached some other way (a single practice call) are paid when the board opens.
+    await rows(
+      `insert into daily_activity (user_id, day, minutes) values ($1, $2, 25)
+       on conflict (user_id, day) do update set minutes = 25`,
+      [ADAM, await today(ADAM)],
+    );
+    const b = await board(ADAM);
+    expect(b.paid_now).toEqual(['habit-minutes']);
+    expect(b.gold).toBe(await gold());
+    expect((await board(ADAM)).paid_now).toEqual([]);
+  });
+
+  it('ignores unknown kinds, odd counts and other subjects’ kinds, and caps a day', async () => {
+    await save('morse', [
+      { kind: 'nonsense' },
+      { kind: 'letters-90' },
+      { kind: 'run', count: 0 },
+      { kind: 'run', count: 1000 },
+      { kind: 'run', count: 60 },
+      { kind: 'run', count: 60 },
+    ]);
+    expect(
+      await rows(`select kind, count from subject_events where user_id = $1 order by kind`, [ADAM]),
+    ).toEqual([
+      { kind: 'run', count: 100 },
+      { kind: 'session', count: 1 },
+    ]);
+    await expect(
+      save('morse', [{ kind: 'run' }].concat(Array(50).fill({ kind: 'run' }))),
+    ).rejects.toThrow(/at most 200 reviews, 200 results and 50 events/);
+  });
+
+  it('writes only through the functions, and shows each player only their own', async () => {
+    await board(ADAM);
+    await save('morse', [{ kind: 'run' }]);
+    expect(await as(OTHER, () => rows(`select * from daily_contracts`))).toEqual([]);
+    expect(await as(OTHER, () => rows(`select * from subject_events`))).toEqual([]);
+    expect((await as(ADAM, () => rows(`select * from daily_contracts`))).length).toBe(3);
+    for (const sql of [
+      `update daily_contracts set paid_gold = null`,
+      `insert into subject_events (user_id, day, subject_id, kind, count) values ('${ADAM}', '2026-01-01', 'morse', 'run', 5)`,
+      `select * from contract_templates`,
+      `select * from subject_event_kinds`,
+      `select claim_contracts('${ADAM}', '2026-01-01')`,
+      `select pick_contracts('${ADAM}', '2026-01-01')`,
+    ]) {
+      await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/permission denied/);
+    }
+    await expect(as(null, () => rows(`select todays_contracts()`))).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+});

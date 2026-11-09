@@ -141,6 +141,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
         })),
         xp: coffeeXp(right.length, said.length, passed),
         minutes: (now - started) / 60000,
+        events: [{ kind: 'coffee' }],
         at,
       });
     })().then(

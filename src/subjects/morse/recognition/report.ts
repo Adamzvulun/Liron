@@ -46,6 +46,8 @@ export async function reportRound(
   attempts: readonly Attempt[],
   summary: RoundSummary,
   seconds: number,
+  /** The round beat the learner's best before it (a daily contract, ADR 0032). */
+  beatBest = false,
   at = new Date(),
 ): Promise<void> {
   await api.saveSession({
@@ -57,6 +59,7 @@ export async function reportRound(
     })),
     xp: xpForRound(summary),
     minutes: seconds / 60,
+    events: [{ kind: 'recognition-round' }, ...(beatBest ? [{ kind: 'recognition-best' }] : [])],
     at,
   });
 }

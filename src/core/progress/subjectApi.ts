@@ -23,6 +23,9 @@ const MAX_RATED_ITEMS = 500;
 export const MAX_MEDIA_LINKS = 100;
 /** Per session; the database enforces the same limits (ADR 0031). */
 const MAX_SESSION_ITEMS = 200;
+/** Events a session may report, and the most of one kind at once (as the database). */
+const MAX_EVENTS = 50;
+const MAX_EVENT_COUNT = 100;
 
 const statusOf = (card: StoredCard): ReviewStatus => ({
   due: new Date(String(card.due)),
@@ -106,6 +109,7 @@ export function subjectApi<State extends object>(
       state,
       reviews = [],
       results = [],
+      events = [],
       xp = 0,
       minutes = 0,
       at = new Date(),
@@ -127,6 +131,17 @@ export function subjectApi<State extends object>(
         checkItemId(r.itemId);
         checkScore(r.score);
         checkSeed(r.itemSeed);
+      }
+      if (events.length > MAX_EVENTS) {
+        throw new RangeError(`saveSession: at most ${MAX_EVENTS} events`);
+      }
+      for (const { kind, count = 1 } of events) {
+        if (!SUBJECT_ID.test(kind)) throw new TypeError(`saveSession: bad event kind "${kind}"`);
+        if (!Number.isInteger(count) || count < 1 || count > MAX_EVENT_COUNT) {
+          throw new RangeError(
+            `saveSession: an event counts 1 to ${MAX_EVENT_COUNT}, got ${count}`,
+          );
+        }
       }
       if (!Number.isInteger(xp) || xp < 0 || xp > MAX_XP) {
         throw new RangeError(`saveSession: xp is a whole number from 0 to ${MAX_XP}, got ${xp}`);
@@ -157,6 +172,7 @@ export function subjectApi<State extends object>(
         results: [],
         xp,
         minutes: Math.round(Math.min(minutes, MAX_MINUTES)),
+        events: events.map(({ kind, count = 1 }) => ({ kind, count })),
       };
       for (const { itemId, grade } of reviews) {
         const review = scheduleReview(cards.get(itemId) ?? null, grade, at);
