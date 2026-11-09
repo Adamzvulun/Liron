@@ -72,9 +72,7 @@ test('the HUD shows your name and today’s quests, which lead to their places',
   await expect(page).toHaveURL(/\/signal-tower$/);
 });
 
-test('a started questline shows where it stands, and leads to its hall (#47)', async ({
-  page,
-}) => {
+test('a started questline shows where it stands, and leads to its hall (#47)', async ({ page }) => {
   await signedIn(page, [], [], { unlocked: 6 });
   await page.goto('/');
   if (onPhone()) {
