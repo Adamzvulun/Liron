@@ -109,17 +109,27 @@ describe('the player’s name', () => {
     await store.setDisplayName('Adam');
     const player = createPlayer(store, () => 'UTC');
     await player.load();
-    expect(player.getSnapshot().profile).toEqual({ displayName: 'Adam', avatar: DEFAULT_LOOK });
+    expect(player.getSnapshot().profile).toEqual({
+      displayName: 'Adam',
+      avatar: DEFAULT_LOOK,
+      owned: [],
+    });
     expect(await player.setDisplayName('  Adam   Zvulun ')).toBe(true);
     expect(player.getSnapshot().profile).toEqual({
       displayName: 'Adam Zvulun',
       avatar: DEFAULT_LOOK,
+      owned: [],
     });
-    expect(await store.profile()).toEqual({ displayName: 'Adam Zvulun', avatar: DEFAULT_LOOK });
+    expect(await store.profile()).toEqual({
+      displayName: 'Adam Zvulun',
+      avatar: DEFAULT_LOOK,
+      owned: [],
+    });
     expect(await player.setDisplayName('x'.repeat(41))).toBe(false);
     expect(player.getSnapshot().profile).toEqual({
       displayName: 'Adam Zvulun',
       avatar: DEFAULT_LOOK,
+      owned: [],
     });
   });
 
@@ -131,7 +141,11 @@ describe('the player’s name', () => {
     );
     await player.load();
     expect(await player.setDisplayName('Adam')).toBe(false);
-    expect(player.getSnapshot().profile).toEqual({ displayName: '', avatar: DEFAULT_LOOK });
+    expect(player.getSnapshot().profile).toEqual({
+      displayName: '',
+      avatar: DEFAULT_LOOK,
+      owned: [],
+    });
   });
 });
 

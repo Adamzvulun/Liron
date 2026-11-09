@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { SubjectInfo } from '../subject.ts';
-import { contractQuests, todaysQuests } from './quests.ts';
+import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
 
 const tower: SubjectInfo = {
   id: 'beacon',
@@ -108,5 +108,15 @@ describe("today's quests (ADR 0019)", () => {
       expect.objectContaining({ text: '1 of 2 done today', reward: '10 gold left to earn' }),
     ]);
     expect(contractQuests([tower], null, false)).toEqual([]);
+  });
+
+  it('says when a streak shield saved the streak (ADR 0034)', () => {
+    expect(shieldNote({ streak: 12, shieldedDays: 0 })).toBeNull();
+    expect(shieldNote({ streak: 12, shieldedDays: 1 })).toBe(
+      'A streak shield saved your 12-day streak',
+    );
+    expect(shieldNote({ streak: 5, shieldedDays: 2 })).toBe(
+      '2 streak shields saved your 5-day streak',
+    );
   });
 });

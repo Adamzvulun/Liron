@@ -1,0 +1,78 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "headset",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "rare",
+        "price": 180,
+        "milestone": {
+          "kind": "subject-level",
+          "subject": "morse",
+          "level": 5
+        }
+      }
+    },
+    {
+      "id": "cloak",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "rare",
+        "price": 180,
+        "milestone": {
+          "kind": "streak",
+          "days": 7
+        }
+      }
+    },
+    {
+      "id": "boots",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "feet",
+        "rarity": "common",
+        "price": 60,
+        "milestone": {
+          "kind": "contracts",
+          "count": 10
+        }
+      }
+    },
+    {
+      "id": "breeches",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "legs",
+        "rarity": "common",
+        "price": 60,
+        "milestone": {
+          "kind": "trial",
+          "chapter": 1
+        }
+      }
+    },
+    {
+      "id": "streak-shield",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "functional",
+        "rarity": "functional",
+        "price": 120
+      }
+    }
+  ]
+}

@@ -57,6 +57,15 @@ export function todaysQuests(
 
 const BOARD_COLOR = '#e8a93a';
 
+/** Said when a streak shield covered the days just missed (ADR 0034), or null. */
+export function shieldNote(today: { streak: number; shieldedDays: number }): string | null {
+  if (!today.shieldedDays) return null;
+  const days = `${today.streak}-day streak`;
+  return today.shieldedDays === 1
+    ? `A streak shield saved your ${days}`
+    : `${today.shieldedDays} streak shields saved your ${days}`;
+}
+
 /**
  * Today's contracts (ADR 0032): one line each on the Notice Board (`full`), or one line in the
  * HUD saying how many are done and what's left to earn.

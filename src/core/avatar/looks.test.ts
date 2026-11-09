@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_LOOK, GEAR, parseLook, SLOTS } from './looks.ts';
 import { paintAvatar, PAINTED_GEAR } from './paint.ts';
+import catalogue from '../../../content/core/items.json' with { type: 'json' };
 
 describe('avatar looks', () => {
   it('gives new players the default look', () => {
@@ -22,6 +23,26 @@ describe('avatar looks', () => {
       gear: { head: 'headset', back: 'staff', hand: 'staff' },
     });
     expect(look.gear).toEqual({ hand: 'staff' });
+  });
+
+  it('keeps gear the player owns (ADR 0033)', () => {
+    const raw = { ...DEFAULT_LOOK, gear: { head: 'headset', back: 'cloak' } };
+    expect(parseLook(raw, new Set(['headset'])).gear).toEqual({ head: 'headset' });
+  });
+
+  it("lists every earnable item in the catalogue, in the item's slot", () => {
+    const pack = catalogue as {
+      items: { id: string; data: { kind: string; slot?: string; milestone?: object } }[];
+    };
+    const gear = pack.items.filter((i) => i.data.kind === 'gear');
+    expect(gear.map((i) => [i.id, i.data.slot]).sort()).toEqual(
+      GEAR.filter((g) => !g.starter)
+        .map((g) => [g.id, g.slot])
+        .sort(),
+    );
+    // Each milestone item says how it's earned.
+    for (const i of gear)
+      if (i.data.milestone) expect(GEAR.find((g) => g.id === i.id)?.earn).toBeTruthy();
   });
 
   it('has 3–4 starter items, and art for every item', () => {

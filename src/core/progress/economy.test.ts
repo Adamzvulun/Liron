@@ -84,6 +84,14 @@ describe('streak and daily chest', () => {
     expect(streakFrom([], '2026-11-02')).toBe(0);
   });
 
+  it('a shielded day keeps the streak alive but adds nothing (ADR 0034)', () => {
+    const goals = ['2026-11-01', '2026-11-02', '2026-11-04'];
+    expect(streakFrom(goals, '2026-11-04')).toBe(1);
+    expect(streakFrom(goals, '2026-11-04', ['2026-11-03'])).toBe(3);
+    expect(streakFrom(goals, '2026-11-05', ['2026-11-03'])).toBe(3);
+    expect(streakFrom(goals.slice(0, 2), '2026-11-04', ['2026-11-03'])).toBe(2);
+  });
+
   it('crosses months and years', () => {
     expect(streakFrom(['2025-12-31', '2026-01-01'], '2026-01-01')).toBe(2);
     expect(addDays('2028-02-28', 1)).toBe('2028-02-29');

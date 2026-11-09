@@ -34,6 +34,8 @@ interface TodayRow {
   goal_minutes: number;
   goal_reached: boolean;
   streak: number;
+  streak_shields?: number;
+  shielded_days?: number;
   goal_reached_now?: boolean;
   chest_gold?: number;
   chest_gems?: number;
@@ -45,6 +47,8 @@ const toToday = (r: TodayRow): Today => ({
   goalMinutes: r.goal_minutes,
   goalReached: r.goal_reached,
   streak: r.streak,
+  shields: r.streak_shields ?? 0,
+  shieldedDays: r.shielded_days ?? 0,
 });
 
 const toDayResult = (r: TodayRow): DayResult => ({
@@ -175,12 +179,21 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       await call('set_time_zone', { p_zone: zone }, 'save the time zone');
     },
     async profile() {
-      const { data, error } = await client
-        .from('profiles')
-        .select('display_name, avatar')
-        .maybeSingle<{ display_name: string; avatar: unknown }>();
+      const [{ data, error }, items] = await Promise.all([
+        client
+          .from('profiles')
+          .select('display_name, avatar')
+          .maybeSingle<{ display_name: string; avatar: unknown }>(),
+        client.from('owned_items').select('item_id').returns<{ item_id: string }[]>(),
+      ]);
       if (error) throw new Error(`Couldn't read your profile: ${error.message}`);
-      return { displayName: data?.display_name ?? '', avatar: parseLook(data?.avatar) };
+      if (items.error) throw new Error(`Couldn't read what you own: ${items.error.message}`);
+      const owned = (items.data ?? []).map((r) => r.item_id);
+      return {
+        displayName: data?.display_name ?? '',
+        avatar: parseLook(data?.avatar, new Set(owned)),
+        owned,
+      };
     },
     async setAvatar(look) {
       const { data } = await client.auth.getSession();

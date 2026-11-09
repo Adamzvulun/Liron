@@ -126,7 +126,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       const clean = name.trim().replace(/\s+/g, ' ');
       if (clean.length > MAX_NAME_LENGTH) return false;
       const before = state.profile;
-      set({ profile: { ...(before ?? { avatar: DEFAULT_LOOK }), displayName: clean } });
+      set({ profile: { ...(before ?? { avatar: DEFAULT_LOOK, owned: [] }), displayName: clean } });
       try {
         await store.setDisplayName(clean);
         return true;
@@ -138,7 +138,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     /** Saves the avatar's look (#29). Returns false, keeping the old look, if it couldn't. */
     async setAvatar(look: Look): Promise<boolean> {
       const before = state.profile;
-      set({ profile: { ...(before ?? { displayName: '' }), avatar: look } });
+      set({ profile: { ...(before ?? { displayName: '', owned: [] }), avatar: look } });
       try {
         await store.setAvatar(look);
         return true;

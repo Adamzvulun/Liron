@@ -15,7 +15,7 @@ ADR 0021: the streak is the number of consecutive days the goal was reached, and
 
 ## Decision
 - New column `daily_activity.shielded` (boolean). A shielded day keeps the streak alive but **doesn't add to it**: 5 days, a shielded day, then 1 more day is a streak of 6.
-- New function `use_streak_shields()`, run by `today_status()` and `check_daily_goal()` before they count the streak. It looks at the missed days between the last goal (or shielded) day and yesterday:
+- New function `use_streak_shields()`, run by `today_status()` and `check_daily_goal()` before they count the streak. (`today_status()` now writes, so it became a `security definer` function; it also returns the shields held and how many days just before today a shield covered.) It looks at the missed days between the last goal (or shielded) day and yesterday:
   - If the player holds **at least as many shields as missed days**, each missed day gets a `shielded` row and one shield is used up per day.
   - If not, **no shields are used**: the streak breaks, and the shields are kept for next time. A shield never covers part of a gap that would break anyway.
   - A streak of 0 needs no shield.

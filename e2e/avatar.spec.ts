@@ -36,6 +36,19 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await expect(page.getByRole('radio', { name: "Signaller's headset" })).toHaveCount(0);
   });
 
+  test('gear you own can be worn and saved (ADR 0033)', async ({ page }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], null, [], { owned: ['cloak'] });
+    await page.goto('/house');
+    await page.locator('label', { hasText: 'Merchant cloak' }).click();
+    await expect(page.getByRole('radio', { name: 'Merchant cloak' })).toBeChecked();
+    await expect(page.getByText("Signaller's headset (locked)")).toBeVisible();
+    await page.getByRole('button', { name: 'Save my look' }).click();
+    expect(updates).toContainEqual({
+      avatar: expect.objectContaining({ gear: expect.objectContaining({ back: 'cloak' }) }),
+    });
+  });
+
   test('undo puts the saved look back', async ({ page }) => {
     await signedIn(page);
     await page.goto('/house');
