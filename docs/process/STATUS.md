@@ -8,7 +8,7 @@
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0031 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0034 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -74,7 +74,8 @@
      - [#130](https://github.com/Adamzvulun/Liron/pull/130) (#126): American spelling, guarded by `tests/spelling.test.ts`, with the rule in CLAUDE.md.
      - [#131](https://github.com/Adamzvulun/Liron/pull/131) (#124): the halls are split into their own chunks, a session's audio is signed in one request, and the deck is kept in IndexedDB (ADR 0023 amended).
    - **The Groq "understood" check (2026-11-06):** a "Would they understand me?" button on the coffee corner's Say it cards. `api/understood.ts` (a Vercel function) checks sign-in, licence and a cap of 100 a day in one database call (`claim_speech_check`), then asks Groq Whisper. The browser compares the text with the phrase (`phrases/understood.ts`). [ADR 0014, amended](../decisions/0014-groq-whisper-for-speech.md). **Off until Adam adds `GROQ_API_KEY` in Vercel**; the [report](reports/2026-11-06.md) lists the cost, data and lock-in facts for him.
-   - **Next:** E10 (ADRs first, from 0032).
+   - **E10 decisions written (2026-11-09):** [0032](../decisions/0032-subject-events-and-daily-contracts.md) subject events and contracts, [0033](../decisions/0033-inventory-chests-and-market.md) inventory, chests and Market, [0034](../decisions/0034-streak-shields.md) streak shields.
+   - **Next:** E10 build: #47 tracker, #46 contracts, #48 chests, #49 Market.
    - **Audio for the missing phrases:** no source is usable yet. Lingua Libre is the lead (a CC0 *nšallah* found); the speakers' origin is unverified because lingualibre.org timed out. Nothing is used until Adam has seen the files ([research](../research/phrase-audio-sources.md)).
 
 ## Backlog map

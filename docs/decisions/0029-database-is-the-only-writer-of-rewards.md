@@ -25,6 +25,6 @@ E10 (contracts, chests, the Market) assumes "the database pays", so this has to 
 
 ## Consequences
 - **Direct client writes:** only the name and the look remain, and both are harmless.
-- **What this doesn't stop:** the functions still trust what the app reports (e.g. "I earned 20 XP"). A player who writes their own requests can still report fake practice, up to the daily cap. That's acceptable for a personal app; E10's contracts must keep it in mind (ADR 0030, to come).
+- **What this doesn't stop:** the functions still trust what the app reports (e.g. "I earned 20 XP"). A player who writes their own requests can still report fake practice, up to the daily cap. That's acceptable for a personal app; E10's contracts must keep it in mind ([ADR 0032](0032-subject-events-and-daily-contracts.md)).
 - Tests: `supabase/tests/schema.test.ts` checks every rule above on the real migrations in PGlite.
 - No cost, no new technology.

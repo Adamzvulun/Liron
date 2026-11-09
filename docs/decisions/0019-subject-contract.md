@@ -1,6 +1,6 @@
 # 0019 — The subject contract: one bound API per subject, checked import boundaries
 
-- **Status:** Accepted (part of #18). Amended by [0029](0029-database-is-the-only-writer-of-rewards.md) and [0031](0031-one-save-per-session.md) (`saveSession`: a finished session is saved in one call). Amended 2026-11-04: subjects name their own building and Notice Board line (below).
+- **Status:** Accepted (part of #18). Amended by [0029](0029-database-is-the-only-writer-of-rewards.md) and [0031](0031-one-save-per-session.md) (`saveSession`: a finished session is saved in one call). Amended by [0032](0032-subject-events-and-daily-contracts.md) (`reportEvent` and `questStatus`). Amended 2026-11-04: subjects name their own building and Notice Board line (below).
 - **Date:** 2026-11-02
 - **Builds on:** [0003](0003-hub-of-independent-subjects.md) (independent subjects), [0017](0017-player-data-schema.md) (player data)
 
