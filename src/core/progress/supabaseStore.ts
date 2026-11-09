@@ -1,6 +1,6 @@
 import { parseLook } from '../avatar/looks.ts';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Award, Contract, DayResult, ProgressStore, Today } from './store.ts';
+import type { Award, Chest, Contract, DayResult, ProgressStore, Today } from './store.ts';
 import type { StoredRating } from '../rating/ratings.ts';
 
 interface RatingRow {
@@ -120,6 +120,47 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
         gold: number;
       }>('todays_contracts', {}, "load today's contracts");
       return { day: r.day, contracts: r.contracts, paidNow: r.paid_now, gold: r.gold };
+    },
+    async chests() {
+      const { data, error } = await client
+        .from('chests')
+        .select('id, kind, source, source_key')
+        .is('opened_at', null)
+        .order('granted_at')
+        .returns<{ id: string; kind: string; source: Chest['source']; source_key: string }[]>();
+      if (error) throw new Error(`Couldn't read your chests: ${error.message}`);
+      return (data ?? []).map((c) => ({
+        id: c.id,
+        kind: c.kind,
+        source: c.source,
+        sourceKey: c.source_key,
+      }));
+    },
+    async openChest(id) {
+      const r = await call<{
+        kind: string;
+        gold: number;
+        gems: number;
+        item: string | null;
+        item_gold: number;
+        shield: boolean;
+        shield_gold: number;
+        wallet?: { gold: number; gems: number; streak_shields: number };
+      }>('open_chest', { p_chest: id }, 'open the chest');
+      return {
+        kind: r.kind,
+        gold: r.gold,
+        gems: r.gems,
+        item: r.item,
+        itemGold: r.item_gold,
+        shield: r.shield,
+        shieldGold: r.shield_gold,
+        wallet: r.wallet && {
+          gold: r.wallet.gold,
+          gems: r.wallet.gems,
+          shields: r.wallet.streak_shields,
+        },
+      };
     },
     async saveSession(subjectId, session) {
       const r = await call<{ duplicate: boolean; award: AwardRow | null }>(

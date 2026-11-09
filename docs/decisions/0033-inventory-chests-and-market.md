@@ -22,12 +22,14 @@ A chest whose contents are rolled in the browser can be rerolled by reloading. A
 
 **The catalogue is data**
 - `content/core/items.json`: every item with its id, slot, kind (`gear`, `color`, `functional`), rarity and price. Prices: common 60, rare 180, epic 450, streak shield 120.
-- `content/core/chests.json`: the drop table per chest kind (wooden, brass, jewelled): the gold range, and the chance of a gem, a gear item and a shield.
+- `content/core/chests.json`: the drop table per chest kind (wooden, brass, jeweled): the gold range, and the chance of a gem, a gear item and a shield.
 - Migrations copy both into `items` and `chest_drops`. A test compares the tables with the JSON.
 
 **Chests**
 - `chests(id, user_id, kind, source, source_key, granted_at, opened_at, contents)`. `unique (user_id, source, source_key)` makes each source give one chest: `contracts:<day>`, `trial:<subject>:<chapter>`, `streak:<start day>:<7|30|100>`.
 - Granted only by database functions: `claim_contracts` (ADR 0032), a trial passing (sent with the session save as an event, then checked), and `check_daily_goal` on streak days 7, 30 and 100.
+- **As built (#48):** one function, `grant_chests(uid, today)`, grants all three kinds. `claim_contracts` calls it, so it runs after every save and when the board opens. The streak key is the day the streak was reached, not its start (`<day>:<days>`), since that's what the database knows at the time; a streak that breaks and is rebuilt to 7 earns another chest. Which source gives which chest is data too (`chest-source` entries in `chests.json`, the `chest_sources` table): contracts wooden, a trial brass, day 7 brass, days 30 and 100 jeweled.
+- **On screen:** the Notice Board's chest shelf lists the chests waiting to be opened with what earned each, and today's contract chest, locked, with a seal per contract done. Opening one shows the lid lifting and the contents rising one by one (under 2 seconds; at once with reduced motion). The HUD says how many chests wait.
 - `open_chest(id)` rolls from `chest_drops`, using a seed from `md5(chest id)`, writes `contents` and pays: gold and gems into the wallet, a gear item into `owned_items` (one not yet owned; if all are owned, its price in gold instead), a shield into `streak_shields` (if already at 2, gold instead). Opening an opened chest returns the same contents and pays nothing.
 
 **Market**

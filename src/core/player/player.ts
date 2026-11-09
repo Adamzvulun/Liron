@@ -3,6 +3,8 @@ import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import {
   MAX_NAME_LENGTH,
   type Award,
+  type Chest,
+  type ChestContents,
   type DayResult,
   type Profile,
   type ProgressStore,
@@ -29,6 +31,8 @@ export interface PlayerState {
   goalReached: DayResult | null;
   /** Today's contracts (ADR 0032); null until loaded. */
   contracts: TodaysContracts | null;
+  /** Unopened chests (ADR 0033), oldest first; empty until loaded. */
+  chests: Chest[];
 }
 
 /** The browser's time zone, e.g. "Asia/Jerusalem". */
@@ -48,6 +52,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     levelUp: null,
     goalReached: null,
     contracts: null,
+    chests: [],
   };
   const listeners = new Set<() => void>();
   const set = (next: Partial<PlayerState>) => {
@@ -86,8 +91,34 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
           contracts,
           wallet: state.wallet ? { ...state.wallet, gold: contracts.gold } : state.wallet,
         });
+        // Claiming contracts also grants any chests now earned (ADR 0033).
+        set({ chests: await store.chests() });
       } catch {
         // Shown again on the next move.
+      }
+    },
+    /**
+     * Opens a chest: the database rolls and pays it. The purse, shields and wardrobe follow,
+     * and the chest leaves the shelf. Returns what it held, or null if it couldn't be opened.
+     */
+    async openChest(id: string): Promise<ChestContents | null> {
+      try {
+        const c = await store.openChest(id);
+        const next: Partial<PlayerState> = { chests: state.chests.filter((x) => x.id !== id) };
+        if (c.wallet) {
+          if (state.wallet) {
+            next.wallet = { ...state.wallet, gold: c.wallet.gold, gems: c.wallet.gems };
+          }
+          if (state.today) next.today = { ...state.today, shields: c.wallet.shields };
+        }
+        if (c.item && !c.itemGold && state.profile && !state.profile.owned.includes(c.item)) {
+          next.profile = { ...state.profile, owned: [...state.profile.owned, c.item] };
+        }
+        set(next);
+        return c;
+      } catch (e) {
+        fail(e);
+        return null;
       }
     },
     applyAward(award: Award) {
