@@ -157,3 +157,27 @@ describe('Arabic letters', () => {
     }
   });
 });
+
+describe('arabic/core-words.json (#159)', () => {
+  const raw = readFileSync(join(CONTENT, 'arabic', 'core-words.json'), 'utf8');
+  const chapters = pack('arabic/core-words.json').items.map(
+    (i) =>
+      i.data as { chapter: number; words: { deck: string; gloss: string; sentence?: string }[] },
+  );
+
+  it('is 10 chapters of 30 words, each deck word once', () => {
+    expect(chapters.map((c) => c.chapter)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    expect(chapters.every((c) => c.words.length === 30)).toBe(true);
+    const ids = chapters.flatMap((c) => c.words.map((w) => w.deck));
+    expect(new Set(ids).size).toBe(300);
+    expect(ids.every((id) => /^pcav:\d{4}$/.test(id))).toBe(true);
+  });
+
+  it('holds only ids and our glosses: no Arabic from the private deck (ADR 0011)', () => {
+    expect(raw).not.toMatch(/[؀-ۿ]/);
+    const words = chapters.flatMap((c) => c.words);
+    expect(
+      words.every((w) => w.gloss.length > 0 && /^pcav:\d{4}$/.test(w.sentence ?? 'pcav:0000')),
+    ).toBe(true);
+  });
+});
