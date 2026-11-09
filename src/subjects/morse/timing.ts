@@ -11,7 +11,7 @@
 //   character gap = 3·ta/19, word gap = 7·ta/19
 // where c is the character speed and s the effective speed, in wpm.
 
-import { codeFor } from './code.ts';
+import { codeFor, sendable } from './code.ts';
 
 export interface Speed {
   /** Character speed in wpm (PARIS). Default 20. */
@@ -57,7 +57,7 @@ export interface Schedule {
 
 /**
  * Turns text into key-down times. Spaces (any run of whitespace) are word gaps; characters we
- * don't teach are skipped. No trailing gap.
+ * don't teach are skipped. A prosign in angle brackets (`<AR>`) is one character. No trailing gap.
  */
 export function schedule(text: string, speed: Speed): Schedule {
   const dit = ditSeconds(speed.charWpm);
@@ -68,7 +68,7 @@ export function schedule(text: string, speed: Speed): Schedule {
   let pendingGap = 0;
 
   for (const word of text.trim().split(/\s+/)) {
-    for (const char of word) {
+    for (const char of sendable(word)) {
       const code = codeFor(char);
       if (!code) continue;
       t += pendingGap;

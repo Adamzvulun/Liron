@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { codeFor } from '../code.ts';
+import { codeFor, sendable } from '../code.ts';
 import { seededRandom } from '../lesson/build.ts';
 import { decode, sortElements, type Mark } from './decoder.ts';
 import { analyseFist } from './fist.ts';
@@ -17,7 +17,7 @@ function key(
   let t = 0;
   let first = true;
   text.split(' ').forEach((w, wi) => {
-    [...w].forEach((c, ci) => {
+    sendable(w).forEach((c, ci) => {
       const code = codeFor(c) ?? '';
       [...code].forEach((e, ei) => {
         if (!first) t += wobble((ei ? element : ci ? letter : wi ? word : 0) * dit);
@@ -58,6 +58,12 @@ describe('the straight-key decoder (#36)', () => {
     const end = marks[marks.length - 1]?.up ?? 0;
     expect(decode(marks, { now: end + 50 })).toMatchObject({ text: '', keying: true });
     expect(decode(marks, { now: end + 250 })).toMatchObject({ text: 'K', keying: false });
+  });
+
+  it('reads prosigns as one character, but -...- stays "=" (#155)', () => {
+    expect(decode(key('CQ <AR>', 60)).text).toBe('CQ <AR>');
+    expect(decode(key('TU <SK> <KN>', 60)).text).toBe('TU <SK> <KN>');
+    expect(decode(key('<BT>', 60)).text).toBe('=');
   });
 
   it('reads a code we don’t teach as "?"', () => {
