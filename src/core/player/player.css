@@ -304,6 +304,12 @@
   font-family: var(--font-arabic);
 }
 
+.hud__questprogress {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lamplight);
+}
+
 .hud__questreward {
   font-size: 14px;
   font-weight: 600;

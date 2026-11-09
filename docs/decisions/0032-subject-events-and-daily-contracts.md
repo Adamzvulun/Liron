@@ -36,8 +36,9 @@ ADR 0029 says the browser never writes rewards, and the database pays. ADR 0031 
 - Gold only, never XP: XP keeps meaning "learning time". About 15 gold a contract (habit 10, harder 20).
 
 **Questline status (#47)**
-- Optional contract method `questStatus(state)` returning `{ questline, chapter, step, done, total, href }`. It's computed in the browser from the subject's own saved state. It shows progress and pays nothing, so it needn't be checked by the database.
-- The HUD shows one line per started questline. On phones it folds into the Notice Board.
+- Optional `SubjectInfo.questStatus(state)`, resolving to `{ questline, chapter, done, total, unit, next? }`, or null before the questline is started. It's computed in the browser from the subject's own saved state. It shows progress and pays nothing, so it needn't be checked by the database.
+- It's async so each subject loads its questline code only when asked (`tracker.ts`), keeping the square's first load small (#124). The platform adds the link from the subject's building, so subjects never learn the city's paths.
+- A started questline's line replaces the subject's plain Notice Board line, e.g. "The Silent Beacon I: Embers · 6/8 lamps". It shows in the HUD on wide screens and behind the dock's Quests button on phones. It's read again each time you move, so coming back from a hall shows the lamp you just lit.
 
 ## Consequences
 - A subject adds contracts by adding event kinds and templates. No new database functions per subject.
