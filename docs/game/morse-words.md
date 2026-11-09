@@ -14,7 +14,7 @@ The Silent Beacon teaches the 41 characters one at a time. E12 is the next step:
 - **Head copy:** a word plays once, then you type it. You get no feedback while it plays. You can ask for **AGN** (again) once, but a word you needed to hear twice counts as half right.
 - **A round is 10 words.** Words you got wrong or that are due in spaced repetition come first. Up to 3 new words join each round, in frequency order.
 - **Q-codes and abbreviations show their meaning after you answer**, so you learn the language of the radio, not just the sound.
-- **The callsign rush opens once you have a digit** (5, in chapter III), because every real callsign has one. Callsigns start at 20 wpm. Each one you copy makes the next 2 wpm faster, and each miss makes it 2 wpm slower. Your best speed is kept.
+- **The callsign rush is the Codebook’s second drill. It opens once you have a digit** (5, in chapter III), because every real callsign has one. Callsigns start at 20 wpm. Each one you copy makes the next 2 wpm faster, and each miss makes it 2 wpm slower. Your best speed is kept.
 
 ## Why words now
 - Koch's method builds instant recognition of single characters. The next step is recognizing common words as one sound, which is what "head copy" means. CWops' CW Academy teaches it as the way to conversation speed.
@@ -52,7 +52,7 @@ The Silent Beacon teaches the 41 characters one at a time. E12 is the next step:
 - A run of 25 made-up callsigns, each played once. The shape is a real one, using only your unlocked characters: a 1–2 character prefix, a digit, then 1–3 letters, such as `K5AT`, `MI2RK`, `9A5WE`.
 - It starts at 20 wpm, as a standard-spacing word (no Farnsworth: the rush is about speed). Each callsign copied right makes the next 2 wpm faster, and each miss makes it 2 wpm slower, never below 15. The cap is 50 wpm.
 - **Score:** the sum of the wpm of each callsign copied right. You keep your best score and your top speed. Being fast and accurate scores most; the genre's classic is RufzXP.
-- This is the drill behind the daily contract "Copy 3 callsigns above your speed" (discovery 04). It sends `rush-round` and `rush-best` events.
+- This is the drill behind the daily contract "Copy 3 callsigns above your speed" (discovery 04). It sends `rush-round`, `rush-best` (a new best score) and `rush-fast` (one per call copied above your 20 wpm lesson speed) events. Callsigns are made up, so they aren’t rated or reviewed.
 - The made-up callsigns can match real ones by chance. That's harmless: we never send anything.
 
 ## Not in E12 (kept for later, not dropped)

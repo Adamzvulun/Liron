@@ -14,6 +14,15 @@ import {
   xpForWords,
   type WordAttempt,
 } from './drill.ts';
+import { Rush, RushSummaryCard } from './Rush.tsx';
+import {
+  applyRush,
+  reportRush,
+  rushOpen,
+  RUSH_START_WPM,
+  summarizeRush,
+  type RushCall,
+} from './rush.ts';
 import '../lesson/lesson.css';
 import './words.css';
 
@@ -46,6 +55,10 @@ export function WordDrill({ api }: { api: SubjectApi }) {
   const [round, setRound] = useState<Round | null>(null);
   const [result, setResult] = useState<WordAttempt[] | null>(null);
   const [starting, setStarting] = useState(false);
+  const [rushing, setRushing] = useState(false);
+  const [rushResult, setRushResult] = useState<{ calls: RushCall[]; bestBefore: number } | null>(
+    null,
+  );
   const latest = useRef<MorseProgress | null>(null);
 
   useEffect(() => {
@@ -77,6 +90,7 @@ export function WordDrill({ api }: { api: SubjectApi }) {
     ]);
     setStarting(false);
     setResult(null);
+    setRushResult(null);
     setRound({
       progress: p,
       words: pickRound(
@@ -106,6 +120,29 @@ export function WordDrill({ api }: { api: SubjectApi }) {
     [api],
   );
 
+  const startRush = useCallback(() => {
+    setResult(null);
+    setRushResult(null);
+    setRushing(true);
+  }, []);
+
+  const finishRush = useCallback(
+    (calls: RushCall[], seconds: number) => {
+      const before = latest.current;
+      if (!before) return;
+      const next = applyRush(before, summarizeRush(calls));
+      latest.current = next;
+      setProgress(next);
+      setRushing(false);
+      setRushResult({ calls, bestBefore: before.rush.best });
+      reportRush(api, next, calls, before.rush.best, CHAR_WPM, seconds).then(
+        () => setSaveFailed(false),
+        () => setSaveFailed(true),
+      );
+    },
+    [api],
+  );
+
   if (failed) {
     return (
       <p className="lesson__card">
@@ -126,6 +163,15 @@ export function WordDrill({ api }: { api: SubjectApi }) {
       )}
       {round ? (
         <Copy round={round} onDone={finish} />
+      ) : rushing ? (
+        <Rush progress={progress} onDone={finishRush} />
+      ) : rushResult ? (
+        <RushSummaryCard
+          calls={rushResult.calls}
+          best={progress.rush.best}
+          isBest={summarizeRush(rushResult.calls).score > rushResult.bestBefore}
+          onAgain={startRush}
+        />
       ) : result ? (
         <Summary attempts={result} onAgain={() => void start()} />
       ) : (
@@ -152,6 +198,24 @@ export function WordDrill({ api }: { api: SubjectApi }) {
               >
                 {starting ? 'Opening…' : 'Start a round'}
               </button>
+              <h3 className="words__subtitle">Callsign rush</h3>
+              {rushOpen(unlockedChars(progress)) ? (
+                <>
+                  <p>
+                    Made-up callsigns, from {RUSH_START_WPM} wpm. Each one you copy makes the next
+                    faster; a miss slows it down.
+                    {progress.rush.best > 0 &&
+                      ` Your best: ${progress.rush.best}, fastest ${progress.rush.topWpm} wpm.`}
+                  </p>
+                  <button type="button" className="lesson__plain" onClick={startRush}>
+                    Start the rush
+                  </button>
+                </>
+              ) : (
+                <p className="lesson__note">
+                  Opens with your first digit (5, in chapter III): every callsign has one.
+                </p>
+              )}
             </>
           ) : (
             <p>The codebook is locked. Pass the Gatekeeper, chapter I’s trial, to open it.</p>

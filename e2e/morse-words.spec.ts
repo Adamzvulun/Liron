@@ -48,4 +48,38 @@ test.describe('the Codebook in the Signal Tower (#154)', () => {
     for (const c of calls.filter((c) => c.rpc === 'record_result'))
       expect(c.args).toMatchObject({ p_subject: 'morse', p_skill: 'head-copy' });
   });
+
+  test('the callsign rush opens with a digit, and saves its score', async ({ page }) => {
+    test.setTimeout(60_000);
+    const calls: SubjectCall[] = [];
+    const koch = 'KMURESNAPTLWI.JZ=FOY,VG5';
+    await signedIn(page, [], calls, { unlocked: 24, met: [...koch], trials: [1, 2] });
+    await page.goto('/signal-tower?open=words&run=short');
+    await page.getByRole('button', { name: 'Start the rush' }).click();
+
+    for (let i = 1; i <= 3; i++) {
+      await expect(
+        page.getByText(new RegExp(`^Call ${i} of 3 · \\d+ wpm · score \\d+ · type the call$`)),
+      ).toBeVisible({
+        timeout: 10_000,
+      });
+      await page.keyboard.press('k');
+      await page.keyboard.press('5');
+      await page.keyboard.press('Enter');
+    }
+
+    await expect(page.getByText('Rush finished')).toBeVisible();
+    await expect(page.getByText(/Score \d+ · \d of 3 calls/)).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Rush again' })).toBeVisible();
+    await expect
+      .poll(() => calls.find((c) => c.rpc === 'save_subject_state')?.args)
+      .toMatchObject({ p_subject: 'morse', p_state: { rush: { runs: 1 } } });
+  });
+
+  test('before a digit, the rush says when it opens', async ({ page }) => {
+    await signedIn(page, [], [], { unlocked: 9, met: [...'KMURESNAP'], trials: [1] });
+    await page.goto('/signal-tower?open=words');
+    await expect(page.getByText(/Opens with your first digit/)).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Start the rush' })).toHaveCount(0);
+  });
 });
