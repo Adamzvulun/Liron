@@ -8,7 +8,7 @@ import { CoinIcon, FlameIcon, GearIcon, GemIcon } from './icons.tsx';
 import type { SubjectInfo } from '../subject.ts';
 import type { PlayerState } from './player.ts';
 import type { Questlines } from './questlines.ts';
-import { todaysQuests } from './quests.ts';
+import { contractQuests, todaysQuests } from './quests.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
 
@@ -53,7 +53,14 @@ export function Hud({
         Waymark
       </div>
       <Purse state={state} {...actions} />
-      {today && <QuestTracker today={today} subjects={subjects} questlines={questlines} />}
+      {today && (
+        <QuestTracker
+          today={today}
+          subjects={subjects}
+          questlines={questlines}
+          contracts={state.contracts}
+        />
+      )}
     </div>
   );
 }
@@ -266,11 +273,17 @@ export function QuestTracker({
   today,
   subjects,
   questlines,
+  contracts = null,
+  full = false,
 }: {
   today: NonNullable<PlayerState['today']>;
   subjects: readonly SubjectInfo[];
   /** Started questlines, shown in place of their subjects' plain lines (#47). */
   questlines?: Questlines;
+  /** Today's contracts (#46). */
+  contracts?: PlayerState['contracts'];
+  /** On the Notice Board: every contract, not just how many are done. */
+  full?: boolean;
 }) {
   const shown = Math.min(today.minutes, today.goalMinutes);
   return (
@@ -299,9 +312,16 @@ export function QuestTracker({
         />
       </div>
       <ul className="hud__questlist">
-        {todaysQuests(subjects, today.goalMinutes, questlines).map((q) => (
-          <li key={q.giver}>
-            <Link className="hud__quest" href={q.href} style={{ borderLeftColor: q.color }}>
+        {[
+          ...todaysQuests(subjects, today.goalMinutes, questlines),
+          ...contractQuests(subjects, contracts, full),
+        ].map((q) => (
+          <li key={q.key ?? q.giver}>
+            <Link
+              className={`hud__quest${q.done ? ' is-done' : ''}`}
+              href={q.href}
+              style={{ borderLeftColor: q.color }}
+            >
               <span className="hud__questgiver" style={{ color: q.color }}>
                 {q.giver}
               </span>

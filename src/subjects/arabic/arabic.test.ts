@@ -464,8 +464,15 @@ describe('reporting a session', () => {
         ],
         xp: 4,
         minutes: 2,
+        // 2 of 3 right: a session, but not one at 90%.
+        events: [{ kind: 'letters-session' }],
         at: expect.any(Date),
       },
+    ]);
+    reports.length = 0;
+    await reportSession(api, NEW_PROGRESS, answers.slice(0, 1), 0, 60);
+    expect(reports).toEqual([
+      expect.objectContaining({ events: [{ kind: 'letters-session' }, { kind: 'letters-90' }] }),
     ]);
   });
 });

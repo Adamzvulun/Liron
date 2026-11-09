@@ -31,6 +31,7 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 - **1 gold per 5 XP**, counted on your XP total so nothing is lost to rounding. About 30 gold on a 15-minute day.
 - **Reaching level *L* pays 5 × *L* gold.** For example, level 5 pays 25 gold.
 - **Daily chest:** 20 gold (below).
+- **Daily contracts:** 10 to 20 gold each, about 45 a day for all 3 (below).
 - Spent in the Market (E10).
 
 ## Gems (rare)
@@ -45,11 +46,22 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 - **Daily chest:** reaching the goal pays **20 gold**, once a day (the database records each chest, so it can't be paid twice). On every **7th day** of a streak (7, 14, 21, …) the chest also holds **1 gem**.
 - Changing the goal never rewrites past days. Lowering it below what you've already done today reaches today's goal straight away.
 
+## Daily contracts
+Three a day on the Notice Board ([ADR 0032](../decisions/0032-subject-events-and-daily-contracts.md), #46): one habit, then one from each subject you've started (two from it if you've started only one). They're picked by the database once a day and don't change if you start a subject later. Each pays **gold only**, never XP, once, as soon as it's done. The templates are data in `content/core/contracts.json` and each subject's `contracts.json`.
+
+| Contract | Target | Gold |
+|---|---|---|
+| Practice minutes today | 25 minutes | 10 |
+| Finish sessions today | 3 sessions | 10 |
+| Practice two subjects today (only once two are started) | 2 subjects | 15 |
+| Morse: a Koch run at 90% · 3 Koch runs · 2 recognition rounds · a recognition best · a sending drill at 80% | 1 · 3 · 2 · 1 · 1 | 20 · 15 · 15 · 20 · 15 |
+| Arabic: a letters session at 90% · 2 letters sessions · a slate page · a coffee corner visit | 1 · 2 · 1 · 1 | 20 · 15 · 15 · 15 |
+
 ## Coming later (not dropped)
 | Reward | Where |
 |---|---|
 | Combo bonus inside activities | E10 (quests and rewards). It was planned for E6–E9 but not built there; the end-of-activity screens were. |
-| Daily quests and chests, quest gold | E10 (quests and rewards) |
+| Chests, and the contract chest for finishing all 3 | E10 (#48) |
 | Streak protection items | E10 (Market) |
 | Weekly league | M5 (friends) |
 | Achievements and boss challenges paying gems | later epics |

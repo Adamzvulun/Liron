@@ -1,0 +1,67 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "morse-run-90",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "run-90",
+        "target": 1,
+        "gold": 20,
+        "text": "Pass a Koch run at 90%"
+      }
+    },
+    {
+      "id": "morse-runs",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "run",
+        "target": 3,
+        "gold": 15,
+        "text": "Finish 3 Koch runs"
+      }
+    },
+    {
+      "id": "morse-recognition",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "recognition-round",
+        "target": 2,
+        "gold": 15,
+        "text": "Play 2 rounds of Instant Recognition"
+      }
+    },
+    {
+      "id": "morse-recognition-best",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "recognition-best",
+        "target": 1,
+        "gold": 20,
+        "text": "Beat your Instant Recognition best"
+      }
+    },
+    {
+      "id": "morse-drill-80",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "drill-80",
+        "target": 1,
+        "gold": 15,
+        "text": "Key a sending drill at 80%"
+      }
+    }
+  ]
+}

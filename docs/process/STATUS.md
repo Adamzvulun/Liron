@@ -75,7 +75,10 @@
      - [#131](https://github.com/Adamzvulun/Liron/pull/131) (#124): the halls are split into their own chunks, a session's audio is signed in one request, and the deck is kept in IndexedDB (ADR 0023 amended).
    - **The Groq "understood" check (2026-11-06):** a "Would they understand me?" button on the coffee corner's Say it cards. `api/understood.ts` (a Vercel function) checks sign-in, licence and a cap of 100 a day in one database call (`claim_speech_check`), then asks Groq Whisper. The browser compares the text with the phrase (`phrases/understood.ts`). [ADR 0014, amended](../decisions/0014-groq-whisper-for-speech.md). **Off until Adam adds `GROQ_API_KEY` in Vercel**; the [report](reports/2026-11-06.md) lists the cost, data and lock-in facts for him.
    - **E10 decisions written (2026-11-09):** [0032](../decisions/0032-subject-events-and-daily-contracts.md) subject events and contracts, [0033](../decisions/0033-inventory-chests-and-market.md) inventory, chests and Market, [0034](../decisions/0034-streak-shields.md) streak shields.
-   - **Next:** E10 build: #47 tracker, #46 contracts, #48 chests, #49 Market.
+   - **E10 build (2026-11-09):**
+     - [#136](https://github.com/Adamzvulun/Liron/pull/136) (#47): each started questline shows on the Notice Board and in the HUD ("The Silent Beacon I: Embers · 6/8 lamps"), read from the subject's own state (`tracker.ts`).
+     - #46: daily contracts. Subjects send events with each session save; 3 contracts a day are picked, checked and paid in gold by the database (migration `20261109000000_daily_contracts.sql`). The Notice Board lists them; the HUD says "1 of 3 done today · 30 gold left to earn". Numbers in [economy](../game/economy.md#daily-contracts).
+   - **Next:** #48 chests (with the contract chest), #49 Market, then [#137](https://github.com/Adamzvulun/Liron/issues/137) (Adam, 2026-11-09: the site still feels too slow; find out why).
    - **Audio for the missing phrases:** no source is usable yet. Lingua Libre is the lead (a CC0 *nšallah* found); the speakers' origin is unverified because lingualibre.org timed out. Nothing is used until Adam has seen the files ([research](../research/phrase-audio-sources.md)).
 
 ## Backlog map

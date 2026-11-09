@@ -7,6 +7,7 @@ import {
   type Profile,
   type ProgressStore,
   type Today,
+  type TodaysContracts,
   type Wallet,
 } from '../progress/store.ts';
 
@@ -26,6 +27,8 @@ export interface PlayerState {
   levelUp: LevelUpInfo | null;
   /** The daily goal just reached, waiting to be celebrated, if any. */
   goalReached: DayResult | null;
+  /** Today's contracts (ADR 0032); null until loaded. */
+  contracts: TodaysContracts | null;
 }
 
 /** The browser's time zone, e.g. "Asia/Jerusalem". */
@@ -44,6 +47,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     error: null,
     levelUp: null,
     goalReached: null,
+    contracts: null,
   };
   const listeners = new Set<() => void>();
   const set = (next: Partial<PlayerState>) => {
@@ -69,6 +73,21 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
         set({ wallet, today, profile, error: null });
       } catch (e) {
         fail(e);
+      }
+    },
+    /**
+     * Loads today's contracts; finished ones are paid on the way, so the purse follows. A
+     * failure leaves the board as it was: contracts never block the rest of the game.
+     */
+    async loadContracts() {
+      try {
+        const contracts = await store.todaysContracts();
+        set({
+          contracts,
+          wallet: state.wallet ? { ...state.wallet, gold: contracts.gold } : state.wallet,
+        });
+      } catch {
+        // Shown again on the next move.
       }
     },
     applyAward(award: Award) {

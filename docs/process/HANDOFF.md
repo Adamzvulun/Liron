@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), and 2026-11-06 (the Groq check). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 - **Starting prompt:** [next-session-prompt.md](next-session-prompt.md) is what Adam pastes to start the next session.
 
@@ -29,9 +29,10 @@
 ## Next (in order)
 1. **#125 review:** when Adam answers about the lesson 1–3 list, edit `content/arabic/lesson-words.json` (glosses by deck id). Then set its `reviewed` field to "Adam, <date>" and close #125. To rebuild the human-readable table, run a scratchpad script that joins the list with `buildLingualism()`. Never commit that table.
 2. **The Groq "understood" check is built** (2026-11-06). It waits for Adam to add `GROQ_API_KEY` in Vercel. The [report](reports/2026-11-06.md) gives him the cost, data (ZDR recommended) and lock-in facts. Once he has added it, try it on the dev site: record a Say it phrase and press "Would they understand me?". Without the key it says "isn't set up yet".
-3. **E10** (approved): ADRs first, from 0032. Contract events go through `save_session` (ADR 0031).
-4. **Audio for the missing phrases:** retry the lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect. Never use a file before Adam has seen it.
-5. **No v1.0.0** until Adam says so.
+3. **E10** (approved): ADRs 0032–0034 are written; #47 (questline tracker) and #46 (daily contracts) are built. Next #48 (chests, including the contract chest for all 3 contracts) and #49 (the Market and streak shields, ADR 0034). Contract events ride on `save_session` (`p_events`); a new kind needs a template in `content/<subject>/contracts.json` and a migration, or the database ignores it.
+4. **#137** (Adam, 2026-11-09): the site still feels too slow. After E10, measure first (Lighthouse and a trace on the live dev site, phone and desktop), then fix what the numbers show.
+5. **Audio for the missing phrases:** retry the lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect. Never use a file before Adam has seen it.
+6. **No v1.0.0** until Adam says so.
 
 ## Things the next session should know
 - **Arabic code map (`src/subjects/arabic/`):**

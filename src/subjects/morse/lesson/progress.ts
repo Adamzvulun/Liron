@@ -171,6 +171,8 @@ export async function reportRun(
     })),
     xp: xpFor(score, unlockedNow),
     minutes: seconds / 60,
+    // Daily contracts (ADR 0032): a run, and a run at 90%.
+    events: [{ kind: 'run' }, ...(score.accuracy >= 0.9 ? [{ kind: 'run-90' }] : [])],
     at,
   });
 }

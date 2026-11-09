@@ -97,6 +97,12 @@ export interface SubjectProgress {
   minutes: number;
 }
 
+/** One moment in a session that a daily contract may count (ADR 0032). */
+export interface SessionEvent {
+  kind: string;
+  count?: number;
+}
+
 /**
  * A finished session, saved all at once (ADR 0031): either all of it is stored or none of it.
  * Every part is optional; what's there is applied in this order: state, reviews, results, then
@@ -113,6 +119,12 @@ export interface SessionReport<State extends object = Record<string, unknown>> {
   xp?: number;
   /** Minutes practised (rounded as for `recordPractice`). */
   minutes?: number;
+  /**
+   * Moments that matter for daily contracts (ADR 0032), e.g. `{ kind: 'run-90' }`. A kind is a
+   * short id the subject declares with its contract templates; others are ignored. `count`
+   * defaults to 1 (at most 100).
+   */
+  events?: readonly SessionEvent[];
   /** When the session ended (default: now). */
   at?: Date;
   /**
