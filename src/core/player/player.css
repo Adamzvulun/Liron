@@ -310,6 +310,31 @@
   color: var(--lamplight);
 }
 
+.hud__shields {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 2px;
+  font-size: 16px;
+}
+
+/* A streak shield covered the days just missed (ADR 0034). */
+.hud__shieldnote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(91, 143, 199, 0.18);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--vellum);
+}
+.hud__shieldnote svg {
+  flex: none;
+}
+
 .hud__questreward {
   font-size: 14px;
   font-weight: 600;

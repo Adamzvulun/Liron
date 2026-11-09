@@ -18,7 +18,7 @@ A chest whose contents are rolled in the browser can be rerolled by reloading. A
 **Ownership**
 - New table `owned_items(user_id, item_id, source, acquired_at)`, readable by its owner, written only by database functions.
 - New `wallets.streak_shields` (0–2): shields are a count, not an item (ADR 0034).
-- The avatar shows an item as unlocked if it's owned **or** its old milestone is met. The milestone items keep working as they do.
+- The avatar shows an item as unlocked if it's owned. *(Built in #48: the milestone items only ever showed their condition; nothing gave them. Now the database gives each one when its milestone is met, as an owned item: `grant_milestones` after every save and when the board opens. A passed trial is the subject event `trial-<chapter>`: each save sends every trial passed so far, counted at most once a day, so trials passed before this change count too.)*
 
 **The catalogue is data**
 - `content/core/items.json`: every item with its id, slot, kind (`gear`, `color`, `functional`), rarity and price. Prices: common 60, rare 180, epic 450, streak shield 120.

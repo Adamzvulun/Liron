@@ -150,7 +150,8 @@ export function applyTrial(
 /**
  * Reports a finished run to the platform: saved state, spaced repetition and the receive rating
  * for each character, XP, and practice time. One request at a time, so the learner's rating
- * updates in order.
+ * updates in order. Every trial passed so far goes with it as `trial-<chapter>`, for the gear and
+ * chests it earns (ADR 0033); the database counts each once a day and gives them once.
  */
 export async function reportRun(
   api: SubjectApi,
@@ -172,7 +173,11 @@ export async function reportRun(
     xp: xpFor(score, unlockedNow),
     minutes: seconds / 60,
     // Daily contracts (ADR 0032): a run, and a run at 90%.
-    events: [{ kind: 'run' }, ...(score.accuracy >= 0.9 ? [{ kind: 'run-90' }] : [])],
+    events: [
+      { kind: 'run' },
+      ...(score.accuracy >= 0.9 ? [{ kind: 'run-90' }] : []),
+      ...next.trials.map((n) => ({ kind: `trial-${n}` })),
+    ],
     at,
   });
 }

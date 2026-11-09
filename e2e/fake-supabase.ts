@@ -40,7 +40,17 @@ export const TODAY = {
   goal_minutes: 15,
   goal_reached: false,
   streak: 2,
+  streak_shields: 0,
+  shielded_days: 0,
 };
+
+/** What a test can change about the player beyond the defaults (ADR 0033, 0034). */
+export interface Extras {
+  /** Item ids the player owns. */
+  owned?: string[];
+  /** Overrides for today's status, e.g. shields held. */
+  today?: Partial<typeof TODAY>;
+}
 
 /**
  * Today's contracts on the fake board (ADR 0032): finished by events from saved sessions (the
@@ -86,6 +96,7 @@ export async function fakeSupabase(
   morseState: object | null = null,
   /** Private content rows (content_items), e.g. a few deck words for Arabic. */
   content: ContentRow[] = [],
+  extras: Extras = {},
 ) {
   // Like the database, a saved state is what the next read of that subject returns, so a test
   // can play a session, reload and see where it left off.
@@ -118,7 +129,12 @@ export async function fakeSupabase(
     if (url.pathname === '/auth/v1/logout') return route.fulfill({ status: 204 });
     if (url.pathname === '/auth/v1/recover') return route.fulfill({ json: {} });
     if (url.pathname === '/rest/v1/rpc/set_time_zone') return route.fulfill({ json: null });
-    if (url.pathname === '/rest/v1/rpc/today_status') return route.fulfill({ json: TODAY });
+    if (url.pathname === '/rest/v1/rpc/today_status') {
+      return route.fulfill({ json: { ...TODAY, ...extras.today } });
+    }
+    if (url.pathname === '/rest/v1/owned_items') {
+      return route.fulfill({ json: (extras.owned ?? []).map((item_id) => ({ item_id })) });
+    }
     if (url.pathname === '/rest/v1/rpc/set_daily_goal') {
       // Like the database: a goal at or below today's minutes reaches it and pays the chest.
       const { p_minutes } = route.request().postDataJSON() as { p_minutes: number };
@@ -416,8 +432,9 @@ export async function signedIn(
   subjectCalls: SubjectCall[] = [],
   morseState: object | null = null,
   content: ContentRow[] = [],
+  extras: Extras = {},
 ) {
-  await fakeSupabase(page, [], profileUpdates, subjectCalls, morseState, content);
+  await fakeSupabase(page, [], profileUpdates, subjectCalls, morseState, content, extras);
   await page.addInitScript(
     ([key, session]) => {
       if (!sessionStorage.getItem('e2e-seeded')) {

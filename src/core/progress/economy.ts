@@ -77,14 +77,20 @@ export function addDays(day: string, n: number): string {
 
 /**
  * Consecutive goal days ending today, or ending yesterday while today's goal is still open.
- * A missed day resets it.
+ * A missed day resets it, unless a streak shield covered it (ADR 0034): a shielded day keeps the
+ * streak alive but doesn't add to it.
  */
-export function streakFrom(goalDays: Iterable<string>, today: string): number {
-  const days = new Set(goalDays);
-  let day = days.has(today) ? today : addDays(today, -1);
+export function streakFrom(
+  goalDays: Iterable<string>,
+  today: string,
+  shieldedDays: Iterable<string> = [],
+): number {
+  const goals = new Set(goalDays);
+  const shielded = new Set(shieldedDays);
+  let day = goals.has(today) ? today : addDays(today, -1);
   let streak = 0;
-  while (days.has(day)) {
-    streak++;
+  while (goals.has(day) || shielded.has(day)) {
+    if (goals.has(day)) streak++;
     day = addDays(day, -1);
   }
   return streak;
