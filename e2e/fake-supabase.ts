@@ -50,6 +50,8 @@ export interface Extras {
   owned?: string[];
   /** Overrides for today's status, e.g. shields held. */
   today?: Partial<typeof TODAY>;
+  /** Unopened chests (ADR 0033). Each opens to 30 gold, a gem, the boots and a shield. */
+  chests?: { id: string; kind: string; source: string; source_key: string }[];
 }
 
 /**
@@ -103,6 +105,7 @@ export async function fakeSupabase(
   const saved = new Map<string, object>();
   // Events from saved sessions, by kind, for today's contracts (ADR 0032).
   const events = new Map<string, number>();
+  const opened = new Set<string>();
   const board = () => {
     const contracts = CONTRACTS.map((c) => {
       const progress = Math.min(c.target, events.get(c.kind) ?? 0);
@@ -131,6 +134,34 @@ export async function fakeSupabase(
     if (url.pathname === '/rest/v1/rpc/set_time_zone') return route.fulfill({ json: null });
     if (url.pathname === '/rest/v1/rpc/today_status') {
       return route.fulfill({ json: { ...TODAY, ...extras.today } });
+    }
+    if (url.pathname === '/rest/v1/chests') {
+      return route.fulfill({ json: (extras.chests ?? []).filter((c) => !opened.has(c.id)) });
+    }
+    if (url.pathname === '/rest/v1/rpc/open_chest') {
+      const { p_chest } = route.request().postDataJSON() as { p_chest: string };
+      const chest = extras.chests?.find((c) => c.id === p_chest);
+      if (!chest) return route.fulfill({ status: 400, json: { message: 'no such chest' } });
+      opened.add(p_chest);
+      const shields = (extras.today?.streak_shields ?? TODAY.streak_shields) + 1;
+      return route.fulfill({
+        json: {
+          id: chest.id,
+          kind: chest.kind,
+          gold: 30,
+          gems: 1,
+          item: 'boots',
+          item_gold: 0,
+          shield: true,
+          shield_gold: 0,
+          already_open: false,
+          wallet: {
+            gold: board().gold + 30 * opened.size,
+            gems: WALLET.gems + opened.size,
+            streak_shields: shields,
+          },
+        },
+      });
     }
     if (url.pathname === '/rest/v1/owned_items') {
       return route.fulfill({ json: (extras.owned ?? []).map((item_id) => ({ item_id })) });

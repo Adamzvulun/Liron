@@ -9,6 +9,8 @@ import { placeAt, residentsOf } from './city/layout.ts';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
 import { Link } from './Link.tsx';
 import { usePath } from './router.ts';
+import { chestShelf } from './player/chests.ts';
+import { ChestShelf } from './player/Chests.tsx';
 import { GoalReached } from './player/GoalReached.tsx';
 import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
@@ -118,6 +120,10 @@ function Lobby({ player }: { player: Player }) {
                 questlines={questlines}
                 contracts={state.contracts}
                 full
+              />
+              <ChestShelf
+                shelf={chestShelf(state.chests, state.contracts, subjects)}
+                onOpen={player.openChest}
               />
             </div>
           )}

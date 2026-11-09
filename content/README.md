@@ -18,6 +18,7 @@ Each file is a **content pack** ([ADR 0023](../docs/decisions/0023-content-forma
 | `arabic/lesson-words.json` | The reviewed words of script lessons 1–3 (#125): the deck ids each lesson uses, with our own glosses, and the ids left out with the reason (verbs, unsuitable, unreadable homographs). Only ids and our words: no deck text |
 | `morse/questline.json` | "The Silent Beacon", chapters I–II: each chapter's story and trial, and one lamp beat per Koch letter |
 | `core/items.json` | The item catalogue (ADR 0033, #48): each earnable item's kind, slot, rarity, price and the milestone that gives it. Copied into the database by a migration; a schema test keeps the two equal, and a unit test checks it against the avatar's gear |
+| `core/chests.json` | The reward chests (ADR 0033, #48): each chest's drop table (gold range, chances of a gem, gear and a shield) and which chest each source gives. Copied into the database by a migration; a schema test keeps the two equal |
 | `core/contracts.json`, `morse/contracts.json`, `arabic/contracts.json` | The daily contract templates (ADR 0032, #46): what each counts, its target, gold and text. Copied into the database by a migration; a schema test keeps the two equal |
 
 Copyrighted packs are built from `sources/` by `scripts/content/` and uploaded to Supabase, never written here.
