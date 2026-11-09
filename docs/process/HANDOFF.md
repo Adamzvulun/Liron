@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), and 2026-11-06 (the Groq check). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 - **Starting prompt:** [next-session-prompt.md](next-session-prompt.md) is what Adam pastes to start the next session.
 
@@ -28,7 +28,7 @@
 
 ## Next (in order)
 1. **#125 review:** when Adam answers about the lesson 1–3 list, edit `content/arabic/lesson-words.json` (glosses by deck id). Then set its `reviewed` field to "Adam, <date>" and close #125. To rebuild the human-readable table, run a scratchpad script that joins the list with `buildLingualism()`. Never commit that table.
-2. **The Groq "understood" check** (approved by Adam): a server-side Vercel function, so the key never reaches the browser. Ask Adam about cost, limits and data sharing before building it.
+2. **The Groq "understood" check is built** (2026-11-06). It waits for Adam to add `GROQ_API_KEY` in Vercel. The [report](reports/2026-11-06.md) gives him the cost, data (ZDR recommended) and lock-in facts. Once he has added it, try it on the dev site: record a Say it phrase and press "Would they understand me?". Without the key it says "isn't set up yet".
 3. **E10** (approved): ADRs first, from 0032. Contract events go through `save_session` (ADR 0031).
 4. **Audio for the missing phrases:** retry the lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect. Never use a file before Adam has seen it.
 5. **No v1.0.0** until Adam says so.
@@ -54,6 +54,11 @@
   - `hall/` is the painted room: `paintTower.ts` paints it, `Hall.tsx` places lamps, writing and stations on it.
   - `send/` is the straight key: `decoder.ts`, `fist.ts`, `sidetone.ts`, `drill.ts`, `SendDrill.tsx`.
   - `TowerHall.tsx` switches between the hall and the activities. `?open=koch|recognition|trial|sending` opens one directly, for tests.
+- **The Groq check:**
+  - `api/understood.ts` is built by Vercel on its own, so it imports nothing from `src/`. `vercel.json` sends every path except `/api/` to `index.html`.
+  - The cap lives in the database (`claim_speech_check`, 100 per learner per UTC day, licensees only).
+  - The compare is `src/subjects/arabic/phrases/understood.ts`. `tests/understood-spike.test.ts` holds it to the spike's native clips (30/30 sentences, at least 18/20 words). Before loosening or tightening it, re-check that none of the 91 phrases passes for another; use a scratchpad script with `buildLingualism`, and never commit deck text.
+  - The e2e (`e2e/understood.spec.ts`) uses Chromium's fake microphone and fakes `/api/understood`.
 - **Full-window halls:** a place screen whose child has the class `.place-scene` gets the whole window (`App.css`, `:has()`). Halls that paint a room use this.
 - **`useStage`** (`src/core/city/useStage.ts`) scales a 1920×1080 painted stage and pans it on upright phones; the city and the tower share it. The tower passes its own fit, `towerFit`, which keeps the room's sides and lets the ceiling fill tall windows.
 - **The decoder** re-reads the whole drill on every press (two-means on log key-down lengths), so don't "optimise" it into one-element-at-a-time learning: that misreads slow senders (see `docs/game/morse-lessons.md`).

@@ -944,3 +944,48 @@ describe('private content (ADR 0023)', () => {
     ]);
   });
 });
+
+describe('the daily cap on speech checks (ADR 0011 #4, ADR 0014)', () => {
+  const claim = async (userId: string | null) =>
+    ((await as(userId, () => rows(`select claim_speech_check() as left`)))[0] as { left: number })
+      .left;
+
+  it('counts down from 100 a day and then refuses, taking nothing more', async () => {
+    expect(await claim(ADAM)).toBe(99);
+    expect(await claim(ADAM)).toBe(98);
+    await rows(`update speech_checks set checks = 99 where user_id = $1`, [ADAM]);
+    expect(await claim(ADAM)).toBe(0);
+    expect(await claim(ADAM)).toBe(-1);
+    expect(await claim(ADAM)).toBe(-1);
+    expect(await rows(`select checks from speech_checks where user_id = $1`, [ADAM])).toEqual([
+      { checks: 100 },
+    ]);
+  });
+
+  it('starts again each UTC day', async () => {
+    await rows(
+      `insert into speech_checks (user_id, day, checks)
+       values ($1, (now() at time zone 'utc')::date - 1, 100)`,
+      [ADAM],
+    );
+    expect(await claim(ADAM)).toBe(99);
+  });
+
+  it('is for the signed-in licensee only, never anonymous sessions or logged-out visitors', async () => {
+    await expect(claim(OTHER)).rejects.toThrow(/only the licensed learner/);
+    await rows(`select set_config('request.jwt.claims', '{"is_anonymous": true}', true)`);
+    await expect(claim(ADAM)).rejects.toThrow(/only the licensed learner/);
+    await rows(`select set_config('request.jwt.claims', '', true)`);
+    await expect(claim(null)).rejects.toThrow(/permission denied/);
+  });
+
+  it('nobody reads or writes the counts through the API', async () => {
+    for (const sql of [
+      `select * from speech_checks`,
+      `insert into speech_checks (user_id, day, checks) values ('${ADAM}', '2026-01-01', 0)`,
+      `delete from speech_checks`,
+    ]) {
+      await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/permission denied/);
+    }
+  });
+});
