@@ -676,3 +676,89 @@
 .arabic__feedback--word {
   width: 100%;
 }
+
+/* Grammar cards and the grammar book (#162). */
+.arabic__grammar {
+  text-align: left;
+}
+
+.arabic__grammar > p {
+  margin: 0 0 10px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.arabic__grammar .lesson__kicker,
+.arabic__grammar .lesson__title {
+  text-align: center;
+}
+
+.arabic__grammar-table {
+  margin: 4px auto 14px;
+  border-collapse: collapse;
+  font-size: 17px;
+}
+
+.arabic__grammar-table th,
+.arabic__grammar-table td {
+  padding: 3px 12px;
+  border-bottom: 1px solid rgba(36, 22, 14, 0.15);
+  text-align: left;
+}
+
+.arabic__grammar-table th {
+  font-weight: 800;
+}
+
+.arabic__grammar-letters {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 28px;
+  text-align: center;
+}
+
+.arabic__grammar .arabic__sentence .arabic__play {
+  grid-row: span 3;
+}
+
+.arabic__sentence-latin {
+  font-size: 15px;
+  font-style: italic;
+  color: #6b5640;
+}
+
+.arabic__book {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.arabic__book-card {
+  width: 100%;
+  padding: 10px 16px;
+  border: 2px solid rgba(36, 22, 14, 0.35);
+  border-radius: 12px;
+  background: rgba(255, 250, 240, 0.7);
+  color: #2a1a10;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.arabic__book-card:hover,
+.arabic__book-card:focus-visible {
+  border-color: #8a5a2b;
+}
+
+.arabic__book-chapter {
+  margin-right: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b5640;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}

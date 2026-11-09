@@ -81,10 +81,27 @@ I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories ma
 - The trial passed gives XP and a brass chest (ADR 0033), and the regular stays at the table.
 
 ## 6. Grammar cards (#162)
-- **Just in time:** a card appears before the first practice that needs it, and stays in a small grammar book at the station.
-- **Order:** the Madrasa "ערבית מדוברת: מתחילים" structure is a reference only (ADR 0012); Zaytuna and Learn Levantine are free cross-checks. Each card shows one or two deck sentences with their audio.
-- **First cards (my draft):** no word for *is* in the present (ch. 1); possessive endings -i, -ak, -ik (ch. 2); numbers and counting nouns (ch. 3); the article il- and the sun letters (ch. 4).
-- **Every rule is checked against a reputable source before it ships,** and anything uncertain is flagged to Adam (ADR 0012, point 5).
+- **Just in time:** a chapter's card comes before its first session, once. It's saved with that session, so a card read and then abandoned comes back.
+- **The grammar book:** every card you've read, behind the "Grammar book" button at the innkeeper's table.
+- **What a card holds:** the rule in two to four lines of our own English, an endings table or a letter list where it helps, and 2–4 short deck sentences that show it, with their recordings. The cards are in `content/arabic/grammar.json`: our text and deck ids only (ADR 0011).
+- **Order:** the Madrasa "ערבית מדוברת: מתחילים" structure is a reference only (ADR 0012).
+- **The first four cards:**
+
+| Ch. | Card | The rule | Deck sentences |
+|---|---|---|---|
+| 1 | No word for "is" | No *am/is/are* in the present; a question is the same words with a rising voice | I'm ready! · I'm Palestinian. · Are you married? |
+| 2 | My, your, his: endings | -i, -ak, -ik, -u, -ha, -na, -kum, -hum; a word in -a shows a t (gahwa → gahwitak) | My name is __. · What's your name? · Where are you, Mom? · How would you like your coffee? |
+| 3 | Counting things | 2: -ēn on the word; 3–10: short number + plural (with a t before a vowel: xamas tiyyām); 11 up: singular | Two minutes · three nights · five days · six classes |
+| 4 | il- and the sun letters | il- before the word; before a sun letter the l becomes that sound; in Palestinian j often too | Good morning! · The sun is shining. · What time is it? · It's sunny. |
+
+- **Checked against (2026-11-09):**
+  - The deck itself, first: its romanization shows each rule (*ísmak*, *wíjhu*, *dagigtēn*, *xámas tiyyām*, *iššámis*, *ijjáww*).
+  - [Levantine Arabic grammar](https://en.wikipedia.org/wiki/Levantine_Arabic_grammar) (Wikipedia): no present copula, possessive suffixes, counting.
+  - [Levantine Arabic/Numbers](https://en.wikibooks.org/wiki/Levantine_Arabic/Numbers) (Wikibooks): plural after 3–10, singular after 10.
+  - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
+  - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
+- **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
+- **Later chapters' cards** (verbs' present prefix b-, *bidd-* for "want", negation with *mā…š*, the past) come with chapters 5–10, the same way.
 
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).

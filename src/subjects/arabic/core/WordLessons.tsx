@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import {
   applyWordSession,
@@ -20,10 +20,13 @@ import {
   type CoreWord,
   type WordQuestion,
 } from './coreWords.ts';
+import { cardDue, cardsRead, grammarFrom, withCardRead, type GrammarCard } from './grammar.ts';
 import { reportWords, scoreOfWords, type WordAnswer } from './report.ts';
 
 type Stage =
   | { kind: 'start' }
+  | { kind: 'card'; card: GrammarCard; fresh: CoreWord[]; words: CoreWord[] }
+  | { kind: 'book'; open: GrammarCard | null }
   | { kind: 'meet'; fresh: CoreWord[]; words: CoreWord[]; index: number }
   | { kind: 'ask'; questions: WordQuestion[]; index: number; answers: WordAnswer[] }
   | { kind: 'result'; answers: WordAnswer[]; passed: boolean; sameDay: boolean };
@@ -41,6 +44,7 @@ const sessionSize = () =>
 export function WordLessons({ api }: { api: SubjectApi }) {
   const [progress, setProgress] = useState<ArabicProgress | null>(null);
   const [chapters, setChapters] = useState<CoreWord[][] | null>(null);
+  const [grammar, setGrammar] = useState<GrammarCard[]>([]);
   const [due, setDue] = useState<ReadonlySet<string>>(new Set());
   const [failed, setFailed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
@@ -55,6 +59,7 @@ export function WordLessons({ api }: { api: SubjectApi }) {
         if (!live) return;
         setProgress(parseProgress(state));
         setChapters(coreWordsFrom(pack.items));
+        setGrammar(grammarFrom(pack.items));
         setDue(new Set(dueItems.map((d) => d.itemId)));
       },
       () => live && setFailed(true),
@@ -69,6 +74,8 @@ export function WordLessons({ api }: { api: SubjectApi }) {
     if (stage.kind === 'meet')
       return stage.fresh.flatMap((w) => [w.audio, ...(w.sentence ? [w.sentence.audio] : [])]);
     if (stage.kind === 'ask') return stage.questions.map((q) => q.word.audio);
+    if (stage.kind === 'card') return stage.card.lines.map((l) => l.audio);
+    if (stage.kind === 'book') return stage.open?.lines.map((l) => l.audio) ?? [];
     return (chapters?.[chapterNo - 1] ?? []).slice(0, 5).map((w) => w.audio);
   }, [stage, chapters, chapterNo]);
   const play = useAudio(api, upcoming);
@@ -102,11 +109,18 @@ export function WordLessons({ api }: { api: SubjectApi }) {
     });
   };
 
+  const practice = (words: CoreWord[], fresh: CoreWord[], now: number) => {
+    if (fresh.length) setStage({ kind: 'meet', fresh, words, index: 0 });
+    else ask(words, now);
+  };
+
   const begin = (now: number) => {
     setStarted(now);
     const { words, fresh } = pickSession(chapters, chapterNo, met, due, seeded(now), size);
-    if (fresh.length) setStage({ kind: 'meet', fresh, words, index: 0 });
-    else ask(words, now);
+    // A grammar card comes first when this chapter brings one you haven't read (#162).
+    const card = cardDue(grammar, progress);
+    if (card) setStage({ kind: 'card', card, words, fresh });
+    else practice(words, fresh, now);
   };
 
   const finish = (answers: WordAnswer[], now: number) => {
@@ -127,6 +141,7 @@ export function WordLessons({ api }: { api: SubjectApi }) {
 
   const current = stage.kind === 'ask' ? stage.questions[stage.index] : undefined;
   const w = progress.words;
+  const book = cardsRead(grammar, progress);
   return (
     <section className="lesson arabic" aria-label="The innkeeper’s table">
       {saveFailed && (
@@ -156,9 +171,72 @@ export function WordLessons({ api }: { api: SubjectApi }) {
             <button type="button" className="lesson__go" onClick={() => begin(Date.now())}>
               Start a session
             </button>
+            {book.length > 0 && (
+              <button
+                type="button"
+                className="lesson__plain"
+                onClick={() => setStage({ kind: 'book', open: null })}
+              >
+                Grammar book · {book.length}
+              </button>
+            )}
           </div>
         </div>
       )}
+      {stage.kind === 'card' && (
+        <GrammarCardView card={stage.card} play={play}>
+          <button
+            type="button"
+            className="lesson__go"
+            autoFocus
+            onClick={() => {
+              setProgress(withCardRead(progress, stage.card.id));
+              practice(stage.words, stage.fresh, Date.now());
+            }}
+          >
+            Got it
+          </button>
+        </GrammarCardView>
+      )}
+      {stage.kind === 'book' &&
+        (stage.open ? (
+          <GrammarCardView card={stage.open} play={play}>
+            <button
+              type="button"
+              className="lesson__plain"
+              onClick={() => setStage({ kind: 'book', open: null })}
+            >
+              Back to the book
+            </button>
+          </GrammarCardView>
+        ) : (
+          <div className="lesson__card lesson__start">
+            <p className="lesson__kicker">The innkeeper’s table · grammar book</p>
+            <h2 className="lesson__title">Grammar book</h2>
+            <ul className="arabic__book">
+              {book.map((c) => (
+                <li key={c.id}>
+                  <button
+                    type="button"
+                    className="arabic__book-card"
+                    onClick={() => setStage({ kind: 'book', open: c })}
+                  >
+                    <span className="arabic__book-chapter">Chapter {c.chapter}</span> {c.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="lesson__actions">
+              <button
+                type="button"
+                className="lesson__plain"
+                onClick={() => setStage({ kind: 'start' })}
+              >
+                Back to the table
+              </button>
+            </div>
+          </div>
+        ))}
       {stage.kind === 'meet' && stage.fresh[stage.index] && (
         <MeetWord
           key={stage.index}
@@ -224,6 +302,64 @@ export function WordLessons({ api }: { api: SubjectApi }) {
         </div>
       )}
     </section>
+  );
+}
+
+/** A grammar card (#162): the rule in a few lines, then deck sentences that show it. */
+function GrammarCardView({
+  card,
+  play,
+  children,
+}: {
+  card: GrammarCard;
+  play: (path: string) => void;
+  children: ReactNode;
+}) {
+  return (
+    <div className="lesson__card arabic__grammar">
+      <p className="lesson__kicker">Grammar · chapter {card.chapter}</p>
+      <h2 className="lesson__title">{card.title}</h2>
+      {card.points.map((p) => (
+        <p key={p}>{p}</p>
+      ))}
+      {card.table && (
+        <table className="arabic__grammar-table">
+          <tbody>
+            {card.table.map(([ending, meaning]) => (
+              <tr key={ending}>
+                <th scope="row">{ending}</th>
+                <td>{meaning}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {card.letters && (
+        <p className="arabic__grammar-letters">
+          <bdi lang="ar" dir="rtl">
+            {card.letters}
+          </bdi>
+        </p>
+      )}
+      {card.lines.map((l) => (
+        <div key={l.audio} className="arabic__sentence">
+          <button
+            type="button"
+            className="arabic__play"
+            onClick={() => play(l.audio)}
+            aria-label="Play the sentence"
+          >
+            ▶
+          </button>
+          <bdi lang="ar" dir="rtl" className="arabic__sentence-ar">
+            {l.arabic}
+          </bdi>
+          <span className="arabic__sentence-latin">{l.latin}</span>
+          <span className="arabic__sentence-en">{l.english}</span>
+        </div>
+      ))}
+      <div className="lesson__actions">{children}</div>
+    </div>
   );
 }
 
