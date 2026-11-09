@@ -53,6 +53,8 @@ Drafted on 2026-11-04. **Adam approved the draft and its Notice Board concept on
 - **Streak shield:** you can hold 2. On a missed day, one is used up and the streak survives. This changes the streak rule in ADR 0021, so it needs its own ADR.
 
 ## 5. Decisions this needs (ADRs, at E10's start)
+Written on 2026-11-09: [0032](../decisions/0032-subject-events-and-daily-contracts.md), [0033](../decisions/0033-inventory-chests-and-market.md), [0034](../decisions/0034-streak-shields.md).
+
 1. Subject events and contracts: `reportEvent` in the contract, a day's events table, payouts in the database.
 2. Inventory, chests and the Market: `owned_items`, server-side rolls, drop tables as data.
 3. Streak shields: how a missed day uses one up (amends ADR 0021).
