@@ -10,7 +10,7 @@ The Silent Beacon teaches the 41 characters one at a time. E12 is the next step:
   - **operator shorthand**: 16 Q-codes (QTH, QSL, QRS…) and 38 abbreviations (CQ, DE, TU, 73, 5NN, FB…), each with its meaning
   - **4 prosigns**: AR, SK, BT and KN, each sent as one sound with no gap inside
 - **A word only comes up once you know all its letters.** After chapter I (8 characters), 20 words are open; after chapter II, 57; with all 41 characters, all 228.
-- **The Word Room opens after the Gatekeeper** (chapter I's trial). My choice: it gives the first trial a reward you can hear, and by then there are 20 words to work with.
+- **The Codebook, a reading stand in the tower hall, opens after the Gatekeeper** (chapter I’s trial). My choice: it gives the first trial a reward you can hear, and by then there are 20 words to work with.
 - **Head copy:** a word plays once, then you type it. You get no feedback while it plays. You can ask for **AGN** (again) once, but a word you needed to hear twice counts as half right.
 - **A round is 10 words.** Words you got wrong or that are due in spaced repetition come first. Up to 3 new words join each round, in frequency order.
 - **Q-codes and abbreviations show their meaning after you answer**, so you learn the language of the radio, not just the sound.
