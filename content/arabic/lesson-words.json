@@ -9,64 +9,8 @@
       "type": "lesson-words",
       "data": {
         "lesson": 1,
-        "reviewed": "Claude, 2026-11-05 (#125); waiting for Adam",
+        "reviewed": "Adam, 2026-11-09 (#125): approved, after Claude cut it to the most useful words",
         "words": [
-          {
-            "deck": "pcav:0083",
-            "gloss": "dad"
-          },
-          {
-            "deck": "pcav:0152",
-            "gloss": "adoption"
-          },
-          {
-            "deck": "pcav:0991",
-            "gloss": "stale (bread)"
-          },
-          {
-            "deck": "pcav:1052",
-            "gloss": "coffee beans"
-          },
-          {
-            "deck": "pcav:1156",
-            "gloss": "figs"
-          },
-          {
-            "deck": "pcav:1771",
-            "gloss": "internet; a net"
-          },
-          {
-            "deck": "pcav:2022",
-            "gloss": "builder, construction worker"
-          },
-          {
-            "deck": "pcav:2460",
-            "gloss": "ney (reed flute)"
-          },
-          {
-            "deck": "pcav:2981",
-            "gloss": "hay, straw"
-          },
-          {
-            "deck": "pcav:3258",
-            "gloss": "dad; also the Pope"
-          },
-          {
-            "deck": "pcav:3283",
-            "gloss": "Japanese"
-          },
-          {
-            "deck": "pcav:3880",
-            "gloss": "brown"
-          },
-          {
-            "deck": "pcav:3971",
-            "gloss": "two"
-          },
-          {
-            "deck": "pcav:4144",
-            "gloss": "August"
-          },
           {
             "deck": "pcav:4267",
             "gloss": "I"
@@ -80,11 +24,68 @@
             "gloss": "you (to a woman)"
           },
           {
+            "deck": "pcav:0083",
+            "gloss": "dad"
+          },
+          {
+            "deck": "pcav:3971",
+            "gloss": "two"
+          },
+          {
             "deck": "pcav:4494",
             "gloss": "between"
+          },
+          {
+            "deck": "pcav:1771",
+            "gloss": "internet; a net"
+          },
+          {
+            "deck": "pcav:1052",
+            "gloss": "coffee beans"
+          },
+          {
+            "deck": "pcav:1156",
+            "gloss": "figs"
+          },
+          {
+            "deck": "pcav:3880",
+            "gloss": "brown"
           }
         ],
-        "leftOut": []
+        "leftOut": [
+          {
+            "deck": "pcav:0152",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0991",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2022",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2460",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2981",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3258",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3283",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4144",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          }
+        ]
       }
     },
     {
@@ -93,140 +94,8 @@
       "type": "lesson-words",
       "data": {
         "lesson": 2,
-        "reviewed": "Claude, 2026-11-05 (#125); waiting for Adam",
+        "reviewed": "Adam, 2026-11-09 (#125): approved, after Claude cut it to the most useful words",
         "words": [
-          {
-            "deck": "pcav:0344",
-            "gloss": "throat"
-          },
-          {
-            "deck": "pcav:0551",
-            "gloss": "uniform"
-          },
-          {
-            "deck": "pcav:0574",
-            "gloss": "turban"
-          },
-          {
-            "deck": "pcav:0602",
-            "gloss": "boots"
-          },
-          {
-            "deck": "pcav:0708",
-            "gloss": "doorman"
-          },
-          {
-            "deck": "pcav:0757",
-            "gloss": "power outlet, socket"
-          },
-          {
-            "deck": "pcav:1085",
-            "gloss": "pizza"
-          },
-          {
-            "deck": "pcav:1127",
-            "gloss": "olives"
-          },
-          {
-            "deck": "pcav:1151",
-            "gloss": "berries"
-          },
-          {
-            "deck": "pcav:1204",
-            "gloss": "rice"
-          },
-          {
-            "deck": "pcav:1217",
-            "gloss": "protein"
-          },
-          {
-            "deck": "pcav:1246",
-            "gloss": "tuna"
-          },
-          {
-            "deck": "pcav:1347",
-            "gloss": "salary"
-          },
-          {
-            "deck": "pcav:1464",
-            "gloss": "high school"
-          },
-          {
-            "deck": "pcav:1772",
-            "gloss": "internet"
-          },
-          {
-            "deck": "pcav:1793",
-            "gloss": "Twitter (X)"
-          },
-          {
-            "deck": "pcav:1966",
-            "gloss": "gasoline"
-          },
-          {
-            "deck": "pcav:2108",
-            "gloss": "prose"
-          },
-          {
-            "deck": "pcav:2453",
-            "gloss": "piano"
-          },
-          {
-            "deck": "pcav:2488",
-            "gloss": "minister; the queen in chess"
-          },
-          {
-            "deck": "pcav:2582",
-            "gloss": "bar; a barbell"
-          },
-          {
-            "deck": "pcav:2682",
-            "gloss": "outside; abroad"
-          },
-          {
-            "deck": "pcav:2895",
-            "gloss": "euro"
-          },
-          {
-            "deck": "pcav:2975",
-            "gloss": "geese"
-          },
-          {
-            "deck": "pcav:3157",
-            "gloss": "in my opinion"
-          },
-          {
-            "deck": "pcav:3279",
-            "gloss": "Greek"
-          },
-          {
-            "deck": "pcav:3453",
-            "gloss": "Ethiopia"
-          },
-          {
-            "deck": "pcav:3492",
-            "gloss": "Iran"
-          },
-          {
-            "deck": "pcav:3501",
-            "gloss": "Taiwan"
-          },
-          {
-            "deck": "pcav:3567",
-            "gloss": "Europe"
-          },
-          {
-            "deck": "pcav:3886",
-            "gloss": "olive green"
-          },
-          {
-            "deck": "pcav:4138",
-            "gloss": "May"
-          },
-          {
-            "deck": "pcav:4203",
-            "gloss": "just now; right now"
-          },
           {
             "deck": "pcav:4271",
             "gloss": "you (to a group)"
@@ -244,12 +113,36 @@
             "gloss": "that (as in “I know that…”)"
           },
           {
-            "deck": "pcav:4476",
-            "gloss": "outside of"
-          },
-          {
             "deck": "pcav:4507",
             "gloss": "behind"
+          },
+          {
+            "deck": "pcav:2682",
+            "gloss": "outside; abroad"
+          },
+          {
+            "deck": "pcav:4203",
+            "gloss": "just now; right now"
+          },
+          {
+            "deck": "pcav:1204",
+            "gloss": "rice"
+          },
+          {
+            "deck": "pcav:1127",
+            "gloss": "olives"
+          },
+          {
+            "deck": "pcav:1151",
+            "gloss": "berries"
+          },
+          {
+            "deck": "pcav:1347",
+            "gloss": "salary"
+          },
+          {
+            "deck": "pcav:1966",
+            "gloss": "gasoline"
           }
         ],
         "leftOut": [
@@ -258,16 +151,124 @@
             "why": "unsuitable: snot"
           },
           {
+            "deck": "pcav:0344",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
             "deck": "pcav:0491",
             "why": "unsuitable: excrement"
+          },
+          {
+            "deck": "pcav:0551",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0574",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0602",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0708",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0757",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1085",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1217",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1246",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1464",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1772",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1793",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2108",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2453",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2488",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2582",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2895",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2975",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3157",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
           },
           {
             "deck": "pcav:3206",
             "why": "unsuitable for an early lesson: pagan"
           },
           {
+            "deck": "pcav:3279",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3453",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3492",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3501",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3567",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3886",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4138",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
             "deck": "pcav:4417",
             "why": "a prefix (and), written joined to the next word, not a word on its own"
+          },
+          {
+            "deck": "pcav:4476",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
           }
         ]
       }
@@ -278,499 +279,44 @@
       "type": "lesson-words",
       "data": {
         "lesson": 3,
-        "reviewed": "Claude, 2026-11-05 (#125); waiting for Adam",
+        "reviewed": "Adam, 2026-11-09 (#125): approved, after Claude cut it to the most useful words",
         "words": [
-          {
-            "deck": "pcav:0074",
-            "gloss": "home; family, household"
-          },
           {
             "deck": "pcav:0084",
             "gloss": "mom"
-          },
-          {
-            "deck": "pcav:0104",
-            "gloss": "twin"
-          },
-          {
-            "deck": "pcav:0105",
-            "gloss": "twin"
           },
           {
             "deck": "pcav:0114",
             "gloss": "woman; wife"
           },
           {
-            "deck": "pcav:0341",
-            "gloss": "tonsils"
-          },
-          {
-            "deck": "pcav:1171",
-            "gloss": "almonds"
-          },
-          {
-            "deck": "pcav:0480",
-            "gloss": "blood"
-          },
-          {
-            "deck": "pcav:0513",
-            "gloss": "full; plump"
-          },
-          {
-            "deck": "pcav:0521",
-            "gloss": "neat, tidy; good-looking"
-          },
-          {
-            "deck": "pcav:0628",
-            "gloss": "medium (size M)"
-          },
-          {
-            "deck": "pcav:0655",
-            "gloss": "nylon"
-          },
-          {
-            "deck": "pcav:0681",
-            "gloss": "emeralds"
-          },
-          {
-            "deck": "pcav:3907",
-            "gloss": "triangle; a power strip"
-          },
-          {
-            "deck": "pcav:0828",
-            "gloss": "electric kettle"
-          },
-          {
-            "deck": "pcav:0850",
-            "gloss": "sleep"
-          },
-          {
-            "deck": "pcav:0854",
-            "gloss": "asleep"
-          },
-          {
-            "deck": "pcav:0981",
-            "gloss": "delicious"
-          },
-          {
-            "deck": "pcav:0998",
-            "gloss": "bitter"
-          },
-          {
-            "deck": "pcav:1058",
-            "gloss": "wine"
-          },
-          {
-            "deck": "pcav:1068",
-            "gloss": "yogurt"
-          },
-          {
-            "deck": "pcav:1087",
-            "gloss": "chewing gum"
-          },
-          {
-            "deck": "pcav:1129",
-            "gloss": "peas"
-          },
-          {
-            "deck": "pcav:1150",
-            "gloss": "bananas"
-          },
-          {
-            "deck": "pcav:1153",
-            "gloss": "blueberries"
-          },
-          {
-            "deck": "pcav:1159",
-            "gloss": "lemons"
-          },
-          {
-            "deck": "pcav:1166",
-            "gloss": "pomegranates"
-          },
-          {
-            "deck": "pcav:1198",
-            "gloss": "mayonnaise"
-          },
-          {
-            "deck": "pcav:1224",
-            "gloss": "omelet"
-          },
-          {
-            "deck": "pcav:1257",
-            "gloss": "greasy, oily"
-          },
-          {
-            "deck": "pcav:1275",
-            "gloss": "jar"
-          },
-          {
-            "deck": "pcav:1319",
-            "gloss": "manager; principal"
-          },
-          {
-            "deck": "pcav:1328",
-            "gloss": "working hours"
-          },
-          {
-            "deck": "pcav:1381",
-            "gloss": "actor"
-          },
-          {
-            "deck": "pcav:1408",
-            "gloss": "garbage collector"
-          },
-          {
-            "deck": "pcav:1411",
-            "gloss": "imam"
-          },
-          {
-            "deck": "pcav:1612",
-            "gloss": "manners; the humanities"
-          },
-          {
-            "deck": "pcav:1613",
-            "gloss": "literature; politeness"
-          },
-          {
-            "deck": "pcav:1689",
-            "gloss": "swollen"
-          },
-          {
-            "deck": "pcav:1783",
-            "gloss": "email"
-          },
-          {
-            "deck": "pcav:1803",
-            "gloss": "cell phone"
-          },
-          {
-            "deck": "pcav:1840",
-            "gloss": "subway, metro"
-          },
-          {
-            "deck": "pcav:1852",
-            "gloss": "right (the side)"
-          },
-          {
-            "deck": "pcav:1900",
-            "gloss": "traffic circle, roundabout"
-          },
-          {
-            "deck": "pcav:1994",
-            "gloss": "downtown"
-          },
-          {
-            "deck": "pcav:2036",
-            "gloss": "basement"
-          },
-          {
-            "deck": "pcav:2082",
-            "gloss": "mail, post"
-          },
-          {
-            "deck": "pcav:2179",
-            "gloss": "mall"
-          },
-          {
-            "deck": "pcav:2204",
-            "gloss": "menu"
-          },
-          {
-            "deck": "pcav:2249",
-            "gloss": "drama"
-          },
-          {
-            "deck": "pcav:2286",
-            "gloss": "radio"
-          },
-          {
-            "deck": "pcav:2376",
-            "gloss": "aisle, corridor"
-          },
-          {
-            "deck": "pcav:2457",
-            "gloss": "drum"
-          },
-          {
-            "deck": "pcav:2583",
-            "gloss": "a dumbbell"
-          },
-          {
-            "deck": "pcav:2618",
-            "gloss": "scales (for weighing)"
-          },
-          {
-            "deck": "pcav:2785",
-            "gloss": "parliament"
-          },
-          {
-            "deck": "pcav:2894",
-            "gloss": "dollar"
-          },
-          {
-            "deck": "pcav:2913",
-            "gloss": "financial"
-          },
-          {
-            "deck": "pcav:2931",
-            "gloss": "entrepreneurial; pioneering"
-          },
-          {
-            "deck": "pcav:3096",
-            "gloss": "grateful"
-          },
-          {
-            "deck": "pcav:3150",
-            "gloss": "okay, fine"
-          },
-          {
-            "deck": "pcav:3174",
-            "gloss": "religious (about religion)"
-          },
-          {
-            "deck": "pcav:3175",
-            "gloss": "faith"
-          },
-          {
-            "deck": "pcav:3180",
-            "gloss": "religious (a person)"
-          },
-          {
-            "deck": "pcav:3220",
-            "gloss": "Buddhist"
-          },
-          {
-            "deck": "pcav:3221",
-            "gloss": "Buddha"
-          },
-          {
-            "deck": "pcav:3232",
-            "gloss": "the call to prayer"
-          },
-          {
-            "deck": "pcav:3278",
-            "gloss": "German"
-          },
-          {
-            "deck": "pcav:3298",
-            "gloss": "training, practice"
-          },
-          {
-            "deck": "pcav:3406",
-            "gloss": "international"
-          },
-          {
-            "deck": "pcav:3419",
-            "gloss": "Libya"
-          },
-          {
-            "deck": "pcav:3420",
-            "gloss": "Libyan"
-          },
-          {
-            "deck": "pcav:3429",
-            "gloss": "Jordan"
-          },
-          {
-            "deck": "pcav:3430",
-            "gloss": "Jordanian"
-          },
-          {
-            "deck": "pcav:3431",
-            "gloss": "Lebanon"
-          },
-          {
-            "deck": "pcav:3432",
-            "gloss": "Lebanese"
-          },
-          {
-            "deck": "pcav:3443",
-            "gloss": "the Emirates"
-          },
-          {
-            "deck": "pcav:3444",
-            "gloss": "Emirati"
-          },
-          {
-            "deck": "pcav:3449",
-            "gloss": "Yemen"
-          },
-          {
-            "deck": "pcav:3450",
-            "gloss": "Yemeni"
-          },
-          {
-            "deck": "pcav:3461",
-            "gloss": "Germany"
-          },
-          {
-            "deck": "pcav:3465",
-            "gloss": "Ireland"
-          },
-          {
-            "deck": "pcav:3471",
-            "gloss": "Wales"
-          },
-          {
-            "deck": "pcav:3483",
-            "gloss": "Poland"
-          },
-          {
-            "deck": "pcav:3486",
-            "gloss": "Romania"
-          },
-          {
-            "deck": "pcav:3500",
-            "gloss": "Japan"
-          },
-          {
-            "deck": "pcav:3502",
-            "gloss": "Thailand"
-          },
-          {
-            "deck": "pcav:3504",
-            "gloss": "Malaysia"
-          },
-          {
-            "deck": "pcav:3508",
-            "gloss": "New Zealand"
-          },
-          {
-            "deck": "pcav:3515",
-            "gloss": "Brazil"
-          },
-          {
-            "deck": "pcav:3602",
-            "gloss": "earthquake"
-          },
-          {
-            "deck": "pcav:3613",
-            "gloss": "comet"
-          },
-          {
-            "deck": "pcav:3665",
-            "gloss": "cold (the weather)"
-          },
-          {
-            "deck": "pcav:3795",
-            "gloss": "ants"
-          },
-          {
-            "deck": "pcav:3804",
-            "gloss": "flies"
-          },
-          {
-            "deck": "pcav:3819",
-            "gloss": "worms"
-          },
-          {
-            "deck": "pcav:3882",
-            "gloss": "gray"
-          },
-          {
-            "deck": "pcav:3899",
-            "gloss": "colorful"
-          },
-          {
-            "deck": "pcav:3919",
-            "gloss": "millimeter"
-          },
-          {
-            "deck": "pcav:3936",
-            "gloss": "pound (money or weight)"
-          },
-          {
-            "deck": "pcav:3994",
-            "gloss": "thirty"
-          },
-          {
-            "deck": "pcav:3999",
-            "gloss": "eighty"
-          },
-          {
-            "deck": "pcav:4002",
-            "gloss": "two hundred"
-          },
-          {
-            "deck": "pcav:4023",
-            "gloss": "million"
-          },
-          {
-            "deck": "pcav:4024",
-            "gloss": "billion"
-          },
-          {
-            "deck": "pcav:4025",
-            "gloss": "billion (= milyār)"
-          },
-          {
-            "deck": "pcav:4068",
-            "gloss": "a third"
-          },
-          {
-            "deck": "pcav:4093",
-            "gloss": "today"
-          },
-          {
-            "deck": "pcav:4115",
-            "gloss": "Monday"
-          },
-          {
-            "deck": "pcav:4116",
-            "gloss": "Tuesday"
-          },
-          {
-            "deck": "pcav:4134",
-            "gloss": "March"
-          },
-          {
-            "deck": "pcav:4142",
-            "gloss": "July"
-          },
-          {
-            "deck": "pcav:4146",
-            "gloss": "September"
-          },
-          {
-            "deck": "pcav:4198",
-            "gloss": "in the eighties"
-          },
-          {
-            "deck": "pcav:4211",
-            "gloss": "long ago"
-          },
-          {
-            "deck": "pcav:4258",
-            "gloss": "early"
-          },
-          {
-            "deck": "pcav:4486",
-            "gloss": "from; since"
+            "deck": "pcav:0074",
+            "gloss": "home; family, household"
           },
           {
             "deck": "pcav:4300",
             "gloss": "who"
           },
           {
-            "deck": "pcav:4359",
-            "gloss": "always"
+            "deck": "pcav:4753",
+            "gloss": "no",
+            "latin": "laʔ"
           },
           {
-            "deck": "pcav:4363",
-            "gloss": "times; sometimes"
+            "deck": "pcav:4093",
+            "gloss": "today"
           },
           {
-            "deck": "pcav:4369",
-            "gloss": "never"
+            "deck": "pcav:3150",
+            "gloss": "okay, fine"
           },
           {
-            "deck": "pcav:4420",
-            "gloss": "if"
+            "deck": "pcav:3161",
+            "gloss": "I want"
           },
           {
-            "deck": "pcav:4421",
-            "gloss": "if"
+            "deck": "pcav:4486",
+            "gloss": "from; since"
           },
           {
             "deck": "pcav:4424",
@@ -781,25 +327,24 @@
             "gloss": "when"
           },
           {
-            "deck": "pcav:4532",
-            "gloss": "without"
+            "deck": "pcav:4421",
+            "gloss": "if"
+          },
+          {
+            "deck": "pcav:4359",
+            "gloss": "always"
+          },
+          {
+            "deck": "pcav:0981",
+            "gloss": "delicious"
           },
           {
             "deck": "pcav:4713",
             "gloss": "cold, cool"
           },
           {
-            "deck": "pcav:4729",
-            "gloss": "wet"
-          },
-          {
-            "deck": "pcav:4738",
-            "gloss": "bright, lit up"
-          },
-          {
-            "deck": "pcav:4753",
-            "gloss": "no",
-            "latin": "laʔ"
+            "deck": "pcav:1803",
+            "gloss": "cell phone"
           }
         ],
         "leftOut": [
@@ -808,52 +353,508 @@
             "why": "unsuitable for an early lesson: death"
           },
           {
+            "deck": "pcav:0104",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0105",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0341",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0480",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
             "deck": "pcav:0488",
             "why": "unsuitable: urine"
           },
           {
-            "deck": "pcav:1684",
-            "why": "unsuitable for an early lesson: AIDS"
+            "deck": "pcav:0513",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
           },
           {
-            "deck": "pcav:1723",
-            "why": "a verb, and unsuitable: to have an abortion"
+            "deck": "pcav:0521",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
           },
           {
-            "deck": "pcav:1960",
-            "why": "a verb: to change gears"
+            "deck": "pcav:0628",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
           },
           {
-            "deck": "pcav:3160",
-            "why": "a verb: to want"
+            "deck": "pcav:0655",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
           },
           {
-            "deck": "pcav:3161",
-            "why": "a verb: I want to"
-          },
-          {
-            "deck": "pcav:1448",
-            "why": "its recording says úmmi (illiterate), easy to take for “my mom”"
-          },
-          {
-            "deck": "pcav:3702",
-            "why": "hail: written with no vowel marks, so it can’t be told from 3665 (cold), which is kept"
-          },
-          {
-            "deck": "pcav:3805",
-            "why": "flies again, the same word as 3804 with another vowel"
-          },
-          {
-            "deck": "pcav:4719",
-            "why": "full: spelled the same as 0513, which is kept with both meanings"
+            "deck": "pcav:0681",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
           },
           {
             "deck": "pcav:0761",
             "why": "adapter: spelled the same as 3907, which is kept with both meanings"
           },
           {
+            "deck": "pcav:0828",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0850",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0854",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:0998",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1058",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1068",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1087",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1129",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1150",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1153",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1159",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1166",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1171",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1198",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1224",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1257",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1275",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1319",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1328",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1381",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1408",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1411",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1448",
+            "why": "its recording says úmmi (illiterate), easy to take for “my mom”"
+          },
+          {
+            "deck": "pcav:1612",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1613",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1684",
+            "why": "unsuitable for an early lesson: AIDS"
+          },
+          {
+            "deck": "pcav:1689",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1723",
+            "why": "a verb, and unsuitable: to have an abortion"
+          },
+          {
+            "deck": "pcav:1783",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1840",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1852",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1900",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:1960",
+            "why": "a verb: to change gears"
+          },
+          {
+            "deck": "pcav:1994",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2036",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2082",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2179",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2204",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2249",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2286",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2376",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2457",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2583",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2618",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2785",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2894",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2913",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:2931",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3096",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3160",
+            "why": "a verb: to want"
+          },
+          {
+            "deck": "pcav:3174",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3175",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3180",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3220",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3221",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3232",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3278",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3298",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3406",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3419",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3420",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3429",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3430",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3431",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3432",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3443",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3444",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3449",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3450",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3461",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3465",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3471",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3483",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3486",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3500",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3502",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3504",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3508",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3515",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3602",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3613",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3665",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3702",
+            "why": "hail: written with no vowel marks, so it can’t be told from 3665 (cold), which is kept"
+          },
+          {
+            "deck": "pcav:3795",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3804",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3805",
+            "why": "flies again, the same word as 3804 with another vowel"
+          },
+          {
+            "deck": "pcav:3819",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3882",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3899",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3907",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3919",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3936",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3994",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:3999",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4002",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4023",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4024",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4025",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4068",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4115",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4116",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4134",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4142",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4146",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4198",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4211",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4258",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
             "deck": "pcav:4262",
             "why": "since: the same word as 4486, which is kept with both meanings"
+          },
+          {
+            "deck": "pcav:4363",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4369",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4420",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4532",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4719",
+            "why": "full: spelled the same as 0513, which is kept with both meanings"
+          },
+          {
+            "deck": "pcav:4729",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
+          },
+          {
+            "deck": "pcav:4738",
+            "why": "not one of the first words a beginner needs (Adam, 2026-11-09: keep early lessons short and useful)"
           }
         ]
       }
