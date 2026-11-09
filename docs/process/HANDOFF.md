@@ -21,13 +21,13 @@
   - #120: Morse Koch gate pass/fail e2e. #121: one save per session (ADR 0031). #122: subjects name their building and Notice Board line (ADR 0019 amended). **The full review is done.**
 - **Adam's findings (2026-11-05), all fixed:**
   - #128: the square's speed (#123).
-  - #129: Arabic meanings (#125). It stays open until Adam reviews the list.
+  - #129: Arabic meanings (#125). #141 shortened the list; Adam approved it on 2026-11-09.
   - #130: spelling (#126).
   - #131: loading (#124).
 - `main` is still v0.1.0. Whether to release v1.0.0 is Adam's call; the report asks him.
 
 ## Next (in order)
-1. **#125 review:** when Adam answers about the lesson 1–3 list, edit `content/arabic/lesson-words.json` (glosses by deck id). Then set its `reviewed` field to "Adam, <date>" and close #125. To rebuild the human-readable table, run a scratchpad script that joins the list with `buildLingualism()`. Never commit that table.
+1. **Lesson words (#125, done):** Adam approved the lesson 1–3 list (10, 12 and 16 words, most useful first). Lessons 4–8 aren't reviewed yet; give them the same treatment before they ship, in `content/arabic/lesson-words.json`. To rebuild the human-readable table, run a scratchpad script that joins the list with `buildLingualism()`. Never commit that table.
 2. **The Groq "understood" check is built** (2026-11-06). It waits for Adam to add `GROQ_API_KEY` in Vercel. The [report](reports/2026-11-06.md) gives him the cost, data (ZDR recommended) and lock-in facts. Once he has added it, try it on the dev site: record a Say it phrase and press "Would they understand me?". Without the key it says "isn't set up yet".
 3. **E10** (approved): ADRs 0032–0034 are written; #47 (questline tracker) and #46 (daily contracts) are built, and #48 (owned items, milestone gear, streak shields, reward chests). Chests: `grant_chests` runs inside `claim_contracts` (after every save and when the board opens); `open_chest` rolls with `chest_roll(id, n)` and pays once; the client reads unopened chests after the contracts (`player.loadContracts`). Next #49: the Market (`market_today`, `buy_item`), about 18 more gear items to draw, colors, and the shield for sale (ADR 0034). Contract events ride on `save_session` (`p_events`); a new kind needs a template in `content/<subject>/contracts.json` and a migration, or the database ignores it.
 4. **#137** (Adam, 2026-11-09): the site still feels too slow. After E10, measure first (Lighthouse and a trace on the live dev site, phone and desktop), then fix what the numbers show.
