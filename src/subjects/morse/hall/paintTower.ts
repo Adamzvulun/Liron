@@ -9,7 +9,7 @@
 
 export const TOWER_STAGE = { width: 1920, height: 1080 } as const;
 
-export type StationId = 'lessons' | 'recognition' | 'sending' | 'radio';
+export type StationId = 'lessons' | 'codebook' | 'recognition' | 'sending' | 'radio';
 
 export interface Box {
   x: number;
@@ -604,6 +604,66 @@ export function paintTower(): PaintedTower {
     o += `<path d="M${x + 160} ${y + 120} h110 v16 h-110 z" fill="${wood}" ${OUT(3)}></path>`;
     o += `<path d="M${x + 172} ${y + 136} l-6 64 M${x + 258} ${y + 136} l6 64 M${x + 215} ${y + 136} v64" stroke="#4A2C18" stroke-width="9" stroke-linecap="round"></path>`;
     stations.lessons = { svg: o, box: { x: x - 30, y: y - 140, w: 520, h: 370 } };
+  }
+
+  // The codebook (words, #154): a tall reading stand by the desk, the operators' codebook open on
+  // it, a red ribbon hanging from its pages.
+  {
+    const x = 690; // centre
+    const y = 884; // the book's lower edge (below the stair's first lamp)
+    let o = contact(x, 1034, 96);
+    const wood = lin(
+      [
+        [0, '#9A6438'],
+        [0.5, '#7A4A28'],
+        [1, '#4A2C18'],
+      ],
+      0,
+      0,
+      1,
+      0,
+    );
+    // feet and post
+    o += `<path d="M${x - 78} 1032 Q${x} 1004 ${x + 78} 1032 L${x + 66} 1040 H${x - 66} Z" fill="${dk('#7A4A28', 0.2)}" ${OUT(3)}></path>`;
+    o += `<path d="M${x - 15} 1014 L${x - 11} ${y + 40} H${x + 11} L${x + 15} 1014 Z" fill="${wood}" ${OUT(3)}></path>`;
+    o += `<path d="M${x - 20} ${y + 80} h40 v14 h-40 z M${x - 22} 1004 h44 v12 h-44 z" fill="#E8A93A" ${OUT(2.5)}></path>`;
+    // the slanted top, seen from the front
+    o += `<path d="${soft(
+      [
+        [x - 104, y + 30],
+        [x + 104, y + 30],
+        [x + 90, y - 22],
+        [x - 90, y - 22],
+      ],
+      5,
+      0.6,
+    )}" fill="${lin([
+      [0, '#B07A48'],
+      [1, '#6A3E22'],
+    ])}" ${OUT(3.5)}></path>`;
+    o += `<path d="M${x - 100} ${y + 30} h200 v10 h-200 z" fill="${dk('#7A4A28', 0.35)}" ${OUT(2.5)}></path>`;
+    // the open book: two pages bowing up from the spine
+    const page = (side: number) =>
+      `<path d="M${x} ${y + 18} Q${x + side * 40} ${y + 4} ${x + side * 92} ${y + 20} L${x + side * 80} ${y - 52} Q${x + side * 40} ${y - 66} ${x} ${y - 50} Z" fill="${lin(
+        [
+          [0, '#FBF1D8'],
+          [1, '#E6D0A0'],
+        ],
+      )}" ${OUT(2.5)}></path>`;
+    o += page(-1) + page(1);
+    // lines of writing: words, not dots and dashes
+    for (const side of [-1, 1]) {
+      for (let i = 0; i < 4; i++) {
+        const ly = y - 40 + i * 13;
+        const len = [52, 38, 58, 30][(i + (side > 0 ? 1 : 0)) % 4] ?? 40;
+        const x0 = side < 0 ? x - 18 - len - 6 : x + 18;
+        o += `<path d="M${x0} ${ly + (side < 0 ? 0 : -1)} h${len}" stroke="${INK}" stroke-opacity=".7" stroke-width="3.5" stroke-linecap="round"></path>`;
+      }
+    }
+    o += `<path d="M${x} ${y - 50} V${y + 18}" stroke="${INK}" stroke-width="2.5"></path>`;
+    // the ribbon
+    o += `<path d="M${x + 6} ${y + 16} q6 34 -2 62 l8 -8 l6 10 q6 -30 -4 -64 z" fill="#B8322A" ${OUT(2)}></path>`;
+    stations.codebook = { svg: o, box: { x: x - 112, y: y - 90, w: 224, h: 250 } };
   }
 
   // The signal lamp (Instant Recognition): a big shuttered lamp on a tripod, shining.
