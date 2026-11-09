@@ -5,16 +5,26 @@ import { ScriptLesson } from './lesson/ScriptLesson.tsx';
 import { Trial } from './lesson/Trial.tsx';
 import { Slate } from './write/Slate.tsx';
 import { CoffeeCorner } from './phrases/CoffeeCorner.tsx';
+import { WordLessons } from './core/WordLessons.tsx';
 import './arabic.css';
 
 type View = 'hall' | CourtyardDoor;
-const VIEWS: readonly View[] = ['hall', 'lesson', 'listen', 'read', 'write', 'phrases', 'trial'];
+const VIEWS: readonly View[] = [
+  'hall',
+  'lesson',
+  'listen',
+  'read',
+  'write',
+  'phrases',
+  'words',
+  'trial',
+];
 
 /**
  * Inside the Caravanserai: the painted courtyard (#42), and behind its stations the script
  * lesson, the fountain's listening, the storyteller's reading (#38–#41) and the Painted Sign
- * (#43), the slate's writing (#41) and the coffee corner's phrases (#45). ?open=lesson (or listen, read,
- * write, phrases, trial) in the address goes straight there (for tests).
+ * (#43), the slate's writing (#41), the coffee corner's phrases (#45) and the innkeeper's word
+ * lessons (#160). ?open=lesson (or listen, read, write, phrases, words, trial) in the address goes straight there (for tests).
  */
 export function Caravanserai({ api }: { api: SubjectApi }) {
   const [view, setView] = useState<View>(() => {
@@ -34,6 +44,8 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
         <Slate api={api} />
       ) : view === 'phrases' ? (
         <CoffeeCorner api={api} />
+      ) : view === 'words' ? (
+        <WordLessons api={api} />
       ) : (
         <ScriptLesson
           key={view}

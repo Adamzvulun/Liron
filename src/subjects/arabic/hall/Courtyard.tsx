@@ -2,11 +2,12 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { useStage } from '../../../core/city/useStage.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { LESSONS, lettersUpTo } from '../letters.ts';
-import { parseProgress, PASSES_NEEDED, type ArabicProgress } from '../progress.ts';
+import { parseProgress, PASSES_NEEDED, wordsOpen, type ArabicProgress } from '../progress.ts';
 import { questStatus, rankOf } from '../questline.ts';
 import { KHAN_STAGE, paintKhan, paintMilestones, type Box, type StationId } from './paintKhan.ts';
 import { ArabicText } from '../ArabicText.tsx';
 import { PHRASE_SETS } from '../phrases/sets.ts';
+import { WORD_CHAPTERS } from '../core/coreWords.ts';
 import './khan.css';
 
 // Inside the Caravanserai (#42): the inn's courtyard. "The Long Road In" (#43) runs from your
@@ -14,7 +15,7 @@ import './khan.css';
 // rank on the house banner, and each activity is a station in the courtyard. On an upright
 // phone the courtyard pans sideways and the same things follow below it as cards.
 
-export type CourtyardDoor = 'lesson' | 'listen' | 'read' | 'write' | 'phrases' | 'trial';
+export type CourtyardDoor = 'lesson' | 'listen' | 'read' | 'write' | 'phrases' | 'words' | 'trial';
 
 let painted: ReturnType<typeof paintKhan> | undefined;
 const courtyard = () => (painted ??= paintKhan());
@@ -136,6 +137,16 @@ function Scene({
       open: 'lesson',
     },
     { id: 'slate', title: 'The slate', text: 'Write the letters you know', open: 'write' },
+    {
+      id: 'innkeeper',
+      title: 'The innkeeper’s table',
+      text: !wordsOpen(progress)
+        ? 'Words · pass the Painted Sign'
+        : progress.words.done
+          ? 'Words · keep them fresh'
+          : `Words · ${WORD_CHAPTERS[progress.words.chapter - 1]?.title ?? ''}`,
+      open: wordsOpen(progress) ? 'words' : undefined,
+    },
     { id: 'fountain', title: 'The fountain', text: 'Listen: which letter?', open: 'listen' },
     { id: 'storyteller', title: 'The storyteller', text: 'Read short words', open: 'read' },
     {

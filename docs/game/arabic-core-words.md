@@ -61,7 +61,7 @@ The epic says "each shown in a sentence with audio". The deck can do that for ab
 I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories made only of words you know come in a later epic (vision, Arabic track).
 
 ## 4. A word lesson (#160)
-- **Where:** a new station in the courtyard, the innkeeper's table (my choice). It's locked until "The Painted Sign" is passed.
+- **Where:** a new station in the courtyard, the innkeeper's table (my choice): a low table under the left arcade with her open guest book, bread and a lamp. The slate moved a little toward the road to make room. It's locked until "The Painted Sign" is passed.
 - **A session is 12 words:** due words first, then up to 5 new words from your chapter, then words you know (my choice, like the Codebook).
 - **Meet**, for each new word: the Arabic with its marks, the native recording, our gloss, the sound in Hebrew letters, and the deck sentence if there is one.
 - **Practice**, mixed:
@@ -72,7 +72,7 @@ I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories ma
   - each word is an FSRS item `word:pcav:<n>`: right first time is Good, right after a miss is Hard, wrong is Again;
   - each answer is a result in the `listen` or `read` skill, so word practice moves the same ratings as the letters;
   - XP is about 10 a minute (economy);
-  - events `word-session`, and `word-90` for 90% or better, for daily contracts.
+  - events `word-session`, and `word-90` for 90% or better. Their daily contracts come in the same migration style as the Morse drills' (a template only offered once you've played the drill), after that migration is merged.
 - **The chapter gate:** like the letters, 90% in two sessions in a row, the second on a later day. Then the next chapter's words start coming.
 
 ## 5. The regulars ("The Long Road In", chapter 2 onward) (#161)

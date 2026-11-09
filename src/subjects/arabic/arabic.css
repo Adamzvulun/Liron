@@ -597,3 +597,82 @@
   font-size: 15px;
   color: #6b5640;
 }
+
+/* The innkeeper's table (#160): a word's deck sentence, the recall prompt, a session's words. */
+.arabic__sentence {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 14px;
+  align-items: center;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 10px 16px;
+  border: 2px dashed rgba(36, 22, 14, 0.35);
+  border-radius: 14px;
+  text-align: left;
+}
+
+.arabic__sentence .arabic__play {
+  grid-row: span 2;
+}
+
+.arabic__sentence-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 26px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.arabic__sentence-en {
+  font-size: 16px;
+  color: #6b5640;
+}
+
+.arabic__word--meaning {
+  font-family: var(--font-ui);
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.arabic__choices.is-words .arabic__choice[lang='ar'] {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 28px;
+  line-height: 1.4;
+  padding: 6px 10px;
+}
+
+.arabic__words {
+  display: grid;
+  gap: 4px;
+  width: min(100%, 460px);
+  margin: 0 auto 16px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.arabic__words li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.arabic__words li.is-right {
+  background: rgba(159, 210, 122, 0.35);
+}
+
+.arabic__words li.is-wrong {
+  background: rgba(229, 139, 116, 0.35);
+}
+
+.arabic__words bdi {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 22px;
+}
+
+.arabic__feedback--word {
+  width: 100%;
+}
