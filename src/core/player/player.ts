@@ -76,7 +76,10 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
         // the last one still works). The wallet and profile don't: they load meanwhile (#137).
         const [wallet, today, profile] = await Promise.all([
           store.wallet(),
-          store.setTimeZone(timeZone()).catch(() => {}).then(() => store.today()),
+          store
+            .setTimeZone(timeZone())
+            .catch(() => {})
+            .then(() => store.today()),
           store.profile(),
         ]);
         // Contracts may have paid gold while this loaded; their purse is the newer one.
