@@ -1118,6 +1118,17 @@ describe('daily contracts (ADR 0032)', () => {
     ]);
   });
 
+  it('counts the word path’s events toward its contracts (#160)', async () => {
+    await rows(`insert into subject_progress (user_id, subject_id) values ($1, 'arabic')`, [ADAM]);
+    await setBoard(['arabic-words', 'arabic-words-90']);
+    expect(
+      (await save('arabic', [{ kind: 'word-session' }, { kind: 'word-90' }])).contracts_paid,
+    ).toEqual(['arabic-words-90']);
+    expect((await save('arabic', [{ kind: 'word-session' }])).contracts_paid).toEqual([
+      'arabic-words',
+    ]);
+  });
+
   it('picks one contract from each of two subjects started', async () => {
     await rows(`insert into subject_progress (user_id, subject_id) values ($1, 'arabic')`, [ADAM]);
     const subjects = (await board(ADAM)).contracts.map((c) => c.subject);
