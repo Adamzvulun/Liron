@@ -1,6 +1,14 @@
 import { parseLook } from '../avatar/looks.ts';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Award, Chest, Contract, DayResult, ProgressStore, Today } from './store.ts';
+import type {
+  Award,
+  Chest,
+  Contract,
+  DayResult,
+  MarketStall,
+  ProgressStore,
+  Today,
+} from './store.ts';
 import type { StoredRating } from '../rating/ratings.ts';
 
 interface RatingRow {
@@ -161,6 +169,17 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
           shields: r.wallet.streak_shields,
         },
       };
+    },
+    async market() {
+      return call<MarketStall>('market_today', {}, 'open the Market');
+    },
+    async buyItem(id) {
+      const r = await call<{ wallet: { gold: number; gems: number; streak_shields: number } }>(
+        'buy_item',
+        { p_item: id },
+        'buy it',
+      );
+      return { gold: r.wallet.gold, gems: r.wallet.gems, shields: r.wallet.streak_shields };
     },
     async saveSession(subjectId, session) {
       const r = await call<{ duplicate: boolean; award: AwardRow | null }>(

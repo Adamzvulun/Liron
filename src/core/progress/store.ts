@@ -114,6 +114,25 @@ export interface ChestContents {
   wallet?: { gold: number; gems: number; shields: number };
 }
 
+/** One of the Market's wares today (ADR 0033, #49). */
+export interface Ware {
+  id: string;
+  kind: 'gear' | 'color' | 'functional';
+  /** The gear slot; null for colors and functional items. */
+  slot: string | null;
+  rarity: string;
+  price: number;
+  /** Owned already (a streak shield: holding 2, the most you can). */
+  owned: boolean;
+  affordable: boolean;
+}
+
+/** The Market's stall today: 4 wares, the same for everyone. */
+export interface MarketStall {
+  day: string;
+  wares: Ware[];
+}
+
 /** The player's own profile fields the app shows. */
 export interface Profile {
   /** The name the player chose; empty until they choose one. */
@@ -138,6 +157,10 @@ export interface ProgressStore {
   chests(): Promise<Chest[]>;
   /** Opens a chest: the database rolls and pays it, once. */
   openChest(id: string): Promise<ChestContents>;
+  /** Today's Market stall (#49). */
+  market(): Promise<MarketStall>;
+  /** Buys one of today's wares: the database takes the gold and gives the item, or refuses. */
+  buyItem(id: string): Promise<{ gold: number; gems: number; shields: number }>;
   profile(): Promise<Profile>;
   setDisplayName(name: string): Promise<void>;
   setAvatar(look: Look): Promise<void>;
@@ -257,6 +280,13 @@ export function memoryStore(
     },
     async openChest() {
       throw new Error('Chests open only in the database');
+    },
+    // The Market sells only through the database (schema tests).
+    async market() {
+      return { day: todayIs(), wares: [] };
+    },
+    async buyItem() {
+      throw new Error('The Market sells only through the database');
     },
     async saveSession(subjectId, s) {
       if (savedSessions.has(s.sessionId)) return { duplicate: true, award: null };

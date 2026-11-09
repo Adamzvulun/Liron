@@ -52,7 +52,17 @@ export interface Extras {
   today?: Partial<typeof TODAY>;
   /** Unopened chests (ADR 0033). Each opens to 30 gold, a gem, the boots and a shield. */
   chests?: { id: string; kind: string; source: string; source_key: string }[];
+  /** Gold in the wallet at the start, instead of WALLET's. */
+  gold?: number;
 }
+
+/** Today's fake Market stall (#49): 2 gear, 1 dye and the streak shield. */
+export const STALL = [
+  { id: 'tarboosh', kind: 'gear', slot: 'head', rarity: 'common', price: 60 },
+  { id: 'robe', kind: 'gear', slot: 'torso', rarity: 'rare', price: 180 },
+  { id: 'indigo-dye', kind: 'color', slot: null, rarity: 'common', price: 60 },
+  { id: 'streak-shield', kind: 'functional', slot: null, rarity: 'functional', price: 120 },
+] as const;
 
 /**
  * Today's contracts on the fake board (ADR 0032): finished by events from saved sessions (the
@@ -106,13 +116,16 @@ export async function fakeSupabase(
   // Events from saved sessions, by kind, for today's contracts (ADR 0032).
   const events = new Map<string, number>();
   const opened = new Set<string>();
+  // The Market's purchases (#49): what was bought, and the gold spent.
+  const bought: string[] = [];
+  let spent = 0;
   const board = () => {
     const contracts = CONTRACTS.map((c) => {
       const progress = Math.min(c.target, events.get(c.kind) ?? 0);
       return { ...c, progress, paid: progress >= c.target };
     });
     const earned = contracts.filter((c) => c.paid).reduce((sum, c) => sum + c.gold, 0);
-    return { contracts, gold: WALLET.gold + earned };
+    return { contracts, gold: (extras.gold ?? WALLET.gold) + earned - spent };
   };
   await page.route(`${FAKE_SUPABASE_URL}/**`, async (route) => {
     const url = new URL(route.request().url());
@@ -163,8 +176,50 @@ export async function fakeSupabase(
         },
       });
     }
+    if (url.pathname === '/rest/v1/rpc/market_today') {
+      const gold = board().gold;
+      const shields =
+        (extras.today?.streak_shields ?? TODAY.streak_shields) +
+        bought.filter((b) => b === 'streak-shield').length;
+      return route.fulfill({
+        json: {
+          day: TODAY.day,
+          wares: STALL.map((w) => ({
+            ...w,
+            owned:
+              w.kind === 'functional'
+                ? shields >= 2
+                : [...(extras.owned ?? []), ...bought].includes(w.id),
+            affordable: gold >= w.price,
+          })),
+        },
+      });
+    }
+    if (url.pathname === '/rest/v1/rpc/buy_item') {
+      const { p_item } = route.request().postDataJSON() as { p_item: string };
+      const ware = STALL.find((w) => w.id === p_item);
+      if (!ware) return route.fulfill({ status: 400, json: { message: 'not for sale today' } });
+      if (board().gold < ware.price) {
+        return route.fulfill({ status: 400, json: { message: 'too little gold' } });
+      }
+      bought.push(ware.id);
+      spent += ware.price;
+      const shields =
+        (extras.today?.streak_shields ?? TODAY.streak_shields) +
+        bought.filter((b) => b === 'streak-shield').length;
+      return route.fulfill({
+        json: {
+          item: ware.id,
+          wallet: { gold: board().gold, gems: WALLET.gems, streak_shields: shields },
+        },
+      });
+    }
     if (url.pathname === '/rest/v1/owned_items') {
-      return route.fulfill({ json: (extras.owned ?? []).map((item_id) => ({ item_id })) });
+      return route.fulfill({
+        json: [...(extras.owned ?? []), ...bought.filter((b) => b !== 'streak-shield')].map(
+          (item_id) => ({ item_id }),
+        ),
+      });
     }
     if (url.pathname === '/rest/v1/rpc/set_daily_goal') {
       // Like the database: a goal at or below today's minutes reaches it and pays the chest.
@@ -324,7 +379,8 @@ export async function fakeSupabase(
     }
     if (url.pathname === '/rest/v1/wallets') {
       // supabase-js asks for a single object with this Accept header (maybeSingle).
-      return route.fulfill({ json: single ? WALLET : [WALLET] });
+      const wallet = { ...WALLET, gold: (extras.gold ?? WALLET.gold) - spent };
+      return route.fulfill({ json: single ? wallet : [wallet] });
     }
     return route.fulfill({ status: 404, json: {} });
   });
