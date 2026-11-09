@@ -15,6 +15,7 @@
 // (or 12 wpm) decides.
 
 import { MORSE_CHARS } from '../code.ts';
+import { PROSIGNS, written } from '../words.ts';
 
 /** One key-down, in milliseconds (any clock, e.g. `performance.now()`). */
 export interface Mark {
@@ -60,7 +61,12 @@ const TWO_KINDS = 1.8;
 const LETTER_ABOVE = 2;
 const WORD_ABOVE = 5;
 
-const CHARS_BY_CODE = new Map(MORSE_CHARS.map((c) => [c.code, c.char]));
+// Prosigns read as `<AR>`, `<SK>`, `<KN>` (#155), unless a taught character has the same code:
+// BT's -...- stays "=", as Koch teaches it.
+const CHARS_BY_CODE = new Map([
+  ...PROSIGNS.flatMap((p) => (p.code ? [[p.code, written(p)] as const] : [])),
+  ...MORSE_CHARS.map((c) => [c.code, c.char] as const),
+]);
 
 /** The character for a code of dots and dashes, or "?" if there is none. */
 export const charFor = (code: string) => CHARS_BY_CODE.get(code) ?? '?';
