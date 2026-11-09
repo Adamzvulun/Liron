@@ -27,6 +27,18 @@ const Progress = z.object({
   phrasesMet: z.array(z.string()).catch([]),
   /** Read choices for well-known words: recordings, or Latin letters if you prefer them. */
   knownChoices: z.enum(['sound', 'latin']).catch('sound'),
+  /** The word path (#160): your chapter, passes towards it, and the words you've met (deck ids). */
+  words: z
+    .object({
+      chapter: z.number().int().min(1).catch(1),
+      streak: z.number().int().min(0).max(PASSES_NEEDED).catch(0),
+      passDay: z.string().nullable().catch(null),
+      met: z.array(z.string()).catch([]),
+      /** Every chapter passed: sessions are practice. */
+      done: z.boolean().catch(false),
+      sessions: z.number().int().min(0).catch(0),
+    })
+    .catch({ chapter: 1, streak: 0, passDay: null, met: [], done: false, sessions: 0 }),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -41,6 +53,7 @@ export const NEW_PROGRESS: ArabicProgress = {
   phraseSet: 1,
   phrasesMet: [],
   knownChoices: 'sound',
+  words: { chapter: 1, streak: 0, passDay: null, met: [], done: false, sessions: 0 },
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
@@ -94,4 +107,42 @@ export function applyTrial(
 ): { next: ArabicProgress; passed: boolean } {
   const passed = !p.guest && score >= accuracy;
   return { passed, next: { ...p, guest: p.guest || passed, sessions: p.sessions + 1 } };
+}
+
+/** The word path opens once you're a guest: every letter is yours (#160). */
+export const wordsOpen = (p: ArabicProgress) => p.guest;
+
+/**
+ * After a word session: the same gate as the letters, 90% in two sessions in a row, the second
+ * on a later day. Passing moves you to the next chapter (`chapters` is how many there are).
+ */
+export function applyWordSession(
+  p: ArabicProgress,
+  score: number,
+  met: readonly string[],
+  chapters: number,
+  day: string = localDay(),
+): { next: ArabicProgress; passed: boolean; sameDay: boolean } {
+  const w = p.words;
+  const good = score >= PASS_SCORE;
+  const sameDay = good && w.streak > 0 && w.passDay === day;
+  const streak = !good ? 0 : sameDay ? w.streak : w.streak + 1;
+  const passed = !w.done && streak >= PASSES_NEEDED;
+  const last = w.chapter >= chapters;
+  return {
+    passed,
+    sameDay: sameDay && !w.done,
+    next: {
+      ...p,
+      sessions: p.sessions + 1,
+      words: {
+        chapter: passed && !last ? w.chapter + 1 : w.chapter,
+        streak: passed ? 0 : streak,
+        passDay: passed || !good ? null : streak === 1 && !sameDay ? day : w.passDay,
+        met: [...new Set([...w.met, ...met])],
+        done: w.done || (passed && last),
+        sessions: w.sessions + 1,
+      },
+    },
+  };
 }
