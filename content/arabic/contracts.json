@@ -50,6 +50,32 @@
         "gold": 15,
         "text": "Practice phrases at the coffee corner"
       }
+    },
+    {
+      "id": "arabic-words",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "word-session",
+        "target": 2,
+        "gold": 15,
+        "text": "Finish 2 sessions at the innkeeper’s table",
+        "requires": "word-session"
+      }
+    },
+    {
+      "id": "arabic-words-90",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "word-90",
+        "target": 1,
+        "gold": 20,
+        "text": "Score 90% at the innkeeper’s table",
+        "requires": "word-session"
+      }
     }
   ]
 }

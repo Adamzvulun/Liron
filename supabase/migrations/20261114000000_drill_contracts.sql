@@ -1,4 +1,5 @@
--- Waymark: daily contracts for the Codebook and the callsign rush (#149, E12). Applies to dev on
+-- Waymark: daily contracts for the Codebook and the callsign rush (#149, E12), and for the
+-- Arabic word path at the innkeeper's table (#160, E11). Applies to dev on
 -- merge and to prod on release (ADR 0018).
 --
 -- The two drills open later than the others (the Codebook after the first trial, the rush with
@@ -14,7 +15,9 @@ insert into public.contract_templates (id, subject_id, metric, kind, target, gol
   ('morse-words', 'morse', 'event', 'words-round', 2, 15, 'Play 2 Codebook rounds', 'words-round'),
   ('morse-words-perfect', 'morse', 'event', 'words-perfect', 1, 20, 'Copy a whole Codebook round right', 'words-round'),
   ('morse-rush', 'morse', 'event', 'rush-round', 1, 15, 'Finish a callsign rush', 'rush-round'),
-  ('morse-rush-fast', 'morse', 'event', 'rush-fast', 3, 20, 'Copy 3 callsigns above your speed', 'rush-round');
+  ('morse-rush-fast', 'morse', 'event', 'rush-fast', 3, 20, 'Copy 3 callsigns above your speed', 'rush-round'),
+  ('arabic-words', 'arabic', 'event', 'word-session', 2, 15, 'Finish 2 sessions at the innkeeper’s table', 'word-session'),
+  ('arabic-words-90', 'arabic', 'event', 'word-90', 1, 20, 'Score 90% at the innkeeper’s table', 'word-session');
 
 -- Every kind the drills send, so the history the templates require is kept. `rush-best` has no
 -- contract yet but is counted for later.
@@ -23,7 +26,9 @@ insert into public.subject_event_kinds (subject_id, kind) values
   ('morse', 'words-perfect'),
   ('morse', 'rush-round'),
   ('morse', 'rush-best'),
-  ('morse', 'rush-fast')
+  ('morse', 'rush-fast'),
+  ('arabic', 'word-session'),
+  ('arabic', 'word-90')
 on conflict do nothing;
 
 -- As before (20261109000000), but a template that requires an event is only picked once the
