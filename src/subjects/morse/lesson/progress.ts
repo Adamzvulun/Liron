@@ -43,6 +43,13 @@ const progressSchema = z.object({
       ditMs: z.number().min(20).max(400).nullable().catch(null),
     })
     .catch({ drills: 0, ditMs: null }),
+  /** The word drill (#154): rounds played, and the most words copied right in one round. */
+  words: z
+    .object({
+      rounds: z.number().int().min(0).catch(0),
+      best: z.number().int().min(0).catch(0),
+    })
+    .catch({ rounds: 0, best: 0 }),
 });
 
 export type MorseProgress = z.infer<typeof progressSchema>;
