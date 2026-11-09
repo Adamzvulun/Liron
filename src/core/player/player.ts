@@ -6,6 +6,7 @@ import {
   type Chest,
   type ChestContents,
   type DayResult,
+  type MarketStall,
   type Profile,
   type ProgressStore,
   type Today,
@@ -33,6 +34,8 @@ export interface PlayerState {
   contracts: TodaysContracts | null;
   /** Unopened chests (ADR 0033), oldest first; empty until loaded. */
   chests: Chest[];
+  /** Today's Market stall (#49); null until the Market is visited. */
+  market: MarketStall | null;
 }
 
 /** The browser's time zone, e.g. "Asia/Jerusalem". */
@@ -53,6 +56,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     goalReached: null,
     contracts: null,
     chests: [],
+    market: null,
   };
   const listeners = new Set<() => void>();
   const set = (next: Partial<PlayerState>) => {
@@ -119,6 +123,48 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       } catch (e) {
         fail(e);
         return null;
+      }
+    },
+    /** Reads today's Market stall. A failure leaves the stall as it was. */
+    async loadMarket() {
+      try {
+        set({ market: await store.market() });
+      } catch (e) {
+        fail(e);
+      }
+    },
+    /**
+     * Buys one of today's wares: the database takes the gold and gives the item. The purse,
+     * shields and wardrobe follow. Returns null, or why it couldn't be bought.
+     */
+    async buy(id: string): Promise<string | null> {
+      const ware = state.market?.wares.find((w) => w.id === id);
+      try {
+        const w = await store.buyItem(id);
+        const next: Partial<PlayerState> = {};
+        if (state.wallet) next.wallet = { ...state.wallet, gold: w.gold, gems: w.gems };
+        if (state.today) next.today = { ...state.today, shields: w.shields };
+        if (ware?.kind !== 'functional' && state.profile && !state.profile.owned.includes(id)) {
+          next.profile = { ...state.profile, owned: [...state.profile.owned, id] };
+        }
+        if (state.market) {
+          next.market = {
+            ...state.market,
+            wares: state.market.wares.map((x) => ({
+              ...x,
+              owned: x.id === id ? x.kind !== 'functional' || w.shields >= 2 : x.owned,
+              affordable: w.gold >= x.price,
+            })),
+          };
+        }
+        set(next);
+        return null;
+      } catch (e) {
+        const m = (e as Error).message;
+        if (/too little gold/.test(m)) return 'Not enough gold yet.';
+        if (/already owned/.test(m)) return 'You already have this.';
+        if (/not for sale today/.test(m)) return 'That’s gone; the stall has new wares today.';
+        return m;
       }
     },
     applyAward(award: Award) {

@@ -11,6 +11,7 @@ import { Link } from './Link.tsx';
 import { usePath } from './router.ts';
 import { chestShelf } from './player/chests.ts';
 import { ChestShelf } from './player/Chests.tsx';
+import { Market } from './player/Market.tsx';
 import { GoalReached } from './player/GoalReached.tsx';
 import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
@@ -106,7 +107,11 @@ function Lobby({ player }: { player: Player }) {
     const api = resident && apis.get(resident.id);
     return (
       <>
-        <PlaceScreen place={place} resident={resident} wide={place === 'house' || !!Hall}>
+        <PlaceScreen
+          place={place}
+          resident={resident}
+          wide={place === 'house' || place === 'market' || !!Hall}
+        >
           {Hall && api && (
             <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
               <Hall api={api} />
@@ -126,6 +131,15 @@ function Lobby({ player }: { player: Player }) {
                 onOpen={player.openChest}
               />
             </div>
+          )}
+          {place === 'market' && state.profile && (
+            <Market
+              stall={state.market}
+              look={state.profile.avatar}
+              gold={state.wallet?.gold ?? null}
+              onLoad={player.loadMarket}
+              onBuy={player.buy}
+            />
           )}
           {place === 'house' && state.profile && (
             <Wardrobe

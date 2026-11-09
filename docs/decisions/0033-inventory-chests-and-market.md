@@ -35,6 +35,7 @@ A chest whose contents are rolled in the browser can be rerolled by reloading. A
 **Market**
 - `market_today()`: 4 slots seeded by the day (2 gear, 1 color, 1 functional), the same for everyone, from `items`. It marks what the player owns and can afford.
 - `buy_item(id)`: refuses an item that isn't in today's stock, one already owned (or a shield at 2) and too little gold. Otherwise it takes the gold and gives the item, in one transaction.
+- **As built (#49):** `market_stock(day)` picks the 4 by `md5(day:item id)`, so the stock is data-driven and the same for everyone on that date (the player's local date, `player_today()`). Any gear can be stocked, the milestone items too. The stall is the Market building's own screen (`/market`), the place the city already had for it, rather than a panel on the Notice Board as the concept drew it: the board was getting long with contracts, questlines and chests. Each ware shows your own traveler wearing it.
 
 **No real money, no timers.** Gold and gems are only earned. No chest waits hours to open.
 

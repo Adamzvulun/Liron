@@ -32,7 +32,7 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 - **Reaching level *L* pays 5 × *L* gold.** For example, level 5 pays 25 gold.
 - **Daily chest:** 20 gold (below).
 - **Daily contracts:** 10 to 20 gold each, about 45 a day for all 3 (below).
-- Spent in the Market (E10).
+- Spent in the Market (#49, see below).
 
 ## Gems (rare)
 - **1 gem at every 5th level** (5, 10, 15, …). Early on that's about one a week.
@@ -71,6 +71,19 @@ Separate from the daily-goal chest above, which pays at once. These wait on the 
 - **Gear** is one you don't own yet, from all 20 earnable pieces: the 4 milestone items and the Market's 16 wares (#49). If you own them all, you get its price in gold instead.
 - **A shield** when you already hold 2 becomes its price, 120 gold.
 - A shielded day doesn't count toward a streak chest (ADR 0034).
+
+## Market
+The Market building sells 4 wares a day: 2 gear, 1 tunic dye and the streak shield, the same for everyone on that date ([ADR 0033](../decisions/0033-inventory-chests-and-market.md), #49). Gold only, never real money.
+
+| Ware | Gold |
+|---|---|
+| Common gear, dyes | 60 (about a day of contracts and goals) |
+| Rare gear | 180 |
+| Epic gear (the coat, the banner) | 450 |
+| Streak shield | 120 |
+
+- The database checks the stock, the price and what you own, then takes the gold and gives the item in one go.
+- You can't buy what you own, or a shield while holding 2. A ware you can't afford yet says how much more gold you need.
 
 ## Coming later (not dropped)
 | Reward | Where |
