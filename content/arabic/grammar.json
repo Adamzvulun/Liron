@@ -1,0 +1,78 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (written for Waymark). Examples are deck ids only; the deck stays private (ADR 0011).",
+  "items": [
+    {
+      "id": "grammar:no-is",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 1,
+        "title": "No word for “is”",
+        "points": [
+          "In the present, Arabic has no word for am, is or are. You put the two parts side by side: “I ready” is “I’m ready”.",
+          "A question is the same words, with your voice rising at the end."
+        ],
+        "examples": ["pcav:4703", "pcav:3412", "pcav:0186"]
+      }
+    },
+    {
+      "id": "grammar:endings",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 2,
+        "title": "My, your, his: endings",
+        "points": [
+          "My, your and his are endings on the word: ism (name) → ismi, my name.",
+          "A word ending in -a shows a t before the ending: gahwa (coffee) → gahwitak, your coffee.",
+          "The same endings go on other words too: wēn (where) → wēnik, where are you (to a woman)?"
+        ],
+        "table": [
+          ["-i", "my"],
+          ["-ak", "your (to a man)"],
+          ["-ik", "your (to a woman)"],
+          ["-u", "his"],
+          ["-ha", "her"],
+          ["-na", "our"],
+          ["-kum", "your (to several)"],
+          ["-hum", "their"]
+        ],
+        "examples": ["pcav:0216", "pcav:0215", "pcav:0086", "pcav:1046"]
+      }
+    },
+    {
+      "id": "grammar:counting",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 3,
+        "title": "Counting things",
+        "points": [
+          "Two of something is one word with -ēn on the end: dagīga (a minute) → dagigtēn, two minutes.",
+          "From 3 to 10, a short form of the number comes before the plural: talāta (three) → talat layāli, three nights.",
+          "A plural that starts with a vowel takes a t after the number: ayyām (days) → xamas tiyyām, five days.",
+          "From 11 up, the word stays singular."
+        ],
+        "examples": ["pcav:0800", "pcav:2768", "pcav:1296", "pcav:1475"]
+      }
+    },
+    {
+      "id": "grammar:article",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 4,
+        "title": "il-, “the”, and the sun letters",
+        "points": [
+          "“The” is il- in front of the word: xēr (good) → ilxēr.",
+          "Before the sun letters, the l becomes the next sound, said twice: il + šams → iššams, the sun. You still write the lām; a shadda marks the doubled letter.",
+          "In Palestinian, j often counts as a sun letter too: ijjaww, the weather."
+        ],
+        "letters": "ت ث د ذ ر ز س ش ص ض ط ظ ل ن",
+        "examples": ["pcav:4764", "pcav:3681", "pcav:4224", "pcav:3678"]
+      }
+    }
+  ]
+}

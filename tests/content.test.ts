@@ -181,3 +181,17 @@ describe('arabic/core-words.json (#159)', () => {
     ).toBe(true);
   });
 });
+
+describe('arabic/grammar.json (#162)', () => {
+  const cards = pack('arabic/grammar.json').items.map(
+    (i) => i.data as { chapter: number; examples: string[]; letters?: string; points: string[] },
+  );
+
+  it('points only at deck ids, and its text has no deck Arabic (ADR 0011)', () => {
+    expect(cards.every((c) => c.examples.every((id) => /^pcav:\d{4}$/.test(id)))).toBe(true);
+    // Only the sun letters' list is in Arabic: letters, not deck text.
+    const text = JSON.stringify(cards.map((c) => ({ ...c, letters: undefined })));
+    expect(text).not.toMatch(/[\u0600-\u06ff]/);
+    expect(cards.every((c) => c.chapter >= 1 && c.chapter <= 10 && c.points.length > 0)).toBe(true);
+  });
+});

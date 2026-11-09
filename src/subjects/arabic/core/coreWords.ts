@@ -59,7 +59,7 @@ const tidy = (s: string) =>
     .replace(/\s+/g, ' ')
     .trim();
 
-function line(item: Item | undefined): DeckLine | undefined {
+export function line(item: Item | undefined): DeckLine | undefined {
   const d = item?.data as { arabic?: unknown; pronunciation?: unknown; english?: unknown };
   const audio = item?.media.find((m) => m.kind === 'audio')?.path;
   if (!item || !audio || typeof d.arabic !== 'string') return undefined;
