@@ -85,8 +85,8 @@ function AuthGate() {
 function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
   const path = usePath();
-  // Contracts after the wallet, so gold they pay on the way isn't overwritten by an older read.
-  useEffect(() => void player.load().then(player.loadContracts), [player]);
+  // Both at once (#137): the player keeps the contracts' purse, which is never older.
+  useEffect(() => void Promise.all([player.load(), player.loadContracts()]), [player]);
   const moved = useRef(false);
   useEffect(() => {
     // Again on every move: a session in a hall may have finished one.
