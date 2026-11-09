@@ -39,8 +39,19 @@ const Progress = z.object({
       sessions: z.number().int().min(0).catch(0),
       /** Grammar cards you've read (#162), e.g. `grammar:no-is`. */
       cards: z.array(z.string()).catch([]),
+      /** The regulars' trials you've passed (#161), by road chapter number (2–11). */
+      trials: z.array(z.number().int()).catch([]),
     })
-    .catch({ chapter: 1, streak: 0, passDay: null, met: [], done: false, sessions: 0, cards: [] }),
+    .catch({
+      chapter: 1,
+      streak: 0,
+      passDay: null,
+      met: [],
+      done: false,
+      sessions: 0,
+      cards: [],
+      trials: [],
+    }),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -55,7 +66,16 @@ export const NEW_PROGRESS: ArabicProgress = {
   phraseSet: 1,
   phrasesMet: [],
   knownChoices: 'sound',
-  words: { chapter: 1, streak: 0, passDay: null, met: [], done: false, sessions: 0, cards: [] },
+  words: {
+    chapter: 1,
+    streak: 0,
+    passDay: null,
+    met: [],
+    done: false,
+    sessions: 0,
+    cards: [],
+    trials: [],
+  },
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
@@ -109,6 +129,31 @@ export function applyTrial(
 ): { next: ArabicProgress; passed: boolean } {
   const passed = !p.guest && score >= accuracy;
   return { passed, next: { ...p, guest: p.guest || passed, sessions: p.sessions + 1 } };
+}
+
+/**
+ * A regular's trial (#161): 30 of their chapter's words at 90% or better. Passing is kept by
+ * the road chapter's number, once; it doesn't move the word path, which has its own gate.
+ */
+export function applyWordTrial(
+  p: ArabicProgress,
+  road: number,
+  score: number,
+  accuracy: number,
+): { next: ArabicProgress; passed: boolean } {
+  const passed = !p.words.trials.includes(road) && score >= accuracy;
+  return {
+    passed,
+    next: {
+      ...p,
+      sessions: p.sessions + 1,
+      words: {
+        ...p.words,
+        sessions: p.words.sessions + 1,
+        trials: passed ? [...p.words.trials, road] : p.words.trials,
+      },
+    },
+  };
 }
 
 /** The word path opens once you're a guest: every letter is yours (#160). */
