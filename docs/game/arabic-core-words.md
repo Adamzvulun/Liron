@@ -44,13 +44,15 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 10 | Sun, wind and heart | Weather, Feelings, Likes and Dislikes |
 
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
-- **Within a chapter, words that appear in a deck sentence go first,** so more of the 300 come with a sentence (my choice).
+- **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
-- **Left out, with a reason each,** as in #125: rude or adult words, near-duplicates, words that are mostly B-level in use.
+- **Not picked for the first 300:** near-duplicates (the deck has three ways to say *hi*; one is taught), brand names, and adult words. Every other A1 word waits for words 301–1,000; none is dropped.
 - **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters. That's later in E11 (#163); it's ordered, not cut.
 
+- **The list** is `content/arabic/core-words.json`, made from the deck by a script that checks every id is A1 and appears once.
+
 ## 3. Sentences: the open question
-The epic says "each shown in a sentence with audio". The deck can do that for about a third of the first 300 words. The choices:
+The epic says "each shown in a sentence with audio". The deck can do that for about a third of the first 300 words (99 of them). The choices:
 
 1. **Deck sentence when there is one, the word alone otherwise** (my choice for now). Everything you hear is a native speaker. No new source and nothing to buy.
 2. **Our own sentences for the rest, as text only.** They would be written by Claude and checked against the deck and the free references (ADR 0012), with no audio. The browser's Arabic voices aren't Palestinian, so I'd rather leave them silent.
