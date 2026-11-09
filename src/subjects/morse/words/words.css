@@ -94,3 +94,22 @@
 .words .lesson__aux {
   grid-template-columns: repeat(3, 1fr);
 }
+
+.words__subtitle {
+  margin: 22px 0 4px;
+  font-family: var(--font-display);
+  font-size: 22px;
+}
+
+.words__flash {
+  margin: 8px 0 0;
+  font-weight: 800;
+}
+
+.words__flash.is-right {
+  color: #2f6b38;
+}
+
+.words__flash.is-wrong {
+  color: #9a3a1c;
+}
