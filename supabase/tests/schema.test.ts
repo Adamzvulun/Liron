@@ -1056,6 +1056,7 @@ describe('daily contracts (ADR 0032)', () => {
           target: i.data.target,
           gold: i.data.gold,
           text: i.data.text,
+          requires_kind: i.data.requires ?? null,
         })),
       )
       .sort((a, b) => a.id.localeCompare(b.id));
@@ -1072,6 +1073,49 @@ describe('daily contracts (ADR 0032)', () => {
     expect((await board(ADAM)).contracts.map((c) => c.id)).toEqual(
       first.contracts.map((c) => c.id),
     );
+  });
+
+  it('offers a drill’s contracts only once the drill was played on an earlier day', async () => {
+    const day0 = await today(ADAM);
+    const picked = async (from: number, to: number) => {
+      const ids = new Set<string>();
+      for (let d = from; d <= to; d += 1) {
+        const day = addDays(day0, d);
+        await rows(`select pick_contracts($1, $2::date)`, [ADAM, day]);
+        for (const r of (await rows(
+          `select template_id from daily_contracts where user_id = $1 and day = $2::date`,
+          [ADAM, day],
+        )) as { template_id: string }[])
+          ids.add(r.template_id);
+      }
+      return ids;
+    };
+    const drill = (ids: Set<string>) =>
+      [...ids].filter((id) => id.startsWith('morse-words') || id.startsWith('morse-rush')).sort();
+    const before = await picked(1, 40);
+    expect(before.has('morse-runs')).toBe(true);
+    expect(drill(before)).toEqual([]);
+    // A Codebook round on day 50 opens the Codebook's contracts from day 51, not the rush's.
+    await rows(
+      `insert into subject_events (user_id, day, subject_id, kind, count)
+       values ($1, $2::date, 'morse', 'words-round', 1)`,
+      [ADAM, addDays(day0, 50)],
+    );
+    expect(drill(await picked(41, 50))).toEqual([]);
+    const after = drill(await picked(51, 90));
+    expect(after.length).toBeGreaterThan(0);
+    expect(after.every((id) => id.startsWith('morse-words'))).toBe(true);
+  });
+
+  it('counts the drills’ events toward their contracts', async () => {
+    await setBoard(['morse-words', 'morse-rush-fast']);
+    await save('morse', [{ kind: 'words-round' }, { kind: 'rush-fast', count: 2 }]);
+    expect((await save('morse', [{ kind: 'words-round' }])).contracts_paid).toEqual([
+      'morse-words',
+    ]);
+    expect((await save('morse', [{ kind: 'rush-fast', count: 1 }])).contracts_paid).toEqual([
+      'morse-rush-fast',
+    ]);
   });
 
   it('picks one contract from each of two subjects started', async () => {
