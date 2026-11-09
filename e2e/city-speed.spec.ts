@@ -27,10 +27,14 @@ const IDLE_RATIO = 5;
 const HOVER_RATIO = 7;
 /**
  * The rasteriser's work while hovering, also against the reference's compositor work, because
- * it too slows with the runner (the square: 25 ms/s locally, 36-53 on CI; 0.22-0.25 of the
- * reference every time). The square before #123: 72-76 ms/s, 0.72.
+ * it too slows with the runner. Since #137 the hover pass points at each place in turn and
+ * pauses, as a person does, instead of sweeping across the square. Measured that way, locally:
+ * - The square: 0.33-0.41 (50-54 ms/s), nearly all of it the gold glow blurred as it appears.
+ * - The square before #137: 0.57-0.67 (91-98 ms/s): each hover made the building a layer of its
+ *   own and drew it again. (The old sweep read 0.22-0.25 and missed that; the square before
+ *   #123 read 0.72 on the sweep.)
  */
-const HOVER_RASTER_RATIO = 0.45;
+const HOVER_RASTER_RATIO = 0.5;
 
 test.describe('the city square stays fast (#123)', () => {
   test('only small sprite layers animate, and nothing blends or filters on hover', async ({
@@ -79,6 +83,8 @@ test.describe('the city square stays fast (#123)', () => {
     const place = page.locator('.city__place--caravanserai');
     await place.hover();
     await expect(place.locator('.city__glow')).toHaveCSS('opacity', '1');
+    // A layer of its own before the hover, so lifting it never draws the building again (#137).
+    expect(await place.evaluate((el) => getComputedStyle(el).willChange)).toBe('transform');
     expect(await place.evaluate((el) => getComputedStyle(el).filter)).toBe('none');
   });
 
@@ -92,6 +98,14 @@ test.describe('the city square stays fast (#123)', () => {
     await page.waitForTimeout(500);
     const cdp = await page.context().newCDPSession(page);
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+
+    /** The middle of each place's plaque, where the hover pass points. */
+    const spots: { x: number; y: number }[] = [];
+    for (const plaque of await page.locator('.city__plaque').all()) {
+      const box = await plaque.boundingBox();
+      if (box) spots.push({ x: box.x + box.width / 2, y: box.y + box.height / 2 });
+    }
+    expect(spots.length).toBeGreaterThan(3);
 
     /** Frame gaps (rAF) and, from a Chrome trace, the compositor's and the rasteriser's work. */
     async function measure(ms: number, hover: boolean): Promise<Measured> {
@@ -111,10 +125,15 @@ test.describe('the city square stays fast (#123)', () => {
         categories: ['disabled-by-default-devtools.timeline', 'viz'],
       });
       const start = Date.now();
-      const { width, height } = page.viewportSize() ?? { width: 1280, height: 720 };
+      // Hovering as a person does (#137): onto a place, a pause while it lights up, off again.
       for (let i = 0; Date.now() - start < ms; i++) {
-        if (hover) await page.mouse.move((i * 37) % width, height * 0.45 + ((i * 13) % 80));
-        else await page.waitForTimeout(100);
+        const spot = spots[i % spots.length];
+        if (hover && spot) {
+          await page.mouse.move(spot.x, spot.y, { steps: 3 });
+          await page.waitForTimeout(150);
+          await page.mouse.move(spot.x, 4, { steps: 3 }); // the sky above it
+          await page.waitForTimeout(100);
+        } else await page.waitForTimeout(100);
       }
       const wall = Date.now() - start;
       const events = JSON.parse((await browser.stopTracing()).toString()).traceEvents as {
