@@ -1,0 +1,2287 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own list. Q-codes and prosigns are the ITU standard (ITU-R M.1172, M.1677)",
+  "items": [
+    {
+      "id": "word:the",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THE",
+        "kind": "word",
+        "rank": 1
+      }
+    },
+    {
+      "id": "word:of",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OF",
+        "kind": "word",
+        "rank": 2
+      }
+    },
+    {
+      "id": "word:and",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "AND",
+        "kind": "word",
+        "rank": 3
+      }
+    },
+    {
+      "id": "word:to",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TO",
+        "kind": "word",
+        "rank": 4
+      }
+    },
+    {
+      "id": "word:in",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "IN",
+        "kind": "word",
+        "rank": 5
+      }
+    },
+    {
+      "id": "word:is",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "IS",
+        "kind": "word",
+        "rank": 6
+      }
+    },
+    {
+      "id": "word:you",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "YOU",
+        "kind": "word",
+        "rank": 7
+      }
+    },
+    {
+      "id": "word:that",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THAT",
+        "kind": "word",
+        "rank": 8
+      }
+    },
+    {
+      "id": "word:it",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "IT",
+        "kind": "word",
+        "rank": 9
+      }
+    },
+    {
+      "id": "word:he",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HE",
+        "kind": "word",
+        "rank": 10
+      }
+    },
+    {
+      "id": "word:was",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WAS",
+        "kind": "word",
+        "rank": 11
+      }
+    },
+    {
+      "id": "word:for",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "FOR",
+        "kind": "word",
+        "rank": 12
+      }
+    },
+    {
+      "id": "word:on",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ON",
+        "kind": "word",
+        "rank": 13
+      }
+    },
+    {
+      "id": "word:are",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ARE",
+        "kind": "word",
+        "rank": 14
+      }
+    },
+    {
+      "id": "word:as",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "AS",
+        "kind": "word",
+        "rank": 15
+      }
+    },
+    {
+      "id": "word:with",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WITH",
+        "kind": "word",
+        "rank": 16
+      }
+    },
+    {
+      "id": "word:his",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HIS",
+        "kind": "word",
+        "rank": 17
+      }
+    },
+    {
+      "id": "word:they",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THEY",
+        "kind": "word",
+        "rank": 18
+      }
+    },
+    {
+      "id": "word:at",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "AT",
+        "kind": "word",
+        "rank": 19
+      }
+    },
+    {
+      "id": "word:be",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "BE",
+        "kind": "word",
+        "rank": 20
+      }
+    },
+    {
+      "id": "word:this",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THIS",
+        "kind": "word",
+        "rank": 21
+      }
+    },
+    {
+      "id": "word:have",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HAVE",
+        "kind": "word",
+        "rank": 22
+      }
+    },
+    {
+      "id": "word:from",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "FROM",
+        "kind": "word",
+        "rank": 23
+      }
+    },
+    {
+      "id": "word:or",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OR",
+        "kind": "word",
+        "rank": 24
+      }
+    },
+    {
+      "id": "word:one",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ONE",
+        "kind": "word",
+        "rank": 25
+      }
+    },
+    {
+      "id": "word:had",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HAD",
+        "kind": "word",
+        "rank": 26
+      }
+    },
+    {
+      "id": "word:by",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "BY",
+        "kind": "word",
+        "rank": 27
+      }
+    },
+    {
+      "id": "word:but",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "BUT",
+        "kind": "word",
+        "rank": 28
+      }
+    },
+    {
+      "id": "word:not",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NOT",
+        "kind": "word",
+        "rank": 29
+      }
+    },
+    {
+      "id": "word:what",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WHAT",
+        "kind": "word",
+        "rank": 30
+      }
+    },
+    {
+      "id": "word:all",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ALL",
+        "kind": "word",
+        "rank": 31
+      }
+    },
+    {
+      "id": "word:were",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WERE",
+        "kind": "word",
+        "rank": 32
+      }
+    },
+    {
+      "id": "word:we",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WE",
+        "kind": "word",
+        "rank": 33
+      }
+    },
+    {
+      "id": "word:when",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WHEN",
+        "kind": "word",
+        "rank": 34
+      }
+    },
+    {
+      "id": "word:your",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "YOUR",
+        "kind": "word",
+        "rank": 35
+      }
+    },
+    {
+      "id": "word:can",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "CAN",
+        "kind": "word",
+        "rank": 36
+      }
+    },
+    {
+      "id": "word:said",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SAID",
+        "kind": "word",
+        "rank": 37
+      }
+    },
+    {
+      "id": "word:there",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THERE",
+        "kind": "word",
+        "rank": 38
+      }
+    },
+    {
+      "id": "word:use",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "USE",
+        "kind": "word",
+        "rank": 39
+      }
+    },
+    {
+      "id": "word:an",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "AN",
+        "kind": "word",
+        "rank": 40
+      }
+    },
+    {
+      "id": "word:each",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "EACH",
+        "kind": "word",
+        "rank": 41
+      }
+    },
+    {
+      "id": "word:which",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WHICH",
+        "kind": "word",
+        "rank": 42
+      }
+    },
+    {
+      "id": "word:she",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SHE",
+        "kind": "word",
+        "rank": 43
+      }
+    },
+    {
+      "id": "word:do",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "DO",
+        "kind": "word",
+        "rank": 44
+      }
+    },
+    {
+      "id": "word:how",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HOW",
+        "kind": "word",
+        "rank": 45
+      }
+    },
+    {
+      "id": "word:their",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THEIR",
+        "kind": "word",
+        "rank": 46
+      }
+    },
+    {
+      "id": "word:if",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "IF",
+        "kind": "word",
+        "rank": 47
+      }
+    },
+    {
+      "id": "word:will",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WILL",
+        "kind": "word",
+        "rank": 48
+      }
+    },
+    {
+      "id": "word:up",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "UP",
+        "kind": "word",
+        "rank": 49
+      }
+    },
+    {
+      "id": "word:other",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OTHER",
+        "kind": "word",
+        "rank": 50
+      }
+    },
+    {
+      "id": "word:about",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ABOUT",
+        "kind": "word",
+        "rank": 51
+      }
+    },
+    {
+      "id": "word:out",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OUT",
+        "kind": "word",
+        "rank": 52
+      }
+    },
+    {
+      "id": "word:many",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MANY",
+        "kind": "word",
+        "rank": 53
+      }
+    },
+    {
+      "id": "word:then",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THEN",
+        "kind": "word",
+        "rank": 54
+      }
+    },
+    {
+      "id": "word:them",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THEM",
+        "kind": "word",
+        "rank": 55
+      }
+    },
+    {
+      "id": "word:so",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SO",
+        "kind": "word",
+        "rank": 56
+      }
+    },
+    {
+      "id": "word:some",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SOME",
+        "kind": "word",
+        "rank": 57
+      }
+    },
+    {
+      "id": "word:her",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HER",
+        "kind": "word",
+        "rank": 58
+      }
+    },
+    {
+      "id": "word:would",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WOULD",
+        "kind": "word",
+        "rank": 59
+      }
+    },
+    {
+      "id": "word:make",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MAKE",
+        "kind": "word",
+        "rank": 60
+      }
+    },
+    {
+      "id": "word:like",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LIKE",
+        "kind": "word",
+        "rank": 61
+      }
+    },
+    {
+      "id": "word:into",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "INTO",
+        "kind": "word",
+        "rank": 62
+      }
+    },
+    {
+      "id": "word:time",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TIME",
+        "kind": "word",
+        "rank": 63
+      }
+    },
+    {
+      "id": "word:has",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HAS",
+        "kind": "word",
+        "rank": 64
+      }
+    },
+    {
+      "id": "word:look",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LOOK",
+        "kind": "word",
+        "rank": 65
+      }
+    },
+    {
+      "id": "word:two",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TWO",
+        "kind": "word",
+        "rank": 66
+      }
+    },
+    {
+      "id": "word:more",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MORE",
+        "kind": "word",
+        "rank": 67
+      }
+    },
+    {
+      "id": "word:go",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GO",
+        "kind": "word",
+        "rank": 68
+      }
+    },
+    {
+      "id": "word:see",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SEE",
+        "kind": "word",
+        "rank": 69
+      }
+    },
+    {
+      "id": "word:no",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NO",
+        "kind": "word",
+        "rank": 70
+      }
+    },
+    {
+      "id": "word:way",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WAY",
+        "kind": "word",
+        "rank": 71
+      }
+    },
+    {
+      "id": "word:could",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "COULD",
+        "kind": "word",
+        "rank": 72
+      }
+    },
+    {
+      "id": "word:my",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MY",
+        "kind": "word",
+        "rank": 73
+      }
+    },
+    {
+      "id": "word:than",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THAN",
+        "kind": "word",
+        "rank": 74
+      }
+    },
+    {
+      "id": "word:first",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "FIRST",
+        "kind": "word",
+        "rank": 75
+      }
+    },
+    {
+      "id": "word:been",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "BEEN",
+        "kind": "word",
+        "rank": 76
+      }
+    },
+    {
+      "id": "word:call",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "CALL",
+        "kind": "word",
+        "rank": 77
+      }
+    },
+    {
+      "id": "word:who",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WHO",
+        "kind": "word",
+        "rank": 78
+      }
+    },
+    {
+      "id": "word:now",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NOW",
+        "kind": "word",
+        "rank": 79
+      }
+    },
+    {
+      "id": "word:find",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "FIND",
+        "kind": "word",
+        "rank": 80
+      }
+    },
+    {
+      "id": "word:long",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LONG",
+        "kind": "word",
+        "rank": 81
+      }
+    },
+    {
+      "id": "word:down",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "DOWN",
+        "kind": "word",
+        "rank": 82
+      }
+    },
+    {
+      "id": "word:day",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "DAY",
+        "kind": "word",
+        "rank": 83
+      }
+    },
+    {
+      "id": "word:did",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "DID",
+        "kind": "word",
+        "rank": 84
+      }
+    },
+    {
+      "id": "word:get",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GET",
+        "kind": "word",
+        "rank": 85
+      }
+    },
+    {
+      "id": "word:come",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "COME",
+        "kind": "word",
+        "rank": 86
+      }
+    },
+    {
+      "id": "word:made",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MADE",
+        "kind": "word",
+        "rank": 87
+      }
+    },
+    {
+      "id": "word:may",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MAY",
+        "kind": "word",
+        "rank": 88
+      }
+    },
+    {
+      "id": "word:part",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "PART",
+        "kind": "word",
+        "rank": 89
+      }
+    },
+    {
+      "id": "word:over",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OVER",
+        "kind": "word",
+        "rank": 90
+      }
+    },
+    {
+      "id": "word:new",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NEW",
+        "kind": "word",
+        "rank": 91
+      }
+    },
+    {
+      "id": "word:sound",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SOUND",
+        "kind": "word",
+        "rank": 92
+      }
+    },
+    {
+      "id": "word:take",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TAKE",
+        "kind": "word",
+        "rank": 93
+      }
+    },
+    {
+      "id": "word:only",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ONLY",
+        "kind": "word",
+        "rank": 94
+      }
+    },
+    {
+      "id": "word:little",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LITTLE",
+        "kind": "word",
+        "rank": 95
+      }
+    },
+    {
+      "id": "word:work",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WORK",
+        "kind": "word",
+        "rank": 96
+      }
+    },
+    {
+      "id": "word:know",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "KNOW",
+        "kind": "word",
+        "rank": 97
+      }
+    },
+    {
+      "id": "word:place",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "PLACE",
+        "kind": "word",
+        "rank": 98
+      }
+    },
+    {
+      "id": "word:year",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "YEAR",
+        "kind": "word",
+        "rank": 99
+      }
+    },
+    {
+      "id": "word:live",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LIVE",
+        "kind": "word",
+        "rank": 100
+      }
+    },
+    {
+      "id": "word:me",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ME",
+        "kind": "word",
+        "rank": 101
+      }
+    },
+    {
+      "id": "word:back",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "BACK",
+        "kind": "word",
+        "rank": 102
+      }
+    },
+    {
+      "id": "word:give",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GIVE",
+        "kind": "word",
+        "rank": 103
+      }
+    },
+    {
+      "id": "word:most",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MOST",
+        "kind": "word",
+        "rank": 104
+      }
+    },
+    {
+      "id": "word:very",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "VERY",
+        "kind": "word",
+        "rank": 105
+      }
+    },
+    {
+      "id": "word:after",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "AFTER",
+        "kind": "word",
+        "rank": 106
+      }
+    },
+    {
+      "id": "word:name",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NAME",
+        "kind": "word",
+        "rank": 107
+      }
+    },
+    {
+      "id": "word:good",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GOOD",
+        "kind": "word",
+        "rank": 108
+      }
+    },
+    {
+      "id": "word:sea",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SEA",
+        "kind": "word",
+        "rank": 109
+      }
+    },
+    {
+      "id": "word:man",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MAN",
+        "kind": "word",
+        "rank": 110
+      }
+    },
+    {
+      "id": "word:say",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SAY",
+        "kind": "word",
+        "rank": 111
+      }
+    },
+    {
+      "id": "word:great",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GREAT",
+        "kind": "word",
+        "rank": 112
+      }
+    },
+    {
+      "id": "word:where",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WHERE",
+        "kind": "word",
+        "rank": 113
+      }
+    },
+    {
+      "id": "word:help",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HELP",
+        "kind": "word",
+        "rank": 114
+      }
+    },
+    {
+      "id": "word:through",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "THROUGH",
+        "kind": "word",
+        "rank": 115
+      }
+    },
+    {
+      "id": "word:line",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LINE",
+        "kind": "word",
+        "rank": 116
+      }
+    },
+    {
+      "id": "word:turn",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TURN",
+        "kind": "word",
+        "rank": 117
+      }
+    },
+    {
+      "id": "word:same",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SAME",
+        "kind": "word",
+        "rank": 118
+      }
+    },
+    {
+      "id": "word:tell",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TELL",
+        "kind": "word",
+        "rank": 119
+      }
+    },
+    {
+      "id": "word:want",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WANT",
+        "kind": "word",
+        "rank": 120
+      }
+    },
+    {
+      "id": "word:air",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "AIR",
+        "kind": "word",
+        "rank": 121
+      }
+    },
+    {
+      "id": "word:well",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WELL",
+        "kind": "word",
+        "rank": 122
+      }
+    },
+    {
+      "id": "word:also",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ALSO",
+        "kind": "word",
+        "rank": 123
+      }
+    },
+    {
+      "id": "word:small",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SMALL",
+        "kind": "word",
+        "rank": 124
+      }
+    },
+    {
+      "id": "word:end",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "END",
+        "kind": "word",
+        "rank": 125
+      }
+    },
+    {
+      "id": "word:put",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "PUT",
+        "kind": "word",
+        "rank": 126
+      }
+    },
+    {
+      "id": "word:home",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HOME",
+        "kind": "word",
+        "rank": 127
+      }
+    },
+    {
+      "id": "word:read",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "READ",
+        "kind": "word",
+        "rank": 128
+      }
+    },
+    {
+      "id": "word:hand",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HAND",
+        "kind": "word",
+        "rank": 129
+      }
+    },
+    {
+      "id": "word:port",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "PORT",
+        "kind": "word",
+        "rank": 130
+      }
+    },
+    {
+      "id": "word:large",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LARGE",
+        "kind": "word",
+        "rank": 131
+      }
+    },
+    {
+      "id": "word:add",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ADD",
+        "kind": "word",
+        "rank": 132
+      }
+    },
+    {
+      "id": "word:even",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "EVEN",
+        "kind": "word",
+        "rank": 133
+      }
+    },
+    {
+      "id": "word:land",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LAND",
+        "kind": "word",
+        "rank": 134
+      }
+    },
+    {
+      "id": "word:here",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HERE",
+        "kind": "word",
+        "rank": 135
+      }
+    },
+    {
+      "id": "word:must",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "MUST",
+        "kind": "word",
+        "rank": 136
+      }
+    },
+    {
+      "id": "word:big",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "BIG",
+        "kind": "word",
+        "rank": 137
+      }
+    },
+    {
+      "id": "word:high",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HIGH",
+        "kind": "word",
+        "rank": 138
+      }
+    },
+    {
+      "id": "word:such",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SUCH",
+        "kind": "word",
+        "rank": 139
+      }
+    },
+    {
+      "id": "word:light",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LIGHT",
+        "kind": "word",
+        "rank": 140
+      }
+    },
+    {
+      "id": "word:kind",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "KIND",
+        "kind": "word",
+        "rank": 141
+      }
+    },
+    {
+      "id": "word:off",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OFF",
+        "kind": "word",
+        "rank": 142
+      }
+    },
+    {
+      "id": "word:need",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NEED",
+        "kind": "word",
+        "rank": 143
+      }
+    },
+    {
+      "id": "word:house",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HOUSE",
+        "kind": "word",
+        "rank": 144
+      }
+    },
+    {
+      "id": "word:try",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TRY",
+        "kind": "word",
+        "rank": 145
+      }
+    },
+    {
+      "id": "word:again",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "AGAIN",
+        "kind": "word",
+        "rank": 146
+      }
+    },
+    {
+      "id": "word:animal",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ANIMAL",
+        "kind": "word",
+        "rank": 147
+      }
+    },
+    {
+      "id": "word:point",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "POINT",
+        "kind": "word",
+        "rank": 148
+      }
+    },
+    {
+      "id": "word:near",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NEAR",
+        "kind": "word",
+        "rank": 149
+      }
+    },
+    {
+      "id": "word:self",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SELF",
+        "kind": "word",
+        "rank": 150
+      }
+    },
+    {
+      "id": "word:earth",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "EARTH",
+        "kind": "word",
+        "rank": 151
+      }
+    },
+    {
+      "id": "word:head",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HEAD",
+        "kind": "word",
+        "rank": 152
+      }
+    },
+    {
+      "id": "word:stand",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "STAND",
+        "kind": "word",
+        "rank": 153
+      }
+    },
+    {
+      "id": "word:own",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OWN",
+        "kind": "word",
+        "rank": 154
+      }
+    },
+    {
+      "id": "word:page",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "PAGE",
+        "kind": "word",
+        "rank": 155
+      }
+    },
+    {
+      "id": "word:should",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SHOULD",
+        "kind": "word",
+        "rank": 156
+      }
+    },
+    {
+      "id": "word:found",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "FOUND",
+        "kind": "word",
+        "rank": 157
+      }
+    },
+    {
+      "id": "word:answer",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ANSWER",
+        "kind": "word",
+        "rank": 158
+      }
+    },
+    {
+      "id": "word:school",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SCHOOL",
+        "kind": "word",
+        "rank": 159
+      }
+    },
+    {
+      "id": "word:grow",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GROW",
+        "kind": "word",
+        "rank": 160
+      }
+    },
+    {
+      "id": "word:study",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "STUDY",
+        "kind": "word",
+        "rank": 161
+      }
+    },
+    {
+      "id": "word:still",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "STILL",
+        "kind": "word",
+        "rank": 162
+      }
+    },
+    {
+      "id": "word:learn",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LEARN",
+        "kind": "word",
+        "rank": 163
+      }
+    },
+    {
+      "id": "word:every",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "EVERY",
+        "kind": "word",
+        "rank": 164
+      }
+    },
+    {
+      "id": "word:lamp",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "LAMP",
+        "kind": "word",
+        "rank": 165
+      }
+    },
+    {
+      "id": "word:tower",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TOWER",
+        "kind": "word",
+        "rank": 166
+      }
+    },
+    {
+      "id": "word:night",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NIGHT",
+        "kind": "word",
+        "rank": 167
+      }
+    },
+    {
+      "id": "word:storm",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "STORM",
+        "kind": "word",
+        "rank": 168
+      }
+    },
+    {
+      "id": "word:signal",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SIGNAL",
+        "kind": "word",
+        "rank": 169
+      }
+    },
+    {
+      "id": "word:radio",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "RADIO",
+        "kind": "word",
+        "rank": 170
+      }
+    },
+    {
+      "id": "abbr:qrl",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRL",
+        "kind": "q-code",
+        "meaning": "Is this frequency in use? / The frequency is busy"
+      }
+    },
+    {
+      "id": "abbr:qrm",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRM",
+        "kind": "q-code",
+        "meaning": "Interference from other stations"
+      }
+    },
+    {
+      "id": "abbr:qrn",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRN",
+        "kind": "q-code",
+        "meaning": "Static: natural noise, such as lightning"
+      }
+    },
+    {
+      "id": "abbr:qro",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRO",
+        "kind": "q-code",
+        "meaning": "Increase power"
+      }
+    },
+    {
+      "id": "abbr:qrp",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRP",
+        "kind": "q-code",
+        "meaning": "Reduce power / low power"
+      }
+    },
+    {
+      "id": "abbr:qrq",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRQ",
+        "kind": "q-code",
+        "meaning": "Send faster"
+      }
+    },
+    {
+      "id": "abbr:qrs",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRS",
+        "kind": "q-code",
+        "meaning": "Send more slowly"
+      }
+    },
+    {
+      "id": "abbr:qrt",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRT",
+        "kind": "q-code",
+        "meaning": "Stop sending: closing down"
+      }
+    },
+    {
+      "id": "abbr:qrv",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRV",
+        "kind": "q-code",
+        "meaning": "Ready"
+      }
+    },
+    {
+      "id": "abbr:qrx",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRX",
+        "kind": "q-code",
+        "meaning": "Wait"
+      }
+    },
+    {
+      "id": "abbr:qrz",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QRZ",
+        "kind": "q-code",
+        "meaning": "Who is calling me?"
+      }
+    },
+    {
+      "id": "abbr:qsb",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QSB",
+        "kind": "q-code",
+        "meaning": "Your signal is fading"
+      }
+    },
+    {
+      "id": "abbr:qsl",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QSL",
+        "kind": "q-code",
+        "meaning": "I confirm I received you"
+      }
+    },
+    {
+      "id": "abbr:qso",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QSO",
+        "kind": "q-code",
+        "meaning": "A contact between two stations"
+      }
+    },
+    {
+      "id": "abbr:qsy",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QSY",
+        "kind": "q-code",
+        "meaning": "Change frequency"
+      }
+    },
+    {
+      "id": "abbr:qth",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "QTH",
+        "kind": "q-code",
+        "meaning": "My location is…"
+      }
+    },
+    {
+      "id": "abbr:cq",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "CQ",
+        "kind": "abbreviation",
+        "meaning": "Calling any station"
+      }
+    },
+    {
+      "id": "abbr:de",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "DE",
+        "kind": "abbreviation",
+        "meaning": "From (this is)"
+      }
+    },
+    {
+      "id": "abbr:k",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "K",
+        "kind": "abbreviation",
+        "meaning": "Over: go ahead"
+      }
+    },
+    {
+      "id": "abbr:r",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "R",
+        "kind": "abbreviation",
+        "meaning": "Received"
+      }
+    },
+    {
+      "id": "abbr:tu",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TU",
+        "kind": "abbreviation",
+        "meaning": "Thank you"
+      }
+    },
+    {
+      "id": "abbr:tnx",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "TNX",
+        "kind": "abbreviation",
+        "meaning": "Thanks"
+      }
+    },
+    {
+      "id": "abbr:73",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "73",
+        "kind": "abbreviation",
+        "meaning": "Best regards"
+      }
+    },
+    {
+      "id": "abbr:88",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "88",
+        "kind": "abbreviation",
+        "meaning": "Love and kisses"
+      }
+    },
+    {
+      "id": "abbr:ur",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "UR",
+        "kind": "abbreviation",
+        "meaning": "Your / you’re"
+      }
+    },
+    {
+      "id": "abbr:rst",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "RST",
+        "kind": "abbreviation",
+        "meaning": "Signal report: readability, strength, tone"
+      }
+    },
+    {
+      "id": "abbr:5nn",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "5NN",
+        "kind": "abbreviation",
+        "meaning": "599: a perfect report, as contesters send it"
+      }
+    },
+    {
+      "id": "abbr:599",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "599",
+        "kind": "abbreviation",
+        "meaning": "Perfect report: readable, strong, clean tone"
+      }
+    },
+    {
+      "id": "abbr:es",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ES",
+        "kind": "abbreviation",
+        "meaning": "And"
+      }
+    },
+    {
+      "id": "abbr:fb",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "FB",
+        "kind": "abbreviation",
+        "meaning": "Fine business: excellent"
+      }
+    },
+    {
+      "id": "abbr:om",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OM",
+        "kind": "abbreviation",
+        "meaning": "Old man: a fellow operator"
+      }
+    },
+    {
+      "id": "abbr:yl",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "YL",
+        "kind": "abbreviation",
+        "meaning": "Young lady: an operator"
+      }
+    },
+    {
+      "id": "abbr:hr",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HR",
+        "kind": "abbreviation",
+        "meaning": "Here"
+      }
+    },
+    {
+      "id": "abbr:name",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "NAME",
+        "kind": "abbreviation",
+        "meaning": "Name"
+      }
+    },
+    {
+      "id": "abbr:rig",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "RIG",
+        "kind": "abbreviation",
+        "meaning": "Radio"
+      }
+    },
+    {
+      "id": "abbr:ant",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ANT",
+        "kind": "abbreviation",
+        "meaning": "Antenna"
+      }
+    },
+    {
+      "id": "abbr:wx",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WX",
+        "kind": "abbreviation",
+        "meaning": "Weather"
+      }
+    },
+    {
+      "id": "abbr:pse",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "PSE",
+        "kind": "abbreviation",
+        "meaning": "Please"
+      }
+    },
+    {
+      "id": "abbr:agn",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "AGN",
+        "kind": "abbreviation",
+        "meaning": "Again"
+      }
+    },
+    {
+      "id": "abbr:sri",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "SRI",
+        "kind": "abbreviation",
+        "meaning": "Sorry"
+      }
+    },
+    {
+      "id": "abbr:gm",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GM",
+        "kind": "abbreviation",
+        "meaning": "Good morning"
+      }
+    },
+    {
+      "id": "abbr:ga",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GA",
+        "kind": "abbreviation",
+        "meaning": "Good afternoon"
+      }
+    },
+    {
+      "id": "abbr:ge",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GE",
+        "kind": "abbreviation",
+        "meaning": "Good evening"
+      }
+    },
+    {
+      "id": "abbr:cul",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "CUL",
+        "kind": "abbreviation",
+        "meaning": "See you later"
+      }
+    },
+    {
+      "id": "abbr:hw",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "HW",
+        "kind": "abbreviation",
+        "meaning": "How (do you copy?)"
+      }
+    },
+    {
+      "id": "abbr:bk",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "BK",
+        "kind": "abbreviation",
+        "meaning": "Back to you"
+      }
+    },
+    {
+      "id": "abbr:op",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "OP",
+        "kind": "abbreviation",
+        "meaning": "Operator"
+      }
+    },
+    {
+      "id": "abbr:pwr",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "PWR",
+        "kind": "abbreviation",
+        "meaning": "Power"
+      }
+    },
+    {
+      "id": "abbr:gl",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "GL",
+        "kind": "abbreviation",
+        "meaning": "Good luck"
+      }
+    },
+    {
+      "id": "abbr:abt",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "ABT",
+        "kind": "abbreviation",
+        "meaning": "About"
+      }
+    },
+    {
+      "id": "abbr:wkd",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "WKD",
+        "kind": "abbreviation",
+        "meaning": "Worked"
+      }
+    },
+    {
+      "id": "abbr:cpy",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "CPY",
+        "kind": "abbreviation",
+        "meaning": "Copy"
+      }
+    },
+    {
+      "id": "abbr:rpt",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "RPT",
+        "kind": "abbreviation",
+        "meaning": "Report / repeat"
+      }
+    },
+    {
+      "id": "abbr:dx",
+      "subject": "morse",
+      "type": "morse-word",
+      "data": {
+        "text": "DX",
+        "kind": "abbreviation",
+        "meaning": "A distant station"
+      }
+    },
+    {
+      "id": "prosign:ar",
+      "subject": "morse",
+      "type": "morse-prosign",
+      "data": {
+        "text": "AR",
+        "code": ".-.-.",
+        "meaning": "End of message"
+      }
+    },
+    {
+      "id": "prosign:sk",
+      "subject": "morse",
+      "type": "morse-prosign",
+      "data": {
+        "text": "SK",
+        "code": "...-.-",
+        "meaning": "End of contact"
+      }
+    },
+    {
+      "id": "prosign:bt",
+      "subject": "morse",
+      "type": "morse-prosign",
+      "data": {
+        "text": "BT",
+        "code": "-...-",
+        "meaning": "Pause: a new thought (sounds the same as =)"
+      }
+    },
+    {
+      "id": "prosign:kn",
+      "subject": "morse",
+      "type": "morse-prosign",
+      "data": {
+        "text": "KN",
+        "code": "-.--.",
+        "meaning": "Over, to the station I’m working only"
+      }
+    }
+  ]
+}
