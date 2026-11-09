@@ -18,8 +18,6 @@ const WORDS = [
   lessonWord(8, 'تبن', 'hay'),
   lessonWord(9, 'باب', 'door'),
   lessonWord(10, 'بابا', 'pope'),
-  lessonWord(11, 'تيت', 'aunt'),
-  lessonWord(12, 'نت', 'internet'),
 ];
 const byPath = new Map(
   WORDS.map((w) => [(w.media[0] as { path: string }).path, (w.data as { arabic: string }).arabic]),
