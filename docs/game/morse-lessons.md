@@ -89,7 +89,17 @@ Adam approved the hall, the story text and the trial rewards on 2026-11-03.
   - **The guild's banner** on the right wall carries your rank (Initiate → Listener at all 26 letters, discovery 04), receive and send ratings, and speed.
   - **The stations** on the floor: the listening desk (the Koch lesson), the signal lamp (Instant Recognition), the telegraph table under a dust sheet (sending, E7) and the locked Radio Room door. The painting and its plaque are one button.
   - **Window shapes:** windows narrower than 16:9 show the whole room, and the ceiling fills the space above it; wider windows crop a little from the top and bottom. On an upright phone the room pans sideways (as the city does), and the scroll, the stations and the banner follow below it as cards. The same happens whenever the room is drawn too small to read.
-- **The story** lives in `content/morse/questline.json`, a content pack: each chapter is an item (letters, intro, trial, outro), each lamp's line is an item, and each chapter is a lesson. Chapter I "Embers" covers K M U R E S N A; chapter II "The Upper Stair" covers P T L W I . J Z.
+- **The story** lives in `content/morse/questline.json`, a content pack: each chapter is an item (letters, intro, trial, outro), each lamp's line is an item, and each chapter is a lesson. Five chapters cover the whole Koch order:
+
+  | Chapter | Characters | Trial | XP |
+  |---|---|---|---|
+  | I "Embers" | K M U R E S N A | The Gatekeeper | 50 |
+  | II "The Upper Stair" | P T L W I . J Z | The Warden of the Stair | 75 |
+  | III "The Lantern Room" | = F O Y , V G 5 | The Keeper of the Lens | 100 |
+  | IV "The Far Voice" | / Q 9 2 H 3 8 B | The Storm Front | 125 |
+  | V "The Beacon Speaks" | ? 4 7 C 1 D 6 0 X (nine lamps) | The Beacon's Answer | 150 |
+
+  Chapters III–V were written on 2026-11-09 while Adam slept, on his instruction to make the calls he would make (the story continues to the beacon relit and the Radio Room opening, which leads to the QSOs of E16). Before then, letters 17–41 unlocked without story or trials. A player already past a new chapter's end isn't stopped by its trial: the gate holds only at the exact end of a chapter.
 - **Trials hold the gate:**
   - When every lamp of a chapter is lit, the next letter stays locked until the chapter's trial is passed. Lessons can still be practised meanwhile.
   - The trial is 50 characters from all your letters, and passes at 90% or better.

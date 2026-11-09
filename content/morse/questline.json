@@ -186,6 +186,291 @@
         "char": "Z",
         "text": "Sixteen lamps. At the top of the stair waits a second gate, older than the first, with a speaking grille."
       }
+    },
+    {
+      "id": "beacon:3",
+      "subject": "morse",
+      "type": "chapter",
+      "data": {
+        "questline": "The Silent Beacon",
+        "number": 3,
+        "title": "The Lantern Room",
+        "letters": ["=", "F", "O", "Y", ",", "V", "G", "5"],
+        "intro": "Beyond the second gate, a ladder climbs into the lantern room. The great lens is cracked and gray with salt, and beside it sits the last operator’s chair, turned toward the window as if waiting.",
+        "trial": {
+          "name": "The Keeper of the Lens",
+          "text": "The lens will not turn for a stranger. Its keeper sends in long, even lines, and now numbers too. Copy 50 characters at 90% or better.",
+          "chars": 50,
+          "accuracy": 0.9,
+          "xp": 100
+        },
+        "outro": "The lens turns a quarter-turn on its old bearings and catches the evening light. Out on the water, three boats answer at once."
+      }
+    },
+    {
+      "id": "beacon:3:lamp:equals",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "=",
+        "text": "A break sign lights the seventeenth lamp: the pause between one thought and the next. The logbook uses it on every page."
+      }
+    },
+    {
+      "id": "beacon:3:lamp:F",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "F",
+        "text": "Lamp eighteen. The operator’s chair creaks as you pass, though nobody is in it."
+      }
+    },
+    {
+      "id": "beacon:3:lamp:O",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "O",
+        "text": "Nineteen lamps. The cracked lens throws their light in pieces across the walls."
+      }
+    },
+    {
+      "id": "beacon:3:lamp:Y",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "Y",
+        "text": "The twentieth lamp. Taped inside the logbook’s cover: a list of stations the tower once spoke to, most of them crossed out."
+      }
+    },
+    {
+      "id": "beacon:3:lamp:comma",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": ",",
+        "text": "A comma for the twenty-first lamp. Messages can breathe now."
+      }
+    },
+    {
+      "id": "beacon:3:lamp:V",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "V",
+        "text": "Lamp twenty-two. The window glass hums when the wind comes off the sea, like a carrier with nobody on it."
+      }
+    },
+    {
+      "id": "beacon:3:lamp:G",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "G",
+        "text": "Twenty-three lamps. The Guildmaster climbs up to see for herself, and stays longer than she meant to."
+      }
+    },
+    {
+      "id": "beacon:3:lamp:5",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "5",
+        "text": "The first number, and the twenty-fourth lamp. The logbook’s last pages are full of them: times, bearings, signal strengths."
+      }
+    },
+    {
+      "id": "beacon:4",
+      "subject": "morse",
+      "type": "chapter",
+      "data": {
+        "questline": "The Silent Beacon",
+        "number": 4,
+        "title": "The Far Voice",
+        "letters": ["/", "Q", "9", "2", "H", "3", "8", "B"],
+        "intro": "With the lens turning, the tower can listen farther than ever. Each night, at the same hour, something faint comes through the static: the far voice from the logbook, still calling.",
+        "trial": {
+          "name": "The Storm Front",
+          "text": "A storm rolls in and the far voice comes through it in pieces. Copy 50 characters at 90% or better, numbers and signs included.",
+          "chars": 50,
+          "accuracy": 0.9,
+          "xp": 125
+        },
+        "outro": "The storm passes. In the quiet after it, the far voice sends one clear line: the tower’s own callsign, and then a question mark."
+      }
+    },
+    {
+      "id": "beacon:4:lamp:slash",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "/",
+        "text": "A slash for lamp twenty-five. It splits callsigns from where they’re sent: the far voice is somewhere else tonight."
+      }
+    },
+    {
+      "id": "beacon:4:lamp:Q",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "Q",
+        "text": "The twenty-sixth lamp. Q means a question in the operator’s shorthand, and the logbook is full of them."
+      }
+    },
+    {
+      "id": "beacon:4:lamp:9",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "9",
+        "text": "Lamp twenty-seven. You write down the hour the far voice comes: always nine minutes past."
+      }
+    },
+    {
+      "id": "beacon:4:lamp:2",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "2",
+        "text": "Twenty-eight lamps. The far voice sends two letters, again and again. They might be initials."
+      }
+    },
+    {
+      "id": "beacon:4:lamp:H",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "H",
+        "text": "The twenty-ninth lamp. Down in the square, the night watch has taken to looking up at the tower when it chimes."
+      }
+    },
+    {
+      "id": "beacon:4:lamp:3",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "3",
+        "text": "Lamp thirty. The logbook’s author signed off with “73”: best regards, in the old shorthand."
+      }
+    },
+    {
+      "id": "beacon:4:lamp:8",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "8",
+        "text": "Thirty-one lamps. The far voice is stronger tonight. Someone is turning toward you, too."
+      }
+    },
+    {
+      "id": "beacon:4:lamp:B",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "B",
+        "text": "The thirty-second lamp. The radio room door is warm to the touch, and its lock has rusted through."
+      }
+    },
+    {
+      "id": "beacon:5",
+      "subject": "morse",
+      "type": "chapter",
+      "data": {
+        "questline": "The Silent Beacon",
+        "number": 5,
+        "title": "The Beacon Speaks",
+        "letters": ["?", "4", "7", "C", "1", "D", "6", "0", "X"],
+        "intro": "One flight of stair is left in the dark, and with it the last sounds an operator needs. When they’re lit, the beacon can answer whoever is calling.",
+        "trial": {
+          "name": "The Beacon’s Answer",
+          "text": "To relight the beacon, you must copy everything it will ever need to say: every letter, number and sign you know, at full pace. Copy 50 characters at 90% or better.",
+          "chars": 50,
+          "accuracy": 0.9,
+          "xp": 150
+        },
+        "outro": "The beacon blazes. Its light sweeps the water and the square, and from the radio room comes a clear, steady signal: the far voice, answering at last. The radio room door swings open. Inside, a chair, a key and a headset wait for an operator ready to hold a conversation."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:question",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "?",
+        "text": "A question mark for lamp thirty-three, the sign the far voice ends with every night."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:4",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "4",
+        "text": "Thirty-four lamps. A child in the square points at the tower and counts them out loud."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:7",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "7",
+        "text": "Lamp thirty-five. You can send “73” yourself now, the operator’s goodbye."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:C",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "C",
+        "text": "The thirty-sixth lamp. Its light reaches the Caravanserai’s courtyard, and a toast is raised to the tower."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:1",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "1",
+        "text": "Thirty-seven lamps. In the logbook’s last entry, a single number: one more night."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:D",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "D",
+        "text": "Lamp thirty-eight. The lens turns a full circle for the first time in forty winters."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:6",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "6",
+        "text": "The thirty-ninth lamp. The Guildmaster brings two cups of tea and sits in the empty chair beside you."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:0",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "0",
+        "text": "Forty lamps, the zero with the long, slow sound. The whole stair burns now, from the gate to the lantern room."
+      }
+    },
+    {
+      "id": "beacon:5:lamp:X",
+      "subject": "morse",
+      "type": "lamp",
+      "data": {
+        "char": "X",
+        "text": "The last lamp. Every sound the tower knows is yours. The beacon waits for its answer."
+      }
     }
   ],
   "lessons": [
@@ -222,6 +507,61 @@
         "beacon:2:lamp:dot",
         "beacon:2:lamp:J",
         "beacon:2:lamp:Z"
+      ],
+      "tags": ["questline"]
+    },
+    {
+      "id": "beacon-ch3",
+      "subject": "morse",
+      "title": "The Silent Beacon, Chapter III: The Lantern Room",
+      "order": 3,
+      "items": [
+        "beacon:3",
+        "beacon:3:lamp:equals",
+        "beacon:3:lamp:F",
+        "beacon:3:lamp:O",
+        "beacon:3:lamp:Y",
+        "beacon:3:lamp:comma",
+        "beacon:3:lamp:V",
+        "beacon:3:lamp:G",
+        "beacon:3:lamp:5"
+      ],
+      "tags": ["questline"]
+    },
+    {
+      "id": "beacon-ch4",
+      "subject": "morse",
+      "title": "The Silent Beacon, Chapter IV: The Far Voice",
+      "order": 4,
+      "items": [
+        "beacon:4",
+        "beacon:4:lamp:slash",
+        "beacon:4:lamp:Q",
+        "beacon:4:lamp:9",
+        "beacon:4:lamp:2",
+        "beacon:4:lamp:H",
+        "beacon:4:lamp:3",
+        "beacon:4:lamp:8",
+        "beacon:4:lamp:B"
+      ],
+      "tags": ["questline"]
+    },
+    {
+      "id": "beacon-ch5",
+      "subject": "morse",
+      "title": "The Silent Beacon, Chapter V: The Beacon Speaks",
+      "order": 5,
+      "items": [
+        "beacon:5",
+        "beacon:5:lamp:question",
+        "beacon:5:lamp:4",
+        "beacon:5:lamp:7",
+        "beacon:5:lamp:C",
+        "beacon:5:lamp:1",
+        "beacon:5:lamp:D",
+        "beacon:5:lamp:6",
+        "beacon:5:lamp:0",
+        "beacon:5:lamp:X"
       ],
       "tags": ["questline"]
     }

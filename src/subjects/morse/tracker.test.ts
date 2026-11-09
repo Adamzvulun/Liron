@@ -15,10 +15,20 @@ describe('the Silent Beacon in the tracker (#47)', () => {
       unit: 'lamps',
     });
     expect(questlineStatus({ unlocked: 8 })?.next).toBe('Trial: The Gatekeeper');
-    expect(questlineStatus({ unlocked: 8, trials: [1] })?.next).toBeUndefined();
+    expect(questlineStatus({ unlocked: 8, trials: [1] })?.next).toBe('Trial passed');
     expect(questlineStatus({ unlocked: 9, trials: [1] })).toMatchObject({
       chapter: 'II: The Upper Stair',
       done: 1,
     });
+  });
+
+  it('ends with the beacon relit: all nine lamps of chapter V and its trial passed', () => {
+    expect(questlineStatus({ unlocked: 41, trials: [1, 2, 3, 4] })).toMatchObject({
+      chapter: 'V: The Beacon Speaks',
+      done: 9,
+      total: 9,
+      next: 'Trial: The Beacon’s Answer',
+    });
+    expect(questlineStatus({ unlocked: 41, trials: [1, 2, 3, 4, 5] })?.next).toBe('Trial passed');
   });
 });
