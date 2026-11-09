@@ -53,3 +53,19 @@ export function GearIcon() {
     </svg>
   );
 }
+
+/** A streak shield (ADR 0034): blue with a brass rim, like the Market's ware. */
+export function ShieldIcon() {
+  return (
+    <svg aria-hidden="true" width="20" height="22" viewBox="0 0 20 22">
+      <path
+        d="M10 1.5 L18 4.5 V10 C18 15 14.5 18.5 10 20.5 C5.5 18.5 2 15 2 10 V4.5 Z"
+        fill="#5b8fc7"
+        stroke="#24160e"
+        strokeWidth="2.2"
+        strokeLinejoin="round"
+      />
+      <path d="M10 5 V17" stroke="#e8a93a" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}

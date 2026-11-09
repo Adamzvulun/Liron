@@ -131,3 +131,13 @@ test("the Notice Board lists today's contracts; the HUD says how many are done (
   await run.click();
   await expect(page).toHaveURL(/\/signal-tower$/);
 });
+
+test('the streak shows the shields you hold, and says when one saved it (ADR 0034)', async ({
+  page,
+}) => {
+  await signedIn(page, [], [], null, [], { today: { streak_shields: 2, shielded_days: 1 } });
+  await page.goto('/');
+  await expect(page.getByLabel('Streak: 2 days, 2 streak shields')).toBeVisible();
+  await page.goto('/notice-board');
+  await expect(page.getByText('A streak shield saved your 2-day streak')).toBeVisible();
+});

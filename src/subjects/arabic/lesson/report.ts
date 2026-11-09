@@ -3,6 +3,7 @@
 import { gradeFrom } from '../../../core/srs/scheduler.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { PASS_SCORE, type ArabicProgress } from '../progress.ts';
+import { CHAPTER } from '../questline.ts';
 
 export interface Answer {
   kind: 'listen' | 'read';
@@ -62,6 +63,8 @@ export async function reportSession(
       ...(answers.length && answers.filter((a) => a.right).length / answers.length >= PASS_SCORE
         ? [{ kind: 'letters-90' }]
         : []),
+      // The Painted Sign, once passed, for its gear and chest (ADR 0033); counted once a day.
+      ...(next.guest ? [{ kind: `trial-${CHAPTER.number}` }] : []),
     ],
     at,
   });

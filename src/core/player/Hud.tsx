@@ -4,11 +4,11 @@ import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import { Link } from '../Link.tsx';
 import { DAILY_GOAL_CHOICES, levelProgress, titleForLevel } from '../progress/economy.ts';
 import { MAX_NAME_LENGTH } from '../progress/store.ts';
-import { CoinIcon, FlameIcon, GearIcon, GemIcon } from './icons.tsx';
+import { CoinIcon, FlameIcon, GearIcon, GemIcon, ShieldIcon } from './icons.tsx';
 import type { SubjectInfo } from '../subject.ts';
 import type { PlayerState } from './player.ts';
 import type { Questlines } from './questlines.ts';
-import { contractQuests, todaysQuests } from './quests.ts';
+import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
 
@@ -120,6 +120,8 @@ function Purse({ state, ...actions }: { state: PlayerState } & HudActions) {
   const gems = useCountUp(wallet?.gems);
   const streak = today?.streak ?? 0;
   const days = `${streak} ${streak === 1 ? 'day' : 'days'}`;
+  const shields = today?.shields ?? 0;
+  const held = shields ? `, ${shields} streak ${shields === 1 ? 'shield' : 'shields'}` : '';
   return (
     <div className="hud__purse">
       <span className="hud__chip" aria-label={`Gold: ${wallet?.gold ?? '…'}`}>
@@ -130,9 +132,15 @@ function Purse({ state, ...actions }: { state: PlayerState } & HudActions) {
         <GemIcon />
         {gems ?? '…'}
       </span>
-      <span className="hud__chip" aria-label={today ? `Streak: ${days}` : 'Streak: …'}>
+      <span className="hud__chip" aria-label={today ? `Streak: ${days}${held}` : 'Streak: …'}>
         <FlameIcon lit={Boolean(today?.goalReached)} />
         {today ? days : '…'}
+        {shields > 0 && (
+          <span className="hud__shields">
+            <ShieldIcon />
+            {shields > 1 && shields}
+          </span>
+        )}
       </span>
       {today && (
         <span
@@ -286,6 +294,7 @@ export function QuestTracker({
   full?: boolean;
 }) {
   const shown = Math.min(today.minutes, today.goalMinutes);
+  const note = shieldNote(today);
   return (
     <section className="hud__quests" aria-labelledby="hud-quests">
       <div className="hud__questhead">
@@ -311,6 +320,12 @@ export function QuestTracker({
           style={{ width: `${Math.round((shown / today.goalMinutes) * 100)}%` }}
         />
       </div>
+      {note && (
+        <p className="hud__shieldnote">
+          <ShieldIcon />
+          {note}
+        </p>
+      )}
       <ul className="hud__questlist">
         {[
           ...todaysQuests(subjects, today.goalMinutes, questlines),

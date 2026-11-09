@@ -42,7 +42,8 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 - **Daily goal:** 15 minutes by default; you pick 5, 10, 15, 20, 30, 45 or 60 in the HUD. Practice minutes from every subject count.
 - **Your day** follows your browser's time zone, saved to your profile when you open Waymark. It can change at most once every 20 hours, so travelling can't make two "todays" in one real day ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)).
 - **At most 3,000 XP a day** across all subjects. Minutes still count after that. A normal day earns far less.
-- **Streak:** consecutive days on which you reached the goal. Today counts once you reach it; until then the streak from yesterday stays alive. A missed day resets it to 0. Streak protection items come later, from the Market (E10).
+- **Streak:** consecutive days on which you reached the goal. Today counts once you reach it; until then the streak from yesterday stays alive. A missed day resets it to 0, unless a **streak shield** covers it.
+- **Streak shields** ([ADR 0034](../decisions/0034-streak-shields.md)): you hold up to 2. Each covers one missed day, used up the next time your streak is read. A covered day keeps the streak alive but doesn't add to it. Shields are used only if you hold enough to cover the whole gap; otherwise the streak breaks and you keep them. The HUD shows how many you hold, and says when one saved your streak. They come from chests (#48) and the Market (#49, 120 gold).
 - **Daily chest:** reaching the goal pays **20 gold**, once a day (the database records each chest, so it can't be paid twice). On every **7th day** of a streak (7, 14, 21, …) the chest also holds **1 gem**.
 - Changing the goal never rewrites past days. Lowering it below what you've already done today reaches today's goal straight away.
 
@@ -62,7 +63,6 @@ Three a day on the Notice Board ([ADR 0032](../decisions/0032-subject-events-and
 |---|---|
 | Combo bonus inside activities | E10 (quests and rewards). It was planned for E6–E9 but not built there; the end-of-activity screens were. |
 | Chests, and the contract chest for finishing all 3 | E10 (#48) |
-| Streak protection items | E10 (Market) |
 | Weekly league | M5 (friends) |
 | Achievements and boss challenges paying gems | later epics |
 

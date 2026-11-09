@@ -66,7 +66,7 @@ export interface GearItem {
   name: string;
   /** Starter items are everyone's from day one. */
   starter: boolean;
-  /** For locked items: how to earn it. Rewards that unlock items come with E10. */
+  /** For items that aren't starters: the milestone that gives it (ADR 0033). */
   earn?: string;
 }
 
@@ -98,7 +98,7 @@ export const GEAR: readonly GearItem[] = [
     slot: 'feet',
     name: 'Copper-toe boots',
     starter: false,
-    earn: 'Finish 10 quests',
+    earn: 'Finish 10 daily contracts',
   },
   {
     id: 'breeches',
@@ -141,14 +141,21 @@ export const DEFAULT_LOOK: Look = {
   gear: { torso: 'tunic', back: 'satchel' },
 };
 
-/** Reads a stored look; anything unknown becomes the default, and locked gear is taken off. */
-export function parseLook(raw: unknown): Look {
+/** Gear the player may wear: starters, and what they own (ADR 0033). */
+export const canWear = (item: GearItem, owned: ReadonlySet<string>) =>
+  item.starter || owned.has(item.id);
+
+/**
+ * Reads a stored look; anything unknown becomes the default, and gear the player may not wear
+ * (not a starter, not owned) is taken off.
+ */
+export function parseLook(raw: unknown, owned: ReadonlySet<string> = new Set()): Look {
   if (!raw || typeof raw !== 'object' || Object.keys(raw).length === 0) return DEFAULT_LOOK;
   const look = lookSchema.parse(raw);
   const gear: Look['gear'] = {};
   for (const [slot, item] of Object.entries(look.gear) as [SlotId, string | undefined][]) {
     const found = GEAR.find((g) => g.id === item);
-    if (found && found.slot === slot && found.starter) gear[slot] = item;
+    if (found && found.slot === slot && canWear(found, owned)) gear[slot] = item;
   }
   return { ...look, gear };
 }

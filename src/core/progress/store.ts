@@ -26,6 +26,10 @@ export interface Today {
   goalMinutes: number;
   goalReached: boolean;
   streak: number;
+  /** Streak shields held, 0 to 2 (ADR 0034). */
+  shields: number;
+  /** Missed days just before today that a shield covered. */
+  shieldedDays: number;
 }
 
 /** Today, plus whether this call reached the goal and what the daily chest paid. */
@@ -91,6 +95,8 @@ export interface Profile {
   displayName: string;
   /** How the player's avatar looks (#28, #29). */
   avatar: Look;
+  /** Ids of the items the player owns (ADR 0033). */
+  owned: string[];
 }
 
 /** Names are 1-40 characters after trimming (the database checks the length too). */
@@ -167,7 +173,7 @@ export function memoryStore(
     return s;
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
-  const profile: Profile = { displayName: '', avatar: DEFAULT_LOOK };
+  const profile: Profile = { displayName: '', avatar: DEFAULT_LOOK, owned: [] };
   const days = new Map<string, { minutes: number; reached: boolean }>();
   const cards = new Map<string, { due: Date; card: StoredCard }>(); // key: subject/item
   const reviewLog: { subjectId: string; itemId: string; rating: number; at: Date }[] = [];
@@ -188,6 +194,9 @@ export function memoryStore(
       goalMinutes: goal,
       goalReached: d?.reached ?? false,
       streak: streakFrom(goalDays(), day),
+      // Shields are bought and won only through the database (schema tests); none here.
+      shields: 0,
+      shieldedDays: 0,
     };
   };
   const checkGoal = (): DayResult => {

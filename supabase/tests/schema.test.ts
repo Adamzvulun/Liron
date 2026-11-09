@@ -1164,3 +1164,150 @@ describe('daily contracts (ADR 0032)', () => {
     );
   });
 });
+
+describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', () => {
+  type Status = {
+    streak: number;
+    streak_shields: number;
+    shielded_days: number;
+    goal_reached: boolean;
+  };
+  const status = async () =>
+    ((await as(ADAM, () => rows(`select today_status() as s`)))[0] as { s: Status }).s;
+  const day = async () =>
+    ((await as(ADAM, () => rows(`select player_today()::text as d`)))[0] as { d: string }).d;
+  /** Adam's goal days, as offsets from today (0 = today, 1 = yesterday, ...). */
+  const goalDays = async (offsets: number[]) => {
+    const t = await day();
+    for (const o of offsets)
+      await rows(
+        `insert into daily_activity (user_id, day, minutes, goal_reached) values ($1, $2, 15, true)`,
+        [ADAM, addDays(t, -o)],
+      );
+    return t;
+  };
+  const shields = (count: number) =>
+    rows(`update wallets set streak_shields = $2 where user_id = $1`, [ADAM, count]);
+  const owned = async () =>
+    (
+      (await as(ADAM, () => rows(`select item_id from owned_items order by item_id`))) as {
+        item_id: string;
+      }[]
+    ).map((r) => r.item_id);
+  const boardOpens = () => as(ADAM, () => rows(`select todays_contracts()`));
+
+  beforeEach(() => rows(`delete from daily_activity where user_id = $1`, [ADAM]));
+
+  it('holds exactly the catalogue in content/core/items.json', async () => {
+    const pack = JSON.parse(
+      readFileSync(join(root, '..', 'content', 'core', 'items.json'), 'utf8'),
+    ) as { items: { id: string; data: Record<string, unknown> }[] };
+    const want = pack.items
+      .map((i) => ({
+        id: i.id,
+        kind: i.data.kind,
+        slot: i.data.slot ?? null,
+        rarity: i.data.rarity,
+        price: i.data.price,
+        milestone: i.data.milestone ?? null,
+      }))
+      .sort((a, b) => a.id.localeCompare(b.id));
+    expect(await rows(`select * from items order by id`)).toEqual(want);
+  });
+
+  it('a shield covers a missed day: the streak lives on but the day adds nothing', async () => {
+    const t = await goalDays([2, 3, 4]);
+    await shields(1);
+    expect(await status()).toMatchObject({ streak: 3, streak_shields: 0, shielded_days: 1 });
+    expect(
+      await rows(`select day::text, shielded from daily_activity where user_id = $1 and day = $2`, [
+        ADAM,
+        addDays(t, -1),
+      ]),
+    ).toEqual([{ day: addDays(t, -1), shielded: true }]);
+    // Reading again uses nothing more.
+    expect(await status()).toMatchObject({ streak: 3, streak_shields: 0, shielded_days: 1 });
+  });
+
+  it('uses no shield when there are too few for the gap, or no streak to keep', async () => {
+    await goalDays([3, 4]);
+    await shields(1);
+    expect(await status()).toMatchObject({ streak: 0, streak_shields: 1, shielded_days: 0 });
+    await rows(`delete from daily_activity where user_id = $1`, [ADAM]);
+    expect(await status()).toMatchObject({ streak: 0, streak_shields: 1, shielded_days: 0 });
+  });
+
+  it('the streak with shielded days matches streakFrom in economy.ts', async () => {
+    const t = await day();
+    for (const [goals, shielded] of [
+      [[0, 2], [1]],
+      [[1, 3, 4], [2]],
+      [
+        [2, 5],
+        [3, 4],
+      ],
+      [[0], [1, 2]],
+    ] as const) {
+      await rows(`delete from daily_activity where user_id = $1`, [ADAM]);
+      await goalDays([...goals]);
+      for (const o of shielded)
+        await rows(`insert into daily_activity (user_id, day, shielded) values ($1, $2, true)`, [
+          ADAM,
+          addDays(t, -o),
+        ]);
+      const expected = streakFrom(
+        goals.map((o) => addDays(t, -o)),
+        t,
+        shielded.map((o) => addDays(t, -o)),
+      );
+      const got = await as(ADAM, () => rows(`select current_streak() as s`));
+      expect([goals, shielded, (got[0] as { s: number }).s]).toEqual([goals, shielded, expected]);
+    }
+  });
+
+  it('gives milestone gear once its milestone is met, and only once', async () => {
+    await boardOpens();
+    expect(await owned()).toEqual([]);
+    await rows(`update subject_progress set xp = 140 where user_id = $1 and subject_id = 'morse'`, [
+      ADAM,
+    ]);
+    await goalDays([0, 1, 2, 3, 4, 5, 6]);
+    await boardOpens();
+    expect(await owned()).toEqual(['cloak', 'headset']);
+    await boardOpens();
+    expect(await owned()).toEqual(['cloak', 'headset']);
+    // A trial passed is sent with the session save; the gear follows straight away.
+    await as(ADAM, () =>
+      rows(`select save_session('arabic', $1, null, '[]', '[]', 0, 0, $2::jsonb)`, [
+        'c1c1c1c1-0000-4000-8000-000000000001',
+        JSON.stringify([{ kind: 'trial-1' }, { kind: 'trial-1' }]),
+      ]),
+    );
+    expect(await owned()).toEqual(['breeches', 'cloak', 'headset']);
+    expect(
+      await rows(`select count from subject_events where user_id = $1 and kind = 'trial-1'`, [
+        ADAM,
+      ]),
+    ).toEqual([{ count: 1 }]);
+  });
+
+  it('only database functions write what a player owns, and each sees only their own', async () => {
+    await rows(`insert into owned_items (user_id, item_id, source) values ($1, 'boots', 'chest')`, [
+      ADAM,
+    ]);
+    expect(await as(OTHER, () => rows(`select * from owned_items`))).toEqual([]);
+    for (const sql of [
+      `insert into owned_items (user_id, item_id, source) values ('${OTHER}', 'cloak', 'chest')`,
+      `update wallets set streak_shields = 2`,
+      `update daily_activity set shielded = true`,
+      `select * from items`,
+      `select use_streak_shields('${ADAM}', '2026-01-01')`,
+      `select grant_milestones('${ADAM}')`,
+    ]) {
+      await expect(as(OTHER, () => rows(sql))).rejects.toThrow(/permission denied/);
+    }
+    await expect(as(null, () => rows(`select today_status()`))).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+});
