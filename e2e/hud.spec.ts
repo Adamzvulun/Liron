@@ -72,6 +72,23 @@ test('the HUD shows your name and today’s quests, which lead to their places',
   await expect(page).toHaveURL(/\/signal-tower$/);
 });
 
+test('a started questline shows where it stands, and leads to its hall (#47)', async ({ page }) => {
+  await signedIn(page, [], [], { unlocked: 6 });
+  await page.goto('/');
+  if (onPhone()) {
+    await page
+      .getByRole('navigation', { name: 'Places' })
+      .getByRole('link', { name: 'Quests' })
+      .click();
+  }
+  const beacon = page
+    .getByRole('region', { name: 'Quests' })
+    .getByRole('link', { name: /The Silent Beacon I: Embers/ });
+  await expect(beacon).toContainText('6/8 lamps');
+  await beacon.click();
+  await expect(page).toHaveURL(/\/signal-tower$/);
+});
+
 test('settings change your name, and Escape closes them', async ({ page }) => {
   const updates: unknown[] = [];
   await signedIn(page, updates);

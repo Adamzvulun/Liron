@@ -10,6 +10,7 @@ export const morse: SubjectInfo = {
   guildColor: 'var(--guild-morse)',
   building: 'tower',
   quest: { text: 'The Silent Beacon I: hear K and M' },
+  questStatus: (state) => import('./tracker.ts').then((m) => m.questlineStatus(state)),
   skills: ['receive', 'send', 'head-copy'],
   Hall: TowerHall,
 };
