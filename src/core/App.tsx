@@ -124,6 +124,7 @@ function Lobby({ player }: { player: Player }) {
           {place === 'house' && state.profile && (
             <Wardrobe
               look={state.profile.avatar}
+              owned={state.profile.owned}
               name={state.profile.displayName}
               onSave={player.setAvatar}
             />

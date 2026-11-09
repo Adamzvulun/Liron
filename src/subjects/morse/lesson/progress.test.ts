@@ -96,6 +96,21 @@ describe('reportRun', () => {
     ]);
   });
 
+  it('names each trial passed so far (ADR 0033)', async () => {
+    const saveSession = vi.fn<(report: { events?: unknown }) => Promise<void>>(
+      async () => undefined,
+    );
+    const api = { saveSession } as unknown as SubjectApi;
+    const passed = { ...NEW_PROGRESS, trials: [1, 2] };
+    await reportRun(api, passed, run('KMKMKMKMKM', 'KMKMKMKMKM'), false, 120, at);
+    expect(saveSession.mock.calls[0]?.[0].events).toEqual([
+      { kind: 'run' },
+      { kind: 'run-90' },
+      { kind: 'trial-1' },
+      { kind: 'trial-2' },
+    ]);
+  });
+
   it('reports a run at 90% for the daily contract (ADR 0032)', async () => {
     const saveSession = vi.fn<(report: { events?: unknown }) => Promise<void>>(
       async () => undefined,

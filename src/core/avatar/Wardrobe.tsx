@@ -9,6 +9,7 @@ import {
   HAIRS,
   SKINS,
   SLOTS,
+  canWear,
   type Look,
   type SlotId,
 } from './looks.ts';
@@ -18,18 +19,23 @@ type Part = 'build' | 'skin' | 'face' | 'hair' | 'hairColour' | 'beard';
 
 /**
  * The customiser in Your House (#29): a mirror with a live preview, the look's options, and
- * the gear slots. Locked gear says how it's earned. Nothing is saved until "Save my look".
+ * the gear slots. Gear you don't own yet says how it's earned. Nothing is saved until "Save my
+ * look".
  */
 export function Wardrobe({
   look: saved,
+  owned: ownedIds = [],
   name,
   onSave,
 }: {
   look: Look;
+  /** Ids of the items the player owns (ADR 0033). */
+  owned?: readonly string[];
   name: string;
   onSave: (look: Look) => Promise<boolean>;
 }) {
   const [look, setLook] = useState(saved);
+  const owned = new Set(ownedIds);
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'failed'>('idle');
   const changed = JSON.stringify(look) !== JSON.stringify(saved);
   const choose = (next: Look) => {
@@ -191,7 +197,7 @@ export function Wardrobe({
                 wide
               />
               {items.map((item) =>
-                item.starter ? (
+                canWear(item, owned) ? (
                   <Option
                     key={item.id}
                     group={`gear-${slot.id}`}

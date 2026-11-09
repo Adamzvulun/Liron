@@ -77,8 +77,9 @@
    - **E10 decisions written (2026-11-09):** [0032](../decisions/0032-subject-events-and-daily-contracts.md) subject events and contracts, [0033](../decisions/0033-inventory-chests-and-market.md) inventory, chests and Market, [0034](../decisions/0034-streak-shields.md) streak shields.
    - **E10 build (2026-11-09):**
      - [#136](https://github.com/Adamzvulun/Liron/pull/136) (#47): each started questline shows on the Notice Board and in the HUD ("The Silent Beacon I: Embers · 6/8 lamps"), read from the subject's own state (`tracker.ts`).
-     - #46: daily contracts. Subjects send events with each session save; 3 contracts a day are picked, checked and paid in gold by the database (migration `20261109000000_daily_contracts.sql`). The Notice Board lists them; the HUD says "1 of 3 done today · 30 gold left to earn". Numbers in [economy](../game/economy.md#daily-contracts).
-   - **Next:** #48 chests (with the contract chest), #49 Market, then [#137](https://github.com/Adamzvulun/Liron/issues/137) (Adam, 2026-11-09: the site still feels too slow; find out why).
+     - [#138](https://github.com/Adamzvulun/Liron/pull/138) (#46): daily contracts. Subjects send events with each session save; 3 contracts a day are picked, checked and paid in gold by the database (migration `20261109000000_daily_contracts.sql`). The Notice Board lists them; the HUD says "1 of 3 done today · 30 gold left to earn". Numbers in [economy](../game/economy.md#daily-contracts).
+     - #48, part 1: owned items, milestone gear and streak shields. The database gives the 4 locked gear items when their milestones are met (they only showed their condition before); the wardrobe lets you wear what you own. Streak shields (ADR 0034) cover missed days; the HUD shows how many you hold. Migration `20261110000000_owned_items_and_shields.sql`.
+   - **Next:** #48 part 2, chests (contract, trial and streak chests; opening them), then #49 Market, then [#137](https://github.com/Adamzvulun/Liron/issues/137) (Adam, 2026-11-09: the site still feels too slow; find out why).
    - **Audio for the missing phrases:** no source is usable yet. Lingua Libre is the lead (a CC0 *nšallah* found); the speakers' origin is unverified because lingualibre.org timed out. Nothing is used until Adam has seen the files ([research](../research/phrase-audio-sources.md)).
 
 ## Backlog map

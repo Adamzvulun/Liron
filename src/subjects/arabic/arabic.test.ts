@@ -474,5 +474,13 @@ describe('reporting a session', () => {
     expect(reports).toEqual([
       expect.objectContaining({ events: [{ kind: 'letters-session' }, { kind: 'letters-90' }] }),
     ]);
+    reports.length = 0;
+    // Once the Painted Sign is passed, every save names it, for its gear (ADR 0033).
+    await reportSession(api, { ...NEW_PROGRESS, guest: true }, answers.slice(0, 1), 0, 60);
+    expect(reports).toEqual([
+      expect.objectContaining({
+        events: [{ kind: 'letters-session' }, { kind: 'letters-90' }, { kind: 'trial-1' }],
+      }),
+    ]);
   });
 });

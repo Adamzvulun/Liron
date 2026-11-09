@@ -36,13 +36,13 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 | Copper-toe boots | feet | finish 10 quests |
 | Rider's breeches | legs | pass a first-chapter trial in any guild |
 
-**The locked items' names and conditions are placeholders.** E10 (quests and rewards) makes them real; until then they only show how they'll be earned. Adam may rename them.
+**The locked items are earned (#48, ADR 0033).** The database gives each one when its milestone is met: the headset at level 5 in the Signal Tower, the cloak on a 7-day streak, the boots after 10 daily contracts, the breeches when a first-chapter trial is passed. Chests and the Market will also give them. Adam may rename them.
 
 ## Saved data
 - The look is stored in `profiles.avatar` (jsonb). There's no migration: the column has been there since the E2 schema, and players can only update their own row.
 - The shape is `{ build, skin, face, hair, hairColour, beard, gear: { head?, torso?, legs?, feet?, hand?, back? } }`. A new player has `{}`, which reads as the default traveller: average build, sand skin, cheerful face, brown crop, tunic and satchel.
 - **Reading is forgiving.** An unknown value falls back to its default. Gear that's locked or in the wrong slot is taken off, so a hand-edited row can't wear locked items.
-- **Later:** once E10 lets players earn items, unlocks should live in the database (not in the look), and reading the look should check them.
+- **Unlocks live in the database** (`owned_items`), not in the look. Reading the look takes off gear the player doesn't own.
 
 ## Ideas for later (Adam: "we can add more stuff later")
 More clothing colours, more items per slot, a headscarf as a look option, and the companion pet.
