@@ -1516,3 +1516,113 @@ describe('reward chests (ADR 0033, #48)', () => {
     );
   });
 });
+
+describe('the Market (ADR 0033, #49)', () => {
+  type Ware = {
+    id: string;
+    kind: string;
+    slot: string | null;
+    price: number;
+    owned: boolean;
+    affordable: boolean;
+  };
+  const stall = async (userId = ADAM) =>
+    (
+      (await as(userId, () => rows(`select market_today() as m`)))[0] as {
+        m: { day: string; wares: Ware[] };
+      }
+    ).m;
+  const buy = async (id: string, userId = ADAM) =>
+    (
+      (await as(userId, () => rows(`select buy_item($1) as b`, [id])))[0] as {
+        b: { item: string; wallet: { gold: number; gems: number; streak_shields: number } };
+      }
+    ).b;
+  const gold = (n: number, shields = 0) =>
+    rows(`update wallets set gold = $2, streak_shields = $3 where user_id = $1`, [
+      ADAM,
+      n,
+      shields,
+    ]);
+
+  it('sells 4 wares a day, the same for everyone: 2 gear, 1 color, 1 functional', async () => {
+    const m = await stall();
+    expect(m.wares.map((w) => w.kind)).toEqual(['gear', 'gear', 'color', 'functional']);
+    expect(new Set(m.wares.map((w) => w.id)).size).toBe(4);
+    expect((await stall(OTHER)).wares.map((w) => w.id)).toEqual(m.wares.map((w) => w.id));
+    // Another day, other wares (over a fortnight, the gear changes).
+    const days = (await rows(
+      `select distinct array_to_string(market_stock(current_date + n), ',') as s
+       from generate_series(0, 13) n`,
+    )) as { s: string }[];
+    expect(days.length).toBeGreaterThan(1);
+  });
+
+  it('marks what you own and what you can afford', async () => {
+    await gold(100, 2);
+    const m = await stall();
+    for (const w of m.wares) expect(w.affordable).toBe(w.price <= 100);
+    expect(m.wares.find((w) => w.kind === 'functional')?.owned).toBe(true);
+    const [gear] = m.wares;
+    await rows(`insert into owned_items (user_id, item_id, source) values ($1, $2, 'chest')`, [
+      ADAM,
+      gear.id,
+    ]);
+    expect((await stall()).wares[0].owned).toBe(true);
+  });
+
+  it('takes the gold and gives the item, once', async () => {
+    const [gear, , color, shield] = (await stall()).wares;
+    await gold(1000);
+    const bought = await buy(gear.id);
+    expect(bought).toEqual({
+      item: gear.id,
+      wallet: expect.objectContaining({ gold: 1000 - gear.price }),
+    });
+    expect(
+      await rows(`select source from owned_items where user_id = $1 and item_id = $2`, [
+        ADAM,
+        gear.id,
+      ]),
+    ).toEqual([{ source: 'market' }]);
+    await expect(buy(gear.id)).rejects.toThrow(/already owned/);
+
+    await buy(color.id);
+    expect((await buy(shield.id)).wallet.streak_shields).toBe(1);
+    expect((await buy(shield.id)).wallet.streak_shields).toBe(2);
+    await expect(buy(shield.id)).rejects.toThrow(/already owned/);
+    expect(
+      (await rows(`select gold from wallets where user_id = $1`, [ADAM]))[0] as { gold: number },
+    ).toEqual({ gold: 1000 - gear.price - color.price - 2 * shield.price });
+  });
+
+  it('refuses too little gold and wares not on sale today', async () => {
+    const m = await stall();
+    await gold(m.wares[0].price - 1);
+    await expect(buy(m.wares[0].id)).rejects.toThrow(/too little gold/);
+    await gold(10000);
+    const notToday = (
+      (await rows(`select id from items where kind = 'gear' and not (id = any($1))`, [
+        m.wares.map((w) => w.id),
+      ])) as { id: string }[]
+    )[0].id;
+    await expect(buy(notToday)).rejects.toThrow(/not for sale today/);
+    expect(
+      await rows(`select item_id from owned_items where user_id = $1 and source = 'market'`, [
+        ADAM,
+      ]),
+    ).toEqual([]);
+  });
+
+  it('is closed to visitors who are not signed in', async () => {
+    await expect(as(null, () => rows(`select market_today()`))).rejects.toThrow(
+      /permission denied/,
+    );
+    await expect(as(null, () => rows(`select buy_item('tarboosh')`))).rejects.toThrow(
+      /permission denied/,
+    );
+    await expect(as(ADAM, () => rows(`select market_stock(current_date)`))).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+});
