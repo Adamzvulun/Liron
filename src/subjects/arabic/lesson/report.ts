@@ -2,7 +2,7 @@
 // the listen and read ratings, XP and practice time. All in one save (ADR 0031).
 import { gradeFrom } from '../../../core/srs/scheduler.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
-import type { ArabicProgress } from '../progress.ts';
+import { PASS_SCORE, type ArabicProgress } from '../progress.ts';
 
 export interface Answer {
   kind: 'listen' | 'read';
@@ -56,6 +56,13 @@ export async function reportSession(
     ),
     xp: xpFor(answers, bonus),
     minutes: seconds / 60,
+    // Daily contracts (ADR 0032): a letters session, and one at 90% or better.
+    events: [
+      { kind: 'letters-session' },
+      ...(answers.length && answers.filter((a) => a.right).length / answers.length >= PASS_SCORE
+        ? [{ kind: 'letters-90' }]
+        : []),
+    ],
     at,
   });
 }

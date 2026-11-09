@@ -50,7 +50,7 @@ export function Recognition({ api }: { api: SubjectApi }) {
       setProgress(next);
       setSummary(s);
       setPhase('done');
-      reportRound(api, next, attempts, s, seconds).then(
+      reportRound(api, next, attempts, s, seconds, s.points > before.recognition.best).then(
         () => setSaveFailed(false),
         () => setSaveFailed(true),
       );

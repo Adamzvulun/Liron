@@ -61,6 +61,28 @@ export interface SessionWrite {
   }[];
   xp: number;
   minutes: number;
+  /** Moments for daily contracts (ADR 0032). */
+  events: { kind: string; count: number }[];
+}
+
+/** One of today's contracts on the Notice Board (ADR 0032). */
+export interface Contract {
+  id: string;
+  /** The subject it's for, or null for a habit contract. */
+  subject: string | null;
+  text: string;
+  progress: number;
+  target: number;
+  gold: number;
+  paid: boolean;
+}
+
+/** Today's contracts, with any paid just now and the wallet's gold after paying them. */
+export interface TodaysContracts {
+  day: string;
+  contracts: Contract[];
+  paidNow: string[];
+  gold: number;
 }
 
 /** The player's own profile fields the app shows. */
@@ -79,6 +101,8 @@ export interface ProgressStore {
   /** Adds XP and minutes to a subject, to today and to the wallet; pays gold, gems, chests. */
   record(subjectId: string, xp: number, minutes: number): Promise<Award>;
   wallet(): Promise<Wallet>;
+  /** Today's contracts (picked once a day); finished ones are paid first (ADR 0032). */
+  todaysContracts(): Promise<TodaysContracts>;
   profile(): Promise<Profile>;
   setDisplayName(name: string): Promise<void>;
   setAvatar(look: Look): Promise<void>;
@@ -185,6 +209,10 @@ export function memoryStore(
   } = {
     reviewLog,
     ratingLog,
+    // Contracts are picked and paid only by the database (schema tests); none here.
+    async todaysContracts() {
+      return { day: todayIs(), contracts: [], paidNow: [], gold: wallet.gold };
+    },
     async saveSession(subjectId, s) {
       if (savedSessions.has(s.sessionId)) return { duplicate: true, award: null };
       savedSessions.add(s.sessionId);
