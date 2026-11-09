@@ -3,6 +3,7 @@ import { Avatar } from './Avatar.tsx';
 import {
   BEARDS,
   BUILDS,
+  DYES,
   FACES,
   GEAR,
   HAIR_COLOURS,
@@ -10,6 +11,7 @@ import {
   SKINS,
   SLOTS,
   canWear,
+  type DyeId,
   type Look,
   type SlotId,
 } from './looks.ts';
@@ -43,6 +45,9 @@ export function Wardrobe({
     setStatus('idle');
   };
   const pick = (part: Part, value: string) => choose({ ...look, [part]: value });
+  const dyeWith = (dye?: DyeId) => {
+    choose({ ...look, dye });
+  };
   const wear = (slot: SlotId, item?: string) =>
     choose({ ...look, gear: { ...look.gear, [slot]: item } });
   const save = async () => {
@@ -207,28 +212,65 @@ export function Wardrobe({
                     wide
                   />
                 ) : (
-                  <div key={item.id} className="wardrobe__locked">
-                    <svg className="wardrobe__lock" aria-hidden="true" viewBox="0 0 24 28">
-                      <path
-                        d="M6 12 V8 a6 6 0 0 1 12 0 V12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3.5"
-                      />
-                      <rect x="2" y="12" width="20" height="14" rx="3" fill="currentColor" />
-                    </svg>
-                    <span>
-                      <strong>{item.name}</strong>
-                      <span className="visually-hidden"> (locked)</span>
-                      <span className="wardrobe__earn">{item.earn}</span>
-                    </span>
-                  </div>
+                  <Locked key={item.id} name={item.name} earn={item.earn ?? ''} />
                 ),
               )}
             </Choice>
           );
         })}
+        <Choice label="Tunic dye">
+          <Option
+            group="dye"
+            checked={!look.dye}
+            onChange={() => dyeWith()}
+            label="Teal (undyed)"
+            swatch
+          >
+            <span className="wardrobe__swatch wardrobe__swatch--teal" />
+          </Option>
+          {DYES.map((d) =>
+            owned.has(d.id) ? (
+              <Option
+                key={d.id}
+                group="dye"
+                checked={look.dye === d.id}
+                onChange={() => dyeWith(d.id)}
+                label={d.label}
+                swatch
+              >
+                <span
+                  className="wardrobe__swatch"
+                  style={{ background: `linear-gradient(160deg, ${d.light}, ${d.dark})` }}
+                />
+              </Option>
+            ) : (
+              <Locked key={d.id} name={d.label} earn="From chests and the Market" />
+            ),
+          )}
+        </Choice>
       </div>
+    </div>
+  );
+}
+
+/** Something the player doesn't own yet, and how it's earned. */
+function Locked({ name, earn }: { name: string; earn: string }) {
+  return (
+    <div className="wardrobe__locked">
+      <svg className="wardrobe__lock" aria-hidden="true" viewBox="0 0 24 28">
+        <path
+          d="M6 12 V8 a6 6 0 0 1 12 0 V12"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3.5"
+        />
+        <rect x="2" y="12" width="20" height="14" rx="3" fill="currentColor" />
+      </svg>
+      <span>
+        <strong>{name}</strong>
+        <span className="visually-hidden"> (locked)</span>
+        <span className="wardrobe__earn">{earn}</span>
+      </span>
     </div>
   );
 }

@@ -65,6 +65,222 @@
       }
     },
     {
+      "id": "tarboosh",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "sunhat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "turban",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "vest",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "robe",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "coat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "sirwal",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "legs",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "silks",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "legs",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "sandals",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "feet",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "ridingboots",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "feet",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "flags",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "scroll",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "lamp",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "bedroll",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "oud",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "banner",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "crimson-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "saffron-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "indigo-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "forest-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
       "id": "streak-shield",
       "subject": "core",
       "type": "item",

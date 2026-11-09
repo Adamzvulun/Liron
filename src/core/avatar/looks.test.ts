@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_LOOK, GEAR, parseLook, SLOTS } from './looks.ts';
+import { DEFAULT_LOOK, DYES, GEAR, parseLook, SLOTS } from './looks.ts';
 import { paintAvatar, PAINTED_GEAR } from './paint.ts';
 import catalogue from '../../../content/core/items.json' with { type: 'json' };
 
@@ -43,6 +43,29 @@ describe('avatar looks', () => {
     // Each milestone item says how it's earned.
     for (const i of gear)
       if (i.data.milestone) expect(GEAR.find((g) => g.id === i.id)?.earn).toBeTruthy();
+  });
+
+  it('lists every dye in the catalogue as a color item (#49)', () => {
+    const pack = catalogue as { items: { id: string; data: { kind: string; slot?: string } }[] };
+    const colors = pack.items.filter((i) => i.data.kind === 'color');
+    expect(colors.map((i) => i.id).sort()).toEqual(DYES.map((d) => d.id).sort());
+    for (const c of colors) expect(c.data.slot).toBeUndefined();
+  });
+
+  it('keeps a tunic dye only if the player owns it (#49)', () => {
+    const raw = { ...DEFAULT_LOOK, dye: 'indigo-dye' };
+    expect(parseLook(raw).dye).toBeUndefined();
+    expect(parseLook(raw, new Set(['indigo-dye'])).dye).toBe('indigo-dye');
+    expect(
+      parseLook({ ...DEFAULT_LOOK, dye: 'glitter' }, new Set(['glitter'])).dye,
+    ).toBeUndefined();
+  });
+
+  it('paints the tunic in its dye', () => {
+    const indigo = DYES.find((d) => d.id === 'indigo-dye')?.mid ?? '';
+    const paint = (look: typeof DEFAULT_LOOK) => paintAvatar(look, { idPrefix: 'a' });
+    expect(paint({ ...DEFAULT_LOOK, dye: 'indigo-dye' })).toContain(indigo);
+    expect(paint(DEFAULT_LOOK)).not.toContain(indigo);
   });
 
   it('has 3–4 starter items, and art for every item', () => {
