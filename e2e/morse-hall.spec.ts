@@ -24,4 +24,23 @@ test.describe('the Signal Tower hall (#33, #34)', () => {
     await page.getByRole('button', { name: 'Face the trial' }).click();
     await expect(page.getByText(/Listening/)).toBeVisible();
   });
+
+  test('the last chapter has nine lamps, and its trial relights the beacon', async ({ page }) => {
+    const koch = 'KMURESNAPTLWI.JZ=FOY,VG5/Q92H38B?47C1D60X';
+    await signedIn(page, [], [], { unlocked: 41, met: [...koch], trials: [1, 2, 3, 4] });
+    await page.goto('/signal-tower');
+    await expect(page.getByRole('heading', { name: 'Chapter V: The Beacon Speaks' })).toBeVisible();
+    await expect(page.getByRole('img', { name: /9 of 9 lamps lit/ })).toBeVisible();
+    await page.getByRole('button', { name: /Face The Beacon’s Answer/ }).click();
+    await expect(page.getByText('50 characters · 90% to pass · +150 XP')).toBeVisible();
+  });
+
+  test('after the last trial, the scroll tells how the beacon was relit', async ({ page }) => {
+    const koch = 'KMURESNAPTLWI.JZ=FOY,VG5/Q92H38B?47C1D60X';
+    await signedIn(page, [], [], { unlocked: 41, met: [...koch], trials: [1, 2, 3, 4, 5] });
+    await page.goto('/signal-tower');
+    await expect(page.getByText(/The beacon blazes/)).toBeVisible();
+    await expect(page.getByText('Passed.')).toBeVisible();
+    await expect(page.getByRole('button', { name: /Face The Beacon’s Answer/ })).toHaveCount(0);
+  });
 });
