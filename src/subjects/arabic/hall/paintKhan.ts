@@ -8,7 +8,7 @@
 
 export const KHAN_STAGE = { width: 1920, height: 1080 } as const;
 
-export type StationId = 'scribe' | 'slate' | 'fountain' | 'storyteller' | 'coffee';
+export type StationId = 'scribe' | 'slate' | 'innkeeper' | 'fountain' | 'storyteller' | 'coffee';
 
 export interface Box {
   x: number;
@@ -454,7 +454,7 @@ export function paintKhan(): PaintedKhan {
   // the slate (writing): an easel with a blackboard
   {
     const k = sz(2.25);
-    const [x, y] = P(-0.78, G, 2.25);
+    const [x, y] = P(-0.5, G, 2.25);
     let s = shadow(x, y, 110 * k, 14 * k);
     s += `<path d="M${f(x - 70 * k)} ${f(y)} L${f(x - 10 * k)} ${f(y - 300 * k)} M${f(x + 70 * k)} ${f(y)} L${f(x + 10 * k)} ${f(y - 300 * k)} M${f(x)} ${f(y - 10 * k)} V${f(y - 300 * k)}" stroke="#5A3420" stroke-width="${f(10 * k)}" stroke-linecap="round"/>`;
     s += `<rect x="${f(x - 90 * k)}" y="${f(y - 300 * k)}" width="${f(180 * k)}" height="${f(130 * k)}" rx="${f(6 * k)}" fill="#8A5A33" ${OUT(3)}/>`;
@@ -464,6 +464,64 @@ export function paintKhan(): PaintedKhan {
       svg: s,
       box: box(x - 120 * k, y - 310 * k, x + 120 * k, y + 20 * k),
       plaque: { x, y: y - 300 * k - 100 },
+    };
+  }
+  // the innkeeper's table (words, #160): a low table by the left arcade, with her open guest
+  // book, a basket of round bread, a water jug, an oil lamp, and cushions for the regulars
+  {
+    const Z = 2.1;
+    const k = sz(Z) * 1.15;
+    const [x, y] = P(-0.98, G, Z);
+    let s = shadow(x, y + 4 * k, 200 * k, 24 * k);
+    // cushions on either side
+    for (const [dx, c] of [
+      [-190, '#2E8FA3'],
+      [190, '#C98A2A'],
+    ] as const)
+      s += `<ellipse cx="${f(x + dx * k)}" cy="${f(y - 14 * k)}" rx="${f(56 * k)}" ry="${f(22 * k)}" fill="${lin(
+        [
+          [0, lit(c, 0.2)],
+          [1, dk(c, 0.35)],
+        ],
+      )}" ${OUT(2.5)}/>`;
+    // legs, then the top
+    for (const lx of [-140, 124])
+      s += `<path d="M${f(x + lx * k)} ${f(y - 62 * k)} v${f(62 * k)} h${f(16 * k)} v${f(-62 * k)} z" fill="#4A2C18" ${OUT(2.5)}/>`;
+    s += `<path d="M${f(x - 170 * k)} ${f(y - 62 * k)} h${f(340 * k)} l${f(-18 * k)} ${f(-26 * k)} h${f(-304 * k)} z" fill="${lin(
+      [
+        [0, '#B98552'],
+        [1, '#6A3E22'],
+      ],
+    )}" ${OUT(3)}/>`;
+    s += `<path d="M${f(x - 170 * k)} ${f(y - 62 * k)} h${f(340 * k)} v${f(14 * k)} h${f(-340 * k)} z" fill="#5A3420" ${OUT(2.5)}/>`;
+    // the guest book, open: two pages with lines of writing and a red ribbon
+    s += `<path d="M${f(x - 100 * k)} ${f(y - 74 * k)} l${f(84 * k)} ${f(-6 * k)} l${f(-8 * k)} ${f(-22 * k)} l${f(-70 * k)} ${f(4 * k)} z M${f(x - 16 * k)} ${f(y - 80 * k)} l${f(84 * k)} ${f(4 * k)} l${f(-14 * k)} ${f(-20 * k)} l${f(-78 * k)} ${f(-6 * k)} z" fill="#F3E2BC" ${OUT(2)}/>`;
+    for (const i of [0, 1, 2])
+      s += `<path d="M${f(x - 86 * k + i * 2 * k)} ${f(y - 80 * k - i * 6 * k)} h${f(56 * k)} M${f(x - 6 * k)} ${f(y - 84 * k - i * 6 * k)} h${f(56 * k)}" stroke="${INK}" stroke-width="${f(1.6 * k)}" opacity=".55"/>`;
+    s += `<path d="M${f(x - 16 * k)} ${f(y - 80 * k)} l${f(6 * k)} ${f(20 * k)} l${f(5 * k)} ${f(-6 * k)} l${f(3 * k)} ${f(8 * k)}" stroke="#C8553D" stroke-width="${f(3 * k)}" fill="none"/>`;
+    // a basket of round bread
+    s += `<path d="M${f(x + 70 * k)} ${f(y - 96 * k)} q${f(36 * k)} ${f(22 * k)} ${f(72 * k)} 0 l${f(-8 * k)} ${f(-20 * k)} h${f(-56 * k)} z" fill="#A8743E" ${OUT(2)}/>`;
+    for (const [bx, by] of [
+      [88, -120],
+      [118, -122],
+      [104, -134],
+    ] as const)
+      s += `<ellipse cx="${f(x + bx * k)}" cy="${f(y + by * k)}" rx="${f(18 * k)}" ry="${f(9 * k)}" fill="#E8B46A" ${OUT(1.8)}/>`;
+    // a clay jug
+    s += `<path d="M${f(x - 140 * k)} ${f(y - 86 * k)} q${f(-14 * k)} ${f(-30 * k)} ${f(4 * k)} ${f(-52 * k)} v${f(-14 * k)} h${f(20 * k)} v${f(14 * k)} q${f(18 * k)} ${f(22 * k)} ${f(4 * k)} ${f(52 * k)} z" fill="${lin(
+      [
+        [0, '#D9875A'],
+        [1, '#9A4A2E'],
+      ],
+    )}" ${OUT(2)}/>`;
+    // an oil lamp with its glow
+    s += `<circle cx="${f(x + 10 * k)}" cy="${f(y - 150 * k)}" r="${f(70 * k)}" fill="${GLOW}"/>`;
+    s += `<path d="M${f(x - 4 * k)} ${f(y - 104 * k)} q${f(14 * k)} ${f(-14 * k)} ${f(34 * k)} ${f(-4 * k)} l${f(-12 * k)} ${f(6 * k)} q${f(-10 * k)} ${f(6 * k)} ${f(-22 * k)} ${f(-2 * k)} z" fill="#C98A2A" ${OUT(2)}/><path d="M${f(x + 30 * k)} ${f(y - 110 * k)} q${f(-6 * k)} ${f(-10 * k)} 0 ${f(-20 * k)} q${f(6 * k)} ${f(10 * k)} 0 ${f(20 * k)} z" fill="#FFD36B" stroke="#E8763A" stroke-width="1.5"/>`;
+    stations.innkeeper = {
+      svg: s,
+      box: box(x - 260 * k, y - 230 * k, x + 260 * k, y + 40 * k),
+      // Level with the slate's plaque, to its left, so neither covers the other.
+      plaque: { x: x - 30, y: 525 },
     };
   }
   // the fountain (listening): an eight-sided basin in the middle of the courtyard
