@@ -56,9 +56,23 @@ describe('saving an Instant Recognition round', () => {
           ],
           xp: 1,
           minutes: 1,
+          events: [{ kind: 'recognition-round' }],
           at: expect.any(Date),
         },
       ],
+    ]);
+  });
+
+  it('reports beating the best for the daily contract (ADR 0032)', async () => {
+    const saveSession = vi.fn<(report: { events?: unknown }) => Promise<void>>(
+      async () => undefined,
+    );
+    const api = { saveSession } as unknown as SubjectApi;
+    const s = summarize(attempts);
+    await reportRound(api, applyRound(NEW_PROGRESS, s), attempts, s, 60, true);
+    expect(saveSession.mock.calls[0]?.[0].events).toEqual([
+      { kind: 'recognition-round' },
+      { kind: 'recognition-best' },
     ]);
   });
 });

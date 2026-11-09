@@ -219,4 +219,30 @@ describe('saveSession (ADR 0031)', () => {
     ).rejects.toThrow(/at most 200/);
     expect(await api.loadState()).toBeNull();
   });
+
+  it('sends events for daily contracts, each counted 1 to 100 (ADR 0032)', async () => {
+    const store = memoryStore();
+    const events: unknown[] = [];
+    const saveSession = store.saveSession.bind(store);
+    store.saveSession = (subject, s) => {
+      events.push(s.events);
+      return saveSession(subject, s);
+    };
+    const api = subjectApi({ id: 'morse' }, store);
+    await api.saveSession({ events: [{ kind: 'run' }, { kind: 'run-90', count: 2 }] });
+    expect(events).toEqual([
+      [
+        { kind: 'run', count: 1 },
+        { kind: 'run-90', count: 2 },
+      ],
+    ]);
+    await expect(api.saveSession({ events: [{ kind: 'Run!' }] })).rejects.toThrow(/event kind/);
+    await expect(api.saveSession({ events: [{ kind: 'run', count: 0 }] })).rejects.toThrow(
+      /counts 1 to 100/,
+    );
+    await expect(
+      api.saveSession({ events: Array.from({ length: 51 }, () => ({ kind: 'run' })) }),
+    ).rejects.toThrow(/at most 50 events/);
+    expect(events).toHaveLength(1);
+  });
 });

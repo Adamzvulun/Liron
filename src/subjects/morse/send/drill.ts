@@ -49,6 +49,7 @@ export async function reportDrill(
     })),
     xp: xpForDrill(score),
     minutes: seconds / 60,
+    events: [{ kind: 'drill' }, ...(score.accuracy >= 0.8 ? [{ kind: 'drill-80' }] : [])],
     at,
   });
 }

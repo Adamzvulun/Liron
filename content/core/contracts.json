@@ -1,0 +1,40 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "habit-minutes",
+      "subject": "core",
+      "type": "contract",
+      "data": {
+        "metric": "minutes",
+        "target": 25,
+        "gold": 10,
+        "text": "Practice 25 minutes today"
+      }
+    },
+    {
+      "id": "habit-sessions",
+      "subject": "core",
+      "type": "contract",
+      "data": {
+        "metric": "sessions",
+        "target": 3,
+        "gold": 10,
+        "text": "Finish 3 sessions today"
+      }
+    },
+    {
+      "id": "habit-subjects",
+      "subject": "core",
+      "type": "contract",
+      "data": {
+        "metric": "subjects",
+        "target": 2,
+        "gold": 15,
+        "text": "Practice two subjects today"
+      }
+    }
+  ]
+}

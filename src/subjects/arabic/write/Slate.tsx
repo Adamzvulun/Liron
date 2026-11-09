@@ -117,6 +117,7 @@ export function Slate({ api }: { api: SubjectApi }) {
         results: [...byLetter].map(([itemId, score]) => ({ skill: 'write', itemId, score })),
         xp: all.filter((a) => a.score.passed).length * XP_PER_SHAPE,
         minutes: (Date.now() - started) / 60000,
+        events: [{ kind: 'slate' }],
         at,
       });
     })().then(

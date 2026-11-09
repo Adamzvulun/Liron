@@ -43,6 +43,37 @@ export const TODAY = {
 };
 
 /**
+ * Today's contracts on the fake board (ADR 0032): finished by events from saved sessions (the
+ * habit counts sessions). Paid ones add their gold to the wallet.
+ */
+export const CONTRACTS = [
+  {
+    id: 'habit-sessions',
+    subject: null,
+    text: 'Finish 3 sessions today',
+    kind: 'session',
+    target: 3,
+    gold: 10,
+  },
+  {
+    id: 'morse-run-90',
+    subject: 'morse',
+    text: 'Pass a Koch run at 90%',
+    kind: 'run-90',
+    target: 1,
+    gold: 20,
+  },
+  {
+    id: 'arabic-coffee',
+    subject: 'arabic',
+    text: 'Practice phrases at the coffee corner',
+    kind: 'coffee',
+    target: 1,
+    gold: 15,
+  },
+];
+
+/**
  * Answers Supabase Auth calls (password login: only PASSWORD works; logout; reset email) and
  * the wallet read.
  */
@@ -59,6 +90,16 @@ export async function fakeSupabase(
   // Like the database, a saved state is what the next read of that subject returns, so a test
   // can play a session, reload and see where it left off.
   const saved = new Map<string, object>();
+  // Events from saved sessions, by kind, for today's contracts (ADR 0032).
+  const events = new Map<string, number>();
+  const board = () => {
+    const contracts = CONTRACTS.map((c) => {
+      const progress = Math.min(c.target, events.get(c.kind) ?? 0);
+      return { ...c, progress, paid: progress >= c.target };
+    });
+    const earned = contracts.filter((c) => c.paid).reduce((sum, c) => sum + c.gold, 0);
+    return { contracts, gold: WALLET.gold + earned };
+  };
   await page.route(`${FAKE_SUPABASE_URL}/**`, async (route) => {
     const url = new URL(route.request().url());
     if (url.pathname === '/auth/v1/token' && url.searchParams.get('grant_type') === 'password') {
@@ -172,6 +213,8 @@ export async function fakeSupabase(
     if (rpc === 'save_session') {
       const a = route.request().postDataJSON() as SaveSessionArgs;
       const p_subject = a.p_subject;
+      events.set('session', (events.get('session') ?? 0) + 1);
+      for (const e of a.p_events ?? []) events.set(e.kind, (events.get(e.kind) ?? 0) + e.count);
       if (a.p_state) {
         saved.set(p_subject, a.p_state);
         subjectCalls.push({ rpc: 'save_subject_state', args: { p_subject, p_state: a.p_state } });
@@ -211,6 +254,18 @@ export async function fakeSupabase(
         });
       return route.fulfill({
         json: { duplicate: false, award: paid ? award(a.p_xp, a.p_minutes) : null },
+      });
+    }
+    if (rpc === 'todays_contracts') {
+      const { contracts, gold } = board();
+      return route.fulfill({
+        json: {
+          day: TODAY.day,
+          // The kind is the fake's own bookkeeping; the database never sends it.
+          contracts: contracts.map((c) => ({ ...c, kind: undefined })),
+          paid_now: [],
+          gold,
+        },
       });
     }
     if (url.pathname === '/rest/v1/profiles') {
@@ -388,6 +443,7 @@ interface SaveSessionArgs {
   p_results: Record<string, unknown>[] | null;
   p_xp: number;
   p_minutes: number;
+  p_events?: { kind: string; count: number }[];
 }
 
 /** record_progress's answer: the fake wallet plus what was paid (no gold or gems, no level). */

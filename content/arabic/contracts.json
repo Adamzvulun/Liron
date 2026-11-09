@@ -1,0 +1,55 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "arabic-letters-90",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "letters-90",
+        "target": 1,
+        "gold": 20,
+        "text": "Score 90% in a letters session"
+      }
+    },
+    {
+      "id": "arabic-letters",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "letters-session",
+        "target": 2,
+        "gold": 15,
+        "text": "Finish 2 letters sessions"
+      }
+    },
+    {
+      "id": "arabic-slate",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "slate",
+        "target": 1,
+        "gold": 15,
+        "text": "Write letters on the slate"
+      }
+    },
+    {
+      "id": "arabic-coffee",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "coffee",
+        "target": 1,
+        "gold": 15,
+        "text": "Practice phrases at the coffee corner"
+      }
+    }
+  ]
+}

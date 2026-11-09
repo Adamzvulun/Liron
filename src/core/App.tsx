@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
@@ -82,7 +82,14 @@ function AuthGate() {
 function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
   const path = usePath();
-  useEffect(() => void player.load(), [player]);
+  // Contracts after the wallet, so gold they pay on the way isn't overwritten by an older read.
+  useEffect(() => void player.load().then(player.loadContracts), [player]);
+  const moved = useRef(false);
+  useEffect(() => {
+    // Again on every move: a session in a hall may have finished one.
+    if (moved.current) void player.loadContracts();
+    moved.current = true;
+  }, [player, path]);
   const place = placeAt(path);
   // Read again on every move, so coming back from a hall shows the lamp just lit.
   const questlines = useQuestlines(subjects, loadState, path);
@@ -105,7 +112,13 @@ function Lobby({ player }: { player: Player }) {
           )}
           {place === 'board' && state.today && (
             <div className="hud">
-              <QuestTracker today={state.today} subjects={subjects} questlines={questlines} />
+              <QuestTracker
+                today={state.today}
+                subjects={subjects}
+                questlines={questlines}
+                contracts={state.contracts}
+                full
+              />
             </div>
           )}
           {place === 'house' && state.profile && (

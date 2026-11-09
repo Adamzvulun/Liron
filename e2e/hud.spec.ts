@@ -67,7 +67,9 @@ test('the HUD shows your name and today’s quests, which lead to their places',
   }
   const quests = page.getByRole('region', { name: 'Quests' });
   await expect(quests).toBeVisible();
-  await expect(quests.getByRole('link')).toHaveCount(3);
+  // Two subjects and the daily goal, then the contracts: a summary in the HUD, each on the
+  // Notice Board (where the phone's Quests button leads).
+  await expect(quests.getByRole('link')).toHaveCount(onPhone() ? 6 : 4);
   await quests.getByRole('link', { name: /hear K and M/ }).click();
   await expect(page).toHaveURL(/\/signal-tower$/);
 });
@@ -105,4 +107,27 @@ test('settings change your name, and Escape closes them', async ({ page }) => {
   await expect(page.getByLabel('Your name')).toHaveCount(0);
   await expect(gear).toBeFocused();
   await expect(page.getByText('Adam Z', { exact: true })).toBeVisible();
+});
+
+test("the Notice Board lists today's contracts; the HUD says how many are done (#46)", async ({
+  page,
+}) => {
+  await signedIn(page);
+  await page.goto('/');
+  if (!onPhone()) {
+    const summary = page
+      .getByRole('region', { name: 'Quests' })
+      .getByRole('link', { name: /Contracts/ });
+    await expect(summary).toContainText('0 of 3 done today');
+    await expect(summary).toContainText('45 gold left to earn');
+  }
+  await page.goto('/notice-board');
+  const quests = page.getByRole('region', { name: 'Quests' });
+  const run = quests.getByRole('link', { name: /Signal Tower contract/ });
+  await expect(run).toContainText('Pass a Koch run at 90%');
+  await expect(run).toContainText('0/1');
+  await expect(run).toContainText('20 gold');
+  await expect(quests.getByRole('link', { name: /Habit contract/ })).toContainText('0/3');
+  await run.click();
+  await expect(page).toHaveURL(/\/signal-tower$/);
 });
