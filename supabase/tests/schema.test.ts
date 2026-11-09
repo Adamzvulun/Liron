@@ -1467,9 +1467,12 @@ describe('reward chests (ADR 0033, #48)', () => {
 
   it('gives gear not owned yet, or its price when all is owned; a 3rd shield is gold', async () => {
     await rows(`update wallets set gold = 0, streak_shields = 2 where user_id = $1`, [ADAM]);
+    const allGear = (
+      (await rows(`select id from items where kind = 'gear'`)) as { id: string }[]
+    ).map((r) => r.id);
     const gear = await chestWith('jeweled', 4, true, 0.6);
     const opened = await open(gear);
-    expect(['boots', 'breeches', 'cloak', 'headset']).toContain(opened.item);
+    expect(allGear).toContain(opened.item);
     expect(opened.item_gold).toBe(0);
     expect(
       await rows(`select source from owned_items where user_id = $1 and item_id = $2`, [
@@ -1478,7 +1481,7 @@ describe('reward chests (ADR 0033, #48)', () => {
       ]),
     ).toEqual([{ source: 'chest' }]);
 
-    for (const item of ['boots', 'breeches', 'cloak', 'headset'])
+    for (const item of allGear)
       await rows(
         `insert into owned_items (user_id, item_id, source) values ($1, $2, 'market') on conflict do nothing`,
         [ADAM, item],
