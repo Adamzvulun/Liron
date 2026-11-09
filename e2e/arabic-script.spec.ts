@@ -13,8 +13,6 @@ const WORDS = [
   lessonWord(8, 'تبن', 'hay'),
   lessonWord(9, 'باب', 'door'),
   lessonWord(10, 'بابا', 'pope'),
-  lessonWord(11, 'تيت', 'aunt'),
-  lessonWord(12, 'نت', 'internet'),
 ];
 
 /** Answers a Read question with its first choice: a recording (play, then "This one") or a word. */
