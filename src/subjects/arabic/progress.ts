@@ -37,8 +37,10 @@ const Progress = z.object({
       /** Every chapter passed: sessions are practice. */
       done: z.boolean().catch(false),
       sessions: z.number().int().min(0).catch(0),
+      /** Grammar cards you've read (#162), e.g. `grammar:no-is`. */
+      cards: z.array(z.string()).catch([]),
     })
-    .catch({ chapter: 1, streak: 0, passDay: null, met: [], done: false, sessions: 0 }),
+    .catch({ chapter: 1, streak: 0, passDay: null, met: [], done: false, sessions: 0, cards: [] }),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -53,7 +55,7 @@ export const NEW_PROGRESS: ArabicProgress = {
   phraseSet: 1,
   phrasesMet: [],
   knownChoices: 'sound',
-  words: { chapter: 1, streak: 0, passDay: null, met: [], done: false, sessions: 0 },
+  words: { chapter: 1, streak: 0, passDay: null, met: [], done: false, sessions: 0, cards: [] },
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
@@ -136,6 +138,7 @@ export function applyWordSession(
       ...p,
       sessions: p.sessions + 1,
       words: {
+        ...w,
         chapter: passed && !last ? w.chapter + 1 : w.chapter,
         streak: passed ? 0 : streak,
         passDay: passed || !good ? null : streak === 1 && !sameDay ? day : w.passDay,
