@@ -26,18 +26,18 @@ Drafted on 2026-11-04. **Adam approved the draft and its Notice Board concept on
 
 ## 3. Chests (#48)
 - **Sources:** each trial passed (one per chapter), streak days 7, 30 and 100, and the 3-contract day.
-- **Kinds:** wooden (contracts), brass (trials), and a jewelled chest for long streaks. Better chests give better odds; they don't hold more things.
-- **Contents (draft drop table, as data in `content/core/chests.json`):**
+- **Kinds:** wooden (contracts), brass (trials), and a jeweled chest for long streaks (days 7 brass, 30 and 100 jeweled). Better chests give better odds; they don't hold more things.
+- **Contents (built as drafted, as data in `content/core/chests.json`):**
 
   | Chest | Gold | Gem | Gear | Streak shield |
   |---|---|---|---|---|
   | Wooden | 15–40 (always) | 5% | 10% | 5% |
   | Brass | 40–80 (always) | 25% | 40% | 15% |
-  | Jewelled | 80–150 (always) | 100% (1–2) | 60% | 40% |
+  | Jeweled | 80–150 (always) | 100% (1–2) | 60% | 40% |
 
-  Gear comes from the avatar's items (`looks.ts`). An item you already own turns into gold instead.
+  Gear comes from the gear in `content/core/items.json`. If you own it all, you get the item's price in gold instead; a shield when you hold 2 becomes 120 gold.
 - **Rolling:** the server rolls when the chest is opened, seeded by the chest's id, so opening the same chest twice gives the same thing.
-- **Opening:** the lid opens, the contents rise one by one, and you tap to collect. Under 3 seconds, and skippable.
+- **Opening:** chests wait on the Notice Board's shelf, each with what earned it; today's contract chest sits there locked, a seal lit per contract done. Opening one lifts the lid and the contents rise one by one (under 2 seconds, at once with reduced motion). Collect (or Escape) closes it at any time. The HUD says how many chests wait.
 
 ## 4. Market (#49)
 - **Stock:** 4 slots a day, seeded by the date: 2 gear, 1 colour or look option, 1 functional item. Prices are data:

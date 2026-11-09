@@ -105,3 +105,17 @@ export function contractQuests(
     };
   });
 }
+
+/** The HUD's line for chests waiting to be opened (ADR 0033), if any. */
+export function chestQuests(waiting: number): Quest[] {
+  if (!waiting) return [];
+  return [
+    {
+      giver: 'Chests',
+      text: `${waiting} to open`,
+      reward: 'On the Notice Board',
+      href: '/notice-board',
+      color: BOARD_COLOR,
+    },
+  ];
+}
