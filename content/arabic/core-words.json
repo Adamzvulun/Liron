@@ -1,0 +1,1426 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (the choice, order and glosses only: the words, sentences and recordings are the Lingualism deck’s, private, ADR 0011)",
+  "items": [
+    {
+      "id": "core-words:1",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 1,
+        "title": "Hello, me and you",
+        "theme": "Greetings, the people around you, and the words to point at them",
+        "words": [
+          {
+            "deck": "pcav:4751",
+            "gloss": "yes",
+            "sentence": "pcav:0635"
+          },
+          {
+            "deck": "pcav:4753",
+            "gloss": "no",
+            "sentence": "pcav:2401"
+          },
+          {
+            "deck": "pcav:4757",
+            "gloss": "thank you",
+            "sentence": "pcav:1285"
+          },
+          {
+            "deck": "pcav:4758",
+            "gloss": "you're welcome"
+          },
+          {
+            "deck": "pcav:4759",
+            "gloss": "sorry"
+          },
+          {
+            "deck": "pcav:4761",
+            "gloss": "hi"
+          },
+          {
+            "deck": "pcav:4764",
+            "gloss": "good morning"
+          },
+          {
+            "deck": "pcav:4780",
+            "gloss": "welcome"
+          },
+          {
+            "deck": "pcav:4768",
+            "gloss": "I'm fine"
+          },
+          {
+            "deck": "pcav:4771",
+            "gloss": "goodbye"
+          },
+          {
+            "deck": "pcav:4756",
+            "gloss": "here you are"
+          },
+          {
+            "deck": "pcav:3149",
+            "gloss": "okay"
+          },
+          {
+            "deck": "pcav:3161",
+            "gloss": "I want to",
+            "sentence": "pcav:2763"
+          },
+          {
+            "deck": "pcav:4267",
+            "gloss": "I",
+            "sentence": "pcav:4371"
+          },
+          {
+            "deck": "pcav:4268",
+            "gloss": "we"
+          },
+          {
+            "deck": "pcav:4269",
+            "gloss": "you (to a man)",
+            "sentence": "pcav:0662"
+          },
+          {
+            "deck": "pcav:4270",
+            "gloss": "you (to a woman)"
+          },
+          {
+            "deck": "pcav:4271",
+            "gloss": "you (to a group)",
+            "sentence": "pcav:0078"
+          },
+          {
+            "deck": "pcav:4272",
+            "gloss": "he",
+            "sentence": "pcav:4412"
+          },
+          {
+            "deck": "pcav:4273",
+            "gloss": "she",
+            "sentence": "pcav:1295"
+          },
+          {
+            "deck": "pcav:4274",
+            "gloss": "they"
+          },
+          {
+            "deck": "pcav:4277",
+            "gloss": "this"
+          },
+          {
+            "deck": "pcav:0214",
+            "gloss": "name"
+          },
+          {
+            "deck": "pcav:0220",
+            "gloss": "to be called"
+          },
+          {
+            "deck": "pcav:0002",
+            "gloss": "to live"
+          },
+          {
+            "deck": "pcav:0011",
+            "gloss": "boy",
+            "sentence": "pcav:0091"
+          },
+          {
+            "deck": "pcav:0012",
+            "gloss": "girl"
+          },
+          {
+            "deck": "pcav:0022",
+            "gloss": "man",
+            "sentence": "pcav:3181"
+          },
+          {
+            "deck": "pcav:0023",
+            "gloss": "woman"
+          },
+          {
+            "deck": "pcav:4417",
+            "gloss": "and"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:2",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 2,
+        "title": "Who, what, where",
+        "theme": "Question words and the family at home",
+        "words": [
+          {
+            "deck": "pcav:4297",
+            "gloss": "what",
+            "sentence": "pcav:0264"
+          },
+          {
+            "deck": "pcav:4300",
+            "gloss": "who",
+            "sentence": "pcav:4301"
+          },
+          {
+            "deck": "pcav:4303",
+            "gloss": "which",
+            "sentence": "pcav:4304"
+          },
+          {
+            "deck": "pcav:4305",
+            "gloss": "where",
+            "sentence": "pcav:3410"
+          },
+          {
+            "deck": "pcav:4307",
+            "gloss": "when",
+            "sentence": "pcav:0046"
+          },
+          {
+            "deck": "pcav:4310",
+            "gloss": "how",
+            "sentence": "pcav:0222"
+          },
+          {
+            "deck": "pcav:4312",
+            "gloss": "why",
+            "sentence": "pcav:4464"
+          },
+          {
+            "deck": "pcav:4314",
+            "gloss": "how many, how much",
+            "sentence": "pcav:0695"
+          },
+          {
+            "deck": "pcav:0080",
+            "gloss": "father"
+          },
+          {
+            "deck": "pcav:0081",
+            "gloss": "mother"
+          },
+          {
+            "deck": "pcav:0083",
+            "gloss": "dad"
+          },
+          {
+            "deck": "pcav:0084",
+            "gloss": "mom"
+          },
+          {
+            "deck": "pcav:0088",
+            "gloss": "son"
+          },
+          {
+            "deck": "pcav:0089",
+            "gloss": "daughter"
+          },
+          {
+            "deck": "pcav:0094",
+            "gloss": "brother",
+            "sentence": "pcav:0108"
+          },
+          {
+            "deck": "pcav:0096",
+            "gloss": "sister"
+          },
+          {
+            "deck": "pcav:0112",
+            "gloss": "husband"
+          },
+          {
+            "deck": "pcav:0114",
+            "gloss": "wife"
+          },
+          {
+            "deck": "pcav:0125",
+            "gloss": "grandfather"
+          },
+          {
+            "deck": "pcav:0126",
+            "gloss": "grandmother"
+          },
+          {
+            "deck": "pcav:0087",
+            "gloss": "parents"
+          },
+          {
+            "deck": "pcav:2229",
+            "gloss": "friend"
+          },
+          {
+            "deck": "pcav:0158",
+            "gloss": "to love"
+          },
+          {
+            "deck": "pcav:0185",
+            "gloss": "married",
+            "sentence": "pcav:4322"
+          },
+          {
+            "deck": "pcav:4346",
+            "gloss": "here",
+            "sentence": "pcav:1654"
+          },
+          {
+            "deck": "pcav:4348",
+            "gloss": "there"
+          },
+          {
+            "deck": "pcav:4470",
+            "gloss": "in, at",
+            "sentence": "pcav:1549"
+          },
+          {
+            "deck": "pcav:4486",
+            "gloss": "from",
+            "sentence": "pcav:3410"
+          },
+          {
+            "deck": "pcav:4526",
+            "gloss": "with",
+            "sentence": "pcav:3143"
+          },
+          {
+            "deck": "pcav:4418",
+            "gloss": "or",
+            "sentence": "pcav:0099"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:3",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 3,
+        "title": "Counting the day",
+        "theme": "Numbers, and the times of the day and the year",
+        "words": [
+          {
+            "deck": "pcav:3970",
+            "gloss": "one"
+          },
+          {
+            "deck": "pcav:3971",
+            "gloss": "two",
+            "sentence": "pcav:2539"
+          },
+          {
+            "deck": "pcav:3973",
+            "gloss": "three",
+            "sentence": "pcav:4228"
+          },
+          {
+            "deck": "pcav:3974",
+            "gloss": "four",
+            "sentence": "pcav:2539"
+          },
+          {
+            "deck": "pcav:3975",
+            "gloss": "five",
+            "sentence": "pcav:2574"
+          },
+          {
+            "deck": "pcav:3976",
+            "gloss": "six",
+            "sentence": "pcav:0883"
+          },
+          {
+            "deck": "pcav:3977",
+            "gloss": "seven"
+          },
+          {
+            "deck": "pcav:3978",
+            "gloss": "eight"
+          },
+          {
+            "deck": "pcav:3979",
+            "gloss": "nine",
+            "sentence": "pcav:4046"
+          },
+          {
+            "deck": "pcav:3980",
+            "gloss": "ten",
+            "sentence": "pcav:4237"
+          },
+          {
+            "deck": "pcav:3968",
+            "gloss": "zero"
+          },
+          {
+            "deck": "pcav:3990",
+            "gloss": "twenty",
+            "sentence": "pcav:4050"
+          },
+          {
+            "deck": "pcav:4001",
+            "gloss": "a hundred",
+            "sentence": "pcav:4650"
+          },
+          {
+            "deck": "pcav:4078",
+            "gloss": "time"
+          },
+          {
+            "deck": "pcav:4079",
+            "gloss": "day",
+            "sentence": "pcav:1841"
+          },
+          {
+            "deck": "pcav:4093",
+            "gloss": "today",
+            "sentence": "pcav:0620"
+          },
+          {
+            "deck": "pcav:4089",
+            "gloss": "yesterday",
+            "sentence": "pcav:3673"
+          },
+          {
+            "deck": "pcav:4101",
+            "gloss": "tomorrow",
+            "sentence": "pcav:3721"
+          },
+          {
+            "deck": "pcav:4080",
+            "gloss": "in the morning",
+            "sentence": "pcav:3604"
+          },
+          {
+            "deck": "pcav:4084",
+            "gloss": "in the evening",
+            "sentence": "pcav:4436"
+          },
+          {
+            "deck": "pcav:4099",
+            "gloss": "tonight"
+          },
+          {
+            "deck": "pcav:4111",
+            "gloss": "week"
+          },
+          {
+            "deck": "pcav:4128",
+            "gloss": "month",
+            "sentence": "pcav:2069"
+          },
+          {
+            "deck": "pcav:4188",
+            "gloss": "year",
+            "sentence": "pcav:4650"
+          },
+          {
+            "deck": "pcav:4221",
+            "gloss": "hour",
+            "sentence": "pcav:0767"
+          },
+          {
+            "deck": "pcav:4222",
+            "gloss": "minute",
+            "sentence": "pcav:2596"
+          },
+          {
+            "deck": "pcav:4249",
+            "gloss": "what time",
+            "sentence": "pcav:0046"
+          },
+          {
+            "deck": "pcav:4252",
+            "gloss": "at … o'clock"
+          },
+          {
+            "deck": "pcav:4120",
+            "gloss": "Friday",
+            "sentence": "pcav:2352"
+          },
+          {
+            "deck": "pcav:4121",
+            "gloss": "Saturday",
+            "sentence": "pcav:4122"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:4",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 4,
+        "title": "At the table",
+        "theme": "Food, drink and meals",
+        "words": [
+          {
+            "deck": "pcav:0951",
+            "gloss": "to eat",
+            "sentence": "pcav:3162"
+          },
+          {
+            "deck": "pcav:0954",
+            "gloss": "to drink"
+          },
+          {
+            "deck": "pcav:0953",
+            "gloss": "food"
+          },
+          {
+            "deck": "pcav:0968",
+            "gloss": "hungry",
+            "sentence": "pcav:4397"
+          },
+          {
+            "deck": "pcav:0971",
+            "gloss": "thirsty",
+            "sentence": "pcav:0972"
+          },
+          {
+            "deck": "pcav:0980",
+            "gloss": "delicious"
+          },
+          {
+            "deck": "pcav:1011",
+            "gloss": "breakfast"
+          },
+          {
+            "deck": "pcav:1013",
+            "gloss": "lunch"
+          },
+          {
+            "deck": "pcav:1015",
+            "gloss": "dinner"
+          },
+          {
+            "deck": "pcav:1022",
+            "gloss": "water",
+            "sentence": "pcav:4320"
+          },
+          {
+            "deck": "pcav:1043",
+            "gloss": "coffee",
+            "sentence": "pcav:4362"
+          },
+          {
+            "deck": "pcav:1055",
+            "gloss": "tea"
+          },
+          {
+            "deck": "pcav:1067",
+            "gloss": "milk"
+          },
+          {
+            "deck": "pcav:1040",
+            "gloss": "glass",
+            "sentence": "pcav:1024"
+          },
+          {
+            "deck": "pcav:1041",
+            "gloss": "cup"
+          },
+          {
+            "deck": "pcav:1206",
+            "gloss": "bread (pita)"
+          },
+          {
+            "deck": "pcav:1218",
+            "gloss": "egg"
+          },
+          {
+            "deck": "pcav:1076",
+            "gloss": "cheese"
+          },
+          {
+            "deck": "pcav:1225",
+            "gloss": "meat"
+          },
+          {
+            "deck": "pcav:1232",
+            "gloss": "chicken",
+            "sentence": "pcav:1228"
+          },
+          {
+            "deck": "pcav:1242",
+            "gloss": "fish"
+          },
+          {
+            "deck": "pcav:1204",
+            "gloss": "rice"
+          },
+          {
+            "deck": "pcav:1137",
+            "gloss": "salad"
+          },
+          {
+            "deck": "pcav:1147",
+            "gloss": "fruit"
+          },
+          {
+            "deck": "pcav:1107",
+            "gloss": "vegetables"
+          },
+          {
+            "deck": "pcav:1191",
+            "gloss": "salt",
+            "sentence": "pcav:0979"
+          },
+          {
+            "deck": "pcav:1192",
+            "gloss": "sugar"
+          },
+          {
+            "deck": "pcav:1260",
+            "gloss": "soup"
+          },
+          {
+            "deck": "pcav:2200",
+            "gloss": "restaurant"
+          },
+          {
+            "deck": "pcav:2207",
+            "gloss": "the bill"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:5",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 5,
+        "title": "Under one roof",
+        "theme": "The house, its rooms and what's in them",
+        "words": [
+          {
+            "deck": "pcav:0685",
+            "gloss": "house",
+            "sentence": "pcav:4497"
+          },
+          {
+            "deck": "pcav:0687",
+            "gloss": "apartment",
+            "sentence": "pcav:4444"
+          },
+          {
+            "deck": "pcav:0711",
+            "gloss": "room",
+            "sentence": "pcav:2763"
+          },
+          {
+            "deck": "pcav:0714",
+            "gloss": "chair"
+          },
+          {
+            "deck": "pcav:0715",
+            "gloss": "table"
+          },
+          {
+            "deck": "pcav:0716",
+            "gloss": "door"
+          },
+          {
+            "deck": "pcav:0718",
+            "gloss": "key"
+          },
+          {
+            "deck": "pcav:0724",
+            "gloss": "window"
+          },
+          {
+            "deck": "pcav:0751",
+            "gloss": "light",
+            "sentence": "pcav:0755"
+          },
+          {
+            "deck": "pcav:0771",
+            "gloss": "living room"
+          },
+          {
+            "deck": "pcav:0774",
+            "gloss": "sofa"
+          },
+          {
+            "deck": "pcav:0775",
+            "gloss": "television"
+          },
+          {
+            "deck": "pcav:0785",
+            "gloss": "plate"
+          },
+          {
+            "deck": "pcav:0786",
+            "gloss": "spoon"
+          },
+          {
+            "deck": "pcav:0787",
+            "gloss": "fork"
+          },
+          {
+            "deck": "pcav:0788",
+            "gloss": "knife"
+          },
+          {
+            "deck": "pcav:0792",
+            "gloss": "kitchen"
+          },
+          {
+            "deck": "pcav:0794",
+            "gloss": "fridge"
+          },
+          {
+            "deck": "pcav:0839",
+            "gloss": "bed"
+          },
+          {
+            "deck": "pcav:0851",
+            "gloss": "to sleep",
+            "sentence": "pcav:4439"
+          },
+          {
+            "deck": "pcav:0882",
+            "gloss": "to wake up"
+          },
+          {
+            "deck": "pcav:0898",
+            "gloss": "bathroom"
+          },
+          {
+            "deck": "pcav:0901",
+            "gloss": "shower"
+          },
+          {
+            "deck": "pcav:0906",
+            "gloss": "towel"
+          },
+          {
+            "deck": "pcav:0927",
+            "gloss": "soap"
+          },
+          {
+            "deck": "pcav:0935",
+            "gloss": "garden, yard"
+          },
+          {
+            "deck": "pcav:0738",
+            "gloss": "to clean"
+          },
+          {
+            "deck": "pcav:0810",
+            "gloss": "to cook"
+          },
+          {
+            "deck": "pcav:4407",
+            "gloss": "inside",
+            "sentence": "pcav:4408"
+          },
+          {
+            "deck": "pcav:4492",
+            "gloss": "under"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:6",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 6,
+        "title": "Out the gate",
+        "theme": "The town, the way there, and travel",
+        "words": [
+          {
+            "deck": "pcav:1991",
+            "gloss": "city"
+          },
+          {
+            "deck": "pcav:1993",
+            "gloss": "village"
+          },
+          {
+            "deck": "pcav:1999",
+            "gloss": "street"
+          },
+          {
+            "deck": "pcav:1997",
+            "gloss": "park"
+          },
+          {
+            "deck": "pcav:2003",
+            "gloss": "bakery"
+          },
+          {
+            "deck": "pcav:2004",
+            "gloss": "bank"
+          },
+          {
+            "deck": "pcav:2009",
+            "gloss": "grocery"
+          },
+          {
+            "deck": "pcav:2015",
+            "gloss": "café",
+            "sentence": "pcav:4501"
+          },
+          {
+            "deck": "pcav:1835",
+            "gloss": "bus"
+          },
+          {
+            "deck": "pcav:1843",
+            "gloss": "taxi",
+            "sentence": "pcav:1845"
+          },
+          {
+            "deck": "pcav:1868",
+            "gloss": "car",
+            "sentence": "pcav:3170"
+          },
+          {
+            "deck": "pcav:1869",
+            "gloss": "to drive",
+            "sentence": "pcav:1941"
+          },
+          {
+            "deck": "pcav:1870",
+            "gloss": "driver"
+          },
+          {
+            "deck": "pcav:1850",
+            "gloss": "left"
+          },
+          {
+            "deck": "pcav:1852",
+            "gloss": "right"
+          },
+          {
+            "deck": "pcav:1854",
+            "gloss": "straight on"
+          },
+          {
+            "deck": "pcav:1879",
+            "gloss": "to stop"
+          },
+          {
+            "deck": "pcav:2621",
+            "gloss": "to travel"
+          },
+          {
+            "deck": "pcav:2625",
+            "gloss": "a trip"
+          },
+          {
+            "deck": "pcav:2699",
+            "gloss": "airplane"
+          },
+          {
+            "deck": "pcav:2715",
+            "gloss": "airport"
+          },
+          {
+            "deck": "pcav:2758",
+            "gloss": "hotel"
+          },
+          {
+            "deck": "pcav:2695",
+            "gloss": "ticket"
+          },
+          {
+            "deck": "pcav:2742",
+            "gloss": "to arrive"
+          },
+          {
+            "deck": "pcav:2636",
+            "gloss": "beach"
+          },
+          {
+            "deck": "pcav:4613",
+            "gloss": "to go"
+          },
+          {
+            "deck": "pcav:4584",
+            "gloss": "to come"
+          },
+          {
+            "deck": "pcav:4670",
+            "gloss": "to walk, to leave",
+            "sentence": "pcav:4375"
+          },
+          {
+            "deck": "pcav:4500",
+            "gloss": "next to",
+            "sentence": "pcav:4501"
+          },
+          {
+            "deck": "pcav:4503",
+            "gloss": "in front of",
+            "sentence": "pcav:4505"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:7",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 7,
+        "title": "Faces and hands",
+        "theme": "The body, and how people look",
+        "words": [
+          {
+            "deck": "pcav:0239",
+            "gloss": "body"
+          },
+          {
+            "deck": "pcav:0240",
+            "gloss": "head"
+          },
+          {
+            "deck": "pcav:0244",
+            "gloss": "face"
+          },
+          {
+            "deck": "pcav:0258",
+            "gloss": "eye"
+          },
+          {
+            "deck": "pcav:0288",
+            "gloss": "nose"
+          },
+          {
+            "deck": "pcav:0304",
+            "gloss": "ear"
+          },
+          {
+            "deck": "pcav:0315",
+            "gloss": "mouth"
+          },
+          {
+            "deck": "pcav:0328",
+            "gloss": "tooth"
+          },
+          {
+            "deck": "pcav:0352",
+            "gloss": "hair"
+          },
+          {
+            "deck": "pcav:0416",
+            "gloss": "arm, hand"
+          },
+          {
+            "deck": "pcav:0424",
+            "gloss": "finger"
+          },
+          {
+            "deck": "pcav:0441",
+            "gloss": "leg, foot"
+          },
+          {
+            "deck": "pcav:0455",
+            "gloss": "back"
+          },
+          {
+            "deck": "pcav:0462",
+            "gloss": "heart"
+          },
+          {
+            "deck": "pcav:0279",
+            "gloss": "to see"
+          },
+          {
+            "deck": "pcav:0307",
+            "gloss": "to hear"
+          },
+          {
+            "deck": "pcav:0316",
+            "gloss": "to smile"
+          },
+          {
+            "deck": "pcav:0497",
+            "gloss": "tall",
+            "sentence": "pcav:4689"
+          },
+          {
+            "deck": "pcav:0499",
+            "gloss": "short"
+          },
+          {
+            "deck": "pcav:0516",
+            "gloss": "thin"
+          },
+          {
+            "deck": "pcav:0520",
+            "gloss": "good-looking",
+            "sentence": "pcav:0381"
+          },
+          {
+            "deck": "pcav:0027",
+            "gloss": "young"
+          },
+          {
+            "deck": "pcav:0030",
+            "gloss": "old"
+          },
+          {
+            "deck": "pcav:3872",
+            "gloss": "color",
+            "sentence": "pcav:0264"
+          },
+          {
+            "deck": "pcav:3873",
+            "gloss": "black"
+          },
+          {
+            "deck": "pcav:3874",
+            "gloss": "white"
+          },
+          {
+            "deck": "pcav:3875",
+            "gloss": "blue"
+          },
+          {
+            "deck": "pcav:3876",
+            "gloss": "green"
+          },
+          {
+            "deck": "pcav:3877",
+            "gloss": "red"
+          },
+          {
+            "deck": "pcav:3878",
+            "gloss": "yellow"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:8",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 8,
+        "title": "Buying and selling",
+        "theme": "The market, money and clothes",
+        "words": [
+          {
+            "deck": "pcav:2141",
+            "gloss": "shopping"
+          },
+          {
+            "deck": "pcav:2145",
+            "gloss": "to buy"
+          },
+          {
+            "deck": "pcav:2146",
+            "gloss": "to sell"
+          },
+          {
+            "deck": "pcav:2156",
+            "gloss": "price",
+            "sentence": "pcav:4031"
+          },
+          {
+            "deck": "pcav:2158",
+            "gloss": "to cost"
+          },
+          {
+            "deck": "pcav:2159",
+            "gloss": "cheap"
+          },
+          {
+            "deck": "pcav:2160",
+            "gloss": "expensive"
+          },
+          {
+            "deck": "pcav:2180",
+            "gloss": "market"
+          },
+          {
+            "deck": "pcav:2182",
+            "gloss": "shop"
+          },
+          {
+            "deck": "pcav:2192",
+            "gloss": "bag"
+          },
+          {
+            "deck": "pcav:2892",
+            "gloss": "money",
+            "sentence": "pcav:4452"
+          },
+          {
+            "deck": "pcav:2897",
+            "gloss": "shekel",
+            "sentence": "pcav:2068"
+          },
+          {
+            "deck": "pcav:2894",
+            "gloss": "dollar"
+          },
+          {
+            "deck": "pcav:4636",
+            "gloss": "to pay"
+          },
+          {
+            "deck": "pcav:0527",
+            "gloss": "clothes"
+          },
+          {
+            "deck": "pcav:0534",
+            "gloss": "shirt"
+          },
+          {
+            "deck": "pcav:0540",
+            "gloss": "trousers"
+          },
+          {
+            "deck": "pcav:0542",
+            "gloss": "jeans"
+          },
+          {
+            "deck": "pcav:0562",
+            "gloss": "dress"
+          },
+          {
+            "deck": "pcav:0564",
+            "gloss": "headscarf"
+          },
+          {
+            "deck": "pcav:0575",
+            "gloss": "jacket"
+          },
+          {
+            "deck": "pcav:0597",
+            "gloss": "shoes"
+          },
+          {
+            "deck": "pcav:0573",
+            "gloss": "hat"
+          },
+          {
+            "deck": "pcav:0556",
+            "gloss": "watch"
+          },
+          {
+            "deck": "pcav:0557",
+            "gloss": "wallet"
+          },
+          {
+            "deck": "pcav:0626",
+            "gloss": "size",
+            "sentence": "pcav:0615"
+          },
+          {
+            "deck": "pcav:3909",
+            "gloss": "small"
+          },
+          {
+            "deck": "pcav:3908",
+            "gloss": "big"
+          },
+          {
+            "deck": "pcav:0619",
+            "gloss": "to wear, to put on"
+          },
+          {
+            "deck": "pcav:4693",
+            "gloss": "new",
+            "sentence": "pcav:2352"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:9",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 9,
+        "title": "A day's work",
+        "theme": "Jobs, school, and getting things done",
+        "words": [
+          {
+            "deck": "pcav:1293",
+            "gloss": "work, job",
+            "sentence": "pcav:1302"
+          },
+          {
+            "deck": "pcav:1294",
+            "gloss": "to work",
+            "sentence": "pcav:3346"
+          },
+          {
+            "deck": "pcav:1337",
+            "gloss": "office",
+            "sentence": "pcav:4495"
+          },
+          {
+            "deck": "pcav:1399",
+            "gloss": "doctor"
+          },
+          {
+            "deck": "pcav:1439",
+            "gloss": "teacher",
+            "sentence": "pcav:1543"
+          },
+          {
+            "deck": "pcav:1396",
+            "gloss": "cook"
+          },
+          {
+            "deck": "pcav:1424",
+            "gloss": "police officer"
+          },
+          {
+            "deck": "pcav:1447",
+            "gloss": "to learn"
+          },
+          {
+            "deck": "pcav:1452",
+            "gloss": "school"
+          },
+          {
+            "deck": "pcav:1453",
+            "gloss": "student"
+          },
+          {
+            "deck": "pcav:1465",
+            "gloss": "university"
+          },
+          {
+            "deck": "pcav:1481",
+            "gloss": "lesson"
+          },
+          {
+            "deck": "pcav:1483",
+            "gloss": "question"
+          },
+          {
+            "deck": "pcav:1485",
+            "gloss": "answer"
+          },
+          {
+            "deck": "pcav:1488",
+            "gloss": "right, correct",
+            "sentence": "pcav:4705"
+          },
+          {
+            "deck": "pcav:1489",
+            "gloss": "wrong",
+            "sentence": "pcav:1490"
+          },
+          {
+            "deck": "pcav:1493",
+            "gloss": "textbook",
+            "sentence": "pcav:4062"
+          },
+          {
+            "deck": "pcav:1534",
+            "gloss": "to study",
+            "sentence": "pcav:1536"
+          },
+          {
+            "deck": "pcav:2235",
+            "gloss": "to read"
+          },
+          {
+            "deck": "pcav:2239",
+            "gloss": "book",
+            "sentence": "pcav:4062"
+          },
+          {
+            "deck": "pcav:4646",
+            "gloss": "to say"
+          },
+          {
+            "deck": "pcav:4657",
+            "gloss": "to talk"
+          },
+          {
+            "deck": "pcav:4552",
+            "gloss": "to ask"
+          },
+          {
+            "deck": "pcav:4615",
+            "gloss": "to help"
+          },
+          {
+            "deck": "pcav:4668",
+            "gloss": "to wait"
+          },
+          {
+            "deck": "pcav:4561",
+            "gloss": "to begin"
+          },
+          {
+            "deck": "pcav:4598",
+            "gloss": "to do, to make"
+          },
+          {
+            "deck": "pcav:4218",
+            "gloss": "later",
+            "sentence": "pcav:1566"
+          },
+          {
+            "deck": "pcav:4258",
+            "gloss": "early",
+            "sentence": "pcav:3125"
+          },
+          {
+            "deck": "pcav:4260",
+            "gloss": "late",
+            "sentence": "pcav:4365"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:10",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 10,
+        "title": "Sun, wind and heart",
+        "theme": "Weather, seasons, feelings, and saying what you think",
+        "words": [
+          {
+            "deck": "pcav:3644",
+            "gloss": "nice (weather)"
+          },
+          {
+            "deck": "pcav:3645",
+            "gloss": "bad (weather)"
+          },
+          {
+            "deck": "pcav:3675",
+            "gloss": "sky"
+          },
+          {
+            "deck": "pcav:3679",
+            "gloss": "sun"
+          },
+          {
+            "deck": "pcav:3684",
+            "gloss": "cloud"
+          },
+          {
+            "deck": "pcav:3686",
+            "gloss": "rain"
+          },
+          {
+            "deck": "pcav:3693",
+            "gloss": "wind"
+          },
+          {
+            "deck": "pcav:3698",
+            "gloss": "snow"
+          },
+          {
+            "deck": "pcav:4162",
+            "gloss": "summer",
+            "sentence": "pcav:3672"
+          },
+          {
+            "deck": "pcav:4164",
+            "gloss": "winter",
+            "sentence": "pcav:3701"
+          },
+          {
+            "deck": "pcav:4710",
+            "gloss": "hot"
+          },
+          {
+            "deck": "pcav:4712",
+            "gloss": "cold"
+          },
+          {
+            "deck": "pcav:3068",
+            "gloss": "happy",
+            "sentence": "pcav:3070"
+          },
+          {
+            "deck": "pcav:3087",
+            "gloss": "tired",
+            "sentence": "pcav:4425"
+          },
+          {
+            "deck": "pcav:3121",
+            "gloss": "to like"
+          },
+          {
+            "deck": "pcav:4674",
+            "gloss": "good",
+            "sentence": "pcav:3343"
+          },
+          {
+            "deck": "pcav:4676",
+            "gloss": "bad"
+          },
+          {
+            "deck": "pcav:4679",
+            "gloss": "hard, difficult"
+          },
+          {
+            "deck": "pcav:4680",
+            "gloss": "easy"
+          },
+          {
+            "deck": "pcav:4681",
+            "gloss": "important"
+          },
+          {
+            "deck": "pcav:4419",
+            "gloss": "but",
+            "sentence": "pcav:2498"
+          },
+          {
+            "deck": "pcav:4423",
+            "gloss": "because"
+          },
+          {
+            "deck": "pcav:4345",
+            "gloss": "also"
+          },
+          {
+            "deck": "pcav:4359",
+            "gloss": "always",
+            "sentence": "pcav:3146"
+          },
+          {
+            "deck": "pcav:4363",
+            "gloss": "sometimes",
+            "sentence": "pcav:4365"
+          },
+          {
+            "deck": "pcav:4368",
+            "gloss": "never",
+            "sentence": "pcav:1928"
+          },
+          {
+            "deck": "pcav:4555",
+            "gloss": "can, to be able to"
+          },
+          {
+            "deck": "pcav:4612",
+            "gloss": "to give"
+          },
+          {
+            "deck": "pcav:4651",
+            "gloss": "to sit"
+          },
+          {
+            "deck": "pcav:4637",
+            "gloss": "to play",
+            "sentence": "pcav:0423"
+          }
+        ]
+      }
+    }
+  ]
+}
