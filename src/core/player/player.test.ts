@@ -103,6 +103,48 @@ describe('player', () => {
   });
 });
 
+describe('the player’s chests (ADR 0033)', () => {
+  it('loads chests with the contracts, and opening one pays it and takes it off the shelf', async () => {
+    const chest = { id: 'c1', kind: 'brass', source: 'trial' as const, sourceKey: 'morse:1' };
+    const base = memoryStore();
+    const store = {
+      ...base,
+      chests: async () => [chest],
+      openChest: async () => ({
+        kind: 'brass',
+        gold: 50,
+        gems: 1,
+        item: 'cloak',
+        itemGold: 0,
+        shield: true,
+        shieldGold: 0,
+        wallet: { gold: 50, gems: 1, shields: 1 },
+      }),
+    };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    await player.loadContracts();
+    expect(player.getSnapshot().chests).toEqual([chest]);
+    const contents = await player.openChest('c1');
+    expect(contents).toMatchObject({ gold: 50, item: 'cloak' });
+    const s = player.getSnapshot();
+    expect(s.chests).toEqual([]);
+    expect(s.wallet).toMatchObject({ gold: 50, gems: 1 });
+    expect(s.today?.shields).toBe(1);
+    expect(s.profile?.owned).toEqual(['cloak']);
+  });
+
+  it('reports a chest that fails to open and keeps it on the shelf', async () => {
+    const chest = { id: 'c1', kind: 'wooden', source: 'contracts' as const, sourceKey: 'd' };
+    const store = { ...memoryStore(), chests: async () => [chest] };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    await player.loadContracts();
+    expect(await player.openChest('c1')).toBeNull();
+    expect(player.getSnapshot()).toMatchObject({ chests: [chest], error: expect.any(String) });
+  });
+});
+
 describe('the player’s name', () => {
   it('loads with the profile, saves trimmed, and refuses names over 40 characters', async () => {
     const store = memoryStore();

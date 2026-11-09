@@ -89,6 +89,31 @@ export interface TodaysContracts {
   gold: number;
 }
 
+/** An unopened reward chest (ADR 0033): what kind, and what earned it. */
+export interface Chest {
+  id: string;
+  /** wooden, brass or jeweled (content/core/chests.json). */
+  kind: string;
+  source: 'contracts' | 'trial' | 'streak';
+  /** contracts: the day; trial: "subject:chapter"; streak: "day:days". */
+  sourceKey: string;
+}
+
+/** What an opened chest held, rolled and paid by the database. */
+export interface ChestContents {
+  kind: string;
+  gold: number;
+  gems: number;
+  /** Gear given, or (with itemGold) gear already owned, paid as its price in gold. */
+  item: string | null;
+  itemGold: number;
+  /** A streak shield, or (with shieldGold) its price in gold when already holding 2. */
+  shield: boolean;
+  shieldGold: number;
+  /** The wallet afterwards (absent when the chest was already open). */
+  wallet?: { gold: number; gems: number; shields: number };
+}
+
 /** The player's own profile fields the app shows. */
 export interface Profile {
   /** The name the player chose; empty until they choose one. */
@@ -109,6 +134,10 @@ export interface ProgressStore {
   wallet(): Promise<Wallet>;
   /** Today's contracts (picked once a day); finished ones are paid first (ADR 0032). */
   todaysContracts(): Promise<TodaysContracts>;
+  /** The player's unopened chests, oldest first (ADR 0033). */
+  chests(): Promise<Chest[]>;
+  /** Opens a chest: the database rolls and pays it, once. */
+  openChest(id: string): Promise<ChestContents>;
   profile(): Promise<Profile>;
   setDisplayName(name: string): Promise<void>;
   setAvatar(look: Look): Promise<void>;
@@ -221,6 +250,13 @@ export function memoryStore(
     // Contracts are picked and paid only by the database (schema tests); none here.
     async todaysContracts() {
       return { day: todayIs(), contracts: [], paidNow: [], gold: wallet.gold };
+    },
+    // Chests too are granted and rolled only by the database (schema tests).
+    async chests() {
+      return [];
+    },
+    async openChest() {
+      throw new Error('Chests open only in the database');
     },
     async saveSession(subjectId, s) {
       if (savedSessions.has(s.sessionId)) return { duplicate: true, award: null };

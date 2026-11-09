@@ -58,11 +58,24 @@ Three a day on the Notice Board ([ADR 0032](../decisions/0032-subject-events-and
 | Morse: a Koch run at 90% · 3 Koch runs · 2 recognition rounds · a recognition best · a sending drill at 80% | 1 · 3 · 2 · 1 · 1 | 20 · 15 · 15 · 20 · 15 |
 | Arabic: a letters session at 90% · 2 letters sessions · a slate page · a coffee corner visit | 1 · 2 · 1 · 1 | 20 · 15 · 15 · 15 |
 
+## Reward chests
+Separate from the daily-goal chest above, which pays at once. These wait on the Notice Board until you open them ([ADR 0033](../decisions/0033-inventory-chests-and-market.md), #48). Each source gives one chest. What's inside is rolled by the database when you open it, seeded by the chest, so reloading can't change it. The drop tables are data in `content/core/chests.json`.
+
+| Earned by | Chest | Gold | Gem | Gear | Streak shield |
+|---|---|---|---|---|---|
+| Finishing all 3 of a day's contracts | Wooden | 15–40 | 5%: 1 | 10% | 5% |
+| Passing a trial | Brass | 40–80 | 25%: 1 | 40% | 15% |
+| Reaching a 7-day streak | Brass | 40–80 | 25%: 1 | 40% | 15% |
+| Reaching a 30- or 100-day streak | Jeweled | 80–150 | always: 1–2 | 60% | 40% |
+
+- **Gear** is one you don't own yet. If you own them all, you get its price in gold instead.
+- **A shield** when you already hold 2 becomes its price, 120 gold.
+- A shielded day doesn't count toward a streak chest (ADR 0034).
+
 ## Coming later (not dropped)
 | Reward | Where |
 |---|---|
 | Combo bonus inside activities | E10 (quests and rewards). It was planned for E6–E9 but not built there; the end-of-activity screens were. |
-| Chests, and the contract chest for finishing all 3 | E10 (#48) |
 | Weekly league | M5 (friends) |
 | Achievements and boss challenges paying gems | later epics |
 
