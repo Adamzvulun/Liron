@@ -82,7 +82,8 @@
      - #48, part 2: reward chests. Finishing a day's 3 contracts gives a wooden chest, each trial passed and a 7-day streak a brass one, 30 and 100 days a jeweled one. They wait on the Notice Board's shelf; the database rolls and pays one when it's opened, once. Migration `20261111000000_chests.sql`; numbers in [economy](../game/economy.md#reward-chests).
    - **#49 Market, part 1 (wares):** 16 new gear items (2–3 per slot) and 4 tunic dyes are drawn, in the catalogue and the `items` table. Chests can drop them now; the wardrobe has a Tunic dye choice.
    - **#49 Market, part 2 (buying):** the Market building sells 4 wares a day for gold (`market_today`, `buy_item`). E10 is complete once it merges.
-   - **Next:** [#137](https://github.com/Adamzvulun/Liron/issues/137) (Adam, 2026-11-09: the site still feels too slow; find out why).
+   - **E10 is complete** (#46–#49 merged 2026-11-09).
+   - **[#137](https://github.com/Adamzvulun/Liron/issues/137) speed, measured (2026-11-09):** the biggest cost is the city's 5,871 SVG shapes (paint 0.28 s and layout 0.7 s on a slowed phone; about 0.2 s redraw on every return to the square, even on desktop). Startup data now loads in parallel. Waiting on Adam: pre-render the scenery at build time (a WebP download of about 110–430 kB), and which moments feel slow ([report](reports/2026-11-09.md)).
    - **Audio for the missing phrases:** no source is usable yet. Lingua Libre is the lead (a CC0 *nšallah* found); the speakers' origin is unverified because lingualibre.org timed out. Nothing is used until Adam has seen the files ([research](../research/phrase-audio-sources.md)).
 
 ## Backlog map

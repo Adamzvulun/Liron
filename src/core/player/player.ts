@@ -72,13 +72,18 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     getSnapshot: () => state,
     async load() {
       try {
-        // The day follows the browser's time zone. If saving it fails, the last one still works.
-        await store.setTimeZone(timeZone()).catch(() => {});
+        // The day follows the browser's time zone, so today waits for it (if saving it fails,
+        // the last one still works). The wallet and profile don't: they load meanwhile (#137).
         const [wallet, today, profile] = await Promise.all([
           store.wallet(),
-          store.today(),
+          store
+            .setTimeZone(timeZone())
+            .catch(() => {})
+            .then(() => store.today()),
           store.profile(),
         ]);
+        // Contracts may have paid gold while this loaded; their purse is the newer one.
+        if (state.contracts) wallet.gold = state.contracts.gold;
         set({ wallet, today, profile, error: null });
       } catch (e) {
         fail(e);

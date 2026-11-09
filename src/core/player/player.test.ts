@@ -103,6 +103,28 @@ describe('player', () => {
   });
 });
 
+describe('loading at once (#137)', () => {
+  it('keeps the contracts’ purse when they answer before the wallet', async () => {
+    let answerWallet = () => {};
+    const base = memoryStore();
+    const store = {
+      ...base,
+      // The wallet answers last, with gold read before the contracts paid.
+      wallet: () =>
+        new Promise<Awaited<ReturnType<typeof base.wallet>>>((res) => {
+          answerWallet = () => void base.wallet().then((w) => res({ ...w, gold: 5 }));
+        }),
+      todaysContracts: async () => ({ day: 'd', contracts: [], paidNow: [], gold: 35 }),
+    };
+    const player = createPlayer(store, () => 'UTC');
+    const loading = player.load();
+    await player.loadContracts();
+    answerWallet();
+    await loading;
+    expect(player.getSnapshot().wallet?.gold).toBe(35);
+  });
+});
+
 describe('the player’s chests (ADR 0033)', () => {
   it('loads chests with the contracts, and opening one pays it and takes it off the shelf', async () => {
     const chest = { id: 'c1', kind: 'brass', source: 'trial' as const, sourceKey: 'morse:1' };
