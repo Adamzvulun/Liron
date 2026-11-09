@@ -18,5 +18,7 @@ export function questlineStatus(state: unknown): QuestlineStatus | null {
     total: chapter.letters.length,
     unit: 'lamps',
     ...(trial && { next: `Trial: ${trial.trial.name}` }),
+    // The whole questline done: the last chapter's trial is passed.
+    ...(progress.trials.includes(chapter.number) && { next: 'Trial passed' }),
   };
 }
