@@ -10,6 +10,7 @@ import {
   type MorseProgress,
 } from '../lesson/progress.ts';
 import { questStatus, roman } from '../questline.ts';
+import { wordsOpen } from '../words/drill.ts';
 import {
   BANNER,
   GATE,
@@ -46,7 +47,7 @@ function rankOf(p: MorseProgress) {
       };
 }
 
-export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending';
+export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending' | 'words';
 
 // The room never changes, so it's painted once per page load.
 let painted: ReturnType<typeof paintTower> | undefined;
@@ -261,6 +262,17 @@ function Room({
         ? `Your fist: ${Math.round(1200 / (progress.sending.ditMs ?? 100))} wpm`
         : 'Key letters with the straight key',
       open: 'sending',
+    },
+    {
+      id: 'codebook',
+      plaque: { x: 690, y: 978 },
+      title: 'Codebook',
+      text: !wordsOpen(progress)
+        ? 'Locked · pass the Gatekeeper'
+        : progress.words.best
+          ? `Your best: ${progress.words.best} of 10`
+          : 'Copy whole words',
+      ...(wordsOpen(progress) && { open: 'words' as const }),
     },
     {
       id: 'radio',
