@@ -17,6 +17,7 @@ import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
 import { privatePackVersion, supabaseContent } from './content/privateContent.ts';
+import { functionSpeech } from './speech.ts';
 import './App.css';
 
 // The signed-in player. Subjects' APIs report awards to it (ADR 0019, 0020).
@@ -31,6 +32,10 @@ const contentOf = (client: NonNullable<typeof supabase>) =>
     browserPackStore,
   );
 
+/** The "understood" check (ADR 0014), signed in as the current learner. */
+const speechOf = (client: NonNullable<typeof supabase>) =>
+  functionSpeech(async () => (await client.auth.getSession()).data.session?.access_token ?? null);
+
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
   store && player
@@ -38,7 +43,13 @@ const apis = new Map(
         (s) =>
           [
             s.id,
-            subjectApi(s, store, player.applyAward, supabase ? contentOf(supabase) : null),
+            subjectApi(
+              s,
+              store,
+              player.applyAward,
+              supabase ? contentOf(supabase) : null,
+              supabase ? speechOf(supabase) : null,
+            ),
           ] as const,
       )
     : [],

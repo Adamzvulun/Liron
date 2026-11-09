@@ -79,8 +79,8 @@ const release = (stream: MediaStream) => stream.getTracks().forEach((t) => t.sto
 
 /**
  * Record yourself to compare with the native speaker (#45, ADR 0013): the recording stays in
- * this browser tab as a blob URL. Nothing is uploaded, and the microphone is released as soon
- * as you stop or leave.
+ * this browser tab as a blob URL. Nothing is uploaded here (only the "understood" check sends it,
+ * when the learner presses it), and the microphone is released as soon as you stop or leave.
  */
 export function useRecorder() {
   const supported =
@@ -88,7 +88,8 @@ export function useRecorder() {
     !!navigator.mediaDevices?.getUserMedia &&
     typeof MediaRecorder !== 'undefined';
   const [state, setState] = useState<RecorderState>(supported ? 'idle' : 'unsupported');
-  const [url, setUrl] = useState<string | null>(null);
+  const [take, setTake] = useState<{ blob: Blob; url: string } | null>(null);
+  const url = take?.url ?? null;
   const core = useRef<RecorderCore | null>(null);
 
   useEffect(
@@ -103,7 +104,7 @@ export function useRecorder() {
       navigator.mediaDevices,
       (s) => new MediaRecorder(s),
       setState,
-      (blob) => setUrl(URL.createObjectURL(blob)),
+      (blob) => setTake({ blob, url: URL.createObjectURL(blob) }),
     );
     core.current = c;
     return () => {
@@ -114,7 +115,7 @@ export function useRecorder() {
 
   const start = useCallback(async () => core.current?.start(), []);
   const stop = useCallback(() => core.current?.stop(), []);
-  const reset = useCallback(() => setUrl(null), []);
+  const reset = useCallback(() => setTake(null), []);
 
-  return { state, url, start, stop, reset };
+  return { state, url, blob: take?.blob ?? null, start, stop, reset };
 }
