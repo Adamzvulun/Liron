@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { codeFor, MORSE_CHARS } from './code.ts';
+import { codeFor, MORSE_CHARS, sendable } from './code.ts';
 import { ditSeconds, gapSeconds, schedule } from './timing.ts';
 
 /** Item i, failing the test if it's missing. */
@@ -25,6 +25,24 @@ describe('Morse code table', () => {
   it('looks characters up in any case', () => {
     expect(codeFor('k')).toBe('-.-');
     expect(codeFor('#')).toBeUndefined();
+  });
+
+  it('knows prosigns, written in angle brackets (#155)', () => {
+    expect(codeFor('<ar>')).toBe('.-.-.');
+    expect(codeFor('<SK>')).toBe('...-.-');
+    expect(sendable('cq<ar> 5<')).toEqual(['C', 'Q', '<AR>', ' ', '5', '<']);
+  });
+});
+
+describe('prosigns in the sound (#155)', () => {
+  it('plays a prosign as one character, with no letter gap inside', () => {
+    const speed = { charWpm: 20 };
+    const s = schedule('<AR>', speed);
+    expect(s.chars.map((c) => c.char)).toEqual(['<AR>']);
+    // .-.-. is 1+1+3+1+1+1+3+1+1 = 13 units, the same as one character with five elements.
+    expect(s.duration).toBeCloseTo(13 * ditSeconds(20));
+    // A+R as two letters is longer: the letter gap is 3 units, not 1.
+    expect(schedule('AR', speed).duration).toBeCloseTo(15 * ditSeconds(20));
   });
 });
 
