@@ -145,6 +145,56 @@ describe('the player’s chests (ADR 0033)', () => {
   });
 });
 
+describe('the Market (#49)', () => {
+  const ware = (id: string, kind: 'gear' | 'functional', price: number) => ({
+    id,
+    kind,
+    slot: kind === 'gear' ? 'head' : null,
+    rarity: 'common',
+    price,
+    owned: false,
+    affordable: true,
+  });
+  const stall = {
+    day: '2026-11-09',
+    wares: [ware('tarboosh', 'gear', 60), ware('streak-shield', 'functional', 120)],
+  };
+
+  it('buys a ware: the purse, the wardrobe and the stall follow', async () => {
+    const store = {
+      ...memoryStore(),
+      market: async () => stall,
+      buyItem: async () => ({ gold: 70, gems: 0, shields: 0 }),
+    };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    await player.loadMarket();
+    expect(await player.buy('tarboosh')).toBeNull();
+    const s = player.getSnapshot();
+    expect(s.wallet?.gold).toBe(70);
+    expect(s.profile?.owned).toEqual(['tarboosh']);
+    expect(s.market?.wares.map((w) => [w.id, w.owned, w.affordable])).toEqual([
+      ['tarboosh', true, true],
+      ['streak-shield', false, false],
+    ]);
+  });
+
+  it('says plainly why a ware could not be bought', async () => {
+    const store = {
+      ...memoryStore(),
+      market: async () => stall,
+      buyItem: async () => {
+        throw new Error('Couldn’t buy it: too little gold');
+      },
+    };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    await player.loadMarket();
+    expect(await player.buy('tarboosh')).toBe('Not enough gold yet.');
+    expect(player.getSnapshot().profile?.owned).toEqual([]);
+  });
+});
+
 describe('the player’s name', () => {
   it('loads with the profile, saves trimmed, and refuses names over 40 characters', async () => {
     const store = memoryStore();

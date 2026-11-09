@@ -49,6 +49,7 @@ Drafted on 2026-11-04. **Adam approved the draft and its Notice Board concept on
   | Epic | 450 | about a week |
   | Streak shield | 120 | 2 days |
 
+- **As built (#49):** the stall is the Market building's screen, not a panel on the Notice Board. Each ware shows your traveler wearing it; what you can't afford says how much more gold you need; what you own says "Yours".
 - **Owning things:** a new `owned_items` table. The avatar then reads unlocks from the database, which `docs/game/avatar.md` already plans ("once E10 lets players earn items, unlocks should live in the database").
 - **Streak shield:** you can hold 2. On a missed day, one is used up and the streak survives. This changes the streak rule in ADR 0021, so it needs its own ADR.
 
