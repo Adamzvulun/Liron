@@ -289,6 +289,102 @@
         "rarity": "functional",
         "price": 120
       }
+    },
+    {
+      "id": "ear-cups",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "listener"
+        }
+      }
+    },
+    {
+      "id": "brass-key",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "keyer"
+        }
+      }
+    },
+    {
+      "id": "operator-coat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "operator"
+        }
+      }
+    },
+    {
+      "id": "night-lantern",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "telegraphist"
+        }
+      }
+    },
+    {
+      "id": "house-sash",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "guest"
+        }
+      }
+    },
+    {
+      "id": "keffiyeh",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "traveler"
+        }
+      }
     }
   ]
 }

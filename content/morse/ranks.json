@@ -18,6 +18,7 @@
       "subject": "morse",
       "type": "rank",
       "data": {
+        "gear": "ear-cups",
         "name": "Listener",
         "conditions": ["Learn all 41 Koch characters", "Pass the Beacon’s Answer"],
         "order": 2
@@ -28,6 +29,7 @@
       "subject": "morse",
       "type": "rank",
       "data": {
+        "gear": "brass-key",
         "name": "Keyer",
         "conditions": [
           "Finish 20 sending drills",
@@ -42,6 +44,7 @@
       "subject": "morse",
       "type": "rank",
       "data": {
+        "gear": "operator-coat",
         "name": "Operator",
         "conditions": ["Learn the prosigns", "Pass the Far Station, your first QSO"],
         "later": "The Far Station opens soon",
@@ -53,6 +56,7 @@
       "subject": "morse",
       "type": "rank",
       "data": {
+        "gear": "night-lantern",
         "name": "Telegraphist",
         "conditions": ["Head-copy common words at 20 wpm: pass the Night Watch"],
         "later": "The Night Watch opens soon",

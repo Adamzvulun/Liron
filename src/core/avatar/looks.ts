@@ -213,6 +213,48 @@ export const GEAR: readonly GearItem[] = [
     name: 'Guild banner',
     starter: false,
     earn: 'From chests and the Market',
+  }, // Rank gear (#176, ADR 0035): only taking the rank gives it. Never sold, never in a chest.
+  {
+    id: 'ear-cups',
+    slot: 'head',
+    name: "Listener's ear-cups",
+    starter: false,
+    earn: 'Take the Listener rank in the Signal Tower',
+  },
+  {
+    id: 'brass-key',
+    slot: 'hand',
+    name: "Keyer's brass key",
+    starter: false,
+    earn: 'Take the Keyer rank in the Signal Tower',
+  },
+  {
+    id: 'operator-coat',
+    slot: 'torso',
+    name: "Operator's coat",
+    starter: false,
+    earn: 'Take the Operator rank in the Signal Tower',
+  },
+  {
+    id: 'night-lantern',
+    slot: 'hand',
+    name: 'Night-watch lantern',
+    starter: false,
+    earn: 'Take the Telegraphist rank in the Signal Tower',
+  },
+  {
+    id: 'house-sash',
+    slot: 'torso',
+    name: 'Sash of the house',
+    starter: false,
+    earn: 'Take the Guest rank in the Caravanserai',
+  },
+  {
+    id: 'keffiyeh',
+    slot: 'head',
+    name: "Traveler's keffiyeh",
+    starter: false,
+    earn: 'Take the Traveler rank in the Caravanserai',
   },
 ];
 
