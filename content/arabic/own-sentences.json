@@ -1252,9 +1252,9 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:0244",
-        "arabic": "غسلْت وِجْهي.",
-        "latin": "ɣasált wíjhi.",
-        "english": "I washed my face."
+        "arabic": "وِجْهك أحْمر!",
+        "latin": "wíjhak áɧmar!",
+        "english": "Your face is red!"
       }
     },
     {
@@ -2212,6 +2212,611 @@
         "arabic": "تْفضّل، اُقْعُد.",
         "latin": "tfáɖɖal, úg3ud.",
         "english": "Please, sit down."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0535",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0535",
+        "arabic": "هالبْلوزة حِلْوة عليْكي.",
+        "latin": "ha-lblūza ɧílwa 3alēki.",
+        "english": "This blouse looks nice on you."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0563",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0563",
+        "arabic": "بِدّي أشْتري تنّورة سوْدا.",
+        "latin": "bíddi aštári tannūra sōda.",
+        "english": "I want to buy a black skirt."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0576",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0576",
+        "arabic": "الجّوّ ساقِع، اِلْبِس البالْطوْ.",
+        "latin": "ijjáww sāgi3, ílbis ilbālʈō.",
+        "english": "It's cold, put on your coat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0580",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0580",
+        "arabic": "هادي اللفْحة إلِك.",
+        "latin": "hādi -lláfɧa ílik.",
+        "english": "This scarf is for you."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0545",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0545",
+        "arabic": "القْشاط هاد كْبير عليّ.",
+        "latin": "ilgšāʈ hād kbīr 3aláyy.",
+        "english": "This belt is too big for me."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0598",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0598",
+        "arabic": "كُنْدِرْتي وِسْخة.",
+        "latin": "kundírti wísxa.",
+        "english": "My shoes are dirty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0618",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0618",
+        "arabic": "ويْن جرابيني؟",
+        "latin": "wēn jarabīni?",
+        "english": "Where are my socks?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0559",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0559",
+        "arabic": "شنْطِتي تْقيلة كْتير.",
+        "latin": "šanʈíti tgīla ktīr.",
+        "english": "My bag is very heavy."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0622",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0622",
+        "arabic": "اِشْلح الكُنْدرة قبِل ما تُدْخُل.",
+        "latin": "íšlaɧ ilkúndara gabl ma túdxul.",
+        "english": "Take off your shoes before you come in."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3880",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3880",
+        "arabic": "عيْنيْه بِنّي.",
+        "latin": "3ēnē bínni.",
+        "english": "His eyes are brown."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3882",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3882",
+        "arabic": "السّيّارة لوْنْها رمادي.",
+        "latin": "issayyāra lónha ramādi.",
+        "english": "The car is gray."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3887",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3887",
+        "arabic": "البْلوزة الأوْرانْج إلي.",
+        "latin": "ilblūza lʔōrānj íli.",
+        "english": "The orange T-shirt is mine."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3889",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3889",
+        "arabic": "بِنْتي بْتِحِبّ اللوْن الزّهْري.",
+        "latin": "bínti btiɧíbb illōn izzáhri.",
+        "english": "My daughter loves pink."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3891",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3891",
+        "arabic": "الفُسْتان البنفْسجي حِلو كْتير.",
+        "latin": "ilfustān ilbanáfsaji ɧílu ktīr.",
+        "english": "The purple dress is really pretty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3895",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3895",
+        "arabic": "بِدّي أزْرق فاتِح.",
+        "latin": "bíddi ázrag fātiɧ.",
+        "english": "I want light blue."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3897",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3897",
+        "arabic": "شعْرو بِنّي غامِق.",
+        "latin": "šá3ru bínni ɣāmig.",
+        "english": "His hair is dark brown."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0521",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0521",
+        "arabic": "إنْتَ مْرتّب اليوْم!",
+        "latin": "ínta mráttab ilyōm!",
+        "english": "You look sharp today!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0522",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0522",
+        "arabic": "البِنِت الصّْغيرة ناعْمة كْتير.",
+        "latin": "ilbínit iʂʂɣīra nā3ma ktīr.",
+        "english": "The little girl is so cute."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0450",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0450",
+        "arabic": "كِتْفي بيوْجَعْني.",
+        "latin": "kítfi byōja3ni.",
+        "english": "My shoulder hurts."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0454",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0454",
+        "arabic": "أكلْت كْتير، بطْني مليان.",
+        "latin": "akált ktīr, báʈni malyān.",
+        "english": "I ate a lot. My belly is full."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0459",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0459",
+        "arabic": "عِنْدي وَجع مِعْدة.",
+        "latin": "3índi wája3 mí3da.",
+        "english": "I have a stomachache."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0249",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0249",
+        "arabic": "بغْسِل وِجْهي كُلّ يوْم الصُّبِح.",
+        "latin": "báɣsil wíjhi kull yōm iʂʂúbiɧ.",
+        "english": "I wash my face every morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4697",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4697",
+        "arabic": "الدّار نْضيفة.",
+        "latin": "iddār nɖīfa.",
+        "english": "The house is clean."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4698",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4698",
+        "arabic": "الأواعي الوِسْخة في الحمّام.",
+        "latin": "ilʔawā3i lwísxa fi lɧammām.",
+        "english": "The dirty clothes are in the bathroom."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4532",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4532",
+        "arabic": "بشْرب القهْوة بِدون سُكّر.",
+        "latin": "bášrab ilgáhwa bidūn súkkar.",
+        "english": "I drink my coffee without sugar."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3943",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3943",
+        "arabic": "بعْض الوْلاد بيْحِبّوش الخُضْرة.",
+        "latin": "ba3ɖ ilwlād biɧibbūš ilxúɖra.",
+        "english": "Some kids don't like vegetables."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0007",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0007",
+        "arabic": "الرّضيع نايِم.",
+        "latin": "irraɖī3 nāyim.",
+        "english": "The baby is asleep."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0018",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0018",
+        "arabic": "مين هالشّخْص؟",
+        "latin": "mīn ha-ššaxʂ?",
+        "english": "Who's that person?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0020",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0020",
+        "arabic": "هُوَّ شابّ مْرتّب.",
+        "latin": "húwwa šabb mráttab.",
+        "english": "He's a sharp-looking young man."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0031",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0031",
+        "arabic": "العجوز قاعِد قُدّام الدّار.",
+        "latin": "il3ajūz gā3id guddām iddār.",
+        "english": "The old man is sitting in front of the house."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0032",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0032",
+        "arabic": "سِتّي خِتْيارة بسّ قَوِيّة.",
+        "latin": "sítti xityāra bass gawíyya.",
+        "english": "My grandmother is old, but strong."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0113",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0113",
+        "arabic": "زوْجي مشْغول اليوْم.",
+        "latin": "zōji mašɣūl ilyōm.",
+        "english": "My husband is busy today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0115",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0115",
+        "arabic": "مرْت خالي مِن هان.",
+        "latin": "mart xāli min hān.",
+        "english": "My uncle's wife is from here."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0132",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0132",
+        "arabic": "عمّي عِنْدو مطْعم.",
+        "latin": "3ámmi 3índu máʈ3am.",
+        "english": "My uncle has a restaurant."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0134",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0134",
+        "arabic": "عمّْتي بْتِشْتِغِل في البنْك.",
+        "latin": "3ámmti btištáɣil fi lbank.",
+        "english": "My aunt works at the bank."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0136",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0136",
+        "arabic": "خالي عايِش برّا.",
+        "latin": "xāli 3āyiš bárra.",
+        "english": "My uncle lives abroad."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0138",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0138",
+        "arabic": "خالْتي عِنْدْها تلات بنات.",
+        "latin": "xālti 3índha talat banāt.",
+        "english": "My aunt has three daughters."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0172",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0172",
+        "arabic": "عِنْدْها حبيب؟",
+        "latin": "3índha ɧabīb?",
+        "english": "Does she have a boyfriend?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0173",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0173",
+        "arabic": "حبيبْتو مِن ويْن؟",
+        "latin": "ɧabībtu min wēn?",
+        "english": "Where is his girlfriend from?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0188",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0188",
+        "arabic": "أخوي لِسّا أعْزب.",
+        "latin": "axūy líssa á3zab.",
+        "english": "My brother is still single."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0235",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0235",
+        "arabic": "صباح الخيْر يا مدام سلْوى!",
+        "latin": "ʂabāɧ ilxēr ya madām sálwa!",
+        "english": "Good morning, Mrs. Salwa!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0236",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0236",
+        "arabic": "الآنسة ريم بْتِشْتِغِل في المدْرسة.",
+        "latin": "ilʔānisa rīm btištáɣil fi lmádrasa.",
+        "english": "Miss Reem works at the school."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2230",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2230",
+        "arabic": "هُوَّ صديق قديم.",
+        "latin": "húwwa ʂadīq gadīm.",
+        "english": "He's an old friend."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3100",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3100",
+        "arabic": "خالْتي لطيفة كْتير.",
+        "latin": "xālti laʈīfa ktīr.",
+        "english": "My aunt is very kind."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3101",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3101",
+        "arabic": "صاحْبك بينْحبّ.",
+        "latin": "ʂáɧbak binɧább.",
+        "english": "Your friend is easy to like."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3069",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3069",
+        "arabic": "أنا فرْحان كْتير إنّك هان.",
+        "latin": "ána farɧān ktīr ínnak hān.",
+        "english": "I'm so glad you're here."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3128",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3128",
+        "arabic": "شو هِوايْتك؟",
+        "latin": "šū hiwāytak?",
+        "english": "What's your hobby?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3208",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3208",
+        "arabic": "بحِبّ أقْرا عن الإسْلام.",
+        "latin": "baɧíbb ágra 3an ilʔislām.",
+        "english": "I like reading about Islam."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3209",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3209",
+        "arabic": "أهْلو مُسْلْمين.",
+        "latin": "áhlu muslimīn.",
+        "english": "His parents are Muslim."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3226",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3226",
+        "arabic": "الجّامِع جنْب السّوق.",
+        "latin": "ijjāmi3 jamb issūg.",
+        "english": "The mosque is next to the market."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4554",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4554",
+        "arabic": "كان الجّوّ حِلو إمْبارِح.",
+        "latin": "kān ijjáww ɧílu imbāriɧ.",
+        "english": "The weather was nice yesterday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4614",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4614",
+        "arabic": "كان عِنْدي سيّارة حمْرا.",
+        "latin": "kān 3índi sayyāra ɧámra.",
+        "english": "I used to have a red car."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3027",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3027",
+        "arabic": "بْتِتْزكّر اِسْمو؟",
+        "latin": "btidzákkar ísmu?",
+        "english": "Do you remember his name?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3033",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3033",
+        "arabic": "نْسيت مُفْتاح الدّار.",
+        "latin": "nsīt muftāɧ iddār.",
+        "english": "I forgot the house key."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4716",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4716",
+        "arabic": "أنا مشْغول هالإسْبوع.",
+        "latin": "ána mašɣūl ha-lʔisbū3.",
+        "english": "I'm busy this week."
       }
     }
   ]
