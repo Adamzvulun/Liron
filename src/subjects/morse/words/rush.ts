@@ -10,6 +10,8 @@ export const RUSH_START_WPM = 20;
 export const RUSH_STEP_WPM = 2;
 export const RUSH_MIN_WPM = 15;
 export const RUSH_MAX_WPM = 50;
+/** A call copied at this speed or faster earns the Overspeed achievement (#177). */
+export const OVERSPEED_WPM = 30;
 
 const isDigit = (c: string) => /^[0-9]$/.test(c);
 const isLetter = (c: string) => /^[A-Z]$/.test(c);
@@ -84,7 +86,8 @@ export function applyRush(p: MorseProgress, s: RushSummary): MorseProgress {
 /**
  * Saves a rush in one go: state, XP, minutes and the events daily contracts may count:
  * `rush-round`, `rush-best` when it beat the best before, and `rush-fast` for each call copied
- * above the learner's own character speed. Callsigns are made up, so nothing is rated.
+ * above the learner's own character speed, and `rush-30` when a call was copied at 30 wpm or
+ * faster (the Overspeed achievement, #177). Callsigns are made up, so nothing is rated.
  */
 export async function reportRush(
   api: SubjectApi,
@@ -105,6 +108,7 @@ export async function reportRush(
       { kind: 'rush-round' },
       ...(s.score > bestBefore ? [{ kind: 'rush-best' }] : []),
       ...(fast ? [{ kind: 'rush-fast', count: Math.min(100, fast) }] : []),
+      ...(s.topWpm >= OVERSPEED_WPM ? [{ kind: 'rush-30' }] : []),
     ],
     at,
   });

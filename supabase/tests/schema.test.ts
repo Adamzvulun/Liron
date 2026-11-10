@@ -121,13 +121,13 @@ beforeEach(() => db.exec('begin'));
 afterEach(() => db.exec('rollback'));
 
 describe('player rows', () => {
-  it('gives existing and new accounts a profile and an empty wallet', async () => {
+  it('gives existing and new accounts a profile with no title worn and an empty wallet', async () => {
     const profiles = await rows(
       'select id, title, daily_goal_minutes, time_zone from profiles order by id',
     );
     expect(profiles).toEqual([
-      { id: ADAM, title: 'Traveller', daily_goal_minutes: 15, time_zone: 'UTC' },
-      { id: OTHER, title: 'Traveller', daily_goal_minutes: 15, time_zone: 'UTC' },
+      { id: ADAM, title: '', daily_goal_minutes: 15, time_zone: 'UTC' },
+      { id: OTHER, title: '', daily_goal_minutes: 15, time_zone: 'UTC' },
     ]);
     const wallets = await rows('select user_id, xp, gold, gems from wallets order by user_id');
     expect(wallets).toEqual([
@@ -1780,5 +1780,197 @@ describe('the Market (ADR 0033, #49)', () => {
     await expect(as(ADAM, () => rows(`select market_stock(current_date)`))).rejects.toThrow(
       /permission denied/,
     );
+  });
+});
+
+describe('achievements, gems and titles (#177, ADR 0035)', () => {
+  type Mine = {
+    title: string;
+    gems: number;
+    achievements: { id: string; progress: number; target: number; earned_at: string | null }[];
+  };
+  const mine = async (userId = ADAM) =>
+    ((await as(userId, () => rows(`select my_achievements() as m`)))[0] as { m: Mine }).m;
+  const progress = async (id: string) => (await mine()).achievements.find((a) => a.id === id);
+  let n = 0;
+  const save = (subject: string, events: unknown[]) =>
+    as(ADAM, () => {
+      n += 1;
+      return rows(`select save_session($1, $2, null, '[]', '[]', 0, 0, $3::jsonb)`, [
+        subject,
+        `c5c5c5c5-0000-4000-8000-${String(n).padStart(12, '0')}`,
+        JSON.stringify(events),
+      ]);
+    });
+  const gems = async () =>
+    ((await rows(`select gems from wallets where user_id = $1`, [ADAM]))[0] as { gems: number })
+      .gems;
+
+  beforeEach(() => rows(`delete from daily_activity where user_id = $1`, [ADAM]));
+
+  it('holds exactly the achievements in content/', async () => {
+    const file = JSON.parse(
+      readFileSync(join(root, '..', 'content', 'core', 'achievements.json'), 'utf8'),
+    ) as { items: { id: string; data: { condition: unknown; gems: number; title?: string } }[] };
+    const want = file.items
+      .map((i) => ({
+        id: i.id,
+        condition: i.data.condition,
+        gems: i.data.gems,
+        title: i.data.title ?? null,
+      }))
+      .sort((a, b) => a.id.localeCompare(b.id));
+    expect(await rows(`select * from achievements order by id`)).toEqual(want);
+  });
+
+  it('gives an achievement with the save that earns it, and pays its gems once', async () => {
+    const before = await gems();
+    await save('morse', [{ kind: 'trial-1' }]);
+    expect(await progress('first-light')).toMatchObject({ progress: 1, target: 1 });
+    expect((await progress('first-light'))?.earned_at).not.toBeNull();
+    expect(await progress('beacon-relit')).toMatchObject({
+      progress: 1,
+      target: 5,
+      earned_at: null,
+    });
+    expect(await gems()).toBe(before + 1);
+    await save('morse', [{ kind: 'trial-2' }]);
+    expect(await gems()).toBe(before + 1);
+    expect(
+      await rows(`select achievement_id from player_achievements where user_id = $1`, [ADAM]),
+    ).toEqual([{ achievement_id: 'first-light' }]);
+  });
+
+  it('counts each kind of condition from what is already recorded', async () => {
+    // Chests opened, contracts paid and full boards.
+    for (const k of ['a', 'b', 'c'])
+      await rows(
+        `insert into chests (user_id, kind, source, source_key, opened_at) values ($1, 'wooden', 'contracts', $2, $3)`,
+        [ADAM, k, k === 'c' ? null : new Date().toISOString()],
+      );
+    for (const [day, ids] of [
+      ['2026-01-01', ['habit-minutes', 'morse-runs', 'morse-run-90']],
+      ['2026-01-02', ['habit-sessions', 'morse-runs']],
+    ] as const)
+      for (const [i, id] of ids.entries())
+        await rows(
+          `insert into daily_contracts (user_id, day, template_id, slot, paid_gold) values ($1, $2, $3, $4, 10)`,
+          [ADAM, day, id, i + 1],
+        );
+    // Minutes in all, and two subjects on one day.
+    await rows(
+      `insert into daily_activity (user_id, day, minutes) values ($1, '2026-01-01', 600), ($1, '2026-01-02', 500)`,
+      [ADAM],
+    );
+    await rows(
+      `insert into subject_events (user_id, day, subject_id, kind, count) values
+         ($1, '2026-01-01', 'morse', 'session', 1), ($1, '2026-01-01', 'arabic', 'session', 2),
+         ($1, '2026-01-02', 'morse', 'session', 4)`,
+      [ADAM],
+    );
+    // Sessions late at night (UTC): 23:30 and 01:00 are the same night; 21:00 is too early.
+    await rows(
+      `insert into saved_sessions (user_id, session_id, subject_id, saved_at) values
+         ($1, gen_random_uuid(), 'morse', '2026-01-01T23:30:00Z'),
+         ($1, gen_random_uuid(), 'morse', '2026-01-02T01:00:00Z'),
+         ($1, gen_random_uuid(), 'morse', '2026-01-05T02:00:00Z'),
+         ($1, gen_random_uuid(), 'morse', '2026-01-06T21:00:00Z'),
+         ($1, gen_random_uuid(), 'morse', '2026-01-07T05:00:00Z')`,
+      [ADAM],
+    );
+    // Level 5 in Morse only.
+    const xp5 = (
+      (await rows(
+        `select min(x) as x from generate_series(0, 2000) x where level_for_xp(x) >= 5`,
+      )) as { x: number }[]
+    )[0].x;
+    await rows(`update subject_progress set xp = $2 where user_id = $1 and subject_id = 'morse'`, [
+      ADAM,
+      xp5,
+    ]);
+    const m = Object.fromEntries((await mine()).achievements.map((a) => [a.id, a]));
+    expect(m['chest-hunter']).toMatchObject({ progress: 2, target: 10 });
+    expect(m['contractor']).toMatchObject({ progress: 5, target: 10 });
+    expect(m['full-board']).toMatchObject({ progress: 1, target: 10 });
+    expect(m['thousand-minutes']).toMatchObject({ progress: 1000, target: 1000 });
+    expect(m['thousand-minutes']?.earned_at).not.toBeNull();
+    expect(m['two-guilds']?.earned_at).not.toBeNull();
+    expect(m['night-owl']).toMatchObject({ progress: 2, target: 5 });
+    expect(m['early-bird']).toMatchObject({ progress: 1, target: 5 });
+    expect(m['polyglot']).toMatchObject({ progress: 0, target: 5 });
+    await rows(`insert into subject_progress (user_id, subject_id, xp) values ($1, 'arabic', $2)`, [
+      ADAM,
+      xp5,
+    ]);
+    expect(await progress('polyglot')).toMatchObject({ progress: 5 });
+  });
+
+  it('reads the hours in the player’s time zone', async () => {
+    await rows(`update profiles set time_zone = 'Asia/Tokyo' where id = $1`, [ADAM]);
+    // 20:00 UTC is 05:00 in Tokyo: early, not late.
+    await rows(
+      `insert into saved_sessions (user_id, session_id, subject_id, saved_at)
+       values ($1, gen_random_uuid(), 'morse', '2026-01-01T20:00:00Z')`,
+      [ADAM],
+    );
+    expect(await progress('early-bird')).toMatchObject({ progress: 1 });
+    expect(await progress('night-owl')).toMatchObject({ progress: 0 });
+  });
+
+  it('a streak reached is kept, and the rush at 30 wpm counts (#177)', async () => {
+    const t = ((await as(ADAM, () => rows(`select player_today()::text as d`)))[0] as { d: string })
+      .d;
+    for (let o = 0; o < 7; o++)
+      await rows(
+        `insert into daily_activity (user_id, day, minutes, goal_reached) values ($1, $2, 15, true)`,
+        [ADAM, addDays(t, -o)],
+      );
+    await save('morse', [{ kind: 'rush-30' }, { kind: 'rush-30' }]);
+    const m = await mine();
+    const earned = m.achievements.filter((a) => a.earned_at).map((a) => a.id);
+    expect(earned).toEqual(expect.arrayContaining(['week-of-embers', 'overspeed']));
+    await rows(`delete from daily_activity where user_id = $1`, [ADAM]);
+    expect((await progress('week-of-embers'))?.earned_at).not.toBeNull();
+    expect(
+      await rows(`select count from subject_events where user_id = $1 and kind = 'rush-30'`, [
+        ADAM,
+      ]),
+    ).toEqual([{ count: 1 }]);
+  });
+
+  it('wears only a title you have earned, or none', async () => {
+    expect((await mine()).title).toBe('');
+    await expect(as(ADAM, () => rows(`select set_title('the Quick-Eared')`))).rejects.toThrow(
+      /not yours yet/,
+    );
+    await save('morse', [{ kind: 'rush-30' }]);
+    await as(ADAM, () => rows(`select set_title('the Quick-Eared')`));
+    expect((await mine()).title).toBe('the Quick-Eared');
+    // Another player's title, or one that is no achievement's, is refused.
+    await expect(as(ADAM, () => rows(`select set_title('Keeper of the Beacon')`))).rejects.toThrow(
+      /not yours yet/,
+    );
+    await expect(as(ADAM, () => rows(`select set_title('Emperor')`))).rejects.toThrow(
+      /not yours yet/,
+    );
+    await as(ADAM, () => rows(`select set_title('')`));
+    expect((await mine()).title).toBe('');
+    expect((await mine(OTHER)).title).toBe('');
+  });
+
+  it('only the database gives achievements, and each player sees only their own', async () => {
+    await save('morse', [{ kind: 'trial-1' }]);
+    expect(await as(OTHER, () => rows(`select * from player_achievements`))).toEqual([]);
+    for (const sql of [
+      `insert into player_achievements (user_id, achievement_id) values ('${OTHER}', 'hundred-days')`,
+      `update profiles set title = 'the Unbroken'`,
+      `select * from achievements`,
+      `select grant_achievements('${OTHER}')`,
+      `select achievement_count('${OTHER}', '{"kind": "minutes", "n": 1}')`,
+    ]) {
+      await expect(as(OTHER, () => rows(sql))).rejects.toThrow(/permission denied/);
+    }
+    for (const sql of [`select my_achievements()`, `select set_title('')`])
+      await expect(as(null, () => rows(sql))).rejects.toThrow(/permission denied/);
   });
 });

@@ -1,5 +1,6 @@
 import type { Page } from '@playwright/test';
 import { REVIEWS } from '../src/subjects/arabic/words.ts';
+import { ACHIEVEMENTS } from '../src/core/achievements/achievements.ts';
 
 // The e2e build points at this address (playwright.config.ts). Nothing listens there:
 // every request is answered by page.route below, so tests never touch a real project.
@@ -56,6 +57,12 @@ export interface Extras {
   gold?: number;
   /** Skill ratings by subject, e.g. { arabic: { read: 1240 } }, each on 40 results. */
   ratings?: Record<string, Record<string, number>>;
+  /** Achievement ids earned (#177); the rest have no progress unless `progress` says. */
+  earned?: string[];
+  /** Progress toward achievements not earned, by id. */
+  progress?: Record<string, number>;
+  /** The title worn at the start ('' for none). */
+  title?: string;
 }
 
 /** Today's fake Market stall (#49): 2 gear, 1 dye and the streak shield. */
@@ -118,6 +125,8 @@ export async function fakeSupabase(
   // Events from saved sessions, by kind, for today's contracts (ADR 0032).
   const events = new Map<string, number>();
   const opened = new Set<string>();
+  // The title worn (#177), changed by set_title.
+  let title = extras.title ?? '';
   // The Market's purchases (#49): what was bought, and the gold spent.
   const bought: string[] = [];
   let spent = 0;
@@ -177,6 +186,32 @@ export async function fakeSupabase(
           },
         },
       });
+    }
+    if (url.pathname === '/rest/v1/rpc/my_achievements') {
+      return route.fulfill({
+        json: {
+          title,
+          gems: WALLET.gems,
+          achievements: ACHIEVEMENTS.map((a) => ({
+            id: a.id,
+            progress: extras.earned?.includes(a.id)
+              ? a.condition.n
+              : Math.min(a.condition.n, extras.progress?.[a.id] ?? 0),
+            target: a.condition.n,
+            earned_at: extras.earned?.includes(a.id) ? '2026-11-09T20:00:00Z' : null,
+          })),
+        },
+      });
+    }
+    if (url.pathname === '/rest/v1/rpc/set_title') {
+      const { p_title } = route.request().postDataJSON() as { p_title: string };
+      const mine = ACHIEVEMENTS.some((a) => a.title === p_title && extras.earned?.includes(a.id));
+      if (p_title && !mine) {
+        return route.fulfill({ status: 400, json: { message: 'that title is not yours yet' } });
+      }
+      title = p_title;
+      profileUpdates.push({ title });
+      return route.fulfill({ json: title });
     }
     if (url.pathname === '/rest/v1/rpc/market_today') {
       const gold = board().gold;
@@ -390,7 +425,8 @@ export async function fakeSupabase(
         profileUpdates.push(route.request().postDataJSON());
         return route.fulfill({ status: 204 });
       }
-      return route.fulfill({ json: single ? PROFILE : [PROFILE] });
+      const profile = { ...PROFILE, title };
+      return route.fulfill({ json: single ? profile : [profile] });
     }
     if (url.pathname === '/rest/v1/wallets') {
       // supabase-js asks for a single object with this Accept header (maybeSingle).
