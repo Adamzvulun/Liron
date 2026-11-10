@@ -122,8 +122,8 @@ I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164),
   - Tests check that every finished chapter is covered.
   - Adam spot-checks a sample.
 - **Progress:**
-  - Chapters I–XXVI are done (645 sentences).
-  - Chapters XXVII–XXXIV follow in later batches.
+  - Chapters I–XXVIII are done (697 sentences).
+  - Chapters XXIX–XXXIV follow in later batches.
 
 Micro-stories made only of words you know come in a later epic (vision, Arabic track).
 
@@ -202,6 +202,6 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).
-- Our own sentences without audio (#164, option 2 above): being built, chapters I–XXVI done.
+- Our own sentences without audio (#164, option 2 above): being built, chapters I–XXVIII done.
 - Speaking the word into the mic (E14, mic practice).
 - Root and pattern badges (the Hebrew bridge, ADR 0002).
