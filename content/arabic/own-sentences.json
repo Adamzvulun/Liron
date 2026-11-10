@@ -5161,6 +5161,666 @@
         "latin": "bíddi kēlō bandōra.",
         "english": "I'd like a kilo of tomatoes."
       }
+    },
+    {
+      "id": "own-sentence:pcav:3433",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3433",
+        "arabic": "صاحْبي مِن سورِيا.",
+        "latin": "ʂáɧbi min sūriya.",
+        "english": "My friend is from Syria."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3434",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3434",
+        "arabic": "الأكِل السّوري زاكي كْتير.",
+        "latin": "ilákil issūri zāki ktīr.",
+        "english": "Syrian food is really delicious."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3435",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3435",
+        "arabic": "خالي عايِش في العِراق.",
+        "latin": "xāli 3āyiš fi l3irāq.",
+        "english": "My uncle lives in Iraq."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3436",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3436",
+        "arabic": "جوْزْها عِراقي.",
+        "latin": "jōzha 3irāqi.",
+        "english": "Her husband is Iraqi."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3449",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3449",
+        "arabic": "اليَمن في الجّنوب.",
+        "latin": "ilyáman fi jjanūb.",
+        "english": "Yemen is in the south."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3450",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3450",
+        "arabic": "صاحِب المطْعم يَمني.",
+        "latin": "ʂāɧib ilmáʈ3am yámani.",
+        "english": "The restaurant owner is Yemeni."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3445",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3445",
+        "arabic": "أخوي بيِشْتِغِل في السُّعودية.",
+        "latin": "axūy byištáɣil fi ssu3ūdíyya.",
+        "english": "My brother works in Saudi Arabia."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3446",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3446",
+        "arabic": "في سُيّاح سُعودِيّين في الفُنْدُق.",
+        "latin": "fī suyyāɧ su3udiyyīn fi lfúndug.",
+        "english": "There are Saudi tourists at the hotel."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3437",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3437",
+        "arabic": "سافر عَ الِكْويْت إمْبارِح.",
+        "latin": "sāfar 3a likwēt imbāriɧ.",
+        "english": "He traveled to Kuwait yesterday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3438",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3438",
+        "arabic": "صاحْبي الِكْويْتي جاي بُكْرا.",
+        "latin": "ʂáɧbi likwēti jāy búkra.",
+        "english": "My Kuwaiti friend is coming tomorrow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3439",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3439",
+        "arabic": "الطّيّارة رايْحة عَ قطر.",
+        "latin": "iʈʈayyāra rāyɧa 3a qáʈar.",
+        "english": "The plane is going to Qatar."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3440",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3440",
+        "arabic": "المُغنّي قطري.",
+        "latin": "ilmuɣánni qáʈari.",
+        "english": "The singer is Qatari."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3441",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3441",
+        "arabic": "البحْريْن بلد صْغير.",
+        "latin": "ilbaɧrēn bálad ʂɣīr.",
+        "english": "Bahrain is a small country."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3442",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3442",
+        "arabic": "مرْتو بحْريْنية.",
+        "latin": "mártu baɧrēníyya.",
+        "english": "His wife is Bahraini."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3443",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3443",
+        "arabic": "رِحْلِتْنا عَ الإمارات كانت حِلْوة.",
+        "latin": "riɧlítna 3a lʔimārāt kānat ɧílwa.",
+        "english": "Our trip to the Emirates was lovely."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3444",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3444",
+        "arabic": "الطّيّارة إماراتية.",
+        "latin": "iʈʈayyāra imaratíyya.",
+        "english": "The plane is Emirati."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3447",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3447",
+        "arabic": "عُمان فيها جْبال وبحر.",
+        "latin": "3umān fīha jbāl w báɧar.",
+        "english": "Oman has mountains and sea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3448",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3448",
+        "arabic": "الطّبّاخ عُماني.",
+        "latin": "iʈʈabbāx 3umāni.",
+        "english": "The cook is Omani."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3417",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3417",
+        "arabic": "السّودان فيه صحْرا كْبيرة.",
+        "latin": "issūdān fī ʂáɧra kbīra.",
+        "english": "Sudan has a big desert."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3418",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3418",
+        "arabic": "الدّكْتوْر سوداني.",
+        "latin": "iddaktōr sūdāni.",
+        "english": "The doctor is Sudanese."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3419",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3419",
+        "arabic": "ليبْيا جنْب تونِس.",
+        "latin": "lībya jamb tūnis.",
+        "english": "Libya is next to Tunisia."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3420",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3420",
+        "arabic": "الطّالِب ليبي.",
+        "latin": "iʈʈālib lībi.",
+        "english": "The student is Libyan."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3421",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3421",
+        "arabic": "تونِس بلد حِلو.",
+        "latin": "tūnis bálad ɧílu.",
+        "english": "Tunisia is a lovely country."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3422",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3422",
+        "arabic": "صاحْبِتي تونِسية.",
+        "latin": "ʂaɧbíti tunisíyya.",
+        "english": "My friend is Tunisian."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3423",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3423",
+        "arabic": "الجّزائِر بلد كْبير كْتير.",
+        "latin": "ijjazāʔir bálad kbīr ktīr.",
+        "english": "Algeria is a very big country."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3424",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3424",
+        "arabic": "الشّابّ جزائِري.",
+        "latin": "iššabb jazāʔiri.",
+        "english": "The young man is Algerian."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3425",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3425",
+        "arabic": "زُرْنا المغْرِب في الإجازة.",
+        "latin": "zúrna lmáɣrib fi lʔijāza.",
+        "english": "We visited Morocco on vacation."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3426",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3426",
+        "arabic": "الأكِل المغْرِبي لزيز.",
+        "latin": "ilákil ilmaɣríbi lazīz.",
+        "english": "Moroccan food is tasty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3451",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3451",
+        "arabic": "الصّومال جنْب البحر.",
+        "latin": "iʂʂūmāl jamb ilbáɧar.",
+        "english": "Somalia is by the sea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3452",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3452",
+        "arabic": "الشُّرْطي صومالي.",
+        "latin": "iššúrʈi ʂūmāli.",
+        "english": "The police officer is Somali."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3567",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3567",
+        "arabic": "بِدّي أسافِر عَ أوْروْبّا.",
+        "latin": "bíddi asāfir 3a ōrōbba.",
+        "english": "I want to travel to Europe."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3472",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3472",
+        "arabic": "صاحْبي عايِش في فرنْسا.",
+        "latin": "ʂáɧbi 3āyiš fi faránsa.",
+        "english": "My friend lives in France."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3474",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3474",
+        "arabic": "أسْبانْيا جنْب البُرْتُغال.",
+        "latin": "asbānya jamb ilburtuɣāl.",
+        "english": "Spain is next to Portugal."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3287",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3287",
+        "arabic": "بتْعلّم أسْباني.",
+        "latin": "bat3állam asbāni.",
+        "english": "I'm learning Spanish."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3477",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3477",
+        "arabic": "الأكِل في إيطالْيا زاكي.",
+        "latin": "ilákil fi īʈālya zāki.",
+        "english": "The food in Italy is delicious."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3282",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3282",
+        "arabic": "المطْعم الإيطالي جنْب البنْك.",
+        "latin": "ilmáʈ3am ilʔīʈāli jamb ilbank.",
+        "english": "The Italian restaurant is next to the bank."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3461",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3461",
+        "arabic": "أُخْتي بْتُدْرُس في ألْمانْيا.",
+        "latin": "úxti btúdrus fi almānya.",
+        "english": "My sister studies in Germany."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3466",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3466",
+        "arabic": "في بْريطانْيا في شِتا كْتير.",
+        "latin": "fi brīʈānya fī šíta ktīr.",
+        "english": "There's a lot of rain in Britain."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3467",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3467",
+        "arabic": "السّايِح بريطاني.",
+        "latin": "issāyiɧ brīʈāni.",
+        "english": "The tourist is British."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3468",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3468",
+        "arabic": "عمّي عايِش في إنْجِلْتْرا.",
+        "latin": "3ámmi 3āyiš fi ingíltra.",
+        "english": "My uncle lives in England."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3470",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3470",
+        "arabic": "أسْكُتْلنْدا فيها جْبال كْتير.",
+        "latin": "askutlánda fīha jbāl ktīr.",
+        "english": "Scotland has a lot of mountains."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3471",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3471",
+        "arabic": "ويلْز في الغرْب.",
+        "latin": "wēlz fi lɣarb.",
+        "english": "Wales is in the west."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3465",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3465",
+        "arabic": "إيْرْلنْدا خضْرا كْتير.",
+        "latin": "irlánda xáɖra ktīr.",
+        "english": "Ireland is very green."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3463",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3463",
+        "arabic": "في هوْلانْدا بسْكليْتات كْتير.",
+        "latin": "fi hōlānda baskalētāt ktīr.",
+        "english": "There are lots of bicycles in the Netherlands."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3274",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3274",
+        "arabic": "الجِّبْنة الهوْلانْدية زاكْيَة.",
+        "latin": "ijjíbna lhōlāndíyya zākya.",
+        "english": "Dutch cheese is tasty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3464",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3464",
+        "arabic": "الشّوْكوْلاطة مِن بلْجيكا.",
+        "latin": "iššokolāta min beljīka.",
+        "english": "The chocolate is from Belgium."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3476",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3476",
+        "arabic": "سْويسْرا فيها جْبال وبُحَيْرات.",
+        "latin": "swīsra fīha jbāl w buɧērāt.",
+        "english": "Switzerland has mountains and lakes."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3478",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3478",
+        "arabic": "النّمْسا جنْب ألْمانْيا.",
+        "latin": "innámsa jamb almānya.",
+        "english": "Austria is next to Germany."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3479",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3479",
+        "arabic": "صاحِب الفُنْدُق نمْساوي.",
+        "latin": "ʂāɧib ilfúndug namsāwi.",
+        "english": "The hotel owner is Austrian."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3475",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3475",
+        "arabic": "البُرْتُغال فيها شَواطِئ حِلْوة.",
+        "latin": "ilburtuɣāl fīha šawāʈiʔ ɧílwa.",
+        "english": "Portugal has lovely beaches."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3456",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3456",
+        "arabic": "النّرْويج ساقْعة كْتير.",
+        "latin": "innarwīj ság3a ktīr.",
+        "english": "Norway is very cold."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3457",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3457",
+        "arabic": "خالْتي عايْشة في السّْويد.",
+        "latin": "xālti 3āyša fi sswīd.",
+        "english": "My aunt lives in Sweden."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3458",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3458",
+        "arabic": "مرْت خالي سْويدية.",
+        "latin": "mart xāli swīdíyya.",
+        "english": "My uncle's wife is Swedish."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3459",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3459",
+        "arabic": "في فِنْلنْدا تلِج كْتير.",
+        "latin": "fi finlánda tálij ktīr.",
+        "english": "There's a lot of snow in Finland."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3460",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3460",
+        "arabic": "الدِّنيمارْك جنْب السّْويد.",
+        "latin": "iddinimārk jamb isswīd.",
+        "english": "Denmark is next to Sweden."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3483",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3483",
+        "arabic": "وِصِلْنا مِن بوْلنْدا إمْبارِح.",
+        "latin": "wiʂílna min bōlánda imbāriɧ.",
+        "english": "We arrived from Poland yesterday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3480",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3480",
+        "arabic": "رُحْت عَ الِتْشيك مرّة.",
+        "latin": "ruɧt 3a litšīk márra.",
+        "english": "I went to the Czech Republic once."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3481",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3481",
+        "arabic": "البِنِت تْشيكية.",
+        "latin": "ilbínit tšikíyya.",
+        "english": "The girl is Czech."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3484",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3484",
+        "arabic": "المجر جنْب النّمْسا.",
+        "latin": "ilmájar jamb innámsa.",
+        "english": "Hungary is next to Austria."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3486",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3486",
+        "arabic": "صاحْبِتي مِن روْمانْيا.",
+        "latin": "ʂaɧbíti min rōmānya.",
+        "english": "My friend is from Romania."
+      }
     }
   ]
 }
