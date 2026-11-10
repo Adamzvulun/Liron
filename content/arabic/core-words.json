@@ -5983,6 +5983,1085 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:45",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 45,
+        "title": "Little words",
+        "theme": "Small words you need every day",
+        "words": [
+          {
+            "deck": "pcav:4204",
+            "gloss": "now",
+            "sentence": "pcav:4208"
+          },
+          {
+            "deck": "pcav:4280",
+            "gloss": "someone",
+            "sentence": "pcav:4282"
+          },
+          {
+            "deck": "pcav:4291",
+            "gloss": "something",
+            "sentence": "pcav:4292"
+          },
+          {
+            "deck": "pcav:4344",
+            "gloss": "alone"
+          },
+          {
+            "deck": "pcav:4351",
+            "gloss": "somewhere"
+          },
+          {
+            "deck": "pcav:4385",
+            "gloss": "enough"
+          },
+          {
+            "deck": "pcav:4396",
+            "gloss": "still, not yet",
+            "sentence": "pcav:4397"
+          },
+          {
+            "deck": "pcav:4428",
+            "gloss": "so"
+          },
+          {
+            "deck": "pcav:4433",
+            "gloss": "after",
+            "sentence": "pcav:0423"
+          },
+          {
+            "deck": "pcav:4437",
+            "gloss": "before",
+            "sentence": "pcav:1072"
+          },
+          {
+            "deck": "pcav:4536",
+            "gloss": "to accept"
+          },
+          {
+            "deck": "pcav:4543",
+            "gloss": "to let"
+          },
+          {
+            "deck": "pcav:4559",
+            "gloss": "to become"
+          },
+          {
+            "deck": "pcav:4580",
+            "gloss": "to choose"
+          },
+          {
+            "deck": "pcav:4587",
+            "gloss": "to go on, continue"
+          },
+          {
+            "deck": "pcav:4594",
+            "gloss": "to describe"
+          },
+          {
+            "deck": "pcav:4621",
+            "gloss": "to leave, quit"
+          },
+          {
+            "deck": "pcav:4623",
+            "gloss": "to lie"
+          },
+          {
+            "deck": "pcav:4627",
+            "gloss": "to mean"
+          },
+          {
+            "deck": "pcav:4631",
+            "gloss": "to offer"
+          },
+          {
+            "deck": "pcav:4648",
+            "gloss": "to show"
+          },
+          {
+            "deck": "pcav:4663",
+            "gloss": "to try"
+          },
+          {
+            "deck": "pcav:4664",
+            "gloss": "to try out"
+          },
+          {
+            "deck": "pcav:4682",
+            "gloss": "necessary"
+          },
+          {
+            "deck": "pcav:4694",
+            "gloss": "clear",
+            "sentence": "pcav:4695"
+          },
+          {
+            "deck": "pcav:4720",
+            "gloss": "useful"
+          },
+          {
+            "deck": "pcav:4723",
+            "gloss": "careful"
+          },
+          {
+            "deck": "pcav:4747",
+            "gloss": "different"
+          },
+          {
+            "deck": "pcav:4750",
+            "gloss": "impossible"
+          },
+          {
+            "deck": "pcav:4340",
+            "gloss": "about, almost",
+            "sentence": "pcav:4239"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:46",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 46,
+        "title": "Money matters",
+        "theme": "Work, the office, and paying",
+        "words": [
+          {
+            "deck": "pcav:1394",
+            "gloss": "chef"
+          },
+          {
+            "deck": "pcav:1410",
+            "gloss": "hairdresser"
+          },
+          {
+            "deck": "pcav:1419",
+            "gloss": "painter (art)"
+          },
+          {
+            "deck": "pcav:1420",
+            "gloss": "house painter"
+          },
+          {
+            "deck": "pcav:1432",
+            "gloss": "secretary"
+          },
+          {
+            "deck": "pcav:1434",
+            "gloss": "salesperson"
+          },
+          {
+            "deck": "pcav:2052",
+            "gloss": "to lend money"
+          },
+          {
+            "deck": "pcav:2067",
+            "gloss": "to save money"
+          },
+          {
+            "deck": "pcav:2077",
+            "gloss": "to sign"
+          },
+          {
+            "deck": "pcav:2078",
+            "gloss": "signature"
+          },
+          {
+            "deck": "pcav:2095",
+            "gloss": "counter"
+          },
+          {
+            "deck": "pcav:2132",
+            "gloss": "tape"
+          },
+          {
+            "deck": "pcav:2138",
+            "gloss": "to photocopy"
+          },
+          {
+            "deck": "pcav:2139",
+            "gloss": "a copy"
+          },
+          {
+            "deck": "pcav:2163",
+            "gloss": "fees"
+          },
+          {
+            "deck": "pcav:2190",
+            "gloss": "to serve a customer"
+          },
+          {
+            "deck": "pcav:2197",
+            "gloss": "to exchange"
+          },
+          {
+            "deck": "pcav:2902",
+            "gloss": "change (coins)"
+          },
+          {
+            "deck": "pcav:2903",
+            "gloss": "to make change"
+          },
+          {
+            "deck": "pcav:2914",
+            "gloss": "rich"
+          },
+          {
+            "deck": "pcav:2916",
+            "gloss": "poor"
+          },
+          {
+            "deck": "pcav:2938",
+            "gloss": "to meet"
+          },
+          {
+            "deck": "pcav:2939",
+            "gloss": "meeting"
+          },
+          {
+            "deck": "pcav:2940",
+            "gloss": "appointment"
+          },
+          {
+            "deck": "pcav:2941",
+            "gloss": "to cancel"
+          },
+          {
+            "deck": "pcav:1765",
+            "gloss": "to open a file"
+          },
+          {
+            "deck": "pcav:2842",
+            "gloss": "to steal"
+          },
+          {
+            "deck": "pcav:2843",
+            "gloss": "thief"
+          },
+          {
+            "deck": "pcav:1792",
+            "gloss": "to click \"like\""
+          },
+          {
+            "deck": "pcav:2131",
+            "gloss": "ruler"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:47",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 47,
+        "title": "Under the sky",
+        "theme": "Weather, directions and getting around",
+        "words": [
+          {
+            "deck": "pcav:3559",
+            "gloss": "flat"
+          },
+          {
+            "deck": "pcav:3562",
+            "gloss": "gorge"
+          },
+          {
+            "deck": "pcav:3564",
+            "gloss": "continent"
+          },
+          {
+            "deck": "pcav:3572",
+            "gloss": "to freeze"
+          },
+          {
+            "deck": "pcav:3573",
+            "gloss": "to melt"
+          },
+          {
+            "deck": "pcav:3634",
+            "gloss": "northern"
+          },
+          {
+            "deck": "pcav:3635",
+            "gloss": "southern"
+          },
+          {
+            "deck": "pcav:3636",
+            "gloss": "western"
+          },
+          {
+            "deck": "pcav:3637",
+            "gloss": "eastern"
+          },
+          {
+            "deck": "pcav:3640",
+            "gloss": "weather"
+          },
+          {
+            "deck": "pcav:3660",
+            "gloss": "heat"
+          },
+          {
+            "deck": "pcav:3704",
+            "gloss": "fog"
+          },
+          {
+            "deck": "pcav:3406",
+            "gloss": "international"
+          },
+          {
+            "deck": "pcav:3918",
+            "gloss": "distance"
+          },
+          {
+            "deck": "pcav:3926",
+            "gloss": "mile"
+          },
+          {
+            "deck": "pcav:4524",
+            "gloss": "toward"
+          },
+          {
+            "deck": "pcav:4509",
+            "gloss": "around",
+            "sentence": "pcav:4511"
+          },
+          {
+            "deck": "pcav:4476",
+            "gloss": "outside of"
+          },
+          {
+            "deck": "pcav:4517",
+            "gloss": "from, off",
+            "sentence": "pcav:4499"
+          },
+          {
+            "deck": "pcav:4581",
+            "gloss": "to go up, climb"
+          },
+          {
+            "deck": "pcav:4635",
+            "gloss": "to go past"
+          },
+          {
+            "deck": "pcav:4645",
+            "gloss": "to go back"
+          },
+          {
+            "deck": "pcav:4652",
+            "gloss": "to stay"
+          },
+          {
+            "deck": "pcav:2308",
+            "gloss": "to go visiting"
+          },
+          {
+            "deck": "pcav:2681",
+            "gloss": "to run out (a passport)"
+          },
+          {
+            "deck": "pcav:2710",
+            "gloss": "business class"
+          },
+          {
+            "deck": "pcav:2755",
+            "gloss": "tiring"
+          },
+          {
+            "deck": "pcav:4685",
+            "gloss": "deep"
+          },
+          {
+            "deck": "pcav:4687",
+            "gloss": "shallow"
+          },
+          {
+            "deck": "pcav:4683",
+            "gloss": "strong"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:48",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 48,
+        "title": "By the numbers",
+        "theme": "Counting, measuring, and words about words",
+        "words": [
+          {
+            "deck": "pcav:3367",
+            "gloss": "singular"
+          },
+          {
+            "deck": "pcav:3369",
+            "gloss": "plural"
+          },
+          {
+            "deck": "pcav:3379",
+            "gloss": "verb"
+          },
+          {
+            "deck": "pcav:3389",
+            "gloss": "paragraph"
+          },
+          {
+            "deck": "pcav:3396",
+            "gloss": "period (.)"
+          },
+          {
+            "deck": "pcav:3397",
+            "gloss": "comma"
+          },
+          {
+            "deck": "pcav:3900",
+            "gloss": "shape"
+          },
+          {
+            "deck": "pcav:3901",
+            "gloss": "circle"
+          },
+          {
+            "deck": "pcav:3915",
+            "gloss": "to measure"
+          },
+          {
+            "deck": "pcav:3920",
+            "gloss": "centimeter"
+          },
+          {
+            "deck": "pcav:3930",
+            "gloss": "to weigh"
+          },
+          {
+            "deck": "pcav:3931",
+            "gloss": "gram"
+          },
+          {
+            "deck": "pcav:3941",
+            "gloss": "most of"
+          },
+          {
+            "deck": "pcav:3957",
+            "gloss": "a couple of months"
+          },
+          {
+            "deck": "pcav:3964",
+            "gloss": "to count"
+          },
+          {
+            "deck": "pcav:4023",
+            "gloss": "million"
+          },
+          {
+            "deck": "pcav:4027",
+            "gloss": "to work out (a sum)"
+          },
+          {
+            "deck": "pcav:4030",
+            "gloss": "to add up"
+          },
+          {
+            "deck": "pcav:4039",
+            "gloss": "to equal"
+          },
+          {
+            "deck": "pcav:4042",
+            "gloss": "equals, makes",
+            "sentence": "pcav:4046"
+          },
+          {
+            "deck": "pcav:4043",
+            "gloss": "plus",
+            "sentence": "pcav:4044"
+          },
+          {
+            "deck": "pcav:4045",
+            "gloss": "minus",
+            "sentence": "pcav:4046"
+          },
+          {
+            "deck": "pcav:4047",
+            "gloss": "times",
+            "sentence": "pcav:4048"
+          },
+          {
+            "deck": "pcav:4049",
+            "gloss": "divided by",
+            "sentence": "pcav:4050"
+          },
+          {
+            "deck": "pcav:4066",
+            "gloss": "half"
+          },
+          {
+            "deck": "pcav:4068",
+            "gloss": "a third"
+          },
+          {
+            "deck": "pcav:4069",
+            "gloss": "a quarter",
+            "sentence": "pcav:4236"
+          },
+          {
+            "deck": "pcav:1815",
+            "gloss": "line"
+          },
+          {
+            "deck": "pcav:3303",
+            "gloss": "beginner"
+          },
+          {
+            "deck": "pcav:3306",
+            "gloss": "writing"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:49",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 49,
+        "title": "Towns and tongues",
+        "theme": "Towns of the land, and the languages people speak",
+        "words": [
+          {
+            "deck": "pcav:3527",
+            "gloss": "Jerusalem"
+          },
+          {
+            "deck": "pcav:3534",
+            "gloss": "Haifa"
+          },
+          {
+            "deck": "pcav:3533",
+            "gloss": "Akko"
+          },
+          {
+            "deck": "pcav:3530",
+            "gloss": "Nazareth"
+          },
+          {
+            "deck": "pcav:3529",
+            "gloss": "Nablus",
+            "sentence": "pcav:3632"
+          },
+          {
+            "deck": "pcav:3538",
+            "gloss": "Hebron"
+          },
+          {
+            "deck": "pcav:3528",
+            "gloss": "Jericho",
+            "sentence": "pcav:4165"
+          },
+          {
+            "deck": "pcav:3521",
+            "gloss": "Gaza",
+            "sentence": "pcav:0003"
+          },
+          {
+            "deck": "pcav:3536",
+            "gloss": "Jenin"
+          },
+          {
+            "deck": "pcav:3539",
+            "gloss": "Ramla"
+          },
+          {
+            "deck": "pcav:3537",
+            "gloss": "Tulkarm"
+          },
+          {
+            "deck": "pcav:3531",
+            "gloss": "Qalqilya"
+          },
+          {
+            "deck": "pcav:3525",
+            "gloss": "Rafah",
+            "sentence": "pcav:2752"
+          },
+          {
+            "deck": "pcav:3535",
+            "gloss": "Beit She'an"
+          },
+          {
+            "deck": "pcav:3280",
+            "gloss": "Hebrew"
+          },
+          {
+            "deck": "pcav:3279",
+            "gloss": "Greek"
+          },
+          {
+            "deck": "pcav:3285",
+            "gloss": "Portuguese"
+          },
+          {
+            "deck": "pcav:3284",
+            "gloss": "Korean"
+          },
+          {
+            "deck": "pcav:3276",
+            "gloss": "Farsi"
+          },
+          {
+            "deck": "pcav:3290",
+            "gloss": "Standard Arabic"
+          },
+          {
+            "deck": "pcav:3295",
+            "gloss": "Levantine Arabic"
+          },
+          {
+            "deck": "pcav:3296",
+            "gloss": "Gulf Arabic"
+          },
+          {
+            "deck": "pcav:3409",
+            "gloss": "foreign, foreigner"
+          },
+          {
+            "deck": "pcav:4714",
+            "gloss": "famous"
+          },
+          {
+            "deck": "pcav:3314",
+            "gloss": "spelling"
+          },
+          {
+            "deck": "pcav:3344",
+            "gloss": "listening"
+          },
+          {
+            "deck": "pcav:3157",
+            "gloss": "in my opinion"
+          },
+          {
+            "deck": "pcav:3165",
+            "gloss": "I hope",
+            "sentence": "pcav:3166"
+          },
+          {
+            "deck": "pcav:2802",
+            "gloss": "a people"
+          },
+          {
+            "deck": "pcav:2835",
+            "gloss": "free"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:50",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 50,
+        "title": "Wild things",
+        "theme": "Animals large and small, and their pets' things",
+        "words": [
+          {
+            "deck": "pcav:3745",
+            "gloss": "bear"
+          },
+          {
+            "deck": "pcav:3750",
+            "gloss": "fox"
+          },
+          {
+            "deck": "pcav:3751",
+            "gloss": "giraffe"
+          },
+          {
+            "deck": "pcav:3763",
+            "gloss": "tiger"
+          },
+          {
+            "deck": "pcav:3767",
+            "gloss": "dolphin"
+          },
+          {
+            "deck": "pcav:3768",
+            "gloss": "whale"
+          },
+          {
+            "deck": "pcav:1245",
+            "gloss": "shark"
+          },
+          {
+            "deck": "pcav:3776",
+            "gloss": "parrot"
+          },
+          {
+            "deck": "pcav:3788",
+            "gloss": "snake"
+          },
+          {
+            "deck": "pcav:3789",
+            "gloss": "turtle"
+          },
+          {
+            "deck": "pcav:3790",
+            "gloss": "frog"
+          },
+          {
+            "deck": "pcav:3794",
+            "gloss": "insect, bug"
+          },
+          {
+            "deck": "pcav:3795",
+            "gloss": "ants"
+          },
+          {
+            "deck": "pcav:3801",
+            "gloss": "butterfly"
+          },
+          {
+            "deck": "pcav:3809",
+            "gloss": "mosquito"
+          },
+          {
+            "deck": "pcav:3815",
+            "gloss": "spider"
+          },
+          {
+            "deck": "pcav:3822",
+            "gloss": "feathers"
+          },
+          {
+            "deck": "pcav:3823",
+            "gloss": "fur"
+          },
+          {
+            "deck": "pcav:3828",
+            "gloss": "tail"
+          },
+          {
+            "deck": "pcav:3831",
+            "gloss": "wing"
+          },
+          {
+            "deck": "pcav:3739",
+            "gloss": "cage"
+          },
+          {
+            "deck": "pcav:3741",
+            "gloss": "dog collar"
+          },
+          {
+            "deck": "pcav:3742",
+            "gloss": "to train"
+          },
+          {
+            "deck": "pcav:3743",
+            "gloss": "animal feed"
+          },
+          {
+            "deck": "pcav:4620",
+            "gloss": "to jump",
+            "sentence": "pcav:4491"
+          },
+          {
+            "deck": "pcav:3865",
+            "gloss": "to grow (a plant)"
+          },
+          {
+            "deck": "pcav:2525",
+            "gloss": "to hit"
+          },
+          {
+            "deck": "pcav:2665",
+            "gloss": "camp"
+          },
+          {
+            "deck": "pcav:2613",
+            "gloss": "to breathe in"
+          },
+          {
+            "deck": "pcav:0957",
+            "gloss": "a mouthful",
+            "sentence": "pcav:0960"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:51",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 51,
+        "title": "Feasts and faith",
+        "theme": "Religion, holidays and kings and queens",
+        "words": [
+          {
+            "deck": "pcav:3173",
+            "gloss": "religion"
+          },
+          {
+            "deck": "pcav:3183",
+            "gloss": "to pray (ask God)"
+          },
+          {
+            "deck": "pcav:3184",
+            "gloss": "a prayer (asking God)"
+          },
+          {
+            "deck": "pcav:3236",
+            "gloss": "to pray (the prayers)"
+          },
+          {
+            "deck": "pcav:3237",
+            "gloss": "the prayers"
+          },
+          {
+            "deck": "pcav:3232",
+            "gloss": "call to prayer"
+          },
+          {
+            "deck": "pcav:3246",
+            "gloss": "the Quran"
+          },
+          {
+            "deck": "pcav:3210",
+            "gloss": "Islamic"
+          },
+          {
+            "deck": "pcav:3212",
+            "gloss": "Christianity"
+          },
+          {
+            "deck": "pcav:3213",
+            "gloss": "Christian"
+          },
+          {
+            "deck": "pcav:3214",
+            "gloss": "Christ"
+          },
+          {
+            "deck": "pcav:3215",
+            "gloss": "Jesus"
+          },
+          {
+            "deck": "pcav:3218",
+            "gloss": "Jewish"
+          },
+          {
+            "deck": "pcav:3252",
+            "gloss": "church"
+          },
+          {
+            "deck": "pcav:4185",
+            "gloss": "Christmas"
+          },
+          {
+            "deck": "pcav:4170",
+            "gloss": "Valentine's Day"
+          },
+          {
+            "deck": "pcav:4171",
+            "gloss": "Halloween"
+          },
+          {
+            "deck": "pcav:3035",
+            "gloss": "to believe"
+          },
+          {
+            "deck": "pcav:3106",
+            "gloss": "kind, tender"
+          },
+          {
+            "deck": "pcav:4660",
+            "gloss": "to thank"
+          },
+          {
+            "deck": "pcav:4673",
+            "gloss": "to welcome"
+          },
+          {
+            "deck": "pcav:2487",
+            "gloss": "king"
+          },
+          {
+            "deck": "pcav:2796",
+            "gloss": "queen"
+          },
+          {
+            "deck": "pcav:2797",
+            "gloss": "prince"
+          },
+          {
+            "deck": "pcav:2798",
+            "gloss": "princess"
+          },
+          {
+            "deck": "pcav:4202",
+            "gloss": "these days"
+          },
+          {
+            "deck": "pcav:4198",
+            "gloss": "in the eighties"
+          },
+          {
+            "deck": "pcav:1454",
+            "gloss": "preschool"
+          },
+          {
+            "deck": "pcav:0221",
+            "gloss": "to call out"
+          },
+          {
+            "deck": "pcav:1051",
+            "gloss": "sweet, pretty (f.)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:52",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 52,
+        "title": "Fun and trouble",
+        "theme": "Smoking, surprises, fun and trouble",
+        "words": [
+          {
+            "deck": "pcav:2391",
+            "gloss": "cigarette"
+          },
+          {
+            "deck": "pcav:2393",
+            "gloss": "to smoke"
+          },
+          {
+            "deck": "pcav:2394",
+            "gloss": "smoking"
+          },
+          {
+            "deck": "pcav:2396",
+            "gloss": "smoker"
+          },
+          {
+            "deck": "pcav:2409",
+            "gloss": "matches"
+          },
+          {
+            "deck": "pcav:2410",
+            "gloss": "lighter"
+          },
+          {
+            "deck": "pcav:1056",
+            "gloss": "alcohol"
+          },
+          {
+            "deck": "pcav:1061",
+            "gloss": "drunk"
+          },
+          {
+            "deck": "pcav:3077",
+            "gloss": "annoying"
+          },
+          {
+            "deck": "pcav:3080",
+            "gloss": "surprising"
+          },
+          {
+            "deck": "pcav:3081",
+            "gloss": "to be surprised"
+          },
+          {
+            "deck": "pcav:3082",
+            "gloss": "surprised"
+          },
+          {
+            "deck": "pcav:2249",
+            "gloss": "drama"
+          },
+          {
+            "deck": "pcav:2279",
+            "gloss": "to turn it up"
+          },
+          {
+            "deck": "pcav:2326",
+            "gloss": "a drawing"
+          },
+          {
+            "deck": "pcav:2440",
+            "gloss": "rap"
+          },
+          {
+            "deck": "pcav:2505",
+            "gloss": "baseball"
+          },
+          {
+            "deck": "pcav:2531",
+            "gloss": "to lose to"
+          },
+          {
+            "deck": "pcav:1504",
+            "gloss": "school gym"
+          },
+          {
+            "deck": "pcav:1201",
+            "gloss": "tomato sauce"
+          },
+          {
+            "deck": "pcav:1436",
+            "gloss": "greengrocer"
+          },
+          {
+            "deck": "pcav:2859",
+            "gloss": "to arrest"
+          },
+          {
+            "deck": "pcav:2690",
+            "gloss": "to smuggle"
+          },
+          {
+            "deck": "pcav:0587",
+            "gloss": "bikini"
+          },
+          {
+            "deck": "pcav:3935",
+            "gloss": "ounce"
+          },
+          {
+            "deck": "pcav:4483",
+            "gloss": "to (a place)"
+          },
+          {
+            "deck": "pcav:4746",
+            "gloss": "other than"
+          },
+          {
+            "deck": "pcav:3956",
+            "gloss": "a couple of"
+          },
+          {
+            "deck": "pcav:4384",
+            "gloss": "so … that"
+          },
+          {
+            "deck": "pcav:3315",
+            "gloss": "dictation"
+          }
+        ]
+      }
     }
   ]
 }
