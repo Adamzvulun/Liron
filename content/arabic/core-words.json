@@ -3841,6 +3841,808 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:29",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 29,
+        "title": "From head to toe",
+        "theme": "Your face and body, and the day from waking to sleep",
+        "words": [
+          {
+            "deck": "pcav:0250",
+            "gloss": "forehead"
+          },
+          {
+            "deck": "pcav:0255",
+            "gloss": "cheek"
+          },
+          {
+            "deck": "pcav:0319",
+            "gloss": "tongue"
+          },
+          {
+            "deck": "pcav:0322",
+            "gloss": "lip"
+          },
+          {
+            "deck": "pcav:0342",
+            "gloss": "neck"
+          },
+          {
+            "deck": "pcav:0344",
+            "gloss": "throat"
+          },
+          {
+            "deck": "pcav:0384",
+            "gloss": "beard",
+            "sentence": "pcav:0386"
+          },
+          {
+            "deck": "pcav:0385",
+            "gloss": "mustache"
+          },
+          {
+            "deck": "pcav:0393",
+            "gloss": "skin"
+          },
+          {
+            "deck": "pcav:0445",
+            "gloss": "knee"
+          },
+          {
+            "deck": "pcav:0480",
+            "gloss": "blood"
+          },
+          {
+            "deck": "pcav:0285",
+            "gloss": "to cry"
+          },
+          {
+            "deck": "pcav:0286",
+            "gloss": "a tear"
+          },
+          {
+            "deck": "pcav:0295",
+            "gloss": "to sneeze"
+          },
+          {
+            "deck": "pcav:0338",
+            "gloss": "to cough"
+          },
+          {
+            "deck": "pcav:0346",
+            "gloss": "to breathe"
+          },
+          {
+            "deck": "pcav:0300",
+            "gloss": "to smell",
+            "sentence": "pcav:0302"
+          },
+          {
+            "deck": "pcav:0320",
+            "gloss": "to taste"
+          },
+          {
+            "deck": "pcav:0389",
+            "gloss": "to shave"
+          },
+          {
+            "deck": "pcav:0421",
+            "gloss": "to sweat"
+          },
+          {
+            "deck": "pcav:0337",
+            "gloss": "to yawn"
+          },
+          {
+            "deck": "pcav:0859",
+            "gloss": "to take a nap"
+          },
+          {
+            "deck": "pcav:0862",
+            "gloss": "to dream"
+          },
+          {
+            "deck": "pcav:0863",
+            "gloss": "a dream"
+          },
+          {
+            "deck": "pcav:0855",
+            "gloss": "sleepy",
+            "sentence": "pcav:0861"
+          },
+          {
+            "deck": "pcav:0854",
+            "gloss": "asleep"
+          },
+          {
+            "deck": "pcav:0625",
+            "gloss": "to change your clothes"
+          },
+          {
+            "deck": "pcav:0623",
+            "gloss": "to get undressed"
+          },
+          {
+            "deck": "pcav:0639",
+            "gloss": "to do the laundry"
+          },
+          {
+            "deck": "pcav:0646",
+            "gloss": "to iron"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:30",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 30,
+        "title": "Salt, sugar and spice",
+        "theme": "How food tastes, and the kitchen's everyday things",
+        "words": [
+          {
+            "deck": "pcav:0970",
+            "gloss": "hunger"
+          },
+          {
+            "deck": "pcav:0974",
+            "gloss": "thirst"
+          },
+          {
+            "deck": "pcav:0975",
+            "gloss": "full up"
+          },
+          {
+            "deck": "pcav:0982",
+            "gloss": "taste",
+            "sentence": "pcav:0995"
+          },
+          {
+            "deck": "pcav:0990",
+            "gloss": "fresh"
+          },
+          {
+            "deck": "pcav:0994",
+            "gloss": "salty"
+          },
+          {
+            "deck": "pcav:1109",
+            "gloss": "beans"
+          },
+          {
+            "deck": "pcav:0998",
+            "gloss": "bitter"
+          },
+          {
+            "deck": "pcav:0999",
+            "gloss": "spicy"
+          },
+          {
+            "deck": "pcav:1005",
+            "gloss": "healthy"
+          },
+          {
+            "deck": "pcav:1018",
+            "gloss": "a snack"
+          },
+          {
+            "deck": "pcav:1123",
+            "gloss": "garlic"
+          },
+          {
+            "deck": "pcav:1121",
+            "gloss": "cucumber"
+          },
+          {
+            "deck": "pcav:1122",
+            "gloss": "eggplant"
+          },
+          {
+            "deck": "pcav:1119",
+            "gloss": "chickpeas"
+          },
+          {
+            "deck": "pcav:1127",
+            "gloss": "olive"
+          },
+          {
+            "deck": "pcav:1132",
+            "gloss": "spinach"
+          },
+          {
+            "deck": "pcav:1155",
+            "gloss": "dates"
+          },
+          {
+            "deck": "pcav:1156",
+            "gloss": "figs"
+          },
+          {
+            "deck": "pcav:1166",
+            "gloss": "pomegranates"
+          },
+          {
+            "deck": "pcav:1171",
+            "gloss": "almonds"
+          },
+          {
+            "deck": "pcav:1216",
+            "gloss": "honey"
+          },
+          {
+            "deck": "pcav:1215",
+            "gloss": "jam"
+          },
+          {
+            "deck": "pcav:1214",
+            "gloss": "flour"
+          },
+          {
+            "deck": "pcav:1203",
+            "gloss": "vinegar"
+          },
+          {
+            "deck": "pcav:1277",
+            "gloss": "falafel"
+          },
+          {
+            "deck": "pcav:1267",
+            "gloss": "fried"
+          },
+          {
+            "deck": "pcav:1271",
+            "gloss": "boiled"
+          },
+          {
+            "deck": "pcav:1272",
+            "gloss": "grilled"
+          },
+          {
+            "deck": "pcav:1283",
+            "gloss": "pickles"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:31",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 31,
+        "title": "Up the stairs",
+        "theme": "Rooms, floors and the things in a home",
+        "words": [
+          {
+            "deck": "pcav:0690",
+            "gloss": "floor (of a building)"
+          },
+          {
+            "deck": "pcav:0693",
+            "gloss": "rent",
+            "sentence": "pcav:0695"
+          },
+          {
+            "deck": "pcav:0700",
+            "gloss": "roof"
+          },
+          {
+            "deck": "pcav:0704",
+            "gloss": "gate"
+          },
+          {
+            "deck": "pcav:0712",
+            "gloss": "furniture"
+          },
+          {
+            "deck": "pcav:0720",
+            "gloss": "ceiling"
+          },
+          {
+            "deck": "pcav:0721",
+            "gloss": "carpet"
+          },
+          {
+            "deck": "pcav:0725",
+            "gloss": "curtain"
+          },
+          {
+            "deck": "pcav:0728",
+            "gloss": "shelf"
+          },
+          {
+            "deck": "pcav:0769",
+            "gloss": "heater"
+          },
+          {
+            "deck": "pcav:0770",
+            "gloss": "air conditioner"
+          },
+          {
+            "deck": "pcav:0793",
+            "gloss": "cupboard"
+          },
+          {
+            "deck": "pcav:0795",
+            "gloss": "freezer"
+          },
+          {
+            "deck": "pcav:0796",
+            "gloss": "stove"
+          },
+          {
+            "deck": "pcav:0798",
+            "gloss": "microwave"
+          },
+          {
+            "deck": "pcav:0814",
+            "gloss": "pot"
+          },
+          {
+            "deck": "pcav:0815",
+            "gloss": "pan"
+          },
+          {
+            "deck": "pcav:0818",
+            "gloss": "recipe"
+          },
+          {
+            "deck": "pcav:0824",
+            "gloss": "faucet"
+          },
+          {
+            "deck": "pcav:0828",
+            "gloss": "kettle"
+          },
+          {
+            "deck": "pcav:0832",
+            "gloss": "garbage"
+          },
+          {
+            "deck": "pcav:0835",
+            "gloss": "to throw away"
+          },
+          {
+            "deck": "pcav:0844",
+            "gloss": "blanket"
+          },
+          {
+            "deck": "pcav:0892",
+            "gloss": "alarm clock"
+          },
+          {
+            "deck": "pcav:0899",
+            "gloss": "bathtub"
+          },
+          {
+            "deck": "pcav:0742",
+            "gloss": "to sweep"
+          },
+          {
+            "deck": "pcav:2030",
+            "gloss": "elevator"
+          },
+          {
+            "deck": "pcav:2032",
+            "gloss": "stairs"
+          },
+          {
+            "deck": "pcav:2039",
+            "gloss": "ground floor"
+          },
+          {
+            "deck": "pcav:2036",
+            "gloss": "basement"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:32",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 32,
+        "title": "A day's work",
+        "theme": "Jobs, the workplace, and what people do",
+        "words": [
+          {
+            "deck": "pcav:1297",
+            "gloss": "job, task"
+          },
+          {
+            "deck": "pcav:1313",
+            "gloss": "to find a job"
+          },
+          {
+            "deck": "pcav:1319",
+            "gloss": "boss"
+          },
+          {
+            "deck": "pcav:1320",
+            "gloss": "coworker"
+          },
+          {
+            "deck": "pcav:1321",
+            "gloss": "company"
+          },
+          {
+            "deck": "pcav:1322",
+            "gloss": "to start work"
+          },
+          {
+            "deck": "pcav:1323",
+            "gloss": "to take a break"
+          },
+          {
+            "deck": "pcav:1328",
+            "gloss": "working hours"
+          },
+          {
+            "deck": "pcav:1342",
+            "gloss": "to have a meeting"
+          },
+          {
+            "deck": "pcav:1343",
+            "gloss": "client"
+          },
+          {
+            "deck": "pcav:1345",
+            "gloss": "to get paid"
+          },
+          {
+            "deck": "pcav:1347",
+            "gloss": "salary"
+          },
+          {
+            "deck": "pcav:1361",
+            "gloss": "unemployed"
+          },
+          {
+            "deck": "pcav:1381",
+            "gloss": "actor"
+          },
+          {
+            "deck": "pcav:1383",
+            "gloss": "artist"
+          },
+          {
+            "deck": "pcav:1385",
+            "gloss": "baker"
+          },
+          {
+            "deck": "pcav:1388",
+            "gloss": "barber"
+          },
+          {
+            "deck": "pcav:1390",
+            "gloss": "butcher"
+          },
+          {
+            "deck": "pcav:1392",
+            "gloss": "cashier"
+          },
+          {
+            "deck": "pcav:1402",
+            "gloss": "engineer"
+          },
+          {
+            "deck": "pcav:1403",
+            "gloss": "farmer"
+          },
+          {
+            "deck": "pcav:1404",
+            "gloss": "firefighter"
+          },
+          {
+            "deck": "pcav:1416",
+            "gloss": "mechanic"
+          },
+          {
+            "deck": "pcav:1417",
+            "gloss": "musician"
+          },
+          {
+            "deck": "pcav:1418",
+            "gloss": "nurse"
+          },
+          {
+            "deck": "pcav:1421",
+            "gloss": "pharmacist"
+          },
+          {
+            "deck": "pcav:1422",
+            "gloss": "pilot"
+          },
+          {
+            "deck": "pcav:1437",
+            "gloss": "soldier"
+          },
+          {
+            "deck": "pcav:1444",
+            "gloss": "writer"
+          },
+          {
+            "deck": "pcav:2950",
+            "gloss": "factory"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:33",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 33,
+        "title": "Around town and away",
+        "theme": "Getting about, the post, shopping, and going abroad",
+        "words": [
+          {
+            "deck": "pcav:1828",
+            "gloss": "to get on (a bus)"
+          },
+          {
+            "deck": "pcav:1829",
+            "gloss": "to get off"
+          },
+          {
+            "deck": "pcav:1833",
+            "gloss": "ship"
+          },
+          {
+            "deck": "pcav:1865",
+            "gloss": "motorcycle"
+          },
+          {
+            "deck": "pcav:1871",
+            "gloss": "passenger"
+          },
+          {
+            "deck": "pcav:1873",
+            "gloss": "traffic jam",
+            "sentence": "pcav:1875"
+          },
+          {
+            "deck": "pcav:1883",
+            "gloss": "sidewalk"
+          },
+          {
+            "deck": "pcav:1891",
+            "gloss": "to park"
+          },
+          {
+            "deck": "pcav:1892",
+            "gloss": "parking lot"
+          },
+          {
+            "deck": "pcav:1899",
+            "gloss": "intersection"
+          },
+          {
+            "deck": "pcav:1903",
+            "gloss": "bridge"
+          },
+          {
+            "deck": "pcav:2000",
+            "gloss": "alley"
+          },
+          {
+            "deck": "pcav:1908",
+            "gloss": "to drop off"
+          },
+          {
+            "deck": "pcav:1966",
+            "gloss": "gas (for a car)"
+          },
+          {
+            "deck": "pcav:1995",
+            "gloss": "square (in a town)"
+          },
+          {
+            "deck": "pcav:2001",
+            "gloss": "corner"
+          },
+          {
+            "deck": "pcav:2084",
+            "gloss": "letter (in the mail)"
+          },
+          {
+            "deck": "pcav:2088",
+            "gloss": "stamp"
+          },
+          {
+            "deck": "pcav:2092",
+            "gloss": "package"
+          },
+          {
+            "deck": "pcav:2153",
+            "gloss": "change (money back)",
+            "sentence": "pcav:2154"
+          },
+          {
+            "deck": "pcav:2166",
+            "gloss": "ad, advertisement"
+          },
+          {
+            "deck": "pcav:2161",
+            "gloss": "free (no charge)"
+          },
+          {
+            "deck": "pcav:2167",
+            "gloss": "sale, discount"
+          },
+          {
+            "deck": "pcav:2213",
+            "gloss": "tip",
+            "sentence": "pcav:2215"
+          },
+          {
+            "deck": "pcav:2682",
+            "gloss": "abroad",
+            "sentence": "pcav:0184"
+          },
+          {
+            "deck": "pcav:2692",
+            "gloss": "to change money"
+          },
+          {
+            "deck": "pcav:2702",
+            "gloss": "to fly"
+          },
+          {
+            "deck": "pcav:2770",
+            "gloss": "to check in"
+          },
+          {
+            "deck": "pcav:2771",
+            "gloss": "to check out"
+          },
+          {
+            "deck": "pcav:2685",
+            "gloss": "border"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:34",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 34,
+        "title": "Heart and mind",
+        "theme": "Feelings, character, thinking, and the times of the year",
+        "words": [
+          {
+            "deck": "pcav:4160",
+            "gloss": "season"
+          },
+          {
+            "deck": "pcav:4166",
+            "gloss": "holiday"
+          },
+          {
+            "deck": "pcav:4178",
+            "gloss": "Ramadan"
+          },
+          {
+            "deck": "pcav:4199",
+            "gloss": "century"
+          },
+          {
+            "deck": "pcav:4211",
+            "gloss": "long ago"
+          },
+          {
+            "deck": "pcav:4214",
+            "gloss": "right away"
+          },
+          {
+            "deck": "pcav:4219",
+            "gloss": "one day, some day"
+          },
+          {
+            "deck": "pcav:4264",
+            "gloss": "until",
+            "sentence": "pcav:4266"
+          },
+          {
+            "deck": "pcav:3049",
+            "gloss": "crazy"
+          },
+          {
+            "deck": "pcav:4247",
+            "gloss": "early morning"
+          },
+          {
+            "deck": "pcav:3023",
+            "gloss": "mind"
+          },
+          {
+            "deck": "pcav:3032",
+            "gloss": "plan"
+          },
+          {
+            "deck": "pcav:3038",
+            "gloss": "to decide"
+          },
+          {
+            "deck": "pcav:3039",
+            "gloss": "decision"
+          },
+          {
+            "deck": "pcav:3050",
+            "gloss": "clever"
+          },
+          {
+            "deck": "pcav:3052",
+            "gloss": "stupid"
+          },
+          {
+            "deck": "pcav:3061",
+            "gloss": "to laugh"
+          },
+          {
+            "deck": "pcav:3071",
+            "gloss": "upset"
+          },
+          {
+            "deck": "pcav:3078",
+            "gloss": "to surprise"
+          },
+          {
+            "deck": "pcav:3090",
+            "gloss": "fear"
+          },
+          {
+            "deck": "pcav:3099",
+            "gloss": "shy"
+          },
+          {
+            "deck": "pcav:3084",
+            "gloss": "exciting"
+          },
+          {
+            "deck": "pcav:3111",
+            "gloss": "lazy"
+          },
+          {
+            "deck": "pcav:3112",
+            "gloss": "serious"
+          },
+          {
+            "deck": "pcav:3118",
+            "gloss": "strange"
+          },
+          {
+            "deck": "pcav:3123",
+            "gloss": "to enjoy"
+          },
+          {
+            "deck": "pcav:3124",
+            "gloss": "to hate"
+          },
+          {
+            "deck": "pcav:3139",
+            "gloss": "to prefer"
+          },
+          {
+            "deck": "pcav:3153",
+            "gloss": "opinion"
+          },
+          {
+            "deck": "pcav:3164",
+            "gloss": "to hope"
+          }
+        ]
+      }
     }
   ]
 }
