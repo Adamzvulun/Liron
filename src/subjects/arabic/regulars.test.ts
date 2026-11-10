@@ -66,7 +66,8 @@ describe('the regulars past chapter 10 (#163, #205)', () => {
       at({ chapter: 21, trials: REGULARS.slice(0, 20).map((r) => r.number) }),
     );
     expect(s).toMatchObject({ regular: { number: 22, who: 'Khalid the trader' }, lit: 0 });
-    expect(REGULARS[REGULARS.length - 1]).toMatchObject({ number: 35, who: 'The innkeeper' });
+    expect(REGULARS[33]).toMatchObject({ number: 35, who: 'The innkeeper' });
+    expect(REGULARS[REGULARS.length - 1]).toMatchObject({ number: 45, who: 'Hana and her groom' });
   });
 
   it('number the chapters in Roman numerals past XII', () => {

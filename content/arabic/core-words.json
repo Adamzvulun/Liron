@@ -4643,6 +4643,1346 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:35",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 35,
+        "title": "Born, wed and grown",
+        "theme": "Life from birth to old age, family and weddings",
+        "words": [
+          {
+            "deck": "pcav:0001",
+            "gloss": "life"
+          },
+          {
+            "deck": "pcav:0004",
+            "gloss": "alive"
+          },
+          {
+            "deck": "pcav:0005",
+            "gloss": "to be born"
+          },
+          {
+            "deck": "pcav:0006",
+            "gloss": "birth"
+          },
+          {
+            "deck": "pcav:0010",
+            "gloss": "diaper"
+          },
+          {
+            "deck": "pcav:0016",
+            "gloss": "teenager"
+          },
+          {
+            "deck": "pcav:0017",
+            "gloss": "to grow up"
+          },
+          {
+            "deck": "pcav:0019",
+            "gloss": "people"
+          },
+          {
+            "deck": "pcav:0025",
+            "gloss": "adult"
+          },
+          {
+            "deck": "pcav:0026",
+            "gloss": "young people"
+          },
+          {
+            "deck": "pcav:0053",
+            "gloss": "to turn (an age)",
+            "sentence": "pcav:0054"
+          },
+          {
+            "deck": "pcav:0058",
+            "gloss": "death"
+          },
+          {
+            "deck": "pcav:0059",
+            "gloss": "to die"
+          },
+          {
+            "deck": "pcav:0060",
+            "gloss": "dead"
+          },
+          {
+            "deck": "pcav:0067",
+            "gloss": "cemetery"
+          },
+          {
+            "deck": "pcav:0075",
+            "gloss": "relatives",
+            "sentence": "pcav:0076"
+          },
+          {
+            "deck": "pcav:0093",
+            "gloss": "brothers and sisters"
+          },
+          {
+            "deck": "pcav:0104",
+            "gloss": "twin",
+            "sentence": "pcav:0108"
+          },
+          {
+            "deck": "pcav:0129",
+            "gloss": "grandson"
+          },
+          {
+            "deck": "pcav:0130",
+            "gloss": "granddaughter"
+          },
+          {
+            "deck": "pcav:0131",
+            "gloss": "grandchildren"
+          },
+          {
+            "deck": "pcav:0161",
+            "gloss": "darling"
+          },
+          {
+            "deck": "pcav:0189",
+            "gloss": "to get married"
+          },
+          {
+            "deck": "pcav:0190",
+            "gloss": "marriage"
+          },
+          {
+            "deck": "pcav:0192",
+            "gloss": "wedding"
+          },
+          {
+            "deck": "pcav:0193",
+            "gloss": "groom"
+          },
+          {
+            "deck": "pcav:0194",
+            "gloss": "bride"
+          },
+          {
+            "deck": "pcav:0670",
+            "gloss": "wedding ring"
+          },
+          {
+            "deck": "pcav:1730",
+            "gloss": "pregnant"
+          },
+          {
+            "deck": "pcav:1731",
+            "gloss": "to give birth"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:36",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 36,
+        "title": "What to wear",
+        "theme": "Clothes, cloth and jewelry",
+        "words": [
+          {
+            "deck": "pcav:0531",
+            "gloss": "underwear"
+          },
+          {
+            "deck": "pcav:0536",
+            "gloss": "collar"
+          },
+          {
+            "deck": "pcav:0549",
+            "gloss": "suit"
+          },
+          {
+            "deck": "pcav:0551",
+            "gloss": "uniform"
+          },
+          {
+            "deck": "pcav:0552",
+            "gloss": "abaya"
+          },
+          {
+            "deck": "pcav:0553",
+            "gloss": "tie"
+          },
+          {
+            "deck": "pcav:0568",
+            "gloss": "headscarf"
+          },
+          {
+            "deck": "pcav:0581",
+            "gloss": "gloves"
+          },
+          {
+            "deck": "pcav:0584",
+            "gloss": "pajamas"
+          },
+          {
+            "deck": "pcav:0586",
+            "gloss": "swimsuit"
+          },
+          {
+            "deck": "pcav:0588",
+            "gloss": "pocket"
+          },
+          {
+            "deck": "pcav:0589",
+            "gloss": "to put in your pocket"
+          },
+          {
+            "deck": "pcav:0603",
+            "gloss": "sandals"
+          },
+          {
+            "deck": "pcav:0605",
+            "gloss": "slippers"
+          },
+          {
+            "deck": "pcav:0631",
+            "gloss": "loose"
+          },
+          {
+            "deck": "pcav:0632",
+            "gloss": "tight"
+          },
+          {
+            "deck": "pcav:0642",
+            "gloss": "washing machine"
+          },
+          {
+            "deck": "pcav:0652",
+            "gloss": "cotton",
+            "sentence": "pcav:0657"
+          },
+          {
+            "deck": "pcav:0653",
+            "gloss": "wool"
+          },
+          {
+            "deck": "pcav:0654",
+            "gloss": "silk",
+            "sentence": "pcav:0658"
+          },
+          {
+            "deck": "pcav:0668",
+            "gloss": "jewelry"
+          },
+          {
+            "deck": "pcav:0669",
+            "gloss": "ring"
+          },
+          {
+            "deck": "pcav:0672",
+            "gloss": "bracelet"
+          },
+          {
+            "deck": "pcav:0673",
+            "gloss": "earring"
+          },
+          {
+            "deck": "pcav:0675",
+            "gloss": "necklace"
+          },
+          {
+            "deck": "pcav:0682",
+            "gloss": "gold"
+          },
+          {
+            "deck": "pcav:0683",
+            "gloss": "silver"
+          },
+          {
+            "deck": "pcav:0413",
+            "gloss": "tattoo",
+            "sentence": "pcav:0414"
+          },
+          {
+            "deck": "pcav:0283",
+            "gloss": "to wear glasses",
+            "sentence": "pcav:0284"
+          },
+          {
+            "deck": "pcav:0371",
+            "gloss": "to get a haircut"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:37",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 37,
+        "title": "Aches and pains",
+        "theme": "The body, and going to the doctor",
+        "words": [
+          {
+            "deck": "pcav:0252",
+            "gloss": "eyebrow"
+          },
+          {
+            "deck": "pcav:0275",
+            "gloss": "to open your eyes"
+          },
+          {
+            "deck": "pcav:0281",
+            "gloss": "eyesight"
+          },
+          {
+            "deck": "pcav:0297",
+            "gloss": "a runny nose"
+          },
+          {
+            "deck": "pcav:0331",
+            "gloss": "to bite"
+          },
+          {
+            "deck": "pcav:0348",
+            "gloss": "breathing"
+          },
+          {
+            "deck": "pcav:0372",
+            "gloss": "bald"
+          },
+          {
+            "deck": "pcav:0373",
+            "gloss": "to go bald"
+          },
+          {
+            "deck": "pcav:0405",
+            "gloss": "to put on lotion"
+          },
+          {
+            "deck": "pcav:0422",
+            "gloss": "sweaty",
+            "sentence": "pcav:0423"
+          },
+          {
+            "deck": "pcav:0431",
+            "gloss": "fingernail"
+          },
+          {
+            "deck": "pcav:0438",
+            "gloss": "to hold"
+          },
+          {
+            "deck": "pcav:0446",
+            "gloss": "ankle"
+          },
+          {
+            "deck": "pcav:0496",
+            "gloss": "height"
+          },
+          {
+            "deck": "pcav:0502",
+            "gloss": "weight"
+          },
+          {
+            "deck": "pcav:0509",
+            "gloss": "to get fat"
+          },
+          {
+            "deck": "pcav:2570",
+            "gloss": "to lose weight"
+          },
+          {
+            "deck": "pcav:2575",
+            "gloss": "to go on a diet",
+            "sentence": "pcav:2577"
+          },
+          {
+            "deck": "pcav:1623",
+            "gloss": "health"
+          },
+          {
+            "deck": "pcav:1625",
+            "gloss": "illness"
+          },
+          {
+            "deck": "pcav:1637",
+            "gloss": "clinic"
+          },
+          {
+            "deck": "pcav:1648",
+            "gloss": "pain"
+          },
+          {
+            "deck": "pcav:1659",
+            "gloss": "to have a cold"
+          },
+          {
+            "deck": "pcav:1661",
+            "gloss": "to have the flu",
+            "sentence": "pcav:1644"
+          },
+          {
+            "deck": "pcav:1663",
+            "gloss": "to have a fever"
+          },
+          {
+            "deck": "pcav:1665",
+            "gloss": "to have a sore throat"
+          },
+          {
+            "deck": "pcav:1668",
+            "gloss": "to have a cough"
+          },
+          {
+            "deck": "pcav:1702",
+            "gloss": "prescription"
+          },
+          {
+            "deck": "pcav:1704",
+            "gloss": "aspirin"
+          },
+          {
+            "deck": "pcav:1741",
+            "gloss": "to have a toothache"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:38",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 38,
+        "title": "Coffee and cake",
+        "theme": "Snacks, sauces and what's on the plate",
+        "words": [
+          {
+            "deck": "pcav:0803",
+            "gloss": "cooking"
+          },
+          {
+            "deck": "pcav:0956",
+            "gloss": "a bite, a sip"
+          },
+          {
+            "deck": "pcav:0969",
+            "gloss": "to get hungry"
+          },
+          {
+            "deck": "pcav:0973",
+            "gloss": "to get thirsty"
+          },
+          {
+            "deck": "pcav:0976",
+            "gloss": "to get full"
+          },
+          {
+            "deck": "pcav:0987",
+            "gloss": "to be past its date",
+            "sentence": "pcav:0988"
+          },
+          {
+            "deck": "pcav:1020",
+            "gloss": "to have a snack"
+          },
+          {
+            "deck": "pcav:1035",
+            "gloss": "a can",
+            "sentence": "pcav:1037"
+          },
+          {
+            "deck": "pcav:1044",
+            "gloss": "espresso"
+          },
+          {
+            "deck": "pcav:1050",
+            "gloss": "medium-sweet (coffee)"
+          },
+          {
+            "deck": "pcav:1052",
+            "gloss": "coffee beans"
+          },
+          {
+            "deck": "pcav:1054",
+            "gloss": "instant coffee"
+          },
+          {
+            "deck": "pcav:1073",
+            "gloss": "cream"
+          },
+          {
+            "deck": "pcav:1087",
+            "gloss": "chewing gum"
+          },
+          {
+            "deck": "pcav:1093",
+            "gloss": "pastries"
+          },
+          {
+            "deck": "pcav:1097",
+            "gloss": "cookie"
+          },
+          {
+            "deck": "pcav:1099",
+            "gloss": "pie"
+          },
+          {
+            "deck": "pcav:1194",
+            "gloss": "vanilla"
+          },
+          {
+            "deck": "pcav:1195",
+            "gloss": "sauce"
+          },
+          {
+            "deck": "pcav:1197",
+            "gloss": "ketchup"
+          },
+          {
+            "deck": "pcav:1198",
+            "gloss": "mayonnaise"
+          },
+          {
+            "deck": "pcav:1199",
+            "gloss": "mustard"
+          },
+          {
+            "deck": "pcav:1236",
+            "gloss": "a whole chicken"
+          },
+          {
+            "deck": "pcav:1240",
+            "gloss": "sausage"
+          },
+          {
+            "deck": "pcav:1244",
+            "gloss": "salmon"
+          },
+          {
+            "deck": "pcav:1246",
+            "gloss": "tuna"
+          },
+          {
+            "deck": "pcav:1253",
+            "gloss": "shrimp"
+          },
+          {
+            "deck": "pcav:1255",
+            "gloss": "fat",
+            "sentence": "pcav:1256"
+          },
+          {
+            "deck": "pcav:1269",
+            "gloss": "baked (bread)"
+          },
+          {
+            "deck": "pcav:1270",
+            "gloss": "roast"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:39",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 39,
+        "title": "From the field",
+        "theme": "Fruit, vegetables, plants and the farm",
+        "words": [
+          {
+            "deck": "pcav:1112",
+            "gloss": "broccoli"
+          },
+          {
+            "deck": "pcav:1113",
+            "gloss": "cabbage"
+          },
+          {
+            "deck": "pcav:1114",
+            "gloss": "bell pepper"
+          },
+          {
+            "deck": "pcav:1116",
+            "gloss": "cauliflower"
+          },
+          {
+            "deck": "pcav:1120",
+            "gloss": "chili pepper"
+          },
+          {
+            "deck": "pcav:1125",
+            "gloss": "mushroom"
+          },
+          {
+            "deck": "pcav:1129",
+            "gloss": "peas"
+          },
+          {
+            "deck": "pcav:1149",
+            "gloss": "apricots"
+          },
+          {
+            "deck": "pcav:1151",
+            "gloss": "berries"
+          },
+          {
+            "deck": "pcav:1154",
+            "gloss": "cherries"
+          },
+          {
+            "deck": "pcav:1160",
+            "gloss": "mango"
+          },
+          {
+            "deck": "pcav:1163",
+            "gloss": "plums"
+          },
+          {
+            "deck": "pcav:1164",
+            "gloss": "pears"
+          },
+          {
+            "deck": "pcav:1165",
+            "gloss": "pineapple"
+          },
+          {
+            "deck": "pcav:2955",
+            "gloss": "farm"
+          },
+          {
+            "deck": "pcav:2983",
+            "gloss": "field"
+          },
+          {
+            "deck": "pcav:2993",
+            "gloss": "wheat"
+          },
+          {
+            "deck": "pcav:2994",
+            "gloss": "corn"
+          },
+          {
+            "deck": "pcav:3832",
+            "gloss": "plant"
+          },
+          {
+            "deck": "pcav:3834",
+            "gloss": "bush"
+          },
+          {
+            "deck": "pcav:3836",
+            "gloss": "branch"
+          },
+          {
+            "deck": "pcav:3841",
+            "gloss": "palm tree"
+          },
+          {
+            "deck": "pcav:3863",
+            "gloss": "seed"
+          },
+          {
+            "deck": "pcav:3864",
+            "gloss": "to plant"
+          },
+          {
+            "deck": "pcav:3796",
+            "gloss": "bees"
+          },
+          {
+            "deck": "pcav:3871",
+            "gloss": "flowerpot"
+          },
+          {
+            "deck": "pcav:0937",
+            "gloss": "to garden"
+          },
+          {
+            "deck": "pcav:0705",
+            "gloss": "gardener"
+          },
+          {
+            "deck": "pcav:0784",
+            "gloss": "vase"
+          },
+          {
+            "deck": "pcav:2045",
+            "gloss": "wood"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:40",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 40,
+        "title": "Around the house",
+        "theme": "Chores, what things are made of, and how they feel",
+        "words": [
+          {
+            "deck": "pcav:0688",
+            "gloss": "duplex apartment"
+          },
+          {
+            "deck": "pcav:0702",
+            "gloss": "fence"
+          },
+          {
+            "deck": "pcav:0735",
+            "gloss": "poster"
+          },
+          {
+            "deck": "pcav:0740",
+            "gloss": "to wash the windows"
+          },
+          {
+            "deck": "pcav:0741",
+            "gloss": "broom"
+          },
+          {
+            "deck": "pcav:0747",
+            "gloss": "dust"
+          },
+          {
+            "deck": "pcav:0749",
+            "gloss": "dusty"
+          },
+          {
+            "deck": "pcav:0768",
+            "gloss": "candle"
+          },
+          {
+            "deck": "pcav:0781",
+            "gloss": "to clear the table"
+          },
+          {
+            "deck": "pcav:0823",
+            "gloss": "sink"
+          },
+          {
+            "deck": "pcav:0837",
+            "gloss": "to take out the garbage"
+          },
+          {
+            "deck": "pcav:0903",
+            "gloss": "sponge"
+          },
+          {
+            "deck": "pcav:0910",
+            "gloss": "hair dryer"
+          },
+          {
+            "deck": "pcav:2019",
+            "gloss": "to build"
+          },
+          {
+            "deck": "pcav:2046",
+            "gloss": "glass"
+          },
+          {
+            "deck": "pcav:2047",
+            "gloss": "metal"
+          },
+          {
+            "deck": "pcav:4567",
+            "gloss": "to break"
+          },
+          {
+            "deck": "pcav:4569",
+            "gloss": "to burn"
+          },
+          {
+            "deck": "pcav:4638",
+            "gloss": "to prepare"
+          },
+          {
+            "deck": "pcav:4661",
+            "gloss": "to tie"
+          },
+          {
+            "deck": "pcav:4662",
+            "gloss": "to touch"
+          },
+          {
+            "deck": "pcav:4677",
+            "gloss": "hard"
+          },
+          {
+            "deck": "pcav:4678",
+            "gloss": "soft"
+          },
+          {
+            "deck": "pcav:4699",
+            "gloss": "heavy"
+          },
+          {
+            "deck": "pcav:4700",
+            "gloss": "light (not heavy)"
+          },
+          {
+            "deck": "pcav:4729",
+            "gloss": "wet"
+          },
+          {
+            "deck": "pcav:4731",
+            "gloss": "quiet"
+          },
+          {
+            "deck": "pcav:4732",
+            "gloss": "noisy"
+          },
+          {
+            "deck": "pcav:4738",
+            "gloss": "bright"
+          },
+          {
+            "deck": "pcav:4739",
+            "gloss": "sharp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:41",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 41,
+        "title": "Back to school",
+        "theme": "School, subjects and learning a language",
+        "words": [
+          {
+            "deck": "pcav:1445",
+            "gloss": "education"
+          },
+          {
+            "deck": "pcav:1455",
+            "gloss": "kindergarten"
+          },
+          {
+            "deck": "pcav:1457",
+            "gloss": "elementary school"
+          },
+          {
+            "deck": "pcav:1462",
+            "gloss": "middle school"
+          },
+          {
+            "deck": "pcav:1464",
+            "gloss": "high school"
+          },
+          {
+            "deck": "pcav:1487",
+            "gloss": "to raise your hand"
+          },
+          {
+            "deck": "pcav:1495",
+            "gloss": "to take notes"
+          },
+          {
+            "deck": "pcav:1496",
+            "gloss": "to copy"
+          },
+          {
+            "deck": "pcav:1498",
+            "gloss": "blackboard"
+          },
+          {
+            "deck": "pcav:1499",
+            "gloss": "chalk"
+          },
+          {
+            "deck": "pcav:1505",
+            "gloss": "playground"
+          },
+          {
+            "deck": "pcav:1506",
+            "gloss": "cafeteria"
+          },
+          {
+            "deck": "pcav:1515",
+            "gloss": "recess",
+            "sentence": "pcav:1517"
+          },
+          {
+            "deck": "pcav:1519",
+            "gloss": "to take a test"
+          },
+          {
+            "deck": "pcav:1528",
+            "gloss": "grade (a mark)"
+          },
+          {
+            "deck": "pcav:1597",
+            "gloss": "subject",
+            "sentence": "pcav:1598"
+          },
+          {
+            "deck": "pcav:1606",
+            "gloss": "geography"
+          },
+          {
+            "deck": "pcav:1609",
+            "gloss": "history"
+          },
+          {
+            "deck": "pcav:1614",
+            "gloss": "math"
+          },
+          {
+            "deck": "pcav:1621",
+            "gloss": "science"
+          },
+          {
+            "deck": "pcav:2124",
+            "gloss": "to erase"
+          },
+          {
+            "deck": "pcav:3298",
+            "gloss": "practice"
+          },
+          {
+            "deck": "pcav:3302",
+            "gloss": "level"
+          },
+          {
+            "deck": "pcav:3311",
+            "gloss": "letter (of the alphabet)"
+          },
+          {
+            "deck": "pcav:3313",
+            "gloss": "to spell"
+          },
+          {
+            "deck": "pcav:3338",
+            "gloss": "pronunciation",
+            "sentence": "pcav:3343"
+          },
+          {
+            "deck": "pcav:3340",
+            "gloss": "to pronounce"
+          },
+          {
+            "deck": "pcav:3348",
+            "gloss": "vocabulary"
+          },
+          {
+            "deck": "pcav:3356",
+            "gloss": "grammar"
+          },
+          {
+            "deck": "pcav:3388",
+            "gloss": "sentence"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:42",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 42,
+        "title": "Screens and shows",
+        "theme": "Computers, phones, TV and the movies",
+        "words": [
+          {
+            "deck": "pcav:1755",
+            "gloss": "screen"
+          },
+          {
+            "deck": "pcav:1756",
+            "gloss": "keyboard"
+          },
+          {
+            "deck": "pcav:1757",
+            "gloss": "mouse"
+          },
+          {
+            "deck": "pcav:1760",
+            "gloss": "file"
+          },
+          {
+            "deck": "pcav:1762",
+            "gloss": "folder",
+            "sentence": "pcav:1764"
+          },
+          {
+            "deck": "pcav:1766",
+            "gloss": "to save"
+          },
+          {
+            "deck": "pcav:1770",
+            "gloss": "to delete"
+          },
+          {
+            "deck": "pcav:1774",
+            "gloss": "to go online"
+          },
+          {
+            "deck": "pcav:1780",
+            "gloss": "to download"
+          },
+          {
+            "deck": "pcav:1782",
+            "gloss": "to upload"
+          },
+          {
+            "deck": "pcav:1789",
+            "gloss": "password"
+          },
+          {
+            "deck": "pcav:1794",
+            "gloss": "printer"
+          },
+          {
+            "deck": "pcav:1795",
+            "gloss": "to print"
+          },
+          {
+            "deck": "pcav:1804",
+            "gloss": "app"
+          },
+          {
+            "deck": "pcav:1805",
+            "gloss": "to send a text"
+          },
+          {
+            "deck": "pcav:1816",
+            "gloss": "to ring"
+          },
+          {
+            "deck": "pcav:2245",
+            "gloss": "TV show",
+            "sentence": "pcav:2246"
+          },
+          {
+            "deck": "pcav:2260",
+            "gloss": "cartoon"
+          },
+          {
+            "deck": "pcav:2269",
+            "gloss": "the news"
+          },
+          {
+            "deck": "pcav:2273",
+            "gloss": "channel"
+          },
+          {
+            "deck": "pcav:2278",
+            "gloss": "volume"
+          },
+          {
+            "deck": "pcav:2289",
+            "gloss": "radio station"
+          },
+          {
+            "deck": "pcav:2291",
+            "gloss": "headphones"
+          },
+          {
+            "deck": "pcav:2299",
+            "gloss": "to play (a song)"
+          },
+          {
+            "deck": "pcav:2345",
+            "gloss": "the movies"
+          },
+          {
+            "deck": "pcav:2361",
+            "gloss": "popcorn"
+          },
+          {
+            "deck": "pcav:2373",
+            "gloss": "movie star"
+          },
+          {
+            "deck": "pcav:2097",
+            "gloss": "to deliver the mail"
+          },
+          {
+            "deck": "pcav:2126",
+            "gloss": "scissors"
+          },
+          {
+            "deck": "pcav:2105",
+            "gloss": "novel"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:43",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 43,
+        "title": "Game on",
+        "theme": "Sports, games, art and free time",
+        "words": [
+          {
+            "deck": "pcav:2218",
+            "gloss": "to relax"
+          },
+          {
+            "deck": "pcav:2307",
+            "gloss": "a visit"
+          },
+          {
+            "deck": "pcav:2309",
+            "gloss": "to have guests over"
+          },
+          {
+            "deck": "pcav:2322",
+            "gloss": "art"
+          },
+          {
+            "deck": "pcav:2324",
+            "gloss": "to draw"
+          },
+          {
+            "deck": "pcav:2329",
+            "gloss": "to take a photo of"
+          },
+          {
+            "deck": "pcav:2333",
+            "gloss": "photographer"
+          },
+          {
+            "deck": "pcav:2388",
+            "gloss": "circus"
+          },
+          {
+            "deck": "pcav:2390",
+            "gloss": "clown"
+          },
+          {
+            "deck": "pcav:2434",
+            "gloss": "band"
+          },
+          {
+            "deck": "pcav:2450",
+            "gloss": "to play (an instrument)"
+          },
+          {
+            "deck": "pcav:2471",
+            "gloss": "dancer"
+          },
+          {
+            "deck": "pcav:2478",
+            "gloss": "to play cards"
+          },
+          {
+            "deck": "pcav:2479",
+            "gloss": "turn (in a game)"
+          },
+          {
+            "deck": "pcav:2482",
+            "gloss": "chess"
+          },
+          {
+            "deck": "pcav:2500",
+            "gloss": "goal"
+          },
+          {
+            "deck": "pcav:2501",
+            "gloss": "to score a goal"
+          },
+          {
+            "deck": "pcav:2524",
+            "gloss": "to kick"
+          },
+          {
+            "deck": "pcav:2526",
+            "gloss": "to throw"
+          },
+          {
+            "deck": "pcav:2528",
+            "gloss": "to win"
+          },
+          {
+            "deck": "pcav:2529",
+            "gloss": "to lose (a game)"
+          },
+          {
+            "deck": "pcav:2533",
+            "gloss": "player"
+          },
+          {
+            "deck": "pcav:2534",
+            "gloss": "team"
+          },
+          {
+            "deck": "pcav:2537",
+            "gloss": "score"
+          },
+          {
+            "deck": "pcav:2545",
+            "gloss": "to work out"
+          },
+          {
+            "deck": "pcav:2551",
+            "gloss": "gym"
+          },
+          {
+            "deck": "pcav:2514",
+            "gloss": "to ski"
+          },
+          {
+            "deck": "pcav:2664",
+            "gloss": "to go camping"
+          },
+          {
+            "deck": "pcav:2666",
+            "gloss": "tent"
+          },
+          {
+            "deck": "pcav:1384",
+            "gloss": "athlete"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:44",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 44,
+        "title": "Over the hills",
+        "theme": "On the road, on holiday, and the land and sea",
+        "words": [
+          {
+            "deck": "pcav:1826",
+            "gloss": "transportation"
+          },
+          {
+            "deck": "pcav:1867",
+            "gloss": "helmet"
+          },
+          {
+            "deck": "pcav:1882",
+            "gloss": "pedestrians"
+          },
+          {
+            "deck": "pcav:1900",
+            "gloss": "traffic circle"
+          },
+          {
+            "deck": "pcav:1911",
+            "gloss": "to give a ride to"
+          },
+          {
+            "deck": "pcav:1951",
+            "gloss": "to slow down"
+          },
+          {
+            "deck": "pcav:1975",
+            "gloss": "to start the car"
+          },
+          {
+            "deck": "pcav:1998",
+            "gloss": "fountain"
+          },
+          {
+            "deck": "pcav:2005",
+            "gloss": "butcher shop"
+          },
+          {
+            "deck": "pcav:2007",
+            "gloss": "city hall"
+          },
+          {
+            "deck": "pcav:2626",
+            "gloss": "tourism"
+          },
+          {
+            "deck": "pcav:2628",
+            "gloss": "to go on a tour"
+          },
+          {
+            "deck": "pcav:2638",
+            "gloss": "sand"
+          },
+          {
+            "deck": "pcav:2651",
+            "gloss": "to go in the water"
+          },
+          {
+            "deck": "pcav:2652",
+            "gloss": "waves"
+          },
+          {
+            "deck": "pcav:2683",
+            "gloss": "to travel abroad",
+            "sentence": "pcav:0184"
+          },
+          {
+            "deck": "pcav:2705",
+            "gloss": "to book a seat",
+            "sentence": "pcav:2706"
+          },
+          {
+            "deck": "pcav:2724",
+            "gloss": "to be canceled"
+          },
+          {
+            "deck": "pcav:2727",
+            "gloss": "flight attendant"
+          },
+          {
+            "deck": "pcav:2739",
+            "gloss": "platform"
+          },
+          {
+            "deck": "pcav:2754",
+            "gloss": "comfortable"
+          },
+          {
+            "deck": "pcav:2773",
+            "gloss": "lobby"
+          },
+          {
+            "deck": "pcav:3552",
+            "gloss": "island"
+          },
+          {
+            "deck": "pcav:3555",
+            "gloss": "tunnel"
+          },
+          {
+            "deck": "pcav:3558",
+            "gloss": "hill"
+          },
+          {
+            "deck": "pcav:3561",
+            "gloss": "valley"
+          },
+          {
+            "deck": "pcav:3577",
+            "gloss": "river"
+          },
+          {
+            "deck": "pcav:3582",
+            "gloss": "ocean"
+          },
+          {
+            "deck": "pcav:3591",
+            "gloss": "forest"
+          },
+          {
+            "deck": "pcav:3707",
+            "gloss": "storm"
+          }
+        ]
+      }
     }
   ]
 }
