@@ -35,8 +35,8 @@
    - #205 is closed: [#207](https://github.com/Adamzvulun/Liron/pull/207), the regulars for word chapters 21–34 (chapters XXII–XXXV), is merged. No migration: `trial-22`..`trial-35` were registered by #206.
    - #164: our own sentences without audio (option 2 in `docs/game/arabic-core-words.md`). Adam said yes on 2026-11-10: Claude writes them and Adam spot-checks a sample. All 867 are written, in stacked PRs, two chapters each:
      - Merged: #208 (the code, the card and chapters I–V) and #209 (VI–X).
-     - Open: [#210](https://github.com/Adamzvulun/Liron/pull/210) (XI–XII) through [#221](https://github.com/Adamzvulun/Liron/pull/221) (XXXIII–XXXIV; closes #164, and its test checks every word).
-     - Merge them in order. After each merge, rebase the next branch: `git rebase --onto origin/dev origin/<merged branch> <next branch>`, then force-push and retarget its base to `dev`. If CI doesn't start, run `update_pull_request_branch` once `dev` has moved.
+     - Open: [#210](https://github.com/Adamzvulun/Liron/pull/210), chapters XI–XXXIV (closes #164; its test checks every word). The stacked #211–#221 were folded into it and closed.
+     - Lesson: every PR runs CI, stacked ones too, and each run takes about ten minutes of Adam's Actions budget. For content in batches, prefer one PR with a commit per batch over a long stack. When retargeting a stacked PR, change its base first and push after, or CI won't run against `dev`.
 
      How a batch is made:
      - The sentences live in `content/arabic/own-sentences.json`.
@@ -46,7 +46,7 @@
 
    **CI couldn't start jobs from 14:15 UTC on 2026-11-10** (no runner, probably the Actions spending limit). Adam said he'd raise the limit, and runs started again at about 15:35 UTC. A branch whose run failed only re-runs on a new commit, or once `dev` moves (`update_pull_request_branch`).
 
-   Merge the #164 stack once each PR is green (check the logs for flaky retries and cancelled runs: the job's limit is 15 minutes, and with four runs at once one was cancelled at the limit after its tests had passed; re-run with `update_pull_request_branch`). Then: the M3 retro (`docs/process/retros/`) once E11 closes, the rest of A2 (727 deck words wait; the picks were in the scratchpad's `e11s/chapters4.py`, which may be gone), and Adam's answers in the report §4b, §4d, §4e, §4f and §4g. A new word chapter needs a regular in `questline.json` and a `trial-N` row in a migration. Fixtures: a player who has taken ranks needs `ranks: [...]` in the fake's state, or the rank-up card covers the hall. A change of PR base alone doesn't start CI; `update_pull_request_branch` does. Each migration needs its own version prefix (a schema test checks).
+   Merge #210 once it's green (check the logs for flaky retries and cancelled runs: the job's limit is 15 minutes, and with four runs at once one was cancelled at the limit after its tests had passed; re-run with `update_pull_request_branch`). Then: the M3 retro (`docs/process/retros/`) once E11 closes, the rest of A2 (727 deck words wait; the picks were in the scratchpad's `e11s/chapters4.py`, which may be gone), and Adam's answers in the report §4b, §4d, §4e, §4f and §4g. A new word chapter needs a regular in `questline.json` and a `trial-N` row in a migration. Fixtures: a player who has taken ranks needs `ranks: [...]` in the fake's state, or the rank-up card covers the hall. A change of PR base alone doesn't start CI; `update_pull_request_branch` does. Each migration needs its own version prefix (a schema test checks).
 6. **Audio for the missing phrases:** retry the lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect. Never use a file before Adam has seen it.
 7. **No v1.0.0** until Adam says so.
 
