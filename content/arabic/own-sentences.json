@@ -7669,6 +7669,622 @@
         "latin": "hād illōn mūv miš ázrag.",
         "english": "This color is purple, not blue."
       }
+    },
+    {
+      "id": "own-sentence:pcav:0250",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0250",
+        "arabic": "جْبينو سُخْن.",
+        "latin": "jbīnu súxun.",
+        "english": "His forehead is hot."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0255",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0255",
+        "arabic": "البِنِت خدّها أحْمر.",
+        "latin": "ilbínit xádda áɧmar.",
+        "english": "The girl's cheek is red."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0319",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0319",
+        "arabic": "لْساني بيوجعْني.",
+        "latin": "lsāni byūja3ni.",
+        "english": "My tongue hurts."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0322",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0322",
+        "arabic": "شِفّتْها حمْرا.",
+        "latin": "šífftha ɧámra.",
+        "english": "Her lips are red."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0342",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0342",
+        "arabic": "رقبْتي بْتوجعْني.",
+        "latin": "ragábti btūja3ni.",
+        "english": "My neck hurts."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0344",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0344",
+        "arabic": "زوْري بيوجعْني.",
+        "latin": "zōri byūja3ni.",
+        "english": "My throat hurts."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0385",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0385",
+        "arabic": "أبوي عِنْدو شنب.",
+        "latin": "abūy 3índu šánab.",
+        "english": "My dad has a mustache."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0393",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0393",
+        "arabic": "جِلْدو أبْيَض.",
+        "latin": "jíldu ábyaɖ.",
+        "english": "His skin is pale."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0445",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0445",
+        "arabic": "رُكْبْتي بْتوجعْني.",
+        "latin": "rukbíti btūja3ni.",
+        "english": "My knee hurts."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0480",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0480",
+        "arabic": "في دمّ عَ إيدك.",
+        "latin": "fī damm 3a īdak.",
+        "english": "There's blood on your hand."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0285",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0285",
+        "arabic": "الوَلد بيْصيِّح.",
+        "latin": "ilwálad biʂáyyiɧ.",
+        "english": "The boy is crying."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0286",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0286",
+        "arabic": "في دمْعة في عيْنْها.",
+        "latin": "fī dám3a fi 3ēnha.",
+        "english": "There's a tear in her eye."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0295",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0295",
+        "arabic": "عطسْت تلات مرّات.",
+        "latin": "3aʈást tálat marrāt.",
+        "english": "I sneezed three times."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0338",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0338",
+        "arabic": "بقُحّ مِن إمْبارِح.",
+        "latin": "bagúɧɧ min imbāriɧ.",
+        "english": "I've been coughing since yesterday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0346",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0346",
+        "arabic": "اِتْنفّس شْوَيّ شْوَيّ.",
+        "latin": "itnáffas šwayy šwayy.",
+        "english": "Breathe slowly."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0320",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0320",
+        "arabic": "دوق الشّوْربة.",
+        "latin": "dūg iššōraba.",
+        "english": "Taste the soup."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0389",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0389",
+        "arabic": "بحْلِق كُلّ يوْم الصُّبُح.",
+        "latin": "báɧlig kull yōm iʂʂúbuɧ.",
+        "english": "I shave every morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0421",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0421",
+        "arabic": "عِرِقِت كْتير في الصّيْف.",
+        "latin": "3irígt ktīr fi ʂʂēf.",
+        "english": "I sweated a lot in the summer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0337",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0337",
+        "arabic": "ليْش بْتِتّاوَب؟ تعْبان؟",
+        "latin": "lēš btittāwab? ta3bān?",
+        "english": "Why are you yawning? Are you tired?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0859",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0859",
+        "arabic": "سيدي بْيِغفّي بعِد الغدا.",
+        "latin": "sīdi byɣáffi ba3d ilɣáda.",
+        "english": "My grandfather takes a nap after lunch."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0862",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0862",
+        "arabic": "حْلِمِت فيك إمْبارِح.",
+        "latin": "ɧlímt fīk imbāriɧ.",
+        "english": "I dreamed about you last night."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0863",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0863",
+        "arabic": "كان حِلِم حِلو.",
+        "latin": "kān ɧílim ɧílu.",
+        "english": "It was a nice dream."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0854",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0854",
+        "arabic": "الوْلاد نايْمين.",
+        "latin": "ilwlād nāymīn.",
+        "english": "The kids are asleep."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0625",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0625",
+        "arabic": "لازِم أغيِّر أواعيّ.",
+        "latin": "lāzim aɣáyyir awā3iyy.",
+        "english": "I have to change my clothes."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0623",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0623",
+        "arabic": "الوَلد شلح أواعيه ونام.",
+        "latin": "ilwálad šálaɧ awā3ī w nām.",
+        "english": "The boy got undressed and went to sleep."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0639",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0639",
+        "arabic": "بغْسِل الغسيل يوْم السّبِت.",
+        "latin": "báɣsil ilɣasīl yōm issábit.",
+        "english": "I do the laundry on Saturday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0646",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0646",
+        "arabic": "لازِم أكْوي القميص.",
+        "latin": "lāzim ákwi lgamīʂ.",
+        "english": "I have to iron the shirt."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0970",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0970",
+        "arabic": "عِنْدي جوع، بِدّي آكُل.",
+        "latin": "3índi jū3, bíddi ākul.",
+        "english": "I'm hungry, I want to eat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0974",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0974",
+        "arabic": "العطش صعِب في الصّيْف.",
+        "latin": "il3áʈaš ʂá3ib fi ʂʂēf.",
+        "english": "Thirst is hard in the summer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0975",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0975",
+        "arabic": "لا شُكْراً، أنا شبْعان.",
+        "latin": "la šúkran, ána šab3ān.",
+        "english": "No thank you, I'm full."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0990",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0990",
+        "arabic": "الخُبِز طازة.",
+        "latin": "ilxúbz ʈāza.",
+        "english": "The bread is fresh."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0994",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0994",
+        "arabic": "الشّوْربة مالْحة كْتير.",
+        "latin": "iššōraba málɧa ktīr.",
+        "english": "The soup is very salty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1109",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1109",
+        "arabic": "بِدّي فاصولْيا مع رُزّ.",
+        "latin": "bíddi fāʂūlya ma3 rúzz.",
+        "english": "I'd like beans with rice."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0998",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0998",
+        "arabic": "القهْوة مُرّة.",
+        "latin": "ilgáhwa múrra.",
+        "english": "The coffee is bitter."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0999",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0999",
+        "arabic": "الأكِل حرّاق كْتير.",
+        "latin": "ilákil ɧarrāg ktīr.",
+        "english": "The food is very spicy."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1005",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1005",
+        "arabic": "الخُضْرة أكِل صِحّي.",
+        "latin": "ilxúɖra ákil ʂíɧɧi.",
+        "english": "Vegetables are healthy food."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1018",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1018",
+        "arabic": "بِدّك سْناك؟",
+        "latin": "bíddak snāk?",
+        "english": "Do you want a snack?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1123",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1123",
+        "arabic": "في توْمة في الأكِل؟",
+        "latin": "fī tōma fi lákil?",
+        "english": "Is there garlic in the food?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1121",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1121",
+        "arabic": "الخْيار بارِد وطازة.",
+        "latin": "ilxyār bārid w ʈāza.",
+        "english": "The cucumber is cold and fresh."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1122",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1122",
+        "arabic": "إمّي بْتِعْمل بِتِنْجان مقْلي.",
+        "latin": "ímmi btí3mal bitinjān mágli.",
+        "english": "My mom makes fried eggplant."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1119",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1119",
+        "arabic": "بحِبّ الحُمُّص مع خُبِز.",
+        "latin": "baɧíbb ilɧúmmuʂ ma3 xubz.",
+        "english": "I like hummus with bread."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1127",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1127",
+        "arabic": "عِنّا زتون مِن الأرض.",
+        "latin": "3ínna zatūn min ilʔárɖ.",
+        "english": "We have olives from our land."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1132",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1132",
+        "arabic": "السّبانِخ صِحّي.",
+        "latin": "issabāniɣ ʂíɧɧi.",
+        "english": "Spinach is healthy."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1155",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1155",
+        "arabic": "البلح حِلو كْتير.",
+        "latin": "ilbálaɧ ɧílu ktīr.",
+        "english": "The dates are very sweet."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1156",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1156",
+        "arabic": "بحِبّ التّين في الصّيْف.",
+        "latin": "baɧíbb ittīn fi ʂʂēf.",
+        "english": "I love figs in the summer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1166",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1166",
+        "arabic": "الرُّمان أحْمر.",
+        "latin": "irrumān áɧmar.",
+        "english": "Pomegranates are red."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1171",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1171",
+        "arabic": "في لوْز في الكيْكة.",
+        "latin": "fī lōz fi lkēka.",
+        "english": "There are almonds in the cake."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1216",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1216",
+        "arabic": "بِدّي خُبِز مع عسل.",
+        "latin": "bíddi xubz ma3 3ásal.",
+        "english": "I'd like bread with honey."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1215",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1215",
+        "arabic": "الوْلاد بِحِبّوا المُربّى.",
+        "latin": "ilwlād biɧíbbu lmurábba.",
+        "english": "The kids love jam."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1214",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1214",
+        "arabic": "بِدّنا طْحين للكيْكة.",
+        "latin": "bíddna ʈɧīn la-lkēka.",
+        "english": "We need flour for the cake."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1203",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1203",
+        "arabic": "السّلطة بِدْها خلّ.",
+        "latin": "issálaʈa bídha xall.",
+        "english": "The salad needs vinegar."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1277",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1277",
+        "arabic": "بِدّي فلافِل مع حُمُّص.",
+        "latin": "bíddi falāfil ma3 ɧúmmuʂ.",
+        "english": "I'd like falafel with hummus."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1267",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1267",
+        "arabic": "الأكِل المقْلي مِش صِحّي.",
+        "latin": "ilákil ilmágli miš ʂíɧɧi.",
+        "english": "Fried food isn't healthy."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1271",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1271",
+        "arabic": "بِدّي بيْض مسْلوق.",
+        "latin": "bíddi bēɖ maslūg.",
+        "english": "I'd like boiled eggs."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1272",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1272",
+        "arabic": "بحِبّ الجّاج المشْوي.",
+        "latin": "baɧíbb ijjāj ilmášwi.",
+        "english": "I like grilled chicken."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1283",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1283",
+        "arabic": "في مْخلّلات عَ الطّاوْلة.",
+        "latin": "fī mxallalāt 3a ʈʈāwla.",
+        "english": "There are pickles on the table."
+      }
     }
   ]
 }
