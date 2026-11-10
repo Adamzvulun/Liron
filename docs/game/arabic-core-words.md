@@ -104,14 +104,28 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 
 - **The list** is `content/arabic/core-words.json`, made from the deck by a script that checks every id is A1 and appears once.
 
-## 3. Sentences: the open question
+## 3. Sentences
 The epic says "each shown in a sentence with audio". The deck can do that for about a third of the first 300 words (99 of them). The choices:
 
 1. **Deck sentence when there is one, the word alone otherwise** (my choice for now). Everything you hear is a native speaker. No new source and nothing to buy.
 2. **Our own sentences for the rest, as text only.** They would be written by Claude and checked against the deck and the free references (ADR 0012), with no audio. The browser's Arabic voices aren't Palestinian, so I'd rather leave them silent.
 3. **Our own sentences with recorded audio:** this needs a speaker, and none is available.
 
-I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories made only of words you know come in a later epic (vision, Arabic track).
+I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164), and it is being built in batches of chapters:
+
+- **Where:** `content/arabic/own-sentences.json` holds one sentence for each path word the deck has no sentence for. The sentences are ours, so the Arabic can live in `content/`, unlike the deck's own text (ADR 0011).
+- **On the card:** the deck sentence still comes first, with its recording, and it is the only kind used for shadowing. A word with no deck sentence shows ours instead, with the Arabic, the Hebrew letters, the Latin and the English. It has no play button and carries the note "Our own sentence · no recording".
+- **How they're written:** in the deck's Palestinian forms and its Latin scheme. Each sentence is short and uses words from the deck. Where possible it uses only words the learner has met by that chapter (path words plus deck sentences shown so far).
+- **Checks:**
+  - A scratch checker (kept out of the repo, because it reads the deck) flags any word that isn't in the deck, any word not yet met, and any sentence where the word itself is missing. Each flag is looked at by hand.
+  - Tests check that every own sentence belongs to a path word with no deck sentence.
+  - Tests check that every finished chapter is covered.
+  - Adam spot-checks a sample.
+- **Progress:**
+  - Chapters I–V are done (88 sentences).
+  - Chapters VI–XXXIV follow in later batches.
+
+Micro-stories made only of words you know come in a later epic (vision, Arabic track).
 
 ## 4. A word lesson (#160)
 - **Where:** a new station in the courtyard, the innkeeper's table (my choice): a low table under the left arcade with her open guest book, bread and a lamp. The slate moved a little toward the road to make room. It's locked until "The Painted Sign" is passed.
@@ -188,6 +202,6 @@ I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories ma
 
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).
-- Our own sentences without audio (#164, option 2 above).
+- Our own sentences without audio (#164, option 2 above): being built, chapters I–V done.
 - Speaking the word into the mic (E14, mic practice).
 - Root and pattern badges (the Hebrew bridge, ADR 0002).
