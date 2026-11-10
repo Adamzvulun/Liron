@@ -6481,6 +6481,622 @@
         "latin": "iššánʈa 3išrīn kēlōgrām.",
         "english": "The suitcase weighs twenty kilograms."
       }
+    },
+    {
+      "id": "own-sentence:pcav:0558",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0558",
+        "arabic": "ضُزْداني في جيْبْتي.",
+        "latin": "ɖuzdāni fi jēbti.",
+        "english": "My wallet is in my pocket."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2072",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2072",
+        "arabic": "في صرّاف قريب مِن هان؟",
+        "latin": "fī ʂarrāf garīb min hān?",
+        "english": "Is there an ATM near here?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2071",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2071",
+        "arabic": "بِدّي أسْحب مصاري.",
+        "latin": "bíddi ásɧab maʂāri.",
+        "english": "I need to withdraw some money."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2142",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2142",
+        "arabic": "راحت إمّي تِشْتِري خُضْرة.",
+        "latin": "rāɧat ímmi tíštiri xúɖra.",
+        "english": "My mom went shopping for vegetables."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2927",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2927",
+        "arabic": "المتْجر مفْتوح لحدّ السّاعة تِسْعة.",
+        "latin": "ilmádjar maftūɧ la-ɧadd issā3a tís3a.",
+        "english": "The store is open until nine."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2157",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2157",
+        "arabic": "شو سِعِر هالقميص؟",
+        "latin": "šū sí3ir ha-lgamīʂ?",
+        "english": "What's the price of this shirt?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2895",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2895",
+        "arabic": "القهْوة في أوْروْبّا بِتْلات يوْروْ.",
+        "latin": "ilgáhwa fi ōrōbba b-talat yūrō.",
+        "english": "Coffee in Europe costs three euros."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2150",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2150",
+        "arabic": "بِدّي أدْفع كاش.",
+        "latin": "bíddi ádfa3 kāš.",
+        "english": "I'd like to pay in cash."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2151",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2151",
+        "arabic": "دفعْت نقْدي.",
+        "latin": "dafá3t nágdi.",
+        "english": "I paid in cash."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2152",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2152",
+        "arabic": "مُمْكِن أدْفع بِالبِطاقة؟",
+        "latin": "múmkin ádfa3 bi-lbiʈāqa?",
+        "english": "Can I pay by card?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1443",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1443",
+        "arabic": "الغرْسوْن جاب الأكِل.",
+        "latin": "ilgarsōn jāb ilákil.",
+        "english": "The waiter brought the food."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2203",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2203",
+        "arabic": "الغرْسوْنة لطيفة كْتير.",
+        "latin": "ilgarsōna laʈīfa ktīr.",
+        "english": "The waitress is very nice."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2204",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2204",
+        "arabic": "مُمْكِن المِنْيو لَو سمحِت؟",
+        "latin": "múmkin ilmínyu law samáɧt?",
+        "english": "Could I have the menu, please?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2205",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2205",
+        "arabic": "شو في عَ القائِمة؟",
+        "latin": "šū fī 3a lqāʔima?",
+        "english": "What's on the menu?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2208",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2208",
+        "arabic": "الفاتورة عَ الطّاوْلة.",
+        "latin": "ilfātūra 3a ʈʈāwla.",
+        "english": "The bill is on the table."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2209",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2209",
+        "arabic": "أنا بدْفع الِحْساب اليوْم.",
+        "latin": "ána bádfa3 liɧsāb ilyōm.",
+        "english": "I'll pay the bill today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0627",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0627",
+        "arabic": "بِدّي سْموْل لَو سمحِت.",
+        "latin": "bíddi smōl law samáɧt.",
+        "english": "I'd like a small, please."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0628",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0628",
+        "arabic": "عِنْدك هالقميص ميدْيَم؟",
+        "latin": "3índak ha-lgamīʂ mīdyam?",
+        "english": "Do you have this shirt in medium?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0629",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0629",
+        "arabic": "اللارْج كْبير عليّ.",
+        "latin": "illārj kbīr 3aláyy.",
+        "english": "The large is too big for me."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0543",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0543",
+        "arabic": "اِشْتريْت كبوْي جْديد.",
+        "latin": "ištarēt kabōy jdīd.",
+        "english": "I bought new jeans."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0544",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0544",
+        "arabic": "في الصّيْف بلْبِس شُرْط.",
+        "latin": "fi ʂʂēf bálbas šurt.",
+        "english": "In summer I wear shorts."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0546",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0546",
+        "arabic": "الحْزام هاد قصير.",
+        "latin": "ilɧzām hād gaʂīr.",
+        "english": "This belt is too short."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0547",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0547",
+        "arabic": "بِدّي سيْر أسْوَد.",
+        "latin": "bíddi sēr áswad.",
+        "english": "I need a black belt."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0577",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0577",
+        "arabic": "الكوْت تبعي في السّيّارة.",
+        "latin": "ilkōt tába3i fi ssayyāra.",
+        "english": "My coat is in the car."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0599",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0599",
+        "arabic": "اِلْبِس البوْت، في تلِج.",
+        "latin": "ílbis ilbōt, fī tálij.",
+        "english": "Put on your boots, there's snow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0565",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0565",
+        "arabic": "إمّي بْتِلْبِس شالة بيْضا.",
+        "latin": "ímmi btílbis šāla bēɖa.",
+        "english": "My mother wears a white headscarf."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0566",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0566",
+        "arabic": "الشّيْلة الزّرْقا حِلْوة.",
+        "latin": "iššēla zzárga ɧílwa.",
+        "english": "The blue headscarf is pretty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3950",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3950",
+        "arabic": "بِدّي سُكّر قليل.",
+        "latin": "bíddi súkkar galīl.",
+        "english": "I'd like just a little sugar."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1226",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1226",
+        "arabic": "اللّحْمة غالْيَة هالإسْبوع.",
+        "latin": "illáɧma ɣālya ha-lʔisbū3.",
+        "english": "Meat is expensive this week."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1233",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1233",
+        "arabic": "بِدّنا فْراخ للعشا.",
+        "latin": "bíddna frāx la-l3áša.",
+        "english": "We need chicken for dinner."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1224",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1224",
+        "arabic": "بعْمل أوْمْليْت عَ الفْطور.",
+        "latin": "bá3mal ōmlēt 3a lfʈūr.",
+        "english": "I make an omelet for breakfast."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1210",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1210",
+        "arabic": "بِدّك توْسْت مع زِبْدة؟",
+        "latin": "bíddak tōst ma3 zíbda?",
+        "english": "Do you want toast with butter?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1208",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1208",
+        "arabic": "أعْطيني خُبْزة لَو سمحِت.",
+        "latin": "a3ʈīni xúbza law samáɧt.",
+        "english": "Pass me a slice of bread, please."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1212",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1212",
+        "arabic": "اِشْتريْت باغِت مِن الفُرُن.",
+        "latin": "ištarēt bāgit min ilfúrun.",
+        "english": "I bought a baguette at the bakery."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1085",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1085",
+        "arabic": "خلّينا نُطْلُب بيتْزا.",
+        "latin": "xallīna núʈlub bīdza.",
+        "english": "Let's order pizza."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1086",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1086",
+        "arabic": "الوَلد بِدّو همْبُرجر.",
+        "latin": "ilwálad bíddu hambúrgar.",
+        "english": "The boy wants a hamburger."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1091",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1091",
+        "arabic": "الوْلاد بياكْلوا شِبْس كْتير.",
+        "latin": "ilwlād byāklu šibs ktīr.",
+        "english": "The kids eat a lot of chips."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1094",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1094",
+        "arabic": "سِتّي بْتِعْمل حلَوِيّات زاكْيَة.",
+        "latin": "sítti btí3mal ɧalawiyyāt zākya.",
+        "english": "My grandmother makes delicious sweets."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1071",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1071",
+        "arabic": "بِدّك بوظة شوْكوْلاطة؟",
+        "latin": "bíddak būʐa šokolāta?",
+        "english": "Do you want chocolate ice cream?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1168",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1168",
+        "arabic": "الفراوْلة حمْرا وزاكْيَة.",
+        "latin": "ilfarāwla ɧámra w zākya.",
+        "english": "Strawberries are red and tasty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1162",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1162",
+        "arabic": "بِدّي كيْلو بُرْتُقال.",
+        "latin": "bíddi kēlō burtuqāl.",
+        "english": "I'd like a kilo of oranges."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1268",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1268",
+        "arabic": "حُطّ شْوَيِّةْ زيْت سيرِج.",
+        "latin": "ɧuʈʈ šwáyyit zēt sīrij.",
+        "english": "Add a little vegetable oil."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1039",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1039",
+        "arabic": "في قِنية ميّة في التّلّاجة.",
+        "latin": "fī giníyyit máyya fi ttallāja.",
+        "english": "There's a bottle of water in the fridge."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1057",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1057",
+        "arabic": "بِدّك بيرة أَوْ عصير؟",
+        "latin": "bíddak bīra aw 3aʂīr?",
+        "english": "Do you want a beer or a juice?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1058",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1058",
+        "arabic": "بشْربِش نبيذ.",
+        "latin": "bašrábiš nabīd.",
+        "english": "I don't drink wine."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0791",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0791",
+        "arabic": "عِنْدك محْرمة؟",
+        "latin": "3índak máɧrama?",
+        "english": "Do you have a tissue?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4713",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4713",
+        "arabic": "بِدّي ميّة بارْدة.",
+        "latin": "bíddi máyya bárda.",
+        "english": "I'd like some cold water."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0289",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0289",
+        "arabic": "أنْفو كْبير.",
+        "latin": "ánfu kbīr.",
+        "english": "He has a big nose."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0317",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0317",
+        "arabic": "اِفْتح تِمّك لَو سمحِت.",
+        "latin": "íftaɧ tímmak law samáɧt.",
+        "english": "Open your mouth, please."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0517",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0517",
+        "arabic": "الوَلد رْفيع كْتير.",
+        "latin": "ilwálad rfī3 ktīr.",
+        "english": "The boy is very thin."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1626",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1626",
+        "arabic": "أنا مريض اليوْم.",
+        "latin": "ána marīɖ ilyōm.",
+        "english": "I'm sick today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1650",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1650",
+        "arabic": "راسْها أجعْها.",
+        "latin": "rásha ajá3ha.",
+        "english": "She has a headache."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1636",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1636",
+        "arabic": "سيدي في المُسْتشْفى.",
+        "latin": "sīdi fi lmustášfa.",
+        "english": "My grandfather is in the hospital."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1642",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1642",
+        "arabic": "الدّكْتوْر فحصْني.",
+        "latin": "iddaktōr faɧáʂni.",
+        "english": "The doctor examined me."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1701",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1701",
+        "arabic": "خُد الدَّوا بعِد الأكِل.",
+        "latin": "xud iddáwa ba3d ilákil.",
+        "english": "Take the medicine after eating."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2964",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2964",
+        "arabic": "في صورِةْ خنْزير في كْتاب الوْلاد.",
+        "latin": "fī ʂūrit xanzīr fi ktāb ilwlād.",
+        "english": "There's a picture of a pig in the kids' book."
+      }
     }
   ]
 }
