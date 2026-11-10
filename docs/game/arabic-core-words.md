@@ -95,7 +95,7 @@ I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories ma
   - events `word-session`, and `word-90` for 90% or better. Their daily contracts (2 word sessions, 15 gold; a session at 90%, 20 gold) are only offered once you've had a word session on an earlier day ([economy](economy.md#daily-contracts)).
 - **The chapter gate:** like the letters, 90% in two sessions in a row, the second on a later day. Then the next chapter's words start coming.
 
-## 5. The regulars ("The Long Road In", chapters II–XI) (#161)
+## 5. The regulars ("The Long Road In", chapters II onward) (#161, #205)
 - After the Painted Sign, you're a guest. Each of the 10 word chapters brings someone new to sit at the innkeeper's table. Their stories are data in `content/arabic/questline.json` (items `road:2` to `road:11`, type `regular`; our own text only).
 
 | Chapter | Regular | Trial |
@@ -110,6 +110,20 @@ I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories ma
 | IX | Hassan the spice seller | The Spice Seller's Scales |
 | X | Miss Huda the teacher | Miss Huda's Lesson |
 | XI | Jamil the poet | The Poet's Evening |
+| XII | Samira the tailor | Samira's Fitting |
+| XIII | Abu Sami | Abu Sami's Family Tree |
+| XIV | Karim the cook's boy | Karim's Menu |
+| XV | Mona | Mona's Housewarming |
+| XVI | Tariq the student | Tariq's Exam |
+| XVII | Dalia the post rider | Dalia's Mailbag |
+| XVIII | Fares the musician | Fares's Song |
+| XIX | Amal the bus driver | Amal's Timetable |
+| XX | Ziad the shepherd | Ziad's Flock |
+| XXI | Abu Nabil the merchant | Abu Nabil's Accounts |
+
+- **Chapters XII–XXI (#205, 2026-11-10):** a caravan from the coast arrives just as the table seems full, and its people sit down one per word chapter (11–20). Each regular has the same shape: an opening, 3 milestone beats and a trial. Their trials send `trial-12` to `trial-21`. Migration `20261122000000_more_regulars.sql` registers `trial-13` to `trial-35`, so chapters up to word chapter 34 need no further migration.
+- **The Traveler rank still asks for the Poet's Evening** (chapter XI), not the newest regular's trial. "A Seat at the Table" still means the first ten regulars.
+- **Still to come (ordered, not cut):** the regulars for word chapters 21–34 (chapters XXII–XXXV), once words 601–1,020 (#202, #203) are merged.
 
 - **Beats:** each regular has an opening, and 3 milestone beats lit by the words you've met (one per 10 of the chapter's 30). The table shows the newest beat above "Start a session"; the courtyard's story panel shows the chapter.
 - **The trial** opens once the word chapter is passed (90% twice, on different days). It asks 30 of that chapter's words, shuffled, in the usual Listen/Read/Recall forms, and passes at 90%. It doesn't move the word chapter: you can keep learning while a trial waits.
