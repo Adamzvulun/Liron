@@ -19,6 +19,7 @@
       "subject": "arabic",
       "type": "rank",
       "data": {
+        "gear": "house-sash",
         "name": "Guest",
         "arabic": "ضيف",
         "conditions": ["Learn every letter of the script", "Pass the Painted Sign"],
@@ -30,6 +31,7 @@
       "subject": "arabic",
       "type": "rank",
       "data": {
+        "gear": "keffiyeh",
         "name": "Traveler",
         "arabic": "مسافر",
         "conditions": [

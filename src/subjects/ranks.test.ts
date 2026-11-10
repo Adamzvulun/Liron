@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { needLine } from '../core/ranks/ranks.ts';
-import { arabicStanding, SLATE_IDS } from './arabic/ranks.ts';
+import { GEAR } from '../core/avatar/looks.ts';
+import catalogue from '../../content/core/items.json' with { type: 'json' };
+import { ARABIC_RANKS, arabicStanding, SLATE_IDS } from './arabic/ranks.ts';
 import { NEW_PROGRESS as ARABIC_NEW, type ArabicProgress } from './arabic/progress.ts';
 import { PHRASE_SETS } from './arabic/phrases/sets.ts';
 import { MORSE_CHARS } from './morse/code.ts';
 import { NEW_PROGRESS as MORSE_NEW } from './morse/lesson/progress.ts';
-import { morseStanding } from './morse/ranks.ts';
+import { MORSE_RANKS, morseStanding } from './morse/ranks.ts';
 
 describe('the Signal Tower’s ranks (#174)', () => {
   it('starts every player as an Initiate, on the way to Listener', () => {
@@ -78,5 +80,34 @@ describe('the House of the Crossing’s ranks (#174)', () => {
       'letter:hamza',
       'letter:alef-maqsura',
     ]);
+  });
+});
+
+describe('rank gear (#176)', () => {
+  it('names, for each rank that has one, a piece the catalogue gives for that rank', () => {
+    const pack = catalogue as {
+      items: {
+        id: string;
+        data: { milestone?: { kind: string; subject?: string; rank?: string } };
+      }[];
+    };
+    const given = [
+      ...MORSE_RANKS.map((r) => ['morse', r] as const),
+      ...ARABIC_RANKS.map((r) => ['arabic', r] as const),
+    ].filter(([, r]) => r.gear);
+    expect(given.map(([, r]) => r.gear).sort()).toEqual(
+      pack.items
+        .filter((i) => i.data.milestone?.kind === 'rank')
+        .map((i) => i.id)
+        .sort(),
+    );
+    for (const [subject, r] of given) {
+      expect(GEAR.find((g) => g.id === r.gear)).toBeTruthy();
+      expect(pack.items.find((i) => i.id === r.gear)?.data.milestone).toEqual({
+        kind: 'rank',
+        subject,
+        rank: r.id,
+      });
+    }
   });
 });
