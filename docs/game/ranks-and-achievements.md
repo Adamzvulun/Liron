@@ -93,7 +93,7 @@ The hall shows your **rating** in each skill next to your rank (Glicko-2, alread
 
 ## 8. Tasks
 1. Ranks as data and the rank ladder in both halls (Listener, Traveler, the `written` list, rank events). — [#174](https://github.com/Adamzvulun/Liron/issues/174). Built: `content/*/ranks.json`, `src/core/ranks/`, the rank-up card, and migration `20261115000000_rank_events.sql`. A rank waiting on a later feature carries a `later` line and can't be taken.
-2. The Lamp Signal trial and the Keyer rank. — [#175](https://github.com/Adamzvulun/Liron/issues/175)
+2. The Lamp Signal trial and the Keyer rank. — [#175](https://github.com/Adamzvulun/Liron/issues/175). Built: `src/subjects/morse/send/lampSignal.ts`, the trial in the sending station (`?open=lamp`), the `rankTrials` list and migration `20261116000000_lamp_signal.sql`. It opens once all 41 characters are learned; words are scored in order, so a split word costs only itself. A first pass gives 50 XP and `trial-lamp-signal` (no chest; the Keyer's gear comes with #176).
 3. Rank gear: 6 painted pieces and the `rank` milestone. — [#176](https://github.com/Adamzvulun/Liron/issues/176)
 4. Achievements, gems and titles. — [#177](https://github.com/Adamzvulun/Liron/issues/177)
 5. The Far Station (scripted QSO) and the Operator rank. — [#178](https://github.com/Adamzvulun/Liron/issues/178)

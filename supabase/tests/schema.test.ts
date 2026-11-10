@@ -1503,6 +1503,23 @@ describe('reward chests (ADR 0033, #48)', () => {
     ]);
   });
 
+  it('a rank trial (the Lamp Signal, #175) is counted once and gives no brass chest', async () => {
+    for (let i = 0; i < 2; i++)
+      await as(ADAM, () =>
+        rows(`select save_session('morse', $1, null, '[]', '[]', 0, 0, $2::jsonb)`, [
+          `c3c3c3c3-0000-4000-8000-00000000000${i}`,
+          JSON.stringify([{ kind: 'trial-lamp-signal' }]),
+        ]),
+      );
+    expect(
+      await rows(
+        `select count from subject_events where user_id = $1 and kind = 'trial-lamp-signal'`,
+        [ADAM],
+      ),
+    ).toEqual([{ count: 1 }]);
+    expect(await chests()).toEqual([]);
+  });
+
   it('streak days 7 and 30 give a chest; a shielded day never does by itself', async () => {
     const t = await day();
     const goals = async (offsets: number[]) => {
