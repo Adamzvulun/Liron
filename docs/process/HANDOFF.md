@@ -114,4 +114,6 @@
      - two contracts that need `qso`;
      - Worked All and Full Logbook (migration `20261123000000_radio_room.sql`);
      - Signal Master is earnable through `radio.cleanFast`.
+     Merged as #225.
    - **Later, not dropped:** E15 personality (needs Adam's AI decisions).
+9. **Words 1,021–1,320 (#226, 2026-11-10 night),** one PR (`claude/words-1320`): word chapters 35–44 in `core-words.json`, 280 own sentences, regulars road:36–45 (the wedding at the inn) and migration `20261124000000_regulars_36_45.sql` for `trial-36`…`trial-45`. Built from scratchpad scripts (`e17/`, `e17s/`), never committed. 324 A2 deck words are still to come; build them the same way (pick, check same-Arabic duplicates, write sentences in the deck's own forms, run the sentence checker).
