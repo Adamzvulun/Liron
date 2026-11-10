@@ -11,7 +11,7 @@
 ## 1. What it is
 After the Far Station (the Operator's trial), the Radio Room is a place to come back to. Each day a few operators are calling CQ, and you pick one to work. Every contact goes in your logbook, and the operators remember you.
 
-**No AI yet (my call).** ADR 0007 pairs a scripted QSO engine with a free model that adds personality. The model comes with E15 (the AI adapter), which needs Adam's decisions on providers and data first. Until then, each operator's personality lives in their script: their own lines, their own fist and their own band. Nothing here costs money or sends data anywhere. The engine is built so that E15 can later write the free-text parts.
+**AI for the news only (E15, [ADR 0036](../decisions/0036-ai-partner-first-slice.md), 2026-11-10).** ADR 0007 pairs a scripted QSO engine with a free model that adds personality. Each operator's personality lives in their script (their own lines, fist and band), and since E15 the last part of a ragchewer's chat turn, their news, is written live by `gemini-3.5-flash-lite` (Groq as the backup), through `api/partner.ts`. What you copy for the log stays scripted. Operators remember their last 3 news lines with you (`radio.notes`). The news shows in the logbook result. The room says openly that the news is written by an AI. When the AI isn't set up, is slow, over the cap (40 a day) or breaks a rule, the script's line is sent.
 
 ## 2. The cast
 Six operators, all fictional, with made-up callsigns. They live in `content/morse/operators.json` (content is data):
@@ -64,7 +64,7 @@ Dex keeps it short: no chatter turn, and `5NN` for the report (the contesters' 5
   - **Worked All:** log a contact with all six operators. 3 gems and the title "of the Airwaves".
   - **Full Logbook:** log 50 contacts. 3 gems.
 - **Signal Master:** the rank asks for a QSO at 25 wpm with no repeats. Today only Dex sends that fast. The contact must be logged with no AGN, no QRS and no resend. It's kept in `radio.cleanFast`.
-- **Later, not dropped:** E15 adding free-text personality.
+- **Later, not dropped:** more free text from E15 (answering what you key in a free-form turn, operators who ask about your news). The first slice, the news line, is built (ADR 0036).
 
 ## 6. Where it lives
 - **The hall:** the Radio Room plaque says "On the air · 3 calling" once the Far Station is passed. The Far Station stays in the room as the trial.

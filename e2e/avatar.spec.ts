@@ -44,9 +44,12 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await expect(page.getByRole('radio', { name: 'Merchant cloak' })).toBeChecked();
     await expect(page.getByText("Signaller's headset (locked)")).toBeVisible();
     await page.getByRole('button', { name: 'Save my look' }).click();
-    expect(updates).toContainEqual({
-      avatar: expect.objectContaining({ gear: expect.objectContaining({ back: 'cloak' }) }),
-    });
+    // The save is a request: wait for it rather than read the list at the click.
+    await expect
+      .poll(() => updates)
+      .toContainEqual({
+        avatar: expect.objectContaining({ gear: expect.objectContaining({ back: 'cloak' }) }),
+      });
   });
 
   test('a dye you own colors the tunic; others are locked (#49)', async ({ page }) => {
@@ -59,7 +62,9 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await expect(page.getByText("Guildmaster's coat (locked)")).toHaveCount(0);
     if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, fullPage: true });
     await page.getByRole('button', { name: 'Save my look' }).click();
-    expect(updates).toContainEqual({ avatar: expect.objectContaining({ dye: 'indigo-dye' }) });
+    await expect
+      .poll(() => updates)
+      .toContainEqual({ avatar: expect.objectContaining({ dye: 'indigo-dye' }) });
   });
 
   test('undo puts the saved look back', async ({ page }) => {

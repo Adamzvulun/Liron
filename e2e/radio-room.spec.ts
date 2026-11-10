@@ -127,4 +127,43 @@ test.describe('The Radio Room on the air (E16)', () => {
     await expect(page.getByText('0 contacts logged')).toBeVisible();
     await expect(page.getByText('didn’t make the log')).toBeVisible();
   });
+
+  test('an operator’s news is written live, and remembered (E15)', async ({ page }) => {
+    const sent = saves(page);
+    const asked: unknown[] = [];
+    await page.route('**/api/partner', async (route) => {
+      asked.push(route.request().postDataJSON());
+      await route.fulfill({ json: { text: 'Cat caught a mouse, 73!', left: 39 } });
+    });
+    await signedIn(page, [], [], {
+      ...operator,
+      radio: { call: 'MI2RK', name: 'ADAM', qth: 'HAIFA', contacts: 0, cleanFast: false, log: [] },
+    });
+    await page.goto('/signal-tower?open=radio');
+    await expect(page.getByText(/Operators’ news is written live by an AI/)).toBeVisible();
+    await page.getByRole('button', { name: 'Answer MARTA' }).click();
+    await expect.poll(() => asked.length).toBe(1);
+    expect(asked[0]).toMatchObject({
+      kind: 'radio-news',
+      persona: { who: 'Marta, a schoolteacher' },
+      learner: { name: 'ADAM', place: 'HAIFA', contacts: 0 },
+      past: [],
+    });
+
+    // Through the turns, as fast as possible: nothing here needs to be right.
+    for (let turn = 1; turn <= 7; turn++) {
+      await expect(page.getByText(new RegExp(`Turn ${turn} of 7`))).toBeVisible();
+      if (turn % 2 === 0) {
+        await keyOnce(page);
+        await keyOnce(page);
+      } else {
+        for (const box of await page.getByRole('textbox').all()) await box.fill('1');
+        await page.getByRole('button', { name: 'Over' }).click();
+      }
+    }
+    await expect(page.getByText('MARTA’s news: CAT CAUGHT A MOUSE')).toBeVisible();
+    await expect.poll(() => sent.length).toBe(1);
+    const radio = (sent[0]?.p_state as { radio: { notes?: Record<string, string[]> } }).radio;
+    expect(radio.notes).toEqual({ marta: ['CAT CAUGHT A MOUSE'] });
+  });
 });
