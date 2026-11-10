@@ -96,6 +96,19 @@ test.describe('Arabic word lessons (#160)', () => {
     await expect(page.getByText(/^New word · 1 of/)).toBeVisible();
   });
 
+  test('a word with no deck sentence shows our own, text only (#164)', async ({ page }) => {
+    const state = { ...GUEST, words: { chapter: 1, cards: ['grammar:no-is'] } };
+    await signedIn(page, [], [], state, ROWS);
+    await page.goto('/caravanserai?open=words');
+    await page.getByRole('button', { name: 'Start a session' }).click();
+    // The first three words have deck sentences; the fourth (“you’re welcome”) doesn’t.
+    for (let i = 0; i < 3; i++) await page.getByRole('button', { name: 'Next word' }).click();
+    await expect(page.getByText(/^New word · 4 of/)).toBeVisible();
+    await expect(page.getByText('Our own sentence · no recording')).toBeVisible();
+    await expect(page.getByText("Thank you! — You're welcome.")).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Play the sentence' })).toHaveCount(0);
+  });
+
   test('a passed chapter opens its regular’s trial, and the attempt is saved (#161)', async ({
     page,
   }) => {
