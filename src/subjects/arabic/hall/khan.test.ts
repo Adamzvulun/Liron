@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { NEW_PROGRESS, applyTrial } from '../progress.ts';
-import { CHAPTER, questStatus, rankOf } from '../questline.ts';
+import { CHAPTER, questStatus } from '../questline.ts';
+import { arabicStanding } from '../ranks.ts';
 import { KHAN_STAGE, milestoneSpots, paintKhan, paintMilestones } from './paintKhan.ts';
 
 describe('the painted courtyard (#42)', () => {
@@ -66,7 +67,7 @@ describe('"The Long Road In" (#43)', () => {
     const won = applyTrial(ready, 0.9, 0.9);
     expect(won).toMatchObject({ passed: true, next: { guest: true, sessions: 1 } });
     expect(applyTrial(won.next, 1, 0.9).passed).toBe(false);
-    expect(rankOf(ready).english).toBe('Stranger');
-    expect(rankOf(won.next)).toMatchObject({ arabic: 'ضيف', english: 'Guest' });
+    expect(arabicStanding(ready).rank.name).toBe('Stranger');
+    expect(arabicStanding(won.next).rank).toMatchObject({ arabic: 'ضيف', name: 'Guest' });
   });
 });

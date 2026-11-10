@@ -1,7 +1,9 @@
+import { RankUp } from '../../../core/ranks/RankUp.tsx';
+import { heldRanks, needLine } from '../../../core/ranks/ranks.ts';
+import { MORSE_RANKS, morseStanding } from '../ranks.ts';
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { useStage } from '../../../core/city/useStage.ts';
 import type { SkillRating, SubjectApi } from '../../../core/subject.ts';
-import { MORSE_CHARS } from '../code.ts';
 import {
   CHAR_WPM,
   parseProgress,
@@ -27,25 +29,6 @@ import './hall.css';
 // one lamp per letter, to the trial's gate (#34); the chapter is written on the scroll, your
 // rank on the guild's banner, and each activity is a station on the floor. On an upright phone
 // the room pans sideways and the same things follow below it as cards.
-
-const LETTERS = MORSE_CHARS.filter((c) => c.kind === 'letter').map((c) => c.char);
-
-/** Guild ranks (discovery 04). Only the first step is reachable in M2. */
-function rankOf(p: MorseProgress) {
-  const letters = unlockedChars(p).filter((c) => LETTERS.includes(c)).length;
-  return letters >= LETTERS.length
-    ? {
-        rank: 'Listener',
-        next: 'Keyer',
-        need: 'Clean sending of every letter (the rank comes later)',
-      }
-    : {
-        rank: 'Initiate',
-        next: 'Listener',
-        need: `${letters} / ${LETTERS.length} letters`,
-        progress: letters / LETTERS.length,
-      };
-}
 
 export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending' | 'words';
 
@@ -210,7 +193,21 @@ export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor
     );
   }
   if (!progress) return <p className="lesson__loading">Lighting the lamps…</p>;
-  return <Room progress={progress} ratings={ratings} onOpen={onOpen} />;
+  const here = morseStanding(progress);
+  const fresh = heldRanks(MORSE_RANKS, here).filter((r) => !progress.ranks.includes(r.id));
+  const take = async () => {
+    const next = { ...progress, ranks: [...progress.ranks, ...fresh.map((r) => r.id)] };
+    await api.saveSession({ state: next, events: fresh.map((r) => ({ kind: `rank-${r.id}` })) });
+    setProgress(next);
+  };
+  return (
+    <>
+      <Room progress={progress} ratings={ratings} onOpen={onOpen} />
+      {fresh.length > 0 && (
+        <RankUp guild="Guild of Signalers" rank={here.rank} after={here} onTake={take} />
+      )}
+    </>
+  );
 }
 
 function Room({
@@ -228,7 +225,15 @@ function Room({
 
   const unlocked = unlockedChars(progress);
   const quest = questStatus(unlocked);
-  const rank = rankOf(progress);
+  const standing = morseStanding(progress);
+  const rank = {
+    rank: standing.rank.name,
+    next: standing.next?.name ?? '—',
+    need: needLine(standing),
+    progress: standing.checks.length
+      ? standing.checks.filter((c) => c.done).length / standing.checks.length
+      : undefined,
+  };
   const lessonNo = progress.unlocked - 1;
   const trial = pendingTrial(progress);
   const newest = unlocked[unlocked.length - 1];

@@ -26,9 +26,13 @@ function slateLetters(p: ArabicProgress, seed: number): Letter[] {
     (l) => p.met.includes(l.id) && l.letter.length === 1,
   );
   const newest = met.filter((l) => l.lesson === Math.max(...met.map((m) => m.lesson)));
-  const rest = met.filter((l) => !newest.includes(l));
+  // Then the letters you've never written from memory (#174), then the rest.
+  const unwritten = met.filter((l) => !newest.includes(l) && !p.written.includes(l.id));
+  const rest = met.filter((l) => !newest.includes(l) && !unwritten.includes(l));
   const mix = <T,>(a: T[]) => a.map((x) => [rand(), x] as const).sort((x, y) => x[0] - y[0]);
-  return [...mix(newest), ...mix(rest)].map(([, l]) => l).slice(0, SLATE_LETTERS);
+  return [...mix(newest), ...mix(unwritten), ...mix(rest)]
+    .map(([, l]) => l)
+    .slice(0, SLATE_LETTERS);
 }
 
 /** Draws a letter on a canvas the pad's size, filled, and reads it onto the grid. */
@@ -112,8 +116,17 @@ export function Slate({ api }: { api: SubjectApi }) {
       byLetter.set(a.letter.id, now + (a.score.passed ? (a.step === 'free' ? 0.6 : 0.4) : 0));
     }
     const at = new Date();
+    // A letter written from memory counts toward the Traveler rank, once and for good (#174).
+    const fromMemory = all
+      .filter((a) => a.step === 'free' && a.score.passed)
+      .map((a) => a.letter.id);
+    const state = progress && {
+      ...progress,
+      written: [...new Set([...progress.written, ...fromMemory])],
+    };
     (async () => {
       await api.saveSession({
+        ...(state && { state }),
         results: [...byLetter].map(([itemId, score]) => ({ skill: 'write', itemId, score })),
         xp: all.filter((a) => a.score.passed).length * XP_PER_SHAPE,
         minutes: (Date.now() - started) / 60000,

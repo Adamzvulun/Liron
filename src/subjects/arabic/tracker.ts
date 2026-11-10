@@ -2,7 +2,8 @@
 // stands, from the saved Arabic state. Loaded lazily by index.ts, so the square stays small.
 import type { QuestlineStatus } from '../../core/subject.ts';
 import { parseProgress } from './progress.ts';
-import { questStatus, rankOf, regularStatus, roman } from './questline.ts';
+import { questStatus, regularStatus, roman } from './questline.ts';
+import { arabicStanding } from './ranks.ts';
 
 export function questlineStatus(state: unknown): QuestlineStatus | null {
   if (state === null || state === undefined) return null;
@@ -30,7 +31,7 @@ export function questlineStatus(state: unknown): QuestlineStatus | null {
   const next = quest.trialReady
     ? `Trial: ${chapter.trial.name}`
     : progress.guest
-      ? `${rankOf(progress).english} of the house`
+      ? `${arabicStanding(progress).rank.name} of the house`
       : undefined;
   return {
     questline: chapter.questline,

@@ -1218,6 +1218,31 @@ describe('daily contracts (ADR 0032)', () => {
       /permission denied/,
     );
   });
+
+  it('counts each rank taken once, for every rank in content/*/ranks.json (ADR 0035, #174)', async () => {
+    for (const subject of ['morse', 'arabic']) {
+      const pack = JSON.parse(
+        readFileSync(join(root, '..', 'content', subject, 'ranks.json'), 'utf8'),
+      ) as { items: { id: string; data: { order: number } }[] };
+      // The first rank is held from the start: it is never taken, so it sends no event.
+      const taken = pack.items
+        .filter((i) => i.data.order > 1)
+        .map((i) => `rank-${i.id.replace(/^rank:/, '')}`)
+        .sort();
+      expect(
+        await rows(
+          `select kind from subject_event_kinds where subject_id = $1 and kind like 'rank-%' and daily_cap = 1 order by kind`,
+          [subject],
+        ),
+      ).toEqual(taken.map((kind) => ({ kind })));
+    }
+    await save('arabic', [{ kind: 'rank-guest' }, { kind: 'rank-guest' }]);
+    expect(
+      await rows(`select count from subject_events where user_id = $1 and kind = 'rank-guest'`, [
+        ADAM,
+      ]),
+    ).toEqual([{ count: 1 }]);
+  });
 });
 
 describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', () => {
