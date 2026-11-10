@@ -19,6 +19,7 @@ test.describe('Guild ranks (#174)', () => {
     const card = page.getByRole('dialog', { name: 'Guest' });
     await expect(card.getByText('House of the Crossing · a new rank')).toBeVisible();
     await expect(card.getByText(/Next: Traveler/)).toBeVisible();
+    await expect(card.getByText('Sash of the house')).toBeVisible();
     await card.getByRole('button', { name: 'Take the rank' }).click();
     await expect(card).toHaveCount(0);
     await expect.poll(() => sent.length).toBe(1);
@@ -41,6 +42,7 @@ test.describe('Guild ranks (#174)', () => {
     await page.goto('/signal-tower');
     const card = page.getByRole('dialog', { name: 'Listener' });
     await expect(card.getByText('Learn all 41 Koch characters')).toBeVisible();
+    await expect(card.getByText("Listener's ear-cups")).toBeVisible();
     await card.getByRole('button', { name: 'Take the rank' }).click();
     await expect(card).toHaveCount(0);
     await expect.poll(() => sent.length).toBe(1);

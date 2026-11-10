@@ -1371,6 +1371,30 @@ describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', 
     ).toEqual([{ count: 1 }]);
   });
 
+  it('gives rank gear when the rank is taken, in either guild (#176)', async () => {
+    const take = (subject: string, kind: string, n: number) =>
+      as(ADAM, () =>
+        rows(`select save_session($1, $2, null, '[]', '[]', 0, 0, $3::jsonb)`, [
+          subject,
+          `c4c4c4c4-0000-4000-8000-00000000000${n}`,
+          JSON.stringify([{ kind }]),
+        ]),
+      );
+    await take('morse', 'rank-listener', 1);
+    expect(await owned()).toEqual(['ear-cups']);
+    await take('arabic', 'rank-guest', 2);
+    expect(await owned()).toEqual(['ear-cups', 'house-sash']);
+    // The other guild's rank of the same name would not count: each piece names its subject.
+    expect(
+      await rows(`select item_id, source from owned_items where user_id = $1 order by item_id`, [
+        ADAM,
+      ]),
+    ).toEqual([
+      { item_id: 'ear-cups', source: 'milestone' },
+      { item_id: 'house-sash', source: 'milestone' },
+    ]);
+  });
+
   it('only database functions write what a player owns, and each sees only their own', async () => {
     await rows(`insert into owned_items (user_id, item_id, source) values ($1, 'boots', 'chest')`, [
       ADAM,
@@ -1595,6 +1619,30 @@ describe('reward chests (ADR 0033, #48)', () => {
     expect((await wallet()).streak_shields).toBe(2);
   });
 
+  it('never gives rank gear: with every other piece owned, gear turns to gold (#176)', async () => {
+    const others = (
+      (await rows(
+        `select id from items where kind = 'gear' and coalesce(milestone ->> 'kind', '') <> 'rank'`,
+      )) as { id: string }[]
+    ).map((r) => r.id);
+    for (const item of others)
+      await rows(
+        `insert into owned_items (user_id, item_id, source) values ($1, $2, 'market') on conflict do nothing`,
+        [ADAM, item],
+      );
+    const id = await chestWith('jeweled', 4, true, 0.6);
+    const opened = await open(id);
+    expect(opened.item_gold).toBeGreaterThan(0);
+    expect(others).toContain(opened.item);
+    expect(
+      await rows(
+        `select item_id from owned_items o join items i on i.id = o.item_id
+         where o.user_id = $1 and i.milestone ->> 'kind' = 'rank'`,
+        [ADAM],
+      ),
+    ).toEqual([]);
+  });
+
   it('only database functions grant chests, and only the owner sees or opens one', async () => {
     const id = await chestWith('wooden', 1, true, 1);
     expect(await as(OTHER, () => rows(`select * from chests`))).toEqual([]);
@@ -1653,6 +1701,17 @@ describe('the Market (ADR 0033, #49)', () => {
        from generate_series(0, 13) n`,
     )) as { s: string }[];
     expect(days.length).toBeGreaterThan(1);
+  });
+
+  it('never sells rank gear (#176)', async () => {
+    const sold = (await rows(
+      `select distinct unnest(market_stock(current_date + n)) as id from generate_series(0, 365) n`,
+    )) as { id: string }[];
+    const rank = (await rows(`select id from items where milestone ->> 'kind' = 'rank'`)) as {
+      id: string;
+    }[];
+    expect(rank).toHaveLength(6);
+    for (const { id } of rank) expect(sold.map((s) => s.id)).not.toContain(id);
   });
 
   it('marks what you own and what you can afford', async () => {

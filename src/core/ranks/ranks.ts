@@ -7,6 +7,8 @@ const RankData = z.object({
   name: z.string(),
   arabic: z.string().optional(),
   conditions: z.array(z.string()).min(1),
+  /** The rank's gear (#176): an item id in content/core/items.json, given when it's taken. */
+  gear: z.string().optional(),
   /** Set while a condition needs a feature that isn't built yet: the rank can't be taken. */
   later: z.string().optional(),
 });

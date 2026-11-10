@@ -43,13 +43,13 @@ One piece for each rank you can reach now, painted like the other gear (`src/pla
 | Rank | Gear (my call) | Slot |
 |---|---|---|
 | Listener | Brass ear-cups on a leather band | head |
-| Keyer | A signaler's brass key worn as a belt buckle | waist |
-| Operator | The tower's blue operator coat | body |
+| Keyer | The keyer's brass straight key, held on its wooden base | hand |
+| Operator | The tower's blue operator coat, with a gold spark on the breast | torso |
 | Telegraphist | Night-watch lantern | hand |
-| Guest | The house's embroidered sash | waist |
+| Guest | The house's embroidered sash, knotted at the hip | torso |
 | Traveler | A traveler's keffiyeh | head |
 
-The headset that Morse level 5 already gives stays as it is. Rank gear is a new kind of milestone (`rank`), so the database gives it the same way it gives the milestone items (ADR 0033).
+There is no waist slot, so the key is carried in the hand and the sash is worn on the torso (my call: a new slot would mean a new avatar layer for two pieces). The headset that Morse level 5 already gives stays as it is. Rank gear is a new kind of milestone (`rank`), so the database gives it the same way it gives the milestone items (ADR 0033).
 
 ## 5. Achievements and titles
 Long-tail goals that sit beside the main path. Each achievement:
@@ -94,7 +94,7 @@ The hall shows your **rating** in each skill next to your rank (Glicko-2, alread
 ## 8. Tasks
 1. Ranks as data and the rank ladder in both halls (Listener, Traveler, the `written` list, rank events). — [#174](https://github.com/Adamzvulun/Liron/issues/174). Built: `content/*/ranks.json`, `src/core/ranks/`, the rank-up card, and migration `20261115000000_rank_events.sql`. A rank waiting on a later feature carries a `later` line and can't be taken.
 2. The Lamp Signal trial and the Keyer rank. — [#175](https://github.com/Adamzvulun/Liron/issues/175). Built: `src/subjects/morse/send/lampSignal.ts`, the trial in the sending station (`?open=lamp`), the `rankTrials` list and migration `20261116000000_lamp_signal.sql`. It opens once all 41 characters are learned; words are scored in order, so a split word costs only itself. A first pass gives 50 XP and `trial-lamp-signal` (no chest; the Keyer's gear comes with #176).
-3. Rank gear: 6 painted pieces and the `rank` milestone. — [#176](https://github.com/Adamzvulun/Liron/issues/176)
+3. Rank gear: 6 painted pieces and the `rank` milestone. — [#176](https://github.com/Adamzvulun/Liron/issues/176). Built: the items `ear-cups`, `brass-key`, `operator-coat`, `night-lantern`, `house-sash` and `keffiyeh`, each rank's `gear` in `ranks.json`, the gear line on the rank-up card, and migration `20261117000000_rank_gear.sql` (`grant_milestones` gives them; `market_stock` and `open_chest` leave them out).
 4. Achievements, gems and titles. — [#177](https://github.com/Adamzvulun/Liron/issues/177)
 5. The Far Station (scripted QSO) and the Operator rank. — [#178](https://github.com/Adamzvulun/Liron/issues/178)
 6. The Night Watch trial and the Telegraphist rank. — [#179](https://github.com/Adamzvulun/Liron/issues/179)
