@@ -40,6 +40,22 @@ async function keyOnce(page: Page) {
   await page.getByRole('button', { name: 'Done' }).click();
 }
 
+/** Three long presses, a letter gap apart, then Done: three letters for the free turn. */
+async function keyThree(page: Page) {
+  const pad = page.getByRole('button', { name: /Morse key/ });
+  await pad.scrollIntoViewIfNeeded();
+  const box = await pad.boundingBox();
+  if (!box) throw new Error('no key');
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  for (let i = 0; i < 3; i++) {
+    await page.mouse.down();
+    await page.waitForTimeout(240);
+    await page.mouse.up();
+    await page.waitForTimeout(330);
+  }
+  await page.getByRole('button', { name: 'Done' }).click();
+}
+
 test.describe('The Radio Room on the air (E16)', () => {
   test('stays shut until the Far Station is passed', async ({ page }) => {
     await signedIn(page, [], [], keyer);
@@ -80,7 +96,7 @@ test.describe('The Radio Room on the air (E16)', () => {
     ).toBeVisible();
 
     await page.getByRole('button', { name: 'Answer MARTA' }).click();
-    await expect(page.getByText(/Turn 1 of 7 · Marta, a schoolteacher · 15 wpm/)).toBeVisible();
+    await expect(page.getByText(/Turn 1 of 8 · Marta, a schoolteacher · 15 wpm/)).toBeVisible();
 
     // QRS, even while she sends: 5 wpm slower, and no slower than 10.
     await page.getByRole('button', { name: /QRS/ }).click();
@@ -105,11 +121,16 @@ test.describe('The Radio Room on the air (E16)', () => {
     // Her chatter: the temperature.
     await page.getByLabel('Their temperature (°C)').fill('99');
     await page.getByRole('button', { name: 'Over' }).click();
+
+    // Your own news (ADR 0037): free, not scored, and you can skip it.
+    await expect(page.getByText(/Turn 6 of 8/)).toBeVisible();
+    await expect(page.getByText(/key a few words of your own news for MARTA/)).toBeVisible();
+    await page.getByRole('button', { name: 'Skip: no news today' }).click();
     await keyOnce(page);
     await keyOnce(page);
 
     // Her sign-off: nothing to copy.
-    await expect(page.getByText('Turn 7 of 7')).toBeVisible();
+    await expect(page.getByText('Turn 8 of 8')).toBeVisible();
     await page.getByRole('button', { name: 'Over' }).click();
 
     await expect(
@@ -128,19 +149,25 @@ test.describe('The Radio Room on the air (E16)', () => {
     await expect(page.getByText('didn’t make the log')).toBeVisible();
   });
 
-  test('an operator’s news is written live, and remembered (E15)', async ({ page }) => {
+  test('an operator’s news is written live, they answer yours, and both are remembered (E15)', async ({
+    page,
+  }) => {
     const sent = saves(page);
-    const asked: unknown[] = [];
+    const asked: { kind: string; heard?: string }[] = [];
     await page.route('**/api/partner', async (route) => {
-      asked.push(route.request().postDataJSON());
-      await route.fulfill({ json: { text: 'Cat caught a mouse, 73!', left: 39 } });
+      const ask = route.request().postDataJSON() as { kind: string };
+      asked.push(ask);
+      const text = ask.kind === 'radio-reply' ? 'FB on ur news, GL 73' : 'Cat caught a mouse, 73!';
+      await route.fulfill({ json: { text, left: 39 } });
     });
     await signedIn(page, [], [], {
       ...operator,
       radio: { call: 'MI2RK', name: 'ADAM', qth: 'HAIFA', contacts: 0, cleanFast: false, log: [] },
     });
     await page.goto('/signal-tower?open=radio');
-    await expect(page.getByText(/Operators’ news is written live by an AI/)).toBeVisible();
+    await expect(
+      page.getByText(/Operators’ news, and their answer to yours, is written live by an AI/),
+    ).toBeVisible();
     await page.getByRole('button', { name: 'Answer MARTA' }).click();
     await expect.poll(() => asked.length).toBe(1);
     expect(asked[0]).toMatchObject({
@@ -148,12 +175,17 @@ test.describe('The Radio Room on the air (E16)', () => {
       persona: { who: 'Marta, a schoolteacher' },
       learner: { name: 'ADAM', place: 'HAIFA', contacts: 0 },
       past: [],
+      told: [],
     });
 
     // Through the turns, as fast as possible: nothing here needs to be right.
-    for (let turn = 1; turn <= 7; turn++) {
-      await expect(page.getByText(new RegExp(`Turn ${turn} of 7`))).toBeVisible();
-      if (turn % 2 === 0) {
+    for (let turn = 1; turn <= 8; turn++) {
+      await expect(page.getByText(new RegExp(`Turn ${turn} of 8`))).toBeVisible();
+      if (turn === 6) {
+        // Your own news: they answer it live before they sign.
+        await keyThree(page);
+        await expect.poll(() => asked.length).toBe(2);
+      } else if (turn === 7 || (turn % 2 === 0 && turn < 6)) {
         await keyOnce(page);
         await keyOnce(page);
       } else {
@@ -162,8 +194,17 @@ test.describe('The Radio Room on the air (E16)', () => {
       }
     }
     await expect(page.getByText('MARTA’s news: CAT CAUGHT A MOUSE')).toBeVisible();
+    expect(asked[1]).toMatchObject({ kind: 'radio-reply', news: 'CAT CAUGHT A MOUSE' });
+    const heard = asked[1]?.heard ?? '';
+    expect(heard.replace(/ /g, '')).toMatch(/^[A-Z0-9]{3,}$/);
+    await expect(page.getByText('MARTA answered: FB ON UR NEWS, GL')).toBeVisible();
     await expect.poll(() => sent.length).toBe(1);
-    const radio = (sent[0]?.p_state as { radio: { notes?: Record<string, string[]> } }).radio;
+    const radio = (
+      sent[0]?.p_state as {
+        radio: { notes?: Record<string, string[]>; told?: Record<string, string[]> };
+      }
+    ).radio;
     expect(radio.notes).toEqual({ marta: ['CAT CAUGHT A MOUSE'] });
+    expect(radio.told).toEqual({ marta: [heard] });
   });
 });

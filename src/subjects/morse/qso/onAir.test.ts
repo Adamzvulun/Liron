@@ -25,11 +25,13 @@ import {
   slower,
   stationOf,
   workedWith,
+  type AirStep,
   type Operator,
   type Radio,
 } from './onAir.ts';
 
 const fresh: Radio = NEW_PROGRESS.radio;
+const textOf = (s?: AirStep) => (s && 'text' in s ? s.text : undefined);
 const op = (id: string) => OPERATORS.find((o) => o.id === id) as Operator;
 const me = { call: 'MI2RK', name: 'ADAM', qth: 'HAIFA' };
 
@@ -85,21 +87,43 @@ describe('a contact', () => {
 
   it('runs as real operators send it, in their own words', () => {
     const steps = contactSteps(c);
-    expect(steps.map((s) => s.kind)).toEqual(['hear', 'key', 'hear', 'key', 'hear', 'key', 'hear']);
+    expect(steps.map((s) => s.kind)).toEqual([
+      'hear',
+      'key',
+      'hear',
+      'key',
+      'hear',
+      'free',
+      'key',
+      'hear',
+    ]);
     expect(steps[0]).toMatchObject({ text: 'CQ CQ CQ DE QM2RTA QM2RTA K', fields: ['call'] });
     expect(steps[1]).toMatchObject({ text: 'QM2RTA DE MI2RK K' });
-    expect(steps[2]?.text).toContain('GM DR OM TNX FER CALL');
-    expect(steps[2]?.text).toContain('UR RST 579 579');
-    expect(steps[2]?.text).toContain('NAME MARTA MARTA');
-    expect(steps[3]?.text).toBe('R TU MARTA UR RST 599 <BT> NAME ADAM <BT> QTH HAIFA K');
-    expect(steps[4]?.text).toContain('R TNX ADAM');
-    expect(steps[4]?.text).toContain('TEMP 18C');
-    expect(steps[6]?.text).toBe('TNX FER QSO ADAM 73 <SK> MI2RK DE QM2RTA');
+    expect(textOf(steps[2])).toContain('GM DR OM TNX FER CALL');
+    expect(textOf(steps[2])).toContain('UR RST 579 579');
+    expect(textOf(steps[2])).toContain('NAME MARTA MARTA');
+    expect(textOf(steps[3])).toBe('R TU MARTA UR RST 599 <BT> NAME ADAM <BT> QTH HAIFA K');
+    expect(textOf(steps[4])).toContain('R TNX ADAM');
+    expect(textOf(steps[4])).toContain('TEMP 18C');
+    expect(textOf(steps[7])).toBe('TNX FER QSO ADAM 73 <SK> MI2RK DE QM2RTA');
+  });
+
+  it('answers the news you keyed before signing, live or with a plain FB (ADR 0037)', () => {
+    const sign = (x: typeof c) => textOf(contactSteps(x)[7]);
+    expect(sign({ ...c, yours: 'NEW JOB' })).toBe(
+      'R R FB <BT> TNX FER QSO ADAM 73 <SK> MI2RK DE QM2RTA',
+    );
+    expect(sign({ ...c, yours: 'NEW JOB', reply: 'FB ON UR NEW JOB, GL' })).toBe(
+      'FB ON UR NEW JOB, GL <BT> TNX FER QSO ADAM 73 <SK> MI2RK DE QM2RTA',
+    );
+    // The free turn isn't scored: the log needs the same copies and keys as before.
+    const res = airResult({ ...c, yours: 'NEW JOB' }, {}, []);
+    expect(res.keyTotal).toBe(3);
   });
 
   it('greets an old friend', () => {
     const again = makeContact(op('marta'), me, true, () => 0);
-    expect(contactSteps(again)[2]?.text).toContain('GM ADAM GLAD TO CU AGN');
+    expect(textOf(contactSteps(again)[2])).toContain('GM ADAM GLAD TO CU AGN');
   });
 
   it('keeps a contest contact short, with 5NN', () => {

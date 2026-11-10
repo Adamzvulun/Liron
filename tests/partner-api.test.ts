@@ -6,6 +6,7 @@ import {
   handle,
   parseAsk,
   radioPrompt,
+  REPLY_RULES,
   type Env,
 } from '../api/partner.ts';
 
@@ -127,6 +128,10 @@ describe('POST /api/partner (E15, ADR 0036)', () => {
       { ...ASK, past: ['A', 'B', 'C', 'D'] },
       { ...ASK, learner: { ...ASK.learner, name: 'X'.repeat(40) } },
       { ...ASK, persona: { who: 'Ruth', about: 'x'.repeat(400) } },
+      { ...ASK, told: ['A', 'B', 'C', 'D'] },
+      { ...ASK, kind: 'radio-reply' },
+      { ...ASK, kind: 'radio-reply', heard: 'X'.repeat(61) },
+      { ...ASK, kind: 'radio-reply', heard: 'NEW JOB', news: 42 },
       'hello',
     ]) {
       expect((await handle(request(bad), ENV, fetchFn)).status).toBe(400);
@@ -145,6 +150,29 @@ describe('the partner prompt', () => {
     expect(prompt).toContain('You are Ruth, a night owl on 40 m.');
     expect(prompt).toContain('name ADAM, town HAIFA');
     expect(radioPrompt({ ...ask, past: [] })).toContain('first contact');
+  });
+
+  it('asks for an answer to what you keyed, with the reply rules (ADR 0037)', async () => {
+    const reply = {
+      ...ASK,
+      kind: 'radio-reply',
+      news: 'CAT IS FINE',
+      heard: 'NEW JOB',
+      told: ['SICK'],
+    };
+    const ask = parseAsk(reply);
+    if (!ask) throw new Error('the reply ask should parse');
+    const prompt = radioPrompt(ask);
+    expect(prompt).toContain('Just now they sent you their news: "NEW JOB"');
+    expect(prompt).toContain('Your news this time was: "CAT IS FINE"');
+    expect(prompt).toContain('What they told you in past contacts, oldest first: "SICK"');
+    const { calls, fetchFn } = services();
+    expect((await handle(request(reply), ENV, fetchFn)).status).toBe(200);
+    const sent = JSON.parse(String(calls[1]?.init.body)) as {
+      systemInstruction: { parts: { text: string }[] };
+    };
+    expect(sent.systemInstruction.parts[0]?.text).toBe(REPLY_RULES);
+    expect(parseAsk({ ...reply, news: undefined })).toMatchObject({ news: null });
   });
 
   it('keeps the first line of a reply, without thinking or quotes', () => {
