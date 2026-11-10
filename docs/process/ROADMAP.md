@@ -50,8 +50,8 @@
 ## M4 — The people
 | Epic | Contents |
 |---|---|
-| **E15 AI adapter** | Vercel serverless function; Gemini + backup; Groq Whisper for speech; caps; eval set (ADR 0004, 0014). **First slice built** (2026-11-10, ADR 0036): `api/partner.ts` on `gemini-3.5-flash-lite` with Groq as the backup, 40 replies a day, writing the Radio Room operators' news. |
-| **E16 Radio QSO** | QSO state machine; operator personas; noise/QSB/QRM; speed matching; AGN on garbled input (ADR 0007). **Built without AI first** (#223, 2026-11-10; [design](../game/radio-qso.md)); E15 adds free text later. |
+| **E15 AI adapter** | Vercel serverless function; Gemini + backup; Groq Whisper for speech; caps; eval set (ADR 0004, 0014). **First slice built** (2026-11-10, ADR 0036): `api/partner.ts` on `gemini-3.5-flash-lite` with Groq as the backup, 40 replies a day, writing the Radio Room operators' news. **Second slice** (ADR 0037): you key your own news in a free turn and the operator answers it live, and remembers it. |
+| **E16 Radio QSO** | QSO state machine; operator personas; noise/QSB/QRM; speed matching; AGN on garbled input (ADR 0007). **Built without AI first** (#223, 2026-11-10; [design](../game/radio-qso.md)); E15 adds the live parts: the operators' news (ADR 0036) and their answer to yours (ADR 0037). |
 | **E17 Café conversations** | Persona bibles; memory; reputation; WhatsApp-style chat, then voice; the silent Coach debrief → FSRS |
 
 ## M5 — Fellowship

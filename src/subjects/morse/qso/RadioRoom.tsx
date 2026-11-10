@@ -4,7 +4,7 @@ import { parseProgress, type MorseProgress } from '../lesson/progress.ts';
 import { START_DIT_MS } from '../send/decoder.ts';
 import { useDeskAudio, type Audio } from '../send/deskAudio.ts';
 import { bandRoute } from './band.ts';
-import { cleanNews, newsAsk, newsOf } from './chatter.ts';
+import { cleanHeard, cleanNews, cleanReply, newsAsk, newsOf, replyAsk } from './chatter.ts';
 import { keyedRight } from './farStation.ts';
 import {
   airAnswer,
@@ -14,9 +14,9 @@ import {
   isCleanFast,
   contactSteps,
   makeContact,
+  memoryOf,
   NEWS_STEP,
   nextToOpen,
-  notesOf,
   onAirToday,
   OPERATORS,
   radioDay,
@@ -34,7 +34,7 @@ import {
   type Contact,
   type Operator,
 } from './onAir.ts';
-import { HearTurn, KeyTurn, type Copies as TurnCopies } from './Turns.tsx';
+import { FreeTurn, HearTurn, KeyTurn, type Copies as TurnCopies } from './Turns.tsx';
 import '../lesson/lesson.css';
 import '../send/send.css';
 import './qso.css';
@@ -53,6 +53,9 @@ const LABELS: Record<AirField, string> = {
 
 type Copies = Partial<Record<AirField, string>>;
 
+/** How long their sign-off waits for the answer to your news before a plain one is sent. */
+const REPLY_WAIT_MS = 6000;
+
 type Stage =
   | { kind: 'room' }
   | { kind: 'setup' }
@@ -66,6 +69,8 @@ type Stage =
       copies: Copies;
       reads: string[];
       started: number;
+      /** They're writing their answer to your news (ADR 0037); their sign-off waits for it. */
+      waiting?: boolean;
     }
   | {
       kind: 'result';
@@ -136,7 +141,7 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
     // A ragchewer's news is written live (E15) while the first turns go by. It's used only if it
     // comes before their chat turn; otherwise, or on any failure, the script's line stays.
     if (op.terse) return;
-    api.partner(newsAsk(contact, worked, notesOf(progress.radio, op.id))).then(
+    api.partner(newsAsk(contact, worked, memoryOf(progress.radio, op.id))).then(
       (reply) => {
         const news = cleanNews(reply.text, contact.me.name);
         if (!news) return;
@@ -147,6 +152,38 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
         );
       },
       () => {},
+    );
+  };
+
+  /**
+   * Your own news (ADR 0037): when they could read enough of it, they answer it live before they
+   * sign. Their sign-off waits a few seconds for the answer, then goes out with a plain "R R FB".
+   */
+  const told = (s: Extract<Stage, { kind: 'contact' }>, read: string) => {
+    const heard = cleanHeard(read);
+    if (!heard) {
+      advance(s, s.copies, s.reads);
+      return;
+    }
+    const contact = { ...s.contact, yours: heard };
+    setStage({ ...s, contact, at: s.at + 1, waiting: true });
+    const settle = (reply?: string) =>
+      setStage((now) =>
+        now.kind === 'contact' && now.contact === contact && now.waiting
+          ? { ...now, contact: reply ? { ...contact, reply } : contact, waiting: false }
+          : now,
+      );
+    const timer = setTimeout(() => settle(), REPLY_WAIT_MS);
+    const worked = workedWith(progress.radio, contact.op.id);
+    api.partner(replyAsk(contact, worked, memoryOf(progress.radio, contact.op.id), heard)).then(
+      (reply) => {
+        clearTimeout(timer);
+        settle(cleanReply(reply.text, contact.me.name) ?? undefined);
+      },
+      () => {
+        clearTimeout(timer);
+        settle();
+      },
     );
   };
 
@@ -164,6 +201,7 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
       radioDay(),
       cleanFast,
       s.contact.news,
+      s.contact.yours,
     );
     const events = radioEvents(s.contact, result, cleanFast && !progress.radio.cleanFast);
     save({ ...progress, radio }, result, (performance.now() - s.started) / 1000, events);
@@ -197,6 +235,13 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
             setStage({ kind: 'room' });
           }}
         />
+      ) : stage.kind === 'contact' && stage.waiting ? (
+        <div className="lesson__card qso__card">
+          <p className="lesson__kicker">{stage.contact.op.name} · copying your news</p>
+          <p className="qso__air" aria-live="polite">
+            {stage.contact.op.name} copied “{stage.contact.yours}” and is keying an answer…
+          </p>
+        </div>
       ) : stage.kind === 'contact' ? (
         <Turn
           key={stage.at}
@@ -209,6 +254,7 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
           }
           onCopied={(c) => advance(stage, { ...stage.copies, ...(c as Copies) }, stage.reads)}
           onKeyed={(read) => advance(stage, stage.copies, [...stage.reads, read])}
+          onTold={(read) => told(stage, read)}
         />
       ) : stage.kind === 'result' ? (
         <Log
@@ -356,8 +402,9 @@ function Room({
           </p>
         )}
         <p className="lesson__note qso__ai-note">
-          Operators’ news is written live by an AI (Google’s Gemini) from their story and your name
-          and town. They remember what they told you.
+          Operators’ news, and their answer to yours, is written live by an AI (Google’s Gemini)
+          from their story, your name and town, and the news you key. They remember what you told
+          each other.
         </p>
       </div>
       <div className="lesson__card qso__logbook">
@@ -402,6 +449,7 @@ function Turn({
   onRepeat,
   onCopied,
   onKeyed,
+  onTold,
 }: {
   stage: Extract<Stage, { kind: 'contact' }>;
   startDitMs: number;
@@ -411,6 +459,8 @@ function Turn({
   onRepeat: () => void;
   onCopied: (c: TurnCopies) => void;
   onKeyed: (read: string) => void;
+  /** Your own news, as they read it ('' when skipped). */
+  onTold: (read: string) => void;
 }) {
   const { contact, at, wpm } = stage;
   const steps = contactSteps(contact);
@@ -452,6 +502,8 @@ function Turn({
           onAgain={onRepeat}
           onDone={onCopied}
         />
+      ) : step.kind === 'free' ? (
+        <FreeTurn name={op.name} startDitMs={startDitMs} audio={audio} onDone={onTold} />
       ) : (
         <KeyTurn
           text={step.text}
@@ -529,6 +581,17 @@ function Log({
       {newsOf(contact) && (
         <p className="lesson__note qso__news">
           {contact.op.name}’s news: <strong>{newsOf(contact)}</strong>
+        </p>
+      )}
+      {contact.yours && (
+        <p className="lesson__note qso__news">
+          You told them: <strong>{contact.yours}</strong>
+          {contact.reply && (
+            <>
+              {' '}
+              · {contact.op.name} answered: <strong>{contact.reply}</strong>
+            </>
+          )}
         </p>
       )}
       {stage.cleanFast && (

@@ -40,6 +40,11 @@ export const radioSchema = z
       .record(z.string(), z.array(z.string().max(80)).max(3))
       .optional()
       .catch(undefined),
+    /** What you keyed as your own news to each operator, newest last (ADR 0037). */
+    told: z
+      .record(z.string(), z.array(z.string().max(60)).max(3))
+      .optional()
+      .catch(undefined),
   })
   .catch({ call: null, name: null, qth: null, contacts: 0, cleanFast: false, log: [] });
 
