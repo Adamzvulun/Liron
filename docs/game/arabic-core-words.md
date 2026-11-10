@@ -111,7 +111,7 @@ The epic says "each shown in a sentence with audio". The deck can do that for ab
 2. **Our own sentences for the rest, as text only.** They would be written by Claude and checked against the deck and the free references (ADR 0012), with no audio. The browser's Arabic voices aren't Palestinian, so I'd rather leave them silent.
 3. **Our own sentences with recorded audio:** this needs a speaker, and none is available.
 
-I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164), and it is being built in batches of chapters:
+I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164), and it was built in batches of chapters:
 
 - **Where:** `content/arabic/own-sentences.json` holds one sentence for each path word the deck has no sentence for. The sentences are ours, so the Arabic can live in `content/`, unlike the deck's own text (ADR 0011).
 - **On the card:** the deck sentence still comes first, with its recording, and it is the only kind used for shadowing. A word with no deck sentence shows ours instead, with the Arabic, the Hebrew letters, the Latin and the English. It has no play button and carries the note "Our own sentence · no recording".
@@ -119,11 +119,10 @@ I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164),
 - **Checks:**
   - A scratch checker (kept out of the repo, because it reads the deck) flags any word that isn't in the deck, any word not yet met, and any sentence where the word itself is missing. Each flag is looked at by hand.
   - Tests check that every own sentence belongs to a path word with no deck sentence.
-  - Tests check that every finished chapter is covered.
+  - Tests check that every path word with no deck sentence has one of ours.
   - Adam spot-checks a sample.
 - **Progress:**
-  - Chapters I–X are done (201 sentences).
-  - Chapters XI–XXXIV follow in later batches.
+  - All 34 chapters are done: 867 sentences, one for every path word without a deck sentence.
 
 Micro-stories made only of words you know come in a later epic (vision, Arabic track).
 
@@ -217,6 +216,5 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).
-- Our own sentences without audio (#164, option 2 above): being built, chapters I–X done.
 - Speaking the word into the mic (E14, mic practice).
 - Root and pattern badges (the Hebrew bridge, ADR 0002).

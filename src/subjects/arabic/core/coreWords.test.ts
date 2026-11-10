@@ -63,9 +63,10 @@ describe('our own sentences (#164)', () => {
     for (const word of OWN_SENTENCES.keys()) expect(lacking.has(word), word).toBe(true);
   });
 
-  it('cover every word of chapters I–X that lacks a deck sentence', () => {
-    const early = words.filter((w, i) => i < 300 && !w.sentence);
-    for (const w of early) expect(OWN_SENTENCES.has(w.deck), w.deck).toBe(true);
+  it('cover every path word that lacks a deck sentence', () => {
+    for (const w of words.filter((x) => !x.sentence)) {
+      expect(OWN_SENTENCES.has(w.deck), w.deck).toBe(true);
+    }
   });
 
   it('give the word its sentence, text only, and leave deck sentences alone', () => {
