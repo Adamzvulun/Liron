@@ -320,7 +320,7 @@ function Room({
           <div key={skill}>
             <dt>{skill === 'receive' ? 'Receive' : 'Send'}</dt>
             <dd>
-              {r ? Math.round(r.rating) : '—'}
+              {r ? Math.round(r.rating).toLocaleString('en-US') : '—'}
               {r?.provisional && <small> provisional</small>}
             </dd>
           </div>
