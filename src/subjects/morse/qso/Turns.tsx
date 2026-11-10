@@ -21,6 +21,7 @@ export function HearTurn({
   play,
   qrs,
   stop,
+  onAgain,
   onDone,
 }: {
   kicker: string;
@@ -33,6 +34,8 @@ export function HearTurn({
    */
   qrs?: () => Promise<void>;
   stop: () => void;
+  /** AGN was asked (a repeat). */
+  onAgain?: () => void;
   onDone: (c: Copies) => void;
 }) {
   const [copies, setCopies] = useState<Copies>({});
@@ -108,6 +111,7 @@ export function HearTurn({
           aria-label="AGN: hear it again"
           onClick={() => {
             setAgain(true);
+            onAgain?.();
             setPlaying(true);
             void run(play);
           }}

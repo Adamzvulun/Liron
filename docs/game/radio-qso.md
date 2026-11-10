@@ -58,11 +58,13 @@ Dex keeps it short: no chatter turn, and `5NN` for the report (the contesters' 5
 - **A contact is logged** when you copied every part and every keyed turn was read (after an AGN if needed), as in the Far Station.
 - **XP:** 25 for a logged contact and 5 for a try (my call). The Far Station pays 60 once, because it's a trial.
 - **The logbook** shows how many contacts you have, how many with each operator, and the last few calls worked. It keeps the last 100 contacts.
-- **Later, not dropped:**
-  - a contract for working a station (needs a template and a migration);
-  - "worked all" achievements;
-  - Signal Master's "QSO at 25 wpm with no repeats" using Dex;
-  - E15 adding free-text personality.
+- **Events** (migration `20261123000000_radio_room.sql`): `qso` for every try, `qso-logged` and `worked-<operator>` for a logged contact, and `qso-clean-fast` once.
+- **Contracts (my call):** "Log a contact in the Radio Room" (20 gold) and "Answer 2 calls in the Radio Room" (15 gold). Both are offered only once you've answered a call, so nobody gets them before the Far Station.
+- **Achievements (my call):**
+  - **Worked All:** log a contact with all six operators. 3 gems and the title "of the Airwaves".
+  - **Full Logbook:** log 50 contacts. 3 gems.
+- **Signal Master:** the rank asks for a QSO at 25 wpm with no repeats. Today only Dex sends that fast. The contact must be logged with no AGN, no QRS and no resend. It's kept in `radio.cleanFast`.
+- **Later, not dropped:** E15 adding free-text personality.
 
 ## 6. Where it lives
 - **The hall:** the Radio Room plaque says "On the air · 3 calling" once the Far Station is passed. The Far Station stays in the room as the trial.
