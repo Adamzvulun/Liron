@@ -14,6 +14,7 @@ import { ArabicText } from '../ArabicText.tsx';
 import { regularStatus, type Regular } from '../questline.ts';
 import { useAudio } from '../lesson/useAudio.ts';
 import { DECK } from '../words.ts';
+import { Compare } from '../phrases/Compare.tsx';
 import {
   coreWordsFrom,
   pickSession,
@@ -522,6 +523,21 @@ function Sentence({ word, play }: { word: CoreWord; play: (path: string) => void
   );
 }
 
+/**
+ * Say the word yourself (#195): optional, once you've met it. Record and compare with the
+ * speaker; the recording stays in this tab (ADR 0013) and doesn't change your answer.
+ */
+function SayWord({ word, play }: { word: CoreWord; play: (path: string) => void }) {
+  const [open, setOpen] = useState(false);
+  if (!open)
+    return (
+      <button type="button" className="lesson__plain arabic__say" onClick={() => setOpen(true)}>
+        Say it yourself
+      </button>
+    );
+  return <Compare audio={word.audio} target={word.arabic} play={play} />;
+}
+
 function MeetWord({
   word,
   index,
@@ -627,6 +643,7 @@ function Ask({
             {picked === question.answer ? 'Right!' : 'Not quite.'}
           </p>
           <WordCard word={word} play={play} />
+          <SayWord key={word.deck} word={word} play={play} />
           <button
             type="button"
             className="lesson__go"
