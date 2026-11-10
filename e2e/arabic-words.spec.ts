@@ -13,7 +13,7 @@ const WORDS = FIRST.map((w, i) => ({
 // A sentence for the first grammar card (content/arabic/grammar.json), also not the deck's own.
 const READY = { ...deckWord(9, 'أنا جاهز!', 'I’m ready!'), item_id: 'pcav:4703' };
 const ROWS = [...WORDS, READY];
-const GUEST = { lesson: 8, done: true, guest: true };
+const GUEST = { lesson: 8, done: true, guest: true, ranks: ['guest'] };
 
 test.describe('Arabic word lessons (#160)', () => {
   test('are locked until the Painted Sign is passed', async ({ page }) => {

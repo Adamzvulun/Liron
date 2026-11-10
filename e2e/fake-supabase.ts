@@ -540,7 +540,7 @@ export function emailLinkFragment(type: 'invite' | 'recovery') {
 }
 
 /** What save_session receives (supabaseStore's saveSession). */
-interface SaveSessionArgs {
+export interface SaveSessionArgs {
   p_subject: string;
   p_state: object | null;
   p_reviews: Record<string, unknown>[] | null;

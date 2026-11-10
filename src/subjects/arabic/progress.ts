@@ -27,6 +27,10 @@ const Progress = z.object({
   phrasesMet: z.array(z.string()).catch([]),
   /** Read choices for well-known words: recordings, or Latin letters if you prefer them. */
   knownChoices: z.enum(['sound', 'latin']).catch('sound'),
+  /** Letters written from memory on the slate at least once (#174, the Traveler rank). */
+  written: z.array(z.string()).catch([]),
+  /** House ranks you've taken (#174): their rank-up card is seen and their event sent. */
+  ranks: z.array(z.string()).catch([]),
   /** The word path (#160): your chapter, passes towards it, and the words you've met (deck ids). */
   words: z
     .object({
@@ -66,6 +70,8 @@ export const NEW_PROGRESS: ArabicProgress = {
   phraseSet: 1,
   phrasesMet: [],
   knownChoices: 'sound',
+  written: [],
+  ranks: [],
   words: {
     chapter: 1,
     streak: 0,

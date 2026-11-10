@@ -3,7 +3,10 @@ import { useStage } from '../../../core/city/useStage.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { LESSONS, lettersUpTo } from '../letters.ts';
 import { parseProgress, PASSES_NEEDED, wordsOpen, type ArabicProgress } from '../progress.ts';
-import { questStatus, rankOf, regularStatus, roman } from '../questline.ts';
+import { questStatus, regularStatus, roman } from '../questline.ts';
+import { RankUp } from '../../../core/ranks/RankUp.tsx';
+import { heldRanks, needLine } from '../../../core/ranks/ranks.ts';
+import { ARABIC_RANKS, arabicStanding } from '../ranks.ts';
 import { KHAN_STAGE, paintKhan, paintMilestones, type Box, type StationId } from './paintKhan.ts';
 import { ArabicText } from '../ArabicText.tsx';
 import { PHRASE_SETS } from '../phrases/sets.ts';
@@ -104,7 +107,21 @@ export function Courtyard({
       </p>
     );
   if (!progress) return <p className="arabic__loading">Lighting the lamps…</p>;
-  return <Scene progress={progress} onOpen={onOpen} />;
+  const here = arabicStanding(progress);
+  const fresh = heldRanks(ARABIC_RANKS, here).filter((r) => !progress.ranks.includes(r.id));
+  const take = async () => {
+    const next = { ...progress, ranks: [...progress.ranks, ...fresh.map((r) => r.id)] };
+    await api.saveSession({ state: next, events: fresh.map((r) => ({ kind: `rank-${r.id}` })) });
+    setProgress(next);
+  };
+  return (
+    <>
+      <Scene progress={progress} onOpen={onOpen} />
+      {fresh.length > 0 && (
+        <RankUp guild="House of the Crossing" rank={here.rank} after={here} onTake={take} />
+      )}
+    </>
+  );
 }
 
 function Scene({
@@ -118,7 +135,13 @@ function Scene({
   const compact = pan || scale < READABLE_SCALE;
   const khan = courtyard();
   const quest = questStatus(progress);
-  const rank = rankOf(progress);
+  const standing = arabicStanding(progress);
+  const rank = {
+    arabic: standing.rank.arabic ?? '',
+    english: standing.rank.name,
+    next: standing.next?.name ?? '—',
+  };
+  const toward = standing.checks.filter((c) => c.done).length;
   const lesson = LESSONS[progress.lesson - 1];
   const known = lettersUpTo(progress.done ? LESSONS.length : progress.lesson - 1).length;
   const total = lettersUpTo(LESSONS.length).length;
@@ -313,7 +336,9 @@ function Scene({
               </p>
               <p className="khan__rank">{rank.english}</p>
               <p className="khan__letters">
-                {known} / {total} letters
+                {progress.guest
+                  ? `${rank.next}: ${toward} / ${standing.checks.length}`
+                  : `${known} / ${total} letters`}
               </p>
             </aside>
           )}
@@ -365,7 +390,8 @@ function Scene({
               · {rank.english}
             </p>
             <p className="khan__card-next">
-              Next: {rank.next} · {known} / {total} letters
+              Next: {rank.next} ·{' '}
+              {progress.guest ? needLine(standing) : `${known} / ${total} letters`}
             </p>
           </aside>
         </div>

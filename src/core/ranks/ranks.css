@@ -1,0 +1,74 @@
+/* The rank-up card (#174): over the hall, in the cards' parchment and the guild's brass. */
+.rankup {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(20 14 10 / 0.72);
+}
+.rankup__card {
+  width: min(440px, 100%);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: 24px 22px 22px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(var(--vellum), var(--parchment));
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 0 6px 0 var(--ink);
+}
+.rankup__kicker {
+  margin: 0;
+  font: 700 0.8rem var(--font-ui);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--wood);
+}
+.rankup__arabic {
+  margin: 10px 0 0;
+  font: 700 2.6rem/1.2 var(--font-arabic);
+  color: var(--guild-arabic-ink);
+}
+.rankup__title {
+  margin: 6px 0 12px;
+  font: 700 2rem/1.1 var(--font-display);
+  color: var(--wood);
+}
+.rankup__done {
+  margin: 0 auto 12px;
+  padding: 0;
+  list-style: none;
+  font: 1rem/1.4 var(--font-ui);
+}
+.rankup__done li::before {
+  content: '✓ ';
+  color: var(--guild-morse-ink);
+  font-weight: 700;
+}
+.rankup__next {
+  margin: 0 0 14px;
+  font: 1rem/1.4 var(--font-ui);
+}
+.rankup__warning {
+  margin: 0 0 12px;
+  font: 700 0.95rem var(--font-ui);
+  color: var(--ember-ink);
+}
+.rankup__go {
+  min-width: 12rem;
+  padding: 12px 22px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  background: linear-gradient(#ffe39a, var(--brass));
+  box-shadow: 0 4px 0 var(--ink);
+  font: 700 1.15rem var(--font-ui);
+  color: var(--ink);
+  cursor: pointer;
+}
+.rankup__go:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}

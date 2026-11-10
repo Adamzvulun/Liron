@@ -114,18 +114,3 @@ export function questStatus(p: ArabicProgress) {
     guest: p.guest,
   };
 }
-
-/**
- * The house's ranks (docs/discovery/04-world-and-lore.md): a stranger until the Painted Sign,
- * then a guest. Guest asks for reading only; writing the script by hand belongs to the next
- * rank, Traveler (Claude's call on the 2026-11-04 review, at Adam's request).
- */
-export function rankOf(p: ArabicProgress) {
-  return p.guest
-    ? {
-        arabic: 'ضيف',
-        english: 'Guest',
-        next: 'Traveler (مسافر): 300 words, the survival phrases, and the script by hand',
-      }
-    : { arabic: 'غريب', english: 'Stranger', next: 'Guest: read the Painted Sign' };
-}
