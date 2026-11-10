@@ -98,4 +98,4 @@ The hall shows your **rating** in each skill next to your rank (Glicko-2, alread
 4. Achievements, gems and titles. — [#177](https://github.com/Adamzvulun/Liron/issues/177)
 5. The Far Station (scripted QSO) and the Operator rank. — [#178](https://github.com/Adamzvulun/Liron/issues/178)
 6. The Night Watch trial and the Telegraphist rank. — [#179](https://github.com/Adamzvulun/Liron/issues/179)
-7. Skill rating beside the rank. — [#180](https://github.com/Adamzvulun/Liron/issues/180)
+7. Skill rating beside the rank. — [#180](https://github.com/Adamzvulun/Liron/issues/180). Built: the tower already showed Receive and Send under the rank; the courtyard now shows Read and Listen on the banner and the standing card (a `?` marks a rating that is still provisional, under 30 results). Ratings read as "1,240".
