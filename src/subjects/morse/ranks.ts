@@ -25,6 +25,8 @@ export function morseMet(rank: Rank, p: MorseProgress): boolean[] {
         p.sending.ditMs !== null && p.sending.ditMs <= KEYER_DIT_MS,
         p.rankTrials.includes('lamp-signal'),
       ];
+    case 'telegraphist':
+      return [p.rankTrials.includes('night-watch')];
     default:
       return rank.conditions.map(() => false);
   }
