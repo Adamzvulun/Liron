@@ -13,6 +13,8 @@ import {
 } from '../lesson/progress.ts';
 import { questStatus, roman } from '../questline.ts';
 import { wordsOpen } from '../words/drill.ts';
+import { MORSE_CHARS } from '../code.ts';
+import { lampOpen, lampPassed } from '../send/lampSignal.ts';
 import {
   BANNER,
   GATE,
@@ -30,7 +32,7 @@ import './hall.css';
 // rank on the guild's banner, and each activity is a station on the floor. On an upright phone
 // the room pans sideways and the same things follow below it as cards.
 
-export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending' | 'words';
+export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words';
 
 // The room never changes, so it's painted once per page load.
 let painted: ReturnType<typeof paintTower> | undefined;
@@ -263,9 +265,12 @@ function Room({
       id: 'sending',
       plaque: { x: 1210, y: 950 },
       title: 'Sending',
-      text: progress.sending.drills
-        ? `Your fist: ${Math.round(1200 / (progress.sending.ditMs ?? 100))} wpm`
-        : 'Key letters with the straight key',
+      text:
+        lampOpen(progress, MORSE_CHARS.length) && !lampPassed(progress)
+          ? 'Trial · The Lamp Signal'
+          : progress.sending.drills
+            ? `Your fist: ${Math.round(1200 / (progress.sending.ditMs ?? 100))} wpm`
+            : 'Key letters with the straight key',
       open: 'sending',
     },
     {

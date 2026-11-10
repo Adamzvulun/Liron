@@ -20,9 +20,23 @@ describe('the Signal Tower’s ranks (#174)', () => {
     expect(morseStanding(all).rank.id).toBe('initiate');
     const s = morseStanding({ ...all, trials: [1, 2, 3, 4, 5] });
     expect(s.rank.id).toBe('listener');
-    // Keyer needs the Lamp Signal (#175): it waits, and says so.
     expect(s.next?.id).toBe('keyer');
-    expect(s.later).toBe(true);
+    expect(s.later).toBe(false);
+  });
+
+  it('makes you a Keyer with 20 drills, a 15 wpm fist and the Lamp Signal (#175)', () => {
+    const listener = { ...MORSE_NEW, unlocked: MORSE_CHARS.length, trials: [1, 2, 3, 4, 5] };
+    const keyer = {
+      ...listener,
+      sending: { drills: 20, ditMs: 80 },
+      rankTrials: ['lamp-signal'],
+    };
+    expect(morseStanding(keyer).rank.id).toBe('keyer');
+    // Operator waits on the Far Station (#178), and says so.
+    expect(morseStanding(keyer).later).toBe(true);
+    const slow = morseStanding({ ...keyer, sending: { drills: 20, ditMs: 90 } });
+    expect(slow.rank.id).toBe('listener');
+    expect(needLine(slow)).toBe('2 of 3 · Send at 15 wpm or faster');
   });
 });
 
