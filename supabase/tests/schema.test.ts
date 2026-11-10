@@ -1527,21 +1527,26 @@ describe('reward chests (ADR 0033, #48)', () => {
     ]);
   });
 
-  it('a rank trial (the Lamp Signal #175, the Night Watch #179) is counted once and gives no brass chest', async () => {
+  it('a rank trial (the Lamp Signal #175, the Night Watch #179, the Far Station #178) is counted once and gives no brass chest', async () => {
     for (let i = 0; i < 2; i++)
       await as(ADAM, () =>
         rows(`select save_session('morse', $1, null, '[]', '[]', 0, 0, $2::jsonb)`, [
           `c3c3c3c3-0000-4000-8000-00000000000${i}`,
-          JSON.stringify([{ kind: 'trial-lamp-signal' }, { kind: 'trial-night-watch' }]),
+          JSON.stringify([
+            { kind: 'trial-lamp-signal' },
+            { kind: 'trial-night-watch' },
+            { kind: 'trial-far-station' },
+          ]),
         ]),
       );
     expect(
       await rows(
         `select kind, count from subject_events
-         where user_id = $1 and kind in ('trial-lamp-signal', 'trial-night-watch') order by kind`,
+         where user_id = $1 and kind like 'trial-%-%' order by kind`,
         [ADAM],
       ),
     ).toEqual([
+      { kind: 'trial-far-station', count: 1 },
       { kind: 'trial-lamp-signal', count: 1 },
       { kind: 'trial-night-watch', count: 1 },
     ]);
