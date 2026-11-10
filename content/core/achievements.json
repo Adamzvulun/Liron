@@ -217,7 +217,7 @@
       "type": "achievement",
       "data": {
         "name": "A Seat at the Table",
-        "text": "Pass all ten regulars’ trials",
+        "text": "Pass the first ten regulars’ trials",
         "condition": {
           "kind": "events",
           "subject": "arabic",

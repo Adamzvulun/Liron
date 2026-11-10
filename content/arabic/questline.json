@@ -344,6 +344,256 @@
         },
         "outro": "Jamil closes his eyes and nods. “You speak from the heart now.” The whole table is full: every regular in their place, and you among them."
       }
+    },
+    {
+      "id": "road:12",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 12,
+        "wordChapter": 11,
+        "title": "The Tailor’s Fitting",
+        "who": "Samira the tailor",
+        "intro": "Just when the table seemed full, the gate opens again: a caravan from the coast, its people dusty and loud. First down is Samira, a tailor with pins in her collar and a tape measure around her neck. She looks at your shirt and sighs. “Who sewed this? Sit. Tell me what you wear, and in what colors.”",
+        "milestones": [
+          "You name the color of Samira’s scarf, and she holds up three more to test you.",
+          "Samira points at your boots, your belt and your bag in turn. You name each one before she can.",
+          "You tell Samira your shirt is dirty, and she laughs. “Clean, then. Wash it, and I’ll mend the sleeve.”"
+        ],
+        "trial": {
+          "name": "Samira’s Fitting",
+          "text": "Samira measures you from shoulder to shoe, saying each word as she goes. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Samira pins a new collar on your old shirt. “Now you look like you live here.” She keeps a chair for you by her sewing basket."
+      }
+    },
+    {
+      "id": "road:13",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 13,
+        "wordChapter": 12,
+        "title": "The Grandfather’s Family",
+        "who": "Abu Sami",
+        "intro": "An old man arrives with what seems like half the caravan behind him: sons, daughters, cousins and a baby asleep on someone’s shoulder. Abu Sami sits, and they all find a place around him. “My family,” he says. “Learn their names, and how each one is mine.”",
+        "milestones": [
+          "Abu Sami points to his brother’s son and his wife’s sister. You say which uncle and which aunt each one is.",
+          "The baby wakes and grabs your finger. Abu Sami tells you who it belongs to, and you follow every word.",
+          "You tell Abu Sami about your own family and your friends at home. He listens, and remembers them all."
+        ],
+        "trial": {
+          "name": "Abu Sami’s Family Tree",
+          "text": "Abu Sami calls out each of his family in turn, and you say who they are. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Sami puts the baby in your arms for a moment. “There. Now you’re family too.” His grandchildren wave to you every morning."
+      }
+    },
+    {
+      "id": "road:14",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 14,
+        "wordChapter": 13,
+        "title": "The Apprentice’s Kitchen",
+        "who": "Karim the cook’s boy",
+        "intro": "A thin boy with a sack of onions follows the caravan’s cook into the kitchen. Karim is learning to cook, and he talks about food the whole time he chops. “Breakfast, lunch, dinner. Tell me what you want, and I’ll bring it.”",
+        "milestones": [
+          "You order tea with no sugar, and Karim brings it with a grin and a plate of bread and butter.",
+          "Karim asks you to name the fruit in his basket. You get every one, even the grapes.",
+          "You tell Karim his soup is tasty, then that it’s a little sour. He tastes it and agrees."
+        ],
+        "trial": {
+          "name": "Karim’s Menu",
+          "text": "Karim brings dish after dish and asks what each one is. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Karim writes your name on the kitchen wall, next to the cook’s. “Our best customer.” He saves you the last piece of cake."
+      }
+    },
+    {
+      "id": "road:15",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 15,
+        "wordChapter": 14,
+        "title": "The New House",
+        "who": "Mona",
+        "intro": "A young woman with a key on a string sits down, tired and happy. Mona has just rented a house at the edge of the village, and it’s empty. “I need a lamp, a mirror, pillows, everything. Help me make a list?”",
+        "milestones": [
+          "You and Mona walk through her house, and you name each room as you go in.",
+          "Mona asks where the lamp should go. You tell her: on the wall, upstairs, by the bookcase.",
+          "You help Mona make tea in her new kitchen, then close the windows and turn off the lights."
+        ],
+        "trial": {
+          "name": "Mona’s Housewarming",
+          "text": "Mona shows the whole table around her house, and you name everything in it. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Mona gives you a spare key on its own string. “Come for coffee whenever you like.” The house has a picture on the wall now, and it’s yours."
+      }
+    },
+    {
+      "id": "road:16",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 16,
+        "wordChapter": 15,
+        "title": "The Student’s Notebook",
+        "who": "Tariq the student",
+        "intro": "A young man in glasses sits with a pile of books and doesn’t look up. Tariq is home from college and has a test in a week. “English, French, a little German. And Arabic grammar, which is the hardest. Will you study with me?”",
+        "milestones": [
+          "You and Tariq trade words: his English for your Arabic. He writes yours in his notebook.",
+          "Tariq asks you to repeat a sentence slowly. You do, and he understands every word.",
+          "You answer all of Tariq’s homework questions out loud, and he checks them against the book."
+        ],
+        "trial": {
+          "name": "Tariq’s Exam",
+          "text": "Tariq gives you the test he’s been studying for. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Tariq passes his test, and says it’s half yours. He gives you his old dictionary, with your name inside the cover."
+      }
+    },
+    {
+      "id": "road:17",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 17,
+        "wordChapter": 16,
+        "title": "The Post Rider",
+        "who": "Dalia the post rider",
+        "intro": "A woman on a bicycle rides straight through the gate with a bag of letters. Dalia carries the mail between the villages and she knows everyone’s news. “Letters, newspapers, and now phones that never stop. Help me sort this, will you?”",
+        "milestones": [
+          "Dalia reads you an address on an envelope, and you find the right house for her.",
+          "Dalia’s phone rings, and she hands it to you. You answer it, and take the message.",
+          "You read Dalia the newspaper’s headlines while she fixes her bicycle."
+        ],
+        "trial": {
+          "name": "Dalia’s Mailbag",
+          "text": "Dalia empties her bag on the table and you sort the letters with her. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Dalia gives you the first letter ever addressed to you here, care of the innkeeper. Inside: a card from Salim, with a drawing of his cart."
+      }
+    },
+    {
+      "id": "road:18",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 18,
+        "wordChapter": 17,
+        "title": "The Musician’s Night",
+        "who": "Fares the musician",
+        "intro": "When the lamps are lit, a man with an oud on his back sits near the fire. Fares plays at weddings in every town on the road. “Music, dancing, games: that’s what a free evening is for. What do you do for fun?”",
+        "milestones": [
+          "Fares plays a song and asks you to name it. You can’t, but you can tell him you like it.",
+          "You tell Fares about a game you play at home, and he teaches you one in return.",
+          "Fares stops in the middle of a song and you sing the next line. The table cheers."
+        ],
+        "trial": {
+          "name": "Fares’s Song",
+          "text": "Fares plays all evening, and you keep up with every song. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Fares writes a verse about the traveler who learned to sing in Arabic. He plays it every time you walk in."
+      }
+    },
+    {
+      "id": "road:19",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 19,
+        "wordChapter": 18,
+        "title": "The Road to Amman",
+        "who": "Amal the bus driver",
+        "intro": "A woman in a driver’s cap comes in, shaking dust from her coat. Amal drives the bus from the border to Amman and back, and she has seen every road between. “Where are you going next? Tell me, and I’ll tell you the way.”",
+        "milestones": [
+          "Amal shows you the bus ticket and asks what each line says. You read her the whole thing.",
+          "You tell Amal which way Jordan is, and Lebanon, and Egypt. She nods at each one.",
+          "Amal asks about your journey here, from the day you set off. You tell it to her in Arabic."
+        ],
+        "trial": {
+          "name": "Amal’s Timetable",
+          "text": "Amal reads out the bus timetable and every stop on the road. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Amal gives you a ticket with no date on it. “For when you’re ready to see more.” It goes in your pocket, next to Mona’s key."
+      }
+    },
+    {
+      "id": "road:20",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 20,
+        "wordChapter": 19,
+        "title": "The Shepherd’s Hillside",
+        "who": "Ziad the shepherd",
+        "intro": "A boy comes in at dusk smelling of goats and grass. Ziad keeps his family’s flock on the hills above the village, and he knows every animal by name. “Come up with me tomorrow. I’ll show you the mountain, the lake and all my goats.”",
+        "milestones": [
+          "On the hillside, Ziad points at birds, a donkey and a camel on the road. You name them all.",
+          "Ziad asks which season you like best. You tell him spring, when the wind is warm.",
+          "At night, Ziad shows you the moon and the stars over the desert, and you name them with him."
+        ],
+        "trial": {
+          "name": "Ziad’s Flock",
+          "text": "Ziad brings his flock down the mountain, and you name every animal that passes. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Ziad gives you a little bell from his best goat. “So the hills know you.” You hear it ring every time you walk in the courtyard."
+      }
+    },
+    {
+      "id": "road:21",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 21,
+        "wordChapter": 20,
+        "title": "The Merchant’s Ledger",
+        "who": "Abu Nabil the merchant",
+        "intro": "The caravan’s owner comes in last, with a heavy book under his arm. Abu Nabil counts everything: sacks, coins, days, miles. “A merchant who can’t count in Arabic gets cheated twice a week. Sit, and check my sums.”",
+        "milestones": [
+          "Abu Nabil reads out the price of a sack in thousands, and you write it down right the first time.",
+          "You tell Abu Nabil which day the caravan leaves: Tuesday, at noon. He writes it in his book.",
+          "You add up a whole page of Abu Nabil’s ledger, and you find the mistake he left in to test you."
+        ],
+        "trial": {
+          "name": "Abu Nabil’s Accounts",
+          "text": "Abu Nabil reads out a month of accounts, and you check every number. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Nabil closes the ledger. “You count better than my sons.” He writes your name in it, with a line all to yourself."
+      }
     }
   ]
 }

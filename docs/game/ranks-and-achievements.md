@@ -75,7 +75,7 @@ The first set (my call; about 20 to start):
 | Beacon Relit | Pass all five Silent Beacon trials | 3 | Keeper of the Beacon |
 | No AGN | A Codebook round with no AGN and all 10 right | 2 | |
 | Overspeed | Copy a callsign at 30 wpm in the rush | 2 | the Quick-Eared |
-| A Seat at the Table | Pass all ten regulars' trials | 3 | Friend of the House |
+| A Seat at the Table | Pass the first ten regulars' trials (II–XI) | 3 | Friend of the House |
 | Night Owl / Early Bird | Practice after 22:00 / before 7:00 your time, 5 times | 1 each | |
 | Thousand Minutes | 1,000 minutes of practice | 3 | the Diligent |
 

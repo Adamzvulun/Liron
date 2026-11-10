@@ -4,15 +4,15 @@ import { ranksFrom, standing, type Rank } from '../../core/ranks/ranks.ts';
 import { LETTERS } from './letters.ts';
 import { PHRASE_SETS } from './phrases/sets.ts';
 import type { ArabicProgress } from './progress.ts';
-import { REGULARS } from './questline.ts';
 
 export const ARABIC_RANKS = ranksFrom(pack);
 
-/** Traveler's words: the first 10 chapters, which the ten regulars sit with. */
+/** Traveler's words: the first 10 chapters, which the first ten regulars sit with. */
 export const TRAVELER_CHAPTERS = 10;
 /** The letters the slate teaches: every single-character letter (not the لا ligature). */
 export const SLATE_IDS = LETTERS.filter((l) => l.letter.length === 1).map((l) => l.id);
-const POETS_EVENING = REGULARS[REGULARS.length - 1]?.number ?? 11;
+/** Traveler's trial: Jamil's, the tenth regular's (chapter XI). Later regulars come after. */
+const POETS_EVENING = 11;
 
 export function arabicMet(rank: Rank, p: ArabicProgress): boolean[] {
   switch (rank.id) {
