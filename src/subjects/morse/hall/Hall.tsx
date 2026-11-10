@@ -16,6 +16,7 @@ import { wordsOpen } from '../words/drill.ts';
 import { MORSE_CHARS } from '../code.ts';
 import { lampOpen, lampPassed } from '../send/lampSignal.ts';
 import { watchOpen, watchPassed } from '../words/nightWatch.ts';
+import { farOpen, farPassed } from '../qso/farStation.ts';
 import {
   BANNER,
   GATE,
@@ -33,7 +34,8 @@ import './hall.css';
 // rank on the guild's banner, and each activity is a station on the floor. On an upright phone
 // the room pans sideways and the same things follow below it as cards.
 
-export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words' | 'watch';
+export type HallDoor =
+  'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words' | 'watch' | 'far';
 
 // The room never changes, so it's painted once per page load.
 let painted: ReturnType<typeof paintTower> | undefined;
@@ -291,7 +293,12 @@ function Room({
       id: 'radio',
       plaque: { x: 1800, y: 790 },
       title: 'Radio Room',
-      text: 'Locked · Operator rank',
+      text: !farOpen(progress)
+        ? 'Locked · pass the Lamp Signal'
+        : farPassed(progress)
+          ? 'Work a far station'
+          : 'Trial · The Far Station',
+      ...(farOpen(progress) && { open: 'far' as const }),
     },
   ];
 

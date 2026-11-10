@@ -92,12 +92,14 @@
   grid-template-columns: minmax(8em, auto) 1fr;
   gap: 2px 12px;
   padding: 6px 10px;
+  border-left: 6px solid #3d7a3a;
   border-radius: 8px;
   background: rgb(255 255 255 / 35%);
 }
 
 .qso__log li.is-wrong {
-  background: rgb(160 40 30 / 15%);
+  border-left-color: #a0281e;
+  background: rgb(160 40 30 / 12%);
 }
 
 .qso__log span {

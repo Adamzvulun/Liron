@@ -46,8 +46,10 @@
       "data": {
         "gear": "operator-coat",
         "name": "Operator",
-        "conditions": ["Learn the prosigns", "Pass the Far Station, your first QSO"],
-        "later": "The Far Station opens soon",
+        "conditions": [
+          "Copy all four prosigns in the Codebook",
+          "Pass the Far Station, your first QSO"
+        ],
         "order": 4
       }
     },
