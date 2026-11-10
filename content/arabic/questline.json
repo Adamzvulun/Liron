@@ -1594,6 +1594,206 @@
         },
         "outro": "The last guest goes home, and the new rooms are quiet. “We did it,” Omar says, and falls asleep on a chair."
       }
+    },
+    {
+      "id": "road:62",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 62,
+        "wordChapter": 61,
+        "title": "Fuad’s Taxi",
+        "who": "Fuad the taxi driver",
+        "intro": "Spring comes, and the new east wing fills with travelers. Most of them arrive in Fuad’s old yellow taxi, which he drives as if every road were his own.",
+        "milestones": [
+          "Fuad haggles over every fare, then gives half of it back to students. He shows you the car: the steering wheel, the brakes, the turn signal that only works on Tuesdays.",
+          "On the hill road a tire goes flat. Fuad changes it in five minutes, still talking, while you hold the chain and the flashlight.",
+          "A young driver overtakes on a bend and runs a red light. Fuad doesn’t shout; he puts on his seat belt and tells you about the accident he had at twenty."
+        ],
+        "trial": {
+          "name": "Fuad’s Taxi",
+          "text": "Fuad drives you around town, and you name every part and every turn in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Fuad turns off the engine in front of the inn. “Thirty years,” he says, patting the dent in the bumper, “and she still runs.”"
+      }
+    },
+    {
+      "id": "road:63",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 63,
+        "wordChapter": 62,
+        "title": "Tickets and Visas",
+        "who": "Dana the travel agent",
+        "intro": "Dana opens a desk in the inn’s new lobby, with maps on the wall and a stamp for every country. Half the travelers need her help, and the other half just want to talk about the sea.",
+        "milestones": [
+          "A family wants a week at the beach: an umbrella, sunscreen, and a boat to go diving. Dana books it all and warns the father about sunburn.",
+          "A student’s visa has run out, and her residence permit isn’t valid yet. You and Dana fill out the forms and take them to the office before it closes.",
+          "A plane is delayed, and twenty travelers wait in the lobby. Dana keeps them busy with fishing stories, and someone takes out a kite."
+        ],
+        "trial": {
+          "name": "Dana’s Tickets",
+          "text": "Dana’s travelers line up at her desk, and you help each one in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Dana stamps the last ticket. “Everyone wants to leave,” she says, “and everyone comes back to tell me about it.”"
+      }
+    },
+    {
+      "id": "road:64",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 64,
+        "wordChapter": 63,
+        "title": "The Troupe’s Play",
+        "who": "Abu Rafiq and his troupe",
+        "intro": "A traveling theater troupe takes three rooms in the east wing. Abu Rafiq, who leads them, plays the oud, and his actors rehearse in the courtyard every night.",
+        "milestones": [
+          "The troupe’s drummer is sick, so Abu Rafiq asks you to beat the drum for the rehearsal. The violin is out of tune, and the ney player laughs at both of you.",
+          "An actor smokes a water pipe between scenes and forgets his lines. Abu Rafiq tells him to quit smoking or quit the play.",
+          "On the night, the courtyard fills with spectators. The acrobat walks the rope, the audience claps, and at the intermission everyone wants coffee."
+        ],
+        "trial": {
+          "name": "The Troupe’s Play",
+          "text": "The troupe plays its last show, and you follow every scene in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Rafiq bows to the empty courtyard. “Every audience is different,” he says. “Tonight’s was the best.”"
+      }
+    },
+    {
+      "id": "road:65",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 65,
+        "wordChapter": 64,
+        "title": "Majd’s Tournament",
+        "who": "Coach Majd",
+        "intro": "Majd coaches the town’s volleyball team and runs a small gym behind the market. When it rains, he plays chess at the inn, and he never loses.",
+        "milestones": [
+          "Majd shows you his gym: the treadmill, the dumbbells, the old scale by the door. Sit-ups first, he says, then push-ups, then three sets of everything.",
+          "He organizes a chess tournament at the inn. You lose a rook and three pawns to a ten-year-old, who says “Check!” and grins.",
+          "The volleyball team plays against the next town and loses. Majd says a champion is someone who comes back the next week."
+        ],
+        "trial": {
+          "name": "Majd’s Tournament",
+          "text": "Majd calls out the games and the exercises, and you follow every one in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Majd folds the chessboard. “Same time next week,” he says. “And this time, protect your rook.”"
+      }
+    },
+    {
+      "id": "road:66",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 66,
+        "wordChapter": 65,
+        "title": "The Visiting Professor",
+        "who": "Professor Salwa",
+        "intro": "Professor Salwa comes from the university in the city to give a week of lectures at the village school. She stays in the east wing with a suitcase full of books.",
+        "milestones": [
+          "She lectures on chemistry in the morning and poetry in the evening. The children want to know which one she studied; she says both, and a little philosophy.",
+          "A boy wants to study physics but can’t pay. Salwa helps him register for a scholarship and writes him a letter for the department.",
+          "Her old teacher, now ninety, never went to school. Salwa reads her an article she wrote, and the old woman says it is too long."
+        ],
+        "trial": {
+          "name": "Salwa’s Lecture",
+          "text": "Salwa gives her last lecture, and you take notes in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Salwa leaves one of her books on the innkeeper’s table. “For the next student,” she says."
+      }
+    },
+    {
+      "id": "road:67",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 67,
+        "wordChapter": 66,
+        "title": "The Harvest",
+        "who": "Abu Saleh, back from the fields",
+        "intro": "Abu Saleh the farmer, who brought his cart to the wedding, comes back for the harvest. This time he brings his mule, his rooster and a hundred questions about the tractor he wants to buy.",
+        "milestones": [
+          "You help him milk the cows before dawn and water the orchard. His rooster wakes the whole east wing, and the travelers complain.",
+          "In the hills you see a gazelle, an eagle and, once, a wolf. Abu Saleh says the wild animals were here before the farm, so the farm shares.",
+          "The wheat is harvested and the grain is sold. Abu Saleh buys the tractor, and the mule looks relieved."
+        ],
+        "trial": {
+          "name": "Abu Saleh’s Harvest",
+          "text": "Abu Saleh shows you the farm, field by field, and you name everything in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Saleh drives the tractor into the courtyard to show everyone. The rooster rides on the roof."
+      }
+    },
+    {
+      "id": "road:68",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 68,
+        "wordChapter": 67,
+        "title": "A Business Plan",
+        "who": "Rami, back with a proposal",
+        "intro": "Rami the money changer has saved for years. Now he wants to start his own business, a small shop for travelers, and he asks the innkeeper to rent him the corner of the new lobby.",
+        "milestones": [
+          "Rami writes a proposal: the expenses, the installments, the interest on his loan. You check his sums, and he finds two mistakes in yours.",
+          "The town council wants a committee to look at his plan. The meeting is postponed twice, and Rami nearly gives up.",
+          "At last the council says yes. Rami deposits his savings, wraps a present for the innkeeper, and opens his shop with fixed prices and no haggling."
+        ],
+        "trial": {
+          "name": "Rami’s Proposal",
+          "text": "Rami presents his plan to the council, and you translate every page into Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Rami sells his first map to a traveler. He frames the coin and hangs it over the counter."
+      }
+    },
+    {
+      "id": "road:69",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 69,
+        "wordChapter": 68,
+        "title": "The Storm",
+        "who": "Yasmin, back on the roof",
+        "intro": "Yasmin the weather watcher, who read the sky from the inn’s roof last year, comes back with a new compass and a bad feeling about the clouds.",
+        "milestones": [
+          "At sunset the wind blows from the sea, and the air turns humid. Yasmin says a storm is coming and tells the travelers to stay in.",
+          "In the night there is thunder, lightning and hail. The power goes out, and in the darkness Sitt Fatima tells stories about the great flood of her childhood.",
+          "At sunrise the courtyard is a swamp, but the new east wing has held. Yasmin says the climate is changing, and she writes it all down."
+        ],
+        "trial": {
+          "name": "Yasmin’s Storm",
+          "text": "Yasmin reports the storm hour by hour, and you write it down in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Yasmin folds up her charts. “Clear skies tomorrow,” she says. “I’m almost sure.”"
+      }
     }
   ]
 }
