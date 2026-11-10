@@ -75,3 +75,16 @@
   font-weight: 800;
   color: #2f6b1e;
 }
+
+.echo__sentence {
+  display: block;
+  margin: 8px 0 4px;
+  font-size: 36px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.echo__latin {
+  margin: 0;
+  font-style: italic;
+}

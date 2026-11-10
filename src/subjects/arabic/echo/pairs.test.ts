@@ -142,7 +142,7 @@ describe('sound pairs (#193)', () => {
     const right = Array.from({ length: 10 }, () => ({ question: q(), right: true }));
     const first = applyRound(NEW_PROGRESS, right);
     expect(first.heard).toBeNull();
-    expect(first.next.echo).toEqual({ heard: [], streak: 10, rounds: 1 });
+    expect(first.next.echo).toEqual({ heard: [], streak: 10, rounds: 1, shadowed: 0 });
     // A wrong answer resets it; one about another pair doesn't count.
     const reset = applyRound(first.next, [
       { question: q(), right: false },
@@ -164,6 +164,11 @@ describe('sound pairs (#193)', () => {
   });
 
   it('reads an old save without the echo well as a fresh start', () => {
-    expect(parseProgress({ lesson: 2 }).echo).toEqual({ heard: [], streak: 0, rounds: 0 });
+    expect(parseProgress({ lesson: 2 }).echo).toEqual({
+      heard: [],
+      streak: 0,
+      rounds: 0,
+      shadowed: 0,
+    });
   });
 });
