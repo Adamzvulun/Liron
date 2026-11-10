@@ -1,0 +1,213 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (the pairs, order, tips and glosses only: the words and recordings are the Lingualism deck’s, private, ADR 0011)",
+  "items": [
+    {
+      "id": "pair:hah-heh",
+      "subject": "arabic",
+      "type": "sound-pair",
+      "data": {
+        "order": 1,
+        "title": "ḥ or h",
+        "tip": "ḥ is a strong, breathy h from deep in the throat, like breathing on a cold window. h is the light h of Hebrew ה.",
+        "a": {
+          "letter": "letter:hah",
+          "written": ["letter:hah"],
+          "sounds": ["ɧ"],
+          "label": "ḥ, strong"
+        },
+        "b": {
+          "letter": "letter:heh",
+          "written": ["letter:heh"],
+          "sounds": ["h"],
+          "label": "h, light"
+        },
+        "minimal": []
+      }
+    },
+    {
+      "id": "pair:ain-hamza",
+      "subject": "arabic",
+      "type": "sound-pair",
+      "data": {
+        "order": 2,
+        "title": "ʿayn or a catch",
+        "tip": "ʿayn is a squeeze in the throat before the vowel. The catch (hamza) is only a short stop, like the break in uh-oh.",
+        "a": {
+          "letter": "letter:ain",
+          "written": ["letter:ain"],
+          "sounds": ["3"],
+          "label": "ʿayn, squeezed"
+        },
+        "b": {
+          "letter": "letter:hamza",
+          "written": ["letter:alef", "letter:hamza"],
+          "sounds": ["a", "i", "u", "o", "e", "ʔ"],
+          "label": "a catch, or nothing"
+        },
+        "minimal": [
+          {
+            "a": "pcav:0132",
+            "aGloss": "uncle (father’s brother)",
+            "b": "pcav:0081",
+            "bGloss": "mother"
+          },
+          { "a": "pcav:3743", "aGloss": "animal feed", "b": "pcav:4010", "bGloss": "a thousand" },
+          { "a": "pcav:3913", "aGloss": "width", "b": "pcav:3551", "bGloss": "land" },
+          { "a": "pcav:3176", "aGloss": "secular", "b": "pcav:3278", "bGloss": "German" }
+        ]
+      }
+    },
+    {
+      "id": "pair:khah-hah",
+      "subject": "arabic",
+      "type": "sound-pair",
+      "data": {
+        "order": 3,
+        "title": "kh or ḥ",
+        "tip": "kh scrapes, like the ח most Israelis say. ḥ doesn't scrape at all: it's only breath, from deep in the throat.",
+        "a": {
+          "letter": "letter:khah",
+          "written": ["letter:khah"],
+          "sounds": ["x"],
+          "label": "kh, scraped"
+        },
+        "b": {
+          "letter": "letter:hah",
+          "written": ["letter:hah"],
+          "sounds": ["ɧ"],
+          "label": "ḥ, breath"
+        },
+        "minimal": [
+          {
+            "a": "pcav:0138",
+            "aGloss": "aunt (mother’s sister)",
+            "b": "pcav:3364",
+            "bGloss": "case, state"
+          },
+          { "a": "pcav:0255", "aGloss": "cheek", "b": "pcav:4281", "bGloss": "someone" },
+          { "a": "pcav:2314", "aGloss": "thread", "b": "pcav:0729", "bGloss": "wall" },
+          { "a": "pcav:0839", "aGloss": "bed", "b": "pcav:4492", "bGloss": "under" }
+        ]
+      }
+    },
+    {
+      "id": "pair:ghain-khah",
+      "subject": "arabic",
+      "type": "sound-pair",
+      "data": {
+        "order": 4,
+        "title": "gh or kh",
+        "tip": "Both are made in the same place. gh is voiced, a gargled French r; kh is the same with only air.",
+        "a": {
+          "letter": "letter:ghain",
+          "written": ["letter:ghain"],
+          "sounds": ["ɣ"],
+          "label": "gh, gargled"
+        },
+        "b": {
+          "letter": "letter:khah",
+          "written": ["letter:khah"],
+          "sounds": ["x"],
+          "label": "kh, only air"
+        },
+        "minimal": [{ "a": "pcav:3684", "aGloss": "cloud", "b": "pcav:2666", "bGloss": "tent" }]
+      }
+    },
+    {
+      "id": "pair:sad-seen",
+      "subject": "arabic",
+      "type": "sound-pair",
+      "data": {
+        "order": 5,
+        "title": "heavy ṣ or s",
+        "tip": "A heavy letter is said with the back of the tongue raised, so it sounds deeper and darkens the vowel next to it.",
+        "a": {
+          "letter": "letter:sad",
+          "written": ["letter:sad"],
+          "sounds": ["ʂ"],
+          "label": "ṣ, heavy"
+        },
+        "b": {
+          "letter": "letter:seen",
+          "written": ["letter:seen"],
+          "sounds": ["s"],
+          "label": "s, light"
+        },
+        "minimal": [
+          {
+            "a": "pcav:0731",
+            "aGloss": "picture",
+            "b": "pcav:3248",
+            "bGloss": "a chapter of the Quran"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pair:dad-dal",
+      "subject": "arabic",
+      "type": "sound-pair",
+      "data": {
+        "order": 6,
+        "title": "heavy ḍ or d",
+        "tip": "The same as ṣ: listen for the deeper, darker sound around the heavy letter.",
+        "a": {
+          "letter": "letter:dad",
+          "written": ["letter:dad"],
+          "sounds": ["ɖ"],
+          "label": "ḍ, heavy"
+        },
+        "b": {
+          "letter": "letter:dal",
+          "written": ["letter:dal"],
+          "sounds": ["d"],
+          "label": "d, light"
+        },
+        "minimal": []
+      }
+    },
+    {
+      "id": "pair:tah-teh",
+      "subject": "arabic",
+      "type": "sound-pair",
+      "data": {
+        "order": 7,
+        "title": "heavy ṭ or t",
+        "tip": "Hebrew ט and ת sound the same today; in Arabic, ṭāʾ is the heavy one.",
+        "a": {
+          "letter": "letter:tah",
+          "written": ["letter:tah"],
+          "sounds": ["ʈ"],
+          "label": "ṭ, heavy"
+        },
+        "b": {
+          "letter": "letter:teh",
+          "written": ["letter:teh"],
+          "sounds": ["t"],
+          "label": "t, light"
+        },
+        "minimal": []
+      }
+    },
+    {
+      "id": "pair:qaf-kaf",
+      "subject": "arabic",
+      "type": "sound-pair",
+      "data": {
+        "order": 8,
+        "title": "g or k",
+        "tip": "In this Palestinian, qāf is mostly said g (galb, heart). Listen for g against k.",
+        "a": {
+          "letter": "letter:qaf",
+          "written": ["letter:qaf"],
+          "sounds": ["g"],
+          "label": "g (written qāf)"
+        },
+        "b": { "letter": "letter:kaf", "written": ["letter:kaf"], "sounds": ["k"], "label": "k" },
+        "minimal": [{ "a": "pcav:0462", "aGloss": "heart", "b": "pcav:3736", "bGloss": "dog" }]
+      }
+    }
+  ]
+}
