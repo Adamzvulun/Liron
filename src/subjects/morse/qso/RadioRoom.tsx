@@ -4,6 +4,7 @@ import { parseProgress, type MorseProgress } from '../lesson/progress.ts';
 import { START_DIT_MS } from '../send/decoder.ts';
 import { useDeskAudio, type Audio } from '../send/deskAudio.ts';
 import { bandRoute } from './band.ts';
+import { cleanNews, newsAsk, newsOf } from './chatter.ts';
 import { keyedRight } from './farStation.ts';
 import {
   airAnswer,
@@ -13,7 +14,9 @@ import {
   isCleanFast,
   contactSteps,
   makeContact,
+  NEWS_STEP,
   nextToOpen,
+  notesOf,
   onAirToday,
   OPERATORS,
   radioDay,
@@ -118,9 +121,11 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
   const answer = (op: Operator) => {
     if (!station) return;
     void audio()?.tone.unlock();
+    const worked = workedWith(progress.radio, op.id);
+    const contact = makeContact(op, station, worked > 0);
     setStage({
       kind: 'contact',
-      contact: makeContact(op, station, workedWith(progress.radio, op.id) > 0),
+      contact,
       at: 0,
       wpm: op.wpm,
       repeats: 0,
@@ -128,6 +133,21 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
       reads: [],
       started: performance.now(),
     });
+    // A ragchewer's news is written live (E15) while the first turns go by. It's used only if it
+    // comes before their chat turn; otherwise, or on any failure, the script's line stays.
+    if (op.terse) return;
+    api.partner(newsAsk(contact, worked, notesOf(progress.radio, op.id))).then(
+      (reply) => {
+        const news = cleanNews(reply.text, contact.me.name);
+        if (!news) return;
+        setStage((s) =>
+          s.kind === 'contact' && s.contact === contact && s.at < NEWS_STEP
+            ? { ...s, contact: { ...contact, news } }
+            : s,
+        );
+      },
+      () => {},
+    );
   };
 
   const advance = (s: Extract<Stage, { kind: 'contact' }>, copies: Copies, reads: string[]) => {
@@ -137,7 +157,14 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
     }
     const result = airResult(s.contact, copies, reads);
     const cleanFast = isCleanFast(s.contact, result, s.repeats);
-    const radio = applyContact(progress.radio, s.contact.op.id, result, radioDay(), cleanFast);
+    const radio = applyContact(
+      progress.radio,
+      s.contact.op.id,
+      result,
+      radioDay(),
+      cleanFast,
+      s.contact.news,
+    );
     const events = radioEvents(s.contact, result, cleanFast && !progress.radio.cleanFast);
     save({ ...progress, radio }, result, (performance.now() - s.started) / 1000, events);
     setStage({ kind: 'result', contact: s.contact, copies, reads, result, cleanFast });
@@ -328,6 +355,10 @@ function Room({
             {next.more === 1 ? 'contact' : 'contacts'}.
           </p>
         )}
+        <p className="lesson__note qso__ai-note">
+          Operators’ news is written live by an AI (Google’s Gemini) from their story and your name
+          and town. They remember what they told you.
+        </p>
       </div>
       <div className="lesson__card qso__logbook">
         <p className="lesson__kicker">Your logbook</p>
@@ -495,6 +526,11 @@ function Log({
           );
         })}
       </ul>
+      {newsOf(contact) && (
+        <p className="lesson__note qso__news">
+          {contact.op.name}’s news: <strong>{newsOf(contact)}</strong>
+        </p>
+      )}
       {stage.cleanFast && (
         <p className="lesson__note">
           At {contact.op.wpm} wpm with no repeats: a Signal Master’s contact.

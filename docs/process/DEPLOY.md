@@ -30,7 +30,7 @@ Set them in **Settings → Environment Variables**, never in git (`.env*` is git
 |---|---|---|---|
 | `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` | `waymark-prod` project | `waymark-dev` project | #16, steps in [SUPABASE](SUPABASE.md). `VITE_` variables end up in the browser bundle. That's fine for the publishable key, which is designed to be public; Row Level Security guards the data. **Set them before merging the code that uses them**, or that deploy shows "Not set up yet". |
 | `GROQ_API_KEY` | ✓ | ✓ | The "understood" check (ADR 0014), in `api/understood.ts`. **No `VITE_` prefix**: server-only, never sent to the browser. Use separate keys for Production and Preview if you can. The function also reads the two Supabase variables above, at run time. |
-| `GEMINI_API_KEY` | ✓ | ✓ | Added with the AI adapter (E15). Server-only, like the Groq key. |
+| `GEMINI_API_KEY` | ✓ | ✓ | The AI partner (E15, ADR 0036), in `api/partner.ts`: the Radio Room operators' news. Server-only, like the Groq key. A free AI Studio key; **don't attach a billing account** to its Cloud project (ADR 0036 keeps it on the free tier). The partner also uses `GROQ_API_KEY` as its backup and works with either key alone. Without both, operators keep their scripted lines. |
 
 ## Free-plan limits (checked 2026-11-02 on vercel.com/docs)
 - 100 deployments/day, 1 build at a time, 45 min per build.

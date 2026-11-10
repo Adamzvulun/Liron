@@ -22,6 +22,7 @@ import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
 import { privatePackVersion, supabaseContent } from './content/privateContent.ts';
+import { functionPartner } from './partner.ts';
 import { functionSpeech } from './speech.ts';
 import './App.css';
 
@@ -37,9 +38,15 @@ const contentOf = (client: NonNullable<typeof supabase>) =>
     browserPackStore,
   );
 
+/** The current learner's access token, for our own functions. */
+const accessToken = (client: NonNullable<typeof supabase>) => async () =>
+  (await client.auth.getSession()).data.session?.access_token ?? null;
+
 /** The "understood" check (ADR 0014), signed in as the current learner. */
-const speechOf = (client: NonNullable<typeof supabase>) =>
-  functionSpeech(async () => (await client.auth.getSession()).data.session?.access_token ?? null);
+const speechOf = (client: NonNullable<typeof supabase>) => functionSpeech(accessToken(client));
+
+/** The AI partner (E15, ADR 0036), signed in as the current learner. */
+const partnerOf = (client: NonNullable<typeof supabase>) => functionPartner(accessToken(client));
 
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
@@ -54,6 +61,7 @@ const apis = new Map(
               player.applyAward,
               supabase ? contentOf(supabase) : null,
               supabase ? speechOf(supabase) : null,
+              supabase ? partnerOf(supabase) : null,
             ),
           ] as const,
       )
