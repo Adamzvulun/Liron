@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import type { PartnerAsk, PartnerReply } from './partner.ts';
 import type { Heard } from './speech.ts';
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
@@ -206,4 +207,10 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
    * today's checks are used up.
    */
   transcribe(audio: Blob): Promise<Heard>;
+  /**
+   * The AI partner (E15, ADR 0036): one line a character says, written by Gemini (or Groq) through
+   * our own function. Fails with a `PartnerError`, e.g. when today's replies are used up; every
+   * caller keeps a scripted line to fall back on.
+   */
+  partner(ask: PartnerAsk): Promise<PartnerReply>;
 }

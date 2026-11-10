@@ -5,7 +5,7 @@
 
 ## The short version
 - **The word path opens after the script course.** It starts once you pass "The Painted Sign" (chapter 1 of "The Long Road In"), when every letter is yours.
-- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1) and 841–1,560 (A2 words) are in.
+- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1), 841–1,560 (A2 words) and 1,561–2,040 (B1 words) are in.
 - **Each word is met with its native recording, its meaning, how it sounds in Hebrew letters, and a deck sentence when the deck has one.** The deck has few sentences, so this is the main open question (section 3).
 - **Practice is the same four moves as the letters:** meet, listen, read, recall. FSRS schedules each word, and Glicko rates you in listen and read.
 - **Each chapter brings a new regular to the innkeeper's table** ("The Long Road In" chapter 2 onward), with a trial at its end.
@@ -134,6 +134,43 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
   - **23 of the 240 carry a deck sentence** (196 of the 1,560 in all). By eye I removed 2 wrong matches (*to open a file*, a window; *to turn it up*, turning the TV down) and kept *from, off* with "Nablus is far from Gaza".
   - **The other 217 have one of our own sentences** (§3).
 
+- **Words 1,561–1,800 (#230, 2026-11-10): the first B1 words,** in eight chapters of 30. The deck tags 1,779 items B1; about 1,100 are single words or verbs, and none of these 240 has the same Arabic as a taught word:
+
+| Chapter | Theme | Deck sections it draws on |
+|---|---|---|
+| 53 | Work and pay | Work (applying, pay, promotion, leaving), the trades, Business and Commerce |
+| 54 | Doctor's orders | Health and Medicine (check-ups, illness, injuries, treatment) |
+| 55 | In the kitchen | The House (cooking), Food and Drink (herbs, spices, sweets, street food) |
+| 56 | Tools and chores | The House (renting, cleaning, plugs, the garden, tools) |
+| 57 | Head to heel, dusk to dawn | The Human Body & Describing People, The House (sleep) |
+| 58 | Town hall and court | Government and Politics, Crime and Justice, Money (tax, income) |
+| 59 | Heads and hearts | The Mind, Feelings, Personality, Likes and Dislikes, Opinions, Desires |
+| 60 | Doing words | Verbs, Adjectives |
+
+  - **Picked by use,** one word per meaning. Where the deck gives two words for one thing, the more common one comes first (طرّد and فصل are both *to fire*; this batch teaches فصل). Same-Arabic pairs inside the batch were kept apart by hand: جرّار is taught as *drawer*, not *tractor*; علّاقة as *hanger*, not *brooch*; مجْروح as *injured*, not *heartbroken*.
+  - **Left for later B1 chapters (ordered, not cut):** war and the military, religion beyond the A2 words, the car's parts and driving, the gym, the beach, school subjects, animals and plants, adult and toilet words, and the second ways to say a taught word.
+  - **Politics stays plain:** government, elections and the courts are taught as everyday words. Their sentences say what the words mean (the elections are tomorrow, theft is a crime) and take no side.
+  - **7 of the 240 carry a deck sentence** (203 of the 1,800 in all). A deck sentence already used by an earlier word isn't used again (*legal*).
+  - **The other 233 have one of our own sentences** (§3).
+
+- **Words 1,801–2,040 (#232, 2026-11-10):** eight more B1 chapters of 30:
+
+| Chapter | Theme | Deck sections it draws on |
+|---|---|---|
+| 61 | On the road | Getting Around (taxis, lanes, the car's parts, accidents) |
+| 62 | Sun, sea and borders | Travel and Vacations (the beach, hiking, visas, flights, trains), Recreation |
+| 63 | On stage | Recreation (TV, records, the theater, smoking), Music |
+| 64 | Check and mate | Games and Sports (chess, ball games, the gym) |
+| 65 | Lecture hall | School and Education (university, subjects, degrees), Books and Stationery |
+| 66 | Field and forest | Agriculture, Animals |
+| 67 | Money and trade | Money, Business and Commerce, Bank, Shopping, Post Office |
+| 68 | Earth and sky | Earth and Space, Weather |
+
+  - **Picked by use,** one word per meaning. Same-Arabic pairs were kept apart by hand: مسْرح is *theater* (not *auditorium*), قرْض *student loan* (not *loan*), شِهادة *degree* (not *report card*), سقى *to water* once.
+  - **11 of the 240 carry a deck sentence** (214 of the 2,040 in all).
+  - **The other 229 have one of our own sentences** (§3).
+  - **Left for later B1 chapters (ordered, not cut):** war and the military, religion, more of the body and health, crime, adult and toilet words, and second ways to say a taught word (about 620 words).
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
@@ -161,6 +198,8 @@ I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164),
   - Adam spot-checks a sample.
 - **Progress:**
   - All 34 chapters are done: 867 sentences, one for every path word without a deck sentence.
+  - Chapters 61–68 (#232): 229 more, 1,826 in all. The 8 remaining flags were each looked at by hand: plurals and verb forms (بنوا *they built*, العصافير *the sparrows*) and three deck words not met yet (الحبِل *the rope*, صحّانا *it woke us*, اِنْتبِه *watch out*).
+  - Chapters 53–60 (#230): 233 more, 1,597 in all. The checker's 7 remaining flags were each looked at by hand: plurals and verb forms it can't match (حْواجْبو *his eyebrows*, رُحِت مع *I went with*) and two deck words not met yet (مكْسورة *broken*, دقّ *to hammer*).
   - Chapters 45–52 (#228): 217 more, 1,364 in all, with no flags left.
   - Chapters 35–44 (#226): 280 more, 1,147 in all. The checker's remaining flags are verb forms the deck doesn't spell out (*we went*, *throw!*, *it was canceled*) and the deck's own spelling of *noisy* (مُزْعِح, for مُزْعِج); each was looked at by hand.
 
@@ -238,12 +277,30 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | LI | Dr. Rana the vet | Rana's Rounds |
 | LII | Mariam and Um Khaled, the neighbors | The Neighbors' Table |
 | LIII | Sami the night guard | Sami's Report |
+| LIV | Bassam the foreman | The Foreman's Hiring |
+| LV | Samar the nurse | Samar's Clinic |
+| LVI | Abu Jamal the sweet maker | The Sweet Maker's Tray |
+| LVII | Widad the new tenant | Widad's Toolbox |
+| LVIII | Sitt Fatima, the innkeeper's mother | Sitt Fatima's Long Night |
+| LIX | Hiba the lawyer | Hiba's Case |
+| LX | Adel and Aya, the twins | The Twins' Argument |
+| LXI | Omar, the innkeeper's grandson | Omar's Plan |
+| LXII | Fuad the taxi driver | Fuad's Taxi |
+| LXIII | Dana the travel agent | Dana's Tickets |
+| LXIV | Abu Rafiq and his troupe | The Troupe's Play |
+| LXV | Coach Majd | Majd's Tournament |
+| LXVI | Professor Salwa | Salwa's Lecture |
+| LXVII | Abu Saleh, back from the fields | Abu Saleh's Harvest |
+| LXVIII | Rami, back with a proposal | Rami's Proposal |
+| LXIX | Yasmin, back on the roof | Yasmin's Storm |
 
 - **Chapters XII–XXI (#205, 2026-11-10):** a caravan from the coast arrives just as the table seems full, and its people sit down one per word chapter (11–20). Each regular has the same shape: an opening, 3 milestone beats and a trial. Their trials send `trial-12` to `trial-21`. Migration `20261122000000_more_regulars.sql` registers `trial-13` to `trial-35`, so chapters up to word chapter 34 need no further migration.
 - **The Traveler rank still asks for the Poet's Evening** (chapter XI), not the newest regular's trial. "A Seat at the Table" still means the first ten regulars.
 - **Chapters XXII–XXXV (#205, 2026-11-10):** a second caravan, from the east, for word chapters 21–34. Its regulars follow the chapters' themes (countries, numbers, money, the doctor, the body, the kitchen, the house, work, travel). Three old faces come back changed: Salim (XXIX), Abu Fadi with his son (XXXII) and Amal (XXXIV). The last chapter, XXXV, is the innkeeper's own story. Their trials send `trial-22` to `trial-35`, already registered by the same migration.
 - **Chapters XXXVI–XLV (#226, 2026-11-10):** the innkeeper's niece Hana is married at the inn, for word chapters 35–44. The family and the people who come for the wedding sit down one per chapter, following its theme: the guest list, the clothes, the grandfather's aches, the pastries, the farmer's cart, the cleaning, the schoolteacher, the pictures, the wedding night and the newlyweds' road. Samira (XXXVII) and Mei (XLIII) come back. Their trials send `trial-36` to `trial-45`, registered by migration `20261124000000_regulars_36_45.sql`.
 - **Chapters XLVI–LIII (#228, 2026-11-10):** a new year at the inn, for word chapters 45–52. Townspeople and travelers sit down one per chapter: a storyteller who lives on small words, a money changer at the gate, a weather watcher on the roof, the village teacher, a traveler who collects languages, the vet on her rounds, two neighbors who cook one feast for both their holidays, and the night guard. Their trials send `trial-46` to `trial-53`, registered by migration `20261125000000_regulars_46_53.sql`.
+- **Chapters LIV–LXI (#230, 2026-11-10):** a winter at the inn, for word chapters 53–60, the first B1 words. The innkeeper rebuilds the old east wing: a foreman hires the hands, a nurse opens a clinic by the gate, a sweet maker feeds the workers, the first tenant fixes everything, the innkeeper's mother can't sleep, a lawyer gets the permit, two twins argue, and a grandson runs the opening night. Their trials send `trial-54` to `trial-61`, registered by migration `20261126000000_regulars_54_61.sql`.
+- **Chapters LXII–LXIX (#232, 2026-11-10):** spring at the inn, for word chapters 61–68. Travelers fill the new east wing: a taxi driver, a travel agent, a theater troupe, a coach, a visiting professor, and three old faces back again: Abu Saleh for the harvest, Rami with a business plan, and Yasmin for a storm. Their trials send `trial-62` to `trial-69`, registered by migration `20261128000000_regulars_62_69.sql`.
 - **Every word chapter now has its regular.** A new word chapter needs a new regular and a `trial-N` row in a migration.
 
 - **Beats:** each regular has an opening, and 3 milestone beats lit by the words you've met (one per 10 of the chapter's 30). The table shows the newest beat above "Start a session"; the courtyard's story panel shows the chapter.
