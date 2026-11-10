@@ -18,10 +18,12 @@ import {
   type SoundPair,
 } from './pairs.ts';
 import { reportRound, xpOfRound, type PairAnswer } from './report.ts';
+import { Shadowing } from './Shadowing.tsx';
 import './echo.css';
 
 type Stage =
   | { kind: 'start' }
+  | { kind: 'shadow' }
   | {
       kind: 'round';
       questions: PairQuestion[];
@@ -98,7 +100,24 @@ export function EchoWell({ api }: { api: SubjectApi }) {
           Your round couldn’t be saved. Check your connection and try again.
         </p>
       )}
-      {stage.kind === 'start' && <Start progress={progress} onStart={start} />}
+      {stage.kind === 'start' && (
+        <>
+          <Start progress={progress} onStart={start} />
+          <ShadowStart
+            shadowed={progress.echo.shadowed}
+            onStart={() => setStage({ kind: 'shadow' })}
+          />
+        </>
+      )}
+      {stage.kind === 'shadow' && (
+        <Shadowing
+          api={api}
+          items={deck.items}
+          progress={progress}
+          onSaved={setProgress}
+          onLeave={() => setStage({ kind: 'start' })}
+        />
+      )}
       {stage.kind === 'round' && stage.questions.length === 0 && (
         <p className="lesson__card">The deck’s words haven’t been loaded into Waymark yet.</p>
       )}
@@ -169,6 +188,26 @@ function Start({ progress, onStart }: { progress: ArabicProgress; onStart: () =>
       </ol>
       <button type="button" className="lesson__go" onClick={onStart}>
         Listen
+      </button>
+    </div>
+  );
+}
+
+function ShadowStart({ shadowed, onStart }: { shadowed: number; onStart: () => void }) {
+  return (
+    <div className="lesson__card lesson__start">
+      <p className="lesson__kicker">The echo well · Shadowing</p>
+      <h2 className="lesson__title">Speak along</h2>
+      <p>
+        Hear a short sentence, then say it at the same time as the speaker, slower first. Listen
+        back to yours, theirs, and both together.
+      </p>
+      <p className="arabic__note">
+        Your recordings stay on this device.
+        {shadowed > 0 ? ` Sentences shadowed so far: ${shadowed}.` : ''}
+      </p>
+      <button type="button" className="lesson__go" onClick={onStart}>
+        Shadow sentences
       </button>
     </div>
   );
