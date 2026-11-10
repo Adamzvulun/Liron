@@ -1,10 +1,12 @@
 // Words from the Lingualism deck (private, ADR 0011): single words whose letters we teach,
 // each with its native recording. Read and Listen drills are built from them (#38, #41).
-// Early lessons use only the words we reviewed (content/arabic/lesson-words.json, #125), with
-// our own glosses; later ones take the deck's words, cleaned up.
+// The letter lessons use only the words we reviewed (content/arabic/lesson-words.json, #125),
+// with our own glosses. The echo well draws on a wider pool: the word path's words too, all with
+// our glosses (ECHO_POOL).
 import type { Item } from '../../core/content/schema.ts';
+import pathPack from '../../../content/arabic/core-words.json' with { type: 'json' };
 import reviewPack from '../../../content/arabic/lesson-words.json' with { type: 'json' };
-import { inHebrew, lettersOf, type Letter } from './letters.ts';
+import { inHebrew, LESSON_COUNT, lettersOf, type Letter } from './letters.ts';
 import { latinToHebrew } from './phrases/hebrew.ts';
 
 export const DECK = 'lingualism-pcav';
@@ -53,6 +55,23 @@ export const REVIEW: WordReview = {
 
 /** No reviewed lessons: every deck word is used, cleaned up (for tests). */
 export const NO_REVIEW: WordReview = { lessons: new Set(), words: new Map() };
+
+/**
+ * The echo well's words (Adam, 2026-11-10: short letter lessons, a wider pool for the well): the
+ * reviewed lesson words and every word on the word path, each with our gloss. The well needs many
+ * words per sound, more than the short lesson lists hold.
+ */
+export const ECHO_POOL: WordReview = {
+  lessons: new Set(Array.from({ length: LESSON_COUNT }, (_, i) => i + 1)),
+  words: new Map([
+    ...pathPack.items.flatMap((c) =>
+      (c.data as { words: { deck: string; gloss: string }[] }).words.map(
+        (w) => [w.deck, { gloss: w.gloss }] as const,
+      ),
+    ),
+    ...REVIEW.words,
+  ]),
+};
 
 /** The deck's romanisation without its grammar tags ("lúwaz [pl.]" → "lúwaz"). */
 export const untagged = (sound: string) =>

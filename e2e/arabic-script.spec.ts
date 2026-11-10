@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { GREETINGS, deckWord, lessonWord, signedIn, type SubjectCall } from './fake-supabase.ts';
+import { GREETINGS, lessonWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // Everyday words made of lesson 1's letters (ا ب ت ن ي), shaped like the deck's rows.
 const WORDS = [
@@ -209,7 +209,8 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
   test('with no readable words, practice says so instead of crashing', async ({ page }) => {
     const met = ['letter:alef', 'letter:beh', 'letter:teh', 'letter:noon', 'letter:yeh'];
     const state = { lesson: 1, streak: 1, met, done: false, sessions: 1 };
-    await signedIn(page, [], [], state, [deckWord(1, 'شمس', 'sun')]);
+    // A lesson-4 word (ش), under a reviewed lesson-4 id: in the deck, but not readable yet.
+    await signedIn(page, [], [], state, [lessonWord(1, 'شمس', 'sun', 4)]);
     await page.goto('/caravanserai');
     await page.getByRole('button', { name: /The fountain/ }).click();
     await page.getByRole('button', { name: 'Begin' }).click();
