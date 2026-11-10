@@ -12,9 +12,10 @@ const ids = (chapter: number, n: number) =>
   (WORD_CHAPTERS[chapter - 1]?.words ?? []).slice(0, n).map((w) => w.deck);
 
 describe('the regulars: The Long Road In, chapters II–XI (#161)', () => {
-  it('brings a regular for each of the 10 word chapters, in order', () => {
+  it('brings a regular for each of the first 10 word chapters, in order', () => {
+    // Chapters 11 and on (#163) have no regulars yet: the road's next part comes with them.
     expect(REGULARS.map((r) => [r.number, r.wordChapter])).toEqual(
-      WORD_CHAPTERS.map((c) => [c.chapter + 1, c.chapter]),
+      WORD_CHAPTERS.slice(0, 10).map((c) => [c.chapter + 1, c.chapter]),
     );
     expect(REGULARS.every((r) => r.trial.words === 30 && r.trial.accuracy === 0.9)).toBe(true);
   });
@@ -47,5 +48,15 @@ describe('the regulars: The Long Road In, chapters II–XI (#161)', () => {
     const end = regularStatus(at({ chapter: 10, done: true, trials: all }));
     expect(end).toMatchObject({ regular: { number: 11 }, passed: true });
     expect(end?.beat).toBe(REGULARS[9]?.outro);
+  });
+});
+
+describe('the regulars past chapter 10 (#163)', () => {
+  it('keep the poet at the table once every regular’s trial is passed', () => {
+    const all = REGULARS.map((r) => r.number);
+    const s = regularStatus(at({ chapter: 15, trials: all }));
+    expect(s?.regular.number).toBe(REGULARS[REGULARS.length - 1]?.number);
+    expect(s?.passed).toBe(true);
+    expect(s?.trialReady).toBe(false);
   });
 });

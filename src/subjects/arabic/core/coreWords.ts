@@ -1,5 +1,5 @@
-// The word path (#160, E11): the first 300 words, in the 10 chapters of
-// content/arabic/core-words.json (#159). That file holds only deck ids and our glosses; the Arabic,
+// The word path (#160, E11): its words in chapters of 30, from
+// content/arabic/core-words.json (#159, #163). That file holds only deck ids and our glosses; the Arabic,
 // the Latin and the recordings come from the private deck (ADR 0011).
 import { z } from 'zod';
 import type { Item } from '../../../core/content/schema.ts';
