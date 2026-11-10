@@ -13,9 +13,8 @@ import {
   type Phrase,
   type UnderstandQuestion,
 } from './sets.ts';
-import { useRecorder } from './useRecorder.ts';
-import { judge, type Verdict } from './understood.ts';
-import { SpeechError, type Heard, type SpeechProblem } from '../../../core/speech.ts';
+import { Compare } from './Compare.tsx';
+import type { Heard } from '../../../core/speech.ts';
 
 /** Due phrases from earlier sets mixed into a session. */
 const REVIEWS = 5;
@@ -295,132 +294,6 @@ function PhraseCard({ phrase, play }: { phrase: Phrase; play: (path: string) => 
   );
 }
 
-/**
- * Record yourself and play it back beside the speaker. Nothing leaves the browser unless the
- * learner presses the "understood" check (`check`, on the Say it cards only).
- */
-function Compare({
-  phrase,
-  play,
-  check,
-}: {
-  phrase: Phrase;
-  play: (path: string) => void;
-  check?: (audio: Blob) => Promise<Heard>;
-}) {
-  const rec = useRecorder();
-  if (rec.state === 'unsupported')
-    return <p className="arabic__note">Say it aloud, then play the speaker again to compare.</p>;
-  return (
-    <div className="arabic__compare">
-      {rec.state === 'recording' ? (
-        <button type="button" className="lesson__go arabic__rec is-on" onClick={rec.stop}>
-          ■ Stop
-        </button>
-      ) : (
-        <button
-          type="button"
-          className="lesson__plain arabic__rec"
-          disabled={rec.state === 'starting'}
-          onClick={() => void rec.start()}
-        >
-          ● {rec.url ? 'Record again' : 'Record yourself'}
-        </button>
-      )}
-      {rec.url && (
-        <>
-          <button type="button" className="lesson__plain" onClick={() => play(phrase.audio)}>
-            ▶ Speaker
-          </button>
-          <button
-            type="button"
-            className="lesson__plain"
-            onClick={() => void new Audio(rec.url ?? '').play()}
-          >
-            ▶ You
-          </button>
-        </>
-      )}
-      {rec.url && rec.blob && check && (
-        <UnderstoodCheck key={rec.url} audio={rec.blob} target={phrase.arabic} check={check} />
-      )}
-      {rec.state === 'denied' && (
-        <p className="arabic__note">
-          No microphone, so no recording: say it aloud and compare by ear.
-        </p>
-      )}
-    </div>
-  );
-}
-
-const PROBLEMS: Record<SpeechProblem, string> = {
-  'daily-limit': 'That’s all of today’s checks. Judge it by ear; more tomorrow.',
-  busy: 'Groq is busy right now. Try again in a minute.',
-  'too-big': 'That one’s too long to check. Keep it under half a minute.',
-  'not-set-up': 'The check isn’t set up yet. Judge it by ear.',
-  'signed-out': 'Sign in again to use the check.',
-  failed: 'Couldn’t check that one. Try again, or judge it by ear.',
-};
-
-type Checked =
-  | { kind: 'ready' }
-  | { kind: 'checking' }
-  | { kind: 'heard'; heard: string; verdict: Verdict; left: number }
-  | { kind: 'problem'; problem: SpeechProblem };
-
-/**
- * "Did it understand you?" (ADR 0014): on request, sends this one recording to Groq and shows
- * what it heard. It only advises; the learner still rates the phrase.
- */
-function UnderstoodCheck({
-  audio,
-  target,
-  check,
-}: {
-  audio: Blob;
-  target: string;
-  check: (audio: Blob) => Promise<Heard>;
-}) {
-  const [state, setState] = useState<Checked>({ kind: 'ready' });
-  const run = () => {
-    setState({ kind: 'checking' });
-    check(audio).then(
-      ({ text, left }) =>
-        setState({ kind: 'heard', heard: text, verdict: judge(text, target), left }),
-      (e: unknown) =>
-        setState({ kind: 'problem', problem: e instanceof SpeechError ? e.problem : 'failed' }),
-    );
-  };
-  return (
-    <div className="arabic__check" aria-live="polite">
-      {(state.kind === 'ready' || state.kind === 'checking') && (
-        <>
-          <button
-            type="button"
-            className="lesson__plain"
-            disabled={state.kind === 'checking'}
-            onClick={run}
-          >
-            {state.kind === 'checking' ? 'Listening…' : 'Would they understand me?'}
-          </button>
-          <p className="arabic__note">
-            Sends this recording to Groq, which writes down what it heard.
-          </p>
-        </>
-      )}
-      {state.kind === 'heard' && (
-        <p className={`arabic__heard ${state.verdict.understood ? 'is-right' : 'is-wrong'}`}>
-          {state.verdict.understood ? 'Understood ✓' : 'Not quite'} · Groq heard{' '}
-          <bdi lang="ar" dir="rtl" className="arabic__heard-ar">
-            {state.heard || '(nothing)'}
-          </bdi>
-        </p>
-      )}
-      {state.kind === 'problem' && <p className="arabic__note">{PROBLEMS[state.problem]}</p>}
-    </div>
-  );
-}
-
 function MeetPhrase({
   phrase,
   index,
@@ -443,7 +316,7 @@ function MeetPhrase({
         Meet a phrase · {index + 1} of {count}
       </p>
       <PhraseCard phrase={phrase} play={play} />
-      <Compare phrase={phrase} play={play} />
+      <Compare audio={phrase.audio} target={phrase.arabic} play={play} />
       <button type="button" className="lesson__go" onClick={() => onNext(Date.now())}>
         {index + 1 < count ? 'Next' : 'Start practice'}
       </button>
@@ -533,7 +406,7 @@ function SayIt({
       </p>
       <h2 className="lesson__subtitle">Say “{phrase.meaning}”</h2>
       <PhraseCard phrase={phrase} play={play} />
-      <Compare phrase={phrase} play={play} check={check} />
+      <Compare audio={phrase.audio} target={phrase.arabic} play={play} check={check} />
       <p className="arabic__note">Did yours sound like the speaker?</p>
       <div className="lesson__actions">
         <button type="button" className="lesson__plain" onClick={() => onRated(false, Date.now())}>
