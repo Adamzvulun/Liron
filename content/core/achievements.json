@@ -289,6 +289,49 @@
         "title": "the Diligent",
         "order": 17
       }
+    },
+    {
+      "id": "sharp-ears",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Sharp Ears",
+        "text": "Hear all eight sound pairs at the echo well",
+        "condition": {
+          "kind": "events",
+          "subject": "arabic",
+          "kinds": [
+            "heard-hah-heh",
+            "heard-ain-hamza",
+            "heard-khah-hah",
+            "heard-ghain-khah",
+            "heard-sad-seen",
+            "heard-dad-dal",
+            "heard-tah-teh",
+            "heard-qaf-kaf"
+          ],
+          "n": 8
+        },
+        "gems": 3,
+        "order": 18
+      }
+    },
+    {
+      "id": "echo",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Echo",
+        "text": "Shadow 100 sentences at the echo well",
+        "condition": {
+          "kind": "event-total",
+          "subject": "arabic",
+          "kind_of": "shadow-sentence",
+          "n": 100
+        },
+        "gems": 3,
+        "order": 19
+      }
     }
   ]
 }
