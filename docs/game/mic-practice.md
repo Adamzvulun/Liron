@@ -63,6 +63,8 @@ It's built on the Say it cards. E14 brings it to:
 
 The recording stays in the tab and is never uploaded (ADR 0013). The microphone is released when you stop.
 
+**As built (#195):** after you answer a word on the word path, "Say it yourself" opens the coffee corner's record and compare (now a shared component, `phrases/Compare.tsx`). It's optional and doesn't change your answer, and it has no Groq check: that's for sentences (#196).
+
 ## 5. Did it understand you? (sentences)
 The same Groq check as on the Say it cards, now on whole sentences in the echo well.
 - It stays **off until Adam adds `GROQ_API_KEY`** in Vercel. Without the key, the button says it isn't set up yet.
@@ -80,6 +82,6 @@ The same Groq check as on the Say it cards, now on whole sentences in the echo w
 ## 8. Tasks
 1. The echo well station, and "Hear the difference" with its pairs data (`content/arabic/sound-pairs.json`: deck ids and our own labels only). — [#193](https://github.com/Adamzvulun/Liron/issues/193). **Built:** the well is painted left of the road, in front of the slate.
 2. Shadowing: playback at 75% and 100%, recording in step with it, and the three ways to listen back. — [#194](https://github.com/Adamzvulun/Liron/issues/194). **Built.**
-3. Record and compare on the word path's words. — [#195](https://github.com/Adamzvulun/Liron/issues/195)
+3. Record and compare on the word path's words. — [#195](https://github.com/Adamzvulun/Liron/issues/195). **Built.**
 4. "Did it understand you?" on sentences. — [#196](https://github.com/Adamzvulun/Liron/issues/196)
 5. Contracts and the two achievements. — [#197](https://github.com/Adamzvulun/Liron/issues/197)
