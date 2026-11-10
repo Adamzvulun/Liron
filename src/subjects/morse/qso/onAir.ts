@@ -255,13 +255,37 @@ export function airResult(
   };
 }
 
+/** The Signal Master's QSO: logged at 25 wpm or faster, with no AGN, no QRS and no resend. */
+export const SIGNAL_MASTER_WPM = 25;
+export const isCleanFast = (c: Contact, res: AirResult, repeats: number) =>
+  res.logged && repeats === 0 && c.op.wpm >= SIGNAL_MASTER_WPM;
+
 /** The contact goes in the log; a logged one counts toward the next door. */
-export function applyContact(r: Radio, op: string, res: AirResult, day: string): Radio {
+export function applyContact(
+  r: Radio,
+  op: string,
+  res: AirResult,
+  day: string,
+  cleanFast = false,
+): Radio {
   return {
     ...r,
     contacts: r.contacts + (res.logged ? 1 : 0),
+    cleanFast: r.cleanFast || cleanFast,
     log: [...r.log, { op, day, ok: res.logged }].slice(-LOG_KEEP),
   };
+}
+
+/**
+ * What a contact tells the daily contracts and achievements: `qso` for every try, `qso-logged`
+ * and `worked-<operator>` for a logged one, and `qso-clean-fast` for the Signal Master's QSO.
+ */
+export function radioEvents(c: Contact, res: AirResult, cleanFast: boolean): { kind: string }[] {
+  return [
+    { kind: 'qso' },
+    ...(res.logged ? [{ kind: 'qso-logged' }, { kind: `worked-${c.op.id}` }] : []),
+    ...(cleanFast ? [{ kind: 'qso-clean-fast' }] : []),
+  ];
 }
 
 /** Saves the room: a contact pays XP (none for setting up your station). */
@@ -270,13 +294,14 @@ export async function reportRadio(
   next: MorseProgress,
   res: AirResult | null,
   seconds: number,
+  events: readonly { kind: string }[] = [],
   at = new Date(),
 ): Promise<void> {
   await api.saveSession({
     state: next,
     xp: res ? (res.logged ? RADIO_XP.logged : RADIO_XP.try) : 0,
     minutes: seconds / 60,
-    events: [],
+    events: [...events],
     at,
   });
 }

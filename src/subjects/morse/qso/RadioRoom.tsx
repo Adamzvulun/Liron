@@ -10,12 +10,14 @@ import {
   airResult,
   airRight,
   applyContact,
+  isCleanFast,
   contactSteps,
   makeContact,
   nextToOpen,
   onAirToday,
   OPERATORS,
   radioDay,
+  radioEvents,
   RADIO_XP,
   reportRadio,
   roomOpen,
@@ -56,11 +58,20 @@ type Stage =
       contact: Contact;
       at: number;
       wpm: number;
+      /** AGNs, QRSs and resends asked so far: the Signal Master's QSO has none. */
+      repeats: number;
       copies: Copies;
       reads: string[];
       started: number;
     }
-  | { kind: 'result'; contact: Contact; copies: Copies; reads: string[]; result: AirResult };
+  | {
+      kind: 'result';
+      contact: Contact;
+      copies: Copies;
+      reads: string[];
+      result: AirResult;
+      cleanFast: boolean;
+    };
 
 export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }) {
   const [progress, setProgress] = useState<MorseProgress | null>(null);
@@ -89,9 +100,14 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
   }
   if (!progress) return <p className="lesson__loading">Warming up the radio…</p>;
 
-  const save = (next: MorseProgress, res: AirResult | null, seconds: number) => {
+  const save = (
+    next: MorseProgress,
+    res: AirResult | null,
+    seconds: number,
+    events: readonly { kind: string }[] = [],
+  ) => {
     setProgress(next);
-    reportRadio(api, next, res, seconds).then(
+    reportRadio(api, next, res, seconds, events).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
     );
@@ -107,6 +123,7 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
       contact: makeContact(op, station, workedWith(progress.radio, op.id) > 0),
       at: 0,
       wpm: op.wpm,
+      repeats: 0,
       copies: {},
       reads: [],
       started: performance.now(),
@@ -119,9 +136,11 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
       return;
     }
     const result = airResult(s.contact, copies, reads);
-    const radio = applyContact(progress.radio, s.contact.op.id, result, radioDay());
-    save({ ...progress, radio }, result, (performance.now() - s.started) / 1000);
-    setStage({ kind: 'result', contact: s.contact, copies, reads, result });
+    const cleanFast = isCleanFast(s.contact, result, s.repeats);
+    const radio = applyContact(progress.radio, s.contact.op.id, result, radioDay(), cleanFast);
+    const events = radioEvents(s.contact, result, cleanFast && !progress.radio.cleanFast);
+    save({ ...progress, radio }, result, (performance.now() - s.started) / 1000, events);
+    setStage({ kind: 'result', contact: s.contact, copies, reads, result, cleanFast });
   };
 
   return (
@@ -157,7 +176,10 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
           stage={stage}
           startDitMs={progress.sending.ditMs ?? START_DIT_MS}
           audio={audio}
-          onSlower={(wpm) => setStage({ ...stage, wpm })}
+          onSlower={(wpm) => setStage({ ...stage, wpm, repeats: stage.repeats + 1 })}
+          onRepeat={() =>
+            setStage((s) => (s.kind === 'contact' ? { ...s, repeats: s.repeats + 1 } : s))
+          }
           onCopied={(c) => advance(stage, { ...stage.copies, ...(c as Copies) }, stage.reads)}
           onKeyed={(read) => advance(stage, stage.copies, [...stage.reads, read])}
         />
@@ -346,6 +368,7 @@ function Turn({
   startDitMs,
   audio,
   onSlower,
+  onRepeat,
   onCopied,
   onKeyed,
 }: {
@@ -353,6 +376,8 @@ function Turn({
   startDitMs: number;
   audio: () => Audio | null;
   onSlower: (wpm: number) => void;
+  /** AGN was asked, or they couldn't read you. */
+  onRepeat: () => void;
   onCopied: (c: TurnCopies) => void;
   onKeyed: (read: string) => void;
 }) {
@@ -393,6 +418,7 @@ function Turn({
                 }
           }
           stop={() => audio()?.player.stop()}
+          onAgain={onRepeat}
           onDone={onCopied}
         />
       ) : (
@@ -407,7 +433,10 @@ function Turn({
               more.
             </>
           )}
-          onMissed={() => void send(op.agn, wpm)}
+          onMissed={() => {
+            onRepeat();
+            void send(op.agn, wpm);
+          }}
           onDone={onKeyed}
         />
       )}
@@ -466,6 +495,11 @@ function Log({
           );
         })}
       </ul>
+      {stage.cleanFast && (
+        <p className="lesson__note">
+          At {contact.op.wpm} wpm with no repeats: a Signal Master’s contact.
+        </p>
+      )}
       <p className="lesson__note">+{result.logged ? RADIO_XP.logged : RADIO_XP.try} XP</p>
       <div className="lesson__actions">
         <button type="button" className="lesson__plain" onClick={onLeave}>
