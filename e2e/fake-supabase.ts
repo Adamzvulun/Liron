@@ -54,6 +54,8 @@ export interface Extras {
   chests?: { id: string; kind: string; source: string; source_key: string }[];
   /** Gold in the wallet at the start, instead of WALLET's. */
   gold?: number;
+  /** Skill ratings by subject, e.g. { arabic: { read: 1240 } }, each on 40 results. */
+  ratings?: Record<string, Record<string, number>>;
 }
 
 /** Today's fake Market stall (#49): 2 gear, 1 dye and the streak shield. */
@@ -289,6 +291,19 @@ export async function fakeSupabase(
       if (url.pathname === '/rest/v1/subject_progress' && state) {
         const row = { xp: 0, minutes: 0, state };
         return route.fulfill({ json: single ? row : [row] });
+      }
+      if (url.pathname === '/rest/v1/skill_ratings' && !single) {
+        const rated = Object.entries(extras.ratings?.[subject] ?? {});
+        return route.fulfill({
+          json: rated.map(([skill, rating]) => ({
+            skill,
+            rating,
+            rd: 80,
+            volatility: 0.06,
+            games: 40,
+            rated_at: new Date().toISOString(),
+          })),
+        });
       }
       return single
         ? route.fulfill({

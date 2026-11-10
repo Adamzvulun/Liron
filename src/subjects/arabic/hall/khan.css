@@ -155,6 +155,27 @@
   font-weight: 700;
 }
 
+/* Skill ratings beside the rank (#180); a small ? marks one still provisional. */
+.khan__ratings,
+.khan__card-ratings {
+  margin-top: 4px !important;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.khan__card-ratings {
+  font-size: 14px;
+}
+
+/* The banner is narrow: one skill a line. */
+.khan__ratings > span {
+  display: block;
+}
+
+.khan__ratings .khan__sep {
+  display: none;
+}
+
 /* Stations: the painting and its plaque are one button; only they take clicks. */
 .khan__station,
 .khan__gate {
