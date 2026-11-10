@@ -7062,6 +7062,1069 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:53",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 53,
+        "title": "Work and pay",
+        "theme": "Finding a job, getting paid, and the trades in town",
+        "words": [
+          {
+            "deck": "pcav:1308",
+            "gloss": "to apply for a job"
+          },
+          {
+            "deck": "pcav:1310",
+            "gloss": "experience"
+          },
+          {
+            "deck": "pcav:1311",
+            "gloss": "to have a job interview"
+          },
+          {
+            "deck": "pcav:1316",
+            "gloss": "to employ"
+          },
+          {
+            "deck": "pcav:1317",
+            "gloss": "employee"
+          },
+          {
+            "deck": "pcav:1327",
+            "gloss": "to work overtime"
+          },
+          {
+            "deck": "pcav:1341",
+            "gloss": "to go on a business trip"
+          },
+          {
+            "deck": "pcav:1352",
+            "gloss": "bonus"
+          },
+          {
+            "deck": "pcav:1355",
+            "gloss": "pay raise"
+          },
+          {
+            "deck": "pcav:1358",
+            "gloss": "promotion"
+          },
+          {
+            "deck": "pcav:1359",
+            "gloss": "to get promoted"
+          },
+          {
+            "deck": "pcav:1364",
+            "gloss": "unemployment"
+          },
+          {
+            "deck": "pcav:1365",
+            "gloss": "to resign"
+          },
+          {
+            "deck": "pcav:1368",
+            "gloss": "to fire"
+          },
+          {
+            "deck": "pcav:1371",
+            "gloss": "to retire"
+          },
+          {
+            "deck": "pcav:1372",
+            "gloss": "pension"
+          },
+          {
+            "deck": "pcav:1376",
+            "gloss": "trade, craft"
+          },
+          {
+            "deck": "pcav:1391",
+            "gloss": "carpenter"
+          },
+          {
+            "deck": "pcav:1401",
+            "gloss": "electrician"
+          },
+          {
+            "deck": "pcav:1406",
+            "gloss": "fisherman"
+          },
+          {
+            "deck": "pcav:1408",
+            "gloss": "garbage collector"
+          },
+          {
+            "deck": "pcav:1413",
+            "gloss": "laborer"
+          },
+          {
+            "deck": "pcav:1414",
+            "gloss": "lawyer"
+          },
+          {
+            "deck": "pcav:1423",
+            "gloss": "plumber"
+          },
+          {
+            "deck": "pcav:1429",
+            "gloss": "repairman"
+          },
+          {
+            "deck": "pcav:1430",
+            "gloss": "sailor"
+          },
+          {
+            "deck": "pcav:1440",
+            "gloss": "technician"
+          },
+          {
+            "deck": "pcav:1400",
+            "gloss": "editor"
+          },
+          {
+            "deck": "pcav:2922",
+            "gloss": "business"
+          },
+          {
+            "deck": "pcav:2926",
+            "gloss": "merchant"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:54",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 54,
+        "title": "Doctor's orders",
+        "theme": "Check-ups, illness, injuries and treatment",
+        "words": [
+          {
+            "deck": "pcav:1632",
+            "gloss": "specialist"
+          },
+          {
+            "deck": "pcav:1639",
+            "gloss": "to get a check-up"
+          },
+          {
+            "deck": "pcav:1640",
+            "gloss": "to diagnose"
+          },
+          {
+            "deck": "pcav:1641",
+            "gloss": "diagnosis"
+          },
+          {
+            "deck": "pcav:1643",
+            "gloss": "examination"
+          },
+          {
+            "deck": "pcav:1656",
+            "gloss": "dizziness"
+          },
+          {
+            "deck": "pcav:1657",
+            "gloss": "dizzy"
+          },
+          {
+            "deck": "pcav:1658",
+            "gloss": "to faint"
+          },
+          {
+            "deck": "pcav:1670",
+            "gloss": "to throw up"
+          },
+          {
+            "deck": "pcav:1673",
+            "gloss": "diarrhea"
+          },
+          {
+            "deck": "pcav:1677",
+            "gloss": "to have indigestion"
+          },
+          {
+            "deck": "pcav:1680",
+            "gloss": "to be diabetic"
+          },
+          {
+            "deck": "pcav:1681",
+            "gloss": "to have asthma"
+          },
+          {
+            "deck": "pcav:1683",
+            "gloss": "to have high blood pressure"
+          },
+          {
+            "deck": "pcav:1685",
+            "gloss": "cancer"
+          },
+          {
+            "deck": "pcav:1686",
+            "gloss": "to get injured"
+          },
+          {
+            "deck": "pcav:1687",
+            "gloss": "injured"
+          },
+          {
+            "deck": "pcav:1688",
+            "gloss": "to get a bruise"
+          },
+          {
+            "deck": "pcav:1690",
+            "gloss": "wound, cut"
+          },
+          {
+            "deck": "pcav:1691",
+            "gloss": "to get stitches"
+          },
+          {
+            "deck": "pcav:1693",
+            "gloss": "burn"
+          },
+          {
+            "deck": "pcav:1699",
+            "gloss": "cast"
+          },
+          {
+            "deck": "pcav:1707",
+            "gloss": "injection"
+          },
+          {
+            "deck": "pcav:1709",
+            "gloss": "to draw blood"
+          },
+          {
+            "deck": "pcav:1710",
+            "gloss": "to do a blood test"
+          },
+          {
+            "deck": "pcav:1713",
+            "gloss": "to treat"
+          },
+          {
+            "deck": "pcav:1714",
+            "gloss": "treatment"
+          },
+          {
+            "deck": "pcav:1715",
+            "gloss": "infection"
+          },
+          {
+            "deck": "pcav:1716",
+            "gloss": "contagious"
+          },
+          {
+            "deck": "pcav:1720",
+            "gloss": "surgery"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:55",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 55,
+        "title": "In the kitchen",
+        "theme": "Cutting, cooking, herbs, sweets and street food",
+        "words": [
+          {
+            "deck": "pcav:0801",
+            "gloss": "to heat up"
+          },
+          {
+            "deck": "pcav:0805",
+            "gloss": "to cut"
+          },
+          {
+            "deck": "pcav:0807",
+            "gloss": "to slice"
+          },
+          {
+            "deck": "pcav:0808",
+            "gloss": "to chop"
+          },
+          {
+            "deck": "pcav:0811",
+            "gloss": "to bake"
+          },
+          {
+            "deck": "pcav:0812",
+            "gloss": "to boil"
+          },
+          {
+            "deck": "pcav:0813",
+            "gloss": "to fry"
+          },
+          {
+            "deck": "pcav:0819",
+            "gloss": "to follow a recipe"
+          },
+          {
+            "deck": "pcav:0958",
+            "gloss": "to take a bite of"
+          },
+          {
+            "deck": "pcav:0961",
+            "gloss": "a sip",
+            "sentence": "pcav:0964"
+          },
+          {
+            "deck": "pcav:0985",
+            "gloss": "to go bad"
+          },
+          {
+            "deck": "pcav:0989",
+            "gloss": "to rot"
+          },
+          {
+            "deck": "pcav:0993",
+            "gloss": "bland"
+          },
+          {
+            "deck": "pcav:1100",
+            "gloss": "baklava"
+          },
+          {
+            "deck": "pcav:1102",
+            "gloss": "kunafeh"
+          },
+          {
+            "deck": "pcav:1104",
+            "gloss": "qatayef"
+          },
+          {
+            "deck": "pcav:1136",
+            "gloss": "zucchini"
+          },
+          {
+            "deck": "pcav:1145",
+            "gloss": "fattoush"
+          },
+          {
+            "deck": "pcav:1146",
+            "gloss": "tabbouleh"
+          },
+          {
+            "deck": "pcav:1169",
+            "gloss": "tangerine"
+          },
+          {
+            "deck": "pcav:1177",
+            "gloss": "fresh herbs"
+          },
+          {
+            "deck": "pcav:1178",
+            "gloss": "spices"
+          },
+          {
+            "deck": "pcav:1183",
+            "gloss": "cinnamon"
+          },
+          {
+            "deck": "pcav:1184",
+            "gloss": "cumin"
+          },
+          {
+            "deck": "pcav:1188",
+            "gloss": "parsley"
+          },
+          {
+            "deck": "pcav:1189",
+            "gloss": "mint",
+            "sentence": "pcav:0321"
+          },
+          {
+            "deck": "pcav:1193",
+            "gloss": "thyme"
+          },
+          {
+            "deck": "pcav:1275",
+            "gloss": "jar"
+          },
+          {
+            "deck": "pcav:1278",
+            "gloss": "manakish"
+          },
+          {
+            "deck": "pcav:1279",
+            "gloss": "ful (fava beans)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:56",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 56,
+        "title": "Tools and chores",
+        "theme": "Renting, cleaning, plugs, the garden and the toolbox",
+        "words": [
+          {
+            "deck": "pcav:0696",
+            "gloss": "tenant"
+          },
+          {
+            "deck": "pcav:0699",
+            "gloss": "to rent out an apartment"
+          },
+          {
+            "deck": "pcav:0713",
+            "gloss": "furnished"
+          },
+          {
+            "deck": "pcav:0722",
+            "gloss": "floor tiles"
+          },
+          {
+            "deck": "pcav:0727",
+            "gloss": "shutters"
+          },
+          {
+            "deck": "pcav:0733",
+            "gloss": "to hang a picture on the wall"
+          },
+          {
+            "deck": "pcav:0743",
+            "gloss": "mop"
+          },
+          {
+            "deck": "pcav:0744",
+            "gloss": "to wipe"
+          },
+          {
+            "deck": "pcav:0746",
+            "gloss": "to vacuum the carpet"
+          },
+          {
+            "deck": "pcav:0748",
+            "gloss": "to dust"
+          },
+          {
+            "deck": "pcav:0757",
+            "gloss": "socket"
+          },
+          {
+            "deck": "pcav:0758",
+            "gloss": "plug"
+          },
+          {
+            "deck": "pcav:0759",
+            "gloss": "to plug in"
+          },
+          {
+            "deck": "pcav:0760",
+            "gloss": "to unplug"
+          },
+          {
+            "deck": "pcav:0846",
+            "gloss": "bedsheet"
+          },
+          {
+            "deck": "pcav:0887",
+            "gloss": "hanger"
+          },
+          {
+            "deck": "pcav:0890",
+            "gloss": "drawer"
+          },
+          {
+            "deck": "pcav:0891",
+            "gloss": "bedside table"
+          },
+          {
+            "deck": "pcav:0905",
+            "gloss": "to dry oneself off"
+          },
+          {
+            "deck": "pcav:0913",
+            "gloss": "to flush the toilet"
+          },
+          {
+            "deck": "pcav:0932",
+            "gloss": "lawn"
+          },
+          {
+            "deck": "pcav:0933",
+            "gloss": "to mow the lawn"
+          },
+          {
+            "deck": "pcav:0939",
+            "gloss": "to dig"
+          },
+          {
+            "deck": "pcav:0940",
+            "gloss": "garden hose"
+          },
+          {
+            "deck": "pcav:0941",
+            "gloss": "tool"
+          },
+          {
+            "deck": "pcav:0942",
+            "gloss": "saw"
+          },
+          {
+            "deck": "pcav:0944",
+            "gloss": "hammer"
+          },
+          {
+            "deck": "pcav:0946",
+            "gloss": "nail"
+          },
+          {
+            "deck": "pcav:0947",
+            "gloss": "screwdriver"
+          },
+          {
+            "deck": "pcav:0948",
+            "gloss": "axe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:57",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 57,
+        "title": "Head to heel, dusk to dawn",
+        "theme": "The body in detail, and a night's sleep",
+        "words": [
+          {
+            "deck": "pcav:0241",
+            "gloss": "brain"
+          },
+          {
+            "deck": "pcav:0266",
+            "gloss": "eyebrow"
+          },
+          {
+            "deck": "pcav:0267",
+            "gloss": "eyelid"
+          },
+          {
+            "deck": "pcav:0268",
+            "gloss": "eyelash"
+          },
+          {
+            "deck": "pcav:0272",
+            "gloss": "to blink"
+          },
+          {
+            "deck": "pcav:0273",
+            "gloss": "to wink"
+          },
+          {
+            "deck": "pcav:0257",
+            "gloss": "jaw"
+          },
+          {
+            "deck": "pcav:0329",
+            "gloss": "gums"
+          },
+          {
+            "deck": "pcav:0333",
+            "gloss": "to chew"
+          },
+          {
+            "deck": "pcav:0349",
+            "gloss": "to swallow"
+          },
+          {
+            "deck": "pcav:0419",
+            "gloss": "elbow"
+          },
+          {
+            "deck": "pcav:0432",
+            "gloss": "palm (of the hand)"
+          },
+          {
+            "deck": "pcav:0442",
+            "gloss": "thigh"
+          },
+          {
+            "deck": "pcav:0448",
+            "gloss": "heel"
+          },
+          {
+            "deck": "pcav:0452",
+            "gloss": "chest"
+          },
+          {
+            "deck": "pcav:0456",
+            "gloss": "waist"
+          },
+          {
+            "deck": "pcav:0461",
+            "gloss": "lung"
+          },
+          {
+            "deck": "pcav:0466",
+            "gloss": "liver"
+          },
+          {
+            "deck": "pcav:0472",
+            "gloss": "bone"
+          },
+          {
+            "deck": "pcav:0476",
+            "gloss": "muscle"
+          },
+          {
+            "deck": "pcav:0410",
+            "gloss": "wrinkles",
+            "sentence": "pcav:0411"
+          },
+          {
+            "deck": "pcav:0858",
+            "gloss": "to doze off"
+          },
+          {
+            "deck": "pcav:0864",
+            "gloss": "nightmare"
+          },
+          {
+            "deck": "pcav:0867",
+            "gloss": "to snore"
+          },
+          {
+            "deck": "pcav:0868",
+            "gloss": "to talk in one's sleep"
+          },
+          {
+            "deck": "pcav:0869",
+            "gloss": "to sleepwalk"
+          },
+          {
+            "deck": "pcav:0873",
+            "gloss": "to have insomnia"
+          },
+          {
+            "deck": "pcav:0875",
+            "gloss": "to be a light sleeper"
+          },
+          {
+            "deck": "pcav:0877",
+            "gloss": "to be a deep sleeper"
+          },
+          {
+            "deck": "pcav:0879",
+            "gloss": "to stay up all night"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:58",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 58,
+        "title": "Town hall and court",
+        "theme": "Government, voting, the law and the courts",
+        "words": [
+          {
+            "deck": "pcav:2778",
+            "gloss": "government"
+          },
+          {
+            "deck": "pcav:2782",
+            "gloss": "ministry"
+          },
+          {
+            "deck": "pcav:2783",
+            "gloss": "minister"
+          },
+          {
+            "deck": "pcav:2785",
+            "gloss": "parliament"
+          },
+          {
+            "deck": "pcav:2788",
+            "gloss": "president"
+          },
+          {
+            "deck": "pcav:2803",
+            "gloss": "citizen"
+          },
+          {
+            "deck": "pcav:2804",
+            "gloss": "to vote"
+          },
+          {
+            "deck": "pcav:2808",
+            "gloss": "political party"
+          },
+          {
+            "deck": "pcav:2811",
+            "gloss": "elections"
+          },
+          {
+            "deck": "pcav:2812",
+            "gloss": "to elect"
+          },
+          {
+            "deck": "pcav:2825",
+            "gloss": "politics",
+            "sentence": "pcav:3127"
+          },
+          {
+            "deck": "pcav:2828",
+            "gloss": "demonstration"
+          },
+          {
+            "deck": "pcav:2833",
+            "gloss": "society"
+          },
+          {
+            "deck": "pcav:2836",
+            "gloss": "freedom"
+          },
+          {
+            "deck": "pcav:2837",
+            "gloss": "crime"
+          },
+          {
+            "deck": "pcav:2838",
+            "gloss": "criminal"
+          },
+          {
+            "deck": "pcav:2840",
+            "gloss": "to break the law"
+          },
+          {
+            "deck": "pcav:2841",
+            "gloss": "theft"
+          },
+          {
+            "deck": "pcav:2849",
+            "gloss": "to kill"
+          },
+          {
+            "deck": "pcav:2860",
+            "gloss": "to be arrested"
+          },
+          {
+            "deck": "pcav:2863",
+            "gloss": "court"
+          },
+          {
+            "deck": "pcav:2864",
+            "gloss": "justice"
+          },
+          {
+            "deck": "pcav:2865",
+            "gloss": "judge",
+            "sentence": "pcav:2876"
+          },
+          {
+            "deck": "pcav:2869",
+            "gloss": "law"
+          },
+          {
+            "deck": "pcav:2870",
+            "gloss": "legal"
+          },
+          {
+            "deck": "pcav:2875",
+            "gloss": "punishment"
+          },
+          {
+            "deck": "pcav:2877",
+            "gloss": "prison",
+            "sentence": "pcav:2880"
+          },
+          {
+            "deck": "pcav:2883",
+            "gloss": "prisoner"
+          },
+          {
+            "deck": "pcav:2905",
+            "gloss": "tax"
+          },
+          {
+            "deck": "pcav:2910",
+            "gloss": "income"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:59",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 59,
+        "title": "Heads and hearts",
+        "theme": "Memory and guesses, feelings, character and arguments",
+        "words": [
+          {
+            "deck": "pcav:3029",
+            "gloss": "to remind about"
+          },
+          {
+            "deck": "pcav:3031",
+            "gloss": "to plan on"
+          },
+          {
+            "deck": "pcav:3034",
+            "gloss": "memory"
+          },
+          {
+            "deck": "pcav:3041",
+            "gloss": "knowledge"
+          },
+          {
+            "deck": "pcav:3042",
+            "gloss": "to imagine"
+          },
+          {
+            "deck": "pcav:3043",
+            "gloss": "imagination"
+          },
+          {
+            "deck": "pcav:3044",
+            "gloss": "to guess"
+          },
+          {
+            "deck": "pcav:3047",
+            "gloss": "to expect"
+          },
+          {
+            "deck": "pcav:3051",
+            "gloss": "intelligence"
+          },
+          {
+            "deck": "pcav:3055",
+            "gloss": "feeling"
+          },
+          {
+            "deck": "pcav:3057",
+            "gloss": "to feel"
+          },
+          {
+            "deck": "pcav:3062",
+            "gloss": "laughter"
+          },
+          {
+            "deck": "pcav:3074",
+            "gloss": "to annoy"
+          },
+          {
+            "deck": "pcav:3095",
+            "gloss": "grateful"
+          },
+          {
+            "deck": "pcav:3097",
+            "gloss": "personality"
+          },
+          {
+            "deck": "pcav:3098",
+            "gloss": "modest"
+          },
+          {
+            "deck": "pcav:3102",
+            "gloss": "sociable"
+          },
+          {
+            "deck": "pcav:3107",
+            "gloss": "generous"
+          },
+          {
+            "deck": "pcav:3108",
+            "gloss": "greedy"
+          },
+          {
+            "deck": "pcav:3109",
+            "gloss": "hard-working"
+          },
+          {
+            "deck": "pcav:3119",
+            "gloss": "jealous"
+          },
+          {
+            "deck": "pcav:3130",
+            "gloss": "to praise"
+          },
+          {
+            "deck": "pcav:3132",
+            "gloss": "to criticize"
+          },
+          {
+            "deck": "pcav:3135",
+            "gloss": "to complain about"
+          },
+          {
+            "deck": "pcav:3136",
+            "gloss": "complaint"
+          },
+          {
+            "deck": "pcav:3142",
+            "gloss": "to agree with"
+          },
+          {
+            "deck": "pcav:3144",
+            "gloss": "to disagree with"
+          },
+          {
+            "deck": "pcav:3145",
+            "gloss": "to argue about"
+          },
+          {
+            "deck": "pcav:3148",
+            "gloss": "sure, certain",
+            "sentence": "pcav:0617"
+          },
+          {
+            "deck": "pcav:3171",
+            "gloss": "looking forward to"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:60",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 60,
+        "title": "Doing words",
+        "theme": "Verbs for getting things done, and getting them wrong",
+        "words": [
+          {
+            "deck": "pcav:4537",
+            "gloss": "to go with"
+          },
+          {
+            "deck": "pcav:4540",
+            "gloss": "to admit"
+          },
+          {
+            "deck": "pcav:4542",
+            "gloss": "to affect"
+          },
+          {
+            "deck": "pcav:4548",
+            "gloss": "to appear"
+          },
+          {
+            "deck": "pcav:4550",
+            "gloss": "to approve of"
+          },
+          {
+            "deck": "pcav:4551",
+            "gloss": "to organize"
+          },
+          {
+            "deck": "pcav:4553",
+            "gloss": "to attend"
+          },
+          {
+            "deck": "pcav:4563",
+            "gloss": "to behave"
+          },
+          {
+            "deck": "pcav:4564",
+            "gloss": "to bet"
+          },
+          {
+            "deck": "pcav:4565",
+            "gloss": "to blame for"
+          },
+          {
+            "deck": "pcav:4570",
+            "gloss": "to care"
+          },
+          {
+            "deck": "pcav:4576",
+            "gloss": "to chase"
+          },
+          {
+            "deck": "pcav:4578",
+            "gloss": "to cheat"
+          },
+          {
+            "deck": "pcav:4579",
+            "gloss": "to encourage"
+          },
+          {
+            "deck": "pcav:4585",
+            "gloss": "to compare"
+          },
+          {
+            "deck": "pcav:4590",
+            "gloss": "to decrease"
+          },
+          {
+            "deck": "pcav:4595",
+            "gloss": "to design"
+          },
+          {
+            "deck": "pcav:4724",
+            "gloss": "careless"
+          },
+          {
+            "deck": "pcav:4597",
+            "gloss": "to disappear"
+          },
+          {
+            "deck": "pcav:4601",
+            "gloss": "to correct"
+          },
+          {
+            "deck": "pcav:4603",
+            "gloss": "to express"
+          },
+          {
+            "deck": "pcav:4608",
+            "gloss": "to float"
+          },
+          {
+            "deck": "pcav:4618",
+            "gloss": "to intend to"
+          },
+          {
+            "deck": "pcav:4633",
+            "gloss": "to order, command"
+          },
+          {
+            "deck": "pcav:4641",
+            "gloss": "to punish"
+          },
+          {
+            "deck": "pcav:4649",
+            "gloss": "to sink"
+          },
+          {
+            "deck": "pcav:4655",
+            "gloss": "to succeed"
+          },
+          {
+            "deck": "pcav:4656",
+            "gloss": "to suggest"
+          },
+          {
+            "deck": "pcav:4658",
+            "gloss": "to tear"
+          },
+          {
+            "deck": "pcav:4748",
+            "gloss": "possible"
+          }
+        ]
+      }
     }
   ]
 }
