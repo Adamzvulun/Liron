@@ -49,6 +49,12 @@ You hear a short deck sentence, then press "Shadow" and speak **along with** the
 - **Sentences:** the deck's shortest ones first (3 to 6 words), from the words you've learned. The word path already ties sentences to words.
 - **You judge it:** "In step", "Close", "Lost". That sets the review's grade (good, hard, again), as on the Say it cards.
 - **XP:** 3 per sentence shadowed.
+- **As built (#194):**
+  - A round is 5 sentences: those due for review first, then new ones (shortest first), then the rest.
+  - Until you've met any words, the sentences come from the first chapter (my call).
+  - Each sentence's first take is at 75%. Later takes are at full speed, and "Together" plays the speaker at the speed of your last take.
+  - Each judgement is a review on `shadow:<deck id>`. The `echo.shadowed` count is for the "Echo" achievement.
+  - Without a microphone, you speak along anyway and judge by feel.
 
 ## 4. Record and compare
 It's built on the Say it cards. E14 brings it to:
@@ -73,7 +79,7 @@ The same Groq check as on the Say it cards, now on whole sentences in the echo w
 
 ## 8. Tasks
 1. The echo well station, and "Hear the difference" with its pairs data (`content/arabic/sound-pairs.json`: deck ids and our own labels only). — [#193](https://github.com/Adamzvulun/Liron/issues/193). **Built:** the well is painted left of the road, in front of the slate.
-2. Shadowing: playback at 75% and 100%, recording in step with it, and the three ways to listen back. — [#194](https://github.com/Adamzvulun/Liron/issues/194)
+2. Shadowing: playback at 75% and 100%, recording in step with it, and the three ways to listen back. — [#194](https://github.com/Adamzvulun/Liron/issues/194). **Built.**
 3. Record and compare on the word path's words. — [#195](https://github.com/Adamzvulun/Liron/issues/195)
 4. "Did it understand you?" on sentences. — [#196](https://github.com/Adamzvulun/Liron/issues/196)
 5. Contracts and the two achievements. — [#197](https://github.com/Adamzvulun/Liron/issues/197)
