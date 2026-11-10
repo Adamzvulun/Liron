@@ -1,0 +1,73 @@
+# The Radio Room: on the air (E16)
+
+- **Status:** design and first build, written 2026-11-10 night while Adam slept (he said to make the calls he'd make). Every "my call" below is easy to change.
+- **Epic:** E16 Radio QSO in the [roadmap](../process/ROADMAP.md) (M4).
+- **Inputs:**
+  - [ADR 0007](../decisions/0007-ai-partners-simulate-people.md): partners are characters, the channel is realistic, and you're only heard as you keyed.
+  - The operator drafts in [discovery 03](../discovery/03-game-layer-and-partners.md) and [04](../discovery/04-world-and-lore.md).
+  - The Far Station trial ([ranks §2](ranks-and-achievements.md)).
+  - The Codebook's Q-codes and prosigns ([Morse words](morse-words.md)).
+
+## 1. What it is
+After the Far Station (the Operator's trial), the Radio Room is a place to come back to. Each day a few operators are calling CQ, and you pick one to work. Every contact goes in your logbook, and the operators remember you.
+
+**No AI yet (my call).** ADR 0007 pairs a scripted QSO engine with a free model that adds personality. The model comes with E15 (the AI adapter), which needs Adam's decisions on providers and data first. Until then, each operator's personality lives in their script: their own lines, their own fist and their own band. Nothing here costs money or sends data anywhere. The engine is built so that E15 can later write the free-text parts.
+
+## 2. The cast
+Six operators, all fictional, with made-up callsigns. They live in `content/morse/operators.json` (content is data):
+
+| Operator | Who | Speed | Fist | Band | Opens |
+|---|---|---|---|---|---|
+| Nils, a fellow newcomer | Slow and friendly, sometimes sends a word twice | 12 wpm | Heavy dahs, uneven gaps | Clear | At once |
+| Marta, a schoolteacher | Patient and chatty | 15 wpm | Clean | Light noise | At once |
+| Captain Ivo, a retired ship's radio officer | Immaculate fist, sea stories | 18 wpm | Metronome | Some fading | At once |
+| Kai, on a mountaintop | Portable, weak signal, battery running down | 16 wpm | Clean | Heavy fading and noise | After 3 contacts |
+| Ruth, a night owl on 40 m | Talks about the weather and her cat | 20 wpm | Light swing | Another station nearby (QRM) | After 6 contacts |
+| Dex, a contest operator | Fast and terse: "5NN TU" | 25 wpm | Clean, fast | Busy band | After 10 contacts |
+
+- **Who's on the air:** three operators call each day, picked from those you've opened. The pick is the same all day, so coming back finds the same people.
+- **They remember you.** An operator you've worked before greets you as an old friend ("GE AGN"), and the logbook counts your contacts with each.
+
+## 3. A contact
+It follows real conventions, one turn at a time, as in the Far Station:
+
+1. **They call:** `CQ CQ DE <call> <call> K`. You copy their call.
+2. **You answer with the key:** `<call> DE <your call> K`.
+3. **Their report:** greeting, `UR RST`, name and QTH (their town), then `HW?` (how copy?). You copy the RST, name and town.
+4. **Your report:** `R TU <name> UR RST 599 <BT> NAME <yours> <BT> QTH <yours> K`, with the key.
+5. **Their chatter:** one line about their rig and one about their weather, in their own words. You copy one detail, the temperature.
+6. **You sign:** `TU <name> 73 <SK>`.
+7. **They sign:** `TU 73 <SK>`, or for Dex just `TU`.
+
+Dex keeps it short: no chatter turn, and `5NN` for the report (the contesters' 599).
+
+**Your callsign and name (my call):** the first time you sit down, you get a callsign of your own and type your name on the air (letters only, at most eight). You keep both, and you can change the name later. A subject can't see your player profile (ADR 0019), so the room asks. The Far Station still makes a new call each time, because it's a trial.
+
+## 4. The channel
+- **QRS:** while you listen, even mid-send, you can ask them to slow down. They answer `QRS` and send the rest of the contact 5 wpm slower, down to 10 wpm. It isn't a failure, and real operators do it all the time.
+- **AGN:** as in the Far Station, hear a turn again, once per turn.
+- **Garbled keying:** the operator reads only what the decoder read. If it isn't right, they ask in their own words (`AGN?`, `PSE RPT`, `?`), and you send it once more. A turn they still can't read is logged as missed.
+- **The band:** each operator's band adds three effects:
+  - **noise:** filtered hiss under the tone;
+  - **fading (QSB):** the signal swells and sinks slowly;
+  - **interference (QRM):** another station keying faintly on a nearby pitch.
+- **Their fist:** each operator keys with their own timing: dah weight, a swing between letters, and a little jitter. Dex and the Captain are machine-clean, and Nils isn't.
+- The effects are Web Audio nodes behind the player's `route` hook. No new library is used.
+
+## 5. The log and rewards
+- **A contact is logged** when you copied every part and every keyed turn was read (after an AGN if needed), as in the Far Station.
+- **XP:** 25 for a logged contact and 5 for a try (my call). The Far Station pays 60 once, because it's a trial.
+- **The logbook** shows how many contacts you have, how many with each operator, and the last few calls worked. It keeps the last 100 contacts.
+- **Later, not dropped:**
+  - a contract for working a station (needs a template and a migration);
+  - "worked all" achievements;
+  - Signal Master's "QSO at 25 wpm with no repeats" using Dex;
+  - E15 adding free-text personality.
+
+## 6. Where it lives
+- **The hall:** the Radio Room plaque says "On the air · 3 calling" once the Far Station is passed. The Far Station stays in the room as the trial.
+- **Code:**
+  - `src/subjects/morse/qso/onAir.ts`: the cast, the day's pick, the contact's turns, the result and the log.
+  - `band.ts`: the noise, fading and interference, and the fist.
+  - `RadioRoom.tsx`: the screen. The turns are shared with the Far Station.
+- **Saved:** `radio` in the Morse progress holds your callsign and the log.

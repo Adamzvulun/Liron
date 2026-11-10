@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { parseProgress, type MorseProgress } from '../lesson/progress.ts';
-import { decode, START_DIT_MS } from '../send/decoder.ts';
+import { START_DIT_MS } from '../send/decoder.ts';
 import { useDeskAudio, type Audio } from '../send/deskAudio.ts';
-import { Keying } from '../send/SendDrill.tsx';
 import {
   answerFor,
   applyFar,
@@ -23,6 +22,7 @@ import {
   type QsoResult,
   type QsoStep,
 } from './farStation.ts';
+import { HearTurn, KeyTurn, type Copies as TurnCopies } from './Turns.tsx';
 import '../lesson/lesson.css';
 import '../send/send.css';
 import './qso.css';
@@ -43,6 +43,9 @@ const LABELS: Record<CopyField, string> = {
 const LOG_LABELS: Record<CopyField, string> = { ...LABELS, prosign: 'Closing prosign' };
 
 type Copies = Partial<Record<CopyField, string>>;
+
+/** A turn's copies, as the shared turn hands them over. */
+const asCopies = (c: TurnCopies) => c as Copies;
 
 type Stage =
   | { kind: 'intro' }
@@ -130,7 +133,7 @@ export function FarStation({ api }: { api: SubjectApi }) {
           step={qsoSteps(stage.qso)[stage.at] as QsoStep}
           startDitMs={progress.sending.ditMs ?? START_DIT_MS}
           audio={audio}
-          onCopied={(c) => advance(stage, { ...stage.copies, ...c }, stage.reads)}
+          onCopied={(c) => advance(stage, { ...stage.copies, ...asCopies(c) }, stage.reads)}
           onKeyed={(read) => advance(stage, stage.copies, [...stage.reads, read])}
         />
       )}
@@ -187,7 +190,7 @@ function Turn({
   step: QsoStep;
   startDitMs: number;
   audio: () => Audio | null;
-  onCopied: (c: Copies) => void;
+  onCopied: (c: TurnCopies) => void;
   onKeyed: (read: string) => void;
 }) {
   const total = qsoSteps(stage.qso).length;
@@ -212,91 +215,24 @@ function Hear({
 }: {
   step: Extract<QsoStep, { kind: 'hear' }>;
   audio: () => Audio | null;
-  onDone: (c: Copies) => void;
+  onDone: (c: TurnCopies) => void;
 }) {
-  const [copies, setCopies] = useState<Copies>({});
-  const [again, setAgain] = useState(false);
-  const [playing, setPlaying] = useState(true);
-  const plays = useRef(0);
-
-  /** Plays the turn; whoever calls it has set `playing`. */
   const play = useCallback(async () => {
-    const id = ++plays.current;
     const pb = await audio()?.player.play(step.text, { charWpm: FAR_WPM, effWpm: FAR_WPM });
     await pb?.done;
-    if (id === plays.current) setPlaying(false);
   }, [audio, step.text]);
-
-  useEffect(() => {
-    void play();
-    return () => audio()?.player.stop();
-  }, [play, audio]);
-
-  const filled = step.fields.every((f) => (copies[f] ?? '').trim());
-  const set = (f: CopyField, v: string) => setCopies((c) => ({ ...c, [f]: v }));
-
   return (
-    <form
-      className="lesson__card qso__card"
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (filled) onDone(copies);
-      }}
-    >
-      <p className="lesson__kicker">The far station · listen and copy</p>
-      <p className="qso__air" aria-live="polite">
-        {playing ? 'On the air…' : 'Quiet now.'}
-      </p>
-      {step.fields.map((f) =>
-        f === 'prosign' ? (
-          <fieldset key={f} className="qso__choices">
-            <legend>{LABELS[f]}</legend>
-            {PROSIGN_CHOICES.map((p) => (
-              <label key={p} className={copies.prosign === p ? 'is-picked' : ''}>
-                <input
-                  type="radio"
-                  name="prosign"
-                  value={p}
-                  checked={copies.prosign === p}
-                  onChange={() => set(f, p)}
-                />
-                {p}
-              </label>
-            ))}
-          </fieldset>
-        ) : (
-          <label key={f} className="qso__field">
-            <span>{LABELS[f]}</span>
-            <input
-              type="text"
-              autoComplete="off"
-              autoCapitalize="characters"
-              spellCheck={false}
-              value={copies[f] ?? ''}
-              onChange={(e) => set(f, e.target.value.toUpperCase())}
-            />
-          </label>
-        ),
-      )}
-      <div className="lesson__actions">
-        <button
-          type="button"
-          className="lesson__plain"
-          disabled={again || playing}
-          aria-label="AGN: hear it again"
-          onClick={() => {
-            setAgain(true);
-            setPlaying(true);
-            void play();
-          }}
-        >
-          AGN
-        </button>
-        <button type="submit" className="lesson__go" disabled={!filled}>
-          Over
-        </button>
-      </div>
-    </form>
+    <HearTurn
+      kicker="The far station · listen and copy"
+      boxes={step.fields.map((f) => ({
+        id: f,
+        label: LABELS[f],
+        ...(f === 'prosign' && { choices: PROSIGN_CHOICES }),
+      }))}
+      play={play}
+      stop={() => audio()?.player.stop()}
+      onDone={onDone}
+    />
   );
 }
 
@@ -311,32 +247,19 @@ function Answer({
   audio: () => Audio | null;
   onDone: (read: string) => void;
 }) {
-  /** What the far station read the first time, if it couldn't make it out. */
-  const [missed, setMissed] = useState<string | null>(null);
   return (
-    <>
-      <p className="qso__say">
-        {missed === null ? (
-          <>Your turn: answer them with the key.</>
-        ) : (
-          <>
-            The far station sends <strong>AGN?</strong> It read “{missed || '…'}”. Send it once
-            more.
-          </>
-        )}
-      </p>
-      <Keying
-        key={missed === null ? 'first' : 'again'}
-        text={step.text}
-        startDitMs={startDitMs}
-        audio={audio}
-        onDone={(marks) => {
-          const read = decode(marks, { startDitMs }).text;
-          if (keyedRight(step.text, read) || missed !== null) onDone(read);
-          else setMissed(read);
-        }}
-      />
-    </>
+    <KeyTurn
+      text={step.text}
+      startDitMs={startDitMs}
+      audio={audio}
+      readRight={keyedRight}
+      asksAgain={(missed) => (
+        <>
+          The far station sends <strong>AGN?</strong> It read “{missed || '…'}”. Send it once more.
+        </>
+      )}
+      onDone={onDone}
+    />
   );
 }
 
