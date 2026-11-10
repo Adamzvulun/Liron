@@ -86,7 +86,7 @@ export function EchoWell({ api }: { api: SubjectApi }) {
     const { next, heard } = applyRound(progress, answers);
     setProgress(next);
     setStage({ kind: 'result', answers, heard, next });
-    reportRound(api, next, answers, secondsSince(startedAt)).then(
+    reportRound(api, next, answers, heard, secondsSince(startedAt)).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
     );
