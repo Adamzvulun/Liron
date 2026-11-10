@@ -88,11 +88,21 @@ function shuffle<T>(list: readonly T[], random: () => number): T[] {
 /** XP: 2 for each word copied right (about 10 a minute, docs/game/economy.md). */
 export const xpForWords = (attempts: readonly WordAttempt[]) => attempts.filter(isRight).length * 2;
 
-/** The state after a round: rounds played and the most words right in one round. */
+/**
+ * The state after a round: rounds played, the most words right in one round, and each prosign
+ * copied right for the first time (the Operator's rank asks for all four, #178).
+ */
 export function applyWords(p: MorseProgress, attempts: readonly WordAttempt[]): MorseProgress {
   const right = attempts.filter(isRight).length;
+  const prosigns = [...p.prosigns];
+  for (const a of attempts) {
+    if (a.word.kind === 'prosign' && isRight(a) && !prosigns.includes(a.word.id)) {
+      prosigns.push(a.word.id);
+    }
+  }
   return {
     ...p,
+    prosigns,
     words: { rounds: p.words.rounds + 1, best: Math.max(p.words.best, right) },
   };
 }
