@@ -5,7 +5,7 @@
 
 ## The short version
 - **The word path opens after the script course.** It starts once you pass "The Painted Sign" (chapter 1 of "The Long Road In"), when every letter is yours.
-- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1) and 841–1,020 (the first A2 words) are in.
+- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1) and 841–1,320 (A2 words) are in.
 - **Each word is met with its native recording, its meaning, how it sounds in Hebrew letters, and a deck sentence when the deck has one.** The deck has few sentences, so this is the main open question (section 3).
 - **Practice is the same four moves as the letters:** meet, listen, read, recall. FSRS schedules each word, and Glicko rates you in listen and read.
 - **Each chapter brings a new regular to the innkeeper's table** ("The Long Road In" chapter 2 onward), with a trial at its end.
@@ -96,11 +96,31 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
   - **153 of the 1,020 words carry a deck sentence.** By eye I removed 6 wrong matches among the new ones, where the sentence shares a word but not the meaning: *gate* (an airport gate), *to find a job*, *working hours*, *to get off*, *long ago* and *some day*.
   - **Still to come (ordered, not cut):** the other 727 A2 words, the held-back A1 words above, and the regulars' story for chapters 11 onward.
 
+- **Words 1,021–1,320 (#226, 2026-11-10):** ten more A2 chapters of 30, from the 624 A2 words left once those with the same Arabic as a taught word are set aside:
+
+| Chapter | Theme | Deck sections it draws on |
+|---|---|---|
+| 35 | Born, wed and grown | Life and Death, Family, Love and Marriage, Health (pregnant, to give birth) |
+| 36 | What to wear | Clothing, Jewelry, and Accessories; the body (a haircut, glasses, a tattoo) |
+| 37 | Aches and pains | The Human Body, Health and Medicine, Games and Sports (losing weight, a diet) |
+| 38 | Coffee and cake | Food and Drink (hunger, coffee, snacks, sauces, meat and fish) |
+| 39 | From the field | Food and Drink (fruit, vegetables), Agriculture, Plant Life, Animals (bees) |
+| 40 | Around the house | The House, Buildings and Construction, Verbs, Adjectives |
+| 41 | Back to school | School and Education, Language, Books and Stationery |
+| 42 | Screens and shows | Technology, Recreation (TV, radio, movies), Post Office, Books and Stationery |
+| 43 | Game on | Recreation, Music, Games and Sports, Travel (camping) |
+| 44 | Over the hills | Getting Around, Around Town, Travel and Vacations, Earth and Space, Weather |
+
+  - **Picked by use,** one word per meaning, as before. Three picks were swapped for words whose Arabic was already on the path or in the same batch: *to grow* (a plant) is the same word as *to grow up*, *to work out* (لِعِب) is *to play*, and *to photocopy* is *to take a photo of*. *Bees*, another verb for *to work out*, and *novel* took their places.
+  - **20 of the 300 carry a deck sentence** (173 of the 1,320 in all). By eye I removed 6 wrong matches: *to open your eyes*, *to have a cold* (a cold drink), *to clear the table*, *to take out the garbage*, *to play cards* (playing soccer) and *to start the car*.
+  - **The other 280 have one of our own sentences** (§3).
+  - **Still to come (ordered, not cut):** the other 324 A2 words, and the held-back A1 words above.
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
 - **Not picked for the first 300:** near-duplicates (the deck has three ways to say *hi*; one is taught), brand names, and adult words. Every other A1 word waits for words 301–1,000; none is dropped.
-- **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters (#163). Words 301–1,020 are in (below): all of A1 and the first A2 words.
+- **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters (#163). Words 301–1,320 are in (below): all of A1 and 480 A2 words.
 
 - **The list** is `content/arabic/core-words.json`, made from the deck by a script that checks every id is A1 and appears once.
 
@@ -123,6 +143,7 @@ I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164),
   - Adam spot-checks a sample.
 - **Progress:**
   - All 34 chapters are done: 867 sentences, one for every path word without a deck sentence.
+  - Chapters 35–44 (#226): 280 more, 1,147 in all. The checker's remaining flags are verb forms the deck doesn't spell out (*we went*, *throw!*, *it was canceled*) and the deck's own spelling of *noisy* (مُزْعِح, for مُزْعِج); each was looked at by hand.
 
 Micro-stories made only of words you know come in a later epic (vision, Arabic track).
 
@@ -180,10 +201,21 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | XXXIII | Wafa the manager | Wafa's Interviews |
 | XXXIV | Amal, back from the border | Amal's New Route |
 | XXXV | The innkeeper | The Innkeeper's Night |
+| XXXVI | Hana, the innkeeper's niece | Hana's Guest List |
+| XXXVII | Samira, back with her needles | The Wedding Clothes |
+| XXXVIII | Old Yousef, the bride's grandfather | Yousef's Aches |
+| XXXIX | Lina the baker | Lina's Trays |
+| XL | Abu Saleh the farmer | Abu Saleh's Cart |
+| XLI | Tariq the handyman | Tariq's Chores |
+| XLII | Miss Huda, the groom's aunt | Huda's Lesson |
+| XLIII | Mei, back with a laptop | Mei's Slideshow |
+| XLIV | Fares and the band | The Wedding Night |
+| XLV | Hana and her groom | The Newlyweds' Route |
 
 - **Chapters XII–XXI (#205, 2026-11-10):** a caravan from the coast arrives just as the table seems full, and its people sit down one per word chapter (11–20). Each regular has the same shape: an opening, 3 milestone beats and a trial. Their trials send `trial-12` to `trial-21`. Migration `20261122000000_more_regulars.sql` registers `trial-13` to `trial-35`, so chapters up to word chapter 34 need no further migration.
 - **The Traveler rank still asks for the Poet's Evening** (chapter XI), not the newest regular's trial. "A Seat at the Table" still means the first ten regulars.
 - **Chapters XXII–XXXV (#205, 2026-11-10):** a second caravan, from the east, for word chapters 21–34. Its regulars follow the chapters' themes (countries, numbers, money, the doctor, the body, the kitchen, the house, work, travel). Three old faces come back changed: Salim (XXIX), Abu Fadi with his son (XXXII) and Amal (XXXIV). The last chapter, XXXV, is the innkeeper's own story. Their trials send `trial-22` to `trial-35`, already registered by the same migration.
+- **Chapters XXXVI–XLV (#226, 2026-11-10):** the innkeeper's niece Hana is married at the inn, for word chapters 35–44. The family and the people who come for the wedding sit down one per chapter, following its theme: the guest list, the clothes, the grandfather's aches, the pastries, the farmer's cart, the cleaning, the schoolteacher, the pictures, the wedding night and the newlyweds' road. Samira (XXXVII) and Mei (XLIII) come back. Their trials send `trial-36` to `trial-45`, registered by migration `20261124000000_regulars_36_45.sql`.
 - **Every word chapter now has its regular.** A new word chapter needs a new regular and a `trial-N` row in a migration.
 
 - **Beats:** each regular has an opening, and 3 milestone beats lit by the words you've met (one per 10 of the chapter's 30). The table shows the newest beat above "Start a session"; the courtyard's story panel shows the chapter.
