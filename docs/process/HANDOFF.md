@@ -35,6 +35,8 @@
    - [#207](https://github.com/Adamzvulun/Liron/pull/207): the regulars for word chapters 21–34 (chapters XXII–XXXV, closes #205). No migration: `trial-22`..`trial-35` were registered by #206.
    - #164: our own sentences without audio (option 2 in `docs/game/arabic-core-words.md`). Waits on Adam.
 
+   **CI couldn't start jobs from 14:15 UTC on 2026-11-10:** runs failed in a second with no runner and no log, probably the private repository's Actions minutes or spending limit. It's a question for Adam (report §4g); don't merge without a green run.
+
    Merge #207 once it's green (check the logs for flaky retries and cancelled runs: the job's limit is 15 minutes, and with four runs at once one was cancelled at the limit after its tests had passed; re-run with `update_pull_request_branch`). Then: the M3 retro (`docs/process/retros/`) once E11 closes, the rest of A2 (727 deck words wait; the picks were in the scratchpad's `e11s/chapters4.py`, which may be gone), and Adam's answers in the report §4b, §4d, §4e, §4f and §4g. A new word chapter needs a regular in `questline.json` and a `trial-N` row in a migration. Fixtures: a player who has taken ranks needs `ranks: [...]` in the fake's state, or the rank-up card covers the hall. A change of PR base alone doesn't start CI; `update_pull_request_branch` does. Each migration needs its own version prefix (a schema test checks).
 6. **Audio for the missing phrases:** retry the lingualibre.org speaker pages (Q917215 Akram, Q645576 Khalil.rantissi) for place and dialect. Never use a file before Adam has seen it.
 7. **No v1.0.0** until Adam says so.
