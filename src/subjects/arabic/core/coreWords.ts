@@ -5,6 +5,7 @@ import { z } from 'zod';
 import type { Item } from '../../../core/content/schema.ts';
 import type { ReviewGrade } from '../../../core/subject.ts';
 import pack from '../../../../content/arabic/core-words.json' with { type: 'json' };
+import ownPack from '../../../../content/arabic/own-sentences.json' with { type: 'json' };
 import { dropGroups, latinToHebrew } from '../phrases/hebrew.ts';
 
 const Chapter = z.object({
@@ -16,6 +17,25 @@ const Chapter = z.object({
   ),
 });
 export type WordChapter = z.infer<typeof Chapter>;
+
+/**
+ * Our own sentences (#164) for words the deck has none for: text only, written by us and
+ * checked against the deck and free references (ADR 0012). No recording.
+ */
+const OwnSentence = z.object({
+  word: z.string(),
+  arabic: z.string().min(1),
+  latin: z.string().min(1),
+  english: z.string().min(1),
+});
+export type OwnSentence = z.infer<typeof OwnSentence>;
+
+export const OWN_SENTENCES: ReadonlyMap<string, OwnSentence> = new Map(
+  ownPack.items.map((i) => {
+    const s = OwnSentence.parse(i.data);
+    return [s.word, s];
+  }),
+);
 
 export const WORD_CHAPTERS: readonly WordChapter[] = pack.items
   .map((i) => Chapter.parse(i.data))
@@ -47,6 +67,8 @@ export interface CoreWord {
   audio: string;
   /** A deck sentence that uses the word, with its recording and deck id, when the deck has one. */
   sentence?: DeckLine & { deck: string };
+  /** Otherwise our own sentence (#164), text only: no recording, so it isn't shadowed. */
+  written?: { arabic: string; latin: string; hebrew: string; english: string };
 }
 
 export const itemIdOf = (deck: string) => `word:${deck}`;
@@ -80,6 +102,13 @@ export function coreWordsFrom(items: readonly Item[]): CoreWord[][] {
       if (!own) return [];
       const said = w.sentence ? line(byId.get(w.sentence)) : undefined;
       const sentence = said && w.sentence ? { ...said, deck: w.sentence } : undefined;
+      const mine = sentence ? undefined : OWN_SENTENCES.get(w.deck);
+      const written = mine && {
+        arabic: mine.arabic,
+        latin: mine.latin,
+        hebrew: latinToHebrew(mine.latin),
+        english: mine.english,
+      };
       return [
         {
           deck: w.deck,
@@ -91,6 +120,7 @@ export function coreWordsFrom(items: readonly Item[]): CoreWord[][] {
           meaning: w.gloss,
           audio: own.audio,
           ...(sentence ? { sentence } : {}),
+          ...(written ? { written } : {}),
         },
       ];
     }),

@@ -5,6 +5,7 @@ import { applyWordSession, NEW_PROGRESS, parseProgress, wordsOpen } from '../pro
 import {
   coreWordsFrom,
   NEW_PER_SESSION,
+  OWN_SENTENCES,
   pickSession,
   SESSION_WORDS,
   WORD_CHAPTERS,
@@ -50,6 +51,32 @@ describe('the word path (#160)', () => {
   it('cleans the deck’s blanks and tags', () => {
     const chapters = coreWordsFrom([item('pcav:3970', '__ واحد [m.]', '__ wāɧad [m.]')]);
     expect(chapters[2]?.[0]).toMatchObject({ arabic: 'واحد', latin: 'wāɧad' });
+  });
+});
+
+describe('our own sentences (#164)', () => {
+  const words = WORD_CHAPTERS.flatMap((c) => c.words);
+
+  it('only for path words the deck has no sentence for', () => {
+    const lacking = new Set(words.filter((w) => !w.sentence).map((w) => w.deck));
+    expect(OWN_SENTENCES.size).toBeGreaterThan(0);
+    for (const word of OWN_SENTENCES.keys()) expect(lacking.has(word), word).toBe(true);
+  });
+
+  it('cover every word of chapters I–V that lacks a deck sentence', () => {
+    const early = words.filter((w, i) => i < 150 && !w.sentence);
+    for (const w of early) expect(OWN_SENTENCES.has(w.deck), w.deck).toBe(true);
+  });
+
+  it('give the word its sentence, text only, and leave deck sentences alone', () => {
+    const all = coreWordsFrom(deck()).flat();
+    const yes = all.find((w) => w.deck === 'pcav:4751');
+    expect(yes?.written).toBeUndefined();
+    const welcome = all.find((w) => w.deck === 'pcav:4758');
+    expect(welcome?.sentence).toBeUndefined();
+    expect(welcome?.written).toMatchObject({ latin: 'šúkran! — 3áfwan.' });
+    expect(welcome?.written?.hebrew).toMatch(/[א-ת]/);
+    expect(all.filter((w) => w.written)).toHaveLength(OWN_SENTENCES.size);
   });
 });
 

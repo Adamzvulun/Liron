@@ -716,6 +716,22 @@
   text-align: center;
 }
 
+/* Our own sentence (#164): text only, so no play button and one column. */
+.arabic__sentence.is-written {
+  grid-template-columns: 1fr;
+}
+
+.arabic__sentence-he {
+  font-size: 17px;
+  text-align: right;
+  color: #6b5640;
+}
+
+.arabic__sentence-note {
+  font-size: 13px;
+  color: #8a735a;
+}
+
 .arabic__grammar .arabic__sentence .arabic__play {
   grid-row: span 3;
 }

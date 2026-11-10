@@ -504,6 +504,21 @@ function WordCard({ word, play }: { word: CoreWord; play: (path: string) => void
 
 function Sentence({ word, play }: { word: CoreWord; play: (path: string) => void }) {
   const s = word.sentence;
+  const w = word.written;
+  if (!s && w)
+    return (
+      <div className="arabic__sentence is-written">
+        <bdi lang="ar" dir="rtl" className="arabic__sentence-ar">
+          {w.arabic}
+        </bdi>
+        <bdi lang="he" dir="rtl" className="arabic__sentence-he">
+          {w.hebrew}
+        </bdi>
+        <span className="arabic__sentence-latin">{w.latin}</span>
+        <span className="arabic__sentence-en">{w.english}</span>
+        <span className="arabic__sentence-note">Our own sentence · no recording</span>
+      </div>
+    );
   if (!s) return null;
   return (
     <div className="arabic__sentence">
