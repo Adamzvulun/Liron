@@ -114,6 +114,32 @@
         "text": "Copy 3 callsigns above your speed",
         "requires": "rush-round"
       }
+    },
+    {
+      "id": "morse-qso",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "qso-logged",
+        "target": 1,
+        "gold": 20,
+        "text": "Log a contact in the Radio Room",
+        "requires": "qso"
+      }
+    },
+    {
+      "id": "morse-qso-2",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "qso",
+        "target": 2,
+        "gold": 15,
+        "text": "Answer 2 calls in the Radio Room",
+        "requires": "qso"
+      }
     }
   ]
 }

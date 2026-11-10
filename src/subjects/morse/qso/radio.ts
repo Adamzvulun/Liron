@@ -25,12 +25,14 @@ export const radioSchema = z
       .catch(null),
     /** Contacts logged, all time. */
     contacts: z.number().int().min(0).catch(0),
+    /** A contact logged at 25 wpm or faster with no repeats asked: the Signal Master's QSO. */
+    cleanFast: z.boolean().catch(false),
     /** The latest contacts, newest last: the operator, the day and whether it made the log. */
     log: z
       .array(z.object({ op: z.string(), day: z.string(), ok: z.boolean() }))
       .max(LOG_KEEP)
       .catch([]),
   })
-  .catch({ call: null, name: null, qth: null, contacts: 0, log: [] });
+  .catch({ call: null, name: null, qth: null, contacts: 0, cleanFast: false, log: [] });
 
 export type Radio = z.infer<typeof radioSchema>;

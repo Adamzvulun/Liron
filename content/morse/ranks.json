@@ -70,8 +70,9 @@
       "type": "rank",
       "data": {
         "name": "Signal Master",
-        "conditions": ["A QSO at 25 wpm with no repeats asked"],
-        "later": "Real QSOs come with radio partners",
+        "conditions": [
+          "Log a Radio Room contact at 25 wpm with no repeats: no AGN, no QRS, no resend"
+        ],
         "order": 6
       }
     },

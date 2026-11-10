@@ -332,6 +332,48 @@
         "gems": 3,
         "order": 19
       }
+    },
+    {
+      "id": "worked-all",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Worked All",
+        "text": "Log a contact with all six operators in the Radio Room",
+        "condition": {
+          "kind": "events",
+          "subject": "morse",
+          "kinds": [
+            "worked-nils",
+            "worked-marta",
+            "worked-ivo",
+            "worked-kai",
+            "worked-ruth",
+            "worked-dex"
+          ],
+          "n": 6
+        },
+        "gems": 3,
+        "title": "of the Airwaves",
+        "order": 20
+      }
+    },
+    {
+      "id": "full-logbook",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Full Logbook",
+        "text": "Log 50 contacts in the Radio Room",
+        "condition": {
+          "kind": "event-total",
+          "subject": "morse",
+          "kind_of": "qso-logged",
+          "n": 50
+        },
+        "gems": 3,
+        "order": 21
+      }
     }
   ]
 }
