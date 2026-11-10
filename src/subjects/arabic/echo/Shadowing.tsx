@@ -4,6 +4,8 @@ import type { SubjectApi } from '../../../core/subject.ts';
 import { coreWordsFrom } from '../core/coreWords.ts';
 import { Ar } from '../lesson/ScriptLesson.tsx';
 import { seeded } from '../lesson/questions.ts';
+import type { Heard } from '../../../core/speech.ts';
+import { UnderstoodCheck } from '../phrases/Compare.tsx';
 import { useRecorder } from '../phrases/useRecorder.ts';
 import type { ArabicProgress } from '../progress.ts';
 import { reportShadow } from './report.ts';
@@ -128,6 +130,7 @@ export function Shadowing({
       index={index}
       count={lines.length}
       player={player}
+      check={(audio) => api.transcribe(audio)}
       onJudged={judge}
     />
   );
@@ -138,12 +141,14 @@ function ShadowCard({
   index,
   count,
   player,
+  check,
   onJudged,
 }: {
   line: ShadowLine;
   index: number;
   count: number;
   player: Player;
+  check: (audio: Blob) => Promise<Heard>;
   onJudged: (j: Judgement) => void;
 }) {
   const rec = useRecorder();
@@ -234,6 +239,9 @@ function ShadowCard({
             ▶ Together
           </button>
         </div>
+      )}
+      {rec.url && rec.blob && !shadowing && (
+        <UnderstoodCheck key={rec.url} audio={rec.blob} target={line.arabic} check={check} hint />
       )}
       {takes > 0 && !shadowing && (
         <>
