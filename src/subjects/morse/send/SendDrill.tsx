@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { newAudioContext } from '../../../core/audio.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
-import { MorsePlayer } from '../player.ts';
 import { parseProgress, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
 import { scoreCopy, type RunScore } from '../lesson/score.ts';
 import { decode, START_DIT_MS, wpmFor, type Decoded, type Mark } from './decoder.ts';
@@ -21,7 +19,7 @@ import {
 } from './lampSignal.ts';
 import { MORSE_CHARS } from '../code.ts';
 import { KEYER_DIT_MS } from '../ranks.ts';
-import { Sidetone } from './sidetone.ts';
+import { useDeskAudio, type Audio } from './deskAudio.ts';
 import '../lesson/lesson.css';
 import './send.css';
 
@@ -35,12 +33,6 @@ type Stage =
   | { kind: 'lamp-intro' }
   | { kind: 'lamp-result'; text: string; decoded: Decoded; result: LampResult; xp: number };
 
-interface Audio {
-  ctx: AudioContext;
-  tone: Sidetone;
-  player: MorsePlayer;
-}
-
 /** Seconds of keying shown on the timing strip. */
 const STRIP_SECONDS = 8;
 
@@ -49,29 +41,7 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
   const [failed, setFailed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
   const [stage, setStage] = useState<Stage>({ kind: start === 'lamp' ? 'lamp-intro' : 'intro' });
-  // Sound is made on first use (browsers allow it only after a tap or key press).
-  const audioRef = useRef<Audio | null>(null);
-  const audio = useCallback((): Audio | null => {
-    if (!audioRef.current && typeof AudioContext !== 'undefined') {
-      const ctx = newAudioContext({ latencyHint: 'interactive' });
-      audioRef.current = {
-        ctx,
-        tone: new Sidetone(ctx),
-        player: new MorsePlayer({ context: ctx }),
-      };
-    }
-    return audioRef.current;
-  }, []);
-  useEffect(
-    () => () => {
-      const a = audioRef.current;
-      audioRef.current = null;
-      a?.tone.close();
-      a?.player.stop();
-      void a?.ctx.close();
-    },
-    [],
-  );
+  const audio = useDeskAudio();
 
   useEffect(() => {
     let live = true;
@@ -203,7 +173,7 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
   );
 }
 
-function Keying({
+export function Keying({
   text,
   startDitMs,
   audio,

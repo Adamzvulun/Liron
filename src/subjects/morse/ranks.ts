@@ -4,6 +4,7 @@ import { ranksFrom, standing, type Rank } from '../../core/ranks/ranks.ts';
 import { MORSE_CHARS } from './code.ts';
 import type { MorseProgress } from './lesson/progress.ts';
 import { CHAPTERS } from './questline.ts';
+import { PROSIGNS } from './words.ts';
 
 export const MORSE_RANKS = ranksFrom(pack);
 
@@ -27,6 +28,11 @@ export function morseMet(rank: Rank, p: MorseProgress): boolean[] {
       ];
     case 'telegraphist':
       return [p.rankTrials.includes('night-watch')];
+    case 'operator':
+      return [
+        PROSIGNS.every((s) => p.prosigns.includes(s.id)),
+        p.rankTrials.includes('far-station'),
+      ];
     default:
       return rank.conditions.map(() => false);
   }
