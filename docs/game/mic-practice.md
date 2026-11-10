@@ -23,8 +23,10 @@ The sounds that matter for a Hebrew speaker, from hardest to easiest:
 2. **ع / ء** (ʿayn and the glottal stop).
 3. **خ / ح** (kh and ḥ). Hebrew's ח is closer to خ.
 4. **غ / خ** (gh and kh).
-5. **The emphatics:** ص / س, ض / د, ط / ت.
-6. **ق / ك.** In the deck's Palestinian, ق is mostly said as **g** (galb, *heart*), so the pair a learner hears is g / k.
+5. **ص / س,** the first of the emphatics ("heavy" letters).
+6. **ض / د.**
+7. **ط / ت.**
+8. **ق / ك.** In the deck's Palestinian, ق is mostly said as **g** (galb, *heart*), so the pair a learner hears is g / k.
 
 **What the deck has (checked 2026-11-10, ids only in the scratchpad):**
 - **Real minimal pairs** (one sound apart, nothing else): about a dozen, for example عمّ / أمّ (*uncle* / *mother*), خالة / حالة (*aunt* / *case*), خدّ / حدّ (*cheek* / *someone*), قلب / كلب (*heart* / *dog*), غيمة / خيمة (*cloud* / *tent*), صورة / سورة (*picture* / *sura*), عرض / أرض (*width* / *land*).
@@ -32,11 +34,12 @@ The sounds that matter for a Hebrew speaker, from hardest to easiest:
 
 **So the drill has two kinds of question (my call):**
 - **Which one?** You hear one word of a minimal pair and pick between the two, shown with their meanings. These use the dozen real pairs.
-- **Which sound?** You hear a word that has one of a pair's sounds, and pick which one: "ح or ه?". This works with any word, so every pair gets hundreds of examples. Hearing many different words is what trains the ear (high-variability phonetic training, as in the research on Japanese speakers learning English r / l).
+- **Which sound?** You hear a word that starts with one of a pair's sounds, and pick which one: "ح or ه?". This works with any word, so every pair gets dozens to hundreds of examples (ض has only 7; ه has 18). Hearing many different words is what trains the ear (high-variability phonetic training, as in the research on Japanese speakers learning English r / l).
 
-- **Words:** only words whose sound is clear in the recording. The fountain's rule carries over: a word the speaker says with another letter's sound isn't asked.
-- **One pair at a time,** in the order above. A pair is "heard" after 20 right in a row at 90% or better. Then the next one opens, and heard pairs come back mixed in.
-- **Saved:** a **listen** rating per pair (`pair:ha-ha`), and the pairs heard (`pairsHeard`).
+- **Words:** single deck words of up to six letters, asked by their **first** sound. A word counts only if its first letter is one of the pair's and the deck's romanization starts with that sound, so a word the speaker says another way isn't asked (ق said as q, غ said as g, an alif said with the article).
+- **One pair at a time,** in the order above, 8 pairs in all. A round is 10 questions; up to 3 are "which one?". A pair is "heard" after 20 right in a row on it. Then the next one opens, and in each round 3 questions come from heard pairs (they don't move the streak). Once all are heard, a round mixes them all.
+- **Saved:** a **listen** rating per pair (`pair:hah-heh`), and the `echo` progress: the pairs heard, the streak, and the rounds.
+- **Open from the start (my call):** it's listening only, and each sound has a Latin label, so it doesn't wait for the script lessons.
 - **XP:** 1 per right answer (a question takes about 6 seconds, so about 10 XP a minute, as the economy asks).
 
 ## 3. Shadowing
@@ -62,14 +65,14 @@ The same Groq check as on the Say it cards, now on whole sentences in the echo w
 
 ## 6. Rewards
 - **Contracts:** two new kinds, `pairs-round` (a round of ear training) and `shadow-sentence`. Each needs a template and a migration, as for every contract kind.
-- **Achievements (my call), added to the wall:** "Sharp ears" (all six pairs heard, 3 gems) and "Echo" (100 sentences shadowed, 3 gems).
+- **Achievements (my call), added to the wall:** "Sharp ears" (all eight pairs heard, 3 gems) and "Echo" (100 sentences shadowed, 3 gems).
 
 ## 7. What's out
 - **A pronunciation score.** No free model does it reliably (ADR 0013).
 - **Recordings we don't have:** ح / ه minimal pairs, and women's voices. These wait for Lingua Libre or another licensed source (the coffee corner's open question); nothing is used before Adam has seen it.
 
 ## 8. Tasks
-1. The echo well station, and "Hear the difference" with its pairs data (`content/arabic/sound-pairs.json`: deck ids and our own labels only). — [#193](https://github.com/Adamzvulun/Liron/issues/193)
+1. The echo well station, and "Hear the difference" with its pairs data (`content/arabic/sound-pairs.json`: deck ids and our own labels only). — [#193](https://github.com/Adamzvulun/Liron/issues/193). **Built:** the well is painted left of the road, in front of the slate.
 2. Shadowing: playback at 75% and 100%, recording in step with it, and the three ways to listen back. — [#194](https://github.com/Adamzvulun/Liron/issues/194)
 3. Record and compare on the word path's words. — [#195](https://github.com/Adamzvulun/Liron/issues/195)
 4. "Did it understand you?" on sentences. — [#196](https://github.com/Adamzvulun/Liron/issues/196)

@@ -11,6 +11,7 @@ import { KHAN_STAGE, paintKhan, paintMilestones, type Box, type StationId } from
 import { ArabicText } from '../ArabicText.tsx';
 import { PHRASE_SETS } from '../phrases/sets.ts';
 import { WORD_CHAPTERS } from '../core/coreWords.ts';
+import { currentPair } from '../echo/pairs.ts';
 import './khan.css';
 
 // Inside the Caravanserai (#42): the inn's courtyard. "The Long Road In" (#43) runs from your
@@ -19,7 +20,7 @@ import './khan.css';
 // phone the courtyard pans sideways and the same things follow below it as cards.
 
 export type CourtyardDoor =
-  'lesson' | 'listen' | 'read' | 'write' | 'phrases' | 'words' | 'trial' | 'regular';
+  'lesson' | 'listen' | 'read' | 'write' | 'phrases' | 'words' | 'trial' | 'regular' | 'echo';
 
 let painted: ReturnType<typeof paintKhan> | undefined;
 const courtyard = () => (painted ??= paintKhan());
@@ -182,6 +183,7 @@ function Scene({
   const lesson = LESSONS[progress.lesson - 1];
   const known = lettersUpTo(progress.done ? LESSONS.length : progress.lesson - 1).length;
   const total = lettersUpTo(LESSONS.length).length;
+  const echoPair = currentPair(progress);
 
   const stations: Station[] = [
     {
@@ -209,6 +211,14 @@ function Scene({
       open: wordsOpen(progress) ? 'words' : undefined,
     },
     { id: 'fountain', title: 'The fountain', text: 'Listen: which letter?', open: 'listen' },
+    {
+      id: 'well',
+      title: 'The echo well',
+      text: echoPair
+        ? `Hear the difference · ${echoPair.title}`
+        : 'Hear the difference · every pair',
+      open: 'echo',
+    },
     { id: 'storyteller', title: 'The storyteller', text: 'Read short words', open: 'read' },
     {
       id: 'coffee',

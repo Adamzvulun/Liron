@@ -8,7 +8,8 @@
 
 export const KHAN_STAGE = { width: 1920, height: 1080 } as const;
 
-export type StationId = 'scribe' | 'slate' | 'innkeeper' | 'fountain' | 'storyteller' | 'coffee';
+export type StationId =
+  'scribe' | 'slate' | 'innkeeper' | 'fountain' | 'storyteller' | 'coffee' | 'well';
 
 export interface Box {
   x: number;
@@ -605,6 +606,98 @@ export function paintKhan(): PaintedKhan {
         Math.max(...ys) + 10,
       ),
       plaque: { x: P(X, G, Z - r)[0], y: Math.min(...ys) - 70 * k - 70 },
+    };
+  }
+  // the echo well (E14, #193): a round stone well with a wooden frame, a rope and a bucket, in
+  // the open floor left of the road
+  {
+    const X = -0.27;
+    const Z = 1.55;
+    const k = sz(Z);
+    const r = 0.07;
+    const hgt = 0.05;
+    const ring = (rr: number, yy: number, n = 28) =>
+      Array.from({ length: n }, (_, i) => {
+        const a = (i / n) * Math.PI * 2;
+        return P(X + rr * Math.cos(a), yy, Z + rr * Math.sin(a));
+      });
+    const [gx, gy] = P(X, G, Z);
+    let s = shadow(gx, gy + 4 * k, 100 * k, 16 * k);
+    // the wall: the near half of the cylinder, then the rim
+    const top = ring(r, G + hgt);
+    const bot = ring(r, G);
+    const near = (pts: Pt[]) => pts.filter((_, i) => Math.sin((i / pts.length) * Math.PI * 2) < 0);
+    const nTop = near(top);
+    const nBot = near(bot).reverse();
+    s += `<path d="${poly([...nTop, ...nBot])}" fill="${lin([
+      [0, lit('#B9A58A', 0.15)],
+      [1, dk('#8E7A62', 0.2)],
+    ])}" ${OUT(3)}/>`;
+    // stone courses
+    for (const t of [0.35, 0.7]) {
+      const row = near(ring(r, G + hgt * t));
+      s += `<path d="${line(row)}" fill="none" stroke="${INK}" stroke-width="1.6" stroke-opacity=".55"/>`;
+    }
+    for (let i = 0; i < nTop.length - 1; i += 3) {
+      const a = nTop[i];
+      const b = nBot[nBot.length - 1 - i];
+      if (a && b)
+        s += `<path d="M${f(a[0])} ${f(a[1])} L${f(a[0] + (b[0] - a[0]) * 0.35)} ${f(a[1] + (b[1] - a[1]) * 0.35)}" stroke="${INK}" stroke-width="1.4" stroke-opacity=".45"/>`;
+    }
+    s += `<path d="${poly(top)}" fill="${lit('#C9B597', 0.25)}" ${OUT(3)}/>`;
+    s += `<path d="${poly(ring(r - 0.022, G + hgt))}" fill="${lin([
+      [0, '#1E2E3A'],
+      [1, '#2E5A6A'],
+    ])}" ${OUT(2)}/>`;
+    // a glint on the water far below
+    const [wx, wy] = P(X + 0.02, G + hgt, Z + 0.01);
+    s += `<ellipse cx="${f(wx)}" cy="${f(wy)}" rx="${f(16 * k)}" ry="${f(3 * k)}" fill="#BFE6EE" opacity=".55"/>`;
+    // the frame: two posts and a beam, a rope and a bucket
+    const post = 0.11;
+    const [lx, ly] = P(X - r + 0.008, G + hgt, Z);
+    const [rx, ry] = P(X + r - 0.008, G + hgt, Z);
+    const [, py] = P(X, G + hgt + post, Z);
+    for (const [x0, y0] of [
+      [lx, ly],
+      [rx, ry],
+    ] as const)
+      s += `<path d="M${f(x0 - 7 * k)} ${f(y0 + 6 * k)} V${f(py - 8 * k)} h${f(14 * k)} V${f(y0 + 6 * k)} z" fill="${lin(
+        [
+          [0, '#8A5A33'],
+          [1, '#4A2C18'],
+        ],
+        0,
+        0,
+        1,
+        0,
+      )}" ${OUT(2.5)}/>`;
+    s += `<path d="M${f(lx - 22 * k)} ${f(py - 4 * k)} L${f(rx + 22 * k)} ${f(py - 4 * k)} l${f(-8 * k)} ${f(-14 * k)} L${f(lx - 14 * k)} ${f(py - 18 * k)} z" fill="#6A3E22" ${OUT(2.5)}/>`;
+    s += `<ellipse cx="${f(gx)}" cy="${f(py + 4 * k)}" rx="${f(16 * k)}" ry="${f(10 * k)}" fill="#C9A06A" ${OUT(2)}/>`;
+    const by = py + 46 * k;
+    s += `<path d="M${f(gx)} ${f(py + 10 * k)} V${f(by - 16 * k)}" stroke="#C9A06A" stroke-width="${f(3 * k)}"/>`;
+    s += `<path d="M${f(gx - 16 * k)} ${f(by - 16 * k)} q${f(16 * k)} ${f(-12 * k)} ${f(32 * k)} 0" fill="none" stroke="${INK}" stroke-width="2"/>`;
+    s += `<path d="M${f(gx - 18 * k)} ${f(by - 14 * k)} h${f(36 * k)} l${f(-5 * k)} ${f(28 * k)} h${f(-26 * k)} z" fill="${lin(
+      [
+        [0, '#9A6A3A'],
+        [1, '#5A3420'],
+      ],
+      0,
+      0,
+      1,
+      0,
+    )}" ${OUT(2.5)}/>`;
+    // a soft echo: rings rising from the water
+    for (const [i, op] of [
+      [0, 0.5],
+      [1, 0.3],
+    ] as const)
+      s += `<ellipse cx="${f(gx)}" cy="${f(py - 30 * k - i * 18 * k)}" rx="${f((30 + i * 16) * k)}" ry="${f((7 + i * 3) * k)}" fill="none" stroke="#BFE6EE" stroke-width="${f(2.5 * k)}" opacity="${op}"/>`;
+    const xs = top.map((q) => q[0]);
+    const [, fy] = P(X, G, Z - r);
+    stations.well = {
+      svg: s,
+      box: box(Math.min(...xs) - 30 * k, py - 80 * k, Math.max(...xs) + 30 * k, fy + 20),
+      plaque: { x: gx, y: fy + 14 },
     };
   }
   // the coffee corner (phrases, locked for now): a brass tray with a dallah, by the right wall

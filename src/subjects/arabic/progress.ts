@@ -56,6 +56,14 @@ const Progress = z.object({
       cards: [],
       trials: [],
     }),
+  /** The echo well's ear training (#193): the pairs heard, and right answers in a row on the next. */
+  echo: z
+    .object({
+      heard: z.array(z.string()).catch([]),
+      streak: z.number().int().min(0).catch(0),
+      rounds: z.number().int().min(0).catch(0),
+    })
+    .catch({ heard: [], streak: 0, rounds: 0 }),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -82,6 +90,7 @@ export const NEW_PROGRESS: ArabicProgress = {
     cards: [],
     trials: [],
   },
+  echo: { heard: [], streak: 0, rounds: 0 },
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
