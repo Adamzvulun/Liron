@@ -45,5 +45,5 @@ Checked in Vercel's docs (2026-11-02), for the free Hobby plan:
 - More steps per change: a feature PR, then a release PR. That's fine at our pace. Several features can ship in one release.
 - **Adam does once in GitHub:** Settings → General → Default branch → `dev`. Until then, `Closes #N` in PRs to `dev` doesn't auto-close issues; GitHub only does that on the default branch.
 - The old branch `claude/learning-hub-arabic-morse-20ckww` is replaced by `dev` and `main` (same content on 2026-11-02). Delete it after the default branch is switched, with Adam's OK.
-- CI runs on every PR and on pushes to `dev` and `main`.
+- CI runs on every PR and on pushes to `main`. *(Amended 2026-11-10: pushes to `dev` no longer run CI, since every PR ran the full check before merging. A PR that changes only `docs/` or Markdown files skips the build and Playwright. Actions minutes cost money now, and Adam asked to use as few as possible.)*
 - **Never import into Vercel while `main` has no app:** Vercel would then serve the raw repo files, `sources/` included. `vercel.json` pins the Vite build so only `dist/` is published ([DEPLOY](../process/DEPLOY.md)).

@@ -36,6 +36,7 @@
    - #164: our own sentences without audio (option 2 in `docs/game/arabic-core-words.md`). Adam said yes on 2026-11-10: Claude writes them and Adam spot-checks a sample. All 867 are written, in stacked PRs, two chapters each:
      - Merged: #208 (the code, the card and chapters I–V) and #209 (VI–X).
      - Open: [#210](https://github.com/Adamzvulun/Liron/pull/210), chapters XI–XXXIV (closes #164; its test checks every word). The stacked #211–#221 were folded into it and closed.
+     - **Actions cost money (Adam, 2026-11-10):** bundle small fixes and features into one PR, push as few times as possible, and avoid stacks. Pushes to `dev` don't run CI, and docs-only PRs skip the build and Playwright (ADR 0015, amended).
      - Lesson: every PR runs CI, stacked ones too, and each run takes about ten minutes of Adam's Actions budget. For content in batches, prefer one PR with a commit per batch over a long stack. When retargeting a stacked PR, change its base first and push after, or CI won't run against `dev`.
 
      How a batch is made:
