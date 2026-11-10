@@ -56,12 +56,28 @@ export interface Schedule {
 }
 
 /**
+ * A human hand on the key (E16): heavier or lighter dahs, wider letter gaps, and a little
+ * unevenness. The defaults are a perfect machine fist.
+ */
+export interface Fist {
+  /** Dah length in dits. Ideal 3. */
+  weight?: number;
+  /** Stretch of the gaps between letters. 1 is standard. */
+  swing?: number;
+  /** 0 to 1: how much each element and gap wanders, as a share of its length. */
+  jitter?: number;
+  random?: () => number;
+}
+
+/**
  * Turns text into key-down times. Spaces (any run of whitespace) are word gaps; characters we
  * don't teach are skipped. A prosign in angle brackets (`<AR>`) is one character. No trailing gap.
  */
-export function schedule(text: string, speed: Speed): Schedule {
+export function schedule(text: string, speed: Speed, fist: Fist = {}): Schedule {
   const dit = ditSeconds(speed.charWpm);
   const gaps = gapSeconds(speed);
+  const { weight = 3, swing = 1, jitter = 0, random = Math.random } = fist;
+  const wobble = () => (jitter > 0 ? 1 + (random() * 2 - 1) * jitter : 1);
   const tones: Tone[] = [];
   const chars: PlayedChar[] = [];
   let t = 0;
@@ -74,15 +90,15 @@ export function schedule(text: string, speed: Speed): Schedule {
       t += pendingGap;
       const start = t;
       [...code].forEach((el, i) => {
-        if (i > 0) t += dit;
-        const dur = el === '-' ? 3 * dit : dit;
+        if (i > 0) t += dit * wobble();
+        const dur = (el === '-' ? weight * dit : dit) * wobble();
         tones.push({ at: t, dur });
         t += dur;
       });
       chars.push({ char: char.toUpperCase(), at: start, end: t });
-      pendingGap = gaps.char;
+      pendingGap = gaps.char * swing * wobble();
     }
-    if (chars.length) pendingGap = gaps.word;
+    if (chars.length) pendingGap = gaps.word * wobble();
   }
   return { tones, chars, duration: t };
 }

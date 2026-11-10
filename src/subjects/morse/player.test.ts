@@ -76,8 +76,29 @@ describe('MorsePlayer', () => {
     const effect = { connect: vi.fn() };
     const route = vi.fn(() => effect as unknown as AudioNode);
     await new MorsePlayer({ context: ctx, route }).play('E', { charWpm: 20 });
-    expect(route).toHaveBeenCalledWith(gain, ctx);
+    expect(route).toHaveBeenCalledWith(
+      gain,
+      ctx,
+      expect.objectContaining({ startsAt: expect.any(Number) }),
+    );
     expect(effect.connect).toHaveBeenCalledWith(ctx.destination);
     expect(gain.connect).not.toHaveBeenCalled();
+  });
+
+  it('takes a route for one play, and stops what it started when the sound ends', async () => {
+    const { ctx, osc } = fakeContext();
+    const effect = { connect: vi.fn(), disconnect: vi.fn() };
+    const stopNoise = vi.fn();
+    const route = vi.fn(
+      (_k: AudioNode, _c: BaseAudioContext, life: { onEnd(f: () => void): void }) => {
+        life.onEnd(stopNoise);
+        return effect as unknown as AudioNode;
+      },
+    );
+    await new MorsePlayer({ context: ctx }).play('E', { charWpm: 20, route });
+    expect(stopNoise).not.toHaveBeenCalled();
+    osc.onended?.();
+    expect(stopNoise).toHaveBeenCalledTimes(1);
+    expect(effect.disconnect).toHaveBeenCalled();
   });
 });

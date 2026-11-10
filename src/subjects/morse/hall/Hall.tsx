@@ -17,6 +17,7 @@ import { MORSE_CHARS } from '../code.ts';
 import { lampOpen, lampPassed } from '../send/lampSignal.ts';
 import { watchOpen, watchPassed } from '../words/nightWatch.ts';
 import { farOpen, farPassed } from '../qso/farStation.ts';
+import { onAirToday, radioDay } from '../qso/onAir.ts';
 import {
   BANNER,
   GATE,
@@ -35,7 +36,7 @@ import './hall.css';
 // the room pans sideways and the same things follow below it as cards.
 
 export type HallDoor =
-  'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words' | 'watch' | 'far';
+  'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words' | 'watch' | 'far' | 'radio';
 
 // The room never changes, so it's painted once per page load.
 let painted: ReturnType<typeof paintTower> | undefined;
@@ -296,9 +297,11 @@ function Room({
       text: !farOpen(progress)
         ? 'Locked · pass the Lamp Signal'
         : farPassed(progress)
-          ? 'Work a far station'
+          ? `On the air · ${onAirToday(progress.radio, radioDay()).length} calling`
           : 'Trial · The Far Station',
-      ...(farOpen(progress) && { open: 'far' as const }),
+      ...(farOpen(progress) && {
+        open: farPassed(progress) ? ('radio' as const) : ('far' as const),
+      }),
     },
   ];
 

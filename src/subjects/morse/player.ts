@@ -4,11 +4,11 @@
 // - Every key-down has a short rise and fall so there are no clicks.
 // - Browsers only allow sound after a tap or click: call `unlock()` from that handler (or
 //   just `play()`, which unlocks too).
-// - Hook for later (E16: noise, fading, interference): `route` gets the keyed tone and returns
-//   the node to send to the speakers. Nothing is built for it yet.
+// - `route` (E16: noise, fading, interference) gets the keyed tone and returns the node to send
+//   to the speakers; things it starts can be stopped with `life.onEnd`. See qso/band.ts.
 
 import { newAudioContext } from '../../core/audio.ts';
-import { schedule, type PlayedChar, type Speed } from './timing.ts';
+import { schedule, type Fist, type PlayedChar, type Speed } from './timing.ts';
 
 /** Rise and fall of each key-down, in seconds. ~5 ms is the usual choice for click-free CW. */
 export const RAMP_SECONDS = 0.005;
@@ -20,7 +20,22 @@ export interface ToneSettings extends Speed {
   pitch?: number;
   /** 0 to 1. Default 0.5. */
   volume?: number;
+  /** A human hand's timing (E16). Default: machine-perfect. */
+  fist?: Fist;
+  /** For this play only, instead of the player's own `route`. */
+  route?: Route;
 }
+
+/** When a play's sound starts and ends, and a way to stop what a route started with it. */
+export interface PlayLife {
+  startsAt: number;
+  endsAt: number;
+  /** Runs when the sound ends or is stopped. */
+  onEnd(cleanup: () => void): void;
+}
+
+/** Effects between the keyed tone and the speakers. Returns the node to send out. */
+export type Route = (keyed: AudioNode, context: BaseAudioContext, life: PlayLife) => AudioNode;
 
 export interface Playback {
   /** The characters that will play, with times relative to the first tone. */
@@ -36,8 +51,8 @@ export interface Playback {
 export interface MorsePlayerOptions {
   /** For tests or offline rendering. Default: a new AudioContext on first use. */
   context?: BaseAudioContext;
-  /** E16 hook: put effects between the keyed tone and the speakers. */
-  route?: (keyed: AudioNode, context: BaseAudioContext) => AudioNode;
+  /** Effects between the keyed tone and the speakers (E16), for every play. */
+  route?: Route;
 }
 
 export class MorsePlayer {
@@ -64,7 +79,7 @@ export class MorsePlayer {
 
     const { pitch = 600, volume = 0.5 } = settings;
     const level = Math.min(1, Math.max(0, volume));
-    const plan = schedule(text, settings);
+    const plan = schedule(text, settings, settings.fist);
     const startsAt = ctx.currentTime + LEAD_SECONDS;
     const ramp = RAMP_SECONDS;
 
@@ -82,10 +97,13 @@ export class MorsePlayer {
       key.gain.linearRampToValueAtTime(0, off);
     }
     osc.connect(key);
-    const out = this.options.route?.(key, ctx) ?? key;
+    const endsAt = startsAt + plan.duration + ramp;
+    const cleanups: (() => void)[] = [];
+    const route = settings.route ?? this.options.route;
+    const life: PlayLife = { startsAt, endsAt, onEnd: (f) => cleanups.push(f) };
+    const out = route?.(key, ctx, life) ?? key;
     out.connect(ctx.destination);
 
-    const endsAt = startsAt + plan.duration + ramp;
     osc.start(startsAt - ramp);
     osc.stop(endsAt);
 
@@ -94,6 +112,8 @@ export class MorsePlayer {
     osc.onended = () => {
       osc.disconnect();
       key.disconnect();
+      if (out !== key) out.disconnect();
+      for (const f of cleanups.splice(0)) f();
       if (this.current === playback) this.current = undefined;
       finish();
     };
