@@ -5,6 +5,7 @@ import { phaseOf, scheduleReview, type StoredCard } from '../srs/scheduler.ts';
 import { rateResult, toSkillRating } from '../rating/ratings.ts';
 import type { Award, ProgressStore, SessionWrite } from './store.ts';
 import type { ContentSource } from '../content/privateContent.ts';
+import { PartnerError, type PartnerSource } from '../partner.ts';
 import { SpeechError, type SpeechSource } from '../speech.ts';
 import { ContentPack, Media } from '../content/schema.ts';
 
@@ -45,6 +46,7 @@ export function subjectApi<State extends object>(
   onAward: (award: Award) => void = () => {},
   content: ContentSource | null = null,
   speech: SpeechSource | null = null,
+  partner: PartnerSource | null = null,
 ): SubjectApi<State> {
   const packs = new Map<string, Promise<{ items: Item[]; lessons: Lesson[] }>>();
   // The private media each loaded pack names: a subject may only link files its own content names
@@ -303,6 +305,10 @@ export function subjectApi<State extends object>(
     transcribe(audio) {
       if (!speech) return Promise.reject(new SpeechError('not-set-up'));
       return speech.transcribe(audio);
+    },
+    partner(ask) {
+      if (!partner) return Promise.reject(new PartnerError('not-set-up'));
+      return partner.reply(ask);
     },
   };
 }

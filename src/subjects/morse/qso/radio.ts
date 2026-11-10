@@ -32,6 +32,14 @@ export const radioSchema = z
       .array(z.object({ op: z.string(), day: z.string(), ok: z.boolean() }))
       .max(LOG_KEEP)
       .catch([]),
+    /**
+     * Each operator's own news lines with you, newest last (E15, ADR 0036): their memory of you,
+     * so a story carries on. Kept here, in Supabase, never at the AI provider.
+     */
+    notes: z
+      .record(z.string(), z.array(z.string().max(80)).max(3))
+      .optional()
+      .catch(undefined),
   })
   .catch({ call: null, name: null, qth: null, contacts: 0, cleanFast: false, log: [] });
 

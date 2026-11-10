@@ -9,6 +9,7 @@ import type { SubjectApi } from '../../../core/subject.ts';
 import { MORSE_CHARS } from '../code.ts';
 import type { MorseProgress } from '../lesson/progress.ts';
 import { makeCallsign } from '../words/rush.ts';
+import { NOTES_KEEP, withNews } from './chatter.ts';
 import { farPassed, keyedRight } from './farStation.ts';
 import { LOG_KEEP, type Radio } from './radio.ts';
 
@@ -137,6 +138,8 @@ export interface Contact {
   temp: string;
   /** You've logged a contact with them before. */
   again: boolean;
+  /** Their news, written live by the AI partner (E15); the script's line when missing. */
+  news?: string;
 }
 
 const pick = <T>(from: readonly T[], random: () => number) =>
@@ -191,7 +194,11 @@ export function contactSteps(c: Contact): AirStep[] {
     },
     {
       kind: 'hear',
-      text: fill(`${me.call} DE ${op.call} ${op.chat} <BT> ${me.call} DE ${op.call} KN`, c),
+      text: fill(
+        `${me.call} DE ${op.call} ${c.news ? withNews(op.chat, c.news) : op.chat} <BT> ` +
+          `${me.call} DE ${op.call} KN`,
+        c,
+      ),
       fields: ['temp'],
     },
     { kind: 'key', text: `TU ${op.name} 73 <SK>` },
@@ -260,19 +267,30 @@ export const SIGNAL_MASTER_WPM = 25;
 export const isCleanFast = (c: Contact, res: AirResult, repeats: number) =>
   res.logged && repeats === 0 && c.op.wpm >= SIGNAL_MASTER_WPM;
 
-/** The contact goes in the log; a logged one counts toward the next door. */
+/** The step where a ragchewing operator tells their news (E15). */
+export const NEWS_STEP = 4;
+
+/** An operator's news lines with you, oldest first. */
+export const notesOf = (r: Radio, op: string): readonly string[] => r.notes?.[op] ?? [];
+
+/**
+ * The contact goes in the log; a logged one counts toward the next door. News the operator told
+ * you (E15) is kept, so they carry the story on next time.
+ */
 export function applyContact(
   r: Radio,
   op: string,
   res: AirResult,
   day: string,
   cleanFast = false,
+  news?: string,
 ): Radio {
   return {
     ...r,
     contacts: r.contacts + (res.logged ? 1 : 0),
     cleanFast: r.cleanFast || cleanFast,
     log: [...r.log, { op, day, ok: res.logged }].slice(-LOG_KEEP),
+    ...(news ? { notes: { ...r.notes, [op]: [...notesOf(r, op), news].slice(-NOTES_KEEP) } } : {}),
   };
 }
 
