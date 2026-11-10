@@ -69,7 +69,7 @@ The recording stays in the tab and is never uploaded (ADR 0013). The microphone 
 The same Groq check as on the Say it cards, now on whole sentences in the echo well.
 - It stays **off until Adam adds `GROQ_API_KEY`** in Vercel. Without the key, the button says it isn't set up yet.
 - **It sends a recording only when you press the button.** The privacy line under it says so.
-- **Its answer is a hint, not a score:** "It heard: …", next to the sentence.
+- **Its answer is a hint, not a score:** "It heard: …", next to the sentence. Unlike the Say it cards, it gives no "Understood ✓": without headphones the mic hears the speaker too.
 
 ## 6. Rewards
 - **Contracts:** two new kinds, `pairs-round` (a round of ear training) and `shadow-sentence`. Each needs a template and a migration, as for every contract kind.
@@ -83,5 +83,5 @@ The same Groq check as on the Say it cards, now on whole sentences in the echo w
 1. The echo well station, and "Hear the difference" with its pairs data (`content/arabic/sound-pairs.json`: deck ids and our own labels only). — [#193](https://github.com/Adamzvulun/Liron/issues/193). **Built:** the well is painted left of the road, in front of the slate.
 2. Shadowing: playback at 75% and 100%, recording in step with it, and the three ways to listen back. — [#194](https://github.com/Adamzvulun/Liron/issues/194). **Built.**
 3. Record and compare on the word path's words. — [#195](https://github.com/Adamzvulun/Liron/issues/195). **Built.**
-4. "Did it understand you?" on sentences. — [#196](https://github.com/Adamzvulun/Liron/issues/196)
+4. "Did it understand you?" on sentences. — [#196](https://github.com/Adamzvulun/Liron/issues/196). **Built:** "What would they hear?" under a take. It shows only "It heard: …", with no ✓, because a take made over the speaker can hold the speaker's voice too. The note under the button says to wear headphones.
 5. Contracts and the two achievements. — [#197](https://github.com/Adamzvulun/Liron/issues/197)
