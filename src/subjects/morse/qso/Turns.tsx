@@ -183,3 +183,43 @@ export function KeyTurn({
     </>
   );
 }
+
+/**
+ * Your own news, keyed freely (ADR 0037): a few words of your day for the operator to answer.
+ * Nothing is scored, and you can skip it.
+ */
+export function FreeTurn({
+  name,
+  startDitMs,
+  audio,
+  onDone,
+}: {
+  /** The operator's name. */
+  name: string;
+  startDitMs: number;
+  audio: () => Audio | null;
+  /** What they read, or '' when you skipped. */
+  onDone: (read: string) => void;
+}) {
+  return (
+    <>
+      <p className="qso__say">
+        Your turn to chat: key a few words of your own news for {name}, like{' '}
+        <strong>NEW JOB</strong> or <strong>MY DOG IS SICK</strong>, then press Done. It isn’t
+        scored. Don’t key anything private: it goes to the AI that writes their answer.
+      </p>
+      <Keying
+        text=""
+        free
+        startDitMs={startDitMs}
+        audio={audio}
+        onDone={(marks) => onDone(decode(marks, { startDitMs }).text)}
+      />
+      <div className="lesson__actions">
+        <button type="button" className="lesson__plain" onClick={() => onDone('')}>
+          Skip: no news today
+        </button>
+      </div>
+    </>
+  );
+}

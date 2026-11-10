@@ -13,6 +13,8 @@ After the Far Station (the Operator's trial), the Radio Room is a place to come 
 
 **AI for the news only (E15, [ADR 0036](../decisions/0036-ai-partner-first-slice.md), 2026-11-10).** ADR 0007 pairs a scripted QSO engine with a free model that adds personality. Each operator's personality lives in their script (their own lines, fist and band), and since E15 the last part of a ragchewer's chat turn, their news, is written live by `gemini-3.5-flash-lite` (Groq as the backup), through `api/partner.ts`. What you copy for the log stays scripted. Operators remember their last 3 news lines with you (`radio.notes`). The news shows in the logbook result. The room says openly that the news is written by an AI. When the AI isn't set up, is slow, over the cap (40 a day) or breaks a rule, the script's line is sent.
 
+**You tell your news too ([ADR 0037](../decisions/0037-ai-partner-answers-your-news.md), 2026-11-10).** After their chat you key a few words of your own (or skip), and they answer it live at the start of their sign-off (`FB ON UR NEW JOB, GL`), or with a plain `R R FB` when the answer is late. They remember the last 3 things you told them (`radio.told`) and may ask about them next time.
+
 ## 2. The cast
 Six operators, all fictional, with made-up callsigns. They live in `content/morse/operators.json` (content is data):
 
@@ -36,10 +38,11 @@ It follows real conventions, one turn at a time, as in the Far Station:
 3. **Their report:** greeting, `UR RST`, name and QTH (their town), then `HW?` (how copy?). You copy the RST, name and town.
 4. **Your report:** `R TU <name> UR RST 599 <BT> NAME <yours> <BT> QTH <yours> K`, with the key.
 5. **Their chatter:** one line about their rig and one about their weather, in their own words. You copy one detail, the temperature.
-6. **You sign:** `TU <name> 73 <SK>`.
-7. **They sign:** `TU 73 <SK>`, or for Dex just `TU`.
+6. **Your news (ADR 0037):** key a few words of your own, freely, or skip. Not scored.
+7. **You sign:** `TU <name> 73 <SK>`.
+8. **They sign:** their answer to your news, then `TU 73 <SK>`; for Dex just `TU`.
 
-Dex keeps it short: no chatter turn, and `5NN` for the report (the contesters' 599).
+Dex keeps it short: no chatter or news turn, and `5NN` for the report (the contesters' 599).
 
 **Your callsign and name (my call):** the first time you sit down, you get a callsign of your own and type your name on the air (letters only, at most eight). You keep both, and you can change the name later. A subject can't see your player profile (ADR 0019), so the room asks. The Far Station still makes a new call each time, because it's a trial.
 
@@ -64,7 +67,7 @@ Dex keeps it short: no chatter turn, and `5NN` for the report (the contesters' 5
   - **Worked All:** log a contact with all six operators. 3 gems and the title "of the Airwaves".
   - **Full Logbook:** log 50 contacts. 3 gems.
 - **Signal Master:** the rank asks for a QSO at 25 wpm with no repeats. Today only Dex sends that fast. The contact must be logged with no AGN, no QRS and no resend. It's kept in `radio.cleanFast`.
-- **Later, not dropped:** more free text from E15 (answering what you key in a free-form turn, operators who ask about your news). The first slice, the news line, is built (ADR 0036).
+- **AI slices built:** the operators' news (ADR 0036), and their answer to the news you key, with memory of it (ADR 0037).
 
 ## 6. Where it lives
 - **The hall:** the Radio Room plaque says "On the air · 3 calling" once the Far Station is passed. The Far Station stays in the room as the trial.

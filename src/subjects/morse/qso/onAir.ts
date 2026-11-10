@@ -127,8 +127,14 @@ export const workedWith = (r: Radio, op: string) => r.log.filter((l) => l.op ===
 /** What you copy from a hearing. */
 export type AirField = 'call' | 'rst' | 'name' | 'qth' | 'temp';
 
+/**
+ * A contact's turn: hear and copy, key a set line, or (ADR 0037) key your own news freely, which
+ * isn't scored.
+ */
 export type AirStep =
-  { kind: 'hear'; text: string; fields: readonly AirField[] } | { kind: 'key'; text: string };
+  | { kind: 'hear'; text: string; fields: readonly AirField[] }
+  | { kind: 'key'; text: string }
+  | { kind: 'free' };
 
 export interface Contact {
   op: Operator;
@@ -140,6 +146,10 @@ export interface Contact {
   again: boolean;
   /** Their news, written live by the AI partner (E15); the script's line when missing. */
   news?: string;
+  /** Your own news, as they read it in your free turn (ADR 0037); absent when you skipped. */
+  yours?: string;
+  /** Their answer to your news, written live; a plain "R R FB" stands in when missing. */
+  reply?: string;
 }
 
 const pick = <T>(from: readonly T[], random: () => number) =>
@@ -161,6 +171,12 @@ const fill = (text: string, c: Contact) =>
     .replaceAll('{temp}', c.temp)
     .replace(/\s+/g, ' ')
     .trim();
+
+/** Their answer to your news, ending in a break, or nothing when you told them none. */
+function answerOf(c: Contact): string {
+  if (!c.yours) return '';
+  return `${c.reply ?? 'R R FB'} <BT> `;
+}
 
 /** A contact turn by turn, as real operators send it. A contest station keeps it short. */
 export function contactSteps(c: Contact): AirStep[] {
@@ -201,8 +217,13 @@ export function contactSteps(c: Contact): AirStep[] {
       ),
       fields: ['temp'],
     },
+    { kind: 'free' },
     { kind: 'key', text: `TU ${op.name} 73 <SK>` },
-    { kind: 'hear', text: fill(`${op.sign} ${me.call} DE ${op.call}`, c), fields: [] },
+    {
+      kind: 'hear',
+      text: fill(`${answerOf(c)}${op.sign} ${me.call} DE ${op.call}`, c),
+      fields: [],
+    },
   ];
 }
 
@@ -269,13 +290,19 @@ export const isCleanFast = (c: Contact, res: AirResult, repeats: number) =>
 
 /** The step where a ragchewing operator tells their news (E15). */
 export const NEWS_STEP = 4;
+/** The step where you key your own news (ADR 0037). */
+export const FREE_STEP = 5;
 
 /** An operator's news lines with you, oldest first. */
 export const notesOf = (r: Radio, op: string): readonly string[] => r.notes?.[op] ?? [];
+/** What you told an operator as your news, oldest first. */
+export const toldOf = (r: Radio, op: string): readonly string[] => r.told?.[op] ?? [];
+/** What an operator remembers of you, for the AI partner. */
+export const memoryOf = (r: Radio, op: string) => ({ past: notesOf(r, op), told: toldOf(r, op) });
 
 /**
  * The contact goes in the log; a logged one counts toward the next door. News the operator told
- * you (E15) is kept, so they carry the story on next time.
+ * you (E15) and the news you told them (ADR 0037) are kept, so the story carries on next time.
  */
 export function applyContact(
   r: Radio,
@@ -284,6 +311,7 @@ export function applyContact(
   day: string,
   cleanFast = false,
   news?: string,
+  yours?: string,
 ): Radio {
   return {
     ...r,
@@ -291,6 +319,7 @@ export function applyContact(
     cleanFast: r.cleanFast || cleanFast,
     log: [...r.log, { op, day, ok: res.logged }].slice(-LOG_KEEP),
     ...(news ? { notes: { ...r.notes, [op]: [...notesOf(r, op), news].slice(-NOTES_KEEP) } } : {}),
+    ...(yours ? { told: { ...r.told, [op]: [...toldOf(r, op), yours].slice(-NOTES_KEEP) } } : {}),
   };
 }
 

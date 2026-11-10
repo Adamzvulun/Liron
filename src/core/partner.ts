@@ -5,15 +5,33 @@
  * so a failure here is never shown to the learner as an error.
  */
 
-/** What a partner is asked to write. Only `radio-news` exists so far: an operator's news line. */
-export interface PartnerAsk {
-  kind: 'radio-news';
+/**
+ * What a partner is asked to write. So far, two lines of a Radio Room operator (ADR 0036, 0037):
+ * `radio-news`, their news in the chat turn, and `radio-reply`, their answer to the news you keyed.
+ */
+export type PartnerAsk = RadioNewsAsk | RadioReplyAsk;
+
+interface RadioAsk {
   /** The character: who they are, and a few words about them (our own content). */
   persona: { who: string; about: string };
   /** The learner as the character knows them: the name and town they keyed, contacts so far. */
   learner: { name: string; place: string; contacts: number };
   /** The character's own lines in earlier talks with this learner, oldest first (its memory). */
   past: readonly string[];
+  /** What the learner keyed as their own news in earlier talks, oldest first (ADR 0037). */
+  told?: readonly string[];
+}
+
+export interface RadioNewsAsk extends RadioAsk {
+  kind: 'radio-news';
+}
+
+export interface RadioReplyAsk extends RadioAsk {
+  kind: 'radio-reply';
+  /** The character's own news in this contact, if they told any. */
+  news?: string;
+  /** What the learner keyed just now, as the decoder read it: the line to answer. */
+  heard: string;
 }
 
 export interface PartnerReply {

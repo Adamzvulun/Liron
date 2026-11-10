@@ -1,6 +1,7 @@
 /**
  * The AI partner (E15, ADR 0004, 0007, 0036): a Vercel function (ADR 0011 #3) that writes one
- * line a character says. Only `radio-news` exists so far: a Radio Room operator's news.
+ * line a character says. Two kinds so far, both a Radio Room operator's: `radio-news`, their news
+ * (ADR 0036), and `radio-reply`, their answer to the news the learner keyed (ADR 0037).
  *
  * POST /api/partner, `Authorization: Bearer <the learner's Supabase access token>`, a JSON body
  * shaped like `PartnerAsk` in src/core/partner.ts. Answers `{ text, left }`: the line and how many
@@ -52,18 +53,47 @@ export const RADIO_RULES = [
   'No callsigns, no signal report, no weather, no temperature, no greeting, no sign-off.',
   'Never say you are an AI or a teacher. Stay in character.',
   'If you have past lines with this station, carry that story on; never repeat a line.',
+  'Now and then, instead, ask briefly about news they told you before (e.g. "HW IS UR NEW DOG?").',
+  'You only know what they told you: never say how their news turned out.',
   'Examples: "DOG CHEWED MY HEADPHONES AGN" or "BUILDING A NEW ANTENNA IN THE GARDEN"',
 ].join('\n');
 
-export interface Ask {
-  kind: 'radio-news';
+/** The rules for an operator's answer to the learner's news (ADR 0037). */
+export const REPLY_RULES = [
+  'You are a ham radio operator in a Morse code contact. The other station just sent you their',
+  'own news in Morse. Answer it in one short, warm line before you sign off.',
+  'Reply ONLY with the line, in CAPITALS, using only A-Z, 0-9, spaces and . , ? /',
+  'Use real CW abbreviations (FB, R, TNX, UR, ES, GL, OM, SRI, CONGRATS) where natural.',
+  '2 to 6 words, reacting to what they said. No question: the contact is ending.',
+  'You only know what they told you: never add facts about their life.',
+  'SRI means sorry: use it only for bad news or a missed copy. For good news use FB or CONGRATS.',
+  'No callsigns, no signal report, no weather, no greeting, no 73 and no sign-off words.',
+  'Their Morse was decoded by a machine and may be garbled. If you cannot make sense of it,',
+  'say kindly that you missed some of it (e.g. "SRI NOT ALL COPY, BUT FB").',
+  'If it is rude or not news, just answer "R R FB".',
+  'Never say you are an AI or a teacher. Never correct their Morse. Stay in character.',
+  'Examples: "FB ON UR NEW JOB, GL" or "SRI ABT UR COLD, GET WELL SOON"',
+].join('\n');
+
+interface AskBase {
   persona: { who: string; about: string };
   learner: { name: string; place: string; contacts: number };
   past: string[];
+  told: string[];
 }
+
+export type Ask =
+  | (AskBase & { kind: 'radio-news' })
+  | (AskBase & { kind: 'radio-reply'; news: string | null; heard: string });
 
 const text = (v: unknown, max: number) =>
   typeof v === 'string' && v.trim().length > 0 && v.length <= max ? v.trim() : null;
+
+/** Up to three short lines, or null when it's something else. */
+const lines = (v: unknown, max: number): string[] | null =>
+  Array.isArray(v) && v.length <= 3 && v.every((p) => text(p, max))
+    ? (v as string[]).map((p) => p.trim())
+    : null;
 
 /** Checks the body: our own content and what the learner keyed, all short. */
 export function parseAsk(body: unknown): Ask | null {
@@ -76,29 +106,44 @@ export function parseAsk(body: unknown): Ask | null {
   const name = text(learner.name, 12);
   const place = text(learner.place, 16);
   const contacts = learner.contacts;
-  const past = Array.isArray(b.past) ? b.past : null;
-  if (b.kind !== 'radio-news' || !who || !about || !name || !place) return null;
+  const past = lines(b.past, 80);
+  const told = b.told === undefined ? [] : lines(b.told, 60);
+  if (!who || !about || !name || !place || !past || !told) return null;
   if (typeof contacts !== 'number' || !Number.isInteger(contacts) || contacts < 0) return null;
-  if (!past || past.length > 3 || past.some((p) => !text(p, 80))) return null;
-  return {
-    kind: 'radio-news',
+  const base: AskBase = {
     persona: { who, about },
     learner: { name, place, contacts: Math.min(contacts, 999) },
-    past: (past as string[]).map((p) => p.trim()),
+    past,
+    told,
   };
+  if (b.kind === 'radio-news') return { kind: 'radio-news', ...base };
+  if (b.kind !== 'radio-reply') return null;
+  const heard = text(b.heard, 60);
+  const news = b.news === undefined || b.news === null ? null : text(b.news, 80);
+  if (!heard || (b.news != null && !news)) return null;
+  return { kind: 'radio-reply', ...base, news, heard };
 }
+
+const quoted = (ls: readonly string[]) => ls.map((p) => `"${p}"`).join(' ; ');
 
 /** What the character is told about this talk. */
 export function radioPrompt(ask: Ask): string {
-  const { persona, learner, past } = ask;
+  const { persona, learner, past, told } = ask;
   return [
     `You are ${persona.who}. ${persona.about}`,
     `The other station: name ${learner.name}, town ${learner.place}. ` +
       `Contacts with them before: ${learner.contacts}.`,
     past.length
-      ? `Your lines in past contacts with them, oldest first: ${past.map((p) => `"${p}"`).join(' ; ')}`
+      ? `Your lines in past contacts with them, oldest first: ${quoted(past)}`
       : 'This is your first contact with them.',
-    'Write your next line of news.',
+    ...(told.length ? [`What they told you in past contacts, oldest first: ${quoted(told)}`] : []),
+    ...(ask.kind === 'radio-reply'
+      ? [
+          ...(ask.news ? [`Your news this time was: "${ask.news}"`] : []),
+          `Just now they sent you their news: "${ask.heard}"`,
+          'Write your answer to it.',
+        ]
+      : ['Write your next line of news.']),
   ].join('\n');
 }
 
@@ -229,10 +274,11 @@ export async function handle(
   if (typeof left !== 'number') return fail(left);
 
   const prompt = radioPrompt(ask);
+  const rules = ask.kind === 'radio-reply' ? REPLY_RULES : RADIO_RULES;
   let busy = false;
   for (const provider of [
-    GEMINI_API_KEY ? () => askGemini(GEMINI_API_KEY, RADIO_RULES, prompt, fetchFn) : null,
-    GROQ_API_KEY ? () => askGroq(GROQ_API_KEY, RADIO_RULES, prompt, fetchFn) : null,
+    GEMINI_API_KEY ? () => askGemini(GEMINI_API_KEY, rules, prompt, fetchFn) : null,
+    GROQ_API_KEY ? () => askGroq(GROQ_API_KEY, rules, prompt, fetchFn) : null,
   ]) {
     if (!provider) continue;
     const said = await provider();
