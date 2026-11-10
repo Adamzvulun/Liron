@@ -594,6 +594,356 @@
         },
         "outro": "Abu Nabil closes the ledger. “You count better than my sons.” He writes your name in it, with a line all to yourself."
       }
+    },
+    {
+      "id": "road:22",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 22,
+        "wordChapter": 21,
+        "title": "The Traveler from Baghdad",
+        "who": "Khalid the trader",
+        "intro": "A second caravan comes in from the east, bigger than the first, with tents rolled on the camels’ backs. Khalid has crossed every Arab country selling carpets, and he has a cousin in each. “Syrian, Iraqi, Yemeni, Moroccan: every one of them speaks Arabic, and none of them speaks it the same. Where are you from?”",
+        "milestones": [
+          "Khalid names a city, and you name the country it’s in. He tries ten, and you miss one.",
+          "Khalid’s cousin from Tunis sits down, and you greet him with the word for where he’s from.",
+          "You tell Khalid where each of his carpets was made, from the pattern and his hints."
+        ],
+        "trial": {
+          "name": "Khalid’s Carpets",
+          "text": "Khalid unrolls a carpet from every country he has crossed, and you name them all. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Khalid gives you a small carpet from Iraq. “For your room. So you can say you’ve been somewhere.”"
+      }
+    },
+    {
+      "id": "road:23",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 23,
+        "wordChapter": 22,
+        "title": "The Sailor’s Stories",
+        "who": "Captain Elias",
+        "intro": "A man with a sea-captain’s beard and a sailor’s rolling walk takes a seat. Elias has sailed from Haifa to every port in Europe, and he tells it all at once. “France, Spain, Italy, Greece. I’ve been everywhere the sea goes. Ask me anything.”",
+        "milestones": [
+          "Elias draws the sea on the table with his finger, and you name the countries along its shore.",
+          "Elias tells you the language each port speaks. You tell him which ones you’ve heard of.",
+          "You tell Elias where you’d sail first. He nods: a good choice, though cold in winter."
+        ],
+        "trial": {
+          "name": "The Captain’s Map",
+          "text": "Elias unrolls his old sea chart, and you name every country on it. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Elias gives you a brass compass. “So you always know which way home is, and which way the sea is.”"
+      }
+    },
+    {
+      "id": "road:24",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 24,
+        "wordChapter": 23,
+        "title": "The Far Side of the Map",
+        "who": "Mei the photographer",
+        "intro": "A woman with three cameras around her neck sits down and orders tea in careful Arabic. Mei is from Taiwan, and she has photographed markets in forty countries. “I learned Arabic the way you are learning it. Look at my pictures, and tell me where they are.”",
+        "milestones": [
+          "Mei shows you a market in India and one in Turkey. You tell her which is which.",
+          "You and Mei trade words for countries: her Chinese for your Arabic.",
+          "Mei asks which continent you’d visit first. You tell her, and why, in Arabic."
+        ],
+        "trial": {
+          "name": "Mei’s Album",
+          "text": "Mei shows you her whole album, one country a page. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Mei takes your picture at the innkeeper’s table, with every regular in it. She sends a copy with Dalia’s next mail."
+      }
+    },
+    {
+      "id": "road:25",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 25,
+        "wordChapter": 24,
+        "title": "The Surveyor’s Chain",
+        "who": "Engineer Rami",
+        "intro": "A man in a pressed shirt comes in with a long measuring chain and a book of numbers. Rami measures the new road the caravans will use. “Kilometers, kilograms, thousands of stones. And the work must be done before September.”",
+        "milestones": [
+          "Rami reads you a distance in kilometers, and you write it down in numbers without a pause.",
+          "You tell Rami which month the rains start. He moves his plan back a month.",
+          "You check Rami’s count of the stones for the road: five thousand, three hundred. He was right."
+        ],
+        "trial": {
+          "name": "The Surveyor’s Count",
+          "text": "Rami reads out a page of measures and months, and you check every one. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Rami names a milestone on the new road after the traveler who checked his numbers. It’s your name, carved in Arabic."
+      }
+    },
+    {
+      "id": "road:26",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 26,
+        "wordChapter": 25,
+        "title": "The Market Stall",
+        "who": "Nour the clothes seller",
+        "intro": "A woman with a cart of clothes sets up beside the gate and comes in for her lunch. Nour sells shirts, jeans and coats in the market, and she never lets a customer pay too much. “Small, medium, large. Cash or card. Come and try it, and I’ll tell you the price.”",
+        "milestones": [
+          "You ask Nour the price of a coat, and pay in cash. She gives you the right change.",
+          "Nour holds up a shirt and asks if it’s your size. You tell her you need a large.",
+          "You ask the waiter for the bill for Nour’s lunch and yours, and pay it before she can."
+        ],
+        "trial": {
+          "name": "Nour’s Bargain",
+          "text": "Nour sells her whole cart in an afternoon, and you help with every sale. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Nour gives you a belt from her cart. “No charge. You brought me three customers today.”"
+      }
+    },
+    {
+      "id": "road:27",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 27,
+        "wordChapter": 26,
+        "title": "The Doctor’s Rounds",
+        "who": "Doctor Nadia",
+        "intro": "A doctor with a leather bag comes in from the village late at night. Nadia visits the sick in all the villages around, and she eats whatever the innkeeper puts in front of her. “Eat well, sleep well, and you won’t need me. Now, who here is ill?”",
+        "milestones": [
+          "You tell Nadia that the cook has a headache. She gives you the medicine to take to her.",
+          "Nadia asks what you ate today. You tell her, and she says it’s too much ice cream.",
+          "You help Nadia at the hospital for a morning, and tell her what each patient says."
+        ],
+        "trial": {
+          "name": "The Doctor’s Questions",
+          "text": "Nadia asks you everything she asks a patient. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Nadia writes you a prescription: “Rest one day a week.” The innkeeper pins it on the wall."
+      }
+    },
+    {
+      "id": "road:28",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 28,
+        "wordChapter": 27,
+        "title": "The Holiday Crowd",
+        "who": "Uncle Antoine",
+        "intro": "A big man in a bright shirt comes in with a guitar and a phone full of pictures. Antoine went to Brazil forty years ago and has come home for a holiday. “Music, dancing, swimming, and a selfie with everyone! A day out isn’t a day out without it.”",
+        "milestones": [
+          "Antoine shows you pictures from Mexico and Chile, and you name each country.",
+          "You buy tickets for the whole table to a concert in town. Antoine pays for the ice cream.",
+          "Antoine takes a selfie with you at the pool, and you tell him to send it to everyone."
+        ],
+        "trial": {
+          "name": "Antoine’s Day Out",
+          "text": "Antoine plans a day out for the whole table, and you plan it with him. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Antoine leaves you his guitar when he flies home. “Play for Fares. Tell him the song is from Brazil.”"
+      }
+    },
+    {
+      "id": "road:29",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 29,
+        "wordChapter": 28,
+        "title": "The Old Friend’s Words",
+        "who": "Salim, back again",
+        "intro": "The first regular you met comes back through the gate with his cart. Salim has been on the road for a season, and he talks faster than ever. “You know the words. Now learn the other words: the ones people use when they’re not being careful.”",
+        "milestones": [
+          "Salim says “okay” three different ways, and you answer each one the right way.",
+          "Salim asks why, when and how many, and you answer before he finishes the question.",
+          "You tell Salim what you think about the road, and he says you sound like a local."
+        ],
+        "trial": {
+          "name": "Salim’s Return",
+          "text": "Salim talks the way he talks to his oldest friends, and you keep up. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Salim laughs. “Now you even argue like us.” He sits back in his old seat, next to yours."
+      }
+    },
+    {
+      "id": "road:30",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 30,
+        "wordChapter": 29,
+        "title": "The Barber’s Chair",
+        "who": "Abu Hani the barber",
+        "intro": "A barber sets up his chair under the arches every Friday, and today he comes in for tea. Abu Hani shaves the whole village and hears everyone’s news. “A beard, a mustache, a cut. Sit, and tell me about your week, from waking up to falling asleep.”",
+        "milestones": [
+          "Abu Hani asks how you slept. You tell him: badly, and you dreamed of camels.",
+          "You sneeze in the barber’s chair, and Abu Hani tells you what to say. You say it.",
+          "Abu Hani shaves you, and you describe your whole day to him without stopping."
+        ],
+        "trial": {
+          "name": "The Barber’s Gossip",
+          "text": "Abu Hani tells you the whole village’s news, from head to toe. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Hani gives you a free shave every Friday from now on. “A regular’s right.”"
+      }
+    },
+    {
+      "id": "road:31",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 31,
+        "wordChapter": 30,
+        "title": "The Spice Road",
+        "who": "Umm Ali the cook",
+        "intro": "The second caravan’s cook comes into the kitchen and argues with the innkeeper about salt. Umm Ali cooks for forty travelers a day, and she tastes everything. “Salty, sweet, bitter, spicy. A cook needs a tongue first and hands second.”",
+        "milestones": [
+          "Umm Ali gives you a spoon of everything on the stove, and you say how each one tastes.",
+          "You buy garlic, eggplant and chickpeas in the market for Umm Ali, with nothing forgotten.",
+          "Umm Ali asks how to cook the falafel: fried or baked. You tell her, and she agrees."
+        ],
+        "trial": {
+          "name": "Umm Ali’s Kitchen",
+          "text": "Umm Ali cooks a whole dinner, and you name every dish and taste. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Umm Ali teaches you her falafel. You make it for the whole table, and nobody leaves any."
+      }
+    },
+    {
+      "id": "road:32",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 32,
+        "wordChapter": 31,
+        "title": "The Builder’s House",
+        "who": "Abu Fadi, with his son",
+        "intro": "Abu Fadi the mason comes back, and his son is with him. They’re building a house in the village with a basement, three floors and an elevator, the first in the valley. “Come and see it. Tell me what goes in each room.”",
+        "milestones": [
+          "Abu Fadi’s son shows you the stairs, from the basement to the roof. You name every floor.",
+          "You tell Abu Fadi where the stove, the freezer and the kettle go in the kitchen.",
+          "Abu Fadi asks where you’d put the curtains and the carpet. You tell him, and he writes it down."
+        ],
+        "trial": {
+          "name": "The New House’s Rooms",
+          "text": "Abu Fadi walks you through the finished house, room by room. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Fadi gives you the key to the roof. “The best view in the valley. Come up whenever you like.”"
+      }
+    },
+    {
+      "id": "road:33",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 33,
+        "wordChapter": 32,
+        "title": "The Hiring Fair",
+        "who": "Wafa the manager",
+        "intro": "A woman with a list sits down and starts asking everyone what they do. Wafa runs the new factory in town and needs workers. “Engineers, mechanics, a nurse, a cook. And someone who can talk to all of them.”",
+        "milestones": [
+          "Wafa asks you what each regular does for work. You tell her, and she writes them down.",
+          "You help Wafa write a notice: the working hours, the salary and when the breaks are.",
+          "Wafa holds a meeting with her new workers, and you explain each job in Arabic."
+        ],
+        "trial": {
+          "name": "Wafa’s Interviews",
+          "text": "Wafa interviews twenty workers, and you help with every one. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Wafa offers you a job. You say no, kindly, in Arabic. She laughs and says the offer stays open."
+      }
+    },
+    {
+      "id": "road:34",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 34,
+        "wordChapter": 33,
+        "title": "The Long Way Round",
+        "who": "Amal, back from the border",
+        "intro": "Amal the bus driver comes back with news: the new road is open, and she drives to the coast and the border now. “Bus, ship, plane: I’ve booked them all for travelers. Now you can go abroad and back, if you know how to ask.”",
+        "milestones": [
+          "Amal asks where to park the bus in town. You tell her: by the square, at the corner.",
+          "You change money with Amal for her next trip, and count it twice.",
+          "Amal tells you how to check in at the airport. You tell it back to her, step by step."
+        ],
+        "trial": {
+          "name": "Amal’s New Route",
+          "text": "Amal drives you along the whole new road, from the square to the border. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Amal stamps the ticket she gave you long ago. It’s good for anywhere now, whenever you’re ready."
+      }
+    },
+    {
+      "id": "road:35",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 35,
+        "wordChapter": 34,
+        "title": "The Innkeeper’s Story",
+        "who": "The innkeeper",
+        "intro": "On the quietest night of the year, the innkeeper sits down at her own table for the first time. She pours two cups, one for you. “Everyone has told you their story. Mine is short. Do you want to hear it?”",
+        "milestones": [
+          "The innkeeper tells you about the year she came here, long ago. You listen without asking for a single word.",
+          "She asks what you’re afraid of and what you hope for. You tell her both, in Arabic.",
+          "She asks what you’ll do one day, when you leave. You tell her your plan, and she says it’s a good one."
+        ],
+        "trial": {
+          "name": "The Innkeeper’s Night",
+          "text": "The innkeeper asks you everything, the way a friend does. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "The innkeeper turns her book to the first page. Under “guest,” she has written a new word next to your name: صاحب. Friend of the house."
+      }
     }
   ]
 }
