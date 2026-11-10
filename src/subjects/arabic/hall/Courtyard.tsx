@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { useStage } from '../../../core/city/useStage.ts';
-import type { SubjectApi } from '../../../core/subject.ts';
+import type { SkillRating, SubjectApi } from '../../../core/subject.ts';
 import { LESSONS, lettersUpTo } from '../letters.ts';
 import { parseProgress, PASSES_NEEDED, wordsOpen, type ArabicProgress } from '../progress.ts';
 import { questStatus, regularStatus, roman } from '../questline.ts';
@@ -90,11 +90,17 @@ export function Courtyard({
 }) {
   const [progress, setProgress] = useState<ArabicProgress | null>(null);
   const [failed, setFailed] = useState(false);
+  const [ratings, setRatings] = useState<ReadonlyMap<string, SkillRating>>(new Map());
   useEffect(() => {
     let live = true;
     api.loadState().then(
       (s) => live && setProgress(parseProgress(s)),
       () => live && setFailed(true),
+    );
+    // The ratings only add a line beside the rank (#180): if they can't be read, it shows dashes.
+    api.skillRatings().then(
+      (r) => live && setRatings(r),
+      () => undefined,
     );
     return () => {
       live = false;
@@ -116,7 +122,7 @@ export function Courtyard({
   };
   return (
     <>
-      <Scene progress={progress} onOpen={onOpen} />
+      <Scene progress={progress} ratings={ratings} onOpen={onOpen} />
       {fresh.length > 0 && (
         <RankUp guild="House of the Crossing" rank={here.rank} after={here} onTake={take} />
       )}
@@ -124,11 +130,42 @@ export function Courtyard({
   );
 }
 
+/** The house's main skills, rated beside the rank (#180, ADR 0024): what you do now, not what you've done. */
+const RATED = [
+  ['read', 'Read'],
+  ['listen', 'Listen'],
+] as const;
+
+function Ratings({
+  ratings,
+  className,
+}: {
+  ratings: ReadonlyMap<string, SkillRating>;
+  className: string;
+}) {
+  return (
+    <p className={className} aria-label="Your skill ratings">
+      {RATED.map(([skill, label], i) => {
+        const r = ratings.get(skill);
+        return (
+          <span key={skill}>
+            {i > 0 && <span className="khan__sep"> · </span>}
+            {label} {r ? Math.round(r.rating).toLocaleString('en-US') : '—'}
+            {r?.provisional && <small title="Provisional: still settling">?</small>}
+          </span>
+        );
+      })}
+    </p>
+  );
+}
+
 function Scene({
   progress,
+  ratings,
   onOpen,
 }: {
   progress: ArabicProgress;
+  ratings: ReadonlyMap<string, SkillRating>;
   onOpen: (door: CourtyardDoor) => void;
 }) {
   const [ref, { scale, x, y, pan }] = useStage(KHAN_STAGE.width * 0.3, khanFit);
@@ -340,6 +377,7 @@ function Scene({
                   ? `${rank.next}: ${toward} / ${standing.checks.length}`
                   : `${known} / ${total} letters`}
               </p>
+              <Ratings ratings={ratings} className="khan__ratings" />
             </aside>
           )}
         </div>
@@ -393,6 +431,7 @@ function Scene({
               Next: {rank.next} ·{' '}
               {progress.guest ? needLine(standing) : `${known} / ${total} letters`}
             </p>
+            <Ratings ratings={ratings} className="khan__card-ratings" />
           </aside>
         </div>
       )}

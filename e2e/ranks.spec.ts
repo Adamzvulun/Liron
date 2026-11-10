@@ -59,3 +59,32 @@ test.describe('Guild ranks (#174)', () => {
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 });
+
+test.describe('Skill ratings beside the rank (#180)', () => {
+  test('the courtyard shows the read and listen ratings next to the rank', async ({ page }) => {
+    await signedIn(page, [], [], { lesson: 8, done: true, guest: true, ranks: ['guest'] }, [], {
+      ratings: { arabic: { read: 1240, listen: 1180 } },
+    });
+    await page.goto('/caravanserai');
+    await expect(
+      page.getByLabel('Your skill ratings').filter({ visible: true }).first(),
+    ).toHaveText('Read 1,240 · Listen 1,180');
+  });
+
+  test('a skill with no results yet shows a dash', async ({ page }) => {
+    await signedIn(page, [], [], { lesson: 8, done: true, guest: true, ranks: ['guest'] }, [], {
+      ratings: { arabic: { read: 1105 } },
+    });
+    await page.goto('/caravanserai');
+    await expect(
+      page.getByLabel('Your skill ratings').filter({ visible: true }).first(),
+    ).toHaveText('Read 1,105 · Listen —');
+  });
+
+  test('the tower shows the receive rating beside the rank', async ({ page }) => {
+    await signedIn(page, [], [], { unlocked: 5 }, [], { ratings: { morse: { receive: 1240 } } });
+    await page.goto('/signal-tower');
+    const guild = page.getByLabel('Your standing in the guild').filter({ visible: true }).first();
+    await expect(guild.getByText('1,240')).toBeVisible();
+  });
+});
