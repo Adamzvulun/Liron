@@ -15,6 +15,20 @@ import {
   type WordAttempt,
 } from './drill.ts';
 import { Rush, RushSummaryCard } from './Rush.tsx';
+import { MORSE_CHARS } from '../code.ts';
+import {
+  applyWatch,
+  reportWatch,
+  WATCH_PASS,
+  WATCH_WORDS,
+  WATCH_WPM,
+  WATCH_XP,
+  watchOpen,
+  watchPassed,
+  watchResult,
+  watchWords,
+  type WatchResult,
+} from './nightWatch.ts';
 import {
   applyRush,
   reportRush,
@@ -30,11 +44,11 @@ import './words.css';
 // has ended. AGN plays it again, once, for half credit. Q-codes, abbreviations and prosigns show
 // their meaning after you answer. Design: docs/game/morse-words.md.
 
-/** `?run=short` makes a round 3 words (for tests). */
-const roundSize = () =>
-  typeof location !== 'undefined' && new URLSearchParams(location.search).get('run') === 'short'
-    ? 3
-    : ROUND_WORDS;
+const shortRun = () =>
+  typeof location !== 'undefined' && new URLSearchParams(location.search).get('run') === 'short';
+/** `?run=short` makes a round 3 words, and the Night Watch too (for tests). */
+const roundSize = () => (shortRun() ? 3 : ROUND_WORDS);
+const watchSize = () => (shortRun() ? 3 : WATCH_WORDS);
 
 const KIND_LABEL: Record<MorseWord['kind'], string> = {
   word: 'Word',
@@ -46,9 +60,11 @@ const KIND_LABEL: Record<MorseWord['kind'], string> = {
 interface Round {
   words: MorseWord[];
   progress: MorseProgress;
+  /** The Night Watch (#179): a full 20 wpm and no AGN. */
+  watch?: boolean;
 }
 
-export function WordDrill({ api }: { api: SubjectApi }) {
+export function WordDrill({ api, start: opening }: { api: SubjectApi; start?: 'watch' }) {
   const [progress, setProgress] = useState<MorseProgress | null>(null);
   const [failed, setFailed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
@@ -59,6 +75,12 @@ export function WordDrill({ api }: { api: SubjectApi }) {
   const [rushResult, setRushResult] = useState<{ calls: RushCall[]; bestBefore: number } | null>(
     null,
   );
+  const [watchIntro, setWatchIntro] = useState(opening === 'watch');
+  const [watchDone, setWatchDone] = useState<{
+    attempts: WordAttempt[];
+    result: WatchResult;
+    xp: number;
+  } | null>(null);
   const latest = useRef<MorseProgress | null>(null);
 
   useEffect(() => {
@@ -120,6 +142,35 @@ export function WordDrill({ api }: { api: SubjectApi }) {
     [api],
   );
 
+  const beginWatch = useCallback(() => {
+    const p = latest.current;
+    if (!p) return;
+    setWatchIntro(false);
+    setWatchDone(null);
+    setResult(null);
+    setRushResult(null);
+    setRound({ progress: p, words: watchWords(Math.random, watchSize()), watch: true });
+  }, []);
+
+  const finishWatch = useCallback(
+    (attempts: WordAttempt[], seconds: number) => {
+      const before = latest.current;
+      if (!before) return;
+      const result = watchResult(attempts);
+      const first = result.passed && !watchPassed(before);
+      const next = applyWatch(before, result);
+      latest.current = next;
+      setProgress(next);
+      setRound(null);
+      setWatchDone({ attempts, result, xp: first ? WATCH_XP.pass : WATCH_XP.try });
+      reportWatch(api, before, next, result, seconds).then(
+        () => setSaveFailed(false),
+        () => setSaveFailed(true),
+      );
+    },
+    [api],
+  );
+
   const startRush = useCallback(() => {
     setResult(null);
     setRushResult(null);
@@ -162,7 +213,20 @@ export function WordDrill({ api }: { api: SubjectApi }) {
         </p>
       )}
       {round ? (
-        <Copy round={round} onDone={finish} />
+        <Copy round={round} onDone={round.watch ? finishWatch : finish} />
+      ) : watchIntro ? (
+        <WatchIntro
+          ready={watchOpen(progress, MORSE_CHARS.length)}
+          passed={watchPassed(progress)}
+          onBegin={beginWatch}
+          onPractice={() => setWatchIntro(false)}
+        />
+      ) : watchDone ? (
+        <WatchResultCard
+          {...watchDone}
+          onAgain={beginWatch}
+          onPractice={() => setWatchDone(null)}
+        />
       ) : rushing ? (
         <Rush progress={progress} onDone={finishRush} />
       ) : rushResult ? (
@@ -198,6 +262,11 @@ export function WordDrill({ api }: { api: SubjectApi }) {
               >
                 {starting ? 'Opening…' : 'Start a round'}
               </button>
+              {watchOpen(progress, MORSE_CHARS.length) && (
+                <button type="button" className="lesson__plain" onClick={() => setWatchIntro(true)}>
+                  {watchPassed(progress) ? 'The Night Watch · passed' : 'Trial · The Night Watch'}
+                </button>
+              )}
               <h3 className="words__subtitle">Callsign rush</h3>
               {rushOpen(unlockedChars(progress)) ? (
                 <>
@@ -235,7 +304,8 @@ function Copy({
   round: Round;
   onDone: (attempts: WordAttempt[], seconds: number) => void;
 }) {
-  const { words, progress } = round;
+  const { words, progress, watch } = round;
+  const effWpm = watch ? WATCH_WPM : progress.effWpm;
   const keys = unlockedChars(progress).filter((c) => /^[A-Z0-9]$/.test(c));
   const [n, setN] = useState(0);
   const [step, setStep] = useState<Step>('listening');
@@ -253,11 +323,11 @@ function Copy({
     async (w: MorseWord) => {
       const p = (player.current ??= new MorsePlayer());
       const id = ++plays.current;
-      const pb = await p.play(written(w), { charWpm: CHAR_WPM, effWpm: progress.effWpm });
+      const pb = await p.play(written(w), { charWpm: CHAR_WPM, effWpm });
       await pb.done;
       if (id === plays.current) setStep((s) => (s === 'listening' ? 'typing' : s));
     },
-    [progress.effWpm],
+    [effWpm],
   );
 
   useEffect(() => {
@@ -287,12 +357,12 @@ function Copy({
   }, [n, words.length, attempts, onDone]);
 
   const repeat = useCallback(() => {
-    if (!word || again || step === 'answered') return;
+    if (!word || again || watch || step === 'answered') return;
     setAgain(true);
     setTyped('');
     setStep('listening');
     void play(word);
-  }, [word, again, step, play]);
+  }, [word, again, watch, step, play]);
 
   const press = useCallback(
     (k: string) => {
@@ -329,6 +399,7 @@ function Copy({
     <div className="lesson__run">
       <div className="lesson__card lesson__copy">
         <p className="lesson__kicker">
+          {watch && 'The Night Watch · '}
           Word {n + 1} of {words.length}
           {step === 'listening' && ' · listening…'}
           {step === 'typing' && ' · type what you heard'}
@@ -365,7 +436,7 @@ function Copy({
       {answered ? (
         <div className="lesson__actions">
           <button type="button" className="lesson__go" onClick={next}>
-            {n + 1 >= words.length ? 'See the round' : 'Next word'}
+            {n + 1 >= words.length ? (watch ? 'End the watch' : 'See the round') : 'Next word'}
           </button>
         </div>
       ) : (
@@ -384,15 +455,17 @@ function Copy({
             ))}
           </div>
           <div className="lesson__aux">
-            <button
-              type="button"
-              className="lesson__key lesson__key--aux words__agn"
-              onClick={repeat}
-              disabled={again || step === 'listening'}
-              aria-label="AGN: hear it again"
-            >
-              AGN
-            </button>
+            {!watch && (
+              <button
+                type="button"
+                className="lesson__key lesson__key--aux words__agn"
+                onClick={repeat}
+                disabled={again || step === 'listening'}
+                aria-label="AGN: hear it again"
+              >
+                AGN
+              </button>
+            )}
             <button
               type="button"
               className="lesson__key lesson__key--aux"
@@ -438,6 +511,91 @@ function Summary({ attempts, onAgain }: { attempts: WordAttempt[]; onAgain: () =
       <div className="lesson__actions">
         <button type="button" className="lesson__go" onClick={onAgain}>
           Another round
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** The Night Watch's door (#179): what it asks, before you face it. */
+function WatchIntro({
+  ready,
+  passed,
+  onBegin,
+  onPractice,
+}: {
+  ready: boolean;
+  passed: boolean;
+  onBegin: () => void;
+  onPractice: () => void;
+}) {
+  return (
+    <div className="lesson__card lesson__start">
+      <p className="lesson__kicker">Trial · the Telegraphist’s rank</p>
+      <h2 className="lesson__title">The Night Watch</h2>
+      <p>
+        All night the wire talks, and the watch copies it in their head. {WATCH_WORDS} common words
+        at a full {WATCH_WPM} wpm, each heard once. There is no AGN on the night wire. Copy{' '}
+        {WATCH_PASS} of them.
+      </p>
+      {passed && <p className="lesson__note">Passed. You can keep the watch again for practice.</p>}
+      {ready ? (
+        <button type="button" className="lesson__go" onClick={onBegin}>
+          Keep the watch
+        </button>
+      ) : (
+        <p className="lesson__note">
+          Opens once you’ve learned all {MORSE_CHARS.length} characters.
+        </p>
+      )}
+      <div className="lesson__actions">
+        <button type="button" className="lesson__plain" onClick={onPractice}>
+          Practice in the Codebook
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function WatchResultCard({
+  attempts,
+  result,
+  xp,
+  onAgain,
+  onPractice,
+}: {
+  attempts: WordAttempt[];
+  result: WatchResult;
+  xp: number;
+  onAgain: () => void;
+  onPractice: () => void;
+}) {
+  return (
+    <div className="lesson__card words__result">
+      <p className={`lesson__pct${result.passed ? ' is-good' : ''}`}>
+        {result.right} / {result.total}
+      </p>
+      <p className="lesson__kicker">words copied · {WATCH_WPM} wpm</p>
+      <h2 className="lesson__title">
+        {result.passed
+          ? 'Dawn, and nothing missed'
+          : `The watch needs ${WATCH_PASS} of ${WATCH_WORDS}`}
+      </h2>
+      <ul className="words__list">
+        {attempts.map((a, i) => (
+          <li key={i} className={isRight(a) ? 'is-right' : 'is-wrong'}>
+            <strong>{written(a.word)}</strong>
+            {!isRight(a) && <span> you copied {a.typed}</span>}
+          </li>
+        ))}
+      </ul>
+      <p className="lesson__note">+{xp} XP</p>
+      <div className="lesson__actions">
+        <button type="button" className="lesson__plain" onClick={onPractice}>
+          Practice in the Codebook
+        </button>
+        <button type="button" className="lesson__go" onClick={onAgain}>
+          {result.passed ? 'Keep it again' : 'Try again'}
         </button>
       </div>
     </div>

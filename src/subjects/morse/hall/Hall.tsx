@@ -15,6 +15,7 @@ import { questStatus, roman } from '../questline.ts';
 import { wordsOpen } from '../words/drill.ts';
 import { MORSE_CHARS } from '../code.ts';
 import { lampOpen, lampPassed } from '../send/lampSignal.ts';
+import { watchOpen, watchPassed } from '../words/nightWatch.ts';
 import {
   BANNER,
   GATE,
@@ -32,7 +33,7 @@ import './hall.css';
 // rank on the guild's banner, and each activity is a station on the floor. On an upright phone
 // the room pans sideways and the same things follow below it as cards.
 
-export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words';
+export type HallDoor = 'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words' | 'watch';
 
 // The room never changes, so it's painted once per page load.
 let painted: ReturnType<typeof paintTower> | undefined;
@@ -279,9 +280,11 @@ function Room({
       title: 'Codebook',
       text: !wordsOpen(progress)
         ? 'Locked · pass the Gatekeeper'
-        : progress.words.best
-          ? `Your best: ${progress.words.best} of 10`
-          : 'Copy whole words',
+        : watchOpen(progress, MORSE_CHARS.length) && !watchPassed(progress)
+          ? 'Trial · The Night Watch'
+          : progress.words.best
+            ? `Your best: ${progress.words.best} of 10`
+            : 'Copy whole words',
       ...(wordsOpen(progress) && { open: 'words' as const }),
     },
     {

@@ -58,8 +58,7 @@
       "data": {
         "gear": "night-lantern",
         "name": "Telegraphist",
-        "conditions": ["Head-copy common words at 20 wpm: pass the Night Watch"],
-        "later": "The Night Watch opens soon",
+        "conditions": ["Head-copy 20 common words at 20 wpm: pass the Night Watch"],
         "order": 5
       }
     },
