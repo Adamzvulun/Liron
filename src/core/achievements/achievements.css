@@ -1,0 +1,204 @@
+/* Your House's wall of plaques and the title picker (#177). Earned plaques are polished brass;
+   the rest are plain wood with a progress bar. */
+
+.trophies {
+  margin-top: 24px;
+  padding: 8px 20px 20px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--parchment), #e8d2a4);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.trophies__heading {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--wood);
+}
+
+.trophies__count {
+  margin: 2px 0 10px;
+  font-weight: 700;
+}
+
+.trophies__titles {
+  margin: 0 0 14px;
+  padding: 8px 0 10px;
+  border: 0;
+  border-top: 2px dashed rgba(107, 63, 32, 0.35);
+  border-bottom: 2px dashed rgba(107, 63, 32, 0.35);
+}
+
+.trophies__titles legend {
+  padding: 0;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.trophies__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.trophies__title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff6df, #ead3a3);
+  box-shadow: 0 3px 0 var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.trophies__title input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.trophies__title:has(input:checked) {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+  box-shadow:
+    0 3px 0 var(--ink),
+    0 0 0 3px var(--lamplight);
+}
+
+.trophies__title:has(input:focus-visible) {
+  outline: 4px solid var(--guild-morse);
+  outline-offset: 2px;
+}
+
+.trophies__hint,
+.trophies__status {
+  margin: 6px 0 0;
+  font-size: 15px;
+  font-style: italic;
+  color: #6b5640;
+}
+
+.trophies__status:empty {
+  display: none;
+}
+
+.trophies__wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trophies__plaque {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 3px solid rgba(42, 23, 12, 0.55);
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 38px, rgba(42, 23, 12, 0.06) 38px 40px),
+    linear-gradient(180deg, #c9a878, #a98455);
+  color: #3a2212;
+}
+
+.trophies__plaque--earned {
+  border-color: var(--ink);
+  background:
+    radial-gradient(ellipse 70% 50% at 25% 15%, rgba(255, 249, 220, 0.75), transparent 70%),
+    linear-gradient(180deg, #ffe39a, var(--brass) 70%, #b07a26);
+  box-shadow:
+    0 3px 0 var(--ink),
+    inset 0 0 0 2px rgba(255, 246, 214, 0.6);
+  color: var(--ink);
+}
+
+.trophies__name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+
+.trophies__text {
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.trophies__done {
+  align-self: flex-start;
+  padding: 1px 8px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--parchment);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.trophies__progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.trophies__progress progress {
+  flex: 1;
+  height: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: rgba(255, 246, 223, 0.6);
+  overflow: hidden;
+  appearance: none;
+}
+
+.trophies__progress progress::-webkit-progress-bar {
+  background: rgba(255, 246, 223, 0.6);
+}
+
+.trophies__progress progress::-webkit-progress-value {
+  background: var(--lamplight);
+}
+
+.trophies__progress progress::-moz-progress-bar {
+  background: var(--lamplight);
+}
+
+.trophies__reward {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.trophies__gems {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.trophies__gems svg {
+  width: 18px;
+  height: 18px;
+}
+
+.trophies__unlocks {
+  font-style: italic;
+}

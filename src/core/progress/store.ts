@@ -2,6 +2,7 @@ import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import type { SubjectProgress } from '../subject.ts';
 import type { ScheduledReview, StoredCard } from '../srs/scheduler.ts';
 import type { StoredRating } from '../rating/ratings.ts';
+import { ACHIEVEMENTS, type MyAchievements } from '../achievements/achievements.ts';
 import {
   addDays,
   dailyChest,
@@ -141,6 +142,8 @@ export interface Profile {
   avatar: Look;
   /** Ids of the items the player owns (ADR 0033). */
   owned: string[];
+  /** The title worn under the name (#177); '' for none, when the level's title shows. */
+  title: string;
 }
 
 /** Names are 1-40 characters after trimming (the database checks the length too). */
@@ -164,6 +167,10 @@ export interface ProgressStore {
   profile(): Promise<Profile>;
   setDisplayName(name: string): Promise<void>;
   setAvatar(look: Look): Promise<void>;
+  /** The player's achievements (#177): any now met are given first, and their gems paid. */
+  achievements(): Promise<MyAchievements>;
+  /** Wears an earned title, or none with ''; the database refuses one not earned. */
+  setTitle(title: string): Promise<void>;
   today(): Promise<Today>;
   /** Changes the daily goal; lowering it below today's minutes reaches today's goal at once. */
   setDailyGoal(minutes: number): Promise<{ wallet: Wallet; today: DayResult }>;
@@ -215,6 +222,8 @@ export function memoryStore(
   clock: { today: () => string } = { today: () => new Date().toISOString().slice(0, 10) },
 ): ProgressStore & {
   travel(days: number): void;
+  /** Gives an achievement, as the database would once its condition is met. */
+  earnAchievement(id: string): void;
   reviewLog: readonly object[];
   ratingLog: readonly object[];
 } {
@@ -225,7 +234,9 @@ export function memoryStore(
     return s;
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
-  const profile: Profile = { displayName: '', avatar: DEFAULT_LOOK, owned: [] };
+  const profile: Profile = { displayName: '', avatar: DEFAULT_LOOK, owned: [], title: '' };
+  /** Achievement ids earned, with when; tests give them through `earnAchievement`. */
+  const achieved = new Map<string, string>();
   const days = new Map<string, { minutes: number; reached: boolean }>();
   const cards = new Map<string, { due: Date; card: StoredCard }>(); // key: subject/item
   const reviewLog: { subjectId: string; itemId: string; rating: number; at: Date }[] = [];
@@ -265,6 +276,7 @@ export function memoryStore(
   };
   const store: ProgressStore & {
     travel(days: number): void;
+    earnAchievement(id: string): void;
     reviewLog: readonly object[];
     ratingLog: readonly object[];
   } = {
@@ -377,6 +389,26 @@ export function memoryStore(
     },
     async setAvatar(look) {
       profile.avatar = look;
+    },
+    async achievements() {
+      return {
+        title: profile.title,
+        gems: wallet.gems,
+        achievements: ACHIEVEMENTS.map((a) => ({
+          id: a.id,
+          progress: achieved.has(a.id) ? a.condition.n : 0,
+          target: a.condition.n,
+          earnedAt: achieved.get(a.id) ?? null,
+        })),
+      };
+    },
+    earnAchievement(id) {
+      achieved.set(id, new Date().toISOString());
+    },
+    async setTitle(title) {
+      if (title && !ACHIEVEMENTS.some((a) => a.title === title && achieved.has(a.id)))
+        throw new Error('That title is not yours yet');
+      profile.title = title;
     },
     async today() {
       return status();

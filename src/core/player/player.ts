@@ -13,6 +13,7 @@ import {
   type TodaysContracts,
   type Wallet,
 } from '../progress/store.ts';
+import type { MyAchievements } from '../achievements/achievements.ts';
 
 /** What the level-up card shows. Several level-ups before it's dismissed merge into one. */
 export type LevelUpInfo = Pick<
@@ -36,6 +37,8 @@ export interface PlayerState {
   chests: Chest[];
   /** Today's Market stall (#49); null until the Market is visited. */
   market: MarketStall | null;
+  /** The player's achievements (#177); null until Your House is visited. */
+  achievements: MyAchievements | null;
 }
 
 /** The browser's time zone, e.g. "Asia/Jerusalem". */
@@ -57,6 +60,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     contracts: null,
     chests: [],
     market: null,
+    achievements: null,
   };
   const listeners = new Set<() => void>();
   const set = (next: Partial<PlayerState>) => {
@@ -208,9 +212,40 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       const clean = name.trim().replace(/\s+/g, ' ');
       if (clean.length > MAX_NAME_LENGTH) return false;
       const before = state.profile;
-      set({ profile: { ...(before ?? { avatar: DEFAULT_LOOK, owned: [] }), displayName: clean } });
+      set({
+        profile: {
+          ...(before ?? { avatar: DEFAULT_LOOK, owned: [], title: '' }),
+          displayName: clean,
+        },
+      });
       try {
         await store.setDisplayName(clean);
+        return true;
+      } catch {
+        set({ profile: before });
+        return false;
+      }
+    },
+    /** Reads the achievements; any just met are given, and the gems they paid show at once. */
+    async loadAchievements() {
+      try {
+        const achievements = await store.achievements();
+        set({
+          achievements,
+          wallet: state.wallet && { ...state.wallet, gems: achievements.gems },
+          profile: state.profile && { ...state.profile, title: achievements.title },
+        });
+      } catch {
+        // Your House still works without them; the wall says it couldn't load.
+        set({ achievements: null });
+      }
+    },
+    /** Wears an earned title, or none with ''. Returns false, keeping the old one, if refused. */
+    async setTitle(title: string): Promise<boolean> {
+      const before = state.profile;
+      if (before) set({ profile: { ...before, title } });
+      try {
+        await store.setTitle(title);
         return true;
       } catch {
         set({ profile: before });
@@ -220,7 +255,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     /** Saves the avatar's look (#29). Returns false, keeping the old look, if it couldn't. */
     async setAvatar(look: Look): Promise<boolean> {
       const before = state.profile;
-      set({ profile: { ...(before ?? { displayName: '', owned: [] }), avatar: look } });
+      set({ profile: { ...(before ?? { displayName: '', owned: [], title: '' }), avatar: look } });
       try {
         await store.setAvatar(look);
         return true;
