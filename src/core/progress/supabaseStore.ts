@@ -242,8 +242,8 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       const [{ data, error }, items] = await Promise.all([
         client
           .from('profiles')
-          .select('display_name, avatar')
-          .maybeSingle<{ display_name: string; avatar: unknown }>(),
+          .select('display_name, avatar, title')
+          .maybeSingle<{ display_name: string; avatar: unknown; title: string | null }>(),
         client.from('owned_items').select('item_id').returns<{ item_id: string }[]>(),
       ]);
       if (error) throw new Error(`Couldn't read your profile: ${error.message}`);
@@ -253,7 +253,28 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
         displayName: data?.display_name ?? '',
         avatar: parseLook(data?.avatar, new Set(owned)),
         owned,
+        title: data?.title ?? '',
       };
+    },
+    async achievements() {
+      const r = await call<{
+        title: string | null;
+        gems: number | null;
+        achievements: { id: string; progress: number; target: number; earned_at: string | null }[];
+      }>('my_achievements', {}, 'read your achievements');
+      return {
+        title: r.title ?? '',
+        gems: r.gems ?? 0,
+        achievements: r.achievements.map((a) => ({
+          id: a.id,
+          progress: a.progress,
+          target: a.target,
+          earnedAt: a.earned_at,
+        })),
+      };
+    },
+    async setTitle(title) {
+      await call('set_title', { p_title: title }, 'wear that title');
     },
     async setAvatar(look) {
       const { data } = await client.auth.getSession();
