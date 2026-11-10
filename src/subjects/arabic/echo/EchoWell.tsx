@@ -5,7 +5,7 @@ import { Ar } from '../lesson/ScriptLesson.tsx';
 import { seeded } from '../lesson/questions.ts';
 import { useAudio } from '../lesson/useAudio.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
-import { DECK, wordsFrom, type Word } from '../words.ts';
+import { DECK, ECHO_POOL, wordsFrom, type Word } from '../words.ts';
 import {
   applyRound,
   audioOf,
@@ -56,7 +56,7 @@ export function EchoWell({ api }: { api: SubjectApi }) {
       ([state, pack]) => {
         if (!live) return;
         setProgress(parseProgress(state));
-        setDeck({ words: wordsFrom(pack.items), items: pack.items });
+        setDeck({ words: wordsFrom(pack.items, ECHO_POOL), items: pack.items });
       },
       () => live && setFailed(true),
     );

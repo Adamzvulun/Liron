@@ -1,10 +1,11 @@
 import { expect, test } from '@playwright/test';
-import { deckWord, signedIn, type SubjectCall } from './fake-supabase.ts';
+import { pathWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // The echo well (#193): "Hear the difference", ear training on sound pairs. Made-up deck-like
-// words (not the deck's own), romanized the deck's way: ɧ for ح, h for ه.
+// words (not the deck's own), romanized the deck's way: ɧ for ح, h for ه. They borrow word-path
+// ids, since the well draws only on the path and the reviewed lesson words.
 const word = (n: number, arabic: string, latin: string) => {
-  const row = deckWord(n, arabic, `word ${n}`);
+  const row = pathWord(n, arabic, `word ${n}`);
   return { ...row, data: { ...row.data, pronunciation: latin } };
 };
 const ROWS = [
