@@ -92,13 +92,29 @@ I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories ma
   - each word is an FSRS item `word:pcav:<n>`: right first time is Good, right after a miss is Hard, wrong is Again;
   - each answer is a result in the `listen` or `read` skill, so word practice moves the same ratings as the letters;
   - XP is about 10 a minute (economy);
-  - events `word-session`, and `word-90` for 90% or better. Their daily contracts come in the same migration style as the Morse drills' (a template only offered once you've played the drill), after that migration is merged.
+  - events `word-session`, and `word-90` for 90% or better. Their daily contracts (2 word sessions, 15 gold; a session at 90%, 20 gold) are only offered once you've had a word session on an earlier day ([economy](economy.md#daily-contracts)).
 - **The chapter gate:** like the letters, 90% in two sessions in a row, the second on a later day. Then the next chapter's words start coming.
 
-## 5. The regulars ("The Long Road In", chapter 2 onward) (#161)
-- After the Painted Sign, you're a guest. Each word chapter brings someone new to sit at the innkeeper's table: a carter, the baker's daughter, a schoolteacher, a spice seller and so on.
-- Each one has an opening beat, milestones along the chapter, and a trial at its end: 30 of the chapter's words at 90%, like "The Painted Sign".
-- The trial passed gives XP and a brass chest (ADR 0033), and the regular stays at the table.
+## 5. The regulars ("The Long Road In", chapters II–XI) (#161)
+- After the Painted Sign, you're a guest. Each of the 10 word chapters brings someone new to sit at the innkeeper's table. Their stories are data in `content/arabic/questline.json` (items `road:2` to `road:11`, type `regular`; our own text only).
+
+| Chapter | Regular | Trial |
+|---|---|---|
+| II | Salim the carter | The Carter's Roll Call |
+| III | Umm Khalil | Umm Khalil's Questions |
+| IV | Yusuf the clockmender | The Clockmender's Count |
+| V | Rana | Rana's Bread Basket |
+| VI | Abu Fadi the mason | The Mason's Plan |
+| VII | Nasser the guide | The Guide's Map |
+| VIII | Leila the painter | Leila's Portrait |
+| IX | Hassan the spice seller | The Spice Seller's Scales |
+| X | Miss Huda the teacher | Miss Huda's Lesson |
+| XI | Jamil the poet | The Poet's Evening |
+
+- **Beats:** each regular has an opening, and 3 milestone beats lit by the words you've met (one per 10 of the chapter's 30). The table shows the newest beat above "Start a session"; the courtyard's story panel shows the chapter.
+- **The trial** opens once the word chapter is passed (90% twice, on different days). It asks 30 of that chapter's words, shuffled, in the usual Listen/Read/Recall forms, and passes at 90%. It doesn't move the word chapter: you can keep learning while a trial waits.
+- **Rewards:** 50 XP for a pass (fewer for a failed attempt, by correct answers), and the event `trial-<chapter>` gives a brass chest through the existing chest rules (ADR 0033); `trial-2`..`trial-11` were already registered, so no migration was needed. A pass is saved once in `words.trials`.
+- **Where:** the gate plaque (and the phone's door list) opens the waiting trial; the innkeeper's table shows "Trial: <name>" as well. The tracker shows the regular's chapter, its lit milestones and the trial when ready.
 
 ## 6. Grammar cards (#162)
 - **Just in time:** a chapter's card comes before its first session, once. It's saved with that session, so a card read and then abandoned comes back.

@@ -46,16 +46,16 @@ The Silent Beacon teaches the 41 characters one at a time. E12 is the next step:
    - each word is a spaced-repetition review: right is Good, right after AGN is Hard, wrong is Again
    - each word is a result in the `head-copy` rating skill (Glicko-2, ADR 0024), with common words seeded easier than shorthand (my choice: rank 1–50 at 900, the others at 1000, Q-codes and prosigns at 1100)
    - XP is 2 per right word, so a round of 10 takes about 1.5 minutes and pays about 10 XP a minute (economy guideline)
-   - session events `words-round`, and `words-perfect` for 10 out of 10, for daily contracts later
+   - session events `words-round`, and `words-perfect` for 10 out of 10, which the daily contracts "Play 2 Codebook rounds" and "Copy a whole Codebook round right" count
 
 ## The callsign rush (#156)
 - A run of 25 made-up callsigns, each played once. The shape is a real one, using only your unlocked characters: a 1–2 character prefix, a digit, then 1–3 letters, such as `K5AT`, `MI2RK`, `9A5WE`.
 - It starts at 20 wpm, as a standard-spacing word (no Farnsworth: the rush is about speed). Each callsign copied right makes the next 2 wpm faster, and each miss makes it 2 wpm slower, never below 15. The cap is 50 wpm.
 - **Score:** the sum of the wpm of each callsign copied right. You keep your best score and your top speed. Being fast and accurate scores most; the genre's classic is RufzXP.
 - This is the drill behind the daily contract "Copy 3 callsigns above your speed" (discovery 04). It sends `rush-round`, `rush-best` (a new best score) and `rush-fast` (one per call copied above your 20 wpm lesson speed) events. Callsigns are made up, so they aren’t rated or reviewed.
+- **Contracts** (my choice of targets and gold): the Codebook's two and the rush's two ("Finish a callsign rush", "Copy 3 callsigns above your speed") are offered only once you've played that drill on an earlier day, so a locked drill never gives you a contract.
 - The made-up callsigns can match real ones by chance. That's harmless: we never send anything.
 
 ## Not in E12 (kept for later, not dropped)
 - Sentences and short QSO exchanges come with E16 (radio QSO).
 - Sending words with the key follows the send drill (E7) once the word drill exists.
-- Daily contract templates for the new events are added when the drills are in (each template needs a migration, ADR 0032).

@@ -1,0 +1,101 @@
+# Ranks, trials and achievements (E13)
+
+- **Status:** design, written 2026-11-09 night while Adam slept (he said to make the calls he'd make). Every "my call" below is easy to change.
+- **Epic:** [#151](https://github.com/Adamzvulun/Liron/issues/151). **Decision:** [ADR 0035](../decisions/0035-ranks-and-achievements.md).
+- **Inputs:** the guild ranks in [world and lore §3](../discovery/04-world-and-lore.md#3-the-guilds), the quest types in §5, [quests and rewards](quests-and-rewards.md), and the [economy](economy.md) ("achievements and boss challenges paying gems — later epics").
+
+## 1. What a rank is
+A rank is a title in a guild that says what you can really do. Your level says how much you've practiced; your rank says what you've mastered. Each rank has:
+- **conditions:** the mastery it stands for, checked against your saved progress;
+- **a trial** that gates it: a boss fight that tests the rank's skill once more, as the Gatekeeper does;
+- **rank gear:** one piece that can only be earned, never bought (§4).
+
+Ranks are a ladder: you take them in order. A rank's conditions are shown before you have them, with your progress toward each one, so the next step is always clear.
+
+## 2. The Signal Tower's ranks
+| Rank | Conditions | Gate | Buildable now? |
+|---|---|---|---|
+| Initiate | Join | none | ✅ (built) |
+| Listener | All 41 Koch characters (26 letters, 10 digits and the punctuation) | The Beacon's Answer, the Silent Beacon's chapter V trial (#147) | ✅ |
+| Keyer | 20 sending drills, and a dit of 80 ms or shorter (15 wpm or faster) | **New trial: "The Lamp Signal"**. Send 10 common words with the straight key. The decoder must read at least 9 of them, at 15 wpm or faster | ✅ |
+| Operator | Listener and Keyer, the prosigns, and a first QSO | **New trial: "The Far Station"**, a scripted QSO with the tower's distant station | Later in E13 (it needs the QSO trial) |
+| Telegraphist | Head copy of common words at 20 wpm | **New trial: "The Night Watch"**: copy 20 common words at 20 wpm, at least 18 right | After Operator |
+| Signal Master, Ghost of the Ether | QSO at 25 wpm with no repeats; 30+ wpm head copy and sending | — | M5 and later (real QSOs) |
+
+- **Listener (my call):** the lore says "all 26 letters via Koch at ≥90%". In Koch order the last letter (X) is the 41st character, so the 26 letters finish with the whole course. The chapter V trial already tests all of them at 90%, so it is the gate, and no new trial is needed.
+- **Operator's QSO (my call):** the lore asks for a first full QSO, a conversation with another operator. Real partners come in M5. Until then the gate is a **scripted QSO with "the Far Station"**, a character the Silent Beacon already names. It plays a short, real-format exchange (CQ, callsigns, RST, name, QTH, 73). You copy its parts and send your own answers. A first QSO with a real person becomes an achievement in M5. It isn't dropped.
+
+## 3. The Caravanserai's ranks
+| Rank | Conditions | Gate | Buildable now? |
+|---|---|---|---|
+| غريب Gharīb, Stranger | Join | none | ✅ (built) |
+| ضيف Ḍēf, Guest | Read the whole script | The Painted Sign | ✅ (built) |
+| مسافر Msāfer, Traveler | 300 words (word chapters 1–10 passed), every survival phrase set, and every letter written from memory on the slate | The Poet's Evening, the last regular's trial (#161) | ✅ |
+| جار Jār, Neighbor | A first real conversation with a partner | — | M5 (partners) |
+| صاحب Ṣāḥeb, Friend and beyond | 1,000 words + 20 conversations, … | — | M5 and later |
+
+- **Traveler's gate (my call):** the regulars' trials (#161) end with Jamil the poet at chapter 10 = word 300. His trial is the natural boss fight for Traveler, so no new trial is needed.
+- **Writing by hand:** the slate saves each passed letter in a new list in your progress (`written`), so the rank can count it. The slate's check is rough, so a letter counts the first time you pass it from memory; it is never taken away.
+
+## 4. Rank gear
+One piece for each rank you can reach now, painted like the other gear (`src/player/avatar/paint.ts`). It is never sold in the Market or dropped by chests:
+
+| Rank | Gear (my call) | Slot |
+|---|---|---|
+| Listener | Brass ear-cups on a leather band | head |
+| Keyer | A signaler's brass key worn as a belt buckle | waist |
+| Operator | The tower's blue operator coat | body |
+| Telegraphist | Night-watch lantern | hand |
+| Guest | The house's embroidered sash | waist |
+| Traveler | A traveler's keffiyeh | head |
+
+The headset that Morse level 5 already gives stays as it is. Rank gear is a new kind of milestone (`rank`), so the database gives it the same way it gives the milestone items (ADR 0033).
+
+## 5. Achievements and titles
+Long-tail goals that sit beside the main path. Each achievement:
+- is a row of data in `content/core/achievements.json`;
+- is checked by the database from what it already records: streak days, contracts done, trials passed, chests opened, level, minutes and subject events. The browser can't award one;
+- pays **gems**, 1 to 5, the economy's long-planned gem source;
+- some unlock a **title**, which you can wear under your name in the HUD and choose in Your House.
+
+The first set (my call; about 20 to start):
+
+| Achievement | Condition | Gems | Title |
+|---|---|---|---|
+| First Light | Pass your first trial | 1 | |
+| Week of Embers | A 7-day streak | 1 | |
+| The Long Burn | A 30-day streak | 3 | the Steadfast |
+| Hundred Days | A 100-day streak | 5 | the Unbroken |
+| Contractor | 10 daily contracts | 1 | |
+| Notice Board Regular | 100 daily contracts | 3 | the Reliable |
+| Full Board | All 3 contracts in one day, 10 times | 2 | |
+| Chest Hunter | Open 10 chests | 1 | |
+| Two Guilds | Practice both subjects on one day | 1 | |
+| Polyglot of the Crossing | Reach level 5 in both subjects | 2 | the Wayfarer |
+| Beacon Relit | Pass all five Silent Beacon trials | 3 | Keeper of the Beacon |
+| No AGN | A Codebook round with no AGN and all 10 right | 2 | |
+| Overspeed | Copy a callsign at 30 wpm in the rush | 2 | the Quick-Eared |
+| A Seat at the Table | Pass all ten regulars' trials | 3 | Friend of the House |
+| Night Owl / Early Bird | Practice after 22:00 / before 7:00 your time, 5 times | 1 each | |
+| Thousand Minutes | 1,000 minutes of practice | 3 | the Diligent |
+
+- Achievements that need things not built yet ("first joke understood in Arabic", "first real QSO") come with those features. They aren't dropped.
+- **Hidden ones (my call):** none at first. Every achievement shows its condition, so there are no surprises that read as unfair.
+
+## 6. Skill rating beside the rank (ADR 0010, 0024)
+The hall shows your **rating** in each skill next to your rank (Glicko-2, already recorded): "Listener · copy 1,240". A rank says what you've done; the rating says how well you do it now. It's read-only, so it needs no new data.
+
+## 7. Where it shows
+- **The hall:** the rank plaque (the Tower's lamp board, the Caravanserai's banner) shows the rank, the next rank, its conditions as a checklist, and the gate trial's door when the conditions are met.
+- **The rank-up moment:** a full card when you take a rank: the title (in Arabic and English for the Caravanserai), the gear you've earned, and what the next rank asks.
+- **The questline tracker (#47):** the rank line moves to the rank system.
+- **Your House:** achievements as a wall of plaques (done and not yet done), and the title picker.
+
+## 8. Tasks
+1. Ranks as data and the rank ladder in both halls (Listener, Traveler, the `written` list, rank events). — [#174](https://github.com/Adamzvulun/Liron/issues/174)
+2. The Lamp Signal trial and the Keyer rank. — [#175](https://github.com/Adamzvulun/Liron/issues/175)
+3. Rank gear: 6 painted pieces and the `rank` milestone. — [#176](https://github.com/Adamzvulun/Liron/issues/176)
+4. Achievements, gems and titles. — [#177](https://github.com/Adamzvulun/Liron/issues/177)
+5. The Far Station (scripted QSO) and the Operator rank. — [#178](https://github.com/Adamzvulun/Liron/issues/178)
+6. The Night Watch trial and the Telegraphist rank. — [#179](https://github.com/Adamzvulun/Liron/issues/179)
+7. Skill rating beside the rank. — [#180](https://github.com/Adamzvulun/Liron/issues/180)

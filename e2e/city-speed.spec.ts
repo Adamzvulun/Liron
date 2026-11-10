@@ -217,8 +217,11 @@ test.describe('the city square stays fast (#123)', () => {
     console.log(
       `reference ${JSON.stringify(ref)} square idle ${JSON.stringify(idle)} hover ${JSON.stringify(hover)}`,
     );
+    // Frame times come in whole frames, but the browser rounds its clock to 0.1 ms, so two
+    // frames can read 33.4 against a reference of 16.7 + one frame = 33.37. Half a millisecond
+    // of slack absorbs the rounding without letting a second dropped frame through.
     const frame = 1000 / 60;
-    expect(idle.p95).toBeLessThanOrEqual(ref.p95 + frame);
+    expect(idle.p95).toBeLessThanOrEqual(ref.p95 + frame + 0.5);
     expect(idle.compositor).toBeLessThan(ref.compositor * IDLE_RATIO);
     expect(hover.compositor).toBeLessThan(ref.compositor * HOVER_RATIO);
     expect(hover.raster).toBeLessThan(ref.compositor * HOVER_RASTER_RATIO);
