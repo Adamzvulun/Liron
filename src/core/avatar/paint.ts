@@ -74,6 +74,12 @@ export const PAINTED_GEAR = [
   'bedroll',
   'oud',
   'banner',
+  'ear-cups',
+  'brass-key',
+  'operator-coat',
+  'night-lantern',
+  'house-sash',
+  'keffiyeh',
 ];
 
 export interface PaintOptions {
@@ -249,6 +255,8 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   // ---- torso: plain linen shirt, the tunic (in its dye), or a ware
   const top = wear('torso');
   const tunic = top === 'tunic';
+  // The operator's coat is cut like the merchant's coat, in the tower's blue.
+  const coat = top === 'coat' || top === 'operator-coat';
   const dye = DYES.find((d) => d.id === look.dye);
   const cloth = tunic
     ? dye
@@ -258,8 +266,10 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       ? (['#6A7AC8', '#2E3A8A', '#141A44'] as const)
       : top === 'coat'
         ? (['#E0665A', '#A8302A', '#4A0E0C'] as const)
-        : (['#FBF1D8', '#E6D3AE', '#A8916A'] as const);
-  const hem = tunic ? 236 : top === 'robe' ? 266 : top === 'coat' ? 258 : 218;
+        : top === 'operator-coat'
+          ? (['#6A9AE8', '#2A52A8', '#0C1A4A'] as const)
+          : (['#FBF1D8', '#E6D3AE', '#A8916A'] as const);
+  const hem = tunic ? 236 : top === 'robe' ? 266 : coat ? 258 : 218;
   const torso = `M${cx - 12} 128 Q${cx} 132 ${cx + 12} 128 L${cx + sh} 140 Q${cx + sh + 4} 150 ${cx + sh - 2} 166 L${cx + sh - 6} ${hem} Q${cx} ${hem + 6} ${cx - sh + 6} ${hem} L${cx - sh + 2} 166 Q${cx - sh - 4} 150 ${cx - sh} 140 Z`;
   body += `<path d="M${cx - 9} 112 H${cx + 9} V136 H${cx - 9} Z" fill="${skinFlat}" ${OUT(3)}/>`;
   body += `<path d="${torso}" fill="${g.lin(
@@ -277,12 +287,15 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     body += trim(`M${cx} 132 L${cx} ${hem + 2}`);
     body += trim(`M${cx - sh + 7} ${hem - 2} Q${cx} ${hem + 4} ${cx + sh - 7} ${hem - 2}`);
     body += `<path d="M${cx - sh + 4} 198 Q${cx} 204 ${cx + sh - 4} 198" stroke="${INK}" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M${cx - sh + 4} 198 Q${cx} 204 ${cx + sh - 4} 198" stroke="#E8A93A" stroke-width="6" fill="none"/>`;
-  } else if (top === 'coat') {
+  } else if (coat) {
     body += trim(`M${cx} 134 L${cx} ${hem + 2}`);
     for (const y of [160, 184, 208])
       body += `<circle cx="${cx + 7}" cy="${y}" r="4.5" fill="#FFD36B" stroke="${INK}" stroke-width="2"/>`;
     for (const side of [-1, 1])
       body += `<path d="M${cx + side * (sh - 12)} 134 Q${cx + side * (sh + 6)} 136 ${cx + side * (sh + 4)} 150" stroke="${INK}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M${cx + side * (sh - 12)} 134 Q${cx + side * (sh + 6)} 136 ${cx + side * (sh + 4)} 150" stroke="#FFD36B" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+    if (top === 'operator-coat')
+      // The tower's spark, stitched in gold on the breast.
+      body += `<path d="M${cx - 22} 150 L${cx - 14} 162 L${cx - 20} 164 L${cx - 10} 180" stroke="${INK}" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M${cx - 22} 150 L${cx - 14} 162 L${cx - 20} 164 L${cx - 10} 180" stroke="#FFD36B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
   } else if (top === 'vest') {
     // Over the linen shirt: two dark panels with gold stitching.
     for (const side of [-1, 1]) {
@@ -301,9 +314,26 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       [0, '#FFE39A'],
       [1, '#B07A2A'],
     ])}" stroke="${INK}" stroke-width="2.4"/>`;
-  } else if (!top || top === 'vest') {
+  } else if (!top || top === 'vest' || top === 'house-sash') {
     body += `<path d="M${cx - 10} 129 Q${cx} 142 ${cx + 10} 129" fill="none" stroke="#A8916A" stroke-width="2.6"/>`;
     body += `<path d="M${cx - sh + 8} 212 Q${cx} 216 ${cx + sh - 8} 212" stroke="#A8916A" stroke-width="2.4" fill="none" opacity=".8"/>`;
+  }
+
+  if (top === 'house-sash') {
+    // The house's embroidered sash: over the left shoulder, knotted at the right hip, tasseled.
+    const sash = `M${cx + sh - 8} 136 L${cx - sh + 8} 206`;
+    body += `<path d="${sash}" stroke="${INK}" stroke-width="21" stroke-linecap="round"/><path d="${sash}" stroke="${g.lin(
+      [
+        [0, '#E0665A'],
+        [1, '#8A1E1A'],
+      ],
+      1,
+      1,
+    )}" stroke-width="15" stroke-linecap="round"/><path d="${sash}" stroke="#FFD36B" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>`;
+    const [kx, ky] = [cx - sh + 8, 208];
+    for (const dx of [-6, 0, 6])
+      body += `<path d="M${kx} ${ky} L${kx + dx} ${ky + 26}" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><path d="M${kx} ${ky} L${kx + dx} ${ky + 26}" stroke="#FFD36B" stroke-width="2.4" stroke-linecap="round"/>`;
+    body += `<circle cx="${kx}" cy="${ky}" r="8" fill="#B8302A" stroke="${INK}" stroke-width="2.6"/>`;
   }
 
   // ---- satchel strap and bag (over the torso)
@@ -358,7 +388,7 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   }
 
   // ---- arms (sleeves) and big hands
-  const sleeve = tunic || top === 'robe' || top === 'coat' ? cloth[1] : '#E6D3AE';
+  const sleeve = tunic || top === 'robe' || coat ? cloth[1] : '#E6D3AE';
   for (const [side, hand] of [
     [-1, handL],
     [1, handR],
@@ -366,7 +396,7 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     const s = cx + side * (sh - 3);
     const d = `M${s} 146 Q${s + side * 16} 176 ${hand[0]} ${hand[1] - 8}`;
     body += `<path d="${d}" stroke="${INK}" stroke-width="20" stroke-linecap="round" fill="none"/><path d="${d}" stroke="${sleeve}" stroke-width="13" stroke-linecap="round" fill="none"/>`;
-    if (top === 'coat') {
+    if (coat) {
       const cuff = `M${hand[0] - side * 8} ${hand[1] - 22} L${hand[0] + side * 3} ${hand[1] - 13}`;
       body += `<path d="${cuff}" stroke="${INK}" stroke-width="15" stroke-linecap="round"/><path d="${cuff}" stroke="#FFD36B" stroke-width="9" stroke-linecap="round"/>`;
     }
@@ -390,6 +420,41 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     body += `<rect x="${hx - 14}" y="${hy + 50}" width="28" height="7" rx="2" fill="#B07A2A" ${OUT(2.4)}/>`;
   }
 
+  if (wear('hand') === 'brass-key') {
+    // The keyer's straight key, held out on its wooden base: a brass lever and a black knob.
+    const [hx, hy] = handR;
+    body += `<rect x="${hx - 24}" y="${hy + 12}" width="48" height="12" rx="3" fill="${g.lin(
+      [
+        [0, '#C08A55'],
+        [1, '#5A3418'],
+      ],
+      0,
+      1,
+    )}" ${OUT(2.6)}/>`;
+    body += `<path d="M${hx - 18} ${hy + 10} L${hx + 14} ${hy + 4}" stroke="${INK}" stroke-width="8" stroke-linecap="round"/><path d="M${hx - 18} ${hy + 10} L${hx + 14} ${hy + 4}" stroke="#FFD36B" stroke-width="4" stroke-linecap="round"/>`;
+    body += `<circle cx="${hx - 16}" cy="${hy + 12}" r="4" fill="#E8A93A" stroke="${INK}" stroke-width="2"/>`;
+    body += `<ellipse cx="${hx + 18}" cy="${hy + 2}" rx="8" ry="6" fill="#2A1A14" stroke="${INK}" stroke-width="2.4"/><ellipse cx="${hx + 16}" cy="${hy}" rx="3" ry="2" fill="#7A6A64"/>`;
+  }
+  if (wear('hand') === 'night-lantern') {
+    // The night watch's iron lantern, hanging from the left hand, its light cold and clear.
+    const [hx, hy] = handR;
+    body += `<path d="M${hx - 7} ${hy + 14} Q${hx} ${hy + 2} ${hx + 7} ${hy + 14}" stroke="${INK}" stroke-width="3.4" fill="none"/>`;
+    body += `<path d="M${hx - 14} ${hy + 26} L${hx - 8} ${hy + 14} H${hx + 8} L${hx + 14} ${hy + 26} Z" fill="#3A3A44" ${OUT(2.6)}/>`;
+    body += `<rect x="${hx - 12}" y="${hy + 26}" width="24" height="32" rx="3" fill="${g.rad(
+      [
+        [0, '#FFFFFF'],
+        [0.5, '#CDE6FF'],
+        [1, '#5A86B8'],
+      ],
+      0.5,
+      0.5,
+      0.7,
+    )}" ${OUT(2.6)}/>`;
+    for (const dx of [-5, 5])
+      body += `<path d="M${hx + dx} ${hy + 27} V${hy + 57}" stroke="#3A3A44" stroke-width="2.6"/>`;
+    body += `<rect x="${hx - 15}" y="${hy + 56}" width="30" height="8" rx="2" fill="#3A3A44" ${OUT(2.4)}/>`;
+  }
+
   // ---- head
   front += `<ellipse cx="${cx - 35}" cy="92" rx="6" ry="9" fill="${skinFlat}" ${OUT(3)}/><ellipse cx="${cx + 35}" cy="92" rx="6" ry="9" fill="${skinFlat}" ${OUT(3)}/>`;
   front += `<ellipse cx="${cx}" cy="86" rx="35" ry="38" fill="${skin}" ${OUT()}/>`;
@@ -405,7 +470,8 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   // ---- front hair (hidden under the wrap, except long hair at the sides)
   const wrap = wear('head') === 'wrap';
   const turban = wear('head') === 'turban';
-  if (!wrap && !turban) front += hairFront(look.hair, cx, hair, hairT.light);
+  const keffiyeh = wear('head') === 'keffiyeh';
+  if (!wrap && !turban && !keffiyeh) front += hairFront(look.hair, cx, hair, hairT.light);
 
   // ---- head gear
   if (wrap) {
@@ -423,6 +489,32 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     front += `<path d="M${cx - 38} 82 Q${cx - 42} 40 ${cx} 38 Q${cx + 42} 40 ${cx + 38} 82 Q${cx + 20} 70 ${cx} 70 Q${cx - 20} 70 ${cx - 38} 82 Z" fill="${cloth}" ${OUT()}/>`;
     front += `<path d="M${cx - 34} 66 Q${cx} 56 ${cx + 34} 66 M${cx - 28} 52 Q${cx + 4} 44 ${cx + 30} 54" stroke="#8A5A2A" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".7"/>`;
     front += `<path d="M${cx - 38} 80 Q${cx} 66 ${cx + 38} 80" stroke="#C8553D" stroke-width="5" fill="none"/>`;
+  } else if (keffiyeh) {
+    // White with the red check, falling to the shoulders, held by the black agal.
+    const cloth = g.lin(
+      [
+        [0, '#FFFFFF'],
+        [0.6, '#F2E6D8'],
+        [1, '#B8A890'],
+      ],
+      1,
+      1,
+    );
+    for (const side of [-1, 1])
+      front += `<path d="M${cx + side * 30} 72 Q${cx + side * 52} 108 ${cx + side * 48} 150 L${cx + side * 28} 146 Q${cx + side * 34} 112 ${cx + side * 26} 86 Z" fill="${cloth}" ${OUT(3)}/><path d="M${cx + side * 40} 104 L${cx + side * 36} 144 M${cx + side * 46} 112 L${cx + side * 43} 146" stroke="#C8302A" stroke-width="2.2" stroke-dasharray="3 4"/>`;
+    front += `<path d="M${cx - 40} 84 Q${cx - 46} 36 ${cx} 34 Q${cx + 46} 36 ${cx + 40} 84 Q${cx + 20} 70 ${cx} 70 Q${cx - 20} 70 ${cx - 40} 84 Z" fill="${cloth}" ${OUT()}/>`;
+    front += `<path d="M${cx - 30} 50 Q${cx} 40 ${cx + 30} 50 M${cx - 36} 64 Q${cx} 52 ${cx + 36} 64 M${cx - 16} 40 L${cx - 22} 74 M${cx + 16} 40 L${cx + 22} 74 M${cx} 36 V70" stroke="#C8302A" stroke-width="2.2" fill="none" stroke-dasharray="3 4"/>`;
+    for (const y of [58, 66])
+      front += `<path d="M${cx - 39} ${y + 10} Q${cx} ${y - 10} ${cx + 39} ${y + 10}" stroke="${INK}" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+  } else if (wear('head') === 'ear-cups') {
+    // Brass ear-cups on a leather band.
+    front += `<path d="M${cx - 38} 86 Q${cx - 42} 34 ${cx} 34 Q${cx + 42} 34 ${cx + 38} 86" stroke="${INK}" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M${cx - 38} 86 Q${cx - 42} 34 ${cx} 34 Q${cx + 42} 34 ${cx + 38} 86" stroke="#8A5530" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+    for (const side of [-1, 1])
+      front += `<circle cx="${cx + side * 39}" cy="92" r="14" fill="${g.rad([
+        [0, '#FFF0B8'],
+        [0.55, '#E8A93A'],
+        [1, '#7A4A10'],
+      ])}" ${OUT(3)}/><circle cx="${cx + side * 39}" cy="92" r="6" fill="#5A3418" stroke="${INK}" stroke-width="1.6"/>`;
   } else if (wear('head') === 'headset') {
     front += `<path d="M${cx - 37} 84 Q${cx - 40} 36 ${cx} 36 Q${cx + 40} 36 ${cx + 37} 84" stroke="${INK}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M${cx - 37} 84 Q${cx - 40} 36 ${cx} 36 Q${cx + 40} 36 ${cx + 37} 84" stroke="#7A8A9A" stroke-width="4.5" fill="none" stroke-linecap="round"/>`;
     for (const side of [-1, 1])

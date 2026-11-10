@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { GEAR } from '../avatar/looks.ts';
 import type { Rank, RankStanding } from './ranks.ts';
 import './ranks.css';
 
@@ -19,6 +20,7 @@ export function RankUp({
   onTake: () => Promise<void>;
 }) {
   const [state, setState] = useState<'idle' | 'saving' | 'failed'>('idle');
+  const gear = GEAR.find((g) => g.id === rank.gear);
   const take = () => {
     setState('saving');
     onTake().then(
@@ -43,6 +45,11 @@ export function RankUp({
             <li key={c}>{c}</li>
           ))}
         </ul>
+        {gear && (
+          <p className="rankup__gear">
+            Rank gear: <strong>{gear.name}</strong>. Wear it in Your House.
+          </p>
+        )}
         {after.next && (
           <p className="rankup__next">
             Next: <strong>{after.next.name}</strong>
