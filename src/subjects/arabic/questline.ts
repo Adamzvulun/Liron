@@ -4,6 +4,7 @@
 import { z } from 'zod';
 import questline from '../../../content/arabic/questline.json' with { type: 'json' };
 import type { ArabicProgress } from './progress.ts';
+import { WORD_CHAPTERS } from './core/coreWords.ts';
 
 const Trial = z.object({
   name: z.string(),
@@ -40,6 +41,63 @@ export const CHAPTER: Chapter = (() => {
     .map((m) => m.text);
   return { ...chapter, milestones: beats };
 })();
+
+const Regular = z.object({
+  number: z.number().int().min(2),
+  /** The word chapter this regular comes with (1–10). */
+  wordChapter: z.number().int().positive(),
+  title: z.string(),
+  who: z.string(),
+  intro: z.string(),
+  /** Beats at 10, 20 and 30 of the chapter's words met. */
+  milestones: z.array(z.string()).length(3),
+  trial: Trial,
+  outro: z.string(),
+});
+export type Regular = z.infer<typeof Regular>;
+
+/** Chapters II–XI (#161): a regular for each word chapter, in order. */
+export const REGULARS: readonly Regular[] = items
+  .filter((i) => i.type === 'regular')
+  .map((i) => Regular.parse(i.data))
+  .sort((a, b) => a.number - b.number);
+
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+/** A chapter's number as the road writes it: II, XI. */
+export const roman = (n: number) => ROMAN[n - 1] ?? String(n);
+
+/** Words met per milestone on a regular's chapter. */
+export const WORDS_PER_MILESTONE = 10;
+
+/**
+ * Where the regulars stand (#161), for a guest: the first regular whose trial you haven't
+ * passed, among the word chapters you've reached. Milestones light as you meet the chapter's
+ * words; the trial opens once the chapter itself is passed.
+ */
+export function regularStatus(p: ArabicProgress) {
+  const w = p.words;
+  const reached = w.done ? WORD_CHAPTERS.length : w.chapter;
+  const open = REGULARS.filter((r) => r.wordChapter <= reached);
+  const regular =
+    open.find((r) => !w.trials.includes(r.number)) ?? open[open.length - 1] ?? REGULARS[0];
+  if (!regular) return undefined;
+  const met = new Set(w.met);
+  const words = WORD_CHAPTERS[regular.wordChapter - 1]?.words ?? [];
+  const lit = Math.min(
+    Math.floor(words.filter((x) => met.has(x.deck)).length / WORDS_PER_MILESTONE),
+    regular.milestones.length,
+  );
+  const passed = w.trials.includes(regular.number);
+  const chapterPassed = w.done || w.chapter > regular.wordChapter;
+  return {
+    regular,
+    lit,
+    beat: passed ? regular.outro : lit > 0 ? regular.milestones[lit - 1] : regular.intro,
+    trialReady: chapterPassed && !passed,
+    chapterPassed,
+    passed,
+  };
+}
 
 /** Lessons passed so far: every lesson before the current one, or all of them when done. */
 export const lessonsPassed = (p: ArabicProgress) => (p.done ? CHAPTER.lessons : p.lesson - 1);

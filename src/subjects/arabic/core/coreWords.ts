@@ -98,7 +98,7 @@ export function coreWordsFrom(items: readonly Item[]): CoreWord[][] {
 
 type Rand = () => number;
 
-function shuffle<T>(list: readonly T[], rand: Rand): T[] {
+export function shuffle<T>(list: readonly T[], rand: Rand): T[] {
   const a = [...list];
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(rand() * (i + 1));
