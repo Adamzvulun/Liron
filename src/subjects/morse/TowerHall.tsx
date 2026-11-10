@@ -5,6 +5,7 @@ import { KochLesson } from './lesson/Lesson.tsx';
 import { Recognition } from './recognition/Recognition.tsx';
 import { Trial } from './lesson/Trial.tsx';
 import { FarStation } from './qso/FarStation.tsx';
+import { RadioRoom } from './qso/RadioRoom.tsx';
 import { SendDrill } from './send/SendDrill.tsx';
 import { WordDrill } from './words/WordDrill.tsx';
 import './hall/hall.css';
@@ -18,14 +19,15 @@ const DOORS: readonly HallDoor[] = [
   'words',
   'watch',
   'far',
+  'radio',
 ];
 
 /**
  * Inside the Signal Tower: the hall (#33) with the questline and the doors, and behind them the
  * Koch lessons (#31), Instant Recognition (#32), the trials (#34), sending (#35–#37) and the
  * Codebook's words (#154), and the rank trials: the Lamp Signal (#175), the Night Watch (#179) and
- * the Far Station (#178). Opening a door with ?open=koch, ?open=recognition, ?open=trial,
- * ?open=sending, ?open=lamp, ?open=words, ?open=watch or ?open=far in the address goes straight
+ * the Far Station (#178), and the Radio Room on the air (E16). Opening a door with ?open=koch, ?open=recognition, ?open=trial,
+ * ?open=sending, ?open=lamp, ?open=words, ?open=watch, ?open=far or ?open=radio in the address goes straight
  * there (for tests).
  */
 export function TowerHall({ api }: { api: SubjectApi }) {
@@ -47,6 +49,7 @@ export function TowerHall({ api }: { api: SubjectApi }) {
       {view === 'words' && <WordDrill api={api} />}
       {view === 'watch' && <WordDrill api={api} start="watch" />}
       {view === 'far' && <FarStation api={api} />}
+      {view === 'radio' && <RadioRoom api={api} onFar={() => setView('far')} />}
       {view === 'trial' && <Trial api={api} onLeave={() => setView('hall')} />}
     </>
   );
