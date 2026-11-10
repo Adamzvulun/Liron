@@ -169,7 +169,10 @@ export function wordQuestions(
       pool.filter((w) => w.chapter !== word.chapter),
       rand,
     );
-    const others = [...new Set([...near, ...far].map(field))].filter((x) => x && x !== answer);
+    // A second word for the same thing (two words for *belt*) is never a wrong choice.
+    const others = [
+      ...new Set([...near, ...far].filter((w) => w.meaning !== word.meaning).map(field)),
+    ].filter((x) => x && x !== answer);
     return {
       kind,
       word,
