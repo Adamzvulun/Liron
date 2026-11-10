@@ -1194,6 +1194,206 @@
         },
         "outro": "The car goes out through the gate and down into the valley. The innkeeper turns her book to a new page and writes the date at the top. “Another year,” she says. “Who comes next?”"
       }
+    },
+    {
+      "id": "road:46",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 46,
+        "wordChapter": 45,
+        "title": "The Small Words",
+        "who": "Nasser the storyteller",
+        "intro": "A new year at the inn begins with Nasser, an old storyteller who sits by the fire every evening. His stories are long, but he says the small words carry them: now, before, after, still.",
+        "milestones": [
+          "Nasser starts a story and stops after every sentence. You tell him what comes before and what comes after.",
+          "A boy says the story is impossible. Nasser asks him what he means, and lets him try to tell it himself.",
+          "Nasser says a good storyteller is careful: he never lies, he only chooses. You choose the ending together."
+        ],
+        "trial": {
+          "name": "Nasser’s Story",
+          "text": "Nasser tells his story, and you carry it with the small words. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Nasser puts another log on the fire. “Enough for tonight,” he says. “But a story is never really finished.”"
+      }
+    },
+    {
+      "id": "road:47",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 47,
+        "wordChapter": 46,
+        "title": "Change for a Hundred",
+        "who": "Rami the money changer",
+        "intro": "Rami sets up a little counter by the gate, where travelers change money and sign for their rooms. He’s never without a pen, a ruler and a roll of tape.",
+        "milestones": [
+          "A rich traveler and a poor one come to the counter together. You help Rami make change for both, coin by coin.",
+          "Rami has a meeting and two appointments, and one is canceled. You keep his book straight and copy each page.",
+          "A thief steals a purse at the gate, but the chef and the hairdresser catch him at the door. Rami asks you to sign as a witness."
+        ],
+        "trial": {
+          "name": "Rami’s Ledger",
+          "text": "Rami’s customers come and go, and you serve every one in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Rami counts the day’s coins and gives you one for luck. “Save it,” he says. “That’s how I started.”"
+      }
+    },
+    {
+      "id": "road:48",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 48,
+        "wordChapter": 47,
+        "title": "Fog on the Hills",
+        "who": "Yasmin the weather watcher",
+        "intro": "Yasmin climbs to the inn’s roof every morning to read the sky. Travelers ask her before they go: is there fog, heat or a storm coming?",
+        "milestones": [
+          "Yasmin shows you the four winds, northern, southern, eastern and western, and how each one changes the weather.",
+          "Fog fills the gorge, and a traveler wants to go past it. You tell him it’s safer to stay, or to go back.",
+          "The sun comes out, the ice melts, and Yasmin says the road is clear. You measure the distance with her: three miles to the river."
+        ],
+        "trial": {
+          "name": "Yasmin’s Forecast",
+          "text": "Yasmin reads the sky, and you tell the travelers what she sees. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Yasmin folds her map. “The weather always changes,” she says. “That’s why I’m never out of work.”"
+      }
+    },
+    {
+      "id": "road:49",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 49,
+        "wordChapter": 48,
+        "title": "Count Them Twice",
+        "who": "Master Karim the teacher",
+        "intro": "Master Karim teaches the village children in the inn’s back room. Mornings are sums; afternoons are writing: verbs, plurals, commas and periods.",
+        "milestones": [
+          "Karim draws a circle and a line, and the children add, take away, multiply and divide. You check their answers.",
+          "He weighs the flour for the kitchen, half for bread and a third for cake. You work out what is left.",
+          "The beginners read a paragraph out loud. You help them find the verb and the plural, and put the periods where they go."
+        ],
+        "trial": {
+          "name": "Karim’s Sums",
+          "text": "The children shout out sums, and you answer every one. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Karim writes a million on the board, with all its zeros. “Count them twice,” he says. “Then count them again.”"
+      }
+    },
+    {
+      "id": "road:50",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 50,
+        "wordChapter": 49,
+        "title": "Every Tongue",
+        "who": "Elena, a traveler who collects languages",
+        "intro": "Elena comes from far away and speaks five languages already: Greek, Portuguese, a little Korean, some Farsi and some Hebrew. Now she wants Arabic, and she wants to see the towns of the land.",
+        "milestones": [
+          "Elena unfolds her map: Jerusalem, Haifa, Akko, Nazareth, Nablus, Hebron. You help her say each name the way people here say it.",
+          "She asks how Standard Arabic differs from the Levantine Arabic people speak at the inn, and from Gulf Arabic. You tell her what you think.",
+          "She practices listening and spelling with you each night, and says she hopes to come back speaking better than you."
+        ],
+        "trial": {
+          "name": "Elena’s Map",
+          "text": "Elena reads out the towns and the tongues, and you answer her in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Elena writes a word in her notebook in six alphabets. “Foreign today,” she says, “but not for long.”"
+      }
+    },
+    {
+      "id": "road:51",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 51,
+        "wordChapter": 50,
+        "title": "The Vet’s Rounds",
+        "who": "Dr. Rana the vet",
+        "intro": "Dr. Rana stops at the inn on her rounds through the villages. Her bag is full of medicine, and her car is full of animals: a parrot in a cage, a turtle in a box, and a dog with a red collar.",
+        "milestones": [
+          "A farmer’s dog won’t stop jumping. Rana shows you how to train him, and you hold his collar while she checks his fur and his tail.",
+          "The parrot has a hurt wing, and a few feathers are gone. You help Rana count them and give the bird its feed.",
+          "In the evening Rana tells stories about bears, tigers, whales and sharks. The children ask which is the strongest."
+        ],
+        "trial": {
+          "name": "Rana’s Rounds",
+          "text": "Rana calls out the animals, and you name every one in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Rana lets the butterfly out of the window. “Not every patient needs medicine,” she says. “Some just need the door open.”"
+      }
+    },
+    {
+      "id": "road:52",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 52,
+        "wordChapter": 51,
+        "title": "The Neighbors’ Feast",
+        "who": "Mariam and Um Khaled, the neighbors",
+        "intro": "The holidays come close together this year, and the two neighbors across the lane decide to cook for both. Mariam goes to church, Um Khaled hears the call to prayer from her window, and the whole street eats at one table.",
+        "milestones": [
+          "Mariam and Um Khaled tell you about their holidays and prayers. You listen, ask, and thank them.",
+          "The children want to be a king, a queen, a prince and a princess. You help them make crowns, and welcome the guests at the door.",
+          "Um Khaled says that in the eighties the street was smaller and everyone knew everyone. These days, she says, it takes a feast."
+        ],
+        "trial": {
+          "name": "The Neighbors’ Table",
+          "text": "The neighbors set the table, and you greet every guest in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Mariam and Um Khaled wash the dishes together, side by side. “Next year at my house,” says one. “No,” says the other, “at mine.”"
+      }
+    },
+    {
+      "id": "road:53",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 53,
+        "wordChapter": 52,
+        "title": "The Night Guard’s Report",
+        "who": "Sami the night guard",
+        "intro": "Sami guards the inn at night, and he has seen everything: smokers on the roof, a drunk singer in the courtyard, and a man who tried to smuggle cigarettes in a guitar case.",
+        "milestones": [
+          "Someone has taken the lighter and the matches from the kitchen. You and Sami look for clues, and the greengrocer says he saw a boy run past.",
+          "The boy is found in the school gym, drawing. He was surprised, and he says he only wanted to light a candle for his mother.",
+          "Sami doesn’t arrest him. He writes his report, slowly, and asks you to read it out loud to check the spelling."
+        ],
+        "trial": {
+          "name": "Sami’s Report",
+          "text": "Sami tells you the night’s story, and you write it down in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Sami turns off his lamp as the sun comes up. “Another quiet night,” he says, and winks. “Mostly.”"
+      }
     }
   ]
 }

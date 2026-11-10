@@ -5,7 +5,7 @@
 
 ## The short version
 - **The word path opens after the script course.** It starts once you pass "The Painted Sign" (chapter 1 of "The Long Road In"), when every letter is yours.
-- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1) and 841–1,320 (A2 words) are in.
+- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1) and 841–1,560 (A2 words) are in.
 - **Each word is met with its native recording, its meaning, how it sounds in Hebrew letters, and a deck sentence when the deck has one.** The deck has few sentences, so this is the main open question (section 3).
 - **Practice is the same four moves as the letters:** meet, listen, read, recall. FSRS schedules each word, and Glicko rates you in listen and read.
 - **Each chapter brings a new regular to the innkeeper's table** ("The Long Road In" chapter 2 onward), with a trial at its end.
@@ -116,11 +116,29 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
   - **The other 280 have one of our own sentences** (§3).
   - **Still to come (ordered, not cut):** the other 324 A2 words, and the held-back A1 words above.
 
+- **Words 1,321–1,560 (#228, 2026-11-10):** eight more A2 chapters of 30, from those 324:
+
+| Chapter | Theme | Deck sections it draws on |
+|---|---|---|
+| 45 | Little words | Verbs, Adjectives, Adverbs, Pronouns, Prepositions |
+| 46 | Money matters | Jobs and Work, Banking and Money, the Post Office, Books and Stationery, Crime |
+| 47 | Under the sky | Earth and Space, Weather, Directions, Travel and Vacations |
+| 48 | By the numbers | Numbers, Measurements, Math, Language (grammar and punctuation) |
+| 49 | Towns and tongues | Palestinian towns, Languages, Opinions, Society |
+| 50 | Wild things | Animals, Plant Life, Pets |
+| 51 | Feasts and faith | Religion, Holidays, Royalty, Feelings |
+| 52 | Fun and trouble | Smoking and Drinking, Feelings, Recreation, Crime, Math (a couple of) |
+
+  - **Picked by use,** one word per meaning. The 84 A2 words left are second ways to say a word already taught (three words for *now*, two for *thief*, *tail*, *deep*, *signature*, *lighter*, *equals*), one more town (Al Nuseirat) and a few that aren't everyday (*bra*, *queen* in chess). They wait, ordered, not cut.
+  - **Town names are just places:** each town's sentence says where it is or what it's known for, with no politics. The deck's sentence "Jerusalem is the capital of Palestine" was not used; ours says it's an old city.
+  - **23 of the 240 carry a deck sentence** (196 of the 1,560 in all). By eye I removed 2 wrong matches (*to open a file*, a window; *to turn it up*, turning the TV down) and kept *from, off* with "Nablus is far from Gaza".
+  - **The other 217 have one of our own sentences** (§3).
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
 - **Not picked for the first 300:** near-duplicates (the deck has three ways to say *hi*; one is taught), brand names, and adult words. Every other A1 word waits for words 301–1,000; none is dropped.
-- **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters (#163). Words 301–1,320 are in (below): all of A1 and 480 A2 words.
+- **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters (#163). Words 301–1,560 are in (below): all of A1 and 720 A2 words.
 
 - **The list** is `content/arabic/core-words.json`, made from the deck by a script that checks every id is A1 and appears once.
 
@@ -143,6 +161,7 @@ I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164),
   - Adam spot-checks a sample.
 - **Progress:**
   - All 34 chapters are done: 867 sentences, one for every path word without a deck sentence.
+  - Chapters 45–52 (#228): 217 more, 1,364 in all, with no flags left.
   - Chapters 35–44 (#226): 280 more, 1,147 in all. The checker's remaining flags are verb forms the deck doesn't spell out (*we went*, *throw!*, *it was canceled*) and the deck's own spelling of *noisy* (مُزْعِح, for مُزْعِج); each was looked at by hand.
 
 Micro-stories made only of words you know come in a later epic (vision, Arabic track).
@@ -211,11 +230,20 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | XLIII | Mei, back with a laptop | Mei's Slideshow |
 | XLIV | Fares and the band | The Wedding Night |
 | XLV | Hana and her groom | The Newlyweds' Route |
+| XLVI | Nasser the storyteller | Nasser's Story |
+| XLVII | Rami the money changer | Rami's Ledger |
+| XLVIII | Yasmin the weather watcher | Yasmin's Forecast |
+| XLIX | Master Karim the teacher | Karim's Sums |
+| L | Elena, a traveler who collects languages | Elena's Map |
+| LI | Dr. Rana the vet | Rana's Rounds |
+| LII | Mariam and Um Khaled, the neighbors | The Neighbors' Table |
+| LIII | Sami the night guard | Sami's Report |
 
 - **Chapters XII–XXI (#205, 2026-11-10):** a caravan from the coast arrives just as the table seems full, and its people sit down one per word chapter (11–20). Each regular has the same shape: an opening, 3 milestone beats and a trial. Their trials send `trial-12` to `trial-21`. Migration `20261122000000_more_regulars.sql` registers `trial-13` to `trial-35`, so chapters up to word chapter 34 need no further migration.
 - **The Traveler rank still asks for the Poet's Evening** (chapter XI), not the newest regular's trial. "A Seat at the Table" still means the first ten regulars.
 - **Chapters XXII–XXXV (#205, 2026-11-10):** a second caravan, from the east, for word chapters 21–34. Its regulars follow the chapters' themes (countries, numbers, money, the doctor, the body, the kitchen, the house, work, travel). Three old faces come back changed: Salim (XXIX), Abu Fadi with his son (XXXII) and Amal (XXXIV). The last chapter, XXXV, is the innkeeper's own story. Their trials send `trial-22` to `trial-35`, already registered by the same migration.
 - **Chapters XXXVI–XLV (#226, 2026-11-10):** the innkeeper's niece Hana is married at the inn, for word chapters 35–44. The family and the people who come for the wedding sit down one per chapter, following its theme: the guest list, the clothes, the grandfather's aches, the pastries, the farmer's cart, the cleaning, the schoolteacher, the pictures, the wedding night and the newlyweds' road. Samira (XXXVII) and Mei (XLIII) come back. Their trials send `trial-36` to `trial-45`, registered by migration `20261124000000_regulars_36_45.sql`.
+- **Chapters XLVI–LIII (#228, 2026-11-10):** a new year at the inn, for word chapters 45–52. Townspeople and travelers sit down one per chapter: a storyteller who lives on small words, a money changer at the gate, a weather watcher on the roof, the village teacher, a traveler who collects languages, the vet on her rounds, two neighbors who cook one feast for both their holidays, and the night guard. Their trials send `trial-46` to `trial-53`, registered by migration `20261125000000_regulars_46_53.sql`.
 - **Every word chapter now has its regular.** A new word chapter needs a new regular and a `trial-N` row in a migration.
 
 - **Beats:** each regular has an opening, and 3 milestone beats lit by the words you've met (one per 10 of the chapter's 30). The table shows the newest beat above "Start a session"; the courtyard's story panel shows the chapter.
