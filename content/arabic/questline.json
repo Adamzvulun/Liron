@@ -944,6 +944,256 @@
         },
         "outro": "The innkeeper turns her book to the first page. Under “guest,” she has written a new word next to your name: صاحب. Friend of the house."
       }
+    },
+    {
+      "id": "road:36",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 36,
+        "wordChapter": 35,
+        "title": "The Wedding Letter",
+        "who": "Hana, the innkeeper’s niece",
+        "intro": "A letter comes for the innkeeper, and she reads it twice and laughs out loud. Her niece Hana is getting married, here, at the inn, and the whole family is coming. Hana arrives first, a week early, to help.",
+        "milestones": [
+          "Hana tells you who’s coming: her grandmother, her brothers and sisters, the twins, the grandchildren. You keep up with every name.",
+          "She tells you how she met the groom, and when the wedding is. You ask about the bride’s ring, in Arabic.",
+          "She tells you that her grandmother was born in this house, long ago, and that the family has come back for every birth and every wedding since."
+        ],
+        "trial": {
+          "name": "Hana’s Guest List",
+          "text": "Hana reads you her guest list, and you have to know who everyone is. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Hana writes your name on the guest list, between her grandmother and the twins. “You’re family now,” she says. “Family comes early to a wedding.”"
+      }
+    },
+    {
+      "id": "road:37",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 37,
+        "wordChapter": 36,
+        "title": "The Fitting",
+        "who": "Samira, back with her needles",
+        "intro": "Samira the tailor comes back through the gate with a trunk of cloth and a mouth full of pins. The bride needs a dress, the groom needs a suit, and the whole family wants something new for the wedding.",
+        "milestones": [
+          "Samira measures the groom for his suit and shouts at him to stand still. You help her with the collar and the pockets.",
+          "She shows you silk, cotton and wool, and asks which is right for summer. You pick, and she says you have a tailor’s eye.",
+          "Hana’s grandmother opens her own box of jewelry: a gold bracelet, silver earrings, an old necklace. You hold each one up to the light."
+        ],
+        "trial": {
+          "name": "The Wedding Clothes",
+          "text": "Samira asks you for every piece of the wedding clothes, from the collar to the slippers. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Samira pins a silk flower to your collar. “For the wedding,” she says. “Don’t lose it in your pocket.”"
+      }
+    },
+    {
+      "id": "road:38",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 38,
+        "wordChapter": 37,
+        "title": "The Grandfather’s Aches",
+        "who": "Old Yousef, the bride’s grandfather",
+        "intro": "The bride’s grandfather arrives on his son’s arm, holding his back. Yousef is eighty and proud of it, and he’ll tell anyone who listens about every one of his pains.",
+        "milestones": [
+          "Yousef tells you about his ankle, his knees and his eyesight. You ask him where it hurts, and he tells you: everywhere.",
+          "He has a cough and a fever by evening. You take his prescription to the clinic in the village and come back with aspirin.",
+          "By the morning he feels better. He tells you his health is fine and his weight is perfect, and he asks for a second breakfast."
+        ],
+        "trial": {
+          "name": "Yousef’s Aches",
+          "text": "Yousef tells you about every pain he has, and you have to follow him. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Yousef pats your hand. “You listen like a good doctor,” he says. “And you don’t give me any medicine. That’s the best kind.”"
+      }
+    },
+    {
+      "id": "road:39",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 39,
+        "wordChapter": 38,
+        "title": "The Pastry Table",
+        "who": "Lina the baker",
+        "intro": "A woman comes in with flour up to her elbows and a cart of trays. Lina bakes for every wedding from here to the coast, and she has three days to fill the inn’s longest table.",
+        "milestones": [
+          "Lina lets you taste the pastries, one bite each, until you’re full. You tell her which pie is the best.",
+          "She makes the coffee for the guests: medium-sweet for the old men, espresso for the young ones. You learn to ask how each guest likes it.",
+          "She shows you the sauces for the feast, and you help her roast the chickens. Nobody goes hungry at a wedding."
+        ],
+        "trial": {
+          "name": "Lina’s Trays",
+          "text": "Lina names every tray on the pastry table, and you have to name them back. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Lina gives you the first cookie from the last tray. “Baked today,” she says. “Don’t tell the guests.”"
+      }
+    },
+    {
+      "id": "road:40",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 40,
+        "wordChapter": 39,
+        "title": "The Harvest Cart",
+        "who": "Abu Saleh the farmer",
+        "intro": "A farmer drives his cart through the gate, piled high with fruit and vegetables for the feast. Abu Saleh grows wheat and corn on the hills and keeps bees beside his palm trees.",
+        "milestones": [
+          "Abu Saleh unloads his cart with you: cabbages, peppers, mushrooms and peas. You sort them into baskets.",
+          "He gives you apricots, cherries and plums to taste, and tells you which ones he planted himself.",
+          "He tells you about his farm, his fields and his bees. He plants a seed in a flowerpot for the bride, a gift that will grow."
+        ],
+        "trial": {
+          "name": "Abu Saleh’s Cart",
+          "text": "Abu Saleh asks you for everything on his cart, from the broccoli to the honey. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Saleh puts a branch of his palm tree over the inn’s door. “For luck,” he says. “Weddings need it.”"
+      }
+    },
+    {
+      "id": "road:41",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 41,
+        "wordChapter": 40,
+        "title": "The Big Clean",
+        "who": "Tariq the handyman",
+        "intro": "The inn has to shine before the guests arrive, and the innkeeper hires a handyman. Tariq mends fences, fixes sinks and can build anything out of wood, glass or metal.",
+        "milestones": [
+          "Tariq sweeps the dust from the courtyard and washes the windows, and you carry the broom and the sponge behind him.",
+          "He fixes a broken chair and burns the old trash behind the wall. You hold the heavy things and he holds the light ones.",
+          "By evening the inn is quiet and bright. He lights a candle in every window and asks you if it’s ready. It is."
+        ],
+        "trial": {
+          "name": "Tariq’s Chores",
+          "text": "Tariq gives you a list of chores, and you have to know every word on it. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Tariq hands you his hammer. “Next time,” he says, “you fix the fence.”"
+      }
+    },
+    {
+      "id": "road:42",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 42,
+        "wordChapter": 41,
+        "title": "The Schoolteacher",
+        "who": "Miss Huda, the groom’s aunt",
+        "intro": "The groom’s aunt arrives with a bag of books. Huda has taught at the village school for thirty years, from kindergarten to high school, and she can’t stop teaching even at a wedding.",
+        "milestones": [
+          "Huda asks the children what grade they’re in and which subject they like. You answer too: Arabic, of course.",
+          "She writes on a blackboard by the gate and asks you to read it, copy it and spell it. You raise your hand before the children do.",
+          "She asks about your level and your grammar. She tests your vocabulary and your pronunciation, and she gives you a good grade."
+        ],
+        "trial": {
+          "name": "Huda’s Lesson",
+          "text": "Huda gives the whole courtyard a lesson, and you’re in the front row. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Huda writes a sentence on the blackboard and signs it: “A very good student.” She doesn’t erase it."
+      }
+    },
+    {
+      "id": "road:43",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 43,
+        "wordChapter": 42,
+        "title": "The Wedding Pictures",
+        "who": "Mei, back with a laptop",
+        "intro": "Mei the photographer comes back for the wedding, with her cameras and a laptop this time. She’ll take the pictures, and she needs help with the screen, the printer and the files.",
+        "milestones": [
+          "Mei shows you how she saves her pictures in folders, and how she deletes the bad ones. You help her upload the best.",
+          "She asks you to find the password for the inn’s internet, and to print a picture for the grandmother.",
+          "In the evening she plays a song on the radio station and puts the news on, and everyone watches the old videos of the family on her screen."
+        ],
+        "trial": {
+          "name": "Mei’s Slideshow",
+          "text": "Mei puts the wedding pictures on the screen, and you name what she needs. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Mei prints one picture for you: you and the innkeeper, laughing at the table. “Keep it,” she says. “It’s the best one.”"
+      }
+    },
+    {
+      "id": "road:44",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 44,
+        "wordChapter": 43,
+        "title": "The Long Night",
+        "who": "Fares and the band",
+        "intro": "On the wedding night the band arrives: a drummer, an oud player and Fares, who sings and never sits down. There’s music, dancing and games until morning.",
+        "milestones": [
+          "Fares plays the oud and the dancers make a circle. You don’t dance well, but you dance.",
+          "The old men play cards and chess at the corner table. You keep the score and tell them whose turn it is.",
+          "The young men play soccer in the courtyard, and Fares scores a goal with his foot and his head. His team wins, and he takes a picture of everyone."
+        ],
+        "trial": {
+          "name": "The Wedding Night",
+          "text": "The band plays all night, and you keep up with every game and every song. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Fares hands you the drum for the last song. “Everyone plays at a wedding,” he says. “Even the guests.”"
+      }
+    },
+    {
+      "id": "road:45",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 45,
+        "wordChapter": 44,
+        "title": "The Road Away",
+        "who": "Hana and her groom",
+        "intro": "In the morning the newlyweds leave, and the whole inn comes out to the gate. Hana and her groom are going on a trip: to the coast, the islands and the hills on the other side of the valley.",
+        "milestones": [
+          "Hana shows you their route on the map: the river, the tunnel through the hill, the forest and the sea. You tell her which way is best.",
+          "Her groom asks about the flight and the train platform, and you help him book their seats. The first flight is canceled, so you find another.",
+          "They load the car, and Hana gives you a helmet for the motorcycle she leaves behind. She says the waves and the sand can wait for you too."
+        ],
+        "trial": {
+          "name": "The Newlyweds’ Route",
+          "text": "Hana and her groom ask you the way, and you give it to them in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "The car goes out through the gate and down into the valley. The innkeeper turns her book to a new page and writes the date at the top. “Another year,” she says. “Who comes next?”"
+      }
     }
   ]
 }
