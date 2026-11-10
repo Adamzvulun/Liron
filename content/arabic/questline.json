@@ -94,6 +94,256 @@
         "lesson": 8,
         "text": "The last milestone. The innkeeper takes down the painted sign over the arch and hands it to you. “Read it.”"
       }
+    },
+    {
+      "id": "road:2",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 2,
+        "wordChapter": 1,
+        "title": "The Carter’s Greeting",
+        "who": "Salim the carter",
+        "intro": "A cart rattles in through the gate, and its driver jumps down before it stops. Salim greets the innkeeper, the cook, the boy with the rice and then you, twice each. “مرحبا! Hello! You’re the new guest? Sit with me. On the road, a greeting opens more doors than a key.”",
+        "milestones": [
+          "Salim taps his chest, then yours. “Me, you. That’s half of every conversation.” He orders tea for both of you.",
+          "You thank the cook without thinking, and she answers before you can blush. Salim laughs into his tea.",
+          "Salim stands and greets a stranger at the gate, then waves you over to do the next one yourself. You do."
+        ],
+        "trial": {
+          "name": "The Carter’s Roll Call",
+          "text": "Salim greets the whole courtyard and wants you to keep up. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Salim claps you on the back. “You greet like you were born on this road.” From now on, his cup sits next to yours at the innkeeper’s table."
+      }
+    },
+    {
+      "id": "road:3",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 3,
+        "wordChapter": 2,
+        "title": "The Grandmother’s Questions",
+        "who": "Umm Khalil",
+        "intro": "An old woman in an embroidered dress takes the cushion across from you and studies you over her glasses. “Who are you? Where are you from? Who are your people?” This is Umm Khalil, and she won’t stop asking until she knows.",
+        "milestones": [
+          "You ask Umm Khalil a question back. She raises an eyebrow, then smiles: “Good. Now you’re talking.”",
+          "Umm Khalil names her grandchildren, all of them, and checks that you can name your own family back.",
+          "A traveler asks where the well is. Before Umm Khalil can answer, you do."
+        ],
+        "trial": {
+          "name": "Umm Khalil’s Questions",
+          "text": "Umm Khalil has one more round of questions, and she expects answers. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "“Now I know who you are,” Umm Khalil says, and pats your hand. Her cushion stays across from yours at the table."
+      }
+    },
+    {
+      "id": "road:4",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 4,
+        "wordChapter": 3,
+        "title": "The Clockmender’s Count",
+        "who": "Yusuf the clockmender",
+        "intro": "A thin man spreads a cloth on the table and lays out tiny gears in rows. Yusuf mends clocks, and he counts everything: steps, coins, minutes until supper. “One, two, three. Count with me, or you’ll lose your place.”",
+        "milestones": [
+          "Yusuf hands you a gear and asks how many teeth it has. You count them in Arabic, out loud.",
+          "The courtyard clock strikes, and Yusuf asks you the time. You get it right before the last chime.",
+          "Yusuf plans his week out loud, day by day, and lets you finish the list."
+        ],
+        "trial": {
+          "name": "The Clockmender’s Count",
+          "text": "Yusuf sets his clocks running and starts counting. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Every clock Yusuf mended chimes at once. “You kept time,” he says. His cloth of gears stays on the corner of the table."
+      }
+    },
+    {
+      "id": "road:5",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 5,
+        "wordChapter": 4,
+        "title": "The Baker’s Daughter",
+        "who": "Rana",
+        "intro": "The smell reaches the table before she does: Rana, the baker’s daughter, with a basket of warm bread on her hip. “You’ve been eating here for weeks and you still point at things. Tonight you ask for them.”",
+        "milestones": [
+          "You ask Rana for bread by name. She hands you the warmest piece in the basket.",
+          "Rana reads you the kitchen’s board and quizzes you on it. You name most of the dishes.",
+          "You order a whole supper, from soup to tea, and Rana writes it down without a single point."
+        ],
+        "trial": {
+          "name": "Rana’s Bread Basket",
+          "text": "Rana sets a full supper on the table, and you have to name it all. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Rana tears the last loaf in two and gives you half. “You eat like family now.” Her basket has a place at the table."
+      }
+    },
+    {
+      "id": "road:6",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 6,
+        "wordChapter": 5,
+        "title": "The Mason’s Plan",
+        "who": "Abu Fadi the mason",
+        "intro": "A big man with plaster dust in his beard unrolls a drawing across the table: a house, room by room. Abu Fadi is building it for his son. “Help me with the words, guest. A house is nothing but its rooms.”",
+        "milestones": [
+          "Abu Fadi points at the drawing, and you name the room. He marks it with a stub of pencil.",
+          "You walk the inn with Abu Fadi, naming doors, windows and stairs as you go.",
+          "Abu Fadi shows you where the furniture will stand, and you say where each piece goes."
+        ],
+        "trial": {
+          "name": "The Mason’s Plan",
+          "text": "Abu Fadi walks you through the finished drawing, room by room. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Fadi rolls up the plan and writes your name on the corner. “Every house needs a guest.” His plans stay on the table."
+      }
+    },
+    {
+      "id": "road:7",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 7,
+        "wordChapter": 6,
+        "title": "The Guide at the Gate",
+        "who": "Nasser the guide",
+        "intro": "A wiry man in a dusty kufiya sits down with a map and a cup of coffee. Nasser leads travelers through the hills and the towns beyond. “You can’t stay in the courtyard forever. Out there, you need to ask the way.”",
+        "milestones": [
+          "Nasser traces a road on the map, and you call out left, right and straight on.",
+          "You ask Nasser how to get to the market. He makes you ask twice, the second time faster.",
+          "Nasser plans a whole journey with you: the bus, the road, the station at the end."
+        ],
+        "trial": {
+          "name": "The Guide’s Map",
+          "text": "Nasser hands you the map and lets you lead. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Nasser folds the map and tucks it into your bag. “Now you can find your way back.” His coffee cup stays on the table."
+      }
+    },
+    {
+      "id": "road:8",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 8,
+        "wordChapter": 7,
+        "title": "The Painter’s Portrait",
+        "who": "Leila the painter",
+        "intro": "A young woman sets up a small easel by the lamp and squints at you. Leila paints portraits for travelers to send home. “Sit still. And tell me what I’m painting: your eyes, your hair, the color of your coat.”",
+        "milestones": [
+          "You name the colors on Leila’s palette, one by one, as she mixes them.",
+          "Leila paints your hands and asks you to name each part as she goes.",
+          "You describe the innkeeper to Leila, and she paints her from your words alone."
+        ],
+        "trial": {
+          "name": "Leila’s Portrait",
+          "text": "Leila finishes your portrait and asks you to describe it back to her. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Leila turns the easel around: it’s you, at the innkeeper’s table, mid-word. She hangs it over the table, where it stays."
+      }
+    },
+    {
+      "id": "road:9",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 9,
+        "wordChapter": 8,
+        "title": "The Spice Seller’s Scales",
+        "who": "Hassan the spice seller",
+        "intro": "A man with a brass scale and a dozen little sacks takes the end of the table. Hassan sells spices, and he never gives a price without a smile and a story. “You want za‘tar? First you bargain.”",
+        "milestones": [
+          "You ask Hassan the price of cumin, and he names it. You make an offer back.",
+          "Hassan counts out your change slowly, testing you. You catch his mistake, and he laughs.",
+          "You buy for the whole inn: spices, coffee, sugar, and you pay what it’s worth."
+        ],
+        "trial": {
+          "name": "The Spice Seller’s Scales",
+          "text": "Hassan sets out his whole stall and dares you to buy it right. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Hassan weighs out a little bag of za‘tar and won’t take your coins. “For a friend.” His scale stays at the end of the table."
+      }
+    },
+    {
+      "id": "road:10",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 10,
+        "wordChapter": 9,
+        "title": "The Teacher’s Lesson",
+        "who": "Miss Huda the teacher",
+        "intro": "A woman with a stack of exercise books sits down to mark them by the lamp. Miss Huda teaches the village children, and she asks about your work, your days and your plans. “Everyone here does something. What do you do?”",
+        "milestones": [
+          "You tell Miss Huda what you do, and she corrects one word, kindly.",
+          "Miss Huda lets you mark a child’s homework. You find both mistakes.",
+          "You describe your whole working day to Miss Huda, from waking up to closing the door."
+        ],
+        "trial": {
+          "name": "Miss Huda’s Lesson",
+          "text": "Miss Huda gives you the lesson she gives her best class. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Miss Huda writes “excellent” on your page in red ink, in Arabic. Her stack of books stays on the table."
+      }
+    },
+    {
+      "id": "road:11",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 11,
+        "wordChapter": 10,
+        "title": "The Poet’s Evening",
+        "who": "Jamil the poet",
+        "intro": "An old man with a walking stick takes the cushion nearest the lamp. Jamil was a shepherd, and now he makes poems about the weather and the heart. “Tell me how the day was. Not the work: the sky, and how you felt.”",
+        "milestones": [
+          "You tell Jamil it’s hot today, and he answers with a line about the sun.",
+          "Jamil asks what you love and what you can’t stand. You answer him in Arabic.",
+          "You tell Jamil about a happy day and a sad one, and he listens to both."
+        ],
+        "trial": {
+          "name": "The Poet’s Evening",
+          "text": "Jamil recites, and you answer him line by line. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Jamil closes his eyes and nods. “You speak from the heart now.” The whole table is full: every regular in their place, and you among them."
+      }
     }
   ]
 }

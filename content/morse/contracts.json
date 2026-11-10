@@ -62,6 +62,58 @@
         "gold": 15,
         "text": "Key a sending drill at 80%"
       }
+    },
+    {
+      "id": "morse-words",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "words-round",
+        "target": 2,
+        "gold": 15,
+        "text": "Play 2 Codebook rounds",
+        "requires": "words-round"
+      }
+    },
+    {
+      "id": "morse-words-perfect",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "words-perfect",
+        "target": 1,
+        "gold": 20,
+        "text": "Copy a whole Codebook round right",
+        "requires": "words-round"
+      }
+    },
+    {
+      "id": "morse-rush",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "rush-round",
+        "target": 1,
+        "gold": 15,
+        "text": "Finish a callsign rush",
+        "requires": "rush-round"
+      }
+    },
+    {
+      "id": "morse-rush-fast",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "rush-fast",
+        "target": 3,
+        "gold": 20,
+        "text": "Copy 3 callsigns above your speed",
+        "requires": "rush-round"
+      }
     }
   ]
 }

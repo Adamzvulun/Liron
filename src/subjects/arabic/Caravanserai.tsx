@@ -18,13 +18,15 @@ const VIEWS: readonly View[] = [
   'phrases',
   'words',
   'trial',
+  'regular',
 ];
 
 /**
  * Inside the Caravanserai: the painted courtyard (#42), and behind its stations the script
  * lesson, the fountain's listening, the storyteller's reading (#38–#41) and the Painted Sign
  * (#43), the slate's writing (#41), the coffee corner's phrases (#45) and the innkeeper's word
- * lessons (#160). ?open=lesson (or listen, read, write, phrases, words, trial) in the address goes straight there (for tests).
+ * lessons (#160) with the regulars' trials (#161). ?open=lesson (or listen, read, write, phrases,
+ * words, trial, regular) in the address goes straight there (for tests).
  */
 export function Caravanserai({ api }: { api: SubjectApi }) {
   const [view, setView] = useState<View>(() => {
@@ -44,8 +46,8 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
         <Slate api={api} />
       ) : view === 'phrases' ? (
         <CoffeeCorner api={api} />
-      ) : view === 'words' ? (
-        <WordLessons api={api} />
+      ) : view === 'words' || view === 'regular' ? (
+        <WordLessons key={view} api={api} trial={view === 'regular'} />
       ) : (
         <ScriptLesson
           key={view}

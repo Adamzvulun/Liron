@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import {
   applyWordSession,
+  applyWordTrial,
   parseProgress,
   PASS_SCORE,
   PASSES_NEEDED,
@@ -9,11 +10,14 @@ import {
   type ArabicProgress,
 } from '../progress.ts';
 import { seeded } from '../lesson/questions.ts';
+import { ArabicText } from '../ArabicText.tsx';
+import { regularStatus, type Regular } from '../questline.ts';
 import { useAudio } from '../lesson/useAudio.ts';
 import { DECK } from '../words.ts';
 import {
   coreWordsFrom,
   pickSession,
+  shuffle,
   WORD_CHAPTERS,
   wordQuestions,
   wordXp,
@@ -21,15 +25,21 @@ import {
   type WordQuestion,
 } from './coreWords.ts';
 import { cardDue, cardsRead, grammarFrom, withCardRead, type GrammarCard } from './grammar.ts';
-import { reportWords, scoreOfWords, type WordAnswer } from './report.ts';
+import { reportWords, reportWordTrial, scoreOfWords, type WordAnswer } from './report.ts';
 
 type Stage =
   | { kind: 'start' }
   | { kind: 'card'; card: GrammarCard; fresh: CoreWord[]; words: CoreWord[] }
   | { kind: 'book'; open: GrammarCard | null }
   | { kind: 'meet'; fresh: CoreWord[]; words: CoreWord[]; index: number }
-  | { kind: 'ask'; questions: WordQuestion[]; index: number; answers: WordAnswer[] }
-  | { kind: 'result'; answers: WordAnswer[]; passed: boolean; sameDay: boolean };
+  | {
+      kind: 'ask';
+      questions: WordQuestion[];
+      index: number;
+      answers: WordAnswer[];
+      trial?: Regular;
+    }
+  | { kind: 'result'; answers: WordAnswer[]; passed: boolean; sameDay: boolean; trial?: Regular };
 
 /** `?run=short` makes a session 3 words (for tests). */
 const sessionSize = () =>
@@ -40,8 +50,9 @@ const sessionSize = () =>
 /**
  * The innkeeper's table (#160): the word path's lessons. Meet a session's new words, then
  * practice them with the words due and the words you know: hear it, read it, or recall it.
+ * With `trial`, it's the current regular's trial instead (#161).
  */
-export function WordLessons({ api }: { api: SubjectApi }) {
+export function WordLessons({ api, trial = false }: { api: SubjectApi; trial?: boolean }) {
   const [progress, setProgress] = useState<ArabicProgress | null>(null);
   const [chapters, setChapters] = useState<CoreWord[][] | null>(null);
   const [grammar, setGrammar] = useState<GrammarCard[]>([]);
@@ -100,13 +111,42 @@ export function WordLessons({ api }: { api: SubjectApi }) {
   const met = new Set(progress.words.met);
   const pool = chapters.flat();
 
-  const ask = (words: CoreWord[], now: number) => {
+  const ask = (words: CoreWord[], now: number, regular?: Regular) => {
     setStage({
       kind: 'ask',
       questions: wordQuestions(words, pool, seeded(now)),
       index: 0,
       answers: [],
+      ...(regular && { trial: regular }),
     });
+  };
+
+  const road = regularStatus(progress);
+  const faceTrial = (regular: Regular, now: number) => {
+    setStarted(now);
+    const words = shuffle(chapters[regular.wordChapter - 1] ?? [], seeded(now));
+    ask(words.slice(0, regular.trial.words), now, regular);
+  };
+
+  const finishTrial = (regular: Regular, answers: WordAnswer[], now: number) => {
+    const { next, passed } = applyWordTrial(
+      progress,
+      regular.number,
+      scoreOfWords(answers),
+      regular.trial.accuracy,
+    );
+    setProgress(next);
+    setStage({ kind: 'result', answers, passed, sameDay: false, trial: regular });
+    reportWordTrial(
+      api,
+      next,
+      answers,
+      { road: regular.number, xp: regular.trial.xp, passed },
+      (now - started) / 1000,
+    ).then(
+      () => setSaveFailed(false),
+      () => setSaveFailed(true),
+    );
   };
 
   const practice = (words: CoreWord[], fresh: CoreWord[], now: number) => {
@@ -149,7 +189,33 @@ export function WordLessons({ api }: { api: SubjectApi }) {
           Your session couldn’t be saved. Check your connection and try again.
         </p>
       )}
-      {stage.kind === 'start' && (
+      {stage.kind === 'start' && trial && (
+        <div className="lesson__card lesson__start">
+          {road?.trialReady ? (
+            <>
+              <p className="lesson__kicker">The Long Road In · {road.regular.who}</p>
+              <h2 className="lesson__title">{road.regular.trial.name}</h2>
+              <p>{road.regular.trial.text}</p>
+              <div className="lesson__actions">
+                <button
+                  type="button"
+                  className="lesson__go"
+                  onClick={() => faceTrial(road.regular, Date.now())}
+                >
+                  Begin the trial
+                </button>
+              </div>
+            </>
+          ) : (
+            <p>
+              {road?.passed
+                ? `You’ve passed ${road.regular.trial.name}.`
+                : `Not yet: pass the chapter “${WORD_CHAPTERS[(road?.regular.wordChapter ?? 1) - 1]?.title ?? ''}” at the innkeeper’s table first.`}
+            </p>
+          )}
+        </div>
+      )}
+      {stage.kind === 'start' && !trial && (
         <div className="lesson__card lesson__start">
           <p className="lesson__kicker">
             The innkeeper’s table ·{' '}
@@ -161,6 +227,11 @@ export function WordLessons({ api }: { api: SubjectApi }) {
               ? 'You’ve passed every chapter. A session keeps your words fresh.'
               : chapter.theme}
           </p>
+          {road && (
+            <blockquote className="arabic__beat">
+              <ArabicText text={road.beat ?? road.regular.intro} />
+            </blockquote>
+          )}
           <p className="arabic__note">
             {chapter.words.filter((x) => met.has(x.deck)).length} of {chapter.words.length} words
             met. Score {Math.round(PASS_SCORE * 100)}% in two sessions, on different days, to pass
@@ -171,6 +242,15 @@ export function WordLessons({ api }: { api: SubjectApi }) {
             <button type="button" className="lesson__go" onClick={() => begin(Date.now())}>
               Start a session
             </button>
+            {road?.trialReady && (
+              <button
+                type="button"
+                className="lesson__go"
+                onClick={() => faceTrial(road.regular, Date.now())}
+              >
+                Trial: {road.regular.trial.name}
+              </button>
+            )}
             {book.length > 0 && (
               <button
                 type="button"
@@ -262,11 +342,45 @@ export function WordLessons({ api }: { api: SubjectApi }) {
             const answers = [...stage.answers, { question: current, right }];
             if (stage.index + 1 < stage.questions.length)
               setStage({ ...stage, index: stage.index + 1, answers });
+            else if (stage.trial) finishTrial(stage.trial, answers, now);
             else finish(answers, now);
           }}
         />
       )}
-      {stage.kind === 'result' && (
+      {stage.kind === 'result' && stage.trial && (
+        <div className="lesson__card lesson__start">
+          <p className="lesson__kicker">{stage.trial.trial.name}</p>
+          <p className="arabic__pct">
+            {stage.answers.filter((a) => a.right).length} / {stage.answers.length}
+          </p>
+          {stage.passed ? (
+            <blockquote className="arabic__beat">
+              <ArabicText text={stage.trial.outro} />
+            </blockquote>
+          ) : (
+            <p>
+              You need {Math.round(stage.trial.trial.accuracy * 100)}% to pass. {stage.trial.who}{' '}
+              waits: try again when you’re ready.
+            </p>
+          )}
+          <p className="arabic__xp">
+            +
+            {wordXp(stage.answers.filter((a) => a.right).length, false) +
+              (stage.passed ? stage.trial.trial.xp : 0)}{' '}
+            XP
+          </p>
+          {!stage.passed && (
+            <button
+              type="button"
+              className="lesson__go"
+              onClick={() => stage.trial && faceTrial(stage.trial, Date.now())}
+            >
+              Try again
+            </button>
+          )}
+        </div>
+      )}
+      {stage.kind === 'result' && !stage.trial && (
         <div className="lesson__card lesson__start">
           <p className="lesson__kicker">The innkeeper’s table · done</p>
           <p className="arabic__pct">
