@@ -23,7 +23,7 @@ export function morseMet(rank: Rank, p: MorseProgress): boolean[] {
       return [
         p.sending.drills >= KEYER_DRILLS,
         p.sending.ditMs !== null && p.sending.ditMs <= KEYER_DIT_MS,
-        false,
+        p.rankTrials.includes('lamp-signal'),
       ];
     default:
       return rank.conditions.map(() => false);
