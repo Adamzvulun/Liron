@@ -5,7 +5,7 @@
 
 ## The short version
 - **The word path opens after the script course.** It starts once you pass "The Painted Sign" (chapter 1 of "The Long Road In"), when every letter is yours.
-- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–1,000 come later in E11: the rest of A1, then A2.
+- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1) are in; A2 up to 1,000 comes next.
 - **Each word is met with its native recording, its meaning, how it sounds in Hebrew letters, and a deck sentence when the deck has one.** The deck has few sentences, so this is the main open question (section 3).
 - **Practice is the same four moves as the letters:** meet, listen, read, recall. FSRS schedules each word, and Glicko rates you in listen and read.
 - **Each chapter brings a new regular to the innkeeper's table** ("The Long Road In" chapter 2 onward), with a trial at its end.
@@ -61,13 +61,31 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
   - **Left out as the same word:** where the deck lists a word again in another section with the same Arabic (teacher, bank, sun, *why*…), the path teaches it once.
   - **Variants are in:** where the deck gives a second common word for the same thing (بيْت *house* beside دار, كُنْدرة *shoes* beside جزْمة), the second comes in these chapters, so both are heard.
   - **131 of the 600 words carry a deck sentence.** The matching is the same as for the first 300. By eye I removed 8 wrong matches, where the sentence holds a related word but not the word itself (*to have*, *to make dinner*, *to make coffee*, *to turn the TV on* and *off*, *to play a game*, *to book*, *to take the train*).
-  - **Still to come (ordered, not cut):** the rest of A1 (the months, the hundreds and thousands, more countries and languages, and some small words), then A2 up to word 1,000. The regulars of "The Long Road In" cover chapters 1–10; the story for chapters 11 onward comes with that next step.
+  - The regulars of "The Long Road In" cover chapters 1–10; the story for chapters 11 onward comes later (ordered, not cut).
+
+- **Words 601–840 (#163, 2026-11-10):** the rest of the deck's A1 words, in 8 more chapters, the same way:
+
+| Chapter | Theme | Deck sections it draws on |
+|---|---|---|
+| 21 | Neighbors near and far | Countries and Nationalities (the Arab countries and their people) |
+| 22 | Across the sea | Countries and Nationalities (Europe), Language |
+| 23 | The wide world | Countries and Nationalities (Asia, Africa), Language, Earth and Space |
+| 24 | Hundreds and thousands | Numbers (the hundreds and up), Time (the months), Shapes, Sizes, and Measurements |
+| 25 | Money and sizes | Clothing, Jewelry, and Accessories, Restaurant, Bank, Money, and the shopping words |
+| 26 | Eating and feeling well | Food and Drink, Adjectives, Health and Medicine |
+| 27 | Days out | Countries and Nationalities (the Americas), Music, Travel and Vacations, Technology |
+| 28 | Other ways to say it | Conjunctions, Adverbs, Colors, Opinions and Agreement, Prepositions, Question Words |
+
+  - **143 of the 840 words carry a deck sentence.** By eye I removed 2 more wrong matches (*to open*, where the sentence opens a window but the word is another; and *to pay*, where the sentence only asks for the bill).
+  - **Two words for one thing are never each other's wrong choice.** With variants in, a quiz could have offered دار as a wrong answer for بيْت (*house*). The quiz now leaves out any word with the same meaning (tested).
+  - **Held back for the A2 batch (ordered, not cut):** brand names (Pepsi, Facebook, Twitter), two prefixes the deck lists as words (بـ, عَ), a second word for *Hungary*, and a few that need a better gloss or a sentence first (*OK*, *stem*, *dawn*, a second *go shopping*, *eat soup*).
+  - **Still to come:** A2 up to word 1,000, then the held-back words.
 
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
 - **Not picked for the first 300:** near-duplicates (the deck has three ways to say *hi*; one is taught), brand names, and adult words. Every other A1 word waits for words 301–1,000; none is dropped.
-- **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters (#163). Words 301–600 are in (below); the rest is ordered, not cut.
+- **Words 301–1,000:** the rest of A1, then A2, in the same kind of chapters (#163). Words 301–840 are in (below), all of A1; A2 up to 1,000 is ordered, not cut.
 
 - **The list** is `content/arabic/core-words.json`, made from the deck by a script that checks every id is A1 and appears once.
 
