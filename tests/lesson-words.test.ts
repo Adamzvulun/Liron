@@ -5,7 +5,9 @@ import { existsSync } from 'node:fs';
 import { buildLingualism } from '../scripts/content/lingualism.ts';
 import { lettersOf } from '../src/subjects/arabic/letters.ts';
 import { PHRASE_SETS, phrasesOf } from '../src/subjects/arabic/phrases/sets.ts';
-import { NO_REVIEW, REVIEW, REVIEWS, wordsFrom } from '../src/subjects/arabic/words.ts';
+import { PAIRS, wordsFor } from '../src/subjects/arabic/echo/pairs.ts';
+import { WORD_CHAPTERS } from '../src/subjects/arabic/core/coreWords.ts';
+import { ECHO_POOL, NO_REVIEW, REVIEW, REVIEWS, wordsFrom } from '../src/subjects/arabic/words.ts';
 
 const DECK = 'sources/arabic/lingualism-palestinian-vocabulary/lingualism-pcav.apkg';
 
@@ -48,6 +50,35 @@ describe('the reviewed lesson words', () => {
         .filter((w) => !looked.has(w.id))
         .map((w) => w.id);
       expect(missed).toEqual([]);
+    },
+    60_000,
+  );
+});
+
+describe('the echo well’s pool (Adam, 2026-11-10)', () => {
+  it('holds every word-path word and every reviewed lesson word, with our glosses', () => {
+    for (const c of WORD_CHAPTERS) {
+      for (const w of c.words) {
+        expect(ECHO_POOL.words.get(w.deck)?.gloss, w.deck).toBe(
+          REVIEW.words.get(w.deck)?.gloss ?? w.gloss,
+        );
+      }
+    }
+    for (const [id, w] of REVIEW.words) expect(ECHO_POOL.words.get(id), id).toEqual(w);
+  });
+
+  it.skipIf(!existsSync(DECK))(
+    'keeps enough words for every sound pair, though the letter lessons are short',
+    async () => {
+      const { pack } = await buildLingualism(DECK);
+      const words = wordsFrom(pack.items, ECHO_POOL);
+      for (const pair of PAIRS) {
+        const sides = wordsFor(words, pair);
+        expect(sides.a.length, `${pair.id} a`).toBeGreaterThanOrEqual(5);
+        expect(sides.b.length, `${pair.id} b`).toBeGreaterThanOrEqual(5);
+      }
+      // Every word the well can ask shows our gloss, never the deck's English.
+      for (const w of words) expect(w.meaning, w.id).toBe(ECHO_POOL.words.get(w.id)?.gloss);
     },
     60_000,
   );

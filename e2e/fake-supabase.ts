@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import { WORD_CHAPTERS } from '../src/subjects/arabic/core/coreWords.ts';
 import { REVIEWS } from '../src/subjects/arabic/words.ts';
 import { ACHIEVEMENTS } from '../src/core/achievements/achievements.ts';
 
@@ -456,12 +457,25 @@ export const deckWord = (n: number, arabic: string, english: string): ContentRow
 });
 
 /**
- * A deck-like lesson-1 word under the id of the `n`th word in the reviewed lesson-1 list
- * (content/arabic/lesson-words.json, #125): a reviewed lesson uses only listed ids.
+ * A deck-like word under the id of the `n`th word in a lesson's reviewed list (lesson 1 unless
+ * given; content/arabic/lesson-words.json, #125): a reviewed lesson uses only listed ids.
  */
-export const lessonWord = (n: number, arabic: string, english: string): ContentRow => {
-  const id = REVIEWS.find((r) => r.lesson === 1)?.words[n - 1]?.deck;
-  if (!id) throw new Error(`no reviewed lesson-1 word number ${n}`);
+export const lessonWord = (n: number, arabic: string, english: string, lesson = 1): ContentRow => {
+  const id = REVIEWS.find((r) => r.lesson === lesson)?.words[n - 1]?.deck;
+  if (!id) throw new Error(`no reviewed lesson-${lesson} word number ${n}`);
+  return { ...deckWord(n, arabic, english), item_id: id };
+};
+
+/**
+ * A deck-like word under the id of the `n`th word on the word path (content/arabic/core-words.json):
+ * the echo well draws only on the path and the reviewed lesson words.
+ */
+export const pathWord = (n: number, arabic: string, english: string): ContentRow => {
+  // Path words that aren't also reviewed lesson words, whose Latin may be overridden.
+  const reviewed = new Set(REVIEWS.flatMap((r) => r.words.map((w) => w.deck)));
+  const id = WORD_CHAPTERS.flatMap((c) => c.words).filter((w) => !reviewed.has(w.deck))[n - 1]
+    ?.deck;
+  if (!id) throw new Error(`no word-path word number ${n}`);
   return { ...deckWord(n, arabic, english), item_id: id };
 };
 
