@@ -178,11 +178,17 @@ export function Keying({
   startDitMs,
   audio,
   onDone,
+  free = false,
 }: {
   text: string;
   startDitMs: number;
   audio: () => Audio | null;
   onDone: (marks: Mark[], seconds: number) => void;
+  /**
+   * Key anything (the Radio Room's own-news turn, ADR 0037): no line to copy, so it never ends
+   * by itself; Done ends it. `text` is ignored.
+   */
+  free?: boolean;
 }) {
   const [marks, setMarks] = useState<Mark[]>([]);
   const [downAt, setDownAt] = useState<number | null>(null);
@@ -260,10 +266,10 @@ export function Keying({
   const last = marks[marks.length - 1];
   const rested = last && downAt === null && now - last.up > 7 * decoded.ditMs;
   useEffect(() => {
-    if (finished.current || !rested || sent.length < target.length || !last) return;
+    if (free || finished.current || !rested || sent.length < target.length || !last) return;
     finished.current = true;
     onDone(marks, (last.up - (started.current ?? last.down)) / 1000);
-  }, [rested, sent.length, target.length, marks, last, onDone]);
+  }, [free, rested, sent.length, target.length, marks, last, onDone]);
 
   const finishNow = () => {
     if (finished.current || !last) return;
@@ -274,30 +280,32 @@ export function Keying({
   let i = 0;
   return (
     <div className="lesson__card send__desk">
-      <p className="lesson__kicker">Key this</p>
-      <p className="send__target" aria-label={`Key: ${text}`}>
-        {text.split(' ').map((group, g) => (
-          <span key={g} className="send__group">
-            {[...group].map((c, k) => {
-              const at = i++;
-              const got = sent[at];
-              const cls =
-                got === undefined
-                  ? at === sent.length
-                    ? ' is-current'
-                    : ''
-                  : got === c
-                    ? ' is-right'
-                    : ' is-wrong';
-              return (
-                <span key={k} className={`send__char${cls}`}>
-                  {c}
-                </span>
-              );
-            })}
-          </span>
-        ))}
-      </p>
+      <p className="lesson__kicker">{free ? 'Key your own words' : 'Key this'}</p>
+      {!free && (
+        <p className="send__target" aria-label={`Key: ${text}`}>
+          {text.split(' ').map((group, g) => (
+            <span key={g} className="send__group">
+              {[...group].map((c, k) => {
+                const at = i++;
+                const got = sent[at];
+                const cls =
+                  got === undefined
+                    ? at === sent.length
+                      ? ' is-current'
+                      : ''
+                    : got === c
+                      ? ' is-right'
+                      : ' is-wrong';
+                return (
+                  <span key={k} className={`send__char${cls}`}>
+                    {c}
+                  </span>
+                );
+              })}
+            </span>
+          ))}
+        </p>
+      )}
       <p className="send__read" aria-live="polite">
         <span className="send__read-label">The tower reads</span>
         <span className="send__read-text">
@@ -330,18 +338,20 @@ export function Keying({
         </span>
       </button>
       <div className="lesson__actions">
-        <button
-          type="button"
-          className="lesson__plain"
-          onClick={() =>
-            void audio()?.player.play(text, {
-              charWpm: Math.min(20, Math.max(8, Math.round(wpmFor(decoded.ditMs)))),
-              effWpm: Math.min(20, Math.max(5, Math.round(wpmFor(decoded.ditMs)))),
-            })
-          }
-        >
-          Hear it
-        </button>
+        {!free && (
+          <button
+            type="button"
+            className="lesson__plain"
+            onClick={() =>
+              void audio()?.player.play(text, {
+                charWpm: Math.min(20, Math.max(8, Math.round(wpmFor(decoded.ditMs)))),
+                effWpm: Math.min(20, Math.max(5, Math.round(wpmFor(decoded.ditMs)))),
+              })
+            }
+          >
+            Hear it
+          </button>
+        )}
         <button
           type="button"
           className="lesson__plain"
