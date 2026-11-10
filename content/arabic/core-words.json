@@ -8125,6 +8125,1073 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:61",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 61,
+        "title": "On the road",
+        "theme": "Taxis, lanes, the car's parts and what goes wrong",
+        "words": [
+          {
+            "deck": "pcav:1847",
+            "gloss": "to hail a taxi"
+          },
+          {
+            "deck": "pcav:1849",
+            "gloss": "to haggle over the fare"
+          },
+          {
+            "deck": "pcav:1878",
+            "gloss": "to overtake"
+          },
+          {
+            "deck": "pcav:1890",
+            "gloss": "to run a red light"
+          },
+          {
+            "deck": "pcav:1893",
+            "gloss": "parking garage"
+          },
+          {
+            "deck": "pcav:1896",
+            "gloss": "lane"
+          },
+          {
+            "deck": "pcav:1897",
+            "gloss": "to change lanes"
+          },
+          {
+            "deck": "pcav:1913",
+            "gloss": "hood (of a car)"
+          },
+          {
+            "deck": "pcav:1926",
+            "gloss": "steering wheel"
+          },
+          {
+            "deck": "pcav:1927",
+            "gloss": "turn signal"
+          },
+          {
+            "deck": "pcav:1934",
+            "gloss": "tire"
+          },
+          {
+            "deck": "pcav:1936",
+            "gloss": "to get a flat tire"
+          },
+          {
+            "deck": "pcav:1938",
+            "gloss": "to change a tire"
+          },
+          {
+            "deck": "pcav:1939",
+            "gloss": "automatic"
+          },
+          {
+            "deck": "pcav:1945",
+            "gloss": "brake"
+          },
+          {
+            "deck": "pcav:1947",
+            "gloss": "to brake"
+          },
+          {
+            "deck": "pcav:1949",
+            "gloss": "to speed up"
+          },
+          {
+            "deck": "pcav:1958",
+            "gloss": "to back up"
+          },
+          {
+            "deck": "pcav:1962",
+            "gloss": "speedometer"
+          },
+          {
+            "deck": "pcav:1964",
+            "gloss": "to go over the speed limit"
+          },
+          {
+            "deck": "pcav:1973",
+            "gloss": "to change the oil"
+          },
+          {
+            "deck": "pcav:1974",
+            "gloss": "to put on a seat belt"
+          },
+          {
+            "deck": "pcav:1977",
+            "gloss": "to turn off the engine"
+          },
+          {
+            "deck": "pcav:1978",
+            "gloss": "bumper"
+          },
+          {
+            "deck": "pcav:1982",
+            "gloss": "dent",
+            "sentence": "pcav:1983"
+          },
+          {
+            "deck": "pcav:1987",
+            "gloss": "to have an accident"
+          },
+          {
+            "deck": "pcav:1988",
+            "gloss": "to crash"
+          },
+          {
+            "deck": "pcav:1830",
+            "gloss": "transportation"
+          },
+          {
+            "deck": "pcav:1863",
+            "gloss": "chain"
+          },
+          {
+            "deck": "pcav:1834",
+            "gloss": "boat"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:62",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 62,
+        "title": "Sun, sea and borders",
+        "theme": "The beach, hiking, visas, flights and trains",
+        "words": [
+          {
+            "deck": "pcav:2639",
+            "gloss": "to build a sand castle"
+          },
+          {
+            "deck": "pcav:2640",
+            "gloss": "beach umbrella"
+          },
+          {
+            "deck": "pcav:2642",
+            "gloss": "to sunbathe"
+          },
+          {
+            "deck": "pcav:2644",
+            "gloss": "to get sunburned"
+          },
+          {
+            "deck": "pcav:2646",
+            "gloss": "to put on sunscreen"
+          },
+          {
+            "deck": "pcav:2648",
+            "gloss": "to get a tan"
+          },
+          {
+            "deck": "pcav:2661",
+            "gloss": "to dive"
+          },
+          {
+            "deck": "pcav:2667",
+            "gloss": "to go hiking"
+          },
+          {
+            "deck": "pcav:2676",
+            "gloss": "to get a visa"
+          },
+          {
+            "deck": "pcav:2678",
+            "gloss": "residence permit"
+          },
+          {
+            "deck": "pcav:2680",
+            "gloss": "valid"
+          },
+          {
+            "deck": "pcav:2686",
+            "gloss": "customs"
+          },
+          {
+            "deck": "pcav:2688",
+            "gloss": "to declare"
+          },
+          {
+            "deck": "pcav:2704",
+            "gloss": "to land"
+          },
+          {
+            "deck": "pcav:2720",
+            "gloss": "to board (a plane)"
+          },
+          {
+            "deck": "pcav:2722",
+            "gloss": "to be delayed"
+          },
+          {
+            "deck": "pcav:2728",
+            "gloss": "to change planes"
+          },
+          {
+            "deck": "pcav:2740",
+            "gloss": "rails"
+          },
+          {
+            "deck": "pcav:2746",
+            "gloss": "train car"
+          },
+          {
+            "deck": "pcav:2776",
+            "gloss": "porter"
+          },
+          {
+            "deck": "pcav:2223",
+            "gloss": "to fly a kite"
+          },
+          {
+            "deck": "pcav:2233",
+            "gloss": "to hang out"
+          },
+          {
+            "deck": "pcav:2219",
+            "gloss": "rest, relaxation"
+          },
+          {
+            "deck": "pcav:2335",
+            "gloss": "to hunt"
+          },
+          {
+            "deck": "pcav:2340",
+            "gloss": "to go fishing"
+          },
+          {
+            "deck": "pcav:2342",
+            "gloss": "fishing rod"
+          },
+          {
+            "deck": "pcav:2311",
+            "gloss": "to sew"
+          },
+          {
+            "deck": "pcav:2314",
+            "gloss": "thread"
+          },
+          {
+            "deck": "pcav:2327",
+            "gloss": "photography"
+          },
+          {
+            "deck": "pcav:2386",
+            "gloss": "to clap"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:63",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 63,
+        "title": "On stage",
+        "theme": "Series, records, the theater, music and the water pipe",
+        "words": [
+          {
+            "deck": "pcav:2264",
+            "gloss": "series"
+          },
+          {
+            "deck": "pcav:2266",
+            "gloss": "episode"
+          },
+          {
+            "deck": "pcav:2267",
+            "gloss": "season",
+            "sentence": "pcav:2268"
+          },
+          {
+            "deck": "pcav:2283",
+            "gloss": "antenna"
+          },
+          {
+            "deck": "pcav:2292",
+            "gloss": "record (disc)"
+          },
+          {
+            "deck": "pcav:2295",
+            "gloss": "cassette"
+          },
+          {
+            "deck": "pcav:2298",
+            "gloss": "track"
+          },
+          {
+            "deck": "pcav:2374",
+            "gloss": "theater"
+          },
+          {
+            "deck": "pcav:2376",
+            "gloss": "aisle",
+            "sentence": "pcav:2718"
+          },
+          {
+            "deck": "pcav:2378",
+            "gloss": "to act"
+          },
+          {
+            "deck": "pcav:2380",
+            "gloss": "to play the part of"
+          },
+          {
+            "deck": "pcav:2381",
+            "gloss": "intermission"
+          },
+          {
+            "deck": "pcav:2383",
+            "gloss": "spectator"
+          },
+          {
+            "deck": "pcav:2385",
+            "gloss": "audience"
+          },
+          {
+            "deck": "pcav:2387",
+            "gloss": "applause"
+          },
+          {
+            "deck": "pcav:2389",
+            "gloss": "acrobat"
+          },
+          {
+            "deck": "pcav:2455",
+            "gloss": "violin"
+          },
+          {
+            "deck": "pcav:2456",
+            "gloss": "drum"
+          },
+          {
+            "deck": "pcav:2459",
+            "gloss": "oud"
+          },
+          {
+            "deck": "pcav:2460",
+            "gloss": "ney (reed flute)"
+          },
+          {
+            "deck": "pcav:2463",
+            "gloss": "to tune"
+          },
+          {
+            "deck": "pcav:2467",
+            "gloss": "out of tune"
+          },
+          {
+            "deck": "pcav:2402",
+            "gloss": "to quit smoking"
+          },
+          {
+            "deck": "pcav:2404",
+            "gloss": "cigar"
+          },
+          {
+            "deck": "pcav:2407",
+            "gloss": "tobacco"
+          },
+          {
+            "deck": "pcav:2412",
+            "gloss": "to light a cigarette"
+          },
+          {
+            "deck": "pcav:2413",
+            "gloss": "ashtray"
+          },
+          {
+            "deck": "pcav:2418",
+            "gloss": "water pipe (argileh)"
+          },
+          {
+            "deck": "pcav:2420",
+            "gloss": "to smoke a water pipe"
+          },
+          {
+            "deck": "pcav:2424",
+            "gloss": "charcoal"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:64",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 64,
+        "title": "Check and mate",
+        "theme": "Board games, sports and the gym",
+        "words": [
+          {
+            "deck": "pcav:2477",
+            "gloss": "to play billiards"
+          },
+          {
+            "deck": "pcav:2483",
+            "gloss": "move (in a game)"
+          },
+          {
+            "deck": "pcav:2484",
+            "gloss": "check! (in chess)"
+          },
+          {
+            "deck": "pcav:2486",
+            "gloss": "piece (in chess)"
+          },
+          {
+            "deck": "pcav:2491",
+            "gloss": "rook"
+          },
+          {
+            "deck": "pcav:2492",
+            "gloss": "pawn"
+          },
+          {
+            "deck": "pcav:2509",
+            "gloss": "boxing"
+          },
+          {
+            "deck": "pcav:2510",
+            "gloss": "golf"
+          },
+          {
+            "deck": "pcav:2513",
+            "gloss": "hockey"
+          },
+          {
+            "deck": "pcav:2520",
+            "gloss": "racket"
+          },
+          {
+            "deck": "pcav:2522",
+            "gloss": "volleyball"
+          },
+          {
+            "deck": "pcav:2535",
+            "gloss": "to play against"
+          },
+          {
+            "deck": "pcav:2536",
+            "gloss": "champion"
+          },
+          {
+            "deck": "pcav:2542",
+            "gloss": "fitness"
+          },
+          {
+            "deck": "pcav:2554",
+            "gloss": "to join a gym"
+          },
+          {
+            "deck": "pcav:2556",
+            "gloss": "member"
+          },
+          {
+            "deck": "pcav:2557",
+            "gloss": "membership",
+            "sentence": "pcav:2559"
+          },
+          {
+            "deck": "pcav:2583",
+            "gloss": "dumbbell"
+          },
+          {
+            "deck": "pcav:2585",
+            "gloss": "to lift weights"
+          },
+          {
+            "deck": "pcav:2591",
+            "gloss": "to burn calories"
+          },
+          {
+            "deck": "pcav:2592",
+            "gloss": "treadmill"
+          },
+          {
+            "deck": "pcav:2598",
+            "gloss": "exercise, workout"
+          },
+          {
+            "deck": "pcav:2599",
+            "gloss": "to do sit-ups"
+          },
+          {
+            "deck": "pcav:2600",
+            "gloss": "to do pull-ups"
+          },
+          {
+            "deck": "pcav:2601",
+            "gloss": "to do push-ups"
+          },
+          {
+            "deck": "pcav:2603",
+            "gloss": "set (of exercises)"
+          },
+          {
+            "deck": "pcav:2606",
+            "gloss": "to do yoga"
+          },
+          {
+            "deck": "pcav:2617",
+            "gloss": "to jump rope"
+          },
+          {
+            "deck": "pcav:2618",
+            "gloss": "scale (for weighing)"
+          },
+          {
+            "deck": "pcav:2619",
+            "gloss": "to weigh oneself"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:65",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 65,
+        "title": "Lecture hall",
+        "theme": "University, subjects, degrees and writing",
+        "words": [
+          {
+            "deck": "pcav:1446",
+            "gloss": "educated"
+          },
+          {
+            "deck": "pcav:1448",
+            "gloss": "illiterate"
+          },
+          {
+            "deck": "pcav:1467",
+            "gloss": "academy"
+          },
+          {
+            "deck": "pcav:1474",
+            "gloss": "class period",
+            "sentence": "pcav:1599"
+          },
+          {
+            "deck": "pcav:1477",
+            "gloss": "lecture"
+          },
+          {
+            "deck": "pcav:1482",
+            "gloss": "curriculum"
+          },
+          {
+            "deck": "pcav:1508",
+            "gloss": "laboratory"
+          },
+          {
+            "deck": "pcav:1539",
+            "gloss": "to review"
+          },
+          {
+            "deck": "pcav:1551",
+            "gloss": "to teach a lesson"
+          },
+          {
+            "deck": "pcav:1552",
+            "gloss": "to grade a test"
+          },
+          {
+            "deck": "pcav:1553",
+            "gloss": "to register"
+          },
+          {
+            "deck": "pcav:1559",
+            "gloss": "scholarship"
+          },
+          {
+            "deck": "pcav:1560",
+            "gloss": "student loan"
+          },
+          {
+            "deck": "pcav:1564",
+            "gloss": "department"
+          },
+          {
+            "deck": "pcav:1567",
+            "gloss": "major (subject)"
+          },
+          {
+            "deck": "pcav:1578",
+            "gloss": "to graduate from"
+          },
+          {
+            "deck": "pcav:1588",
+            "gloss": "degree, diploma"
+          },
+          {
+            "deck": "pcav:1594",
+            "gloss": "doctorate"
+          },
+          {
+            "deck": "pcav:1602",
+            "gloss": "biology"
+          },
+          {
+            "deck": "pcav:1603",
+            "gloss": "chemistry"
+          },
+          {
+            "deck": "pcav:1605",
+            "gloss": "economics"
+          },
+          {
+            "deck": "pcav:1607",
+            "gloss": "geology"
+          },
+          {
+            "deck": "pcav:1610",
+            "gloss": "law (the subject)"
+          },
+          {
+            "deck": "pcav:1612",
+            "gloss": "literature",
+            "sentence": "pcav:1574"
+          },
+          {
+            "deck": "pcav:1616",
+            "gloss": "philosophy"
+          },
+          {
+            "deck": "pcav:1618",
+            "gloss": "physics"
+          },
+          {
+            "deck": "pcav:2104",
+            "gloss": "reference book"
+          },
+          {
+            "deck": "pcav:2111",
+            "gloss": "poem"
+          },
+          {
+            "deck": "pcav:2112",
+            "gloss": "poet"
+          },
+          {
+            "deck": "pcav:2115",
+            "gloss": "article"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:66",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 66,
+        "title": "Field and forest",
+        "theme": "The farm, its animals, and the wild ones",
+        "words": [
+          {
+            "deck": "pcav:2954",
+            "gloss": "agriculture"
+          },
+          {
+            "deck": "pcav:2959",
+            "gloss": "cattle"
+          },
+          {
+            "deck": "pcav:2961",
+            "gloss": "to milk"
+          },
+          {
+            "deck": "pcav:2963",
+            "gloss": "mule"
+          },
+          {
+            "deck": "pcav:2966",
+            "gloss": "ram"
+          },
+          {
+            "deck": "pcav:2967",
+            "gloss": "ewe"
+          },
+          {
+            "deck": "pcav:2971",
+            "gloss": "rooster"
+          },
+          {
+            "deck": "pcav:2973",
+            "gloss": "to lay an egg"
+          },
+          {
+            "deck": "pcav:2975",
+            "gloss": "geese"
+          },
+          {
+            "deck": "pcav:2980",
+            "gloss": "to graze"
+          },
+          {
+            "deck": "pcav:2981",
+            "gloss": "hay"
+          },
+          {
+            "deck": "pcav:2984",
+            "gloss": "to plow"
+          },
+          {
+            "deck": "pcav:2985",
+            "gloss": "tractor"
+          },
+          {
+            "deck": "pcav:2988",
+            "gloss": "orchard"
+          },
+          {
+            "deck": "pcav:2990",
+            "gloss": "to water, irrigate"
+          },
+          {
+            "deck": "pcav:2992",
+            "gloss": "to harvest"
+          },
+          {
+            "deck": "pcav:2995",
+            "gloss": "grain"
+          },
+          {
+            "deck": "pcav:3748",
+            "gloss": "gazelle"
+          },
+          {
+            "deck": "pcav:3755",
+            "gloss": "leopard"
+          },
+          {
+            "deck": "pcav:3762",
+            "gloss": "squirrel"
+          },
+          {
+            "deck": "pcav:3764",
+            "gloss": "wolf"
+          },
+          {
+            "deck": "pcav:3771",
+            "gloss": "crow"
+          },
+          {
+            "deck": "pcav:3772",
+            "gloss": "dove, pigeon"
+          },
+          {
+            "deck": "pcav:3773",
+            "gloss": "eagle"
+          },
+          {
+            "deck": "pcav:3774",
+            "gloss": "falcon"
+          },
+          {
+            "deck": "pcav:3780",
+            "gloss": "sparrow"
+          },
+          {
+            "deck": "pcav:3786",
+            "gloss": "crocodile"
+          },
+          {
+            "deck": "pcav:3787",
+            "gloss": "lizard"
+          },
+          {
+            "deck": "pcav:3813",
+            "gloss": "scorpion"
+          },
+          {
+            "deck": "pcav:3814",
+            "gloss": "snail"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:67",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 67,
+        "title": "Money and trade",
+        "theme": "Currency, savings, business meetings and bargains",
+        "words": [
+          {
+            "deck": "pcav:2893",
+            "gloss": "currency"
+          },
+          {
+            "deck": "pcav:2898",
+            "gloss": "agorot"
+          },
+          {
+            "deck": "pcav:2911",
+            "gloss": "expenses"
+          },
+          {
+            "deck": "pcav:2913",
+            "gloss": "financial"
+          },
+          {
+            "deck": "pcav:2915",
+            "gloss": "wealth"
+          },
+          {
+            "deck": "pcav:2917",
+            "gloss": "poverty"
+          },
+          {
+            "deck": "pcav:2924",
+            "gloss": "trade, commerce"
+          },
+          {
+            "deck": "pcav:2925",
+            "gloss": "commercial"
+          },
+          {
+            "deck": "pcav:2930",
+            "gloss": "to start one's own business"
+          },
+          {
+            "deck": "pcav:2931",
+            "gloss": "entrepreneur"
+          },
+          {
+            "deck": "pcav:2934",
+            "gloss": "committee"
+          },
+          {
+            "deck": "pcav:2935",
+            "gloss": "council"
+          },
+          {
+            "deck": "pcav:2937",
+            "gloss": "administration"
+          },
+          {
+            "deck": "pcav:2942",
+            "gloss": "to postpone"
+          },
+          {
+            "deck": "pcav:2943",
+            "gloss": "conference"
+          },
+          {
+            "deck": "pcav:2944",
+            "gloss": "seminar"
+          },
+          {
+            "deck": "pcav:2945",
+            "gloss": "proposal"
+          },
+          {
+            "deck": "pcav:2951",
+            "gloss": "to manufacture"
+          },
+          {
+            "deck": "pcav:2953",
+            "gloss": "industry"
+          },
+          {
+            "deck": "pcav:2056",
+            "gloss": "installment"
+          },
+          {
+            "deck": "pcav:2061",
+            "gloss": "interest (on money)",
+            "sentence": "pcav:2062"
+          },
+          {
+            "deck": "pcav:2066",
+            "gloss": "savings"
+          },
+          {
+            "deck": "pcav:2070",
+            "gloss": "to deposit"
+          },
+          {
+            "deck": "pcav:2075",
+            "gloss": "to write a check"
+          },
+          {
+            "deck": "pcav:2170",
+            "gloss": "a bargain",
+            "sentence": "pcav:2172"
+          },
+          {
+            "deck": "pcav:2173",
+            "gloss": "to haggle"
+          },
+          {
+            "deck": "pcav:2176",
+            "gloss": "fixed price"
+          },
+          {
+            "deck": "pcav:2195",
+            "gloss": "to wrap"
+          },
+          {
+            "deck": "pcav:2199",
+            "gloss": "to get a refund"
+          },
+          {
+            "deck": "pcav:2089",
+            "gloss": "to put a stamp on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:68",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 68,
+        "title": "Earth and sky",
+        "theme": "Landscapes, the sky, storms and climate",
+        "words": [
+          {
+            "deck": "pcav:3557",
+            "gloss": "hilly"
+          },
+          {
+            "deck": "pcav:3560",
+            "gloss": "plateau"
+          },
+          {
+            "deck": "pcav:3575",
+            "gloss": "bay, gulf"
+          },
+          {
+            "deck": "pcav:3580",
+            "gloss": "waterfall"
+          },
+          {
+            "deck": "pcav:3581",
+            "gloss": "swamp"
+          },
+          {
+            "deck": "pcav:3592",
+            "gloss": "plains"
+          },
+          {
+            "deck": "pcav:3594",
+            "gloss": "oasis"
+          },
+          {
+            "deck": "pcav:3595",
+            "gloss": "volcano",
+            "sentence": "pcav:3601"
+          },
+          {
+            "deck": "pcav:3596",
+            "gloss": "lava"
+          },
+          {
+            "deck": "pcav:3597",
+            "gloss": "to erupt"
+          },
+          {
+            "deck": "pcav:3602",
+            "gloss": "earthquake"
+          },
+          {
+            "deck": "pcav:3608",
+            "gloss": "planet"
+          },
+          {
+            "deck": "pcav:3611",
+            "gloss": "universe"
+          },
+          {
+            "deck": "pcav:3612",
+            "gloss": "outer space"
+          },
+          {
+            "deck": "pcav:3616",
+            "gloss": "sunrise"
+          },
+          {
+            "deck": "pcav:3618",
+            "gloss": "sunset"
+          },
+          {
+            "deck": "pcav:3620",
+            "gloss": "dusk"
+          },
+          {
+            "deck": "pcav:3622",
+            "gloss": "compass"
+          },
+          {
+            "deck": "pcav:3682",
+            "gloss": "darkness"
+          },
+          {
+            "deck": "pcav:3697",
+            "gloss": "to blow"
+          },
+          {
+            "deck": "pcav:3702",
+            "gloss": "hail"
+          },
+          {
+            "deck": "pcav:3711",
+            "gloss": "hurricane"
+          },
+          {
+            "deck": "pcav:3715",
+            "gloss": "lightning",
+            "sentence": "pcav:3716"
+          },
+          {
+            "deck": "pcav:3718",
+            "gloss": "thunder",
+            "sentence": "pcav:3719"
+          },
+          {
+            "deck": "pcav:3725",
+            "gloss": "climate"
+          },
+          {
+            "deck": "pcav:3726",
+            "gloss": "dry"
+          },
+          {
+            "deck": "pcav:3728",
+            "gloss": "humid"
+          },
+          {
+            "deck": "pcav:3731",
+            "gloss": "drought"
+          },
+          {
+            "deck": "pcav:3732",
+            "gloss": "flood"
+          },
+          {
+            "deck": "pcav:3664",
+            "gloss": "chill, cold"
+          }
+        ]
+      }
     }
   ]
 }
