@@ -372,7 +372,7 @@ function Log({
             <li key={f} className={ok ? 'is-right' : 'is-wrong'}>
               <span>{LOG_LABELS[f]}</span>
               <strong>{copies[f] || '—'}</strong>
-              {!ok && <small>sent {answerFor(qso, f)}</small>}
+              {!ok && <small>they sent {answerFor(qso, f)}</small>}
             </li>
           );
         })}

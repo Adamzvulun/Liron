@@ -8,6 +8,7 @@ import { PHRASE_SETS } from './arabic/phrases/sets.ts';
 import { MORSE_CHARS } from './morse/code.ts';
 import { NEW_PROGRESS as MORSE_NEW } from './morse/lesson/progress.ts';
 import { MORSE_RANKS, morseStanding } from './morse/ranks.ts';
+import { PROSIGNS } from './morse/words.ts';
 
 describe('the Signal Tower’s ranks (#174)', () => {
   it('starts every player as an Initiate, on the way to Listener', () => {
@@ -34,14 +35,29 @@ describe('the Signal Tower’s ranks (#174)', () => {
       rankTrials: ['lamp-signal'],
     };
     expect(morseStanding(keyer).rank.id).toBe('keyer');
-    // Operator waits on the Far Station (#178), and says so.
-    expect(morseStanding(keyer).later).toBe(true);
+    expect(morseStanding(keyer).next?.id).toBe('operator');
     const slow = morseStanding({ ...keyer, sending: { drills: 20, ditMs: 90 } });
     expect(slow.rank.id).toBe('listener');
     expect(needLine(slow)).toBe('2 of 3 · Send at 15 wpm or faster');
   });
 
-  it('the Night Watch is the Telegraphist’s condition, but the ladder waits on Operator (#179)', () => {
+  it('makes you an Operator with the four prosigns and the Far Station passed (#178)', () => {
+    const keyer = {
+      ...MORSE_NEW,
+      unlocked: MORSE_CHARS.length,
+      trials: [1, 2, 3, 4, 5],
+      sending: { drills: 20, ditMs: 80 },
+      rankTrials: ['lamp-signal', 'far-station'],
+    };
+    const s = morseStanding(keyer);
+    expect(s.rank.id).toBe('keyer');
+    expect(needLine(s)).toBe('1 of 2 · Copy all four prosigns in the Codebook');
+    const operator = morseStanding({ ...keyer, prosigns: PROSIGNS.map((p) => p.id) });
+    expect(operator.rank.id).toBe('operator');
+    expect(operator.next?.id).toBe('telegraphist');
+  });
+
+  it('makes you a Telegraphist with the Night Watch, after Operator (#179)', () => {
     const watched = {
       ...MORSE_NEW,
       unlocked: MORSE_CHARS.length,
@@ -49,9 +65,14 @@ describe('the Signal Tower’s ranks (#174)', () => {
       sending: { drills: 20, ditMs: 80 },
       rankTrials: ['lamp-signal', 'night-watch'],
     };
-    // Ranks are taken in order: Operator (the Far Station, #178) comes first.
+    // Ranks are taken in order: without the Far Station, the watch waits.
     expect(morseStanding(watched).rank.id).toBe('keyer');
-    expect(morseStanding(watched).next?.id).toBe('operator');
+    const all = {
+      ...watched,
+      prosigns: PROSIGNS.map((p) => p.id),
+      rankTrials: ['lamp-signal', 'far-station', 'night-watch'],
+    };
+    expect(morseStanding(all).rank.id).toBe('telegraphist');
   });
 });
 
