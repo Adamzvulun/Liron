@@ -165,11 +165,12 @@ describe('arabic/core-words.json (#159)', () => {
       i.data as { chapter: number; words: { deck: string; gloss: string; sentence?: string }[] },
   );
 
-  it('is 10 chapters of 30 words, each deck word once', () => {
-    expect(chapters.map((c) => c.chapter)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  it('is chapters of 30 words in order, each deck word once (#159, #163)', () => {
+    expect(chapters.map((c) => c.chapter)).toEqual(chapters.map((_, i) => i + 1));
+    expect(chapters.length).toBeGreaterThanOrEqual(20);
     expect(chapters.every((c) => c.words.length === 30)).toBe(true);
     const ids = chapters.flatMap((c) => c.words.map((w) => w.deck));
-    expect(new Set(ids).size).toBe(300);
+    expect(new Set(ids).size).toBe(chapters.length * 30);
     expect(ids.every((id) => /^pcav:\d{4}$/.test(id))).toBe(true);
   });
 
