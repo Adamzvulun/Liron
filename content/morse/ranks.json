@@ -1,0 +1,86 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (rank names and conditions from Waymark's world lore, docs/discovery/04-world-and-lore.md)",
+  "items": [
+    {
+      "id": "rank:initiate",
+      "subject": "morse",
+      "type": "rank",
+      "data": {
+        "name": "Initiate",
+        "conditions": ["Join the guild"],
+        "order": 1
+      }
+    },
+    {
+      "id": "rank:listener",
+      "subject": "morse",
+      "type": "rank",
+      "data": {
+        "name": "Listener",
+        "conditions": ["Learn all 41 Koch characters", "Pass the Beacon’s Answer"],
+        "order": 2
+      }
+    },
+    {
+      "id": "rank:keyer",
+      "subject": "morse",
+      "type": "rank",
+      "data": {
+        "name": "Keyer",
+        "conditions": [
+          "Finish 20 sending drills",
+          "Send at 15 wpm or faster",
+          "Pass the Lamp Signal"
+        ],
+        "later": "The Lamp Signal trial opens soon",
+        "order": 3
+      }
+    },
+    {
+      "id": "rank:operator",
+      "subject": "morse",
+      "type": "rank",
+      "data": {
+        "name": "Operator",
+        "conditions": ["Learn the prosigns", "Pass the Far Station, your first QSO"],
+        "later": "The Far Station opens soon",
+        "order": 4
+      }
+    },
+    {
+      "id": "rank:telegraphist",
+      "subject": "morse",
+      "type": "rank",
+      "data": {
+        "name": "Telegraphist",
+        "conditions": ["Head-copy common words at 20 wpm: pass the Night Watch"],
+        "later": "The Night Watch opens soon",
+        "order": 5
+      }
+    },
+    {
+      "id": "rank:signal-master",
+      "subject": "morse",
+      "type": "rank",
+      "data": {
+        "name": "Signal Master",
+        "conditions": ["A QSO at 25 wpm with no repeats asked"],
+        "later": "Real QSOs come with radio partners",
+        "order": 6
+      }
+    },
+    {
+      "id": "rank:ghost",
+      "subject": "morse",
+      "type": "rank",
+      "data": {
+        "name": "Ghost of the Ether",
+        "conditions": ["Head copy and sending at 30 wpm or faster"],
+        "later": "Real QSOs come with radio partners",
+        "order": 7
+      }
+    }
+  ]
+}
