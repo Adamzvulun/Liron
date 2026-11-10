@@ -1794,6 +1794,181 @@
         },
         "outro": "Yasmin folds up her charts. “Clear skies tomorrow,” she says. “I’m almost sure.”"
       }
+    },
+    {
+      "id": "road:70",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 70,
+        "wordChapter": 69,
+        "title": "A Summer of News",
+        "who": "Umm Nabil the matchmaker",
+        "intro": "Summer comes, and with it Umm Nabil, who knows every family in three towns. She has come to find Omar a bride, and she sits at the innkeeper’s table with a notebook of names.",
+        "milestones": [
+          "Umm Nabil asks about Omar’s childhood: was he well-behaved or naughty? The innkeeper laughs and tells her his nickname.",
+          "The news comes in the night: Sitt Fatima has passed away in her sleep. The inn goes into mourning, and the whole town comes to the funeral.",
+          "After forty days, Umm Nabil comes back. Omar gets engaged to a widow’s daughter from the next town, and the family says Sitt Fatima would have danced."
+        ],
+        "trial": {
+          "name": "The Engagement",
+          "text": "Umm Nabil tells the news of the summer, and you follow every family in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Omar’s fiancée names the new rose bush in the courtyard after Sitt Fatima."
+      }
+    },
+    {
+      "id": "road:71",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 71,
+        "wordChapter": 70,
+        "title": "The Barber’s Mirror",
+        "who": "Abu Hani the barber, back again",
+        "intro": "Abu Hani, who cut hair before the wedding, sets up his chair again for Omar’s engagement party. Every man in town wants to look his best.",
+        "milestones": [
+          "A young man wants his sideburns long and a goatee; his grandfather wants him clean-shaven. Abu Hani trims a little of both.",
+          "An old man who is hard of hearing gets the wrong haircut and laughs about it. Abu Hani says the good thing about hair is that it grows back.",
+          "A boy chokes on a candy while he waits. Abu Hani slaps his back, the candy flies out, and the whole shop claps."
+        ],
+        "trial": {
+          "name": "The Barber’s Mirror",
+          "text": "Abu Hani’s customers sit down one by one, and you tell him what each one wants in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Hani sweeps up the hair and looks at himself in the mirror. “Not bad,” he says, “for an old man.”"
+      }
+    },
+    {
+      "id": "road:72",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 72,
+        "wordChapter": 71,
+        "title": "Buttons Before the Party",
+        "who": "Hind the dry cleaner",
+        "intro": "Hind runs the dry cleaner’s by the gate, and the week before the party every shirt in town comes through her door. She irons with one hand and sews buttons with the other.",
+        "milestones": [
+          "A groom’s cousin brings a wrinkled linen shirt with a button missing. Hind finds a match in her jar of a thousand buttons.",
+          "The zipper on the bride’s mother’s dress breaks an hour before the party. Hind fixes it with a needle, some thread and a lot of patience.",
+          "The jeweler comes in with a brooch with a ruby and emeralds, too precious to leave anywhere else. Hind hides it in her dressing table until the party."
+        ],
+        "trial": {
+          "name": "Hind’s Ironing Board",
+          "text": "Hind’s customers come for their clothes, and you find each one’s in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Hind turns off her iron at last. “Next time,” she says, “they should get engaged in winter.”"
+      }
+    },
+    {
+      "id": "road:73",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 73,
+        "wordChapter": 72,
+        "title": "Market Day",
+        "who": "Tamer the fishmonger",
+        "intro": "For the party’s feast, the innkeeper sends you to market day with Tamer, who sells fish by the sea and knows every stall from the herbs to the spices.",
+        "milestones": [
+          "Tamer buys crab, squid and mussels, and holds up an octopus to make the children scream. He warns you about the bones in the fish.",
+          "At the vegetable stalls you buy okra, radishes, beets and celery, and a bunch of basil that smells like summer.",
+          "Back at the inn, Tamer cooks mulukhiyah, and someone brings basbousa. Nothing is stale, nothing is greasy, and nothing is left over."
+        ],
+        "trial": {
+          "name": "Tamer’s Market",
+          "text": "Tamer sends you from stall to stall, and you buy everything in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Tamer wipes his hands. “The sea gives,” he says, “and the market sells. We only cook.”"
+      }
+    },
+    {
+      "id": "road:74",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 74,
+        "wordChapter": 73,
+        "title": "Kings and Empires",
+        "who": "Mr. Kamal, the old history teacher",
+        "intro": "Mr. Kamal taught history at the town school for forty years. Now retired, he comes to the inn each evening and tells the children about kings, empires and revolutions.",
+        "milestones": [
+          "He tells them about emperors and empresses who ruled great empires, and asks which is better, a kingdom or a republic. The children vote and argue.",
+          "A child asks what a dictator is. Mr. Kamal explains, then asks what a voter is, and why every vote counts.",
+          "He tells a story of a thief who broke into a palace, was sentenced, and escaped from prison through the kitchen. The children want to know if it’s true. He only smiles."
+        ],
+        "trial": {
+          "name": "Kamal’s History",
+          "text": "Mr. Kamal tells his stories, and you answer his questions in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Mr. Kamal closes his old book. “History,” he says, “is just stories that really happened.”"
+      }
+    },
+    {
+      "id": "road:75",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 75,
+        "wordChapter": 74,
+        "title": "The Reconciliation",
+        "who": "Abu Jaber the peacemaker",
+        "intro": "Two families in town have quarreled for a year over a wall between their fields. Abu Jaber, an old man people trust, brings them both to the inn to make peace.",
+        "milestones": [
+          "Abu Jaber lets each family speak, without criticism and without praise. He says a guess is not a fact, and asks each side what it really wants.",
+          "The discussion is long and hot. One father says the other broke his son’s heart; the other says it was a stupid quarrel and he’s sorry.",
+          "At last they reach an agreement: the wall stays, with a gate in it. They drink coffee together, and Abu Jaber says that’s how peace is made."
+        ],
+        "trial": {
+          "name": "The Peacemaker’s Coffee",
+          "text": "Abu Jaber hears both families, and you help them understand each other in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "The two fathers walk home together, through the new gate. Abu Jaber finishes his coffee alone, smiling."
+      }
+    },
+    {
+      "id": "road:76",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 76,
+        "wordChapter": 75,
+        "title": "Two Friends",
+        "who": "Sheikh Hamdi and Father Yacoub",
+        "intro": "The town’s imam and its priest have been friends since school. Every Friday after prayers and every Sunday after the sermon, they meet at the innkeeper’s table to talk.",
+        "milestones": [
+          "They talk about faith and superstition, and laugh at the old stories of jinn and devils their grandmothers told.",
+          "Sheikh Hamdi tells you about the call to prayer and washing before it; Father Yacoub tells you about baptisms and the choir. Each listens to the other.",
+          "For Omar’s wedding, both of them come, and both bless the couple. Father Yacoub says that’s two blessings, which is never too many."
+        ],
+        "trial": {
+          "name": "The Friends’ Table",
+          "text": "Sheikh Hamdi and Father Yacoub talk, and you follow them both in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "The two friends shake hands at the gate. “Same table on Friday,” says one. “And Sunday,” says the other."
+      }
     }
   ]
 }

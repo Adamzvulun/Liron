@@ -20088,6 +20088,2239 @@
         "latin": "fī ság3a -llēla.",
         "english": "There's a chill tonight."
       }
+    },
+    {
+      "id": "own-sentence:pcav:0013",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0013",
+        "arabic": "الوَلد مُؤدّب كْتير.",
+        "latin": "ilwálad muʔáddab ktīr.",
+        "english": "The boy is very well-behaved."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0014",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0014",
+        "arabic": "أخوي الصّْغير شقي.",
+        "latin": "axūwi -ʂʂɣīr šági.",
+        "english": "My little brother is naughty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0034",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0034",
+        "arabic": "سيدي ختْيَر.",
+        "latin": "sīdi xátyar.",
+        "english": "My grandfather has grown old."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0037",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0037",
+        "arabic": "عِشِت طُفولْتي في القرْية.",
+        "latin": "3íšit ʈufūlti fi -lqárya.",
+        "english": "I spent my childhood in the village."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0039",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0039",
+        "arabic": "المُراهقة مِش سهْلة.",
+        "latin": "ilmurāhaqa miš sáhla.",
+        "english": "Adolescence isn't easy."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0048",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0048",
+        "arabic": "شو عُمْرك؟",
+        "latin": "šū 3úmrak?",
+        "english": "How old are you?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0061",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0061",
+        "arabic": "سِتّي اِتْوَفّت السّنة الماضْية.",
+        "latin": "sítti twáffat issána -lmāɖya.",
+        "english": "My grandmother passed away last year."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0064",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0064",
+        "arabic": "رُحْنا عَ الجنازة.",
+        "latin": "rúɧna 3a -jjanāza.",
+        "english": "We went to the funeral."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0065",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0065",
+        "arabic": "دفنوه جنْب أبوه.",
+        "latin": "dafanū janb abūh.",
+        "english": "They buried him next to his father."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0068",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0068",
+        "arabic": "زُرْنا قبِر سيدي.",
+        "latin": "zúrna gábur sīdi.",
+        "english": "We visited my grandfather's grave."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0070",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0070",
+        "arabic": "العيْلة كُلْها حِزْنت.",
+        "latin": "il3ēla kúlha ɧízinat.",
+        "english": "The whole family mourned."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0071",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0071",
+        "arabic": "البلد في حِداد.",
+        "latin": "ilbálad fi ɧidād.",
+        "english": "The town is in mourning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0149",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0149",
+        "arabic": "الوَلد يَتيم.",
+        "latin": "ilwálad yatīm.",
+        "english": "The boy is an orphan."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0151",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0151",
+        "arabic": "اِتْبنّوا بِنِت صْغيرة.",
+        "latin": "(i)tbánnu bínit ʂɣīra.",
+        "english": "They adopted a little girl."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0163",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0163",
+        "arabic": "عِشِقْها مِن أوّل نظْرة.",
+        "latin": "3išígha min áwwal náʐra.",
+        "english": "He fell for her at first sight."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0165",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0165",
+        "arabic": "العُشّاق قاعْدين عَ البحر.",
+        "latin": "il3uššāg ga3dīn 3a -lbáɧar.",
+        "english": "The lovers are sitting by the sea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0179",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0179",
+        "arabic": "الخُطْبة الجُمْعة.",
+        "latin": "ilxúʈba -ljúm3a.",
+        "english": "The engagement is on Friday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0180",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0180",
+        "arabic": "أُخْتي اِنْخطبت.",
+        "latin": "úxti inxáʈabat.",
+        "english": "My sister got engaged."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0182",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0182",
+        "arabic": "خطيبْها مُهنْدِس.",
+        "latin": "xaʈībha muhándis.",
+        "english": "Her fiancé is an engineer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0183",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0183",
+        "arabic": "هادي خطيبْتي.",
+        "latin": "hādi xaʈībti.",
+        "english": "This is my fiancée."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0198",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0198",
+        "arabic": "الطّلاق صعِب عَ الوْلاد.",
+        "latin": "iʈʈalāg ʂá3ib 3a -lwlād.",
+        "english": "Divorce is hard on the children."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0199",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0199",
+        "arabic": "اِتْطلّقوا بعِد عشر سْنين.",
+        "latin": "iʈʈallágu bá3id 3ášar snīn.",
+        "english": "They got divorced after ten years."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0203",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0203",
+        "arabic": "سيدي أرْمل.",
+        "latin": "sīdi ármal.",
+        "english": "My grandfather is a widower."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0204",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0204",
+        "arabic": "جارتْنا أرْملة.",
+        "latin": "jaratna ármala.",
+        "english": "Our neighbor is a widow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0207",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0207",
+        "arabic": "عطيتْها بوْسة.",
+        "latin": "3aʈētha bōsa.",
+        "english": "I gave her a kiss."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0208",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0208",
+        "arabic": "باس إيد إمّو.",
+        "latin": "bās īd ímmu.",
+        "english": "He kissed his mother's hand."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0219",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0219",
+        "arabic": "سمّوه عَ اِسِم سيدو.",
+        "latin": "sammū 3a ísim sīdu.",
+        "english": "They named him after his grandfather."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0224",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0224",
+        "arabic": "شو لقبك؟",
+        "latin": "šū láqabak?",
+        "english": "What's your nickname?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0360",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0360",
+        "arabic": "صبغت شعرْها أحْمر.",
+        "latin": "ʂábaɣat šá3rha áɧmar.",
+        "english": "She dyed her hair red."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0374",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0374",
+        "arabic": "سَوالْفو طْويلة.",
+        "latin": "sawālfu ʈawīla.",
+        "english": "His sideburns are long."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0380",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0380",
+        "arabic": "قصّت غُرّة.",
+        "latin": "gáʂʂat ɣúrra.",
+        "english": "She cut bangs."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0382",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0382",
+        "arabic": "لابِس بروكة.",
+        "latin": "lābis barūka.",
+        "english": "He's wearing a wig."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0387",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0387",
+        "arabic": "عِنْدو سكْسوكة.",
+        "latin": "3índu saksūka.",
+        "english": "He has a goatee."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0388",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0388",
+        "arabic": "بِزبِّط دقْنو كُلّ يوْم.",
+        "latin": "bizábbiʈ dágnu kull yōm.",
+        "english": "He trims his beard every day."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0391",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0391",
+        "arabic": "وِجْهو مْنعِّم.",
+        "latin": "wíjhu mná33im.",
+        "english": "He's clean-shaven."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0407",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0407",
+        "arabic": "عِنْدها نمش عَ وِجِهْها.",
+        "latin": "3índha námaš 3a wíjha.",
+        "english": "She has freckles on her face."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0409",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0409",
+        "arabic": "عِنْدو وَحْمة عَ إيدو.",
+        "latin": "3índu wáɧma 3a īdu.",
+        "english": "He has a birthmark on his hand."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0425",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0425",
+        "arabic": "أخدوا بصْمِتي.",
+        "latin": "axádu baʂmíti.",
+        "english": "They took my fingerprint."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0427",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0427",
+        "arabic": "اِنْجرح في السّبّابة.",
+        "latin": "injáraɧ fi -ssabbāba.",
+        "english": "He cut his index finger."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0435",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0435",
+        "arabic": "عِنْدي وَجع في المفْصل.",
+        "latin": "3índi wája3 fi -lmáfʂal.",
+        "english": "I have a pain in my wrist."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0475",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0475",
+        "arabic": "عِنْدو وَجع في ضِلْعو.",
+        "latin": "3índu wája3 fi ɖíl3u.",
+        "english": "He has a pain in his rib."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0477",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0477",
+        "arabic": "الدّكْتوْر لقى الوَريد.",
+        "latin": "iddaktōr líqi -lwarīd.",
+        "english": "The doctor found the vein."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0481",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0481",
+        "arabic": "أعْصابو تعْبانة.",
+        "latin": "a3ʂābu ta3bāna.",
+        "english": "His nerves are worn out."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0507",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0507",
+        "arabic": "صار تْخين شْوَيّ.",
+        "latin": "ʂār ʈxīn šwayy.",
+        "english": "He's gotten a bit fat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0518",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0518",
+        "arabic": "هِيَّ مْعضِّمة كْتير.",
+        "latin": "híyya m3aɖɖíma ktīr.",
+        "english": "She's very skinny."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0519",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0519",
+        "arabic": "بيِهْتمّ بِشكْلو.",
+        "latin": "biyihtámm bi-šáklu.",
+        "english": "He cares about his looks."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0524",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0524",
+        "arabic": "الكلْب بِشِع بسّ لطيف.",
+        "latin": "ilkálb bíši3 bass laʈīf.",
+        "english": "The dog is ugly but sweet."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0298",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0298",
+        "arabic": "نفّ مناخيرو.",
+        "latin": "naff manaxīru.",
+        "english": "He blew his nose."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0334",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0334",
+        "arabic": "ما تْتِفّ عَ الأرض!",
+        "latin": "ma ttiff 3a -lʔárɖ!",
+        "english": "Don't spit on the ground!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0339",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0339",
+        "arabic": "الوَلد اِتّرّع بعِد الأكِل.",
+        "latin": "ilwálad ittárra3 bá3id il'ákil.",
+        "english": "The baby burped after eating."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0350",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0350",
+        "arabic": "شِرِق بِالميّة.",
+        "latin": "šírig bil-máyya.",
+        "english": "He choked on the water."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0310",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0310",
+        "arabic": "سيدي سمعو تْقيل.",
+        "latin": "sīdi sám3u tgīl.",
+        "english": "My grandfather is hard of hearing."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0312",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0312",
+        "arabic": "سِتّي بِتِلْبِس سمّاعة.",
+        "latin": "sítti btílbis sammā3a.",
+        "english": "My grandmother wears a hearing aid."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0332",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0332",
+        "arabic": "الطّاحونة بِتْوَجّعْني.",
+        "latin": "iʈʈāɧūna btwajjí3ni.",
+        "english": "My molar hurts."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0343",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0343",
+        "arabic": "الشّمِس حرقت قفاه.",
+        "latin": "iššámis ɧáragat gafā.",
+        "english": "The sun burned the back of his neck."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0420",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0420",
+        "arabic": "عِنْدو عرق تحِت أباطو.",
+        "latin": "3índu 3árag taɧt abāʈu.",
+        "english": "He's sweating under his arms."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0532",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0532",
+        "arabic": "لابْسة كوْلوْن أسْود.",
+        "latin": "lābsa kōlōn áswad.",
+        "english": "She's wearing black tights."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0555",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0555",
+        "arabic": "ربط قْرافْتو قُدّام المْراية.",
+        "latin": "rábaʈ grāftu guddām ilmrāya.",
+        "english": "He tied his tie in front of the mirror."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0567",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0567",
+        "arabic": "جارتْنا بِتِلْبِس نِقاب.",
+        "latin": "jaratna btílbis niqāb.",
+        "english": "Our neighbor wears a niqab."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0571",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0571",
+        "arabic": "وين الكْليبْس تبعي؟",
+        "latin": "wēn ilklīps táb3i?",
+        "english": "Where's my hair clip?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0574",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0574",
+        "arabic": "سيدو كان يِلْبِس تُرْبان.",
+        "latin": "sīdu kān yílbis turbān.",
+        "english": "His grandfather used to wear a turban."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0591",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0591",
+        "arabic": "وِقِع زِرّ مِن القميص.",
+        "latin": "wígi3 zirr min ilgamīʂ.",
+        "english": "A button came off the shirt."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0592",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0592",
+        "arabic": "سكّر الزْرار، الجَوّ برْد.",
+        "latin": "sákkir izzrār, ijjáww bard.",
+        "english": "Button up, it's cold."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0593",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0593",
+        "arabic": "فكّ الزْرار وقعد.",
+        "latin": "fakk izzrār w gá3ad.",
+        "english": "He unbuttoned his jacket and sat down."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0594",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0594",
+        "arabic": "السّحّاب مكْسور.",
+        "latin": "issaɧɧāb maksūr.",
+        "english": "The zipper is broken."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0595",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0595",
+        "arabic": "سكّر السّحّاب قبِل ما تُطْلع.",
+        "latin": "sákkir issaɧɧāb gábil ma túʈla3.",
+        "english": "Zip up before you go out."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0596",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0596",
+        "arabic": "فتح السّحّاب وطلّع المِفْتاح.",
+        "latin": "fátaɧ issaɧɧāb w ʈálla3 ilmiftāɧ.",
+        "english": "He unzipped it and took out the key."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0609",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0609",
+        "arabic": "الوَلد بيِعْرِف يُرْبُط بوْتو.",
+        "latin": "ilwálad biyí3raf yúrbuʈ bōtu.",
+        "english": "The boy knows how to tie his shoes."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0610",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0610",
+        "arabic": "فكّ ربّاط بوْتو وشلحو.",
+        "latin": "fakk rabbāʈ bōtu w šálaɧu.",
+        "english": "He untied his shoes and took them off."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0613",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0613",
+        "arabic": "دهن جزْمِتو قبِل العِرِس.",
+        "latin": "dáhan jázmitu gabl il3íris.",
+        "english": "He polished his shoes before the wedding."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0647",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0647",
+        "arabic": "المكْوى سُخْن، اِنْتبِه!",
+        "latin": "ilmákwa súxun, intíbih!",
+        "english": "The iron is hot, careful!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0651",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0651",
+        "arabic": "اِشْترت قْماش لَفُسْتان.",
+        "latin": "ištárat gmāš la-fustān.",
+        "english": "She bought fabric for a dress."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0655",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0655",
+        "arabic": "الشّنْطة نايْلون.",
+        "latin": "iššánʈa nāylūn.",
+        "english": "The bag is nylon."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0656",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0656",
+        "arabic": "القميص كِتّان.",
+        "latin": "ilgamīʂ kittān.",
+        "english": "The shirt is linen."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0678",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0678",
+        "arabic": "الخاتِم فيه ألْماس.",
+        "latin": "ilxātim fī almās.",
+        "english": "The ring has diamonds in it."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0679",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0679",
+        "arabic": "عُقْد ياقوت أحْمر.",
+        "latin": "3ugd yāqūt áɧmar.",
+        "english": "A red ruby necklace."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0681",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0681",
+        "arabic": "الزُّمُرُّد أخْضر.",
+        "latin": "izzumúrrud áxɖar.",
+        "english": "Emeralds are green."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0676",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0676",
+        "arabic": "لابْسة دبّوس عَ الجاكيْت.",
+        "latin": "lābsa dabbūs 3a -jjākēt.",
+        "english": "She's wearing a brooch on her jacket."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0707",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0707",
+        "arabic": "الخدّامة بِتِيجي يوْم الأحد.",
+        "latin": "ilxaddāma bitīji yōm ilʔáɧad.",
+        "english": "The maid comes on Sunday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0708",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0708",
+        "arabic": "البوّاب فتح الباب.",
+        "latin": "ilbawwāb fátaɧ ilbāb.",
+        "english": "The doorman opened the door."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0761",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0761",
+        "arabic": "بدّي مُتلّت لَلْكُمْبْيوتر.",
+        "latin": "báddi mutállat la-lkumbyūtar.",
+        "english": "I need an extension cord for the computer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0817",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0817",
+        "arabic": "حطّت الكعْكة في الصّينية.",
+        "latin": "ɧáʈʈat ilká3ka fi -ʂʂiníyya.",
+        "english": "She put the cake in the baking tray."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0821",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0821",
+        "arabic": "حطّيت الموْز في الخلّاط.",
+        "latin": "ɧaʈʈēt ilmōz fi -lxallāʈ.",
+        "english": "I put the bananas in the blender."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0888",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0888",
+        "arabic": "المْراية فوق التّسْريحة.",
+        "latin": "ilmrāya fōg ittasrīɧa.",
+        "english": "The mirror is over the dressing table."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0991",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0991",
+        "arabic": "الخُبِز بايِت.",
+        "latin": "ilxúbiz bāyit.",
+        "english": "The bread is stale."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1101",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1101",
+        "arabic": "إمّي عملت بسْبوسة.",
+        "latin": "ímmi 3ámlat basbūsa.",
+        "english": "My mom made basbousa."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1110",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1110",
+        "arabic": "البنْجر لوْنو أحْمر.",
+        "latin": "ilbánjar lōnu áɧmar.",
+        "english": "Beets are red."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1118",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1118",
+        "arabic": "حطّيت كرفْس في الشّوْربة.",
+        "latin": "ɧaʈʈēt karáfs fi -ššōrba.",
+        "english": "I put celery in the soup."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1126",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1126",
+        "arabic": "بحِبّ البامْيَة مع الرّزّ.",
+        "latin": "baɧíbb ilbāmya ma3 irrúzz.",
+        "english": "I love okra with rice."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1131",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1131",
+        "arabic": "الفِجِل حادّ شْوَيّ.",
+        "latin": "ilfíjil ɧādd šwayy.",
+        "english": "Radishes are a bit sharp."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1135",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1135",
+        "arabic": "لِفِت مِخلّل.",
+        "latin": "lífit mixállal.",
+        "english": "Pickled turnips."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1139",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1139",
+        "arabic": "الخلْطة طيّبة.",
+        "latin": "ilxálʈa ʈáyyba.",
+        "english": "The dressing is tasty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1170",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1170",
+        "arabic": "بحِبّ البُنْدُق.",
+        "latin": "baɧíbb ilbúndug.",
+        "english": "I love hazelnuts."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1179",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1179",
+        "arabic": "شْرِبْت شاي يَنْسون.",
+        "latin": "šríbit šāy yansūn.",
+        "english": "I drank aniseed tea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1180",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1180",
+        "arabic": "الرّيحان ريحْتو حِلْوة.",
+        "latin": "irrīɧān rīɧtu ɧílwa.",
+        "english": "Basil smells lovely."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1185",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1185",
+        "arabic": "حطّت كاري في الجاج.",
+        "latin": "ɧáʈʈat kāri fi -jjāj.",
+        "english": "She put curry powder in the chicken."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1186",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1186",
+        "arabic": "الزّنْجبيل منيح لَلرّشْح.",
+        "latin": "izzanjabīl manīɧ la-rrášɧ.",
+        "english": "Ginger is good for a cold."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1196",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1196",
+        "arabic": "المرقة سُخْنة.",
+        "latin": "ilmáraga súxna.",
+        "english": "The gravy is hot."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1213",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1213",
+        "arabic": "الخُبِز بِدّو خميرة.",
+        "latin": "ilxúbiz bíddu xamīra.",
+        "english": "Bread needs yeast."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1217",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1217",
+        "arabic": "البيْض فيه بْروْتين.",
+        "latin": "ilbēɖ fī brōtīn.",
+        "english": "Eggs have protein."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1243",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1243",
+        "arabic": "اِنْتبِه، في سفّير في السّمك.",
+        "latin": "intíbih, fī saffīr fi -ssámak.",
+        "english": "Careful, there's a bone in the fish."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1249",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1249",
+        "arabic": "أكلْنا سلْطعون عَ البحر.",
+        "latin": "akálna salʈa3ūn 3a -lbáɧar.",
+        "english": "We ate crab by the sea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1250",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1250",
+        "arabic": "المحار طازة.",
+        "latin": "ilmaɧār ʈāza.",
+        "english": "The mussels are fresh."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1251",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1251",
+        "arabic": "الأُخْطُبوط إلو تمان إيدين.",
+        "latin": "ilʔuxʈubūʈ ílu tamān īdēn.",
+        "english": "An octopus has eight arms."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1254",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1254",
+        "arabic": "الحبّار مقْلي.",
+        "latin": "ilɧabbār mágli.",
+        "english": "The squid is fried."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1263",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1263",
+        "arabic": "المْلوخّية أكْلة فلسْطينية.",
+        "latin": "ilmlūxxíyya ákla falasʈīníyya.",
+        "english": "Mulukhiyah is a Palestinian dish."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1273",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1273",
+        "arabic": "اِشْترِيت كرْتوْنِةْ بيْض.",
+        "latin": "ištarēt kartōnit bēɖ.",
+        "english": "I bought a carton of eggs."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1281",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1281",
+        "arabic": "الكُشري أكْلة مصْرية.",
+        "latin": "ilkúšari ákla maʂríyya.",
+        "english": "Koshari is an Egyptian dish."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0809",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0809",
+        "arabic": "قطّع البُرْتُقانة بِالنُّصّ.",
+        "latin": "gáʈʈa3 ilburtugāna bi-nnúʂʂ.",
+        "english": "He cut the orange in half."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0799",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0799",
+        "arabic": "حطّ الأكِل في المايْكْروْويْف.",
+        "latin": "ɧaʈʈ il'ákil fi -lmāykrōwēv.",
+        "english": "He microwaved the food."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1153",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1153",
+        "arabic": "البْلوبري غالي.",
+        "latin": "ilblūberi ɣāli.",
+        "english": "Blueberries are expensive."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1108",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1108",
+        "arabic": "الهلْيوْن أخْضر.",
+        "latin": "ilhalyōn áxɖar.",
+        "english": "Asparagus is green."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1230",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1230",
+        "arabic": "بدّي خُبِز مع بسْطِرْمة.",
+        "latin": "báddi xúbiz ma3 basʈírma.",
+        "english": "I'd like bread with pastrami."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2779",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2779",
+        "arabic": "الملِك حكم أربْعين سنة.",
+        "latin": "ilmálik ɧákam arba3īn sána.",
+        "english": "The king ruled for forty years."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2790",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2790",
+        "arabic": "فرنْسا جُمْهورية.",
+        "latin": "faránsa jumhūríyya.",
+        "english": "France is a republic."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2793",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2793",
+        "arabic": "الأُرْدُن ممْلكة.",
+        "latin": "ilʔúrdun mámlaka.",
+        "english": "Jordan is a kingdom."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2799",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2799",
+        "arabic": "الإمْبِراطوْر كان قَوي.",
+        "latin": "ilʔimbirāʈōr kān gawi.",
+        "english": "The emperor was powerful."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2800",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2800",
+        "arabic": "الإمْبِراطوْرة لابْسة تاج.",
+        "latin": "ilʔimbirāʈōra lābsa tāj.",
+        "english": "The empress is wearing a crown."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2801",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2801",
+        "arabic": "الإمْبِراطورية كانت كْبيرة.",
+        "latin": "ilʔimbirāʈūríyya kānat kbīra.",
+        "english": "The empire was big."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2805",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2805",
+        "arabic": "كُلّ ناخِب إلو صوْت.",
+        "latin": "kull nāxib ílu ʂōt.",
+        "english": "Every voter has one vote."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2815",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2815",
+        "arabic": "الدّيمُقرْاطية مُهِمّة.",
+        "latin": "iddīmuqrāʈíyya muhímma.",
+        "english": "Democracy is important."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2816",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2816",
+        "arabic": "البلد ديمُقْراطي.",
+        "latin": "ilbálad dīmuqrāʈi.",
+        "english": "The country is democratic."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2819",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2819",
+        "arabic": "الدِّكْتاتوْر ما بِسْمع لَحدا.",
+        "latin": "iddiktātōr ma bísma3 la-ɧáda.",
+        "english": "The dictator listens to no one."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2823",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2823",
+        "arabic": "بيْت لحِم مُحافظة.",
+        "latin": "bēt láɧim muɧāfaʐa.",
+        "english": "Bethlehem is a governorate."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2824",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2824",
+        "arabic": "كُلّ وِلايَة إلْها قَوانين.",
+        "latin": "kull wilāya ílha qawanīn.",
+        "english": "Each state has its own laws."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2826",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2826",
+        "arabic": "ما بحِبّ الحكي السِّياسي.",
+        "latin": "ma baɧíbb ilɧáki -ssiyāsi.",
+        "english": "I don't like political talk."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2829",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2829",
+        "arabic": "في مسيرة في البلد اليوْم.",
+        "latin": "fī masīra fi -lbálad ilyōm.",
+        "english": "There's a march in town today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2830",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2830",
+        "arabic": "العُمّال اِتْظاهروا قُدّام الشِّرْكة.",
+        "latin": "il3ummāl idʐāharu guddām iššírka.",
+        "english": "The workers protested in front of the company."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2831",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2831",
+        "arabic": "كان في مُتظاهْرين كْتير.",
+        "latin": "kān fī mutaʐahrīn ktīr.",
+        "english": "There were a lot of protesters."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2832",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2832",
+        "arabic": "قرينا عن الثَّوْرة الفرنْسية.",
+        "latin": "garēna 3an issáwra -lfaransíyya.",
+        "english": "We read about the French Revolution."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2839",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2839",
+        "arabic": "اِرْتكب جريمة وانْمسك.",
+        "latin": "irtákab jarīma w inmásak.",
+        "english": "He committed a crime and was caught."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2845",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2845",
+        "arabic": "الحرامي دخل عَ دار جارْنا.",
+        "latin": "ilɧarāmi dáxal 3a dār jārna.",
+        "english": "The thief broke into our neighbor's house."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2848",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2848",
+        "arabic": "القتِل جريمة كْبيرة.",
+        "latin": "ilgátil jarīma kbīra.",
+        "english": "Murder is a serious crime."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2850",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2850",
+        "arabic": "الشُّرْطة مسكت القاتِل.",
+        "latin": "iššúrʈa másakat ilgātil.",
+        "english": "The police caught the murderer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2853",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2853",
+        "arabic": "الكلْب هجم عَ الحرامي.",
+        "latin": "ilkálb hájam 3a -lɧarāmi.",
+        "english": "The dog attacked the thief."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2855",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2855",
+        "arabic": "في تخْريب في الحديقة.",
+        "latin": "fī taxrīb fi -lɧadīga.",
+        "english": "There's vandalism in the park."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2879",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2879",
+        "arabic": "اِنْحكم عليْه سنْتيْن.",
+        "latin": "inɧákam 3alē santēn.",
+        "english": "He was sentenced to two years."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2881",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2881",
+        "arabic": "أخوه محْبوس.",
+        "latin": "axū maɧbūs.",
+        "english": "His brother is in prison."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2884",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2884",
+        "arabic": "شرد مِن الحبِس في اللّيْل.",
+        "latin": "šárad min ilɧábis fi -llēl.",
+        "english": "He escaped from prison in the night."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2906",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2906",
+        "arabic": "الحُكومة فرضت ضريبة عَ السّجاير.",
+        "latin": "ilɧukūma fáraɖat ɖarība 3a -ssagāyir.",
+        "english": "The government taxed cigarettes."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2907",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2907",
+        "arabic": "لازِم كُلّ واحد يِدْفع الضّرايِب.",
+        "latin": "lāzim kull wāɧad yídfa3 iɖɖarāyib.",
+        "english": "Everyone has to pay taxes."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2958",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2958",
+        "arabic": "البقر في الزْريبة.",
+        "latin": "ilbágar fi -zzrība.",
+        "english": "The cows are in the barn."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2991",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2991",
+        "arabic": "الحصاد في الصّيْف.",
+        "latin": "ilɧaʂād fi -ʂʂēf.",
+        "english": "The harvest is in summer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2996",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2996",
+        "arabic": "الحرْب صعْبة عَ النّاس.",
+        "latin": "ilɧárb ʂá3ba 3a -nnās.",
+        "english": "War is hard on people."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2997",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2997",
+        "arabic": "بدّنا سلام.",
+        "latin": "báddna salām.",
+        "english": "We want peace."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2998",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2998",
+        "arabic": "الملِك أعْلن الحرْب.",
+        "latin": "ilmálik á3lan ilɧárb.",
+        "english": "The king declared war."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3001",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3001",
+        "arabic": "أخوه في الجيْش.",
+        "latin": "axū fi -jjēš.",
+        "english": "His brother is in the army."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3007",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3007",
+        "arabic": "المعْركة كانت طْويلة.",
+        "latin": "ilmá3raka kānat ʈawīla.",
+        "english": "The battle was long."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3008",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3008",
+        "arabic": "الهُجوم كان في اللّيْل.",
+        "latin": "ilhujūm kān fi -llēl.",
+        "english": "The attack was at night."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3010",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3010",
+        "arabic": "دافع عن أخوه الصّْغير.",
+        "latin": "dāfa3 3an axū -ʂʂɣīr.",
+        "english": "He defended his little brother."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3012",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3012",
+        "arabic": "لقوا قُنْبِلة قْديمة في الحقِل.",
+        "latin": "lágu gúmbila gdīma fi -lɧágil.",
+        "english": "They found an old bomb in the field."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3015",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3015",
+        "arabic": "سْمِعْنا صوْت اِنْفِجار.",
+        "latin": "smí3na ʂōt infijār.",
+        "english": "We heard the sound of an explosion."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3018",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3018",
+        "arabic": "الدّبّابة كْبيرة كْتير.",
+        "latin": "iddabbāba kbīra ktīr.",
+        "english": "The tank is very big."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3020",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3020",
+        "arabic": "قرينا عن الاِحْتِلال في كْتاب التّاريخ.",
+        "latin": "garēna 3an il'iɧtilāl fi ktāb ittarīx.",
+        "english": "We read about the occupation in the history book."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3046",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3046",
+        "arabic": "هادا بسّ تحْزير.",
+        "latin": "hāda bass taɧzīr.",
+        "english": "That's just a guess."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3048",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3048",
+        "arabic": "تَوَقُّعي كان صحّ.",
+        "latin": "tawaqqú3i kān ʂaɧɧ.",
+        "english": "My prediction was right."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3054",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3054",
+        "arabic": "هادي غباوَة!",
+        "latin": "hādi ɣabāwa!",
+        "english": "That's stupid!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3058",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3058",
+        "arabic": "حسّيْت إحْساس حِلو.",
+        "latin": "ɧassēt iɧsās ɧílu.",
+        "english": "I felt good."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3059",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3059",
+        "arabic": "حسّيْت بْإحْساس بِشِع.",
+        "latin": "ɧassēt b-ʔiɧsās bíši3.",
+        "english": "I felt bad."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3103",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3103",
+        "arabic": "المُدير جِلِف مع المُوَظّفين.",
+        "latin": "ilmudīr jílif ma3 ilmuwaʐʐafīn.",
+        "english": "The manager is harsh with the employees."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3116",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3116",
+        "arabic": "سيدي مِرِح دايْماً.",
+        "latin": "sīdi míriɧ dāyman.",
+        "english": "My grandfather is always cheerful."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3131",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3131",
+        "arabic": "سْمِع مدِح كْتير.",
+        "latin": "smí3 mádiɧ ktīr.",
+        "english": "He heard a lot of praise."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3133",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3133",
+        "arabic": "ما بيْحِبّ الاِنْتِقاد.",
+        "latin": "ma biɧíbb il'intiqād.",
+        "english": "He doesn't like criticism."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3137",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3137",
+        "arabic": "عجبتْني فِكْرتك.",
+        "latin": "3ajabátni fikrtak.",
+        "english": "I liked your idea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3141",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3141",
+        "arabic": "وَصلْنا لَاِتِّفاق.",
+        "latin": "waʂálna la-ttifāg.",
+        "english": "We reached an agreement."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3147",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3147",
+        "arabic": "كان عِنْدْنا مُناقشة طْويلة.",
+        "latin": "kān 3índna munāqaša ʈawīla.",
+        "english": "We had a long discussion."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3158",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3158",
+        "arabic": "عِنْدو رغْبة يِسافِر.",
+        "latin": "3índu ráɣba ysāfir.",
+        "english": "He has a desire to travel."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3159",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3159",
+        "arabic": "نيتو منيحة.",
+        "latin": "níytu manīɧa.",
+        "english": "His intentions are good."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0175",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0175",
+        "arabic": "كسر قلْبها.",
+        "latin": "kásar gálbha.",
+        "english": "He broke her heart."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0201",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0201",
+        "arabic": "أبوه رِجِع اِتْجوّز.",
+        "latin": "abūh ríji3 idjáwwaz.",
+        "english": "His father remarried."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0200",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0200",
+        "arabic": "عمّي مْطلّق.",
+        "latin": "3ámmi mʈállag.",
+        "english": "My uncle is divorced."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0152",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0152",
+        "arabic": "التّبنّي بِياخُد وَقت.",
+        "latin": "ittabánni biyāxud wáqt.",
+        "english": "Adoption takes time."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0038",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0038",
+        "arabic": "بْطُفولْتو كان يِلْعب في الشّارِع.",
+        "latin": "b-ʈufūltu kān yíl3ab fi -ššāri3.",
+        "english": "In his childhood he played in the street."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3174",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3174",
+        "arabic": "هادا عيد ديني.",
+        "latin": "hāda 3īd dīni.",
+        "english": "This is a religious holiday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3175",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3175",
+        "arabic": "عِنْدها إيمان قَوي.",
+        "latin": "3índha īmān gawi.",
+        "english": "She has strong faith."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3180",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3180",
+        "arabic": "جدّي كان مُتديِّن.",
+        "latin": "jáddi kān mutadáyyin.",
+        "english": "My grandfather was religious."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3182",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3182",
+        "arabic": "الطّقِس كان طْويل.",
+        "latin": "iʈʈáqis kān ʈawīl.",
+        "english": "The ceremony was long."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3186",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3186",
+        "arabic": "الله يِرْحم روْحو.",
+        "latin": "allā yírɧam rōɧu.",
+        "english": "May God have mercy on his soul."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3187",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3187",
+        "arabic": "بِقولوا الجّنّة تحِت أقْدام الإمّهات.",
+        "latin": "bigūlu -jjánna táɧt aqdām il'immahāt.",
+        "english": "They say Heaven lies at the feet of mothers."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3191",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3191",
+        "arabic": "قرينا عن الأنْبِيا.",
+        "latin": "garēna 3an ilʔánbiya.",
+        "english": "We read about the prophets."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3193",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3193",
+        "arabic": "الطِّفِل نايِم زيّ الملاك.",
+        "latin": "iʈʈífil nāyim zayy ilmalāk.",
+        "english": "The baby sleeps like an angel."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3194",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3194",
+        "arabic": "سِتّي بِتِحْكي قِصص عن الجِّنّ.",
+        "latin": "sítti btíɧki gíʂaʂ 3an ijjínn.",
+        "english": "My grandmother tells stories about jinn."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3195",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3195",
+        "arabic": "الحرّ زيّ الجّحيم.",
+        "latin": "ilɧarr zayy ijjaɧīm.",
+        "english": "The heat is like hell."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3196",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3196",
+        "arabic": "الوَلد شيطان صْغير.",
+        "latin": "ilwálad šīʈān ʂɣīr.",
+        "english": "The boy is a little devil."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3198",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3198",
+        "arabic": "السِّرْقة ذنْب.",
+        "latin": "issírga zamb.",
+        "english": "Stealing is a sin."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3200",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3200",
+        "arabic": "في كُلّ قِصّة في خيْر وشرّ.",
+        "latin": "fī kull gíʂʂa fī xēr w šarr.",
+        "english": "In every story there's good and evil."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3202",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3202",
+        "arabic": "هادي خُرافة قْديمة.",
+        "latin": "hādi xurāfa gdīma.",
+        "english": "That's an old superstition."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3217",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3217",
+        "arabic": "قرينا عن اليَهودية والمسيحية والإسْلام.",
+        "latin": "garēna 3an ilyahūdíyya w ilmasīɧíyya w ilʔislām.",
+        "english": "We read about Judaism, Christianity and Islam."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3222",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3222",
+        "arabic": "الهِنْدوسية دين قْديم.",
+        "latin": "ilhindūsíyya dīn gdīm.",
+        "english": "Hinduism is an old religion."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3220",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3220",
+        "arabic": "جارْنا بودي.",
+        "latin": "jārna būdi.",
+        "english": "Our neighbor is a Buddhist."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3224",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3224",
+        "arabic": "قرا كْتاب عن الإلْحاد.",
+        "latin": "gára ktāb 3an il'ilɧād.",
+        "english": "He read a book about atheism."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3225",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3225",
+        "arabic": "صاحْبي مُلْحِد.",
+        "latin": "ʂāɧbi múlɧid.",
+        "english": "My friend is an atheist."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3229",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3229",
+        "arabic": "الإمام بيِحْكي مع النّاس.",
+        "latin": "ilʔimām biyíɧki ma3 innās.",
+        "english": "The imam is talking with people."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3233",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3233",
+        "arabic": "الإمام أدّن الصُّبُح.",
+        "latin": "ilʔimām áddan iʂʂúbuɧ.",
+        "english": "The imam called to prayer in the morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3235",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3235",
+        "arabic": "اِتْوَضّى قبِل الصّلا.",
+        "latin": "(i)twáɖɖa gábil iʂʂála.",
+        "english": "He washed before prayer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3247",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3247",
+        "arabic": "بيِتْلو القُرْآن كُلّ يوْم.",
+        "latin": "biyítlu -lqurʔān kull yōm.",
+        "english": "He recites the Quran every day."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3248",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3248",
+        "arabic": "حِفِظ سورة جْديدة.",
+        "latin": "ɧífiʐ sūra jdīda.",
+        "english": "He learned a new sura by heart."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3249",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3249",
+        "arabic": "قرا آيَة مِن القُرْآن.",
+        "latin": "gára āya min ilqurʔān.",
+        "english": "He read a verse from the Quran."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3255",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3255",
+        "arabic": "القسيس في الكنيسة.",
+        "latin": "ilqasīs fi -lkanīsa.",
+        "english": "The priest is in the church."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3257",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3257",
+        "arabic": "الرّاهِبة بِتْعلِّم في المدْرسة.",
+        "latin": "irrāhiba bit3állim fi -lmádrasa.",
+        "english": "The nun teaches at the school."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3260",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3260",
+        "arabic": "المَوْعِظة كانت قْصيرة.",
+        "latin": "ilmáw3iʐa kānat gʂīra.",
+        "english": "The sermon was short."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3263",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3263",
+        "arabic": "بِتْغنّي في الجَوْقة.",
+        "latin": "btɣánni fi -jjáwga.",
+        "english": "She sings in the choir."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3267",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3267",
+        "arabic": "عمّدوا الطِّفِل في الكنيسة.",
+        "latin": "3ammádu iʈʈífil fi -lkanīsa.",
+        "english": "They baptized the baby in the church."
+      }
     }
   ]
 }
