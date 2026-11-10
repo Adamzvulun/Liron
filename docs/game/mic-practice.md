@@ -72,7 +72,7 @@ The same Groq check as on the Say it cards, now on whole sentences in the echo w
 - **Its answer is a hint, not a score:** "It heard: …", next to the sentence.
 
 ## 6. Rewards
-- **Contracts (built, #197):** "Play 2 rounds at the echo well" (`pairs-round`, 15 gold) and "Shadow 5 sentences at the echo well" (`shadow-sentence`, counted per sentence, 15 gold). The well is open from the start, so neither waits on an earlier event. Migration `20261120000000_echo_well.sql`.
+- **Contracts (built, #197):** "Play 2 rounds at the echo well" (`pairs-round`, 15 gold) and "Shadow 5 sentences at the echo well" (`shadow-sentence`, counted per sentence, 15 gold). The well is open from the start, so neither waits on an earlier event. Migration `20261121000000_echo_well.sql`.
 - **Achievements (built, #197), on the wall:** "Sharp Ears" (all eight pairs heard, 3 gems): a round that clears a pair also sends `heard-<pair>`, and the achievement counts the eight kinds. "Echo" (100 sentences shadowed, 3 gems) adds up every `shadow-sentence` with a new condition, `event-total`.
 
 ## 7. What's out
