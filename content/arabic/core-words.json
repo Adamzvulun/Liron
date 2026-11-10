@@ -2773,6 +2773,1074 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:21",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 21,
+        "title": "Neighbors near and far",
+        "theme": "The Arab countries, and what you call the people from each",
+        "words": [
+          {
+            "deck": "pcav:3433",
+            "gloss": "Syria"
+          },
+          {
+            "deck": "pcav:3434",
+            "gloss": "Syrian"
+          },
+          {
+            "deck": "pcav:3435",
+            "gloss": "Iraq"
+          },
+          {
+            "deck": "pcav:3436",
+            "gloss": "Iraqi"
+          },
+          {
+            "deck": "pcav:3449",
+            "gloss": "Yemen"
+          },
+          {
+            "deck": "pcav:3450",
+            "gloss": "Yemeni"
+          },
+          {
+            "deck": "pcav:3445",
+            "gloss": "Saudi Arabia"
+          },
+          {
+            "deck": "pcav:3446",
+            "gloss": "Saudi"
+          },
+          {
+            "deck": "pcav:3437",
+            "gloss": "Kuwait"
+          },
+          {
+            "deck": "pcav:3438",
+            "gloss": "Kuwaiti"
+          },
+          {
+            "deck": "pcav:3439",
+            "gloss": "Qatar"
+          },
+          {
+            "deck": "pcav:3440",
+            "gloss": "Qatari"
+          },
+          {
+            "deck": "pcav:3441",
+            "gloss": "Bahrain"
+          },
+          {
+            "deck": "pcav:3442",
+            "gloss": "Bahraini"
+          },
+          {
+            "deck": "pcav:3443",
+            "gloss": "the Emirates"
+          },
+          {
+            "deck": "pcav:3444",
+            "gloss": "Emirati"
+          },
+          {
+            "deck": "pcav:3447",
+            "gloss": "Oman"
+          },
+          {
+            "deck": "pcav:3448",
+            "gloss": "Omani"
+          },
+          {
+            "deck": "pcav:3417",
+            "gloss": "Sudan"
+          },
+          {
+            "deck": "pcav:3418",
+            "gloss": "Sudanese"
+          },
+          {
+            "deck": "pcav:3419",
+            "gloss": "Libya"
+          },
+          {
+            "deck": "pcav:3420",
+            "gloss": "Libyan"
+          },
+          {
+            "deck": "pcav:3421",
+            "gloss": "Tunisia"
+          },
+          {
+            "deck": "pcav:3422",
+            "gloss": "Tunisian"
+          },
+          {
+            "deck": "pcav:3423",
+            "gloss": "Algeria"
+          },
+          {
+            "deck": "pcav:3424",
+            "gloss": "Algerian"
+          },
+          {
+            "deck": "pcav:3425",
+            "gloss": "Morocco"
+          },
+          {
+            "deck": "pcav:3426",
+            "gloss": "Moroccan"
+          },
+          {
+            "deck": "pcav:3451",
+            "gloss": "Somalia"
+          },
+          {
+            "deck": "pcav:3452",
+            "gloss": "Somali"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:22",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 22,
+        "title": "Across the sea",
+        "theme": "Europe, its countries, and a few of its languages",
+        "words": [
+          {
+            "deck": "pcav:3567",
+            "gloss": "Europe"
+          },
+          {
+            "deck": "pcav:3472",
+            "gloss": "France"
+          },
+          {
+            "deck": "pcav:3474",
+            "gloss": "Spain"
+          },
+          {
+            "deck": "pcav:3287",
+            "gloss": "Spanish"
+          },
+          {
+            "deck": "pcav:3477",
+            "gloss": "Italy"
+          },
+          {
+            "deck": "pcav:3282",
+            "gloss": "Italian"
+          },
+          {
+            "deck": "pcav:3461",
+            "gloss": "Germany"
+          },
+          {
+            "deck": "pcav:3466",
+            "gloss": "Great Britain"
+          },
+          {
+            "deck": "pcav:3467",
+            "gloss": "British"
+          },
+          {
+            "deck": "pcav:3468",
+            "gloss": "England"
+          },
+          {
+            "deck": "pcav:3470",
+            "gloss": "Scotland"
+          },
+          {
+            "deck": "pcav:3471",
+            "gloss": "Wales"
+          },
+          {
+            "deck": "pcav:3465",
+            "gloss": "Ireland"
+          },
+          {
+            "deck": "pcav:3463",
+            "gloss": "the Netherlands"
+          },
+          {
+            "deck": "pcav:3274",
+            "gloss": "Dutch"
+          },
+          {
+            "deck": "pcav:3464",
+            "gloss": "Belgium"
+          },
+          {
+            "deck": "pcav:3476",
+            "gloss": "Switzerland"
+          },
+          {
+            "deck": "pcav:3478",
+            "gloss": "Austria"
+          },
+          {
+            "deck": "pcav:3479",
+            "gloss": "Austrian"
+          },
+          {
+            "deck": "pcav:3475",
+            "gloss": "Portugal"
+          },
+          {
+            "deck": "pcav:3456",
+            "gloss": "Norway"
+          },
+          {
+            "deck": "pcav:3457",
+            "gloss": "Sweden"
+          },
+          {
+            "deck": "pcav:3458",
+            "gloss": "Swedish"
+          },
+          {
+            "deck": "pcav:3459",
+            "gloss": "Finland"
+          },
+          {
+            "deck": "pcav:3460",
+            "gloss": "Denmark"
+          },
+          {
+            "deck": "pcav:3483",
+            "gloss": "Poland"
+          },
+          {
+            "deck": "pcav:3480",
+            "gloss": "the Czech Republic"
+          },
+          {
+            "deck": "pcav:3481",
+            "gloss": "Czech"
+          },
+          {
+            "deck": "pcav:3484",
+            "gloss": "Hungary"
+          },
+          {
+            "deck": "pcav:3486",
+            "gloss": "Romania"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:23",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 23,
+        "title": "The wide world",
+        "theme": "Asia, Africa and the far side of the map",
+        "words": [
+          {
+            "deck": "pcav:3568",
+            "gloss": "Africa"
+          },
+          {
+            "deck": "pcav:3569",
+            "gloss": "Asia"
+          },
+          {
+            "deck": "pcav:3453",
+            "gloss": "Ethiopia"
+          },
+          {
+            "deck": "pcav:3454",
+            "gloss": "Nigeria"
+          },
+          {
+            "deck": "pcav:3488",
+            "gloss": "Turkey"
+          },
+          {
+            "deck": "pcav:3288",
+            "gloss": "Turkish"
+          },
+          {
+            "deck": "pcav:3492",
+            "gloss": "Iran"
+          },
+          {
+            "deck": "pcav:3493",
+            "gloss": "Afghanistan"
+          },
+          {
+            "deck": "pcav:3494",
+            "gloss": "Afghan"
+          },
+          {
+            "deck": "pcav:3495",
+            "gloss": "Pakistan"
+          },
+          {
+            "deck": "pcav:3496",
+            "gloss": "India"
+          },
+          {
+            "deck": "pcav:3497",
+            "gloss": "Indian"
+          },
+          {
+            "deck": "pcav:3498",
+            "gloss": "China"
+          },
+          {
+            "deck": "pcav:3273",
+            "gloss": "Chinese"
+          },
+          {
+            "deck": "pcav:3500",
+            "gloss": "Japan"
+          },
+          {
+            "deck": "pcav:3283",
+            "gloss": "Japanese"
+          },
+          {
+            "deck": "pcav:3501",
+            "gloss": "Taiwan"
+          },
+          {
+            "deck": "pcav:3502",
+            "gloss": "Thailand"
+          },
+          {
+            "deck": "pcav:3503",
+            "gloss": "Vietnam"
+          },
+          {
+            "deck": "pcav:3504",
+            "gloss": "Malaysia"
+          },
+          {
+            "deck": "pcav:3505",
+            "gloss": "Indonesia"
+          },
+          {
+            "deck": "pcav:3506",
+            "gloss": "the Philippines"
+          },
+          {
+            "deck": "pcav:3507",
+            "gloss": "Australia"
+          },
+          {
+            "deck": "pcav:3508",
+            "gloss": "New Zealand"
+          },
+          {
+            "deck": "pcav:3509",
+            "gloss": "Canada"
+          },
+          {
+            "deck": "pcav:3491",
+            "gloss": "Russia"
+          },
+          {
+            "deck": "pcav:3286",
+            "gloss": "Russian"
+          },
+          {
+            "deck": "pcav:3490",
+            "gloss": "Ukraine"
+          },
+          {
+            "deck": "pcav:3487",
+            "gloss": "Bulgaria"
+          },
+          {
+            "deck": "pcav:3482",
+            "gloss": "Slovakia"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:24",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 24,
+        "title": "Hundreds and thousands",
+        "theme": "Big numbers, the months, and measuring the way",
+        "words": [
+          {
+            "deck": "pcav:4002",
+            "gloss": "two hundred"
+          },
+          {
+            "deck": "pcav:4003",
+            "gloss": "three hundred"
+          },
+          {
+            "deck": "pcav:4004",
+            "gloss": "four hundred"
+          },
+          {
+            "deck": "pcav:4005",
+            "gloss": "five hundred"
+          },
+          {
+            "deck": "pcav:4006",
+            "gloss": "six hundred"
+          },
+          {
+            "deck": "pcav:4007",
+            "gloss": "seven hundred"
+          },
+          {
+            "deck": "pcav:4008",
+            "gloss": "eight hundred"
+          },
+          {
+            "deck": "pcav:4009",
+            "gloss": "nine hundred"
+          },
+          {
+            "deck": "pcav:4011",
+            "gloss": "two thousand"
+          },
+          {
+            "deck": "pcav:4012",
+            "gloss": "three thousand"
+          },
+          {
+            "deck": "pcav:4013",
+            "gloss": "four thousand"
+          },
+          {
+            "deck": "pcav:4014",
+            "gloss": "five thousand"
+          },
+          {
+            "deck": "pcav:4015",
+            "gloss": "six thousand"
+          },
+          {
+            "deck": "pcav:4016",
+            "gloss": "seven thousand"
+          },
+          {
+            "deck": "pcav:4017",
+            "gloss": "eight thousand"
+          },
+          {
+            "deck": "pcav:4018",
+            "gloss": "nine thousand"
+          },
+          {
+            "deck": "pcav:4019",
+            "gloss": "ten thousand"
+          },
+          {
+            "deck": "pcav:4132",
+            "gloss": "February"
+          },
+          {
+            "deck": "pcav:4134",
+            "gloss": "March"
+          },
+          {
+            "deck": "pcav:4136",
+            "gloss": "April"
+          },
+          {
+            "deck": "pcav:4138",
+            "gloss": "May"
+          },
+          {
+            "deck": "pcav:4140",
+            "gloss": "June"
+          },
+          {
+            "deck": "pcav:4142",
+            "gloss": "July"
+          },
+          {
+            "deck": "pcav:4144",
+            "gloss": "August"
+          },
+          {
+            "deck": "pcav:4146",
+            "gloss": "September"
+          },
+          {
+            "deck": "pcav:4118",
+            "gloss": "Wednesday"
+          },
+          {
+            "deck": "pcav:4155",
+            "gloss": "calendar"
+          },
+          {
+            "deck": "pcav:4063",
+            "gloss": "the last __"
+          },
+          {
+            "deck": "pcav:3922",
+            "gloss": "kilometer"
+          },
+          {
+            "deck": "pcav:3932",
+            "gloss": "kilogram"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:25",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 25,
+        "title": "Money and sizes",
+        "theme": "Paying, the bill, and finding clothes that fit",
+        "words": [
+          {
+            "deck": "pcav:0558",
+            "gloss": "wallet"
+          },
+          {
+            "deck": "pcav:2072",
+            "gloss": "ATM"
+          },
+          {
+            "deck": "pcav:2071",
+            "gloss": "to withdraw"
+          },
+          {
+            "deck": "pcav:2142",
+            "gloss": "to go shopping"
+          },
+          {
+            "deck": "pcav:2927",
+            "gloss": "store"
+          },
+          {
+            "deck": "pcav:2157",
+            "gloss": "price"
+          },
+          {
+            "deck": "pcav:2895",
+            "gloss": "euro"
+          },
+          {
+            "deck": "pcav:2147",
+            "gloss": "to pay for __",
+            "sentence": "pcav:2148"
+          },
+          {
+            "deck": "pcav:2150",
+            "gloss": "to pay in cash"
+          },
+          {
+            "deck": "pcav:2151",
+            "gloss": "to pay in cash"
+          },
+          {
+            "deck": "pcav:2152",
+            "gloss": "to pay by card"
+          },
+          {
+            "deck": "pcav:1443",
+            "gloss": "waiter"
+          },
+          {
+            "deck": "pcav:2203",
+            "gloss": "waitress"
+          },
+          {
+            "deck": "pcav:2204",
+            "gloss": "menu"
+          },
+          {
+            "deck": "pcav:2205",
+            "gloss": "menu"
+          },
+          {
+            "deck": "pcav:2208",
+            "gloss": "bill, invoice"
+          },
+          {
+            "deck": "pcav:2209",
+            "gloss": "to pay the bill"
+          },
+          {
+            "deck": "pcav:0627",
+            "gloss": "small (S)"
+          },
+          {
+            "deck": "pcav:0628",
+            "gloss": "medium (M)"
+          },
+          {
+            "deck": "pcav:0629",
+            "gloss": "large (L)"
+          },
+          {
+            "deck": "pcav:0543",
+            "gloss": "jeans"
+          },
+          {
+            "deck": "pcav:0544",
+            "gloss": "shorts"
+          },
+          {
+            "deck": "pcav:0546",
+            "gloss": "belt"
+          },
+          {
+            "deck": "pcav:0547",
+            "gloss": "belt"
+          },
+          {
+            "deck": "pcav:0577",
+            "gloss": "coat"
+          },
+          {
+            "deck": "pcav:0599",
+            "gloss": "boots, shoes"
+          },
+          {
+            "deck": "pcav:0565",
+            "gloss": "headscarf"
+          },
+          {
+            "deck": "pcav:0566",
+            "gloss": "headscarf"
+          },
+          {
+            "deck": "pcav:3951",
+            "gloss": "a little __, a few __",
+            "sentence": "pcav:3331"
+          },
+          {
+            "deck": "pcav:3950",
+            "gloss": "a little __, a few __"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:26",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 26,
+        "title": "Eating and feeling well",
+        "theme": "More food and drink, and seeing the doctor",
+        "words": [
+          {
+            "deck": "pcav:1226",
+            "gloss": "meat"
+          },
+          {
+            "deck": "pcav:1233",
+            "gloss": "chicken"
+          },
+          {
+            "deck": "pcav:1224",
+            "gloss": "omelet"
+          },
+          {
+            "deck": "pcav:1210",
+            "gloss": "toast"
+          },
+          {
+            "deck": "pcav:1208",
+            "gloss": "slice of bread"
+          },
+          {
+            "deck": "pcav:1212",
+            "gloss": "baguette"
+          },
+          {
+            "deck": "pcav:1085",
+            "gloss": "pizza"
+          },
+          {
+            "deck": "pcav:1086",
+            "gloss": "hamburger"
+          },
+          {
+            "deck": "pcav:1091",
+            "gloss": "potato chips"
+          },
+          {
+            "deck": "pcav:1094",
+            "gloss": "sweets"
+          },
+          {
+            "deck": "pcav:1071",
+            "gloss": "ice cream"
+          },
+          {
+            "deck": "pcav:1168",
+            "gloss": "strawberries"
+          },
+          {
+            "deck": "pcav:1162",
+            "gloss": "oranges"
+          },
+          {
+            "deck": "pcav:1268",
+            "gloss": "vegetable oil"
+          },
+          {
+            "deck": "pcav:1039",
+            "gloss": "bottle"
+          },
+          {
+            "deck": "pcav:1057",
+            "gloss": "beer"
+          },
+          {
+            "deck": "pcav:1058",
+            "gloss": "wine"
+          },
+          {
+            "deck": "pcav:0791",
+            "gloss": "tissue, napkin"
+          },
+          {
+            "deck": "pcav:4719",
+            "gloss": "full",
+            "sentence": "pcav:1287"
+          },
+          {
+            "deck": "pcav:4701",
+            "gloss": "ready",
+            "sentence": "pcav:4290"
+          },
+          {
+            "deck": "pcav:4713",
+            "gloss": "cool, cold"
+          },
+          {
+            "deck": "pcav:0289",
+            "gloss": "nose"
+          },
+          {
+            "deck": "pcav:0317",
+            "gloss": "to open your mouth"
+          },
+          {
+            "deck": "pcav:0517",
+            "gloss": "thin"
+          },
+          {
+            "deck": "pcav:1626",
+            "gloss": "sick; patient"
+          },
+          {
+            "deck": "pcav:1650",
+            "gloss": "to have a headache"
+          },
+          {
+            "deck": "pcav:1636",
+            "gloss": "hospital"
+          },
+          {
+            "deck": "pcav:1642",
+            "gloss": "to examine"
+          },
+          {
+            "deck": "pcav:1701",
+            "gloss": "medicine"
+          },
+          {
+            "deck": "pcav:2964",
+            "gloss": "pig"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:27",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 27,
+        "title": "Days out",
+        "theme": "Music, holidays and the Americas",
+        "words": [
+          {
+            "deck": "pcav:2426",
+            "gloss": "music"
+          },
+          {
+            "deck": "pcav:2431",
+            "gloss": "singing"
+          },
+          {
+            "deck": "pcav:2470",
+            "gloss": "a dance"
+          },
+          {
+            "deck": "pcav:2623",
+            "gloss": "vacation"
+          },
+          {
+            "deck": "pcav:2654",
+            "gloss": "swimming"
+          },
+          {
+            "deck": "pcav:2656",
+            "gloss": "pool"
+          },
+          {
+            "deck": "pcav:2698",
+            "gloss": "to buy a ticket"
+          },
+          {
+            "deck": "pcav:2743",
+            "gloss": "to leave"
+          },
+          {
+            "deck": "pcav:2332",
+            "gloss": "to take a selfie"
+          },
+          {
+            "deck": "pcav:2355",
+            "gloss": "seat"
+          },
+          {
+            "deck": "pcav:0732",
+            "gloss": "painting"
+          },
+          {
+            "deck": "pcav:2475",
+            "gloss": "teddy bear"
+          },
+          {
+            "deck": "pcav:2607",
+            "gloss": "to push"
+          },
+          {
+            "deck": "pcav:4583",
+            "gloss": "to lock"
+          },
+          {
+            "deck": "pcav:4625",
+            "gloss": "to look"
+          },
+          {
+            "deck": "pcav:4667",
+            "gloss": "to use"
+          },
+          {
+            "deck": "pcav:1803",
+            "gloss": "mobile phone"
+          },
+          {
+            "deck": "pcav:1772",
+            "gloss": "internet"
+          },
+          {
+            "deck": "pcav:2130",
+            "gloss": "a sheet of paper"
+          },
+          {
+            "deck": "pcav:1480",
+            "gloss": "studying"
+          },
+          {
+            "deck": "pcav:2024",
+            "gloss": "building"
+          },
+          {
+            "deck": "pcav:3227",
+            "gloss": "mosque (small)"
+          },
+          {
+            "deck": "pcav:3327",
+            "gloss": "to talk"
+          },
+          {
+            "deck": "pcav:3511",
+            "gloss": "American"
+          },
+          {
+            "deck": "pcav:3512",
+            "gloss": "Mexico"
+          },
+          {
+            "deck": "pcav:3513",
+            "gloss": "Colombia"
+          },
+          {
+            "deck": "pcav:3514",
+            "gloss": "Venezuela"
+          },
+          {
+            "deck": "pcav:3515",
+            "gloss": "Brazil"
+          },
+          {
+            "deck": "pcav:3516",
+            "gloss": "Argentina"
+          },
+          {
+            "deck": "pcav:3517",
+            "gloss": "Chile"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:28",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 28,
+        "title": "Other ways to say it",
+        "theme": "Second words for things you know, and the small words that join them",
+        "words": [
+          {
+            "deck": "pcav:4752",
+            "gloss": "yes"
+          },
+          {
+            "deck": "pcav:3150",
+            "gloss": "okay, fine"
+          },
+          {
+            "deck": "pcav:3152",
+            "gloss": "okay then"
+          },
+          {
+            "deck": "pcav:3155",
+            "gloss": "I think …",
+            "sentence": "pcav:4707"
+          },
+          {
+            "deck": "pcav:3156",
+            "gloss": "I believe …"
+          },
+          {
+            "deck": "pcav:3160",
+            "gloss": "to want"
+          },
+          {
+            "deck": "pcav:4308",
+            "gloss": "when?"
+          },
+          {
+            "deck": "pcav:4315",
+            "gloss": "how many?"
+          },
+          {
+            "deck": "pcav:4316",
+            "gloss": "how many?",
+            "sentence": "pcav:0091"
+          },
+          {
+            "deck": "pcav:4463",
+            "gloss": "why?"
+          },
+          {
+            "deck": "pcav:4454",
+            "gloss": "when (…)",
+            "sentence": "pcav:1458"
+          },
+          {
+            "deck": "pcav:4424",
+            "gloss": "because"
+          },
+          {
+            "deck": "pcav:4422",
+            "gloss": "that (…)",
+            "sentence": "pcav:2872"
+          },
+          {
+            "deck": "pcav:4420",
+            "gloss": "whether, if",
+            "sentence": "pcav:4452"
+          },
+          {
+            "deck": "pcav:4347",
+            "gloss": "here"
+          },
+          {
+            "deck": "pcav:4474",
+            "gloss": "inside"
+          },
+          {
+            "deck": "pcav:4504",
+            "gloss": "opposite"
+          },
+          {
+            "deck": "pcav:4507",
+            "gloss": "behind",
+            "sentence": "pcav:4508"
+          },
+          {
+            "deck": "pcav:4364",
+            "gloss": "sometimes"
+          },
+          {
+            "deck": "pcav:4369",
+            "gloss": "never"
+          },
+          {
+            "deck": "pcav:4374",
+            "gloss": "usually"
+          },
+          {
+            "deck": "pcav:4393",
+            "gloss": "well, good",
+            "sentence": "pcav:4395"
+          },
+          {
+            "deck": "pcav:3115",
+            "gloss": "nice, sweet"
+          },
+          {
+            "deck": "pcav:4692",
+            "gloss": "old, ancient"
+          },
+          {
+            "deck": "pcav:4706",
+            "gloss": "wrong (person)",
+            "sentence": "pcav:4707"
+          },
+          {
+            "deck": "pcav:4737",
+            "gloss": "dark"
+          },
+          {
+            "deck": "pcav:3883",
+            "gloss": "gray"
+          },
+          {
+            "deck": "pcav:3888",
+            "gloss": "orange (color)"
+          },
+          {
+            "deck": "pcav:3890",
+            "gloss": "pink"
+          },
+          {
+            "deck": "pcav:3892",
+            "gloss": "purple"
+          }
+        ]
+      }
     }
   ]
 }
