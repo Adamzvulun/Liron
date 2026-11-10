@@ -28,6 +28,8 @@ const progressSchema = z.object({
   runs: z.number().int().min(0).catch(0),
   /** Questline chapters whose trial is passed (#34). */
   trials: z.array(z.number().int().positive()).catch([]),
+  /** Guild ranks you've taken (#174): their rank-up card is seen and their event sent. */
+  ranks: z.array(z.string()).catch([]),
   /** Instant Recognition (#32): personal best, rounds played, each letter's reaction time. */
   recognition: z
     .object({

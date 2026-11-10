@@ -92,7 +92,7 @@ The hall shows your **rating** in each skill next to your rank (Glicko-2, alread
 - **Your House:** achievements as a wall of plaques (done and not yet done), and the title picker.
 
 ## 8. Tasks
-1. Ranks as data and the rank ladder in both halls (Listener, Traveler, the `written` list, rank events). — [#174](https://github.com/Adamzvulun/Liron/issues/174)
+1. Ranks as data and the rank ladder in both halls (Listener, Traveler, the `written` list, rank events). — [#174](https://github.com/Adamzvulun/Liron/issues/174). Built: `content/*/ranks.json`, `src/core/ranks/`, the rank-up card, and migration `20261115000000_rank_events.sql`. A rank waiting on a later feature carries a `later` line and can't be taken.
 2. The Lamp Signal trial and the Keyer rank. — [#175](https://github.com/Adamzvulun/Liron/issues/175)
 3. Rank gear: 6 painted pieces and the `rank` milestone. — [#176](https://github.com/Adamzvulun/Liron/issues/176)
 4. Achievements, gems and titles. — [#177](https://github.com/Adamzvulun/Liron/issues/177)

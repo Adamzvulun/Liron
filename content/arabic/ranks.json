@@ -1,0 +1,93 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (rank names and conditions from Waymark's world lore, docs/discovery/04-world-and-lore.md)",
+  "items": [
+    {
+      "id": "rank:stranger",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Stranger",
+        "arabic": "غريب",
+        "conditions": ["Arrive at the house"],
+        "order": 1
+      }
+    },
+    {
+      "id": "rank:guest",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Guest",
+        "arabic": "ضيف",
+        "conditions": ["Learn every letter of the script", "Pass the Painted Sign"],
+        "order": 2
+      }
+    },
+    {
+      "id": "rank:traveler",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Traveler",
+        "arabic": "مسافر",
+        "conditions": [
+          "Pass the first 10 word chapters (300 words)",
+          "Meet every survival phrase set",
+          "Write every letter from memory on the slate",
+          "Pass the Poet’s Evening"
+        ],
+        "order": 3
+      }
+    },
+    {
+      "id": "rank:neighbor",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Neighbor",
+        "arabic": "جار",
+        "conditions": ["A first real conversation with a partner"],
+        "later": "Conversation partners come later",
+        "order": 4
+      }
+    },
+    {
+      "id": "rank:friend",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Friend",
+        "arabic": "صاحب",
+        "conditions": ["1,000 words", "20 conversations"],
+        "later": "Conversation partners come later",
+        "order": 5
+      }
+    },
+    {
+      "id": "rank:local",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Local",
+        "arabic": "ابن البلد",
+        "conditions": ["2,000 words", "A 10-minute conversation without English"],
+        "later": "Conversation partners come later",
+        "order": 6
+      }
+    },
+    {
+      "id": "rank:storyteller",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Storyteller",
+        "arabic": "حكواتي",
+        "conditions": ["Tell a story to a partner and understand theirs"],
+        "later": "Conversation partners come later",
+        "order": 7
+      }
+    }
+  ]
+}
