@@ -3445,6 +3445,589 @@
         "latin": "ilmuftāɧ 3ála ʈʈāwla.",
         "english": "The key is on the table."
       }
+    },
+    {
+      "id": "own-sentence:pcav:1466",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1466",
+        "arabic": "أخوي في الكُلية.",
+        "latin": "axūy fi lkullíyya.",
+        "english": "My brother is in college."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1471",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1471",
+        "arabic": "في عِشْرين طالِب في الصّفّ.",
+        "latin": "fī 3išrīn ʈālib fi ʂʂaff.",
+        "english": "There are twenty students in the class."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1479",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1479",
+        "arabic": "كيْف القْرايَة؟",
+        "latin": "kēf ilgrāya?",
+        "english": "How are your studies going?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1535",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1535",
+        "arabic": "لازِم أُدْرُس للامْتِحان.",
+        "latin": "lāzim údrus la-lʔimtiɧān.",
+        "english": "I have to study for the test."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1546",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1546",
+        "arabic": "إمّي بِتْقرّي في المدْرسة.",
+        "latin": "ímmi bitgárri fi lmádrasa.",
+        "english": "My mother teaches at the school."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1518",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1518",
+        "arabic": "الامْتِحان كان سِهِل.",
+        "latin": "ilʔimtiɧān kān síhil.",
+        "english": "The test was easy."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1537",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1537",
+        "arabic": "خلّصْت الواجِب؟",
+        "latin": "xalláʂt ilwājib?",
+        "english": "Did you finish your homework?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1486",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1486",
+        "arabic": "جاوِب عَ السُّؤال.",
+        "latin": "jāwib 3a ssuʔāl.",
+        "english": "Answer the question."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1494",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1494",
+        "arabic": "اُكْتُب في الدّفْتر.",
+        "latin": "úktub fi ddáftar.",
+        "english": "Write in the notebook."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2120",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2120",
+        "arabic": "مُمْكِن آخُد قلمك؟",
+        "latin": "múmkin āxud galámak?",
+        "english": "Can I borrow your pen?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2123",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2123",
+        "arabic": "عِنْدك محّايَة؟",
+        "latin": "3índak maɧɧāya?",
+        "english": "Do you have an eraser?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2129",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2129",
+        "arabic": "في وَرق عَ الطّاوْلة.",
+        "latin": "fī wárag 3a ʈʈāwla.",
+        "english": "There's paper on the table."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2100",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2100",
+        "arabic": "اِفْتحوا الكُتُب عَ صفْحة عشرة.",
+        "latin": "íftaɧu lkútub 3a ʂáfɧa 3ášara.",
+        "english": "Open your books to page ten."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2106",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2106",
+        "arabic": "سِتّي بِتْحْكيلي قِصّة كُلّ ليْلة.",
+        "latin": "sítti btiɧkīli gíʂʂa kull lēla.",
+        "english": "My grandmother tells me a story every night."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1501",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1501",
+        "arabic": "عِنْدك خريطة للمدينة؟",
+        "latin": "3índak xarīʈa la-lmadīna?",
+        "english": "Do you have a map of the city?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3269",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3269",
+        "arabic": "العربي لُغة حِلْوة.",
+        "latin": "il3árabi lúɣa ɧílwa.",
+        "english": "Arabic is a beautiful language."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3277",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3277",
+        "arabic": "صاحْبي بيِحْكي فرنْسي.",
+        "latin": "ʂáɧbi byíɧki faránsi.",
+        "english": "My friend speaks French."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3278",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3278",
+        "arabic": "السّيّارة ألْمانية.",
+        "latin": "issayyāra almāníyya.",
+        "english": "The car is German."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3351",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3351",
+        "arabic": "بِدّي قاموس عربي.",
+        "latin": "bíddi qāmūs 3árabi.",
+        "english": "I need an Arabic dictionary."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3307",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3307",
+        "arabic": "بكْتِب اِسْمي بِالعربي.",
+        "latin": "báktib ísmi bi-l3árabi.",
+        "english": "I write my name in Arabic."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3326",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3326",
+        "arabic": "اِحْكي بِشْوَيْش لَو سمحِت.",
+        "latin": "íɧki bi-šwēš law samáɧt.",
+        "english": "Speak slowly, please."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3354",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3354",
+        "arabic": "مُمْكِن تْعيد لَو سمحِت؟",
+        "latin": "múmkin t3īd law samáɧt?",
+        "english": "Could you repeat that, please?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3037",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3037",
+        "arabic": "فْهِمِت شو قال؟",
+        "latin": "fhímit šū gāl?",
+        "english": "Did you understand what he said?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3040",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3040",
+        "arabic": "بْتِعْرِف ويْن البنْك؟",
+        "latin": "btí3rif wēn ilbank?",
+        "english": "Do you know where the bank is?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3962",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3962",
+        "arabic": "شو رقم تلفوْنك؟",
+        "latin": "šū ráqam talafōnak?",
+        "english": "What's your phone number?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4421",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4421",
+        "arabic": "إذا بِدّك، بنْروح بُكْرا.",
+        "latin": "íza bíddak, bnrūɧ búkra.",
+        "english": "If you want, we'll go tomorrow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1801",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1801",
+        "arabic": "التّلفوْن بيِرِنّ.",
+        "latin": "ittalafōn byírinn.",
+        "english": "The phone is ringing."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1802",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1802",
+        "arabic": "جوّالي في الشّنْطة.",
+        "latin": "jawwāli fi ššánʈa.",
+        "english": "My phone is in the bag."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1813",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1813",
+        "arabic": "اِتّصِل فيّ بُكْرا.",
+        "latin": "ittáʂil fíyyi búkra.",
+        "english": "Call me tomorrow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1814",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1814",
+        "arabic": "وَصلْني اِتِّصال مِن إمّي.",
+        "latin": "wáʂalni ittiʂāl min ímmi.",
+        "english": "I got a call from my mom."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1751",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1751",
+        "arabic": "الكُمْبْيوتر في غُرْفِتي.",
+        "latin": "ilkumbyūtar fi ɣurfíti.",
+        "english": "The computer is in my room."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1752",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1752",
+        "arabic": "شغِّل الكُمْبْيوتر لَو سمحِت.",
+        "latin": "šáɣɣil ilkumbyūtar law samáɧt.",
+        "english": "Turn on the computer, please."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1753",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1753",
+        "arabic": "اِطْفي الكُمْبْيوتر وتعال ناكُل.",
+        "latin": "íʈfi lkumbyūtar w ta3āl nākul.",
+        "english": "Turn off the computer and come eat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1771",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1771",
+        "arabic": "ما في نِت في الدّار.",
+        "latin": "ma fī nit fi ddār.",
+        "english": "There's no internet at home."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1778",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1778",
+        "arabic": "شو اِسِم المَوْقِع؟",
+        "latin": "šū ísm ilmáwqi3?",
+        "english": "What's the website called?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1783",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1783",
+        "arabic": "شو الإيميْل تبعك؟",
+        "latin": "šū ilʔīmēl tába3ak?",
+        "english": "What's your email?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1784",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1784",
+        "arabic": "بعتّْلك إيميْل إمْبارِح.",
+        "latin": "ba3áttlak īmēl imbāriɧ.",
+        "english": "I sent you an email yesterday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2082",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2082",
+        "arabic": "البريد بيوْصل كُلّ يوْم السّاعة عشرة.",
+        "latin": "ilbarīd byūʂal kull yōm issā3a 3ášara.",
+        "english": "The mail comes every day at ten."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2085",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2085",
+        "arabic": "حُطّ الرِّسالة في الظّرْف.",
+        "latin": "ɧuʈʈ irrisāla fi ʐʐarf.",
+        "english": "Put the letter in the envelope."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2087",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2087",
+        "arabic": "شو عِنْوانك؟",
+        "latin": "šū 3inwānak?",
+        "english": "What's your address?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2091",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2091",
+        "arabic": "اِبْعتْلي صورة.",
+        "latin": "ib3átli ʂūra.",
+        "english": "Send me a picture."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2113",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2113",
+        "arabic": "سيدي بيِقْرا الجّريدة كُلّ يوْم الصُّبِح.",
+        "latin": "sīdi byígra ijjarīda kull yōm iʂʂúbiɧ.",
+        "english": "My grandfather reads the newspaper every morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2238",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2238",
+        "arabic": "في مجلّة عَ الكنبة.",
+        "latin": "fī majálla 3a lkánaba.",
+        "english": "There's a magazine on the sofa."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2286",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2286",
+        "arabic": "الرّادْيوْ في المطْبخ.",
+        "latin": "irrādyō fi lmáʈbax.",
+        "english": "The radio is in the kitchen."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2287",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2287",
+        "arabic": "بسْمع الرّادْيوْ في السّيّارة.",
+        "latin": "básma3 irrādyō fi ssayyāra.",
+        "english": "I listen to the radio in the car."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2276",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2276",
+        "arabic": "ضَوّي التِّلْفِزْيوْن لَو سمحِت.",
+        "latin": "ɖáwwi ittilfizyōn law samáɧt.",
+        "english": "Turn on the TV, please."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2277",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2277",
+        "arabic": "طفيْت التِّلْفِزْيوْن ونِمِت.",
+        "latin": "ʈafēt ittilfizyōn w nímit.",
+        "english": "I turned off the TV and went to sleep."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2334",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2334",
+        "arabic": "جِبِت الكاميرا معك؟",
+        "latin": "jíbit ilkāmira má3ak?",
+        "english": "Did you bring the camera?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4666",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4666",
+        "arabic": "مُمْكِن أسْتعْمِل التّلفوْن؟",
+        "latin": "múmkin astá3mil ittalafōn?",
+        "english": "Can I use the phone?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4605",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4605",
+        "arabic": "لقيْت المُفْتاح!",
+        "latin": "lagēt ilmuftāɧ!",
+        "english": "I found the key!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4669",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4669",
+        "arabic": "اِنْتِظِرْني هان.",
+        "latin": "intiʐírni hān.",
+        "english": "Wait for me here."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4717",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4717",
+        "arabic": "إنْتَ فاضي بُكْرا؟",
+        "latin": "ínta fāɖi búkra?",
+        "english": "Are you free tomorrow?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1645",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1645",
+        "arabic": "ما في مُشْكِلة.",
+        "latin": "ma fī múškila.",
+        "english": "No problem."
+      }
     }
   ]
 }
