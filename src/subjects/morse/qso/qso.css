@@ -118,3 +118,66 @@
   color: #8a2a1e;
   font-weight: 700;
 }
+
+/* On the air (E16): who's calling today, and your logbook. */
+.qso__room,
+.qso__logbook {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.qso__ops {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qso__op {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 35%);
+}
+
+.qso__op > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.qso__op h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.qso__op p {
+  margin: 0;
+}
+
+.qso__op-meta {
+  margin-top: 4px;
+  color: #6b5640;
+  font-weight: 800;
+}
+
+.qso__count {
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.qso__count strong {
+  font-family: var(--font-display);
+  font-size: 28px;
+}
+
+@media (max-width: 520px) {
+  .qso__op {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

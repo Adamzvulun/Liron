@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { gradeFrom } from '../../../core/srs/scheduler.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MORSE_CHARS } from '../code.ts';
+import { radioSchema } from '../qso/radio.ts';
 import { CHAPTERS, type Chapter } from '../questline.ts';
 import { passesGate, nextEffectiveWpm, type RunScore } from './score.ts';
 
@@ -64,6 +65,8 @@ const progressSchema = z.object({
       topWpm: z.number().int().min(0).catch(0),
     })
     .catch({ runs: 0, best: 0, topWpm: 0 }),
+  /** The Radio Room on the air (E16): your station and the logbook. */
+  radio: radioSchema,
 });
 
 export type MorseProgress = z.infer<typeof progressSchema>;

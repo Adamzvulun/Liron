@@ -96,3 +96,26 @@ describe('Morse timing', () => {
     expect(schedule('', { charWpm: 20 })).toEqual({ tones: [], chars: [], duration: 0 });
   });
 });
+
+describe('a human fist (E16)', () => {
+  it('weighs dahs, swings letter gaps and keeps the default machine-perfect', () => {
+    const plain = schedule('TE', { charWpm: 20 });
+    expect(schedule('TE', { charWpm: 20 }, {})).toEqual(plain);
+    const dit = ditSeconds(20);
+    const heavy = schedule('TE', { charWpm: 20 }, { weight: 4, swing: 2 });
+    expect(nth(heavy.tones, 0).dur).toBeCloseTo(4 * dit);
+    // T's dah, then a doubled letter gap, then E.
+    expect(nth(heavy.tones, 1).at).toBeCloseTo(4 * dit + 6 * dit);
+  });
+
+  it('wanders by at most the jitter', () => {
+    const dit = ditSeconds(20);
+    let n = 0;
+    const random = () => [0, 1][n++ % 2] as number;
+    const s = schedule('EEEE', { charWpm: 20 }, { jitter: 0.2, random });
+    for (const t of s.tones) {
+      expect(t.dur).toBeGreaterThanOrEqual(0.8 * dit - 1e-9);
+      expect(t.dur).toBeLessThanOrEqual(1.2 * dit + 1e-9);
+    }
+  });
+});
