@@ -84,4 +84,4 @@ The same Groq check as on the Say it cards, now on whole sentences in the echo w
 2. Shadowing: playback at 75% and 100%, recording in step with it, and the three ways to listen back. — [#194](https://github.com/Adamzvulun/Liron/issues/194). **Built.**
 3. Record and compare on the word path's words. — [#195](https://github.com/Adamzvulun/Liron/issues/195). **Built.**
 4. "Did it understand you?" on sentences. — [#196](https://github.com/Adamzvulun/Liron/issues/196). **Built:** "What would they hear?" under a take. It shows only "It heard: …", with no ✓, because a take made over the speaker can hold the speaker's voice too. The note under the button says to wear headphones.
-5. Contracts and the two achievements. — [#197](https://github.com/Adamzvulun/Liron/issues/197)
+5. Contracts and the two achievements. — [#197](https://github.com/Adamzvulun/Liron/issues/197). **Built** (#201).
