@@ -60,6 +60,15 @@ describe('the regulars past chapter 10 (#163, #205)', () => {
     expect(s?.beat).toBe(REGULARS[10]?.intro);
   });
 
+  it('seat a regular for every word chapter, the second caravan from chapter XXII', () => {
+    expect(REGULARS.map((r) => r.wordChapter)).toEqual(WORD_CHAPTERS.map((c) => c.chapter));
+    const s = regularStatus(
+      at({ chapter: 21, trials: REGULARS.slice(0, 20).map((r) => r.number) }),
+    );
+    expect(s).toMatchObject({ regular: { number: 22, who: 'Khalid the trader' }, lit: 0 });
+    expect(REGULARS[REGULARS.length - 1]).toMatchObject({ number: 35, who: 'The innkeeper' });
+  });
+
   it('number the chapters in Roman numerals past XII', () => {
     expect([2, 11, 12, 14, 19, 24, 35, 40, 49].map(roman)).toEqual([
       'II',
