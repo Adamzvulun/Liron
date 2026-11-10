@@ -44,7 +44,7 @@ export const CHAPTER: Chapter = (() => {
 
 const Regular = z.object({
   number: z.number().int().min(2),
-  /** The word chapter this regular comes with (1–10). */
+  /** The word chapter this regular comes with. */
   wordChapter: z.number().int().positive(),
   title: z.string(),
   who: z.string(),
@@ -56,15 +56,33 @@ const Regular = z.object({
 });
 export type Regular = z.infer<typeof Regular>;
 
-/** Chapters II–XI (#161): a regular for each word chapter, in order. */
+/** Chapters II onward (#161, #205): a regular for each word chapter, in order. */
 export const REGULARS: readonly Regular[] = items
   .filter((i) => i.type === 'regular')
   .map((i) => Regular.parse(i.data))
   .sort((a, b) => a.number - b.number);
 
-const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
-/** A chapter's number as the road writes it: II, XI. */
-export const roman = (n: number) => ROMAN[n - 1] ?? String(n);
+const NUMERALS: [number, string][] = [
+  [50, 'L'],
+  [40, 'XL'],
+  [10, 'X'],
+  [9, 'IX'],
+  [5, 'V'],
+  [4, 'IV'],
+  [1, 'I'],
+];
+/** A chapter's number as the road writes it: II, XI, XXXV (1–89). */
+export function roman(n: number): string {
+  if (!Number.isInteger(n) || n < 1 || n > 89) return String(n);
+  let out = '';
+  for (const [value, numeral] of NUMERALS) {
+    while (n >= value) {
+      out += numeral;
+      n -= value;
+    }
+  }
+  return out;
+}
 
 /** Words met per milestone on a regular's chapter. */
 export const WORDS_PER_MILESTONE = 10;
