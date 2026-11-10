@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { WORD_CHAPTERS } from './core/coreWords.ts';
 import { applyWordTrial, NEW_PROGRESS } from './progress.ts';
-import { REGULARS, regularStatus } from './questline.ts';
+import { REGULARS, regularStatus, roman } from './questline.ts';
 
 const guest = { ...NEW_PROGRESS, guest: true };
 const at = (words: Partial<typeof guest.words>) => ({
@@ -12,10 +12,10 @@ const ids = (chapter: number, n: number) =>
   (WORD_CHAPTERS[chapter - 1]?.words ?? []).slice(0, n).map((w) => w.deck);
 
 describe('the regulars: The Long Road In, chapters II–XI (#161)', () => {
-  it('brings a regular for each of the first 10 word chapters, in order', () => {
-    // Chapters 11 and on (#163) have no regulars yet: the road's next part comes with them.
+  it('brings a regular for each word chapter, in order, from the first', () => {
+    expect(REGULARS.length).toBeGreaterThanOrEqual(10);
     expect(REGULARS.map((r) => [r.number, r.wordChapter])).toEqual(
-      WORD_CHAPTERS.slice(0, 10).map((c) => [c.chapter + 1, c.chapter]),
+      WORD_CHAPTERS.slice(0, REGULARS.length).map((c) => [c.chapter + 1, c.chapter]),
     );
     expect(REGULARS.every((r) => r.trial.words === 30 && r.trial.accuracy === 0.9)).toBe(true);
   });
@@ -46,16 +46,41 @@ describe('the regulars: The Long Road In, chapters II–XI (#161)', () => {
     expect(regularStatus(at({ chapter: 4, trials: [3] }))?.regular.number).toBe(2);
     const all = REGULARS.map((r) => r.number);
     const end = regularStatus(at({ chapter: 10, done: true, trials: all }));
-    expect(end).toMatchObject({ regular: { number: 11 }, passed: true });
-    expect(end?.beat).toBe(REGULARS[9]?.outro);
+    expect(end).toMatchObject({ regular: { number: REGULARS.length + 1 }, passed: true });
+    expect(end?.beat).toBe(REGULARS[REGULARS.length - 1]?.outro);
   });
 });
 
-describe('the regulars past chapter 10 (#163)', () => {
-  it('keep the poet at the table once every regular’s trial is passed', () => {
+describe('the regulars past chapter 10 (#163, #205)', () => {
+  it('bring the caravan’s regulars once you reach word chapter 11', () => {
+    const s = regularStatus(
+      at({ chapter: 11, trials: REGULARS.slice(0, 10).map((r) => r.number) }),
+    );
+    expect(s).toMatchObject({ regular: { number: 12, who: 'Samira the tailor' }, lit: 0 });
+    expect(s?.beat).toBe(REGULARS[10]?.intro);
+  });
+
+  it('number the chapters in Roman numerals past XII', () => {
+    expect([2, 11, 12, 14, 19, 24, 35, 40, 49].map(roman)).toEqual([
+      'II',
+      'XI',
+      'XII',
+      'XIV',
+      'XIX',
+      'XXIV',
+      'XXXV',
+      'XL',
+      'XLIX',
+    ]);
+  });
+
+  it('keep the last one you reached at the table once every trial is passed', () => {
     const all = REGULARS.map((r) => r.number);
-    const s = regularStatus(at({ chapter: 15, trials: all }));
-    expect(s?.regular.number).toBe(REGULARS[REGULARS.length - 1]?.number);
+    expect(regularStatus(at({ chapter: 15, trials: all }))?.regular.number).toBe(16);
+    // Past the last regular's chapter, the last regular stays.
+    const last = REGULARS[REGULARS.length - 1];
+    const s = regularStatus(at({ chapter: (last?.wordChapter ?? 0) + 3, trials: all }));
+    expect(s?.regular.number).toBe(last?.number);
     expect(s?.passed).toBe(true);
     expect(s?.trialReady).toBe(false);
   });

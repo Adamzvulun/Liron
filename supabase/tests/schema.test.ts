@@ -20,10 +20,10 @@ import { loadPrivatePack } from '../../src/core/content/privateContent.ts';
 // small stand-in for Supabase's auth schema, then checks row-level security as each role.
 const root = join(import.meta.dirname, '..');
 const shim = readFileSync(join(import.meta.dirname, 'supabase-shim.sql'), 'utf8');
-const migrations = readdirSync(join(root, 'migrations'))
+const migrationFiles = readdirSync(join(root, 'migrations'))
   .filter((f) => f.endsWith('.sql'))
-  .sort()
-  .map((f) => readFileSync(join(root, 'migrations', f), 'utf8'));
+  .sort();
+const migrations = migrationFiles.map((f) => readFileSync(join(root, 'migrations', f), 'utf8'));
 
 const ADAM = '00000000-0000-0000-0000-00000000000a';
 const OTHER = '00000000-0000-0000-0000-00000000000b';
@@ -119,6 +119,13 @@ beforeAll(async () => {
 // Every test starts from the same state: its changes are rolled back afterwards.
 beforeEach(() => db.exec('begin'));
 afterEach(() => db.exec('rollback'));
+
+describe('migrations', () => {
+  it('each have their own version (Supabase keys them by the number before the _)', () => {
+    const versions = migrationFiles.map((f) => f.split('_')[0]);
+    expect(versions.filter((v, i) => versions.indexOf(v) !== i)).toEqual([]);
+  });
+});
 
 describe('player rows', () => {
   it('gives existing and new accounts a profile with no title worn and an empty wallet', async () => {
@@ -1242,6 +1249,21 @@ describe('daily contracts (ADR 0032)', () => {
         ADAM,
       ]),
     ).toEqual([{ count: 1 }]);
+  });
+
+  it('registers a trial event for every regular on the road (#205)', async () => {
+    const pack = JSON.parse(
+      readFileSync(join(root, '..', 'content', 'arabic', 'questline.json'), 'utf8'),
+    ) as { items: { type: string; data: { number: number } }[] };
+    const kinds = pack.items
+      .filter((i) => i.type === 'regular')
+      .map((i) => `trial-${i.data.number}`);
+    const have = (
+      await rows(
+        `select kind from subject_event_kinds where subject_id = 'arabic' and kind ~ '^trial-[0-9]+$' and daily_cap = 1`,
+      )
+    ).map((r) => (r as { kind: string }).kind);
+    expect(kinds.filter((k) => !have.includes(k))).toEqual([]);
   });
 });
 
