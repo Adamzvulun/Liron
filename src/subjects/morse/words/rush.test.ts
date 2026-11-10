@@ -69,4 +69,21 @@ describe('the callsign rush (#156)', () => {
     expect(report.minutes).toBe(1);
     expect(report.results).toBeUndefined();
   });
+
+  it('sends rush-30 for a call copied at 30 wpm or faster (Overspeed, #177)', async () => {
+    const saveSession = vi.fn().mockResolvedValue(undefined);
+    const api = { saveSession } as unknown as SubjectApi;
+    const fast: RushCall[] = [
+      { call: 'K5AT', wpm: 30, typed: 'K5AT' },
+      { call: 'W5X', wpm: 32, typed: 'W5' },
+    ];
+    await reportRush(api, NEW_PROGRESS, fast, 100, 40, 60);
+    expect(saveSession.mock.calls[0]?.[0].events).toEqual([
+      { kind: 'rush-round' },
+      { kind: 'rush-30' },
+    ]);
+    // 28 wpm is not enough.
+    await reportRush(api, NEW_PROGRESS, [{ call: 'K5AT', wpm: 28, typed: 'K5AT' }], 100, 40, 60);
+    expect(saveSession.mock.calls[1]?.[0].events).toEqual([{ kind: 'rush-round' }]);
+  });
 });

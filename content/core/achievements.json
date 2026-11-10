@@ -1,0 +1,294 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark; docs/game/ranks-and-achievements.md §5)",
+  "items": [
+    {
+      "id": "first-light",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "First Light",
+        "text": "Pass your first trial",
+        "condition": {
+          "kind": "any-trial",
+          "n": 1
+        },
+        "gems": 1,
+        "order": 1
+      }
+    },
+    {
+      "id": "week-of-embers",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Week of Embers",
+        "text": "Keep a 7-day streak",
+        "condition": {
+          "kind": "streak",
+          "n": 7
+        },
+        "gems": 1,
+        "order": 2
+      }
+    },
+    {
+      "id": "long-burn",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "The Long Burn",
+        "text": "Keep a 30-day streak",
+        "condition": {
+          "kind": "streak",
+          "n": 30
+        },
+        "gems": 3,
+        "title": "the Steadfast",
+        "order": 3
+      }
+    },
+    {
+      "id": "hundred-days",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Hundred Days",
+        "text": "Keep a 100-day streak",
+        "condition": {
+          "kind": "streak",
+          "n": 100
+        },
+        "gems": 5,
+        "title": "the Unbroken",
+        "order": 4
+      }
+    },
+    {
+      "id": "contractor",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Contractor",
+        "text": "Finish 10 daily contracts",
+        "condition": {
+          "kind": "contracts",
+          "n": 10
+        },
+        "gems": 1,
+        "order": 5
+      }
+    },
+    {
+      "id": "board-regular",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Notice Board Regular",
+        "text": "Finish 100 daily contracts",
+        "condition": {
+          "kind": "contracts",
+          "n": 100
+        },
+        "gems": 3,
+        "title": "the Reliable",
+        "order": 6
+      }
+    },
+    {
+      "id": "full-board",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Full Board",
+        "text": "Finish all 3 contracts in one day, 10 times",
+        "condition": {
+          "kind": "full-boards",
+          "n": 10
+        },
+        "gems": 2,
+        "order": 7
+      }
+    },
+    {
+      "id": "chest-hunter",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Chest Hunter",
+        "text": "Open 10 chests",
+        "condition": {
+          "kind": "chests",
+          "n": 10
+        },
+        "gems": 1,
+        "order": 8
+      }
+    },
+    {
+      "id": "two-guilds",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Two Guilds",
+        "text": "Practice both subjects on the same day",
+        "condition": {
+          "kind": "two-subjects",
+          "n": 2
+        },
+        "gems": 1,
+        "order": 9
+      }
+    },
+    {
+      "id": "polyglot",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Polyglot of the Crossing",
+        "text": "Reach level 5 in both subjects",
+        "condition": {
+          "kind": "levels",
+          "subjects": ["arabic", "morse"],
+          "n": 5
+        },
+        "gems": 2,
+        "title": "the Wayfarer",
+        "order": 10
+      }
+    },
+    {
+      "id": "beacon-relit",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Beacon Relit",
+        "text": "Pass all five Silent Beacon trials",
+        "condition": {
+          "kind": "events",
+          "subject": "morse",
+          "kinds": ["trial-1", "trial-2", "trial-3", "trial-4", "trial-5"],
+          "n": 5
+        },
+        "gems": 3,
+        "title": "Keeper of the Beacon",
+        "order": 11
+      }
+    },
+    {
+      "id": "no-agn",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "No AGN",
+        "text": "Copy a whole Codebook round right, with no AGN",
+        "condition": {
+          "kind": "events",
+          "subject": "morse",
+          "kinds": ["words-perfect"],
+          "n": 1
+        },
+        "gems": 2,
+        "order": 12
+      }
+    },
+    {
+      "id": "overspeed",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Overspeed",
+        "text": "Copy a callsign at 30 wpm in the rush",
+        "condition": {
+          "kind": "events",
+          "subject": "morse",
+          "kinds": ["rush-30"],
+          "n": 1
+        },
+        "gems": 2,
+        "title": "the Quick-Eared",
+        "order": 13
+      }
+    },
+    {
+      "id": "seat-at-the-table",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "A Seat at the Table",
+        "text": "Pass all ten regulars’ trials",
+        "condition": {
+          "kind": "events",
+          "subject": "arabic",
+          "kinds": [
+            "trial-2",
+            "trial-3",
+            "trial-4",
+            "trial-5",
+            "trial-6",
+            "trial-7",
+            "trial-8",
+            "trial-9",
+            "trial-10",
+            "trial-11"
+          ],
+          "n": 10
+        },
+        "gems": 3,
+        "title": "Friend of the House",
+        "order": 14
+      }
+    },
+    {
+      "id": "night-owl",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Night Owl",
+        "text": "Practice between 10 p.m. and 4 a.m. your time, on 5 nights",
+        "condition": {
+          "kind": "hours",
+          "from": 22,
+          "to": 4,
+          "n": 5
+        },
+        "gems": 1,
+        "order": 15
+      }
+    },
+    {
+      "id": "early-bird",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Early Bird",
+        "text": "Practice between 4 and 7 a.m. your time, on 5 days",
+        "condition": {
+          "kind": "hours",
+          "from": 4,
+          "to": 7,
+          "n": 5
+        },
+        "gems": 1,
+        "order": 16
+      }
+    },
+    {
+      "id": "thousand-minutes",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Thousand Minutes",
+        "text": "Practice 1,000 minutes in all",
+        "condition": {
+          "kind": "minutes",
+          "n": 1000
+        },
+        "gems": 3,
+        "title": "the Diligent",
+        "order": 17
+      }
+    }
+  ]
+}

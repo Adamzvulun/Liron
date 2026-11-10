@@ -46,6 +46,7 @@ export function Hud({
       <PlayerPlate
         xp={wallet?.xp}
         name={profile?.displayName ?? ''}
+        title={profile?.title ?? ''}
         look={profile?.avatar ?? DEFAULT_LOOK}
         loaded={Boolean(wallet)}
       />
@@ -69,11 +70,14 @@ export function Hud({
 function PlayerPlate({
   xp,
   name,
+  title,
   look,
   loaded,
 }: {
   xp?: number;
   name: string;
+  /** The title worn (#177); '' shows the level's title. */
+  title: string;
   look: Look;
   loaded: boolean;
 }) {
@@ -85,7 +89,7 @@ function PlayerPlate({
       <div className="hud__plate">
         <div className="hud__who">
           {name && <span className="hud__name">{name}</span>}
-          <span className="hud__title">{titleForLevel(level)}</span>
+          <span className="hud__title">{title || titleForLevel(level)}</span>
           <span className="hud__level">Lv {loaded ? level : '…'}</span>
         </div>
         <div className="hud__xp">

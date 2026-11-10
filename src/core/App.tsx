@@ -4,6 +4,7 @@ import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/Auth
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
 import { Wardrobe } from './avatar/Wardrobe.tsx';
+import { AchievementWall } from './achievements/AchievementWall.tsx';
 import { City } from './city/City.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
@@ -142,12 +143,20 @@ function Lobby({ player }: { player: Player }) {
             />
           )}
           {place === 'house' && state.profile && (
-            <Wardrobe
-              look={state.profile.avatar}
-              owned={state.profile.owned}
-              name={state.profile.displayName}
-              onSave={player.setAvatar}
-            />
+            <>
+              <Wardrobe
+                look={state.profile.avatar}
+                owned={state.profile.owned}
+                name={state.profile.displayName}
+                onSave={player.setAvatar}
+              />
+              <AchievementWall
+                mine={state.achievements}
+                title={state.profile.title}
+                onLoad={player.loadAchievements}
+                onWear={player.setTitle}
+              />
+            </>
           )}
         </PlaceScreen>
         {celebrations}

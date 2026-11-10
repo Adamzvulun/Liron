@@ -227,23 +227,27 @@ describe('the player’s name', () => {
       displayName: 'Adam',
       avatar: DEFAULT_LOOK,
       owned: [],
+      title: '',
     });
     expect(await player.setDisplayName('  Adam   Zvulun ')).toBe(true);
     expect(player.getSnapshot().profile).toEqual({
       displayName: 'Adam Zvulun',
       avatar: DEFAULT_LOOK,
       owned: [],
+      title: '',
     });
     expect(await store.profile()).toEqual({
       displayName: 'Adam Zvulun',
       avatar: DEFAULT_LOOK,
       owned: [],
+      title: '',
     });
     expect(await player.setDisplayName('x'.repeat(41))).toBe(false);
     expect(player.getSnapshot().profile).toEqual({
       displayName: 'Adam Zvulun',
       avatar: DEFAULT_LOOK,
       owned: [],
+      title: '',
     });
   });
 
@@ -259,6 +263,7 @@ describe('the player’s name', () => {
       displayName: '',
       avatar: DEFAULT_LOOK,
       owned: [],
+      title: '',
     });
   });
 });
@@ -279,5 +284,28 @@ describe('the player’s look', () => {
     await offline.load();
     expect(await offline.setAvatar(DEFAULT_LOOK)).toBe(false);
     expect(offline.getSnapshot().profile?.avatar).toEqual(look);
+  });
+});
+
+describe('the player’s achievements and title (#177)', () => {
+  it('reads the wall, and wears only an earned title', async () => {
+    const store = memoryStore();
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    await player.loadAchievements();
+    const wall = player.getSnapshot().achievements;
+    expect(wall?.achievements.every((a) => a.earnedAt === null)).toBe(true);
+    expect(await player.setTitle('the Quick-Eared')).toBe(false);
+    expect(player.getSnapshot().profile?.title).toBe('');
+
+    store.earnAchievement('overspeed');
+    await player.loadAchievements();
+    expect(
+      player.getSnapshot().achievements?.achievements.find((a) => a.id === 'overspeed')?.earnedAt,
+    ).not.toBeNull();
+    expect(await player.setTitle('the Quick-Eared')).toBe(true);
+    expect((await store.profile()).title).toBe('the Quick-Eared');
+    expect(await player.setTitle('')).toBe(true);
+    expect(player.getSnapshot().profile?.title).toBe('');
   });
 });
