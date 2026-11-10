@@ -76,6 +76,30 @@
         "text": "Score 90% at the innkeeper’s table",
         "requires": "word-session"
       }
+    },
+    {
+      "id": "arabic-echo",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "pairs-round",
+        "target": 2,
+        "gold": 15,
+        "text": "Play 2 rounds at the echo well"
+      }
+    },
+    {
+      "id": "arabic-shadow",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "shadow-sentence",
+        "target": 5,
+        "gold": 15,
+        "text": "Shadow 5 sentences at the echo well"
+      }
     }
   ]
 }

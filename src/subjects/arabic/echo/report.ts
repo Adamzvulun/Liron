@@ -1,9 +1,9 @@
 // Reports a round at the echo well (#193) in one save (ADR 0031): the state (pairs heard and the
-// streak), a listen rating per answer on its pair (`pair:hah-heh`), XP and practice time;
-// and a shadowing round (#194).
+// streak), a listen rating per answer on its pair (`pair:hah-heh`), XP, practice time and the
+// events for contracts and achievements (#197); and a shadowing round (#194).
 import type { SubjectApi } from '../../../core/subject.ts';
 import type { ArabicProgress } from '../progress.ts';
-import { XP_PER_RIGHT, type PairQuestion } from './pairs.ts';
+import { XP_PER_RIGHT, type PairQuestion, type SoundPair } from './pairs.ts';
 import { GRADE, XP_PER_SENTENCE, type Judgement, type ShadowLine } from './shadow.ts';
 
 export interface PairAnswer {
@@ -18,6 +18,7 @@ export async function reportRound(
   api: SubjectApi,
   next: ArabicProgress,
   answers: readonly PairAnswer[],
+  heard: SoundPair | null,
   seconds: number,
   at = new Date(),
 ): Promise<void> {
@@ -30,6 +31,7 @@ export async function reportRound(
     })),
     xp: xpOfRound(answers),
     minutes: seconds / 60,
+    events: [{ kind: 'pairs-round' }, ...(heard ? [{ kind: `heard-${heard.id}` }] : [])],
     at,
   });
 }
@@ -50,6 +52,7 @@ export async function reportShadow(
     reviews: judged.map((j) => ({ itemId: j.line.itemId, grade: GRADE[j.judgement] })),
     xp: judged.length * XP_PER_SENTENCE,
     minutes: seconds / 60,
+    events: judged.length ? [{ kind: 'shadow-sentence', count: judged.length }] : [],
     at,
   });
 }

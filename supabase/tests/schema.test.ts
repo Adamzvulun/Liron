@@ -1947,6 +1947,27 @@ describe('achievements, gems and titles (#177, ADR 0035)', () => {
     ).toEqual([{ count: 1 }]);
   });
 
+  it('the echo well: every pair heard, and sentences shadowed added up (#197)', async () => {
+    const pairs = ['hah-heh', 'ain-hamza', 'khah-hah', 'ghain-khah', 'sad-seen', 'dad-dal'];
+    await save('arabic', [{ kind: 'pairs-round' }, ...pairs.map((p) => ({ kind: `heard-${p}` }))]);
+    await save('arabic', [{ kind: 'heard-hah-heh' }, { kind: 'heard-tah-teh' }]);
+    expect(await progress('sharp-ears')).toMatchObject({ progress: 7, target: 8 });
+    await save('arabic', [{ kind: 'heard-qaf-kaf' }]);
+    expect((await progress('sharp-ears'))?.earned_at).not.toBeNull();
+    // Heard once is enough: a second send the same day isn't counted again.
+    expect(
+      await rows(`select count from subject_events where user_id = $1 and kind = 'heard-hah-heh'`, [
+        ADAM,
+      ]),
+    ).toEqual([{ count: 1 }]);
+    await save('arabic', [{ kind: 'shadow-sentence', count: 5 }]);
+    await save('arabic', [{ kind: 'shadow-sentence', count: 4 }]);
+    expect(await progress('echo')).toMatchObject({ progress: 9, target: 100 });
+    // Morse can't send the well's events.
+    await save('morse', [{ kind: 'shadow-sentence', count: 50 }]);
+    expect(await progress('echo')).toMatchObject({ progress: 9 });
+  });
+
   it('wears only a title you have earned, or none', async () => {
     expect((await mine()).title).toBe('');
     await expect(as(ADAM, () => rows(`select set_title('the Quick-Eared')`))).rejects.toThrow(
