@@ -3,7 +3,7 @@ import { useStage } from '../../../core/city/useStage.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { LESSONS, lettersUpTo } from '../letters.ts';
 import { parseProgress, PASSES_NEEDED, wordsOpen, type ArabicProgress } from '../progress.ts';
-import { questStatus, rankOf } from '../questline.ts';
+import { questStatus, rankOf, regularStatus, roman } from '../questline.ts';
 import { KHAN_STAGE, paintKhan, paintMilestones, type Box, type StationId } from './paintKhan.ts';
 import { ArabicText } from '../ArabicText.tsx';
 import { PHRASE_SETS } from '../phrases/sets.ts';
@@ -15,7 +15,8 @@ import './khan.css';
 // rank on the house banner, and each activity is a station in the courtyard. On an upright
 // phone the courtyard pans sideways and the same things follow below it as cards.
 
-export type CourtyardDoor = 'lesson' | 'listen' | 'read' | 'write' | 'phrases' | 'words' | 'trial';
+export type CourtyardDoor =
+  'lesson' | 'listen' | 'read' | 'write' | 'phrases' | 'words' | 'trial' | 'regular';
 
 let painted: ReturnType<typeof paintKhan> | undefined;
 const courtyard = () => (painted ??= paintKhan());
@@ -160,23 +161,52 @@ function Scene({
     },
   ];
 
-  const trialLine = quest.guest
-    ? 'You read it. You are a guest of the house.'
+  // After the Painted Sign, the road goes on with the regulars at the innkeeper's table (#161).
+  const road = quest.guest ? regularStatus(progress) : undefined;
+  const trialLine = road
+    ? road.passed
+      ? `${road.regular.who} keeps a place at the innkeeper’s table.`
+      : road.trialReady
+        ? road.regular.trial.text
+        : `Pass “${WORD_CHAPTERS[road.regular.wordChapter - 1]?.title ?? ''}” at the innkeeper’s table to face it. ${road.lit} of ${road.regular.milestones.length} milestones lit.`
+    : quest.guest
+      ? 'You read it. You are a guest of the house.'
+      : quest.trialReady
+        ? quest.chapter.trial.text
+        : `Light all ${quest.chapter.lessons} milestones to face it. ${quest.lit} lit.`;
+  const trialDoor = road?.trialReady
+    ? {
+        name: road.regular.trial.name,
+        where: `Trial · Chapter ${roman(road.regular.number)} · at the table`,
+        open: 'regular' as const,
+      }
     : quest.trialReady
-      ? quest.chapter.trial.text
-      : `Light all ${quest.chapter.lessons} milestones to face it. ${quest.lit} lit.`;
+      ? {
+          name: `Read ${quest.chapter.trial.name}`,
+          where: 'Trial · Chapter I · at the gate',
+          open: 'trial' as const,
+        }
+      : undefined;
 
   const story = (
     <>
       <p className="khan__kicker">Main questline · {quest.chapter.questline}</p>
-      <h2 className="khan__chapter">Chapter I: {quest.chapter.title}</h2>
+      <h2 className="khan__chapter">
+        Chapter {roman(road?.regular.number ?? 1)}: {road?.regular.title ?? quest.chapter.title}
+      </h2>
       <blockquote className="khan__beat">
         <ArabicText
-          text={quest.guest ? quest.chapter.outro : (quest.beat ?? quest.chapter.intro)}
+          text={
+            road
+              ? (road.beat ?? road.regular.intro)
+              : quest.guest
+                ? quest.chapter.outro
+                : (quest.beat ?? quest.chapter.intro)
+          }
         />
       </blockquote>
       <p className="khan__trial">
-        <strong>Trial: {quest.chapter.trial.name}.</strong> {trialLine}
+        <strong>Trial: {road?.regular.trial.name ?? quest.chapter.trial.name}.</strong> {trialLine}
       </p>
     </>
   );
@@ -246,12 +276,12 @@ function Scene({
             );
           })}
 
-          {quest.trialReady && (
+          {trialDoor && (
             <button
               type="button"
               className="khan__gate"
               style={at(khan.gate)}
-              onClick={() => onOpen('trial')}
+              onClick={() => onOpen(trialDoor.open)}
               tabIndex={compact ? -1 : undefined}
               aria-hidden={compact || undefined}
             >
@@ -259,8 +289,8 @@ function Scene({
                 className="khan__plaque khan__plaque--trial"
                 style={{ left: khan.gate.w / 2, top: -96 }}
               >
-                <span className="khan__plaque-title">Read {quest.chapter.trial.name}</span>
-                <span className="khan__plaque-text">Trial · Chapter I · at the gate</span>
+                <span className="khan__plaque-title">{trialDoor.name}</span>
+                <span className="khan__plaque-text">{trialDoor.where}</span>
               </span>
             </button>
           )}
@@ -296,15 +326,15 @@ function Scene({
             {story}
           </section>
           <nav className="khan__doors" aria-label="Caravanserai">
-            {quest.trialReady && (
+            {trialDoor && (
               <button
                 type="button"
                 className="khan__card khan__door is-main is-trial"
-                onClick={() => onOpen('trial')}
+                onClick={() => onOpen(trialDoor.open)}
               >
-                <span className="khan__card-kicker">Trial · Chapter I</span>
-                <span className="khan__door-title">Read {quest.chapter.trial.name}</span>
-                <span className="khan__door-go">At the gate →</span>
+                <span className="khan__card-kicker">{trialDoor.where}</span>
+                <span className="khan__door-title">{trialDoor.name}</span>
+                <span className="khan__door-go">Go →</span>
               </button>
             )}
             {stations.map((s) =>
@@ -312,7 +342,7 @@ function Scene({
                 <button
                   key={s.id}
                   type="button"
-                  className={`khan__card khan__door${s.id === 'scribe' && !quest.trialReady ? ' is-main' : ''}`}
+                  className={`khan__card khan__door${s.id === (progress.guest ? 'innkeeper' : 'scribe') && !trialDoor ? ' is-main' : ''}`}
                   onClick={() => s.open && onOpen(s.open)}
                 >
                   <span className="khan__door-title">{s.title}</span>

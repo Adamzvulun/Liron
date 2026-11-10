@@ -95,4 +95,40 @@ test.describe('Arabic word lessons (#160)', () => {
     await page.getByRole('button', { name: 'Start a session' }).click();
     await expect(page.getByText(/^New word · 1 of/)).toBeVisible();
   });
+
+  test('a passed chapter opens its regular’s trial, and the attempt is saved (#161)', async ({
+    page,
+  }) => {
+    const calls: SubjectCall[] = [];
+    // Chapter 1 passed: Salim the carter's trial is ready. The fake deck has 8 of its words.
+    const state = { ...GUEST, words: { chapter: 2, cards: ['grammar:no-is'] } };
+    await signedIn(page, [], calls, state, ROWS);
+    await page.goto('/caravanserai');
+    await expect(
+      page.getByRole('heading', { name: 'Chapter II: The Carter’s Greeting' }).first(),
+    ).toBeVisible();
+    await page
+      .getByRole('button', { name: /The Carter’s Roll Call/ })
+      .filter({ visible: true })
+      .click();
+    await page.getByRole('button', { name: 'Begin the trial' }).click();
+
+    // The trial asks one question a chapter word (8 in the fake deck), answered with the first
+    // choice: the pass itself is covered by regulars.test.ts, this checks the screens and the save.
+    for (let i = 0; i < FIRST.length; i++) {
+      await expect(
+        page.getByText(new RegExp(`^(Listen|Read|Recall) · ${i + 1} of ${FIRST.length}$`)),
+      ).toBeVisible();
+      await page.getByRole('group', { name: 'Choices' }).getByRole('button').first().click();
+      await page.getByRole('button', { name: 'Next' }).click();
+    }
+    await expect(page.getByText(/The Carter’s Roll Call/).first()).toBeVisible();
+    await expect.poll(() => calls.some((c) => c.rpc === 'save_subject_state')).toBe(true);
+    const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
+      p_state: { words: { chapter: number; trials?: number[] } };
+    };
+    // A trial never moves the word chapter; a pass adds road 2 to the trials.
+    expect(saved.p_state.words.chapter).toBe(2);
+    expect([[], [2]]).toContainEqual(saved.p_state.words.trials ?? []);
+  });
 });

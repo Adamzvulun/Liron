@@ -39,3 +39,35 @@ export async function reportWords(
     at,
   });
 }
+
+/**
+ * A regular's trial (#161), in one save: the words' reviews and ratings like a session, 2 XP a
+ * right answer plus the trial's XP when it's passed, and `trial-<road chapter>` for its chest.
+ */
+export async function reportWordTrial(
+  api: SubjectApi,
+  next: ArabicProgress,
+  answers: readonly WordAnswer[],
+  trial: { road: number; xp: number; passed: boolean },
+  seconds: number,
+  at = new Date(),
+): Promise<void> {
+  const right = answers.filter((a) => a.right).length;
+  await api.saveSession({
+    state: next,
+    reviews: answers.map((a) => ({ itemId: a.question.word.itemId, grade: gradeOf(a.right) })),
+    results: answers.map((a) => ({
+      skill: skillOf(a.question.kind),
+      itemId: a.question.word.itemId,
+      score: a.right ? 1 : 0,
+    })),
+    xp: wordXp(right, false) + (trial.passed ? trial.xp : 0),
+    minutes: seconds / 60,
+    events: [
+      { kind: 'word-session' },
+      ...(scoreOfWords(answers) >= PASS_SCORE ? [{ kind: 'word-90' }] : []),
+      ...(trial.passed ? [{ kind: `trial-${trial.road}` }] : []),
+    ],
+    at,
+  });
+}
