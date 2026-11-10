@@ -4556,6 +4556,611 @@
         "latin": "iššaʈʈ fi lɣarb.",
         "english": "The beach is in the west."
       }
+    },
+    {
+      "id": "own-sentence:pcav:3554",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3554",
+        "arabic": "القرْيَة فوْق الجّبل.",
+        "latin": "ilqárya fōg ijjábal.",
+        "english": "The village is up on the mountain."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3574",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3574",
+        "arabic": "بحِبّ أسْبح في البحر.",
+        "latin": "baɧíbb ásbaɧ fi lbáɧar.",
+        "english": "I like swimming in the sea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3579",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3579",
+        "arabic": "في بُحَيْرة جنْب القرْيَة.",
+        "latin": "fī buɧēra jamb ilqárya.",
+        "english": "There's a lake next to the village."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3590",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3590",
+        "arabic": "الصّحْرا سُخْنة كْتير في الصّيْف.",
+        "latin": "iʂʂáɧra súxna ktīr fi ʂʂēf.",
+        "english": "The desert is very hot in summer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3607",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3607",
+        "arabic": "القمر حِلو الليْلة.",
+        "latin": "ilgámar ɧílu illēla.",
+        "english": "The moon is beautiful tonight."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3610",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3610",
+        "arabic": "شوف هالنِّجْمة!",
+        "latin": "šūf ha-nníjma!",
+        "english": "Look at that star!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3694",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3694",
+        "arabic": "في ريح خفيفة.",
+        "latin": "fī rīɧ xafīfa.",
+        "english": "There's a light breeze."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3663",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3663",
+        "arabic": "الجّوّ دافي اليوْم.",
+        "latin": "ijjáww dāfi ilyōm.",
+        "english": "It's warm today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4161",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4161",
+        "arabic": "بحِبّ الرّبيع كْتير.",
+        "latin": "baɧíbb irrabī3 ktīr.",
+        "english": "I really love spring."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4163",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4163",
+        "arabic": "في الخريف الجّوّ حِلو.",
+        "latin": "fi lxarīf ijjáww ɧílu.",
+        "english": "In the fall the weather is nice."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3848",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3848",
+        "arabic": "جِبْتِلِك وَرْدة.",
+        "latin": "jibtílik wárda.",
+        "english": "I brought you a flower."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3733",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3733",
+        "arabic": "بْتِحِبّ الحَيَوانات؟",
+        "latin": "btiɧíbb ilɧayawānāt?",
+        "english": "Do you like animals?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3736",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3736",
+        "arabic": "عِنْدْنا كلْب صْغير.",
+        "latin": "3índna kalb ʂɣīr.",
+        "english": "We have a small dog."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3737",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3737",
+        "arabic": "البِسّة نايْمة عَ الكنبة.",
+        "latin": "ilbíssa nāyma 3a lkánaba.",
+        "english": "The cat is asleep on the sofa."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3769",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3769",
+        "arabic": "في طيْر عَ الشُّبّاك.",
+        "latin": "fī ʈēr 3a ššubbāk.",
+        "english": "There's a bird at the window."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2960",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2960",
+        "arabic": "البقرة بْتِعْطي حليب.",
+        "latin": "ilbágara btí3ʈi ɧalīb.",
+        "english": "The cow gives milk."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2965",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2965",
+        "arabic": "سيدي عِنْدو عنْزة.",
+        "latin": "sīdi 3índu 3ánza.",
+        "english": "My grandfather has a goat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2962",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2962",
+        "arabic": "في حْمار في الشّارِع!",
+        "latin": "fī ɧmār fi ššāri3!",
+        "english": "There's a donkey in the street!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2979",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2979",
+        "arabic": "بِدّي أرْكب حْصان.",
+        "latin": "bíddi árkab ɧʂān.",
+        "english": "I want to ride a horse."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2978",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2978",
+        "arabic": "شُفْت جمل!",
+        "latin": "šuft jámal!",
+        "english": "I saw a camel!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2970",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2970",
+        "arabic": "الجّاجة عملت بيْضة.",
+        "latin": "ijjāja 3ámlat bēɖa.",
+        "english": "The hen laid an egg."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2974",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2974",
+        "arabic": "في بطّ في البُحَيْرة.",
+        "latin": "fī baʈʈ fi lbuɧēra.",
+        "english": "There are ducks on the lake."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2976",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2976",
+        "arabic": "الحبشة أكْبر مِن الجّاجة.",
+        "latin": "ilɧábaša ákbar min ijjāja.",
+        "english": "A turkey is bigger than a hen."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3759",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3759",
+        "arabic": "الوْلاد عِنْدْهُم أرْنب.",
+        "latin": "ilwlād 3índhum árnab.",
+        "english": "The kids have a rabbit."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3757",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3757",
+        "arabic": "في فار في المطْبخ!",
+        "latin": "fī fār fi lmáʈbax!",
+        "english": "There's a mouse in the kitchen!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3756",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3756",
+        "arabic": "الأسد قَوي كْتير.",
+        "latin": "ilʔásad gáwi ktīr.",
+        "english": "The lion is very strong."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3749",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3749",
+        "arabic": "الفيل كْبير كْتير.",
+        "latin": "ilfīl kbīr ktīr.",
+        "english": "The elephant is very big."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4709",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4709",
+        "arabic": "الحْصان سريع.",
+        "latin": "ilɧʂān sarī3.",
+        "english": "The horse is fast."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4708",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4708",
+        "arabic": "النِّت بطيء اليوْم.",
+        "latin": "innit baʈīʔ ilyōm.",
+        "english": "The internet is slow today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3983",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3983",
+        "arabic": "عُمْري تْلتّاعِش سنة.",
+        "latin": "3úmri tlattā3iš sána.",
+        "english": "I'm thirteen years old."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3984",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3984",
+        "arabic": "في أرْبعْتاعِش طالِب في الصّفّ.",
+        "latin": "fī arba3tā3iš ʈālib fi ʂʂaff.",
+        "english": "There are fourteen students in the class."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3985",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3985",
+        "arabic": "الباص بيوْصل بعِد خمسْتاعِش دْقيقة.",
+        "latin": "ilbāʂ byūʂal ba3d xamstā3iš dgīga.",
+        "english": "The bus comes in fifteen minutes."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3986",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3986",
+        "arabic": "أخوي عُمْرو سِتّاعِش سنة.",
+        "latin": "axūy 3úmru sittā3iš sána.",
+        "english": "My brother is sixteen."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3987",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3987",
+        "arabic": "الدّار رقم سبعْتاعِش.",
+        "latin": "iddār ráqam saba3tā3iš.",
+        "english": "The house is number seventeen."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3988",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3988",
+        "arabic": "عُمُرْها تمانْتاعِش سنة.",
+        "latin": "3umúrha tamantā3iš sána.",
+        "english": "She's eighteen."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3989",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3989",
+        "arabic": "اِفْتح الكْتاب عَ صفْحة تِسعْتاعِش.",
+        "latin": "íftaɧ ilktāb 3a ʂáfɧa tisa3tā3iš.",
+        "english": "Open the book to page nineteen."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3994",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3994",
+        "arabic": "الشّهِر فيه تلاتين يوْم.",
+        "latin": "iššáhir fī talatīn yōm.",
+        "english": "A month has thirty days."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3995",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3995",
+        "arabic": "أبوي عُمْرو أرْبْعين سنة.",
+        "latin": "abūy 3úmru arb3īn sána.",
+        "english": "My father is forty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3996",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3996",
+        "arabic": "الجّاكيْتّ بخمْسين دوْلار.",
+        "latin": "ijjākētt b-xamsīn dōlar.",
+        "english": "The jacket costs fifty dollars."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3998",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3998",
+        "arabic": "سيدي عُمْرو سبْعين سنة.",
+        "latin": "sīdi 3úmru sab3īn sána.",
+        "english": "My grandfather is seventy."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3999",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3999",
+        "arabic": "سِتّي عُمُرْها تمانين سنة.",
+        "latin": "sítti 3umúrha tamanīn sána.",
+        "english": "My grandmother is eighty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4000",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4000",
+        "arabic": "الفِلِم تِسْعين دْقيقة.",
+        "latin": "ilfílim tis3īn dgīga.",
+        "english": "The movie is ninety minutes long."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4010",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4010",
+        "arabic": "التّذْكرة بألْف دوْلار.",
+        "latin": "ittázkara b-alf dōlar.",
+        "english": "The ticket costs a thousand dollars."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4114",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4114",
+        "arabic": "بشوفك يوْم الأحد.",
+        "latin": "bašūfak yōm ilʔáɧad.",
+        "english": "See you on Sunday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4115",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4115",
+        "arabic": "المدْرسة بِتْبلِّش يوْم الِاتْنيْن.",
+        "latin": "ilmádrasa bitbálliš yōm litnēn.",
+        "english": "School starts on Monday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4116",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4116",
+        "arabic": "عِنْدي اِمْتِحان يوْم التّلات.",
+        "latin": "3índi imtiɧān yōm ittalāt.",
+        "english": "I have a test on Tuesday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4117",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4117",
+        "arabic": "السّوق مفْتوح يوْم الأرْبِعا.",
+        "latin": "issūg maftūɧ yōm ilʔárbi3a.",
+        "english": "The market is open on Wednesday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4119",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4119",
+        "arabic": "بْنِتْعشّى عِنْد أهْلي يوْم الخميس.",
+        "latin": "bnit3ášša 3ind áhli yōm ilxamīs.",
+        "english": "We have dinner at my parents' on Thursday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4081",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4081",
+        "arabic": "بْنِتْغدّى الضُّهُر.",
+        "latin": "bnitɣádda iɖɖúhur.",
+        "english": "We have lunch at noon."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4083",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4083",
+        "arabic": "بشوفك العصِر.",
+        "latin": "bašūfak il3áʂir.",
+        "english": "See you in the afternoon."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4223",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4223",
+        "arabic": "اِسْتنّى ثانْيَة!",
+        "latin": "istánna sānya!",
+        "english": "Wait a second!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4154",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4154",
+        "arabic": "التّقْويم عَ الحيْط.",
+        "latin": "ittaqwīm 3a lɧēʈ.",
+        "english": "The calendar is on the wall."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3958",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3958",
+        "arabic": "رُحْت عَ لِبْنان كذا مرّة.",
+        "latin": "ruɧt 3a libnān káza márra.",
+        "english": "I've been to Lebanon several times."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3921",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3921",
+        "arabic": "الشّطّ بعيد مية مِتِر.",
+        "latin": "iššaʈʈ ba3īd míyyit mítir.",
+        "english": "The beach is a hundred meters away."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3933",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3933",
+        "arabic": "بِدّي كيْلو بنْدوْرة.",
+        "latin": "bíddi kēlō bandōra.",
+        "english": "I'd like a kilo of tomatoes."
+      }
     }
   ]
 }
