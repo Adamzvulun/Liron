@@ -762,3 +762,7 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+
+.arabic__say {
+  margin-bottom: 12px;
+}
