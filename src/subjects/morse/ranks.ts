@@ -33,6 +33,8 @@ export function morseMet(rank: Rank, p: MorseProgress): boolean[] {
         PROSIGNS.every((s) => p.prosigns.includes(s.id)),
         p.rankTrials.includes('far-station'),
       ];
+    case 'signal-master':
+      return [p.radio.cleanFast];
     default:
       return rank.conditions.map(() => false);
   }

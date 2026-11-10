@@ -118,6 +118,7 @@ test.describe('The Radio Room on the air (E16)', () => {
     await expect(page.getByText('+5 XP')).toBeVisible();
     await expect.poll(() => sent.length).toBe(2);
     expect(sent[1]?.p_xp).toBe(5);
+    expect(sent[1]?.p_events).toEqual([{ kind: 'qso', count: 1 }]);
     const after = (sent[1]?.p_state as { radio: { contacts: number; log: unknown[] } }).radio;
     expect(after.contacts).toBe(0);
     expect(after.log).toEqual([{ op: 'marta', day: expect.any(String), ok: false }]);

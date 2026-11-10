@@ -108,8 +108,10 @@
      - `qso/Turns.tsx`: `HearTurn` and `KeyTurn`, shared with the Far Station.
    - **Player:** `MorsePlayer.play` takes `fist` and `route` per play; a route's sources stop through `life.onEnd`.
    - **QRS works mid-send.** Headless Chromium's audio clock never finishes a play, so e2e tests can't wait for "Quiet now."
-   - **Later, not dropped:**
-     - a contract for working a station (a template and a migration);
-     - "worked all" achievements;
-     - Signal Master's 25 wpm QSO;
-     - E15 personality (needs Adam's AI decisions).
+   - **Merged:** #224.
+   - **The follow-up PR** (`claude/radio-rewards`):
+     - events `qso`, `qso-logged`, `worked-<op>` and `qso-clean-fast`;
+     - two contracts that need `qso`;
+     - Worked All and Full Logbook (migration `20261123000000_radio_room.sql`);
+     - Signal Master is earnable through `radio.cleanFast`.
+   - **Later, not dropped:** E15 personality (needs Adam's AI decisions).

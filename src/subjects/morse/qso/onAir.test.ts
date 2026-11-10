@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { NEW_PROGRESS, parseProgress } from '../lesson/progress.ts';
+import { MORSE_RANKS, morseMet } from '../ranks.ts';
 import type { Route } from '../player.ts';
 import { bandRoute, qsbDepth } from './band.ts';
 import {
@@ -15,7 +16,9 @@ import {
   onAirToday,
   openOperators,
   OPERATORS,
+  isCleanFast,
   radioDay,
+  radioEvents,
   reportRadio,
   roomOpen,
   setUpStation,
@@ -154,7 +157,9 @@ describe('a contact', () => {
     await reportRadio(api, NEW_PROGRESS, res, 120);
     await reportRadio(api, NEW_PROGRESS, { ...res, logged: false }, 60);
     await reportRadio(api, NEW_PROGRESS, null, 0);
-    expect(saveSession.mock.calls.map(([a]) => a.xp)).toEqual([25, 5, 0]);
+    await reportRadio(api, NEW_PROGRESS, res, 60, [{ kind: 'qso' }]);
+    expect(saveSession.mock.calls.map(([a]) => a.xp)).toEqual([25, 5, 0, 25]);
+    expect(saveSession.mock.calls[3]?.[0].events).toEqual([{ kind: 'qso' }]);
     expect(saveSession.mock.calls[0]?.[0]).toMatchObject({ minutes: 2, events: [] });
   });
 
@@ -166,6 +171,39 @@ describe('a contact', () => {
 
   it('dates the log in local time', () => {
     expect(radioDay(new Date(2026, 0, 5, 23, 30))).toBe('2026-01-05');
+  });
+});
+
+describe('the Signal Master’s QSO and what a contact sends', () => {
+  const res = { copied: 5, copyTotal: 5, keyed: 3, keyTotal: 3, logged: true };
+  const dex = makeContact(op('dex'), me, false, () => 0);
+  const ivo = makeContact(op('ivo'), me, false, () => 0);
+
+  it('is logged at 25 wpm with no repeats', () => {
+    expect(isCleanFast(dex, res, 0)).toBe(true);
+    expect(isCleanFast(dex, res, 1)).toBe(false);
+    expect(isCleanFast(dex, { ...res, logged: false }, 0)).toBe(false);
+    expect(isCleanFast(ivo, res, 0)).toBe(false);
+  });
+
+  it('is kept once made, and opens the Signal Master rank', () => {
+    const r = applyContact(fresh, 'dex', res, '2026-11-10', true);
+    expect(applyContact(r, 'dex', res, '2026-11-11').cleanFast).toBe(true);
+    const master = MORSE_RANKS.find((k) => k.id === 'signal-master');
+    expect(master?.later).toBeUndefined();
+    if (!master) throw new Error('no Signal Master');
+    expect(morseMet(master, NEW_PROGRESS)).toEqual([false]);
+    expect(morseMet(master, { ...NEW_PROGRESS, radio: r })).toEqual([true]);
+  });
+
+  it('tells the contracts and achievements what happened', () => {
+    expect(radioEvents(ivo, { ...res, logged: false }, false)).toEqual([{ kind: 'qso' }]);
+    expect(radioEvents(dex, res, true)).toEqual([
+      { kind: 'qso' },
+      { kind: 'qso-logged' },
+      { kind: 'worked-dex' },
+      { kind: 'qso-clean-fast' },
+    ]);
   });
 });
 
