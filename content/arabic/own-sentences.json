@@ -5146,8 +5146,8 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:3921",
-        "arabic": "الشّطّ بعيد مية مِتِر.",
-        "latin": "iššaʈʈ ba3īd míyyit mítir.",
+        "arabic": "الشّطّ بْعيد مية مِتِر.",
+        "latin": "iššaʈʈ b3īd míyyit mítir.",
         "english": "The beach is a hundred meters away."
       }
     },
@@ -5820,6 +5820,666 @@
         "arabic": "صاحْبِتي مِن روْمانْيا.",
         "latin": "ʂaɧbíti min rōmānya.",
         "english": "My friend is from Romania."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3568",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3568",
+        "arabic": "أفْريقْيا كْبيرة كْتير.",
+        "latin": "afrīqya kbīra ktīr.",
+        "english": "Africa is very big."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3569",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3569",
+        "arabic": "اليابان في آسْيا.",
+        "latin": "ilyābān fi āsya.",
+        "english": "Japan is in Asia."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3453",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3453",
+        "arabic": "القهْوة مِن أثْيوبْيا.",
+        "latin": "ilgáhwa min aŧyōbya.",
+        "english": "The coffee is from Ethiopia."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3454",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3454",
+        "arabic": "نَيْجيرْيا في أفْريقْيا.",
+        "latin": "nayjīrya fi afrīqya.",
+        "english": "Nigeria is in Africa."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3488",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3488",
+        "arabic": "سافرْنا عَ تُرْكْيا في الصّيْف.",
+        "latin": "safárna 3a túrkya fi ʂʂēf.",
+        "english": "We traveled to Turkey in the summer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3288",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3288",
+        "arabic": "بحِبّ القهْوة التُّرْكية.",
+        "latin": "baɧíbb ilgáhwa tturkíyya.",
+        "english": "I love Turkish coffee."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3492",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3492",
+        "arabic": "إيران جنْب العِراق.",
+        "latin": "īrān jamb il3irāq.",
+        "english": "Iran is next to Iraq."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3493",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3493",
+        "arabic": "أفْغانِسْتان جنْب باكِسْتان.",
+        "latin": "afɣānistān jamb bākistān.",
+        "english": "Afghanistan is next to Pakistan."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3494",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3494",
+        "arabic": "صاحِب الدُّكّانة أفْغاني.",
+        "latin": "ʂāɧib iddukkāna afɣāni.",
+        "english": "The grocery owner is Afghan."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3495",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3495",
+        "arabic": "عمّي بيِشْتِغِل في باكِسْتان.",
+        "latin": "3ámmi byištáɣil fi bākistān.",
+        "english": "My uncle works in Pakistan."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3496",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3496",
+        "arabic": "الهِنْد فيها ناس كْتير.",
+        "latin": "ilhínd fīha nās ktīr.",
+        "english": "India has a lot of people."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3497",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3497",
+        "arabic": "بحِبّ الأكِل الهِنْدي.",
+        "latin": "baɧíbb ilákil ilhíndi.",
+        "english": "I love Indian food."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3498",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3498",
+        "arabic": "في سُيّاح مِن الصّين.",
+        "latin": "fī suyyāɧ min iʂʂīn.",
+        "english": "There are tourists from China."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3273",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3273",
+        "arabic": "في مطْعم صيني جنْب الدّار.",
+        "latin": "fī máʈ3am ʂīni jamb iddār.",
+        "english": "There's a Chinese restaurant next to the house."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3500",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3500",
+        "arabic": "بِدّي أزور اليابان.",
+        "latin": "bíddi azūr ilyābān.",
+        "english": "I want to visit Japan."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3283",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3283",
+        "arabic": "سيّارْتي يابانية.",
+        "latin": "sayyārti yabaníyya.",
+        "english": "My car is Japanese."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3501",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3501",
+        "arabic": "التّلفوْن مِن تايْوان.",
+        "latin": "ittalafōn min tāywān.",
+        "english": "The phone is from Taiwan."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3502",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3502",
+        "arabic": "الشّطّ في تايْلانْدا حِلو كْتير.",
+        "latin": "iššaʈʈ fi tāylānda ɧílu ktīr.",
+        "english": "The beach in Thailand is beautiful."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3503",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3503",
+        "arabic": "صاحْبِتي سافْرت عَ فِتْنام.",
+        "latin": "ʂaɧbíti sāfrat 3a vitnām.",
+        "english": "My friend traveled to Vietnam."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3504",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3504",
+        "arabic": "ماليزْيا جنْب إنْدوْنيسْيا.",
+        "latin": "mālīzya jamb indōnīsya.",
+        "english": "Malaysia is next to Indonesia."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3505",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3505",
+        "arabic": "إنْدوْنيسْيا بلد كْبير.",
+        "latin": "indōnīsya bálad kbīr.",
+        "english": "Indonesia is a big country."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3506",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3506",
+        "arabic": "خالْتي عايْشة في الفِلِبّين.",
+        "latin": "xālti 3āyša fi lfilibbīn.",
+        "english": "My aunt lives in the Philippines."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3507",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3507",
+        "arabic": "أُسْتْرالْيا بْعيدة كْتير.",
+        "latin": "ustrālya b3īda ktīr.",
+        "english": "Australia is very far away."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3508",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3508",
+        "arabic": "نْيوزْلنْدا جنْب أُسْتْرالْيا.",
+        "latin": "nyūzlanda jamb ustrālya.",
+        "english": "New Zealand is near Australia."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3509",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3509",
+        "arabic": "أخوي سافر عَ كندا.",
+        "latin": "axūy sāfar 3a kánada.",
+        "english": "My brother traveled to Canada."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3491",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3491",
+        "arabic": "الجّوّ في روسْيا ساقِع.",
+        "latin": "ijjáww fi rūsya sāgi3.",
+        "english": "The weather in Russia is cold."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3286",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3286",
+        "arabic": "مرْت عمّي روسية.",
+        "latin": "mart 3ámmi rusíyya.",
+        "english": "My uncle's wife is Russian."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3490",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3490",
+        "arabic": "أُكْرانْيا جنْب روسْيا.",
+        "latin": "ukrānya jamb rūsya.",
+        "english": "Ukraine is next to Russia."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3487",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3487",
+        "arabic": "بُلْغارْيا جنْب تُرْكْيا.",
+        "latin": "bulɣārya jamb túrkya.",
+        "english": "Bulgaria is next to Turkey."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3482",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3482",
+        "arabic": "سْلوْفاكْيا جنْب الِتْشيك.",
+        "latin": "slōvākya jamb litšīk.",
+        "english": "Slovakia is next to the Czech Republic."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4002",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4002",
+        "arabic": "التّذْكرة بميتيْن دوْلار.",
+        "latin": "ittázkara b-mītēn dōlar.",
+        "english": "The ticket costs two hundred dollars."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4003",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4003",
+        "arabic": "في المدْرسة تلتْمية طالِب.",
+        "latin": "fi lmádrasa talatmíyyit ʈālib.",
+        "english": "There are three hundred students at the school."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4004",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4004",
+        "arabic": "الفُنْدُق بأرْبعْمية دوْلار في الليْلة.",
+        "latin": "ilfúndug b-arba3míyyit dōlar fi llēla.",
+        "english": "The hotel costs four hundred dollars a night."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4005",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4005",
+        "arabic": "الجّوّال بخمسْمية دوْلار.",
+        "latin": "ijjawwāl b-xamasmíyyit dōlar.",
+        "english": "The phone costs five hundred dollars."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4006",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4006",
+        "arabic": "القرْيَة فيها سِتّْمية شخْص.",
+        "latin": "ilqárya fīha sittmíyyit šaxʂ.",
+        "english": "Six hundred people live in the village."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4007",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4007",
+        "arabic": "مِن هان للمطار سبعْمية مِتِر.",
+        "latin": "min hān la-lmaʈār saba3míyyit mítir.",
+        "english": "It's seven hundred meters from here to the airport."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4008",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4008",
+        "arabic": "الكْتاب فيه تمنْمية صفْحة.",
+        "latin": "ilktāb fī tamanmíyyit ʂáfɧa.",
+        "english": "The book has eight hundred pages."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4009",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4009",
+        "arabic": "الكُمْبْيوتر بتِسعْمية دوْلار.",
+        "latin": "ilkumbyūtar b-tisa3míyyit dōlar.",
+        "english": "The computer costs nine hundred dollars."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4011",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4011",
+        "arabic": "الرِّحْلة بألْفيْن دوْلار.",
+        "latin": "irríɧla b-alfēn dōlar.",
+        "english": "The trip costs two thousand dollars."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4012",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4012",
+        "arabic": "في تلاتّلاف طالِب في الجّامْعة.",
+        "latin": "fī talattalāf ʈālib fi jjām3a.",
+        "english": "There are three thousand students at the university."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4013",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4013",
+        "arabic": "الجّبل عالي أرْبعْتلاف مِتِر.",
+        "latin": "iljábal 3āli arba3talāf mítir.",
+        "english": "The mountain is four thousand meters high."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4014",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4014",
+        "arabic": "السّيّارة بخمسْتلاف دوْلار.",
+        "latin": "issayyāra b-xamastalāf dōlar.",
+        "english": "The car costs five thousand dollars."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4015",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4015",
+        "arabic": "عِنْدي سِتّلاف دوْلار في البنْك.",
+        "latin": "3índi sittalāf dōlar fi lbank.",
+        "english": "I have six thousand dollars in the bank."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4016",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4016",
+        "arabic": "الطّيَران سبعْتلاف كيْلوْمِتِر.",
+        "latin": "iʈʈayarān saba3talāf kēlōmitir.",
+        "english": "The flight is seven thousand kilometers."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4017",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4017",
+        "arabic": "في البلد تمنْتلاف شخْص.",
+        "latin": "fi lbálad tamantalāf šaxʂ.",
+        "english": "Eight thousand people live in the town."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4018",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4018",
+        "arabic": "المتْحف فيه تِسعْتلاف صورة.",
+        "latin": "ilmátɧaf fī tisa3talāf ʂūra.",
+        "english": "The museum has nine thousand pictures."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4019",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4019",
+        "arabic": "أجار الشّقّة عشرْتلاف دوْلار في السّنة.",
+        "latin": "ajār iššágga 3ašartalāf dōlar fi ssána.",
+        "english": "The rent for the apartment is ten thousand dollars a year."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4132",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4132",
+        "arabic": "شْباط فيه تمانْيَة وعِشْرين يوْم.",
+        "latin": "šbāʈ fī tamānya w 3išrīn yōm.",
+        "english": "February has twenty-eight days."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4134",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4134",
+        "arabic": "الرّبيع بيِبْدا في آذار.",
+        "latin": "irrabī3 byíbda fi āđār.",
+        "english": "Spring starts in March."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4136",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4136",
+        "arabic": "عيد ميلادي في نيسان.",
+        "latin": "3īd milādi fi nīsān.",
+        "english": "My birthday is in April."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4138",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4138",
+        "arabic": "في أيّار الجّوّ دافي.",
+        "latin": "fi ayyār ijjáww dāfi.",
+        "english": "In May the weather is warm."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4140",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4140",
+        "arabic": "المدْرسة بْتِخْلص في حُزَيْران.",
+        "latin": "ilmádrasa btíxlaʂ fi ɧuzāyrān.",
+        "english": "School ends in June."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4142",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4142",
+        "arabic": "تمّوز أشْوَب شهِر.",
+        "latin": "tammūz ášwab šáhir.",
+        "english": "July is the hottest month."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4144",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4144",
+        "arabic": "رايْحين عَ البحر في آب.",
+        "latin": "rayɧīn 3a lbáɧar fi āb.",
+        "english": "We're going to the sea in August."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4146",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4146",
+        "arabic": "الجّامْعة بِتْبلِّش في أَيْلول.",
+        "latin": "ijjām3a bitbálliš fi aylūl.",
+        "english": "University starts in September."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4118",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4118",
+        "arabic": "عِنْدي درْس عربي يوْم الأرْبع.",
+        "latin": "3índi dars 3árabi yōm ilʔába3.",
+        "english": "I have an Arabic lesson on Wednesday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4155",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4155",
+        "arabic": "عِنْدك رُزْنامة؟",
+        "latin": "3índak ruznāma?",
+        "english": "Do you have a calendar?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4063",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4063",
+        "arabic": "هاد آخِر باص.",
+        "latin": "hād āxir bāʂ.",
+        "english": "This is the last bus."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3922",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3922",
+        "arabic": "البحر بْعيد عشرة كيْلوْمِتِر.",
+        "latin": "ilbáɧar b3īd 3ášara kēlōmitir.",
+        "english": "The sea is ten kilometers away."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3932",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3932",
+        "arabic": "الشّنْطة عِشْرين كيْلوغْرام.",
+        "latin": "iššánʈa 3išrīn kēlōgrām.",
+        "english": "The suitcase weighs twenty kilograms."
       }
     }
   ]
