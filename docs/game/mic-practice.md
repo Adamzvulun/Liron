@@ -69,8 +69,8 @@ The same Groq check as on the Say it cards, now on whole sentences in the echo w
 - **Recordings we don't have:** ح / ه minimal pairs, and women's voices. These wait for Lingua Libre or another licensed source (the coffee corner's open question); nothing is used before Adam has seen it.
 
 ## 8. Tasks
-1. The echo well station, and "Hear the difference" with its pairs data (`content/arabic/sound-pairs.json`: deck ids and our own labels only).
-2. Shadowing: playback at 75% and 100%, recording in step with it, and the three ways to listen back.
-3. Record and compare on the word path's words.
-4. "Did it understand you?" on sentences.
-5. Contracts and the two achievements.
+1. The echo well station, and "Hear the difference" with its pairs data (`content/arabic/sound-pairs.json`: deck ids and our own labels only). — [#193](https://github.com/Adamzvulun/Liron/issues/193)
+2. Shadowing: playback at 75% and 100%, recording in step with it, and the three ways to listen back. — [#194](https://github.com/Adamzvulun/Liron/issues/194)
+3. Record and compare on the word path's words. — [#195](https://github.com/Adamzvulun/Liron/issues/195)
+4. "Did it understand you?" on sentences. — [#196](https://github.com/Adamzvulun/Liron/issues/196)
+5. Contracts and the two achievements. — [#197](https://github.com/Adamzvulun/Liron/issues/197)
