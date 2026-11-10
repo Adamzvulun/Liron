@@ -61,3 +61,28 @@ test('shadow two sentences, listen back, judge them, and the round is saved', as
   // Nothing was uploaded: the recordings never left the tab.
   expect(uploads).toEqual([]);
 });
+
+test('asks Groq what it heard only on a press, as a hint (#196)', async ({ page }) => {
+  await signedIn(page, [], [], { lesson: 2 }, ROWS);
+  const sent: string[] = [];
+  await page.route('**/api/understood', (route) => {
+    sent.push(route.request().method());
+    return route.fulfill({ status: 200, json: { text: SENTENCES[0], left: 99 } });
+  });
+  await page.goto('/caravanserai?open=echo');
+  await page.getByRole('button', { name: 'Shadow sentences' }).click();
+  await page.getByRole('button', { name: '● Shadow at 75%' }).click();
+  const ask = page.getByRole('button', { name: 'What would they hear?' });
+  await expect(ask).toBeVisible();
+  await expect(page.getByText('Wear headphones when you shadow')).toBeVisible();
+  expect(sent).toHaveLength(0);
+
+  await ask.click();
+  await expect(page.getByText('It heard:')).toBeVisible();
+  // A hint, not a score: a take over the speaker may hold the speaker's voice too.
+  await expect(page.getByText('Understood ✓')).toBeHidden();
+  expect(sent).toEqual(['POST']);
+  // You still judge it yourself.
+  await page.getByRole('group', { name: 'How did it go?' }).getByRole('button').first().click();
+  await expect(page.getByText('Shadowing · 2 of 2')).toBeVisible();
+});
