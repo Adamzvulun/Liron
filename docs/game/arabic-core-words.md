@@ -153,10 +153,25 @@ I build option 1 and keep option 2 ready as a follow-up (#164). Micro-stories ma
 | XIX | Amal the bus driver | Amal's Timetable |
 | XX | Ziad the shepherd | Ziad's Flock |
 | XXI | Abu Nabil the merchant | Abu Nabil's Accounts |
+| XXII | Khalid the trader | Khalid's Carpets |
+| XXIII | Captain Elias | The Captain's Map |
+| XXIV | Mei the photographer | Mei's Album |
+| XXV | Engineer Rami | The Surveyor's Count |
+| XXVI | Nour the clothes seller | Nour's Bargain |
+| XXVII | Doctor Nadia | The Doctor's Questions |
+| XXVIII | Uncle Antoine | Antoine's Day Out |
+| XXIX | Salim, back again | Salim's Return |
+| XXX | Abu Hani the barber | The Barber's Gossip |
+| XXXI | Umm Ali the cook | Umm Ali's Kitchen |
+| XXXII | Abu Fadi, with his son | The New House's Rooms |
+| XXXIII | Wafa the manager | Wafa's Interviews |
+| XXXIV | Amal, back from the border | Amal's New Route |
+| XXXV | The innkeeper | The Innkeeper's Night |
 
 - **Chapters XII–XXI (#205, 2026-11-10):** a caravan from the coast arrives just as the table seems full, and its people sit down one per word chapter (11–20). Each regular has the same shape: an opening, 3 milestone beats and a trial. Their trials send `trial-12` to `trial-21`. Migration `20261122000000_more_regulars.sql` registers `trial-13` to `trial-35`, so chapters up to word chapter 34 need no further migration.
 - **The Traveler rank still asks for the Poet's Evening** (chapter XI), not the newest regular's trial. "A Seat at the Table" still means the first ten regulars.
-- **Still to come (ordered, not cut):** the regulars for word chapters 21–34 (chapters XXII–XXXV), once words 601–1,020 (#202, #203) are merged.
+- **Chapters XXII–XXXV (#205, 2026-11-10):** a second caravan, from the east, for word chapters 21–34. Its regulars follow the chapters' themes (countries, numbers, money, the doctor, the body, the kitchen, the house, work, travel). Three old faces come back changed: Salim (XXIX), Abu Fadi with his son (XXXII) and Amal (XXXIV). The last chapter, XXXV, is the innkeeper's own story. Their trials send `trial-22` to `trial-35`, already registered by the same migration.
+- **Every word chapter now has its regular.** A new word chapter needs a new regular and a `trial-N` row in a migration.
 
 - **Beats:** each regular has an opening, and 3 milestone beats lit by the words you've met (one per 10 of the chapter's 30). The table shows the newest beat above "Start a session"; the courtyard's story panel shows the chapter.
 - **The trial** opens once the word chapter is passed (90% twice, on different days). It asks 30 of that chapter's words, shuffled, in the usual Listen/Read/Recall forms, and passes at 90%. It doesn't move the word chapter: you can keep learning while a trial waits.
