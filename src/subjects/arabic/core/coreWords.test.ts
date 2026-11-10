@@ -97,6 +97,25 @@ describe('a word session', () => {
       expect(q.answer).toBe(q.kind === 'recall' ? q.word.arabic : q.word.meaning);
     }
   });
+
+  it('never offers a second word for the same thing as a wrong choice', () => {
+    const [a, b, c, d, e] = chapters[0] ?? [];
+    if (!a || !b || !c || !d || !e) throw new Error('chapter 1 is short');
+    // Two words for one thing, in a pool so small the twin would surely be picked.
+    const twin = { ...b, meaning: a.meaning };
+    const pool = [a, twin, c, d, e];
+    for (let s = 0; s < 10; s++) {
+      // The third word is asked as recall: pick the Arabic.
+      for (const q of wordQuestions([c, twin, a], pool, seeded(s))) {
+        expect(q.choices).toHaveLength(4);
+        const other = q.word === a ? twin : q.word === twin ? a : null;
+        if (!other) continue;
+        const wrong = q.choices.filter((x) => x !== q.answer);
+        expect(wrong).not.toContain(other.arabic);
+        expect(wrong).not.toContain(other.meaning);
+      }
+    }
+  });
 });
 
 describe('the word path’s gate', () => {
