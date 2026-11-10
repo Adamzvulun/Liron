@@ -1,0 +1,118 @@
+/* The Radio Room (#178): the Far Station's copy fields and its log. */
+
+.qso__progress,
+.qso__say {
+  margin: 0 0 12px;
+  color: var(--parchment);
+  font-weight: 700;
+  text-align: center;
+}
+
+.qso__say strong,
+.qso__progress strong {
+  color: var(--lamplight);
+  letter-spacing: 0.08em;
+}
+
+.qso__card {
+  display: grid;
+  gap: 14px;
+}
+
+.qso__air {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: #6b5640;
+}
+
+.qso__field {
+  display: grid;
+  gap: 4px;
+  font-weight: 800;
+}
+
+.qso__field input {
+  min-height: 48px;
+  padding: 6px 12px;
+  border: var(--outline-ui);
+  border-radius: 10px;
+  background: var(--vellum);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.qso__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.qso__choices legend {
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.qso__choices label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 6px 16px;
+  border: var(--outline-ui);
+  border-radius: 10px;
+  background: var(--vellum);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.qso__choices label.is-picked {
+  background: var(--lamplight);
+}
+
+.qso__log {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.qso__log li {
+  display: grid;
+  grid-template-columns: minmax(8em, auto) 1fr;
+  gap: 2px 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 35%);
+}
+
+.qso__log li.is-wrong {
+  background: rgb(160 40 30 / 15%);
+}
+
+.qso__log span {
+  font-weight: 700;
+  color: #6b5640;
+}
+
+.qso__log strong {
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  overflow-wrap: anywhere;
+}
+
+.qso__log small {
+  grid-column: 2;
+  color: #8a2a1e;
+  font-weight: 700;
+}

@@ -87,6 +87,17 @@ describe('the word drill (#154)', () => {
     expect(applyWords(NEW_PROGRESS, attempts).words).toEqual({ rounds: 1, best: 2 });
   });
 
+  it('remembers each prosign copied right, once (#178)', () => {
+    const once = applyWords(NEW_PROGRESS, [
+      attempt('prosign:ar', 'AR'),
+      attempt('prosign:sk', 'X'),
+      attempt('word:are', 'ARE'),
+    ]);
+    expect(once.prosigns).toEqual(['prosign:ar']);
+    const twice = applyWords(once, [attempt('prosign:ar', '<AR>'), attempt('prosign:sk', 'SK')]);
+    expect(twice.prosigns).toEqual(['prosign:ar', 'prosign:sk']);
+  });
+
   it('reports one save with reviews, head-copy results and events', async () => {
     const saveSession = vi.fn().mockResolvedValue(undefined);
     const api = { saveSession } as unknown as SubjectApi;

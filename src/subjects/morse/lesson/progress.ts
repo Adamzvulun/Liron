@@ -32,6 +32,8 @@ const progressSchema = z.object({
   ranks: z.array(z.string()).catch([]),
   /** Rank trials passed (E13): `lamp-signal` (#175), `night-watch` (#179), later `far-station`. */
   rankTrials: z.array(z.string()).catch([]),
+  /** Prosigns copied right in the Codebook (#178), by id (`prosign:ar`): the Operator learns all. */
+  prosigns: z.array(z.string()).catch([]),
   /** Instant Recognition (#32): personal best, rounds played, each letter's reaction time. */
   recognition: z
     .object({
