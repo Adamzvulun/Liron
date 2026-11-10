@@ -6,6 +6,7 @@ import { Trial } from './lesson/Trial.tsx';
 import { Slate } from './write/Slate.tsx';
 import { CoffeeCorner } from './phrases/CoffeeCorner.tsx';
 import { WordLessons } from './core/WordLessons.tsx';
+import { EchoWell } from './echo/EchoWell.tsx';
 import './arabic.css';
 
 type View = 'hall' | CourtyardDoor;
@@ -19,6 +20,7 @@ const VIEWS: readonly View[] = [
   'words',
   'trial',
   'regular',
+  'echo',
 ];
 
 /**
@@ -46,6 +48,8 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
         <Slate api={api} />
       ) : view === 'phrases' ? (
         <CoffeeCorner api={api} />
+      ) : view === 'echo' ? (
+        <EchoWell api={api} />
       ) : view === 'words' || view === 'regular' ? (
         <WordLessons key={view} api={api} trial={view === 'regular'} />
       ) : (
