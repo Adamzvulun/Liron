@@ -45,8 +45,8 @@ export interface CoreWord {
   hebrew: string;
   meaning: string;
   audio: string;
-  /** A deck sentence that uses the word, with its recording, when the deck has one. */
-  sentence?: DeckLine;
+  /** A deck sentence that uses the word, with its recording and deck id, when the deck has one. */
+  sentence?: DeckLine & { deck: string };
 }
 
 export const itemIdOf = (deck: string) => `word:${deck}`;
@@ -78,7 +78,8 @@ export function coreWordsFrom(items: readonly Item[]): CoreWord[][] {
     c.words.flatMap((w) => {
       const own = line(byId.get(w.deck));
       if (!own) return [];
-      const sentence = w.sentence ? line(byId.get(w.sentence)) : undefined;
+      const said = w.sentence ? line(byId.get(w.sentence)) : undefined;
+      const sentence = said && w.sentence ? { ...said, deck: w.sentence } : undefined;
       return [
         {
           deck: w.deck,

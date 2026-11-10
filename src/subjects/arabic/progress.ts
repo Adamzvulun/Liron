@@ -62,8 +62,10 @@ const Progress = z.object({
       heard: z.array(z.string()).catch([]),
       streak: z.number().int().min(0).catch(0),
       rounds: z.number().int().min(0).catch(0),
+      /** Sentences shadowed (#194), for the "Echo" achievement. */
+      shadowed: z.number().int().min(0).catch(0),
     })
-    .catch({ heard: [], streak: 0, rounds: 0 }),
+    .catch({ heard: [], streak: 0, rounds: 0, shadowed: 0 }),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -90,7 +92,7 @@ export const NEW_PROGRESS: ArabicProgress = {
     cards: [],
     trials: [],
   },
-  echo: { heard: [], streak: 0, rounds: 0 },
+  echo: { heard: [], streak: 0, rounds: 0, shadowed: 0 },
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
