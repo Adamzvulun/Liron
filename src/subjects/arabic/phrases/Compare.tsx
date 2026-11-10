@@ -84,16 +84,20 @@ type Checked =
 
 /**
  * "Did it understand you?" (ADR 0014): on request, sends this one recording to Groq and shows
- * what it heard. It only advises; the learner still rates the phrase.
+ * what it heard. It only advises; the learner still rates the phrase. With `hint` (shadowing,
+ * #196) it only shows what it heard, with no verdict: a take made over the speaker may hold the
+ * speaker's voice too.
  */
-function UnderstoodCheck({
+export function UnderstoodCheck({
   audio,
   target,
   check,
+  hint = false,
 }: {
   audio: Blob;
   target: string;
   check: (audio: Blob) => Promise<Heard>;
+  hint?: boolean;
 }) {
   const [state, setState] = useState<Checked>({ kind: 'ready' });
   const run = () => {
@@ -115,14 +119,27 @@ function UnderstoodCheck({
             disabled={state.kind === 'checking'}
             onClick={run}
           >
-            {state.kind === 'checking' ? 'Listening…' : 'Would they understand me?'}
+            {state.kind === 'checking'
+              ? 'Listening…'
+              : hint
+                ? 'What would they hear?'
+                : 'Would they understand me?'}
           </button>
           <p className="arabic__note">
             Sends this recording to Groq, which writes down what it heard.
+            {hint && ' Wear headphones when you shadow, or it hears the speaker too.'}
           </p>
         </>
       )}
-      {state.kind === 'heard' && (
+      {state.kind === 'heard' && hint && (
+        <p className="arabic__heard">
+          It heard:{' '}
+          <bdi lang="ar" dir="rtl" className="arabic__heard-ar">
+            {state.heard || '(nothing)'}
+          </bdi>
+        </p>
+      )}
+      {state.kind === 'heard' && !hint && (
         <p className={`arabic__heard ${state.verdict.understood ? 'is-right' : 'is-wrong'}`}>
           {state.verdict.understood ? 'Understood ✓' : 'Not quite'} · Groq heard{' '}
           <bdi lang="ar" dir="rtl" className="arabic__heard-ar">
