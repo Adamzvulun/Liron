@@ -40,6 +40,19 @@ describe('the Signal Tower’s ranks (#174)', () => {
     expect(slow.rank.id).toBe('listener');
     expect(needLine(slow)).toBe('2 of 3 · Send at 15 wpm or faster');
   });
+
+  it('the Night Watch is the Telegraphist’s condition, but the ladder waits on Operator (#179)', () => {
+    const watched = {
+      ...MORSE_NEW,
+      unlocked: MORSE_CHARS.length,
+      trials: [1, 2, 3, 4, 5],
+      sending: { drills: 20, ditMs: 80 },
+      rankTrials: ['lamp-signal', 'night-watch'],
+    };
+    // Ranks are taken in order: Operator (the Far Station, #178) comes first.
+    expect(morseStanding(watched).rank.id).toBe('keyer');
+    expect(morseStanding(watched).next?.id).toBe('operator');
+  });
 });
 
 describe('the House of the Crossing’s ranks (#174)', () => {
