@@ -9192,6 +9192,937 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:69",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 69,
+        "title": "Cradle to grave",
+        "theme": "Childhood and old age, love, marriage and mourning",
+        "words": [
+          {
+            "deck": "pcav:0013",
+            "gloss": "well-behaved"
+          },
+          {
+            "deck": "pcav:0014",
+            "gloss": "naughty"
+          },
+          {
+            "deck": "pcav:0034",
+            "gloss": "to grow old"
+          },
+          {
+            "deck": "pcav:0037",
+            "gloss": "childhood"
+          },
+          {
+            "deck": "pcav:0039",
+            "gloss": "adolescence"
+          },
+          {
+            "deck": "pcav:0048",
+            "gloss": "age"
+          },
+          {
+            "deck": "pcav:0061",
+            "gloss": "to pass away"
+          },
+          {
+            "deck": "pcav:0064",
+            "gloss": "funeral"
+          },
+          {
+            "deck": "pcav:0065",
+            "gloss": "to bury"
+          },
+          {
+            "deck": "pcav:0068",
+            "gloss": "grave"
+          },
+          {
+            "deck": "pcav:0070",
+            "gloss": "to mourn"
+          },
+          {
+            "deck": "pcav:0071",
+            "gloss": "mourning"
+          },
+          {
+            "deck": "pcav:0073",
+            "gloss": "extended family",
+            "sentence": "pcav:4317"
+          },
+          {
+            "deck": "pcav:0149",
+            "gloss": "orphan"
+          },
+          {
+            "deck": "pcav:0151",
+            "gloss": "to adopt"
+          },
+          {
+            "deck": "pcav:0162",
+            "gloss": "romance",
+            "sentence": "pcav:2372"
+          },
+          {
+            "deck": "pcav:0163",
+            "gloss": "to love passionately"
+          },
+          {
+            "deck": "pcav:0165",
+            "gloss": "lover"
+          },
+          {
+            "deck": "pcav:0179",
+            "gloss": "engagement"
+          },
+          {
+            "deck": "pcav:0180",
+            "gloss": "to get engaged"
+          },
+          {
+            "deck": "pcav:0182",
+            "gloss": "fiancé"
+          },
+          {
+            "deck": "pcav:0183",
+            "gloss": "fiancée"
+          },
+          {
+            "deck": "pcav:0198",
+            "gloss": "divorce"
+          },
+          {
+            "deck": "pcav:0199",
+            "gloss": "to get divorced"
+          },
+          {
+            "deck": "pcav:0203",
+            "gloss": "widower"
+          },
+          {
+            "deck": "pcav:0204",
+            "gloss": "widow"
+          },
+          {
+            "deck": "pcav:0207",
+            "gloss": "a kiss"
+          },
+          {
+            "deck": "pcav:0208",
+            "gloss": "to kiss"
+          },
+          {
+            "deck": "pcav:0219",
+            "gloss": "to name"
+          },
+          {
+            "deck": "pcav:0224",
+            "gloss": "nickname"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:70",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 70,
+        "title": "In the mirror",
+        "theme": "Hair and faces, marks on the skin, and what the body does",
+        "words": [
+          {
+            "deck": "pcav:0360",
+            "gloss": "to dye one's hair"
+          },
+          {
+            "deck": "pcav:0374",
+            "gloss": "sideburns"
+          },
+          {
+            "deck": "pcav:0376",
+            "gloss": "braids",
+            "sentence": "pcav:0377"
+          },
+          {
+            "deck": "pcav:0380",
+            "gloss": "bangs"
+          },
+          {
+            "deck": "pcav:0382",
+            "gloss": "wig"
+          },
+          {
+            "deck": "pcav:0387",
+            "gloss": "goatee"
+          },
+          {
+            "deck": "pcav:0388",
+            "gloss": "to trim one's beard"
+          },
+          {
+            "deck": "pcav:0391",
+            "gloss": "clean-shaven"
+          },
+          {
+            "deck": "pcav:0395",
+            "gloss": "pimple",
+            "sentence": "pcav:0396"
+          },
+          {
+            "deck": "pcav:0407",
+            "gloss": "freckles"
+          },
+          {
+            "deck": "pcav:0409",
+            "gloss": "mole, birthmark"
+          },
+          {
+            "deck": "pcav:0425",
+            "gloss": "fingerprint"
+          },
+          {
+            "deck": "pcav:0427",
+            "gloss": "index finger"
+          },
+          {
+            "deck": "pcav:0435",
+            "gloss": "joint, wrist"
+          },
+          {
+            "deck": "pcav:0475",
+            "gloss": "rib"
+          },
+          {
+            "deck": "pcav:0477",
+            "gloss": "vein"
+          },
+          {
+            "deck": "pcav:0481",
+            "gloss": "nerve"
+          },
+          {
+            "deck": "pcav:0507",
+            "gloss": "fat"
+          },
+          {
+            "deck": "pcav:0518",
+            "gloss": "skinny"
+          },
+          {
+            "deck": "pcav:0519",
+            "gloss": "one's looks"
+          },
+          {
+            "deck": "pcav:0524",
+            "gloss": "ugly"
+          },
+          {
+            "deck": "pcav:0298",
+            "gloss": "to blow one's nose"
+          },
+          {
+            "deck": "pcav:0334",
+            "gloss": "to spit"
+          },
+          {
+            "deck": "pcav:0339",
+            "gloss": "to burp"
+          },
+          {
+            "deck": "pcav:0350",
+            "gloss": "to choke"
+          },
+          {
+            "deck": "pcav:0310",
+            "gloss": "to be hard of hearing"
+          },
+          {
+            "deck": "pcav:0312",
+            "gloss": "to wear a hearing aid"
+          },
+          {
+            "deck": "pcav:0332",
+            "gloss": "molar"
+          },
+          {
+            "deck": "pcav:0343",
+            "gloss": "back of the neck"
+          },
+          {
+            "deck": "pcav:0420",
+            "gloss": "armpit"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:71",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 71,
+        "title": "Buttons and zippers",
+        "theme": "Getting dressed, fabrics and jewels, and things around the house",
+        "words": [
+          {
+            "deck": "pcav:0532",
+            "gloss": "tights"
+          },
+          {
+            "deck": "pcav:0555",
+            "gloss": "to tie one's tie"
+          },
+          {
+            "deck": "pcav:0567",
+            "gloss": "niqab"
+          },
+          {
+            "deck": "pcav:0571",
+            "gloss": "hair clip"
+          },
+          {
+            "deck": "pcav:0574",
+            "gloss": "turban"
+          },
+          {
+            "deck": "pcav:0591",
+            "gloss": "button"
+          },
+          {
+            "deck": "pcav:0592",
+            "gloss": "to button up"
+          },
+          {
+            "deck": "pcav:0593",
+            "gloss": "to unbutton"
+          },
+          {
+            "deck": "pcav:0594",
+            "gloss": "zipper"
+          },
+          {
+            "deck": "pcav:0595",
+            "gloss": "to zip up"
+          },
+          {
+            "deck": "pcav:0596",
+            "gloss": "to unzip"
+          },
+          {
+            "deck": "pcav:0609",
+            "gloss": "to tie one's shoes"
+          },
+          {
+            "deck": "pcav:0610",
+            "gloss": "to untie one's shoes"
+          },
+          {
+            "deck": "pcav:0613",
+            "gloss": "to polish one's shoes"
+          },
+          {
+            "deck": "pcav:0647",
+            "gloss": "iron (for clothes)"
+          },
+          {
+            "deck": "pcav:0649",
+            "gloss": "wrinkled",
+            "sentence": "pcav:0650"
+          },
+          {
+            "deck": "pcav:0651",
+            "gloss": "cloth, fabric"
+          },
+          {
+            "deck": "pcav:0655",
+            "gloss": "nylon"
+          },
+          {
+            "deck": "pcav:0656",
+            "gloss": "linen"
+          },
+          {
+            "deck": "pcav:0661",
+            "gloss": "contact lenses",
+            "sentence": "pcav:0664"
+          },
+          {
+            "deck": "pcav:0678",
+            "gloss": "diamonds"
+          },
+          {
+            "deck": "pcav:0679",
+            "gloss": "ruby"
+          },
+          {
+            "deck": "pcav:0681",
+            "gloss": "emeralds"
+          },
+          {
+            "deck": "pcav:0676",
+            "gloss": "brooch"
+          },
+          {
+            "deck": "pcav:0707",
+            "gloss": "maid"
+          },
+          {
+            "deck": "pcav:0708",
+            "gloss": "doorman"
+          },
+          {
+            "deck": "pcav:0761",
+            "gloss": "extension cord"
+          },
+          {
+            "deck": "pcav:0817",
+            "gloss": "baking tray"
+          },
+          {
+            "deck": "pcav:0821",
+            "gloss": "blender"
+          },
+          {
+            "deck": "pcav:0888",
+            "gloss": "dressing table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:72",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 72,
+        "title": "Market day",
+        "theme": "Vegetables, herbs, seafood and dishes",
+        "words": [
+          {
+            "deck": "pcav:0991",
+            "gloss": "stale"
+          },
+          {
+            "deck": "pcav:1101",
+            "gloss": "basbousa"
+          },
+          {
+            "deck": "pcav:1110",
+            "gloss": "beet"
+          },
+          {
+            "deck": "pcav:1118",
+            "gloss": "celery"
+          },
+          {
+            "deck": "pcav:1126",
+            "gloss": "okra"
+          },
+          {
+            "deck": "pcav:1131",
+            "gloss": "radish"
+          },
+          {
+            "deck": "pcav:1135",
+            "gloss": "turnip"
+          },
+          {
+            "deck": "pcav:1139",
+            "gloss": "salad dressing"
+          },
+          {
+            "deck": "pcav:1170",
+            "gloss": "nuts, hazelnuts"
+          },
+          {
+            "deck": "pcav:1179",
+            "gloss": "aniseed"
+          },
+          {
+            "deck": "pcav:1180",
+            "gloss": "basil"
+          },
+          {
+            "deck": "pcav:1185",
+            "gloss": "curry powder"
+          },
+          {
+            "deck": "pcav:1186",
+            "gloss": "ginger"
+          },
+          {
+            "deck": "pcav:1196",
+            "gloss": "gravy"
+          },
+          {
+            "deck": "pcav:1213",
+            "gloss": "yeast"
+          },
+          {
+            "deck": "pcav:1217",
+            "gloss": "protein"
+          },
+          {
+            "deck": "pcav:1243",
+            "gloss": "fish bone"
+          },
+          {
+            "deck": "pcav:1249",
+            "gloss": "crab"
+          },
+          {
+            "deck": "pcav:1250",
+            "gloss": "mussels"
+          },
+          {
+            "deck": "pcav:1251",
+            "gloss": "octopus"
+          },
+          {
+            "deck": "pcav:1254",
+            "gloss": "squid"
+          },
+          {
+            "deck": "pcav:1257",
+            "gloss": "greasy",
+            "sentence": "pcav:1259"
+          },
+          {
+            "deck": "pcav:1263",
+            "gloss": "mulukhiyah"
+          },
+          {
+            "deck": "pcav:1273",
+            "gloss": "carton"
+          },
+          {
+            "deck": "pcav:1281",
+            "gloss": "koshari"
+          },
+          {
+            "deck": "pcav:0809",
+            "gloss": "to cut in half"
+          },
+          {
+            "deck": "pcav:0799",
+            "gloss": "to microwave"
+          },
+          {
+            "deck": "pcav:1153",
+            "gloss": "blueberries"
+          },
+          {
+            "deck": "pcav:1108",
+            "gloss": "asparagus"
+          },
+          {
+            "deck": "pcav:1230",
+            "gloss": "pastrami"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:73",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 73,
+        "title": "Kings and courts",
+        "theme": "Countries and how they're run, protests, and crime",
+        "words": [
+          {
+            "deck": "pcav:2779",
+            "gloss": "to govern"
+          },
+          {
+            "deck": "pcav:2790",
+            "gloss": "republic"
+          },
+          {
+            "deck": "pcav:2793",
+            "gloss": "kingdom"
+          },
+          {
+            "deck": "pcav:2799",
+            "gloss": "emperor"
+          },
+          {
+            "deck": "pcav:2800",
+            "gloss": "empress"
+          },
+          {
+            "deck": "pcav:2801",
+            "gloss": "empire"
+          },
+          {
+            "deck": "pcav:2805",
+            "gloss": "voter"
+          },
+          {
+            "deck": "pcav:2815",
+            "gloss": "democracy"
+          },
+          {
+            "deck": "pcav:2816",
+            "gloss": "democratic"
+          },
+          {
+            "deck": "pcav:2819",
+            "gloss": "dictator"
+          },
+          {
+            "deck": "pcav:2823",
+            "gloss": "province, governorate"
+          },
+          {
+            "deck": "pcav:2824",
+            "gloss": "state"
+          },
+          {
+            "deck": "pcav:2826",
+            "gloss": "political"
+          },
+          {
+            "deck": "pcav:2829",
+            "gloss": "march"
+          },
+          {
+            "deck": "pcav:2830",
+            "gloss": "to protest"
+          },
+          {
+            "deck": "pcav:2831",
+            "gloss": "protester"
+          },
+          {
+            "deck": "pcav:2832",
+            "gloss": "revolution"
+          },
+          {
+            "deck": "pcav:2839",
+            "gloss": "to commit a crime"
+          },
+          {
+            "deck": "pcav:2845",
+            "gloss": "to break into a house"
+          },
+          {
+            "deck": "pcav:2848",
+            "gloss": "murder"
+          },
+          {
+            "deck": "pcav:2850",
+            "gloss": "murderer"
+          },
+          {
+            "deck": "pcav:2853",
+            "gloss": "to attack"
+          },
+          {
+            "deck": "pcav:2855",
+            "gloss": "vandalism"
+          },
+          {
+            "deck": "pcav:2879",
+            "gloss": "to be sentenced"
+          },
+          {
+            "deck": "pcav:2881",
+            "gloss": "in prison"
+          },
+          {
+            "deck": "pcav:2884",
+            "gloss": "to escape from prison"
+          },
+          {
+            "deck": "pcav:2906",
+            "gloss": "to tax"
+          },
+          {
+            "deck": "pcav:2907",
+            "gloss": "to pay taxes"
+          },
+          {
+            "deck": "pcav:2958",
+            "gloss": "barn, pen"
+          },
+          {
+            "deck": "pcav:2991",
+            "gloss": "harvest"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:74",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 74,
+        "title": "War and peace",
+        "theme": "War and peace, and the quarrels and feelings between people",
+        "words": [
+          {
+            "deck": "pcav:2996",
+            "gloss": "war"
+          },
+          {
+            "deck": "pcav:2997",
+            "gloss": "peace"
+          },
+          {
+            "deck": "pcav:2998",
+            "gloss": "to declare war on"
+          },
+          {
+            "deck": "pcav:3001",
+            "gloss": "army"
+          },
+          {
+            "deck": "pcav:3007",
+            "gloss": "battle"
+          },
+          {
+            "deck": "pcav:3008",
+            "gloss": "an attack"
+          },
+          {
+            "deck": "pcav:3010",
+            "gloss": "to defend"
+          },
+          {
+            "deck": "pcav:3012",
+            "gloss": "bomb"
+          },
+          {
+            "deck": "pcav:3015",
+            "gloss": "explosion"
+          },
+          {
+            "deck": "pcav:3018",
+            "gloss": "tank"
+          },
+          {
+            "deck": "pcav:3020",
+            "gloss": "occupation"
+          },
+          {
+            "deck": "pcav:3046",
+            "gloss": "a guess"
+          },
+          {
+            "deck": "pcav:3048",
+            "gloss": "prediction"
+          },
+          {
+            "deck": "pcav:3054",
+            "gloss": "stupidity"
+          },
+          {
+            "deck": "pcav:3058",
+            "gloss": "to feel good"
+          },
+          {
+            "deck": "pcav:3059",
+            "gloss": "to feel bad"
+          },
+          {
+            "deck": "pcav:3103",
+            "gloss": "harsh"
+          },
+          {
+            "deck": "pcav:3116",
+            "gloss": "cheerful"
+          },
+          {
+            "deck": "pcav:3131",
+            "gloss": "praise"
+          },
+          {
+            "deck": "pcav:3133",
+            "gloss": "criticism"
+          },
+          {
+            "deck": "pcav:3137",
+            "gloss": "to admire"
+          },
+          {
+            "deck": "pcav:3141",
+            "gloss": "agreement"
+          },
+          {
+            "deck": "pcav:3147",
+            "gloss": "to have a discussion"
+          },
+          {
+            "deck": "pcav:3158",
+            "gloss": "desire"
+          },
+          {
+            "deck": "pcav:3159",
+            "gloss": "intention"
+          },
+          {
+            "deck": "pcav:0175",
+            "gloss": "to break someone's heart"
+          },
+          {
+            "deck": "pcav:0201",
+            "gloss": "to remarry"
+          },
+          {
+            "deck": "pcav:0200",
+            "gloss": "divorced"
+          },
+          {
+            "deck": "pcav:0152",
+            "gloss": "adoption"
+          },
+          {
+            "deck": "pcav:0038",
+            "gloss": "in one's childhood"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:75",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 75,
+        "title": "Faith",
+        "theme": "Religions, belief and the words around prayer",
+        "words": [
+          {
+            "deck": "pcav:3174",
+            "gloss": "religious (of religion)"
+          },
+          {
+            "deck": "pcav:3175",
+            "gloss": "faith"
+          },
+          {
+            "deck": "pcav:3180",
+            "gloss": "religious (of a person)"
+          },
+          {
+            "deck": "pcav:3182",
+            "gloss": "ceremony, rite"
+          },
+          {
+            "deck": "pcav:3186",
+            "gloss": "soul"
+          },
+          {
+            "deck": "pcav:3187",
+            "gloss": "Heaven"
+          },
+          {
+            "deck": "pcav:3191",
+            "gloss": "prophet"
+          },
+          {
+            "deck": "pcav:3193",
+            "gloss": "angel"
+          },
+          {
+            "deck": "pcav:3194",
+            "gloss": "jinn"
+          },
+          {
+            "deck": "pcav:3195",
+            "gloss": "Hell"
+          },
+          {
+            "deck": "pcav:3196",
+            "gloss": "devil"
+          },
+          {
+            "deck": "pcav:3198",
+            "gloss": "sin"
+          },
+          {
+            "deck": "pcav:3200",
+            "gloss": "evil"
+          },
+          {
+            "deck": "pcav:3202",
+            "gloss": "superstition"
+          },
+          {
+            "deck": "pcav:3217",
+            "gloss": "Judaism"
+          },
+          {
+            "deck": "pcav:3222",
+            "gloss": "Hinduism"
+          },
+          {
+            "deck": "pcav:3220",
+            "gloss": "Buddhist"
+          },
+          {
+            "deck": "pcav:3224",
+            "gloss": "atheism"
+          },
+          {
+            "deck": "pcav:3225",
+            "gloss": "atheist"
+          },
+          {
+            "deck": "pcav:3229",
+            "gloss": "imam"
+          },
+          {
+            "deck": "pcav:3233",
+            "gloss": "to call to prayer"
+          },
+          {
+            "deck": "pcav:3235",
+            "gloss": "to wash before prayer"
+          },
+          {
+            "deck": "pcav:3247",
+            "gloss": "to recite the Quran"
+          },
+          {
+            "deck": "pcav:3248",
+            "gloss": "sura"
+          },
+          {
+            "deck": "pcav:3249",
+            "gloss": "verse (of a holy book)"
+          },
+          {
+            "deck": "pcav:3255",
+            "gloss": "priest"
+          },
+          {
+            "deck": "pcav:3257",
+            "gloss": "nun"
+          },
+          {
+            "deck": "pcav:3260",
+            "gloss": "sermon"
+          },
+          {
+            "deck": "pcav:3263",
+            "gloss": "choir"
+          },
+          {
+            "deck": "pcav:3267",
+            "gloss": "to baptize"
+          }
+        ]
+      }
     }
   ]
 }
