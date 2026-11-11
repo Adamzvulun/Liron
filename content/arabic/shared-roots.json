@@ -704,6 +704,426 @@
         "deck": "pcav:3190",
         "hebrew": "אלוה"
       }
+    },
+    {
+      "id": "kin:0096",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0096",
+        "hebrew": "אחות"
+      }
+    },
+    {
+      "id": "kin:0788",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0788",
+        "hebrew": "סכין"
+      }
+    },
+    {
+      "id": "kin:0810",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0810",
+        "hebrew": "טבח",
+        "note": "a cook"
+      }
+    },
+    {
+      "id": "kin:0998",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0998",
+        "hebrew": "מר"
+      }
+    },
+    {
+      "id": "kin:1214",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1214",
+        "hebrew": "טחן",
+        "note": "to grind"
+      }
+    },
+    {
+      "id": "kin:1171",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1171",
+        "hebrew": "לוז",
+        "note": "hazel"
+      }
+    },
+    {
+      "id": "kin:1833",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1833",
+        "hebrew": "ספינה"
+      }
+    },
+    {
+      "id": "kin:1903",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1903",
+        "hebrew": "גשר"
+      }
+    },
+    {
+      "id": "kin:0669",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0669",
+        "hebrew": "חותם",
+        "note": "a seal"
+      }
+    },
+    {
+      "id": "kin:2983",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:2983",
+        "hebrew": "חקלאות",
+        "note": "farming"
+      }
+    },
+    {
+      "id": "kin:4699",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:4699",
+        "hebrew": "שקל",
+        "note": "to weigh"
+      }
+    },
+    {
+      "id": "kin:3577",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3577",
+        "hebrew": "נהר"
+      }
+    },
+    {
+      "id": "kin:4685",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:4685",
+        "hebrew": "עמוק"
+      }
+    },
+    {
+      "id": "kin:3763",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3763",
+        "hebrew": "נמר"
+      }
+    },
+    {
+      "id": "kin:2796",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:2796",
+        "hebrew": "מלכה"
+      }
+    },
+    {
+      "id": "kin:2849",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:2849",
+        "hebrew": "קטל",
+        "note": "killing"
+      }
+    },
+    {
+      "id": "kin:3702",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3702",
+        "hebrew": "ברד"
+      }
+    },
+    {
+      "id": "kin:3715",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3715",
+        "hebrew": "ברק"
+      }
+    },
+    {
+      "id": "kin:3718",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3718",
+        "hebrew": "רעד",
+        "note": "trembling"
+      }
+    },
+    {
+      "id": "kin:0149",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0149",
+        "hebrew": "יתום"
+      }
+    },
+    {
+      "id": "kin:0204",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0204",
+        "hebrew": "אלמנה"
+      }
+    },
+    {
+      "id": "kin:3862",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3862",
+        "hebrew": "כרם",
+        "note": "vineyard"
+      }
+    },
+    {
+      "id": "kin:1993",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1993",
+        "hebrew": "קריה",
+        "note": "town"
+      }
+    },
+    {
+      "id": "kin:1991",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1991",
+        "hebrew": "מדינה",
+        "note": "country"
+      }
+    },
+    {
+      "id": "kin:0718",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0718",
+        "hebrew": "מפתח"
+      }
+    },
+    {
+      "id": "kin:3027",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3027",
+        "hebrew": "זכר"
+      }
+    },
+    {
+      "id": "kin:1067",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1067",
+        "hebrew": "חלב"
+      }
+    },
+    {
+      "id": "kin:3759",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3759",
+        "hebrew": "ארנב"
+      }
+    },
+    {
+      "id": "kin:3745",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3745",
+        "hebrew": "דוב"
+      }
+    },
+    {
+      "id": "kin:1156",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1156",
+        "hebrew": "תאנה"
+      }
+    },
+    {
+      "id": "kin:1157",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1157",
+        "hebrew": "ענב"
+      }
+    },
+    {
+      "id": "kin:2180",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:2180",
+        "hebrew": "שוק"
+      }
+    },
+    {
+      "id": "kin:0027",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0027",
+        "hebrew": "צעיר"
+      }
+    },
+    {
+      "id": "kin:3909",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3909",
+        "hebrew": "צעיר",
+        "note": "young"
+      }
+    },
+    {
+      "id": "kin:0499",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0499",
+        "hebrew": "קצר"
+      }
+    },
+    {
+      "id": "kin:0937",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0937",
+        "hebrew": "זרע"
+      }
+    },
+    {
+      "id": "kin:2961",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:2961",
+        "hebrew": "חלב"
+      }
+    },
+    {
+      "id": "kin:0939",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0939",
+        "hebrew": "חפר"
+      }
+    },
+    {
+      "id": "kin:0714",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0714",
+        "hebrew": "כיסא"
+      }
+    },
+    {
+      "id": "kin:0619",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0619",
+        "hebrew": "לבש"
+      }
+    },
+    {
+      "id": "kin:1535",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1535",
+        "hebrew": "דרש",
+        "note": "to seek"
+      }
+    },
+    {
+      "id": "kin:1828",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1828",
+        "hebrew": "רכב"
+      }
+    },
+    {
+      "id": "kin:1127",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:1127",
+        "hebrew": "זית"
+      }
+    },
+    {
+      "id": "kin:3818",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3818",
+        "hebrew": "דבורה",
+        "note": "bee"
+      }
+    },
+    {
+      "id": "kin:4598",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:4598",
+        "hebrew": "עמל",
+        "note": "toil"
+      }
     }
   ]
 }
