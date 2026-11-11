@@ -581,6 +581,22 @@
       }
     },
     {
+      "id": "grammar:since-until",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 34,
+        "title": "min and la-ɧádd: “since” and “until”",
+        "points": [
+          "min is since: ána 3āyiš fi ɣázza min ilʔalfēn w 3ášara, I’ve been living in Gaza since 2010.",
+          "The verb stays in the present, where English says I’ve been living. Hebrew does the same.",
+          "la-ɧádd is until, before a thing: la-ɧádd issā3a ɧadā3iš, until eleven o’clock.",
+          "Before a whole sentence, until is la-3índ ma: la-3índ ma -txarrájit, until I graduated."
+        ],
+        "examples": ["pcav:4263", "pcav:4266", "pcav:4443"]
+      }
+    },
+    {
       "id": "grammar:age",
       "subject": "arabic",
       "type": "grammar-card",
@@ -612,6 +628,21 @@
       }
     },
     {
+      "id": "grammar:hungry",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 38,
+        "title": "ja3ān, šab3ān: hungry and full",
+        "points": [
+          "Many words for how your body feels end in -ān: ja3ān, hungry; 3aʈšān, thirsty; šab3ān, full; ta3bān, tired. For a woman they end in -āna.",
+          "Each has a verb for getting that way: jā3, to get hungry; 3íʈiš, to get thirsty; šíbi3, to get full.",
+          "The past of that verb says how you are now: šbí3it, I’m full, word for word I got full. Hebrew does the same with שבעתי."
+        ],
+        "examples": ["pcav:0972", "pcav:4397", "pcav:0977", "pcav:0976", "pcav:4425"]
+      }
+    },
+    {
       "id": "grammar:lets",
       "subject": "arabic",
       "type": "grammar-card",
@@ -624,6 +655,21 @@
           "It comes from xálla, to let or allow: xallīna is word for word let us. It can stand alone: xallīna júwwa, let’s stay inside."
         ],
         "examples": ["pcav:4410", "pcav:2181", "pcav:4362", "pcav:4408", "pcav:4543"]
+      }
+    },
+    {
+      "id": "grammar:someone",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 45,
+        "title": "ɧáda, íši: “someone”, “something”",
+        "points": [
+          "ɧáda is someone and íši is something: fī ɧáda 3a -lbāb, someone is at the door; bíddi ākul íši ɧílu, I want to eat something sweet.",
+          "ayy before them makes any: ayy ɧáda, anyone; ayy íši, anything.",
+          "kull íši is everything (chapter 24). With not, íši means anything at all: mā fhímtiš íši, I didn’t understand a thing."
+        ],
+        "examples": ["pcav:4282", "pcav:4292", "pcav:4294", "pcav:4290", "pcav:4558"]
       }
     },
     {
