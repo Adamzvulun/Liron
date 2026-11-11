@@ -433,6 +433,54 @@
         ],
         "examples": ["pcav:4765", "pcav:4779", "pcav:1631", "pcav:0078"]
       }
+    },
+    {
+      "id": "grammar:questions",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 26,
+        "title": "Question words",
+        "points": [
+          "A question word usually comes first, and the rest stays in the same order as the answer: šū ísmak? What’s your name?",
+          "kam takes a singular word: kam wálad? How many children? gaddēš asks how much: gaddēš 3umrak? How old are you (how much is your age)?"
+        ],
+        "table": [
+          ["šū", "what"],
+          ["mīn", "who"],
+          ["wēn", "where"],
+          ["lēš", "why"],
+          ["kēf", "how"],
+          ["wagtēš", "when"],
+          ["gaddēš", "how much"],
+          ["kam", "how many"]
+        ],
+        "examples": ["pcav:0215", "pcav:4306", "pcav:0091", "pcav:0287"]
+      }
+    },
+    {
+      "id": "grammar:time",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 27,
+        "title": "Telling the time",
+        "points": [
+          "What time is it? is gaddēš issā3a? The answer is issā3a and the hour: issā3a talāta, it’s three.",
+          "Past the hour is w, “and”: talāta w rúbi3, a quarter past three. To the hour is ílla, “but”: árba3a ílla rúbi3, a quarter to four.",
+          "The twenty minutes is a third, tilt: talāta w tilt, twenty past three."
+        ],
+        "table": [
+          ["w xámsa", "five past"],
+          ["w 3ášara", "ten past"],
+          ["w rúbi3", "a quarter past"],
+          ["w tilt", "twenty past"],
+          ["w nuʂʂ", "half past"],
+          ["ílla tilt", "twenty to"],
+          ["ílla rúbi3", "a quarter to"]
+        ],
+        "examples": ["pcav:4224", "pcav:4230", "pcav:4236", "pcav:0883"]
+      }
     }
   ]
 }

@@ -436,7 +436,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Cards 5–25 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+- **Cards 5–27 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
 
 | Ch. | Card | The rule | Deck sentences |
 |---|---|---|---|
@@ -461,6 +461,8 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 23 | lámma and 3ašān | when; because, so that; la-ʔínn- | If I feel hungry… · I'm tired today because… |
 | 24 | kull | every (no il-); all (plural with il-) | I take the metro every day. · Add up the price of all the items… |
 | 25 | ɧāl- and bá3ɖ | -self with the endings; kēf ɧālak; each other | How are you? · Take care! · Are you two related? |
+| 26 | Question words | šū, mīn, wēn, lēš, kēf, wagtēš, gaddēš, kam; kam takes a singular | What's your name? · Where do you live? · How many children…? |
+| 27 | Telling the time | issā3a + the hour; w past, ílla to; rúbi3, tilt, nuʂʂ | What time is it? · A quarter past three · A quarter to four |
 
 - **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
 - **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
