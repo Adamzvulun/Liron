@@ -78,6 +78,25 @@ test.describe('the avatar in Your House (#28, #29)', () => {
       });
   });
 
+  test('a companion you own sits at your feet; the others say where they come from', async ({
+    page,
+  }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], null, [], { owned: ['sand-cat'] });
+    await page.goto('/house');
+    const row = page.getByRole('group', { name: 'Companion' });
+    await expect(row.getByRole('radio', { name: 'None' })).toBeChecked();
+    await expect(row.getByText('Fennec fox (locked)')).toBeVisible();
+    await row.locator('label', { hasText: 'Sand cat' }).click();
+    await expect(row.getByRole('radio', { name: 'Sand cat' })).toBeChecked();
+    await page.getByRole('button', { name: 'Save my look' }).click();
+    await expect
+      .poll(() => updates)
+      .toContainEqual({
+        avatar: expect.objectContaining({ gear: expect.objectContaining({ pet: 'sand-cat' }) }),
+      });
+  });
+
   test('a dye you own colors the tunic; others are locked (#49)', async ({ page }) => {
     const updates: unknown[] = [];
     await signedIn(page, updates, [], null, [], { owned: ['indigo-dye', 'coat'] });

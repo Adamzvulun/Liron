@@ -47,6 +47,16 @@ describe('avatar looks', () => {
     expect(parseLook(raw, new Set(['headset'])).gear).toEqual({ head: 'headset' });
   });
 
+  it('keeps a companion only if the player owns one, and paints it at their feet', () => {
+    const raw = { ...DEFAULT_LOOK, gear: { ...DEFAULT_LOOK.gear, pet: 'fennec' } };
+    expect(parseLook(raw).gear.pet).toBeUndefined();
+    const look = parseLook(raw, new Set(['fennec']));
+    expect(look.gear.pet).toBe('fennec');
+    const svg = paintAvatar(look, { idPrefix: 'p' });
+    expect(svg).not.toBe(paintAvatar(DEFAULT_LOOK, { idPrefix: 'p' }));
+    expect(svg).toMatch(/<g transform="translate\(160 300\) scale\(\.95\)">/);
+  });
+
   it("lists every earnable item in the catalogue, in the item's slot", () => {
     const pack = catalogue as {
       items: { id: string; data: { kind: string; slot?: string; milestone?: object } }[];

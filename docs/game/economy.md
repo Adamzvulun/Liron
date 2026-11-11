@@ -71,7 +71,7 @@ Separate from the daily-goal chest above, which pays at once. These wait on the 
 | Reaching a 7-day streak | Brass | 40–80 | 25%: 1 | 40% | 15% |
 | Reaching a 30- or 100-day streak | Jeweled | 80–150 | always: 1–2 | 60% | 40% |
 
-- **Gear** is one you don't own yet, from all 26 earnable pieces: the 4 milestone items and the Market's 22 wares (#49, and six more on 2026-11-11). Rank gear never comes from a chest. If you own them all, you get its price in gold instead.
+- **Gear** is one you don't own yet, from all 30 earnable pieces: the 4 milestone items and the Market's 26 wares (#49; six more and four companions on 2026-11-11). Rank gear never comes from a chest. If you own them all, you get its price in gold instead.
 - **A shield** when you already hold 2 becomes its price, 120 gold.
 - A shielded day doesn't count toward a streak chest (ADR 0034).
 
