@@ -22,7 +22,7 @@ import {
   BANNER,
   GATE,
   lampSpots,
-  paintTower,
+  paintedTower,
   SCROLL,
   TOWER_STAGE,
   type Box,
@@ -38,9 +38,8 @@ import './hall.css';
 export type HallDoor =
   'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words' | 'watch' | 'far' | 'radio';
 
-// The room never changes, so it's painted once per page load.
-let painted: ReturnType<typeof paintTower> | undefined;
-const room = () => (painted ??= paintTower());
+// The room never changes, so it's painted once per page load (paintedTower).
+const room = paintedTower;
 
 /** Below this scale the writing on the walls is too small to read; it moves below the room. */
 const READABLE_SCALE = 0.62;

@@ -6,7 +6,9 @@ import { useAuth } from './auth/useAuth.ts';
 import { Wardrobe } from './avatar/Wardrobe.tsx';
 import { AchievementWall } from './achievements/AchievementWall.tsx';
 import { City } from './city/City.tsx';
+import { HallBackdrop } from './city/HallBackdrop.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
+import { HOUSE_STAGE, paintHouse } from './city/paintHouse.ts';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
 import { Link } from './Link.tsx';
 import { usePath } from './router.ts';
@@ -150,6 +152,7 @@ function Lobby({ player }: { player: Player }) {
               onBuy={player.buy}
             />
           )}
+          {place === 'house' && <HallBackdrop id="house" {...HOUSE_STAGE} paint={paintHouse} />}
           {place === 'house' && state.profile && (
             <>
               <Wardrobe
