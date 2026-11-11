@@ -156,6 +156,9 @@ export interface WordQuestion {
 /** The Glicko skill a question rates: recall is reading the Arabic choices. */
 export const skillOf = (kind: WordQuestionKind) => (kind === 'listen' ? 'listen' : 'read');
 
+/** A word's Arabic without its vowel marks, shadda or tatweel, to tell which words look alike. */
+const bareArabic = (arabic: string) => arabic.replace(/[\u064b-\u0652\u0670\u0640]/g, '');
+
 /** One question a word, taking turns: listen, read, recall. Wrong choices come from the pool. */
 export function wordQuestions(
   words: readonly CoreWord[],
@@ -176,9 +179,16 @@ export function wordQuestions(
       pool.filter((w) => w.chapter !== word.chapter),
       rand,
     );
-    // A second word for the same thing (two words for *belt*) is never a wrong choice.
+    // A second word for the same thing (two words for *belt*) is never a wrong choice, and
+    // neither is a word written the same way with another meaning (*dry* and *stubborn*): when
+    // you hear or read the Arabic, its meaning would be right too.
+    const bare = bareArabic(word.arabic);
     const others = [
-      ...new Set([...near, ...far].filter((w) => w.meaning !== word.meaning).map(field)),
+      ...new Set(
+        [...near, ...far]
+          .filter((w) => w.meaning !== word.meaning && bareArabic(w.arabic) !== bare)
+          .map(field),
+      ),
     ].filter((x) => x && x !== answer);
     return {
       kind,
