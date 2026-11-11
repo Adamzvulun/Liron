@@ -2,10 +2,11 @@ import { describe, expect, it } from 'vitest';
 import type { Item } from '../../../core/content/schema.ts';
 import { seeded } from '../lesson/questions.ts';
 import { applyWordSession, NEW_PROGRESS, parseProgress, wordsOpen } from '../progress.ts';
+import { OWN_SENTENCES } from './ownSentences.ts';
 import {
   coreWordsFrom,
+  loadOwnSentences,
   NEW_PER_SESSION,
-  OWN_SENTENCES,
   pickSession,
   SESSION_WORDS,
   WORD_CHAPTERS,
@@ -33,7 +34,7 @@ const deck = (): Item[] =>
 
 describe('the word path (#160)', () => {
   it('builds every chapter from the deck, with our gloss and the sentence when there is one', () => {
-    const chapters = coreWordsFrom(deck());
+    const chapters = coreWordsFrom(deck(), OWN_SENTENCES);
     expect(chapters.map((c) => c.length)).toEqual(WORD_CHAPTERS.map(() => 30));
     const first = chapters[0]?.[0];
     expect(first).toMatchObject({ deck: 'pcav:4751', itemId: 'word:pcav:4751', meaning: 'yes' });
@@ -44,7 +45,10 @@ describe('the word path (#160)', () => {
   });
 
   it('leaves out words the deck lacks', () => {
-    const chapters = coreWordsFrom(deck().filter((i) => i.id !== 'pcav:4751'));
+    const chapters = coreWordsFrom(
+      deck().filter((i) => i.id !== 'pcav:4751'),
+      OWN_SENTENCES,
+    );
     expect(chapters[0]).toHaveLength(29);
   });
 
@@ -70,7 +74,7 @@ describe('our own sentences (#164)', () => {
   });
 
   it('give the word its sentence, text only, and leave deck sentences alone', () => {
-    const all = coreWordsFrom(deck()).flat();
+    const all = coreWordsFrom(deck(), OWN_SENTENCES).flat();
     const yes = all.find((w) => w.deck === 'pcav:4751');
     expect(yes?.written).toBeUndefined();
     const welcome = all.find((w) => w.deck === 'pcav:4758');
@@ -79,10 +83,19 @@ describe('our own sentences (#164)', () => {
     expect(welcome?.written?.hebrew).toMatch(/[א-ת]/);
     expect(all.filter((w) => w.written)).toHaveLength(OWN_SENTENCES.size);
   });
+
+  it('load on demand, and without them no word is written (#137)', async () => {
+    expect(await loadOwnSentences()).toBe(OWN_SENTENCES);
+    expect(
+      coreWordsFrom(deck())
+        .flat()
+        .filter((w) => w.written),
+    ).toHaveLength(0);
+  });
 });
 
 describe('a word session', () => {
-  const chapters = coreWordsFrom(deck());
+  const chapters = coreWordsFrom(deck(), OWN_SENTENCES);
   const ids = (ws: readonly CoreWord[]) => ws.map((w) => w.deck);
 
   it('starts with the chapter’s first 5 words, in teaching order', () => {
