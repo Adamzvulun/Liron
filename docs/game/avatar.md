@@ -48,6 +48,8 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 | Hand | Signal flags, Map scroll | Brass signal lamp | |
 | Back | Bedroll | Oud | Guild banner |
 
+**Rank gear (#176, ADR 0035):** six pieces only a rank gives, never sold or found in a chest: Listener's ear-cups, Keyer's brass key, Operator's coat, Night-watch lantern, Sash of the house and Traveler's keffiyeh. See [ranks and achievements](ranks-and-achievements.md#4-rank-gear).
+
 **Tunic dyes (#49):** crimson, saffron, indigo and forest, 60 gold each. They're color items, not gear: an owned dye recolors the traveler's tunic, picked under "Tunic dye" in the wardrobe. Without one the tunic stays teal.
 
 **The locked items are earned (#48, ADR 0033).** The database gives each one when its milestone is met: the headset at level 5 in the Signal Tower, the cloak on a 7-day streak, the boots after 10 daily contracts, the breeches when a first-chapter trial is passed. Chests can also give them, and the Market sells them. Adam may rename them.
