@@ -54,4 +54,27 @@ test.describe('Sending at the telegraph table (#35, #36, #37)', () => {
     await page.waitForTimeout(400);
     await expect(page.locator('.send__read-text')).toHaveText('M');
   });
+
+  test('with eight letters learned you can key whole words, and see how many were read', async ({
+    page,
+  }, info) => {
+    test.skip(info.project.name === 'phone', 'The space bar is the desktop key');
+    const eight = { unlocked: 8, met: [...'KMURESNA'], trials: [1], sending: { drills: 3 } };
+    await signedIn(page, [], [], eight);
+    await page.goto('/signal-tower?open=sending');
+    await page.getByRole('button', { name: 'Key 5 words' }).click();
+    const label = (await page.locator('.send__target').getAttribute('aria-label')) ?? '';
+    expect(label.replace('Key: ', '').split(' ')).toHaveLength(5);
+    await key(page, '-.-');
+    await page.waitForTimeout(400);
+    await page.getByRole('button', { name: 'Done' }).click();
+    await expect(page.getByText(/^0 of 5 words · \d+ of \d+ letters read right/)).toBeVisible();
+  });
+
+  test('a beginner is not offered words yet', async ({ page }) => {
+    await signedIn(page, [], [], { unlocked: 2, met: ['K', 'M'], trials: [] });
+    await page.goto('/signal-tower?open=sending');
+    await expect(page.getByRole('button', { name: 'Sit at the key' })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Key \d words/ })).toHaveCount(0);
+  });
 });

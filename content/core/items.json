@@ -241,6 +241,116 @@
       }
     },
     {
+      "id": "kufi",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "shawl",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "gold-sirwal",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "legs",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "slippers",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "feet",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "falcon",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "waterskin",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "sand-cat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "pet",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "hedgehog",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "pet",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "fennec",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "pet",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "camel-calf",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "pet",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
       "id": "crimson-dye",
       "subject": "core",
       "type": "item",
@@ -272,6 +382,26 @@
     },
     {
       "id": "forest-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "rose-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "charcoal-dye",
       "subject": "core",
       "type": "item",
       "data": {

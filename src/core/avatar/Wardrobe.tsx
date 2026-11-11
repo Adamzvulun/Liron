@@ -8,6 +8,7 @@ import {
   GEAR,
   HAIR_COLOURS,
   HAIRS,
+  SCARVES,
   SKINS,
   SLOTS,
   canWear,
@@ -188,6 +189,27 @@ export function Wardrobe({
             </Option>
           ))}
         </Choice>
+        <Choice label="Headscarf">
+          <Option
+            group="scarf"
+            checked={!look.scarf}
+            onChange={() => choose({ ...look, scarf: undefined })}
+            label="None"
+          >
+            <Avatar look={{ ...look, scarf: undefined }} view="portrait" width={56} height={56} />
+          </Option>
+          {SCARVES.map((c) => (
+            <Option
+              key={c.id}
+              group="scarf"
+              checked={look.scarf === c.id}
+              onChange={() => choose({ ...look, scarf: c.id })}
+              label={c.label}
+            >
+              <Avatar look={{ ...look, scarf: c.id }} view="portrait" width={56} height={56} />
+            </Option>
+          ))}
+        </Choice>
 
         <h2 className="wardrobe__heading">Gear</h2>
         {SLOTS.map((slot) => {
@@ -198,7 +220,7 @@ export function Wardrobe({
                 group={`gear-${slot.id}`}
                 checked={!look.gear[slot.id]}
                 onChange={() => wear(slot.id)}
-                label="Plain"
+                label={slot.id === 'pet' ? 'None' : 'Plain'}
                 wide
               />
               {items.map((item) =>

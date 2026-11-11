@@ -1,4 +1,12 @@
-import { DYES, HAIR_COLOURS, SKINS, type Look, type SlotId } from './looks.ts';
+import {
+  DYES,
+  HAIR_COLOURS,
+  SCARVES,
+  SKINS,
+  type Look,
+  type ScarfId,
+  type SlotId,
+} from './looks.ts';
 
 // Paints the paper-doll avatar (#28) as SVG markup, in the city's style (ADR 0006 amendment 3):
 // every surface a gradient lit from the upper left, ink outlines, a shadow cast to the lower
@@ -46,6 +54,8 @@ function gradients(prefix: string) {
   };
 }
 
+type Grads = ReturnType<typeof gradients>;
+
 const WIDTH = { slim: 30, average: 36, broad: 44 } as const;
 
 /** Gear ids this painter has art for. Locked items are drawn too, so rewards can be shown. */
@@ -59,6 +69,16 @@ export const PAINTED_GEAR = [
   'wrap',
   'headset',
   'tarboosh',
+  'kufi',
+  'shawl',
+  'gold-sirwal',
+  'slippers',
+  'falcon',
+  'waterskin',
+  'sand-cat',
+  'hedgehog',
+  'fennec',
+  'camel-calf',
   'sunhat',
   'turban',
   'vest',
@@ -175,7 +195,7 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   }
 
   // ---- back hair (falls behind the shoulders)
-  if (look.hair === 'long') {
+  if (look.hair === 'long' && !look.scarf) {
     back += `<path d="M${cx - 40} 84 Q${cx - 50} 150 ${cx - 36} 166 Q${cx} 174 ${cx + 36} 166 Q${cx + 50} 150 ${cx + 40} 84 Z" fill="${hair}" ${OUT()}/>`;
   }
 
@@ -189,7 +209,9 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
         ? ['#E6D3AE', '#8A7A52']
         : legs === 'silks'
           ? ['#6A7AC8', '#1E2660']
-          : ['#5A6A8A', '#26324A'];
+          : legs === 'gold-sirwal'
+            ? ['#D9605A', '#5E1418']
+            : ['#5A6A8A', '#26324A'];
   const legFill = g.lin([
     [0, legLight],
     [1, legDark],
@@ -199,10 +221,13 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     const x0 = cx + side * 3;
     const x1 = cx + side * (legW + 4);
     const [l, r] = side < 0 ? [x1, x0] : [x0, x1];
-    if (legs === 'sirwal') {
-      // Baggy, gathered at the ankle.
+    if (legs === 'sirwal' || legs === 'gold-sirwal') {
+      // Baggy, gathered at the ankle. The gold-stitched pair is crimson, with gold down the side.
+      const gold = legs === 'gold-sirwal';
       body += `<path d="M${x0} 212 L${x1} 212 Q${x1 + side * 14} 252 ${x1 - side * 3} 282 L${x0 + side * 2} 282 Q${x0 - side * 4} 250 ${x0} 212 Z" fill="${legFill}" ${OUT(3)}/>`;
-      body += `<path d="M${x1 - side * 4} 280 L${x0 + side * 3} 280 L${x0 + side * 3} 290 L${x1 - side * 4} 290 Z" fill="#8A7A52" ${OUT(2.6)}/>`;
+      if (gold)
+        body += `<path d="M${x1 - side * 2} 218 Q${x1 + side * 8} 252 ${x1 - side * 4} 278" stroke="#FFD36B" stroke-width="3.2" fill="none" stroke-dasharray="1 5" stroke-linecap="round"/>`;
+      body += `<path d="M${x1 - side * 4} 280 L${x0 + side * 3} 280 L${x0 + side * 3} 290 L${x1 - side * 4} 290 Z" fill="${gold ? '#E8A93A' : '#8A7A52'}" ${OUT(2.6)}/>`;
       continue;
     }
     body += `<path d="M${l} 212 L${r} 212 L${r - side * 1} 290 Q${(l + r) / 2} 293 ${l + side * 1} 290 Z" fill="${legFill}" ${OUT(3)}/>`;
@@ -216,7 +241,21 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   const boots = wear('feet') === 'boots';
   const riding = wear('feet') === 'ridingboots';
   const sandals = wear('feet') === 'sandals';
+  const slippers = wear('feet') === 'slippers';
   for (const side of [-1, 1]) {
+    if (slippers) {
+      // Gilded slippers, their toes pointed outward and curled up.
+      const inner = cx + side * 2;
+      const outer = cx + side * (legW + 8);
+      body += `<path d="M${inner} 286 L${outer - side * 2} 286 Q${outer + side * 6} ${fy - 2} ${outer + side * 16} ${fy - 12} Q${outer + side * 14} ${fy + 2} ${outer} ${fy} L${inner} ${fy} Z" fill="${g.lin(
+        [
+          [0, '#FFE39A'],
+          [1, '#B07A2A'],
+        ],
+      )}" ${OUT(2.6)}/>`;
+      body += `<circle cx="${(inner + outer) / 2}" cy="292" r="3" fill="#C8302A" stroke="${INK}" stroke-width="1.6"/>`;
+      continue;
+    }
     if (sandals || riding) {
       const inner = cx + side * 2;
       const outer = cx + side * (legW + 10);
@@ -314,9 +353,31 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       [0, '#FFE39A'],
       [1, '#B07A2A'],
     ])}" stroke="${INK}" stroke-width="2.4"/>`;
-  } else if (!top || top === 'vest' || top === 'house-sash') {
+  } else if (!top || top === 'vest' || top === 'house-sash' || top === 'shawl') {
     body += `<path d="M${cx - 10} 129 Q${cx} 142 ${cx + 10} 129" fill="none" stroke="#A8916A" stroke-width="2.6"/>`;
     body += `<path d="M${cx - sh + 8} 212 Q${cx} 216 ${cx + sh - 8} 212" stroke="#A8916A" stroke-width="2.4" fill="none" opacity=".8"/>`;
+  }
+
+  if (top === 'shawl') {
+    // A striped wool shawl over the linen shirt: round the neck and down the front, fringed.
+    for (const side of [-1, 1]) {
+      const d = `M${cx + side * 8} 127 Q${cx + side * (sh + 6)} 132 ${cx + side * (sh + 2)} 150 L${cx + side * (sh - 6)} 204 L${cx + side * (sh - 24)} 204 L${cx + side * 13} 150 Z`;
+      body += `<path d="${d}" fill="${g.lin(
+        [
+          [0, '#E8A05A'],
+          [1, '#8A4A1E'],
+        ],
+        0,
+        1,
+      )}" ${OUT(3)}/>`;
+      for (const y of [168, 180])
+        body += `<path d="M${cx + side * 15} ${y} L${cx + side * (sh - 1)} ${y + 2}" stroke="#5E1A12" stroke-width="3"/>`;
+      body += `<path d="M${cx + side * 16} 174 L${cx + side * sh} 176" stroke="#FFD36B" stroke-width="2"/>`;
+      for (let k = 0; k < 5; k++) {
+        const x = cx + side * (sh - 23 + k * 4);
+        body += `<path d="M${x} 204 V213" stroke="#8A4A1E" stroke-width="2" stroke-linecap="round"/>`;
+      }
+    }
   }
 
   if (top === 'house-sash') {
@@ -347,6 +408,21 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       1,
       1,
     )}" ${OUT(3)}/><path d="M${cx + sh - 11} 204 Q${cx + sh + 4} 210 ${cx + sh + 17} 204" stroke="${INK}" stroke-width="2.2" fill="none"/>`;
+  }
+  if (wear('back') === 'waterskin') {
+    // A goatskin water bag on a cord over the left shoulder, at the right hip (the viewer's left).
+    const [bx, by] = [cx - sh - 4, 246];
+    const cord = `M${cx + sh - 6} 138 L${bx + 4} ${by - 26}`;
+    body += `<path d="${cord}" stroke="${INK}" stroke-width="7" stroke-linecap="round"/><path d="${cord}" stroke="#C9A06A" stroke-width="3.4" stroke-linecap="round"/>`;
+    body += `<path d="M${bx + 6} ${by - 18} Q${bx + 24} ${by - 4} ${bx + 18} ${by + 16} Q${bx} ${by + 30} ${bx - 16} ${by + 14} Q${bx - 20} ${by - 6} ${bx - 2} ${by - 16} Z" fill="${g.rad(
+      [
+        [0, '#C9905A'],
+        [0.6, '#8A5530'],
+        [1, '#4A2A12'],
+      ],
+    )}" ${OUT(3)}/>`;
+    body += `<path d="M${bx - 2} ${by - 16} L${bx + 4} ${by - 26} L${bx + 10} ${by - 16}" fill="#5A3418" stroke="${INK}" stroke-width="2.4"/><circle cx="${bx + 4}" cy="${by - 27}" r="3.5" fill="#E8A93A" stroke="${INK}" stroke-width="1.8"/>`;
+    body += `<path d="M${bx - 10} ${by + 2} Q${bx} ${by + 8} ${bx + 12} ${by}" stroke="${INK}" stroke-width="1.8" fill="none" opacity=".5"/>`;
   }
   if (wear('back') === 'cloak') {
     body += `<path d="M${cx - 14} 130 Q${cx} 140 ${cx + 14} 130" stroke="${INK}" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M${cx - 14} 130 Q${cx} 140 ${cx + 14} 130" stroke="#8A4C9A" stroke-width="4" fill="none"/><circle cx="${cx}" cy="138" r="5" fill="#FFD36B" stroke="${INK}" stroke-width="2"/>`;
@@ -455,6 +531,35 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     body += `<rect x="${hx - 15}" y="${hy + 56}" width="30" height="8" rx="2" fill="#3A3A44" ${OUT(2.4)}/>`;
   }
 
+  if (wear('hand') === 'falcon') {
+    // A falconer's leather glove on the left hand, and the falcon perched on it.
+    const [hx, hy] = handR;
+    body += `<g transform="translate(${hx} ${hy}) scale(1.3) translate(${-hx} ${-hy})">`;
+    body += `<path d="M${hx - 12} ${hy - 4} Q${hx - 16} ${hy - 22} ${hx - 4} ${hy - 26} L${hx + 10} ${hy - 20} Q${hx + 14} ${hy - 6} ${hx + 10} ${hy + 4} Z" fill="#8A5530" ${OUT(2.6)}/>`;
+    body += `<circle cx="${hx}" cy="${hy}" r="9" fill="#A8642E" ${OUT(2.4)}/>`;
+    const [fx, fyy] = [hx + 2, hy - 34];
+    // tail, body, wing, head, beak, eye, talons
+    body += `<path d="M${fx - 6} ${fyy + 18} L${fx - 10} ${fyy + 40} L${fx + 2} ${fyy + 40} L${fx + 4} ${fyy + 18} Z" fill="#5A3A22" ${OUT(2.4)}/>`;
+    body += `<ellipse cx="${fx}" cy="${fyy}" rx="13" ry="22" fill="${g.lin(
+      [
+        [0, '#E8D8B8'],
+        [0.5, '#B89A6A'],
+        [1, '#6A4A2A'],
+      ],
+      1,
+      0,
+    )}" ${OUT(2.8)}/>`;
+    for (const dy of [-6, 2, 10])
+      body += `<path d="M${fx - 4} ${fyy + dy} q2 3 4 0 q2 3 4 0" stroke="#5A3A22" stroke-width="1.6" fill="none"/>`;
+    body += `<path d="M${fx - 12} ${fyy - 8} Q${fx - 22} ${fyy + 10} ${fx - 10} ${fyy + 28} Q${fx - 4} ${fyy + 8} ${fx - 12} ${fyy - 8} Z" fill="#6A4A2A" ${OUT(2.4)}/>`;
+    body += `<circle cx="${fx + 2}" cy="${fyy - 26}" r="10" fill="#6A5A4A" ${OUT(2.6)}/><path d="M${fx - 2} ${fyy - 20} Q${fx + 4} ${fyy - 14} ${fx + 8} ${fyy - 22}" fill="#E8D8B8"/>`;
+    body += `<path d="M${fx + 10} ${fyy - 29} L${fx + 18} ${fyy - 25} L${fx + 10} ${fyy - 21} Z" fill="#E8A93A" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>`;
+    body += `<circle cx="${fx + 5}" cy="${fyy - 28}" r="2.6" fill="${INK}"/><circle cx="${fx + 5.6}" cy="${fyy - 28.8}" r=".9" fill="#FFF"/>`;
+    for (const dx of [-5, 4])
+      body += `<path d="M${fx + dx} ${fyy + 20} V${fyy + 26}" stroke="#E8A93A" stroke-width="3" stroke-linecap="round"/>`;
+    body += `</g>`;
+  }
+
   // ---- head
   front += `<ellipse cx="${cx - 35}" cy="92" rx="6" ry="9" fill="${skinFlat}" ${OUT(3)}/><ellipse cx="${cx + 35}" cy="92" rx="6" ry="9" fill="${skinFlat}" ${OUT(3)}/>`;
   front += `<ellipse cx="${cx}" cy="86" rx="35" ry="38" fill="${skin}" ${OUT()}/>`;
@@ -471,7 +576,8 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   const wrap = wear('head') === 'wrap';
   const turban = wear('head') === 'turban';
   const keffiyeh = wear('head') === 'keffiyeh';
-  if (!wrap && !turban && !keffiyeh) front += hairFront(look.hair, cx, hair, hairT.light);
+  if (look.scarf) front += headscarf(look.scarf, cx, g);
+  else if (!wrap && !turban && !keffiyeh) front += hairFront(look.hair, cx, hair, hairT.light);
 
   // ---- head gear
   if (wrap) {
@@ -548,6 +654,19 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       0.4,
     )}" ${OUT()}/>`;
     front += `<path d="M${cx} 21 Q${cx + 22} 22 ${cx + 26} 42" stroke="${INK}" stroke-width="3" fill="none"/><path d="M${cx + 22} 40 L${cx + 30} 40 L${cx + 32} 58 L${cx + 20} 58 Z" fill="${INK}"/>`;
+  } else if (wear('head') === 'kufi') {
+    // A round cap on the crown, with an embroidered band.
+    front += `<path d="M${cx - 31} 64 Q${cx - 33} 38 ${cx} 36 Q${cx + 33} 38 ${cx + 31} 64 Q${cx} 56 ${cx - 31} 64 Z" fill="${g.lin(
+      [
+        [0, '#FFFFFF'],
+        [0.6, '#F2E6CC'],
+        [1, '#A8916A'],
+      ],
+      1,
+      1,
+    )}" ${OUT()}/>`;
+    front += `<path d="M${cx - 30} 60 Q${cx} 50 ${cx + 30} 60" stroke="#3E7A4A" stroke-width="6" fill="none"/><path d="M${cx - 28} 59 Q${cx} 49 ${cx + 28} 59" stroke="#FFD36B" stroke-width="2.4" fill="none" stroke-dasharray="3 4"/>`;
+    front += `<path d="M${cx - 18} 44 Q${cx} 38 ${cx + 18} 44" stroke="#A8916A" stroke-width="1.8" fill="none" stroke-dasharray="2 4"/>`;
   } else if (wear('head') === 'sunhat') {
     const straw = g.lin(
       [
@@ -563,7 +682,91 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     front += `<path d="M${cx - 30} 50 Q${cx} 56 ${cx + 30} 50" stroke="#C8553D" stroke-width="6" fill="none"/>`;
   }
 
+  // ---- the companion, sitting at your feet (the viewer's right)
+  const pet = wear('pet');
+  // It stays inside the 200-wide box: the camel calf, the widest, sits a little further in.
+  const petX = cx + (pet === 'camel-calf' ? 54 : 60);
+  if (pet) front += `<g transform="translate(${petX} ${fy}) scale(.95)">${companion(pet, g)}</g>`;
+
   return `<defs>${g.defs.join('')}</defs>${back}${body}${front}`;
+}
+
+/** A companion, drawn with its feet on (0, 0); it fits in about 60 by 64. */
+function companion(id: string, g: Grads): string {
+  const fur = (light: string, dark: string) =>
+    g.lin(
+      [
+        [0, light],
+        [1, dark],
+      ],
+      1,
+      1,
+    );
+  const eye = (x: number, y: number) =>
+    `<circle cx="${x}" cy="${y}" r="2.6" fill="${INK}"/><circle cx="${x + 0.8}" cy="${y - 0.8}" r=".9" fill="#FFF"/>`;
+  switch (id) {
+    case 'sand-cat': {
+      // A sand cat sitting up: broad head, low ears, a ringed tail curled round the front.
+      const f = fur('#F2D9A8', '#A8804A');
+      return (
+        `<path d="M-16 0 Q-18 -26 0 -30 Q18 -26 16 0 Z" fill="${f}" ${OUT(2.6)}/>` +
+        `<path d="M14 -4 Q30 -6 26 -20" stroke="${INK}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M14 -4 Q30 -6 26 -20" stroke="#D9B47A" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M27 -12 l-5 1 M25 -18 l-5 -1" stroke="#5A3A1E" stroke-width="2"/>` +
+        `<path d="M-15 -40 L-20 -54 L-6 -48 Z M15 -40 L20 -54 L6 -48 Z" fill="${f}" ${OUT(2.4)}/><path d="M-15 -44 L-17 -51 L-10 -48 Z M15 -44 L17 -51 L10 -48 Z" fill="#E89A8A"/>` +
+        `<ellipse cx="0" cy="-38" rx="16" ry="13" fill="${f}" ${OUT(2.6)}/>` +
+        eye(-6, -40) +
+        eye(6, -40) +
+        `<path d="M-2 -34 L2 -34 L0 -31 Z" fill="#C86A5A"/><path d="M-9 -33 L-18 -34 M-9 -31 L-18 -29 M9 -33 L18 -34 M9 -31 L18 -29" stroke="${INK}" stroke-width="1" opacity=".6"/>` +
+        `<path d="M-8 0 V-8 M8 0 V-8" stroke="${INK}" stroke-width="2" opacity=".5"/>`
+      );
+    }
+    case 'hedgehog': {
+      // A desert hedgehog: a spiny dome, pale face and big ears, looking to the viewer's right.
+      let spines = '';
+      for (let k = 0; k < 9; k++) {
+        const t = Math.PI * (0.08 + (k / 8) * 0.8);
+        const [x, y] = [-4 - Math.cos(t) * 18, -10 - Math.sin(t) * 13];
+        spines += `<path d="M${x.toFixed(1)} ${y.toFixed(1)} l${(-Math.cos(t) * 7).toFixed(1)} ${(-Math.sin(t) * 7).toFixed(1)}" stroke="${INK}" stroke-width="2.4" stroke-linecap="round"/>`;
+      }
+      return (
+        spines +
+        `<path d="M-24 0 Q-26 -26 -4 -26 Q12 -26 14 -10 L10 0 Z" fill="${fur('#8A6A4A', '#3A2A1A')}" ${OUT(2.6)}/>` +
+        `<path d="M-18 -8 l4 -6 l4 6 l4 -6 l4 6 l4 -6 l4 6" stroke="#C9A87A" stroke-width="1.6" fill="none" opacity=".7"/>` +
+        `<ellipse cx="4" cy="-22" rx="5" ry="7" fill="#E8C9A0" ${OUT(2)}/>` +
+        `<path d="M6 -2 Q4 -18 14 -16 Q24 -12 26 -6 Q20 0 6 -2 Z" fill="#F2DDB8" ${OUT(2.4)}/>` +
+        eye(15, -11) +
+        `<circle cx="26" cy="-6" r="2.6" fill="${INK}"/>`
+      );
+    }
+    case 'fennec': {
+      // A fennec fox sitting up: cream fur, huge ears, a black-tipped brush of a tail.
+      const f = fur('#FBEBCB', '#C9A06A');
+      return (
+        `<path d="M10 -2 Q34 -2 30 -20" stroke="${INK}" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M10 -2 Q34 -2 30 -20" stroke="#E8CC98" stroke-width="8.5" fill="none" stroke-linecap="round"/><circle cx="30" cy="-21" r="5" fill="${INK}"/>` +
+        `<path d="M-13 0 Q-15 -24 0 -28 Q15 -24 13 0 Z" fill="${f}" ${OUT(2.6)}/>` +
+        `<path d="M-4 -26 Q0 -10 4 -26" fill="#FFF8EA"/>` +
+        `<path d="M-8 -40 L-24 -66 L-2 -48 Z M8 -40 L24 -66 L2 -48 Z" fill="${f}" ${OUT(2.4)}/><path d="M-9 -44 L-20 -60 L-5 -48 Z M9 -44 L20 -60 L5 -48 Z" fill="#F2B8A8"/>` +
+        `<path d="M-12 -40 Q-12 -50 0 -50 Q12 -50 12 -40 Q8 -30 0 -27 Q-8 -30 -12 -40 Z" fill="${f}" ${OUT(2.6)}/>` +
+        eye(-5, -41) +
+        eye(5, -41) +
+        `<circle cx="0" cy="-30" r="2.4" fill="${INK}"/>`
+      );
+    }
+    case 'camel-calf': {
+      // A young camel standing side-on, facing the viewer's right, with a striped saddle blanket.
+      const f = fur('#E8C08A', '#9A6A3A');
+      return (
+        `<path d="M-14 -22 L-16 0 M-6 -22 L-6 0 M8 -22 L8 0 M16 -22 L18 0" stroke="${INK}" stroke-width="7" stroke-linecap="round"/><path d="M-14 -22 L-16 0 M-6 -22 L-6 0 M8 -22 L8 0 M16 -22 L18 0" stroke="#C99A62" stroke-width="3.5" stroke-linecap="round"/>` +
+        `<path d="M-22 -30 Q-22 -42 -8 -44 Q0 -58 10 -44 Q22 -42 22 -30 Q22 -18 0 -18 Q-22 -18 -22 -30 Z" fill="${f}" ${OUT(2.6)}/>` +
+        `<path d="M-22 -32 Q-30 -30 -28 -22" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"/>` +
+        `<path d="M-6 -44 Q2 -50 10 -44 L10 -32 L-6 -32 Z" fill="#C8302A" stroke="${INK}" stroke-width="2"/><path d="M-6 -38 H10" stroke="#FFD36B" stroke-width="2.4"/>` +
+        `<path d="M16 -36 Q26 -40 24 -54 L32 -56 Q32 -40 24 -30 Z" fill="${f}" ${OUT(2.4)}/>` +
+        `<path d="M22 -56 Q24 -64 34 -62 Q42 -60 40 -54 Q36 -50 26 -52 Z" fill="${f}" ${OUT(2.4)}/><path d="M26 -61 L24 -66" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>` +
+        eye(31, -58)
+      );
+    }
+    default:
+      return '';
+  }
 }
 
 function face(id: Look['face'], cx: number): string {
@@ -614,6 +817,28 @@ function face(id: Look['face'], cx: number): string {
         cheeks
       );
   }
+}
+
+/** A headscarf: cloth around the face, over the hair and ears, falling to the shoulders. */
+function headscarf(id: ScarfId, cx: number, g: Grads): string {
+  const c = SCARVES.find((s) => s.id === id) ?? SCARVES[0];
+  const cloth = g.lin(
+    [
+      [0, c.light],
+      [1, c.dark],
+    ],
+    0.6,
+    1,
+  );
+  const outer = `M${cx - 46} 156 Q${cx - 52} 104 ${cx - 45} 70 Q${cx - 40} 32 ${cx} 30 Q${cx + 40} 32 ${cx + 45} 70 Q${cx + 52} 104 ${cx + 46} 156 Q${cx + 26} 174 ${cx} 174 Q${cx - 26} 174 ${cx - 46} 156 Z`;
+  const opening = `M${cx - 28} 90 Q${cx - 29} 54 ${cx} 53 Q${cx + 29} 54 ${cx + 28} 90 Q${cx + 26} 121 ${cx} 126 Q${cx - 26} 121 ${cx - 28} 90 Z`;
+  return (
+    `<path d="${outer} ${opening}" fill="${cloth}" fill-rule="evenodd" ${OUT()}/>` +
+    // The folds: a band around the face, and the cloth gathering under the chin.
+    `<path d="M${cx - 34} 88 Q${cx - 35} 46 ${cx} 45 Q${cx + 35} 46 ${cx + 34} 88" stroke="${c.dark}" stroke-width="2.4" fill="none" opacity=".55"/>` +
+    `<path d="M${cx - 30} 138 Q${cx} 150 ${cx + 30} 138 M${cx - 38} 150 Q${cx} 164 ${cx + 38} 150" stroke="${c.dark}" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/>` +
+    `<circle cx="${cx + 24}" cy="128" r="3.2" fill="#E8C46A" stroke="${INK}" stroke-width="1.4"/>`
+  );
 }
 
 function hairFront(id: Look['hair'], cx: number, fill: string, shine: string): string {
