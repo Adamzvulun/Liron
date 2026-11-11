@@ -2219,6 +2219,56 @@
         },
         "outro": "The class goes home tired and muddy. Miss Rula leaves a drawing for the inn: a koala at the innkeeper’s table, which nobody can explain."
       }
+    },
+    {
+      "id": "road:87",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 87,
+        "wordChapter": 86,
+        "title": "Two Words for Everything",
+        "who": "Abu Nabil the old doorman",
+        "intro": "Abu Nabil kept the door of the building across the square for forty years. He has a second word for everything, and he says the town’s young people only know the first.",
+        "milestones": [
+          "He tells the innkeeper’s grandson there are three words for the pedal and four for the brake, and that his grandson’s car has none of them working.",
+          "At the club, where Rami has bought a membership for his fitness, Abu Nabil watches the drummer through the intermission and says the old bands were louder.",
+          "His wife says he has aged ten years since he stopped working. Abu Nabil says he has insomnia from all the words he still has to teach."
+        ],
+        "trial": {
+          "name": "Abu Nabil’s Door",
+          "text": "Abu Nabil says each thing the old way, and you find the word you know for it in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Nabil gives the inn the old brass key to his building. “The new doors have no keys,” he says. “Someone should keep one.”"
+      }
+    },
+    {
+      "id": "road:88",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 88,
+        "wordChapter": 87,
+        "title": "The Monk and the Swallows",
+        "who": "Brother Antoun from the monastery",
+        "intro": "When the swallows come back in spring, Brother Antoun walks down from the monastery on the hill. A porter follows him with a box of old books.",
+        "milestones": [
+          "The books are from another era, and some of the pages are torn. Dr. Ingrid offers to help correct the old copies, and Brother Antoun says her Arabic is likely to improve faster than the books.",
+          "He tells the children how the old people of the land had a god for the sea and a god for the rain, and how the volcano far to the north erupted long ago.",
+          "A swallow builds its nest above the inn’s door. The children watch its small beak bring mud and straw all afternoon."
+        ],
+        "trial": {
+          "name": "Antoun’s Books",
+          "text": "Brother Antoun reads from the old books, and you tell the children what each line says in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Brother Antoun leaves one book at the inn, the one with the swallows drawn in its margins. He climbs back up the hill before dark."
+      }
     }
   ]
 }
