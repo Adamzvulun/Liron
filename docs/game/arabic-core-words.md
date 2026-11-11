@@ -490,5 +490,5 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).
 - Speaking the word into the mic (E14, mic practice).
-- ~~Shared-root badges~~ **built (2026-11-11):** 77 taught words carry "Same root as …" with the Hebrew word that shares their Semitic root (בית for بيت, שמש for شمس, the numbers 1–10, much of the body), and its meaning when that differs (בת, *daughter*, for بنت, *girl*). Only true cognates with a meaning a learner can use; false friends (لحم *meat* / לחם *bread*, قمح *wheat* / קמח *flour*) are left out. The list is `content/arabic/shared-roots.json`.
+- ~~Shared-root badges~~ **built (2026-11-11):** 122 taught words carry "Same root as …" with the Hebrew word that shares their Semitic root (בית for بيت, שמש for شمس, the numbers 1–10, much of the body), and its meaning when that differs (בת, *daughter*, for بنت, *girl*). Only true cognates with a meaning a learner can use; false friends (لحم *meat* / לחם *bread*, قمح *wheat* / קמח *flour*) are left out. The list is `content/arabic/shared-roots.json`.
 - Pattern badges (the Hebrew bridge's binyanim ↔ verb forms, ADR 0002) and a root explorer.
