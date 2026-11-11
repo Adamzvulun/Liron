@@ -54,6 +54,19 @@
 | **E16 Radio QSO** | QSO state machine; operator personas; noise/QSB/QRM; speed matching; AGN on garbled input (ADR 0007). **Built without AI first** (#223, 2026-11-10; [design](../game/radio-qso.md)); E15 adds the live parts: the operators' news (ADR 0036) and their answer to yours (ADR 0037). |
 | **E17 Café conversations** | Persona bibles; memory; reputation; WhatsApp-style chat, then voice; the silent Coach debrief → FSRS. **Proposal and spike written** (2026-11-11, [design](../game/cafe-conversations.md)); waits for Adam's answers. |
 
+## Art for every screen *(proposed 2026-11-11, waits for Adam's order)*
+Only three screens are painted so far: the city square, the Signal Tower room and the Caravanserai courtyard (ADR 0025, painted in the browser). Every other screen is cards on the navy gradient: Your House, the Market, the Notice Board, and every lesson and station inside the halls (the Koch lessons, the Radio Room, the word path, the coffee corner, the script lessons).
+
+| # | Item | Proposed order |
+|---|---|---|
+| A1 | **Hall backdrops for every station:** each station screen sits on its hall's own painting, dimmed and blurred, with the cards on top. One change per hall, so every lesson screen gets a background at once | 1st (cheapest; covers the screens used most) |
+| A2 | **Your House:** a painted room around the wardrobe (bed, chest, window to the square) | 2nd |
+| A3 | **The Market:** a painted stall with an awning, the wares on its counter | 3rd |
+| A4 | **The Notice Board:** a painted wooden board on a wall, the quests pinned to it (the E10 concept) | 4th |
+| A5 | **The Radio Room:** its own painted room off the tower (radio set, map of the bands) | 5th |
+| A6 | **Station scenes:** a painted close-up for the stations used most (the innkeeper's table, the listening desk) | later |
+| A7 | **The Arena** | with M5 (it opens then) |
+
 ## M5 — Fellowship
 | Epic | Contents |
 |---|---|
