@@ -806,3 +806,14 @@ function box(x0: number, y0: number, x1: number, y1: number): Box {
     h: Math.min(KHAN_STAGE.height, Math.ceil(y1)) - y,
   };
 }
+
+let cached: PaintedKhan | undefined;
+/** The room, painted once per page load: it never changes. */
+export const paintedKhan = (): PaintedKhan => (cached ??= paintKhan());
+
+/** The whole room as one painting, with every station: the stations' backdrop (roadmap A1). */
+export function wholeCourtyard(): string {
+  const t = paintedKhan();
+  const stations = Object.values(t.stations).map((s) => s.svg);
+  return `<defs>${t.defs}</defs>${t.back}${stations.join('')}${t.front}`;
+}
