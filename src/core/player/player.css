@@ -491,3 +491,81 @@
 .hud__quest.is-done .hud__questprogress {
   color: #9fd67e;
 }
+
+/* The Notice Board (roadmap A4, after the E10 concept): the quest panel is the board itself,
+   wooden planks in a frame, and each quest is a parchment note held by a brass pin. */
+.notice-board .hud__quests {
+  padding: 18px 20px 24px;
+  border: 4px solid var(--ink);
+  background:
+    repeating-linear-gradient(180deg, transparent 0 62px, rgb(42 23 12 / 55%) 62px 65px),
+    linear-gradient(180deg, #8a5530, #6a3f22);
+  box-shadow:
+    inset 0 0 0 6px #4b2d1a,
+    inset 0 0 0 8px #a86e40,
+    0 6px 0 var(--ink),
+    0 14px 24px rgb(20 10 4 / 45%);
+}
+
+.notice-board .hud__queststitle {
+  text-shadow: 0 2px 0 var(--ink);
+}
+
+.notice-board .hud__questlist {
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.notice-board .hud__quest {
+  position: relative;
+  padding: 20px 16px 12px 18px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #fbf1d8, #ead7ae);
+  box-shadow:
+    0 3px 0 rgb(42 23 12 / 60%),
+    0 6px 10px rgb(20 10 4 / 30%);
+  color: var(--ink);
+  transform: rotate(-0.6deg);
+}
+
+.notice-board li:nth-child(even) .hud__quest {
+  transform: rotate(0.5deg);
+}
+
+.notice-board .hud__quest::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffe08a, #c98a2a);
+}
+
+/* The guild colors are made for the dark HUD; on parchment they need to be darker to read. */
+.notice-board .hud__questgiver {
+  filter: brightness(0.55) saturate(1.4);
+}
+
+.notice-board .hud__quest:hover .hud__questtext {
+  color: #8e2e35;
+}
+
+.notice-board .hud__questprogress {
+  color: #7a4a2a;
+}
+
+.notice-board .hud__questreward {
+  color: #6a3f22;
+}
+
+.notice-board .hud__quest.is-done .hud__questprogress {
+  color: #3f7a2a;
+}
+
+.notice-board .hud__quest:focus-visible {
+  outline-color: var(--ink);
+}

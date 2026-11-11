@@ -9,6 +9,8 @@ import { City } from './city/City.tsx';
 import { HallBackdrop } from './city/HallBackdrop.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
 import { HOUSE_STAGE, paintHouse } from './city/paintHouse.ts';
+import { MARKET_STAGE, paintMarket } from './city/paintMarket.ts';
+import { NOTICE_WALL_STAGE, paintNoticeWall } from './city/paintNoticeWall.ts';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
 import { Link } from './Link.tsx';
 import { usePath } from './router.ts';
@@ -128,8 +130,11 @@ function Lobby({ player }: { player: Player }) {
               <Hall api={api} />
             </Suspense>
           )}
+          {place === 'board' && (
+            <HallBackdrop id="board" {...NOTICE_WALL_STAGE} paint={paintNoticeWall} />
+          )}
           {place === 'board' && state.today && (
-            <div className="hud">
+            <div className="hud notice-board">
               <QuestTracker
                 today={state.today}
                 subjects={subjects}
@@ -143,6 +148,7 @@ function Lobby({ player }: { player: Player }) {
               />
             </div>
           )}
+          {place === 'market' && <HallBackdrop id="market" {...MARKET_STAGE} paint={paintMarket} />}
           {place === 'market' && state.profile && (
             <Market
               stall={state.market}
