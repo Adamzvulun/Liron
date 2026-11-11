@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { SubjectApi } from '../../core/subject.ts';
+import { HallBackdrop } from '../../core/city/HallBackdrop.tsx';
 import { Hall, type HallDoor } from './hall/Hall.tsx';
+import { TOWER_STAGE, wholeTower } from './hall/paintTower.ts';
 import { KochLesson } from './lesson/Lesson.tsx';
 import { Recognition } from './recognition/Recognition.tsx';
 import { Trial } from './lesson/Trial.tsx';
@@ -39,6 +41,7 @@ export function TowerHall({ api }: { api: SubjectApi }) {
   if (view === 'hall') return <Hall api={api} onOpen={setView} />;
   return (
     <>
+      <HallBackdrop id="tower" {...TOWER_STAGE} paint={wholeTower} />
       <button type="button" className="hall__back" onClick={() => setView('hall')}>
         ← Tower hall
       </button>
