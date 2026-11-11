@@ -27,7 +27,8 @@ Five made-up lines, including a garbled one ("NEW EIT TEI ANTENA") and noise ("T
 
 ## Consequences
 - Your own words now reach Google's free tier. That's fine for Adam now; before friends join (M5), re-read the terms and decide whether their free turns go to Gemini or only to Groq (zero data retention), as ADR 0036 already says.
-- Gemini can take several seconds, so on a slow day more sign-offs fall back to `R R FB`. If that shows on the dev site, lower the server's per-provider timeout for `radio-reply` so Groq answers in time.
+- Gemini can take several seconds. **Amended 2026-11-11:** the eval set (`scripts/partner-eval.ts`, below) measured Gemini at 5–8 s for answers against the room's 6 s wait, and Groq under 1 s. So for `radio-reply` the function gives Gemini 3 s (`REPLY_GEMINI_MS`) before it asks Groq. With both keys, the eval kept all 12 lines, every answer within 3.3 s.
+- **The eval set** (ADR 0004 asks for one): `scripts/partner-eval.ts`, run by hand with the keys, never in CI. It sends 7 news asks (with and without memory) and 5 answers (plain, garbled and noise) to each provider alone and to both, applies the browser's checks, and fails below 80% kept in the production setup.
 - The next slices (ordered, not cut): the Arabic partner and the Coach (ADR 0007), as new `kind`s.
 
 ## Undoing it

@@ -41,6 +41,12 @@ const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GE
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 /** A provider that hasn't answered by then is skipped: the room falls back to its script. */
 const TIMEOUT_MS = 8000;
+/**
+ * Gemini's time for an answer to the learner's news (ADR 0037). The room waits 6 s for it, and
+ * Gemini took 5–8 s in the eval (scripts/partner-eval.ts, 2026-11-11) while Groq took under 1 s,
+ * so Gemini gets 3 s and then Groq answers in time.
+ */
+export const REPLY_GEMINI_MS = 3000;
 /** The longest line passed back; the browser cuts it to what Morse can send. */
 const MAX_TEXT = 120;
 
@@ -189,6 +195,7 @@ async function askGemini(
   rules: string,
   prompt: string,
   f: typeof fetch,
+  timeout = TIMEOUT_MS,
 ): Promise<Said> {
   try {
     const res = await f(GEMINI_URL, {
@@ -199,7 +206,7 @@ async function askGemini(
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         generationConfig: { temperature: 1, maxOutputTokens: 60 },
       }),
-      signal: AbortSignal.timeout(TIMEOUT_MS),
+      signal: AbortSignal.timeout(timeout),
     });
     if (res.status === 429) return 'busy';
     if (!res.ok) return null;
@@ -277,7 +284,16 @@ export async function handle(
   const rules = ask.kind === 'radio-reply' ? REPLY_RULES : RADIO_RULES;
   let busy = false;
   for (const provider of [
-    GEMINI_API_KEY ? () => askGemini(GEMINI_API_KEY, rules, prompt, fetchFn) : null,
+    GEMINI_API_KEY
+      ? () =>
+          askGemini(
+            GEMINI_API_KEY,
+            rules,
+            prompt,
+            fetchFn,
+            ask.kind === 'radio-reply' ? REPLY_GEMINI_MS : TIMEOUT_MS,
+          )
+      : null,
     GROQ_API_KEY ? () => askGroq(GROQ_API_KEY, rules, prompt, fetchFn) : null,
   ]) {
     if (!provider) continue;

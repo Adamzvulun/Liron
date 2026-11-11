@@ -10389,6 +10389,803 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:78",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 78,
+        "title": "The body and the dentist",
+        "theme": "The body, sleep, the doctor and the dentist",
+        "words": [
+          {
+            "deck": "pcav:0243",
+            "gloss": "skull"
+          },
+          {
+            "deck": "pcav:0254",
+            "gloss": "to frown"
+          },
+          {
+            "deck": "pcav:0296",
+            "gloss": "snot"
+          },
+          {
+            "deck": "pcav:0336",
+            "gloss": "saliva"
+          },
+          {
+            "deck": "pcav:0457",
+            "gloss": "navel, belly button"
+          },
+          {
+            "deck": "pcav:0460",
+            "gloss": "intestines"
+          },
+          {
+            "deck": "pcav:0463",
+            "gloss": "to beat (of the heart)"
+          },
+          {
+            "deck": "pcav:0468",
+            "gloss": "bladder"
+          },
+          {
+            "deck": "pcav:0478",
+            "gloss": "artery"
+          },
+          {
+            "deck": "pcav:0484",
+            "gloss": "naked"
+          },
+          {
+            "deck": "pcav:0514",
+            "gloss": "chubby"
+          },
+          {
+            "deck": "pcav:0865",
+            "gloss": "to have a nightmare"
+          },
+          {
+            "deck": "pcav:0870",
+            "gloss": "sleepless"
+          },
+          {
+            "deck": "pcav:1672",
+            "gloss": "to have a rash"
+          },
+          {
+            "deck": "pcav:1689",
+            "gloss": "bruised"
+          },
+          {
+            "deck": "pcav:1692",
+            "gloss": "stitch (in a wound)"
+          },
+          {
+            "deck": "pcav:1694",
+            "gloss": "burned"
+          },
+          {
+            "deck": "pcav:1708",
+            "gloss": "to get a shot"
+          },
+          {
+            "deck": "pcav:1711",
+            "gloss": "to heal"
+          },
+          {
+            "deck": "pcav:1712",
+            "gloss": "recovery"
+          },
+          {
+            "deck": "pcav:1727",
+            "gloss": "pregnancy"
+          },
+          {
+            "deck": "pcav:1740",
+            "gloss": "to have a cavity"
+          },
+          {
+            "deck": "pcav:1742",
+            "gloss": "to have a chipped tooth"
+          },
+          {
+            "deck": "pcav:1743",
+            "gloss": "to get a filling"
+          },
+          {
+            "deck": "pcav:1745",
+            "gloss": "to get a tooth pulled"
+          },
+          {
+            "deck": "pcav:1746",
+            "gloss": "to get one's teeth cleaned"
+          },
+          {
+            "deck": "pcav:0929",
+            "gloss": "razor"
+          },
+          {
+            "deck": "pcav:0925",
+            "gloss": "to floss"
+          },
+          {
+            "deck": "pcav:0066",
+            "gloss": "coffin"
+          },
+          {
+            "deck": "pcav:0040",
+            "gloss": "in one's youth"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:79",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 79,
+        "title": "Work and the office",
+        "theme": "Jobs, school, the phone and the desk",
+        "words": [
+          {
+            "deck": "pcav:0077",
+            "gloss": "to be related to"
+          },
+          {
+            "deck": "pcav:0164",
+            "gloss": "passion"
+          },
+          {
+            "deck": "pcav:0181",
+            "gloss": "to ask for her hand"
+          },
+          {
+            "deck": "pcav:1303",
+            "gloss": "the private sector"
+          },
+          {
+            "deck": "pcav:1304",
+            "gloss": "the public sector"
+          },
+          {
+            "deck": "pcav:1315",
+            "gloss": "to get a job"
+          },
+          {
+            "deck": "pcav:1340",
+            "gloss": "to stay late at the office"
+          },
+          {
+            "deck": "pcav:1356",
+            "gloss": "to get a raise"
+          },
+          {
+            "deck": "pcav:1366",
+            "gloss": "to quit one's job"
+          },
+          {
+            "deck": "pcav:1370",
+            "gloss": "to get fired"
+          },
+          {
+            "deck": "pcav:1428",
+            "gloss": "real estate agent"
+          },
+          {
+            "deck": "pcav:1442",
+            "gloss": "vet"
+          },
+          {
+            "deck": "pcav:1449",
+            "gloss": "illiteracy",
+            "sentence": "pcav:1451"
+          },
+          {
+            "deck": "pcav:1478",
+            "gloss": "to attend a lecture"
+          },
+          {
+            "deck": "pcav:1554",
+            "gloss": "enrollment"
+          },
+          {
+            "deck": "pcav:1570",
+            "gloss": "to major in"
+          },
+          {
+            "deck": "pcav:1611",
+            "gloss": "linguistics"
+          },
+          {
+            "deck": "pcav:1750",
+            "gloss": "technology"
+          },
+          {
+            "deck": "pcav:1798",
+            "gloss": "to scan"
+          },
+          {
+            "deck": "pcav:1799",
+            "gloss": "fax"
+          },
+          {
+            "deck": "pcav:1806",
+            "gloss": "ringtone"
+          },
+          {
+            "deck": "pcav:1808",
+            "gloss": "vibration (of a phone)"
+          },
+          {
+            "deck": "pcav:1809",
+            "gloss": "silent mode"
+          },
+          {
+            "deck": "pcav:1822",
+            "gloss": "to hang up"
+          },
+          {
+            "deck": "pcav:2117",
+            "gloss": "to publish"
+          },
+          {
+            "deck": "pcav:2127",
+            "gloss": "ink"
+          },
+          {
+            "deck": "pcav:2135",
+            "gloss": "stapler"
+          },
+          {
+            "deck": "pcav:2136",
+            "gloss": "to staple"
+          },
+          {
+            "deck": "pcav:2137",
+            "gloss": "to sharpen a pencil"
+          },
+          {
+            "deck": "pcav:2174",
+            "gloss": "to haggle"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:80",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 80,
+        "title": "On the road and at home",
+        "theme": "Driving, building, the house and free time",
+        "words": [
+          {
+            "deck": "pcav:0590",
+            "gloss": "to take out of one's pocket"
+          },
+          {
+            "deck": "pcav:0934",
+            "gloss": "courtyard"
+          },
+          {
+            "deck": "pcav:0938",
+            "gloss": "shovel"
+          },
+          {
+            "deck": "pcav:0949",
+            "gloss": "to chop wood"
+          },
+          {
+            "deck": "pcav:0962",
+            "gloss": "to take a sip"
+          },
+          {
+            "deck": "pcav:1074",
+            "gloss": "margarine"
+          },
+          {
+            "deck": "pcav:1252",
+            "gloss": "oyster"
+          },
+          {
+            "deck": "pcav:1286",
+            "gloss": "to talk with one's mouth full"
+          },
+          {
+            "deck": "pcav:1880",
+            "gloss": "to yield to"
+          },
+          {
+            "deck": "pcav:1881",
+            "gloss": "to have the right of way"
+          },
+          {
+            "deck": "pcav:1922",
+            "gloss": "to roll the window up"
+          },
+          {
+            "deck": "pcav:1924",
+            "gloss": "to roll the window down"
+          },
+          {
+            "deck": "pcav:1940",
+            "gloss": "manual (gearbox)"
+          },
+          {
+            "deck": "pcav:1944",
+            "gloss": "clutch"
+          },
+          {
+            "deck": "pcav:1957",
+            "gloss": "reverse (gear)",
+            "sentence": "pcav:1961"
+          },
+          {
+            "deck": "pcav:1960",
+            "gloss": "to change gears"
+          },
+          {
+            "deck": "pcav:1981",
+            "gloss": "to have a fender-bender"
+          },
+          {
+            "deck": "pcav:2022",
+            "gloss": "construction worker"
+          },
+          {
+            "deck": "pcav:2027",
+            "gloss": "tower, high-rise"
+          },
+          {
+            "deck": "pcav:2042",
+            "gloss": "concrete"
+          },
+          {
+            "deck": "pcav:2043",
+            "gloss": "brick"
+          },
+          {
+            "deck": "pcav:2216",
+            "gloss": "service"
+          },
+          {
+            "deck": "pcav:2290",
+            "gloss": "stereo"
+          },
+          {
+            "deck": "pcav:2310",
+            "gloss": "to entertain guests"
+          },
+          {
+            "deck": "pcav:2317",
+            "gloss": "to knit"
+          },
+          {
+            "deck": "pcav:2336",
+            "gloss": "hunting"
+          },
+          {
+            "deck": "pcav:2379",
+            "gloss": "to play the role of"
+          },
+          {
+            "deck": "pcav:2417",
+            "gloss": "hookah"
+          },
+          {
+            "deck": "pcav:2419",
+            "gloss": "to smoke a hookah"
+          },
+          {
+            "deck": "pcav:2458",
+            "gloss": "flute"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:81",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 81,
+        "title": "Wings and roots",
+        "theme": "Animals and plants",
+        "words": [
+          {
+            "deck": "pcav:3746",
+            "gloss": "beaver"
+          },
+          {
+            "deck": "pcav:3747",
+            "gloss": "buffalo"
+          },
+          {
+            "deck": "pcav:3753",
+            "gloss": "kangaroo"
+          },
+          {
+            "deck": "pcav:3761",
+            "gloss": "skunk"
+          },
+          {
+            "deck": "pcav:3765",
+            "gloss": "seal"
+          },
+          {
+            "deck": "pcav:3770",
+            "gloss": "canary"
+          },
+          {
+            "deck": "pcav:3775",
+            "gloss": "ostrich"
+          },
+          {
+            "deck": "pcav:3777",
+            "gloss": "peacock"
+          },
+          {
+            "deck": "pcav:3778",
+            "gloss": "penguin"
+          },
+          {
+            "deck": "pcav:3779",
+            "gloss": "seagull"
+          },
+          {
+            "deck": "pcav:3781",
+            "gloss": "stork"
+          },
+          {
+            "deck": "pcav:3783",
+            "gloss": "swan"
+          },
+          {
+            "deck": "pcav:3800",
+            "gloss": "beetle"
+          },
+          {
+            "deck": "pcav:3802",
+            "gloss": "cockroach"
+          },
+          {
+            "deck": "pcav:3803",
+            "gloss": "flea"
+          },
+          {
+            "deck": "pcav:3806",
+            "gloss": "locusts"
+          },
+          {
+            "deck": "pcav:3818",
+            "gloss": "wasp"
+          },
+          {
+            "deck": "pcav:3819",
+            "gloss": "worm"
+          },
+          {
+            "deck": "pcav:3793",
+            "gloss": "jellyfish"
+          },
+          {
+            "deck": "pcav:3804",
+            "gloss": "flies"
+          },
+          {
+            "deck": "pcav:3821",
+            "gloss": "claw"
+          },
+          {
+            "deck": "pcav:3837",
+            "gloss": "tree trunk"
+          },
+          {
+            "deck": "pcav:3839",
+            "gloss": "bark (of a tree)"
+          },
+          {
+            "deck": "pcav:3851",
+            "gloss": "carnation"
+          },
+          {
+            "deck": "pcav:3854",
+            "gloss": "poppy"
+          },
+          {
+            "deck": "pcav:3858",
+            "gloss": "tulip"
+          },
+          {
+            "deck": "pcav:3860",
+            "gloss": "cactus"
+          },
+          {
+            "deck": "pcav:3862",
+            "gloss": "vine"
+          },
+          {
+            "deck": "pcav:3870",
+            "gloss": "to weed"
+          },
+          {
+            "deck": "pcav:3840",
+            "gloss": "bamboo"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:82",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 82,
+        "title": "Words and numbers",
+        "theme": "Talking about language, numbers, shapes and measures",
+        "words": [
+          {
+            "deck": "pcav:3271",
+            "gloss": "accent"
+          },
+          {
+            "deck": "pcav:3291",
+            "gloss": "dialect"
+          },
+          {
+            "deck": "pcav:3292",
+            "gloss": "colloquial Arabic"
+          },
+          {
+            "deck": "pcav:3304",
+            "gloss": "intermediate"
+          },
+          {
+            "deck": "pcav:3305",
+            "gloss": "advanced"
+          },
+          {
+            "deck": "pcav:3335",
+            "gloss": "fluently",
+            "sentence": "pcav:3337"
+          },
+          {
+            "deck": "pcav:3355",
+            "gloss": "repetition"
+          },
+          {
+            "deck": "pcav:3365",
+            "gloss": "tense"
+          },
+          {
+            "deck": "pcav:3370",
+            "gloss": "masculine"
+          },
+          {
+            "deck": "pcav:3371",
+            "gloss": "feminine"
+          },
+          {
+            "deck": "pcav:3380",
+            "gloss": "adjective"
+          },
+          {
+            "deck": "pcav:3393",
+            "gloss": "syllable"
+          },
+          {
+            "deck": "pcav:3408",
+            "gloss": "culture"
+          },
+          {
+            "deck": "pcav:3407",
+            "gloss": "worldwide"
+          },
+          {
+            "deck": "pcav:3965",
+            "gloss": "odd (number)"
+          },
+          {
+            "deck": "pcav:3967",
+            "gloss": "even (number)"
+          },
+          {
+            "deck": "pcav:4024",
+            "gloss": "billion"
+          },
+          {
+            "deck": "pcav:4032",
+            "gloss": "to subtract",
+            "sentence": "pcav:4034"
+          },
+          {
+            "deck": "pcav:4037",
+            "gloss": "to divide by"
+          },
+          {
+            "deck": "pcav:4064",
+            "gloss": "fraction"
+          },
+          {
+            "deck": "pcav:4070",
+            "gloss": "a fifth"
+          },
+          {
+            "deck": "pcav:4074",
+            "gloss": "percentage"
+          },
+          {
+            "deck": "pcav:4196",
+            "gloss": "decade"
+          },
+          {
+            "deck": "pcav:3913",
+            "gloss": "width"
+          },
+          {
+            "deck": "pcav:3914",
+            "gloss": "measurement"
+          },
+          {
+            "deck": "pcav:3919",
+            "gloss": "millimeter"
+          },
+          {
+            "deck": "pcav:3934",
+            "gloss": "ton"
+          },
+          {
+            "deck": "pcav:3902",
+            "gloss": "circular"
+          },
+          {
+            "deck": "pcav:3903",
+            "gloss": "oval"
+          },
+          {
+            "deck": "pcav:3906",
+            "gloss": "rectangle"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:83",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 83,
+        "title": "Shades of things",
+        "theme": "Faith, colors, weather and describing things",
+        "words": [
+          {
+            "deck": "pcav:3117",
+            "gloss": "cheerful"
+          },
+          {
+            "deck": "pcav:3192",
+            "gloss": "messenger"
+          },
+          {
+            "deck": "pcav:3197",
+            "gloss": "the Devil"
+          },
+          {
+            "deck": "pcav:3221",
+            "gloss": "Buddha"
+          },
+          {
+            "deck": "pcav:3223",
+            "gloss": "Hindu"
+          },
+          {
+            "deck": "pcav:3231",
+            "gloss": "to preach"
+          },
+          {
+            "deck": "pcav:3234",
+            "gloss": "ablution"
+          },
+          {
+            "deck": "pcav:3250",
+            "gloss": "Hadith"
+          },
+          {
+            "deck": "pcav:3258",
+            "gloss": "the Pope"
+          },
+          {
+            "deck": "pcav:3265",
+            "gloss": "the New Testament"
+          },
+          {
+            "deck": "pcav:3268",
+            "gloss": "baptism"
+          },
+          {
+            "deck": "pcav:3879",
+            "gloss": "beige"
+          },
+          {
+            "deck": "pcav:3885",
+            "gloss": "navy blue"
+          },
+          {
+            "deck": "pcav:3893",
+            "gloss": "turquoise"
+          },
+          {
+            "deck": "pcav:3894",
+            "gloss": "shade (of a color)"
+          },
+          {
+            "deck": "pcav:3899",
+            "gloss": "colorful"
+          },
+          {
+            "deck": "pcav:3578",
+            "gloss": "stream"
+          },
+          {
+            "deck": "pcav:3691",
+            "gloss": "it's pouring"
+          },
+          {
+            "deck": "pcav:3729",
+            "gloss": "tropical"
+          },
+          {
+            "deck": "pcav:4538",
+            "gloss": "to come along with"
+          },
+          {
+            "deck": "pcav:4596",
+            "gloss": "to differ"
+          },
+          {
+            "deck": "pcav:4643",
+            "gloss": "to put down",
+            "sentence": "pcav:4644"
+          },
+          {
+            "deck": "pcav:4715",
+            "gloss": "independent"
+          },
+          {
+            "deck": "pcav:4733",
+            "gloss": "rough"
+          },
+          {
+            "deck": "pcav:4740",
+            "gloss": "blunt"
+          },
+          {
+            "deck": "pcav:4743",
+            "gloss": "additional"
+          },
+          {
+            "deck": "pcav:4807",
+            "gloss": "thank you (answering condolences)"
+          },
+          {
+            "deck": "pcav:2582",
+            "gloss": "barbell"
+          },
+          {
+            "deck": "pcav:2610",
+            "gloss": "to lift"
+          },
+          {
+            "deck": "pcav:2643",
+            "gloss": "to get sunburned"
+          }
+        ]
+      }
     }
   ]
 }
