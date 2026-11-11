@@ -481,6 +481,52 @@
         ],
         "examples": ["pcav:4224", "pcav:4230", "pcav:4236", "pcav:0883"]
       }
+    },
+    {
+      "id": "grammar:joining",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 28,
+        "title": "w, bass, wálla, ínnu: the joining words",
+        "points": [
+          "And is w, said with the next word: ána w ínta, me and you.",
+          "bass is but, and also just: baɧíbb áɧɖar riyāɖa bass mā bál3abha, I like watching sports but I don’t play; bass ɧúʈʈu dagigtēn, just put it in for two minutes.",
+          "Or is aw; in a question it’s wálla: jāhiz wálla líssa? Ready, or not yet?",
+          "That, after think or say, is ínnu: aʐúnn ínnu…, I think that…"
+        ],
+        "examples": ["pcav:2498", "pcav:0800", "pcav:4702", "pcav:2872"]
+      }
+    },
+    {
+      "id": "grammar:still-already",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 29,
+        "title": "líssa and min gábil: “still”, “yet”, “already”",
+        "points": [
+          "líssa before a word is still: ána líssa ja3ān, I’m still hungry.",
+          "Before a negative verb it’s not yet: líssa mā wíʂliš, he isn’t here yet. A question can end … wálla líssa? … or not yet?",
+          "Already is min gábil after the verb: (i)tɣaddēt min gábil, I’ve already eaten lunch."
+        ],
+        "examples": ["pcav:4397", "pcav:4398", "pcav:1314", "pcav:4403"]
+      }
+    },
+    {
+      "id": "grammar:before-after",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 30,
+        "title": "gábil and bá3id: “before” and “after”",
+        "points": [
+          "Before is gábil, after is bá3id, in front of a word: bá3id la3b ilkōra, after playing soccer.",
+          "In front of a whole sentence they take ma: gábil ma tdūb, before it melts; bá3id ma xállaʂ, after he finished.",
+          "gábil hēk is before (now): 3úmrak sāfarit gábil hēk? Have you ever traveled before?"
+        ],
+        "examples": ["pcav:1072", "pcav:1589", "pcav:0423", "pcav:2684"]
+      }
     }
   ]
 }
