@@ -61,8 +61,8 @@ Only three screens are painted so far: the city square, the Signal Tower room an
 |---|---|---|
 | A1 | **Hall backdrops for every station:** each station screen sits on its hall's own painting, dimmed and blurred, with the cards on top. One change per hall, so every lesson screen gets a background at once | ✅ built 2026-11-11 (`HallBackdrop`) |
 | A2 | **Your House:** a painted room around the wardrobe (bed, chest, window to the square) | ✅ built 2026-11-11 (`paintHouse`) |
-| A3 | **The Market:** a painted stall with an awning, the wares on its counter | 3rd |
-| A4 | **The Notice Board:** a painted wooden board on a wall, the quests pinned to it (the E10 concept) | 4th |
+| A3 | **The Market:** a painted stall with an awning, the wares on its counter | ✅ built 2026-11-11 (`paintMarket`: a bazaar lane behind the stall) |
+| A4 | **The Notice Board:** a painted wooden board on a wall, the quests pinned to it (the E10 concept) | ✅ built 2026-11-11 (`paintNoticeWall`, notes on planks in `player.css`) |
 | A5 | **The Radio Room:** its own painted room off the tower (radio set, map of the bands) | 5th |
 | A6 | **Station scenes:** a painted close-up for the stations used most (the innkeeper's table, the listening desk) | later |
 | A7 | **The Arena** | with M5 (it opens then) |

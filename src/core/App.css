@@ -234,15 +234,17 @@
   background: linear-gradient(180deg, rgb(20 22 52 / 62%) 0%, rgb(14 16 36 / 80%) 100%);
 }
 
-/* Your House (A2) and the Market (A3) are the place itself, not a hall seen from a station:
+/* Your House (A2), the Market (A3) and the Notice Board (A4) are the place itself, not a hall seen from a station:
    less blur and a lighter veil, so the room or the lane still reads around the cards. */
 .hall-backdrop[data-hall='house'] img,
-.hall-backdrop[data-hall='market'] img {
+.hall-backdrop[data-hall='market'] img,
+.hall-backdrop[data-hall='board'] img {
   filter: blur(2px) saturate(0.9);
 }
 
 .hall-backdrop[data-hall='house']::after,
-.hall-backdrop[data-hall='market']::after {
+.hall-backdrop[data-hall='market']::after,
+.hall-backdrop[data-hall='board']::after {
   background: linear-gradient(180deg, rgb(20 22 52 / 35%) 0%, rgb(14 16 36 / 62%) 100%);
 }
 
