@@ -579,6 +579,68 @@
         ],
         "examples": ["pcav:1024", "pcav:3648", "pcav:1790", "pcav:2566"]
       }
+    },
+    {
+      "id": "grammar:age",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 35,
+        "title": "3úmri: age, and “ever”",
+        "points": [
+          "Age is 3úmr with an ending (chapter 2): 3úmri 3išrīn, I’m 20, word for word my age twenty. To ask: gaddēš 3úmrak?",
+          "To turn an age, use ʂār, to become: ɧáyʂīr 3úmru 3išrīn sána, he’s turning twenty.",
+          "Before a past verb, 3úmr- means ever: 3úmrak sāfarit gábil hēk?, have you ever been abroad? With ma it means never: 3úmri ma sāfárit…, I’ve never flown…"
+        ],
+        "examples": ["pcav:0052", "pcav:4325", "pcav:0054", "pcav:2684", "pcav:2708"]
+      }
+    },
+    {
+      "id": "grammar:state-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 36,
+        "title": "lābis, sākin: words for a state",
+        "points": [
+          "Many verbs have a describing word in one shape: lābis, wearing; sākin, living (somewhere); nāyim, asleep; rāyiɧ, going; 3āyiš, living.",
+          "It says the state you’re in now, with no b-: lābis naɖɖārāt ilyōm?, are you wearing glasses today? wēn sākin?, where do you live?",
+          "It changes like a describing word: rāyiɧ for a man, rāyɧa for a woman or a feminine thing, lābsīn for several.",
+          "Hebrew’s present tense is this same kind of word. Arabic lābis has the shape of Hebrew לובש."
+        ],
+        "examples": ["pcav:0663", "pcav:4306", "pcav:4485", "pcav:0418", "pcav:0003"]
+      }
+    },
+    {
+      "id": "grammar:lets",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 45,
+        "title": "xallīna: “let’s”",
+        "points": [
+          "xallīna and a verb with no b- means let’s: xallīna núg3ud bárra, let’s sit outside.",
+          "The verb after it starts with n-, for we: nrūɧ, níšrab, núg3ud.",
+          "It comes from xálla, to let or allow: xallīna is word for word let us. It can stand alone: xallīna júwwa, let’s stay inside."
+        ],
+        "examples": ["pcav:4410", "pcav:2181", "pcav:4362", "pcav:4408", "pcav:4543"]
+      }
+    },
+    {
+      "id": "grammar:i-ending",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 47,
+        "title": "janūbi: the -i ending",
+        "points": [
+          "Add -i to a word to get a describing word from it: janūb, south; janūbi, southern. šamāli is northern; dáwli is international.",
+          "Languages and peoples work the same way: 3árabi, Arabic.",
+          "With il-, both words take it (chapter 32): ilqúʈb iššamāli, the North Pole.",
+          "Hebrew has the same ending. Hebrew דרומי is southern, from דרום."
+        ],
+        "examples": ["pcav:3625", "pcav:3635", "pcav:3634", "pcav:3638", "pcav:3406", "pcav:3289"]
+      }
     }
   ]
 }
