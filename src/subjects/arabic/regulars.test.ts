@@ -68,33 +68,34 @@ describe('the regulars past chapter 10 (#163, #205)', () => {
     expect(s).toMatchObject({ regular: { number: 22, who: 'Khalid the trader' }, lit: 0 });
     expect(REGULARS[33]).toMatchObject({ number: 35, who: 'The innkeeper' });
     expect(REGULARS[REGULARS.length - 1]).toMatchObject({
-      number: 86,
-      who: 'Miss Rula the schoolteacher',
+      number: 88,
+      who: 'Brother Antoun from the monastery',
     });
   });
 
   it('number the chapters in Roman numerals past XII', () => {
-    expect([2, 11, 12, 14, 19, 24, 35, 40, 49, 61, 69, 76, 84, 86, 90, 99, 104].map(roman)).toEqual(
-      [
-        'II',
-        'XI',
-        'XII',
-        'XIV',
-        'XIX',
-        'XXIV',
-        'XXXV',
-        'XL',
-        'XLIX',
-        'LXI',
-        'LXIX',
-        'LXXVI',
-        'LXXXIV',
-        'LXXXVI',
-        'XC',
-        'XCIX',
-        'CIV',
-      ],
-    );
+    expect(
+      [2, 11, 12, 14, 19, 24, 35, 40, 49, 61, 69, 76, 84, 86, 88, 90, 99, 104].map(roman),
+    ).toEqual([
+      'II',
+      'XI',
+      'XII',
+      'XIV',
+      'XIX',
+      'XXIV',
+      'XXXV',
+      'XL',
+      'XLIX',
+      'LXI',
+      'LXIX',
+      'LXXVI',
+      'LXXXIV',
+      'LXXXVI',
+      'LXXXVIII',
+      'XC',
+      'XCIX',
+      'CIV',
+    ]);
   });
 
   it('keep the last one you reached at the table once every trial is passed', () => {
