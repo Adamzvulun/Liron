@@ -193,6 +193,10 @@ describe('arabic/grammar.json (#162)', () => {
     // Only the sun letters' list is in Arabic: letters, not deck text.
     const text = JSON.stringify(cards.map((c) => ({ ...c, letters: undefined })));
     expect(text).not.toMatch(/[\u0600-\u06ff]/);
-    expect(cards.every((c) => c.chapter >= 1 && c.chapter <= 10 && c.points.length > 0)).toBe(true);
+    // Each card comes before a chapter the word path has.
+    const chapters = new Set(
+      pack('arabic/core-words.json').items.map((i) => (i.data as { chapter: number }).chapter),
+    );
+    expect(cards.every((c) => chapters.has(c.chapter) && c.points.length > 0)).toBe(true);
   });
 });

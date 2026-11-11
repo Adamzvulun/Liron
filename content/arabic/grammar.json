@@ -73,6 +73,154 @@
         "letters": "ت ث د ذ ر ز س ش ص ض ط ظ ل ن",
         "examples": ["pcav:4764", "pcav:3681", "pcav:4224", "pcav:3678"]
       }
+    },
+    {
+      "id": "grammar:there-is",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 5,
+        "title": "fī, “there is”",
+        "points": [
+          "There is and there are are one word, fī, in front of the thing: fī ɧáda 3a -lbāb, someone is at the door.",
+          "Asking is the same words with a rising voice: fī wāyirlis hān? Is there wifi here?",
+          "There isn’t is fiš (or mā fī): fiš ɧadd, no one."
+        ],
+        "examples": ["pcav:4282", "pcav:1037", "pcav:1777", "pcav:4288"]
+      }
+    },
+    {
+      "id": "grammar:want",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 6,
+        "title": "bidd-, “want”",
+        "points": [
+          "Want is bidd- with the endings from chapter 2: bíddi, I want; bíddak, you want. It also means need.",
+          "Then the thing you want: bíddak kōla? Would you like some cola?",
+          "Or what you want to do, in the verb’s plain form: bíddi ʔarūɧ, I want to go."
+        ],
+        "table": [
+          ["bíddi", "I want"],
+          ["bíddak", "you want (to a man)"],
+          ["bíddik", "you want (to a woman)"],
+          ["bíddu", "he wants"],
+          ["bíddha", "she wants"],
+          ["bíddna", "we want"],
+          ["bídkum", "you want (to several)"],
+          ["bíddhum", "they want"]
+        ],
+        "examples": ["pcav:1030", "pcav:0494", "pcav:0952", "pcav:2763"]
+      }
+    },
+    {
+      "id": "grammar:present",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 7,
+        "title": "The present: b-",
+        "points": [
+          "A verb in the present starts with b-, and a sound after it says who: baɧíbb, I like; biɧíbb, he likes.",
+          "The same form says what you do in general and what you’re doing now: baštíɣil dawām kāmil, I work full-time.",
+          "A second verb drops the b-: baɧíbb asāfir, I like to travel. After bidd- too: bíddi ʔarūɧ."
+        ],
+        "table": [
+          ["baɧíbb", "I like"],
+          ["btiɧíbb", "you like (to a man); she likes"],
+          ["btiɧíbbi", "you like (to a woman)"],
+          ["biɧíbb", "he likes"],
+          ["mniɧíbb", "we like"],
+          ["btiɧíbbu", "you like (to several)"],
+          ["biɧíbbu", "they like"]
+        ],
+        "examples": ["pcav:0160", "pcav:1299", "pcav:3122", "pcav:3700"]
+      }
+    },
+    {
+      "id": "grammar:have",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 8,
+        "title": "3ind-, “have”",
+        "points": [
+          "There’s no verb for have. You say “at me”: 3índ- with the endings: 3índi, I have; 3índak, you have.",
+          "Asking is the same with a rising voice: 3índak wlād? Do you have any children?",
+          "I don’t have: mā 3índi."
+        ],
+        "examples": ["pcav:0108", "pcav:0090", "pcav:0092", "pcav:0302"]
+      }
+    },
+    {
+      "id": "grammar:not",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 9,
+        "title": "mā…š and miš, “not”",
+        "points": [
+          "A verb is made negative with -š on the end, and often mā in front: baɧíbb → baɧíbbiš, I don’t like.",
+          "Anything that isn’t a verb takes miš in front: miš mnīɧ, not good; ána miš mihtámm, I’m not interested.",
+          "You’ve met two already: fī → fiš, there isn’t; 3índi → mā 3índi, I don’t have."
+        ],
+        "examples": ["pcav:1001", "pcav:2659", "pcav:3127", "pcav:0636"]
+      }
+    },
+    {
+      "id": "grammar:past",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 10,
+        "title": "The past",
+        "points": [
+          "The past has endings instead of b-. Its plain form is “he did”: kátab, he wrote. That’s the first form the word path gives you for a verb (kátab, yíktib: he wrote, he writes).",
+          "The other people are endings on it. The -t of I and you is often said -it: dafá3it, I paid.",
+          "Two kinds of verb bend a little. A doubled verb takes -ēt: ɧaʈʈ (he put) → ɧaʈʈēt, I put. A verb with a long ā shortens it: nām (he slept) → nimt, I slept."
+        ],
+        "table": [
+          ["kátab", "he wrote"],
+          ["kátbat", "she wrote"],
+          ["katábt", "I wrote; you wrote (to a man)"],
+          ["katábti", "you wrote (to a woman)"],
+          ["katábna", "we wrote"],
+          ["katábtu", "you wrote (to several)"],
+          ["kátabu", "they wrote"]
+        ],
+        "examples": ["pcav:2148", "pcav:0057", "pcav:4461", "pcav:0095"]
+      }
+    },
+    {
+      "id": "grammar:feminine",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 11,
+        "title": "She, and the -a ending",
+        "points": [
+          "Most words for a woman, or a thing that counts as feminine, end in -a: ustāz → ustāza, a teacher (a woman).",
+          "A describing word takes -a after a feminine word: kbīr → kbīra, big; ɧábba kbīra, a big pimple. Things in the plural take it too: maɧallāt ɧílwa, nice shops.",
+          "Colors have their own feminine: áɧmar → ɧámra, red; áxɖar → xáɖra, green; ábyaɖ → bēɖa, white; áswad → sōda, black."
+        ],
+        "examples": ["pcav:1888", "pcav:1887", "pcav:2172", "pcav:0396"]
+      }
+    },
+    {
+      "id": "grammar:future",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 12,
+        "title": "The future: ɧa-",
+        "points": [
+          "For what’s going to happen, put ɧa- in front of the verb, in place of the b-: ɧanām, I’m going to sleep.",
+          "It works for everyone: ɧatílbis, you’re going to wear; ɧatūlad, she’s due (going to give birth).",
+          "Many speakers say raɧ instead, as a word of its own: raɧ anām. The two mean the same."
+        ],
+        "examples": ["pcav:4217", "pcav:0620", "pcav:3722", "pcav:1733"]
+      }
     }
   ]
 }

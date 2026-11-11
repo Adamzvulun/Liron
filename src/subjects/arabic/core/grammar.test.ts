@@ -15,13 +15,22 @@ const sentence = (id: string): Item => ({
 describe('grammar cards (#162)', () => {
   const guest = { ...NEW_PROGRESS, guest: true };
 
-  it('has the first four cards, one each for chapters 1 to 4', () => {
+  it('has one card for each of chapters 1 to 12', () => {
     expect(GRAMMAR_CARDS.map((c) => [c.id, c.chapter])).toEqual([
       ['grammar:no-is', 1],
       ['grammar:endings', 2],
       ['grammar:counting', 3],
       ['grammar:article', 4],
+      ['grammar:there-is', 5],
+      ['grammar:want', 6],
+      ['grammar:present', 7],
+      ['grammar:have', 8],
+      ['grammar:not', 9],
+      ['grammar:past', 10],
+      ['grammar:feminine', 11],
+      ['grammar:future', 12],
     ]);
+    for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
   });
 
   it('reads its examples from the deck, leaving out any the deck lacks', () => {
