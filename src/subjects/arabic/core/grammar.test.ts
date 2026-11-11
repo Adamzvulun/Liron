@@ -44,6 +44,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:kull', 24],
       ['grammar:self', 25],
       ['grammar:questions', 26],
+      ['grammar:one-of', 26],
       ['grammar:time', 27],
       ['grammar:joining', 28],
       ['grammar:still-already', 29],
