@@ -1,4 +1,12 @@
-import { DYES, HAIR_COLOURS, SKINS, type Look, type SlotId } from './looks.ts';
+import {
+  DYES,
+  HAIR_COLOURS,
+  SCARVES,
+  SKINS,
+  type Look,
+  type ScarfId,
+  type SlotId,
+} from './looks.ts';
 
 // Paints the paper-doll avatar (#28) as SVG markup, in the city's style (ADR 0006 amendment 3):
 // every surface a gradient lit from the upper left, ink outlines, a shadow cast to the lower
@@ -45,6 +53,8 @@ function gradients(prefix: string) {
     },
   };
 }
+
+type Grads = ReturnType<typeof gradients>;
 
 const WIDTH = { slim: 30, average: 36, broad: 44 } as const;
 
@@ -175,7 +185,7 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   }
 
   // ---- back hair (falls behind the shoulders)
-  if (look.hair === 'long') {
+  if (look.hair === 'long' && !look.scarf) {
     back += `<path d="M${cx - 40} 84 Q${cx - 50} 150 ${cx - 36} 166 Q${cx} 174 ${cx + 36} 166 Q${cx + 50} 150 ${cx + 40} 84 Z" fill="${hair}" ${OUT()}/>`;
   }
 
@@ -471,7 +481,8 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   const wrap = wear('head') === 'wrap';
   const turban = wear('head') === 'turban';
   const keffiyeh = wear('head') === 'keffiyeh';
-  if (!wrap && !turban && !keffiyeh) front += hairFront(look.hair, cx, hair, hairT.light);
+  if (look.scarf) front += headscarf(look.scarf, cx, g);
+  else if (!wrap && !turban && !keffiyeh) front += hairFront(look.hair, cx, hair, hairT.light);
 
   // ---- head gear
   if (wrap) {
@@ -614,6 +625,28 @@ function face(id: Look['face'], cx: number): string {
         cheeks
       );
   }
+}
+
+/** A headscarf: cloth around the face, over the hair and ears, falling to the shoulders. */
+function headscarf(id: ScarfId, cx: number, g: Grads): string {
+  const c = SCARVES.find((s) => s.id === id) ?? SCARVES[0];
+  const cloth = g.lin(
+    [
+      [0, c.light],
+      [1, c.dark],
+    ],
+    0.6,
+    1,
+  );
+  const outer = `M${cx - 46} 156 Q${cx - 52} 104 ${cx - 45} 70 Q${cx - 40} 32 ${cx} 30 Q${cx + 40} 32 ${cx + 45} 70 Q${cx + 52} 104 ${cx + 46} 156 Q${cx + 26} 174 ${cx} 174 Q${cx - 26} 174 ${cx - 46} 156 Z`;
+  const opening = `M${cx - 28} 90 Q${cx - 29} 54 ${cx} 53 Q${cx + 29} 54 ${cx + 28} 90 Q${cx + 26} 121 ${cx} 126 Q${cx - 26} 121 ${cx - 28} 90 Z`;
+  return (
+    `<path d="${outer} ${opening}" fill="${cloth}" fill-rule="evenodd" ${OUT()}/>` +
+    // The folds: a band around the face, and the cloth gathering under the chin.
+    `<path d="M${cx - 34} 88 Q${cx - 35} 46 ${cx} 45 Q${cx + 35} 46 ${cx + 34} 88" stroke="${c.dark}" stroke-width="2.4" fill="none" opacity=".55"/>` +
+    `<path d="M${cx - 30} 138 Q${cx} 150 ${cx + 30} 138 M${cx - 38} 150 Q${cx} 164 ${cx + 38} 150" stroke="${c.dark}" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/>` +
+    `<circle cx="${cx + 24}" cy="128" r="3.2" fill="#E8C46A" stroke="${INK}" stroke-width="1.4"/>`
+  );
 }
 
 function hairFront(id: Look['hair'], cx: number, fill: string, shine: string): string {

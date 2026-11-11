@@ -58,4 +58,4 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 - **Unlocks live in the database** (`owned_items`), not in the look. Reading the look takes off gear and a dye the player doesn't own.
 
 ## Ideas for later (Adam: "we can add more stuff later")
-More items per slot, a headscarf as a look option, and the companion pet.
+More items per slot and the companion pet. ~~A headscarf as a look option~~ **built (2026-11-11):** a "Headscarf" choice in the wardrobe, open to everyone from the start like hair and beard: none, or a cloth in sand, rose, olive, indigo, black or white (`SCARVES` in `looks.ts`, `look.scarf`). It covers the hair and ears and falls to the shoulders, with a small pin; head gear is worn over it.

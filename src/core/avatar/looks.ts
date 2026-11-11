@@ -49,6 +49,20 @@ export const BEARDS = [
   { id: 'full', label: 'Beard' },
 ] as const;
 
+/**
+ * Headscarves (avatar ideas for later, 2026-11-11): a look option, not gear, so anyone can wear
+ * one from the start. It covers the hair and falls over the shoulders, in one of these cloths.
+ */
+export const SCARVES = [
+  { id: 'sand', label: 'Sand', light: '#F0D6AE', dark: '#B08658' },
+  { id: 'rose', label: 'Rose', light: '#E6A4A0', dark: '#9A4E52' },
+  { id: 'olive', label: 'Olive', light: '#B4BC84', dark: '#5E6A3A' },
+  { id: 'indigo', label: 'Indigo', light: '#7E8CC4', dark: '#2E3A6E' },
+  { id: 'black', label: 'Black', light: '#5E5866', dark: '#1E1A22' },
+  { id: 'white', label: 'White', light: '#FBF8F2', dark: '#BDB4A6' },
+] as const;
+export type ScarfId = (typeof SCARVES)[number]['id'];
+
 /** Gear slots (ADR 0006). A companion pet comes later. */
 export const SLOTS = [
   { id: 'head', label: 'Head' },
@@ -281,6 +295,8 @@ export const lookSchema = z.object({
   hair: z.enum(ids(HAIRS)).catch('crop'),
   hairColour: z.enum(ids(HAIR_COLOURS)).catch('brown'),
   beard: z.enum(ids(BEARDS)).catch('none'),
+  /** A headscarf's cloth, or none. */
+  scarf: z.enum(ids(SCARVES)).optional().catch(undefined),
   /** The tunic's dye, if the player owns one (#49). */
   dye: z.enum(ids(DYES)).optional().catch(undefined),
   gear: z

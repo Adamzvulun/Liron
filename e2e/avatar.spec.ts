@@ -28,6 +28,23 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await expect(save).toBeDisabled();
   });
 
+  test('a headscarf can be chosen and saved, and taken off again', async ({ page }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates);
+    await page.goto('/house');
+    await page.locator('label', { hasText: 'Rose' }).click();
+    await expect(page.getByRole('radio', { name: 'Rose' })).toBeChecked();
+    await page.getByRole('button', { name: 'Save my look' }).click();
+    await expect
+      .poll(() => updates)
+      .toContainEqual({ avatar: expect.objectContaining({ scarf: 'rose' }) });
+    await page
+      .getByRole('group', { name: 'Headscarf' })
+      .locator('label', { hasText: 'None' })
+      .click();
+    await expect(page.getByRole('radio', { name: 'Rose' })).not.toBeChecked();
+  });
+
   test('the wardrobe stands in a painted room (roadmap A2)', async ({ page }) => {
     await signedIn(page);
     await page.goto('/house');

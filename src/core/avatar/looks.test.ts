@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_LOOK, DYES, GEAR, parseLook, SLOTS } from './looks.ts';
+import { DEFAULT_LOOK, DYES, GEAR, parseLook, SCARVES, SLOTS } from './looks.ts';
 import { paintAvatar, PAINTED_GEAR } from './paint.ts';
 import catalogue from '../../../content/core/items.json' with { type: 'json' };
 
@@ -15,6 +15,23 @@ describe('avatar looks', () => {
     expect(look.hair).toBe(DEFAULT_LOOK.hair);
     expect(look.face).toBe('bold');
     expect(look.gear).toEqual({});
+  });
+
+  it('keeps a headscarf, drops an unknown one, and saved looks without one stay as they were', () => {
+    expect(parseLook({ scarf: 'indigo' }).scarf).toBe('indigo');
+    expect(parseLook({ scarf: 'tartan' }).scarf).toBeUndefined();
+    expect(parseLook({ hair: 'long' })).not.toHaveProperty('scarf');
+  });
+
+  it('paints a headscarf over the hair, in its own cloth', () => {
+    const long = { ...DEFAULT_LOOK, hair: 'long' as const };
+    const bare = paintAvatar(long, { idPrefix: 'a' });
+    for (const c of SCARVES) {
+      const svg = paintAvatar({ ...long, scarf: c.id }, { idPrefix: 'a' });
+      expect(svg).toContain(c.light);
+      expect(svg).not.toMatch(/NaN|undefined/);
+      expect(svg).not.toBe(bare);
+    }
   });
 
   it('takes off locked gear and gear worn in the wrong slot', () => {
