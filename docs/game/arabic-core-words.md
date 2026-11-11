@@ -436,7 +436,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Cards 5–33 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+- **Cards 5–33, then 35, 36, 45 and 47 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
 
 | Ch. | Card | The rule | Deck sentences |
 |---|---|---|---|
@@ -469,9 +469,14 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 31 | fōg, taɧt, jamb | where words before the thing, alone as places, with the endings | The painting is hanging over the sofa. · I prefer an aisle seat. |
 | 32 | il- on both | the describing word after the thing; il- on both; one il- makes a sentence | I don't like spicy food. · to run a red light |
 | 33 | Putting words together | "of" by side-by-side words, like Hebrew smichut; -a shows its t; il- only on the last | Can I have a glass of water? · What's the temperature? · Enter your username and password. |
+| 35 | 3úmri: age, and "ever" | 3úmr + the endings; ʂār to turn an age; 3úmr- before a past verb is ever, with ma never | I'm 20 years old. · How old are you? · Have you ever been abroad? |
+| 36 | State words | lābis, sākin, nāyim, rāyiɧ: the state you're in now, no b-; -a, -īn; the shape of Hebrew's present | Oh, you're wearing glasses today! · Where do you live? · The car is going to Gaza. |
+| 45 | xallīna, "let's" | xallīna + a verb with n- and no b-; from xálla, to let | Let's sit outside. · Let's have coffee sometime. · It's hot today. Let's stay inside. |
+| 47 | The -i ending | janūb, janūbi; šamāli, dáwli, 3árabi; il- on both; like Hebrew's -i | southern · the North Pole · international |
 
 - **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
 - **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
+- **Not every later chapter has a card.** Chapters 34 onward are mostly words on a theme; a card goes where its words bring a rule (age in 35, *let's* in 45, the -i ending in 47).
 - **Later cards** (*tába3* "of", which the deck has only one short sentence for, and the rarer verb shapes, like istáfʕal) come with later chapters, the same way.
 
 ## 7. Not in E11's first pass (kept, not dropped)
