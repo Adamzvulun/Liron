@@ -504,6 +504,15 @@ function WordCard({ word, play }: { word: CoreWord; play: (path: string) => void
       </bdi>
       <span className="arabic__phrase-latin">{word.latin}</span>
       <span className="arabic__phrase-meaning">{word.meaning}</span>
+      {word.kin && (
+        <span className="arabic__kin" title="This word shares its root with a Hebrew word">
+          Same root as{' '}
+          <bdi lang="he" dir="rtl">
+            {word.kin.hebrew}
+          </bdi>
+          {word.kin.note && ` (${word.kin.note})`}
+        </span>
+      )}
     </div>
   );
 }

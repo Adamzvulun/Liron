@@ -519,6 +519,24 @@
   font-size: 18px;
 }
 
+/* A taught word that shares its root with a Hebrew word (ADR 0002). */
+.arabic__kin {
+  grid-column: 2;
+  justify-self: start;
+  padding: 3px 10px;
+  border: 2px solid #b07a2a;
+  border-radius: 999px;
+  background: #fff1c8;
+  color: #4a2e10;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.arabic__kin bdi {
+  font-family: 'Noto Sans Hebrew', sans-serif;
+  font-size: 17px;
+}
+
 .arabic__compare {
   display: flex;
   flex-wrap: wrap;
