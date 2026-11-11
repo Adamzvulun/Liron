@@ -719,6 +719,22 @@
       }
     },
     {
+      "id": "grammar:verb-pairs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 60,
+        "title": "wāfag, ywāfig: a verb comes in pairs",
+        "points": [
+          "Each verb is given in two forms, he did and he does: wāfag, ywāfig, to approve of. The b- of chapter 7 goes on the second: biwāfig, he approves.",
+          "The vowel in the second form can’t be guessed from the first: níjiɧ, yínjaɧ, to succeed; ámar, yúʔmur, to order. Learn the pair together.",
+          "A long ā in the middle changes in the second form: rāɧ, yrūɧ, to go; bā3, ybī3, to sell.",
+          "Hebrew dictionaries list a verb by he did too."
+        ],
+        "examples": ["pcav:4550", "pcav:4655", "pcav:4633", "pcav:4537", "pcav:2146"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",

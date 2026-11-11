@@ -59,6 +59,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:jobs', 46],
       ['grammar:i-ending', 47],
       ['grammar:three-words', 52],
+      ['grammar:verb-pairs', 60],
       ['grammar:ordinals', 90],
       ['grammar:nothing', 92],
     ]);
