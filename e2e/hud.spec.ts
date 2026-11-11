@@ -123,6 +123,11 @@ test("the Notice Board lists today's contracts; the HUD says how many are done (
   }
   await page.goto('/notice-board');
   const quests = page.getByRole('region', { name: 'Quests' });
+  // The board hangs on the guildhall's painted wall (roadmap A4).
+  await expect(page.locator('.hall-backdrop[data-hall="board"] img')).toHaveJSProperty(
+    'complete',
+    true,
+  );
   const run = quests.getByRole('link', { name: /Signal Tower contract/ });
   await expect(run).toContainText('Pass a Koch run at 90%');
   await expect(run).toContainText('0/1');
