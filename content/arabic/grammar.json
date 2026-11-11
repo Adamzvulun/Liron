@@ -139,6 +139,21 @@
       }
     },
     {
+      "id": "grammar:feminine-pairs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 7,
+        "title": "dān, ríjil: feminine with no -a",
+        "points": [
+          "Most feminine words end in -a, but a few don’t. Many are parts of the body that come in pairs: dān, ear; ríjil, leg or foot; īd, hand; 3ēn, eye. šámis, the sun, is one too.",
+          "A describing word after them takes -a anyway: dān maxzūga, a pierced ear.",
+          "Hebrew does the same with יד and רגל."
+        ],
+        "examples": ["pcav:0313", "pcav:0304", "pcav:0441", "pcav:0615"]
+      }
+    },
+    {
       "id": "grammar:have",
       "subject": "arabic",
       "type": "grammar-card",
@@ -459,6 +474,21 @@
       }
     },
     {
+      "id": "grammar:one-of",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 26,
+        "title": "xúbiz, xúbza: -a for one",
+        "points": [
+          "Some foods and plants are named as a whole, with no -a: xúbiz, bread; bēɖ, eggs; šájar, trees.",
+          "Add -a for one of them: xúbza, a slice or a loaf; bēɖa, an egg; šájara, a tree.",
+          "The one with -a is feminine (chapter 11): bāɖat bēɖa, she laid an egg."
+        ],
+        "examples": ["pcav:1206", "pcav:1208", "pcav:1218", "pcav:2973", "pcav:3833"]
+      }
+    },
+    {
       "id": "grammar:time",
       "subject": "arabic",
       "type": "grammar-card",
@@ -526,6 +556,22 @@
           "gábil hēk is before (now): 3úmrak sāfarit gábil hēk? Have you ever traveled before?"
         ],
         "examples": ["pcav:1072", "pcav:1589", "pcav:0423", "pcav:2684"]
+      }
+    },
+    {
+      "id": "grammar:done-to",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 30,
+        "title": "maslūg, maftūɧ: the done-to shape",
+        "points": [
+          "Many describing words say something was done to the thing, with ma- in front and a long ū: maslūg, boiled, from sálag, to boil; maftūɧ, open, from fátaɧ, to open; maksūr, broken, from kásar.",
+          "Verbs that end in a vowel give ma…i: mágli, fried; mášwi, grilled.",
+          "It comes after the thing: bēɖ maslūg, a boiled egg; bēɖ mágli, a fried egg.",
+          "Hebrew’s paʿul shape does the same. Hebrew פתוח is maftūɧ."
+        ],
+        "examples": ["pcav:1222", "pcav:1221", "pcav:4727", "pcav:0177", "pcav:1272"]
       }
     },
     {

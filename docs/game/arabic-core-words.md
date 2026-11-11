@@ -443,6 +443,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 5 | fī, "there is" | fī before the thing; fiš (mā fī) for there isn't | Someone is at the door. · Is there wifi here? · No one lives forever. |
 | 6 | bidd-, "want" | bidd- with the endings; then a thing, or a verb in its plain form | Would you like some cola? · I need to go to the bathroom. |
 | 7 | The present: b- | ba-, bti-, bi-, mni- + the verb; a second verb drops the b- | I love you! · I work full-time. · I like traveling… |
+| 7 | Feminine with no -a | dān, ríjil, īd, 3ēn, šámis; the describing word still takes -a; like Hebrew יד | pierced ears · What size shoes do you wear? |
 | 8 | 3ind-, "have" | "at me": 3índi, 3índak; mā 3índi | I have a twin brother. · Do you have any children? |
 | 9 | mā…š and miš | -š (and often mā) on a verb; miš before anything else | I don't like spicy food. · I'm not interested in politics. |
 | 10 | The past | endings on "he did" (kátab); -t often said -it; doubled verbs take -ēt, long-ā verbs shorten | I've already paid for the vegetables. · I was born in 1980. |
@@ -462,10 +463,12 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 24 | kull | every (no il-); all (plural with il-) | I take the metro every day. · Add up the price of all the items… |
 | 25 | ɧāl- and bá3ɖ | -self with the endings; kēf ɧālak; each other | How are you? · Take care! · Are you two related? |
 | 26 | Question words | šū, mīn, wēn, lēš, kēf, wagtēš, gaddēš, kam; kam takes a singular | What's your name? · Where do you live? · How many children…? |
+| 26 | -a for one | xúbiz, bēɖ, šájar as a whole; xúbza, bēɖa, šájara for one; the one is feminine | bread · a slice of bread · to lay an egg |
 | 27 | Telling the time | issā3a + the hour; w past, ílla to; rúbi3, tilt, nuʂʂ | What time is it? · A quarter past three · A quarter to four |
 | 28 | The joining words | w, bass (but, just), aw / wálla (or), ínnu (that) | I like watching sports, but… · Just put it in the microwave… · Are you ready yet? |
 | 29 | líssa and min gábil | still; not yet (with a negative); already | I'm still hungry. · He isn't here yet. · I've already eaten lunch. |
 | 30 | gábil and bá3id | before, after; + ma before a sentence; gábil hēk | Eat your ice cream before it melts. · Have you ever been abroad? |
+| 30 | The done-to shape | maslūg, maftūɧ, maksūr: ma- and a long ū; mágli, mášwi; after the thing; like Hebrew's paʿul | a boiled egg · a fried egg · heartbroken |
 | 31 | fōg, taɧt, jamb | where words before the thing, alone as places, with the endings | The painting is hanging over the sofa. · I prefer an aisle seat. |
 | 32 | il- on both | the describing word after the thing; il- on both; one il- makes a sentence | I don't like spicy food. · to run a red light |
 | 33 | Putting words together | "of" by side-by-side words, like Hebrew smichut; -a shows its t; il- only on the last | Can I have a glass of water? · What's the temperature? · Enter your username and password. |
