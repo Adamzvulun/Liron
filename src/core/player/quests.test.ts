@@ -38,7 +38,7 @@ describe("today's quests (ADR 0019)", () => {
   it('tracks a started questline in place of its plain line (#47)', () => {
     const status = {
       questline: 'The Silent Beacon',
-      chapter: 'I: Embers',
+      chapter: 'Chapter 1: Embers',
       done: 8,
       total: 8,
       unit: 'lamps',
@@ -47,7 +47,7 @@ describe("today's quests (ADR 0019)", () => {
     const [line] = todaysQuests([tower], 15, new Map([['beacon', status]]));
     expect(line).toEqual({
       giver: 'Beacon Hall',
-      text: 'The Silent Beacon I: Embers',
+      text: 'The Silent Beacon, Chapter 1: Embers',
       progress: '8/8 lamps · Trial: The Gatekeeper',
       href: '/signal-tower',
       color: 'red',

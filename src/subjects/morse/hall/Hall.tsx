@@ -11,7 +11,7 @@ import {
   unlockedChars,
   type MorseProgress,
 } from '../lesson/progress.ts';
-import { questStatus, roman } from '../questline.ts';
+import { questStatus } from '../questline.ts';
 import { wordsOpen } from '../words/drill.ts';
 import { MORSE_CHARS } from '../code.ts';
 import { lampOpen, lampPassed } from '../send/lampSignal.ts';
@@ -319,7 +319,7 @@ function Room({
     <>
       <p className="tower__kicker">Main questline · {quest.chapter.questline}</p>
       <h2 className="tower__chapter">
-        Chapter {roman(quest.chapter.number)}: {quest.chapter.title}
+        Chapter {quest.chapter.number}: {quest.chapter.title}
       </h2>
       <blockquote className="tower__beat">
         {passed ? quest.chapter.outro : (quest.beat ?? quest.chapter.intro)}
@@ -445,7 +445,7 @@ function Room({
               <span className="tower__plaque tower__plaque--trial" style={{ left: -130, top: 60 }}>
                 <span className="tower__plaque-title">Face {trial.trial.name}</span>
                 <span className="tower__plaque-text">
-                  Trial · Chapter {roman(trial.number)} · open the gate
+                  Trial · Chapter {trial.number} · open the gate
                 </span>
               </span>
             </button>
@@ -468,7 +468,7 @@ function Room({
                 className="hall__card hall__door is-main is-trial"
                 onClick={() => onOpen('trial')}
               >
-                <span className="hall__kicker">Trial · Chapter {roman(trial.number)}</span>
+                <span className="hall__kicker">Trial · Chapter {trial.number}</span>
                 <span className="hall__door-title">Face {trial.trial.name}</span>
                 <span className="hall__door-go">Open the gate →</span>
               </button>

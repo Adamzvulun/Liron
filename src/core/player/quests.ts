@@ -27,7 +27,7 @@ export interface Quest extends SubjectQuest {
 
 /** A started questline's line: its name and chapter, then the steps done and what's next. */
 const tracked = (q: QuestlineStatus): SubjectQuest & { progress: string } => ({
-  text: `${q.questline} ${q.chapter}`,
+  text: `${q.questline}, ${q.chapter}`,
   progress: [`${q.done}/${q.total} ${q.unit}`, q.next].filter(Boolean).join(' · '),
 });
 

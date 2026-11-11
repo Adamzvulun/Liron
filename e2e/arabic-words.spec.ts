@@ -118,7 +118,7 @@ test.describe('Arabic word lessons (#160)', () => {
     await signedIn(page, [], calls, state, ROWS);
     await page.goto('/caravanserai');
     await expect(
-      page.getByRole('heading', { name: 'Chapter II: The Carter’s Greeting' }).first(),
+      page.getByRole('heading', { name: 'Chapter 2: The Carter’s Greeting' }).first(),
     ).toBeVisible();
     await page
       .getByRole('button', { name: /The Carter’s Roll Call/ })
