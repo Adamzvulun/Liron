@@ -11714,6 +11714,270 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:88",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 88,
+        "title": "Same letters: the house, the body and the shop",
+        "theme": "Words that look like a word you know but mean something else",
+        "words": [
+          {
+            "deck": "pcav:0341",
+            "gloss": "tonsils"
+          },
+          {
+            "deck": "pcav:0412",
+            "gloss": "scar"
+          },
+          {
+            "deck": "pcav:0467",
+            "gloss": "kidney"
+          },
+          {
+            "deck": "pcav:0513",
+            "gloss": "chubby"
+          },
+          {
+            "deck": "pcav:0537",
+            "gloss": "sleeve"
+          },
+          {
+            "deck": "pcav:0569",
+            "gloss": "headscarf"
+          },
+          {
+            "deck": "pcav:0677",
+            "gloss": "brooch"
+          },
+          {
+            "deck": "pcav:0797",
+            "gloss": "oven"
+          },
+          {
+            "deck": "pcav:0822",
+            "gloss": "toaster"
+          },
+          {
+            "deck": "pcav:0889",
+            "gloss": "drawer"
+          },
+          {
+            "deck": "pcav:0992",
+            "gloss": "bland"
+          },
+          {
+            "deck": "pcav:1023",
+            "gloss": "ice"
+          },
+          {
+            "deck": "pcav:1092",
+            "gloss": "sweets, pastries"
+          },
+          {
+            "deck": "pcav:0256",
+            "gloss": "chin"
+          },
+          {
+            "deck": "pcav:1507",
+            "gloss": "cafeteria"
+          },
+          {
+            "deck": "pcav:1557",
+            "gloss": "semester"
+          },
+          {
+            "deck": "pcav:1615",
+            "gloss": "medicine (the field)"
+          },
+          {
+            "deck": "pcav:1678",
+            "gloss": "diabetes"
+          },
+          {
+            "deck": "pcav:2017",
+            "gloss": "coffeehouse"
+          },
+          {
+            "deck": "pcav:2060",
+            "gloss": "debt"
+          },
+          {
+            "deck": "pcav:2064",
+            "gloss": "account"
+          },
+          {
+            "deck": "pcav:2110",
+            "gloss": "poetry"
+          },
+          {
+            "deck": "pcav:2114",
+            "gloss": "headline"
+          },
+          {
+            "deck": "pcav:2134",
+            "gloss": "pushpin"
+          },
+          {
+            "deck": "pcav:2171",
+            "gloss": "a bargain"
+          },
+          {
+            "deck": "pcav:2259",
+            "gloss": "cartoon"
+          },
+          {
+            "deck": "pcav:2284",
+            "gloss": "satellite dish"
+          },
+          {
+            "deck": "pcav:2344",
+            "gloss": "bait"
+          },
+          {
+            "deck": "pcav:2454",
+            "gloss": "violin"
+          },
+          {
+            "deck": "pcav:2579",
+            "gloss": "locker"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:89",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 89,
+        "title": "Same letters: the road, the board and the land",
+        "theme": "Words that look like a word you know but mean something else",
+        "words": [
+          {
+            "deck": "pcav:3966",
+            "gloss": "odd (number)"
+          },
+          {
+            "deck": "pcav:1895",
+            "gloss": "lane"
+          },
+          {
+            "deck": "pcav:1901",
+            "gloss": "roundabout"
+          },
+          {
+            "deck": "pcav:1953",
+            "gloss": "gear, stick shift"
+          },
+          {
+            "deck": "pcav:2337",
+            "gloss": "hunter"
+          },
+          {
+            "deck": "pcav:2488",
+            "gloss": "queen (in chess)"
+          },
+          {
+            "deck": "pcav:2489",
+            "gloss": "bishop (in chess)"
+          },
+          {
+            "deck": "pcav:2490",
+            "gloss": "knight (in chess)"
+          },
+          {
+            "deck": "pcav:2494",
+            "gloss": "dice"
+          },
+          {
+            "deck": "pcav:2518",
+            "gloss": "net (in tennis)"
+          },
+          {
+            "deck": "pcav:2791",
+            "gloss": "authority"
+          },
+          {
+            "deck": "pcav:2946",
+            "gloss": "proposal"
+          },
+          {
+            "deck": "pcav:2972",
+            "gloss": "chick"
+          },
+          {
+            "deck": "pcav:2982",
+            "gloss": "field"
+          },
+          {
+            "deck": "pcav:2986",
+            "gloss": "tractor"
+          },
+          {
+            "deck": "pcav:3004",
+            "gloss": "soldier"
+          },
+          {
+            "deck": "pcav:4741",
+            "gloss": "additional, extra"
+          },
+          {
+            "deck": "pcav:4684",
+            "gloss": "weak"
+          },
+          {
+            "deck": "pcav:0659",
+            "gloss": "leather"
+          },
+          {
+            "deck": "pcav:3576",
+            "gloss": "canal"
+          },
+          {
+            "deck": "pcav:3599",
+            "gloss": "eruption"
+          },
+          {
+            "deck": "pcav:3624",
+            "gloss": "north"
+          },
+          {
+            "deck": "pcav:3641",
+            "gloss": "weather"
+          },
+          {
+            "deck": "pcav:3661",
+            "gloss": "heat"
+          },
+          {
+            "deck": "pcav:3665",
+            "gloss": "coolness"
+          },
+          {
+            "deck": "pcav:3812",
+            "gloss": "moth"
+          },
+          {
+            "deck": "pcav:3824",
+            "gloss": "horn, antler"
+          },
+          {
+            "deck": "pcav:3835",
+            "gloss": "leaf"
+          },
+          {
+            "deck": "pcav:4734",
+            "gloss": "smooth"
+          },
+          {
+            "deck": "pcav:3907",
+            "gloss": "triangle"
+          }
+        ]
+      }
     }
   ]
 }
