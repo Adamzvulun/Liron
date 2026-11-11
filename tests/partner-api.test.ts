@@ -6,6 +6,7 @@ import {
   handle,
   parseAsk,
   radioPrompt,
+  REPLY_GEMINI_MS,
   REPLY_RULES,
   type Env,
 } from '../api/partner.ts';
@@ -174,6 +175,30 @@ describe('the partner prompt', () => {
     expect(sent.systemInstruction.parts[0]?.text).toBe(REPLY_RULES);
     expect(parseAsk({ ...reply, news: undefined })).toMatchObject({ news: null });
   });
+
+  it('gives Gemini only a few seconds for an answer, then asks Groq', async () => {
+    const reply = { ...ASK, kind: 'radio-reply', heard: 'NEW JOB' };
+    const calls: string[] = [];
+    const fetchFn = (async (url: string | URL | Request, init?: RequestInit) => {
+      const u = String(url);
+      calls.push(u);
+      if (u.includes('supabase.co')) return Response.json(39);
+      if (u.includes('googleapis.com')) {
+        // Gemini hangs until the function gives up on it.
+        return new Promise<Response>((_, reject) =>
+          init?.signal?.addEventListener('abort', () => reject(new Error('aborted'))),
+        );
+      }
+      return groqSays('FB ON UR NEW JOB');
+    }) as typeof fetch;
+    const t = Date.now();
+    expect(await json(await handle(request(reply), ENV, fetchFn))).toEqual({
+      status: 200,
+      body: { text: 'FB ON UR NEW JOB', left: 39 },
+    });
+    expect(Date.now() - t).toBeLessThan(REPLY_GEMINI_MS + 1500);
+    expect(calls).toHaveLength(3);
+  }, 10_000);
 
   it('keeps the first line of a reply, without thinking or quotes', () => {
     expect(firstLine('<think>hmm</think>\n"CAT IS FINE"\nmore')).toBe('CAT IS FINE');

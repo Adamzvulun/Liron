@@ -2019,6 +2019,156 @@
         },
         "outro": "Mr. Kamal wins, and is so absent-minded that he forgets his own speech. Rana’s story runs on the front page anyway."
       }
+    },
+    {
+      "id": "road:79",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 79,
+        "wordChapter": 78,
+        "title": "The Dentist’s Chair",
+        "who": "Dr. Nader the dentist",
+        "intro": "Two days a week, Dr. Nader brings his chair and his drill to Salwa’s clinic. The whole town suddenly remembers its teeth.",
+        "milestones": [
+          "Abu Hani has a cavity and needs a filling. He frowns through all of it, then tells everyone he felt nothing.",
+          "A boy who chipped his tooth falling off the wall gets a shot and doesn’t cry. Dr. Nader gives him the old tooth to keep.",
+          "Hana, the innkeeper’s niece, is in the seventh month of her pregnancy and can’t sleep for nightmares. Salwa sits with her, and the innkeeper makes sage tea."
+        ],
+        "trial": {
+          "name": "Nader’s Chair",
+          "text": "Dr. Nader’s patients come in one by one, and you tell him what hurts in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Dr. Nader packs his drill. “Floss,” he tells the whole inn, “and I won’t have to come back.” Nobody believes him."
+      }
+    },
+    {
+      "id": "road:80",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 80,
+        "wordChapter": 79,
+        "title": "Rami Quits",
+        "who": "Rami, back again",
+        "intro": "Rami, who once came with a business plan, is back. He has quit his job in the public sector to open an office of his own, and he wants the inn’s blessing.",
+        "milestones": [
+          "A real estate agent finds him a small office above the bakery. Rami haggles over the rent for an hour and wins a stapler.",
+          "His first clients are a vet who needs a website and a printer who still sends faxes. Rami stays late at the office every night.",
+          "His mother wants him married instead. Rami says he will ask a girl’s father for her hand when the office pays for itself."
+        ],
+        "trial": {
+          "name": "Rami’s Office",
+          "text": "Rami’s clients call, and you take their messages in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Rami turns his phone to silent for the first time in a month and falls asleep at the innkeeper’s table."
+      }
+    },
+    {
+      "id": "road:81",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 81,
+        "wordChapter": 80,
+        "title": "Driving Lessons",
+        "who": "Uncle Fawzi, who teaches driving",
+        "intro": "The innkeeper’s grandson wants to drive. Uncle Fawzi has taught half the town in his old manual car, and he has never lost a pupil, only a few mirrors.",
+        "milestones": [
+          "Clutch, gears, reverse: the car jumps like a kangaroo down the road, and Uncle Fawzi only says, “Again.”",
+          "At the crossroads, a truck has the right of way and the grandson doesn’t yield. A small fender-bender, nobody hurt, and a long lecture.",
+          "That evening Uncle Fawzi smokes a hookah in the courtyard and entertains the guests with stories of his worst pupils."
+        ],
+        "trial": {
+          "name": "Fawzi’s Old Car",
+          "text": "Uncle Fawzi gives you directions on the road, and you follow them in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "The grandson passes his test on the first try. Uncle Fawzi pretends he isn’t proud, and buys him a coffee."
+      }
+    },
+    {
+      "id": "road:82",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 82,
+        "wordChapter": 81,
+        "title": "The Garden in Winter",
+        "who": "Umm Yousef the gardener",
+        "intro": "Umm Yousef has kept the inn’s garden for thirty years. In winter, she says, a garden only sleeps; she still weeds it every week.",
+        "milestones": [
+          "She shows the children the vine on the wall, the cactus by the gate and where the tulips will come up in spring.",
+          "A stork lands on the roof, and Umm Yousef says it brings good luck. The children want to know if it eats the worms.",
+          "She tells them about the year of the locusts, when she was a girl, and how the whole village beat pans to scare them away."
+        ],
+        "trial": {
+          "name": "Umm Yousef’s Garden",
+          "text": "Umm Yousef names every plant and creature in her garden, and you find each one in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Umm Yousef plants a row of poppies for spring. “Red,” she says, “for Sitt Fatima, who liked them.”"
+      }
+    },
+    {
+      "id": "road:83",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 83,
+        "wordChapter": 82,
+        "title": "The Linguist",
+        "who": "Dr. Ingrid, who studies dialects",
+        "intro": "Dr. Ingrid has come from the north of Europe to record how people really speak. She knows standard Arabic well, and the town’s colloquial Arabic not at all.",
+        "milestones": [
+          "She records Umm Yousef’s dialect and counts the syllables of her proverbs. Umm Yousef asks if she is a spy.",
+          "She asks the children which words are masculine and which are feminine. They argue about the sun for an hour.",
+          "By the end of her stay, her accent has changed. The innkeeper says she speaks like a woman from the market, which Ingrid takes as praise."
+        ],
+        "trial": {
+          "name": "Ingrid’s Recorder",
+          "text": "Dr. Ingrid plays back what she recorded, and you tell her what each person said in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Dr. Ingrid leaves a copy of her notes for the inn. On the first page, in shaky Arabic: “Thank you for every word.”"
+      }
+    },
+    {
+      "id": "road:84",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 84,
+        "wordChapter": 83,
+        "title": "Colors for the New Year",
+        "who": "Elias the painter",
+        "intro": "Before the new year, the innkeeper wants the old walls painted. Elias the painter comes with brushes, ladders and a hundred shades of every color.",
+        "milestones": [
+          "The innkeeper wants beige, her daughter wants turquoise, and Elias brings navy blue for the doors. Everyone is happy except the cat.",
+          "At Father Yacoub’s church there is a baptism, and at the mosque the imam preaches about patience. Elias paints both doors the same week.",
+          "It pours on the last day, and the paint runs. Elias laughs, lifts his ladder and starts again."
+        ],
+        "trial": {
+          "name": "Elias’s Ladder",
+          "text": "Elias asks which color goes where, and you answer in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "The inn shines in its new colors for the new year. Elias signs his name small, in the corner, under the stairs."
+      }
     }
   ]
 }
