@@ -6,11 +6,11 @@ The player's character (#28) and the wardrobe in Your House (#29). Art direction
 - [`src/core/avatar/looks.ts`](../../src/core/avatar/looks.ts): every option and gear item, as data. **Add options and items here.**
 - [`src/core/avatar/paint.ts`](../../src/core/avatar/paint.ts): paints a look as SVG markup in a 200×320 box (feet on y = 300). New items need art here, and a test fails if an item has none.
 - [`src/core/avatar/Avatar.tsx`](../../src/core/avatar/Avatar.tsx): the component. `view="full"` gives the whole figure (city, Your House); `view="portrait"` gives head and shoulders (HUD).
-- [`src/core/avatar/Wardrobe.tsx`](../../src/core/avatar/Wardrobe.tsx): the customiser in Your House.
+- [`src/core/avatar/Wardrobe.tsx`](../../src/core/avatar/Wardrobe.tsx): the customizer in Your House.
 - **In the city:** the painter only paints the ground shadow, and `City.tsx` places the figure at `AVATAR_SPOT` (`layout.ts`). The painter still draws the 60 random numbers the old figure used, so the scene after it stays exactly as approved.
 
 ## Layers, back to front
-Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms and hands, ears and head, face, beard, front hair, head gear.
+Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms and hands, ears and head, face, beard, front hair or headscarf, head gear. A headscarf also hides the long hair's back layer.
 
 ## Options (v0)
 | Part | Choices |
@@ -19,8 +19,9 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 | Skin | porcelain, sand, olive, bronze, umber, ebony |
 | Face | cheerful, determined, calm, bold |
 | Hair | crop, swept, curls, long, bun, shaved |
-| Hair colour | black, brown, auburn, blond, grey |
+| Hair color | black, brown, auburn, blond, gray (stored as `grey`) |
 | Beard | none, stubble, full |
+| Headscarf (2026-11-11) | none, sand, rose, olive, indigo, black, white |
 
 ## Gear
 **Slots:** head, torso, legs, feet, hand and back. A companion pet comes later (ADR 0006). An empty slot shows the plain clothes underneath: a linen shirt, trousers and shoes.
@@ -53,7 +54,7 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 
 ## Saved data
 - The look is stored in `profiles.avatar` (jsonb). There's no migration: the column has been there since the E2 schema, and players can only update their own row.
-- The shape is `{ build, skin, face, hair, hairColour, beard, dye?, gear: { head?, torso?, legs?, feet?, hand?, back? } }`. A new player has `{}`, which reads as the default traveller: average build, sand skin, cheerful face, brown crop, tunic and satchel.
+- The shape is `{ build, skin, face, hair, hairColour, beard, scarf?, dye?, gear: { head?, torso?, legs?, feet?, hand?, back? } }`. A new player has `{}`, which reads as the default traveler: average build, sand skin, cheerful face, brown crop, tunic and satchel.
 - **Reading is forgiving.** An unknown value falls back to its default. Gear that's locked or in the wrong slot is taken off, so a hand-edited row can't wear locked items.
 - **Unlocks live in the database** (`owned_items`), not in the look. Reading the look takes off gear and a dye the player doesn't own.
 
