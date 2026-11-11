@@ -4,7 +4,15 @@ import { parseProgress, unlockedChars, type MorseProgress } from '../lesson/prog
 import { scoreCopy, type RunScore } from '../lesson/score.ts';
 import { decode, START_DIT_MS, wpmFor, type Decoded, type Mark } from './decoder.ts';
 import { analyseFist, STEADY, type Fist, type Measure } from './fist.ts';
-import { applyDrill, drillText, reportDrill, xpForDrill } from './drill.ts';
+import {
+  applyDrill,
+  drillText,
+  keyableWords,
+  reportDrill,
+  WORD_DRILL,
+  wordDrillText,
+  xpForDrill,
+} from './drill.ts';
 import {
   applyLamp,
   LAMP_PASS,
@@ -15,6 +23,7 @@ import {
   lampResult,
   lampText,
   reportLamp,
+  wordsRight,
   type LampResult,
 } from './lampSignal.ts';
 import { MORSE_CHARS } from '../code.ts';
@@ -28,8 +37,17 @@ import './send.css';
 
 type Stage =
   | { kind: 'intro' }
-  | { kind: 'keying'; text: string; lamp?: boolean }
-  | { kind: 'result'; text: string; decoded: Decoded; score: RunScore; fist: Fist; xp: number }
+  | { kind: 'keying'; text: string; lamp?: boolean; words?: boolean }
+  | {
+      kind: 'result';
+      text: string;
+      decoded: Decoded;
+      score: RunScore;
+      fist: Fist;
+      xp: number;
+      /** A word drill: how many of its words the tower read. */
+      words?: number;
+    }
   | { kind: 'lamp-intro' }
   | { kind: 'lamp-result'; text: string; decoded: Decoded; result: LampResult; xp: number };
 
@@ -69,6 +87,14 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
     void audio()?.tone.unlock();
     setStage({ kind: 'keying', text: drillText(letters) });
   };
+  // Key whole words once enough common words use only your letters.
+  const wordsReady = keyableWords(letters).length >= WORD_DRILL;
+  const beginWords = () => {
+    const text = wordDrillText(letters);
+    if (!text) return;
+    void audio()?.tone.unlock();
+    setStage({ kind: 'keying', text, words: true });
+  };
 
   const lampReady = lampOpen(progress, MORSE_CHARS.length);
   const beginLamp = () => {
@@ -94,7 +120,7 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
     );
   };
 
-  const finish = (text: string, marks: Mark[], seconds: number) => {
+  const finish = (text: string, marks: Mark[], seconds: number, words?: boolean) => {
     const decoded = decode(marks, { startDitMs });
     const target = text.replace(/ /g, '').split('');
     const sent = decoded.text.replace(/ /g, '').split('');
@@ -102,7 +128,15 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
     const fist = analyseFist(decoded);
     const next = applyDrill(progress, decoded.ditMs);
     setProgress(next);
-    setStage({ kind: 'result', text, decoded, score, fist, xp: xpForDrill(score) });
+    setStage({
+      kind: 'result',
+      text,
+      decoded,
+      score,
+      fist,
+      xp: xpForDrill(score),
+      ...(words && { words: wordsRight(text.split(' '), decoded.text.split(' ')) }),
+    });
     reportDrill(api, next, score, seconds).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
@@ -131,6 +165,11 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
           <button type="button" className="lesson__go" onClick={begin}>
             Sit at the key
           </button>
+          {wordsReady && (
+            <button type="button" className="lesson__plain" onClick={beginWords}>
+              Key {WORD_DRILL} words
+            </button>
+          )}
           {lampReady && (
             <button
               type="button"
@@ -157,11 +196,15 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
           startDitMs={startDitMs}
           audio={audio}
           onDone={(marks, seconds) =>
-            (stage.lamp ? finishLamp : finish)(stage.text, marks, seconds)
+            stage.lamp
+              ? finishLamp(stage.text, marks, seconds)
+              : finish(stage.text, marks, seconds, stage.words)
           }
         />
       )}
-      {stage.kind === 'result' && <Result stage={stage} onAgain={begin} />}
+      {stage.kind === 'result' && (
+        <Result stage={stage} onAgain={stage.words === undefined ? begin : beginWords} />
+      )}
       {stage.kind === 'lamp-result' && (
         <LampResultCard
           stage={stage}
@@ -437,13 +480,18 @@ function Result({
   stage: Extract<Stage, { kind: 'result' }>;
   onAgain: () => void;
 }) {
-  const { text, decoded, score, fist, xp } = stage;
+  const { text, decoded, score, fist, xp, words } = stage;
   return (
     <div className="lesson__card send__result">
       <p className={`lesson__pct${score.accuracy >= 0.9 ? ' is-good' : ''}`}>
         {Math.round(score.accuracy * 100)}%
       </p>
       <p className="lesson__kicker">
+        {words !== undefined && (
+          <>
+            {words} of {text.split(' ').length} words ·{' '}
+          </>
+        )}
         {score.right} of {score.played} letters read right · {fist.wpm} wpm
       </p>
       <dl className="send__compare">

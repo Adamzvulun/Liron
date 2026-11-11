@@ -58,4 +58,4 @@ The Silent Beacon teaches the 41 characters one at a time. E12 is the next step:
 
 ## Not in E12 (kept for later, not dropped)
 - Sentences and short QSO exchanges come with E16 (radio QSO).
-- Sending words with the key follows the send drill (E7) once the word drill exists.
+- ~~Sending words with the key follows the send drill (E7) once the word drill exists.~~ **Built (2026-11-11):** the telegraph table offers "Key 5 words" once five of the 200 commonest words (2 to 5 letters) use only letters you've learned, which is about the eighth letter. It is scored, rated and paid like a letter drill, and the result also says how many words the tower read (`keyableWords`, `wordDrillText` in `send/drill.ts`).

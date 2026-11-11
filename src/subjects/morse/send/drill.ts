@@ -5,6 +5,7 @@
 import type { SubjectApi } from '../../../core/subject.ts';
 import type { MorseProgress } from '../lesson/progress.ts';
 import type { RunScore } from '../lesson/score.ts';
+import { MORSE_WORDS } from '../words.ts';
 
 /** Groups of this many letters, this many groups: about a minute of keying for a beginner. */
 export const GROUP = 3;
@@ -23,6 +24,40 @@ export function drillText(letters: readonly string[], random: () => number = Mat
     groups.push(group);
   }
   return groups.join(' ');
+}
+
+/** Words in a word drill: about as many letters as a letter drill. */
+export const WORD_DRILL = 5;
+
+/**
+ * Common words you can key with the letters you've learned to hear (2 to 5 letters, the 200
+ * commonest), most frequent first. Sending words follows the word drill (docs/game/morse-words.md).
+ */
+export function keyableWords(letters: readonly string[]): string[] {
+  const have = new Set(letters);
+  return MORSE_WORDS.filter(
+    (w) =>
+      w.kind === 'word' &&
+      (w.rank ?? 999) <= 200 &&
+      w.text.length >= 2 &&
+      w.text.length <= 5 &&
+      [...w.text].every((c) => have.has(c)),
+  ).map((w) => w.text);
+}
+
+/** A word drill text: WORD_DRILL different words, or null until that many can be keyed. */
+export function wordDrillText(
+  letters: readonly string[],
+  random: () => number = Math.random,
+): string | null {
+  const pool = keyableWords(letters);
+  if (pool.length < WORD_DRILL) return null;
+  const out: string[] = [];
+  while (out.length < WORD_DRILL) {
+    const [w] = pool.splice(Math.floor(random() * pool.length), 1);
+    if (w) out.push(w);
+  }
+  return out.join(' ');
 }
 
 /** About 10 XP a minute (docs/game/economy.md): a drill is ~15 letters in a minute or so. */
