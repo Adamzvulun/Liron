@@ -687,6 +687,66 @@
         ],
         "examples": ["pcav:3625", "pcav:3635", "pcav:3634", "pcav:3638", "pcav:3406", "pcav:3289"]
       }
+    },
+    {
+      "id": "grammar:jobs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 46,
+        "title": "najjār, xabbāz: the job shape",
+        "points": [
+          "Many jobs have one shape, a doubled middle and a long ā: xabbāz, baker; najjār, carpenter; rassām, painter (of art); bayyā3, shop assistant.",
+          "It comes from what the person does: rásam, to draw, gives rassām; bā3, to sell, gives bayyā3; sāg, to drive, gives sawwāg tāksi, taxi driver.",
+          "Hebrew has this shape too, and najjār is the same word as Hebrew נגר, a carpenter."
+        ],
+        "examples": ["pcav:1385", "pcav:1391", "pcav:1419", "pcav:1434", "pcav:1438"]
+      }
+    },
+    {
+      "id": "grammar:three-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 52,
+        "title": "dáxxan, tadxīn, mudáxxin: one verb, three words",
+        "points": [
+          "A verb with a doubled middle (chapter 20) makes its -ing word with ta- and a long ī: dáxxan, to smoke; tadxīn, smoking. The same way: tawqī3, a signature; ta3līm, education; tadrīb, practice.",
+          "The one who does it starts with mu-: mudáxxin, a smoker.",
+          "Hebrew’s piʿel does the same. Hebrew מעשן is a smoker."
+        ],
+        "examples": ["pcav:2392", "pcav:2394", "pcav:2396", "pcav:2078", "pcav:1445"]
+      }
+    },
+    {
+      "id": "grammar:ordinals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 90,
+        "title": "tālit, rābi3: first, second, third",
+        "points": [
+          "First is áwwal (ūla for a feminine thing). From second to tenth, the number takes the shape tālit: tāni, tālit, rābi3, xāmis, up to 3āšir.",
+          "For a feminine thing they end in -a: tālta, rāb3a. ilqanā -ttālta, channel 3.",
+          "After the thing, with il- on both (chapter 32): iʈʈābig irrābi3, the fourth floor. Before it, with no il-: 3āšir sána, the tenth year."
+        ],
+        "examples": ["pcav:1460", "pcav:2275", "pcav:0691", "pcav:1735", "pcav:0197"]
+      }
+    },
+    {
+      "id": "grammar:nothing",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 92,
+        "title": "wála íši: “nothing”, “no one”",
+        "points": [
+          "wála before ɧáda or íši makes no one, nothing: wála ɧáda, no one; wála ʔíši, nothing.",
+          "It works as a whole answer: šū -štarēt? – wála ʔíši, what did you buy? – Nothing!",
+          "In a sentence, fiš ɧadd says no one: fiš ɧadd bi3īš la-lʔábad, no one lives forever. kull wāɧad is everyone, and ayy ɧáda is anyone (chapter 45)."
+        ],
+        "examples": ["pcav:4296", "pcav:4288", "pcav:4279", "pcav:4285"]
+      }
     }
   ]
 }

@@ -56,7 +56,11 @@ describe('grammar cards (#162)', () => {
       ['grammar:hungry', 38],
       ['grammar:lets', 45],
       ['grammar:someone', 45],
+      ['grammar:jobs', 46],
       ['grammar:i-ending', 47],
+      ['grammar:three-words', 52],
+      ['grammar:ordinals', 90],
+      ['grammar:nothing', 92],
     ]);
     for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
   });
