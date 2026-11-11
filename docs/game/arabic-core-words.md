@@ -233,6 +233,17 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
   - **No deck sentence fits any of the 60;** each has one of our own (10 checker flags on the first pass, all rewritten with words already met). Three glosses follow the Arabic rather than the deck: جرح *to hurt (someone's feelings)*, دفعة *pay*, معقول *likely, reasonable*.
   - **Left for later (ordered, not cut):** adult, toilet and grim words (about 30), about 20 more true second words, the 96 that share their Arabic with a taught word, and about 15 B2 items (mostly phrases).
 
+- **Words 2,611–2,670 (2026-11-11): same letters, another meaning.** The quiz now keeps any word written the same way as the asked word out of its wrong choices (`wordQuestions`, comparing the Arabic without vowel marks), so a word may share its letters with a taught word. A fresh count found 244 untaught single words that do; most are the deck listing the same word again (*lawyer*, *sun*, the question words, *water*), and those stay out. Two chapters take 60 that mean something else:
+  - **Homographs:** *drawer* (دُرُج, like *stairs*), *tractor* (like the taught *drawer*), *soldier* (like the chess *pawn*), *north* (like *left*), *weather* (like *ceremony*), *heat* (like *free*), *horn* (like *century*), *diabetes* (like *sugar*), *poetry* (like *hair*), *debt* (like *religion*), *violin* (like *also*), and the chess pieces: the queen is a *minister*, the bishop an *elephant*, the knight a *horse*.
+  - **Second words among them:** 17 of the 60 also mean something a taught word means (*soldier*, *drawer*, *weather*, *heat*, *violin*). Each keeps that taught word's exact gloss, as before. One gloss is narrowed: طب is *medicine (the field)*, since *medicine* is taught as the drug.
+  - **Own sentences:** none of the 60 has a deck sentence; each has one of our own (6 checker flags on the first pass, rewritten with words already met).
+  - **Left for later (ordered, not cut):** adult, toilet and grim words (about 30), about 20 more true second words, about 15 B2 items (mostly phrases), and near-duplicates among the 244 (*chairman* for *president*, *car roof* for *ceiling*, grammar terms like *noun* and *adverb*).
+
+| Chapter | Theme |
+|---|---|
+| 88 | Same letters: the house, the body and the shop |
+| 89 | Same letters: the road, the board and the land |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
