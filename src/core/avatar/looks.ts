@@ -49,7 +49,21 @@ export const BEARDS = [
   { id: 'full', label: 'Beard' },
 ] as const;
 
-/** Gear slots (ADR 0006). A companion pet comes later. */
+/**
+ * Headscarves (avatar ideas for later, 2026-11-11): a look option, not gear, so anyone can wear
+ * one from the start. It covers the hair and falls over the shoulders, in one of these cloths.
+ */
+export const SCARVES = [
+  { id: 'sand', label: 'Sand', light: '#F0D6AE', dark: '#B08658' },
+  { id: 'rose', label: 'Rose', light: '#E6A4A0', dark: '#9A4E52' },
+  { id: 'olive', label: 'Olive', light: '#B4BC84', dark: '#5E6A3A' },
+  { id: 'indigo', label: 'Indigo', light: '#7E8CC4', dark: '#2E3A6E' },
+  { id: 'black', label: 'Black', light: '#5E5866', dark: '#1E1A22' },
+  { id: 'white', label: 'White', light: '#FBF8F2', dark: '#BDB4A6' },
+] as const;
+export type ScarfId = (typeof SCARVES)[number]['id'];
+
+/** Gear slots (ADR 0006), and the companion pet, who sits at your feet. */
 export const SLOTS = [
   { id: 'head', label: 'Head' },
   { id: 'torso', label: 'Torso' },
@@ -57,6 +71,7 @@ export const SLOTS = [
   { id: 'feet', label: 'Feet' },
   { id: 'hand', label: 'Hand' },
   { id: 'back', label: 'Back' },
+  { id: 'pet', label: 'Companion' },
 ] as const;
 export type SlotId = (typeof SLOTS)[number]['id'];
 
@@ -213,7 +228,80 @@ export const GEAR: readonly GearItem[] = [
     name: 'Guild banner',
     starter: false,
     earn: 'From chests and the Market',
-  }, // Rank gear (#176, ADR 0035): only taking the rank gives it. Never sold, never in a chest.
+  },
+  // More wares (2026-11-11): one more for each slot.
+  {
+    id: 'kufi',
+    slot: 'head',
+    name: 'Embroidered kufi',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'shawl',
+    slot: 'torso',
+    name: 'Woven shawl',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'gold-sirwal',
+    slot: 'legs',
+    name: 'Gold-stitched sirwal',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'slippers',
+    slot: 'feet',
+    name: 'Gilded slippers',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'falcon',
+    slot: 'hand',
+    name: "Falconer's glove",
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'waterskin',
+    slot: 'back',
+    name: 'Water skin',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  // Companions (ADR 0006): pets, from chests and the Market like the wares.
+  {
+    id: 'sand-cat',
+    slot: 'pet',
+    name: 'Sand cat',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'hedgehog',
+    slot: 'pet',
+    name: 'Desert hedgehog',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'fennec',
+    slot: 'pet',
+    name: 'Fennec fox',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'camel-calf',
+    slot: 'pet',
+    name: 'Camel calf',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  // Rank gear (#176, ADR 0035): only taking the rank gives it. Never sold, never in a chest.
   {
     id: 'ear-cups',
     slot: 'head',
@@ -267,6 +355,8 @@ export const DYES = [
   { id: 'saffron-dye', label: 'Saffron dye', light: '#FFD98A', mid: '#D9A12E', dark: '#7A5210' },
   { id: 'indigo-dye', label: 'Indigo dye', light: '#8A9AE0', mid: '#3E4E9E', dark: '#1A2250' },
   { id: 'forest-dye', label: 'Forest dye', light: '#8AC88A', mid: '#3E7A4A', dark: '#16381E' },
+  { id: 'rose-dye', label: 'Rose dye', light: '#F2A8C0', mid: '#C8507A', dark: '#5E1A34' },
+  { id: 'charcoal-dye', label: 'Charcoal dye', light: '#8A8A94', mid: '#3E3E48', dark: '#141418' },
 ] as const;
 export type DyeId = (typeof DYES)[number]['id'];
 
@@ -281,6 +371,8 @@ export const lookSchema = z.object({
   hair: z.enum(ids(HAIRS)).catch('crop'),
   hairColour: z.enum(ids(HAIR_COLOURS)).catch('brown'),
   beard: z.enum(ids(BEARDS)).catch('none'),
+  /** A headscarf's cloth, or none. */
+  scarf: z.enum(ids(SCARVES)).optional().catch(undefined),
   /** The tunic's dye, if the player owns one (#49). */
   dye: z.enum(ids(DYES)).optional().catch(undefined),
   gear: z

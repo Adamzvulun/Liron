@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_LOOK, DYES, GEAR, parseLook, SLOTS } from './looks.ts';
+import { DEFAULT_LOOK, DYES, GEAR, parseLook, SCARVES, SLOTS } from './looks.ts';
 import { paintAvatar, PAINTED_GEAR } from './paint.ts';
 import catalogue from '../../../content/core/items.json' with { type: 'json' };
 
@@ -17,6 +17,23 @@ describe('avatar looks', () => {
     expect(look.gear).toEqual({});
   });
 
+  it('keeps a headscarf, drops an unknown one, and saved looks without one stay as they were', () => {
+    expect(parseLook({ scarf: 'indigo' }).scarf).toBe('indigo');
+    expect(parseLook({ scarf: 'tartan' }).scarf).toBeUndefined();
+    expect(parseLook({ hair: 'long' })).not.toHaveProperty('scarf');
+  });
+
+  it('paints a headscarf over the hair, in its own cloth', () => {
+    const long = { ...DEFAULT_LOOK, hair: 'long' as const };
+    const bare = paintAvatar(long, { idPrefix: 'a' });
+    for (const c of SCARVES) {
+      const svg = paintAvatar({ ...long, scarf: c.id }, { idPrefix: 'a' });
+      expect(svg).toContain(c.light);
+      expect(svg).not.toMatch(/NaN|undefined/);
+      expect(svg).not.toBe(bare);
+    }
+  });
+
   it('takes off locked gear and gear worn in the wrong slot', () => {
     const look = parseLook({
       ...DEFAULT_LOOK,
@@ -28,6 +45,16 @@ describe('avatar looks', () => {
   it('keeps gear the player owns (ADR 0033)', () => {
     const raw = { ...DEFAULT_LOOK, gear: { head: 'headset', back: 'cloak' } };
     expect(parseLook(raw, new Set(['headset'])).gear).toEqual({ head: 'headset' });
+  });
+
+  it('keeps a companion only if the player owns one, and paints it at their feet', () => {
+    const raw = { ...DEFAULT_LOOK, gear: { ...DEFAULT_LOOK.gear, pet: 'fennec' } };
+    expect(parseLook(raw).gear.pet).toBeUndefined();
+    const look = parseLook(raw, new Set(['fennec']));
+    expect(look.gear.pet).toBe('fennec');
+    const svg = paintAvatar(look, { idPrefix: 'p' });
+    expect(svg).not.toBe(paintAvatar(DEFAULT_LOOK, { idPrefix: 'p' }));
+    expect(svg).toMatch(/<g transform="translate\(160 300\) scale\(\.95\)">/);
   });
 
   it("lists every earnable item in the catalogue, in the item's slot", () => {
