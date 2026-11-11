@@ -436,9 +436,46 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Later chapters' cards** (verbs' present prefix b-, *bidd-* for "want", negation with *mā…š*, the past) come with chapters 5–10, the same way.
+- **Cards 5–33 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+
+| Ch. | Card | The rule | Deck sentences |
+|---|---|---|---|
+| 5 | fī, "there is" | fī before the thing; fiš (mā fī) for there isn't | Someone is at the door. · Is there wifi here? · No one lives forever. |
+| 6 | bidd-, "want" | bidd- with the endings; then a thing, or a verb in its plain form | Would you like some cola? · I need to go to the bathroom. |
+| 7 | The present: b- | ba-, bti-, bi-, mni- + the verb; a second verb drops the b- | I love you! · I work full-time. · I like traveling… |
+| 8 | 3ind-, "have" | "at me": 3índi, 3índak; mā 3índi | I have a twin brother. · Do you have any children? |
+| 9 | mā…š and miš | -š (and often mā) on a verb; miš before anything else | I don't like spicy food. · I'm not interested in politics. |
+| 10 | The past | endings on "he did" (kátab); -t often said -it; doubled verbs take -ēt, long-ā verbs shorten | I've already paid for the vegetables. · I was born in 1980. |
+| 11 | She, and -a | -a for a woman and on describing words after a feminine word (and after plural things); the colors' own feminine | red light · green light · a real bargain · a huge pimple |
+| 12 | The future: ɧa- | ɧa- in place of b-; many say raɧ instead | I'll go to bed soon. · What are you going to wear today? |
+| 13 | múmkin and lāzim | can and must, before a verb's plain form; neither changes | Can I have a glass of water, please? · I need to practice speaking more. |
+| 14 | Endings on verbs | the chapter 2 endings for who it's done to; me is -ni | I love you! · Kiss me! · My eyes itch. |
+| 15 | kān | was, with the past endings; kān fī; kān + present for was doing, used to | He was very sweaty… · There was a flash of lightning. |
+| 16 | ílli | who, which, that; the verb after it takes an ending for its object | I'm the middle child. · What kind of movies do you like? |
+| 17 | ákbar | the aCCaC shape for comparing; than is min; before a noun, the most | I'm the youngest in my family. · I prefer the train to the bus. |
+| 18 | Commands | the bare verb; -i, -u; don't is mā + the you form, or -š | Turn left! · Come upstairs! · Don't forget to breathe! |
+| 19 | gā3id | before a present verb for right now; changes like a describing word | I'm trying to study… · This plant is really growing fast! |
+| 20 | Verb shapes: your binyanim | the Hebrew bridge (ADR 0002): doubled middle ↔ piʿel, t- ↔ hitpaʿel, in- ↔ nifʿal, a- ↔ hifʿil | to teach · I like learning languages · I was born in 1980 · He broke his arm. |
+| 21 | Plurals inside the word | broken plurals (bēt → byūt), learned with the word; -īn and -āt; plural things are feminine | house · dog · eye · school (each with its plural) |
+| 22 | law | if; law samáɧit is please; yā rēt law, I wish | If I have enough money, I'll buy it. · I wish I had a car. |
+| 23 | lámma and 3ašān | when; because, so that; la-ʔínn- | If I feel hungry… · I'm tired today because… |
+| 24 | kull | every (no il-); all (plural with il-) | I take the metro every day. · Add up the price of all the items… |
+| 25 | ɧāl- and bá3ɖ | -self with the endings; kēf ɧālak; each other | How are you? · Take care! · Are you two related? |
+| 26 | Question words | šū, mīn, wēn, lēš, kēf, wagtēš, gaddēš, kam; kam takes a singular | What's your name? · Where do you live? · How many children…? |
+| 27 | Telling the time | issā3a + the hour; w past, ílla to; rúbi3, tilt, nuʂʂ | What time is it? · A quarter past three · A quarter to four |
+| 28 | The joining words | w, bass (but, just), aw / wálla (or), ínnu (that) | I like watching sports, but… · Just put it in the microwave… · Are you ready yet? |
+| 29 | líssa and min gábil | still; not yet (with a negative); already | I'm still hungry. · He isn't here yet. · I've already eaten lunch. |
+| 30 | gábil and bá3id | before, after; + ma before a sentence; gábil hēk | Eat your ice cream before it melts. · Have you ever been abroad? |
+| 31 | fōg, taɧt, jamb | where words before the thing, alone as places, with the endings | The painting is hanging over the sofa. · I prefer an aisle seat. |
+| 32 | il- on both | the describing word after the thing; il- on both; one il- makes a sentence | I don't like spicy food. · to run a red light |
+| 33 | Putting words together | "of" by side-by-side words, like Hebrew smichut; -a shows its t; il- only on the last | Can I have a glass of water? · What's the temperature? · Enter your username and password. |
+
+- **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
+- **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
+- **Later cards** (*tába3* "of", which the deck has only one short sentence for, and the rarer verb shapes, like istáfʕal) come with later chapters, the same way.
 
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).
 - Speaking the word into the mic (E14, mic practice).
-- Root and pattern badges (the Hebrew bridge, ADR 0002).
+- ~~Shared-root badges~~ **built (2026-11-11):** 77 taught words carry "Same root as …" with the Hebrew word that shares their Semitic root (בית for بيت, שמש for شمس, the numbers 1–10, much of the body), and its meaning when that differs (בת, *daughter*, for بنت, *girl*). Only true cognates with a meaning a learner can use; false friends (لحم *meat* / לחם *bread*, قمح *wheat* / קמח *flour*) are left out. The list is `content/arabic/shared-roots.json`.
+- Pattern badges (the Hebrew bridge's binyanim ↔ verb forms, ADR 0002) and a root explorer.

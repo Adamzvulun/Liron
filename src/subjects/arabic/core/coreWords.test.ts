@@ -33,6 +33,12 @@ const deck = (): Item[] =>
   );
 
 describe('the word path (#160)', () => {
+  it('gives a word that shares its root with a Hebrew word that Hebrew word (ADR 0002)', () => {
+    const words = coreWordsFrom(deck()).flat();
+    expect(words.find((w) => w.deck === 'pcav:0686')?.kin).toMatchObject({ hebrew: 'בית' });
+    expect(words.find((w) => w.deck === 'pcav:4751')?.kin).toBeUndefined();
+  });
+
   it('builds every chapter from the deck, with our gloss and the sentence when there is one', () => {
     const chapters = coreWordsFrom(deck(), OWN_SENTENCES);
     expect(chapters.map((c) => c.length)).toEqual(WORD_CHAPTERS.map(() => 30));
