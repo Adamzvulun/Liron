@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { SubjectApi } from '../../core/subject.ts';
 import { HallBackdrop } from '../../core/city/HallBackdrop.tsx';
+import { paintRadioRoom, RADIO_STAGE } from '../../core/city/paintRadioRoom.ts';
 import { Hall, type HallDoor } from './hall/Hall.tsx';
 import { TOWER_STAGE, wholeTower } from './hall/paintTower.ts';
 import { KochLesson } from './lesson/Lesson.tsx';
@@ -41,7 +42,12 @@ export function TowerHall({ api }: { api: SubjectApi }) {
   if (view === 'hall') return <Hall api={api} onOpen={setView} />;
   return (
     <>
-      <HallBackdrop id="tower" {...TOWER_STAGE} paint={wholeTower} />
+      {/* The Radio Room and the Far Station have a room of their own (roadmap A5). */}
+      {view === 'radio' || view === 'far' ? (
+        <HallBackdrop id="radio" {...RADIO_STAGE} paint={paintRadioRoom} />
+      ) : (
+        <HallBackdrop id="tower" {...TOWER_STAGE} paint={wholeTower} />
+      )}
       <button type="button" className="hall__back" onClick={() => setView('hall')}>
         ← Tower hall
       </button>
