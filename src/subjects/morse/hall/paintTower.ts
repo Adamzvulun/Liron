@@ -906,3 +906,14 @@ export function paintTower(): PaintedTower {
     front,
   };
 }
+
+let cached: PaintedTower | undefined;
+/** The room, painted once per page load: it never changes. */
+export const paintedTower = (): PaintedTower => (cached ??= paintTower());
+
+/** The whole room as one painting, with every station and the gate shut: the stations' backdrop (roadmap A1). */
+export function wholeTower(): string {
+  const t = paintedTower();
+  const stations = Object.values(t.stations).map((s) => s.svg);
+  return `<defs>${t.defs}</defs>${t.back}${t.gate.shut}${stations.join('')}${t.front}`;
+}

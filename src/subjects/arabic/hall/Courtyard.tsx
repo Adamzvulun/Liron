@@ -7,7 +7,7 @@ import { questStatus, regularStatus } from '../questline.ts';
 import { RankUp } from '../../../core/ranks/RankUp.tsx';
 import { heldRanks, needLine } from '../../../core/ranks/ranks.ts';
 import { ARABIC_RANKS, arabicStanding } from '../ranks.ts';
-import { KHAN_STAGE, paintKhan, paintMilestones, type Box, type StationId } from './paintKhan.ts';
+import { KHAN_STAGE, paintedKhan, paintMilestones, type Box, type StationId } from './paintKhan.ts';
 import { ArabicText } from '../ArabicText.tsx';
 import { PHRASE_SETS } from '../phrases/sets.ts';
 import { WORD_CHAPTERS } from '../core/coreWords.ts';
@@ -22,8 +22,8 @@ import './khan.css';
 export type CourtyardDoor =
   'lesson' | 'listen' | 'read' | 'write' | 'phrases' | 'words' | 'trial' | 'regular' | 'echo';
 
-let painted: ReturnType<typeof paintKhan> | undefined;
-const courtyard = () => (painted ??= paintKhan());
+// The room never changes, so it's painted once per page load (paintedKhan).
+const courtyard = paintedKhan;
 
 /** Below this scale the writing in the courtyard is too small to read; it moves below. */
 const READABLE_SCALE = 0.62;
