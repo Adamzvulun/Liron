@@ -1,33 +1,16 @@
 // The word path (#160, E11): its words in chapters of 30 (wordChapters.ts, from
 // content/arabic/core-words.json, #159, #163). That file holds only deck ids and our glosses; the Arabic,
 // the Latin and the recordings come from the private deck (ADR 0011).
-import { z } from 'zod';
 import type { Item } from '../../../core/content/schema.ts';
 import type { ReviewGrade } from '../../../core/subject.ts';
-import ownPack from '../../../../content/arabic/own-sentences.json' with { type: 'json' };
 import { dropGroups, latinToHebrew } from '../phrases/hebrew.ts';
+import type { OwnSentence } from './ownSentences.ts';
 import { WORD_CHAPTERS } from './wordChapters.ts';
 
 export { WORD_CHAPTERS, type WordChapter } from './wordChapters.ts';
 
-/**
- * Our own sentences (#164) for words the deck has none for: text only, written by us and
- * checked against the deck and free references (ADR 0012). No recording.
- */
-const OwnSentence = z.object({
-  word: z.string(),
-  arabic: z.string().min(1),
-  latin: z.string().min(1),
-  english: z.string().min(1),
-});
-export type OwnSentence = z.infer<typeof OwnSentence>;
-
-export const OWN_SENTENCES: ReadonlyMap<string, OwnSentence> = new Map(
-  ownPack.items.map((i) => {
-    const s = OwnSentence.parse(i.data);
-    return [s.word, s];
-  }),
-);
+/** Our own sentences by deck word, loaded on demand: the Caravanserai opens without them. */
+export const loadOwnSentences = () => import('./ownSentences.ts').then((m) => m.OWN_SENTENCES);
 
 /** A session: due words first, then up to NEW_PER_SESSION new ones, then words you know. */
 export const SESSION_WORDS = 12;
@@ -81,8 +64,14 @@ export function line(item: Item | undefined): DeckLine | undefined {
   };
 }
 
-/** Every chapter's words from the deck's items; a word the deck lacks is left out. */
-export function coreWordsFrom(items: readonly Item[]): CoreWord[][] {
+/**
+ * Every chapter's words from the deck's items; a word the deck lacks is left out. A word with no
+ * deck sentence takes ours from `ownSentences` (see `loadOwnSentences`).
+ */
+export function coreWordsFrom(
+  items: readonly Item[],
+  ownSentences: ReadonlyMap<string, OwnSentence> = new Map(),
+): CoreWord[][] {
   const byId = new Map(items.map((i) => [i.id, i]));
   return WORD_CHAPTERS.map((c) =>
     c.words.flatMap((w) => {
@@ -90,7 +79,7 @@ export function coreWordsFrom(items: readonly Item[]): CoreWord[][] {
       if (!own) return [];
       const said = w.sentence ? line(byId.get(w.sentence)) : undefined;
       const sentence = said && w.sentence ? { ...said, deck: w.sentence } : undefined;
-      const mine = sentence ? undefined : OWN_SENTENCES.get(w.deck);
+      const mine = sentence ? undefined : ownSentences.get(w.deck);
       const written = mine && {
         arabic: mine.arabic,
         latin: mine.latin,
