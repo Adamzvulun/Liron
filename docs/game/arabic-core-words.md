@@ -436,7 +436,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Cards 5–12 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+- **Cards 5–19 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
 
 | Ch. | Card | The rule | Deck sentences |
 |---|---|---|---|
@@ -448,10 +448,17 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 10 | The past | endings on "he did" (kátab); -t often said -it; doubled verbs take -ēt, long-ā verbs shorten | I've already paid for the vegetables. · I was born in 1980. |
 | 11 | She, and -a | -a for a woman and on describing words after a feminine word (and after plural things); the colors' own feminine | red light · green light · a real bargain · a huge pimple |
 | 12 | The future: ɧa- | ɧa- in place of b-; many say raɧ instead | I'll go to bed soon. · What are you going to wear today? |
+| 13 | múmkin and lāzim | can and must, before a verb's plain form; neither changes | Can I have a glass of water, please? · I need to practice speaking more. |
+| 14 | Endings on verbs | the chapter 2 endings for who it's done to; me is -ni | I love you! · Kiss me! · My eyes itch. |
+| 15 | kān | was, with the past endings; kān fī; kān + present for was doing, used to | He was very sweaty… · There was a flash of lightning. |
+| 16 | ílli | who, which, that; the verb after it takes an ending for its object | I'm the middle child. · What kind of movies do you like? |
+| 17 | ákbar | the aCCaC shape for comparing; than is min; before a noun, the most | I'm the youngest in my family. · I prefer the train to the bus. |
+| 18 | Commands | the bare verb; -i, -u; don't is mā + the you form, or -š | Turn left! · Come upstairs! · Don't forget to breathe! |
+| 19 | gā3id | before a present verb for right now; changes like a describing word | I'm trying to study… · This plant is really growing fast! |
 
 - **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
 - **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
-- **Later cards** (comparatives, *illi*, the imperative, the verb forms with their Hebrew binyanim) come with later chapters, the same way.
+- **Later cards** (*tába3* "of", which the deck has only one short sentence for, and the verb forms with their Hebrew binyanim) come with later chapters, the same way.
 
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).
