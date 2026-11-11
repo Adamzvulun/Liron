@@ -29,6 +29,15 @@ test.describe('the Market (#49)', () => {
     await expect(page.getByRole('radio', { name: 'Red tarboosh' })).toBeChecked();
   });
 
+  test('the stall stands in a painted bazaar lane (roadmap A3)', async ({ page }) => {
+    await signedIn(page, [], [], null, [], { gold: 130 });
+    await page.goto('/market');
+    const lane = page.locator('.hall-backdrop[data-hall="market"]');
+    await expect(lane).toHaveAttribute('aria-hidden', 'true');
+    await expect(lane.locator('img')).toHaveJSProperty('complete', true);
+    await expect(page.getByRole('region', { name: 'Today’s wares' })).toBeVisible();
+  });
+
   test('what you own says so instead of a price', async ({ page }) => {
     await signedIn(page, [], [], null, [], {
       gold: 500,
