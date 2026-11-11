@@ -2269,6 +2269,56 @@
         },
         "outro": "Brother Antoun leaves one book at the inn, the one with the swallows drawn in its margins. He climbs back up the hill before dark."
       }
+    },
+    {
+      "id": "road:89",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 89,
+        "wordChapter": 88,
+        "title": "The Sign Painter",
+        "who": "Khalil the sign painter",
+        "intro": "Khalil paints the signs for half the shops in the market. He paints the letters well, but he leaves out the little marks, and the town reads them however it likes.",
+        "milestones": [
+          "The baker’s sign says “oven”, and a woman comes in asking for the bakery. The sweet shop’s sign says “sweets”, and a young man asks if the owner is good-looking.",
+          "At the clinic, the sign over the door could say “medicine” or “okay then”. Dr. Ingrid laughs and says both are what a patient wants to hear.",
+          "Khalil paints a new sign for the coffeehouse, and everyone agrees it says “coffee”. Then he paints one for the bank, and it says “account” or “the bill”, whichever you owe."
+        ],
+        "trial": {
+          "name": "Khalil’s Signs",
+          "text": "Khalil holds up his signs, and you say what each one means in this shop. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Khalil paints a small sign for the inn’s kitchen door. It has every mark on it, so no one can read it wrong."
+      }
+    },
+    {
+      "id": "road:90",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 90,
+        "wordChapter": 89,
+        "title": "The Chess Players",
+        "who": "Abu Sami and Abu Fadi from the coffeehouse",
+        "intro": "Every evening Abu Sami and Abu Fadi play chess at the coffeehouse by the roundabout. In their game the queen is a minister, the bishop is an elephant and the knight is a horse.",
+        "milestones": [
+          "Abu Fadi moves his elephant across the board and says it walks like a farmer behind a tractor. Abu Sami says his horse jumps better than any hunter’s.",
+          "They argue about the weather while they play: the heat of the day, the coolness at night, the north wind. Neither of them looks up from the board.",
+          "When the game is over they throw dice for who pays for the tea. Abu Sami loses, and says it is a debt he will pay next week."
+        ],
+        "trial": {
+          "name": "The Last Game",
+          "text": "Abu Sami and Abu Fadi name each piece and each thing on the road, and you give its meaning. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "They leave their old chessboard at the inn, the one with a chipped knight. “For the next two who need an argument,” says Abu Fadi."
+      }
     }
   ]
 }
