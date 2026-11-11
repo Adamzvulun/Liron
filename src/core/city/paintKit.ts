@@ -10,3 +10,23 @@ export const OUT = (w = 3) =>
 export const poly = (pts: readonly Pt[]) =>
   'M' + pts.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L') + ' Z';
 export const line = (pts: readonly Pt[]) => 'M' + pts.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L');
+
+/**
+ * A tabletop seen from a seated player (roadmap A6): its back edge runs from `back[0]` to
+ * `back[1]` at height `back[2]`, its front edge (usually below the picture) from `front[0]` to
+ * `front[1]` at `front[2]`. `at(u, v)` is the point `u` across (0 left, 1 right) and `v` toward
+ * the player (0 back, 1 front); `scale(v)` is how big a thing standing there is drawn.
+ */
+export function tabletop(
+  back: readonly [number, number, number],
+  front: readonly [number, number, number],
+  scales: readonly [number, number] = [0.7, 1.3],
+) {
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+  const at = (u: number, v: number): Pt => {
+    const x0 = lerp(back[0], front[0], v);
+    const x1 = lerp(back[1], front[1], v);
+    return [lerp(x0, x1, u), lerp(back[2], front[2], v)];
+  };
+  return { at, scale: (v: number) => lerp(scales[0], scales[1], v) };
+}
