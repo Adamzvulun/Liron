@@ -335,6 +335,28 @@
         ],
         "examples": ["pcav:2282", "pcav:3866", "pcav:1335"]
       }
+    },
+    {
+      "id": "grammar:verb-forms",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 20,
+        "title": "Verb shapes: your binyanim",
+        "points": [
+          "Like Hebrew, Arabic builds verbs from a root in a few set shapes. If you know the binyanim, you already know how these work.",
+          "A doubled middle letter makes a verb do more, or make someone do it, like piʿel: dáras, he studied → dárras, he taught. Hebrew does the same with למד and לימד.",
+          "t- in front of that shape is done to or for yourself, like hitpaʿel: it3állam, he learned; atdárrab, I practice.",
+          "in- in front is something that happens to you, like nifʿal: inwálad, he was born (נולד); inkásar, it broke (נשבר)."
+        ],
+        "table": [
+          ["dárras", "doubled middle: like piʿel"],
+          ["it3állam", "t- + doubled: like hitpaʿel"],
+          ["inwálad", "in-: like nifʿal"],
+          ["á3ʈa", "a-: like hifʿil (less common in speech)"]
+        ],
+        "examples": ["pcav:1547", "pcav:3122", "pcav:0057", "pcav:1697"]
+      }
     }
   ]
 }

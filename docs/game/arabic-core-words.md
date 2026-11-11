@@ -436,7 +436,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Cards 5–19 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+- **Cards 5–20 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
 
 | Ch. | Card | The rule | Deck sentences |
 |---|---|---|---|
@@ -455,10 +455,11 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 17 | ákbar | the aCCaC shape for comparing; than is min; before a noun, the most | I'm the youngest in my family. · I prefer the train to the bus. |
 | 18 | Commands | the bare verb; -i, -u; don't is mā + the you form, or -š | Turn left! · Come upstairs! · Don't forget to breathe! |
 | 19 | gā3id | before a present verb for right now; changes like a describing word | I'm trying to study… · This plant is really growing fast! |
+| 20 | Verb shapes: your binyanim | the Hebrew bridge (ADR 0002): doubled middle ↔ piʿel, t- ↔ hitpaʿel, in- ↔ nifʿal, a- ↔ hifʿil | to teach · I like learning languages · I was born in 1980 · He broke his arm. |
 
 - **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
 - **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
-- **Later cards** (*tába3* "of", which the deck has only one short sentence for, and the verb forms with their Hebrew binyanim) come with later chapters, the same way.
+- **Later cards** (*tába3* "of", which the deck has only one short sentence for, and the rarer verb shapes, like istáfʕal) come with later chapters, the same way.
 
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).
