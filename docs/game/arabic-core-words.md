@@ -5,7 +5,7 @@
 
 ## The short version
 - **The word path opens after the script course.** It starts once you pass "The Painted Sign" (chapter 1 of "The Long Road In"), when every letter is yours.
-- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1), 841–1,560 (A2 words) and 1,561–2,250 (B1 words) are in.
+- **The first 300 words come from the deck's A1 words and verbs, in 10 chapters of 30, grouped by topic.** The most useful topics come first: greetings and people, then questions and family. Words 301–840 (the rest of A1), 841–1,560 (A2 words), 1,561–2,250 (B1 words) and 2,251–2,310 (B2 words) are in.
 - **Each word is met with its native recording, its meaning, how it sounds in Hebrew letters, and a deck sentence when the deck has one.** The deck has few sentences, so this is the main open question (section 3).
 - **Practice is the same four moves as the letters:** meet, listen, read, recall. FSRS schedules each word, and Glicko rates you in listen and read.
 - **Each chapter brings a new regular to the innkeeper's table** ("The Long Road In" chapter 2 onward), with a trial at its end.
@@ -189,6 +189,16 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
   - **The other 203 have one of our own sentences** (§3).
   - **Left for later (ordered, not cut):** about 385 B1 words, nearly all second ways to say a taught word, adult and toilet words, and a few rare ones (the deck's B2 words come after).
 
+- **Words 2,251–2,310 (2026-11-10 night):** the deck's B2 words, in two chapters of 30:
+
+| Chapter | Theme | Deck sections it draws on |
+|---|---|---|
+| 76 | Fine work | The Human Body, Health and Medicine, School and Education, Bank, Recreation (crafts), Language (writing), Earth and Space, Time |
+| 77 | Power and the courts | Government and Politics, Crime and Justice, Military, Religion, Verbs (saying no), Adjectives |
+
+  - **Of the deck's 122 B2 items, 81 are single words or verbs not yet taught; these 60 were picked by use.** Left for later (ordered, not cut): the second of a pair (*to do a master's degree* has two forms, *to patch* two, *defense* two, *absent-minded* two, *to get one's teeth whitened* two), grammar terms (*case*, *neuter*, *inflection*), rare ones (*thimble*, *dust devil*, *pagan*, *evangelical*, *dormant*), idioms of several words (*to cup one's ear*, *to dice*), and adult and grim words (*to cheat on*, *to be hanged*, *death sentence*).
+  - **2 of the 60 carry a deck sentence;** the other 58 have one of our own (§3), in the deck's own forms. The checker flagged 16 tokens on the first pass, and each sentence was rewritten with words already met.
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
@@ -319,6 +329,8 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | LXXIV | Mr. Kamal, the old history teacher | Kamal's History |
 | LXXV | Abu Jaber the peacemaker | The Peacemaker's Coffee |
 | LXXVI | Sheikh Hamdi and Father Yacoub | The Friends' Table |
+| LXXVII | Dr. Salwa, the surgeon | Salwa's Clinic |
+| LXXVIII | Rana the journalist | Election Night |
 
 - **Chapters XII–XXI (#205, 2026-11-10):** a caravan from the coast arrives just as the table seems full, and its people sit down one per word chapter (11–20). Each regular has the same shape: an opening, 3 milestone beats and a trial. Their trials send `trial-12` to `trial-21`. Migration `20261122000000_more_regulars.sql` registers `trial-13` to `trial-35`, so chapters up to word chapter 34 need no further migration.
 - **The Traveler rank still asks for the Poet's Evening** (chapter XI), not the newest regular's trial. "A Seat at the Table" still means the first ten regulars.
@@ -328,6 +340,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 - **Chapters LIV–LXI (#230, 2026-11-10):** a winter at the inn, for word chapters 53–60, the first B1 words. The innkeeper rebuilds the old east wing: a foreman hires the hands, a nurse opens a clinic by the gate, a sweet maker feeds the workers, the first tenant fixes everything, the innkeeper's mother can't sleep, a lawyer gets the permit, two twins argue, and a grandson runs the opening night. Their trials send `trial-54` to `trial-61`, registered by migration `20261126000000_regulars_54_61.sql`.
 - **Chapters LXII–LXIX (#232, 2026-11-10):** spring at the inn, for word chapters 61–68. Travelers fill the new east wing: a taxi driver, a travel agent, a theater troupe, a coach, a visiting professor, and three old faces back again: Abu Saleh for the harvest, Rami with a business plan, and Yasmin for a storm. Their trials send `trial-62` to `trial-69`, registered by migration `20261128000000_regulars_62_69.sql`.
 - **Chapters LXX–LXXVI (#233, 2026-11-10):** a summer at the inn, for word chapters 69–75. A matchmaker finds Omar a bride; Sitt Fatima passes away in her sleep and the town mourns her; the barber and a dry cleaner get the town ready for the engagement; a fishmonger takes you to market; a retired history teacher tells of kings and empires; a peacemaker ends a feud over a wall; and the town's imam and priest, old friends, both bless the couple. Their trials send `trial-70` to `trial-76`, registered by migration `20261129000000_regulars_70_76.sql`.
+- **Chapters LXXVII–LXXVIII (2026-11-10 night):** autumn at the inn, for word chapters 76–77, the deck's B2 words. The baker's daughter Salwa comes home a surgeon and opens a clinic, and a journalist covers the town's election (Mr. Kamal is nominated, declines, is begged, and wins) and a trial at the court (Tamer the fishmonger is cleared). Their trials send `trial-77` and `trial-78`, registered by migration `20261130000000_regulars_77_78.sql`.
 - **Every word chapter now has its regular.** A new word chapter needs a new regular and a `trial-N` row in a migration.
 
 - **Beats:** each regular has an opening, and 3 milestone beats lit by the words you've met (one per 10 of the chapter's 30). The table shows the newest beat above "Start a session"; the courtyard's story panel shows the chapter.
