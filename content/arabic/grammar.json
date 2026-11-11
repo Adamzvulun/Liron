@@ -221,6 +221,120 @@
         ],
         "examples": ["pcav:4217", "pcav:0620", "pcav:3722", "pcav:1733"]
       }
+    },
+    {
+      "id": "grammar:may-must",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 13,
+        "title": "múmkin and lāzim: “can” and “must”",
+        "points": [
+          "Can I…? Could you…? is múmkin before a verb in its plain form: múmkin āxud kubbāyit máyya? Can I have a glass of water?",
+          "Must, need to is lāzim, the same way: lāzim aštíɣil, I need to work.",
+          "Neither word changes: the verb after it shows who. Add law samáɧit, please, to be polite."
+        ],
+        "examples": ["pcav:1024", "pcav:0755", "pcav:3324", "pcav:1536"]
+      }
+    },
+    {
+      "id": "grammar:object-endings",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 14,
+        "title": "Me, you, him: endings on verbs",
+        "points": [
+          "The endings from chapter 2 also go on verbs, for who it’s done to: baɧíbb → baɧíbbak, I love you.",
+          "Me is -ni on a verb (not -i): būsni, kiss me; bitɧúkkni, it itches (me).",
+          "It and them take -u, -ha and -hum, like his, her and their: bitɧíbbha, you like it (a feminine thing)."
+        ],
+        "examples": ["pcav:0160", "pcav:0209", "pcav:0259", "pcav:2371"]
+      }
+    },
+    {
+      "id": "grammar:was",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 15,
+        "title": "kān: “was” and “used to”",
+        "points": [
+          "Was is kān, with the past endings: kunt, I was; kānat, she was.",
+          "There was is kān fī: kān fī bárig, there was lightning.",
+          "kān before a present verb says what someone was doing, or used to do: kunt tʂáyyiɧ? Were you crying?"
+        ],
+        "table": [
+          ["kunt", "I was; you were (to a man)"],
+          ["kunti", "you were (to a woman)"],
+          ["kān", "he was"],
+          ["kānat", "she was"],
+          ["kunna", "we were"],
+          ["kuntu", "you were (to several)"],
+          ["kānu", "they were"]
+        ],
+        "examples": ["pcav:0423", "pcav:3716", "pcav:0287", "pcav:4447"]
+      }
+    },
+    {
+      "id": "grammar:illi",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 16,
+        "title": "ílli: “who”, “which”, “that”",
+        "points": [
+          "One word joins a description to a thing or a person: ílli. ilwálad ílli bi-nnúʂʂ, the child who’s in the middle.",
+          "On its own it means the one who, or what: min ílli gúltu, of what you said.",
+          "When the thing is what the verb is done to, the verb takes an ending for it: ilʔaflām ílli bitɧíbbha, the movies you like (them)."
+        ],
+        "examples": ["pcav:0102", "pcav:1002", "pcav:2371", "pcav:4558"]
+      }
+    },
+    {
+      "id": "grammar:more",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 17,
+        "title": "ákbar: “bigger”, “more”",
+        "points": [
+          "Comparing words have one shape: kbīr → ákbar, bigger; ʂɣīr → áʂɣar, smaller; ktīr → áktar, more.",
+          "Than is min: ákbar mínni, older than me. The word doesn’t change for a woman or for several.",
+          "Before a noun it means the most: áʂɣar wāɧad, the youngest one; áktar barnāmij, the favorite program."
+        ],
+        "examples": ["pcav:0100", "pcav:0101", "pcav:3140", "pcav:2246"]
+      }
+    },
+    {
+      "id": "grammar:commands",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 18,
+        "title": "Commands",
+        "points": [
+          "A command to a man is the verb with no b- and no sound for who: íʈla3 fōg! Come upstairs! xūd šmāl! Turn left!",
+          "To a woman add -i, to several add -u: íʈla3i, íʈla3u.",
+          "Don’t is mā with the you form of the present, or -š on it: mā tínsa! Don’t forget! tiɧkīš! Don’t talk!"
+        ],
+        "examples": ["pcav:1851", "pcav:4415", "pcav:2615", "pcav:1287"]
+      }
+    },
+    {
+      "id": "grammar:right-now",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 19,
+        "title": "gā3id: “right now”",
+        "points": [
+          "To say something is going on right now, put gā3id before the present verb: gā3id bágra, I’m (busy) studying.",
+          "It changes like a describing word: gā3id for a man, gā3da for a woman or a feminine thing, gā3dīn for several.",
+          "On its own it means sitting, or off work: ána gā3id, I’m off work."
+        ],
+        "examples": ["pcav:2282", "pcav:3866", "pcav:1335"]
+      }
     }
   ]
 }
