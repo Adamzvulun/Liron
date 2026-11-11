@@ -14,6 +14,10 @@ describe('shared roots (ADR 0002)', () => {
     }
   });
 
+  it('keeps each meaning short enough for the badge to stay on one line on a phone', () => {
+    for (const kin of SHARED_ROOTS.values()) expect(kin.note?.length ?? 0).toBeLessThanOrEqual(16);
+  });
+
   it('pairs the classic cognates', () => {
     expect(SHARED_ROOTS.get('pcav:0686')?.hebrew).toBe('בית');
     expect(SHARED_ROOTS.get('pcav:2997')?.hebrew).toBe('שלום');
