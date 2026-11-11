@@ -220,7 +220,7 @@ export function Wardrobe({
                 group={`gear-${slot.id}`}
                 checked={!look.gear[slot.id]}
                 onChange={() => wear(slot.id)}
-                label="Plain"
+                label={slot.id === 'pet' ? 'None' : 'Plain'}
                 wide
               />
               {items.map((item) =>

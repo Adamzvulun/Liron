@@ -75,6 +75,10 @@ export const PAINTED_GEAR = [
   'slippers',
   'falcon',
   'waterskin',
+  'sand-cat',
+  'hedgehog',
+  'fennec',
+  'camel-calf',
   'sunhat',
   'turban',
   'vest',
@@ -678,7 +682,91 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     front += `<path d="M${cx - 30} 50 Q${cx} 56 ${cx + 30} 50" stroke="#C8553D" stroke-width="6" fill="none"/>`;
   }
 
+  // ---- the companion, sitting at your feet (the viewer's right)
+  const pet = wear('pet');
+  // It stays inside the 200-wide box: the camel calf, the widest, sits a little further in.
+  const petX = cx + (pet === 'camel-calf' ? 54 : 60);
+  if (pet) front += `<g transform="translate(${petX} ${fy}) scale(.95)">${companion(pet, g)}</g>`;
+
   return `<defs>${g.defs.join('')}</defs>${back}${body}${front}`;
+}
+
+/** A companion, drawn with its feet on (0, 0); it fits in about 60 by 64. */
+function companion(id: string, g: Grads): string {
+  const fur = (light: string, dark: string) =>
+    g.lin(
+      [
+        [0, light],
+        [1, dark],
+      ],
+      1,
+      1,
+    );
+  const eye = (x: number, y: number) =>
+    `<circle cx="${x}" cy="${y}" r="2.6" fill="${INK}"/><circle cx="${x + 0.8}" cy="${y - 0.8}" r=".9" fill="#FFF"/>`;
+  switch (id) {
+    case 'sand-cat': {
+      // A sand cat sitting up: broad head, low ears, a ringed tail curled round the front.
+      const f = fur('#F2D9A8', '#A8804A');
+      return (
+        `<path d="M-16 0 Q-18 -26 0 -30 Q18 -26 16 0 Z" fill="${f}" ${OUT(2.6)}/>` +
+        `<path d="M14 -4 Q30 -6 26 -20" stroke="${INK}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M14 -4 Q30 -6 26 -20" stroke="#D9B47A" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M27 -12 l-5 1 M25 -18 l-5 -1" stroke="#5A3A1E" stroke-width="2"/>` +
+        `<path d="M-15 -40 L-20 -54 L-6 -48 Z M15 -40 L20 -54 L6 -48 Z" fill="${f}" ${OUT(2.4)}/><path d="M-15 -44 L-17 -51 L-10 -48 Z M15 -44 L17 -51 L10 -48 Z" fill="#E89A8A"/>` +
+        `<ellipse cx="0" cy="-38" rx="16" ry="13" fill="${f}" ${OUT(2.6)}/>` +
+        eye(-6, -40) +
+        eye(6, -40) +
+        `<path d="M-2 -34 L2 -34 L0 -31 Z" fill="#C86A5A"/><path d="M-9 -33 L-18 -34 M-9 -31 L-18 -29 M9 -33 L18 -34 M9 -31 L18 -29" stroke="${INK}" stroke-width="1" opacity=".6"/>` +
+        `<path d="M-8 0 V-8 M8 0 V-8" stroke="${INK}" stroke-width="2" opacity=".5"/>`
+      );
+    }
+    case 'hedgehog': {
+      // A desert hedgehog: a spiny dome, pale face and big ears, looking to the viewer's right.
+      let spines = '';
+      for (let k = 0; k < 9; k++) {
+        const t = Math.PI * (0.08 + (k / 8) * 0.8);
+        const [x, y] = [-4 - Math.cos(t) * 18, -10 - Math.sin(t) * 13];
+        spines += `<path d="M${x.toFixed(1)} ${y.toFixed(1)} l${(-Math.cos(t) * 7).toFixed(1)} ${(-Math.sin(t) * 7).toFixed(1)}" stroke="${INK}" stroke-width="2.4" stroke-linecap="round"/>`;
+      }
+      return (
+        spines +
+        `<path d="M-24 0 Q-26 -26 -4 -26 Q12 -26 14 -10 L10 0 Z" fill="${fur('#8A6A4A', '#3A2A1A')}" ${OUT(2.6)}/>` +
+        `<path d="M-18 -8 l4 -6 l4 6 l4 -6 l4 6 l4 -6 l4 6" stroke="#C9A87A" stroke-width="1.6" fill="none" opacity=".7"/>` +
+        `<ellipse cx="4" cy="-22" rx="5" ry="7" fill="#E8C9A0" ${OUT(2)}/>` +
+        `<path d="M6 -2 Q4 -18 14 -16 Q24 -12 26 -6 Q20 0 6 -2 Z" fill="#F2DDB8" ${OUT(2.4)}/>` +
+        eye(15, -11) +
+        `<circle cx="26" cy="-6" r="2.6" fill="${INK}"/>`
+      );
+    }
+    case 'fennec': {
+      // A fennec fox sitting up: cream fur, huge ears, a black-tipped brush of a tail.
+      const f = fur('#FBEBCB', '#C9A06A');
+      return (
+        `<path d="M10 -2 Q34 -2 30 -20" stroke="${INK}" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M10 -2 Q34 -2 30 -20" stroke="#E8CC98" stroke-width="8.5" fill="none" stroke-linecap="round"/><circle cx="30" cy="-21" r="5" fill="${INK}"/>` +
+        `<path d="M-13 0 Q-15 -24 0 -28 Q15 -24 13 0 Z" fill="${f}" ${OUT(2.6)}/>` +
+        `<path d="M-4 -26 Q0 -10 4 -26" fill="#FFF8EA"/>` +
+        `<path d="M-8 -40 L-24 -66 L-2 -48 Z M8 -40 L24 -66 L2 -48 Z" fill="${f}" ${OUT(2.4)}/><path d="M-9 -44 L-20 -60 L-5 -48 Z M9 -44 L20 -60 L5 -48 Z" fill="#F2B8A8"/>` +
+        `<path d="M-12 -40 Q-12 -50 0 -50 Q12 -50 12 -40 Q8 -30 0 -27 Q-8 -30 -12 -40 Z" fill="${f}" ${OUT(2.6)}/>` +
+        eye(-5, -41) +
+        eye(5, -41) +
+        `<circle cx="0" cy="-30" r="2.4" fill="${INK}"/>`
+      );
+    }
+    case 'camel-calf': {
+      // A young camel standing side-on, facing the viewer's right, with a striped saddle blanket.
+      const f = fur('#E8C08A', '#9A6A3A');
+      return (
+        `<path d="M-14 -22 L-16 0 M-6 -22 L-6 0 M8 -22 L8 0 M16 -22 L18 0" stroke="${INK}" stroke-width="7" stroke-linecap="round"/><path d="M-14 -22 L-16 0 M-6 -22 L-6 0 M8 -22 L8 0 M16 -22 L18 0" stroke="#C99A62" stroke-width="3.5" stroke-linecap="round"/>` +
+        `<path d="M-22 -30 Q-22 -42 -8 -44 Q0 -58 10 -44 Q22 -42 22 -30 Q22 -18 0 -18 Q-22 -18 -22 -30 Z" fill="${f}" ${OUT(2.6)}/>` +
+        `<path d="M-22 -32 Q-30 -30 -28 -22" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"/>` +
+        `<path d="M-6 -44 Q2 -50 10 -44 L10 -32 L-6 -32 Z" fill="#C8302A" stroke="${INK}" stroke-width="2"/><path d="M-6 -38 H10" stroke="#FFD36B" stroke-width="2.4"/>` +
+        `<path d="M16 -36 Q26 -40 24 -54 L32 -56 Q32 -40 24 -30 Z" fill="${f}" ${OUT(2.4)}/>` +
+        `<path d="M22 -56 Q24 -64 34 -62 Q42 -60 40 -54 Q36 -50 26 -52 Z" fill="${f}" ${OUT(2.4)}/><path d="M26 -61 L24 -66" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>` +
+        eye(31, -58)
+      );
+    }
+    default:
+      return '';
+  }
 }
 
 function face(id: Look['face'], cx: number): string {

@@ -10,7 +10,7 @@ The player's character (#28) and the wardrobe in Your House (#29). Art direction
 - **In the city:** the painter only paints the ground shadow, and `City.tsx` places the figure at `AVATAR_SPOT` (`layout.ts`). The painter still draws the 60 random numbers the old figure used, so the scene after it stays exactly as approved.
 
 ## Layers, back to front
-Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms and hands, ears and head, face, beard, front hair or headscarf, head gear. A headscarf also hides the long hair's back layer.
+Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms and hands, ears and head, face, beard, front hair or headscarf, head gear, then the companion. A headscarf also hides the long hair's back layer.
 
 ## Options (v0)
 | Part | Choices |
@@ -24,7 +24,7 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 | Headscarf (2026-11-11) | none, sand, rose, olive, indigo, black, white |
 
 ## Gear
-**Slots:** head, torso, legs, feet, hand and back. A companion pet comes later (ADR 0006). An empty slot shows the plain clothes underneath: a linen shirt, trousers and shoes.
+**Slots:** head, torso, legs, feet, hand and back, and (2026-11-11) a companion (ADR 0006). An empty slot shows the plain clothes underneath: a linen shirt, trousers and shoes.
 
 | Item | Slot | How you get it |
 |---|---|---|
@@ -50,6 +50,8 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 
 The kufi, shawl, gold-stitched sirwal, gilded slippers, falconer's glove and water skin came on 2026-11-11 (migration `20261206000000_more_wares.sql`), one more for each slot.
 
+**Companions (2026-11-11):** a pet that sits at your feet, on the viewer's right, inside the avatar's box (so the city and Your House show it; the HUD portrait doesn't). They're gear in the `pet` slot, sold and found like the wares: sand cat and desert hedgehog (common), fennec fox (rare), camel calf (epic). Migration `20261207000000_companions.sql` adds the slot to the `items` check.
+
 **Rank gear (#176, ADR 0035):** six pieces only a rank gives, never sold or found in a chest: Listener's ear-cups, Keyer's brass key, Operator's coat, Night-watch lantern, Sash of the house and Traveler's keffiyeh. See [ranks and achievements](ranks-and-achievements.md#4-rank-gear).
 
 **Tunic dyes (#49):** crimson, saffron, indigo, forest, and (2026-11-11) rose and charcoal, 60 gold each. They're color items, not gear: an owned dye recolors the traveler's tunic, picked under "Tunic dye" in the wardrobe. Without one the tunic stays teal.
@@ -63,4 +65,4 @@ The kufi, shawl, gold-stitched sirwal, gilded slippers, falconer's glove and wat
 - **Unlocks live in the database** (`owned_items`), not in the look. Reading the look takes off gear and a dye the player doesn't own.
 
 ## Ideas for later (Adam: "we can add more stuff later")
-The companion pet, and still more items per slot (six came on 2026-11-11, one per slot, with two dyes: see the Market's wares above). ~~A headscarf as a look option~~ **built (2026-11-11):** a "Headscarf" choice in the wardrobe, open to everyone from the start like hair and beard: none, or a cloth in sand, rose, olive, indigo, black or white (`SCARVES` in `looks.ts`, `look.scarf`). It covers the hair and ears and falls to the shoulders, with a small pin; head gear is worn over it.
+~~The companion pet~~ (built 2026-11-11: see Companions above; more pets can follow), and still more items per slot (six came on 2026-11-11, one per slot, with two dyes: see the Market's wares above). ~~A headscarf as a look option~~ **built (2026-11-11):** a "Headscarf" choice in the wardrobe, open to everyone from the start like hair and beard: none, or a cloth in sand, rose, olive, indigo, black or white (`SCARVES` in `looks.ts`, `look.scarf`). It covers the hair and ears and falls to the shoulders, with a small pin; head gear is worn over it.

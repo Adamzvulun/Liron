@@ -63,7 +63,7 @@ export const SCARVES = [
 ] as const;
 export type ScarfId = (typeof SCARVES)[number]['id'];
 
-/** Gear slots (ADR 0006). A companion pet comes later. */
+/** Gear slots (ADR 0006), and the companion pet, who sits at your feet. */
 export const SLOTS = [
   { id: 'head', label: 'Head' },
   { id: 'torso', label: 'Torso' },
@@ -71,6 +71,7 @@ export const SLOTS = [
   { id: 'feet', label: 'Feet' },
   { id: 'hand', label: 'Hand' },
   { id: 'back', label: 'Back' },
+  { id: 'pet', label: 'Companion' },
 ] as const;
 export type SlotId = (typeof SLOTS)[number]['id'];
 
@@ -268,6 +269,35 @@ export const GEAR: readonly GearItem[] = [
     id: 'waterskin',
     slot: 'back',
     name: 'Water skin',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  // Companions (ADR 0006): pets, from chests and the Market like the wares.
+  {
+    id: 'sand-cat',
+    slot: 'pet',
+    name: 'Sand cat',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'hedgehog',
+    slot: 'pet',
+    name: 'Desert hedgehog',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'fennec',
+    slot: 'pet',
+    name: 'Fennec fox',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'camel-calf',
+    slot: 'pet',
+    name: 'Camel calf',
     starter: false,
     earn: 'From chests and the Market',
   },
