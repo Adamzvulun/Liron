@@ -63,8 +63,15 @@ test.describe('The Radio Room on the air (E16)', () => {
     await expect(
       page.getByText(/come on the air once you’ve worked the Far Station/),
     ).toBeVisible();
+    // Both stand in the Radio Room's own painted room (roadmap A5), not the tower hall.
+    const room = page.locator('.hall-backdrop[data-hall="radio"]');
+    await expect(room.locator('img')).toHaveJSProperty('complete', true);
     await page.getByRole('button', { name: 'The Far Station' }).click();
     await expect(page.getByRole('heading', { name: 'The Far Station' })).toBeVisible();
+    await expect(room).toHaveCount(1);
+    await page.getByRole('button', { name: '← Tower hall' }).click();
+    await page.goto('/signal-tower?open=koch');
+    await expect(page.locator('.hall-backdrop[data-hall="tower"]')).toHaveCount(1);
   });
 
   test('set up your station, answer a CQ, ask for QRS, and log the try', async ({ page }) => {
