@@ -436,7 +436,22 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Later chapters' cards** (verbs' present prefix b-, *bidd-* for "want", negation with *mā…š*, the past) come with chapters 5–10, the same way.
+- **Cards 5–12 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+
+| Ch. | Card | The rule | Deck sentences |
+|---|---|---|---|
+| 5 | fī, "there is" | fī before the thing; fiš (mā fī) for there isn't | Someone is at the door. · Is there wifi here? · No one lives forever. |
+| 6 | bidd-, "want" | bidd- with the endings; then a thing, or a verb in its plain form | Would you like some cola? · I need to go to the bathroom. |
+| 7 | The present: b- | ba-, bti-, bi-, mni- + the verb; a second verb drops the b- | I love you! · I work full-time. · I like traveling… |
+| 8 | 3ind-, "have" | "at me": 3índi, 3índak; mā 3índi | I have a twin brother. · Do you have any children? |
+| 9 | mā…š and miš | -š (and often mā) on a verb; miš before anything else | I don't like spicy food. · I'm not interested in politics. |
+| 10 | The past | endings on "he did" (kátab); -t often said -it; doubled verbs take -ēt, long-ā verbs shorten | I've already paid for the vegetables. · I was born in 1980. |
+| 11 | She, and -a | -a for a woman and on describing words after a feminine word (and after plural things); the colors' own feminine | red light · green light · a real bargain · a huge pimple |
+| 12 | The future: ɧa- | ɧa- in place of b-; many say raɧ instead | I'll go to bed soon. · What are you going to wear today? |
+
+- **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
+- **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
+- **Later cards** (comparatives, *illi*, the imperative, the verb forms with their Hebrew binyanim) come with later chapters, the same way.
 
 ## 7. Not in E11's first pass (kept, not dropped)
 - Words 301–1,000 (#163).
