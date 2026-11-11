@@ -73,6 +73,512 @@
         "letters": "ت ث د ذ ر ز س ش ص ض ط ظ ل ن",
         "examples": ["pcav:4764", "pcav:3681", "pcav:4224", "pcav:3678"]
       }
+    },
+    {
+      "id": "grammar:there-is",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 5,
+        "title": "fī, “there is”",
+        "points": [
+          "There is and there are are one word, fī, in front of the thing: fī ɧáda 3a -lbāb, someone is at the door.",
+          "Asking is the same words with a rising voice: fī wāyirlis hān? Is there wifi here?",
+          "There isn’t is fiš (or mā fī): fiš ɧadd, no one."
+        ],
+        "examples": ["pcav:4282", "pcav:1037", "pcav:1777", "pcav:4288"]
+      }
+    },
+    {
+      "id": "grammar:want",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 6,
+        "title": "bidd-, “want”",
+        "points": [
+          "Want is bidd- with the endings from chapter 2: bíddi, I want; bíddak, you want. It also means need.",
+          "Then the thing you want: bíddak kōla? Would you like some cola?",
+          "Or what you want to do, in the verb’s plain form: bíddi ʔarūɧ, I want to go."
+        ],
+        "table": [
+          ["bíddi", "I want"],
+          ["bíddak", "you want (to a man)"],
+          ["bíddik", "you want (to a woman)"],
+          ["bíddu", "he wants"],
+          ["bíddha", "she wants"],
+          ["bíddna", "we want"],
+          ["bídkum", "you want (to several)"],
+          ["bíddhum", "they want"]
+        ],
+        "examples": ["pcav:1030", "pcav:0494", "pcav:0952", "pcav:2763"]
+      }
+    },
+    {
+      "id": "grammar:present",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 7,
+        "title": "The present: b-",
+        "points": [
+          "A verb in the present starts with b-, and a sound after it says who: baɧíbb, I like; biɧíbb, he likes.",
+          "The same form says what you do in general and what you’re doing now: baštíɣil dawām kāmil, I work full-time.",
+          "A second verb drops the b-: baɧíbb asāfir, I like to travel. After bidd- too: bíddi ʔarūɧ."
+        ],
+        "table": [
+          ["baɧíbb", "I like"],
+          ["btiɧíbb", "you like (to a man); she likes"],
+          ["btiɧíbbi", "you like (to a woman)"],
+          ["biɧíbb", "he likes"],
+          ["mniɧíbb", "we like"],
+          ["btiɧíbbu", "you like (to several)"],
+          ["biɧíbbu", "they like"]
+        ],
+        "examples": ["pcav:0160", "pcav:1299", "pcav:3122", "pcav:3700"]
+      }
+    },
+    {
+      "id": "grammar:have",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 8,
+        "title": "3ind-, “have”",
+        "points": [
+          "There’s no verb for have. You say “at me”: 3índ- with the endings: 3índi, I have; 3índak, you have.",
+          "Asking is the same with a rising voice: 3índak wlād? Do you have any children?",
+          "I don’t have: mā 3índi."
+        ],
+        "examples": ["pcav:0108", "pcav:0090", "pcav:0092", "pcav:0302"]
+      }
+    },
+    {
+      "id": "grammar:not",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 9,
+        "title": "mā…š and miš, “not”",
+        "points": [
+          "A verb is made negative with -š on the end, and often mā in front: baɧíbb → baɧíbbiš, I don’t like.",
+          "Anything that isn’t a verb takes miš in front: miš mnīɧ, not good; ána miš mihtámm, I’m not interested.",
+          "You’ve met two already: fī → fiš, there isn’t; 3índi → mā 3índi, I don’t have."
+        ],
+        "examples": ["pcav:1001", "pcav:2659", "pcav:3127", "pcav:0636"]
+      }
+    },
+    {
+      "id": "grammar:past",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 10,
+        "title": "The past",
+        "points": [
+          "The past has endings instead of b-. Its plain form is “he did”: kátab, he wrote. That’s the first form the word path gives you for a verb (kátab, yíktib: he wrote, he writes).",
+          "The other people are endings on it. The -t of I and you is often said -it: dafá3it, I paid.",
+          "Two kinds of verb bend a little. A doubled verb takes -ēt: ɧaʈʈ (he put) → ɧaʈʈēt, I put. A verb with a long ā shortens it: nām (he slept) → nimt, I slept."
+        ],
+        "table": [
+          ["kátab", "he wrote"],
+          ["kátbat", "she wrote"],
+          ["katábt", "I wrote; you wrote (to a man)"],
+          ["katábti", "you wrote (to a woman)"],
+          ["katábna", "we wrote"],
+          ["katábtu", "you wrote (to several)"],
+          ["kátabu", "they wrote"]
+        ],
+        "examples": ["pcav:2148", "pcav:0057", "pcav:4461", "pcav:0095"]
+      }
+    },
+    {
+      "id": "grammar:feminine",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 11,
+        "title": "She, and the -a ending",
+        "points": [
+          "Most words for a woman, or a thing that counts as feminine, end in -a: ustāz → ustāza, a teacher (a woman).",
+          "A describing word takes -a after a feminine word: kbīr → kbīra, big; ɧábba kbīra, a big pimple. Things in the plural take it too: maɧallāt ɧílwa, nice shops.",
+          "Colors have their own feminine: áɧmar → ɧámra, red; áxɖar → xáɖra, green; ábyaɖ → bēɖa, white; áswad → sōda, black."
+        ],
+        "examples": ["pcav:1888", "pcav:1887", "pcav:2172", "pcav:0396"]
+      }
+    },
+    {
+      "id": "grammar:future",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 12,
+        "title": "The future: ɧa-",
+        "points": [
+          "For what’s going to happen, put ɧa- in front of the verb, in place of the b-: ɧanām, I’m going to sleep.",
+          "It works for everyone: ɧatílbis, you’re going to wear; ɧatūlad, she’s due (going to give birth).",
+          "Many speakers say raɧ instead, as a word of its own: raɧ anām. The two mean the same."
+        ],
+        "examples": ["pcav:4217", "pcav:0620", "pcav:3722", "pcav:1733"]
+      }
+    },
+    {
+      "id": "grammar:may-must",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 13,
+        "title": "múmkin and lāzim: “can” and “must”",
+        "points": [
+          "Can I…? Could you…? is múmkin before a verb in its plain form: múmkin āxud kubbāyit máyya? Can I have a glass of water?",
+          "Must, need to is lāzim, the same way: lāzim aštíɣil, I need to work.",
+          "Neither word changes: the verb after it shows who. Add law samáɧit, please, to be polite."
+        ],
+        "examples": ["pcav:1024", "pcav:0755", "pcav:3324", "pcav:1536"]
+      }
+    },
+    {
+      "id": "grammar:object-endings",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 14,
+        "title": "Me, you, him: endings on verbs",
+        "points": [
+          "The endings from chapter 2 also go on verbs, for who it’s done to: baɧíbb → baɧíbbak, I love you.",
+          "Me is -ni on a verb (not -i): būsni, kiss me; bitɧúkkni, it itches (me).",
+          "It and them take -u, -ha and -hum, like his, her and their: bitɧíbbha, you like it (a feminine thing)."
+        ],
+        "examples": ["pcav:0160", "pcav:0209", "pcav:0259", "pcav:2371"]
+      }
+    },
+    {
+      "id": "grammar:was",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 15,
+        "title": "kān: “was” and “used to”",
+        "points": [
+          "Was is kān, with the past endings: kunt, I was; kānat, she was.",
+          "There was is kān fī: kān fī bárig, there was lightning.",
+          "kān before a present verb says what someone was doing, or used to do: kunt tʂáyyiɧ? Were you crying?"
+        ],
+        "table": [
+          ["kunt", "I was; you were (to a man)"],
+          ["kunti", "you were (to a woman)"],
+          ["kān", "he was"],
+          ["kānat", "she was"],
+          ["kunna", "we were"],
+          ["kuntu", "you were (to several)"],
+          ["kānu", "they were"]
+        ],
+        "examples": ["pcav:0423", "pcav:3716", "pcav:0287", "pcav:4447"]
+      }
+    },
+    {
+      "id": "grammar:illi",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 16,
+        "title": "ílli: “who”, “which”, “that”",
+        "points": [
+          "One word joins a description to a thing or a person: ílli. ilwálad ílli bi-nnúʂʂ, the child who’s in the middle.",
+          "On its own it means the one who, or what: min ílli gúltu, of what you said.",
+          "When the thing is what the verb is done to, the verb takes an ending for it: ilʔaflām ílli bitɧíbbha, the movies you like (them)."
+        ],
+        "examples": ["pcav:0102", "pcav:1002", "pcav:2371", "pcav:4558"]
+      }
+    },
+    {
+      "id": "grammar:more",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 17,
+        "title": "ákbar: “bigger”, “more”",
+        "points": [
+          "Comparing words have one shape: kbīr → ákbar, bigger; ʂɣīr → áʂɣar, smaller; ktīr → áktar, more.",
+          "Than is min: ákbar mínni, older than me. The word doesn’t change for a woman or for several.",
+          "Before a noun it means the most: áʂɣar wāɧad, the youngest one; áktar barnāmij, the favorite program."
+        ],
+        "examples": ["pcav:0100", "pcav:0101", "pcav:3140", "pcav:2246"]
+      }
+    },
+    {
+      "id": "grammar:commands",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 18,
+        "title": "Commands",
+        "points": [
+          "A command to a man is the verb with no b- and no sound for who: íʈla3 fōg! Come upstairs! xūd šmāl! Turn left!",
+          "To a woman add -i, to several add -u: íʈla3i, íʈla3u.",
+          "Don’t is mā with the you form of the present, or -š on it: mā tínsa! Don’t forget! tiɧkīš! Don’t talk!"
+        ],
+        "examples": ["pcav:1851", "pcav:4415", "pcav:2615", "pcav:1287"]
+      }
+    },
+    {
+      "id": "grammar:right-now",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 19,
+        "title": "gā3id: “right now”",
+        "points": [
+          "To say something is going on right now, put gā3id before the present verb: gā3id bágra, I’m (busy) studying.",
+          "It changes like a describing word: gā3id for a man, gā3da for a woman or a feminine thing, gā3dīn for several.",
+          "On its own it means sitting, or off work: ána gā3id, I’m off work."
+        ],
+        "examples": ["pcav:2282", "pcav:3866", "pcav:1335"]
+      }
+    },
+    {
+      "id": "grammar:verb-forms",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 20,
+        "title": "Verb shapes: your binyanim",
+        "points": [
+          "Like Hebrew, Arabic builds verbs from a root in a few set shapes. If you know the binyanim, you already know how these work.",
+          "A doubled middle letter makes a verb do more, or make someone do it, like piʿel: dáras, he studied → dárras, he taught. Hebrew does the same with למד and לימד.",
+          "t- in front of that shape is done to or for yourself, like hitpaʿel: it3állam, he learned; atdárrab, I practice.",
+          "in- in front is something that happens to you, like nifʿal: inwálad, he was born (נולד); inkásar, it broke (נשבר)."
+        ],
+        "table": [
+          ["dárras", "doubled middle: like piʿel"],
+          ["it3állam", "t- + doubled: like hitpaʿel"],
+          ["inwálad", "in-: like nifʿal"],
+          ["á3ʈa", "a-: like hifʿil (less common in speech)"]
+        ],
+        "examples": ["pcav:1547", "pcav:3122", "pcav:0057", "pcav:1697"]
+      }
+    },
+    {
+      "id": "grammar:plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 21,
+        "title": "Plurals inside the word",
+        "points": [
+          "Hebrew adds -im or -ot. Arabic often changes the vowels inside the word instead: bēt → byūt, houses; kalb → klāb, dogs.",
+          "These are learned with the word: that’s why a word’s card shows its plural in brackets.",
+          "Some words do take an ending: -īn for groups of people (m3allim → m3allimīn, teachers), -āt for many others (sayyāra → sayyārāt, cars).",
+          "Plural things count as feminine (chapter 11): maɧallāt ɧílwa, nice shops."
+        ],
+        "examples": ["pcav:0686", "pcav:3736", "pcav:0258", "pcav:1452"]
+      }
+    },
+    {
+      "id": "grammar:if",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 22,
+        "title": "law: “if”",
+        "points": [
+          "If is law: law má3i maʂāri, if I have money.",
+          "law samáɧit, “if you allow”, is please.",
+          "yā rēt law… is I wish: yā rēt law 3índi sayyāra, I wish I had a car."
+        ],
+        "examples": ["pcav:4452", "pcav:2210", "pcav:3170", "pcav:4453"]
+      }
+    },
+    {
+      "id": "grammar:when-because",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 23,
+        "title": "lámma and 3ašān: “when” and “because”",
+        "points": [
+          "When is lámma: lámma ʔajū3, when I get hungry.",
+          "Because, and so that, is 3ašān: 3ašān tit3állam 3árabi, so that you learn Arabic. With an ending: 3ašānni, because I.",
+          "la-ʔínn- also means because: la-ʔínni batmárran, because I exercise."
+        ],
+        "examples": ["pcav:1021", "pcav:1375", "pcav:4425", "pcav:4431"]
+      }
+    },
+    {
+      "id": "grammar:kull",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 24,
+        "title": "kull: “every”, “all”",
+        "points": [
+          "kull before a word with no il- is every: kull yōm, every day.",
+          "Before a plural with il- it’s all: kull liɣrāɖ, all the things.",
+          "kull 3ām w ínta b-xēr, “every year and you’re well”, is said for birthdays and holidays."
+        ],
+        "examples": ["pcav:1841", "pcav:0390", "pcav:4031", "pcav:0043"]
+      }
+    },
+    {
+      "id": "grammar:self",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 25,
+        "title": "ɧāl-: “yourself”; bá3ɖ: “each other”",
+        "points": [
+          "Myself, yourself is ɧāl- with the endings: ɧāli, ɧālak. intíbih 3a ɧālak! Take care (of yourself)!",
+          "kēf ɧālak? “How is yourself?” is How are you? ɧāsis ɧāli… “I feel myself…” is I feel…",
+          "Each other is bá3ɖ: btígrabu la-bá3ɖ? Are you related (to each other)?"
+        ],
+        "examples": ["pcav:4765", "pcav:4779", "pcav:1631", "pcav:0078"]
+      }
+    },
+    {
+      "id": "grammar:questions",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 26,
+        "title": "Question words",
+        "points": [
+          "A question word usually comes first, and the rest stays in the same order as the answer: šū ísmak? What’s your name?",
+          "kam takes a singular word: kam wálad? How many children? gaddēš asks how much: gaddēš 3umrak? How old are you (how much is your age)?"
+        ],
+        "table": [
+          ["šū", "what"],
+          ["mīn", "who"],
+          ["wēn", "where"],
+          ["lēš", "why"],
+          ["kēf", "how"],
+          ["wagtēš", "when"],
+          ["gaddēš", "how much"],
+          ["kam", "how many"]
+        ],
+        "examples": ["pcav:0215", "pcav:4306", "pcav:0091", "pcav:0287"]
+      }
+    },
+    {
+      "id": "grammar:time",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 27,
+        "title": "Telling the time",
+        "points": [
+          "What time is it? is gaddēš issā3a? The answer is issā3a and the hour: issā3a talāta, it’s three.",
+          "Past the hour is w, “and”: talāta w rúbi3, a quarter past three. To the hour is ílla, “but”: árba3a ílla rúbi3, a quarter to four.",
+          "The twenty minutes is a third, tilt: talāta w tilt, twenty past three."
+        ],
+        "table": [
+          ["w xámsa", "five past"],
+          ["w 3ášara", "ten past"],
+          ["w rúbi3", "a quarter past"],
+          ["w tilt", "twenty past"],
+          ["w nuʂʂ", "half past"],
+          ["ílla tilt", "twenty to"],
+          ["ílla rúbi3", "a quarter to"]
+        ],
+        "examples": ["pcav:4224", "pcav:4230", "pcav:4236", "pcav:0883"]
+      }
+    },
+    {
+      "id": "grammar:joining",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 28,
+        "title": "w, bass, wálla, ínnu: the joining words",
+        "points": [
+          "And is w, said with the next word: ána w ínta, me and you.",
+          "bass is but, and also just: baɧíbb áɧɖar riyāɖa bass mā bál3abha, I like watching sports but I don’t play; bass ɧúʈʈu dagigtēn, just put it in for two minutes.",
+          "Or is aw; in a question it’s wálla: jāhiz wálla líssa? Ready, or not yet?",
+          "That, after think or say, is ínnu: aʐúnn ínnu…, I think that…"
+        ],
+        "examples": ["pcav:2498", "pcav:0800", "pcav:4702", "pcav:2872"]
+      }
+    },
+    {
+      "id": "grammar:still-already",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 29,
+        "title": "líssa and min gábil: “still”, “yet”, “already”",
+        "points": [
+          "líssa before a word is still: ána líssa ja3ān, I’m still hungry.",
+          "Before a negative verb it’s not yet: líssa mā wíʂliš, he isn’t here yet. A question can end … wálla líssa? … or not yet?",
+          "Already is min gábil after the verb: (i)tɣaddēt min gábil, I’ve already eaten lunch."
+        ],
+        "examples": ["pcav:4397", "pcav:4398", "pcav:1314", "pcav:4403"]
+      }
+    },
+    {
+      "id": "grammar:before-after",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 30,
+        "title": "gábil and bá3id: “before” and “after”",
+        "points": [
+          "Before is gábil, after is bá3id, in front of a word: bá3id la3b ilkōra, after playing soccer.",
+          "In front of a whole sentence they take ma: gábil ma tdūb, before it melts; bá3id ma xállaʂ, after he finished.",
+          "gábil hēk is before (now): 3úmrak sāfarit gábil hēk? Have you ever traveled before?"
+        ],
+        "examples": ["pcav:1072", "pcav:1589", "pcav:0423", "pcav:2684"]
+      }
+    },
+    {
+      "id": "grammar:where",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 31,
+        "title": "fōg, taɧt, jamb: where things are",
+        "points": [
+          "Words for where go before the thing: fōg ilkánaba, over the sofa; jamb ilmamárr, next to the aisle.",
+          "On their own they’re places: íʈla3 fōg! Come upstairs!",
+          "They take the endings too: jambi, next to me; guddāmak, in front of you."
+        ],
+        "table": [
+          ["fōg", "over, upstairs"],
+          ["taɧt", "under, downstairs"],
+          ["jamb", "next to"],
+          ["guddām", "in front of"],
+          ["wára", "behind"]
+        ],
+        "examples": ["pcav:4489", "pcav:2718", "pcav:4505", "pcav:3655"]
+      }
+    },
+    {
+      "id": "grammar:the-big-house",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 32,
+        "title": "ilbēt ilkbīr: il- on both",
+        "points": [
+          "A describing word comes after the thing: bēt kbīr, a big house.",
+          "When the thing has il-, so does the describing word: ilbēt ilkbīr, the big house; ilʔákil ilɧarrāg, the spicy food.",
+          "Without the second il-, it’s a sentence: ilbēt kbīr, the house is big (chapter 1: no word for is)."
+        ],
+        "examples": ["pcav:1001", "pcav:0734", "pcav:1890", "pcav:0396"]
+      }
+    },
+    {
+      "id": "grammar:of",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 33,
+        "title": "kubbāyit máyya: “of” by putting words together",
+        "points": [
+          "A glass of water is two words side by side: kubbāyit máyya. Hebrew does the same: כוס מים.",
+          "A first word ending in -a shows its t: kubbāya, a glass, becomes kubbāyit; dáraja becomes dárajit (dárajit ilɧarāra, the temperature).",
+          "The first word never takes il-; for “the”, il- goes on the last word: kílmit issírr, the password."
+        ],
+        "examples": ["pcav:1024", "pcav:3648", "pcav:1790", "pcav:2566"]
+      }
     }
   ]
 }

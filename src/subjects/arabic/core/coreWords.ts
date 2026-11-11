@@ -5,6 +5,7 @@ import type { Item } from '../../../core/content/schema.ts';
 import type { ReviewGrade } from '../../../core/subject.ts';
 import { dropGroups, latinToHebrew } from '../phrases/hebrew.ts';
 import type { OwnSentence } from './ownSentences.ts';
+import { SHARED_ROOTS, type Kin } from './sharedRoots.ts';
 import { WORD_CHAPTERS } from './wordChapters.ts';
 
 export { WORD_CHAPTERS, type WordChapter } from './wordChapters.ts';
@@ -40,6 +41,8 @@ export interface CoreWord {
   sentence?: DeckLine & { deck: string };
   /** Otherwise our own sentence (#164), text only: no recording, so it isn't shadowed. */
   written?: { arabic: string; latin: string; hebrew: string; english: string };
+  /** The Hebrew word that shares its root, if one does (ADR 0002). */
+  kin?: Kin;
 }
 
 export const itemIdOf = (deck: string) => `word:${deck}`;
@@ -80,6 +83,7 @@ export function coreWordsFrom(
       const said = w.sentence ? line(byId.get(w.sentence)) : undefined;
       const sentence = said && w.sentence ? { ...said, deck: w.sentence } : undefined;
       const mine = sentence ? undefined : ownSentences.get(w.deck);
+      const kin = SHARED_ROOTS.get(w.deck);
       const written = mine && {
         arabic: mine.arabic,
         latin: mine.latin,
@@ -98,6 +102,7 @@ export function coreWordsFrom(
           audio: own.audio,
           ...(sentence ? { sentence } : {}),
           ...(written ? { written } : {}),
+          ...(kin ? { kin } : {}),
         },
       ];
     }),
