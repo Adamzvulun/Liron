@@ -157,6 +157,24 @@ describe('a word session', () => {
       }
     }
   });
+
+  it('never offers a word with the same Arabic as a wrong choice, marks or not', () => {
+    const [a, b, c, d, e] = chapters[0] ?? [];
+    if (!a || !b || !c || !d || !e) throw new Error('chapter 1 is short');
+    // Same letters as a, another meaning; one twin with a vowel mark added.
+    const twin = { ...b, arabic: a.arabic };
+    const marked = { ...c, arabic: `${a.arabic}\u064e` };
+    const pool = [a, twin, marked, d, e];
+    for (let s = 0; s < 10; s++) {
+      for (const q of wordQuestions([a, twin, marked], pool, seeded(s))) {
+        const wrong = q.choices.filter((x) => x !== q.answer);
+        for (const other of [a, twin, marked].filter((w) => w !== q.word)) {
+          expect(wrong).not.toContain(other.meaning);
+          expect(wrong).not.toContain(other.arabic);
+        }
+      }
+    }
+  });
 });
 
 describe('the word path’s gate', () => {
