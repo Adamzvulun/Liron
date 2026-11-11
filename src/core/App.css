@@ -234,6 +234,16 @@
   background: linear-gradient(180deg, rgb(20 22 52 / 62%) 0%, rgb(14 16 36 / 80%) 100%);
 }
 
+/* Your House (roadmap A2) is the room itself, not a hall seen from a station: less blur and a
+   lighter veil, so the bed, the window and the shelf still read around the wardrobe. */
+.hall-backdrop[data-hall='house'] img {
+  filter: blur(2px) saturate(0.9);
+}
+
+.hall-backdrop[data-hall='house']::after {
+  background: linear-gradient(180deg, rgb(20 22 52 / 35%) 0%, rgb(14 16 36 / 62%) 100%);
+}
+
 .place-screen__back {
   display: inline-flex;
   align-items: center;
