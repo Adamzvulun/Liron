@@ -436,7 +436,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Cards 5–30 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+- **Cards 5–33 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
 
 | Ch. | Card | The rule | Deck sentences |
 |---|---|---|---|
@@ -466,6 +466,9 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 28 | The joining words | w, bass (but, just), aw / wálla (or), ínnu (that) | I like watching sports, but… · Just put it in the microwave… · Are you ready yet? |
 | 29 | líssa and min gábil | still; not yet (with a negative); already | I'm still hungry. · He isn't here yet. · I've already eaten lunch. |
 | 30 | gábil and bá3id | before, after; + ma before a sentence; gábil hēk | Eat your ice cream before it melts. · Have you ever been abroad? |
+| 31 | fōg, taɧt, jamb | where words before the thing, alone as places, with the endings | The painting is hanging over the sofa. · I prefer an aisle seat. |
+| 32 | il- on both | the describing word after the thing; il- on both; one il- makes a sentence | I don't like spicy food. · to run a red light |
+| 33 | Putting words together | "of" by side-by-side words, like Hebrew smichut; -a shows its t; il- only on the last | Can I have a glass of water? · What's the temperature? · Enter your username and password. |
 
 - **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
 - **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
