@@ -357,6 +357,82 @@
         ],
         "examples": ["pcav:1547", "pcav:3122", "pcav:0057", "pcav:1697"]
       }
+    },
+    {
+      "id": "grammar:plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 21,
+        "title": "Plurals inside the word",
+        "points": [
+          "Hebrew adds -im or -ot. Arabic often changes the vowels inside the word instead: bēt → byūt, houses; kalb → klāb, dogs.",
+          "These are learned with the word: that’s why a word’s card shows its plural in brackets.",
+          "Some words do take an ending: -īn for groups of people (m3allim → m3allimīn, teachers), -āt for many others (sayyāra → sayyārāt, cars).",
+          "Plural things count as feminine (chapter 11): maɧallāt ɧílwa, nice shops."
+        ],
+        "examples": ["pcav:0686", "pcav:3736", "pcav:0258", "pcav:1452"]
+      }
+    },
+    {
+      "id": "grammar:if",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 22,
+        "title": "law: “if”",
+        "points": [
+          "If is law: law má3i maʂāri, if I have money.",
+          "law samáɧit, “if you allow”, is please.",
+          "yā rēt law… is I wish: yā rēt law 3índi sayyāra, I wish I had a car."
+        ],
+        "examples": ["pcav:4452", "pcav:2210", "pcav:3170", "pcav:4453"]
+      }
+    },
+    {
+      "id": "grammar:when-because",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 23,
+        "title": "lámma and 3ašān: “when” and “because”",
+        "points": [
+          "When is lámma: lámma ʔajū3, when I get hungry.",
+          "Because, and so that, is 3ašān: 3ašān tit3állam 3árabi, so that you learn Arabic. With an ending: 3ašānni, because I.",
+          "la-ʔínn- also means because: la-ʔínni batmárran, because I exercise."
+        ],
+        "examples": ["pcav:1021", "pcav:1375", "pcav:4425", "pcav:4431"]
+      }
+    },
+    {
+      "id": "grammar:kull",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 24,
+        "title": "kull: “every”, “all”",
+        "points": [
+          "kull before a word with no il- is every: kull yōm, every day.",
+          "Before a plural with il- it’s all: kull liɣrāɖ, all the things.",
+          "kull 3ām w ínta b-xēr, “every year and you’re well”, is said for birthdays and holidays."
+        ],
+        "examples": ["pcav:1841", "pcav:0390", "pcav:4031", "pcav:0043"]
+      }
+    },
+    {
+      "id": "grammar:self",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 25,
+        "title": "ɧāl-: “yourself”; bá3ɖ: “each other”",
+        "points": [
+          "Myself, yourself is ɧāl- with the endings: ɧāli, ɧālak. intíbih 3a ɧālak! Take care (of yourself)!",
+          "kēf ɧālak? “How is yourself?” is How are you? ɧāsis ɧāli… “I feel myself…” is I feel…",
+          "Each other is bá3ɖ: btígrabu la-bá3ɖ? Are you related (to each other)?"
+        ],
+        "examples": ["pcav:4765", "pcav:4779", "pcav:1631", "pcav:0078"]
+      }
     }
   ]
 }

@@ -436,7 +436,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Cards 5–20 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+- **Cards 5–25 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
 
 | Ch. | Card | The rule | Deck sentences |
 |---|---|---|---|
@@ -456,6 +456,11 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 18 | Commands | the bare verb; -i, -u; don't is mā + the you form, or -š | Turn left! · Come upstairs! · Don't forget to breathe! |
 | 19 | gā3id | before a present verb for right now; changes like a describing word | I'm trying to study… · This plant is really growing fast! |
 | 20 | Verb shapes: your binyanim | the Hebrew bridge (ADR 0002): doubled middle ↔ piʿel, t- ↔ hitpaʿel, in- ↔ nifʿal, a- ↔ hifʿil | to teach · I like learning languages · I was born in 1980 · He broke his arm. |
+| 21 | Plurals inside the word | broken plurals (bēt → byūt), learned with the word; -īn and -āt; plural things are feminine | house · dog · eye · school (each with its plural) |
+| 22 | law | if; law samáɧit is please; yā rēt law, I wish | If I have enough money, I'll buy it. · I wish I had a car. |
+| 23 | lámma and 3ašān | when; because, so that; la-ʔínn- | If I feel hungry… · I'm tired today because… |
+| 24 | kull | every (no il-); all (plural with il-) | I take the metro every day. · Add up the price of all the items… |
+| 25 | ɧāl- and bá3ɖ | -self with the endings; kēf ɧālak; each other | How are you? · Take care! · Are you two related? |
 
 - **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
 - **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
