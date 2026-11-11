@@ -50,8 +50,12 @@ jobs:
       - if: steps.scope.outputs.full == 'true'
         run: npm run build
       # Fine on GitHub's runners. In the Claude cloud session Chromium is pre-installed instead.
+      # The runner image already has Chromium's libraries; --with-deps only adds fonts from
+      # Ubuntu's mirrors (about 15 s). When those mirrors can't be reached (2026-11-11, twice:
+      # apt retried for 7 minutes, then failed before any test ran), give up after 2 minutes and
+      # install the browser alone.
       - if: steps.scope.outputs.full == 'true'
-        run: npx playwright install --with-deps chromium
+        run: timeout -k 10 120 npx playwright install --with-deps chromium || npx playwright install chromium
       - if: steps.scope.outputs.full == 'true'
         run: npm run e2e
         env:
