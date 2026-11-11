@@ -11450,6 +11450,270 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:86",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 86,
+        "title": "Second words: people and the town",
+        "theme": "Life, the house, work, the car, building, going out and the club",
+        "words": [
+          {
+            "deck": "pcav:0035",
+            "gloss": "to grow old"
+          },
+          {
+            "deck": "pcav:0062",
+            "gloss": "to pass away"
+          },
+          {
+            "deck": "pcav:0464",
+            "gloss": "to beat (of the heart)"
+          },
+          {
+            "deck": "pcav:0176",
+            "gloss": "to hurt (someone's feelings)"
+          },
+          {
+            "deck": "pcav:0709",
+            "gloss": "doorman"
+          },
+          {
+            "deck": "pcav:0726",
+            "gloss": "shutters"
+          },
+          {
+            "deck": "pcav:0762",
+            "gloss": "adapter"
+          },
+          {
+            "deck": "pcav:0874",
+            "gloss": "to have insomnia"
+          },
+          {
+            "deck": "pcav:0943",
+            "gloss": "to saw"
+          },
+          {
+            "deck": "pcav:0945",
+            "gloss": "to hammer"
+          },
+          {
+            "deck": "pcav:1346",
+            "gloss": "pay"
+          },
+          {
+            "deck": "pcav:1369",
+            "gloss": "to fire"
+          },
+          {
+            "deck": "pcav:1468",
+            "gloss": "academy"
+          },
+          {
+            "deck": "pcav:1613",
+            "gloss": "literature"
+          },
+          {
+            "deck": "pcav:1800",
+            "gloss": "to send a fax"
+          },
+          {
+            "deck": "pcav:1064",
+            "gloss": "to drink and drive"
+          },
+          {
+            "deck": "pcav:1946",
+            "gloss": "brake"
+          },
+          {
+            "deck": "pcav:1950",
+            "gloss": "to step on the gas"
+          },
+          {
+            "deck": "pcav:1979",
+            "gloss": "fender"
+          },
+          {
+            "deck": "pcav:2021",
+            "gloss": "construction"
+          },
+          {
+            "deck": "pcav:2048",
+            "gloss": "iron (the metal)"
+          },
+          {
+            "deck": "pcav:2090",
+            "gloss": "to stamp"
+          },
+          {
+            "deck": "pcav:2382",
+            "gloss": "intermission"
+          },
+          {
+            "deck": "pcav:2384",
+            "gloss": "spectator"
+          },
+          {
+            "deck": "pcav:2408",
+            "gloss": "tobacco"
+          },
+          {
+            "deck": "pcav:2414",
+            "gloss": "ashtray"
+          },
+          {
+            "deck": "pcav:2457",
+            "gloss": "drum"
+          },
+          {
+            "deck": "pcav:2543",
+            "gloss": "fitness"
+          },
+          {
+            "deck": "pcav:2555",
+            "gloss": "member"
+          },
+          {
+            "deck": "pcav:2558",
+            "gloss": "membership"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:87",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 87,
+        "title": "Second words: the world and its verbs",
+        "theme": "Travel, prison and business, feelings, faith, grammar, nature, numbers and everyday verbs",
+        "words": [
+          {
+            "deck": "pcav:2689",
+            "gloss": "to declare"
+          },
+          {
+            "deck": "pcav:2721",
+            "gloss": "to be delayed"
+          },
+          {
+            "deck": "pcav:2777",
+            "gloss": "porter"
+          },
+          {
+            "deck": "pcav:2878",
+            "gloss": "prison"
+          },
+          {
+            "deck": "pcav:2923",
+            "gloss": "business"
+          },
+          {
+            "deck": "pcav:2952",
+            "gloss": "field (of work)"
+          },
+          {
+            "deck": "pcav:3009",
+            "gloss": "to attack"
+          },
+          {
+            "deck": "pcav:3073",
+            "gloss": "to annoy"
+          },
+          {
+            "deck": "pcav:3134",
+            "gloss": "criticism"
+          },
+          {
+            "deck": "pcav:3188",
+            "gloss": "a god"
+          },
+          {
+            "deck": "pcav:3199",
+            "gloss": "to sin"
+          },
+          {
+            "deck": "pcav:3254",
+            "gloss": "priest"
+          },
+          {
+            "deck": "pcav:3256",
+            "gloss": "monk"
+          },
+          {
+            "deck": "pcav:3382",
+            "gloss": "subject (in grammar)"
+          },
+          {
+            "deck": "pcav:3598",
+            "gloss": "to erupt"
+          },
+          {
+            "deck": "pcav:3727",
+            "gloss": "dry"
+          },
+          {
+            "deck": "pcav:3782",
+            "gloss": "swallow (the bird)"
+          },
+          {
+            "deck": "pcav:3820",
+            "gloss": "beak"
+          },
+          {
+            "deck": "pcav:3886",
+            "gloss": "olive green"
+          },
+          {
+            "deck": "pcav:3925",
+            "gloss": "foot (the measure)"
+          },
+          {
+            "deck": "pcav:4025",
+            "gloss": "billion"
+          },
+          {
+            "deck": "pcav:4033",
+            "gloss": "to subtract"
+          },
+          {
+            "deck": "pcav:4195",
+            "gloss": "era"
+          },
+          {
+            "deck": "pcav:4588",
+            "gloss": "to cut"
+          },
+          {
+            "deck": "pcav:4602",
+            "gloss": "to correct"
+          },
+          {
+            "deck": "pcav:4607",
+            "gloss": "to float"
+          },
+          {
+            "deck": "pcav:4642",
+            "gloss": "to punish"
+          },
+          {
+            "deck": "pcav:4659",
+            "gloss": "to tear"
+          },
+          {
+            "deck": "pcav:2660",
+            "gloss": "to dive"
+          },
+          {
+            "deck": "pcav:4749",
+            "gloss": "likely, reasonable"
+          }
+        ]
+      }
     }
   ]
 }
