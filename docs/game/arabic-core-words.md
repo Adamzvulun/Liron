@@ -244,6 +244,18 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 88 | Same letters: the house, the body and the shop |
 | 89 | Same letters: the road, the board and the land |
 
+- **Words 2,671–2,760 (2026-11-11): the words the path missed.** A new count of the deck's untaught items, this time leaving out the ones already taught as a phrase (the coffee corner) or a lesson word, found basic A1 and A2 words the topic chapters never picked. They sit at the end of the deck, in its sections on numbers, time, pronouns, adverbs, verbs and social expressions: the ordinals, four of the twelve months, *very*, *again*, *often*, *everyone*, *nothing*, *to apologize*, *Congratulations!* The earlier batches had treated those sections as second words.
+  - **Months:** January, October, November and December, by the names February to September are already taught with (كانون التّاني, تِشْرين الأوّل). The numbered names (شهِر واحد, *month one*) are second words and wait.
+  - **Phrases of two or three words** where the phrase is the thing to learn: *the day after tomorrow*, *last week*, *this year*, *in the future*, *at least*, *how often*, *Have a good trip!*. Phrases built from taught words with their usual meaning (*blue eyes*, *hot water*, *a lot of money*) stay out.
+  - **Deck sentences:** 30 of the 90 have one (*Everyone needs friends*, *How far is it from here to downtown?*); the other 60 have one of our own, checked with no flags left. Five near matches were passed over because the deck sentence uses the word in another sense (تاني as *another*, not *second*).
+  - **Left for later (ordered, not cut):** the numbered month names, compounds of taught words, adult, toilet and grim words, about 20 true second words and about 15 B2 phrases.
+
+| Chapter | Theme |
+|---|---|
+| 90 | First, second, and the months |
+| 91 | When, how often, how far |
+| 92 | Everyone, nothing, and good wishes |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).

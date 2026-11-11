@@ -2319,6 +2319,81 @@
         },
         "outro": "They leave their old chessboard at the inn, the one with a chipped knight. “For the next two who need an argument,” says Abu Fadi."
       }
+    },
+    {
+      "id": "road:91",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 91,
+        "wordChapter": 90,
+        "title": "The Calendar Maker",
+        "who": "Umm Fares who prints the calendars",
+        "intro": "Umm Fares prints the wall calendars that hang in every shop in town. This year her press jammed, and four months came out blank: January, October, November and December.",
+        "milestones": [
+          "She counts the pages with you, first, second, third and on to the tenth, and finds where each blank month belongs.",
+          "The baker wants every workday marked, the barber wants the weekend in red, and the schoolteacher wants next month’s exams in bold.",
+          "By the day after tomorrow the new pages are dry. Umm Fares says this year’s calendar is her best, and next year’s will be better."
+        ],
+        "trial": {
+          "name": "Every Day Counted",
+          "text": "Umm Fares points at a day, a week or a month on her calendar, and you say when it is. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She hangs the first calendar of the new run behind the inn’s counter, with the innkeeper’s birthday circled."
+      }
+    },
+    {
+      "id": "road:92",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 92,
+        "wordChapter": 91,
+        "title": "The Evening Bus",
+        "who": "Abu Jamil the bus driver",
+        "intro": "Abu Jamil drives the evening bus to the city and back. Everyone at the stop asks him the same three things: what time, how far and how often.",
+        "milestones": [
+          "He leaves in the afternoon and comes back at midnight, every day but Friday. He has driven this road again and again, since a long time ago.",
+          "A boy asks how old the bus is. Abu Jamil says it was new in the past, and it will still be running in the future.",
+          "He says he will stop driving one day, soon, in a bit. Everyone at the stop has heard that at least ten times."
+        ],
+        "trial": {
+          "name": "The Last Bus",
+          "text": "Abu Jamil calls out times and places from his seat, and you give their meaning. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "He leaves the inn a timetable written by hand. “It’s right,” he says, “at least on most days.”"
+      }
+    },
+    {
+      "id": "road:93",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 93,
+        "wordChapter": 92,
+        "title": "Eid at the Inn",
+        "who": "Umm Khalil and her family",
+        "intro": "On the morning of Eid, Umm Khalil brings her whole family to the inn for breakfast: her sons, their wives and more grandchildren than anyone can count.",
+        "milestones": [
+          "Everyone wishes everyone else a happy Eid, and no one is left out. The little ones say they miss their cousins who live abroad.",
+          "Before eating they say “in God’s name”, and when the plates are empty the innkeeper hears “may it always be so” from every table.",
+          "A grandson apologizes for breaking a glass. Umm Khalil says nothing has changed: he was the same at the last Eid, and the one before."
+        ],
+        "trial": {
+          "name": "Eid Greetings",
+          "text": "Umm Khalil’s family wish you well in every way they know, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "They leave a tray of ka’ak and ma’amoul for the next guests. “Eid comes to everyone,” says Umm Khalil."
+      }
     }
   ]
 }

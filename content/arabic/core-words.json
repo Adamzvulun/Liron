@@ -11978,6 +11978,432 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:90",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 90,
+        "title": "First, second, and the months",
+        "theme": "Order, the four months still missing, and the days, weeks and years around now",
+        "words": [
+          {
+            "deck": "pcav:4052",
+            "gloss": "first",
+            "sentence": "pcav:1460"
+          },
+          {
+            "deck": "pcav:4053",
+            "gloss": "second (2nd)"
+          },
+          {
+            "deck": "pcav:4054",
+            "gloss": "third",
+            "sentence": "pcav:2275"
+          },
+          {
+            "deck": "pcav:4055",
+            "gloss": "fourth",
+            "sentence": "pcav:0691"
+          },
+          {
+            "deck": "pcav:4056",
+            "gloss": "fifth"
+          },
+          {
+            "deck": "pcav:4057",
+            "gloss": "sixth",
+            "sentence": "pcav:1735"
+          },
+          {
+            "deck": "pcav:4058",
+            "gloss": "seventh"
+          },
+          {
+            "deck": "pcav:4059",
+            "gloss": "eighth"
+          },
+          {
+            "deck": "pcav:4060",
+            "gloss": "ninth"
+          },
+          {
+            "deck": "pcav:4061",
+            "gloss": "tenth",
+            "sentence": "pcav:0197"
+          },
+          {
+            "deck": "pcav:4130",
+            "gloss": "January"
+          },
+          {
+            "deck": "pcav:4148",
+            "gloss": "October"
+          },
+          {
+            "deck": "pcav:4150",
+            "gloss": "November"
+          },
+          {
+            "deck": "pcav:4152",
+            "gloss": "December"
+          },
+          {
+            "deck": "pcav:4088",
+            "gloss": "the day before yesterday"
+          },
+          {
+            "deck": "pcav:4105",
+            "gloss": "the day after tomorrow"
+          },
+          {
+            "deck": "pcav:4107",
+            "gloss": "every day",
+            "sentence": "pcav:0390"
+          },
+          {
+            "deck": "pcav:4110",
+            "gloss": "all day"
+          },
+          {
+            "deck": "pcav:4112",
+            "gloss": "workday"
+          },
+          {
+            "deck": "pcav:4113",
+            "gloss": "the weekend",
+            "sentence": "pcav:1336"
+          },
+          {
+            "deck": "pcav:4123",
+            "gloss": "last week"
+          },
+          {
+            "deck": "pcav:4125",
+            "gloss": "this week"
+          },
+          {
+            "deck": "pcav:4126",
+            "gloss": "next week",
+            "sentence": "pcav:4413"
+          },
+          {
+            "deck": "pcav:4156",
+            "gloss": "last month"
+          },
+          {
+            "deck": "pcav:4158",
+            "gloss": "this month",
+            "sentence": "pcav:1360"
+          },
+          {
+            "deck": "pcav:4159",
+            "gloss": "next month",
+            "sentence": "pcav:1555"
+          },
+          {
+            "deck": "pcav:4190",
+            "gloss": "last year",
+            "sentence": "pcav:0191"
+          },
+          {
+            "deck": "pcav:4192",
+            "gloss": "this year"
+          },
+          {
+            "deck": "pcav:4193",
+            "gloss": "next year"
+          },
+          {
+            "deck": "pcav:4094",
+            "gloss": "this morning"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:91",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 91,
+        "title": "When, how often, how far",
+        "theme": "Times of day, the past and the future, and the questions about them",
+        "words": [
+          {
+            "deck": "pcav:4082",
+            "gloss": "in the afternoon"
+          },
+          {
+            "deck": "pcav:4085",
+            "gloss": "at night",
+            "sentence": "pcav:4261"
+          },
+          {
+            "deck": "pcav:4086",
+            "gloss": "at midnight"
+          },
+          {
+            "deck": "pcav:4097",
+            "gloss": "this evening"
+          },
+          {
+            "deck": "pcav:4091",
+            "gloss": "yesterday evening"
+          },
+          {
+            "deck": "pcav:4103",
+            "gloss": "tomorrow evening"
+          },
+          {
+            "deck": "pcav:4106",
+            "gloss": "in three days"
+          },
+          {
+            "deck": "pcav:4209",
+            "gloss": "in the past"
+          },
+          {
+            "deck": "pcav:4213",
+            "gloss": "in the future"
+          },
+          {
+            "deck": "pcav:4212",
+            "gloss": "a long time ago",
+            "sentence": "pcav:1652"
+          },
+          {
+            "deck": "pcav:4216",
+            "gloss": "soon, in a bit",
+            "sentence": "pcav:4217"
+          },
+          {
+            "deck": "pcav:4215",
+            "gloss": "right away",
+            "sentence": "pcav:4456"
+          },
+          {
+            "deck": "pcav:4220",
+            "gloss": "one day, some day"
+          },
+          {
+            "deck": "pcav:4343",
+            "gloss": "again"
+          },
+          {
+            "deck": "pcav:4377",
+            "gloss": "often"
+          },
+          {
+            "deck": "pcav:4382",
+            "gloss": "very",
+            "sentence": "pcav:4691"
+          },
+          {
+            "deck": "pcav:4449",
+            "gloss": "while"
+          },
+          {
+            "deck": "pcav:4427",
+            "gloss": "that's why",
+            "sentence": "pcav:4429"
+          },
+          {
+            "deck": "pcav:4401",
+            "gloss": "already, before",
+            "sentence": "pcav:4402"
+          },
+          {
+            "deck": "pcav:4405",
+            "gloss": "just now"
+          },
+          {
+            "deck": "pcav:4338",
+            "gloss": "at least"
+          },
+          {
+            "deck": "pcav:4324",
+            "gloss": "how old"
+          },
+          {
+            "deck": "pcav:4326",
+            "gloss": "how big",
+            "sentence": "pcav:4328"
+          },
+          {
+            "deck": "pcav:4330",
+            "gloss": "how far",
+            "sentence": "pcav:4332"
+          },
+          {
+            "deck": "pcav:4333",
+            "gloss": "how often",
+            "sentence": "pcav:2547"
+          },
+          {
+            "deck": "pcav:4248",
+            "gloss": "(at) what time",
+            "sentence": "pcav:0853"
+          },
+          {
+            "deck": "pcav:4366",
+            "gloss": "anytime",
+            "sentence": "pcav:4367"
+          },
+          {
+            "deck": "pcav:4349",
+            "gloss": "everywhere",
+            "sentence": "pcav:4350"
+          },
+          {
+            "deck": "pcav:4354",
+            "gloss": "anywhere"
+          },
+          {
+            "deck": "pcav:4356",
+            "gloss": "nowhere",
+            "sentence": "pcav:4358"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:92",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 92,
+        "title": "Everyone, nothing, and good wishes",
+        "theme": "Words for everyone and nothing, everyday verbs, and what to say on good days",
+        "words": [
+          {
+            "deck": "pcav:4278",
+            "gloss": "everyone",
+            "sentence": "pcav:4279"
+          },
+          {
+            "deck": "pcav:4283",
+            "gloss": "anyone",
+            "sentence": "pcav:4285"
+          },
+          {
+            "deck": "pcav:4287",
+            "gloss": "no one"
+          },
+          {
+            "deck": "pcav:4289",
+            "gloss": "everything"
+          },
+          {
+            "deck": "pcav:4293",
+            "gloss": "anything",
+            "sentence": "pcav:4294"
+          },
+          {
+            "deck": "pcav:4295",
+            "gloss": "nothing",
+            "sentence": "pcav:4296"
+          },
+          {
+            "deck": "pcav:4744",
+            "gloss": "the same __"
+          },
+          {
+            "deck": "pcav:4745",
+            "gloss": "alike, similar"
+          },
+          {
+            "deck": "pcav:4696",
+            "gloss": "unclear"
+          },
+          {
+            "deck": "pcav:4704",
+            "gloss": "to be right (he’s right)"
+          },
+          {
+            "deck": "pcav:4544",
+            "gloss": "to allow"
+          },
+          {
+            "deck": "pcav:4547",
+            "gloss": "to apologize for"
+          },
+          {
+            "deck": "pcav:4575",
+            "gloss": "to change (become different)"
+          },
+          {
+            "deck": "pcav:4586",
+            "gloss": "to contact"
+          },
+          {
+            "deck": "pcav:4606",
+            "gloss": "to finish",
+            "sentence": "pcav:2541"
+          },
+          {
+            "deck": "pcav:4622",
+            "gloss": "to leave, quit"
+          },
+          {
+            "deck": "pcav:4628",
+            "gloss": "to move (yourself)"
+          },
+          {
+            "deck": "pcav:4672",
+            "gloss": "to watch"
+          },
+          {
+            "deck": "pcav:4785",
+            "gloss": "Congratulations!"
+          },
+          {
+            "deck": "pcav:4796",
+            "gloss": "Thanks! (may you be well)"
+          },
+          {
+            "deck": "pcav:4800",
+            "gloss": "Good luck!"
+          },
+          {
+            "deck": "pcav:4812",
+            "gloss": "Get well soon!"
+          },
+          {
+            "deck": "pcav:4774",
+            "gloss": "Have a nice day!"
+          },
+          {
+            "deck": "pcav:4778",
+            "gloss": "Have a good trip!"
+          },
+          {
+            "deck": "pcav:4783",
+            "gloss": "I miss you!"
+          },
+          {
+            "deck": "pcav:4814",
+            "gloss": "In God’s name (before eating)"
+          },
+          {
+            "deck": "pcav:4816",
+            "gloss": "May it always be so (to someone who has eaten)"
+          },
+          {
+            "deck": "pcav:4179",
+            "gloss": "Eid al-Fitr"
+          },
+          {
+            "deck": "pcav:4181",
+            "gloss": "Eid al-Adha"
+          },
+          {
+            "deck": "pcav:4187",
+            "gloss": "Easter"
+          }
+        ]
+      }
     }
   ]
 }

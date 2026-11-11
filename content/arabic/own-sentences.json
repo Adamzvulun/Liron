@@ -26864,6 +26864,666 @@
         "latin": "írsim mutállat 3a-lwárage.",
         "english": "Draw a triangle on the sheet of paper."
       }
+    },
+    {
+      "id": "own-sentence:pcav:4053",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4053",
+        "arabic": "هاد تاني يوْم إلي في البلد.",
+        "latin": "hād tāni yōm íli fi -lbálad.",
+        "english": "This is my second day in town."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4056",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4056",
+        "arabic": "بِنْتي في الصّفّ الخامِس.",
+        "latin": "bínti fi -ʂʂaff ilxāmis.",
+        "english": "My daughter is in fifth grade."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4058",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4058",
+        "arabic": "دارْنا في الطّابِق السّابِع.",
+        "latin": "dārna fi -ʈʈābig issābi3.",
+        "english": "Our home is on the seventh floor."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4059",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4059",
+        "arabic": "هاد تامِن فِنْجان قهْوة اليوْم!",
+        "latin": "hād tāmin finjān gáhwa ilyōm!",
+        "english": "This is the eighth cup of coffee today!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4060",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4060",
+        "arabic": "أخوي في الصّفّ التّاسِع.",
+        "latin": "axūy fi -ʂʂaff ittāsi3.",
+        "english": "My brother is in ninth grade."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4130",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4130",
+        "arabic": "عيد ميلادي في كانون التّاني.",
+        "latin": "3īd milādi fi kānūn ittāni.",
+        "english": "My birthday is in January."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4148",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4148",
+        "arabic": "الجوّ بيِبْرد في تِشْرين الأوّل.",
+        "latin": "iljaww biyíbrad fi tišrīn ilʔáwwal.",
+        "english": "The weather gets cold in October."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4150",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4150",
+        "arabic": "بِنْسافِر عَ عمّان في تِشْرين التّاني.",
+        "latin": "binsāfir 3a-3ammān fi tišrīn ittāni.",
+        "english": "We're traveling to Amman in November."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4152",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4152",
+        "arabic": "أنا انْوَلدِت في كانون الأوّل.",
+        "latin": "ána inwaládit fi kānūn ilʔáwwal.",
+        "english": "I was born in December."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4088",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4088",
+        "arabic": "شُفْتو أوّل إمْبارِح في السّوق.",
+        "latin": "šúftu áwwal imbāriɧ fi -ssūg.",
+        "english": "I saw him the day before yesterday at the market."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4105",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4105",
+        "arabic": "الامْتِحان بعِد بُكْرا.",
+        "latin": "ilimtiɧān bá3id búkra.",
+        "english": "The exam is the day after tomorrow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4110",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4110",
+        "arabic": "قعدْنا في الدّار طول الِنّْهار.",
+        "latin": "ga3ádna fi -ddār ʈūl linhār.",
+        "english": "We stayed at home all day."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4112",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4112",
+        "arabic": "الأحد يوْم دَوام عِنّا.",
+        "latin": "ilʔáɧad yōm dawām 3ínna.",
+        "english": "Sunday is a workday for us."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4123",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4123",
+        "arabic": "كُنْت مريض الإسْبوع اللي فات.",
+        "latin": "kunt marīɖ lisbū3 ílli fāt.",
+        "english": "I was sick last week."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4125",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4125",
+        "arabic": "أنا مشْغول كْتير الإسْبوع هاد.",
+        "latin": "ána mašɣūl ktīr lisbū3 hād.",
+        "english": "I'm very busy this week."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4156",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4156",
+        "arabic": "اِشْتريْنا سيّارة الشّهِر اللي فات.",
+        "latin": "ištarēna sayyāra iššáhir ílli fāt.",
+        "english": "We bought a car last month."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4192",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4192",
+        "arabic": "أخوي اِتْجوّز السّنة هادي.",
+        "latin": "axūy itjáwwaz issána hādi.",
+        "english": "My brother got married this year."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4193",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4193",
+        "arabic": "بِدْنا نْزور عيلْتي السّنة الجّايَة.",
+        "latin": "bídna nzūr 3ēlti issána -jjāya.",
+        "english": "We want to visit my family next year."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4094",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4094",
+        "arabic": "شرِبِت قهْوة اليوْم الصُّبِح.",
+        "latin": "šríbit gáhwa ilyōm iʂʂúbiɧ.",
+        "english": "I drank coffee this morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4082",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4082",
+        "arabic": "بنام شْوَيّة بعْد الضُّهُر.",
+        "latin": "bnām šwáyya ba3d iɖɖúhur.",
+        "english": "I sleep a little in the afternoon."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4086",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4086",
+        "arabic": "رِجْعوا عَ الدّار بْنُصّ اللّيْل.",
+        "latin": "rij3u 3a-ddār b-nuʂʂ illēl.",
+        "english": "They came home at midnight."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4097",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4097",
+        "arabic": "شو بِتِعْمل اليوْم المسا؟",
+        "latin": "šu bti3mal ilyōm ilmása?",
+        "english": "What are you doing this evening?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4091",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4091",
+        "arabic": "شُفْنا فِلِم إمْبارِح المسا.",
+        "latin": "šúfna fílim imbāriɧ ilmása.",
+        "english": "We saw a film yesterday evening."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4103",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4103",
+        "arabic": "تعال عِنّا بُكْرا المسا.",
+        "latin": "ta3āl 3ínna búkra -lmása.",
+        "english": "Come over to our place tomorrow evening."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4106",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4106",
+        "arabic": "أبوي راجِع كمان تلاتّ إيّام.",
+        "latin": "abūy rāji3 kamān tálatt iyyām.",
+        "english": "My father is coming back in three days."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4209",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4209",
+        "arabic": "في الماضي كانت البلد صْغيرة.",
+        "latin": "fi -lmāɖi kānat ilbálad ʂɣīre.",
+        "english": "In the past the town was small."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4213",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4213",
+        "arabic": "بِدّي أصير دكْتور في المُسْتقْبل.",
+        "latin": "bíddi aʂīr daktōr fi -lmustágbal.",
+        "english": "I want to become a doctor in the future."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4220",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4220",
+        "arabic": "في يوْم مِن الإيّام بدّي أسافِر عَ برّا.",
+        "latin": "fi yōm min ilʔiyyām báddi asāfir 3a-bárra.",
+        "english": "One day I want to travel abroad."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4343",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4343",
+        "arabic": "مُمْكِن تْقول مرّة تانْيَة؟",
+        "latin": "múmkin tgūl márra tānya?",
+        "english": "Can you say it again?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4377",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4377",
+        "arabic": "بروح عَ البحِر كزا مرّة في الصّيْف.",
+        "latin": "brūɧ 3a-lbáɧar káza márra fi -ʂʂēf.",
+        "english": "I often go to the sea in the summer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4449",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4449",
+        "arabic": "بِسْمع موسيقى بيْن ما بطْبُخ.",
+        "latin": "bísma3 musīga bēn ma bʈbux.",
+        "english": "I listen to music while I cook."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4405",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4405",
+        "arabic": "أكلِت قبْل شْوَيّة.",
+        "latin": "akálit gábil šwáyya.",
+        "english": "I ate a little while ago."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4338",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4338",
+        "arabic": "بنام عَ الأقلّ سبِع ساعات.",
+        "latin": "bnām 3a-lʔagáll sába3 sā3āt.",
+        "english": "I sleep at least seven hours."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4324",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4324",
+        "arabic": "قدّيْش عُمُر اِبْنك؟",
+        "latin": "gaddēš 3úmur íbnak?",
+        "english": "How old is your son?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4354",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4354",
+        "arabic": "بْتِقْدر تُقْعُد بِأيّ مكان.",
+        "latin": "btígdar túg3ud b-ayy makān.",
+        "english": "You can sit anywhere."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4287",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4287",
+        "arabic": "وَلا حدا إجا عَ الدّرِس اليوْم.",
+        "latin": "wála ɧáda íja 3a-ddáris ilyōm.",
+        "english": "No one came to the lesson today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4289",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4289",
+        "arabic": "كُلّ إشي غالي في هاد المحلّ.",
+        "latin": "kull íši ɣāli fi hād ilmaɧáll.",
+        "english": "Everything is expensive in this shop."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4744",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4744",
+        "arabic": "إحْنا ساكْنين في نفْس الشّارِع.",
+        "latin": "íɧna sāknīn fi nafs iššāri3.",
+        "english": "We live on the same street."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4745",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4745",
+        "arabic": "أنا وأخوي زيّ بعض.",
+        "latin": "ána w-axūy zayy bá3aɖ.",
+        "english": "My brother and I look alike."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4696",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4696",
+        "arabic": "خطّو مِش واضِح.",
+        "latin": "xáʈʈu miš wāɖiɧ.",
+        "english": "His handwriting is unclear."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4704",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4704",
+        "arabic": "أبوك معو حقّ.",
+        "latin": "abūk má3u ɧagg.",
+        "english": "Your father is right."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4544",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4544",
+        "arabic": "أبوي سمح لِلوْلاد يِلْعبوا برّا.",
+        "latin": "abūy sámaɧ lil-wlād yíl3abu bárra.",
+        "english": "My father allowed the children to play outside."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4547",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4547",
+        "arabic": "اِعْتذرِت على الغلط.",
+        "latin": "i3tazárit 3ála -lɣálaʈ.",
+        "english": "I apologized for the mistake."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4575",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4575",
+        "arabic": "البلد اِتْغيّرت كْتير.",
+        "latin": "ilbálad itɣayyárat ktīr.",
+        "english": "The town has changed a lot."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4586",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4586",
+        "arabic": "اِتّصلِت بِالدّكْتور الصُّبِح.",
+        "latin": "ittaʂálit bi-ddaktōr iʂʂúbiɧ.",
+        "english": "I contacted the doctor in the morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4622",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4622",
+        "arabic": "ترك شُغْلو الشّهِر اللي فات.",
+        "latin": "tárak šúɣlu iššáhir ílli fāt.",
+        "english": "He quit his job last month."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4628",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4628",
+        "arabic": "ما تِتْحرّك، بِدّي آخُد صورة.",
+        "latin": "ma titɧárrak, bíddi āxud ʂūra.",
+        "english": "Don't move, I want to take a picture."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4672",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4672",
+        "arabic": "بِنِتْفرّج على التّلفِزْيون كُلّ مسا.",
+        "latin": "bnitfárraj 3ála -ttilivizyōn kull mása.",
+        "english": "We watch TV every evening."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4785",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4785",
+        "arabic": "مبْروك! سْمِعِت إنّك اِتْجوّزِت.",
+        "latin": "mabrūk! smí3it ínnak itjawwázit.",
+        "english": "Congratulations! I heard you got married."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4796",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4796",
+        "arabic": "تِسْلم، الأكِل كان طيّب كْتير.",
+        "latin": "tíslam, ilʔákil kān ʈáyyib ktīr.",
+        "english": "Thanks, the food was very good."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4800",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4800",
+        "arabic": "عِنْدك امْتِحان بُكْرا؟ الله يْوَفّْقك.",
+        "latin": "3índak imtiɧān búkra? álla ywáffgak.",
+        "english": "You have an exam tomorrow? Good luck!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4812",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4812",
+        "arabic": "إنْتَ مريض؟ الله يِشْفيك.",
+        "latin": "ínta marīɖ? álla yišfīk.",
+        "english": "You're sick? Get well soon!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4774",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4774",
+        "arabic": "مع السّلامة، يوْمك سعيد!",
+        "latin": "ma3 issalāma, yōmak sa3īd!",
+        "english": "Goodbye, have a nice day!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4778",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4778",
+        "arabic": "بُكْرا مْسافِر؟ توصل بِالسّلامة!",
+        "latin": "búkra msāfir? tūʂal bi-ssalāma!",
+        "english": "You're traveling tomorrow? Have a good trip!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4783",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4783",
+        "arabic": "وَيْنك؟ اِشْتقْتِلّك!",
+        "latin": "wēnak? ištágtillak!",
+        "english": "Where have you been? I missed you!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4814",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4814",
+        "arabic": "قبِل الأكِل بِنْقول بِاسْمِ الله.",
+        "latin": "gábil ilʔákil bingūl b-ismi-llāh.",
+        "english": "Before eating, we say “in God’s name”."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4816",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4816",
+        "arabic": "خلّصْت أكِل؟ دايْمة!",
+        "latin": "xalláʂt ákil? dāyma!",
+        "english": "You’ve finished eating? May it always be so!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4179",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4179",
+        "arabic": "العيلة كُلّها بْتِجْتِمِع في عيد الفِطِر.",
+        "latin": "il3ēle kullha btijtími3 fi 3īd ilfíʈir.",
+        "english": "The whole family gets together on Eid al-Fitr."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4181",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4181",
+        "arabic": "في عيد الأضْحى بْنِزور جدّي وسِتّي.",
+        "latin": "fi 3īd ilʔáɖɧa bnizūr jíddi w-sítti.",
+        "english": "On Eid al-Adha we visit my grandfather and grandmother."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4187",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4187",
+        "arabic": "عيد الفِصِح في الرّبيع.",
+        "latin": "3īd ilfíʂiɧ fi -rrabī3.",
+        "english": "Easter is in the spring."
+      }
     }
   ]
 }
