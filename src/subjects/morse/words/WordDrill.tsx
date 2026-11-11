@@ -282,7 +282,7 @@ export function WordDrill({ api, start: opening }: { api: SubjectApi; start?: 'w
                 </>
               ) : (
                 <p className="lesson__note">
-                  Opens with your first digit (5, in chapter III): every callsign has one.
+                  Opens with your first digit (5, in chapter 3): every callsign has one.
                 </p>
               )}
             </>

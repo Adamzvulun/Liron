@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { WORD_CHAPTERS } from './core/coreWords.ts';
 import { applyWordTrial, NEW_PROGRESS } from './progress.ts';
-import { REGULARS, regularStatus, roman } from './questline.ts';
+import { REGULARS, regularStatus } from './questline.ts';
 
 const guest = { ...NEW_PROGRESS, guest: true };
 const at = (words: Partial<typeof guest.words>) => ({
@@ -60,7 +60,7 @@ describe('the regulars past chapter 10 (#163, #205)', () => {
     expect(s?.beat).toBe(REGULARS[10]?.intro);
   });
 
-  it('seat a regular for every word chapter, the second caravan from chapter XXII', () => {
+  it('seat a regular for every word chapter, the second caravan from chapter 22', () => {
     expect(REGULARS.map((r) => r.wordChapter)).toEqual(WORD_CHAPTERS.map((c) => c.chapter));
     const s = regularStatus(
       at({ chapter: 21, trials: REGULARS.slice(0, 20).map((r) => r.number) }),
@@ -71,31 +71,6 @@ describe('the regulars past chapter 10 (#163, #205)', () => {
       number: 88,
       who: 'Brother Antoun from the monastery',
     });
-  });
-
-  it('number the chapters in Roman numerals past XII', () => {
-    expect(
-      [2, 11, 12, 14, 19, 24, 35, 40, 49, 61, 69, 76, 84, 86, 88, 90, 99, 104].map(roman),
-    ).toEqual([
-      'II',
-      'XI',
-      'XII',
-      'XIV',
-      'XIX',
-      'XXIV',
-      'XXXV',
-      'XL',
-      'XLIX',
-      'LXI',
-      'LXIX',
-      'LXXVI',
-      'LXXXIV',
-      'LXXXVI',
-      'LXXXVIII',
-      'XC',
-      'XCIX',
-      'CIV',
-    ]);
   });
 
   it('keep the last one you reached at the table once every trial is passed', () => {

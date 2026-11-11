@@ -2,7 +2,7 @@
 // stands, from the saved Morse state. Loaded lazily by index.ts, so the square stays small.
 import type { QuestlineStatus } from '../../core/subject.ts';
 import { parseProgress, pendingTrial, unlockedChars } from './lesson/progress.ts';
-import { questStatus, roman } from './questline.ts';
+import { questStatus } from './questline.ts';
 
 export function questlineStatus(state: unknown): QuestlineStatus | null {
   if (state === null || state === undefined) return null;
@@ -13,7 +13,7 @@ export function questlineStatus(state: unknown): QuestlineStatus | null {
   const trial = pendingTrial(progress);
   return {
     questline: chapter.questline,
-    chapter: `${roman(chapter.number)}: ${chapter.title}`,
+    chapter: `Chapter ${chapter.number}: ${chapter.title}`,
     done: quest.lit.length,
     total: chapter.letters.length,
     unit: 'lamps',

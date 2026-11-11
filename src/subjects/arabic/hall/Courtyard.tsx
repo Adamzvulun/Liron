@@ -3,7 +3,7 @@ import { useStage } from '../../../core/city/useStage.ts';
 import type { SkillRating, SubjectApi } from '../../../core/subject.ts';
 import { LESSONS, lettersUpTo } from '../letters.ts';
 import { parseProgress, PASSES_NEEDED, wordsOpen, type ArabicProgress } from '../progress.ts';
-import { questStatus, regularStatus, roman } from '../questline.ts';
+import { questStatus, regularStatus } from '../questline.ts';
 import { RankUp } from '../../../core/ranks/RankUp.tsx';
 import { heldRanks, needLine } from '../../../core/ranks/ranks.ts';
 import { ARABIC_RANKS, arabicStanding } from '../ranks.ts';
@@ -247,13 +247,13 @@ function Scene({
   const trialDoor = road?.trialReady
     ? {
         name: road.regular.trial.name,
-        where: `Trial · Chapter ${roman(road.regular.number)} · at the table`,
+        where: `Trial · Chapter ${road.regular.number} · at the table`,
         open: 'regular' as const,
       }
     : quest.trialReady
       ? {
           name: `Read ${quest.chapter.trial.name}`,
-          where: 'Trial · Chapter I · at the gate',
+          where: 'Trial · Chapter 1 · at the gate',
           open: 'trial' as const,
         }
       : undefined;
@@ -262,7 +262,7 @@ function Scene({
     <>
       <p className="khan__kicker">Main questline · {quest.chapter.questline}</p>
       <h2 className="khan__chapter">
-        Chapter {roman(road?.regular.number ?? 1)}: {road?.regular.title ?? quest.chapter.title}
+        Chapter {road?.regular.number ?? 1}: {road?.regular.title ?? quest.chapter.title}
       </h2>
       <blockquote className="khan__beat">
         <ArabicText

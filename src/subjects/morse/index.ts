@@ -9,7 +9,7 @@ export const morse: SubjectInfo = {
   tagline: 'Morse code by sound and light',
   guildColor: 'var(--guild-morse)',
   building: 'tower',
-  quest: { text: 'The Silent Beacon I: hear K and M' },
+  quest: { text: 'The Silent Beacon, Chapter 1: hear K and M' },
   questStatus: (state) => import('./tracker.ts').then((m) => m.questlineStatus(state)),
   skills: ['receive', 'send', 'head-copy'],
   Hall: TowerHall,

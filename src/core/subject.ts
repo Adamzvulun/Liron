@@ -28,7 +28,7 @@ export interface SubjectQuest {
 
 /**
  * Where a subject's main questline stands (ADR 0032, #47), e.g. The Silent Beacon, chapter
- * "I: Embers", 6 of 8 lamps. The platform shows it on the Notice Board and in the HUD, linking
+ * "Chapter 1: Embers", 6 of 8 lamps. The platform shows it on the Notice Board and in the HUD, linking
  * to the subject's building; the story itself stays in the subject's content.
  */
 export interface QuestlineStatus {

@@ -283,7 +283,8 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - events `word-session`, and `word-90` for 90% or better. Their daily contracts (2 word sessions, 15 gold; a session at 90%, 20 gold) are only offered once you've had a word session on an earlier day ([economy](economy.md#daily-contracts)).
 - **The chapter gate:** like the letters, 90% in two sessions in a row, the second on a later day. Then the next chapter's words start coming.
 
-## 5. The regulars ("The Long Road In", chapters II onward) (#161, #205)
+## 5. The regulars ("The Long Road In", chapters 2 onward) (#161, #205)
+- **Chapter numbers are plain numbers** ("Chapter 88: The Monk and the Swallows"), in both questlines, since 2026-11-11: Adam didn't like the Roman numerals. The Roman numerals below (II, LXXXVIII) are the same chapters, as the notes were written at the time.
 - After the Painted Sign, you're a guest. Each of the 10 word chapters brings someone new to sit at the innkeeper's table. Their stories are data in `content/arabic/questline.json` (items `road:2` to `road:11`, type `regular`; our own text only).
 
 | Chapter | Regular | Trial |

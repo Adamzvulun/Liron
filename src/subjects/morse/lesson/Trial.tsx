@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
-import { roman } from '../questline.ts';
 import { schedule } from '../timing.ts';
 import {
   applyTrial,
@@ -89,7 +88,7 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
       )}
       {stage.kind === 'intro' && (
         <div className="lesson__card lesson__start">
-          <p className="lesson__kicker">Chapter {roman(chapter.number)} · Trial</p>
+          <p className="lesson__kicker">Chapter {chapter.number} · Trial</p>
           <h2 className="lesson__title">{trial.name}</h2>
           <p>{trial.text}</p>
           <p className="lesson__note">
