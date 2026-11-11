@@ -5,18 +5,12 @@
 // at 1920×1080, with one vanishing point. It sits behind the wardrobe and the trophy wall as a
 // still image (HallBackdrop), so nothing in it is a button.
 
+import { f, INK, line, OUT, poly, type Pt } from './paintKit.ts';
+
 export const HOUSE_STAGE = { width: 1920, height: 1080 } as const;
 
-type Pt = readonly [number, number];
-
-const INK = '#2A170C';
 const PLASTER = '#D9B68C';
 const WOOD = '#7A4A2A';
-const f = (n: number) => Math.round(n * 10) / 10;
-const OUT = (w = 3) =>
-  `stroke="${INK}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
-const poly = (pts: readonly Pt[]) => 'M' + pts.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L') + ' Z';
-const line = (pts: readonly Pt[]) => 'M' + pts.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L');
 
 /** The vanishing point, and the back wall's corners. */
 const VP: Pt = [960, 430];
