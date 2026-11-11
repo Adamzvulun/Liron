@@ -11186,6 +11186,270 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:84",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 84,
+        "title": "Errands and odd jobs",
+        "theme": "Hands, small jobs at home, the office, the car and the bank",
+        "words": [
+          {
+            "deck": "pcav:0378",
+            "gloss": "bun"
+          },
+          {
+            "deck": "pcav:0436",
+            "gloss": "to make a fist"
+          },
+          {
+            "deck": "pcav:0437",
+            "gloss": "to stretch out one's fingers"
+          },
+          {
+            "deck": "pcav:0299",
+            "gloss": "to pick one's nose"
+          },
+          {
+            "deck": "pcav:0270",
+            "gloss": "the white of the eye"
+          },
+          {
+            "deck": "pcav:1634",
+            "gloss": "eye doctor"
+          },
+          {
+            "deck": "pcav:1628",
+            "gloss": "disabled"
+          },
+          {
+            "deck": "pcav:0750",
+            "gloss": "to beat the dust out of a carpet"
+          },
+          {
+            "deck": "pcav:0806",
+            "gloss": "to dice"
+          },
+          {
+            "deck": "pcav:0963",
+            "gloss": "to take a sip (of)"
+          },
+          {
+            "deck": "pcav:1357",
+            "gloss": "to give (someone) a raise"
+          },
+          {
+            "deck": "pcav:1367",
+            "gloss": "to lay off"
+          },
+          {
+            "deck": "pcav:1548",
+            "gloss": "to teach a course"
+          },
+          {
+            "deck": "pcav:1586",
+            "gloss": "graduate"
+          },
+          {
+            "deck": "pcav:1796",
+            "gloss": "scanner"
+          },
+          {
+            "deck": "pcav:1823",
+            "gloss": "to hang up on (someone)"
+          },
+          {
+            "deck": "pcav:1861",
+            "gloss": "pedal"
+          },
+          {
+            "deck": "pcav:1935",
+            "gloss": "to check the tire pressure"
+          },
+          {
+            "deck": "pcav:1955",
+            "gloss": "in gear"
+          },
+          {
+            "deck": "pcav:1963",
+            "gloss": "to keep to the speed limit"
+          },
+          {
+            "deck": "pcav:2020",
+            "gloss": "construction"
+          },
+          {
+            "deck": "pcav:2057",
+            "gloss": "to make a payment on a loan"
+          },
+          {
+            "deck": "pcav:2063",
+            "gloss": "to earn interest"
+          },
+          {
+            "deck": "pcav:2119",
+            "gloss": "stationery"
+          },
+          {
+            "deck": "pcav:2300",
+            "gloss": "to skip forward (a track)"
+          },
+          {
+            "deck": "pcav:2301",
+            "gloss": "to rewind"
+          },
+          {
+            "deck": "pcav:2405",
+            "gloss": "pipe (for tobacco)"
+          },
+          {
+            "deck": "pcav:2421",
+            "gloss": "mouthpiece (of a water pipe)"
+          },
+          {
+            "deck": "pcav:2316",
+            "gloss": "thimble"
+          },
+          {
+            "deck": "pcav:0763",
+            "gloss": "fuse box"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:85",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 85,
+        "title": "Gods, grammar and the garden",
+        "theme": "Sport, faith, grammar, animals, plants and measures",
+        "words": [
+          {
+            "deck": "pcav:2588",
+            "gloss": "to adjust the weight"
+          },
+          {
+            "deck": "pcav:2590",
+            "gloss": "to do cardio"
+          },
+          {
+            "deck": "pcav:2605",
+            "gloss": "to do aerobics"
+          },
+          {
+            "deck": "pcav:2662",
+            "gloss": "to snorkel"
+          },
+          {
+            "deck": "pcav:2757",
+            "gloss": "to ride without paying"
+          },
+          {
+            "deck": "pcav:2999",
+            "gloss": "to be at war with"
+          },
+          {
+            "deck": "pcav:3189",
+            "gloss": "goddess"
+          },
+          {
+            "deck": "pcav:3219",
+            "gloss": "Buddhism"
+          },
+          {
+            "deck": "pcav:3251",
+            "gloss": "the Sunnah"
+          },
+          {
+            "deck": "pcav:3259",
+            "gloss": "to preach"
+          },
+          {
+            "deck": "pcav:3358",
+            "gloss": "grammatical"
+          },
+          {
+            "deck": "pcav:3366",
+            "gloss": "gender (in grammar)"
+          },
+          {
+            "deck": "pcav:3368",
+            "gloss": "dual (in grammar)"
+          },
+          {
+            "deck": "pcav:3384",
+            "gloss": "definite"
+          },
+          {
+            "deck": "pcav:3386",
+            "gloss": "indefinite"
+          },
+          {
+            "deck": "pcav:3394",
+            "gloss": "punctuation"
+          },
+          {
+            "deck": "pcav:3402",
+            "gloss": "bracket, parenthesis"
+          },
+          {
+            "deck": "pcav:2464",
+            "gloss": "in tune"
+          },
+          {
+            "deck": "pcav:3754",
+            "gloss": "koala"
+          },
+          {
+            "deck": "pcav:3784",
+            "gloss": "reptiles"
+          },
+          {
+            "deck": "pcav:3785",
+            "gloss": "cobra"
+          },
+          {
+            "deck": "pcav:3807",
+            "gloss": "lice"
+          },
+          {
+            "deck": "pcav:3830",
+            "gloss": "udder"
+          },
+          {
+            "deck": "pcav:3852",
+            "gloss": "daisy"
+          },
+          {
+            "deck": "pcav:3861",
+            "gloss": "moss"
+          },
+          {
+            "deck": "pcav:3868",
+            "gloss": "to fertilize"
+          },
+          {
+            "deck": "pcav:3884",
+            "gloss": "lemon-yellow"
+          },
+          {
+            "deck": "pcav:3923",
+            "gloss": "inch"
+          },
+          {
+            "deck": "pcav:3936",
+            "gloss": "pound (weight)"
+          },
+          {
+            "deck": "pcav:4186",
+            "gloss": "Epiphany"
+          }
+        ]
+      }
     }
   ]
 }
