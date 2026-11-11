@@ -17,6 +17,7 @@ import { DECK } from '../words.ts';
 import { Compare } from '../phrases/Compare.tsx';
 import {
   coreWordsFrom,
+  loadOwnSentences,
   pickSession,
   shuffle,
   WORD_CHAPTERS,
@@ -66,11 +67,16 @@ export function WordLessons({ api, trial = false }: { api: SubjectApi; trial?: b
 
   useEffect(() => {
     let live = true;
-    Promise.all([api.loadState(), api.privateContent(DECK), api.dueItems({ limit: 200 })]).then(
-      ([state, pack, dueItems]) => {
+    Promise.all([
+      api.loadState(),
+      api.privateContent(DECK),
+      api.dueItems({ limit: 200 }),
+      loadOwnSentences(),
+    ]).then(
+      ([state, pack, dueItems, own]) => {
         if (!live) return;
         setProgress(parseProgress(state));
-        setChapters(coreWordsFrom(pack.items));
+        setChapters(coreWordsFrom(pack.items, own));
         setGrammar(grammarFrom(pack.items));
         setDue(new Set(dueItems.map((d) => d.itemId)));
       },

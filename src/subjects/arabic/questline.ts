@@ -4,7 +4,7 @@
 import { z } from 'zod';
 import questline from '../../../content/arabic/questline.json' with { type: 'json' };
 import type { ArabicProgress } from './progress.ts';
-import { WORD_CHAPTERS } from './core/coreWords.ts';
+import { WORD_CHAPTERS } from './core/wordChapters.ts';
 
 const Trial = z.object({
   name: z.string(),
@@ -63,6 +63,8 @@ export const REGULARS: readonly Regular[] = items
   .sort((a, b) => a.number - b.number);
 
 const NUMERALS: [number, string][] = [
+  [100, 'C'],
+  [90, 'XC'],
   [50, 'L'],
   [40, 'XL'],
   [10, 'X'],
@@ -71,9 +73,9 @@ const NUMERALS: [number, string][] = [
   [4, 'IV'],
   [1, 'I'],
 ];
-/** A chapter's number as the road writes it: II, XI, XXXV (1–89). */
+/** A chapter's number as the road writes it: II, XI, XXXV, XCIX (1–399). */
 export function roman(n: number): string {
-  if (!Number.isInteger(n) || n < 1 || n > 89) return String(n);
+  if (!Number.isInteger(n) || n < 1 || n > 399) return String(n);
   let out = '';
   for (const [value, numeral] of NUMERALS) {
     while (n >= value) {
