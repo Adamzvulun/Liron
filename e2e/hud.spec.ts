@@ -85,7 +85,7 @@ test('a started questline shows where it stands, and leads to its hall (#47)', a
   }
   const beacon = page
     .getByRole('region', { name: 'Quests' })
-    .getByRole('link', { name: /The Silent Beacon I: Embers/ });
+    .getByRole('link', { name: /The Silent Beacon, Chapter 1: Embers/ });
   await expect(beacon).toContainText('6/8 lamps');
   await beacon.click();
   await expect(page).toHaveURL(/\/signal-tower$/);

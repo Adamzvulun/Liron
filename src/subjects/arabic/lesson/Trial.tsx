@@ -16,7 +16,7 @@ type Stage =
   | { kind: 'result'; answers: Answer[]; passed: boolean };
 
 /**
- * The Painted Sign (#43), the trial at the end of "The Long Road In" chapter I: read the inn's
+ * The Painted Sign (#43), the trial at the end of "The Long Road In" chapter 1: read the inn's
  * signs, words from every letter, at 90% or better. Passing makes you ضيف, a guest of the house.
  */
 export function Trial({ api }: { api: SubjectApi }) {
@@ -101,7 +101,7 @@ export function Trial({ api }: { api: SubjectApi }) {
       )}
       {stage.kind === 'start' && (
         <div className="lesson__card lesson__start">
-          <p className="lesson__kicker">Trial · {CHAPTER.questline} · Chapter I</p>
+          <p className="lesson__kicker">Trial · {CHAPTER.questline} · Chapter 1</p>
           <h2 className="lesson__title">{trial.name}</h2>
           <p>{trial.text}</p>
           {progress.guest && (
