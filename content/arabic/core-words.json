@@ -10123,6 +10123,272 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:76",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 76,
+        "title": "Fine work",
+        "theme": "The body and the clinic, study, money, crafts and the night sky",
+        "words": [
+          {
+            "deck": "pcav:0069",
+            "gloss": "gravestone"
+          },
+          {
+            "deck": "pcav:0156",
+            "gloss": "ancestors"
+          },
+          {
+            "deck": "pcav:0228",
+            "gloss": "teknonym (a name like Abu Omar)"
+          },
+          {
+            "deck": "pcav:0271",
+            "gloss": "pupil (of the eye)"
+          },
+          {
+            "deck": "pcav:0345",
+            "gloss": "larynx"
+          },
+          {
+            "deck": "pcav:0469",
+            "gloss": "gallbladder"
+          },
+          {
+            "deck": "pcav:0470",
+            "gloss": "gland"
+          },
+          {
+            "deck": "pcav:0764",
+            "gloss": "fuse"
+          },
+          {
+            "deck": "pcav:1004",
+            "gloss": "pungent"
+          },
+          {
+            "deck": "pcav:1590",
+            "gloss": "to get a bachelor's degree"
+          },
+          {
+            "deck": "pcav:1592",
+            "gloss": "to do a master's degree"
+          },
+          {
+            "deck": "pcav:1719",
+            "gloss": "surgeon"
+          },
+          {
+            "deck": "pcav:1722",
+            "gloss": "to have an operation"
+          },
+          {
+            "deck": "pcav:1831",
+            "gloss": "freight; truck"
+          },
+          {
+            "deck": "pcav:2029",
+            "gloss": "to demolish"
+          },
+          {
+            "deck": "pcav:2054",
+            "gloss": "to finance"
+          },
+          {
+            "deck": "pcav:2058",
+            "gloss": "to pay in installments"
+          },
+          {
+            "deck": "pcav:2059",
+            "gloss": "to pay off (a debt)"
+          },
+          {
+            "deck": "pcav:2108",
+            "gloss": "prose"
+          },
+          {
+            "deck": "pcav:2318",
+            "gloss": "to crochet"
+          },
+          {
+            "deck": "pcav:2319",
+            "gloss": "to embroider"
+          },
+          {
+            "deck": "pcav:2320",
+            "gloss": "to patch, to darn"
+          },
+          {
+            "deck": "pcav:3024",
+            "gloss": "consciousness"
+          },
+          {
+            "deck": "pcav:3318",
+            "gloss": "is legible"
+          },
+          {
+            "deck": "pcav:3319",
+            "gloss": "is illegible",
+            "sentence": "pcav:3320"
+          },
+          {
+            "deck": "pcav:3321",
+            "gloss": "calligraphy"
+          },
+          {
+            "deck": "pcav:3613",
+            "gloss": "comet"
+          },
+          {
+            "deck": "pcav:3614",
+            "gloss": "shooting star, meteorite"
+          },
+          {
+            "deck": "pcav:3917",
+            "gloss": "surface area",
+            "sentence": "pcav:4036"
+          },
+          {
+            "deck": "pcav:4201",
+            "gloss": "millennium"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:77",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 77,
+        "title": "Power and the courts",
+        "theme": "Government, courts, armies, faith, and saying no",
+        "words": [
+          {
+            "deck": "pcav:2781",
+            "gloss": "cabinet (of ministers)"
+          },
+          {
+            "deck": "pcav:2794",
+            "gloss": "monarchy"
+          },
+          {
+            "deck": "pcav:2806",
+            "gloss": "majority"
+          },
+          {
+            "deck": "pcav:2807",
+            "gloss": "minority"
+          },
+          {
+            "deck": "pcav:2809",
+            "gloss": "to nominate"
+          },
+          {
+            "deck": "pcav:2810",
+            "gloss": "nomination"
+          },
+          {
+            "deck": "pcav:2817",
+            "gloss": "constitution"
+          },
+          {
+            "deck": "pcav:2818",
+            "gloss": "reform"
+          },
+          {
+            "deck": "pcav:2820",
+            "gloss": "dictatorship"
+          },
+          {
+            "deck": "pcav:2851",
+            "gloss": "assault"
+          },
+          {
+            "deck": "pcav:2862",
+            "gloss": "to interrogate"
+          },
+          {
+            "deck": "pcav:2873",
+            "gloss": "judgment, sentence"
+          },
+          {
+            "deck": "pcav:2874",
+            "gloss": "to convict"
+          },
+          {
+            "deck": "pcav:2889",
+            "gloss": "charge, accusation"
+          },
+          {
+            "deck": "pcav:2890",
+            "gloss": "defense"
+          },
+          {
+            "deck": "pcav:3006",
+            "gloss": "to recruit"
+          },
+          {
+            "deck": "pcav:3016",
+            "gloss": "mine (explosive)"
+          },
+          {
+            "deck": "pcav:3017",
+            "gloss": "missile"
+          },
+          {
+            "deck": "pcav:3019",
+            "gloss": "to occupy"
+          },
+          {
+            "deck": "pcav:3021",
+            "gloss": "to liberate"
+          },
+          {
+            "deck": "pcav:3022",
+            "gloss": "liberation"
+          },
+          {
+            "deck": "pcav:3176",
+            "gloss": "secular"
+          },
+          {
+            "deck": "pcav:3261",
+            "gloss": "pulpit"
+          },
+          {
+            "deck": "pcav:3262",
+            "gloss": "altar"
+          },
+          {
+            "deck": "pcav:4535",
+            "gloss": "to abandon"
+          },
+          {
+            "deck": "pcav:4560",
+            "gloss": "to beg, to plead"
+          },
+          {
+            "deck": "pcav:4589",
+            "gloss": "to decline, to refuse"
+          },
+          {
+            "deck": "pcav:4592",
+            "gloss": "to deny"
+          },
+          {
+            "deck": "pcav:4640",
+            "gloss": "to prohibit"
+          },
+          {
+            "deck": "pcav:4725",
+            "gloss": "absent-minded"
+          }
+        ]
+      }
     }
   ]
 }
