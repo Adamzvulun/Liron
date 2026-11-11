@@ -41,16 +41,18 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 
 | Slot | Common | Rare | Epic |
 |---|---|---|---|
-| Head | Red tarboosh, Straw sun hat | Scholar's turban | |
-| Torso | Embroidered vest (over the shirt) | Scholar's robe | Guildmaster's coat |
-| Legs | Sirwal trousers | Indigo silks | |
-| Feet | Leather sandals | Riding boots | |
-| Hand | Signal flags, Map scroll | Brass signal lamp | |
-| Back | Bedroll | Oud | Guild banner |
+| Head | Red tarboosh, Straw sun hat, Embroidered kufi | Scholar's turban | |
+| Torso | Embroidered vest (over the shirt), Woven shawl | Scholar's robe | Guildmaster's coat |
+| Legs | Sirwal trousers | Indigo silks | Gold-stitched sirwal |
+| Feet | Leather sandals | Riding boots | Gilded slippers |
+| Hand | Signal flags, Map scroll | Brass signal lamp | Falconer's glove (with the falcon) |
+| Back | Bedroll, Water skin | Oud | Guild banner |
+
+The kufi, shawl, gold-stitched sirwal, gilded slippers, falconer's glove and water skin came on 2026-11-11 (migration `20261206000000_more_wares.sql`), one more for each slot.
 
 **Rank gear (#176, ADR 0035):** six pieces only a rank gives, never sold or found in a chest: Listener's ear-cups, Keyer's brass key, Operator's coat, Night-watch lantern, Sash of the house and Traveler's keffiyeh. See [ranks and achievements](ranks-and-achievements.md#4-rank-gear).
 
-**Tunic dyes (#49):** crimson, saffron, indigo and forest, 60 gold each. They're color items, not gear: an owned dye recolors the traveler's tunic, picked under "Tunic dye" in the wardrobe. Without one the tunic stays teal.
+**Tunic dyes (#49):** crimson, saffron, indigo, forest, and (2026-11-11) rose and charcoal, 60 gold each. They're color items, not gear: an owned dye recolors the traveler's tunic, picked under "Tunic dye" in the wardrobe. Without one the tunic stays teal.
 
 **The locked items are earned (#48, ADR 0033).** The database gives each one when its milestone is met: the headset at level 5 in the Signal Tower, the cloak on a 7-day streak, the boots after 10 daily contracts, the breeches when a first-chapter trial is passed. Chests can also give them, and the Market sells them. Adam may rename them.
 
@@ -61,4 +63,4 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 - **Unlocks live in the database** (`owned_items`), not in the look. Reading the look takes off gear and a dye the player doesn't own.
 
 ## Ideas for later (Adam: "we can add more stuff later")
-More items per slot and the companion pet. ~~A headscarf as a look option~~ **built (2026-11-11):** a "Headscarf" choice in the wardrobe, open to everyone from the start like hair and beard: none, or a cloth in sand, rose, olive, indigo, black or white (`SCARVES` in `looks.ts`, `look.scarf`). It covers the hair and ears and falls to the shoulders, with a small pin; head gear is worn over it.
+The companion pet, and still more items per slot (six came on 2026-11-11, one per slot, with two dyes: see the Market's wares above). ~~A headscarf as a look option~~ **built (2026-11-11):** a "Headscarf" choice in the wardrobe, open to everyone from the start like hair and beard: none, or a cloth in sand, rose, olive, indigo, black or white (`SCARVES` in `looks.ts`, `look.scarf`). It covers the hair and ears and falls to the shoulders, with a small pin; head gear is worn over it.

@@ -227,7 +227,51 @@ export const GEAR: readonly GearItem[] = [
     name: 'Guild banner',
     starter: false,
     earn: 'From chests and the Market',
-  }, // Rank gear (#176, ADR 0035): only taking the rank gives it. Never sold, never in a chest.
+  },
+  // More wares (2026-11-11): one more for each slot.
+  {
+    id: 'kufi',
+    slot: 'head',
+    name: 'Embroidered kufi',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'shawl',
+    slot: 'torso',
+    name: 'Woven shawl',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'gold-sirwal',
+    slot: 'legs',
+    name: 'Gold-stitched sirwal',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'slippers',
+    slot: 'feet',
+    name: 'Gilded slippers',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'falcon',
+    slot: 'hand',
+    name: "Falconer's glove",
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  {
+    id: 'waterskin',
+    slot: 'back',
+    name: 'Water skin',
+    starter: false,
+    earn: 'From chests and the Market',
+  },
+  // Rank gear (#176, ADR 0035): only taking the rank gives it. Never sold, never in a chest.
   {
     id: 'ear-cups',
     slot: 'head',
@@ -281,6 +325,8 @@ export const DYES = [
   { id: 'saffron-dye', label: 'Saffron dye', light: '#FFD98A', mid: '#D9A12E', dark: '#7A5210' },
   { id: 'indigo-dye', label: 'Indigo dye', light: '#8A9AE0', mid: '#3E4E9E', dark: '#1A2250' },
   { id: 'forest-dye', label: 'Forest dye', light: '#8AC88A', mid: '#3E7A4A', dark: '#16381E' },
+  { id: 'rose-dye', label: 'Rose dye', light: '#F2A8C0', mid: '#C8507A', dark: '#5E1A34' },
+  { id: 'charcoal-dye', label: 'Charcoal dye', light: '#8A8A94', mid: '#3E3E48', dark: '#141418' },
 ] as const;
 export type DyeId = (typeof DYES)[number]['id'];
 
