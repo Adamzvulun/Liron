@@ -1969,6 +1969,56 @@
         },
         "outro": "The two friends shake hands at the gate. “Same table on Friday,” says one. “And Sunday,” says the other."
       }
+    },
+    {
+      "id": "road:77",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 77,
+        "wordChapter": 76,
+        "title": "The New Clinic",
+        "who": "Dr. Salwa, the surgeon",
+        "intro": "Salwa, the baker’s daughter, comes home in autumn with a master’s degree and opens a small clinic in the old house by the gate. The bank financed it, and she pays it off in installments.",
+        "milestones": [
+          "Her first operation is Abu Hani’s gallbladder. He loses consciousness counting to ten, and wakes up asking for his scissors.",
+          "Her grandmother embroiders a cloth for the waiting room and crochets in the corner, and Salwa patches the old curtains herself. Unlike every other doctor’s, her handwriting is legible.",
+          "On the clinic’s roof one night, she shows the children a comet. Her grandfather says their ancestors watched the same sky a millennium ago."
+        ],
+        "trial": {
+          "name": "Salwa’s Clinic",
+          "text": "Dr. Salwa’s patients come in one by one, and you tell her what’s wrong in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Salwa hangs her degree on the wall, next to her grandmother’s embroidery. “The degree says I’m a surgeon,” she says. “The embroidery says I’m home.”"
+      }
+    },
+    {
+      "id": "road:78",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 78,
+        "wordChapter": 77,
+        "title": "The Election",
+        "who": "Rana the journalist",
+        "intro": "Rana writes for a newspaper in the city. She comes to the inn to cover two stories: the town’s first election for mayor in years, and a trial at the court.",
+        "milestones": [
+          "The council nominates Mr. Kamal, the old history teacher. He declines: the town needs reform, he says, not an old man. The majority begs him to stand.",
+          "A stranger accuses Tamer the fishmonger of stealing his boat. At the court in the city, the judge hears the defense, the charge falls, and Tamer goes home a free man.",
+          "Mr. Kamal tells the children how their grandparents’ town was occupied and liberated, and how the mines were cleared from the fields so the olives could grow again."
+        ],
+        "trial": {
+          "name": "Election Night",
+          "text": "Rana reads out the news of the election and the trial, and you follow every story in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Mr. Kamal wins, and is so absent-minded that he forgets his own speech. Rana’s story runs on the front page anyway."
+      }
     }
   ]
 }
