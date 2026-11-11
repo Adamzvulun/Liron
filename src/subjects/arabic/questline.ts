@@ -30,7 +30,7 @@ export type Chapter = z.infer<typeof Chapter> & { milestones: string[] };
 
 const items = questline.items as { id: string; type: string; data: unknown }[];
 
-/** Chapter I, with each milestone's story beat by lesson (index 0 is lesson 1). */
+/** Chapter 1, with each milestone's story beat by lesson (index 0 is lesson 1). */
 export const CHAPTER: Chapter = (() => {
   const head = items.find((i) => i.type === 'chapter');
   const chapter = Chapter.parse(head?.data);
@@ -61,30 +61,6 @@ export const REGULARS: readonly Regular[] = items
   .filter((i) => i.type === 'regular')
   .map((i) => Regular.parse(i.data))
   .sort((a, b) => a.number - b.number);
-
-const NUMERALS: [number, string][] = [
-  [100, 'C'],
-  [90, 'XC'],
-  [50, 'L'],
-  [40, 'XL'],
-  [10, 'X'],
-  [9, 'IX'],
-  [5, 'V'],
-  [4, 'IV'],
-  [1, 'I'],
-];
-/** A chapter's number as the road writes it: II, XI, XXXV, XCIX (1–399). */
-export function roman(n: number): string {
-  if (!Number.isInteger(n) || n < 1 || n > 399) return String(n);
-  let out = '';
-  for (const [value, numeral] of NUMERALS) {
-    while (n >= value) {
-      out += numeral;
-      n -= value;
-    }
-  }
-  return out;
-}
 
 /** Words met per milestone on a regular's chapter. */
 export const WORDS_PER_MILESTONE = 10;

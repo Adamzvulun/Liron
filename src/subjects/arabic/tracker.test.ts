@@ -10,7 +10,7 @@ describe('the Long Road In in the tracker (#47)', () => {
   it('counts milestones, then names the trial', () => {
     expect(questlineStatus({ lesson: 4 })).toEqual({
       questline: 'The Long Road In',
-      chapter: 'I: The Stranger at the Gate',
+      chapter: 'Chapter 1: The Stranger at the Gate',
       done: 3,
       total: CHAPTER.lessons,
       unit: 'milestones',
@@ -24,7 +24,7 @@ describe('the Long Road In in the tracker (#47)', () => {
     const guest = { lesson: CHAPTER.lessons, done: true, guest: true };
     expect(questlineStatus(guest)).toEqual({
       questline: 'The Long Road In',
-      chapter: 'II: The Carter’s Greeting',
+      chapter: 'Chapter 2: The Carter’s Greeting',
       done: 0,
       total: 3,
       unit: 'milestones',
@@ -33,7 +33,7 @@ describe('the Long Road In in the tracker (#47)', () => {
       'Trial: The Carter’s Roll Call',
     );
     expect(questlineStatus({ ...guest, words: { chapter: 2, trials: [2] } })?.chapter).toBe(
-      'III: The Grandmother’s Questions',
+      'Chapter 3: The Grandmother’s Questions',
     );
   });
 });

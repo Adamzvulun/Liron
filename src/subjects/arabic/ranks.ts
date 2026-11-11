@@ -11,7 +11,7 @@ export const ARABIC_RANKS = ranksFrom(pack);
 export const TRAVELER_CHAPTERS = 10;
 /** The letters the slate teaches: every single-character letter (not the لا ligature). */
 export const SLATE_IDS = LETTERS.filter((l) => l.letter.length === 1).map((l) => l.id);
-/** Traveler's trial: Jamil's, the tenth regular's (chapter XI). Later regulars come after. */
+/** Traveler's trial: Jamil's, the tenth regular's (chapter 11). Later regulars come after. */
 const POETS_EVENING = 11;
 
 export function arabicMet(rank: Rank, p: ArabicProgress): boolean[] {

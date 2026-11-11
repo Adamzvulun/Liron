@@ -12,7 +12,7 @@ const subject = (id: string, extra: Partial<SubjectInfo> = {}): SubjectInfo => (
 
 const status = (done: number) => ({
   questline: 'Q',
-  chapter: 'I: One',
+  chapter: 'Chapter 1: One',
   done,
   total: 8,
   unit: 'lamps',

@@ -16,7 +16,7 @@ export const OVERSPEED_WPM = 30;
 const isDigit = (c: string) => /^[0-9]$/.test(c);
 const isLetter = (c: string) => /^[A-Z]$/.test(c);
 
-/** The rush opens with the first digit (5, in chapter III): every real callsign has one. */
+/** The rush opens with the first digit (5, in chapter 3): every real callsign has one. */
 export const rushOpen = (unlocked: readonly string[]) => unlocked.some(isDigit);
 
 /**

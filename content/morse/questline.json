@@ -477,7 +477,7 @@
     {
       "id": "beacon-ch1",
       "subject": "morse",
-      "title": "The Silent Beacon, Chapter I: Embers",
+      "title": "The Silent Beacon, Chapter 1: Embers",
       "order": 1,
       "items": [
         "beacon:1",
@@ -495,7 +495,7 @@
     {
       "id": "beacon-ch2",
       "subject": "morse",
-      "title": "The Silent Beacon, Chapter II: The Upper Stair",
+      "title": "The Silent Beacon, Chapter 2: The Upper Stair",
       "order": 2,
       "items": [
         "beacon:2",
@@ -513,7 +513,7 @@
     {
       "id": "beacon-ch3",
       "subject": "morse",
-      "title": "The Silent Beacon, Chapter III: The Lantern Room",
+      "title": "The Silent Beacon, Chapter 3: The Lantern Room",
       "order": 3,
       "items": [
         "beacon:3",
@@ -531,7 +531,7 @@
     {
       "id": "beacon-ch4",
       "subject": "morse",
-      "title": "The Silent Beacon, Chapter IV: The Far Voice",
+      "title": "The Silent Beacon, Chapter 4: The Far Voice",
       "order": 4,
       "items": [
         "beacon:4",
@@ -549,7 +549,7 @@
     {
       "id": "beacon-ch5",
       "subject": "morse",
-      "title": "The Silent Beacon, Chapter V: The Beacon Speaks",
+      "title": "The Silent Beacon, Chapter 5: The Beacon Speaks",
       "order": 5,
       "items": [
         "beacon:5",

@@ -40,10 +40,6 @@ export const CHAPTERS: readonly Chapter[] = questline.items
   })
   .sort((a, b) => a.number - b.number);
 
-/** Roman numerals for chapter titles. */
-export const roman = (n: number) =>
-  ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'][n - 1] ?? `${n}`;
-
 /**
  * Where the learner is: the chapter holding their newest letter (or the last written chapter),
  * how many of its lamps are lit, and the newest lit lamp's story beat.

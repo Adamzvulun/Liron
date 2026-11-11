@@ -2,7 +2,7 @@
 // stands, from the saved Arabic state. Loaded lazily by index.ts, so the square stays small.
 import type { QuestlineStatus } from '../../core/subject.ts';
 import { parseProgress } from './progress.ts';
-import { questStatus, regularStatus, roman } from './questline.ts';
+import { questStatus, regularStatus } from './questline.ts';
 import { arabicStanding } from './ranks.ts';
 
 export function questlineStatus(state: unknown): QuestlineStatus | null {
@@ -21,7 +21,7 @@ export function questlineStatus(state: unknown): QuestlineStatus | null {
         : undefined;
     return {
       questline: chapter.questline,
-      chapter: `${roman(r.number)}: ${r.title}`,
+      chapter: `Chapter ${r.number}: ${r.title}`,
       done: road.lit,
       total: r.milestones.length,
       unit: 'milestones',
@@ -35,7 +35,7 @@ export function questlineStatus(state: unknown): QuestlineStatus | null {
       : undefined;
   return {
     questline: chapter.questline,
-    chapter: `${roman(chapter.number)}: ${chapter.title}`,
+    chapter: `Chapter ${chapter.number}: ${chapter.title}`,
     done: quest.lit,
     total: chapter.lessons,
     unit: 'milestones',
