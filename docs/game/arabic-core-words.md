@@ -248,7 +248,7 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
   - **Months:** January, October, November and December, by the names February to September are already taught with (كانون التّاني, تِشْرين الأوّل). The numbered names (شهِر واحد, *month one*) are second words and wait.
   - **Phrases of two or three words** where the phrase is the thing to learn: *the day after tomorrow*, *last week*, *this year*, *in the future*, *at least*, *how often*, *Have a good trip!*. Phrases built from taught words with their usual meaning (*blue eyes*, *hot water*, *a lot of money*) stay out.
   - **Deck sentences:** 30 of the 90 have one (*Everyone needs friends*, *How far is it from here to downtown?*); the other 60 have one of our own, checked with no flags left. Five near matches were passed over because the deck sentence uses the word in another sense (تاني as *another*, not *second*).
-  - **Left for later (ordered, not cut):** the numbered month names, compounds of taught words, adult, toilet and grim words, about 20 true second words and about 15 B2 phrases.
+  - **Left for later (ordered, not cut):** the numbered month names, compounds of taught words, adult, toilet and grim words, about 20 true second words and about 15 B2 phrases. Also left: a handful of everyday expressions the count found after the batch was picked (*I love you!*, *Sir!* and *Ma'am!*, *Cheers!*, *Hello?* on the phone, *It's your turn*, *It's raining*), and *blind*, *deaf* and *square* (the shape). They fit a later chapter on feelings, the phone and the weather.
 
 | Chapter | Theme |
 |---|---|
