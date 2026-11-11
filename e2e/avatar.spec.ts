@@ -28,6 +28,15 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await expect(save).toBeDisabled();
   });
 
+  test('the wardrobe stands in a painted room (roadmap A2)', async ({ page }) => {
+    await signedIn(page);
+    await page.goto('/house');
+    const room = page.locator('.hall-backdrop[data-hall="house"]');
+    await expect(room).toHaveAttribute('aria-hidden', 'true');
+    await expect(room.locator('img')).toHaveJSProperty('complete', true);
+    await expect(page.getByRole('button', { name: 'Save my look' })).toBeVisible();
+  });
+
   test('locked gear says how to earn it and cannot be worn', async ({ page }) => {
     await signedIn(page);
     await page.goto('/house');
