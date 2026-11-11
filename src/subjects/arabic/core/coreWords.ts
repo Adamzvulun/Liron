@@ -1,22 +1,14 @@
-// The word path (#160, E11): its words in chapters of 30, from
-// content/arabic/core-words.json (#159, #163). That file holds only deck ids and our glosses; the Arabic,
+// The word path (#160, E11): its words in chapters of 30 (wordChapters.ts, from
+// content/arabic/core-words.json, #159, #163). That file holds only deck ids and our glosses; the Arabic,
 // the Latin and the recordings come from the private deck (ADR 0011).
 import { z } from 'zod';
 import type { Item } from '../../../core/content/schema.ts';
 import type { ReviewGrade } from '../../../core/subject.ts';
-import pack from '../../../../content/arabic/core-words.json' with { type: 'json' };
 import ownPack from '../../../../content/arabic/own-sentences.json' with { type: 'json' };
 import { dropGroups, latinToHebrew } from '../phrases/hebrew.ts';
+import { WORD_CHAPTERS } from './wordChapters.ts';
 
-const Chapter = z.object({
-  chapter: z.number().int().positive(),
-  title: z.string(),
-  theme: z.string(),
-  words: z.array(
-    z.object({ deck: z.string(), gloss: z.string(), sentence: z.string().optional() }),
-  ),
-});
-export type WordChapter = z.infer<typeof Chapter>;
+export { WORD_CHAPTERS, type WordChapter } from './wordChapters.ts';
 
 /**
  * Our own sentences (#164) for words the deck has none for: text only, written by us and
@@ -36,10 +28,6 @@ export const OWN_SENTENCES: ReadonlyMap<string, OwnSentence> = new Map(
     return [s.word, s];
   }),
 );
-
-export const WORD_CHAPTERS: readonly WordChapter[] = pack.items
-  .map((i) => Chapter.parse(i.data))
-  .sort((a, b) => a.chapter - b.chapter);
 
 /** A session: due words first, then up to NEW_PER_SESSION new ones, then words you know. */
 export const SESSION_WORDS = 12;
