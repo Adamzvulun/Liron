@@ -436,7 +436,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
   - [Palestinian-Jordanian Levantine Arabic: the definite article](https://www.adrosverse.com/?p=14466) and [Sun and moon letters](https://en.wikipedia.org/wiki/Sun_and_moon_letters): j as a sun letter in Palestinian.
   - [Personal pronouns](https://www.adrosverse.com/?p=14474) (Adrosverse): -kum and -hum in Palestine and Jordan (-kon/-hon is Syrian and Lebanese).
 - **Flagged for Adam:** j as a sun letter varies by speaker (usually yes where ج sounds like the *j* in French *jour*). The card says "often", and the deck's speaker does it.
-- **Cards 5–33 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
+- **Cards 5–33, then 34–36, 38, 45 (two), 46, 47, 52, 60, 90 and 92 (2026-11-11):** written the same way, each rule checked against the deck's own romanization first.
 
 | Ch. | Card | The rule | Deck sentences |
 |---|---|---|---|
@@ -469,9 +469,22 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 31 | fōg, taɧt, jamb | where words before the thing, alone as places, with the endings | The painting is hanging over the sofa. · I prefer an aisle seat. |
 | 32 | il- on both | the describing word after the thing; il- on both; one il- makes a sentence | I don't like spicy food. · to run a red light |
 | 33 | Putting words together | "of" by side-by-side words, like Hebrew smichut; -a shows its t; il- only on the last | Can I have a glass of water? · What's the temperature? · Enter your username and password. |
+| 34 | min and la-ɧádd | since (the verb stays in the present, as in Hebrew); until before a thing; la-3índ ma before a sentence | I've been living in Gaza since 2010. · I watched TV until eleven o'clock. |
+| 35 | 3úmri: age, and "ever" | 3úmr + the endings; ʂār to turn an age; 3úmr- before a past verb is ever, with ma never | I'm 20 years old. · How old are you? · Have you ever been abroad? |
+| 36 | State words | lābis, sākin, nāyim, rāyiɧ: the state you're in now, no b-; -a, -īn; the shape of Hebrew's present | Oh, you're wearing glasses today! · Where do you live? · The car is going to Gaza. |
+| 38 | ja3ān, šab3ān | -ān words for the body (-āna for a woman); a verb for getting that way; its past says how you are now, like Hebrew שבעתי | I'm so thirsty. · I'm still hungry. · Thanks, I'm full. |
+| 45 | xallīna, "let's" | xallīna + a verb with n- and no b-; from xálla, to let | Let's sit outside. · Let's have coffee sometime. · It's hot today. Let's stay inside. |
+| 45 | ɧáda, íši | someone, something; ayy for any; kull íši; with not, anything at all | Someone is at the door. · I want to eat something sweet. · Anything is fine. |
+| 46 | The job shape | xabbāz, najjār, rassām: doubled middle and long ā, from the verb; najjār is Hebrew נגר | baker · carpenter · taxi driver |
+| 47 | The -i ending | janūb, janūbi; šamāli, dáwli, 3árabi; il- on both; like Hebrew's -i | southern · the North Pole · international |
+| 52 | One verb, three words | dáxxan, tadxīn, mudáxxin: the -ing word with ta-…ī, the doer with mu-, like Hebrew's piʿel | to smoke · smoking · smoker · signature |
+| 60 | Verbs come in pairs | he did, he does (wāfag, ywāfig); b- on the second; its vowel can't be guessed; a middle ā turns ū or ī | to approve of · to succeed · to sell |
+| 90 | First to tenth | áwwal/ūla, then the shape tālit; -a for feminine; after with il- on both, or before with none | Her son is in first grade. · The apartment is on the fourth floor. |
+| 92 | wála íši | wála before ɧáda or íši: no one, nothing; as a whole answer; fiš ɧadd in a sentence | What did you buy? – Nothing! · No one lives forever. |
 
 - **The deck's speaker** uses ɧa- for the future (not raɧ), -š with no mā on many verbs (baɧíbbiš), and -it for the -t of *I* in the past (dafá3it). The cards follow the speaker and name the other forms.
 - **Players past chapter 5** see the new cards one at a time, one before each session, until they've read them all.
+- **Not every later chapter has a card.** Chapters 34 onward are mostly words on a theme; a card goes where its words bring a rule (since and until in 34, age in 35, hungry and full in 38, *let's* and *someone* in 45, jobs in 46, the -i ending in 47, *tadxīn* and *mudáxxin* in 52, verb pairs in 60, first to tenth in 90, *nothing* in 92).
 - **Later cards** (*tába3* "of", which the deck has only one short sentence for, and the rarer verb shapes, like istáfʕal) come with later chapters, the same way.
 
 ## 7. Not in E11's first pass (kept, not dropped)

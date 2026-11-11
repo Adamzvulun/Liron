@@ -15,7 +15,7 @@ const sentence = (id: string): Item => ({
 describe('grammar cards (#162)', () => {
   const guest = { ...NEW_PROGRESS, guest: true };
 
-  it('has one card for each of chapters 1 to 33', () => {
+  it('has one card for each of chapters 1 to 33, then cards for later chapters', () => {
     expect(GRAMMAR_CARDS.map((c) => [c.id, c.chapter])).toEqual([
       ['grammar:no-is', 1],
       ['grammar:endings', 2],
@@ -50,6 +50,18 @@ describe('grammar cards (#162)', () => {
       ['grammar:where', 31],
       ['grammar:the-big-house', 32],
       ['grammar:of', 33],
+      ['grammar:since-until', 34],
+      ['grammar:age', 35],
+      ['grammar:state-words', 36],
+      ['grammar:hungry', 38],
+      ['grammar:lets', 45],
+      ['grammar:someone', 45],
+      ['grammar:jobs', 46],
+      ['grammar:i-ending', 47],
+      ['grammar:three-words', 52],
+      ['grammar:verb-pairs', 60],
+      ['grammar:ordinals', 90],
+      ['grammar:nothing', 92],
     ]);
     for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
   });

@@ -579,6 +579,190 @@
         ],
         "examples": ["pcav:1024", "pcav:3648", "pcav:1790", "pcav:2566"]
       }
+    },
+    {
+      "id": "grammar:since-until",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 34,
+        "title": "min and la-ɧádd: “since” and “until”",
+        "points": [
+          "min is since: ána 3āyiš fi ɣázza min ilʔalfēn w 3ášara, I’ve been living in Gaza since 2010.",
+          "The verb stays in the present, where English says I’ve been living. Hebrew does the same.",
+          "la-ɧádd is until, before a thing: la-ɧádd issā3a ɧadā3iš, until eleven o’clock.",
+          "Before a whole sentence, until is la-3índ ma: la-3índ ma -txarrájit, until I graduated."
+        ],
+        "examples": ["pcav:4263", "pcav:4266", "pcav:4443"]
+      }
+    },
+    {
+      "id": "grammar:age",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 35,
+        "title": "3úmri: age, and “ever”",
+        "points": [
+          "Age is 3úmr with an ending (chapter 2): 3úmri 3išrīn, I’m 20, word for word my age twenty. To ask: gaddēš 3úmrak?",
+          "To turn an age, use ʂār, to become: ɧáyʂīr 3úmru 3išrīn sána, he’s turning twenty.",
+          "Before a past verb, 3úmr- means ever: 3úmrak sāfarit gábil hēk?, have you ever been abroad? With ma it means never: 3úmri ma sāfárit…, I’ve never flown…"
+        ],
+        "examples": ["pcav:0052", "pcav:4325", "pcav:0054", "pcav:2684", "pcav:2708"]
+      }
+    },
+    {
+      "id": "grammar:state-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 36,
+        "title": "lābis, sākin: words for a state",
+        "points": [
+          "Many verbs have a describing word in one shape: lābis, wearing; sākin, living (somewhere); nāyim, asleep; rāyiɧ, going; 3āyiš, living.",
+          "It says the state you’re in now, with no b-: lābis naɖɖārāt ilyōm?, are you wearing glasses today? wēn sākin?, where do you live?",
+          "It changes like a describing word: rāyiɧ for a man, rāyɧa for a woman or a feminine thing, lābsīn for several.",
+          "Hebrew’s present tense is this same kind of word. Arabic lābis has the shape of Hebrew לובש."
+        ],
+        "examples": ["pcav:0663", "pcav:4306", "pcav:4485", "pcav:0418", "pcav:0003"]
+      }
+    },
+    {
+      "id": "grammar:hungry",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 38,
+        "title": "ja3ān, šab3ān: hungry and full",
+        "points": [
+          "Many words for how your body feels end in -ān: ja3ān, hungry; 3aʈšān, thirsty; šab3ān, full; ta3bān, tired. For a woman they end in -āna.",
+          "Each has a verb for getting that way: jā3, to get hungry; 3íʈiš, to get thirsty; šíbi3, to get full.",
+          "The past of that verb says how you are now: šbí3it, I’m full, word for word I got full. Hebrew does the same with שבעתי."
+        ],
+        "examples": ["pcav:0972", "pcav:4397", "pcav:0977", "pcav:0976", "pcav:4425"]
+      }
+    },
+    {
+      "id": "grammar:lets",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 45,
+        "title": "xallīna: “let’s”",
+        "points": [
+          "xallīna and a verb with no b- means let’s: xallīna núg3ud bárra, let’s sit outside.",
+          "The verb after it starts with n-, for we: nrūɧ, níšrab, núg3ud.",
+          "It comes from xálla, to let or allow: xallīna is word for word let us. It can stand alone: xallīna júwwa, let’s stay inside."
+        ],
+        "examples": ["pcav:4410", "pcav:2181", "pcav:4362", "pcav:4408", "pcav:4543"]
+      }
+    },
+    {
+      "id": "grammar:someone",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 45,
+        "title": "ɧáda, íši: “someone”, “something”",
+        "points": [
+          "ɧáda is someone and íši is something: fī ɧáda 3a -lbāb, someone is at the door; bíddi ākul íši ɧílu, I want to eat something sweet.",
+          "ayy before them makes any: ayy ɧáda, anyone; ayy íši, anything.",
+          "kull íši is everything (chapter 24). With not, íši means anything at all: mā fhímtiš íši, I didn’t understand a thing."
+        ],
+        "examples": ["pcav:4282", "pcav:4292", "pcav:4294", "pcav:4290", "pcav:4558"]
+      }
+    },
+    {
+      "id": "grammar:i-ending",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 47,
+        "title": "janūbi: the -i ending",
+        "points": [
+          "Add -i to a word to get a describing word from it: janūb, south; janūbi, southern. šamāli is northern; dáwli is international.",
+          "Languages and peoples work the same way: 3árabi, Arabic.",
+          "With il-, both words take it (chapter 32): ilqúʈb iššamāli, the North Pole.",
+          "Hebrew has the same ending. Hebrew דרומי is southern, from דרום."
+        ],
+        "examples": ["pcav:3625", "pcav:3635", "pcav:3634", "pcav:3638", "pcav:3406", "pcav:3289"]
+      }
+    },
+    {
+      "id": "grammar:jobs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 46,
+        "title": "najjār, xabbāz: the job shape",
+        "points": [
+          "Many jobs have one shape, a doubled middle and a long ā: xabbāz, baker; najjār, carpenter; rassām, painter (of art); bayyā3, shop assistant.",
+          "It comes from what the person does: rásam, to draw, gives rassām; bā3, to sell, gives bayyā3; sāg, to drive, gives sawwāg tāksi, taxi driver.",
+          "Hebrew has this shape too, and najjār is the same word as Hebrew נגר, a carpenter."
+        ],
+        "examples": ["pcav:1385", "pcav:1391", "pcav:1419", "pcav:1434", "pcav:1438"]
+      }
+    },
+    {
+      "id": "grammar:three-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 52,
+        "title": "dáxxan, tadxīn, mudáxxin: one verb, three words",
+        "points": [
+          "A verb with a doubled middle (chapter 20) makes its -ing word with ta- and a long ī: dáxxan, to smoke; tadxīn, smoking. The same way: tawqī3, a signature; ta3līm, education; tadrīb, practice.",
+          "The one who does it starts with mu-: mudáxxin, a smoker.",
+          "Hebrew’s piʿel does the same. Hebrew מעשן is a smoker."
+        ],
+        "examples": ["pcav:2392", "pcav:2394", "pcav:2396", "pcav:2078", "pcav:1445"]
+      }
+    },
+    {
+      "id": "grammar:verb-pairs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 60,
+        "title": "wāfag, ywāfig: a verb comes in pairs",
+        "points": [
+          "Each verb is given in two forms, he did and he does: wāfag, ywāfig, to approve of. The b- of chapter 7 goes on the second: biwāfig, he approves.",
+          "The vowel in the second form can’t be guessed from the first: níjiɧ, yínjaɧ, to succeed; ámar, yúʔmur, to order. Learn the pair together.",
+          "A long ā in the middle changes in the second form: rāɧ, yrūɧ, to go; bā3, ybī3, to sell.",
+          "Hebrew dictionaries list a verb by he did too."
+        ],
+        "examples": ["pcav:4550", "pcav:4655", "pcav:4633", "pcav:4537", "pcav:2146"]
+      }
+    },
+    {
+      "id": "grammar:ordinals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 90,
+        "title": "tālit, rābi3: first, second, third",
+        "points": [
+          "First is áwwal (ūla for a feminine thing). From second to tenth, the number takes the shape tālit: tāni, tālit, rābi3, xāmis, up to 3āšir.",
+          "For a feminine thing they end in -a: tālta, rāb3a. ilqanā -ttālta, channel 3.",
+          "After the thing, with il- on both (chapter 32): iʈʈābig irrābi3, the fourth floor. Before it, with no il-: 3āšir sána, the tenth year."
+        ],
+        "examples": ["pcav:1460", "pcav:2275", "pcav:0691", "pcav:1735", "pcav:0197"]
+      }
+    },
+    {
+      "id": "grammar:nothing",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 92,
+        "title": "wála íši: “nothing”, “no one”",
+        "points": [
+          "wála before ɧáda or íši makes no one, nothing: wála ɧáda, no one; wála ʔíši, nothing.",
+          "It works as a whole answer: šū -štarēt? – wála ʔíši, what did you buy? – Nothing!",
+          "In a sentence, fiš ɧadd says no one: fiš ɧadd bi3īš la-lʔábad, no one lives forever. kull wāɧad is everyone, and ayy ɧáda is anyone (chapter 45)."
+        ],
+        "examples": ["pcav:4296", "pcav:4288", "pcav:4279", "pcav:4285"]
+      }
     }
   ]
 }
