@@ -70,7 +70,10 @@ test.describe('The Radio Room on the air (E16)', () => {
     await expect(page.getByRole('heading', { name: 'The Far Station' })).toBeVisible();
     await expect(room).toHaveCount(1);
     await page.getByRole('button', { name: '← Tower hall' }).click();
+    // The lessons sit at the listening desk (A6); the trials face the tower hall.
     await page.goto('/signal-tower?open=koch');
+    await expect(page.locator('.hall-backdrop[data-hall="desk"]')).toHaveCount(1);
+    await page.goto('/signal-tower?open=trial');
     await expect(page.locator('.hall-backdrop[data-hall="tower"]')).toHaveCount(1);
   });
 

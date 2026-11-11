@@ -3,6 +3,7 @@ import type { SubjectApi } from '../../core/subject.ts';
 import { HallBackdrop } from '../../core/city/HallBackdrop.tsx';
 import { Courtyard, type CourtyardDoor } from './hall/Courtyard.tsx';
 import { KHAN_STAGE, wholeCourtyard } from './hall/paintKhan.ts';
+import { INN_TABLE_STAGE, paintInnTable } from './hall/paintInnTable.ts';
 import { ScriptLesson } from './lesson/ScriptLesson.tsx';
 import { Trial } from './lesson/Trial.tsx';
 import { Slate } from './write/Slate.tsx';
@@ -41,7 +42,12 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
   if (view === 'hall') return <Courtyard api={api} onOpen={setView} />;
   return (
     <>
-      <HallBackdrop id="khan" {...KHAN_STAGE} paint={wholeCourtyard} />
+      {/* The word lessons and the regulars' trials sit at the innkeeper's table (roadmap A6). */}
+      {view === 'words' || view === 'regular' ? (
+        <HallBackdrop id="inn" {...INN_TABLE_STAGE} paint={paintInnTable} />
+      ) : (
+        <HallBackdrop id="khan" {...KHAN_STAGE} paint={wholeCourtyard} />
+      )}
       <button type="button" className="arabic__back" onClick={() => setView('hall')}>
         ← Courtyard
       </button>

@@ -86,6 +86,11 @@ test.describe('Arabic word lessons (#160)', () => {
     const state = { ...GUEST, words: { chapter: 1, cards: ['grammar:no-is'] } };
     await signedIn(page, [], [], state, ROWS);
     await page.goto('/caravanserai?open=words');
+    // The word lessons sit at the innkeeper's table, painted up close (roadmap A6).
+    await expect(page.locator('.hall-backdrop[data-hall="inn"] img')).toHaveJSProperty(
+      'complete',
+      true,
+    );
     await page.getByRole('button', { name: 'Grammar book · 1' }).click();
     await page.getByRole('button', { name: /No word for “is”/ }).click();
     await expect(page.getByText('I’m ready!')).toBeVisible();
