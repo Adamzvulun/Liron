@@ -474,6 +474,21 @@
       }
     },
     {
+      "id": "grammar:one-of",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 26,
+        "title": "xúbiz, xúbza: -a for one",
+        "points": [
+          "Some foods and plants are named as a whole, with no -a: xúbiz, bread; bēɖ, eggs; šájar, trees.",
+          "Add -a for one of them: xúbza, a slice or a loaf; bēɖa, an egg; šájara, a tree.",
+          "The one with -a is feminine (chapter 11): bāɖat bēɖa, she laid an egg."
+        ],
+        "examples": ["pcav:1206", "pcav:1208", "pcav:1218", "pcav:2973", "pcav:3833"]
+      }
+    },
+    {
       "id": "grammar:time",
       "subject": "arabic",
       "type": "grammar-card",

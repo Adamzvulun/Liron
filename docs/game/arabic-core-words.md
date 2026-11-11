@@ -463,6 +463,7 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 | 24 | kull | every (no il-); all (plural with il-) | I take the metro every day. · Add up the price of all the items… |
 | 25 | ɧāl- and bá3ɖ | -self with the endings; kēf ɧālak; each other | How are you? · Take care! · Are you two related? |
 | 26 | Question words | šū, mīn, wēn, lēš, kēf, wagtēš, gaddēš, kam; kam takes a singular | What's your name? · Where do you live? · How many children…? |
+| 26 | -a for one | xúbiz, bēɖ, šájar as a whole; xúbza, bēɖa, šájara for one; the one is feminine | bread · a slice of bread · to lay an egg |
 | 27 | Telling the time | issā3a + the hour; w past, ílla to; rúbi3, tilt, nuʂʂ | What time is it? · A quarter past three · A quarter to four |
 | 28 | The joining words | w, bass (but, just), aw / wálla (or), ínnu (that) | I like watching sports, but… · Just put it in the microwave… · Are you ready yet? |
 | 29 | líssa and min gábil | still; not yet (with a negative); already | I'm still hungry. · He isn't here yet. · I've already eaten lunch. |
