@@ -527,6 +527,58 @@
         ],
         "examples": ["pcav:1072", "pcav:1589", "pcav:0423", "pcav:2684"]
       }
+    },
+    {
+      "id": "grammar:where",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 31,
+        "title": "fōg, taɧt, jamb: where things are",
+        "points": [
+          "Words for where go before the thing: fōg ilkánaba, over the sofa; jamb ilmamárr, next to the aisle.",
+          "On their own they’re places: íʈla3 fōg! Come upstairs!",
+          "They take the endings too: jambi, next to me; guddāmak, in front of you."
+        ],
+        "table": [
+          ["fōg", "over, upstairs"],
+          ["taɧt", "under, downstairs"],
+          ["jamb", "next to"],
+          ["guddām", "in front of"],
+          ["wára", "behind"]
+        ],
+        "examples": ["pcav:4489", "pcav:2718", "pcav:4505", "pcav:3655"]
+      }
+    },
+    {
+      "id": "grammar:the-big-house",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 32,
+        "title": "ilbēt ilkbīr: il- on both",
+        "points": [
+          "A describing word comes after the thing: bēt kbīr, a big house.",
+          "When the thing has il-, so does the describing word: ilbēt ilkbīr, the big house; ilʔákil ilɧarrāg, the spicy food.",
+          "Without the second il-, it’s a sentence: ilbēt kbīr, the house is big (chapter 1: no word for is)."
+        ],
+        "examples": ["pcav:1001", "pcav:0734", "pcav:1890", "pcav:0396"]
+      }
+    },
+    {
+      "id": "grammar:of",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 33,
+        "title": "kubbāyit máyya: “of” by putting words together",
+        "points": [
+          "A glass of water is two words side by side: kubbāyit máyya. Hebrew does the same: כוס מים.",
+          "A first word ending in -a shows its t: kubbāya, a glass, becomes kubbāyit; dáraja becomes dárajit (dárajit ilɧarāra, the temperature).",
+          "The first word never takes il-; for “the”, il- goes on the last word: kílmit issírr, the password."
+        ],
+        "examples": ["pcav:1024", "pcav:3648", "pcav:1790", "pcav:2566"]
+      }
     }
   ]
 }
