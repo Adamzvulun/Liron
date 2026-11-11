@@ -2169,6 +2169,56 @@
         },
         "outro": "The inn shines in its new colors for the new year. Elias signs his name small, in the corner, under the stairs."
       }
+    },
+    {
+      "id": "road:85",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 85,
+        "wordChapter": 84,
+        "title": "Odd Jobs",
+        "who": "Abu Samir the handyman",
+        "intro": "After the painter comes the handyman. Abu Samir can fix anything with a screwdriver and a thimble, and he hums while he works.",
+        "milestones": [
+          "The fuse box under the stairs blows twice in one evening. Abu Samir finds the old kettle to blame and takes a sip of everyone’s tea while he is at it.",
+          "Rami’s scanner won’t scan, and his clients keep hanging up on him. Abu Samir hits the scanner once with his fist, and it works.",
+          "The innkeeper’s grandson has bought a car with a loose pedal. Abu Samir checks the tire pressure, tightens the pedal and makes him promise to keep to the speed limit."
+        ],
+        "trial": {
+          "name": "Abu Samir’s Toolbox",
+          "text": "Abu Samir asks for each tool and part by name, and you hand it to him in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "Abu Samir won’t take money from the inn. He takes a bun, a coffee and a promise to call him first next time."
+      }
+    },
+    {
+      "id": "road:86",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 86,
+        "wordChapter": 85,
+        "title": "A Day Out for the Class",
+        "who": "Miss Rula the schoolteacher",
+        "intro": "Miss Rula brings her whole class to the inn for a spring day. She teaches grammar in the morning and lets them loose in the garden after lunch.",
+        "milestones": [
+          "Definite and indefinite, the dual and the gender of every word: the children chant it in the courtyard until the innkeeper joins in.",
+          "In Umm Yousef’s garden they find moss on the wall and daisies by the well. A boy swears he saw a cobra. It is a garden hose.",
+          "Dr. Ingrid tells them that the old gods and goddesses had names in Arabic too, and Father Yacoub tells them how the town goes down to the river at Epiphany."
+        ],
+        "trial": {
+          "name": "Rula’s Lesson",
+          "text": "Miss Rula asks the class about grammar, animals and plants, and you answer for them in Arabic. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "The class goes home tired and muddy. Miss Rula leaves a drawing for the inn: a koala at the innkeeper’s table, which nobody can explain."
+      }
     }
   ]
 }
