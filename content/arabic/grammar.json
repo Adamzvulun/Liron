@@ -813,6 +813,23 @@
       }
     },
     {
+      "id": "grammar:long-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 50,
+        "title": "ta3ālib, ɖafāɖi3: the plural of a four-letter root",
+        "points": [
+          "A word with four root letters makes its plural on one shape, a-ā-i: tá3lab → ta3ālib, foxes; ɖúfɖa3 → ɖafāɖi3, frogs; sulɧufā → salāɧif, turtles.",
+          "Longer words fit the shape too, and drop what’s left over: 3ankabūt → 3anākib, spiders.",
+          "A long vowel at the end stays long, as ī: dulfīn → dalāfīn, dolphins.",
+          "You’ve met the shape already: maʈābix, kitchens (chapter 40).",
+          "Some of these are old relatives: tá3lab is Hebrew’s שועל, fox, and ɖúfɖa3 is its צפרדע, frog."
+        ],
+        "examples": ["pcav:3750", "pcav:3790", "pcav:3789", "pcav:3815", "pcav:3767"]
+      }
+    },
+    {
       "id": "grammar:three-words",
       "subject": "arabic",
       "type": "grammar-card",
