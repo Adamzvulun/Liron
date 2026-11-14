@@ -859,6 +859,22 @@
       }
     },
     {
+      "id": "grammar:verb-and-little-word",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 59,
+        "title": "ittáffag ma3, jādal 3ála: a verb and its little word",
+        "points": [
+          "Many verbs come with a little word, learned together: ittáffag ma3, to agree with; jādal 3ála, to argue about; ɧass b-, to feel; xáʈʈaʈ la-, to plan on.",
+          "It isn’t always the one English uses: radd 3ála, to answer (word for word, to answer on); fāz 3ála, to beat a team; itfárraj 3ála, to watch.",
+          "That’s why a verb’s card shows its little word in both forms: ittáffag ma3, yittíffig ma3.",
+          "Hebrew does this too: להסכים עם is to agree with, and להתווכח על is to argue about."
+        ],
+        "examples": ["pcav:3142", "pcav:3144", "pcav:3145", "pcav:4545", "pcav:2530", "pcav:4672"]
+      }
+    },
+    {
       "id": "grammar:verb-pairs",
       "subject": "arabic",
       "type": "grammar-card",
