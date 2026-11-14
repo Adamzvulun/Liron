@@ -92,11 +92,14 @@ export const INN_RULES = [
   'traveler who is learning Arabic. You are a real person with your own life; the details are below.',
   'Speak ONLY Palestinian colloquial Arabic, as people speak it in Jerusalem or Ramallah, in Arabic',
   'script. Never Modern Standard Arabic. Never Egyptian, Gulf or Maghrebi words.',
+  'Say شو (not إيه, ماذا or شنو), كيفك (not شلونك, إزيك or كيف حالك), هلّق (not الآن or دلوقتي),',
+  'بدّي (not عايز, أريد or أبغى), هاد and هاي (not هذا, هذه or ده), منيح (not كويس or جيد).',
   'Reply with ONE or TWO short, simple sentences a beginner can follow. Often end with one simple',
   'question back.',
   'Put vowel marks only on a word that could be misread; most words need none.',
   'Never teach, translate, explain grammar or correct the traveler. If you cannot understand them,',
-  'say so simply, as a person would (e.g. "مش فاهم عليك، شو قصدك؟").',
+  'say so simply, as a person would: a man says "مش فاهم عليك، شو قصدك؟", a woman',
+  '"مش فاهمة عليك، شو قصدك؟".',
   'Never write Latin letters, English or Hebrew. Never say you are an AI, a bot or a model.',
   'Use the grammar of your own gender (a woman says "فاهمة", "مبسوطة"; a man "فاهم", "مبسوط").',
   'Stay in character. Talk about your own life and everyday things.',
@@ -240,7 +243,13 @@ export function innMessages(
   return [
     { role: 'system', content: `${INN_RULES}\n\n${innSetting(ask)}` },
     ...(turns.length === 0 || turns[0]?.role === 'assistant'
-      ? [{ role: 'user' as const, content: '(The traveler sits down at your table. Greet them.)' }]
+      ? [
+          {
+            role: 'user' as const,
+            content:
+              '(The traveler sits down at your table. Greet them by name, and say in a few simple words one small thing from your own day.)',
+          },
+        ]
       : []),
     ...turns,
   ];
@@ -254,7 +263,7 @@ export const MAX_ARABIC = 160;
 
 /**
  * A regular's line as the inn shows it, or null when it breaks ADR 0038's rules: Arabic script
- * only, at most 2 sentences and 160 characters, and never a word about being a machine.
+ * only, at most 3 sentences (a greeting like "أهلا!" is one) and 160 characters, and never a word about being a machine.
  */
 export function cleanArabic(said: string): string | null {
   const line = said
@@ -268,7 +277,7 @@ export function cleanArabic(said: string): string | null {
   if (LATIN.test(line) || NOT_ARABIC_LINE.test(line) || SAYS_MACHINE.test(line)) return null;
   if (!/[\u0621-\u064A]/.test(line)) return null;
   const sentences = line.split(/[.!?؟]+/).filter((p) => p.trim()).length;
-  return sentences <= 2 ? line : null;
+  return sentences <= 3 ? line : null;
 }
 
 /** What the character is told about this talk. */
@@ -376,7 +385,8 @@ async function askGroq(
         model,
         messages,
         temperature: 1,
-        max_completion_tokens: model === INN_MODEL ? 600 : 300,
+        // gpt-oss thinks briefly first (about 15 tokens at low effort); 300 leaves room for it.
+        max_completion_tokens: 300,
         ...(model === INN_MODEL ? { reasoning_effort: 'low', include_reasoning: false } : {}),
       }),
       signal: AbortSignal.timeout(TIMEOUT_MS),

@@ -290,15 +290,18 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
 });
 
 describe('cleanArabic (ADR 0038)', () => {
-  it('keeps one or two short Arabic sentences, trimmed of quotes and markdown', () => {
+  it('keeps up to three short Arabic sentences, trimmed of quotes and markdown', () => {
     expect(cleanArabic('  **أهلا يا آدم!**  كيفك اليوم؟ ')).toBe('أهلا يا آدم! كيفك اليوم؟');
     expect(cleanArabic('"مش فاهم عليك، شو قصدك؟"')).toBe('مش فاهم عليك، شو قصدك؟');
+    expect(cleanArabic('أهلا يا آدم! جبت خبز اليوم. كيفك؟')).toBe(
+      'أهلا يا آدم! جبت خبز اليوم. كيفك؟',
+    );
   });
 
-  it('drops Latin letters, Hebrew, long lines, three sentences and talk of being a machine', () => {
+  it('drops Latin letters, Hebrew, long lines, four sentences and talk of being a machine', () => {
     expect(cleanArabic('أهلا Adam')).toBeNull();
     expect(cleanArabic('שלום، كيفك؟')).toBeNull();
-    expect(cleanArabic('أهلا. كيفك؟ شو بتعمل؟')).toBeNull();
+    expect(cleanArabic('أهلا. كيفك؟ شو بتعمل؟ وين رايح؟')).toBeNull();
     expect(cleanArabic('ا'.repeat(161))).toBeNull();
     expect(cleanArabic('أنا ذكاء اصطناعي، مش إنسان')).toBeNull();
     expect(cleanArabic('...')).toBeNull();
