@@ -71,3 +71,33 @@ test('a session signs its recordings in one request; the deck downloads once', a
   await expect(page.getByRole('button', { name: /^Practi[sc]e$/ })).toBeVisible();
   expect(deckLoads).toHaveLength(1);
 });
+
+test('signing out wipes the deck kept in the browser (ADR 0011)', async ({ page }) => {
+  const keptPacks = () =>
+    page.evaluate(
+      () =>
+        new Promise<number>((resolve) => {
+          const req = indexedDB.open('waymark-content', 1);
+          req.onupgradeneeded = () => req.result.createObjectStore('packs');
+          req.onsuccess = () => {
+            const db = req.result;
+            const count = db.transaction('packs').objectStore('packs').count();
+            count.onsuccess = () => {
+              db.close();
+              resolve(count.result);
+            };
+          };
+        }),
+    );
+  await signedIn(page, [], [], START, WORDS);
+  await page.goto('/caravanserai');
+  await page.getByRole('button', { name: /The scribe’s table/ }).click();
+  await expect(page.getByRole('button', { name: /^Practi[sc]e$/ })).toBeVisible();
+  await expect.poll(keptPacks).toBeGreaterThan(0);
+
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await page.getByRole('button', { name: 'Sign out' }).click();
+  await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
+  await expect.poll(keptPacks).toBe(0);
+});
