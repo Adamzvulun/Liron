@@ -1017,6 +1017,21 @@
       }
     },
     {
+      "id": "grammar:driving-verbs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 61,
+        "title": "dá3as brēk, ríji3 wára: driving with everyday verbs",
+        "points": [
+          "Most driving words are plain verbs you know, with the car part after them: dá3as brēk, to brake (to step on the brake); ɣáyyar il3ájal, to change a tire.",
+          "ríji3 wára, to back up, is word for word “go back behind”.",
+          "A flat tire lets its breath out: náffas il3ájal, from náfas, breath."
+        ],
+        "examples": ["pcav:1947", "pcav:1958", "pcav:1936"]
+      }
+    },
+    {
       "id": "grammar:going-up",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1246,6 +1261,21 @@
           "Everyday words say mit-: mitʔáxxir, late; mitšáwwig, looking forward to."
         ],
         "examples": ["pcav:3304", "pcav:3305", "pcav:2383", "pcav:2831", "pcav:3180"]
+      }
+    },
+    {
+      "id": "grammar:colors-from-things",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 83,
+        "title": "kúɧli, ramādi: colors named after things",
+        "points": [
+          "Past the basic colors (chapter 37), most color words are a thing with -i on the end, like a place word (chapter 47): ramād, ash → ramādi, gray; kuɧl, kohl, the dark eyeliner → kúɧli, navy blue.",
+          "You know more of them already: bunn, coffee beans → bínni, brown; burtaqāl, oranges → burtaqāli, orange; zahr, flowers → záhri, pink; banáfsaj, violets → banáfsaji, purple.",
+          "Two are coming: lamūni, lemon-yellow (lamūn, lemons) and zēti, olive green (zēt, oil)."
+        ],
+        "examples": ["pcav:3885", "pcav:3882", "pcav:3880"]
       }
     },
     {
