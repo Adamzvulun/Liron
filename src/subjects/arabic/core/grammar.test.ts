@@ -82,6 +82,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:hidden-t', 69],
       ['grammar:his-blood-is-light', 70],
       ['grammar:undoing', 71],
+      ['grammar:can-be', 76],
       ['grammar:ordinals', 90],
       ['grammar:how-much', 91],
       ['grammar:nothing', 92],
