@@ -13605,6 +13605,138 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:102",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 102,
+        "title": "Cars, storms, and the map",
+        "theme": "Rush hour and the parts of a car, heat waves and sandstorms, and the shape of the land",
+        "words": [
+          {
+            "deck": "pcav:1874",
+            "gloss": "stuck in traffic"
+          },
+          {
+            "deck": "pcav:1876",
+            "gloss": "rush hour"
+          },
+          {
+            "deck": "pcav:1905",
+            "gloss": "license plate"
+          },
+          {
+            "deck": "pcav:1906",
+            "gloss": "car insurance"
+          },
+          {
+            "deck": "pcav:1914",
+            "gloss": "windshield"
+          },
+          {
+            "deck": "pcav:1916",
+            "gloss": "trunk (of a car)"
+          },
+          {
+            "deck": "pcav:1931",
+            "gloss": "glove compartment"
+          },
+          {
+            "deck": "pcav:1932",
+            "gloss": "dashboard"
+          },
+          {
+            "deck": "pcav:1937",
+            "gloss": "spare tire"
+          },
+          {
+            "deck": "pcav:1971",
+            "gloss": "gas pump"
+          },
+          {
+            "deck": "pcav:1984",
+            "gloss": "headlight"
+          },
+          {
+            "deck": "pcav:1832",
+            "gloss": "pickup truck"
+          },
+          {
+            "deck": "pcav:2741",
+            "gloss": "railroad"
+          },
+          {
+            "deck": "pcav:2703",
+            "gloss": "to take off (a plane)"
+          },
+          {
+            "deck": "pcav:2028",
+            "gloss": "skyscraper"
+          },
+          {
+            "deck": "pcav:2679",
+            "gloss": "work permit"
+          },
+          {
+            "deck": "pcav:3669",
+            "gloss": "heat wave"
+          },
+          {
+            "deck": "pcav:3703",
+            "gloss": "It's hailing."
+          },
+          {
+            "deck": "pcav:3708",
+            "gloss": "It's stormy."
+          },
+          {
+            "deck": "pcav:3710",
+            "gloss": "sandstorm"
+          },
+          {
+            "deck": "pcav:3712",
+            "gloss": "tornado"
+          },
+          {
+            "deck": "pcav:3724",
+            "gloss": "We're expecting a storm."
+          },
+          {
+            "deck": "pcav:3730",
+            "gloss": "The weather is changeable."
+          },
+          {
+            "deck": "pcav:3656",
+            "gloss": "the high (temperature)"
+          },
+          {
+            "deck": "pcav:3657",
+            "gloss": "the low (temperature)"
+          },
+          {
+            "deck": "pcav:3593",
+            "gloss": "sand dunes"
+          },
+          {
+            "deck": "pcav:3553",
+            "gloss": "peninsula"
+          },
+          {
+            "deck": "pcav:3556",
+            "gloss": "mountain range"
+          },
+          {
+            "deck": "pcav:3563",
+            "gloss": "cliff"
+          },
+          {
+            "deck": "pcav:3587",
+            "gloss": "equator"
+          }
+        ]
+      }
     }
   ]
 }

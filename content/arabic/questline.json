@@ -2659,6 +2659,31 @@
         },
         "outro": "She leaves her old notes on the inn’s shelf, with a line on the cover: “Passing grade: fifty. Aim for ninety.”"
       }
+    },
+    {
+      "id": "road:103",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 103,
+        "wordChapter": 102,
+        "title": "The Storm Chaser",
+        "who": "Karim, who drives toward the weather",
+        "intro": "Karim drives an old pickup truck with a dashboard full of maps, and he goes where the storms go.",
+        "milestones": [
+          "He got stuck in traffic at rush hour on the way in, and the police officer wrote down his license plate. His car insurance, he admits, ran out last year.",
+          "There’s a heat wave in the south and a sandstorm over the dunes. The high today is forty, and the weather is changeable, so he’s expecting a storm by night.",
+          "At dawn he checks the spare tire, fills up at the gas pump and heads for the mountain range. If it hails, he says, you’ll hear about it."
+        ],
+        "trial": {
+          "name": "Into the Weather",
+          "text": "Karim reads you the weather and the parts of his truck, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "He mails the inn a photo from the cliff’s edge: a tornado far off, and his truck with one headlight on."
+      }
     }
   ]
 }

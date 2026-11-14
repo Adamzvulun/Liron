@@ -30351,6 +30351,336 @@
         "latin": "báɧki 3árabi mkássar bass innās btifhámni.",
         "english": "I speak broken Arabic, but people understand me."
       }
+    },
+    {
+      "id": "own-sentence:pcav:1874",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1874",
+        "arabic": "كُنْت مْعلِّق في الزّحْمة ساعة كامْلة.",
+        "latin": "kunt m3állig fi -zzáɧma sā3a kámle.",
+        "english": "I was stuck in traffic for a whole hour."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1876",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1876",
+        "arabic": "ما تِطْلع وَقْت الزّحْمة، اِسْتنّى شْوَيّ.",
+        "latin": "ma tíʈla3 wagt izzáɧma, istánna šwayy.",
+        "english": "Don't go out at rush hour, wait a bit."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1905",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1905",
+        "arabic": "الشُّرْطي كتب رقم لَوْحِةْ النِّمْرة.",
+        "latin": "iššúrʈi kátab ráqam láwɧit innímra.",
+        "english": "The police officer wrote down the license plate number."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1906",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1906",
+        "arabic": "لازِم تِدْفع تأْمين السّيّارة كُلّ سنة.",
+        "latin": "lāzim tídfa3 taʔmīn issayyāra kull sána.",
+        "english": "You have to pay the car insurance every year."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1914",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1914",
+        "arabic": "القْزاز القُدّماني وَسِخ، لازِم أنضّفو.",
+        "latin": "ilgzāz ilguddamāni wásix, lāzim ʔanáɖɖfu.",
+        "english": "The windshield is dirty, I have to clean it."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1916",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1916",
+        "arabic": "حُطّ الشّنَط في شنْطِةْ السّيّارة.",
+        "latin": "ɧuʈʈ iššánaʈ fi šántit issayyāra.",
+        "english": "Put the bags in the trunk."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1931",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1931",
+        "arabic": "الخريطة في صنْدوق الطّبْلوْن.",
+        "latin": "ilxarīʈa fi ʂandūg iʈʈablōn.",
+        "english": "The map is in the glove compartment."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1932",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1932",
+        "arabic": "في ضوّ أحْمر عَ طبْلوْن السّيّارة.",
+        "latin": "fī ɖaww áɧmar 3a tablōn issayyāra.",
+        "english": "There's a red light on the dashboard."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1937",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1937",
+        "arabic": "عِنْدك عجل سْبيْر؟ العجل نام.",
+        "latin": "3índak 3ájal spēr? il3ájal nām.",
+        "english": "Do you have a spare tire? The tire went flat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1971",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1971",
+        "arabic": "مضخِّةْ البنْزين الأولى مِش شغّالة.",
+        "latin": "maɖáxxit ilbanzīn ilʔūla miš šaɣɣāla.",
+        "english": "The first gas pump isn't working."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1984",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1984",
+        "arabic": "ضوّ قُدّماني واحد مِش شغّال.",
+        "latin": "ɖaww guddamāni wāɧad miš šaɣɣāl.",
+        "english": "One headlight isn't working."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1832",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1832",
+        "arabic": "نقلْنا الكنب في سيّارة نُصّ نقِل.",
+        "latin": "nagálna -lkánab fi sayyāra nuʂʂ nágil.",
+        "english": "We moved the sofa in a pickup truck."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2741",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2741",
+        "arabic": "سِكِّةْ الحديد بْتِمْرُق جنْب البلد.",
+        "latin": "síkkit ilɧadīd btímrug jamb ilbálad.",
+        "english": "The railroad passes next to the town."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2703",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2703",
+        "arabic": "الطّيّارة أقْلعت السّاعة سِتّة الصُّبِح.",
+        "latin": "iʈʈayyāra ʔaqlá3at issā3a sítte -ʂʂúbiɧ.",
+        "english": "The plane took off at six in the morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2028",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2028",
+        "arabic": "في دُبي في ناطحات سحاب كْتير.",
+        "latin": "fi dúbay fī nāʈɧāt saɧāb ktīr.",
+        "english": "In Dubai there are lots of skyscrapers."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2679",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2679",
+        "arabic": "أخوي إجاه تصْريح شُغُل في ألمانْيا.",
+        "latin": "axūy ʔijā taʂrīɧ šúɣul fi ʔalmánya.",
+        "english": "My brother got a work permit in Germany."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3669",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3669",
+        "arabic": "هالإسْبوع في موْجِةْ شوْب، اِشْرب ميّة كْتير.",
+        "latin": "hal-ʔisbū3 fī mōjit šōb, íšrab máyya ktīr.",
+        "english": "This week there's a heat wave, drink lots of water."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3703",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3703",
+        "arabic": "شوف! بِتْمطِّر برد.",
+        "latin": "šūf! bitmáʈʈir bárad.",
+        "english": "Look! It's hailing."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3708",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3708",
+        "arabic": "الجّوّ عَواصِف، خلّيك في الدّار.",
+        "latin": "ijjáww 3awāʂif, xallīk fi -ddār.",
+        "english": "It's stormy, stay at home."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3710",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3710",
+        "arabic": "العاصِفة التُّرابية سكّرت الطّريق.",
+        "latin": "il3āʂifa -tturābíyya sakkárat iʈʈarīg.",
+        "english": "The sandstorm closed the road."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3712",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3712",
+        "arabic": "الإعْصار القمْعي خرّب بُيوت كْتير.",
+        "latin": "ilʔi3ʂār ilqám3i xárrab buyūt ktīr.",
+        "english": "The tornado wrecked many houses."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3724",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3724",
+        "arabic": "بْنِسْتنّى العاصِفة بُكْرا في اللّيْل.",
+        "latin": "bnistánna -l3āʂifa búkra fi -llēl.",
+        "english": "We're expecting the storm tomorrow night."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3730",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3730",
+        "arabic": "في الرّبيع الجّوّ بِتْقلّب كْتير.",
+        "latin": "fi -rrabī3 ijjáww byitgállab ktīr.",
+        "english": "In spring the weather is very changeable."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3656",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3656",
+        "arabic": "درجِةْ الحرارة القُصْوى اليوْم تلاتين.",
+        "latin": "dárajit ilɧarāra -lqúʂwa -lyōm talātīn.",
+        "english": "Today's high is thirty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3657",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3657",
+        "arabic": "بِاللّيْل درجِةْ الحرارة الدُّنْيا عشرة.",
+        "latin": "bil-lēl dárajit ilɧarāra -ddúnya 3ášara.",
+        "english": "At night the low is ten."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3593",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3593",
+        "arabic": "في الصّحرا في كُثْبان رمْلية عالْيَة.",
+        "latin": "fi -ʂʂáɧra fī kuŧbān ramlíyya 3ālye.",
+        "english": "In the desert there are high sand dunes."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3553",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3553",
+        "arabic": "سينا شِبِهْ جزيرة.",
+        "latin": "sīna šíbih jazīra.",
+        "english": "Sinai is a peninsula."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3556",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3556",
+        "arabic": "في الشّمال في سِلْسِلِةْ جِبال طَويلة.",
+        "latin": "fi -ššamāl fī silsílt jibāl ʈawīle.",
+        "english": "In the north there's a long mountain range."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3563",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3563",
+        "arabic": "ما تْقرِّب عَ المُنْحدر الصّخْري.",
+        "latin": "ma tgárrib 3a -lmunɧádar iʂʂáxri.",
+        "english": "Don't go near the cliff."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3587",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3587",
+        "arabic": "البْلاد اللي عَ خطّ الإسْتِواء شوْب طول السّنة.",
+        "latin": "ilblād ílli 3a xaʈʈ ilʔistiwāʔ šōb ʈūl issána.",
+        "english": "Countries on the equator are hot all year."
+      }
     }
   ]
 }

@@ -300,6 +300,13 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 101 | Campus, exams, and the night shift |
 
+- **Words 3,031–3,060 (2026-11-14): cars, storms and the map.** B1 again: *stuck in traffic*, *rush hour*, *license plate*, *car insurance*, *windshield*, *trunk*, *glove compartment*, *dashboard*, *spare tire*, *gas pump*, *headlight*, *pickup truck*, *railroad*, *to take off*, *skyscraper*, *work permit*; the weather beyond rain (*heat wave*, *It's hailing*, *It's stormy*, *sandstorm*, *tornado*, *We're expecting a storm*, *changeable*, the high and the low); and the land (*sand dunes*, *peninsula*, *mountain range*, *cliff*, *equator*).
+  - **Left out on purpose:** *speed limit*, *in gear*, *gas pedal* (taught under other entries), and car parts and road words that only put taught words together (*hand brake*, *mirror* front and back, *We've run out of gas*, *taxi meter*, *cyclist*, *bike lane*, *airfare*, *express train*, *exchange rate*). All 30 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 102 | Cars, storms, and the map |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
