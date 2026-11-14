@@ -1436,6 +1436,22 @@
       }
     },
     {
+      "id": "grammar:feelings-and-little-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 104,
+        "title": "mitɧámmis la-, middāyag min: a feeling and its little word",
+        "points": [
+          "Like a verb (chapter 59), a word for a feeling comes with its own little word, and you learn the two together.",
+          "min, from, is for what the feeling comes from: m3áʂʂib min, angry with; middāyag min, fed up with; múɧrij min, embarrassed by; xāf min, to be afraid of.",
+          "la- is for what you look forward to: mitɧámmis la-, excited about. bi- and fi-, in, go with interest and pride: mihtámm bi-, interested in; faxūr fi, proud of.",
+          "English picks a different word each time (with, of, by, about), so don’t translate the little word; learn it with the feeling."
+        ],
+        "examples": ["pcav:3075", "pcav:3092", "pcav:3083", "pcav:3126"]
+      }
+    },
+    {
       "id": "grammar:decades",
       "subject": "arabic",
       "type": "grammar-card",
