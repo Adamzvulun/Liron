@@ -54,6 +54,8 @@ type Stage =
 
 /** When the chat starts saying how many lines are left today (of 60, ADR 0038). */
 const FEW_LEFT = 10;
+/** How many regulars the table lists before "Everyone else at the inn". */
+const FIRST_SHOWN = 8;
 
 function endLine(r: Regular, e: unknown): string {
   if (e instanceof PartnerError && e.problem === 'daily-limit')
@@ -67,6 +69,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const [saveFailed, setSaveFailed] = useState(false);
   const [stage, setStage] = useState<Stage>({ kind: 'pick' });
   const [name, setName] = useState('');
+  /** The table shows the newest regulars first; the older ones wait behind a button. */
+  const [everyone, setEveryone] = useState(false);
   const [typed, setTyped] = useState('');
   /** What Whisper heard you say: it goes into the text box in Arabic, to fix before sending. */
   const heard = useCallback((text: string) => setTyped(text.slice(0, MAX_TYPED)), []);
@@ -206,6 +210,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
     );
 
   const practice = dueTips(progress, due);
+  const newestFirst = [...regulars].reverse();
   if (stage.kind === 'pick')
     return (
       <section className="lesson arabic" aria-label="Sit and talk">
@@ -215,6 +220,10 @@ export function InnChat({ api }: { api: SubjectApi }) {
           <p>
             Talk with a regular in Arabic, up to {MAX_LINES} of your lines. Tap their line to see it
             in Hebrew letters.
+          </p>
+          <p className="arabic__note">
+            Said openly: the regulars’ lines are written by an AI (Groq), and what you type, or say
+            into the microphone, is sent to it. Say nothing private.
           </p>
           <label className="arabic__chat-name">
             The name they know you by
@@ -226,7 +235,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
             />
           </label>
           <ul className="arabic__chat-who">
-            {regulars.map((r) => (
+            {(everyone ? newestFirst : newestFirst.slice(0, FIRST_SHOWN)).map((r) => (
               <li key={r.number}>
                 <button
                   type="button"
@@ -240,6 +249,11 @@ export function InnChat({ api }: { api: SubjectApi }) {
               </li>
             ))}
           </ul>
+          {!everyone && newestFirst.length > FIRST_SHOWN && (
+            <button type="button" className="lesson__plain" onClick={() => setEveryone(true)}>
+              Everyone else at the inn · {newestFirst.length - FIRST_SHOWN}
+            </button>
+          )}
           {practice.length > 0 && (
             <div className="lesson__actions">
               <button
@@ -251,10 +265,6 @@ export function InnChat({ api }: { api: SubjectApi }) {
               </button>
             </div>
           )}
-          <p className="arabic__note">
-            Said openly: the regulars’ lines are written by an AI (Groq), and what you type, or say
-            into the microphone, is sent to it. Say nothing private.
-          </p>
         </div>
       </section>
     );

@@ -551,7 +551,7 @@ function Result({
               {trialName
                 ? `Every lamp of this chapter is lit. ${trialName} waits in the tower hall; these runs keep your ear sharp.`
                 : warmup
-                  ? 'Warm-up done. Now the runs count towards the next lamp.'
+                  ? 'Warm-up done. Now the runs count toward the next lamp.'
                   : !nextChar
                     ? 'Every letter is lit. Keep your ear sharp.'
                     : score.accuracy >= 0.9

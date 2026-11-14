@@ -109,7 +109,7 @@
 .tower__banner {
   position: absolute;
   box-sizing: border-box;
-  padding: 104px 18px 0;
+  padding: 100px 18px 0;
   text-align: center;
   color: var(--vellum);
   text-shadow: 0 2px 0 rgba(20, 10, 20, 0.6);
@@ -132,9 +132,9 @@
 }
 
 .tower__next {
-  margin: 2px 0 8px;
-  font-size: 17px;
-  line-height: 1.25;
+  margin: 2px 0 6px;
+  font-size: 15px;
+  line-height: 1.2;
 }
 
 .tower__stats {

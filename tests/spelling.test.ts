@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const BRITISH =
-  /\b(practis(e|es|ed|ing)|travell(er|ers|ing|ed)|colour(s|ed|ful|ing)?|grey|centre[sd]?|favourite|honour|behaviour|armour|neighbour|flavour|jewellery|catalogue|theatre|metres?|realis(e|ed|ing)|organis(e|ed|ing)|recognis(e|ed|ing)|apologis(e|ed)|customis(e|ed|ing)|romanis(e|ed|ation)|cancell(ed|ing)|labell(ed|ing)|whilst|learnt|spelt)\b/i;
+  /\b(practis(e|es|ed|ing)|travell(er|ers|ing|ed)|colour(s|ed|ful|ing)?|grey|centre[sd]?|favourite|honour|behaviour|armour|neighbour|flavour|jewellery|catalogue|theatre|metres?|realis(e|ed|ing)|organis(e|ed|ing)|recognis(e|ed|ing)|apologis(e|ed)|customis(e|ed|ing)|romanis(e|ed|ation)|cancell(ed|ing)|labell(ed|ing)|signall(er|ers|ing|ed)|towards|whilst|learnt|spelt)\b/i;
 
 function files(dir: string, ext: RegExp): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
