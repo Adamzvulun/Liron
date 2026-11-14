@@ -142,7 +142,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "“Now I know who you are,” Umm Khalil says, and pats your hand. Her cushion stays across from yours at the table."
+        "outro": "“Now I know who you are,” Umm Khalil says, and pats your hand. Her cushion stays across from yours at the table.",
+        "she": true
       }
     },
     {
@@ -192,7 +193,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Rana tears the last loaf in two and gives you half. “You eat like family now.” Her basket has a place at the table."
+        "outro": "Rana tears the last loaf in two and gives you half. “You eat like family now.” Her basket has a place at the table.",
+        "she": true
       }
     },
     {
@@ -267,7 +269,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Leila turns the easel around: it’s you, at the innkeeper’s table, mid-word. She hangs it over the table, where it stays."
+        "outro": "Leila turns the easel around: it’s you, at the innkeeper’s table, mid-word. She hangs it over the table, where it stays.",
+        "she": true
       }
     },
     {
@@ -317,7 +320,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Miss Huda writes “excellent” on your page in red ink, in Arabic. Her stack of books stays on the table."
+        "outro": "Miss Huda writes “excellent” on your page in red ink, in Arabic. Her stack of books stays on the table.",
+        "she": true
       }
     },
     {
@@ -367,7 +371,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Samira pins a new collar on your old shirt. “Now you look like you live here.” She keeps a chair for you by her sewing basket."
+        "outro": "Samira pins a new collar on your old shirt. “Now you look like you live here.” She keeps a chair for you by her sewing basket.",
+        "she": true
       }
     },
     {
@@ -442,7 +447,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Mona gives you a spare key on its own string. “Come for coffee whenever you like.” The house has a picture on the wall now, and it’s yours."
+        "outro": "Mona gives you a spare key on its own string. “Come for coffee whenever you like.” The house has a picture on the wall now, and it’s yours.",
+        "she": true
       }
     },
     {
@@ -492,7 +498,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Dalia gives you the first letter ever addressed to you here, care of the innkeeper. Inside: a card from Salim, with a drawing of his cart."
+        "outro": "Dalia gives you the first letter ever addressed to you here, care of the innkeeper. Inside: a card from Salim, with a drawing of his cart.",
+        "she": true
       }
     },
     {
@@ -542,7 +549,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Amal gives you a ticket with no date on it. “For when you’re ready to see more.” It goes in your pocket, next to Mona’s key."
+        "outro": "Amal gives you a ticket with no date on it. “For when you’re ready to see more.” It goes in your pocket, next to Mona’s key.",
+        "she": true
       }
     },
     {
@@ -667,7 +675,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Mei takes your picture at the innkeeper’s table, with every regular in it. She sends a copy with Dalia’s next mail."
+        "outro": "Mei takes your picture at the innkeeper’s table, with every regular in it. She sends a copy with Dalia’s next mail.",
+        "she": true
       }
     },
     {
@@ -717,7 +726,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Nour gives you a belt from her cart. “No charge. You brought me three customers today.”"
+        "outro": "Nour gives you a belt from her cart. “No charge. You brought me three customers today.”",
+        "she": true
       }
     },
     {
@@ -742,7 +752,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Nadia writes you a prescription: “Rest one day a week.” The innkeeper pins it on the wall."
+        "outro": "Nadia writes you a prescription: “Rest one day a week.” The innkeeper pins it on the wall.",
+        "she": true
       }
     },
     {
@@ -842,7 +853,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Umm Ali teaches you her falafel. You make it for the whole table, and nobody leaves any."
+        "outro": "Umm Ali teaches you her falafel. You make it for the whole table, and nobody leaves any.",
+        "she": true
       }
     },
     {
@@ -892,7 +904,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Wafa offers you a job. You say no, kindly, in Arabic. She laughs and says the offer stays open."
+        "outro": "Wafa offers you a job. You say no, kindly, in Arabic. She laughs and says the offer stays open.",
+        "she": true
       }
     },
     {
@@ -917,7 +930,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Amal stamps the ticket she gave you long ago. It’s good for anywhere now, whenever you’re ready."
+        "outro": "Amal stamps the ticket she gave you long ago. It’s good for anywhere now, whenever you’re ready.",
+        "she": true
       }
     },
     {
@@ -942,7 +956,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "The innkeeper turns her book to the first page. Under “guest,” she has written a new word next to your name: صاحب. Friend of the house."
+        "outro": "The innkeeper turns her book to the first page. Under “guest,” she has written a new word next to your name: صاحب. Friend of the house.",
+        "she": true
       }
     },
     {
@@ -967,7 +982,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Hana writes your name on the guest list, between her grandmother and the twins. “You’re family now,” she says. “Family comes early to a wedding.”"
+        "outro": "Hana writes your name on the guest list, between her grandmother and the twins. “You’re family now,” she says. “Family comes early to a wedding.”",
+        "she": true
       }
     },
     {
@@ -992,7 +1008,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Samira pins a silk flower to your collar. “For the wedding,” she says. “Don’t lose it in your pocket.”"
+        "outro": "Samira pins a silk flower to your collar. “For the wedding,” she says. “Don’t lose it in your pocket.”",
+        "she": true
       }
     },
     {
@@ -1042,7 +1059,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Lina gives you the first cookie from the last tray. “Baked today,” she says. “Don’t tell the guests.”"
+        "outro": "Lina gives you the first cookie from the last tray. “Baked today,” she says. “Don’t tell the guests.”",
+        "she": true
       }
     },
     {
@@ -1117,7 +1135,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Huda writes a sentence on the blackboard and signs it: “A very good student.” She doesn’t erase it."
+        "outro": "Huda writes a sentence on the blackboard and signs it: “A very good student.” She doesn’t erase it.",
+        "she": true
       }
     },
     {
@@ -1192,7 +1211,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "The car goes out through the gate and down into the valley. The innkeeper turns her book to a new page and writes the date at the top. “Another year,” she says. “Who comes next?”"
+        "outro": "The car goes out through the gate and down into the valley. The innkeeper turns her book to a new page and writes the date at the top. “Another year,” she says. “Who comes next?”",
+        "she": true
       }
     },
     {
@@ -1267,7 +1287,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Yasmin folds her map. “The weather always changes,” she says. “That’s why I’m never out of work.”"
+        "outro": "Yasmin folds her map. “The weather always changes,” she says. “That’s why I’m never out of work.”",
+        "she": true
       }
     },
     {
@@ -1317,7 +1338,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Elena writes a word in her notebook in six alphabets. “Foreign today,” she says, “but not for long.”"
+        "outro": "Elena writes a word in her notebook in six alphabets. “Foreign today,” she says, “but not for long.”",
+        "she": true
       }
     },
     {
@@ -1342,7 +1364,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Rana lets the butterfly out of the window. “Not every patient needs medicine,” she says. “Some just need the door open.”"
+        "outro": "Rana lets the butterfly out of the window. “Not every patient needs medicine,” she says. “Some just need the door open.”",
+        "she": true
       }
     },
     {
@@ -1367,7 +1390,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Mariam and Um Khaled wash the dishes together, side by side. “Next year at my house,” says one. “No,” says the other, “at mine.”"
+        "outro": "Mariam and Um Khaled wash the dishes together, side by side. “Next year at my house,” says one. “No,” says the other, “at mine.”",
+        "she": true
       }
     },
     {
@@ -1442,7 +1466,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Samar locks the cupboard at sunset. “Nobody died today,” she says, and laughs. “That’s a good day in a clinic.”"
+        "outro": "Samar locks the cupboard at sunset. “Nobody died today,” she says, and laughs. “That’s a good day in a clinic.”",
+        "she": true
       }
     },
     {
@@ -1492,7 +1517,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Widad puts her toolbox under the bed. “Now,” she says, “I can finally unpack my books.”"
+        "outro": "Widad puts her toolbox under the bed. “Now,” she says, “I can finally unpack my books.”",
+        "she": true
       }
     },
     {
@@ -1517,7 +1543,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Sitt Fatima pulls her blanket up. “Go to bed, habibi,” she says. “One of us has to sleep.”"
+        "outro": "Sitt Fatima pulls her blanket up. “Go to bed, habibi,” she says. “One of us has to sleep.”",
+        "she": true
       }
     },
     {
@@ -1542,7 +1569,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Hiba closes her folder. “All legal,” she says. “Now you can build in peace.”"
+        "outro": "Hiba closes her folder. “All legal,” she says. “Now you can build in peace.”",
+        "she": true
       }
     },
     {
@@ -1642,7 +1670,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Dana stamps the last ticket. “Everyone wants to leave,” she says, “and everyone comes back to tell me about it.”"
+        "outro": "Dana stamps the last ticket. “Everyone wants to leave,” she says, “and everyone comes back to tell me about it.”",
+        "she": true
       }
     },
     {
@@ -1717,7 +1746,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Salwa leaves one of her books on the innkeeper’s table. “For the next student,” she says."
+        "outro": "Salwa leaves one of her books on the innkeeper’s table. “For the next student,” she says.",
+        "she": true
       }
     },
     {
@@ -1792,7 +1822,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Yasmin folds up her charts. “Clear skies tomorrow,” she says. “I’m almost sure.”"
+        "outro": "Yasmin folds up her charts. “Clear skies tomorrow,” she says. “I’m almost sure.”",
+        "she": true
       }
     },
     {
@@ -1817,7 +1848,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Omar’s fiancée names the new rose bush in the courtyard after Sitt Fatima."
+        "outro": "Omar’s fiancée names the new rose bush in the courtyard after Sitt Fatima.",
+        "she": true
       }
     },
     {
@@ -1867,7 +1899,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Hind turns off her iron at last. “Next time,” she says, “they should get engaged in winter.”"
+        "outro": "Hind turns off her iron at last. “Next time,” she says, “they should get engaged in winter.”",
+        "she": true
       }
     },
     {
@@ -1992,7 +2025,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Salwa hangs her degree on the wall, next to her grandmother’s embroidery. “The degree says I’m a surgeon,” she says. “The embroidery says I’m home.”"
+        "outro": "Salwa hangs her degree on the wall, next to her grandmother’s embroidery. “The degree says I’m a surgeon,” she says. “The embroidery says I’m home.”",
+        "she": true
       }
     },
     {
@@ -2017,7 +2051,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Mr. Kamal wins, and is so absent-minded that he forgets his own speech. Rana’s story runs on the front page anyway."
+        "outro": "Mr. Kamal wins, and is so absent-minded that he forgets his own speech. Rana’s story runs on the front page anyway.",
+        "she": true
       }
     },
     {
@@ -2117,7 +2152,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Umm Yousef plants a row of poppies for spring. “Red,” she says, “for Sitt Fatima, who liked them.”"
+        "outro": "Umm Yousef plants a row of poppies for spring. “Red,” she says, “for Sitt Fatima, who liked them.”",
+        "she": true
       }
     },
     {
@@ -2142,7 +2178,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "Dr. Ingrid leaves a copy of her notes for the inn. On the first page, in shaky Arabic: “Thank you for every word.”"
+        "outro": "Dr. Ingrid leaves a copy of her notes for the inn. On the first page, in shaky Arabic: “Thank you for every word.”",
+        "she": true
       }
     },
     {
@@ -2217,7 +2254,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "The class goes home tired and muddy. Miss Rula leaves a drawing for the inn: a koala at the innkeeper’s table, which nobody can explain."
+        "outro": "The class goes home tired and muddy. Miss Rula leaves a drawing for the inn: a koala at the innkeeper’s table, which nobody can explain.",
+        "she": true
       }
     },
     {
@@ -2342,7 +2380,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "She hangs the first calendar of the new run behind the inn’s counter, with the innkeeper’s birthday circled."
+        "outro": "She hangs the first calendar of the new run behind the inn’s counter, with the innkeeper’s birthday circled.",
+        "she": true
       }
     },
     {
@@ -2392,7 +2431,8 @@
           "accuracy": 0.9,
           "xp": 50
         },
-        "outro": "They leave a tray of ka’ak and ma’amoul for the next guests. “Eid comes to everyone,” says Umm Khalil."
+        "outro": "They leave a tray of ka’ak and ma’amoul for the next guests. “Eid comes to everyone,” says Umm Khalil.",
+        "she": true
       }
     }
   ]

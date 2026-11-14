@@ -10,6 +10,7 @@ import { Slate } from './write/Slate.tsx';
 import { CoffeeCorner } from './phrases/CoffeeCorner.tsx';
 import { WordLessons } from './core/WordLessons.tsx';
 import { EchoWell } from './echo/EchoWell.tsx';
+import { InnChat } from './chat/InnChat.tsx';
 import './arabic.css';
 
 type View = 'hall' | CourtyardDoor;
@@ -24,14 +25,15 @@ const VIEWS: readonly View[] = [
   'trial',
   'regular',
   'echo',
+  'chat',
 ];
 
 /**
  * Inside the Caravanserai: the painted courtyard (#42), and behind its stations the script
  * lesson, the fountain's listening, the storyteller's reading (#38–#41) and the Painted Sign
  * (#43), the slate's writing (#41), the coffee corner's phrases (#45) and the innkeeper's word
- * lessons (#160) with the regulars' trials (#161). ?open=lesson (or listen, read, write, phrases,
- * words, trial, regular) in the address goes straight there (for tests).
+ * lessons (#160) with the regulars' trials (#161) and chats (E17). ?open=lesson (or listen, read, write, phrases,
+ * words, trial, regular, echo, chat) in the address goes straight there (for tests).
  */
 export function Caravanserai({ api }: { api: SubjectApi }) {
   const [view, setView] = useState<View>(() => {
@@ -43,7 +45,7 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
   return (
     <>
       {/* The word lessons and the regulars' trials sit at the innkeeper's table (roadmap A6). */}
-      {view === 'words' || view === 'regular' ? (
+      {view === 'words' || view === 'regular' || view === 'chat' ? (
         <HallBackdrop id="inn" {...INN_TABLE_STAGE} paint={paintInnTable} />
       ) : (
         <HallBackdrop id="khan" {...KHAN_STAGE} paint={wholeCourtyard} />
@@ -59,8 +61,15 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
         <CoffeeCorner api={api} />
       ) : view === 'echo' ? (
         <EchoWell api={api} />
+      ) : view === 'chat' ? (
+        <InnChat api={api} />
       ) : view === 'words' || view === 'regular' ? (
-        <WordLessons key={view} api={api} trial={view === 'regular'} />
+        <WordLessons
+          key={view}
+          api={api}
+          trial={view === 'regular'}
+          onChat={() => setView('chat')}
+        />
       ) : (
         <ScriptLesson
           key={view}

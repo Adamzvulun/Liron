@@ -53,6 +53,8 @@ const Regular = z.object({
   milestones: z.array(z.string()).length(3),
   trial: Trial,
   outro: z.string(),
+  /** The one who speaks is a woman (ADR 0038: the chat's grammar of gender). */
+  she: z.boolean().optional(),
 });
 export type Regular = z.infer<typeof Regular>;
 

@@ -66,6 +66,17 @@ const Progress = z.object({
       shadowed: z.number().int().min(0).catch(0),
     })
     .catch({ heard: [], streak: 0, rounds: 0, shadowed: 0 }),
+  /**
+   * Chats with the regulars at the inn (E17, ADR 0038): the name they know you by, the last 3
+   * things you said to each (by road chapter number), and how many chats you've had.
+   */
+  chat: z
+    .object({
+      name: z.string().max(24).catch(''),
+      told: z.record(z.string(), z.array(z.string().max(160)).max(3)).catch({}),
+      chats: z.number().int().min(0).catch(0),
+    })
+    .catch({ name: '', told: {}, chats: 0 }),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -93,6 +104,7 @@ export const NEW_PROGRESS: ArabicProgress = {
     trials: [],
   },
   echo: { heard: [], streak: 0, rounds: 0, shadowed: 0 },
+  chat: { name: '', told: {}, chats: 0 },
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */

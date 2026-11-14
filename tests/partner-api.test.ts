@@ -1,9 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
+  cleanArabic,
   firstLine,
   GEMINI_MODEL,
   GROQ_MODEL,
   handle,
+  INN_MODEL,
+  innMessages,
   parseAsk,
   radioPrompt,
   REPLY_GEMINI_MS,
@@ -146,7 +149,7 @@ describe('POST /api/partner (E15, ADR 0036)', () => {
 describe('the partner prompt', () => {
   it('tells the character who you are and what they said before', () => {
     const ask = parseAsk(ASK);
-    if (!ask) throw new Error('the ask should parse');
+    if (!ask || ask.kind === 'inn-chat') throw new Error('the radio ask should parse');
     const prompt = radioPrompt(ask);
     expect(prompt).toContain('You are Ruth, a night owl on 40 m.');
     expect(prompt).toContain('name ADAM, town HAIFA');
@@ -162,7 +165,7 @@ describe('the partner prompt', () => {
       told: ['SICK'],
     };
     const ask = parseAsk(reply);
-    if (!ask) throw new Error('the reply ask should parse');
+    if (!ask || ask.kind === 'inn-chat') throw new Error('the reply ask should parse');
     const prompt = radioPrompt(ask);
     expect(prompt).toContain('Just now they sent you their news: "NEW JOB"');
     expect(prompt).toContain('Your news this time was: "CAT IS FINE"');
@@ -202,5 +205,102 @@ describe('the partner prompt', () => {
 
   it('keeps the first line of a reply, without thinking or quotes', () => {
     expect(firstLine('<think>hmm</think>\n"CAT IS FINE"\nmore')).toBe('CAT IS FINE');
+  });
+});
+
+const INN = {
+  kind: 'inn-chat',
+  persona: { who: 'Wafa the manager', about: 'Runs the new factory and needs workers.' },
+  learner: { name: 'Adam' },
+  theme: 'Work and pay',
+  words: ['salary', 'boss'],
+  told: ['أنا من حيفا'],
+  turns: [
+    { who: 'them', text: 'أهلا! شو بتشتغل؟' },
+    { who: 'you', text: 'أنا مهندس' },
+  ],
+};
+
+describe('a chat at the inn (E17, ADR 0038)', () => {
+  it('claims a chat line, asks only Groq with the inn model, and answers the line', async () => {
+    const { calls, fetchFn } = services({
+      claim: () => Response.json(59),
+      groq: () => groqSays('«ممتاز! عندك خبرة؟»'),
+    });
+    expect(await json(await handle(request(INN), ENV, fetchFn))).toEqual({
+      status: 200,
+      body: { text: 'ممتاز! عندك خبرة؟', left: 59 },
+    });
+    expect(calls.map((c) => c.url)).toEqual([
+      'https://project.supabase.co/rest/v1/rpc/claim_chat_line',
+      'https://api.groq.com/openai/v1/chat/completions',
+    ]);
+    const sent = JSON.parse(String(calls[1]?.init.body)) as {
+      model: string;
+      messages: { role: string; content: string }[];
+    };
+    expect(sent.model).toBe(INN_MODEL);
+    expect(sent.messages.map((m) => m.role)).toEqual(['system', 'user', 'assistant', 'user']);
+    expect(sent.messages[0]?.content).toContain('Palestinian colloquial Arabic');
+    expect(sent.messages[0]?.content).toContain('You are Wafa the manager.');
+    expect(sent.messages[0]?.content).toContain('"أنا من حيفا"');
+    expect(sent.messages[0]?.content).toContain('For example: salary, boss.');
+    expect(sent.messages.at(-1)?.content).toBe('أنا مهندس');
+  });
+
+  it('asks for a greeting when the chat has no turns yet', () => {
+    const ask = parseAsk({ ...INN, turns: [] });
+    if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
+    expect(innMessages(ask).map((m) => m.role)).toEqual(['system', 'user']);
+  });
+
+  it('never goes to Gemini: without a Groq key the inn is not set up', async () => {
+    const { calls, fetchFn } = services();
+    const res = await handle(request(INN), { ...ENV, GROQ_API_KEY: undefined }, fetchFn);
+    expect(await json(res)).toEqual({ status: 503, body: { error: 'not-set-up' } });
+    expect(calls).toHaveLength(0);
+  });
+
+  it('asks once more when a line breaks the rules, then gives up', async () => {
+    let n = 0;
+    const once = services({
+      groq: () => groqSays(n++ === 0 ? 'Hello! I am an AI.' : 'أهلين! كيفك؟'),
+    });
+    expect((await json(await handle(request(INN), ENV, once.fetchFn))).body.text).toBe(
+      'أهلين! كيفك؟',
+    );
+    const never = services({ groq: () => groqSays('Sure, here you go') });
+    expect(await json(await handle(request(INN), ENV, never.fetchFn))).toEqual({
+      status: 502,
+      body: { error: 'failed' },
+    });
+    expect(never.calls.filter((c) => c.url.includes('groq'))).toHaveLength(2);
+    const busy = services({ groq: () => new Response('', { status: 429 }) });
+    expect((await handle(request(INN), ENV, busy.fetchFn)).status).toBe(503);
+  });
+
+  it('takes only short Arabic turns from the two sides', () => {
+    expect(parseAsk({ ...INN, turns: [{ who: 'me', text: 'x' }] })).toBeNull();
+    expect(parseAsk({ ...INN, turns: [{ who: 'you', text: 'ا'.repeat(161) }] })).toBeNull();
+    expect(
+      parseAsk({ ...INN, turns: Array.from({ length: 18 }, () => ({ who: 'you', text: 'هلا' })) }),
+    ).toBeNull();
+    expect(parseAsk({ ...INN, theme: undefined })).toBeNull();
+  });
+});
+
+describe('cleanArabic (ADR 0038)', () => {
+  it('keeps one or two short Arabic sentences, trimmed of quotes and markdown', () => {
+    expect(cleanArabic('  **أهلا يا آدم!**  كيفك اليوم؟ ')).toBe('أهلا يا آدم! كيفك اليوم؟');
+    expect(cleanArabic('"مش فاهم عليك، شو قصدك؟"')).toBe('مش فاهم عليك، شو قصدك؟');
+  });
+
+  it('drops Latin letters, Hebrew, long lines, three sentences and talk of being a machine', () => {
+    expect(cleanArabic('أهلا Adam')).toBeNull();
+    expect(cleanArabic('שלום، كيفك؟')).toBeNull();
+    expect(cleanArabic('أهلا. كيفك؟ شو بتعمل؟')).toBeNull();
+    expect(cleanArabic('ا'.repeat(161))).toBeNull();
+    expect(cleanArabic('أنا ذكاء اصطناعي، مش إنسان')).toBeNull();
+    expect(cleanArabic('...')).toBeNull();
   });
 });
