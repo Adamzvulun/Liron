@@ -36,6 +36,11 @@ export interface InnChatAsk {
   told: readonly string[];
   /** How many chats with this regular came before this one (their reputation). */
   met: number;
+  /**
+   * What the traveler and this regular did together on the road (the regular's milestones, our
+   * own English text), once their trial is passed; at most 3.
+   */
+  memories: string[];
   /** This chat so far, oldest first; empty for their opening line. */
   turns: readonly InnTurn[];
 }
