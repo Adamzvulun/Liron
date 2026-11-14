@@ -705,6 +705,22 @@
       }
     },
     {
+      "id": "grammar:places",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 40,
+        "title": "máʈbax, máɣsala: where it’s done",
+        "points": [
+          "ma- in front of a verb’s root names the place where it’s done: máʈbax, kitchen (ʈábax, to cook); mál3ab, playground (lí3ib, to play); máktab, office (kátab, to write); mádrasa, school (dáras, to study).",
+          "Some name a thing it’s done in or with: máɣsala, sink (ɣásal, to wash); múknisa, broom.",
+          "Their plurals share one shape: maʈābix, malā3ib, makātib, maɣāsil.",
+          "Hebrew builds the same way: מִטְבָּח from טבח, and mádrasa is Hebrew’s מדרשה."
+        ],
+        "examples": ["pcav:0792", "pcav:1505", "pcav:2947", "pcav:1452", "pcav:0823", "pcav:0741"]
+      }
+    },
+    {
       "id": "grammar:lets",
       "subject": "arabic",
       "type": "grammar-card",
@@ -763,6 +779,21 @@
           "Hebrew has this shape too, and najjār is the same word as Hebrew נגר, a carpenter."
         ],
         "examples": ["pcav:1385", "pcav:1391", "pcav:1419", "pcav:1434", "pcav:1438"]
+      }
+    },
+    {
+      "id": "grammar:parts-and-sums",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 48,
+        "title": "tult, rúbi3: parts, and sums",
+        "points": [
+          "A part is named from its number’s root: talāta, three → tult, a third; árba3a, four → rúbi3, a quarter. A half is nuʂʂ.",
+          "Hebrew does the same: שליש, a third, comes from שלוש, three, and רבע, a quarter, from ארבע, four.",
+          "Sums: zāʔid, plus; nāgiʂ, minus; ɖarb, times; taqsīm, divided by. Equals is bisāwi or bíʈla3: talāta ɖarb árba3a bisāwi tnā3iš, three times four is twelve."
+        ],
+        "examples": ["pcav:4068", "pcav:4069", "pcav:4066", "pcav:4043", "pcav:4047", "pcav:4049"]
       }
     },
     {
