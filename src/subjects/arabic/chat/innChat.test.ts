@@ -10,6 +10,7 @@ import {
   fromHebrew,
   lineInHebrew,
   regularsToTalkTo,
+  tipsFrom,
 } from './innChat.ts';
 
 const guest = { ...NEW_PROGRESS, guest: true };
@@ -93,5 +94,13 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(fromHebrew('כיפכ?')).toBe('كيفك؟');
     expect(fromHebrew('שו אסמכ? אנא אדם')).toBe('شو اسمك؟ انا ادم');
     expect(fromHebrew('مرحبا')).toBe('مرحبا');
+  });
+
+  it('reads the Coach’s tips, and nothing else', () => {
+    const tip = { said: 'نعم', better: 'آه', why: 'نعم is formal.' };
+    expect(tipsFrom(JSON.stringify({ tips: [tip, { said: 1 }] }))).toEqual([tip]);
+    expect(tipsFrom(JSON.stringify({ tips: [] }))).toEqual([]);
+    expect(tipsFrom('nope')).toBeNull();
+    expect(tipsFrom('{}')).toBeNull();
   });
 });
