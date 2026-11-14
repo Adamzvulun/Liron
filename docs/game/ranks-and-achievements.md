@@ -79,6 +79,7 @@ The first set (my call; about 20 to start):
 | A Seat at the Table | Pass the first ten regulars' trials (II–XI) | 3 | Friend of the House |
 | Night Owl / Early Bird | Practice after 22:00 / before 7:00 your time, 5 times | 1 each | |
 | Thousand Minutes | 1,000 minutes of practice | 3 | the Diligent |
+| Known at the Inn | Sit and talk with 10 different regulars (E17, ADR 0038) | 3 | the Well-Spoken |
 
 - Achievements that need things not built yet ("first joke understood in Arabic", "first real QSO") come with those features. They aren't dropped.
 - **Hidden ones (my call):** none at first. Every achievement shows its condition, so there are no surprises that read as unfair.

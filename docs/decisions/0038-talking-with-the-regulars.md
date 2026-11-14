@@ -26,7 +26,9 @@ E17's proposal (2026-11-11) ended with seven questions for Adam. On 2026-11-14 h
 - **Rewards:** 10 XP for a chat of at least 3 lines.
 
 ## Not in this slice (ordered, not cut)
-The Coach's debrief after a chat (`inn-coach`), voice (ADR 0014), a daily-contract event and an achievement for chatting with 10 regulars.
+The Coach's debrief after a chat (`inn-coach`) and voice (ADR 0014).
+
+**Added the same day:** a daily contract, "Sit and talk with a regular at the inn" (15 gold, offered once you've had a chat), and the achievement **Known at the Inn** (10 different regulars, 3 gems, the title *the Well-Spoken*), from the events `inn-chat` and `inn-regular` (migration `20261209000000_inn_chat_rewards.sql`).
 
 ## Consequences
 - The first time a learner's own Arabic leaves the app. It goes to one provider that keeps nothing by default.

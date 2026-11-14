@@ -3,7 +3,7 @@ import { ACHIEVEMENTS, earnedTitles, plaques } from './achievements.ts';
 
 describe('achievements (#177)', () => {
   it('reads every achievement from content, in order, each with a target', () => {
-    expect(ACHIEVEMENTS).toHaveLength(21);
+    expect(ACHIEVEMENTS).toHaveLength(22);
     expect(ACHIEVEMENTS[0]).toMatchObject({ id: 'first-light', name: 'First Light', gems: 1 });
     expect(new Set(ACHIEVEMENTS.map((a) => a.id)).size).toBe(ACHIEVEMENTS.length);
     for (const a of ACHIEVEMENTS) expect(a.condition.n).toBeGreaterThan(0);

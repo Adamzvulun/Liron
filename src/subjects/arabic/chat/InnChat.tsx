@@ -102,6 +102,11 @@ export function InnChat({ api }: { api: SubjectApi }) {
       .saveSession({
         state: next,
         xp: linesOf(turns) >= LINES_FOR_XP ? CHAT_XP : 0,
+        // For the daily contract and the achievement (migration 20261209000000).
+        events: [
+          { kind: 'inn-chat' },
+          ...(p.chat.told[String(s.regular.number)] ? [] : [{ kind: 'inn-regular' }]),
+        ],
         minutes: Math.round((now - s.started) / 60000),
       })
       .then(
