@@ -1172,6 +1172,21 @@
       }
     },
     {
+      "id": "grammar:second-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 86,
+        "title": "ʈárrad, fáʂal: a second word for the same thing",
+        "points": [
+          "Many things have two words, and you’ll hear both: ʈárrad and fáʂal, to fire; naʈūr and bawwāb, a doorman; 3ájjaz and xátyar, to grow old; múštarik and 3úɖu, a member.",
+          "Often one of the two is borrowed from English: dram beside ʈábil, a drum; fítnis beside layāqa, fitness.",
+          "You don’t have to say both. Know the second one when you hear it, and keep saying the one you like."
+        ],
+        "examples": ["pcav:1369", "pcav:0709", "pcav:0035", "pcav:2555", "pcav:2457"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
