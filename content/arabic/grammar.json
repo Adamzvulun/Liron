@@ -986,6 +986,22 @@
       }
     },
     {
+      "id": "grammar:going-up",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 62,
+        "title": "ʈíli3: going up, and going out",
+        "points": [
+          "ʈíli3 goes up: ʈíli3 3a -ddáraj, to go upstairs; íʈla3 fōg!, come upstairs (chapter 18).",
+          "Getting on is going up: ʈíli3 3a -ʈʈayyāra, to board a plane; ʈíli3 fi -lbāʂ, to take the bus. A plane or a bus that ʈíli3 departs.",
+          "Going out to do something is ʈíli3 and the thing: ʈíli3 sēr, to go hiking; ʈíli3 taxyīm, to go camping. On its own, ʈíli3 is to hang out.",
+          "Hebrew’s עלה does the same: you go up onto a plane or a bus."
+        ],
+        "examples": ["pcav:2034", "pcav:2720", "pcav:1827", "pcav:2667", "pcav:2232"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",

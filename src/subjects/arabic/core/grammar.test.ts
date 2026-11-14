@@ -76,6 +76,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:people-plurals', 58],
       ['grammar:verb-and-little-word', 59],
       ['grammar:verb-pairs', 60],
+      ['grammar:going-up', 62],
       ['grammar:ordinals', 90],
       ['grammar:how-much', 91],
       ['grammar:nothing', 92],
