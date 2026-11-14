@@ -72,6 +72,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:three-words', 52],
       ['grammar:doer-and-done-to', 53],
       ['grammar:being-ill', 54],
+      ['grammar:while', 57],
       ['grammar:verb-and-little-word', 59],
       ['grammar:verb-pairs', 60],
       ['grammar:ordinals', 90],
