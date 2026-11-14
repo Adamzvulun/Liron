@@ -89,6 +89,8 @@ describe('grammar cards (#162)', () => {
       ['grammar:muta-words', 82],
       ['grammar:take-and-give', 84],
       ['grammar:second-words', 86],
+      ['grammar:same-letters', 88],
+      ['grammar:chessboard', 89],
       ['grammar:ordinals', 90],
       ['grammar:how-much', 91],
       ['grammar:nothing', 92],
