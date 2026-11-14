@@ -70,7 +70,7 @@ Only three screens are painted so far: the city square, the Signal Tower room an
 ## M5 — Fellowship
 | Epic | Contents |
 |---|---|
-| **E18 Invites** | Invite friends (invite-only sign-up); profiles visible to friends |
+| **E18 Invites** | Invite friends (invite-only sign-up); profiles visible to friends. **Proposal written** (2026-11-14, [fellowship](../game/fellowship.md)): questions for Adam, nothing built |
 | **E19 Social** | Friends; visiting halls; party feed; gifting; opt-in challenges; rating-matched pairing |
 | **E20 Live Morse** | Friend-to-friend live QSO in the Signal Tower (Supabase Realtime) |
 
