@@ -845,6 +845,22 @@
       }
     },
     {
+      "id": "grammar:doer-and-done-to",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 53,
+        "title": "mʂálliɧ, muwáʐʐaf: the doer and the done-to",
+        "points": [
+          "The mu- word of a doubled-middle verb (chapter 52) has two faces, one vowel apart. With i, it’s the one who does it: mʂálliɧ, a repairman (ʂállaɧ, to fix); muɧárrir, an editor.",
+          "With a, it’s the one it’s done to: muwáʐʐaf, an employee, the one employed (wáʐʐaf, to employ); msákkar, closed (sákkar, to close); mɧámmar, roasted.",
+          "In speech mu- often shrinks to m-: mʂálliɧ, msákkar.",
+          "Hebrew splits the same way: מנהל is a manager, and מנוהל is managed."
+        ],
+        "examples": ["pcav:1429", "pcav:1400", "pcav:1317", "pcav:4728", "pcav:1270"]
+      }
+    },
+    {
       "id": "grammar:being-ill",
       "subject": "arabic",
       "type": "grammar-card",
