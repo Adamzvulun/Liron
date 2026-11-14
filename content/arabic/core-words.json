@@ -13471,6 +13471,140 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:101",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 101,
+        "title": "Campus, exams, and the night shift",
+        "theme": "Exams of every kind, grades, what you study, and the people and hours of work",
+        "words": [
+          {
+            "deck": "pcav:1522",
+            "gloss": "entrance exam"
+          },
+          {
+            "deck": "pcav:1523",
+            "gloss": "an oral exam"
+          },
+          {
+            "deck": "pcav:1524",
+            "gloss": "a written exam"
+          },
+          {
+            "deck": "pcav:1530",
+            "gloss": "a passing grade"
+          },
+          {
+            "deck": "pcav:1531",
+            "gloss": "a failing grade"
+          },
+          {
+            "deck": "pcav:1540",
+            "gloss": "essay, paper",
+            "sentence": "pcav:1541"
+          },
+          {
+            "deck": "pcav:1556",
+            "gloss": "school year"
+          },
+          {
+            "deck": "pcav:1558",
+            "gloss": "tuition"
+          },
+          {
+            "deck": "pcav:1572",
+            "gloss": "What are you majoring in?"
+          },
+          {
+            "deck": "pcav:1575",
+            "gloss": "university campus"
+          },
+          {
+            "deck": "pcav:1576",
+            "gloss": "dormitories"
+          },
+          {
+            "deck": "pcav:1491",
+            "gloss": "lecture hall"
+          },
+          {
+            "deck": "pcav:1608",
+            "gloss": "geometry"
+          },
+          {
+            "deck": "pcav:1617",
+            "gloss": "P.E."
+          },
+          {
+            "deck": "pcav:1620",
+            "gloss": "psychology"
+          },
+          {
+            "deck": "pcav:1622",
+            "gloss": "social studies"
+          },
+          {
+            "deck": "pcav:1306",
+            "gloss": "civil servant"
+          },
+          {
+            "deck": "pcav:1309",
+            "gloss": "applicant"
+          },
+          {
+            "deck": "pcav:1318",
+            "gloss": "employer"
+          },
+          {
+            "deck": "pcav:1331",
+            "gloss": "night shift",
+            "sentence": "pcav:1333"
+          },
+          {
+            "deck": "pcav:1350",
+            "gloss": "payday"
+          },
+          {
+            "deck": "pcav:1374",
+            "gloss": "retirement age"
+          },
+          {
+            "deck": "pcav:1382",
+            "gloss": "architect"
+          },
+          {
+            "deck": "pcav:2919",
+            "gloss": "middle class"
+          },
+          {
+            "deck": "pcav:2920",
+            "gloss": "working class"
+          },
+          {
+            "deck": "pcav:3390",
+            "gloss": "vowel"
+          },
+          {
+            "deck": "pcav:3359",
+            "gloss": "grammatical rule"
+          },
+          {
+            "deck": "pcav:2948",
+            "gloss": "head office"
+          },
+          {
+            "deck": "pcav:3272",
+            "gloss": "native language"
+          },
+          {
+            "deck": "pcav:3334",
+            "gloss": "broken Arabic"
+          }
+        ]
+      }
     }
   ]
 }

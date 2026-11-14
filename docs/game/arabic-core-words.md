@@ -292,6 +292,14 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 99 | Trips, town, and a night out |
 | 100 | Faces, clothes, and the kitchen |
 
+- **Words 3,001–3,030 (2026-11-14): the first B1 phrase chapter.** With the good A2 phrases used up, the next chapters draw on the 505 untaught B1 items, with the same check against taught glosses. Chapter 101 brings exams (*entrance*, *oral*, *written*, *a passing* and *a failing grade*), *school year*, *tuition*, *What are you majoring in?*, *campus*, *dorms*, *lecture hall*, *geometry*, *P.E.*, *psychology*, *social studies*, *grammar rule*, *vowel*, *native language* and *broken Arabic*; and work: *civil servant*, *applicant*, *employer*, *night shift*, *payday*, *retirement age*, *architect*, *head office*, *middle class* and *working class*.
+  - **Left out on purpose:** *to major in* and *salesperson* (taught), and phrases made of taught words (*mid-term*, *final exam*, *freshman* as "first year", *day shift*, *bank teller*, *customs officer*, *dentistry*, *political science*).
+  - **Deck sentences:** 2 of the 30 (*The students have to write an essay about a historical event*, *I work the night shift*); the other 28 are our own.
+
+| Chapter | Theme |
+|---|---|
+| 101 | Campus, exams, and the night shift |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
