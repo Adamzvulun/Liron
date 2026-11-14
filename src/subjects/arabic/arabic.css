@@ -990,3 +990,13 @@
 .arabic__coach-why {
   font-size: 15px;
 }
+
+.arabic__coach-said-big {
+  font-size: 24px;
+  color: var(--guild-arabic-ink);
+}
+
+.arabic__question .arabic__coach-better {
+  display: block;
+  font-size: 28px;
+}

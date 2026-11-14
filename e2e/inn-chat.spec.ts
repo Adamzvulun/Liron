@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { deckWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 import pack from '../content/arabic/core-words.json' with { type: 'json' };
+import { tipId } from '../src/subjects/arabic/chat/innChat.ts';
 
 // Sit and talk at the innkeeper's table (E17, ADR 0038). The partner function is mocked: the
 // regular's lines here are ours, not a model's.
@@ -93,6 +94,7 @@ test.describe('Sit and talk at the inn (E17)', () => {
       told: { 2: ['منيح، الحمد لله', 'طالب', 'شكرا'] },
       chats: 1,
       hebrew: false,
+      tips: [],
     });
     await expect
       .poll(() => calls.find((c) => c.rpc === 'record_progress')?.args)
@@ -106,6 +108,11 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(coach.getByText('شكرًا كتير')).toBeVisible();
     await expect(coach.getByText('Warmer, the way people say it.')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Ask the Coach' })).toHaveCount(0);
+    // The tip is kept for practice, as a review item.
+    await expect(coach.getByText('Kept for practice')).toBeVisible();
+    await expect
+      .poll(() => calls.filter((c) => c.rpc === 'record_review').map((c) => c.args))
+      .toEqual([expect.objectContaining({ p_item: tipId('شكرًا كتير') })]);
 
     // The next chat brings what you told them.
     await page.getByRole('button', { name: 'Back to the table' }).click();
@@ -129,6 +136,32 @@ test.describe('Sit and talk at the inn (E17)', () => {
       await expect(page.getByText(`كيفك اليوم يا صاحبي؟ ${i + 1}`)).toBeAttached();
     }
     await expect(page.getByText('كيفك اليوم يا صاحبي؟ 7')).toBeInViewport();
+  });
+
+  test('the Coach’s phrases come back when they’re due', async ({ page }) => {
+    const tip = { said: 'نعم أريد قهوة', better: 'آه بدّي قهوة', why: 'نعم and أريد are formal.' };
+    const id = tipId(tip.better);
+    const calls: SubjectCall[] = [];
+    await signedIn(page, [], calls, {
+      ...GUEST,
+      chat: { name: 'Adam', told: {}, chats: 1, tips: [{ ...tip, id }] },
+    });
+    await page.route('**/rest/v1/review_cards*', (route) =>
+      route.fulfill({ json: [{ item_id: id, due: '2026-01-01T00:00:00Z' }] }),
+    );
+    await page.goto('/caravanserai?open=chat');
+    await page.getByRole('button', { name: 'The Coach’s phrases · 1' }).click();
+    await expect(page.getByText('نعم أريد قهوة')).toBeVisible();
+    await expect(page.getByText('آه بدّي قهوة')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Show' }).click();
+    await expect(page.getByText('آه بدّي قهوة')).toBeVisible();
+    await page.getByRole('button', { name: 'I had it' }).click();
+    await expect(page.getByText('1 of 1 said the Palestinian way.')).toBeVisible();
+    await expect
+      .poll(() => calls.filter((c) => c.rpc === 'record_review').map((c) => c.args))
+      .toEqual([expect.objectContaining({ p_item: id, p_rating: 3 })]);
+    await page.getByRole('button', { name: 'Back to the table' }).click();
+    await expect(page.getByRole('button', { name: /The Coach’s phrases/ })).toHaveCount(0);
   });
 
   test('when the partner is busy, the regular has to go, kindly', async ({ page }) => {

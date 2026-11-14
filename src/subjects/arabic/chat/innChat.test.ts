@@ -11,6 +11,10 @@ import {
   lineInHebrew,
   regularsToTalkTo,
   tipsFrom,
+  dueTips,
+  MAX_TIPS,
+  tipId,
+  withTips,
 } from './innChat.ts';
 
 const guest = { ...NEW_PROGRESS, guest: true };
@@ -37,11 +41,7 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
   });
 
   it('sends the theme and our own English glosses, never the deck', () => {
-    const ask = chatAsk(
-      first,
-      { ...guest, chat: { name: 'Adam', told: {}, chats: 0, hebrew: false } },
-      [],
-    );
+    const ask = chatAsk(first, { ...guest, chat: { ...NEW_PROGRESS.chat, name: 'Adam' } }, []);
     const chapter = must(WORD_CHAPTERS[first.wordChapter - 1]);
     expect(ask).toMatchObject({ kind: 'inn-chat', learner: { name: 'Adam' }, turns: [] });
     expect(ask.theme).toBe(chapter.theme.slice(0, 160));
@@ -72,6 +72,7 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
       told: {},
       chats: 0,
       hebrew: false,
+      tips: [],
     });
   });
 
@@ -102,5 +103,21 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(tipsFrom(JSON.stringify({ tips: [] }))).toEqual([]);
     expect(tipsFrom('nope')).toBeNull();
     expect(tipsFrom('{}')).toBeNull();
+  });
+
+  it('keeps the Coach’s tips as review items, once each, the newest 30', () => {
+    const tip = { said: 'نعم', better: 'آه', why: 'نعم is formal.' };
+    expect(tipId('آه')).toMatch(/^tip:[0-9a-z]+$/);
+    expect(tipId('آه')).not.toBe(tipId('آه بدّي'));
+    const once = withTips(guest, [tip, tip]);
+    expect(once.chat.tips).toEqual([{ ...tip, id: tipId('آه') }]);
+    expect(withTips(once, [tip]).chat.tips).toHaveLength(1);
+    const many = Array.from({ length: 35 }, (_, i) => ({ ...tip, better: `آه ${i}` }));
+    const kept = withTips(guest, many).chat.tips;
+    expect(kept).toHaveLength(MAX_TIPS);
+    expect(kept.at(-1)?.better).toBe('آه 34');
+    expect(parseProgress(withTips(guest, many)).chat.tips).toEqual(kept);
+    expect(dueTips(once, [{ itemId: tipId('آه') }, { itemId: 'pcav:1' }])).toEqual(once.chat.tips);
+    expect(dueTips(once, [{ itemId: 'pcav:1' }])).toEqual([]);
   });
 });

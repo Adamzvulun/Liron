@@ -77,8 +77,20 @@ const Progress = z.object({
       chats: z.number().int().min(0).catch(0),
       /** You type in Hebrew letters, read as Arabic (E17). */
       hebrew: z.boolean().catch(false),
+      /** The Coach's tips you keep, newest last, each a spaced-repetition item (`tip:…`). */
+      tips: z
+        .array(
+          z.object({
+            id: z.string().max(40),
+            said: z.string().max(160),
+            better: z.string().max(160),
+            why: z.string().max(140),
+          }),
+        )
+        .max(30)
+        .catch([]),
     })
-    .catch({ name: '', told: {}, chats: 0, hebrew: false }),
+    .catch({ name: '', told: {}, chats: 0, hebrew: false, tips: [] }),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -106,7 +118,7 @@ export const NEW_PROGRESS: ArabicProgress = {
     trials: [],
   },
   echo: { heard: [], streak: 0, rounds: 0, shadowed: 0 },
-  chat: { name: '', told: {}, chats: 0, hebrew: false },
+  chat: { name: '', told: {}, chats: 0, hebrew: false, tips: [] },
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
