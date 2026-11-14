@@ -92,6 +92,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:hidden-t', 69],
       ['grammar:his-blood-is-light', 70],
       ['grammar:undoing', 71],
+      ['grammar:market-loans', 72],
       ['grammar:kings-and-courts', 73],
       ['grammar:war-and-peace', 74],
       ['grammar:faith-words', 75],
