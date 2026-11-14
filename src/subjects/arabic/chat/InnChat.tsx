@@ -5,6 +5,7 @@ import { parseProgress, type ArabicProgress } from '../progress.ts';
 import type { Regular } from '../questline.ts';
 import { CoachPhrases } from './CoachPhrases.tsx';
 import { SayLine } from './SayLine.tsx';
+import { DECK } from '../words.ts';
 import {
   afterChat,
   CHAT_XP,
@@ -18,6 +19,10 @@ import {
   MAX_LINES,
   MAX_TYPED,
   regularsToTalkTo,
+  standingWith,
+  glossaryFrom,
+  glossesIn,
+  type Glossary,
   tipsFrom,
   dueTips,
   withTips,
@@ -67,6 +72,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const [coach, setCoach] = useState<'idle' | 'asking' | 'failed' | CoachTip[]>('idle');
   /** Review items due now (only the Coach's `tip:` ones matter here). */
   const [due, setDue] = useState<readonly { itemId: string }[]>([]);
+  /** Our glosses of the deck words, to show under a regular's line (built here, never sent). */
+  const [glossary, setGlossary] = useState<Glossary>(new Map());
   const saved = useRef(false);
   const lines = useRef<HTMLOListElement>(null);
   // The newest line is always in view: the list scrolls to its end as the chat grows.
@@ -91,6 +98,11 @@ export function InnChat({ api }: { api: SubjectApi }) {
     // The Coach's phrases only add a button: if they can't be read, it doesn't show.
     api.dueItems({ limit: 200 }).then(
       (d) => live.current && setDue(d),
+      () => undefined,
+    );
+    // The glosses only add a line under the Hebrew letters: without the deck, there are none.
+    api.privateContent(DECK).then(
+      (pack) => live.current && setGlossary(glossaryFrom(pack.items)),
       () => undefined,
     );
     return () => {
@@ -216,6 +228,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
                   onClick={() => sit(r, Date.now())}
                 >
                   <strong>{r.who}</strong> · {r.title}
+                  <span className="arabic__chat-standing">{standingWith(progress, r)}</span>
                 </button>
               </li>
             ))}
@@ -321,6 +334,18 @@ export function InnChat({ api }: { api: SubjectApi }) {
                   {shown.has(i) && (
                     <span lang="he" dir="rtl" className="arabic__bubble-he">
                       {lineInHebrew(t.text)}
+                    </span>
+                  )}
+                  {shown.has(i) && glossesIn(t.text, glossary).length > 0 && (
+                    <span className="arabic__bubble-glosses">
+                      {glossesIn(t.text, glossary).map((g) => (
+                        <span key={g.word}>
+                          <span lang="ar" dir="rtl">
+                            {g.word}
+                          </span>{' '}
+                          {g.gloss}
+                        </span>
+                      ))}
                     </span>
                   )}
                 </button>

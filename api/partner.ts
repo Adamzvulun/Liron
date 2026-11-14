@@ -130,6 +130,8 @@ export interface InnAsk {
   words: string[];
   /** The last few things the learner said to this regular in earlier chats, oldest first. */
   told: string[];
+  /** How many chats with this regular came before this one (their reputation, E17). */
+  met: number;
   /** This chat so far, oldest first. Empty for the regular's opening line. */
   turns: InnTurn[];
 }
@@ -151,6 +153,9 @@ export type Ask =
 
 /** The most turns a chat sends: 8 of the learner's lines and the regular's answers. */
 export const MAX_TURNS = 17;
+
+/** Chats before a regular greets you as an old friend (their reputation, E17). */
+export const OLD_FRIENDS = 5;
 
 /** The largest body the function reads, in bytes. */
 export const MAX_BODY = 12_000;
@@ -191,7 +196,9 @@ function parseInn(b: Record<string, unknown>): InnAsk | null {
   const words = b.words === undefined ? [] : strings(b.words, 40, 40);
   const told = b.told === undefined ? [] : strings(b.told, 3, 160);
   const turns = parseTurns(b.turns);
+  const met = b.met === undefined ? 0 : b.met;
   if (!who || !about || !name || !theme || !words || !told || !turns) return null;
+  if (typeof met !== 'number' || !Number.isInteger(met) || met < 0 || met > 9999) return null;
   return {
     kind: 'inn-chat',
     persona: { who, about },
@@ -199,6 +206,7 @@ function parseInn(b: Record<string, unknown>): InnAsk | null {
     theme,
     words,
     told,
+    met,
     turns,
   };
 }
@@ -241,13 +249,18 @@ const quoted = (ls: readonly string[]) => ls.map((p) => `"${p}"`).join(' ; ');
 
 /** What a regular is told about this chat: their story, the traveler, and what you know. */
 export function innSetting(ask: InnAsk): string {
-  const { persona, learner, theme, words, told } = ask;
+  const { persona, learner, theme, words, told, met } = ask;
   return [
     `You are ${persona.who}. ${persona.about}`,
     `The traveler's name is ${learner.name}.`,
-    told.length
-      ? `What the traveler told you in earlier chats, oldest first: ${quoted(told)}`
-      : 'This is your first chat with the traveler.',
+    met === 0
+      ? 'This is your first chat with the traveler: you are just getting to know them.'
+      : met < OLD_FRIENDS
+        ? `You have chatted with the traveler ${met === 1 ? 'once' : `${met} times`} before.`
+        : `You have chatted with the traveler ${met} times: you are old friends, warm and familiar.`,
+    ...(told.length
+      ? [`What the traveler told you in earlier chats, oldest first: ${quoted(told)}`]
+      : []),
     `The traveler has been learning words about: ${theme}.` +
       (words.length ? ` For example: ${words.join(', ')}.` : '') +
       ' Lean on everyday words like these.',
