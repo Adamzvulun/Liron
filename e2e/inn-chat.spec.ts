@@ -149,10 +149,15 @@ test.describe('Sit and talk at the inn (E17)', () => {
     const tip = { said: 'نعم أريد قهوة', better: 'آه بدّي قهوة', why: 'نعم and أريد are formal.' };
     const id = tipId(tip.better);
     const calls: SubjectCall[] = [];
-    await signedIn(page, [], calls, {
-      ...GUEST,
-      chat: { name: 'Adam', told: {}, chats: 1, tips: [{ ...tip, id }] },
-    });
+    const coffee = pathWord(2, 'قهوة', 'the deck’s English');
+    const gloss = ECHO_POOL.words.get(coffee.item_id)?.gloss ?? '';
+    await signedIn(
+      page,
+      [],
+      calls,
+      { ...GUEST, chat: { name: 'Adam', told: {}, chats: 1, tips: [{ ...tip, id }] } },
+      [coffee],
+    );
     await page.route('**/rest/v1/review_cards*', (route) =>
       route.fulfill({ json: [{ item_id: id, due: '2026-01-01T00:00:00Z' }] }),
     );
@@ -162,6 +167,7 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(page.getByText('آه بدّي قهوة')).toHaveCount(0);
     await page.getByRole('button', { name: 'Show' }).click();
     await expect(page.getByText('آه بدّي قهوة')).toBeVisible();
+    await expect(page.locator('.arabic__bubble-glosses')).toHaveText(`قهوة ${gloss}`);
     await page.getByRole('button', { name: 'I had it' }).click();
     await expect(page.getByText('1 of 1 said the Palestinian way.')).toBeVisible();
     await expect

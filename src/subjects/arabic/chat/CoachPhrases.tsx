@@ -2,7 +2,8 @@ import { useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import type { ReviewGrade } from '../../../core/srs/scheduler.ts';
 import type { ArabicProgress } from '../progress.ts';
-import { lineInHebrew } from './innChat.ts';
+import { lineInHebrew, type Glossary } from './innChat.ts';
+import { Glosses } from './Glosses.tsx';
 
 // The Coach's phrases (ADR 0007, 0038): the tips you kept come back when they're due. You see
 // what you said and why it wasn't quite right, try to say it the Palestinian way, then check.
@@ -12,10 +13,13 @@ type Tip = ArabicProgress['chat']['tips'][number];
 export function CoachPhrases({
   api,
   tips,
+  glossary,
   onDone,
 }: {
   api: SubjectApi;
   tips: readonly Tip[];
+  /** Our glosses of the deck words you've met, shown under the better line. */
+  glossary: Glossary;
   onDone: () => void;
 }) {
   const [index, setIndex] = useState(0);
@@ -76,6 +80,7 @@ export function CoachPhrases({
           <p className="arabic__bubble-he" lang="he" dir="rtl">
             {lineInHebrew(tip.better)}
           </p>
+          <Glosses line={tip.better} glossary={glossary} />
           <p className="arabic__coach-why">{tip.why}</p>
           <div className="lesson__actions">
             <button type="button" className="lesson__plain" onClick={() => grade('again')}>
