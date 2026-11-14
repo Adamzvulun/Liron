@@ -87,6 +87,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:doing-words', 64],
       ['grammar:mit-words', 65],
       ['grammar:him-and-her-animals', 66],
+      ['grammar:trade-words', 67],
       ['grammar:sunrise', 68],
       ['grammar:hidden-t', 69],
       ['grammar:his-blood-is-light', 70],
