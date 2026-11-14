@@ -202,4 +202,10 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(speakerOf(first)).toBe(first.who);
     expect(aboutOf(first)).not.toContain('speak only for yourself');
   });
+
+  it('sends a regular’s milestones as shared memories once their trial is passed', () => {
+    expect(chatAsk(first, guest, []).memories).toEqual([]);
+    const passed = { ...guest, words: { ...guest.words, trials: [first.number] } };
+    expect(chatAsk(first, passed, []).memories).toEqual(first.milestones.slice(0, 3));
+  });
 });
