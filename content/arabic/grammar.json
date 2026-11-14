@@ -1141,6 +1141,21 @@
       }
     },
     {
+      "id": "grammar:muta-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 82,
+        "title": "mutaqáddim: the formal mit-",
+        "points": [
+          "The mit- words of chapter 65 have a formal twin with muta- in front. Words from books, news and school keep it: mutawássiʈ, intermediate; mutaqáddim, advanced.",
+          "So do some words for people: mutafárrij, a spectator; mutaʐāhir, a protester; mutadáyyin, religious.",
+          "Everyday words say mit-: mitʔáxxir, late; mitšáwwig, looking forward to."
+        ],
+        "examples": ["pcav:3304", "pcav:3305", "pcav:2383", "pcav:2831", "pcav:3180"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
