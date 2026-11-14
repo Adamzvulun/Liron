@@ -1324,6 +1324,22 @@
         ],
         "examples": ["pcav:0140", "pcav:0141", "pcav:0144", "pcav:0147", "pcav:0097", "pcav:0098"]
       }
+    },
+    {
+      "id": "grammar:last-and-never",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 96,
+        "title": "lisbū3 ilmāɖi, wála márra: the week that passed, not even once",
+        "points": [
+          "“Last” is the one that passed, after the word with il- on both (chapter 32): lisbū3 ilmāɖi, last week; iššáhir ilmāɖi, last month.",
+          "It takes -a after a feminine word: issána ilmāɖya, last year.",
+          "In talk you’ll also hear ílli fāt, “that went by”: iššáhir ílli fāt, last month.",
+          "wála márra, never, is word for word “not even once”, the same wála as wála íši, nothing (chapter 92): wála márra akált mlūxíyya, I’ve never eaten mulukhiyah."
+        ],
+        "examples": ["pcav:4124", "pcav:4157", "pcav:4191", "pcav:4370"]
+      }
     }
   ]
 }
