@@ -1,7 +1,10 @@
 import { SUBJECT_ID, type ReviewStatus, type SubjectApi, type SubjectInfo } from '../subject.ts';
 import type { StoredRating } from '../rating/ratings.ts';
 import type { Item, Lesson } from '../content/schema.ts';
-import { phaseOf, scheduleReview, type StoredCard } from '../srs/scheduler.ts';
+import { phaseOf, type StoredCard } from '../srs/grades.ts';
+
+/** ts-fsrs loads with the first review saved, not with the square (#137). */
+const loadScheduler = () => import('../srs/scheduler.ts');
 import { rateResult, toSkillRating } from '../rating/ratings.ts';
 import type { Award, ProgressStore, SessionWrite } from './store.ts';
 import type { ContentSource } from '../content/privateContent.ts';
@@ -176,10 +179,13 @@ export function subjectApi<State extends object>(
         minutes: Math.round(Math.min(minutes, MAX_MINUTES)),
         events: events.map(({ kind, count = 1 }) => ({ kind, count })),
       };
-      for (const { itemId, grade } of reviews) {
-        const review = scheduleReview(cards.get(itemId) ?? null, grade, at);
-        cards.set(itemId, review.card);
-        write.reviews.push({ itemId, review, reviewedAt: at });
+      if (reviews.length) {
+        const { scheduleReview } = await loadScheduler();
+        for (const { itemId, grade } of reviews) {
+          const review = scheduleReview(cards.get(itemId) ?? null, grade, at);
+          cards.set(itemId, review.card);
+          write.reviews.push({ itemId, review, reviewedAt: at });
+        }
       }
       for (const { skill, itemId, score, itemSeed } of results) {
         const skillItems = items.get(skill) ?? new Map<string, StoredRating>();
@@ -208,6 +214,7 @@ export function subjectApi<State extends object>(
     async recordReview(itemId, grade, at = new Date()) {
       checkItemId(itemId);
       const stored = (await store.reviewCards(id, [itemId])).get(itemId) ?? null;
+      const { scheduleReview } = await loadScheduler();
       const review = scheduleReview(stored, grade, at);
       await store.saveReview(id, itemId, review, at);
       return statusOf(review.card);

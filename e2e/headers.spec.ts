@@ -45,6 +45,12 @@ test('the live site’s security headers are complete and break nothing', async 
       'Permissions-Policy',
     ]),
   );
+  // Built files carry a hash in their name, so a browser may keep them for good (#137).
+  const assets = vercel.headers.find((h) => h.source === '/assets/(.*)');
+  expect(assets?.headers).toContainEqual({
+    key: 'Cache-Control',
+    value: 'public, max-age=31536000, immutable',
+  });
   const csp = HEADERS['Content-Security-Policy'] ?? '';
   expect(csp).toContain("script-src 'self'");
   expect(csp).not.toContain('unsafe-inline');

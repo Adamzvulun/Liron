@@ -1,22 +1,14 @@
-import { Suspense, useEffect, useRef } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
-import { Wardrobe } from './avatar/Wardrobe.tsx';
-import { AchievementWall } from './achievements/AchievementWall.tsx';
 import { City } from './city/City.tsx';
-import { HallBackdrop } from './city/HallBackdrop.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
-import { HOUSE_STAGE, paintHouse } from './city/paintHouse.ts';
-import { MARKET_STAGE, paintMarket } from './city/paintMarket.ts';
-import { NOTICE_WALL_STAGE, paintNoticeWall } from './city/paintNoticeWall.ts';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
 import { Link } from './Link.tsx';
 import { usePath } from './router.ts';
 import { chestShelf } from './player/chests.ts';
-import { ChestShelf } from './player/Chests.tsx';
-import { Market } from './player/Market.tsx';
 import { GoalReached } from './player/GoalReached.tsx';
 import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
@@ -29,6 +21,16 @@ import { privatePackVersion, supabaseContent } from './content/privateContent.ts
 import { functionPartner } from './partner.ts';
 import { functionSpeech } from './speech.ts';
 import './App.css';
+
+// The house, the market and the board load when you go there, not with the square (#137).
+const views = () => import('./placeViews.tsx');
+const Wardrobe = lazy(() => views().then((m) => ({ default: m.Wardrobe })));
+const AchievementWall = lazy(() => views().then((m) => ({ default: m.AchievementWall })));
+const Market = lazy(() => views().then((m) => ({ default: m.Market })));
+const ChestShelf = lazy(() => views().then((m) => ({ default: m.ChestShelf })));
+const HouseBackdrop = lazy(() => views().then((m) => ({ default: m.HouseBackdrop })));
+const MarketBackdrop = lazy(() => views().then((m) => ({ default: m.MarketBackdrop })));
+const BoardBackdrop = lazy(() => views().then((m) => ({ default: m.BoardBackdrop })));
 
 // The signed-in player. Subjects' APIs report awards to it (ADR 0019, 0020).
 const store = supabase ? supabaseStore(supabase) : null;
@@ -131,7 +133,9 @@ function Lobby({ player }: { player: Player }) {
             </Suspense>
           )}
           {place === 'board' && (
-            <HallBackdrop id="board" {...NOTICE_WALL_STAGE} paint={paintNoticeWall} />
+            <Suspense fallback={null}>
+              <BoardBackdrop />
+            </Suspense>
           )}
           {place === 'board' && state.today && (
             <div className="hud notice-board">
@@ -142,25 +146,37 @@ function Lobby({ player }: { player: Player }) {
                 contracts={state.contracts}
                 full
               />
-              <ChestShelf
-                shelf={chestShelf(state.chests, state.contracts, subjects)}
-                onOpen={player.openChest}
-              />
+              <Suspense fallback={null}>
+                <ChestShelf
+                  shelf={chestShelf(state.chests, state.contracts, subjects)}
+                  onOpen={player.openChest}
+                />
+              </Suspense>
             </div>
           )}
-          {place === 'market' && <HallBackdrop id="market" {...MARKET_STAGE} paint={paintMarket} />}
-          {place === 'market' && state.profile && (
-            <Market
-              stall={state.market}
-              look={state.profile.avatar}
-              gold={state.wallet?.gold ?? null}
-              onLoad={player.loadMarket}
-              onBuy={player.buy}
-            />
+          {place === 'market' && (
+            <Suspense fallback={null}>
+              <MarketBackdrop />
+            </Suspense>
           )}
-          {place === 'house' && <HallBackdrop id="house" {...HOUSE_STAGE} paint={paintHouse} />}
+          {place === 'market' && state.profile && (
+            <Suspense fallback={null}>
+              <Market
+                stall={state.market}
+                look={state.profile.avatar}
+                gold={state.wallet?.gold ?? null}
+                onLoad={player.loadMarket}
+                onBuy={player.buy}
+              />
+            </Suspense>
+          )}
+          {place === 'house' && (
+            <Suspense fallback={null}>
+              <HouseBackdrop />
+            </Suspense>
+          )}
           {place === 'house' && state.profile && (
-            <>
+            <Suspense fallback={null}>
               <Wardrobe
                 look={state.profile.avatar}
                 owned={state.profile.owned}
@@ -173,7 +189,7 @@ function Lobby({ player }: { player: Player }) {
                 onLoad={player.loadAchievements}
                 onWear={player.setTitle}
               />
-            </>
+            </Suspense>
           )}
         </PlaceScreen>
         {celebrations}

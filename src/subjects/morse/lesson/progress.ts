@@ -2,7 +2,7 @@
 // to it. Saved as the Morse subject's state (ADR 0019); the platform never looks inside.
 
 import { z } from 'zod';
-import { gradeFrom } from '../../../core/srs/scheduler.ts';
+import { gradeFrom } from '../../../core/srs/grades.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MORSE_CHARS } from '../code.ts';
 import { radioSchema } from '../qso/radio.ts';
