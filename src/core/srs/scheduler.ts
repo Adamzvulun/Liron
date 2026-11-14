@@ -1,23 +1,15 @@
 // The spaced-repetition scheduler (issue #21, ADR 0022): FSRS, through ts-fsrs.
 // Only this file imports ts-fsrs. Subjects grade answers; the platform decides when they return.
 import { createEmptyCard, fsrs, generatorParameters, Rating, type Card, type Grade } from 'ts-fsrs';
+import { PHASES, type ReviewGrade, type ReviewPhase, type StoredCard } from './grades.ts';
 
-/** How well the learner knew an item. Subjects map their own results onto these four. */
-export type ReviewGrade = 'again' | 'hard' | 'good' | 'easy';
-
-/**
- * A session's grade for one item from how many of its answers were right (code review,
- * 2026-11-04): all right is good, at least half is hard, fewer is again. One slip among many
- * right answers says the item is shaky, not forgotten, so it shouldn't reset the item.
- */
-export function gradeFrom(right: number, asked: number): ReviewGrade {
-  if (asked <= 0 || right <= 0) return 'again';
-  if (right >= asked) return 'good';
-  return right * 2 >= asked ? 'hard' : 'again';
-}
-
-/** Where an item is in learning. */
-export type ReviewPhase = 'new' | 'learning' | 'review' | 'relearning';
+export {
+  gradeFrom,
+  phaseOf,
+  type ReviewGrade,
+  type ReviewPhase,
+  type StoredCard,
+} from './grades.ts';
 
 const GRADES: Record<ReviewGrade, Grade> = {
   again: Rating.Again,
@@ -25,7 +17,6 @@ const GRADES: Record<ReviewGrade, Grade> = {
   good: Rating.Good,
   easy: Rating.Easy,
 };
-const PHASES: readonly ReviewPhase[] = ['new', 'learning', 'review', 'relearning'];
 
 /**
  * FSRS settings. 90% retention is FSRS's default and the usual target. Fuzz spreads items
@@ -34,9 +25,6 @@ const PHASES: readonly ReviewPhase[] = ['new', 'learning', 'review', 'relearning
  */
 export const SCHEDULER_SETTINGS = { request_retention: 0.9, enable_fuzz: true } as const;
 const scheduler = fsrs(generatorParameters(SCHEDULER_SETTINGS));
-
-/** A stored card: FSRS's state as plain JSON (dates as ISO strings). */
-export type StoredCard = Record<string, unknown>;
 
 /** One scheduled review, ready to save. */
 export interface ScheduledReview {
@@ -69,9 +57,4 @@ export function scheduleReview(
     card: toJson(result.card),
     log: toJson(result.log),
   };
-}
-
-/** The phase recorded in a stored card. */
-export function phaseOf(stored: StoredCard): ReviewPhase {
-  return PHASES[Number(stored.state)] ?? 'new';
 }
