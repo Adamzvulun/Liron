@@ -939,6 +939,21 @@
       }
     },
     {
+      "id": "grammar:people-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 58,
+        "title": "wazīr, wúzara: a plural for people",
+        "points": [
+          "Many words for people, with a long ī before the last letter, make their plural with u…a…a: wazīr → wúzara, ministers; raʔīs → rúʔasa, presidents; sajīn → sújana, prisoners.",
+          "Words you know take it too: zamīl → zúmala, coworkers; 3amīl → 3úmala, clients; fagīr → fúgara, the poor.",
+          "A few with a long ā in front take it as well: šā3ir → šú3ara, poets."
+        ],
+        "examples": ["pcav:2783", "pcav:2788", "pcav:2883", "pcav:1320", "pcav:1344"]
+      }
+    },
+    {
       "id": "grammar:verb-and-little-word",
       "subject": "arabic",
       "type": "grammar-card",
