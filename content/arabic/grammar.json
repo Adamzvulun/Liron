@@ -736,6 +736,21 @@
       }
     },
     {
+      "id": "grammar:school-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 41,
+        "title": "ibtidāʔi, i3dādi, sānawi: school words",
+        "points": [
+          "The three stages are -i words, short for a school of that kind: ibtidāʔi, elementary; i3dādi, middle; sānawi, high (in full, madrase ibtidāʔíyye and so on).",
+          "Two you already know from Hebrew: lōɧ, the board, is לוח; tārīx is history, and also a date, like תאריך.",
+          "A verb and its noun: náʈag, to pronounce, and núʈug, pronunciation. Plurals to learn whole: ɧarf, ɧrūf (letters); júmla, júmal (sentences); mādda, mawādd (subjects)."
+        ],
+        "examples": ["pcav:1457", "pcav:1498", "pcav:3340", "pcav:3338"]
+      }
+    },
+    {
       "id": "grammar:old-verbs-new-jobs",
       "subject": "arabic",
       "type": "grammar-card",
@@ -889,6 +904,21 @@
           "Some of these are old relatives: tá3lab is Hebrew’s שועל, fox, and ɖúfɖa3 is its צפרדע, frog."
         ],
         "examples": ["pcav:3750", "pcav:3790", "pcav:3789", "pcav:3815", "pcav:3767"]
+      }
+    },
+    {
+      "id": "grammar:two-ways-to-pray",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 51,
+        "title": "dá3a and ʂálla: two ways to pray",
+        "points": [
+          "Arabic has two verbs where Hebrew has להתפלל: dá3a is to ask God for something (a du3āʔ); ʂálla is to say the set prayers (a ʂalā).",
+          "-i makes a word “of” something: islāmi, Islamic; masīɧi, Christian, from ilmasīɧ, Christ; yahūdi, Jewish. With -íyya it names the faith: ilmasīɧíyya.",
+          "málik and málika are Hebrew מלך and מלכה. dīn, religion, shares its root with Hebrew דין, law and judgment."
+        ],
+        "examples": ["pcav:3183", "pcav:3236", "pcav:3213", "pcav:2487"]
       }
     },
     {
@@ -1126,6 +1156,21 @@
       }
     },
     {
+      "id": "grammar:trade-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 67,
+        "title": "tijāra, tijāri: trade and its -i",
+        "points": [
+          "agōra is borrowed from Hebrew אגורה: shekels and agorot are the money you pay with.",
+          "-i turns the thing into “of the thing”: tijāra, trade, and tijāri, commercial. The same -i is in māli, financial.",
+          "A verb and its noun: ʂánna3, to manufacture, and ʂinā3a, industry. tas3īra, a fixed price, comes from sí3ir, price (chapter 25)."
+        ],
+        "examples": ["pcav:2898", "pcav:2925", "pcav:2951", "pcav:2953"]
+      }
+    },
+    {
       "id": "grammar:sunrise",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1185,6 +1230,66 @@
           "rábaʈ ties more than shoes: rábaʈ grāftu, to tie one’s tie."
         ],
         "examples": ["pcav:0609", "pcav:0610", "pcav:0592", "pcav:0593", "pcav:0595", "pcav:0596"]
+      }
+    },
+    {
+      "id": "grammar:market-loans",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 72,
+        "title": "brōtīn, bāmya: words that travel",
+        "points": [
+          "Borrowed words keep their sound: brōtīn, protein; kāri, curry; kartōna, carton; blūberi, blueberries. basʈírma is Hebrew’s פסטרמה too.",
+          "Hebrew uses some of the same words: bāmya, okra, is במיה, and mlūxxíyya is מלוחיה.",
+          "nuʂʂ is both half and the middle: gáʈʈa3 bi-nnúʂʂ, to cut in half, is “cut in the middle”."
+        ],
+        "examples": ["pcav:1217", "pcav:1126", "pcav:1263", "pcav:0809"]
+      }
+    },
+    {
+      "id": "grammar:kings-and-courts",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 73,
+        "title": "mámlaka, ɧákam: roots you know from Hebrew",
+        "points": [
+          "mámlaka, kingdom, is Hebrew ממלכה, from the root of málik, king.",
+          "ɧákam shares its root with Hebrew חכם, wise. In Arabic the root rules and judges: ɧákam, to govern; inɧákam 3alē, to be sentenced.",
+          "gátil is murder and gātil is the murderer: the long ā marks the doer (chapter 53). -íyya names the system and -i its adjective: dīmuqrāʈíyya, dīmuqrāʈi."
+        ],
+        "examples": ["pcav:2793", "pcav:2850", "pcav:2815", "pcav:2879"]
+      }
+    },
+    {
+      "id": "grammar:war-and-peace",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 74,
+        "title": "ɧass iɧsās ɧílu: feel a good feeling",
+        "points": [
+          "salām is Hebrew שלום. ɧarb, war, shares its root with Hebrew חרב, a sword.",
+          "To feel good is ɧass iɧsās ɧílu, “felt a good feeling”: the verb with its own noun after it. To feel bad is ɧass b-ʔiɧsās bíši3.",
+          "Long verbs have long nouns: infijār, explosion; iɧtilāl, occupation; ittifāg, agreement; intiqād, criticism."
+        ],
+        "examples": ["pcav:2997", "pcav:2996", "pcav:3058", "pcav:3015"]
+      }
+    },
+    {
+      "id": "grammar:faith-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 75,
+        "title": "nábi, malāk, rōɧ: faith words Hebrew shares",
+        "points": [
+          "Many faith words are Hebrew’s too: nábi, נביא; malāk, מלאך; rōɧ, רוח; šīʈān, שטן.",
+          "ijjánna, Heaven, is “the garden”, the same root as Hebrew גן, as in גן עדן.",
+          "-íyya names a faith and -i an adjective or a follower: ilyahūdíyya, Judaism; būdi, Buddhist; dīni, religious (of religion). A religious person is mutadáyyin."
+        ],
+        "examples": ["pcav:3191", "pcav:3193", "pcav:3186", "pcav:3180"]
       }
     },
     {
@@ -1264,6 +1369,21 @@
       }
     },
     {
+      "id": "grammar:long-vowel-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 81,
+        "title": "ʂarʂūr, ʂarāʂīr: more four-letter plurals",
+        "points": [
+          "Four-letter words take the plural of chapter 50: qúndus, qanādis; láqlaq, laqāliq; máxlab, maxālib.",
+          "And as with dulfīn, a long vowel before the last letter stays long, as ī: ʂarʂūr, ʂarāʂīr; barɣūt, barāɣīt; dabbūr, dabābīr; jāmūsa, jawāmīs.",
+          "kárma, a vine, shares its root with Hebrew כרם, a vineyard."
+        ],
+        "examples": ["pcav:3746", "pcav:3802", "pcav:3818", "pcav:3862"]
+      }
+    },
+    {
       "id": "grammar:muta-words",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1338,6 +1458,21 @@
           "You don’t have to say both. Know the second one when you hear it, and keep saying the one you like."
         ],
         "examples": ["pcav:1369", "pcav:0709", "pcav:0035", "pcav:2555", "pcav:2457"]
+      }
+    },
+    {
+      "id": "grammar:second-words-roots",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 87,
+        "title": "kāhin, gaʂʂ: second words with Hebrew roots",
+        "points": [
+          "Some second words are easy for a Hebrew speaker: kāhin, priest, is כהן; ilāh, a god, is אלוה; gaʂʂ, to cut, shares its root with קיצץ.",
+          "A noun you know can give a verb: zamb, sin (chapter 75), and áznab, to sin.",
+          "ma3gūl, reasonable or likely, has the root of 3ágil, mind (chapter 34), in the done-to shape (chapter 53): what the mind accepts."
+        ],
+        "examples": ["pcav:3254", "pcav:4588", "pcav:3199", "pcav:4749"]
       }
     },
     {
@@ -1465,6 +1600,21 @@
       }
     },
     {
+      "id": "grammar:two-word-places",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 95,
+        "title": "máktab barīd, makātib barīd: two-word names",
+        "points": [
+          "Many places are two words side by side, as in chapter 33: márkaz šúrʈa, police station; maɧáʈʈit bāʂāt, bus station; ɣúrfit nōm, bedroom.",
+          "In the plural only the first word changes: máktab barīd, makātib barīd, post offices.",
+          "When the second word is an adjective, it changes too: márkaz tijāri, marākiz tijāríyya, shopping malls. A plural of things takes the adjective with -a."
+        ],
+        "examples": ["pcav:2011", "pcav:2012", "pcav:1838", "pcav:2178"]
+      }
+    },
+    {
       "id": "grammar:front-and-back",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1527,6 +1677,66 @@
       }
     },
     {
+      "id": "grammar:boiled-and-curly",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 100,
+        "title": "maslūg, mjá33ad: what was done to it",
+        "points": [
+          "The kitchen speaks in the done-to shape (chapter 30): bēɖ maslūg, boiled eggs; bēɖ maxfūg, scrambled; bēɖ mágli, fried; láɧma mafrūma, minced meat.",
+          "A doubled-middle verb’s done-to word has m- and an a (chapter 53): mdáwwar, round; mjá33ad, curly.",
+          "With an i it’s the doer: mujáffifit ilɣasīl, the clothes dryer, “the one that dries”."
+        ],
+        "examples": ["pcav:1222", "pcav:1223", "pcav:0367", "pcav:0643"]
+      }
+    },
+    {
+      "id": "grammar:written-and-yearly",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 101,
+        "title": "kitābi, dirāsíyya: -i and -íyya",
+        "points": [
+          "An -i adjective follows its noun: imtiɧān kitābi, a written exam; imtiɧān šáfawi, an oral one.",
+          "After a noun with -a, -i becomes -íyya: sána dirāsíyya, a school year; qā3ida naɧawíyya, a grammar rule. Hebrew does the same with -i and -it: אקדמי, אקדמית.",
+          "lúɣa ʔumm, native language, is “mother language”, like Hebrew שפת אם."
+        ],
+        "examples": ["pcav:1524", "pcav:1556", "pcav:3359", "pcav:3272"]
+      }
+    },
+    {
+      "id": "grammar:map-pictures",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 102,
+        "title": "guddamāni, šíbih jazīra: front glass, nearly an island",
+        "points": [
+          "-āni makes a word for where it sits: guddām, in front (chapter 6), gives guddamāni, front: gzāz guddamāni, the windshield; ɖaww guddamāni, a headlight.",
+          "Map words are pictures: šíbih jazīra, a peninsula, is “like an island” (Hebrew says half an island, חצי אי); nāʈaɧit saɧāb, a skyscraper, is “the one that butts the clouds”.",
+          "xaʈʈ ilʔistiwāʔ, the equator, is “the line of evenness”, like Hebrew קו המשווה."
+        ],
+        "examples": ["pcav:1914", "pcav:3553", "pcav:2028", "pcav:3587"]
+      }
+    },
+    {
+      "id": "grammar:picture-sweets",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 103,
+        "title": "šá3ar ilbanāt: names that are pictures",
+        "points": [
+          "Sweets and nuts with picture names: šá3ar ilbanāt, cotton candy, is “girls’ hair” (Hebrew says grandma’s hair, שערות סבתא); 3ēn iljámal, a walnut, is “the camel’s eye”.",
+          "A kind of show is barnāmij and what it’s made of: barnāmij musābagāt, a game show, “a program of contests”; barnāmij ɧiwāri, a talk show.",
+          "A kind of film is fílim and its kind: fílim waŧāʔiqi, a documentary; fílim iŧāra, a thriller."
+        ],
+        "examples": ["pcav:1095", "pcav:1175", "pcav:2261", "pcav:2257"]
+      }
+    },
+    {
       "id": "grammar:feelings-and-little-words",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1543,6 +1753,21 @@
       }
     },
     {
+      "id": "grammar:horse-tail",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 105,
+        "title": "dēl liɧʂān, áɧwal: pictures and looks",
+        "points": [
+          "Things around the house and body are pictures too: dēl liɧʂān, a ponytail, is “the horse’s tail”, like Hebrew זנב סוס; wíjih mxádda, a pillowcase, is “the pillow’s face”; muftāɧ inglīzi, a wrench, is an “English key”, as in Hebrew מפתח אנגלי.",
+          "áɧwal, cross-eyed, has the shape of áɧmar (chapter 37): ɧōla for a woman, ɧíwil for several.",
+          "b-sābi3 nōma, in a deep sleep, is “in the seventh sleep”."
+        ],
+        "examples": ["pcav:0375", "pcav:0848", "pcav:0950", "pcav:0277"]
+      }
+    },
+    {
       "id": "grammar:decades",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1555,6 +1780,52 @@
           "bi- or fi- in front means “in”: bi-ttamānīnāt, in the eighties."
         ],
         "examples": ["pcav:4198", "pcav:0028"]
+      }
+    },
+    {
+      "id": "grammar:prayer-times",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 107,
+        "title": "ʂalāt ilfájir: the prayers by name",
+        "points": [
+          "ʂalā shows its t before the next word, as in chapter 33: ʂalāt ilfájir, the dawn prayer; ʂalāt ilmáɣrib, the sunset prayer; ʂalāt il3íša, the evening prayer.",
+          "máɣrib, sunset, shares its root with Hebrew ערב, evening, and מערב, west.",
+          "Cheeses take the -i of a place: jíbna sʈanbūli, Istanbul cheese; jíbna rūmi, from Rūm, the old name for the Byzantine lands."
+        ],
+        "examples": ["pcav:3238", "pcav:3243", "pcav:3244", "pcav:1081"]
+      }
+    },
+    {
+      "id": "grammar:river-horse",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 108,
+        "title": "fáras náhir: the river horse",
+        "points": [
+          "fáras náhir, a hippopotamus, is “river horse”, just as the Greek name says; waɧīd ilqárn, a rhinoceros, is “the one-horned”, and qárn is Hebrew קרן.",
+          "The -i of a place again: qúʈb, a pole, gives dubb qúʈbi, a polar bear.",
+          "Numbers have names for their jobs: 3ádad áʂli, a cardinal number, “a number of origin”; 3ádad tartībi, an ordinal, “a number of order”. Fractions say the count, then the part: talt xmās, three fifths."
+        ],
+        "examples": ["pcav:3752", "pcav:3760", "pcav:3758", "pcav:4071"]
+      }
+    },
+    {
+      "id": "grammar:names-of-the-land",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 109,
+        "title": "bīr issábi3, bālak: the land and the moment",
+        "points": [
+          "Some names are the same in Hebrew: bīr issábi3 is באר שבע, “the well of seven”; ʈabaríyya is טבריה.",
+          "bālak, “your mind”, asks what someone thinks: bālak ɧatmáʈʈir? Do you think it’ll rain?",
+          "The weather in degrees: b-nuʂʂ il3išrīn, in the mid-twenties, “in the half of the twenties”; b-ʔāxir il3išrīn, “at the end of the twenties”.",
+          "Kind words for the moment: na3ēman after a bath; taqábbal allāh after a prayer; mabrūk ilʔiftitāɧ for a new shop."
+        ],
+        "examples": ["pcav:3540", "pcav:3722", "pcav:3651", "pcav:4813"]
       }
     }
   ]
