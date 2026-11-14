@@ -25,6 +25,13 @@ test.describe('Sit and talk at the inn (E17)', () => {
       await route.fulfill({ json: { text, left: 59 - asked.length } });
     });
     const calls: SubjectCall[] = [];
+    const events: string[][] = [];
+    page.on('request', (r) => {
+      if (r.url().includes('/rpc/save_session')) {
+        const body = r.postDataJSON() as { p_events?: { kind: string }[] };
+        events.push((body.p_events ?? []).map((e) => e.kind));
+      }
+    });
     await signedIn(page, [], calls, GUEST);
     await page.goto('/caravanserai?open=chat');
 
@@ -72,6 +79,8 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await page.getByRole('button', { name: 'Leave the table' }).click();
     await expect(page.getByText('+10 XP')).toBeVisible();
     await expect.poll(() => calls.some((c) => c.rpc === 'save_subject_state')).toBe(true);
+    // The contract's event, and the first chat with this regular (migration 20261209000000).
+    expect(events[0]).toEqual(['inn-chat', 'inn-regular']);
     const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
       p_state: { chat: { name: string; told: Record<string, string[]>; chats: number } };
     };

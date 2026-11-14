@@ -100,6 +100,19 @@
         "gold": 15,
         "text": "Shadow 5 sentences at the echo well"
       }
+    },
+    {
+      "id": "arabic-chat",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "inn-chat",
+        "target": 1,
+        "gold": 15,
+        "text": "Sit and talk with a regular at the inn",
+        "requires": "inn-chat"
+      }
     }
   ]
 }
