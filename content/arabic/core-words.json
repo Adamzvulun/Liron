@@ -14269,6 +14269,402 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:107",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 107,
+        "title": "The deli, the gym, and the day's prayers",
+        "theme": "Cheeses and dishes by name, the machines at the gym, the prayers of the day, and a few words from the news",
+        "words": [
+          {
+            "deck": "pcav:1077",
+            "gloss": "Areesh cheese (like cottage cheese)"
+          },
+          {
+            "deck": "pcav:1078",
+            "gloss": "cheddar cheese"
+          },
+          {
+            "deck": "pcav:1080",
+            "gloss": "halloumi cheese"
+          },
+          {
+            "deck": "pcav:1081",
+            "gloss": "Istanbuli cheese (like feta)"
+          },
+          {
+            "deck": "pcav:1082",
+            "gloss": "Romy cheese (sharp and hard)"
+          },
+          {
+            "deck": "pcav:1066",
+            "gloss": "dairy products"
+          },
+          {
+            "deck": "pcav:1103",
+            "gloss": "luqmat al-qadi (syrupy fried dough balls)"
+          },
+          {
+            "deck": "pcav:1176",
+            "gloss": "mixed nuts"
+          },
+          {
+            "deck": "pcav:1182",
+            "gloss": "chives"
+          },
+          {
+            "deck": "pcav:1190",
+            "gloss": "rosemary"
+          },
+          {
+            "deck": "pcav:1202",
+            "gloss": "soy sauce"
+          },
+          {
+            "deck": "pcav:1219",
+            "gloss": "egg yolk"
+          },
+          {
+            "deck": "pcav:1234",
+            "gloss": "chicken fillet"
+          },
+          {
+            "deck": "pcav:1264",
+            "gloss": "orzo soup"
+          },
+          {
+            "deck": "pcav:1276",
+            "gloss": "spleen sandwich"
+          },
+          {
+            "deck": "pcav:1280",
+            "gloss": "ful medames (stewed fava beans)"
+          },
+          {
+            "deck": "pcav:1063",
+            "gloss": "tipsy"
+          },
+          {
+            "deck": "pcav:2593",
+            "gloss": "elliptical trainer"
+          },
+          {
+            "deck": "pcav:2586",
+            "gloss": "weight machine"
+          },
+          {
+            "deck": "pcav:2594",
+            "gloss": "stationary bike"
+          },
+          {
+            "deck": "pcav:2584",
+            "gloss": "free weights"
+          },
+          {
+            "deck": "pcav:2540",
+            "gloss": "(It's tied) three all."
+          },
+          {
+            "deck": "pcav:2560",
+            "gloss": "Is there a contract?"
+          },
+          {
+            "deck": "pcav:3238",
+            "gloss": "the dawn prayer"
+          },
+          {
+            "deck": "pcav:3243",
+            "gloss": "the sunset prayer"
+          },
+          {
+            "deck": "pcav:3244",
+            "gloss": "the evening prayer"
+          },
+          {
+            "deck": "pcav:3373",
+            "gloss": "the present tense"
+          },
+          {
+            "deck": "pcav:2055",
+            "gloss": "mortgage"
+          },
+          {
+            "deck": "pcav:2827",
+            "gloss": "a summit (meeting)"
+          },
+          {
+            "deck": "pcav:2867",
+            "gloss": "the prosecutor"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:108",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 108,
+        "title": "Wild things, far places, and fine points",
+        "theme": "Big animals and trees, the oceans and the poles, measures and numbers, and a few odd words of town life",
+        "words": [
+          {
+            "deck": "pcav:3752",
+            "gloss": "hippopotamus"
+          },
+          {
+            "deck": "pcav:3760",
+            "gloss": "rhinoceros"
+          },
+          {
+            "deck": "pcav:3758",
+            "gloss": "polar bear"
+          },
+          {
+            "deck": "pcav:3799",
+            "gloss": "beehive"
+          },
+          {
+            "deck": "pcav:3825",
+            "gloss": "feeler (of an insect)"
+          },
+          {
+            "deck": "pcav:3740",
+            "gloss": "leash"
+          },
+          {
+            "deck": "pcav:3842",
+            "gloss": "oak tree"
+          },
+          {
+            "deck": "pcav:3844",
+            "gloss": "pine tree"
+          },
+          {
+            "deck": "pcav:3847",
+            "gloss": "willow tree"
+          },
+          {
+            "deck": "pcav:3846",
+            "gloss": "sycamore tree"
+          },
+          {
+            "deck": "pcav:3845",
+            "gloss": "royal poinciana tree"
+          },
+          {
+            "deck": "pcav:3859",
+            "gloss": "violet"
+          },
+          {
+            "deck": "pcav:3881",
+            "gloss": "fuchsia"
+          },
+          {
+            "deck": "pcav:3583",
+            "gloss": "the Pacific Ocean"
+          },
+          {
+            "deck": "pcav:3584",
+            "gloss": "the Atlantic Ocean"
+          },
+          {
+            "deck": "pcav:3588",
+            "gloss": "the tropics"
+          },
+          {
+            "deck": "pcav:3638",
+            "gloss": "the North Pole"
+          },
+          {
+            "deck": "pcav:3713",
+            "gloss": "dust devil"
+          },
+          {
+            "deck": "pcav:3928",
+            "gloss": "cubic meter"
+          },
+          {
+            "deck": "pcav:3969",
+            "gloss": "cardinal number"
+          },
+          {
+            "deck": "pcav:4051",
+            "gloss": "ordinal number"
+          },
+          {
+            "deck": "pcav:4071",
+            "gloss": "three fifths"
+          },
+          {
+            "deck": "pcav:2461",
+            "gloss": "guitar string"
+          },
+          {
+            "deck": "pcav:2462",
+            "gloss": "piano keys"
+          },
+          {
+            "deck": "pcav:1825",
+            "gloss": "(phone) receiver"
+          },
+          {
+            "deck": "pcav:1748",
+            "gloss": "to get one's teeth whitened"
+          },
+          {
+            "deck": "pcav:2814",
+            "gloss": "presidential term"
+          },
+          {
+            "deck": "pcav:0150",
+            "gloss": "orphanage"
+          },
+          {
+            "deck": "pcav:0227",
+            "gloss": "pseudonym"
+          },
+          {
+            "deck": "pcav:1595",
+            "gloss": "thesis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:109",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 109,
+        "title": "The land, the weather, and kind words",
+        "theme": "Cities, seas and holy places of the land, the Americas, the weather in degrees, and a few kind words for the right moment",
+        "words": [
+          {
+            "deck": "pcav:3532",
+            "gloss": "Ramallah"
+          },
+          {
+            "deck": "pcav:3540",
+            "gloss": "Beersheba"
+          },
+          {
+            "deck": "pcav:3523",
+            "gloss": "Deir al-Balah"
+          },
+          {
+            "deck": "pcav:3524",
+            "gloss": "Khan Younis"
+          },
+          {
+            "deck": "pcav:3520",
+            "gloss": "the Gaza Strip"
+          },
+          {
+            "deck": "pcav:3526",
+            "gloss": "the West Bank"
+          },
+          {
+            "deck": "pcav:3546",
+            "gloss": "the Mediterranean Sea"
+          },
+          {
+            "deck": "pcav:3549",
+            "gloss": "Lake Tiberias"
+          },
+          {
+            "deck": "pcav:3541",
+            "gloss": "al-Aqsa Mosque"
+          },
+          {
+            "deck": "pcav:3542",
+            "gloss": "the Dome of the Rock"
+          },
+          {
+            "deck": "pcav:3543",
+            "gloss": "the Church of the Holy Sepulchre"
+          },
+          {
+            "deck": "pcav:3545",
+            "gloss": "the Church of the Nativity"
+          },
+          {
+            "deck": "pcav:3510",
+            "gloss": "the United States"
+          },
+          {
+            "deck": "pcav:3565",
+            "gloss": "North America"
+          },
+          {
+            "deck": "pcav:3566",
+            "gloss": "South America"
+          },
+          {
+            "deck": "pcav:3676",
+            "gloss": "The sky is clear."
+          },
+          {
+            "deck": "pcav:3653",
+            "gloss": "It's about thirty (degrees)."
+          },
+          {
+            "deck": "pcav:3651",
+            "gloss": "in the mid-twenties (degrees)"
+          },
+          {
+            "deck": "pcav:3652",
+            "gloss": "in the high twenties (degrees)"
+          },
+          {
+            "deck": "pcav:3722",
+            "gloss": "Do you think it's going to rain?"
+          },
+          {
+            "deck": "pcav:3714",
+            "gloss": "the eye of the storm"
+          },
+          {
+            "deck": "pcav:4028",
+            "gloss": "calculator"
+          },
+          {
+            "deck": "pcav:2784",
+            "gloss": "prime minister"
+          },
+          {
+            "deck": "pcav:1301",
+            "gloss": "part-time"
+          },
+          {
+            "deck": "pcav:0510",
+            "gloss": "to get fat"
+          },
+          {
+            "deck": "pcav:0866",
+            "gloss": "to have a nightmare"
+          },
+          {
+            "deck": "pcav:3808",
+            "gloss": "The child has head lice."
+          },
+          {
+            "deck": "pcav:4813",
+            "gloss": "(said to someone fresh from a shower)"
+          },
+          {
+            "deck": "pcav:4802",
+            "gloss": "(said to someone who has just prayed)"
+          },
+          {
+            "deck": "pcav:4794",
+            "gloss": "Congratulations on the opening!"
+          }
+        ]
+      }
     }
   ]
 }

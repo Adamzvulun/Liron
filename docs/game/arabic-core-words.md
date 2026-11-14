@@ -329,6 +329,27 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 105 | The landlord, the bed, and the body |
 | 106 | Family, public life, and punctuation |
 
+- **Words 3,181–3,210 (2026-11-14): the deli, the gym and the day's prayers.** Cheeses and dishes by name (*Areesh*, *cheddar*, *halloumi*, *Istanbuli*, *Romy*, *luqmat al-qadi*, *orzo soup*, *spleen sandwich*, *ful medames*), *dairy products*, *mixed nuts*, *chives*, *rosemary*, *soy sauce*, *egg yolk*, *chicken fillet*, *tipsy*; the gym (*elliptical trainer*, *weight machine*, *stationary bike*, *free weights*, *Is there a contract?*, *three all*); three of the day's prayers by name (dawn, sunset, evening), *the present tense*, *mortgage*, *summit*, *the prosecutor*.
+  - **Left out on purpose:** the noon and afternoon prayers, *the past* and *future tense* (each a taught word after *prayer* or *tense*), *Domiati cheese* ("white cheese"), *egg white*, *vegetable soup*, *rice pudding* ("rice with milk"), the nets, courts and clubs of each sport, and *Welcome back from the hajj!* in its second form. All 30 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 107 | The deli, the gym, and the day's prayers |
+
+- **Words 3,211–3,240 (2026-11-14): wild things, far places and fine points.** Big animals (*hippopotamus*, *rhinoceros*, *polar bear*), *beehive*, an insect's *feeler*, *leash*; five trees (*oak*, *pine*, *willow*, *sycamore*, *royal poinciana*), *violet*, *fuchsia*; *the Pacific* and *the Atlantic Ocean*, *the tropics*, *the North Pole*, *dust devil*; *cubic meter*, *cardinal* and *ordinal number*, *three fifths*; *guitar string*, *piano keys*, the phone's *receiver*, *to get one's teeth whitened*, *presidential term*, *orphanage*, *pseudonym*, *thesis*.
+  - **Left out on purpose:** *the Arctic* (the deck gives it the same Arabic as *the North Pole*). *The Indian Ocean*, *the South Pole*, *square meter* and *the eye of the storm* stay in the list for a later chapter. All 30 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 108 | Wild things, far places, and fine points |
+
+- **Words 3,241–3,270 (2026-11-14): the land, the weather, and kind words.** Cities and places of the land (*Ramallah*, *Beersheba*, *Deir al-Balah*, *Khan Younis*, *the Gaza Strip*, *the West Bank*, *the Mediterranean*, *Lake Tiberias*), four holy places (*al-Aqsa Mosque*, *the Dome of the Rock*, *the Church of the Holy Sepulchre*, *the Church of the Nativity*), *the United States*, *North* and *South America*; the weather report (*The sky is clear.*, *about thirty*, *in the mid-* and *high twenties*, *Do you think it's going to rain?*, *the eye of the storm*); *calculator*, *prime minister*, *part-time*, *to get fat*, *to have a nightmare*, *The child has head lice.*; and three kind words for the moment: *na3ēman* after a bath, *taqábbal allāh* after a prayer, and *Congratulations on the opening!*
+  - **Left out on purpose:** taught words put together (*the Dead Sea*, *Mount Hebron*, *Wadi Gaza*, *Salah al-Din Street*, the four in-between compass points, *the Indian Ocean*, *the South Pole*, *square meter*, *sea lion*, *sweet potato*, *peanut butter*, *window seat*). All 30 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 109 | The land, the weather, and kind words |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
