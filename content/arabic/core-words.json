@@ -12539,6 +12539,271 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:94",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 94,
+        "title": "Cousins, names, and what people ask",
+        "theme": "The cousins and names, the questions people ask when they meet, and the answers to them",
+        "words": [
+          {
+            "deck": "pcav:0140",
+            "gloss": "cousin (your father's brother's son)"
+          },
+          {
+            "deck": "pcav:0141",
+            "gloss": "cousin (your father's brother's daughter)"
+          },
+          {
+            "deck": "pcav:0144",
+            "gloss": "cousin (your mother's brother's son)"
+          },
+          {
+            "deck": "pcav:0147",
+            "gloss": "cousin (your mother's sister's daughter)"
+          },
+          {
+            "deck": "pcav:0097",
+            "gloss": "older brother"
+          },
+          {
+            "deck": "pcav:0098",
+            "gloss": "younger sister"
+          },
+          {
+            "deck": "pcav:0187",
+            "gloss": "single, not married"
+          },
+          {
+            "deck": "pcav:0217",
+            "gloss": "last name"
+          },
+          {
+            "deck": "pcav:0218",
+            "gloss": "full name"
+          },
+          {
+            "deck": "pcav:3412",
+            "gloss": "I'm Palestinian."
+          },
+          {
+            "deck": "pcav:0090",
+            "gloss": "Do you have children?"
+          },
+          {
+            "deck": "pcav:1377",
+            "gloss": "What do you do? (for work)"
+          },
+          {
+            "deck": "pcav:1812",
+            "gloss": "What's your number?"
+          },
+          {
+            "deck": "pcav:3060",
+            "gloss": "How do you feel?"
+          },
+          {
+            "deck": "pcav:3129",
+            "gloss": "What are your hobbies?"
+          },
+          {
+            "deck": "pcav:3028",
+            "gloss": "Do you remember me?"
+          },
+          {
+            "deck": "pcav:3026",
+            "gloss": "What are you thinking about?"
+          },
+          {
+            "deck": "pcav:4718",
+            "gloss": "Are you free tomorrow?"
+          },
+          {
+            "deck": "pcav:4770",
+            "gloss": "What's up?"
+          },
+          {
+            "deck": "pcav:4313",
+            "gloss": "Why are you late?"
+          },
+          {
+            "deck": "pcav:1646",
+            "gloss": "What's wrong?"
+          },
+          {
+            "deck": "pcav:2497",
+            "gloss": "Do you like sports?"
+          },
+          {
+            "deck": "pcav:2657",
+            "gloss": "Do you know how to swim?"
+          },
+          {
+            "deck": "pcav:4251",
+            "gloss": "What time do you get up?"
+          },
+          {
+            "deck": "pcav:1600",
+            "gloss": "to be good at"
+          },
+          {
+            "deck": "pcav:1647",
+            "gloss": "I'm sick."
+          },
+          {
+            "deck": "pcav:4703",
+            "gloss": "I'm ready!"
+          },
+          {
+            "deck": "pcav:4775",
+            "gloss": "Have a nice day!"
+          },
+          {
+            "deck": "pcav:1290",
+            "gloss": "Thank you for the meal. (said in someone's home)"
+          },
+          {
+            "deck": "pcav:4817",
+            "gloss": "May your table always be full. (to someone who has eaten)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:95",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 95,
+        "title": "Around town and at home",
+        "theme": "The bedroom and the bathroom things, the places in town, travel tickets and rooms",
+        "words": [
+          {
+            "deck": "pcav:0838",
+            "gloss": "bedroom"
+          },
+          {
+            "deck": "pcav:0921",
+            "gloss": "to brush your teeth"
+          },
+          {
+            "deck": "pcav:0922",
+            "gloss": "toothbrush"
+          },
+          {
+            "deck": "pcav:0923",
+            "gloss": "toothpaste"
+          },
+          {
+            "deck": "pcav:0885",
+            "gloss": "to get up, get out of bed"
+          },
+          {
+            "deck": "pcav:0730",
+            "gloss": "wall clock"
+          },
+          {
+            "deck": "pcav:0897",
+            "gloss": "desk"
+          },
+          {
+            "deck": "pcav:0561",
+            "gloss": "handbag"
+          },
+          {
+            "deck": "pcav:0578",
+            "gloss": "sweater"
+          },
+          {
+            "deck": "pcav:0665",
+            "gloss": "sunglasses"
+          },
+          {
+            "deck": "pcav:1025",
+            "gloss": "mineral water"
+          },
+          {
+            "deck": "pcav:1142",
+            "gloss": "green salad"
+          },
+          {
+            "deck": "pcav:1838",
+            "gloss": "bus stop"
+          },
+          {
+            "deck": "pcav:2756",
+            "gloss": "bus station"
+          },
+          {
+            "deck": "pcav:2735",
+            "gloss": "train station"
+          },
+          {
+            "deck": "pcav:2012",
+            "gloss": "post office"
+          },
+          {
+            "deck": "pcav:2011",
+            "gloss": "police station"
+          },
+          {
+            "deck": "pcav:2013",
+            "gloss": "supermarket"
+          },
+          {
+            "deck": "pcav:2178",
+            "gloss": "shopping mall"
+          },
+          {
+            "deck": "pcav:2073",
+            "gloss": "ATM"
+          },
+          {
+            "deck": "pcav:2672",
+            "gloss": "passport"
+          },
+          {
+            "deck": "pcav:2736",
+            "gloss": "one-way ticket"
+          },
+          {
+            "deck": "pcav:2737",
+            "gloss": "round-trip ticket"
+          },
+          {
+            "deck": "pcav:2764",
+            "gloss": "a single room"
+          },
+          {
+            "deck": "pcav:2767",
+            "gloss": "How much is it per night?"
+          },
+          {
+            "deck": "pcav:2217",
+            "gloss": "a table for two"
+          },
+          {
+            "deck": "pcav:2122",
+            "gloss": "pencil",
+            "sentence": "pcav:4531"
+          },
+          {
+            "deck": "pcav:1776",
+            "gloss": "wifi"
+          },
+          {
+            "deck": "pcav:3734",
+            "gloss": "pet"
+          },
+          {
+            "deck": "pcav:3270",
+            "gloss": "foreign language"
+          }
+        ]
+      }
     }
   ]
 }
