@@ -1406,6 +1406,21 @@
       }
     },
     {
+      "id": "grammar:too-much",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 98,
+        "title": "zyāda 3an illuzūm, wála wāɧad: too much, and not one",
+        "points": [
+          "“Too” is zyāda 3an illuzūm, more than is needed, after the describing word: iššāy ɧílu zyāda 3an illuzūm, the tea is too sweet.",
+          "In talk, ktīr often does the job: kbīr ktīr is very big, or too big. Which one is meant comes from the moment.",
+          "wála wāɧad min is not one of, none of, the same wála as wála íši, nothing (chapter 92): wála wāɧad min ʂɧābi ʔíja, none of my friends came."
+        ],
+        "examples": ["pcav:4388", "pcav:3945"]
+      }
+    },
+    {
       "id": "grammar:ago-and-from-now",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1418,6 +1433,21 @@
           "yōm bá3id yōm, word for word “a day after a day”, means every other day. yōm āh yōm la, “a day yes, a day no”, says the same."
         ],
         "examples": ["pcav:4087", "pcav:4194", "pcav:4108"]
+      }
+    },
+    {
+      "id": "grammar:decades",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 106,
+        "title": "ittamānīnāt, ilxamsīnāt: decades, and an age",
+        "points": [
+          "Put -āt on a tens number and you get its decade: tamānīn, eighty → ittamānīnāt, the eighties (chapter 51); xamsīn, fifty → ilxamsīnāt, the fifties.",
+          "The same word gives a person’s age: abūy fi -lxamsīnāt, my father is in his fifties.",
+          "bi- or fi- in front means “in”: bi-ttamānīnāt, in the eighties."
+        ],
+        "examples": ["pcav:4198", "pcav:0028"]
       }
     }
   ]
