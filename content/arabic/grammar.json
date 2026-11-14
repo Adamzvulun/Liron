@@ -674,6 +674,22 @@
       }
     },
     {
+      "id": "grammar:colors-and-looks",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 37,
+        "title": "áɧmar, ɧámra: colors and looks",
+        "points": [
+          "Colors and how someone looks share one shape, with a- in front: áɧmar, red; ásmar, dark-skinned; á3ma, blind; áʂla3, bald.",
+          "For a woman or a feminine thing, the a- goes and -a comes at the end: ɧámra, sámra, 3ámya. For several: ɧúmur, súmur, 3imyān.",
+          "It follows the word it describes: šá3arha ášgar, her hair is blond, since šá3ar, hair, is masculine.",
+          "Hebrew gives these a shape of their own too: עִוֵּר, blind; אִלֵּם, mute."
+        ],
+        "examples": ["pcav:3877", "pcav:0278", "pcav:0402", "pcav:0372", "pcav:0361"]
+      }
+    },
+    {
       "id": "grammar:hungry",
       "subject": "arabic",
       "type": "grammar-card",
@@ -686,6 +702,69 @@
           "The past of that verb says how you are now: šbí3it, I’m full, word for word I got full. Hebrew does the same with שבעתי."
         ],
         "examples": ["pcav:0972", "pcav:4397", "pcav:0977", "pcav:0976", "pcav:4425"]
+      }
+    },
+    {
+      "id": "grammar:places",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 40,
+        "title": "máʈbax, máɣsala: where it’s done",
+        "points": [
+          "ma- in front of a verb’s root names the place where it’s done: máʈbax, kitchen (ʈábax, to cook); mál3ab, playground (lí3ib, to play); máktab, office (kátab, to write); mádrasa, school (dáras, to study).",
+          "Some name a thing it’s done in or with: máɣsala, sink (ɣásal, to wash); múknisa, broom.",
+          "Their plurals share one shape: maʈābix, malā3ib, makātib, maɣāsil.",
+          "Hebrew builds the same way: מִטְבָּח from טבח, and mádrasa is Hebrew’s מדרשה."
+        ],
+        "examples": ["pcav:0792", "pcav:1505", "pcav:2947", "pcav:1452", "pcav:0823", "pcav:0741"]
+      }
+    },
+    {
+      "id": "grammar:old-verbs-new-jobs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 42,
+        "title": "ráfa3, názzal: old verbs, new jobs",
+        "points": [
+          "Screens took their verbs from everyday life. ráfa3 lifts (ráfa3 īdu, he raised his hand) and also uploads; názzal lowers (názzal iššubbāk, he rolled the window down) and also downloads.",
+          "fátaɧ opens a door, a file, or the internet: fátaɧ innít, to go online. sákkar closes a program, and sákkar ilxáʈʈ hangs up the phone.",
+          "šáɣɣal starts a car, turns on a computer, and plays a song.",
+          "Hebrew did the same: להוריד, to bring down, also downloads, and להעלות, to bring up, uploads."
+        ],
+        "examples": ["pcav:1782", "pcav:1781", "pcav:1774", "pcav:1769", "pcav:2299"]
+      }
+    },
+    {
+      "id": "grammar:ways-to-play",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 43,
+        "title": "lí3ib, 3ázaf 3ála: three ways to play",
+        "points": [
+          "lí3ib plays a game: lí3ib šádda, to play cards. It also plays a part (lí3ib dōr, to play the role of) and works out (lí3ib kārdyō, to do cardio).",
+          "3ázaf 3ála plays an instrument, always with 3ála: bí3zif 3ála -l3ūd, he plays the oud.",
+          "šáɣɣal plays a song: it turns the music on (chapter 42).",
+          "Hebrew splits it too: לשחק, to play a game, and לנגן, to play music."
+        ],
+        "examples": ["pcav:2478", "pcav:2379", "pcav:2590", "pcav:2450", "pcav:2299"]
+      }
+    },
+    {
+      "id": "grammar:a-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 44,
+        "title": "anhār, aflām: plurals with a- in front",
+        "points": [
+          "Many short words make their plural with a- in front and a long ā: náhir → anhār, rivers; náfag → anfāg, tunnels; fílim → aflām, movies.",
+          "The root letters stay in order, and only the vowels move: n-h-r in náhir and in anhār.",
+          "Words you know take it too: šáxʂ → ašxāʂ, people; sí3ir → as3ār, prices; šúɣul → ašɣāl, jobs."
+        ],
+        "examples": ["pcav:3577", "pcav:3555", "pcav:2256", "pcav:0018", "pcav:2157"]
       }
     },
     {
@@ -750,6 +829,54 @@
       }
     },
     {
+      "id": "grammar:parts-and-sums",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 48,
+        "title": "tult, rúbi3: parts, and sums",
+        "points": [
+          "A part is named from its number’s root: talāta, three → tult, a third; árba3a, four → rúbi3, a quarter. A half is nuʂʂ.",
+          "Hebrew does the same: שליש, a third, comes from שלוש, three, and רבע, a quarter, from ארבע, four.",
+          "Sums: zāʔid, plus; nāgiʂ, minus; ɖarb, times; taqsīm, divided by. Equals is bisāwi or bíʈla3: talāta ɖarb árba3a bisāwi tnā3iš, three times four is twelve."
+        ],
+        "examples": ["pcav:4068", "pcav:4069", "pcav:4066", "pcav:4043", "pcav:4047", "pcav:4049"]
+      }
+    },
+    {
+      "id": "grammar:hope-and-wish",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 49,
+        "title": "batmánna and yā rēt: “I hope”, “I wish”",
+        "points": [
+          "batmánna, I hope, takes a verb with no b-: batmánna ʔašūfak márra tānya, I hope to see you again.",
+          "For not, put mā before the verb: batmánna mā yʂīrlu íši, I hope nothing happens to him.",
+          "yā rēt, I wish, is for what isn’t so: yā rēt kúnit fi falasʈīn, I wish I were in Palestine. With law (chapter 22): yā rēt law 3índi sayyāra, I wish I had a car.",
+          "yā rēt is Hebrew’s הלוואי."
+        ],
+        "examples": ["pcav:3166", "pcav:3167", "pcav:1375", "pcav:3169", "pcav:3170"]
+      }
+    },
+    {
+      "id": "grammar:long-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 50,
+        "title": "ta3ālib, ɖafāɖi3: the plural of a four-letter root",
+        "points": [
+          "A word with four root letters makes its plural on one shape, a-ā-i: tá3lab → ta3ālib, foxes; ɖúfɖa3 → ɖafāɖi3, frogs; sulɧufā → salāɧif, turtles.",
+          "Longer words fit the shape too, and drop what’s left over: 3ankabūt → 3anākib, spiders.",
+          "A long vowel at the end stays long, as ī: dulfīn → dalāfīn, dolphins.",
+          "You’ve met the shape already: maʈābix, kitchens (chapter 40).",
+          "Some of these are old relatives: tá3lab is Hebrew’s שועל, fox, and ɖúfɖa3 is its צפרדע, frog."
+        ],
+        "examples": ["pcav:3750", "pcav:3790", "pcav:3789", "pcav:3815", "pcav:3767"]
+      }
+    },
+    {
       "id": "grammar:three-words",
       "subject": "arabic",
       "type": "grammar-card",
@@ -762,6 +889,84 @@
           "Hebrew’s piʿel does the same. Hebrew מעשן is a smoker."
         ],
         "examples": ["pcav:2392", "pcav:2394", "pcav:2396", "pcav:2078", "pcav:1445"]
+      }
+    },
+    {
+      "id": "grammar:doer-and-done-to",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 53,
+        "title": "mʂálliɧ, muwáʐʐaf: the doer and the done-to",
+        "points": [
+          "The mu- word of a doubled-middle verb (chapter 52) has two faces, one vowel apart. With i, it’s the one who does it: mʂálliɧ, a repairman (ʂállaɧ, to fix); muɧárrir, an editor.",
+          "With a, it’s the one it’s done to: muwáʐʐaf, an employee, the one employed (wáʐʐaf, to employ); msákkar, closed (sákkar, to close); mɧámmar, roasted.",
+          "In speech mu- often shrinks to m-: mʂálliɧ, msákkar.",
+          "Hebrew splits the same way: מנהל is a manager, and מנוהל is managed."
+        ],
+        "examples": ["pcav:1429", "pcav:1400", "pcav:1317", "pcav:4728", "pcav:1270"]
+      }
+    },
+    {
+      "id": "grammar:being-ill",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 54,
+        "title": "3índu, má3u: being ill",
+        "points": [
+          "Many illnesses take 3ind- (chapter 8): 3índu rábu, he has asthma; 3índu ɖáɣiʈ, he has high blood pressure.",
+          "Some take ma3-, with: má3u súkkar, he’s diabetic; má3u ʔinfluwánza, he has the flu. Learn each one with its own.",
+          "For an ache, the part that hurts does the hurting: rāsu ʔája3u, he has a headache, word for word his head hurts him. Pointing: fī wája3 hān, it hurts here."
+        ],
+        "examples": ["pcav:1681", "pcav:1683", "pcav:1680", "pcav:1661", "pcav:1650", "pcav:1654"]
+      }
+    },
+    {
+      "id": "grammar:while",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 57,
+        "title": "w húwwa nāyim: “while”, with w",
+        "points": [
+          "w, “and”, before a person and their state says “while”: ɧáka w húwwa nāyim, to talk in one’s sleep (he talked while he was asleep); máša w húwwa nāyim, to sleepwalk.",
+          "It takes any state or doing: sāg w húwwa sakrān, he drove drunk; ɧallēt ilwāgib w ána batfárraj 3a -ttilfizyōn, I did my homework while watching TV.",
+          "The person is said again, even when it’s the same one: w húwwa, w ána.",
+          "Hebrew needs a word of its own for it: בזמן, while."
+        ],
+        "examples": ["pcav:0868", "pcav:0869", "pcav:1064", "pcav:4450"]
+      }
+    },
+    {
+      "id": "grammar:people-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 58,
+        "title": "wazīr, wúzara: a plural for people",
+        "points": [
+          "Many words for people, with a long ī before the last letter, make their plural with u…a…a: wazīr → wúzara, ministers; raʔīs → rúʔasa, presidents; sajīn → sújana, prisoners.",
+          "Words you know take it too: zamīl → zúmala, coworkers; 3amīl → 3úmala, clients; fagīr → fúgara, the poor.",
+          "A few with a long ā in front take it as well: šā3ir → šú3ara, poets."
+        ],
+        "examples": ["pcav:2783", "pcav:2788", "pcav:2883", "pcav:1320", "pcav:1344"]
+      }
+    },
+    {
+      "id": "grammar:verb-and-little-word",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 59,
+        "title": "ittáffag ma3, jādal 3ála: a verb and its little word",
+        "points": [
+          "Many verbs come with a little word, learned together: ittáffag ma3, to agree with; jādal 3ála, to argue about; ɧass b-, to feel; xáʈʈaʈ la-, to plan on.",
+          "It isn’t always the one English uses: radd 3ála, to answer (word for word, to answer on); fāz 3ála, to beat a team; itfárraj 3ála, to watch.",
+          "That’s why a verb’s card shows its little word in both forms: ittáffag ma3, yittíffig ma3.",
+          "Hebrew does this too: להסכים עם is to agree with, and להתווכח על is to argue about."
+        ],
+        "examples": ["pcav:3142", "pcav:3144", "pcav:3145", "pcav:4545", "pcav:2530", "pcav:4672"]
       }
     },
     {
@@ -781,6 +986,252 @@
       }
     },
     {
+      "id": "grammar:going-up",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 62,
+        "title": "ʈíli3: going up, and going out",
+        "points": [
+          "ʈíli3 goes up: ʈíli3 3a -ddáraj, to go upstairs; íʈla3 fōg!, come upstairs (chapter 18).",
+          "Getting on is going up: ʈíli3 3a -ʈʈayyāra, to board a plane; ʈíli3 fi -lbāʂ, to take the bus. A plane or a bus that ʈíli3 departs.",
+          "Going out to do something is ʈíli3 and the thing: ʈíli3 sēr, to go hiking; ʈíli3 taxyīm, to go camping. On its own, ʈíli3 is to hang out.",
+          "Hebrew’s עלה does the same: you go up onto a plane or a bus."
+        ],
+        "examples": ["pcav:2034", "pcav:2720", "pcav:1827", "pcav:2667", "pcav:2232"]
+      }
+    },
+    {
+      "id": "grammar:doing-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 64,
+        "title": "ištirāk, imtiɧān: naming the doing",
+        "points": [
+          "Verbs that start with i- and have a t after their first root letter name the doing with i…ā: ištárak, to join → ištirāk, membership; intáxab, to elect → intixābāt, elections; imtiɧān, a test, is the testing.",
+          "Verbs that start with ist- name it the same way: istágbal, to welcome → istigbāl, a welcome, and a hotel’s lobby; istirāɧa, a break.",
+          "It’s the same job ta- does for a verb with a doubled middle (chapter 52): tadxīn, smoking."
+        ],
+        "examples": ["pcav:2554", "pcav:2557", "pcav:2811", "pcav:1518", "pcav:2773"]
+      }
+    },
+    {
+      "id": "grammar:mit-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 65,
+        "title": "mit3állim, mitʔáxxir: the state a t- verb leaves you in",
+        "points": [
+          "A verb with t- in front (chapter 20) gives a describing word with mit- in front and an i: it3állam, he learned → mit3állim, educated; itʔáxxar, to be delayed (chapter 62) → mitʔáxxir, late.",
+          "It says the state you’re in, like lābis and sākin (chapter 36): mitʔákkid, sure; mitɧámmis la-, excited about; mitšáwwig, looking forward to.",
+          "A student majoring in a subject is mitxáʂʂiʂ: mitxáʂʂiʂ ādāb inglīzi, I’m majoring in English literature.",
+          "Hebrew’s hitpaʿel does the same with mit-: מתרגש, excited."
+        ],
+        "examples": ["pcav:1446", "pcav:4260", "pcav:3148", "pcav:3083", "pcav:1574"]
+      }
+    },
+    {
+      "id": "grammar:sunrise",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 68,
+        "title": "šurūg, ɣurūb: sunrise, sunset and other doings",
+        "points": [
+          "Many plain verbs name their doing with a u and a long ū: iššáms btúšrug, the sun rises → šurūg, sunrise; iššáms btúɣrub, the sun sets → ɣurūb, sunset.",
+          "dáxal, to go in, gives duxūl, entering: imtiɧān duxūl, an entrance exam. marr, to pass, gives murūr, traffic: išārit murūr, a traffic light.",
+          "It’s the same job as i…ā for verbs with i- (chapter 64): ištirāk, membership."
+        ],
+        "examples": ["pcav:3617", "pcav:3616", "pcav:3618", "pcav:1522", "pcav:1886"]
+      }
+    },
+    {
+      "id": "grammar:hidden-t",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 69,
+        "title": "iʈʈállag, idzáwwaj: the t- that hides",
+        "points": [
+          "The t- in front of a verb (chapter 20) often melts into the letter after it, the way il- does before a sun letter (chapter 4): t + ʈállag → iʈʈállag, to get divorced; t + dárrab → iddárrab, to work out.",
+          "Before a z it turns into a d: idzáwwaj, to get married; idzákkar, to remember.",
+          "So a verb that starts with a doubled letter, or with dz, has a t- hiding in it.",
+          "Hebrew does it too: הזדקן, grew old, not התזקן."
+        ],
+        "examples": ["pcav:0199", "pcav:2546", "pcav:0189", "pcav:3027"]
+      }
+    },
+    {
+      "id": "grammar:his-blood-is-light",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 70,
+        "title": "dámmu xafīf: say it about a part of them",
+        "points": [
+          "Arabic often describes a person through a part of them, with an ending (chapter 2): sáma3u tgīl, he’s hard of hearing (his hearing is heavy); nōmu xafīf, he’s a light sleeper (his sleep is light).",
+          "Some of these are sayings: dámmu xafīf, he’s fun to be with (his blood is light); maksūr gálbu, heartbroken (broken of heart).",
+          "šáklu is his looks, and it also says “it looks like”: šáklu bíddak naɖɖārāt, I think you need glasses.",
+          "Change the ending for someone else: dámmha xafīf, she’s fun to be with."
+        ],
+        "examples": ["pcav:0310", "pcav:0875", "pcav:3113", "pcav:0177", "pcav:0284"]
+      }
+    },
+    {
+      "id": "grammar:undoing",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 71,
+        "title": "rábaʈ and fakk: doing and undoing",
+        "points": [
+          "English undoes with un-. Arabic uses a verb of its own, and fakk undoes what’s tied or fastened: rábaʈ bōtu, to tie one’s shoes → fakk rabbāʈ bōtu, to untie them (undo their laces); sákkar lizrār, to button up → fakk lizrār, to unbutton.",
+          "A zipper closes and opens, like a door: sákkar issaɧɧāb, to zip up; fátaɧ issaɧɧāb, to unzip.",
+          "rábaʈ ties more than shoes: rábaʈ grāftu, to tie one’s tie."
+        ],
+        "examples": ["pcav:0609", "pcav:0610", "pcav:0592", "pcav:0593", "pcav:0595", "pcav:0596"]
+      }
+    },
+    {
+      "id": "grammar:can-be",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 76,
+        "title": "bingára, binɧább: in- for “can be”",
+        "points": [
+          "An in- verb (chapter 20) in the present, with b-, says what can be done to a thing: bingára, it can be read, so legible (from gára, to read or study).",
+          "With mā…š, it can’t be: xáʈʈu mā bingarāš bi-lmárra, his handwriting is completely illegible.",
+          "A person can be one too: binɧább, friendly (word for word, he can be loved)."
+        ],
+        "examples": ["pcav:3318", "pcav:3319", "pcav:3320", "pcav:3101"]
+      }
+    },
+    {
+      "id": "grammar:iyya-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 77,
+        "title": "aɣlabíyya, malakíyya: -íyya makes an idea",
+        "points": [
+          "Add -íyya to a word to name the idea behind it: áɣlab, most → aɣlabíyya, the majority; málik, king → malakíyya, monarchy; diktātōr → diktātōríyya, dictatorship.",
+          "Faiths and systems take it too: ilmasīɧíyya, Christianity; dīmuqrāʈíyya, democracy; jumhūríyya, a republic.",
+          "It’s the -i ending (chapter 47) with -a after it: masīɧi, Christian → ilmasīɧíyya."
+        ],
+        "examples": ["pcav:2806", "pcav:2807", "pcav:2794", "pcav:2820", "pcav:3212"]
+      }
+    },
+    {
+      "id": "grammar:machines",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 79,
+        "title": "dabbāsa, ɣassāla: the machine shape",
+        "points": [
+          "The job shape (chapter 46) names a person. With -a after it, it names the thing that does the work: dabbāsa, stapler (dábbas, to staple); ɣassāla, washing machine (ɣásal, to wash); gallāya, frying pan (gála, to fry).",
+          "More of them: maɧɧāya, eraser (máɧa, to erase); ʈaffāya, ashtray (ʈáfa, to put out).",
+          "Some you know already: ʈayyāra, airplane; tallāja, refrigerator; maššāya, treadmill."
+        ],
+        "examples": ["pcav:2135", "pcav:0642", "pcav:0815", "pcav:2123", "pcav:2414"]
+      }
+    },
+    {
+      "id": "grammar:make-it-go",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 80,
+        "title": "ʈíli3 → ʈálla3: making a thing go",
+        "points": [
+          "Double the middle of a going verb, and you make something else go (chapter 20): ʈíli3, to go out → ʈálla3, to take out (ʈálla3 lizbāla, to take out the garbage); nízil, to go down → názzal, to lower (názzal iššubbāk, to roll the window down).",
+          "ríji3, to go back → rájja3, to give back: rájja3, to return something you bought.",
+          "wíʂil, to arrive → wáʂʂal, to take someone there, to give a lift: wáʂʂal ilbarīd, to deliver the mail.",
+          "Hebrew’s hifʿil does this job: יצא, went out, and הוציא, took out."
+        ],
+        "examples": ["pcav:0837", "pcav:0590", "pcav:1924", "pcav:2196", "pcav:1910"]
+      }
+    },
+    {
+      "id": "grammar:muta-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 82,
+        "title": "mutaqáddim: the formal mit-",
+        "points": [
+          "The mit- words of chapter 65 have a formal twin with muta- in front. Words from books, news and school keep it: mutawássiʈ, intermediate; mutaqáddim, advanced.",
+          "So do some words for people: mutafárrij, a spectator; mutaʐāhir, a protester; mutadáyyin, religious.",
+          "Everyday words say mit-: mitʔáxxir, late; mitšáwwig, looking forward to."
+        ],
+        "examples": ["pcav:3304", "pcav:3305", "pcav:2383", "pcav:2831", "pcav:3180"]
+      }
+    },
+    {
+      "id": "grammar:take-and-give",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 84,
+        "title": "áxad and á3ʈa: take and give",
+        "points": [
+          "áxad, to take, does much of the work of English’s get: áxad 3alāwa, to get a raise; áxad 3alāma 3ālya, to get a good grade; áxad dušš, to take a shower; áxad bard, to catch a cold.",
+          "á3ʈa, to give, is the other side: á3ʈa __ 3alāwa, to give someone a raise; á3ʈa dáwra, to teach a course (to give one).",
+          "Money that comes back is taken too: áxad maʂārī, to get a refund; áxad fawāyid, to earn interest.",
+          "Hebrew talks the same way: לקחת, to take a course."
+        ],
+        "examples": ["pcav:1356", "pcav:1357", "pcav:1548", "pcav:1659", "pcav:2063"]
+      }
+    },
+    {
+      "id": "grammar:second-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 86,
+        "title": "ʈárrad, fáʂal: a second word for the same thing",
+        "points": [
+          "Many things have two words, and you’ll hear both: ʈárrad and fáʂal, to fire; naʈūr and bawwāb, a doorman; 3ájjaz and xátyar, to grow old; múštarik and 3úɖu, a member.",
+          "Often one of the two is borrowed from English: dram beside ʈábil, a drum; fítnis beside layāqa, fitness.",
+          "You don’t have to say both. Know the second one when you hear it, and keep saying the one you like."
+        ],
+        "examples": ["pcav:1369", "pcav:0709", "pcav:0035", "pcav:2555", "pcav:2457"]
+      }
+    },
+    {
+      "id": "grammar:same-letters",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 88,
+        "title": "súkkar, tálij: one word, two things",
+        "points": [
+          "Some words you know name a second thing too: súkkar, sugar, is also diabetes; tálij, snow, is also ice; gáhwa, coffee, is also a coffeehouse; istirāɧa, a break, is also a cafeteria.",
+          "kamān, the violin, sounds just like kamān, more: kamān šwáyya, in a bit; kamān xams snīn, in five years.",
+          "The words around it tell you which one is meant."
+        ],
+        "examples": ["pcav:1192", "pcav:1678", "pcav:1023", "pcav:3698", "pcav:2017", "pcav:2454"]
+      }
+    },
+    {
+      "id": "grammar:chessboard",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 89,
+        "title": "wazīr, fīl: the pieces on a chessboard",
+        "points": [
+          "The chess pieces are words you know: wazīr, a minister, is the queen; fīl, an elephant, is the bishop; ɧʂān, a horse, is the knight; júndi, a soldier, is the pawn.",
+          "So are other second meanings in this chapter: xaʈʈ, a line, is a lane on the road; arɖ, the floor or the land, is a field; bard, a cold, is the coolness in the air.",
+          "When a word turns up in a new place, try the meaning you know first."
+        ],
+        "examples": ["pcav:2488", "pcav:2489", "pcav:2490", "pcav:2492", "pcav:1895"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
@@ -796,6 +1247,22 @@
       }
     },
     {
+      "id": "grammar:how-much",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 91,
+        "title": "gaddēš ɧájim: “how big” is “how much size”",
+        "points": [
+          "Where English says how and a describing word, Arabic asks how much of the thing, with gaddēš (chapter 26): gaddēš ɧájim dārku?, how big is your house? Word for word, how much size.",
+          "The same for how far: gaddēš ilmasāfa min hān la-lbálad?, how far is it to downtown? (how much is the distance).",
+          "How often is every how much: kull gaddēš bitmárran?, how often do you exercise?",
+          "Hebrew asks one this way too: כמה זמן, how long, is how much time."
+        ],
+        "examples": ["pcav:4326", "pcav:4330", "pcav:4333", "pcav:4324"]
+      }
+    },
+    {
       "id": "grammar:nothing",
       "subject": "arabic",
       "type": "grammar-card",
@@ -808,6 +1275,22 @@
           "In a sentence, fiš ɧadd says no one: fiš ɧadd bi3īš la-lʔábad, no one lives forever. kull wāɧad is everyone, and ayy ɧáda is anyone (chapter 45)."
         ],
         "examples": ["pcav:4296", "pcav:4288", "pcav:4279", "pcav:4285"]
+      }
+    },
+    {
+      "id": "grammar:wishes",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 92,
+        "title": "álla ywáffgak: wishing someone well",
+        "points": [
+          "Many wishes are álla, God, and a verb with no b-: álla ywáffgak, good luck (word for word, God make you succeed); álla yišfīk, get well soon.",
+          "The ending says who it’s for (chapter 14): álla yírɧamu, may he rest in peace; álla yirɧámha, for a woman.",
+          "Thanks are often a wish too: álla ybārik fīk, God bless you, which is also how you answer mabrūk, congratulations.",
+          "Hebrew’s blessing יְבָרֶכְךָ, may He bless you, wishes with the same y- in front."
+        ],
+        "examples": ["pcav:4800", "pcav:4812", "pcav:4810", "pcav:4811", "pcav:4823", "pcav:4788"]
       }
     }
   ]
