@@ -1,19 +1,19 @@
 // Achievements and titles (E13, #177, ADR 0035). Each one is data (content/core/achievements.json);
 // the database checks them and pays their gems, and says how far along each one is. This joins
 // the two for Your House.
-import { z } from 'zod';
+import * as z from 'zod/mini';
 import pack from '../../../content/core/achievements.json' with { type: 'json' };
 
 const AchievementData = z.object({
-  order: z.number().int().positive(),
+  order: z.int().check(z.positive()),
   name: z.string(),
   /** The condition, as the player reads it. */
   text: z.string(),
   /** What the database counts (supabase/migrations/20261118000000_achievements.sql). */
-  condition: z.object({ kind: z.string(), n: z.number().int().positive() }).loose(),
-  gems: z.number().int().min(1).max(5),
+  condition: z.looseObject({ kind: z.string(), n: z.int().check(z.positive()) }),
+  gems: z.int().check(z.minimum(1), z.maximum(5)),
   /** The title it unlocks, worn under your name. */
-  title: z.string().optional(),
+  title: z.optional(z.string()),
 });
 
 export interface Achievement extends z.infer<typeof AchievementData> {
