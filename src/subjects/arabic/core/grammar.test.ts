@@ -85,6 +85,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:can-be', 76],
       ['grammar:iyya-words', 77],
       ['grammar:machines', 79],
+      ['grammar:make-it-go', 80],
       ['grammar:ordinals', 90],
       ['grammar:how-much', 91],
       ['grammar:nothing', 92],

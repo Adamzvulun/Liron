@@ -1125,6 +1125,22 @@
       }
     },
     {
+      "id": "grammar:make-it-go",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 80,
+        "title": "ʈíli3 → ʈálla3: making a thing go",
+        "points": [
+          "Double the middle of a going verb, and you make something else go (chapter 20): ʈíli3, to go out → ʈálla3, to take out (ʈálla3 lizbāla, to take out the garbage); nízil, to go down → názzal, to lower (názzal iššubbāk, to roll the window down).",
+          "ríji3, to go back → rájja3, to give back: rájja3, to return something you bought.",
+          "wíʂil, to arrive → wáʂʂal, to take someone there, to give a lift: wáʂʂal ilbarīd, to deliver the mail.",
+          "Hebrew’s hifʿil does this job: יצא, went out, and הוציא, took out."
+        ],
+        "examples": ["pcav:0837", "pcav:0590", "pcav:1924", "pcav:2196", "pcav:1910"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
