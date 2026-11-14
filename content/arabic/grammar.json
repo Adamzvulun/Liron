@@ -705,6 +705,21 @@
       }
     },
     {
+      "id": "grammar:palms-and-seeds",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 39,
+        "title": "náxil, náxla: more wholes and ones",
+        "points": [
+          "Like xúbiz and xúbza (chapter 26), the field has wholes and ones: náxil, palm trees, and náxla, one palm; bízir, seeds, and bízra, one seed.",
+          "Many fruits are named as a whole too: míšmiš, apricots; káraz, cherries. So are bees: náɧil.",
+          "zára3 is to plant, and zár3a is a plant, from the same root as Hebrew זרע (zéra, seed; lizróa, to sow)."
+        ],
+        "examples": ["pcav:3841", "pcav:3863", "pcav:3864", "pcav:3832"]
+      }
+    },
+    {
       "id": "grammar:places",
       "subject": "arabic",
       "type": "grammar-card",
@@ -939,6 +954,21 @@
       }
     },
     {
+      "id": "grammar:put-and-lift",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 56,
+        "title": "ɧaʈʈ and šāl: put it in, take it off",
+        "points": [
+          "ɧaʈʈ, to put, does a lot of work with things: ɧaʈʈ ilfīša, to plug in (put the plug).",
+          "šāl, to lift off or take away, undoes it: šāl ilfīša, to unplug (lift the plug). It’s a pair like rábaʈ and fakk (chapter 71).",
+          "You’ll meet ɧaʈʈ again in the car: ɧaʈʈ ɧzām ilʔamān, to put on a seat belt."
+        ],
+        "examples": ["pcav:0759", "pcav:0760"]
+      }
+    },
+    {
       "id": "grammar:while",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1002,6 +1032,21 @@
       }
     },
     {
+      "id": "grammar:driving-verbs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 61,
+        "title": "dá3as brēk, ríji3 wára: driving with everyday verbs",
+        "points": [
+          "Most driving words are plain verbs you know, with the car part after them: dá3as brēk, to brake (to step on the brake); ɣáyyar il3ájal, to change a tire.",
+          "ríji3 wára, to back up, is word for word “go back behind”.",
+          "A flat tire lets its breath out: náffas il3ájal, from náfas, breath."
+        ],
+        "examples": ["pcav:1947", "pcav:1958", "pcav:1936"]
+      }
+    },
+    {
       "id": "grammar:going-up",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1062,6 +1107,22 @@
           "Hebrew’s hitpaʿel does the same with mit-: מתרגש, excited."
         ],
         "examples": ["pcav:1446", "pcav:4260", "pcav:3148", "pcav:3083", "pcav:1574"]
+      }
+    },
+    {
+      "id": "grammar:him-and-her-animals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 66,
+        "title": "dīk, jāja: one word for him, another for her",
+        "points": [
+          "Some farm animals have one word for the male and a different word for the female: dīk, rooster, and jāja, hen; xarūf, ram, and ɣánama, ewe.",
+          "Many animal words name the whole kind, and -a makes one, as with bread and eggs (chapter 26): bágar, cattle → bágara, a cow; jāj, chickens → jāja, a hen; ɣánam, sheep → ɣánama.",
+          "For these three, the -a word for one is also the female: the one you keep for milk and eggs.",
+          "Hebrew does it the other way: תרנגולת, hen, is the rooster’s word with -et."
+        ],
+        "examples": ["pcav:2971", "pcav:2966", "pcav:2967", "pcav:2959"]
       }
     },
     {
@@ -1157,6 +1218,21 @@
       }
     },
     {
+      "id": "grammar:at-the-dentist",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 78,
+        "title": "ɧáša sínnu: you say you did it",
+        "points": [
+          "English says you “get” a thing done at the dentist. Arabic just says you did it: ɧáša sínnu, he got a filling (word for word, he filled his tooth).",
+          "The same way: xála3 sinn, to get a tooth pulled (he pulled a tooth); náɖɖaf snānu, to get his teeth cleaned (he cleaned his teeth).",
+          "What you have stays with 3índu (chapter 54): 3índu tasáwwus, he has a cavity; 3índu ɧasāsíyya, he has a rash."
+        ],
+        "examples": ["pcav:1743", "pcav:1745", "pcav:1746", "pcav:1740"]
+      }
+    },
+    {
       "id": "grammar:machines",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1200,6 +1276,21 @@
           "Everyday words say mit-: mitʔáxxir, late; mitšáwwig, looking forward to."
         ],
         "examples": ["pcav:3304", "pcav:3305", "pcav:2383", "pcav:2831", "pcav:3180"]
+      }
+    },
+    {
+      "id": "grammar:colors-from-things",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 83,
+        "title": "kúɧli, ramādi: colors named after things",
+        "points": [
+          "Past the basic colors (chapter 37), most color words are a thing with -i on the end, like a place word (chapter 47): ramād, ash → ramādi, gray; kuɧl, kohl, the dark eyeliner → kúɧli, navy blue.",
+          "You know more of them already: bunn, coffee beans → bínni, brown; burtaqāl, oranges → burtaqāli, orange; zahr, flowers → záhri, pink; banáfsaj, violets → banáfsaji, purple.",
+          "Two are coming: lamūni, lemon-yellow (lamūn, lemons) and zēti, olive green (zēt, oil)."
+        ],
+        "examples": ["pcav:3885", "pcav:3882", "pcav:3880"]
       }
     },
     {
@@ -1406,6 +1497,21 @@
       }
     },
     {
+      "id": "grammar:too-much",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 98,
+        "title": "zyāda 3an illuzūm, wála wāɧad: too much, and not one",
+        "points": [
+          "“Too” is zyāda 3an illuzūm, more than is needed, after the describing word: iššāy ɧílu zyāda 3an illuzūm, the tea is too sweet.",
+          "In talk, ktīr often does the job: kbīr ktīr is very big, or too big. Which one is meant comes from the moment.",
+          "wála wāɧad min is not one of, none of, the same wála as wála íši, nothing (chapter 92): wála wāɧad min ʂɧābi ʔíja, none of my friends came."
+        ],
+        "examples": ["pcav:4388", "pcav:3945"]
+      }
+    },
+    {
       "id": "grammar:ago-and-from-now",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1418,6 +1524,37 @@
           "yōm bá3id yōm, word for word “a day after a day”, means every other day. yōm āh yōm la, “a day yes, a day no”, says the same."
         ],
         "examples": ["pcav:4087", "pcav:4194", "pcav:4108"]
+      }
+    },
+    {
+      "id": "grammar:feelings-and-little-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 104,
+        "title": "mitɧámmis la-, middāyag min: a feeling and its little word",
+        "points": [
+          "Like a verb (chapter 59), a word for a feeling comes with its own little word, and you learn the two together.",
+          "min, from, is for what the feeling comes from: m3áʂʂib min, angry with; middāyag min, fed up with; múɧrij min, embarrassed by; xāf min, to be afraid of.",
+          "la- is for what you look forward to: mitɧámmis la-, excited about. bi- and fi-, in, go with interest and pride: mihtámm bi-, interested in; faxūr fi, proud of.",
+          "English picks a different word each time (with, of, by, about), so don’t translate the little word; learn it with the feeling."
+        ],
+        "examples": ["pcav:3075", "pcav:3092", "pcav:3083", "pcav:3126"]
+      }
+    },
+    {
+      "id": "grammar:decades",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 106,
+        "title": "ittamānīnāt, ilxamsīnāt: decades, and an age",
+        "points": [
+          "Put -āt on a tens number and you get its decade: tamānīn, eighty → ittamānīnāt, the eighties (chapter 51); xamsīn, fifty → ilxamsīnāt, the fifties.",
+          "The same word gives a person’s age: abūy fi -lxamsīnāt, my father is in his fifties.",
+          "bi- or fi- in front means “in”: bi-ttamānīnāt, in the eighties."
+        ],
+        "examples": ["pcav:4198", "pcav:0028"]
       }
     }
   ]
