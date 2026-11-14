@@ -1065,6 +1065,21 @@
       }
     },
     {
+      "id": "grammar:undoing",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 71,
+        "title": "rábaʈ and fakk: doing and undoing",
+        "points": [
+          "English undoes with un-. Arabic uses a verb of its own, and fakk undoes what’s tied or fastened: rábaʈ bōtu, to tie one’s shoes → fakk rabbāʈ bōtu, to untie them (undo their laces); sákkar lizrār, to button up → fakk lizrār, to unbutton.",
+          "A zipper closes and opens, like a door: sákkar issaɧɧāb, to zip up; fátaɧ issaɧɧāb, to unzip.",
+          "rábaʈ ties more than shoes: rábaʈ grāftu, to tie one’s tie."
+        ],
+        "examples": ["pcav:0609", "pcav:0610", "pcav:0592", "pcav:0593", "pcav:0595", "pcav:0596"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
