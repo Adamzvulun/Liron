@@ -336,18 +336,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
                       {lineInHebrew(t.text)}
                     </span>
                   )}
-                  {shown.has(i) && glossesIn(t.text, glossary).length > 0 && (
-                    <span className="arabic__bubble-glosses">
-                      {glossesIn(t.text, glossary).map((g) => (
-                        <span key={g.word}>
-                          <span lang="ar" dir="rtl">
-                            {g.word}
-                          </span>{' '}
-                          {g.gloss}
-                        </span>
-                      ))}
-                    </span>
-                  )}
+                  {shown.has(i) && <Glosses line={t.text} glossary={glossary} />}
                 </button>
               ) : (
                 <span lang="ar" dir="rtl">
@@ -380,6 +369,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
                         <span className="arabic__bubble-he" lang="he" dir="rtl">
                           {lineInHebrew(t.better)}
                         </span>
+                        <Glosses line={t.better} glossary={glossary} />
                         <span className="arabic__coach-why">{t.why}</span>
                       </li>
                     ))}
@@ -494,5 +484,23 @@ export function InnChat({ api }: { api: SubjectApi }) {
         )}
       </div>
     </section>
+  );
+}
+
+/** The words of a line that you've met, each with our gloss; nothing when there are none. */
+function Glosses({ line, glossary }: { line: string; glossary: Glossary }) {
+  const found = glossesIn(line, glossary);
+  if (!found.length) return null;
+  return (
+    <span className="arabic__bubble-glosses">
+      {found.map((g) => (
+        <span key={g.word}>
+          <span lang="ar" dir="rtl">
+            {g.word}
+          </span>{' '}
+          {g.gloss}
+        </span>
+      ))}
+    </span>
   );
 }
