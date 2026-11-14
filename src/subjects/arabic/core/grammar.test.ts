@@ -107,6 +107,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:take-and-give', 84],
       ['grammar:grammar-words', 85],
       ['grammar:second-words', 86],
+      ['grammar:second-words-roots', 87],
       ['grammar:same-letters', 88],
       ['grammar:chessboard', 89],
       ['grammar:ordinals', 90],
