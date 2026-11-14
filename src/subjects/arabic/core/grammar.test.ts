@@ -116,6 +116,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:wishes', 92],
       ['grammar:the-world-rains', 93],
       ['grammar:cousins', 94],
+      ['grammar:two-word-places', 95],
       ['grammar:last-and-never', 96],
       ['grammar:front-and-back', 97],
       ['grammar:too-much', 98],

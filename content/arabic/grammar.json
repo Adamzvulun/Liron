@@ -1600,6 +1600,21 @@
       }
     },
     {
+      "id": "grammar:two-word-places",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 95,
+        "title": "máktab barīd, makātib barīd: two-word names",
+        "points": [
+          "Many places are two words side by side, as in chapter 33: márkaz šúrʈa, police station; maɧáʈʈit bāʂāt, bus station; ɣúrfit nōm, bedroom.",
+          "In the plural only the first word changes: máktab barīd, makātib barīd, post offices.",
+          "When the second word is an adjective, it changes too: márkaz tijāri, marākiz tijāríyya, shopping malls. A plural of things takes the adjective with -a."
+        ],
+        "examples": ["pcav:2011", "pcav:2012", "pcav:1838", "pcav:2178"]
+      }
+    },
+    {
       "id": "grammar:front-and-back",
       "subject": "arabic",
       "type": "grammar-card",
