@@ -12404,6 +12404,141 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:93",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 93,
+        "title": "Hello?, the weather, and how you feel",
+        "theme": "The phone, calling people, the weather, and a few feelings and words the path missed",
+        "words": [
+          {
+            "deck": "pcav:1820",
+            "gloss": "Hello? (on the phone)"
+          },
+          {
+            "deck": "pcav:1817",
+            "gloss": "The phone's ringing!"
+          },
+          {
+            "deck": "pcav:1818",
+            "gloss": "to get a phone call"
+          },
+          {
+            "deck": "pcav:1819",
+            "gloss": "to answer the phone"
+          },
+          {
+            "deck": "pcav:1821",
+            "gloss": "to talk on the phone"
+          },
+          {
+            "deck": "pcav:1824",
+            "gloss": "to call a wrong number"
+          },
+          {
+            "deck": "pcav:0160",
+            "gloss": "I love you!"
+          },
+          {
+            "deck": "pcav:0232",
+            "gloss": "Ma'am!"
+          },
+          {
+            "deck": "pcav:0233",
+            "gloss": "Miss!"
+          },
+          {
+            "deck": "pcav:1065",
+            "gloss": "Cheers!"
+          },
+          {
+            "deck": "pcav:3643",
+            "gloss": "The weather is __."
+          },
+          {
+            "deck": "pcav:3678",
+            "gloss": "It's sunny."
+          },
+          {
+            "deck": "pcav:3685",
+            "gloss": "It's cloudy."
+          },
+          {
+            "deck": "pcav:3687",
+            "gloss": "It's raining."
+          },
+          {
+            "deck": "pcav:3689",
+            "gloss": "It's started to rain."
+          },
+          {
+            "deck": "pcav:3690",
+            "gloss": "It's stopped raining."
+          },
+          {
+            "deck": "pcav:3699",
+            "gloss": "It's snowing.",
+            "sentence": "pcav:3700"
+          },
+          {
+            "deck": "pcav:3723",
+            "gloss": "It looks like rain."
+          },
+          {
+            "deck": "pcav:3072",
+            "gloss": "angry with"
+          },
+          {
+            "deck": "pcav:3089",
+            "gloss": "to be afraid of",
+            "sentence": "pcav:3817"
+          },
+          {
+            "deck": "pcav:3091",
+            "gloss": "proud of"
+          },
+          {
+            "deck": "pcav:0278",
+            "gloss": "blind"
+          },
+          {
+            "deck": "pcav:0311",
+            "gloss": "deaf"
+          },
+          {
+            "deck": "pcav:3904",
+            "gloss": "square (the shape)",
+            "sentence": "pcav:0247"
+          },
+          {
+            "deck": "pcav:4763",
+            "gloss": "Hi! Hello!"
+          },
+          {
+            "deck": "pcav:0044",
+            "gloss": "Happy birthday!"
+          },
+          {
+            "deck": "pcav:1837",
+            "gloss": "to miss the bus"
+          },
+          {
+            "deck": "pcav:2281",
+            "gloss": "to turn the volume down"
+          },
+          {
+            "deck": "pcav:3692",
+            "gloss": "rainbow"
+          },
+          {
+            "deck": "pcav:3720",
+            "gloss": "the weather forecast"
+          }
+        ]
+      }
     }
   ]
 }
