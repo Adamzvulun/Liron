@@ -1110,6 +1110,21 @@
       }
     },
     {
+      "id": "grammar:machines",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 79,
+        "title": "dabbāsa, ɣassāla: the machine shape",
+        "points": [
+          "The job shape (chapter 46) names a person. With -a after it, it names the thing that does the work: dabbāsa, stapler (dábbas, to staple); ɣassāla, washing machine (ɣásal, to wash); gallāya, frying pan (gála, to fry).",
+          "More of them: maɧɧāya, eraser (máɧa, to erase); ʈaffāya, ashtray (ʈáfa, to put out).",
+          "Some you know already: ʈayyāra, airplane; tallāja, refrigerator; maššāya, treadmill."
+        ],
+        "examples": ["pcav:2135", "pcav:0642", "pcav:0815", "pcav:2123", "pcav:2414"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
