@@ -6,10 +6,36 @@
  */
 
 /**
- * What a partner is asked to write. So far, two lines of a Radio Room operator (ADR 0036, 0037):
- * `radio-news`, their news in the chat turn, and `radio-reply`, their answer to the news you keyed.
+ * What a partner is asked to write: two lines of a Radio Room operator (ADR 0036, 0037),
+ * `radio-news`, their news in the chat turn, and `radio-reply`, their answer to the news you keyed;
+ * and `inn-chat`, a regular's next line in an Arabic chat at the inn (E17, ADR 0038).
  */
-export type PartnerAsk = RadioNewsAsk | RadioReplyAsk;
+export type PartnerAsk = RadioNewsAsk | RadioReplyAsk | InnChatAsk;
+
+/** One line of a chat at the inn: `them` is the regular, `you` the learner. */
+export interface InnTurn {
+  who: 'them' | 'you';
+  text: string;
+}
+
+/**
+ * A regular's next line at the inn (ADR 0038). Answered by Groq only, in Palestinian Arabic, and
+ * counted against the day's 60 chat lines, apart from the radio's replies.
+ */
+export interface InnChatAsk {
+  kind: 'inn-chat';
+  /** The regular: their name and story (our own content). */
+  persona: { who: string; about: string };
+  /** The name the regulars know you by. */
+  learner: { name: string };
+  /** The word chapter's theme, and our own English glosses of its words (never deck text). */
+  theme: string;
+  words: readonly string[];
+  /** The last few things you said to this regular in earlier chats, oldest first. */
+  told: readonly string[];
+  /** This chat so far, oldest first; empty for their opening line. */
+  turns: readonly InnTurn[];
+}
 
 interface RadioAsk {
   /** The character: who they are, and a few words about them (our own content). */

@@ -800,3 +800,121 @@
 .arabic__say {
   margin-bottom: 12px;
 }
+
+/* Sit and talk at the innkeeper's table (E17, ADR 0038) */
+.arabic__chat-name {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0;
+  font-weight: 700;
+  text-align: start;
+}
+
+.arabic__chat-name input,
+.arabic__chat-form input {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: #fff6df;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 18px;
+}
+
+.arabic__chat-who {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arabic__chat-who button {
+  width: 100%;
+  text-align: start;
+}
+
+.arabic__chat-lines {
+  display: grid;
+  gap: 8px;
+  max-height: 46vh;
+  margin: 8px 0 12px;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.arabic__bubble {
+  max-width: 85%;
+  padding: 8px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  font-size: 22px;
+  line-height: 1.5;
+}
+
+.arabic__bubble--them {
+  justify-self: start;
+  background: #fff6df;
+}
+
+.arabic__bubble--you {
+  justify-self: end;
+  background: #f3d58f;
+}
+
+.arabic__bubble button {
+  display: grid;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: right;
+  cursor: pointer;
+}
+
+.arabic__bubble-he {
+  font-size: 18px;
+  color: var(--guild-arabic-ink);
+}
+
+.arabic__typing {
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.arabic__chat-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.arabic__chat-form input {
+  flex: 1;
+  min-width: 0;
+  font-size: 22px;
+}
+
+.arabic__keys {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.arabic__keys button {
+  min-height: 42px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: #fff6df;
+  color: var(--ink);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.arabic__keys .arabic__key-wide {
+  grid-column: span 3;
+}

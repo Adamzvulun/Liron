@@ -2026,3 +2026,47 @@ describe('achievements, gems and titles (#177, ADR 0035)', () => {
       await expect(as(null, () => rows(sql))).rejects.toThrow(/permission denied/);
   });
 });
+
+describe('the daily cap on chat lines at the inn (ADR 0038)', () => {
+  const claim = async (userId: string | null) =>
+    ((await as(userId, () => rows(`select claim_chat_line() as left`)))[0] as { left: number })
+      .left;
+
+  it('counts down from 60 a day and then refuses, taking nothing more', async () => {
+    expect(await claim(ADAM)).toBe(59);
+    expect(await claim(OTHER)).toBe(59);
+    await rows(`update chat_lines set lines = 59 where user_id = $1`, [ADAM]);
+    expect(await claim(ADAM)).toBe(0);
+    expect(await claim(ADAM)).toBe(-1);
+    expect(await rows(`select lines from chat_lines where user_id = $1`, [ADAM])).toEqual([
+      { lines: 60 },
+    ]);
+  });
+
+  it('starts again each UTC day, and is apart from the partner replies', async () => {
+    await rows(
+      `insert into chat_lines (user_id, day, lines)
+       values ($1, (now() at time zone 'utc')::date - 1, 60)`,
+      [ADAM],
+    );
+    expect(await claim(ADAM)).toBe(59);
+    expect(
+      (
+        (await as(ADAM, () => rows(`select claim_partner_reply() as left`)))[0] as {
+          left: number;
+        }
+      ).left,
+    ).toBe(39);
+  });
+
+  it('only works for signed-in users, and nobody touches the counts through the API', async () => {
+    await expect(claim(null)).rejects.toThrow(/permission denied/);
+    for (const sql of [
+      `select * from chat_lines`,
+      `insert into chat_lines (user_id, day, lines) values ('${ADAM}', '2026-01-01', 0)`,
+      `delete from chat_lines`,
+    ]) {
+      await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/permission denied/);
+    }
+  });
+});
