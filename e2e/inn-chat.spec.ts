@@ -171,10 +171,16 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(page.getByRole('button', { name: /The Coach’s phrases/ })).toHaveCount(0);
   });
 
-  test('their line shows the words you have met, with our glosses', async ({ page }) => {
-    await page.route('**/api/partner', (route) =>
-      route.fulfill({ json: { text: 'صباح الخير! شو أخبار اليوم؟', left: 59 } }),
-    );
+  test('their line and the Coach’s show the words you have met, with our glosses', async ({
+    page,
+  }) => {
+    await page.route('**/api/partner', (route) => {
+      const ask = route.request().postDataJSON() as InnAsk;
+      const tip = { said: 'الآن', better: 'هلّق، اليوم', why: 'Palestinians say هلّق.' };
+      const text =
+        ask.kind === 'inn-coach' ? JSON.stringify({ tips: [tip] }) : 'صباح الخير! شو أخبار اليوم؟';
+      return route.fulfill({ json: { text, left: 59 } });
+    });
     const today = pathWord(1, 'اليوم', 'the deck’s English');
     const gloss = ECHO_POOL.words.get(today.item_id)?.gloss ?? '';
     await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } }, [today]);
@@ -184,6 +190,14 @@ test.describe('Sit and talk at the inn (E17)', () => {
     const glosses = page.locator('.arabic__bubble-glosses');
     await expect(glosses).toHaveText(`اليوم ${gloss}`);
     await expect(glosses).not.toContainText('the deck’s English');
+
+    await page.getByLabel('Your line, in Arabic').fill('الآن');
+    await page.getByRole('button', { name: 'Say it' }).click();
+    await page.getByRole('button', { name: 'Leave the table' }).click();
+    await page.getByRole('button', { name: 'Ask the Coach' }).click();
+    await expect(page.getByLabel('The Coach').locator('.arabic__bubble-glosses')).toHaveText(
+      `اليوم ${gloss}`,
+    );
   });
 
   test('when the partner is busy, the regular has to go, kindly', async ({ page }) => {
