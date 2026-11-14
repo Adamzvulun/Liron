@@ -2634,6 +2634,31 @@
         },
         "outro": "She leaves a plate covered in a cloth for the innkeeper, and on it a note: “Eat it with your eyes closed.”"
       }
+    },
+    {
+      "id": "road:102",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 102,
+        "wordChapter": 101,
+        "title": "The Night Shift",
+        "who": "Layla, a student who works nights",
+        "intro": "Layla works the night shift at the inn’s front desk and studies psychology by day. She hasn’t slept a full night since the school year started.",
+        "milestones": [
+          "Between guests she tells you about her week: an oral exam on Monday, a written one on Thursday, and an essay due on Friday.",
+          "The tuition went up again, she says, and the dorms are full. Her father, a civil servant, wants her to be an architect instead.",
+          "At dawn she hands the desk to the day clerk and heads for the lecture hall. On payday she treats the whole kitchen to breakfast."
+        ],
+        "trial": {
+          "name": "One More Exam",
+          "text": "Layla quizzes you on her exams, her courses and her job, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She leaves her old notes on the inn’s shelf, with a line on the cover: “Passing grade: fifty. Aim for ninety.”"
+      }
     }
   ]
 }

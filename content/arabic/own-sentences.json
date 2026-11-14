@@ -30043,6 +30043,314 @@
         "latin": "axūy 3índu ɧasasíyya min ilfūl issūdāni.",
         "english": "My brother is allergic to peanuts."
       }
+    },
+    {
+      "id": "own-sentence:pcav:1522",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1522",
+        "arabic": "لازِم تِنْجح بِاِمْتِحان الدُّخول عشان تِقْرا في الجّامْعة.",
+        "latin": "lāzim tínjaɧ bi-mtiɧān idduxūl 3ašān tígra fi -jjām3a.",
+        "english": "You have to pass the entrance exam to study at the university."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1523",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1523",
+        "arabic": "بُكْرا عِنْدي اِمْتِحان شفَوي بِالإنْجْليزي.",
+        "latin": "búkra 3índi imtiɧān šáfawi bil-ʔinglīzi.",
+        "english": "Tomorrow I have an oral exam in English."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1524",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1524",
+        "arabic": "الاِمْتِحان الكِتابي أسْهل مِن الشّفَوي.",
+        "latin": "ilʔimtiɧān ilkitābi ʔáshal min iššáfawi.",
+        "english": "The written exam is easier than the oral one."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1530",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1530",
+        "arabic": "علامِةْ النّجاح خمْسين.",
+        "latin": "3alāmit innajāɧ xamsīn.",
+        "english": "The passing grade is fifty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1531",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1531",
+        "arabic": "أخد علامِةْ الرُّسوب في الرِّياضِيّات.",
+        "latin": "áxad 3alāmit irrusūb fi -rriyāɖiyyāt.",
+        "english": "He got a failing grade in math."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1556",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1556",
+        "arabic": "السّنة الدِّراسية بْتِبْدا في أيْلول.",
+        "latin": "issána -ddirāsíyya btíbda fi ʔēlūl.",
+        "english": "The school year starts in September."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1558",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1558",
+        "arabic": "رُسوم الجّامْعة غالْيَة كْتير.",
+        "latin": "rusūm ijjām3a ɣālye ktīr.",
+        "english": "University tuition is very expensive."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1572",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1572",
+        "arabic": "إنْتَ في الجّامْعة؟ شو مِتْخصِّص؟",
+        "latin": "ínta fi -jjām3a? šū mitxáʂʂiʂ?",
+        "english": "You're at university? What are you majoring in?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1575",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1575",
+        "arabic": "حرم الجّامْعة كْبير وفيه شجر كْتير.",
+        "latin": "ɧáram ijjām3a kbīr w-fī šájar ktīr.",
+        "english": "The university campus is big and has lots of trees."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1576",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1576",
+        "arabic": "ساكِن في سكن الجّامْعة مع تْلات طُلّاب.",
+        "latin": "sākin fi sákan ijjām3a ma3 tlat ʈullāb.",
+        "english": "I live in the dorms with three students."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1491",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1491",
+        "arabic": "قاعِةْ المُحاضرات كانت مليانة.",
+        "latin": "qā3it ilmuɧāɖarāt kānat malyāne.",
+        "english": "The lecture hall was full."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1608",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1608",
+        "arabic": "الهنْدسة الرِّياضية أصْعب إشي عليّ.",
+        "latin": "ilhándasa -rriyāɖíyya ʔáʂ3ab íši 3aláyy.",
+        "english": "Geometry is the hardest thing for me."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1617",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1617",
+        "arabic": "حِصِّةْ التّرْبِيَة الرِّياضية يوْم الخميس.",
+        "latin": "ɧíʂʂit ittárbiya -rriyāɖíyya yōm ilxamīs.",
+        "english": "The P.E. class is on Thursday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1620",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1620",
+        "arabic": "أُخْتي بْتِقْرا عِلْم نفْس.",
+        "latin": "úxti btígra 3ilm nafs.",
+        "english": "My sister studies psychology."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1622",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1622",
+        "arabic": "في الدِّراسات الاِجْتِماعية بْنِتْعلّم عن النّاس والبلد.",
+        "latin": "fi -ddirāsāt ilijtimā3íyya bnit3állam 3an innās w-ilbálad.",
+        "english": "In social studies we learn about people and the town."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1306",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1306",
+        "arabic": "أبوها مُوَظّف حُكومي.",
+        "latin": "abūha muwáʐʐaf ɧukūmi.",
+        "english": "Her father is a civil servant."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1309",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1309",
+        "arabic": "كان في عِشْرين مْقدِّم على الشُّغُل.",
+        "latin": "kān fī 3išrīn mgáddim 3ála -ššúɣul.",
+        "english": "There were twenty applicants for the job."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1318",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1318",
+        "arabic": "صاحِب الشُّغُل بِدّو يْشوفك بُكْرا.",
+        "latin": "ʂāɧib iššúɣul bíddu yšūfak búkra.",
+        "english": "The employer wants to see you tomorrow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1350",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1350",
+        "arabic": "بُكْرا يوْم القبْضة، رح نِطْلع نوكِل برّا.",
+        "latin": "búkra yōm ilgábɖa, raɧ níʈla3 nōkil bárra.",
+        "english": "Tomorrow is payday, we'll go out to eat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1374",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1374",
+        "arabic": "سِنّ التّقاعُد عِنّا سِتّين.",
+        "latin": "sinn ittaqā3ud 3ínna sittīn.",
+        "english": "The retirement age here is sixty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1382",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1382",
+        "arabic": "المُهنْدِس المِعْماري رسم الدّار الجّْديدة.",
+        "latin": "ilmuhándis ilmi3māri rásam iddār ijjdīde.",
+        "english": "The architect drew the new house."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2919",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2919",
+        "arabic": "الطّبقة المُتوَسِّطة صارت أصْغر.",
+        "latin": "iʈʈábaqa -lmutawássiʈa ʂārat ʔáʂɣar.",
+        "english": "The middle class has gotten smaller."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2920",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2920",
+        "arabic": "طبقِةْ العُمّال بْتِشْتِغِل كْتير.",
+        "latin": "ʈábaqit il3ummāl btištíɣil ktīr.",
+        "english": "The working class works hard."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3390",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3390",
+        "arabic": "كُلّ كِلْمة فيها حرْف عِلّة.",
+        "latin": "kull kílme fīha ɧarf 3ílla.",
+        "english": "Every word has a vowel."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3359",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3359",
+        "arabic": "كُلّ يوْم بتْعلّم قاعِدة نَحَوِية جْديدة.",
+        "latin": "kull yōm bat3állam qā3ida naɧawíyya jdīde.",
+        "english": "Every day I learn a new grammar rule."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2948",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2948",
+        "arabic": "المقرّ الرّئيسي للشِّرْكة في المدينة.",
+        "latin": "ilmaqárr irraʔīsi laš-šírke fi -lmadīne.",
+        "english": "The company's head office is in the city."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3272",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3272",
+        "arabic": "لُغْتي الأُمّ عِبْري.",
+        "latin": "lúɣti -lʔumm 3ibri.",
+        "english": "My native language is Hebrew."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3334",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3334",
+        "arabic": "بحْكي عربي مْكسّر بسّ النّاس بْتِفْهمْني.",
+        "latin": "báɧki 3árabi mkássar bass innās btifhámni.",
+        "english": "I speak broken Arabic, but people understand me."
+      }
     }
   ]
 }
