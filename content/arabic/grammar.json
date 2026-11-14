@@ -737,6 +737,22 @@
       }
     },
     {
+      "id": "grammar:ways-to-play",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 43,
+        "title": "lí3ib, 3ázaf 3ála: three ways to play",
+        "points": [
+          "lí3ib plays a game: lí3ib šádda, to play cards. It also plays a part (lí3ib dōr, to play the role of) and works out (lí3ib kārdyō, to do cardio).",
+          "3ázaf 3ála plays an instrument, always with 3ála: bí3zif 3ála -l3ūd, he plays the oud.",
+          "šáɣɣal plays a song: it turns the music on (chapter 42).",
+          "Hebrew splits it too: לשחק, to play a game, and לנגן, to play music."
+        ],
+        "examples": ["pcav:2478", "pcav:2379", "pcav:2590", "pcav:2450", "pcav:2299"]
+      }
+    },
+    {
       "id": "grammar:lets",
       "subject": "arabic",
       "type": "grammar-card",
