@@ -256,6 +256,14 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 91 | When, how often, how far |
 | 92 | Everyone, nothing, and good wishes |
 
+- **Words 2,761–2,790 (2026-11-14): the phone, the weather, and how you feel.** The everyday expressions the last count left for "a later chapter on feelings, the phone and the weather": *Hello?* on the phone, *The phone's ringing!*, to get a call, answer it, talk on it and call a wrong number; *I love you!*, *Ma'am!*, *Miss!*, *Cheers!*, *Hi!* and *Happy birthday!*; the weather as people say it (*It's sunny*, *cloudy*, *raining*, *snowing*, *It's started to rain*, *It's stopped*, *It looks like rain*, a rainbow, the forecast); *angry with*, *afraid of*, *proud of*; and *blind*, *deaf* and *square*, with *to miss the bus* and *to turn the volume down*.
+  - **Left out on purpose:** *Sir!* (أستاذ, the same word as the taught *teacher*, so the quiz couldn't tell them apart), *Yes?* when called (the taught نعم), and items made only of taught words with their usual meaning (*It's very hot*, *It's windy*, *phone number*, *It's your turn*).
+  - **Deck sentences:** 3 of the 30 have one (*I'm afraid of spiders*, *Does it snow where you're from?*, *I have a square face*); the other 27 have one of our own. The checker's two remaining flags are its own limits (a conjugated verb, and a deck item that carries its own reply).
+
+| Chapter | Theme |
+|---|---|
+| 93 | Hello?, the weather, and how you feel |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).

@@ -2434,6 +2434,31 @@
         "outro": "They leave a tray of ka’ak and ma’amoul for the next guests. “Eid comes to everyone,” says Umm Khalil.",
         "she": true
       }
+    },
+    {
+      "id": "road:94",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 94,
+        "wordChapter": 93,
+        "title": "The Rainy Week",
+        "who": "Hanan who runs the phone shop",
+        "intro": "Hanan runs the little phone shop across the square. This week it hasn’t stopped raining, and half the town has come to her with a wet phone that won’t ring.",
+        "milestones": [
+          "She dries each one by the stove and calls its number to test it. Twice she gets a wrong number, and once a grandmother who wishes her a happy birthday anyway.",
+          "A deaf old man brings a phone he only uses for messages. Hanan turns its ring down for his neighbors and makes its screen flash for him.",
+          "On the last day the sun comes out and there’s a rainbow over the square. Every phone in her shop is ringing at once, and Hanan says she has never been so proud."
+        ],
+        "trial": {
+          "name": "Every Phone Rings",
+          "text": "Hanan calls out the weather and the words of the phone, and you give their meaning. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She gives the innkeeper a phone that works, for the guests to call home. “If it rains again,” she says, “you know where I am.”"
+      }
     }
   ]
 }

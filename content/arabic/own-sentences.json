@@ -27524,6 +27524,303 @@
         "latin": "3īd ilfíʂiɧ fi -rrabī3.",
         "english": "Easter is in the spring."
       }
+    },
+    {
+      "id": "own-sentence:pcav:1820",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1820",
+        "arabic": "آلو؟ مين معي؟",
+        "latin": "ālō? mīn má3i?",
+        "english": "Hello? Who's speaking?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1817",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1817",
+        "arabic": "الجّوّال بيرِنّ وأنا في الحمّام.",
+        "latin": "ijjawwāl birínn w-ána fi -lɧammām.",
+        "english": "The phone's ringing and I'm in the bathroom."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1818",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1818",
+        "arabic": "أجاني اِتِّصال مِن إمّي الصُّبِح.",
+        "latin": "ajāni -ttiʂāl min ímmi -ʂʂúbiɧ.",
+        "english": "I got a call from my mother this morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1819",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1819",
+        "arabic": "ليش ما بِترُدّ عَ الجّوّال؟",
+        "latin": "lēš ma bitrúdd 3a -jjawwāl?",
+        "english": "Why don't you answer the phone?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1821",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1821",
+        "arabic": "بِنْتي بِتِحْكي عَ الجّوّال كُلّ اللّيْل.",
+        "latin": "bínti btíɧki 3a -jjawwāl kull illēl.",
+        "english": "My daughter talks on the phone all night."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1824",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1824",
+        "arabic": "آسِف، اِتّصلِت عَ رقم غلط.",
+        "latin": "āsif, ittaʂálit 3a ráqam ɣálaʈ.",
+        "english": "Sorry, I called a wrong number."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0160",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0160",
+        "arabic": "بحِبّك كْتير يا إمّي.",
+        "latin": "baɧíbbik ktīr ya ímmi.",
+        "english": "I love you very much, Mom."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0232",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0232",
+        "arabic": "مدام، نْسيتي شنْطِتِك!",
+        "latin": "madām, nsīti šántitik!",
+        "english": "Ma'am, you forgot your bag!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0233",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0233",
+        "arabic": "آنِسة، هاد كُرْسيكي؟",
+        "latin": "ānisa, hād kursīki?",
+        "english": "Miss, is this your seat?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1065",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1065",
+        "arabic": "شِرِب وقال: بْصِحّْتك!",
+        "latin": "šírib w-gāl: bʂíɧɧtak!",
+        "english": "He drank and said: Cheers!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3643",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3643",
+        "arabic": "الجّوّ حِلو اليوْم.",
+        "latin": "ijjáww ɧílu -lyōm.",
+        "english": "The weather is nice today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3678",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3678",
+        "arabic": "الجّوّ مُشْمِس، خلّينا نِطْلع برّا.",
+        "latin": "ijjáww múšmis, xallīna níʈla3 bárra.",
+        "english": "It's sunny, let's go outside."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3685",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3685",
+        "arabic": "الجّوّ مْغيِّم مِن الصُّبِح.",
+        "latin": "ijjáww mɣáyyim min iʂʂúbiɧ.",
+        "english": "It's been cloudy since the morning."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3687",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3687",
+        "arabic": "الدِّنْيا بِتْمطِّر، خلّيك في الدّار.",
+        "latin": "iddínya bitmáʈʈir, xallīk fi -ddār.",
+        "english": "It's raining, stay at home."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3689",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3689",
+        "arabic": "بدت تْمطِّر وإحْنا في الطّريق.",
+        "latin": "bádat tmáʈʈir w-íɧna fi -ʈʈarīg.",
+        "english": "It started to rain while we were on the road."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3690",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3690",
+        "arabic": "وَقّفت مطر، بْنِقْدر نِطْلع هلّأ.",
+        "latin": "wággafat máʈar, bníqdar níʈla3 hallá.",
+        "english": "It's stopped raining, we can go out now."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3723",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3723",
+        "arabic": "شكِلْها حتْمطِّر بُكْرة.",
+        "latin": "šákilha ɧatmáʈʈir búkra.",
+        "english": "It looks like it'll rain tomorrow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3072",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3072",
+        "arabic": "الأُسْتاذ مْعصِّب مِنّي.",
+        "latin": "ilʔustāz m3áʂʂib mínni.",
+        "english": "The teacher is angry with me."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3091",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3091",
+        "arabic": "أنا فخور فيك يا اِبْني.",
+        "latin": "ána faxūr fīk ya íbni.",
+        "english": "I'm proud of you, son."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0278",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0278",
+        "arabic": "جِدّي أعْمى، بسّ بيِعْرِف البلد كُلّْها.",
+        "latin": "jíddi á3ma, bass bí3rif ilbálad kúllha.",
+        "english": "My grandfather is blind, but he knows the whole town."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0311",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0311",
+        "arabic": "الخِتْيار أطْرش شْوَيّ، اِحْكي بِصوْت عالي.",
+        "latin": "ilxityār áʈraš šwayy, íɧki b-ʂōt 3āli.",
+        "english": "The old man is a little deaf; speak up."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4763",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4763",
+        "arabic": "سلامات! كيفك اليوْم؟",
+        "latin": "salāmāt! kīfak ilyōm?",
+        "english": "Hi! How are you today?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0044",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0044",
+        "arabic": "عيد ميلاد سعيد يا حبيبي!",
+        "latin": "3īd mīlād sa3īd ya ɧabībi!",
+        "english": "Happy birthday, my dear!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1837",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1837",
+        "arabic": "راح عليّ الباص ووْصِلِت مِتْأخِّر.",
+        "latin": "rāɧ 3aláyy ilbāʂ w-wʂílit mitʔáxxir.",
+        "english": "I missed the bus and got there late."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2281",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2281",
+        "arabic": "وَطّي الصّوْت، الوَلد نايِم.",
+        "latin": "wáʈʈi -ʂʂōt, ilwálad nāyim.",
+        "english": "Turn the volume down, the boy's asleep."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3692",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3692",
+        "arabic": "شُفِت قوْس قُزح بعْد المطر.",
+        "latin": "šufit gōs gúzaɧ ba3d ilmáʈar.",
+        "english": "I saw a rainbow after the rain."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3720",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3720",
+        "arabic": "النّشْرة الجّوّية بِتْقول بُكْرة شوْب.",
+        "latin": "innášra -jjawwíyya bitgūl búkra šōb.",
+        "english": "The weather forecast says it'll be hot tomorrow."
+      }
     }
   ]
 }
