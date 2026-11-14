@@ -71,6 +71,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:parts-and-sums', 48],
       ['grammar:hope-and-wish', 49],
       ['grammar:long-plurals', 50],
+      ['grammar:two-ways-to-pray', 51],
       ['grammar:three-words', 52],
       ['grammar:doer-and-done-to', 53],
       ['grammar:being-ill', 54],

@@ -907,6 +907,21 @@
       }
     },
     {
+      "id": "grammar:two-ways-to-pray",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 51,
+        "title": "dá3a and ʂálla: two ways to pray",
+        "points": [
+          "Arabic has two verbs where Hebrew has להתפלל: dá3a is to ask God for something (a du3āʔ); ʂálla is to say the set prayers (a ʂalā).",
+          "-i makes a word “of” something: islāmi, Islamic; masīɧi, Christian, from ilmasīɧ, Christ; yahūdi, Jewish. With -íyya it names the faith: ilmasīɧíyya.",
+          "málik and málika are Hebrew מלך and מלכה. dīn, religion, shares its root with Hebrew דין, law and judgment."
+        ],
+        "examples": ["pcav:3183", "pcav:3236", "pcav:3213", "pcav:2487"]
+      }
+    },
+    {
       "id": "grammar:three-words",
       "subject": "arabic",
       "type": "grammar-card",
