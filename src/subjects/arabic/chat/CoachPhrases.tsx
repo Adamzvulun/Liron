@@ -18,7 +18,7 @@ export function CoachPhrases({
 }: {
   api: SubjectApi;
   tips: readonly Tip[];
-  /** Our glosses of the deck words you've met, shown under the better line. */
+  /** Our glosses of the word path's deck words, shown under the better line. */
   glossary: Glossary;
   onDone: () => void;
 }) {

@@ -264,8 +264,10 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
       persona: { ...INN.persona, about: 'a'.repeat(900) },
       words: Array.from({ length: 40 }, () => 'w'.repeat(40)),
       told: ['ت'.repeat(160), 'ت'.repeat(160), 'ت'.repeat(160)],
+      memories: ['m'.repeat(240), 'm'.repeat(240), 'm'.repeat(240)],
       turns,
     };
+    expect(parseAsk(big)).not.toBeNull();
     const body = JSON.stringify(big);
     const bytes = new TextEncoder().encode(body).length;
     expect(bytes).toBeLessThanOrEqual(MAX_BODY);
@@ -286,6 +288,32 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
       status: 400,
       body: { error: 'bad-request' },
     });
+  });
+
+  it('shares the road behind them: memories, recalled fondly by an old friend', () => {
+    const setting = (met: number, memories?: unknown) => {
+      const ask = parseAsk({ ...INN, met, memories });
+      if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
+      return innMessages(ask)[0]?.content ?? '';
+    };
+    const road = ['You helped Fares carry his oud up the hill.'];
+    expect(setting(0)).not.toContain('on the road');
+    expect(setting(1, road)).toContain('"You helped Fares carry his oud up the hill."');
+    expect(setting(1, road)).toContain('Mention one only if it fits naturally.');
+    // An old friend recalls one in their second line (INN's turns hold one of theirs), told last.
+    const last = (met: number, turns?: unknown) => {
+      const ask = parseAsk({ ...INN, met, memories: road, ...(turns ? { turns } : {}) });
+      if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
+      return innMessages(ask).at(-1);
+    };
+    expect(last(OLD_FRIENDS)).toMatchObject({
+      role: 'system',
+      content: expect.stringContaining('recall'),
+    });
+    expect(last(OLD_FRIENDS - 1)?.role).toBe('user');
+    expect(last(OLD_FRIENDS, [])?.content).not.toContain('recall');
+    expect(parseAsk({ ...INN, memories: ['a', 'b', 'c', 'd'] })).toBeNull();
+    expect(parseAsk({ ...INN, memories: ['x'.repeat(241)] })).toBeNull();
   });
 
   it('tells the regular how well they know the traveler', () => {

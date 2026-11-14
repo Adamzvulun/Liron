@@ -132,6 +132,11 @@ export interface InnAsk {
   told: string[];
   /** How many chats with this regular came before this one (their reputation, E17). */
   met: number;
+  /**
+   * What the traveler and this regular did together on the road (the regular's milestones, our
+   * own English text), once their trial is passed; at most 3.
+   */
+  memories: string[];
   /** This chat so far, oldest first. Empty for the regular's opening line. */
   turns: InnTurn[];
 }
@@ -195,9 +200,10 @@ function parseInn(b: Record<string, unknown>): InnAsk | null {
   const theme = text(b.theme, 160);
   const words = b.words === undefined ? [] : strings(b.words, 40, 40);
   const told = b.told === undefined ? [] : strings(b.told, 3, 160);
+  const memories = b.memories === undefined ? [] : strings(b.memories, 3, 240);
   const turns = parseTurns(b.turns);
   const met = b.met === undefined ? 0 : b.met;
-  if (!who || !about || !name || !theme || !words || !told || !turns) return null;
+  if (!who || !about || !name || !theme || !words || !told || !memories || !turns) return null;
   if (typeof met !== 'number' || !Number.isInteger(met) || met < 0 || met > 9999) return null;
   return {
     kind: 'inn-chat',
@@ -207,6 +213,7 @@ function parseInn(b: Record<string, unknown>): InnAsk | null {
     words,
     told,
     met,
+    memories,
     turns,
   };
 }
@@ -249,7 +256,7 @@ const quoted = (ls: readonly string[]) => ls.map((p) => `"${p}"`).join(' ; ');
 
 /** What a regular is told about this chat: their story, the traveler, and what you know. */
 export function innSetting(ask: InnAsk): string {
-  const { persona, learner, theme, words, told, met } = ask;
+  const { persona, learner, theme, words, told, met, memories } = ask;
   return [
     `You are ${persona.who}. ${persona.about}`,
     `The traveler's name is ${learner.name}.`,
@@ -260,6 +267,12 @@ export function innSetting(ask: InnAsk): string {
         : `You have chatted with the traveler ${met} times: you are old friends, warm and familiar.`,
     ...(told.length
       ? [`What the traveler told you in earlier chats, oldest first: ${quoted(told)}`]
+      : []),
+    ...(memories.length
+      ? [
+          `What you and the traveler did together on the road (told from their side): ${quoted(memories)}`,
+          'Mention one only if it fits naturally.',
+        ]
       : []),
     `The traveler has been learning words about: ${theme}.` +
       (words.length ? ` For example: ${words.join(', ')}.` : '') +
@@ -298,8 +311,24 @@ export function innMessages(
         ]
       : []),
     ...turns,
+    // An old friend's second line recalls the road behind them: last, so it isn't lost.
+    ...(recallNow(ask)
+      ? [
+          {
+            role: 'system' as const,
+            content:
+              'In this line, as an old friend, fondly recall one of the things you did together on the road, in a few words (like أنا بتذكّر لمّا…, which says nothing of their gender). Then answer them.',
+          },
+        ]
+      : []),
   ];
 }
+
+/** Whether this line is an old friend's second, which recalls a shared memory. */
+const recallNow = (ask: InnAsk) =>
+  ask.memories.length > 0 &&
+  ask.met >= OLD_FRIENDS &&
+  ask.turns.filter((t) => t.who === 'them').length === 1;
 
 const LATIN = /[A-Za-z]/;
 const NOT_ARABIC_LINE = /[^\u0600-\u06FF\u0750-\u077F\s0-9.,!?:"«»()\-–—…]/u;

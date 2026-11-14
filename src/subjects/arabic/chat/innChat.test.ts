@@ -143,7 +143,7 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(afterChat(p, first, []).chat.met).toEqual(p.chat.met);
   });
 
-  it('glosses the words of a line that you have met, with our own glosses only', () => {
+  it('glosses the words of a line that are on the word path, with our own glosses only', () => {
     const item = (id: string, arabic: string): Item => ({
       id,
       subject: 'arabic',
@@ -201,5 +201,11 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(aboutOf(hana)).toMatch(/^You are a woman\. You are Hana, /);
     expect(speakerOf(first)).toBe(first.who);
     expect(aboutOf(first)).not.toContain('speak only for yourself');
+  });
+
+  it('sends a regular’s milestones as shared memories once their trial is passed', () => {
+    expect(chatAsk(first, guest, []).memories).toEqual([]);
+    const passed = { ...guest, words: { ...guest.words, trials: [first.number] } };
+    expect(chatAsk(first, passed, []).memories).toEqual(first.milestones.slice(0, 3));
   });
 });

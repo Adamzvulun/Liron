@@ -881,7 +881,7 @@
   color: var(--guild-arabic-ink);
 }
 
-/* The words of their line that you've met, each with our gloss. */
+/* The words of their line from the word path, each with our gloss. */
 .arabic__bubble-glosses {
   display: flex;
   flex-wrap: wrap;
