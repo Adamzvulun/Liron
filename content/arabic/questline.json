@@ -2534,6 +2534,106 @@
         },
         "outro": "He sends a postcard to the inn: a drawing of the jacket, and under it, “Never a bad fit.”"
       }
+    },
+    {
+      "id": "road:98",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 98,
+        "wordChapter": 97,
+        "title": "The New Flat",
+        "who": "Rana, who just rented a flat",
+        "intro": "Rana has just rented a flat on the top floor of an apartment building across the square, and she has no idea how to keep house.",
+        "milestones": [
+          "She asks the innkeeper how often you do the dishes, where the garbage can goes, and whether anyone really makes their bed every morning.",
+          "The coffee maker leaks, the light switch is behind the front door, and the escalator at the mall is broken again. She stays up late writing lists.",
+          "On Saturday she sets the table in her little dining room and invites the whole inn. She drives everyone home, the old ones in the front seat."
+        ],
+        "trial": {
+          "name": "Keeping House",
+          "text": "Rana runs through her chores and her errands, and you give the meaning of each one. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She hangs a key on the inn’s board: “For whoever needs a single bed for a night.”"
+      }
+    },
+    {
+      "id": "road:99",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 99,
+        "wordChapter": 98,
+        "title": "The Exam Results",
+        "who": "Tamer, a student waiting for his results",
+        "intro": "Tamer works part-time at the inn and studies every other night. The exam results come out on Thursday, and he can’t sit still.",
+        "milestones": [
+          "He tests himself with flashcards at the bar, alphabet first, then every word with a question mark after it. None of his friends will help.",
+          "His back hurts, his brother broke his arm at soccer, and the travel agent on the phone keeps asking for his username. Bad luck, he says, comes in threes.",
+          "On Thursday he finishes work early and reads the list twice. He passed, and his team beat the other school in the same week."
+        ],
+        "trial": {
+          "name": "Passed or Failed",
+          "text": "Tamer’s nerves run through school, work and aches, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "He pins his results above the bar, next to a note: “Full-time from next month.”"
+      }
+    },
+    {
+      "id": "road:100",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 100,
+        "wordChapter": 99,
+        "title": "The Tour Guide’s Trip",
+        "who": "Jamil the tour guide",
+        "intro": "Jamil takes a group down the coast every winter, and this year he has room for one more.",
+        "milestones": [
+          "He tells you how to pack your suitcase, which seat to book (the aisle seat, always), and where the exchange office is.",
+          "In the waiting room he shows his driver’s license to the guard, posts a letter in the mailbox and finds a coupon for forty percent off.",
+          "On New Year’s Eve the group watches an action movie at the hotel, Jamil plays classical music on the bus home, and someone is stung by a bee."
+        ],
+        "trial": {
+          "name": "Down the Coast",
+          "text": "Jamil names what you’ll need on the trip, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "He sends a photo of the group in front of a field of sunflowers: “Same time in five years?”"
+      }
+    },
+    {
+      "id": "road:101",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 101,
+        "wordChapter": 100,
+        "title": "The Wedding Feast",
+        "who": "Umm Hadi, cooking for her son’s wedding",
+        "intro": "Umm Hadi’s son is getting married, and she has taken over the inn’s kitchen for three days.",
+        "milestones": [
+          "She tries on a suit jacket for her husband and high heels for herself, and shows everyone the engagement ring. Her eyes itch from the onions.",
+          "The bride has curly hair, the groom a round face, and the cousins argue over fried eggs, boiled eggs and scrambled eggs for breakfast.",
+          "There is minced meat, lamb, seafood and a cake with coconut and peanuts. When it’s over, she closes her eyes and takes a deep breath."
+        ],
+        "trial": {
+          "name": "Everything for the Feast",
+          "text": "Umm Hadi points to faces, clothes and food, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She leaves a plate covered in a cloth for the innkeeper, and on it a note: “Eat it with your eyes closed.”"
+      }
     }
   ]
 }

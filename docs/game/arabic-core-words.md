@@ -281,6 +281,17 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 96 | Last week, never, and without |
 
+- **Words 2,881–3,000 (2026-11-14): A2 phrases for the house, school, work and travel.** The next 120 A2 items from the 369 still untaught, each picked because the phrase is the thing to learn: chores (*to do the dishes*, *to set the table*, *to make one's bed*, *to hang out the laundry*), *to stay up late*, *to wake someone*, *to rent an apartment*, *top floor*, *escalator*, *just right*; crossing the street and the car (*crosswalk*, *traffic light*, *gas station*, *the front seat*); passing and failing a test, *flashcard*, *alphabet*, *bad luck*, *three days ago*, *every other day*, *too __*, *full-time* and *part-time*, a backache and a broken arm; packing, *aisle seat*, *waiting room*, *tour guide*, *driver's license*, *highway*, the mailbox and the mail carrier, *coupon*, *40% off*, New Year's Eve and New Year's Day, jazz, action and horror movies; and round faces, blond, straight and curly hair, *thumb*, *toe*, sleeves, high heels, *engagement ring*, eggs three ways, minced meat, lamb, pork, seafood, coconut and peanuts.
+  - **Left out on purpose:** items with the same meaning as a taught word, which the quiz couldn't tell apart (*a snack*, *soda*, *sleepy*, *to take a nap*, *to throw away*, *ground floor*, *to cry*, *to slow down*, *to sign*, *butcher shop*, the school types, *Who won?*, *Congratulations!*, *I apologize!*), and phrases that only add taught words together (*How much is the rent?*, *car door*, *window seat*, *professor* as "university teacher", *first grade*, *summer vacation*, *a 100-shekel bill*).
+  - **Deck sentences:** 4 of the 120 (*I work full-time*, *Enter your username and password*, *I've never flown first class*, *He pointed at the clock*); the other 116 are our own, and the checker passes them all.
+
+| Chapter | Theme |
+|---|---|
+| 97 | Chores, renting, and the road |
+| 98 | Exams, work hours, and aches |
+| 99 | Trips, town, and a night out |
+| 100 | Faces, clothes, and the kitchen |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
