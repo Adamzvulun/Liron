@@ -1156,6 +1156,21 @@
       }
     },
     {
+      "id": "grammar:trade-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 67,
+        "title": "tijāra, tijāri: trade and its -i",
+        "points": [
+          "agōra is borrowed from Hebrew אגורה: shekels and agorot are the money you pay with.",
+          "-i turns the thing into “of the thing”: tijāra, trade, and tijāri, commercial. The same -i is in māli, financial.",
+          "A verb and its noun: ʂánna3, to manufacture, and ʂinā3a, industry. tas3īra, a fixed price, comes from sí3ir, price (chapter 25)."
+        ],
+        "examples": ["pcav:2898", "pcav:2925", "pcav:2951", "pcav:2953"]
+      }
+    },
+    {
       "id": "grammar:sunrise",
       "subject": "arabic",
       "type": "grammar-card",
