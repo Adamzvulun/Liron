@@ -26,11 +26,13 @@ E17's proposal (2026-11-11) ended with seven questions for Adam. On 2026-11-14 h
 - **Rewards:** 10 XP for a chat of at least 3 lines.
 
 ## Not in this slice (ordered, not cut)
-Voice (ADR 0014).
+The regulars speaking their lines aloud (no free Arabic voice yet).
 
 **Added the same day: the Coach** (ADR 0007). After a chat, "Ask the Coach" sends the same chat once more to Groq (kind `inn-coach`, nothing new leaves the app, one chat line). The answer is JSON with at most 3 tips, each one of your lines, how a Palestinian would say it, and why in one English sentence. `cleanTips` keeps a tip only if it's about one of your own lines and its better line passes `cleanArabic`. The Coach thinks at medium effort (about 1 s): at low effort it "fixed" أنا يعمل to the Standard أنا أعمل, so its rules now name the Palestinian form against each Standard one (بشتغل, بدّي, شو, منيح, آه).
 
 **Then the Coach's phrases** (ADR 0007's "→ FSRS"): every tip the Coach gives is kept in the Arabic progress (`chat.tips`, the newest 30) and becomes a spaced-repetition item `tip:<hash>`, first graded Good. When one is due, "The Coach's phrases" at the table shows what you said and asks how a Palestinian would say it; you check yourself ("Not yet" is Again, "I had it" is Good). Nothing is sent to Groq for this.
+
+**And your voice** (ADR 0014): "🎙 Say your line" records one line and sends it to Groq Whisper through `api/understood.ts`, the same check as "Say it" (Adam approved it in PR #87), with its own daily cap. What Whisper heard lands in the text box, in Arabic, for you to fix before you send it. The table's said-openly note now names the microphone too.
 
 **Also added the same day:** a daily contract, "Sit and talk with a regular at the inn" (15 gold, offered once you've had a chat), and the achievement **Known at the Inn** (10 different regulars, 3 gems, the title *the Well-Spoken*), from the events `inn-chat` and `inn-regular` (migration `20261209000000_inn_chat_rewards.sql`).
 
