@@ -1233,6 +1233,21 @@
       }
     },
     {
+      "id": "grammar:kings-and-courts",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 73,
+        "title": "mámlaka, ɧákam: roots you know from Hebrew",
+        "points": [
+          "mámlaka, kingdom, is Hebrew ממלכה, from the root of málik, king.",
+          "ɧákam shares its root with Hebrew חכם, wise. In Arabic the root rules and judges: ɧákam, to govern; inɧákam 3alē, to be sentenced.",
+          "gátil is murder and gātil is the murderer: the long ā marks the doer (chapter 53). -íyya names the system and -i its adjective: dīmuqrāʈíyya, dīmuqrāʈi."
+        ],
+        "examples": ["pcav:2793", "pcav:2850", "pcav:2815", "pcav:2879"]
+      }
+    },
+    {
       "id": "grammar:can-be",
       "subject": "arabic",
       "type": "grammar-card",
