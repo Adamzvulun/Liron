@@ -1,6 +1,6 @@
 # Talking at the inn: Arabic conversations (E17), a proposal
 
-- **Status:** proposal, written 2026-11-11 while Adam slept. **Nothing is built until Adam answers the questions in §6.** Every "my pick" below is easy to change.
+- **Status:** proposal, written 2026-11-11 while Adam slept. **Decided 2026-11-14** in [ADR 0038](../decisions/0038-talking-with-the-regulars.md) (Adam asked Claude to answer open questions as he would), and its first slice is built: "Sit and talk" at the innkeeper's table. Every "my pick" below is easy to change.
 - **Epic:** E17 Café conversations in the [roadmap](../process/ROADMAP.md) (M4).
 - **Inputs:** [ADR 0007](../decisions/0007-partners-are-simulated-people.md) (partners are people, the silent Coach), [ADR 0004](../decisions/0004-free-llm-provider-agnostic.md) (free models behind our own function), [ADR 0036](../decisions/0036-ai-partner-first-slice.md) and [0037](../decisions/0037-ai-partner-answers-your-news.md) (the partner function, its cap and memory), the café cast draft in [discovery 03](../discovery/03-game-layer-and-partners.md) §4, and the regulars of "The Long Road In" ([arabic-core-words](arabic-core-words.md) §5).
 

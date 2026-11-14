@@ -54,7 +54,16 @@ const sessionSize = () =>
  * practice them with the words due and the words you know: hear it, read it, or recall it.
  * With `trial`, it's the current regular's trial instead (#161).
  */
-export function WordLessons({ api, trial = false }: { api: SubjectApi; trial?: boolean }) {
+export function WordLessons({
+  api,
+  trial = false,
+  onChat,
+}: {
+  api: SubjectApi;
+  trial?: boolean;
+  /** Opens "Sit and talk" with the regulars (E17, ADR 0038). */
+  onChat?: () => void;
+}) {
   const [progress, setProgress] = useState<ArabicProgress | null>(null);
   const [chapters, setChapters] = useState<CoreWord[][] | null>(null);
   const [grammar, setGrammar] = useState<GrammarCard[]>([]);
@@ -265,6 +274,11 @@ export function WordLessons({ api, trial = false }: { api: SubjectApi; trial?: b
                 onClick={() => setStage({ kind: 'book', open: null })}
               >
                 Grammar book · {book.length}
+              </button>
+            )}
+            {onChat && (
+              <button type="button" className="lesson__plain" onClick={onChat}>
+                Sit and talk
               </button>
             )}
           </div>
