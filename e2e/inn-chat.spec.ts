@@ -177,9 +177,7 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(page.getByRole('button', { name: /The Coach’s phrases/ })).toHaveCount(0);
   });
 
-  test('their line and the Coach’s show the words you have met, with our glosses', async ({
-    page,
-  }) => {
+  test('their line and the Coach’s gloss the word path’s words', async ({ page }) => {
     await page.route('**/api/partner', (route) => {
       const ask = route.request().postDataJSON() as InnAsk;
       const tip = { said: 'الآن', better: 'هلّق، اليوم', why: 'Palestinians say هلّق.' };

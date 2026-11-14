@@ -143,7 +143,7 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(afterChat(p, first, []).chat.met).toEqual(p.chat.met);
   });
 
-  it('glosses the words of a line that you have met, with our own glosses only', () => {
+  it('glosses the words of a line that are on the word path, with our own glosses only', () => {
     const item = (id: string, arabic: string): Item => ({
       id,
       subject: 'arabic',
