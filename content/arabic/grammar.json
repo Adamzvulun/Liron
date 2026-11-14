@@ -813,22 +813,6 @@
       }
     },
     {
-      "id": "grammar:wishes",
-      "subject": "arabic",
-      "type": "grammar-card",
-      "data": {
-        "chapter": 51,
-        "title": "álla ywáffgak: wishing someone well",
-        "points": [
-          "Many wishes are álla, God, and a verb with no b-: álla ywáffgak, good luck (word for word, God make you succeed); álla yišfīk, get well soon.",
-          "The ending says who it’s for (chapter 14): álla yírɧamu, may he rest in peace; álla yirɧámha, for a woman.",
-          "Thanks are often a wish too: álla ybārik fīk, God bless you, which is also how you answer mabrūk, congratulations.",
-          "Hebrew’s blessing יְבָרֶכְךָ, may He bless you, wishes with the same y- in front."
-        ],
-        "examples": ["pcav:4800", "pcav:4812", "pcav:4810", "pcav:4811", "pcav:4823", "pcav:4788"]
-      }
-    },
-    {
       "id": "grammar:three-words",
       "subject": "arabic",
       "type": "grammar-card",
@@ -918,6 +902,22 @@
           "In a sentence, fiš ɧadd says no one: fiš ɧadd bi3īš la-lʔábad, no one lives forever. kull wāɧad is everyone, and ayy ɧáda is anyone (chapter 45)."
         ],
         "examples": ["pcav:4296", "pcav:4288", "pcav:4279", "pcav:4285"]
+      }
+    },
+    {
+      "id": "grammar:wishes",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 92,
+        "title": "álla ywáffgak: wishing someone well",
+        "points": [
+          "Many wishes are álla, God, and a verb with no b-: álla ywáffgak, good luck (word for word, God make you succeed); álla yišfīk, get well soon.",
+          "The ending says who it’s for (chapter 14): álla yírɧamu, may he rest in peace; álla yirɧámha, for a woman.",
+          "Thanks are often a wish too: álla ybārik fīk, God bless you, which is also how you answer mabrūk, congratulations.",
+          "Hebrew’s blessing יְבָרֶכְךָ, may He bless you, wishes with the same y- in front."
+        ],
+        "examples": ["pcav:4800", "pcav:4812", "pcav:4810", "pcav:4811", "pcav:4823", "pcav:4788"]
       }
     }
   ]
