@@ -157,3 +157,28 @@ export function tipsFrom(text: string): CoachTip[] | null {
     return null;
   }
 }
+
+/** The most Coach's tips kept; the oldest go first. */
+export const MAX_TIPS = 30;
+
+/** A tip's review item id: `tip:` and a short hash of the better line. */
+export function tipId(better: string): string {
+  let h = 5381;
+  for (const c of better) h = ((h * 33) ^ (c.codePointAt(0) ?? 0)) >>> 0;
+  return `tip:${h.toString(36)}`;
+}
+
+/** The progress with these tips kept (a tip already kept isn't added twice). */
+export function withTips(p: ArabicProgress, tips: readonly CoachTip[]): ArabicProgress {
+  const have = new Set(p.chat.tips.map((t) => t.id));
+  const fresh = tips
+    .map((t) => ({ ...t, id: tipId(t.better), why: t.why.slice(0, 140) }))
+    .filter((t) => !have.has(t.id) && have.add(t.id));
+  return { ...p, chat: { ...p.chat, tips: [...p.chat.tips, ...fresh].slice(-MAX_TIPS) } };
+}
+
+/** The kept tips that are due for review now. */
+export function dueTips(p: ArabicProgress, due: readonly { itemId: string }[]) {
+  const ids = new Set(due.map((d) => d.itemId));
+  return p.chat.tips.filter((t) => ids.has(t.id));
+}

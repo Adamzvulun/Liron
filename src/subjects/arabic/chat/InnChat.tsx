@@ -3,6 +3,7 @@ import type { SubjectApi } from '../../../core/subject.ts';
 import { PartnerError, type CoachTip, type InnTurn } from '../../../core/partner.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import type { Regular } from '../questline.ts';
+import { CoachPhrases } from './CoachPhrases.tsx';
 import {
   afterChat,
   CHAT_XP,
@@ -17,6 +18,8 @@ import {
   MAX_TYPED,
   regularsToTalkTo,
   tipsFrom,
+  dueTips,
+  withTips,
 } from './innChat.ts';
 
 // "Sit and talk" at the innkeeper's table (E17, ADR 0038): a short chat in Palestinian Arabic
@@ -31,6 +34,8 @@ const LETTERS = [
 
 type Stage =
   | { kind: 'pick' }
+  /** Practicing the Coach's phrases that are due. */
+  | { kind: 'tips'; tips: ArabicProgress['chat']['tips'] }
   | {
       kind: 'chat';
       regular: Regular;
@@ -57,6 +62,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const [shown, setShown] = useState<ReadonlySet<number>>(new Set());
   /** The Coach after a chat (ADR 0007): not asked, asking, the tips, or no answer. */
   const [coach, setCoach] = useState<'idle' | 'asking' | 'failed' | CoachTip[]>('idle');
+  /** Review items due now (only the Coach's `tip:` ones matter here). */
+  const [due, setDue] = useState<readonly { itemId: string }[]>([]);
   const saved = useRef(false);
   const lines = useRef<HTMLOListElement>(null);
   // The newest line is always in view: the list scrolls to its end as the chat grows.
@@ -77,6 +84,11 @@ export function InnChat({ api }: { api: SubjectApi }) {
         setName(p.chat.name);
       },
       () => live.current && setFailed(true),
+    );
+    // The Coach's phrases only add a button: if they can't be read, it doesn't show.
+    api.dueItems({ limit: 200 }).then(
+      (d) => live.current && setDue(d),
+      () => undefined,
     );
     return () => {
       live.current = false;
@@ -156,6 +168,22 @@ export function InnChat({ api }: { api: SubjectApi }) {
     ask({ kind: 'chat', regular, turns: [], waiting: true, started: now }, [], p);
   };
 
+  if (stage.kind === 'tips')
+    return (
+      <section className="lesson arabic" aria-label="The Coach’s phrases">
+        <CoachPhrases
+          api={api}
+          tips={stage.tips}
+          onDone={() => {
+            const done = new Set(stage.tips.map((t) => t.id));
+            setDue((d) => d.filter((x) => !done.has(x.itemId)));
+            setStage({ kind: 'pick' });
+          }}
+        />
+      </section>
+    );
+
+  const practice = dueTips(progress, due);
   if (stage.kind === 'pick')
     return (
       <section className="lesson arabic" aria-label="Sit and talk">
@@ -189,6 +217,17 @@ export function InnChat({ api }: { api: SubjectApi }) {
               </li>
             ))}
           </ul>
+          {practice.length > 0 && (
+            <div className="lesson__actions">
+              <button
+                type="button"
+                className="lesson__go"
+                onClick={() => setStage({ kind: 'tips', tips: practice })}
+              >
+                The Coach’s phrases · {practice.length}
+              </button>
+            </div>
+          )}
           <p className="arabic__note">
             Said openly: the regulars’ lines are written by an AI (Groq), and what you type is sent
             to it. Type nothing private.
@@ -226,7 +265,26 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const askCoach = () => {
     setCoach('asking');
     api.partner({ kind: 'inn-coach', turns: s.turns }).then(
-      (reply) => live.current && setCoach(tipsFrom(reply.text) ?? 'failed'),
+      (reply) => {
+        if (!live.current) return;
+        const tips = tipsFrom(reply.text);
+        setCoach(tips ?? 'failed');
+        if (!tips?.length) return;
+        // Kept for practice: each new tip becomes a review item, due again soon.
+        const next = withTips(progress, tips);
+        const have = new Set(progress.chat.tips.map((t) => t.id));
+        const fresh = next.chat.tips.filter((t) => !have.has(t.id));
+        setProgress(next);
+        api
+          .saveSession({
+            state: next,
+            reviews: fresh.map((t) => ({ itemId: t.id, grade: 'good' as const })),
+          })
+          .then(
+            () => setSaveFailed(false),
+            () => setSaveFailed(true),
+          );
+      },
       () => live.current && setCoach('failed'),
     );
   };
@@ -298,6 +356,11 @@ export function InnChat({ api }: { api: SubjectApi }) {
                       </li>
                     ))}
                   </ol>
+                )}
+                {coach.length > 0 && (
+                  <p className="arabic__note">
+                    Kept for practice: they’ll come back at this table.
+                  </p>
                 )}
               </div>
             )}
