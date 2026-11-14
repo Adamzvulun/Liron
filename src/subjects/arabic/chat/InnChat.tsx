@@ -8,6 +8,7 @@ import {
   CHAT_XP,
   chatAsk,
   cleanTyped,
+  fromHebrew,
   GOODBYE,
   lineInHebrew,
   linesOf,
@@ -87,10 +88,15 @@ export function InnChat({ api }: { api: SubjectApi }) {
       </p>
     );
 
-  const save = (s: Extract<Stage, { kind: 'chat' }>, turns: InnTurn[], now: number) => {
+  const save = (
+    s: Extract<Stage, { kind: 'chat' }>,
+    turns: InnTurn[],
+    now: number,
+    p: ArabicProgress,
+  ) => {
     if (saved.current || !linesOf(turns)) return;
     saved.current = true;
-    const next = afterChat(progress, s.regular, turns);
+    const next = afterChat(p, s.regular, turns);
     setProgress(next);
     api
       .saveSession({
@@ -119,7 +125,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
         setStage((now) =>
           same(now) ? { ...s, turns, waiting: false, ended: endLine(s.regular, e) } : now,
         );
-        save(s, turns, Date.now());
+        save(s, turns, Date.now(), p);
       },
     );
   };
@@ -177,22 +183,29 @@ export function InnChat({ api }: { api: SubjectApi }) {
 
   const s = stage;
   const mine = linesOf(s.turns);
+  const hebrew = progress.chat.hebrew;
+  /** What they'll read: what you typed, from Hebrew letters if that's how you type. */
+  const line = cleanTyped(hebrew ? fromHebrew(typed) : typed);
+  const setHebrew = (on: boolean) => {
+    setProgress({ ...progress, chat: { ...progress.chat, hebrew: on } });
+    setTyped('');
+  };
   const send = (now: number) => {
-    const text = cleanTyped(typed);
+    const text = line;
     if (!text || s.waiting || s.ended) return;
     setTyped('');
     const turns: InnTurn[] = [...s.turns, { who: 'you', text }];
     if (linesOf(turns) >= MAX_LINES) {
       const last: InnTurn[] = [...turns, { who: 'them', text: GOODBYE }];
       setStage({ ...s, turns: last, ended: `${s.regular.who} has to go.` });
-      save(s, last, now);
+      save(s, last, now, progress);
       return;
     }
     ask(s, turns, progress);
   };
   const leave = (now: number) => {
     setStage({ ...s, ended: 'You leave the table.' });
-    save(s, s.turns, now);
+    save(s, s.turns, now, progress);
   };
   const toggle = (i: number) =>
     setShown((now) => {
@@ -252,6 +265,14 @@ export function InnChat({ api }: { api: SubjectApi }) {
           </>
         ) : (
           <>
+            <div className="arabic__chat-mode" role="group" aria-label="Type in">
+              <button type="button" aria-pressed={!hebrew} onClick={() => setHebrew(false)}>
+                Arabic
+              </button>
+              <button type="button" aria-pressed={hebrew} onClick={() => setHebrew(true)}>
+                Hebrew letters
+              </button>
+            </div>
             <form
               className="arabic__chat-form"
               onSubmit={(e) => {
@@ -260,50 +281,55 @@ export function InnChat({ api }: { api: SubjectApi }) {
               }}
             >
               <input
-                lang="ar"
+                lang={hebrew ? 'he' : 'ar'}
                 dir="rtl"
-                aria-label="Your line, in Arabic"
+                aria-label={hebrew ? 'Your line, in Hebrew letters' : 'Your line, in Arabic'}
                 value={typed}
                 maxLength={MAX_TYPED}
                 autoComplete="off"
                 onChange={(e) => setTyped(e.target.value)}
               />
-              <button
-                type="submit"
-                className="lesson__go"
-                disabled={s.waiting || !cleanTyped(typed)}
-              >
+              <button type="submit" className="lesson__go" disabled={s.waiting || !line}>
                 Say it
               </button>
             </form>
-            <div className="arabic__keys" role="group" aria-label="Arabic keyboard" dir="rtl">
-              {LETTERS.map((l) => (
-                <button key={l} type="button" onClick={() => setTyped((t) => t + l)}>
-                  {l}
+            {hebrew ? (
+              <p className="arabic__chat-reads">
+                They read:{' '}
+                <bdi lang="ar" dir="rtl">
+                  {line || '…'}
+                </bdi>
+              </p>
+            ) : (
+              <div className="arabic__keys" role="group" aria-label="Arabic keyboard" dir="rtl">
+                {LETTERS.map((l) => (
+                  <button key={l} type="button" onClick={() => setTyped((t) => t + l)}>
+                    {l}
+                  </button>
+                ))}
+                <button type="button" onClick={() => setTyped((t) => t + '؟')}>
+                  ؟
                 </button>
-              ))}
-              <button type="button" onClick={() => setTyped((t) => t + '؟')}>
-                ؟
-              </button>
-              <button type="button" onClick={() => setTyped((t) => t + '،')}>
-                ،
-              </button>
-              <button
-                type="button"
-                className="arabic__key-wide"
-                aria-label="Space"
-                onClick={() => setTyped((t) => t + ' ')}
-              >
-                ␣
-              </button>
-              <button
-                type="button"
-                aria-label="Delete"
-                onClick={() => setTyped((t) => [...t].slice(0, -1).join(''))}
-              >
-                ⌫
-              </button>
-            </div>
+                <button type="button" onClick={() => setTyped((t) => t + '،')}>
+                  ،
+                </button>
+                <button
+                  type="button"
+                  className="arabic__key-wide"
+                  aria-label="Space"
+                  onClick={() => setTyped((t) => t + ' ')}
+                >
+                  ␣
+                </button>
+                <button
+                  type="button"
+                  aria-label="Delete"
+                  onClick={() => setTyped((t) => [...t].slice(0, -1).join(''))}
+                >
+                  ⌫
+                </button>
+              </div>
+            )}
             <div className="lesson__actions">
               <button type="button" className="lesson__plain" onClick={() => leave(Date.now())}>
                 Leave the table

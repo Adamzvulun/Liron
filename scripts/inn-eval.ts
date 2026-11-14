@@ -42,7 +42,7 @@ const FORBIDDEN: [string, RegExp][] = [
 /** "I am …" and "I'm not …" in the masculine, which a woman regular shouldn't say of herself. */
 const HIS = /(^|\s)(أنا|مش)\s+(فاهم|مبسوط|تعبان|مشغول|جوعان|زعلان)(\s|$|[.!?؟،])/u;
 
-const p = { ...NEW_PROGRESS, guest: true, chat: { name: 'Adam', told: {}, chats: 0 } };
+const p = { ...NEW_PROGRESS, guest: true, chat: { ...NEW_PROGRESS.chat, name: 'Adam' } };
 const pick = (n: number) => REGULARS.find((r) => r.number === n) ?? REGULARS[0];
 const you = (...lines: string[]): InnTurn[] => lines.map((text) => ({ who: 'you', text }));
 

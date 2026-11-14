@@ -11,7 +11,7 @@ E17's proposal (2026-11-11) ended with seven questions for Adam. On 2026-11-14 h
 1. **Data: Groq only, with no backup.** Your chat lines go to Groq, which keeps no inference data by default. They never go to Gemini's free tier, which may use prompts to improve Google's products. When Groq fails or is busy, the regular "has to serve a customer" and the chat ends kindly. Adam already said yes to Gemini for the Radio Room's English news (ADR 0036). Arabic chat is more personal, though, and the spike found Gemini worse at Palestinian Arabic anyway.
 2. **Model: `openai/gpt-oss-120b` on Groq**, the spike's best. The Radio Room keeps its own models (ADR 0036). The function sends no reasoning effort beyond "low", so replies stay fast.
 3. **Who: the regulars of "The Long Road In"**, one at a time: the regular of your word chapter and every regular whose trial you've passed. Their name, story and outro are our own content (`questline.json`). No second cast.
-4. **Typing: Arabic script**, with an on-screen Arabic keyboard (letters in rows, space, delete). A physical keyboard works too. Typing in Hebrew letters is possible later, ordered, not cut.
+4. **Typing: Arabic script**, with an on-screen Arabic keyboard (letters in rows, space, delete). A physical keyboard works too. **Typing in Hebrew letters** came the same day: a switch under the chat reads Hebrew letters as Arabic with the letter table's own bridge (ח׳ is خ, a word-final ה is ة), shows "They read: …" as you type, and is remembered (`chat.hebrew`). What's sent is always Arabic.
 5. **Known words: no deck text in the prompt.** The prompt carries the chapter's theme and our own English glosses of its words (`core-words.json`'s glosses are ours), so the regular talks about things you've learned. No Arabic from the deck leaves the app.
 6. **Cap: 60 chat lines a day, on their own counter** (`claim_chat_line`, migration `20261208000000_chat_lines.sql`), apart from the radio's 40. A chat is at most 8 of your lines, so it allows about 7 chats a day.
 7. **Adam's hand steps:** add `GROQ_API_KEY` in Vercel (the speech check needs it too), and switch on zero data retention in Groq's Data Controls. Until the key is there, "Sit and talk" says the regulars are busy, and nothing is sent.
@@ -26,7 +26,7 @@ E17's proposal (2026-11-11) ended with seven questions for Adam. On 2026-11-14 h
 - **Rewards:** 10 XP for a chat of at least 3 lines.
 
 ## Not in this slice (ordered, not cut)
-The Coach's debrief after a chat (`inn-coach`), voice (ADR 0014), typing in Hebrew letters, a daily-contract event and an achievement for chatting with 10 regulars.
+The Coach's debrief after a chat (`inn-coach`), voice (ADR 0014), a daily-contract event and an achievement for chatting with 10 regulars.
 
 ## Consequences
 - The first time a learner's own Arabic leaves the app. It goes to one provider that keeps nothing by default.

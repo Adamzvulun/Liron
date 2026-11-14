@@ -7,6 +7,7 @@ import {
   afterChat,
   chatAsk,
   cleanTyped,
+  fromHebrew,
   lineInHebrew,
   regularsToTalkTo,
 } from './innChat.ts';
@@ -35,7 +36,11 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
   });
 
   it('sends the theme and our own English glosses, never the deck', () => {
-    const ask = chatAsk(first, { ...guest, chat: { name: 'Adam', told: {}, chats: 0 } }, []);
+    const ask = chatAsk(
+      first,
+      { ...guest, chat: { name: 'Adam', told: {}, chats: 0, hebrew: false } },
+      [],
+    );
     const chapter = must(WORD_CHAPTERS[first.wordChapter - 1]);
     expect(ask).toMatchObject({ kind: 'inn-chat', learner: { name: 'Adam' }, turns: [] });
     expect(ask.theme).toBe(chapter.theme.slice(0, 160));
@@ -65,6 +70,7 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
       name: '',
       told: {},
       chats: 0,
+      hebrew: false,
     });
   });
 
@@ -78,5 +84,14 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(he).not.toMatch(/\p{Script=Arabic}/u);
     expect(he).toMatch(/,/);
     expect(he).toMatch(/\?$/);
+  });
+
+  it('reads what you type in Hebrew letters as Arabic', () => {
+    expect(fromHebrew('מניח, אלחמד ללה')).toBe('منيح، الحمد لله');
+    expect(fromHebrew("ח'בז וג'בנה")).toBe('خبز وجبنة');
+    expect(fromHebrew('ח׳לאץ')).toBe('خلاص');
+    expect(fromHebrew('כיפכ?')).toBe('كيفك؟');
+    expect(fromHebrew('שו אסמכ? אנא אדם')).toBe('شو اسمك؟ انا ادم');
+    expect(fromHebrew('مرحبا')).toBe('مرحبا');
   });
 });

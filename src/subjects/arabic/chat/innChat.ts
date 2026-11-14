@@ -5,6 +5,7 @@ import type { ArabicProgress } from '../progress.ts';
 import { REGULARS, regularStatus, type Regular } from '../questline.ts';
 import { WORD_CHAPTERS } from '../core/wordChapters.ts';
 import { inHebrewVowelled } from '../marks.ts';
+import { LETTERS } from '../letters.ts';
 
 /** Your lines in one chat; after that the regular has to go. */
 export const MAX_LINES = 8;
@@ -93,3 +94,46 @@ export function afterChat(
 
 /** Your lines in a chat. */
 export const linesOf = (turns: readonly InnTurn[]) => turns.filter((t) => t.who === 'you').length;
+
+/** Hebrew final forms, read as their plain letter. */
+const FINALS: Record<string, string> = { ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' };
+
+/**
+ * Hebrew letters to Arabic ones, from the letter table's own bridge (content/arabic/letters.json):
+ * ח׳ is خ, ג׳ is ج, and so on (a plain apostrophe works as the geresh). A ה ending a word is ة,
+ * but for الله.
+ */
+const FROM_HEBREW: ReadonlyMap<string, string> = new Map(
+  LETTERS.filter((l) => !['ة', 'ء', 'ى', 'لا'].includes(l.letter)).map((l) => [
+    (l.hebrew.split('/')[0] ?? l.hebrew).trim(),
+    l.letter,
+  ]),
+);
+
+/** What you typed in Hebrew letters (E17's Hebrew typing), in Arabic script. */
+export function fromHebrew(text: string): string {
+  const plain = [...text.replace(/['’`]/g, '׳')].map((c) => FINALS[c] ?? c);
+  let out = '';
+  for (let i = 0; i < plain.length; i++) {
+    const c = plain[i] ?? '';
+    const next = plain[i + 1];
+    const withGeresh = next === '׳' ? FROM_HEBREW.get(c + '׳') : undefined;
+    if (withGeresh) {
+      out += withGeresh;
+      i++;
+      continue;
+    }
+    const atEnd = !next || !/\p{Script=Hebrew}/u.test(next) || next === '׳';
+    // …except in الله (ללה), where it's a plain ه.
+    const allah = plain[i - 1] === 'ל' && plain[i - 2] === 'ל';
+    if (c === 'ה' && atEnd && !allah && /\p{Script=Hebrew}/u.test(plain[i - 1] ?? '')) {
+      out += 'ة';
+      continue;
+    }
+    if (c === '?') out += '؟';
+    else if (c === ',') out += '،';
+    else if (c === '׳') continue;
+    else out += FROM_HEBREW.get(c) ?? c;
+  }
+  return out;
+}
