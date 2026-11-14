@@ -1292,6 +1292,22 @@
         ],
         "examples": ["pcav:4800", "pcav:4812", "pcav:4810", "pcav:4811", "pcav:4823", "pcav:4788"]
       }
+    },
+    {
+      "id": "grammar:the-world-rains",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 93,
+        "title": "iddínya bitmáʈʈir: the world is raining",
+        "points": [
+          "English says “it’s raining”. Arabic says the world is: iddínya bitmáʈʈir; iddínya bittálij, it’s snowing.",
+          "iddínya is feminine, so the verb is in the she form, even when iddínya is left out: bádat tmáʈʈir, it’s started to rain; wággafat máʈar, it’s stopped raining.",
+          "The weather’s look is ijjáww and a describing word: ijjáww múšmis, it’s sunny; ijjáww mɣáyyim, it’s cloudy.",
+          "šákilha ɧatmáʈʈir, it looks like rain, is word for word “her look, she will rain”: the world again."
+        ],
+        "examples": ["pcav:3687", "pcav:3699", "pcav:3689", "pcav:3690", "pcav:3678", "pcav:3723"]
+      }
     }
   ]
 }
