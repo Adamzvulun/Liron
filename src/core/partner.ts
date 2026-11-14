@@ -34,6 +34,8 @@ export interface InnChatAsk {
   words: readonly string[];
   /** The last few things you said to this regular in earlier chats, oldest first. */
   told: readonly string[];
+  /** How many chats with this regular came before this one (their reputation). */
+  met: number;
   /** This chat so far, oldest first; empty for their opening line. */
   turns: readonly InnTurn[];
 }

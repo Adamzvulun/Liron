@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { deckWord, signedIn, type SubjectCall } from './fake-supabase.ts';
+import { deckWord, pathWord, signedIn, type SubjectCall } from './fake-supabase.ts';
+import { ECHO_POOL } from '../src/subjects/arabic/words.ts';
 import pack from '../content/arabic/core-words.json' with { type: 'json' };
 import { tipId } from '../src/subjects/arabic/chat/innChat.ts';
 
@@ -13,6 +14,7 @@ interface InnAsk {
   learner: { name: string };
   words: string[];
   told: string[];
+  met: number;
   turns: { who: string; text: string }[];
 }
 
@@ -44,6 +46,7 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(page.getByText(/written by an AI \(Groq\)/)).toBeVisible();
     const salim = page.getByRole('button', { name: /Salim the carter/ });
     await expect(salim).toBeDisabled();
+    await expect(salim).toContainText('New face');
     await page.getByLabel('The name they know you by').fill('Adam');
     await salim.click();
 
@@ -53,6 +56,7 @@ test.describe('Sit and talk at the inn (E17)', () => {
       persona: { who: 'Salim the carter' },
       learner: { name: 'Adam' },
       turns: [],
+      met: 0,
     });
     expect(asked[0]?.persona.about).toMatch(/^You are a man\./);
 
@@ -93,6 +97,7 @@ test.describe('Sit and talk at the inn (E17)', () => {
       name: 'Adam',
       told: { 2: ['منيح، الحمد لله', 'طالب', 'شكرا'] },
       chats: 1,
+      met: { 2: 1 },
       hebrew: false,
       tips: [],
     });
@@ -116,9 +121,11 @@ test.describe('Sit and talk at the inn (E17)', () => {
 
     // The next chat brings what you told them.
     await page.getByRole('button', { name: 'Back to the table' }).click();
-    await page.getByRole('button', { name: /Salim the carter/ }).click();
+    await expect(salim).toContainText('Knows you');
+    await salim.click();
     await expect.poll(() => asked.length).toBe(5);
     expect(asked[4]?.told).toEqual(['منيح، الحمد لله', 'طالب', 'شكرا']);
+    expect(asked[4]?.met).toBe(1);
   });
 
   test('a long chat keeps the newest line in view', async ({ page }) => {
@@ -162,6 +169,21 @@ test.describe('Sit and talk at the inn (E17)', () => {
       .toEqual([expect.objectContaining({ p_item: id, p_rating: 3 })]);
     await page.getByRole('button', { name: 'Back to the table' }).click();
     await expect(page.getByRole('button', { name: /The Coach’s phrases/ })).toHaveCount(0);
+  });
+
+  test('their line shows the words you have met, with our glosses', async ({ page }) => {
+    await page.route('**/api/partner', (route) =>
+      route.fulfill({ json: { text: 'صباح الخير! شو أخبار اليوم؟', left: 59 } }),
+    );
+    const today = pathWord(1, 'اليوم', 'the deck’s English');
+    const gloss = ECHO_POOL.words.get(today.item_id)?.gloss ?? '';
+    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } }, [today]);
+    await page.goto('/caravanserai?open=chat');
+    await page.getByRole('button', { name: /Salim the carter/ }).click();
+    await page.getByRole('button', { name: /صباح الخير/ }).click();
+    const glosses = page.locator('.arabic__bubble-glosses');
+    await expect(glosses).toHaveText(`اليوم ${gloss}`);
+    await expect(glosses).not.toContainText('the deck’s English');
   });
 
   test('when the partner is busy, the regular has to go, kindly', async ({ page }) => {

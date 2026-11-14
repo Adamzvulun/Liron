@@ -10,6 +10,7 @@ import {
   innMessages,
   MAX_BODY,
   MAX_TURNS,
+  OLD_FRIENDS,
   parseAsk,
   radioPrompt,
   REPLY_GEMINI_MS,
@@ -285,6 +286,20 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
       status: 400,
       body: { error: 'bad-request' },
     });
+  });
+
+  it('tells the regular how well they know the traveler', () => {
+    const setting = (met: number) => {
+      const ask = parseAsk({ ...INN, met });
+      if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
+      return innMessages(ask)[0]?.content ?? '';
+    };
+    expect(setting(0)).toContain('This is your first chat with the traveler');
+    expect(setting(1)).toContain('You have chatted with the traveler once before.');
+    expect(setting(3)).toContain('3 times before');
+    expect(setting(OLD_FRIENDS)).toContain('you are old friends');
+    expect(parseAsk({ ...INN, met: -1 })).toBeNull();
+    expect(parseAsk({ ...INN, met: 1.5 })).toBeNull();
   });
 
   it('asks for a greeting when the chat has no turns yet', () => {
