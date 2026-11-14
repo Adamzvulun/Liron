@@ -230,15 +230,27 @@ export function glossaryFrom(items: readonly Item[], pool: WordReview = ECHO_POO
 
 /** What a word may start with: "and", "the", "in", "to", and their pairs. */
 const PREFIXES = ['وال', 'بال', 'فال', 'عال', 'لل', 'ال', 'و', 'ب', 'ف', 'ل'];
+/** What a word may end with: "my", "your", "his", "her", "our", "their". */
+const SUFFIXES = ['كم', 'هم', 'ها', 'نا', 'ك', 'ي', 'ه', 'و'];
 
 /** The words in a line that the glossary knows, as said in the line, at most 6. */
 export function glossesIn(line: string, glossary: Glossary): { word: string; gloss: string }[] {
   const found: { word: string; gloss: string }[] = [];
   for (const token of line.split(/\s+/)) {
     const plain = plainArabic(token);
-    const tries = [
+    const fronts = [
       plain,
       ...PREFIXES.filter((p) => plain.startsWith(p)).map((p) => plain.slice(p.length)),
+    ];
+    // The bare word first, then without "my", "your", "his"… at its end (بيتك, قهوتي: ة is ت there).
+    const tries = [
+      ...fronts,
+      ...fronts.flatMap((f) =>
+        SUFFIXES.filter((x) => f.endsWith(x) && f.length - x.length > 2).flatMap((x) => {
+          const stem = f.slice(0, -x.length);
+          return stem.endsWith('ت') ? [stem, `${stem.slice(0, -1)}ة`] : [stem];
+        }),
+      ),
     ];
     const gloss = tries
       .filter((t) => t.length > 1)
