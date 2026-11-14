@@ -705,6 +705,21 @@
       }
     },
     {
+      "id": "grammar:palms-and-seeds",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 39,
+        "title": "náxil, náxla: more wholes and ones",
+        "points": [
+          "Like xúbiz and xúbza (chapter 26), the field has wholes and ones: náxil, palm trees, and náxla, one palm; bízir, seeds, and bízra, one seed.",
+          "Many fruits are named as a whole too: míšmiš, apricots; káraz, cherries. So are bees: náɧil.",
+          "zára3 is to plant, and zár3a is a plant, from the same root as Hebrew זרע (zéra, seed; lizróa, to sow)."
+        ],
+        "examples": ["pcav:3841", "pcav:3863", "pcav:3864", "pcav:3832"]
+      }
+    },
+    {
       "id": "grammar:places",
       "subject": "arabic",
       "type": "grammar-card",

@@ -2834,6 +2834,31 @@
         },
         "outro": "He sends the inn a jar of honey from the oak tree and a note: “For the guests who sing badly.”"
       }
+    },
+    {
+      "id": "road:110",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 110,
+        "wordChapter": 109,
+        "title": "The Weather Desk",
+        "who": "Basma, who reads the weather on the radio",
+        "intro": "Basma reads the weather on the morning radio, from Ramallah to Beersheba, and she works part-time, so she has the afternoons to travel the land she talks about.",
+        "milestones": [
+          "She walks you through the Old City: al-Aqsa Mosque, the Dome of the Rock shining gold, and the Church of the Holy Sepulchre, then a bus to the Church of the Nativity.",
+          "On the coast she points at the Mediterranean and reads tomorrow from her notes: a clear sky, in the mid-twenties, no storm. Her calculator does the rest.",
+          "Her cousin calls from the United States. He had a nightmare, his son has head lice, and he misses the heat of home, in the high twenties."
+        ],
+        "trial": {
+          "name": "Clear Skies",
+          "text": "Basma reads you the weather and the places it reaches, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She leaves the innkeeper tomorrow’s forecast on a card: “Clear sky, about thirty. And na3ēman after your bath.”"
+      }
     }
   ]
 }
