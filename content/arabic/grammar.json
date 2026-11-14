@@ -753,6 +753,21 @@
       }
     },
     {
+      "id": "grammar:a-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 44,
+        "title": "anhār, aflām: plurals with a- in front",
+        "points": [
+          "Many short words make their plural with a- in front and a long ā: náhir → anhār, rivers; náfag → anfāg, tunnels; fílim → aflām, movies.",
+          "The root letters stay in order, and only the vowels move: n-h-r in náhir and in anhār.",
+          "Words you know take it too: šáxʂ → ašxāʂ, people; sí3ir → as3ār, prices; šúɣul → ašɣāl, jobs."
+        ],
+        "examples": ["pcav:3577", "pcav:3555", "pcav:2256", "pcav:0018", "pcav:2157"]
+      }
+    },
+    {
       "id": "grammar:lets",
       "subject": "arabic",
       "type": "grammar-card",
