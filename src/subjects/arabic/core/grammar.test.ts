@@ -99,6 +99,8 @@ describe('grammar cards (#162)', () => {
       ['grammar:the-world-rains', 93],
       ['grammar:cousins', 94],
       ['grammar:last-and-never', 96],
+      ['grammar:front-and-back', 97],
+      ['grammar:ago-and-from-now', 99],
     ]);
     for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
   });
