@@ -14269,6 +14269,138 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:107",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 107,
+        "title": "The deli, the gym, and the day's prayers",
+        "theme": "Cheeses and dishes by name, the machines at the gym, the prayers of the day, and a few words from the news",
+        "words": [
+          {
+            "deck": "pcav:1077",
+            "gloss": "Areesh cheese (like cottage cheese)"
+          },
+          {
+            "deck": "pcav:1078",
+            "gloss": "cheddar cheese"
+          },
+          {
+            "deck": "pcav:1080",
+            "gloss": "halloumi cheese"
+          },
+          {
+            "deck": "pcav:1081",
+            "gloss": "Istanbuli cheese (like feta)"
+          },
+          {
+            "deck": "pcav:1082",
+            "gloss": "Romy cheese (sharp and hard)"
+          },
+          {
+            "deck": "pcav:1066",
+            "gloss": "dairy products"
+          },
+          {
+            "deck": "pcav:1103",
+            "gloss": "luqmat al-qadi (syrupy fried dough balls)"
+          },
+          {
+            "deck": "pcav:1176",
+            "gloss": "mixed nuts"
+          },
+          {
+            "deck": "pcav:1182",
+            "gloss": "chives"
+          },
+          {
+            "deck": "pcav:1190",
+            "gloss": "rosemary"
+          },
+          {
+            "deck": "pcav:1202",
+            "gloss": "soy sauce"
+          },
+          {
+            "deck": "pcav:1219",
+            "gloss": "egg yolk"
+          },
+          {
+            "deck": "pcav:1234",
+            "gloss": "chicken fillet"
+          },
+          {
+            "deck": "pcav:1264",
+            "gloss": "orzo soup"
+          },
+          {
+            "deck": "pcav:1276",
+            "gloss": "spleen sandwich"
+          },
+          {
+            "deck": "pcav:1280",
+            "gloss": "ful medames (stewed fava beans)"
+          },
+          {
+            "deck": "pcav:1063",
+            "gloss": "tipsy"
+          },
+          {
+            "deck": "pcav:2593",
+            "gloss": "elliptical trainer"
+          },
+          {
+            "deck": "pcav:2586",
+            "gloss": "weight machine"
+          },
+          {
+            "deck": "pcav:2594",
+            "gloss": "stationary bike"
+          },
+          {
+            "deck": "pcav:2584",
+            "gloss": "free weights"
+          },
+          {
+            "deck": "pcav:2540",
+            "gloss": "(It's tied) three all."
+          },
+          {
+            "deck": "pcav:2560",
+            "gloss": "Is there a contract?"
+          },
+          {
+            "deck": "pcav:3238",
+            "gloss": "the dawn prayer"
+          },
+          {
+            "deck": "pcav:3243",
+            "gloss": "the sunset prayer"
+          },
+          {
+            "deck": "pcav:3244",
+            "gloss": "the evening prayer"
+          },
+          {
+            "deck": "pcav:3373",
+            "gloss": "the present tense"
+          },
+          {
+            "deck": "pcav:2055",
+            "gloss": "mortgage"
+          },
+          {
+            "deck": "pcav:2827",
+            "gloss": "a summit (meeting)"
+          },
+          {
+            "deck": "pcav:2867",
+            "gloss": "the prosecutor"
+          }
+        ]
+      }
     }
   ]
 }

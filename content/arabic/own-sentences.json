@@ -31957,6 +31957,336 @@
         "latin": "bá3id innugʈitēn fōg bá3aɖ íktub ijjawāb.",
         "english": "After the colon, write the answer."
       }
+    },
+    {
+      "id": "own-sentence:pcav:1077",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1077",
+        "arabic": "بحِبّ الجِّبْنة القريش مع الخُبِز.",
+        "latin": "baɧíbb ijjíbna -lgarīš ma3 ilxúbiz.",
+        "english": "I like Areesh cheese with bread."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1078",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1078",
+        "arabic": "بِدّي نُصّ كيلو جِبْنِةْ شيدر.",
+        "latin": "bíddi nuʂʂ kīlo jíbnit tšīdar.",
+        "english": "I'd like half a kilo of cheddar cheese."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1080",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1080",
+        "arabic": "الجِّبْنة الحلّوم طيّْبة مقْلية.",
+        "latin": "ijjíbna -lɧallūm ʈáyyba maglíyye.",
+        "english": "Halloumi cheese is tasty fried."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1081",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1081",
+        "arabic": "حطّيْت جِبْنة اسْطنْبولي في السّلطة.",
+        "latin": "ɧaʈʈēt jíbna sʈanbūli fi -ssálaʈa.",
+        "english": "I put Istanbuli cheese in the salad."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1082",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1082",
+        "arabic": "الجِّبْنة الرّومي ريحِتْها قَوية.",
+        "latin": "ijjíbna -rrūmi riɧítha gawíyye.",
+        "english": "Romy cheese has a strong smell."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1066",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1066",
+        "arabic": "أُخْتي ما بِتوكِلْش مُنْتجات الحليب.",
+        "latin": "úxti ma btōkilš muntajāt ilɧalīb.",
+        "english": "My sister doesn't eat dairy products."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1103",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1103",
+        "arabic": "في رمضان بْناكُل لُقْمِةْ القاضي.",
+        "latin": "fi ramaɖān bnākul lúgmit ilgāɖi.",
+        "english": "In Ramadan we eat luqmat al-qadi."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1176",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1176",
+        "arabic": "جِبْنا مُكسّرات مْشكّلة للسّهْرة.",
+        "latin": "jíbna mukassarāt mšákkala las-sáhra.",
+        "english": "We brought mixed nuts for the evening."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1182",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1182",
+        "arabic": "قطّع شْوَيّة توْم مْعمِّر عَ البيْض.",
+        "latin": "gáʈʈi3 šwáyyit tōm m3ámmir 3a -lbēɖ.",
+        "english": "Cut a little chives over the eggs."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1190",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1190",
+        "arabic": "بحُطّ إكْليل الجّبل عَ الجّاج.",
+        "latin": "baɧúʈʈ iklīl iljábal 3a -jjāj.",
+        "english": "I put rosemary on the chicken."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1202",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1202",
+        "arabic": "صوْص الصّوْيا مالِح كْتير.",
+        "latin": "ʂōʂ iʂʂōya māliɧ ktīr.",
+        "english": "Soy sauce is very salty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1219",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1219",
+        "arabic": "الوَلد بياكُل صفار البيْض بسّ.",
+        "latin": "ilwálad biyākul ʂafār ilbēɖ bass.",
+        "english": "The boy only eats the egg yolk."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1234",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1234",
+        "arabic": "اِشْتريْت كيلو فيليْه جاج.",
+        "latin": "ištarēt kīlo fīlē jāj.",
+        "english": "I bought a kilo of chicken fillet."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1264",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1264",
+        "arabic": "أُمّي بِتْعْمل شوْربِةْ لْسان عصْفور لمّا نِمْرض.",
+        "latin": "ímmi bti3mal šōrabit lsān 3aʂfūr lámma nímraɖ.",
+        "english": "My mom makes orzo soup when we're sick."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1276",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1276",
+        "arabic": "في القُدْس في مطْعم مِشْهور بِسنْدْوِش الطُّحل.",
+        "latin": "fi -lgúds fī máʈ3am mášhūr bi-sándwiš iʈʈúɧal.",
+        "english": "In Jerusalem there's a restaurant famous for its spleen sandwiches."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1280",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1280",
+        "arabic": "الصُّبِح بْناكُل فول مْدمِّس وفلافِل.",
+        "latin": "iʂʂúbiɧ bnākul fūl mdámmas w-falāfil.",
+        "english": "In the morning we eat ful medames and falafel."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1063",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1063",
+        "arabic": "كان سكْران شْوَيّة وصار يِغنّي.",
+        "latin": "kān sakrān šwáyya w-ʂār yɣánni.",
+        "english": "He was a little tipsy and started singing."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2593",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2593",
+        "arabic": "بمْشي نُصّ ساعة عَ جِهاز الإيليبْتيكال.",
+        "latin": "bámši nuʂʂ sā3a 3a jihāz ilʔilíptikal.",
+        "english": "I walk half an hour on the elliptical trainer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2586",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2586",
+        "arabic": "المُدرِّب علّمْني كيْف أسْتعْمِل جِهاز الحديد.",
+        "latin": "ilmudárrib 3allámni kēf ʔastá3mil jihāz ilɧadīd.",
+        "english": "The trainer taught me how to use the weight machine."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2594",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2594",
+        "arabic": "ركِبْت البسْكليْت الثّابِت عِشْرين دقيقة.",
+        "latin": "rkíbt ilbaskalēt issābit 3išrīn dagīga.",
+        "english": "I rode the stationary bike for twenty minutes."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2584",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2584",
+        "arabic": "بحِبّ الأَوْزان الحُرّة أكْتر مِن الأجْهِزة.",
+        "latin": "baɧíbb ilʔawzān ilɧúrra ʔáktar min ilʔajhíza.",
+        "english": "I like free weights more than the machines."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2540",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2540",
+        "arabic": "الماتْش خِلِص تلاتة الكُلّ.",
+        "latin": "ilmātš xíliʂ talāta -lkull.",
+        "english": "The match ended three all."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2560",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2560",
+        "arabic": "بِدّي أشْتِرِك في النّادي. في عقِد؟",
+        "latin": "bíddi ʔaštírik fi -nnādi. fī 3áqid?",
+        "english": "I want to join the gym. Is there a contract?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3238",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3238",
+        "arabic": "سيدي بيصْحى لصلاةْ الفجِر.",
+        "latin": "sīdi biyíʂɧa la-ʂalāt ilfájir.",
+        "english": "My grandpa wakes up for the dawn prayer."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3243",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3243",
+        "arabic": "بعِد صلاةْ المغْرِب بْناكُل.",
+        "latin": "bá3id ʂalāt ilmáɣrib bnākul.",
+        "english": "After the sunset prayer we eat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3244",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3244",
+        "arabic": "صلاةْ العِشا آخِر صلاة في اليوْم.",
+        "latin": "ʂalāt il3íša ʔāxir ʂalā fi -lyōm.",
+        "english": "The evening prayer is the last prayer of the day."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3373",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3373",
+        "arabic": "\"بكْتُب\" في زمن المُضارِع.",
+        "latin": "\"báktub\" fi záman ilmuɖāri3.",
+        "english": "\"báktub\" is in the present tense."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2055",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2055",
+        "arabic": "أخدْنا رهِن عقاري عشان نِشْتري الدّار.",
+        "latin": "axádna ráhin 3aqāri 3ašān ništíri -ddār.",
+        "english": "We took out a mortgage to buy the house."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2827",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2827",
+        "arabic": "الرّئيس سافر عَ مُؤْتمر القِمّة.",
+        "latin": "irraʔīs sāfar 3a muʔtámar ilqímma.",
+        "english": "The president traveled to the summit."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2867",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2867",
+        "arabic": "النّائِب العامّ حكى مع القاضي.",
+        "latin": "innāʔib il3āmm ɧáka ma3 ilgāɖi.",
+        "english": "The prosecutor spoke with the judge."
+      }
     }
   ]
 }
