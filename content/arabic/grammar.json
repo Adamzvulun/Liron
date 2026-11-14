@@ -923,6 +923,22 @@
       }
     },
     {
+      "id": "grammar:while",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 57,
+        "title": "w húwwa nāyim: “while”, with w",
+        "points": [
+          "w, “and”, before a person and their state says “while”: ɧáka w húwwa nāyim, to talk in one’s sleep (he talked while he was asleep); máša w húwwa nāyim, to sleepwalk.",
+          "It takes any state or doing: sāg w húwwa sakrān, he drove drunk; ɧallēt ilwāgib w ána batfárraj 3a -ttilfizyōn, I did my homework while watching TV.",
+          "The person is said again, even when it’s the same one: w húwwa, w ána.",
+          "Hebrew needs a word of its own for it: בזמן, while."
+        ],
+        "examples": ["pcav:0868", "pcav:0869", "pcav:1064", "pcav:4450"]
+      }
+    },
+    {
       "id": "grammar:verb-and-little-word",
       "subject": "arabic",
       "type": "grammar-card",
