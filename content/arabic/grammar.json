@@ -1219,6 +1219,22 @@
       }
     },
     {
+      "id": "grammar:grammar-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 85,
+        "title": "mu3árraf, nákira: the words grammar uses",
+        "points": [
+          "Many of grammar’s own words are done-to words with mu- (chapter 53). mu3árraf, definite, is “made known”: a word with il- (chapter 4). nákira, indefinite, is a word without it.",
+          "muđákkar, masculine, and muʔánnaŧ, feminine (chapter 82), are the same shape. jins, gender, is the word for both.",
+          "One, two, many: múfrad, singular; muŧánna, dual, the -ēn of two (chapter 3); jámi3, plural.",
+          "Hebrew’s word for definite, מיודע, is the same idea in the same shape."
+        ],
+        "examples": ["pcav:3384", "pcav:3386", "pcav:3366", "pcav:3368"]
+      }
+    },
+    {
       "id": "grammar:second-words",
       "subject": "arabic",
       "type": "grammar-card",
