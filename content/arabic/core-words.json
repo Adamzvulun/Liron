@@ -14005,6 +14005,270 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:105",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 105,
+        "title": "The landlord, the bed, and the body",
+        "theme": "The flat and its things, a deep sleep, and the smaller parts of the face and body",
+        "words": [
+          {
+            "deck": "pcav:0697",
+            "gloss": "landlord"
+          },
+          {
+            "deck": "pcav:0766",
+            "gloss": "The power went out."
+          },
+          {
+            "deck": "pcav:0745",
+            "gloss": "vacuum cleaner"
+          },
+          {
+            "deck": "pcav:0826",
+            "gloss": "dish soap"
+          },
+          {
+            "deck": "pcav:0841",
+            "gloss": "double bed"
+          },
+          {
+            "deck": "pcav:0842",
+            "gloss": "headboard"
+          },
+          {
+            "deck": "pcav:0843",
+            "gloss": "mattress"
+          },
+          {
+            "deck": "pcav:0848",
+            "gloss": "pillowcase"
+          },
+          {
+            "deck": "pcav:0876",
+            "gloss": "in a deep sleep"
+          },
+          {
+            "deck": "pcav:0583",
+            "gloss": "bathrobe"
+          },
+          {
+            "deck": "pcav:0930",
+            "gloss": "electric razor"
+          },
+          {
+            "deck": "pcav:0950",
+            "gloss": "wrench"
+          },
+          {
+            "deck": "pcav:0548",
+            "gloss": "belt buckle"
+          },
+          {
+            "deck": "pcav:0608",
+            "gloss": "shoelaces"
+          },
+          {
+            "deck": "pcav:0648",
+            "gloss": "ironing board"
+          },
+          {
+            "deck": "pcav:0276",
+            "gloss": "dark circles under the eyes"
+          },
+          {
+            "deck": "pcav:0277",
+            "gloss": "cross-eyed"
+          },
+          {
+            "deck": "pcav:0290",
+            "gloss": "nostril"
+          },
+          {
+            "deck": "pcav:0301",
+            "gloss": "sense of smell"
+          },
+          {
+            "deck": "pcav:0305",
+            "gloss": "earlobe"
+          },
+          {
+            "deck": "pcav:0313",
+            "gloss": "pierced ears"
+          },
+          {
+            "deck": "pcav:0368",
+            "gloss": "wavy hair"
+          },
+          {
+            "deck": "pcav:0375",
+            "gloss": "ponytail"
+          },
+          {
+            "deck": "pcav:0397",
+            "gloss": "acne"
+          },
+          {
+            "deck": "pcav:0403",
+            "gloss": "oily skin"
+          },
+          {
+            "deck": "pcav:0919",
+            "gloss": "water heater"
+          },
+          {
+            "deck": "pcav:0443",
+            "gloss": "shin"
+          },
+          {
+            "deck": "pcav:0444",
+            "gloss": "calf (of the leg)"
+          },
+          {
+            "deck": "pcav:0474",
+            "gloss": "spine"
+          },
+          {
+            "deck": "pcav:0473",
+            "gloss": "skeleton"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:106",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 106,
+        "title": "Family, public life, and punctuation",
+        "theme": "Stepparents and an adoption, age and love, the state and its forces, and the marks on a page",
+        "words": [
+          {
+            "deck": "pcav:3376",
+            "gloss": "the article (in grammar)"
+          },
+          {
+            "deck": "pcav:0153",
+            "gloss": "I was adopted."
+          },
+          {
+            "deck": "pcav:0009",
+            "gloss": "to breastfeed"
+          },
+          {
+            "deck": "pcav:0128",
+            "gloss": "great-grandfather"
+          },
+          {
+            "deck": "pcav:0028",
+            "gloss": "in one's fifties"
+          },
+          {
+            "deck": "pcav:0029",
+            "gloss": "middle-aged"
+          },
+          {
+            "deck": "pcav:0049",
+            "gloss": "life span"
+          },
+          {
+            "deck": "pcav:0166",
+            "gloss": "a date (romantic)"
+          },
+          {
+            "deck": "pcav:0177",
+            "gloss": "heartbroken"
+          },
+          {
+            "deck": "pcav:0196",
+            "gloss": "wedding anniversary"
+          },
+          {
+            "deck": "pcav:0223",
+            "gloss": "Just call me __."
+          },
+          {
+            "deck": "pcav:0226",
+            "gloss": "I don't have a nickname."
+          },
+          {
+            "deck": "pcav:1284",
+            "gloss": "table manners"
+          },
+          {
+            "deck": "pcav:0689",
+            "gloss": "penthouse"
+          },
+          {
+            "deck": "pcav:0570",
+            "gloss": "hair ribbon"
+          },
+          {
+            "deck": "pcav:0294",
+            "gloss": "crooked nose"
+          },
+          {
+            "deck": "pcav:0400",
+            "gloss": "a good complexion"
+          },
+          {
+            "deck": "pcav:0433",
+            "gloss": "back of the hand"
+          },
+          {
+            "deck": "pcav:2928",
+            "gloss": "businessman"
+          },
+          {
+            "deck": "pcav:2909",
+            "gloss": "VAT, sales tax"
+          },
+          {
+            "deck": "pcav:2789",
+            "gloss": "vice president"
+          },
+          {
+            "deck": "pcav:2888",
+            "gloss": "accused of"
+          },
+          {
+            "deck": "pcav:3002",
+            "gloss": "air force"
+          },
+          {
+            "deck": "pcav:3003",
+            "gloss": "navy"
+          },
+          {
+            "deck": "pcav:2969",
+            "gloss": "shepherd"
+          },
+          {
+            "deck": "pcav:3377",
+            "gloss": "preposition"
+          },
+          {
+            "deck": "pcav:3392",
+            "gloss": "consonant"
+          },
+          {
+            "deck": "pcav:3398",
+            "gloss": "exclamation mark"
+          },
+          {
+            "deck": "pcav:3400",
+            "gloss": "quotation marks"
+          },
+          {
+            "deck": "pcav:3401",
+            "gloss": "colon"
+          }
+        ]
+      }
     }
   ]
 }
