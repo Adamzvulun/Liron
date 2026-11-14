@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { PartnerError, type CoachTip, type InnTurn } from '../../../core/partner.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import type { Regular } from '../questline.ts';
 import { CoachPhrases } from './CoachPhrases.tsx';
+import { SayLine } from './SayLine.tsx';
 import {
   afterChat,
   CHAT_XP,
@@ -59,6 +60,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const [stage, setStage] = useState<Stage>({ kind: 'pick' });
   const [name, setName] = useState('');
   const [typed, setTyped] = useState('');
+  /** What Whisper heard you say: it goes into the text box in Arabic, to fix before sending. */
+  const heard = useCallback((text: string) => setTyped(text.slice(0, MAX_TYPED)), []);
   const [shown, setShown] = useState<ReadonlySet<number>>(new Set());
   /** The Coach after a chat (ADR 0007): not asked, asking, the tips, or no answer. */
   const [coach, setCoach] = useState<'idle' | 'asking' | 'failed' | CoachTip[]>('idle');
@@ -229,8 +232,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
             </div>
           )}
           <p className="arabic__note">
-            Said openly: the regulars’ lines are written by an AI (Groq), and what you type is sent
-            to it. Type nothing private.
+            Said openly: the regulars’ lines are written by an AI (Groq), and what you type, or say
+            into the microphone, is sent to it. Say nothing private.
           </p>
         </div>
       </section>
@@ -419,6 +422,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
                 Say it
               </button>
             </form>
+            <SayLine api={api} disabled={s.waiting} onHeard={heard} />
             {hebrew ? (
               <p className="arabic__chat-reads">
                 They read:{' '}
