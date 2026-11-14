@@ -1,6 +1,6 @@
 // The logic of a chat at the inn (E17, ADR 0038): who you can sit with, what's sent to the
 // partner function, and how a finished chat changes the Arabic progress. The screen is InnChat.
-import type { InnChatAsk, InnTurn } from '../../../core/partner.ts';
+import type { CoachTip, InnChatAsk, InnTurn } from '../../../core/partner.ts';
 import type { ArabicProgress } from '../progress.ts';
 import { REGULARS, regularStatus, type Regular } from '../questline.ts';
 import { WORD_CHAPTERS } from '../core/wordChapters.ts';
@@ -136,4 +136,24 @@ export function fromHebrew(text: string): string {
     else out += FROM_HEBREW.get(c) ?? c;
   }
   return out;
+}
+
+/** The Coach's tips from the reply's text (JSON), checked again here; null if it isn't that. */
+export function tipsFrom(text: string): CoachTip[] | null {
+  try {
+    const body = JSON.parse(text) as { tips?: unknown };
+    if (!Array.isArray(body.tips)) return null;
+    return body.tips
+      .filter(
+        (t): t is CoachTip =>
+          typeof t === 'object' &&
+          t !== null &&
+          ['said', 'better', 'why'].every(
+            (k) => typeof (t as Record<string, unknown>)[k] === 'string',
+          ),
+      )
+      .slice(0, 3);
+  } catch {
+    return null;
+  }
 }

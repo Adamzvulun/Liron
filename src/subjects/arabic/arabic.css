@@ -952,3 +952,41 @@
 .arabic__chat-reads bdi {
   font-size: 22px;
 }
+
+/* The Coach after a chat (ADR 0007, 0038) */
+.arabic__coach {
+  margin: 8px 0 12px;
+  padding: 10px 12px;
+  border: 2px dashed var(--ink);
+  border-radius: 12px;
+  background: #fff6df;
+  text-align: start;
+}
+
+.arabic__coach ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arabic__coach li {
+  display: grid;
+  gap: 2px;
+}
+
+.arabic__coach-said {
+  font-size: 18px;
+  color: var(--guild-arabic-ink);
+  text-decoration: line-through;
+}
+
+.arabic__coach-better {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.arabic__coach-why {
+  font-size: 15px;
+}
