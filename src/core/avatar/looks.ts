@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod/mini';
 
 // The paper-doll avatar (#28, ADR 0006): base layers and gear slots are data. Painting is in
 // paint.ts; the customiser in Your House (#29) offers what is listed here.
@@ -365,23 +365,24 @@ const ids = <T extends readonly { id: string }[]>(list: T) =>
 
 /** The look saved in `profiles.avatar`. Unknown or missing fields fall back to the default. */
 export const lookSchema = z.object({
-  build: z.enum(ids(BUILDS)).catch('average'),
-  skin: z.enum(ids(SKINS)).catch('sand'),
-  face: z.enum(ids(FACES)).catch('cheerful'),
-  hair: z.enum(ids(HAIRS)).catch('crop'),
-  hairColour: z.enum(ids(HAIR_COLOURS)).catch('brown'),
-  beard: z.enum(ids(BEARDS)).catch('none'),
+  build: z.catch(z.enum(ids(BUILDS)), 'average'),
+  skin: z.catch(z.enum(ids(SKINS)), 'sand'),
+  face: z.catch(z.enum(ids(FACES)), 'cheerful'),
+  hair: z.catch(z.enum(ids(HAIRS)), 'crop'),
+  hairColour: z.catch(z.enum(ids(HAIR_COLOURS)), 'brown'),
+  beard: z.catch(z.enum(ids(BEARDS)), 'none'),
   /** A headscarf's cloth, or none. */
-  scarf: z.enum(ids(SCARVES)).optional().catch(undefined),
+  scarf: z.catch(z.optional(z.enum(ids(SCARVES))), undefined),
   /** The tunic's dye, if the player owns one (#49). */
-  dye: z.enum(ids(DYES)).optional().catch(undefined),
-  gear: z
-    .object(
+  dye: z.catch(z.optional(z.enum(ids(DYES))), undefined),
+  gear: z.catch(
+    z.object(
       Object.fromEntries(
-        SLOTS.map((s) => [s.id, z.string().optional().catch(undefined)]),
-      ) as Record<SlotId, z.ZodCatch<z.ZodOptional<z.ZodString>>>,
-    )
-    .catch({}),
+        SLOTS.map((s) => [s.id, z.catch(z.optional(z.string()), undefined)]),
+      ) as Record<SlotId, z.ZodMiniCatch<z.ZodMiniOptional<z.ZodMiniString>>>,
+    ),
+    {},
+  ),
 });
 export type Look = z.infer<typeof lookSchema>;
 
