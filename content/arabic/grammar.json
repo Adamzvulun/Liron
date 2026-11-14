@@ -1461,6 +1461,21 @@
       }
     },
     {
+      "id": "grammar:second-words-roots",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 87,
+        "title": "kāhin, gaʂʂ: second words with Hebrew roots",
+        "points": [
+          "Some second words are easy for a Hebrew speaker: kāhin, priest, is כהן; ilāh, a god, is אלוה; gaʂʂ, to cut, shares its root with קיצץ.",
+          "A noun you know can give a verb: zamb, sin (chapter 75), and áznab, to sin.",
+          "ma3gūl, reasonable or likely, has the root of 3ágil, mind (chapter 34), in the done-to shape (chapter 53): what the mind accepts."
+        ],
+        "examples": ["pcav:3254", "pcav:4588", "pcav:3199", "pcav:4749"]
+      }
+    },
+    {
       "id": "grammar:same-letters",
       "subject": "arabic",
       "type": "grammar-card",
