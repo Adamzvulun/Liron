@@ -13,6 +13,7 @@ import {
   lineInHebrew,
   regularsToTalkTo,
   standingWith,
+  speakerOf,
   glossaryFrom,
   glossesIn,
   tipsFrom,
@@ -188,5 +189,17 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
       { word: 'وبيتك', gloss: 'house' },
       { word: 'قهوتي', gloss: 'coffee' },
     ]);
+  });
+
+  it('lets a pair or a group speak through its first person, whose gender it has', () => {
+    const band = must(REGULARS.find((r) => r.who === 'Fares and the band'));
+    expect(speakerOf(band)).toBe('Fares');
+    expect(aboutOf(band)).toMatch(
+      /^You are a man\. You are Fares, at the table with Fares and the band; speak only for yourself\. /,
+    );
+    const hana = must(REGULARS.find((r) => r.who === 'Hana and her groom'));
+    expect(aboutOf(hana)).toMatch(/^You are a woman\. You are Hana, /);
+    expect(speakerOf(first)).toBe(first.who);
+    expect(aboutOf(first)).not.toContain('speak only for yourself');
   });
 });
