@@ -1692,6 +1692,36 @@
       }
     },
     {
+      "id": "grammar:written-and-yearly",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 101,
+        "title": "kitābi, dirāsíyya: -i and -íyya",
+        "points": [
+          "An -i adjective follows its noun: imtiɧān kitābi, a written exam; imtiɧān šáfawi, an oral one.",
+          "After a noun with -a, -i becomes -íyya: sána dirāsíyya, a school year; qā3ida naɧawíyya, a grammar rule. Hebrew does the same with -i and -it: אקדמי, אקדמית.",
+          "lúɣa ʔumm, native language, is “mother language”, like Hebrew שפת אם."
+        ],
+        "examples": ["pcav:1524", "pcav:1556", "pcav:3359", "pcav:3272"]
+      }
+    },
+    {
+      "id": "grammar:map-pictures",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 102,
+        "title": "guddamāni, šíbih jazīra: front glass, nearly an island",
+        "points": [
+          "-āni makes a word for where it sits: guddām, in front (chapter 6), gives guddamāni, front: gzāz guddamāni, the windshield; ɖaww guddamāni, a headlight.",
+          "Map words are pictures: šíbih jazīra, a peninsula, is “like an island” (Hebrew says half an island, חצי אי); nāʈaɧit saɧāb, a skyscraper, is “the one that butts the clouds”.",
+          "xaʈʈ ilʔistiwāʔ, the equator, is “the line of evenness”, like Hebrew קו המשווה."
+        ],
+        "examples": ["pcav:1914", "pcav:3553", "pcav:2028", "pcav:3587"]
+      }
+    },
+    {
       "id": "grammar:feelings-and-little-words",
       "subject": "arabic",
       "type": "grammar-card",
