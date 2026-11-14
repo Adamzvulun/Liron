@@ -1156,6 +1156,22 @@
       }
     },
     {
+      "id": "grammar:take-and-give",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 84,
+        "title": "áxad and á3ʈa: take and give",
+        "points": [
+          "áxad, to take, does much of the work of English’s get: áxad 3alāwa, to get a raise; áxad 3alāma 3ālya, to get a good grade; áxad dušš, to take a shower; áxad bard, to catch a cold.",
+          "á3ʈa, to give, is the other side: á3ʈa __ 3alāwa, to give someone a raise; á3ʈa dáwra, to teach a course (to give one).",
+          "Money that comes back is taken too: áxad maʂārī, to get a refund; áxad fawāyid, to earn interest.",
+          "Hebrew talks the same way: לקחת, to take a course."
+        ],
+        "examples": ["pcav:1356", "pcav:1357", "pcav:1548", "pcav:1659", "pcav:2063"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
