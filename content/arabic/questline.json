@@ -2509,6 +2509,31 @@
         },
         "outro": "She leaves a postcard for the innkeeper: “Next time I’m staying a week, at a table for two.”"
       }
+    },
+    {
+      "id": "road:97",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 97,
+        "wordChapter": 96,
+        "title": "The Tailor’s Fitting",
+        "who": "Abu Rami the tailor",
+        "intro": "Abu Rami has sewn suits in the market lane for forty years. He has never once, he says, made a jacket that didn’t fit.",
+        "milestones": [
+          "A customer takes off his jacket and tries on a new one. It’s a bit big in the shoulders and a bit tight at the waist, and Abu Rami just smiles.",
+          "While he sews, he asks what time you get up, whether you smoke, and what you watched on TV last night. He hasn’t been online, he says, since last year.",
+          "It gets dark early, but the jacket is ready around seven. He wraps it in a paper bag and won’t take your bills until you’ve tried it on again."
+        ],
+        "trial": {
+          "name": "A Perfect Fit",
+          "text": "Abu Rami talks while he works, of when and where and how it fits, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "He sends a postcard to the inn: a drawing of the jacket, and under it, “Never a bad fit.”"
+      }
     }
   ]
 }

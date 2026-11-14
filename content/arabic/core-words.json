@@ -12804,6 +12804,141 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:96",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 96,
+        "title": "Last week, never, and without",
+        "theme": "When it was, never and without, the shop and the table, and a few everyday questions",
+        "words": [
+          {
+            "deck": "pcav:4124",
+            "gloss": "last week"
+          },
+          {
+            "deck": "pcav:4157",
+            "gloss": "last month"
+          },
+          {
+            "deck": "pcav:4191",
+            "gloss": "last year"
+          },
+          {
+            "deck": "pcav:4100",
+            "gloss": "tonight",
+            "sentence": "pcav:2353"
+          },
+          {
+            "deck": "pcav:4250",
+            "gloss": "what time, when"
+          },
+          {
+            "deck": "pcav:4254",
+            "gloss": "around __ o'clock",
+            "sentence": "pcav:4256"
+          },
+          {
+            "deck": "pcav:4370",
+            "gloss": "never"
+          },
+          {
+            "deck": "pcav:4533",
+            "gloss": "without",
+            "sentence": "pcav:4534"
+          },
+          {
+            "deck": "pcav:4498",
+            "gloss": "far from"
+          },
+          {
+            "deck": "pcav:3683",
+            "gloss": "It's gotten dark."
+          },
+          {
+            "deck": "pcav:3681",
+            "gloss": "The sun is shining."
+          },
+          {
+            "deck": "pcav:0308",
+            "gloss": "Do you hear that noise?"
+          },
+          {
+            "deck": "pcav:3025",
+            "gloss": "to think about"
+          },
+          {
+            "deck": "pcav:1773",
+            "gloss": "online, on the internet"
+          },
+          {
+            "deck": "pcav:2244",
+            "gloss": "to watch TV"
+          },
+          {
+            "deck": "pcav:2143",
+            "gloss": "to go shopping"
+          },
+          {
+            "deck": "pcav:0624",
+            "gloss": "I took off my jacket."
+          },
+          {
+            "deck": "pcav:0637",
+            "gloss": "It's a bit big."
+          },
+          {
+            "deck": "pcav:0638",
+            "gloss": "It's a bit tight."
+          },
+          {
+            "deck": "pcav:0614",
+            "gloss": "shoe size"
+          },
+          {
+            "deck": "pcav:2193",
+            "gloss": "paper bag"
+          },
+          {
+            "deck": "pcav:2900",
+            "gloss": "bill (paper money)"
+          },
+          {
+            "deck": "pcav:2086",
+            "gloss": "postcard"
+          },
+          {
+            "deck": "pcav:1209",
+            "gloss": "a piece of bread"
+          },
+          {
+            "deck": "pcav:0782",
+            "gloss": "to sit at the table"
+          },
+          {
+            "deck": "pcav:0493",
+            "gloss": "to go to the bathroom"
+          },
+          {
+            "deck": "pcav:1030",
+            "gloss": "Would you like a cola?"
+          },
+          {
+            "deck": "pcav:2398",
+            "gloss": "Do you smoke?"
+          },
+          {
+            "deck": "pcav:2395",
+            "gloss": "No smoking!"
+          },
+          {
+            "deck": "pcav:3414",
+            "gloss": "the Arab world"
+          }
+        ]
+      }
     }
   ]
 }
