@@ -267,6 +267,18 @@ export function innSetting(ask: InnAsk): string {
   ].join('\n');
 }
 
+/**
+ * How the regular greets the traveler, by how well they know each other: the words to reach for
+ * say nothing of the traveler's gender, which the regular isn't told.
+ */
+export function greeting(met: number): string {
+  if (met === 0)
+    return 'Greet them by name as someone you are meeting for the first time (like تشرّفنا).';
+  if (met < OLD_FRIENDS)
+    return 'Greet them by name as someone you have met before (like أهلين فيك مرة تانية).';
+  return 'Greet them by name as an old friend you have missed (like وينك من زمان؟ or اشتقنالك).';
+}
+
 /** The chat as messages: the regular is the assistant, the traveler the user. */
 export function innMessages(
   ask: InnAsk,
@@ -281,8 +293,7 @@ export function innMessages(
       ? [
           {
             role: 'user' as const,
-            content:
-              '(The traveler sits down at your table. Greet them by name, and say in a few simple words one small thing from your own day.)',
+            content: `(The traveler sits down at your table. ${greeting(ask.met)} Then say in a few simple words one small thing from your own day.)`,
           },
         ]
       : []),

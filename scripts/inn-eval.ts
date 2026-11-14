@@ -6,9 +6,10 @@
 //   GROQ_API_KEY=… node scripts/inn-eval.ts --coach  (the Coach's tips)
 //
 // A line passes when Groq answered, cleanArabic kept it, and it has none of the forbidden words
-// (Modern Standard, Egyptian or Gulf) and, for a woman, no masculine "I am" word. Exits 1 below
-// PASS_RATE. Only our own content is sent: the regulars' stories, our English glosses and
-// made-up learner lines. Re-run it before changing INN_RULES or INN_MODEL.
+// (Modern Standard, Egyptian or Gulf), and no "I am" word of the wrong gender (a woman saying
+// مبسوط, a man مبسوطة). Exits 1 below PASS_RATE. Only our own content is sent: the regulars'
+// stories, our English glosses and made-up learner lines. Re-run it before changing INN_RULES or
+// INN_MODEL.
 //
 // With --coach, each case is one learner line. A wrong one (Modern Standard, wrong grammar) passes
 // when the Coach gives a tip for it whose better line has none of the forbidden words; a fine one
@@ -47,8 +48,13 @@ const FORBIDDEN: [string, RegExp][] = [
   ['Gulf أبغى', /[أا]بغى/u],
 ];
 
-/** "I am …" and "I'm not …" in the masculine, which a woman regular shouldn't say of herself. */
-const HIS = /(^|\s)(أنا|مش)\s+(فاهم|مبسوط|تعبان|مشغول|جوعان|زعلان)(\s|$|[.!?؟،])/u;
+/** "I am …" said of yourself: after أنا or مش, or opening a sentence (مبسوط إنك… "glad that you…"). */
+const ofMyself = (words: string) =>
+  new RegExp(`(^|[.!?؟،]\\s*|\\s(أنا|مش)\\s+)(أنا\\s+|مش\\s+)?(${words})(\\s|$|[.!?؟،])`, 'u');
+/** In the masculine, which a woman regular shouldn't say of herself. */
+const HIS = ofMyself('فاهم|مبسوط|تعبان|مشغول|جوعان|زعلان');
+/** In the feminine, which a man shouldn't say of himself. */
+const HERS = ofMyself('فاهمة|مبسوطة|تعبانة|مشغولة|جوعانة|زعلانة');
 
 const p = { ...NEW_PROGRESS, guest: true, chat: { ...NEW_PROGRESS.chat, name: 'Adam' } };
 const pick = (n: number) => REGULARS.find((r) => r.number === n) ?? REGULARS[0];
@@ -151,6 +157,7 @@ for (const [n, turns] of CHATS) {
   const text = body.text ?? '';
   const bad = FORBIDDEN.filter(([, re]) => re.test(text)).map(([name]) => name);
   if (r.she && HIS.test(text)) bad.push('masculine for a woman');
+  if (!r.she && HERS.test(text)) bad.push('feminine for a man');
   const ok = !!body.text && !bad.length;
   if (ok) passed++;
   const last = turns.at(-1)?.text;
