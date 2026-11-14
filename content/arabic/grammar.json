@@ -736,6 +736,21 @@
       }
     },
     {
+      "id": "grammar:school-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 41,
+        "title": "ibtidāʔi, i3dādi, sānawi: school words",
+        "points": [
+          "The three stages are -i words, short for a school of that kind: ibtidāʔi, elementary; i3dādi, middle; sānawi, high (in full, madrase ibtidāʔíyye and so on).",
+          "Two you already know from Hebrew: lōɧ, the board, is לוח; tārīx is history, and also a date, like תאריך.",
+          "A verb and its noun: náʈag, to pronounce, and núʈug, pronunciation. Plurals to learn whole: ɧarf, ɧrūf (letters); júmla, júmal (sentences); mādda, mawādd (subjects)."
+        ],
+        "examples": ["pcav:1457", "pcav:1498", "pcav:3340", "pcav:3338"]
+      }
+    },
+    {
       "id": "grammar:old-verbs-new-jobs",
       "subject": "arabic",
       "type": "grammar-card",
