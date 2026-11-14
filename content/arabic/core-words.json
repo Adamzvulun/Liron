@@ -13870,6 +13870,141 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:104",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 104,
+        "title": "Feelings, the doctor, and the holidays",
+        "theme": "How you feel and what you hope, a visit to the doctor, and the days people keep and the things they say",
+        "words": [
+          {
+            "deck": "pcav:3083",
+            "gloss": "excited about"
+          },
+          {
+            "deck": "pcav:3092",
+            "gloss": "embarrassed by"
+          },
+          {
+            "deck": "pcav:3075",
+            "gloss": "fed up with"
+          },
+          {
+            "deck": "pcav:3113",
+            "gloss": "fun to be with"
+          },
+          {
+            "deck": "pcav:3056",
+            "gloss": "emotion"
+          },
+          {
+            "deck": "pcav:3045",
+            "gloss": "How did you guess?"
+          },
+          {
+            "deck": "pcav:3168",
+            "gloss": "I wish...",
+            "sentence": "pcav:3169"
+          },
+          {
+            "deck": "pcav:3172",
+            "gloss": "I'm looking forward to seeing you."
+          },
+          {
+            "deck": "pcav:4721",
+            "gloss": "useless"
+          },
+          {
+            "deck": "pcav:4379",
+            "gloss": "somehow",
+            "sentence": "pcav:4381"
+          },
+          {
+            "deck": "pcav:4441",
+            "gloss": "by the time",
+            "sentence": "pcav:4443"
+          },
+          {
+            "deck": "pcav:1655",
+            "gloss": "migraine"
+          },
+          {
+            "deck": "pcav:1676",
+            "gloss": "constipated"
+          },
+          {
+            "deck": "pcav:1682",
+            "gloss": "to have asthma"
+          },
+          {
+            "deck": "pcav:1695",
+            "gloss": "Band-Aid"
+          },
+          {
+            "deck": "pcav:1700",
+            "gloss": "X-ray"
+          },
+          {
+            "deck": "pcav:1706",
+            "gloss": "antibiotics"
+          },
+          {
+            "deck": "pcav:1717",
+            "gloss": "Are you contagious?"
+          },
+          {
+            "deck": "pcav:1629",
+            "gloss": "wheelchair"
+          },
+          {
+            "deck": "pcav:4172",
+            "gloss": "Thanksgiving"
+          },
+          {
+            "deck": "pcav:4173",
+            "gloss": "Mother's Day"
+          },
+          {
+            "deck": "pcav:4175",
+            "gloss": "Labor Day"
+          },
+          {
+            "deck": "pcav:4183",
+            "gloss": "the Mawlid (the Prophet’s birthday)"
+          },
+          {
+            "deck": "pcav:4806",
+            "gloss": "My condolences."
+          },
+          {
+            "deck": "pcav:4810",
+            "gloss": "May he rest in peace."
+          },
+          {
+            "deck": "pcav:4804",
+            "gloss": "Welcome back from the hajj!"
+          },
+          {
+            "deck": "pcav:3264",
+            "gloss": "the Bible"
+          },
+          {
+            "deck": "pcav:1732",
+            "gloss": "When are you due?"
+          },
+          {
+            "deck": "pcav:1726",
+            "gloss": "plastic surgery"
+          },
+          {
+            "deck": "pcav:0195",
+            "gloss": "honeymoon"
+          }
+        ]
+      }
     }
   ]
 }

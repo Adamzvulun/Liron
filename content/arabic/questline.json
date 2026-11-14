@@ -2709,6 +2709,31 @@
         },
         "outro": "She sends the inn a bookmark with the show’s name on it, and a note: “Same time next week.”"
       }
+    },
+    {
+      "id": "road:105",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 105,
+        "wordChapter": 104,
+        "title": "The Doctor’s Year",
+        "who": "Dr. Nour, the town doctor",
+        "intro": "Dr. Nour has looked after the town for thirty years, and she knows everyone’s migraines and everyone’s secrets.",
+        "milestones": [
+          "Her morning: a boy who is constipated, a girl with asthma, an X-ray of a broken arm, and a man who asks if he’s contagious before he shakes her hand.",
+          "Her year: flowers on Mother’s Day, sweets at the Mawlid, the schools closed on Labor Day, and a neighbor back from the hajj to welcome.",
+          "Her evenings: a young couple asks when the baby is due, an old friend in a wheelchair tells jokes, and she says “may he rest in peace” for a patient she lost."
+        ],
+        "trial": {
+          "name": "A Day at the Clinic",
+          "text": "Dr. Nour talks about her patients and her year, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She leaves a box of Band-Aids at the inn’s desk, “for the next time someone falls off a stool.”"
+      }
     }
   ]
 }

@@ -314,6 +314,13 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 103 | Shows, music, and sweets |
 
+- **Words 3,091–3,120 (2026-11-14): feelings, the doctor and the holidays.** *excited about*, *embarrassed by*, *fed up with*, *fun to be with* (dámmu xafīf, from the chapter 70 card), *emotion*, *How did you guess?*, *I wish...*, *I'm looking forward to seeing you*, *useless*, *somehow*, *by the time*; the doctor (*migraine*, *constipated*, *asthma*, *Band-Aid*, *X-ray*, *antibiotics*, *Are you contagious?*, *wheelchair*, *plastic surgery*, *When are you due?*); and the year and its sayings (*Thanksgiving*, *Mother's Day*, *Labor Day*, *the Mawlid*, *honeymoon*, *the Bible*, *My condolences*, *May he rest in peace*, *Welcome back from the hajj!*).
+  - **Left out on purpose:** *evil*, *decade*, *diarrhea*, *diabetes* (taught under other entries), and taught words put together (*at __ sharp*, *Friday sermon*, *dawn prayer*, *church service*, *Children's Day*). 3 deck sentences (*I wish I were in Palestine*, *The cat somehow got in the house*, *I lived in Gaza until I graduated*); the other 27 are our own.
+
+| Chapter | Theme |
+|---|---|
+| 104 | Feelings, the doctor, and the holidays |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).

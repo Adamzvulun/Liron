@@ -31000,6 +31000,303 @@
         "latin": "ilgrēp frūt murr šwayy.",
         "english": "Grapefruit is a little bitter."
       }
+    },
+    {
+      "id": "own-sentence:pcav:3083",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3083",
+        "arabic": "الِوْلاد مِتْحمّْسين للرِّحْلة بُكْرا.",
+        "latin": "ilwlād mitɧammsīn lar-ríɧle búkra.",
+        "english": "The kids are excited about the trip tomorrow."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3092",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3092",
+        "arabic": "كان مُحْرج مِن اللي صار.",
+        "latin": "kān múɧrij min ílli ʂār.",
+        "english": "He was embarrassed by what happened."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3075",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3075",
+        "arabic": "أنا مِتْضايَق مِن الزّحْمة كُلّ يوْم.",
+        "latin": "ána middāyag min izzáɧma kull yōm.",
+        "english": "I'm fed up with the traffic every day."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3113",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3113",
+        "arabic": "خالي دمّو خفيف، كُلّ النّاس بِتْحِبّو.",
+        "latin": "xāli dámmu xafīf, kull innās btiɧíbbu.",
+        "english": "My uncle is fun to be with, everyone loves him."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3056",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3056",
+        "arabic": "حكى بِعاطِفة عن أُمّو.",
+        "latin": "ɧáka bi-3āʈifa 3an ʔímmu.",
+        "english": "He spoke with emotion about his mother."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3045",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3045",
+        "arabic": "صحّ! كيْف حزّرِت؟",
+        "latin": "ʂaɧɧ! kēf ɧazzárit?",
+        "english": "Right! How did you guess?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3172",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3172",
+        "arabic": "مِتْشوِّق أشوفك الإسْبوع الجّاي.",
+        "latin": "mitšáwwig ašūfak lisbū3 ijjāy.",
+        "english": "I'm looking forward to seeing you next week."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4721",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4721",
+        "arabic": "هاد التِّلِفوْن القديم ملوش فايْدة.",
+        "latin": "hād ittilifōn ilgadīm malūš fāyda.",
+        "english": "This old phone is useless."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1655",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1655",
+        "arabic": "لمّا يِجيني صُداع نِصْفي بنام في العتْمة.",
+        "latin": "lámma yijīni ʂudā3 níʂfi banām fi -l3átme.",
+        "english": "When I get a migraine I sleep in the dark."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1676",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1676",
+        "arabic": "الوَلد عِنْدو إمْساك، لازِم ياكُل خُضْرة.",
+        "latin": "ilwálad 3índu ʔimsāk, lāzim yākul xúɖra.",
+        "english": "The boy is constipated, he has to eat vegetables."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1682",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1682",
+        "arabic": "أُخْتي عِنْدها أزْمة، ما بِتِقْدر تِمْشي كْتير.",
+        "latin": "úxti 3índha ʔázma, ma btígdar tímši ktīr.",
+        "english": "My sister has asthma, she can't walk much."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1695",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1695",
+        "arabic": "حُطّ لِزِق جْروح عَ إصْبعك.",
+        "latin": "ɧuʈʈ lízig jrūɧ 3a ʔíʂb3ak.",
+        "english": "Put a Band-Aid on your finger."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1700",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1700",
+        "arabic": "الدُّكْتوْر بِدّو صورِةْ أشِعّة لإيدك.",
+        "latin": "idduktōr bíddu ʂūrit ʔaší33a la-ʔīdak.",
+        "english": "The doctor wants an X-ray of your arm."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1706",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1706",
+        "arabic": "خُد المُضادّ الحَيَوي تلات مرّات في اليوْم.",
+        "latin": "xud ilmuɖādd ilɧáyawi tlat marrāt fi -lyōm.",
+        "english": "Take the antibiotics three times a day."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1717",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1717",
+        "arabic": "مرضك مُعْدي؟ بِدّي أزورك.",
+        "latin": "máraɖak mú3di? bíddi ʔazūrak.",
+        "english": "Are you contagious? I want to visit you."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1629",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1629",
+        "arabic": "سيدي بيمْشي بِكُرْسي مُتحرِّك.",
+        "latin": "sīdi biyímši bi-kúrsi mutaɧárrik.",
+        "english": "My grandpa gets around in a wheelchair."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4172",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4172",
+        "arabic": "عيد الشُّكُر مِش عيد عِنّا.",
+        "latin": "3īd iššúkur miš 3īd 3ínna.",
+        "english": "Thanksgiving isn't a holiday here."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4173",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4173",
+        "arabic": "في عيد الأُمّ جِبْت لأُمّي وَرد.",
+        "latin": "fi 3īd ilʔúmm jibt la-ʔímmi ward.",
+        "english": "On Mother's Day I brought my mom flowers."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4175",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4175",
+        "arabic": "عيد العُمّال إجازة، المدارِس مسكّرة.",
+        "latin": "3īd il3ummāl ʔijāze, ilmadāris msakkara.",
+        "english": "Labor Day is a holiday, the schools are closed."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4183",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4183",
+        "arabic": "في ذِكْرى المَوْلِد النّبَوي في حلْوَيات كْتير.",
+        "latin": "fi đíkra -lmáwlid innábawi fī ɧalawiyyāt ktīr.",
+        "english": "At the Mawlid there are lots of sweets."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4806",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4806",
+        "arabic": "سمِعْت عن أبوك. البقية بْحَياتك.",
+        "latin": "samí3t 3an abūk. ilbagíyya b-ɧayātak.",
+        "english": "I heard about your father. My condolences."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4810",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4810",
+        "arabic": "سيدي مات السّنة الماضْية، الله يِرْحمو.",
+        "latin": "sīdi māt issána -lmāɖya, álla yírɧamu.",
+        "english": "My grandpa died last year, may he rest in peace."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4804",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4804",
+        "arabic": "رجعْت مِن الحجّ؟ حِجّة مقْبولة!",
+        "latin": "rjí3t min ilɧájj? ɧíjja magbūla!",
+        "english": "You're back from the hajj? Welcome back!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3264",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3264",
+        "arabic": "الِكْتاب المُقدّس عَ الطّاوْلة جنْب التّخِت.",
+        "latin": "liktāb ilmuqáddas 3a -ʈʈāwla jamb ittáxit.",
+        "english": "The Bible is on the table next to the bed."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1732",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1732",
+        "arabic": "مبْروك! وَقْتيْش حتولدي؟",
+        "latin": "mabrūk! wagtēš ɧatūladi?",
+        "english": "Congratulations! When are you due?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1726",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1726",
+        "arabic": "عملت عمليةْ تجْميل لمناخيرْها.",
+        "latin": "3ímlat 3amalíyyit tajmīl la-manaxírha.",
+        "english": "She had plastic surgery on her nose."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0195",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0195",
+        "arabic": "سافروا عَ تُرْكْيا في شهْر العسل.",
+        "latin": "sāfaru 3a túrkya fi šahr il3ásal.",
+        "english": "They went to Turkey on their honeymoon."
+      }
     }
   ]
 }
