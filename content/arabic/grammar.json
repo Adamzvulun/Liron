@@ -1033,6 +1033,22 @@
       }
     },
     {
+      "id": "grammar:hidden-t",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 69,
+        "title": "iʈʈállag, idzáwwaj: the t- that hides",
+        "points": [
+          "The t- in front of a verb (chapter 20) often melts into the letter after it, the way il- does before a sun letter (chapter 4): t + ʈállag → iʈʈállag, to get divorced; t + dárrab → iddárrab, to work out.",
+          "Before a z it turns into a d: idzáwwaj, to get married; idzákkar, to remember.",
+          "So a verb that starts with a doubled letter, or with dz, has a t- hiding in it.",
+          "Hebrew does it too: הזדקן, grew old, not התזקן."
+        ],
+        "examples": ["pcav:0199", "pcav:2546", "pcav:0189", "pcav:3027"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",

@@ -79,6 +79,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:going-up', 62],
       ['grammar:doing-words', 64],
       ['grammar:mit-words', 65],
+      ['grammar:hidden-t', 69],
       ['grammar:ordinals', 90],
       ['grammar:how-much', 91],
       ['grammar:nothing', 92],
