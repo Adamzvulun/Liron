@@ -1095,6 +1095,21 @@
       }
     },
     {
+      "id": "grammar:iyya-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 77,
+        "title": "aɣlabíyya, malakíyya: -íyya makes an idea",
+        "points": [
+          "Add -íyya to a word to name the idea behind it: áɣlab, most → aɣlabíyya, the majority; málik, king → malakíyya, monarchy; diktātōr → diktātōríyya, dictatorship.",
+          "Faiths and systems take it too: ilmasīɧíyya, Christianity; dīmuqrāʈíyya, democracy; jumhūríyya, a republic.",
+          "It’s the -i ending (chapter 47) with -a after it: masīɧi, Christian → ilmasīɧíyya."
+        ],
+        "examples": ["pcav:2806", "pcav:2807", "pcav:2794", "pcav:2820", "pcav:3212"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
