@@ -1677,6 +1677,21 @@
       }
     },
     {
+      "id": "grammar:boiled-and-curly",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 100,
+        "title": "maslūg, mjá33ad: what was done to it",
+        "points": [
+          "The kitchen speaks in the done-to shape (chapter 30): bēɖ maslūg, boiled eggs; bēɖ maxfūg, scrambled; bēɖ mágli, fried; láɧma mafrūma, minced meat.",
+          "A doubled-middle verb’s done-to word has m- and an a (chapter 53): mdáwwar, round; mjá33ad, curly.",
+          "With an i it’s the doer: mujáffifit ilɣasīl, the clothes dryer, “the one that dries”."
+        ],
+        "examples": ["pcav:1222", "pcav:1223", "pcav:0367", "pcav:0643"]
+      }
+    },
+    {
       "id": "grammar:feelings-and-little-words",
       "subject": "arabic",
       "type": "grammar-card",
