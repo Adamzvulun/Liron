@@ -176,12 +176,17 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
       ['قهوة', 'coffee'],
     ]);
     // Marks and punctuation don't matter; "and", "the" and "in" in front are looked past.
-    expect(glossesIn('كيفك اليوم؟ وبيتك... بالبيت، والقهوةُ!', glossary)).toEqual([
+    expect(glossesIn('كيفك اليوم؟ بالبيت، والقهوةُ!', glossary)).toEqual([
       { word: 'اليوم', gloss: 'today' },
       { word: 'بالبيت', gloss: 'house' },
       { word: 'والقهوةُ', gloss: 'coffee' },
     ]);
     expect(glossesIn('بالبيت', glossary)).toEqual([{ word: 'بالبيت', gloss: 'house' }]);
     expect(glossesIn('شاي', glossary)).toEqual([]);
+    // "My", "your" and the like at the end, with ة written ت before them.
+    expect(glossesIn('وبيتك؟ قهوتي', glossary)).toEqual([
+      { word: 'وبيتك', gloss: 'house' },
+      { word: 'قهوتي', gloss: 'coffee' },
+    ]);
   });
 });
