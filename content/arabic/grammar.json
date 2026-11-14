@@ -721,6 +721,22 @@
       }
     },
     {
+      "id": "grammar:old-verbs-new-jobs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 42,
+        "title": "ráfa3, názzal: old verbs, new jobs",
+        "points": [
+          "Screens took their verbs from everyday life. ráfa3 lifts (ráfa3 īdu, he raised his hand) and also uploads; názzal lowers (názzal iššubbāk, he rolled the window down) and also downloads.",
+          "fátaɧ opens a door, a file, or the internet: fátaɧ innít, to go online. sákkar closes a program, and sákkar ilxáʈʈ hangs up the phone.",
+          "šáɣɣal starts a car, turns on a computer, and plays a song.",
+          "Hebrew did the same: להוריד, to bring down, also downloads, and להעלות, to bring up, uploads."
+        ],
+        "examples": ["pcav:1782", "pcav:1781", "pcav:1774", "pcav:1769", "pcav:2299"]
+      }
+    },
+    {
       "id": "grammar:lets",
       "subject": "arabic",
       "type": "grammar-card",
