@@ -1080,6 +1080,21 @@
       }
     },
     {
+      "id": "grammar:can-be",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 76,
+        "title": "bingára, binɧább: in- for “can be”",
+        "points": [
+          "An in- verb (chapter 20) in the present, with b-, says what can be done to a thing: bingára, it can be read, so legible (from gára, to read or study).",
+          "With mā…š, it can’t be: xáʈʈu mā bingarāš bi-lmárra, his handwriting is completely illegible.",
+          "A person can be one too: binɧább, friendly (word for word, he can be loved)."
+        ],
+        "examples": ["pcav:3318", "pcav:3319", "pcav:3320", "pcav:3101"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
