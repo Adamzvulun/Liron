@@ -8,6 +8,8 @@ import {
   handle,
   INN_MODEL,
   innMessages,
+  MAX_BODY,
+  MAX_TURNS,
   parseAsk,
   radioPrompt,
   REPLY_GEMINI_MS,
@@ -249,6 +251,40 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
     expect(sent.messages[0]?.content).toContain('"أنا من حيفا"');
     expect(sent.messages[0]?.content).toContain('For example: salary, boss.');
     expect(sent.messages.at(-1)?.content).toBe('أنا مهندس');
+  });
+
+  it('takes the longest chat the inn can send, and nothing far past it', async () => {
+    const turns = Array.from({ length: MAX_TURNS }, (_, i) => ({
+      who: i % 2 ? 'you' : 'them',
+      text: 'م'.repeat(160),
+    }));
+    const big = {
+      ...INN,
+      persona: { ...INN.persona, about: 'a'.repeat(900) },
+      words: Array.from({ length: 40 }, () => 'w'.repeat(40)),
+      told: ['ت'.repeat(160), 'ت'.repeat(160), 'ت'.repeat(160)],
+      turns,
+    };
+    const body = JSON.stringify(big);
+    const bytes = new TextEncoder().encode(body).length;
+    expect(bytes).toBeLessThanOrEqual(MAX_BODY);
+    const withLength = (b: string) =>
+      new Request('https://waymark.example/api/partner', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer user-token',
+          'Content-Type': 'application/json',
+          'Content-Length': String(new TextEncoder().encode(b).length),
+        },
+        body: b,
+      });
+    const { fetchFn } = services({ groq: () => groqSays('منيح!') });
+    expect((await handle(withLength(body), ENV, fetchFn)).status).toBe(200);
+    const huge = JSON.stringify({ ...big, padding: 'x'.repeat(MAX_BODY) });
+    expect(await json(await handle(withLength(huge), ENV, fetchFn))).toMatchObject({
+      status: 400,
+      body: { error: 'bad-request' },
+    });
   });
 
   it('asks for a greeting when the chat has no turns yet', () => {
