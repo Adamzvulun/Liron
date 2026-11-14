@@ -916,7 +916,7 @@
         "points": [
           "Arabic has two verbs where Hebrew has להתפלל: dá3a is to ask God for something (a du3āʔ); ʂálla is to say the set prayers (a ʂalā).",
           "-i makes a word “of” something: islāmi, Islamic; masīɧi, Christian, from ilmasīɧ, Christ; yahūdi, Jewish. With -íyya it names the faith: ilmasīɧíyya.",
-          "málik and málika are Hebrew מלך and מלכה. dīn, religion, shares its root with Hebrew דין, law and judgment."
+          "málik and málika are Hebrew מלך and מלכה. dīn also means judgment (yōm iddīn, Judgment Day), and in that sense it is Hebrew דין."
         ],
         "examples": ["pcav:3183", "pcav:3236", "pcav:3213", "pcav:2487"]
       }
@@ -992,7 +992,7 @@
         "title": "ɧaʈʈ and šāl: put it in, take it off",
         "points": [
           "ɧaʈʈ, to put, does a lot of work with things: ɧaʈʈ ilfīša, to plug in (put the plug).",
-          "šāl, to lift off or take away, undoes it: šāl ilfīša, to unplug (lift the plug). It’s a pair like rábaʈ and fakk (chapter 71).",
+          "šāl, to lift off or take away, undoes it: šāl ilfīša, to unplug (lift the plug).",
           "You’ll meet ɧaʈʈ again in the car: ɧaʈʈ ɧzām ilʔamān, to put on a seat belt."
         ],
         "examples": ["pcav:0759", "pcav:0760"]
@@ -1150,7 +1150,7 @@
           "Some farm animals have one word for the male and a different word for the female: dīk, rooster, and jāja, hen; xarūf, ram, and ɣánama, ewe.",
           "Many animal words name the whole kind, and -a makes one, as with bread and eggs (chapter 26): bágar, cattle → bágara, a cow; jāj, chickens → jāja, a hen; ɣánam, sheep → ɣánama.",
           "For these three, the -a word for one is also the female: the one you keep for milk and eggs.",
-          "Hebrew does it the other way: תרנגולת, hen, is the rooster’s word with -et."
+          "Hebrew builds the hen from the rooster’s word: תרנגול → תרנגולת."
         ],
         "examples": ["pcav:2971", "pcav:2966", "pcav:2967", "pcav:2959"]
       }
@@ -1257,7 +1257,7 @@
         "points": [
           "mámlaka, kingdom, is Hebrew ממלכה, from the root of málik, king.",
           "ɧákam shares its root with Hebrew חכם, wise. In Arabic the root rules and judges: ɧákam, to govern; inɧákam 3alē, to be sentenced.",
-          "gátil is murder and gātil is the murderer: the long ā marks the doer (chapter 53). -íyya names the system and -i its adjective: dīmuqrāʈíyya, dīmuqrāʈi."
+          "gátil is murder and gātil is the murderer: the long ā marks the doer, as in lābis (chapter 36). -íyya names the system and -i its adjective: dīmuqrāʈíyya, dīmuqrāʈi."
         ],
         "examples": ["pcav:2793", "pcav:2850", "pcav:2815", "pcav:2879"]
       }
@@ -1271,7 +1271,7 @@
         "title": "ɧass iɧsās ɧílu: feel a good feeling",
         "points": [
           "salām is Hebrew שלום. ɧarb, war, shares its root with Hebrew חרב, a sword.",
-          "To feel good is ɧass iɧsās ɧílu, “felt a good feeling”: the verb with its own noun after it. To feel bad is ɧass b-ʔiɧsās bíši3.",
+          "To feel good is ɧass iɧsās ɧílu, “felt a good feeling”: the verb with its own noun after it. To feel bad is ɧass b-ʔiɧsās bíši3, with b- before the noun; both ways are said.",
           "Long verbs have long nouns: infijār, explosion; iɧtilāl, occupation; ittifāg, agreement; intiqād, criticism."
         ],
         "examples": ["pcav:2997", "pcav:2996", "pcav:3058", "pcav:3015"]
@@ -1470,7 +1470,7 @@
         "points": [
           "Some second words are easy for a Hebrew speaker: kāhin, priest, is כהן; ilāh, a god, is אלוה; gaʂʂ, to cut, shares its root with קיצץ.",
           "A noun you know can give a verb: zamb, sin (chapter 75), and áznab, to sin.",
-          "ma3gūl, reasonable or likely, has the root of 3ágil, mind (chapter 34), in the done-to shape (chapter 53): what the mind accepts."
+          "ma3gūl, reasonable or likely, has the root of 3ágil, mind (chapter 34), in the done-to shape of maftūɧ (chapter 30): what the mind accepts."
         ],
         "examples": ["pcav:3254", "pcav:4588", "pcav:3199", "pcav:4749"]
       }
@@ -1792,7 +1792,7 @@
         "points": [
           "ʂalā shows its t before the next word, as in chapter 33: ʂalāt ilfájir, the dawn prayer; ʂalāt ilmáɣrib, the sunset prayer; ʂalāt il3íša, the evening prayer.",
           "máɣrib, sunset, shares its root with Hebrew ערב, evening, and מערב, west.",
-          "Cheeses take the -i of a place: jíbna sʈanbūli, Istanbul cheese; jíbna rūmi, from Rūm, the old name for the Byzantine lands."
+          "Cheeses take the -i of a place: jíbna sʈanbūli, Istanbul cheese; jíbna rūmi, from Rūm, the old name for the Byzantine lands. These are set names, so they keep -i after jíbna."
         ],
         "examples": ["pcav:3238", "pcav:3243", "pcav:3244", "pcav:1081"]
       }
@@ -1820,7 +1820,7 @@
         "chapter": 109,
         "title": "bīr issábi3, bālak: the land and the moment",
         "points": [
-          "Some names are the same in Hebrew: bīr issábi3 is באר שבע, “the well of seven”; ʈabaríyya is טבריה.",
+          "Some names are the same in Hebrew: bīr issábi3 is באר שבע, “the well of seven” (or of the oath); ʈabaríyya is טבריה.",
           "bālak, “your mind”, asks what someone thinks: bālak ɧatmáʈʈir? Do you think it’ll rain?",
           "The weather in degrees: b-nuʂʂ il3išrīn, in the mid-twenties, “in the half of the twenties”; b-ʔāxir il3išrīn, “at the end of the twenties”.",
           "Kind words for the moment: na3ēman after a bath; taqábbal allāh after a prayer; mabrūk ilʔiftitāɧ for a new shop."

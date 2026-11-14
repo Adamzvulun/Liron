@@ -2,26 +2,15 @@
 // them, and kept in a grammar book at the innkeeper's table. The text is ours
 // (content/arabic/grammar.json); the examples are deck sentences, read from the private deck
 // with their recordings (ADR 0011).
-import { z } from 'zod';
 import type { Item } from '../../../core/content/schema.ts';
-import pack from '../../../../content/arabic/grammar.json' with { type: 'json' };
 import type { ArabicProgress } from '../progress.ts';
 import { line, type DeckLine } from './coreWords.ts';
+import type { GrammarCardData } from './grammarCards.ts';
 
-const Card = z.object({
-  chapter: z.number().int().positive(),
-  title: z.string(),
-  points: z.array(z.string()).min(1),
-  table: z.array(z.tuple([z.string(), z.string()])).optional(),
-  letters: z.string().optional(),
-  examples: z.array(z.string()),
-});
+export type { GrammarCardData } from './grammarCards.ts';
 
-export type GrammarCardData = z.infer<typeof Card> & { id: string };
-
-export const GRAMMAR_CARDS: readonly GrammarCardData[] = pack.items
-  .map((i) => ({ id: i.id, ...Card.parse(i.data) }))
-  .sort((a, b) => a.chapter - b.chapter);
+/** The cards' text, loaded with the word lessons (#137). */
+export const loadGrammarCards = () => import('./grammarCards.ts').then((m) => m.GRAMMAR_CARDS);
 
 export interface GrammarCard extends GrammarCardData {
   /** The examples the deck has, with their recordings. */
@@ -29,9 +18,12 @@ export interface GrammarCard extends GrammarCardData {
 }
 
 /** Every card, with its examples read from the deck (an example the deck lacks is left out). */
-export function grammarFrom(items: readonly Item[]): GrammarCard[] {
+export function grammarFrom(
+  items: readonly Item[],
+  cards: readonly GrammarCardData[],
+): GrammarCard[] {
   const byId = new Map(items.map((i) => [i.id, i]));
-  return GRAMMAR_CARDS.map((c) => ({
+  return cards.map((c) => ({
     ...c,
     lines: c.examples.flatMap((id) => {
       const l = line(byId.get(id));

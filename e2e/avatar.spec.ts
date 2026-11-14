@@ -57,9 +57,9 @@ test.describe('the avatar in Your House (#28, #29)', () => {
   test('locked gear says how to earn it and cannot be worn', async ({ page }) => {
     await signedIn(page);
     await page.goto('/house');
-    await expect(page.getByText("Signaller's headset (locked)")).toBeVisible();
+    await expect(page.getByText("Signaler's headset (locked)")).toBeVisible();
     await expect(page.getByText('Reach level 5 in the Signal Tower')).toBeVisible();
-    await expect(page.getByRole('radio', { name: "Signaller's headset" })).toHaveCount(0);
+    await expect(page.getByRole('radio', { name: "Signaler's headset" })).toHaveCount(0);
   });
 
   test('gear you own can be worn and saved (ADR 0033)', async ({ page }) => {
@@ -68,7 +68,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await page.goto('/house');
     await page.locator('label', { hasText: 'Merchant cloak' }).click();
     await expect(page.getByRole('radio', { name: 'Merchant cloak' })).toBeChecked();
-    await expect(page.getByText("Signaller's headset (locked)")).toBeVisible();
+    await expect(page.getByText("Signaler's headset (locked)")).toBeVisible();
     await page.getByRole('button', { name: 'Save my look' }).click();
     // The save is a request: wait for it rather than read the list at the click.
     await expect

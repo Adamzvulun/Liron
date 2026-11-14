@@ -1,6 +1,6 @@
 // Reports a finished script session (#38, #41): saved state, spaced repetition for each letter,
 // the listen and read ratings, XP and practice time. All in one save (ADR 0031).
-import { gradeFrom } from '../../../core/srs/scheduler.ts';
+import { gradeFrom } from '../../../core/srs/grades.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { PASS_SCORE, type ArabicProgress } from '../progress.ts';
 import { CHAPTER } from '../questline.ts';

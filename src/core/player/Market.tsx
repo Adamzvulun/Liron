@@ -58,7 +58,7 @@ export function Market({
         Four wares a day. Gold only, earned by learning.
         {gold !== null && (
           <span className="market__purse">
-            <CoinIcon /> {gold} gold
+            <CoinIcon /> {gold.toLocaleString('en-US')} gold
           </span>
         )}
       </p>
