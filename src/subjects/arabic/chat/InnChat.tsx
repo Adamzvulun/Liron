@@ -5,6 +5,7 @@ import { parseProgress, type ArabicProgress } from '../progress.ts';
 import type { Regular } from '../questline.ts';
 import { CoachPhrases } from './CoachPhrases.tsx';
 import { SayLine } from './SayLine.tsx';
+import { Glosses } from './Glosses.tsx';
 import { DECK } from '../words.ts';
 import {
   afterChat,
@@ -21,7 +22,6 @@ import {
   regularsToTalkTo,
   standingWith,
   glossaryFrom,
-  glossesIn,
   type Glossary,
   tipsFrom,
   dueTips,
@@ -189,6 +189,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
         <CoachPhrases
           api={api}
           tips={stage.tips}
+          glossary={glossary}
           onDone={() => {
             const done = new Set(stage.tips.map((t) => t.id));
             setDue((d) => d.filter((x) => !done.has(x.itemId)));
@@ -484,23 +485,5 @@ export function InnChat({ api }: { api: SubjectApi }) {
         )}
       </div>
     </section>
-  );
-}
-
-/** The words of a line that you've met, each with our gloss; nothing when there are none. */
-function Glosses({ line, glossary }: { line: string; glossary: Glossary }) {
-  const found = glossesIn(line, glossary);
-  if (!found.length) return null;
-  return (
-    <span className="arabic__bubble-glosses">
-      {found.map((g) => (
-        <span key={g.word}>
-          <span lang="ar" dir="rtl">
-            {g.word}
-          </span>{' '}
-          {g.gloss}
-        </span>
-      ))}
-    </span>
   );
 }
