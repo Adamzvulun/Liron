@@ -30681,6 +30681,325 @@
         "latin": "ilblād ílli 3a xaʈʈ ilʔistiwāʔ šōb ʈūl issána.",
         "english": "Countries on the equator are hot all year."
       }
+    },
+    {
+      "id": "own-sentence:pcav:2257",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2257",
+        "arabic": "شُفْنا فِلِم وَثائِقي عن البحر.",
+        "latin": "šúfna fílim waŧāʔiqi 3an ilbáɧar.",
+        "english": "We watched a documentary about the sea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2261",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2261",
+        "arabic": "أُمّي بِتْحِبّ برْنامِج المُسابقات اللي عَ التِّلِفِزْيوْن.",
+        "latin": "ímmi btiɧíbb barnāmij ilmusābagāt ílli 3a -ttilifizyōn.",
+        "english": "My mom loves the game show on TV."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2262",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2262",
+        "arabic": "ما بحِبِّش برْنامِج مِن الواقِع.",
+        "latin": "ma baɧíbbiš barnāmij min ilwāqi3.",
+        "english": "I don't like reality TV shows."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2265",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2265",
+        "arabic": "كُلّ ليْلة بِنْشوف حلقة مِن المُسلْسل الكوْميدي.",
+        "latin": "kull lēle bnšūf ɧálaga min ilmusálsal ilkōmīdi.",
+        "english": "Every night we watch an episode of the sitcom."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2271",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2271",
+        "arabic": "في البرْنامِج الحِواري حكوا عن الشُّغُل.",
+        "latin": "fi -lbarnāmij ilɧiwāri ɧáku 3an iššúɣul.",
+        "english": "On the talk show they talked about work."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2252",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2252",
+        "arabic": "في فعالية رِياضية في الملْعب يوْم السّبِت.",
+        "latin": "fī fa3ālíyya riyāɖíyya fi -lmál3ab yōm issábit.",
+        "english": "There's a sporting event at the stadium on Saturday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2367",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2367",
+        "arabic": "فِلِم الإثارة كان طَويل بسّ حِلو.",
+        "latin": "fílim ilʔiŧāra kān ʈawīl bass ɧílu.",
+        "english": "The thriller was long but good."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2369",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2369",
+        "arabic": "اِبْني بيحِبّ فِلِم الخَيال العِلْمي هاد.",
+        "latin": "íbni biɧíbb fílim ilxayāl il3ílmi hād.",
+        "english": "My son loves this science fiction movie."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2370",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2370",
+        "arabic": "في فِلِم الخَيال في تنانين وأميرات.",
+        "latin": "fi fílim ilfantāzya fī tanānīn w-ʔamīrāt.",
+        "english": "In the fantasy movie there are dragons and princesses."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2375",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2375",
+        "arabic": "لمّا طِلْعت عَ المسْرح كُلّ النّاس صفّقوا.",
+        "latin": "lámma ʈíl3at 3a -lmásraɧ kull innās ʂaffágu.",
+        "english": "When she came out on stage everyone clapped."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2241",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2241",
+        "arabic": "الوَلد بيقْرا قِصّة مُصوّرة قبِل النّوْم.",
+        "latin": "ilwálad bígra gíʂʂa muʂáwwara gábil innōm.",
+        "english": "The boy reads a comic book before bed."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2107",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2107",
+        "arabic": "سِتّي حكت قِصّة خَيالية عن أميرة.",
+        "latin": "sítti ɧákat gíʂʂa xayālíyya 3an ʔamīra.",
+        "english": "My grandma told a fairy tale about a princess."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2102",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2102",
+        "arabic": "حطّيْت فاصِل الكْتاب في الصّفْحة عِشْرين.",
+        "latin": "ɧaʈʈēt fāʂil liktāb fi -ʂʂáfɧa 3išrīn.",
+        "english": "I put the bookmark on page twenty."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2133",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2133",
+        "arabic": "بِدّي ملْقط وَرق، الوَرق كْتير.",
+        "latin": "bíddi málgaʈ wárag, ilwárag ktīr.",
+        "english": "I need a paperclip, there are a lot of papers."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2128",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2128",
+        "arabic": "سيدي كان يِكْتِب عَ آلة كاتْبة.",
+        "latin": "sīdi kān yíktib 3a ʔāla kātba.",
+        "english": "My grandpa used to write on a typewriter."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2116",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2116",
+        "arabic": "بقْرا عمودو الصّحفي كُلّ يوْم أحد.",
+        "latin": "bágra 3amūdu -ʂʂáɧafi kull yōm áɧad.",
+        "english": "I read his newspaper column every Sunday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2083",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2083",
+        "arabic": "بعتْت الرِّسالة بِالبريد الجّوّي.",
+        "latin": "ba3átt irrisāle bil-barīd ijjáwwi.",
+        "english": "I sent the letter by airmail."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2312",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2312",
+        "arabic": "أُمّي عِنْدها ماكينِةْ خْياطة قديمة.",
+        "latin": "ímmi 3índha mākīnit xyāʈa gadīme.",
+        "english": "My mom has an old sewing machine."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2313",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2313",
+        "arabic": "ويْن إبْرِةْ الخْياطة؟ بِدّي أخيِّط الزِّر.",
+        "latin": "wēn íbrit ilxyāʈa? bíddi ʔaxáyyiʈ izzírr.",
+        "english": "Where's the sewing needle? I want to sew on the button."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2437",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2437",
+        "arabic": "في العِرِس غنّوا أغاني شعْبية.",
+        "latin": "fi -l3íris ɣánnu ʔaɣāni ša3bíyya.",
+        "english": "At the wedding they sang folk songs."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2449",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2449",
+        "arabic": "بِتِعْزِف عَ أيّ آلة موسيقية؟",
+        "latin": "bti3zif 3a ʔayy āla mūsīqíyya?",
+        "english": "Do you play any musical instrument?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2468",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2468",
+        "arabic": "الفِرْقة الموسيقية عزفت ساعْتيْن.",
+        "latin": "ilfírga -lmūsīqíyya 3azáfat sa3tēn.",
+        "english": "The orchestra played for two hours."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2473",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2473",
+        "arabic": "في العِرِس كان في رقِص شرْقي.",
+        "latin": "fi -l3íris kān fī rágiʂ šárgi.",
+        "english": "At the wedding there was belly dancing."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2493",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2493",
+        "arabic": "سيدي بيلْعب طاوْلِةْ زهِر كُلّ مسا.",
+        "latin": "sīdi biyíl3ab ʈāwlit zāhir kull mása.",
+        "english": "My grandpa plays backgammon every evening."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2485",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2485",
+        "arabic": "كِش ملِك! غلبْتك.",
+        "latin": "kiš málik! ɣalábtak.",
+        "english": "Checkmate! I beat you."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1095",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1095",
+        "arabic": "الِوْلاد اِشْتروا شعر بنات في العيد.",
+        "latin": "ilwlād ištáru šá3ar banāt fi -l3īd.",
+        "english": "The kids bought cotton candy at the holiday."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1187",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1187",
+        "arabic": "حطّيْت شْوَيّة جوْزِةْ الطّيب في الشّوْربة.",
+        "latin": "ɧaʈʈēt šwáyyit jōzt iʈʈīb fi -ššōrba.",
+        "english": "I put a little nutmeg in the soup."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1175",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1175",
+        "arabic": "بحُطّ عيْن جمل في الكيكة.",
+        "latin": "baɧúʈʈ 3ēn jámal fi -lkēke.",
+        "english": "I put walnuts in the cake."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1158",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1158",
+        "arabic": "الغْريْب فْروت مُرّ شْوَيّ.",
+        "latin": "ilgrēp frūt murr šwayy.",
+        "english": "Grapefruit is a little bitter."
+      }
     }
   ]
 }

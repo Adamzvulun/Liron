@@ -13737,6 +13737,139 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:103",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 103,
+        "title": "Shows, music, and sweets",
+        "theme": "What's on TV, kinds of movies, stories and the desk, sewing, music and games, and a few sweets",
+        "words": [
+          {
+            "deck": "pcav:2257",
+            "gloss": "documentary"
+          },
+          {
+            "deck": "pcav:2261",
+            "gloss": "game show"
+          },
+          {
+            "deck": "pcav:2262",
+            "gloss": "reality TV show"
+          },
+          {
+            "deck": "pcav:2265",
+            "gloss": "sitcom"
+          },
+          {
+            "deck": "pcav:2271",
+            "gloss": "talk show"
+          },
+          {
+            "deck": "pcav:2252",
+            "gloss": "sporting event"
+          },
+          {
+            "deck": "pcav:2367",
+            "gloss": "thriller"
+          },
+          {
+            "deck": "pcav:2369",
+            "gloss": "science fiction"
+          },
+          {
+            "deck": "pcav:2370",
+            "gloss": "fantasy movie"
+          },
+          {
+            "deck": "pcav:2375",
+            "gloss": "on stage"
+          },
+          {
+            "deck": "pcav:2241",
+            "gloss": "comic book"
+          },
+          {
+            "deck": "pcav:2107",
+            "gloss": "fairy tale"
+          },
+          {
+            "deck": "pcav:2102",
+            "gloss": "bookmark"
+          },
+          {
+            "deck": "pcav:2133",
+            "gloss": "paperclip"
+          },
+          {
+            "deck": "pcav:2128",
+            "gloss": "typewriter"
+          },
+          {
+            "deck": "pcav:2116",
+            "gloss": "newspaper column"
+          },
+          {
+            "deck": "pcav:2083",
+            "gloss": "airmail"
+          },
+          {
+            "deck": "pcav:2312",
+            "gloss": "sewing machine"
+          },
+          {
+            "deck": "pcav:2313",
+            "gloss": "sewing needle"
+          },
+          {
+            "deck": "pcav:2437",
+            "gloss": "folk music"
+          },
+          {
+            "deck": "pcav:2449",
+            "gloss": "musical instrument"
+          },
+          {
+            "deck": "pcav:2468",
+            "gloss": "orchestra"
+          },
+          {
+            "deck": "pcav:2473",
+            "gloss": "belly dancing"
+          },
+          {
+            "deck": "pcav:2493",
+            "gloss": "backgammon"
+          },
+          {
+            "deck": "pcav:2485",
+            "gloss": "Checkmate!"
+          },
+          {
+            "deck": "pcav:2561",
+            "gloss": "personal trainer",
+            "sentence": "pcav:2563"
+          },
+          {
+            "deck": "pcav:1095",
+            "gloss": "cotton candy"
+          },
+          {
+            "deck": "pcav:1187",
+            "gloss": "nutmeg"
+          },
+          {
+            "deck": "pcav:1175",
+            "gloss": "walnut"
+          },
+          {
+            "deck": "pcav:1158",
+            "gloss": "grapefruit"
+          }
+        ]
+      }
     }
   ]
 }
