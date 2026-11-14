@@ -1033,6 +1033,21 @@
       }
     },
     {
+      "id": "grammar:sunrise",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 68,
+        "title": "šurūg, ɣurūb: sunrise, sunset and other doings",
+        "points": [
+          "Many plain verbs name their doing with a u and a long ū: iššáms btúšrug, the sun rises → šurūg, sunrise; iššáms btúɣrub, the sun sets → ɣurūb, sunset.",
+          "dáxal, to go in, gives duxūl, entering: imtiɧān duxūl, an entrance exam. marr, to pass, gives murūr, traffic: išārit murūr, a traffic light.",
+          "It’s the same job as i…ā for verbs with i- (chapter 64): ištirāk, membership."
+        ],
+        "examples": ["pcav:3617", "pcav:3616", "pcav:3618", "pcav:1522", "pcav:1886"]
+      }
+    },
+    {
       "id": "grammar:hidden-t",
       "subject": "arabic",
       "type": "grammar-card",
