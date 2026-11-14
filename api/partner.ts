@@ -152,6 +152,9 @@ export type Ask =
 /** The most turns a chat sends: 8 of the learner's lines and the regular's answers. */
 export const MAX_TURNS = 17;
 
+/** The largest body the function reads, in bytes. */
+export const MAX_BODY = 12_000;
+
 const text = (v: unknown, max: number) =>
   typeof v === 'string' && v.trim().length > 0 && v.length <= max ? v.trim() : null;
 
@@ -516,7 +519,10 @@ export async function handle(
   if (!(GEMINI_API_KEY || GROQ_API_KEY) || !VITE_SUPABASE_URL || !VITE_SUPABASE_PUBLISHABLE_KEY) {
     return fail('not-set-up');
   }
-  if (Number(request.headers.get('Content-Length') ?? 0) > 4000) return fail('bad-request');
+  // Every field is capped by parseAsk; this only turns away a body far past those caps. A full
+  // chat at the inn reaches about 6 kB, and the most parseAsk takes about 9 kB (Arabic is 2 bytes
+  // a letter).
+  if (Number(request.headers.get('Content-Length') ?? 0) > MAX_BODY) return fail('bad-request');
   const ask = parseAsk(await request.json().catch(() => null));
   if (!ask) return fail('bad-request');
 
