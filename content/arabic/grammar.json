@@ -1017,6 +1017,22 @@
       }
     },
     {
+      "id": "grammar:mit-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 65,
+        "title": "mit3állim, mitʔáxxir: the state a t- verb leaves you in",
+        "points": [
+          "A verb with t- in front (chapter 20) gives a describing word with mit- in front and an i: it3állam, he learned → mit3állim, educated; itʔáxxar, to be delayed (chapter 62) → mitʔáxxir, late.",
+          "It says the state you’re in, like lābis and sākin (chapter 36): mitʔákkid, sure; mitɧámmis la-, excited about; mitšáwwig, looking forward to.",
+          "A student majoring in a subject is mitxáʂʂiʂ: mitxáʂʂiʂ ādāb inglīzi, I’m majoring in English literature.",
+          "Hebrew’s hitpaʿel does the same with mit-: מתרגש, excited."
+        ],
+        "examples": ["pcav:1446", "pcav:4260", "pcav:3148", "pcav:3083", "pcav:1574"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
