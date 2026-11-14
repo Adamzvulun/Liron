@@ -93,7 +93,7 @@ export const INN_RULES = [
   'Speak ONLY Palestinian colloquial Arabic, as people speak it in Jerusalem or Ramallah, in Arabic',
   'script. Never Modern Standard Arabic. Never Egyptian, Gulf or Maghrebi words.',
   'Say شو (not إيه, ماذا or شنو), كيفك (not شلونك, إزيك or كيف حالك), هلّق (not الآن or دلوقتي),',
-  'بدّي (not عايز, أريد or أبغى), هاد and هاي (not هذا, هذه or ده), منيح (not كويس or جيد).',
+  'بدّي (not عايز, أريد or أبغى), هاد and هاي (not هذا, هذه, ده or هيدا), منيح (not كويس or جيد).',
   'Reply with ONE or TWO short, simple sentences a beginner can follow. Often end with one simple',
   'question back.',
   'Put vowel marks only on a word that could be misread; most words need none.',
@@ -130,6 +130,8 @@ export interface InnAsk {
   words: string[];
   /** The last few things the learner said to this regular in earlier chats, oldest first. */
   told: string[];
+  /** How many chats with this regular came before this one (their reputation, E17). */
+  met: number;
   /** This chat so far, oldest first. Empty for the regular's opening line. */
   turns: InnTurn[];
 }
@@ -151,6 +153,9 @@ export type Ask =
 
 /** The most turns a chat sends: 8 of the learner's lines and the regular's answers. */
 export const MAX_TURNS = 17;
+
+/** Chats before a regular greets you as an old friend (their reputation, E17). */
+export const OLD_FRIENDS = 5;
 
 /** The largest body the function reads, in bytes. */
 export const MAX_BODY = 12_000;
@@ -191,7 +196,9 @@ function parseInn(b: Record<string, unknown>): InnAsk | null {
   const words = b.words === undefined ? [] : strings(b.words, 40, 40);
   const told = b.told === undefined ? [] : strings(b.told, 3, 160);
   const turns = parseTurns(b.turns);
+  const met = b.met === undefined ? 0 : b.met;
   if (!who || !about || !name || !theme || !words || !told || !turns) return null;
+  if (typeof met !== 'number' || !Number.isInteger(met) || met < 0 || met > 9999) return null;
   return {
     kind: 'inn-chat',
     persona: { who, about },
@@ -199,6 +206,7 @@ function parseInn(b: Record<string, unknown>): InnAsk | null {
     theme,
     words,
     told,
+    met,
     turns,
   };
 }
@@ -241,13 +249,18 @@ const quoted = (ls: readonly string[]) => ls.map((p) => `"${p}"`).join(' ; ');
 
 /** What a regular is told about this chat: their story, the traveler, and what you know. */
 export function innSetting(ask: InnAsk): string {
-  const { persona, learner, theme, words, told } = ask;
+  const { persona, learner, theme, words, told, met } = ask;
   return [
     `You are ${persona.who}. ${persona.about}`,
     `The traveler's name is ${learner.name}.`,
-    told.length
-      ? `What the traveler told you in earlier chats, oldest first: ${quoted(told)}`
-      : 'This is your first chat with the traveler.',
+    met === 0
+      ? 'This is your first chat with the traveler: you are just getting to know them.'
+      : met < OLD_FRIENDS
+        ? `You have chatted with the traveler ${met === 1 ? 'once' : `${met} times`} before.`
+        : `You have chatted with the traveler ${met} times: you are old friends, warm and familiar.`,
+    ...(told.length
+      ? [`What the traveler told you in earlier chats, oldest first: ${quoted(told)}`]
+      : []),
     `The traveler has been learning words about: ${theme}.` +
       (words.length ? ` For example: ${words.join(', ')}.` : '') +
       ' Lean on everyday words like these.',
@@ -280,6 +293,13 @@ export function innMessages(
 const LATIN = /[A-Za-z]/;
 const NOT_ARABIC_LINE = /[^\u0600-\u06FF\u0750-\u077F\s0-9.,!?:"«»()\-–—…]/u;
 const SAYS_MACHINE = /ذكاء\s*(ال)?اصطناعي|نموذج\s*لغ|روبوت|بوت\b/u;
+/**
+ * Words that give a line away as another variety, never Palestinian: Modern Standard (ماذا,
+ * لماذا, سوف, أريد), Egyptian (عايز, دلوقتي, كده), Gulf (شلون, وايد, شنو) and Lebanese (هيدا).
+ * The rules already forbid them; a reply that uses one anyway is asked for again.
+ */
+const GIVEAWAY =
+  /(^|[\s،.!?؟])(ماذا|لماذا|سوف|أريد|عايز|عايزة|دلوقتي|كده|شلون|شلونك|وايد|شنو|هيدا|هيدي)(?=$|[\s،.!?؟])/u;
 /** The longest line a regular says. */
 export const MAX_ARABIC = 160;
 
@@ -297,6 +317,7 @@ export function cleanArabic(said: string): string | null {
     .trim();
   if (!line || line.length > MAX_ARABIC) return null;
   if (LATIN.test(line) || NOT_ARABIC_LINE.test(line) || SAYS_MACHINE.test(line)) return null;
+  if (GIVEAWAY.test(line)) return null;
   if (!/[\u0621-\u064A]/.test(line)) return null;
   const sentences = line.split(/[.!?؟]+/).filter((p) => p.trim()).length;
   return sentences <= 3 ? line : null;
@@ -407,7 +428,8 @@ async function askGroq(
       body: JSON.stringify({
         model,
         messages,
-        temperature: 1,
+        // The Coach corrects, so it answers the same way each time; the regulars chat freely.
+        temperature: json ? 0.3 : 1,
         // gpt-oss thinks briefly first (about 15 tokens at low effort); 300 leaves room for it,
         // and the Coach (medium effort, then JSON) gets 1,500.
         max_completion_tokens: json ? 1500 : 300,
@@ -441,7 +463,8 @@ export const COACH_RULES = [
   'the gender of a word the traveler uses about themselves.',
   'Your "better" line MUST itself be Palestinian colloquial, never Modern Standard Arabic: the',
   'present with b- (بشتغل, بحب, بروح; not أعمل, أحب), بدّي (not أريد), شو (not ماذا), منيح (not',
-  'جيد or بخير), هلّق (not الآن), آه (not نعم), هاد/هاي (not هذا/هذه), مش (not ليس or لا before a verb).',
+  'جيد or بخير), هلّق (not الآن), آه (not نعم), هاد/هاي (not هذا/هذه, or the Lebanese هيدا), مش (not ليس or لا before a verb).',
+  'Never bring in Egyptian words (عيش for bread is خبز; إيه for what is شو).',
   'A Modern Standard word in a traveler line (ماذا, أريد, نعم, جيد, الآن) is always worth a tip.',
   'Answer ONLY with JSON: {"tips":[{"said":"<the traveler line, copied exactly>",',
   '"better":"<how a Palestinian would say it, in Arabic script, short>",',
@@ -487,11 +510,25 @@ export function cleanTips(said: string, ask: CoachAsk): Tip[] | null {
     const line = typeof tip.said === 'string' ? tip.said.trim() : '';
     const better = typeof tip.better === 'string' ? cleanArabic(tip.better) : null;
     const why = typeof tip.why === 'string' ? tip.why.replace(/[<>*_#`]/g, '').trim() : '';
-    if (!yours.has(line) || !better || better === line || !why || why.length > 140) continue;
+    if (!yours.has(line) || !better || !why || why.length > 140) continue;
+    // A tip that only changes spelling (an alif, a hamza, a vowel mark) isn't one.
+    if (spelledAlike(better, line)) continue;
     if (kept.some((k) => k.said === line)) continue;
     kept.push({ said: line, better, why });
   }
   return kept.slice(0, 3);
+}
+
+/** The same words but for alifs, hamzas, vowel marks, ة/ه, ى/ي, spaces and punctuation. */
+function spelledAlike(a: string, b: string): boolean {
+  const bare = (x: string) =>
+    x
+      .replace(/[\u064B-\u0652\u0670]/gu, '')
+      .replace(/[أإآٱءؤئ]/gu, 'ا')
+      .replace(/ة/gu, 'ه')
+      .replace(/ى/gu, 'ي')
+      .replace(/[ا\s،.!?؟]/gu, '');
+  return bare(a) === bare(b);
 }
 
 /** The first line of a reply, without thinking tags or quotes, cut short. */

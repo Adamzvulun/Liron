@@ -10,6 +10,7 @@ import {
   innMessages,
   MAX_BODY,
   MAX_TURNS,
+  OLD_FRIENDS,
   parseAsk,
   radioPrompt,
   REPLY_GEMINI_MS,
@@ -287,6 +288,20 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
     });
   });
 
+  it('tells the regular how well they know the traveler', () => {
+    const setting = (met: number) => {
+      const ask = parseAsk({ ...INN, met });
+      if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
+      return innMessages(ask)[0]?.content ?? '';
+    };
+    expect(setting(0)).toContain('This is your first chat with the traveler');
+    expect(setting(1)).toContain('You have chatted with the traveler once before.');
+    expect(setting(3)).toContain('3 times before');
+    expect(setting(OLD_FRIENDS)).toContain('you are old friends');
+    expect(parseAsk({ ...INN, met: -1 })).toBeNull();
+    expect(parseAsk({ ...INN, met: 1.5 })).toBeNull();
+  });
+
   it('asks for a greeting when the chat has no turns yet', () => {
     const ask = parseAsk({ ...INN, turns: [] });
     if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
@@ -343,6 +358,13 @@ describe('cleanArabic (ADR 0038)', () => {
     expect(cleanArabic('أهلا. كيفك؟ شو بتعمل؟ وين رايح؟')).toBeNull();
     expect(cleanArabic('ا'.repeat(161))).toBeNull();
     expect(cleanArabic('أنا ذكاء اصطناعي، مش إنسان')).toBeNull();
+    // Words of another variety: Standard, Egyptian, Gulf, Lebanese.
+    expect(cleanArabic('ماذا تريد؟')).toBeNull();
+    expect(cleanArabic('هيدا بيتي')).toBeNull();
+    expect(cleanArabic('شلونك اليوم؟')).toBeNull();
+    expect(cleanArabic('عايز إيه؟')).toBeNull();
+    // …but not a word that merely contains one.
+    expect(cleanArabic('بدّي قهوة، وانت شو بدك؟')).toBe('بدّي قهوة، وانت شو بدك؟');
     expect(cleanArabic('...')).toBeNull();
   });
 });
@@ -399,6 +421,8 @@ describe('the Coach after a chat (ADR 0007, 0038)', () => {
     expect(tips([{ ...TIP, said: 'بدك قهوة؟' }])).toEqual([]);
     expect(tips([{ ...TIP, better: 'Ah biddi ahwe' }])).toEqual([]);
     expect(tips([{ ...TIP, better: TIP.said }])).toEqual([]);
+    // Only spelling changed (an alif, a hamza, a mark): not a tip.
+    expect(tips([{ ...TIP, better: 'نَعَم اريد قهوه' }])).toEqual([]);
     expect(tips([{ ...TIP, why: '' }])).toEqual([]);
     expect(tips([])).toEqual([]);
     expect(cleanTips('not json', ask)).toBeNull();

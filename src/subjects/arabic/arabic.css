@@ -881,6 +881,21 @@
   color: var(--guild-arabic-ink);
 }
 
+/* The words of their line that you've met, each with our gloss. */
+.arabic__bubble-glosses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--ink);
+  font-family: var(--font-ui);
+}
+
+.arabic__bubble-glosses [lang='ar'] {
+  font-size: 17px;
+}
+
 .arabic__typing {
   font-weight: 900;
   letter-spacing: 4px;
@@ -1007,4 +1022,11 @@
 
 .arabic__say-line button {
   width: 100%;
+}
+
+.arabic__chat-standing {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.85;
 }

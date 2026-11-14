@@ -6,6 +6,8 @@ import { REGULARS, regularStatus, type Regular } from '../questline.ts';
 import { WORD_CHAPTERS } from '../core/wordChapters.ts';
 import { inHebrewVowelled } from '../marks.ts';
 import { LETTERS } from '../letters.ts';
+import type { Item } from '../../../core/content/schema.ts';
+import { ECHO_POOL, type WordReview } from '../words.ts';
 
 /** Your lines in one chat; after that the regular has to go. */
 export const MAX_LINES = 8;
@@ -45,6 +47,7 @@ export function chatAsk(r: Regular, p: ArabicProgress, turns: readonly InnTurn[]
       WORDS_SENT,
     ),
     told: (p.chat.told[String(r.number)] ?? []).slice(-3),
+    met: metWith(p, r),
     turns,
   };
 }
@@ -88,7 +91,12 @@ export function afterChat(
   const told = [...(p.chat.told[key] ?? []), ...yours].slice(-3);
   return {
     ...p,
-    chat: { ...p.chat, told: { ...p.chat.told, [key]: told }, chats: p.chat.chats + 1 },
+    chat: {
+      ...p.chat,
+      told: { ...p.chat.told, [key]: told },
+      met: { ...p.chat.met, [key]: metWith(p, r) + 1 },
+      chats: p.chat.chats + 1,
+    },
   };
 }
 
@@ -181,4 +189,63 @@ export function withTips(p: ArabicProgress, tips: readonly CoachTip[]): ArabicPr
 export function dueTips(p: ArabicProgress, due: readonly { itemId: string }[]) {
   const ids = new Set(due.map((d) => d.itemId));
   return p.chat.tips.filter((t) => ids.has(t.id));
+}
+
+/** Chats with this regular so far (their reputation, E17). */
+export const metWith = (p: ArabicProgress, r: Regular) => p.chat.met[String(r.number)] ?? 0;
+
+/** How a regular knows you, from how often you've sat with them. */
+export function standingWith(p: ArabicProgress, r: Regular): string {
+  const n = metWith(p, r);
+  // 5, as OLD_FRIENDS in api/partner.ts (which imports nothing from the app).
+  return n === 0 ? 'New face' : n < 5 ? 'Knows you' : 'Old friend';
+}
+
+/** A word's letters only: no vowel marks or punctuation, and every alif as ا. */
+const plainArabic = (word: string) =>
+  [...word]
+    .filter((c) => /[ء-ي]/u.test(c))
+    .join('')
+    .replace(/[أإآ]/gu, 'ا')
+    .replace(/ى/gu, 'ي');
+
+/** The words we gloss, by their plain letters: our own glosses only, never the deck's English. */
+export type Glossary = ReadonlyMap<string, string>;
+
+/**
+ * The glossary for a chat: every deck word with our gloss (the word path and the reviewed letter
+ * lessons, ECHO_POOL). It's built in the browser from the deck you've loaded; nothing is sent.
+ */
+export function glossaryFrom(items: readonly Item[], pool: WordReview = ECHO_POOL): Glossary {
+  const glossary = new Map<string, string>();
+  for (const item of items) {
+    const gloss = pool.words.get(item.id)?.gloss;
+    const arabic = (item.data as { arabic?: unknown }).arabic;
+    if (!gloss || typeof arabic !== 'string' || /\s/.test(arabic.trim())) continue;
+    const plain = plainArabic(arabic);
+    if (plain.length > 1 && !glossary.has(plain)) glossary.set(plain, gloss);
+  }
+  return glossary;
+}
+
+/** What a word may start with: "and", "the", "in", "to", and their pairs. */
+const PREFIXES = ['وال', 'بال', 'فال', 'عال', 'لل', 'ال', 'و', 'ب', 'ف', 'ل'];
+
+/** The words in a line that the glossary knows, as said in the line, at most 6. */
+export function glossesIn(line: string, glossary: Glossary): { word: string; gloss: string }[] {
+  const found: { word: string; gloss: string }[] = [];
+  for (const token of line.split(/\s+/)) {
+    const plain = plainArabic(token);
+    const tries = [
+      plain,
+      ...PREFIXES.filter((p) => plain.startsWith(p)).map((p) => plain.slice(p.length)),
+    ];
+    const gloss = tries
+      .filter((t) => t.length > 1)
+      .map((t) => glossary.get(t))
+      .find(Boolean);
+    const word = [...token].filter((c) => /[\u0621-\u0652]/u.test(c)).join('');
+    if (gloss && !found.some((f) => f.gloss === gloss)) found.push({ word, gloss });
+  }
+  return found.slice(0, 6);
 }
