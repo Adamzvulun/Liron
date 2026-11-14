@@ -80,6 +80,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:doing-words', 64],
       ['grammar:mit-words', 65],
       ['grammar:hidden-t', 69],
+      ['grammar:his-blood-is-light', 70],
       ['grammar:ordinals', 90],
       ['grammar:how-much', 91],
       ['grammar:nothing', 92],

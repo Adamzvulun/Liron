@@ -1049,6 +1049,22 @@
       }
     },
     {
+      "id": "grammar:his-blood-is-light",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 70,
+        "title": "dámmu xafīf: say it about a part of them",
+        "points": [
+          "Arabic often describes a person through a part of them, with an ending (chapter 2): sáma3u tgīl, he’s hard of hearing (his hearing is heavy); nōmu xafīf, he’s a light sleeper (his sleep is light).",
+          "Some of these are sayings: dámmu xafīf, he’s fun to be with (his blood is light); maksūr gálbu, heartbroken (broken of heart).",
+          "šáklu is his looks, and it also says “it looks like”: šáklu bíddak naɖɖārāt, I think you need glasses.",
+          "Change the ending for someone else: dámmha xafīf, she’s fun to be with."
+        ],
+        "examples": ["pcav:0310", "pcav:0875", "pcav:3113", "pcav:0177", "pcav:0284"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
