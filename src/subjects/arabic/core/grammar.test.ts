@@ -60,6 +60,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:hungry', 38],
       ['grammar:palms-and-seeds', 39],
       ['grammar:places', 40],
+      ['grammar:school-words', 41],
       ['grammar:old-verbs-new-jobs', 42],
       ['grammar:ways-to-play', 43],
       ['grammar:a-plurals', 44],
