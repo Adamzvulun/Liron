@@ -32617,6 +32617,336 @@
         "latin": "úxti btíktub risālit mājistēr.",
         "english": "My sister is writing a master's thesis."
       }
+    },
+    {
+      "id": "own-sentence:pcav:3532",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3532",
+        "arabic": "أخوي ساكِن في رام الله.",
+        "latin": "ʔaxūy sākin fi rāmálla.",
+        "english": "My brother lives in Ramallah."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3540",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3540",
+        "arabic": "بير السّبِع في الجّنوب.",
+        "latin": "bīr issábi3 fi -jjanūb.",
+        "english": "Beersheba is in the south."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3523",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3523",
+        "arabic": "ديْر البلح فيها نخِل كْتير.",
+        "latin": "dēr ilbálaɧ fīha náxil ktīr.",
+        "english": "Deir al-Balah has a lot of palm trees."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3524",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3524",
+        "arabic": "خان يونِس قريبة مِن البحِر.",
+        "latin": "xān yūnis garībe min ilbáɧar.",
+        "english": "Khan Younis is near the sea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3520",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3520",
+        "arabic": "قِطاع غزّة عَ البحِر.",
+        "latin": "gitā3 ɣázza 3a -lbáɧar.",
+        "english": "The Gaza Strip is on the sea."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3526",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3526",
+        "arabic": "نابْلُس في الضفّة الغرْبية.",
+        "latin": "nāblus fi -ɖɖáffa -lɣarbíyya.",
+        "english": "Nablus is in the West Bank."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3546",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3546",
+        "arabic": "البحْر الأبْيَض أزْرق اليوْم.",
+        "latin": "ilbáɧr ilʔábyaɖ ʔázrag ilyōm.",
+        "english": "The Mediterranean is blue today."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3549",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3549",
+        "arabic": "سْبحْنا في بُحَيْرِةْ طبرِيّا.",
+        "latin": "sbáɧna fi buɧērit ʈabaríyya.",
+        "english": "We swam in Lake Tiberias."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3541",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3541",
+        "arabic": "المسْجِد الأقْصى في القُدْس.",
+        "latin": "ilmásjid ilʔáqʂa fi -lquds.",
+        "english": "Al-Aqsa Mosque is in Jerusalem."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3542",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3542",
+        "arabic": "قُبِّةْ الصّخْرة لوْنْها دهبي.",
+        "latin": "qúbbit iʂʂáxra lōnha dáhabi.",
+        "english": "The Dome of the Rock is gold in color."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3543",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3543",
+        "arabic": "كنيسِةْ القِيامة كْتير قديمة.",
+        "latin": "kanīsit ilqiyāma ktīr gadīme.",
+        "english": "The Church of the Holy Sepulchre is very old."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3545",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3545",
+        "arabic": "كنيسِةْ المهْد في بيْت لحِم.",
+        "latin": "kanīsit ilmáhd fi bēt láɧim.",
+        "english": "The Church of the Nativity is in Bethlehem."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3510",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3510",
+        "arabic": "عمّي ساكِن في الوِلايات المُتّحِدة.",
+        "latin": "3ámmi sākin fi -lwilāyāt ilmuttáɧida.",
+        "english": "My uncle lives in the United States."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3565",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3565",
+        "arabic": "كندا في أمْريكا الشّمالية.",
+        "latin": "kánada fi ʔamrīka -ššamālíyya.",
+        "english": "Canada is in North America."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3566",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3566",
+        "arabic": "البرازيل في أمْريكا الجّنوبية.",
+        "latin": "ilbarāzīl fi ʔamrīka -jjanūbíyya.",
+        "english": "Brazil is in South America."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3676",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3676",
+        "arabic": "السّما صافْيَة، يَلّا عَ البحِر.",
+        "latin": "issáma ʂāfye, yálla 3a -lbáɧar.",
+        "english": "The sky is clear, let's go to the beach."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3653",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3653",
+        "arabic": "اليوْم شوْب، تقْريباً تلاتين.",
+        "latin": "ilyōm šōb, tagrīban talātīn.",
+        "english": "It's hot today, about thirty degrees."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3651",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3651",
+        "arabic": "بُكْرة الجّوّ بْنُصّ العِشْرين.",
+        "latin": "búkra ijjáww b-nuʂʂ il3išrīn.",
+        "english": "Tomorrow the weather will be in the mid-twenties."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3652",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3652",
+        "arabic": "الصُّبُح كان بْآخِر العِشْرين.",
+        "latin": "iʂʂúbuɧ kān b-ʔāxir il3išrīn.",
+        "english": "In the morning it was in the high twenties."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3722",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3722",
+        "arabic": "بالك حتْمطِّر بُكْرة؟",
+        "latin": "bālak ɧatmáʈʈir búkra?",
+        "english": "Do you think it will rain tomorrow?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3714",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3714",
+        "arabic": "السّفينة كانت في مرْكز الاِعْصار.",
+        "latin": "issafīne kānat fi márkaz ilʔi3ʂār.",
+        "english": "The ship was in the eye of the storm."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4028",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4028",
+        "arabic": "بِدّي آلة حاسْبة للْحِساب.",
+        "latin": "bíddi ʔāla ɧāsbe la-lɧisāb.",
+        "english": "I need a calculator for the bill."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2784",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2784",
+        "arabic": "رئيس الوُزرا حكى في الأخْبار.",
+        "latin": "raʔīs ilwúzara ɧáka fi -lʔaxbār.",
+        "english": "The prime minister spoke on the news."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:1301",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:1301",
+        "arabic": "بِشْتغِل دوام جُزْئي في المطْعم.",
+        "latin": "bištáɣil dawām júzʔi fi -lmáʈ3am.",
+        "english": "I work part-time at the restaurant."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0510",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0510",
+        "arabic": "أكلْت كْتير وتْخِنِت.",
+        "latin": "ʔakált ktīr w-txínit.",
+        "english": "I ate a lot and got fat."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0866",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0866",
+        "arabic": "كوْبسِت مبارِح بِاللّيْل.",
+        "latin": "kōbasit mbāriɧ bi-llēl.",
+        "english": "I had a nightmare last night."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:3808",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:3808",
+        "arabic": "الوَلد مْقمِّل، لازِم نِغْسِل شعرو.",
+        "latin": "ilwálad mgámmal, lāzim níɣsil šáʕru.",
+        "english": "The child has head lice, we have to wash his hair."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4813",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4813",
+        "arabic": "بعِد الحمّام بِنْقول نعيْماً.",
+        "latin": "bá3id ilɧammām binʔūl na3ēman.",
+        "english": "After a shower we say “na3ēman” (may it do you good)."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4802",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4802",
+        "arabic": "بعِد الصّلاة بِنْقول تقبّل الله.",
+        "latin": "bá3id iʂʂalā binʔūl taqábbal allāh.",
+        "english": "After the prayer we say “taqábbal allāh” (may God accept it)."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4794",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4794",
+        "arabic": "بِنْقول مبْروك الاِفْتِتاح لمّا حدا بِفْتح محلّ.",
+        "latin": "binʔūl mabrūk ilʔiftitāɧ lámma ɧáda bíftaɧ maɧáll.",
+        "english": "We say “Congratulations on the opening” when someone opens a shop."
+      }
     }
   ]
 }
