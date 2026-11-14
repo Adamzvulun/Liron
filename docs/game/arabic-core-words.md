@@ -264,6 +264,15 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 93 | Hello?, the weather, and how you feel |
 
+- **Words 2,791–2,850 (2026-11-14): A1 phrases the path missed.** A count of the A1 items still untaught found everyday phrases where the phrase is the thing to learn: four of the eight cousin words (*íbin 3amm*, *bint 3amm*, *íbin xāl*, *bint xāla*), *older brother*, *younger sister*, *last name*, *full name*; the questions people ask when they meet (*What do you do?*, *Do you have children?*, *What's your number?*, *Are you free tomorrow?*, *What time do you get up?*) and their answers; *Thank you for the meal* and its reply; and around town and at home: *bedroom*, *toothbrush*, *bus stop*, *post office*, *ATM*, *passport*, *one-way* and *round-trip ticket*, *a single room*, *a table for two*, *wifi*.
+  - **Left out on purpose:** *How old are you?* and *Excuse me* (taught already under other entries), the other four cousins (the four taught show the pattern), and items made only of taught words with their usual meaning (*blue eyes*, *hot water*, *a lot of money*).
+  - **Deck sentences:** 1 of the 60 has one (*She wrote the letter with a pencil*); the other 59 have one of our own. For a question, our sentence is the question with an answer.
+
+| Chapter | Theme |
+|---|---|
+| 94 | Cousins, names, and what people ask |
+| 95 | Around town and at home |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).

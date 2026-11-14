@@ -2459,6 +2459,56 @@
         },
         "outro": "She gives the innkeeper a phone that works, for the guests to call home. “If it rains again,” she says, “you know where I am.”"
       }
+    },
+    {
+      "id": "road:95",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 95,
+        "wordChapter": 94,
+        "title": "The Family Reunion",
+        "who": "Abu Samir and his many cousins",
+        "intro": "Abu Samir has rented the whole inn for a family reunion. Cousins arrive from four towns and two countries, and half of them have never met.",
+        "milestones": [
+          "At the door everyone asks the same things: what’s your full name, whose son are you, do you have children, what do you do.",
+          "An older brother and a younger sister argue over who was better at math. A cousin from abroad asks the innkeeper what time everyone gets up here.",
+          "By the evening they are all at one long table. When the plates are empty, every guest says “thank you for the meal”, and Abu Samir answers each one."
+        ],
+        "trial": {
+          "name": "Whose Son Are You?",
+          "text": "Abu Samir’s cousins ask you the questions people ask when they meet, and you give their meaning. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "He writes every cousin’s name and number in the inn’s guest book, so next year’s reunion is easier to plan."
+      }
+    },
+    {
+      "id": "road:96",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 96,
+        "wordChapter": 95,
+        "title": "The Traveler’s Errands",
+        "who": "Nadia, a traveler on her way home",
+        "intro": "Nadia has one day in town before her train, and a list of errands as long as her arm.",
+        "milestones": [
+          "She needs the post office, an ATM and the supermarket, and she can’t find any of them. The innkeeper draws her a map on the back of a menu.",
+          "At the train station she asks for a one-way ticket, then changes her mind and buys a round trip. She left her sunglasses and her toothbrush at the inn.",
+          "She comes back for them just before the last bus, books a single room for one more night instead, and asks for the wifi password."
+        ],
+        "trial": {
+          "name": "One Day in Town",
+          "text": "Nadia names the places and things on her list, and you give their meaning. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She leaves a postcard for the innkeeper: “Next time I’m staying a week, at a table for two.”"
+      }
     }
   ]
 }
