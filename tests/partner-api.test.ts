@@ -298,6 +298,15 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
     expect(setting(1)).toContain('You have chatted with the traveler once before.');
     expect(setting(3)).toContain('3 times before');
     expect(setting(OLD_FRIENDS)).toContain('you are old friends');
+    // The greeting matches: a first meeting, a second, an old friend.
+    const greet = (met: number) => {
+      const ask = parseAsk({ ...INN, met, turns: [] });
+      if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
+      return innMessages(ask).at(-1)?.content ?? '';
+    };
+    expect(greet(0)).toContain('تشرّفنا');
+    expect(greet(2)).toContain('مرة تانية');
+    expect(greet(OLD_FRIENDS)).toContain('وينك من زمان');
     expect(parseAsk({ ...INN, met: -1 })).toBeNull();
     expect(parseAsk({ ...INN, met: 1.5 })).toBeNull();
   });

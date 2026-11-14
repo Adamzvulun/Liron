@@ -31,8 +31,17 @@ export function regularsToTalkTo(p: ArabicProgress): Regular[] {
 /** What the regular is told about themselves: our own story text, and their gender for the grammar. */
 export function aboutOf(r: Regular): string {
   const gender = r.she ? 'You are a woman.' : 'You are a man.';
-  return `${gender} ${r.intro} ${r.outro}`.replace(/\s+/g, ' ').slice(0, 900);
+  const speaker = speakerOf(r);
+  // A pair or a group ("Fares and the band") talks through its first person, as one voice.
+  const group =
+    speaker === r.who
+      ? ''
+      : `You are ${speaker}, at the table with ${r.who}; speak only for yourself.`;
+  return `${gender} ${group} ${r.intro} ${r.outro}`.replace(/\s+/g, ' ').slice(0, 900);
 }
+
+/** Who speaks for a regular: the first person named ("Fares and the band" → Fares). */
+export const speakerOf = (r: Regular) => r.who.split(/ and |, /)[0] ?? r.who;
 
 /** The ask for the regular's next line: our own glosses only, never deck text (ADR 0038). */
 export function chatAsk(r: Regular, p: ArabicProgress, turns: readonly InnTurn[]): InnChatAsk {
@@ -230,15 +239,27 @@ export function glossaryFrom(items: readonly Item[], pool: WordReview = ECHO_POO
 
 /** What a word may start with: "and", "the", "in", "to", and their pairs. */
 const PREFIXES = ['وال', 'بال', 'فال', 'عال', 'لل', 'ال', 'و', 'ب', 'ف', 'ل'];
+/** What a word may end with: "my", "your", "his", "her", "our", "their". */
+const SUFFIXES = ['كم', 'هم', 'ها', 'نا', 'ك', 'ي', 'ه', 'و'];
 
 /** The words in a line that the glossary knows, as said in the line, at most 6. */
 export function glossesIn(line: string, glossary: Glossary): { word: string; gloss: string }[] {
   const found: { word: string; gloss: string }[] = [];
   for (const token of line.split(/\s+/)) {
     const plain = plainArabic(token);
-    const tries = [
+    const fronts = [
       plain,
       ...PREFIXES.filter((p) => plain.startsWith(p)).map((p) => plain.slice(p.length)),
+    ];
+    // The bare word first, then without "my", "your", "his"… at its end (بيتك, قهوتي: ة is ت there).
+    const tries = [
+      ...fronts,
+      ...fronts.flatMap((f) =>
+        SUFFIXES.filter((x) => f.endsWith(x) && f.length - x.length > 2).flatMap((x) => {
+          const stem = f.slice(0, -x.length);
+          return stem.endsWith('ت') ? [stem, `${stem.slice(0, -1)}ة`] : [stem];
+        }),
+      ),
     ];
     const gloss = tries
       .filter((t) => t.length > 1)
