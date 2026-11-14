@@ -1308,6 +1308,22 @@
         ],
         "examples": ["pcav:3687", "pcav:3699", "pcav:3689", "pcav:3690", "pcav:3678", "pcav:3723"]
       }
+    },
+    {
+      "id": "grammar:cousins",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 94,
+        "title": "íbin 3amm, bint xāla: which side a cousin is on",
+        "points": [
+          "Arabic has no one word for a cousin. It says whose child they are: íbin 3amm, the son of your father’s brother; bint xāla, the daughter of your mother’s sister.",
+          "So the uncles and aunts (chapter 12) decide it: 3amm and 3ámma are your father’s side, xāl and xāla your mother’s. íbin xāli is my cousin on my mother’s side.",
+          "It’s the “of” shape (chapter 33), and the ending goes on the last word: bint 3ámmi, my cousin, word for word the daughter of my uncle.",
+          "As in chapter 17, ákbar and áʂɣar before a word mean the most: ákbar áxu, the oldest brother; áʂɣar úxut, the youngest sister."
+        ],
+        "examples": ["pcav:0140", "pcav:0141", "pcav:0144", "pcav:0147", "pcav:0097", "pcav:0098"]
+      }
     }
   ]
 }

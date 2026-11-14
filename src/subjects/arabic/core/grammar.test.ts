@@ -97,6 +97,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:nothing', 92],
       ['grammar:wishes', 92],
       ['grammar:the-world-rains', 93],
+      ['grammar:cousins', 94],
     ]);
     for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
   });
