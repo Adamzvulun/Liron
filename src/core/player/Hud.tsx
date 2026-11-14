@@ -131,11 +131,11 @@ function Purse({ state, ...actions }: { state: PlayerState } & HudActions) {
     <div className="hud__purse">
       <span className="hud__chip" aria-label={`Gold: ${wallet?.gold ?? '…'}`}>
         <CoinIcon />
-        {gold ?? '…'}
+        {gold?.toLocaleString('en-US') ?? '…'}
       </span>
       <span className="hud__chip" aria-label={`Gems: ${wallet?.gems ?? '…'}`}>
         <GemIcon />
-        {gems ?? '…'}
+        {gems?.toLocaleString('en-US') ?? '…'}
       </span>
       <span className="hud__chip" aria-label={today ? `Streak: ${days}${held}` : 'Streak: …'}>
         <FlameIcon lit={Boolean(today?.goalReached)} />

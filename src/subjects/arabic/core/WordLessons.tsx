@@ -235,7 +235,7 @@ export function WordLessons({
         <div className="lesson__card lesson__start">
           <p className="lesson__kicker">
             The innkeeper’s table ·{' '}
-            {w.done ? 'every chapter' : `chapter ${chapterNo} of ${WORD_CHAPTERS.length}`}
+            {w.done ? 'every chapter' : `chapter ${chapterNo} of\u00a0${WORD_CHAPTERS.length}`}
           </p>
           <h2 className="lesson__title">{w.done ? 'Keep them fresh' : chapter.title}</h2>
           <p>

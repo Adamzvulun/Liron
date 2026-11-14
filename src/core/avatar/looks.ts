@@ -97,7 +97,7 @@ export const GEAR: readonly GearItem[] = [
   {
     id: 'headset',
     slot: 'head',
-    name: "Signaller's headset",
+    name: "Signaler's headset",
     starter: false,
     earn: 'Reach level 5 in the Signal Tower',
   },
