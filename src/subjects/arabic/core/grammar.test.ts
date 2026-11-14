@@ -124,7 +124,9 @@ describe('grammar cards (#162)', () => {
       ['grammar:boiled-and-curly', 100],
       ['grammar:written-and-yearly', 101],
       ['grammar:map-pictures', 102],
+      ['grammar:picture-sweets', 103],
       ['grammar:feelings-and-little-words', 104],
+      ['grammar:horse-tail', 105],
       ['grammar:decades', 106],
     ]);
     for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);

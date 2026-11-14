@@ -1722,6 +1722,21 @@
       }
     },
     {
+      "id": "grammar:picture-sweets",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 103,
+        "title": "šá3ar ilbanāt: names that are pictures",
+        "points": [
+          "Sweets and nuts with picture names: šá3ar ilbanāt, cotton candy, is “girls’ hair” (Hebrew says grandma’s hair, שערות סבתא); 3ēn iljámal, a walnut, is “the camel’s eye”.",
+          "A kind of show is barnāmij and what it’s made of: barnāmij musābagāt, a game show, “a program of contests”; barnāmij ɧiwāri, a talk show.",
+          "A kind of film is fílim and its kind: fílim waŧāʔiqi, a documentary; fílim iŧāra, a thriller."
+        ],
+        "examples": ["pcav:1095", "pcav:1175", "pcav:2261", "pcav:2257"]
+      }
+    },
+    {
       "id": "grammar:feelings-and-little-words",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1735,6 +1750,21 @@
           "English picks a different word each time (with, of, by, about), so don’t translate the little word; learn it with the feeling."
         ],
         "examples": ["pcav:3075", "pcav:3092", "pcav:3083", "pcav:3126"]
+      }
+    },
+    {
+      "id": "grammar:horse-tail",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 105,
+        "title": "dēl liɧʂān, áɧwal: pictures and looks",
+        "points": [
+          "Things around the house and body are pictures too: dēl liɧʂān, a ponytail, is “the horse’s tail”, like Hebrew זנב סוס; wíjih mxádda, a pillowcase, is “the pillow’s face”; muftāɧ inglīzi, a wrench, is an “English key”, as in Hebrew מפתח אנגלי.",
+          "áɧwal, cross-eyed, has the shape of áɧmar (chapter 37): ɧōla for a woman, ɧíwil for several.",
+          "b-sābi3 nōma, in a deep sleep, is “in the seventh sleep”."
+        ],
+        "examples": ["pcav:0375", "pcav:0848", "pcav:0950", "pcav:0277"]
       }
     },
     {
