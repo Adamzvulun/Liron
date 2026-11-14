@@ -101,6 +101,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:at-the-dentist', 78],
       ['grammar:machines', 79],
       ['grammar:make-it-go', 80],
+      ['grammar:long-vowel-plurals', 81],
       ['grammar:muta-words', 82],
       ['grammar:colors-from-things', 83],
       ['grammar:take-and-give', 84],

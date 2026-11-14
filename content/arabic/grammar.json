@@ -1369,6 +1369,21 @@
       }
     },
     {
+      "id": "grammar:long-vowel-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 81,
+        "title": "ʂarʂūr, ʂarāʂīr: more four-letter plurals",
+        "points": [
+          "Four-letter words take the plural of chapter 50: qúndus, qanādis; láqlaq, laqāliq; máxlab, maxālib.",
+          "And as with dulfīn, a long vowel before the last letter stays long, as ī: ʂarʂūr, ʂarāʂīr; barɣūt, barāɣīt; dabbūr, dabābīr; jāmūsa, jawāmīs.",
+          "kárma, a vine, shares its root with Hebrew כרם, a vineyard."
+        ],
+        "examples": ["pcav:3746", "pcav:3802", "pcav:3818", "pcav:3862"]
+      }
+    },
+    {
       "id": "grammar:muta-words",
       "subject": "arabic",
       "type": "grammar-card",
