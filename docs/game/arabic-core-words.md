@@ -307,6 +307,13 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 102 | Cars, storms, and the map |
 
+- **Words 3,061–3,090 (2026-11-14): shows, music and sweets.** Kinds of TV and film (*documentary*, *game show*, *reality TV show*, *sitcom*, *talk show*, *sporting event*, *thriller*, *science fiction*, *fantasy*, *on stage*); stories and the desk (*comic book*, *fairy tale*, *bookmark*, *paperclip*, *typewriter*, *newspaper column*, *airmail*); *sewing machine*, *sewing needle*; *folk music*, *musical instrument*, *orchestra*, *belly dancing*; *backgammon*, *Checkmate!*, *personal trainer*; and *cotton candy*, *walnut*, *grapefruit*, *nutmeg*.
+  - **Left out on purpose:** *fishing*, *dice*, *jumping rope*, *to sunbathe*, *to tan* (taught under other entries), and taught words put together (*comedy program*, *tennis court*, *tennis racket*, *ballet dancer*, *a ball of wool*, *rice pudding*, *raspberries* as "red berries"). 1 deck sentence (*I'd like to hire a personal trainer*); the other 29 are our own.
+
+| Chapter | Theme |
+|---|---|
+| 103 | Shows, music, and sweets |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).

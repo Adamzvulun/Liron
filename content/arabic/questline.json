@@ -2684,6 +2684,31 @@
         },
         "outro": "He mails the inn a photo from the cliff’s edge: a tornado far off, and his truck with one headlight on."
       }
+    },
+    {
+      "id": "road:104",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 104,
+        "wordChapter": 103,
+        "title": "The Talk Show",
+        "who": "Muna, who hosts a talk show on the radio",
+        "intro": "Muna hosts the town’s evening talk show, and tonight she is broadcasting from the inn.",
+        "milestones": [
+          "Her first guest writes a newspaper column on an old typewriter and still sends letters by airmail. Her second makes documentaries about the sea.",
+          "An orchestra plays folk songs between the talk, a girl shows how to thread a sewing needle, and two old men argue over backgammon until one shouts “Checkmate!”.",
+          "At the end she hands out cotton candy, and asks the room what they watch at night: a thriller, a sitcom, or a fairy tale read aloud."
+        ],
+        "trial": {
+          "name": "On the Air",
+          "text": "Muna asks her guests about shows, music and games, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She sends the inn a bookmark with the show’s name on it, and a note: “Same time next week.”"
+      }
     }
   ]
 }
