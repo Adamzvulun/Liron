@@ -1781,6 +1781,52 @@
         ],
         "examples": ["pcav:4198", "pcav:0028"]
       }
+    },
+    {
+      "id": "grammar:prayer-times",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 107,
+        "title": "ʂalāt ilfájir: the prayers by name",
+        "points": [
+          "ʂalā shows its t before the next word, as in chapter 33: ʂalāt ilfájir, the dawn prayer; ʂalāt ilmáɣrib, the sunset prayer; ʂalāt il3íša, the evening prayer.",
+          "máɣrib, sunset, shares its root with Hebrew ערב, evening, and מערב, west.",
+          "Cheeses take the -i of a place: jíbna sʈanbūli, Istanbul cheese; jíbna rūmi, from Rūm, the old name for the Byzantine lands."
+        ],
+        "examples": ["pcav:3238", "pcav:3243", "pcav:3244", "pcav:1081"]
+      }
+    },
+    {
+      "id": "grammar:river-horse",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 108,
+        "title": "fáras náhir: the river horse",
+        "points": [
+          "fáras náhir, a hippopotamus, is “river horse”, just as the Greek name says; waɧīd ilqárn, a rhinoceros, is “the one-horned”, and qárn is Hebrew קרן.",
+          "The -i of a place again: qúʈb, a pole, gives dubb qúʈbi, a polar bear.",
+          "Numbers have names for their jobs: 3ádad áʂli, a cardinal number, “a number of origin”; 3ádad tartībi, an ordinal, “a number of order”. Fractions say the count, then the part: talt xmās, three fifths."
+        ],
+        "examples": ["pcav:3752", "pcav:3760", "pcav:3758", "pcav:4071"]
+      }
+    },
+    {
+      "id": "grammar:names-of-the-land",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 109,
+        "title": "bīr issábi3, bālak: the land and the moment",
+        "points": [
+          "Some names are the same in Hebrew: bīr issábi3 is באר שבע, “the well of seven”; ʈabaríyya is טבריה.",
+          "bālak, “your mind”, asks what someone thinks: bālak ɧatmáʈʈir? Do you think it’ll rain?",
+          "The weather in degrees: b-nuʂʂ il3išrīn, in the mid-twenties, “in the half of the twenties”; b-ʔāxir il3išrīn, “at the end of the twenties”.",
+          "Kind words for the moment: na3ēman after a bath; taqábbal allāh after a prayer; mabrūk ilʔiftitāɧ for a new shop."
+        ],
+        "examples": ["pcav:3540", "pcav:3722", "pcav:3651", "pcav:4813"]
+      }
     }
   ]
 }
