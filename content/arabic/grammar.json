@@ -1292,6 +1292,54 @@
         ],
         "examples": ["pcav:4800", "pcav:4812", "pcav:4810", "pcav:4811", "pcav:4823", "pcav:4788"]
       }
+    },
+    {
+      "id": "grammar:the-world-rains",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 93,
+        "title": "iddínya bitmáʈʈir: the world is raining",
+        "points": [
+          "English says “it’s raining”. Arabic says the world is: iddínya bitmáʈʈir; iddínya bittálij, it’s snowing.",
+          "iddínya is feminine, so the verb is in the she form, even when iddínya is left out: bádat tmáʈʈir, it’s started to rain; wággafat máʈar, it’s stopped raining.",
+          "The weather’s look is ijjáww and a describing word: ijjáww múšmis, it’s sunny; ijjáww mɣáyyim, it’s cloudy.",
+          "šákilha ɧatmáʈʈir, it looks like rain, is word for word “her look, she will rain”: the world again."
+        ],
+        "examples": ["pcav:3687", "pcav:3699", "pcav:3689", "pcav:3690", "pcav:3678", "pcav:3723"]
+      }
+    },
+    {
+      "id": "grammar:cousins",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 94,
+        "title": "íbin 3amm, bint xāla: which side a cousin is on",
+        "points": [
+          "Arabic has no one word for a cousin. It says whose child they are: íbin 3amm, the son of your father’s brother; bint xāla, the daughter of your mother’s sister.",
+          "So the uncles and aunts (chapter 12) decide it: 3amm and 3ámma are your father’s side, xāl and xāla your mother’s. íbin xāli is my cousin on my mother’s side.",
+          "It’s the “of” shape (chapter 33), and the ending goes on the last word: bint 3ámmi, my cousin, word for word the daughter of my uncle.",
+          "As in chapter 17, ákbar and áʂɣar before a word mean the most: ákbar áxu, the oldest brother; áʂɣar úxut, the youngest sister."
+        ],
+        "examples": ["pcav:0140", "pcav:0141", "pcav:0144", "pcav:0147", "pcav:0097", "pcav:0098"]
+      }
+    },
+    {
+      "id": "grammar:last-and-never",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 96,
+        "title": "lisbū3 ilmāɖi, wála márra: the week that passed, not even once",
+        "points": [
+          "“Last” is the one that passed, after the word with il- on both (chapter 32): lisbū3 ilmāɖi, last week; iššáhir ilmāɖi, last month.",
+          "It takes -a after a feminine word: issána ilmāɖya, last year.",
+          "In talk you’ll also hear ílli fāt, “that went by”: iššáhir ílli fāt, last month.",
+          "wála márra, never, is word for word “not even once”, the same wála as wála íši, nothing (chapter 92): wála márra akált mlūxíyya, I’ve never eaten mulukhiyah."
+        ],
+        "examples": ["pcav:4124", "pcav:4157", "pcav:4191", "pcav:4370"]
+      }
     }
   ]
 }

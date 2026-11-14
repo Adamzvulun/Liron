@@ -256,6 +256,31 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 91 | When, how often, how far |
 | 92 | Everyone, nothing, and good wishes |
 
+- **Words 2,761–2,790 (2026-11-14): the phone, the weather, and how you feel.** The everyday expressions the last count left for "a later chapter on feelings, the phone and the weather": *Hello?* on the phone, *The phone's ringing!*, to get a call, answer it, talk on it and call a wrong number; *I love you!*, *Ma'am!*, *Miss!*, *Cheers!*, *Hi!* and *Happy birthday!*; the weather as people say it (*It's sunny*, *cloudy*, *raining*, *snowing*, *It's started to rain*, *It's stopped*, *It looks like rain*, a rainbow, the forecast); *angry with*, *afraid of*, *proud of*; and *blind*, *deaf* and *square*, with *to miss the bus* and *to turn the volume down*.
+  - **Left out on purpose:** *Sir!* (أستاذ, the same word as the taught *teacher*, so the quiz couldn't tell them apart), *Yes?* when called (the taught نعم), and items made only of taught words with their usual meaning (*It's very hot*, *It's windy*, *phone number*, *It's your turn*).
+  - **Deck sentences:** 3 of the 30 have one (*I'm afraid of spiders*, *Does it snow where you're from?*, *I have a square face*); the other 27 have one of our own. The checker's two remaining flags are its own limits (a conjugated verb, and a deck item that carries its own reply).
+
+| Chapter | Theme |
+|---|---|
+| 93 | Hello?, the weather, and how you feel |
+
+- **Words 2,791–2,850 (2026-11-14): A1 phrases the path missed.** A count of the A1 items still untaught found everyday phrases where the phrase is the thing to learn: four of the eight cousin words (*íbin 3amm*, *bint 3amm*, *íbin xāl*, *bint xāla*), *older brother*, *younger sister*, *last name*, *full name*; the questions people ask when they meet (*What do you do?*, *Do you have children?*, *What's your number?*, *Are you free tomorrow?*, *What time do you get up?*) and their answers; *Thank you for the meal* and its reply; and around town and at home: *bedroom*, *toothbrush*, *bus stop*, *post office*, *ATM*, *passport*, *one-way* and *round-trip ticket*, *a single room*, *a table for two*, *wifi*.
+  - **Left out on purpose:** *How old are you?* and *Excuse me* (taught already under other entries), the other four cousins (the four taught show the pattern), and items made only of taught words with their usual meaning (*blue eyes*, *hot water*, *a lot of money*).
+  - **Deck sentences:** 1 of the 60 has one (*She wrote the letter with a pencil*); the other 59 have one of our own. For a question, our sentence is the question with an answer.
+
+| Chapter | Theme |
+|---|---|
+| 94 | Cousins, names, and what people ask |
+| 95 | Around town and at home |
+
+- **Words 2,851–2,880 (2026-11-14): last week, never, and without.** More A1 phrases: *last week*, *last month*, *last year* (with ماضي, new), *tonight*, *what time*, *around __ o'clock*, *never* (وَلا مرّة), *without* (مِن غير), *far from*; *It's gotten dark*, *The sun is shining*; the shop and the table (*It's a bit big*, *a bit tight*, *shoe size*, *a piece of bread*, *to sit at the table*); and *Do you smoke?*, *No smoking!*, *the Arab world*.
+  - **Left out on purpose:** *Thank you!* (taught under another entry) and phrases that only add taught words together with their usual meaning (*yesterday morning*, *this afternoon*, *tomorrow night*).
+  - **Deck sentences:** 3 of the 30 (*I can't live without you*); the other 27 are our own.
+
+| Chapter | Theme |
+|---|---|
+| 96 | Last week, never, and without |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).

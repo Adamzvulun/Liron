@@ -12404,6 +12404,541 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:93",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 93,
+        "title": "Hello?, the weather, and how you feel",
+        "theme": "The phone, calling people, the weather, and a few feelings and words the path missed",
+        "words": [
+          {
+            "deck": "pcav:1820",
+            "gloss": "Hello? (on the phone)"
+          },
+          {
+            "deck": "pcav:1817",
+            "gloss": "The phone's ringing!"
+          },
+          {
+            "deck": "pcav:1818",
+            "gloss": "to get a phone call"
+          },
+          {
+            "deck": "pcav:1819",
+            "gloss": "to answer the phone"
+          },
+          {
+            "deck": "pcav:1821",
+            "gloss": "to talk on the phone"
+          },
+          {
+            "deck": "pcav:1824",
+            "gloss": "to call a wrong number"
+          },
+          {
+            "deck": "pcav:0160",
+            "gloss": "I love you!"
+          },
+          {
+            "deck": "pcav:0232",
+            "gloss": "Ma'am!"
+          },
+          {
+            "deck": "pcav:0233",
+            "gloss": "Miss!"
+          },
+          {
+            "deck": "pcav:1065",
+            "gloss": "Cheers!"
+          },
+          {
+            "deck": "pcav:3643",
+            "gloss": "The weather is __."
+          },
+          {
+            "deck": "pcav:3678",
+            "gloss": "It's sunny."
+          },
+          {
+            "deck": "pcav:3685",
+            "gloss": "It's cloudy."
+          },
+          {
+            "deck": "pcav:3687",
+            "gloss": "It's raining."
+          },
+          {
+            "deck": "pcav:3689",
+            "gloss": "It's started to rain."
+          },
+          {
+            "deck": "pcav:3690",
+            "gloss": "It's stopped raining."
+          },
+          {
+            "deck": "pcav:3699",
+            "gloss": "It's snowing.",
+            "sentence": "pcav:3700"
+          },
+          {
+            "deck": "pcav:3723",
+            "gloss": "It looks like rain."
+          },
+          {
+            "deck": "pcav:3072",
+            "gloss": "angry with"
+          },
+          {
+            "deck": "pcav:3089",
+            "gloss": "to be afraid of",
+            "sentence": "pcav:3817"
+          },
+          {
+            "deck": "pcav:3091",
+            "gloss": "proud of"
+          },
+          {
+            "deck": "pcav:0278",
+            "gloss": "blind"
+          },
+          {
+            "deck": "pcav:0311",
+            "gloss": "deaf"
+          },
+          {
+            "deck": "pcav:3904",
+            "gloss": "square (the shape)",
+            "sentence": "pcav:0247"
+          },
+          {
+            "deck": "pcav:4763",
+            "gloss": "Hi! Hello!"
+          },
+          {
+            "deck": "pcav:0044",
+            "gloss": "Happy birthday!"
+          },
+          {
+            "deck": "pcav:1837",
+            "gloss": "to miss the bus"
+          },
+          {
+            "deck": "pcav:2281",
+            "gloss": "to turn the volume down"
+          },
+          {
+            "deck": "pcav:3692",
+            "gloss": "rainbow"
+          },
+          {
+            "deck": "pcav:3720",
+            "gloss": "the weather forecast"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:94",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 94,
+        "title": "Cousins, names, and what people ask",
+        "theme": "The cousins and names, the questions people ask when they meet, and the answers to them",
+        "words": [
+          {
+            "deck": "pcav:0140",
+            "gloss": "cousin (your father's brother's son)"
+          },
+          {
+            "deck": "pcav:0141",
+            "gloss": "cousin (your father's brother's daughter)"
+          },
+          {
+            "deck": "pcav:0144",
+            "gloss": "cousin (your mother's brother's son)"
+          },
+          {
+            "deck": "pcav:0147",
+            "gloss": "cousin (your mother's sister's daughter)"
+          },
+          {
+            "deck": "pcav:0097",
+            "gloss": "older brother"
+          },
+          {
+            "deck": "pcav:0098",
+            "gloss": "younger sister"
+          },
+          {
+            "deck": "pcav:0187",
+            "gloss": "single, not married"
+          },
+          {
+            "deck": "pcav:0217",
+            "gloss": "last name"
+          },
+          {
+            "deck": "pcav:0218",
+            "gloss": "full name"
+          },
+          {
+            "deck": "pcav:3412",
+            "gloss": "I'm Palestinian."
+          },
+          {
+            "deck": "pcav:0090",
+            "gloss": "Do you have children?"
+          },
+          {
+            "deck": "pcav:1377",
+            "gloss": "What do you do? (for work)"
+          },
+          {
+            "deck": "pcav:1812",
+            "gloss": "What's your number?"
+          },
+          {
+            "deck": "pcav:3060",
+            "gloss": "How do you feel?"
+          },
+          {
+            "deck": "pcav:3129",
+            "gloss": "What are your hobbies?"
+          },
+          {
+            "deck": "pcav:3028",
+            "gloss": "Do you remember me?"
+          },
+          {
+            "deck": "pcav:3026",
+            "gloss": "What are you thinking about?"
+          },
+          {
+            "deck": "pcav:4718",
+            "gloss": "Are you free tomorrow?"
+          },
+          {
+            "deck": "pcav:4770",
+            "gloss": "What's up?"
+          },
+          {
+            "deck": "pcav:4313",
+            "gloss": "Why are you late?"
+          },
+          {
+            "deck": "pcav:1646",
+            "gloss": "What's wrong?"
+          },
+          {
+            "deck": "pcav:2497",
+            "gloss": "Do you like sports?"
+          },
+          {
+            "deck": "pcav:2657",
+            "gloss": "Do you know how to swim?"
+          },
+          {
+            "deck": "pcav:4251",
+            "gloss": "What time do you get up?"
+          },
+          {
+            "deck": "pcav:1600",
+            "gloss": "to be good at"
+          },
+          {
+            "deck": "pcav:1647",
+            "gloss": "I'm sick."
+          },
+          {
+            "deck": "pcav:4703",
+            "gloss": "I'm ready!"
+          },
+          {
+            "deck": "pcav:4775",
+            "gloss": "Have a nice day!"
+          },
+          {
+            "deck": "pcav:1290",
+            "gloss": "Thank you for the meal. (said in someone's home)"
+          },
+          {
+            "deck": "pcav:4817",
+            "gloss": "May your table always be full. (to someone who has eaten)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:95",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 95,
+        "title": "Around town and at home",
+        "theme": "The bedroom and the bathroom things, the places in town, travel tickets and rooms",
+        "words": [
+          {
+            "deck": "pcav:0838",
+            "gloss": "bedroom"
+          },
+          {
+            "deck": "pcav:0921",
+            "gloss": "to brush your teeth"
+          },
+          {
+            "deck": "pcav:0922",
+            "gloss": "toothbrush"
+          },
+          {
+            "deck": "pcav:0923",
+            "gloss": "toothpaste"
+          },
+          {
+            "deck": "pcav:0885",
+            "gloss": "to get up, get out of bed"
+          },
+          {
+            "deck": "pcav:0730",
+            "gloss": "wall clock"
+          },
+          {
+            "deck": "pcav:0897",
+            "gloss": "desk"
+          },
+          {
+            "deck": "pcav:0561",
+            "gloss": "handbag"
+          },
+          {
+            "deck": "pcav:0578",
+            "gloss": "sweater"
+          },
+          {
+            "deck": "pcav:0665",
+            "gloss": "sunglasses"
+          },
+          {
+            "deck": "pcav:1025",
+            "gloss": "mineral water"
+          },
+          {
+            "deck": "pcav:1142",
+            "gloss": "green salad"
+          },
+          {
+            "deck": "pcav:1838",
+            "gloss": "bus stop"
+          },
+          {
+            "deck": "pcav:2756",
+            "gloss": "bus station"
+          },
+          {
+            "deck": "pcav:2735",
+            "gloss": "train station"
+          },
+          {
+            "deck": "pcav:2012",
+            "gloss": "post office"
+          },
+          {
+            "deck": "pcav:2011",
+            "gloss": "police station"
+          },
+          {
+            "deck": "pcav:2013",
+            "gloss": "supermarket"
+          },
+          {
+            "deck": "pcav:2178",
+            "gloss": "shopping mall"
+          },
+          {
+            "deck": "pcav:2073",
+            "gloss": "ATM"
+          },
+          {
+            "deck": "pcav:2672",
+            "gloss": "passport"
+          },
+          {
+            "deck": "pcav:2736",
+            "gloss": "one-way ticket"
+          },
+          {
+            "deck": "pcav:2737",
+            "gloss": "round-trip ticket"
+          },
+          {
+            "deck": "pcav:2764",
+            "gloss": "a single room"
+          },
+          {
+            "deck": "pcav:2767",
+            "gloss": "How much is it per night?"
+          },
+          {
+            "deck": "pcav:2217",
+            "gloss": "a table for two"
+          },
+          {
+            "deck": "pcav:2122",
+            "gloss": "pencil",
+            "sentence": "pcav:4531"
+          },
+          {
+            "deck": "pcav:1776",
+            "gloss": "wifi"
+          },
+          {
+            "deck": "pcav:3734",
+            "gloss": "pet"
+          },
+          {
+            "deck": "pcav:3270",
+            "gloss": "foreign language"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:96",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 96,
+        "title": "Last week, never, and without",
+        "theme": "When it was, never and without, the shop and the table, and a few everyday questions",
+        "words": [
+          {
+            "deck": "pcav:4124",
+            "gloss": "last week"
+          },
+          {
+            "deck": "pcav:4157",
+            "gloss": "last month"
+          },
+          {
+            "deck": "pcav:4191",
+            "gloss": "last year"
+          },
+          {
+            "deck": "pcav:4100",
+            "gloss": "tonight",
+            "sentence": "pcav:2353"
+          },
+          {
+            "deck": "pcav:4250",
+            "gloss": "what time, when"
+          },
+          {
+            "deck": "pcav:4254",
+            "gloss": "around __ o'clock",
+            "sentence": "pcav:4256"
+          },
+          {
+            "deck": "pcav:4370",
+            "gloss": "never"
+          },
+          {
+            "deck": "pcav:4533",
+            "gloss": "without",
+            "sentence": "pcav:4534"
+          },
+          {
+            "deck": "pcav:4498",
+            "gloss": "far from"
+          },
+          {
+            "deck": "pcav:3683",
+            "gloss": "It's gotten dark."
+          },
+          {
+            "deck": "pcav:3681",
+            "gloss": "The sun is shining."
+          },
+          {
+            "deck": "pcav:0308",
+            "gloss": "Do you hear that noise?"
+          },
+          {
+            "deck": "pcav:3025",
+            "gloss": "to think about"
+          },
+          {
+            "deck": "pcav:1773",
+            "gloss": "online, on the internet"
+          },
+          {
+            "deck": "pcav:2244",
+            "gloss": "to watch TV"
+          },
+          {
+            "deck": "pcav:2143",
+            "gloss": "to go shopping"
+          },
+          {
+            "deck": "pcav:0624",
+            "gloss": "I took off my jacket."
+          },
+          {
+            "deck": "pcav:0637",
+            "gloss": "It's a bit big."
+          },
+          {
+            "deck": "pcav:0638",
+            "gloss": "It's a bit tight."
+          },
+          {
+            "deck": "pcav:0614",
+            "gloss": "shoe size"
+          },
+          {
+            "deck": "pcav:2193",
+            "gloss": "paper bag"
+          },
+          {
+            "deck": "pcav:2900",
+            "gloss": "bill (paper money)"
+          },
+          {
+            "deck": "pcav:2086",
+            "gloss": "postcard"
+          },
+          {
+            "deck": "pcav:1209",
+            "gloss": "a piece of bread"
+          },
+          {
+            "deck": "pcav:0782",
+            "gloss": "to sit at the table"
+          },
+          {
+            "deck": "pcav:0493",
+            "gloss": "to go to the bathroom"
+          },
+          {
+            "deck": "pcav:1030",
+            "gloss": "Would you like a cola?"
+          },
+          {
+            "deck": "pcav:2398",
+            "gloss": "Do you smoke?"
+          },
+          {
+            "deck": "pcav:2395",
+            "gloss": "No smoking!"
+          },
+          {
+            "deck": "pcav:3414",
+            "gloss": "the Arab world"
+          }
+        ]
+      }
     }
   ]
 }
