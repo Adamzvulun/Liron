@@ -1187,6 +1187,36 @@
       }
     },
     {
+      "id": "grammar:same-letters",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 88,
+        "title": "súkkar, tálij: one word, two things",
+        "points": [
+          "Some words you know name a second thing too: súkkar, sugar, is also diabetes; tálij, snow, is also ice; gáhwa, coffee, is also a coffeehouse; istirāɧa, a break, is also a cafeteria.",
+          "kamān, the violin, sounds just like kamān, more: kamān šwáyya, in a bit; kamān xams snīn, in five years.",
+          "The words around it tell you which one is meant."
+        ],
+        "examples": ["pcav:1192", "pcav:1678", "pcav:1023", "pcav:3698", "pcav:2017", "pcav:2454"]
+      }
+    },
+    {
+      "id": "grammar:chessboard",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 89,
+        "title": "wazīr, fīl: the pieces on a chessboard",
+        "points": [
+          "The chess pieces are words you know: wazīr, a minister, is the queen; fīl, an elephant, is the bishop; ɧʂān, a horse, is the knight; júndi, a soldier, is the pawn.",
+          "So are other second meanings in this chapter: xaʈʈ, a line, is a lane on the road; arɖ, the floor or the land, is a field; bard, a cold, is the coolness in the air.",
+          "When a word turns up in a new place, try the meaning you know first."
+        ],
+        "examples": ["pcav:2488", "pcav:2489", "pcav:2490", "pcav:2492", "pcav:1895"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
