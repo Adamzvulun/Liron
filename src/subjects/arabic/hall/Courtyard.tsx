@@ -20,7 +20,16 @@ import './khan.css';
 // phone the courtyard pans sideways and the same things follow below it as cards.
 
 export type CourtyardDoor =
-  'lesson' | 'listen' | 'read' | 'write' | 'phrases' | 'words' | 'trial' | 'regular' | 'echo';
+  | 'lesson'
+  | 'listen'
+  | 'read'
+  | 'write'
+  | 'phrases'
+  | 'words'
+  | 'trial'
+  | 'regular'
+  | 'echo'
+  | 'chat';
 
 // The room never changes, so it's painted once per page load (paintedKhan).
 const courtyard = paintedKhan;
