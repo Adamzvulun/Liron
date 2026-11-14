@@ -1,3 +1,5 @@
+import type { Item } from '../../../core/content/schema.ts';
+import type { WordReview } from '../words.ts';
 import { describe, expect, it } from 'vitest';
 import { NEW_PROGRESS, parseProgress } from '../progress.ts';
 import { REGULARS } from '../questline.ts';
@@ -10,6 +12,9 @@ import {
   fromHebrew,
   lineInHebrew,
   regularsToTalkTo,
+  standingWith,
+  glossaryFrom,
+  glossesIn,
   tipsFrom,
   dueTips,
   MAX_TIPS,
@@ -67,10 +72,12 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
   });
 
   it('reads old progress without a chat as a fresh one', () => {
-    expect(parseProgress({ ...NEW_PROGRESS, chat: undefined }).chat).toEqual({
+    expect(parseProgress({ ...NEW_PROGRESS, chat: undefined }).chat).toEqual(NEW_PROGRESS.chat);
+    expect(NEW_PROGRESS.chat).toEqual({
       name: '',
       told: {},
       chats: 0,
+      met: {},
       hebrew: false,
       tips: [],
     });
@@ -119,5 +126,62 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(parseProgress(withTips(guest, many)).chat.tips).toEqual(kept);
     expect(dueTips(once, [{ itemId: tipId('آه') }, { itemId: 'pcav:1' }])).toEqual(once.chat.tips);
     expect(dueTips(once, [{ itemId: 'pcav:1' }])).toEqual([]);
+  });
+
+  it('counts chats with each regular: their reputation, sent with the next chat', () => {
+    const say = [{ who: 'you' as const, text: 'مرحبا' }];
+    expect(standingWith(guest, first)).toBe('New face');
+    expect(chatAsk(first, guest, []).met).toBe(0);
+    let p = afterChat(guest, first, say);
+    expect(standingWith(p, first)).toBe('Knows you');
+    expect(chatAsk(first, p, []).met).toBe(1);
+    for (let i = 0; i < 4; i++) p = afterChat(p, first, say);
+    expect(p.chat.met).toEqual({ [first.number]: 5 });
+    expect(standingWith(p, first)).toBe('Old friend');
+    // A chat with none of your lines doesn't count.
+    expect(afterChat(p, first, []).chat.met).toEqual(p.chat.met);
+  });
+
+  it('glosses the words of a line that you have met, with our own glosses only', () => {
+    const item = (id: string, arabic: string): Item => ({
+      id,
+      subject: 'arabic',
+      type: 'vocab',
+      data: { arabic, pronunciation: '', english: 'the deck’s own English' },
+      media: [],
+      tags: [],
+    });
+    const pool: WordReview = {
+      lessons: new Set(),
+      words: new Map([
+        ['d:1', { gloss: 'house' }],
+        ['d:2', { gloss: 'today' }],
+        ['d:3', { gloss: 'coffee' }],
+        ['d:4', { gloss: 'two words' }],
+      ]),
+    };
+    const glossary = glossaryFrom(
+      [
+        item('d:1', 'بَيْت'),
+        item('d:2', 'اليوم'),
+        item('d:3', 'قَهْوة'),
+        item('d:4', 'صباح الخير'),
+        item('d:9', 'شاي'),
+      ],
+      pool,
+    );
+    expect([...glossary]).toEqual([
+      ['بيت', 'house'],
+      ['اليوم', 'today'],
+      ['قهوة', 'coffee'],
+    ]);
+    // Marks and punctuation don't matter; "and", "the" and "in" in front are looked past.
+    expect(glossesIn('كيفك اليوم؟ وبيتك... بالبيت، والقهوةُ!', glossary)).toEqual([
+      { word: 'اليوم', gloss: 'today' },
+      { word: 'بالبيت', gloss: 'house' },
+      { word: 'والقهوةُ', gloss: 'coffee' },
+    ]);
+    expect(glossesIn('بالبيت', glossary)).toEqual([{ word: 'بالبيت', gloss: 'house' }]);
+    expect(glossesIn('شاي', glossary)).toEqual([]);
   });
 });

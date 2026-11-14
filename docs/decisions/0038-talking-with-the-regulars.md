@@ -24,11 +24,15 @@ E17's proposal (2026-11-11) ended with seven questions for Adam. On 2026-11-14 h
 - **Memory:** the last 3 things you said to each regular are kept in the Arabic progress (`chat.told`, with your name and a count of chats), in our Supabase, and sent with the next chat, as in the Radio Room (ADR 0037).
 - **Said openly:** the table says that the regulars' lines are written by an AI (Groq) and that what you type goes to it, so type nothing private.
 - **Rewards:** 10 XP for a chat of at least 3 lines.
+- **Glosses (added 2026-11-14):** tapping a regular's line shows, under the Hebrew letters, the words of it that are on the word path or in a reviewed letter lesson, each with our own gloss (never the deck's English). The match is made in the browser from the deck you've already loaded (`glossaryFrom`, `glossesIn` in `innChat.ts`, which look past و, ال, ب and the like in front of a word), so nothing more is sent.
+- **Reputation (added 2026-11-14):** each regular counts your chats with them (`chat.met`, a chat counts when you said at least one line). The pick list shows *New face*, *Knows you* (1 to 4 chats) or *Old friend* (5 or more), and the count goes with the next chat (`met`), so the regular greets a first-timer as someone new and an old friend warmly. `OLD_FRIENDS` (5) in `api/partner.ts` and `standingWith` in the app must agree.
 
 ## Not in this slice (ordered, not cut)
 The regulars speaking their lines aloud (no free Arabic voice yet).
 
 **Added the same day: the Coach** (ADR 0007). After a chat, "Ask the Coach" sends the same chat once more to Groq (kind `inn-coach`, nothing new leaves the app, one chat line). The answer is JSON with at most 3 tips, each one of your lines, how a Palestinian would say it, and why in one English sentence. `cleanTips` keeps a tip only if it's about one of your own lines and its better line passes `cleanArabic`. The Coach thinks at medium effort (about 1 s): at low effort it "fixed" أنا يعمل to the Standard أنا أعمل, so its rules now name the Palestinian form against each Standard one (بشتغل, بدّي, شو, منيح, آه).
+
+**The Coach's eval** (`node scripts/inn-eval.ts --coach`): 6 wrong lines must get a Palestinian tip and 4 fine ones none. The first runs gave a Lebanese هيدا, an Egyptian عيش and a spelling-only "fix", so: `cleanArabic` now refuses giveaway words of other varieties (ماذا, سوف, أريد, عايز, دلوقتي, كده, شلون, وايد, شنو, هيدا) in any reply or tip, `cleanTips` drops a tip that only changes alifs, hamzas or marks, and the Coach answers at temperature 0.3. It then got 10 of 10, and the regulars' eval kept 20 of 20. A known weakness: a tip can drift in meaning (هذا بيتي became هالبيت, "this house").
 
 **Then the Coach's phrases** (ADR 0007's "→ FSRS"): every tip the Coach gives is kept in the Arabic progress (`chat.tips`, the newest 30) and becomes a spaced-repetition item `tip:<hash>`, first graded Good. When one is due, "The Coach's phrases" at the table shows what you said and asks how a Palestinian would say it; you check yourself ("Not yet" is Again, "I had it" is Good). Nothing is sent to Groq for this.
 

@@ -2,12 +2,17 @@
 // the function's own check (cleanArabic) and a list of words a Palestinian wouldn't say. Run by
 // hand, never in CI (it calls Groq and uses its free quota):
 //
-//   GROQ_API_KEY=… node scripts/inn-eval.ts
+//   GROQ_API_KEY=… node scripts/inn-eval.ts          (the regulars' lines)
+//   GROQ_API_KEY=… node scripts/inn-eval.ts --coach  (the Coach's tips)
 //
 // A line passes when Groq answered, cleanArabic kept it, and it has none of the forbidden words
 // (Modern Standard, Egyptian or Gulf) and, for a woman, no masculine "I am" word. Exits 1 below
 // PASS_RATE. Only our own content is sent: the regulars' stories, our English glosses and
 // made-up learner lines. Re-run it before changing INN_RULES or INN_MODEL.
+//
+// With --coach, each case is one learner line. A wrong one (Modern Standard, wrong grammar) passes
+// when the Coach gives a tip for it whose better line has none of the forbidden words; a fine one
+// passes when the Coach leaves it alone. Re-run it before changing COACH_RULES.
 import { handle, type Env } from '../api/partner.ts';
 import { chatAsk } from '../src/subjects/arabic/chat/innChat.ts';
 import { NEW_PROGRESS } from '../src/subjects/arabic/progress.ts';
@@ -31,8 +36,11 @@ const FORBIDDEN: [string, RegExp][] = [
   ['Egyptian دلوقتي', /دلوقت/u],
   ['Egyptian كده', /كده/u],
   ['Egyptian كويس', /كويس/u],
-  ['Egyptian إيه', /(^|\s)[إا]يه(\s|$|[.!?؟،])/u],
+  // إيه at the start is the Levantine "yes"; later in a line it's the Egyptian "what".
+  ['Egyptian إيه', /\s[إا]يه(\s|$|[.!?؟،])/u],
+  ['Egyptian عيش (bread)', /عيش/u],
   ['Gulf شلون', /شلون/u],
+  ['Lebanese هيدا/هيدي', /هيد[اي]/u],
   ['MSA كيف حالك', /كيف\s+حال/u],
   ['Gulf وايد', /وايد/u],
   ['Gulf شنو', /شنو/u],
@@ -73,6 +81,59 @@ if (!env.GROQ_API_KEY) {
   process.exit(1);
 }
 
+/** One learner line each: true when a Palestinian would say it differently. */
+const COACH_CASES: [string, boolean][] = [
+  ['نعم أريد قهوة', true],
+  ['أنا يعمل في المكتب', true],
+  ['ماذا تقول؟', true],
+  ['أنا جيد شكرا', true],
+  ['هذا بيتي', true],
+  ['سوف أذهب إلى السوق', true],
+  ['منيح، الحمد لله', false],
+  ['بدّي قهوة سادة', false],
+  ['رحت عالسوق واشتريت خبز', false],
+  ['شو اسمك؟', false],
+];
+
+const wait = () =>
+  // Groq's free tier allows 8,000 tokens a minute for this model, about 10 lines: space them out.
+  new Promise((done) => setTimeout(done, 7000));
+
+if (process.argv.includes('--coach')) {
+  let right = 0;
+  for (const [line, wrong] of COACH_CASES) {
+    const ask = {
+      kind: 'inn-coach',
+      turns: [
+        { who: 'them', text: 'أهلا! كيفك؟ شو أخبارك؟' },
+        { who: 'you', text: line },
+      ],
+    };
+    await wait();
+    const res = await handle(
+      new Request('https://eval.invalid/api/partner', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer eval', 'Content-Type': 'application/json' },
+        body: JSON.stringify(ask),
+      }),
+      env,
+      fetchFn,
+    );
+    const body = (await res.json()) as { text?: string; error?: string };
+    const tips = body.text ? (JSON.parse(body.text) as { tips: { better: string }[] }).tips : null;
+    const better = tips?.[0]?.better ?? '';
+    const bad = FORBIDDEN.filter(([, re]) => re.test(better)).map(([name]) => name);
+    const ok = tips !== null && (wrong ? tips.length > 0 && !bad.length : tips.length === 0);
+    if (ok) right++;
+    console.log(
+      `${ok ? '✓' : '✗'} ${line} (${wrong ? 'wrong' : 'fine'}) → ${tips ? better || 'no tip' : body.error}${bad.length ? ` | ${bad.join(', ')}` : ''}`,
+    );
+  }
+  const rate = right / COACH_CASES.length;
+  console.log(`\n${right} of ${COACH_CASES.length} right (${Math.round(rate * 100)}%)`);
+  process.exit(rate >= 0.8 ? 0 : 1);
+}
+
 let passed = 0;
 for (const [n, turns] of CHATS) {
   const r = pick(n);
@@ -82,8 +143,7 @@ for (const [n, turns] of CHATS) {
     headers: { Authorization: 'Bearer eval', 'Content-Type': 'application/json' },
     body: JSON.stringify(chatAsk(r, p, turns)),
   });
-  // Groq's free tier allows 8,000 tokens a minute for this model, about 10 lines: space them out.
-  await new Promise((done) => setTimeout(done, 7000));
+  await wait();
   const t = performance.now();
   const res = await handle(request, env, fetchFn);
   const ms = Math.round(performance.now() - t);
