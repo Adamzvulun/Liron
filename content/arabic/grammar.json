@@ -890,6 +890,22 @@
       }
     },
     {
+      "id": "grammar:how-much",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 91,
+        "title": "gaddēš ɧájim: “how big” is “how much size”",
+        "points": [
+          "Where English says how and a describing word, Arabic asks how much of the thing, with gaddēš (chapter 26): gaddēš ɧájim dārku?, how big is your house? Word for word, how much size.",
+          "The same for how far: gaddēš ilmasāfa min hān la-lbálad?, how far is it to downtown? (how much is the distance).",
+          "How often is every how much: kull gaddēš bitmárran?, how often do you exercise?",
+          "Hebrew asks one this way too: כמה זמן, how long, is how much time."
+        ],
+        "examples": ["pcav:4326", "pcav:4330", "pcav:4333", "pcav:4324"]
+      }
+    },
+    {
       "id": "grammar:nothing",
       "subject": "arabic",
       "type": "grammar-card",
