@@ -20,6 +20,10 @@ test.describe('Sit and talk at the inn (E17)', () => {
     const asked: InnAsk[] = [];
     await page.route('**/api/partner', async (route) => {
       const ask = route.request().postDataJSON() as InnAsk;
+      if (ask.kind === 'inn-coach') {
+        const tip = { said: 'شكرا', better: 'شكرًا كتير', why: 'Warmer, the way people say it.' };
+        return route.fulfill({ json: { text: JSON.stringify({ tips: [tip] }), left: 40 } });
+      }
       asked.push(ask);
       const text = ask.turns.length ? 'منيح! وإنت شو بتشتغل؟' : 'أهلا وسهلا! كيفك اليوم؟';
       await route.fulfill({ json: { text, left: 59 - asked.length } });
@@ -96,11 +100,35 @@ test.describe('Sit and talk at the inn (E17)', () => {
         p_xp: 10,
       });
 
+    // The Coach looks at your lines, after the chat.
+    await page.getByRole('button', { name: 'Ask the Coach' }).click();
+    const coach = page.getByLabel('The Coach');
+    await expect(coach.getByText('شكرًا كتير')).toBeVisible();
+    await expect(coach.getByText('Warmer, the way people say it.')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Ask the Coach' })).toHaveCount(0);
+
     // The next chat brings what you told them.
     await page.getByRole('button', { name: 'Back to the table' }).click();
     await page.getByRole('button', { name: /Salim the carter/ }).click();
     await expect.poll(() => asked.length).toBe(5);
     expect(asked[4]?.told).toEqual(['منيح، الحمد لله', 'طالب', 'شكرا']);
+  });
+
+  test('a long chat keeps the newest line in view', async ({ page }) => {
+    let n = 0;
+    await page.route('**/api/partner', (route) =>
+      route.fulfill({ json: { text: `أهلا وسهلا، كيفك اليوم يا صاحبي؟ ${++n}`, left: 50 } }),
+    );
+    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await page.goto('/caravanserai?open=chat');
+    await page.getByRole('button', { name: /Salim the carter/ }).click();
+    const line = page.getByLabel('Your line, in Arabic');
+    for (let i = 1; i <= 6; i++) {
+      await line.fill(`منيح، الحمد لله ${i}`);
+      await page.getByRole('button', { name: 'Say it' }).click();
+      await expect(page.getByText(`كيفك اليوم يا صاحبي؟ ${i + 1}`)).toBeAttached();
+    }
+    await expect(page.getByText('كيفك اليوم يا صاحبي؟ 7')).toBeInViewport();
   });
 
   test('when the partner is busy, the regular has to go, kindly', async ({ page }) => {

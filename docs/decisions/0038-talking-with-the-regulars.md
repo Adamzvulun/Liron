@@ -26,9 +26,11 @@ E17's proposal (2026-11-11) ended with seven questions for Adam. On 2026-11-14 h
 - **Rewards:** 10 XP for a chat of at least 3 lines.
 
 ## Not in this slice (ordered, not cut)
-The Coach's debrief after a chat (`inn-coach`) and voice (ADR 0014).
+Voice (ADR 0014), and the Coach's tips feeding spaced repetition (ADR 0007's "→ FSRS").
 
-**Added the same day:** a daily contract, "Sit and talk with a regular at the inn" (15 gold, offered once you've had a chat), and the achievement **Known at the Inn** (10 different regulars, 3 gems, the title *the Well-Spoken*), from the events `inn-chat` and `inn-regular` (migration `20261209000000_inn_chat_rewards.sql`).
+**Added the same day: the Coach** (ADR 0007). After a chat, "Ask the Coach" sends the same chat once more to Groq (kind `inn-coach`, nothing new leaves the app, one chat line). The answer is JSON with at most 3 tips, each one of your lines, how a Palestinian would say it, and why in one English sentence. `cleanTips` keeps a tip only if it's about one of your own lines and its better line passes `cleanArabic`. The Coach thinks at medium effort (about 1 s): at low effort it "fixed" أنا يعمل to the Standard أنا أعمل, so its rules now name the Palestinian form against each Standard one (بشتغل, بدّي, شو, منيح, آه).
+
+**Also added the same day:** a daily contract, "Sit and talk with a regular at the inn" (15 gold, offered once you've had a chat), and the achievement **Known at the Inn** (10 different regulars, 3 gems, the title *the Well-Spoken*), from the events `inn-chat` and `inn-regular` (migration `20261209000000_inn_chat_rewards.sql`).
 
 ## Consequences
 - The first time a learner's own Arabic leaves the app. It goes to one provider that keeps nothing by default.
