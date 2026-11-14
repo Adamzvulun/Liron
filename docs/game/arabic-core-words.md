@@ -329,6 +329,13 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 | 105 | The landlord, the bed, and the body |
 | 106 | Family, public life, and punctuation |
 
+- **Words 3,181–3,210 (2026-11-14): the deli, the gym and the day's prayers.** Cheeses and dishes by name (*Areesh*, *cheddar*, *halloumi*, *Istanbuli*, *Romy*, *luqmat al-qadi*, *orzo soup*, *spleen sandwich*, *ful medames*), *dairy products*, *mixed nuts*, *chives*, *rosemary*, *soy sauce*, *egg yolk*, *chicken fillet*, *tipsy*; the gym (*elliptical trainer*, *weight machine*, *stationary bike*, *free weights*, *Is there a contract?*, *three all*); three of the day's prayers by name (dawn, sunset, evening), *the present tense*, *mortgage*, *summit*, *the prosecutor*.
+  - **Left out on purpose:** the noon and afternoon prayers, *the past* and *future tense* (each a taught word after *prayer* or *tense*), *Domiati cheese* ("white cheese"), *egg white*, *vegetable soup*, *rice pudding* ("rice with milk"), the nets, courts and clubs of each sport, and *Welcome back from the hajj!* in its second form. All 30 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 107 | The deli, the gym, and the day's prayers |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
