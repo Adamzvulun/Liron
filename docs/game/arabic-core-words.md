@@ -321,6 +321,14 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 104 | Feelings, the doctor, and the holidays |
 
+- **Words 3,121–3,180 (2026-11-14): the landlord, the bed and the body; family, public life and punctuation.** Chapter 105: *landlord*, *The power went out*, *vacuum cleaner*, *dish soap*, *water heater*, *double bed*, *headboard*, *mattress*, *pillowcase*, *in a deep sleep*, *bathrobe*, *electric razor*, *wrench*, *belt buckle*, *shoelaces*, *ironing board*, and the smaller parts of the face and body (*dark circles*, *cross-eyed*, *nostril*, *sense of smell*, *earlobe*, *pierced ears*, *wavy hair*, *ponytail*, *acne*, *oily skin*, *shin*, *calf*, *spine*, *skeleton*). Chapter 106: *I was adopted*, *to breastfeed*, *great-grandfather*, *in one's fifties*, *middle-aged*, *life span*, *a date*, *heartbroken*, *wedding anniversary*, *Just call me __*, *I don't have a nickname*, *table manners*, *penthouse*, *hair ribbon*, *crooked nose*, *a good complexion*, *back of the hand*; *businessman*, *VAT*, *vice president*, *accused of*, *air force*, *navy*, *shepherd*; and the marks and terms of grammar (*the article*, *preposition*, *consonant*, *exclamation mark*, *quotation marks*, *colon*).
+  - **Left out on purpose:** *landlady* (the landlord with -a), *stepfather* and *stepmother* (mother's husband, father's wife, like the in-law aunts left out before), *pinky* (the deck's Arabic is "the little finger"), and taught words put together (*hardwood floor*, *cook book*, *clothes line*, *reading glasses*, *bad breath*, *middle finger*, *half-brother*, *savings account*, *upper class*, *illegal*, *suffix*, *prefix*). All 60 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 105 | The landlord, the bed, and the body |
+| 106 | Family, public life, and punctuation |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
