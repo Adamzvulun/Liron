@@ -939,6 +939,21 @@
       }
     },
     {
+      "id": "grammar:put-and-lift",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 56,
+        "title": "ɧaʈʈ and šāl: put it in, take it off",
+        "points": [
+          "ɧaʈʈ, to put, does a lot of work with things: ɧaʈʈ ilfīša, to plug in (put the plug).",
+          "šāl, to lift off or take away, undoes it: šāl ilfīša, to unplug (lift the plug). It’s a pair like rábaʈ and fakk (chapter 71).",
+          "You’ll meet ɧaʈʈ again in the car: ɧaʈʈ ɧzām ilʔamān, to put on a seat belt."
+        ],
+        "examples": ["pcav:0759", "pcav:0760"]
+      }
+    },
+    {
       "id": "grammar:while",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1170,6 +1185,21 @@
           "It’s the -i ending (chapter 47) with -a after it: masīɧi, Christian → ilmasīɧíyya."
         ],
         "examples": ["pcav:2806", "pcav:2807", "pcav:2794", "pcav:2820", "pcav:3212"]
+      }
+    },
+    {
+      "id": "grammar:at-the-dentist",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 78,
+        "title": "ɧáša sínnu: you say you did it",
+        "points": [
+          "English says you “get” a thing done at the dentist. Arabic just says you did it: ɧáša sínnu, he got a filling (word for word, he filled his tooth).",
+          "The same way: xála3 sinn, to get a tooth pulled (he pulled a tooth); náɖɖaf snānu, to get his teeth cleaned (he cleaned his teeth).",
+          "What you have stays with 3índu (chapter 54): 3índu tasáwwus, he has a cavity; 3índu ɧasāsíyya, he has a rash."
+        ],
+        "examples": ["pcav:1743", "pcav:1745", "pcav:1746", "pcav:1740"]
       }
     },
     {
