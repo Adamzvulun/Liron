@@ -674,6 +674,22 @@
       }
     },
     {
+      "id": "grammar:colors-and-looks",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 37,
+        "title": "áɧmar, ɧámra: colors and looks",
+        "points": [
+          "Colors and how someone looks share one shape, with a- in front: áɧmar, red; ásmar, dark-skinned; á3ma, blind; áʂla3, bald.",
+          "For a woman or a feminine thing, the a- goes and -a comes at the end: ɧámra, sámra, 3ámya. For several: ɧúmur, súmur, 3imyān.",
+          "It follows the word it describes: šá3arha ášgar, her hair is blond, since šá3ar, hair, is masculine.",
+          "Hebrew gives these a shape of their own too: עִוֵּר, blind; אִלֵּם, mute."
+        ],
+        "examples": ["pcav:3877", "pcav:0278", "pcav:0402", "pcav:0372", "pcav:0361"]
+      }
+    },
+    {
       "id": "grammar:hungry",
       "subject": "arabic",
       "type": "grammar-card",
@@ -750,6 +766,22 @@
       }
     },
     {
+      "id": "grammar:hope-and-wish",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 49,
+        "title": "batmánna and yā rēt: “I hope”, “I wish”",
+        "points": [
+          "batmánna, I hope, takes a verb with no b-: batmánna ʔašūfak márra tānya, I hope to see you again.",
+          "For not, put mā before the verb: batmánna mā yʂīrlu íši, I hope nothing happens to him.",
+          "yā rēt, I wish, is for what isn’t so: yā rēt kúnit fi falasʈīn, I wish I were in Palestine. With law (chapter 22): yā rēt law 3índi sayyāra, I wish I had a car.",
+          "yā rēt is Hebrew’s הלוואי."
+        ],
+        "examples": ["pcav:3166", "pcav:3167", "pcav:1375", "pcav:3169", "pcav:3170"]
+      }
+    },
+    {
       "id": "grammar:three-words",
       "subject": "arabic",
       "type": "grammar-card",
@@ -762,6 +794,21 @@
           "Hebrew’s piʿel does the same. Hebrew מעשן is a smoker."
         ],
         "examples": ["pcav:2392", "pcav:2394", "pcav:2396", "pcav:2078", "pcav:1445"]
+      }
+    },
+    {
+      "id": "grammar:being-ill",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 54,
+        "title": "3índu, má3u: being ill",
+        "points": [
+          "Many illnesses take 3ind- (chapter 8): 3índu rábu, he has asthma; 3índu ɖáɣiʈ, he has high blood pressure.",
+          "Some take ma3-, with: má3u súkkar, he’s diabetic; má3u ʔinfluwánza, he has the flu. Learn each one with its own.",
+          "For an ache, the part that hurts does the hurting: rāsu ʔája3u, he has a headache, word for word his head hurts him. Pointing: fī wája3 hān, it hurts here."
+        ],
+        "examples": ["pcav:1681", "pcav:1683", "pcav:1680", "pcav:1661", "pcav:1650", "pcav:1654"]
       }
     },
     {
