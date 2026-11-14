@@ -14401,6 +14401,138 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:108",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 108,
+        "title": "Wild things, far places, and fine points",
+        "theme": "Big animals and trees, the oceans and the poles, measures and numbers, and a few odd words of town life",
+        "words": [
+          {
+            "deck": "pcav:3752",
+            "gloss": "hippopotamus"
+          },
+          {
+            "deck": "pcav:3760",
+            "gloss": "rhinoceros"
+          },
+          {
+            "deck": "pcav:3758",
+            "gloss": "polar bear"
+          },
+          {
+            "deck": "pcav:3799",
+            "gloss": "beehive"
+          },
+          {
+            "deck": "pcav:3825",
+            "gloss": "feeler (of an insect)"
+          },
+          {
+            "deck": "pcav:3740",
+            "gloss": "leash"
+          },
+          {
+            "deck": "pcav:3842",
+            "gloss": "oak tree"
+          },
+          {
+            "deck": "pcav:3844",
+            "gloss": "pine tree"
+          },
+          {
+            "deck": "pcav:3847",
+            "gloss": "willow tree"
+          },
+          {
+            "deck": "pcav:3846",
+            "gloss": "sycamore tree"
+          },
+          {
+            "deck": "pcav:3845",
+            "gloss": "royal poinciana tree"
+          },
+          {
+            "deck": "pcav:3859",
+            "gloss": "violet"
+          },
+          {
+            "deck": "pcav:3881",
+            "gloss": "fuchsia"
+          },
+          {
+            "deck": "pcav:3583",
+            "gloss": "the Pacific Ocean"
+          },
+          {
+            "deck": "pcav:3584",
+            "gloss": "the Atlantic Ocean"
+          },
+          {
+            "deck": "pcav:3588",
+            "gloss": "the tropics"
+          },
+          {
+            "deck": "pcav:3638",
+            "gloss": "the North Pole"
+          },
+          {
+            "deck": "pcav:3713",
+            "gloss": "dust devil"
+          },
+          {
+            "deck": "pcav:3928",
+            "gloss": "cubic meter"
+          },
+          {
+            "deck": "pcav:3969",
+            "gloss": "cardinal number"
+          },
+          {
+            "deck": "pcav:4051",
+            "gloss": "ordinal number"
+          },
+          {
+            "deck": "pcav:4071",
+            "gloss": "three fifths"
+          },
+          {
+            "deck": "pcav:2461",
+            "gloss": "guitar string"
+          },
+          {
+            "deck": "pcav:2462",
+            "gloss": "piano keys"
+          },
+          {
+            "deck": "pcav:1825",
+            "gloss": "(phone) receiver"
+          },
+          {
+            "deck": "pcav:1748",
+            "gloss": "to get one's teeth whitened"
+          },
+          {
+            "deck": "pcav:2814",
+            "gloss": "presidential term"
+          },
+          {
+            "deck": "pcav:0150",
+            "gloss": "orphanage"
+          },
+          {
+            "deck": "pcav:0227",
+            "gloss": "pseudonym"
+          },
+          {
+            "deck": "pcav:1595",
+            "gloss": "thesis"
+          }
+        ]
+      }
     }
   ]
 }

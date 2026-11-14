@@ -336,6 +336,13 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 107 | The deli, the gym, and the day's prayers |
 
+- **Words 3,211–3,240 (2026-11-14): wild things, far places and fine points.** Big animals (*hippopotamus*, *rhinoceros*, *polar bear*), *beehive*, an insect's *feeler*, *leash*; five trees (*oak*, *pine*, *willow*, *sycamore*, *royal poinciana*), *violet*, *fuchsia*; *the Pacific* and *the Atlantic Ocean*, *the tropics*, *the North Pole*, *dust devil*; *cubic meter*, *cardinal* and *ordinal number*, *three fifths*; *guitar string*, *piano keys*, the phone's *receiver*, *to get one's teeth whitened*, *presidential term*, *orphanage*, *pseudonym*, *thesis*.
+  - **Left out on purpose:** *the Arctic* (the deck gives it the same Arabic as *the North Pole*). *The Indian Ocean*, *the South Pole*, *square meter* and *the eye of the storm* stay in the list for a later chapter. All 30 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 108 | Wild things, far places, and fine points |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
