@@ -374,6 +374,24 @@
         "gems": 3,
         "order": 21
       }
+    },
+    {
+      "id": "known-at-the-inn",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Known at the Inn",
+        "text": "Sit and talk with 10 different regulars at the inn",
+        "condition": {
+          "kind": "event-total",
+          "subject": "arabic",
+          "kind_of": "inn-regular",
+          "n": 10
+        },
+        "gems": 3,
+        "title": "the Well-Spoken",
+        "order": 22
+      }
     }
   ]
 }

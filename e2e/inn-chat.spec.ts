@@ -25,6 +25,13 @@ test.describe('Sit and talk at the inn (E17)', () => {
       await route.fulfill({ json: { text, left: 59 - asked.length } });
     });
     const calls: SubjectCall[] = [];
+    const events: string[][] = [];
+    page.on('request', (r) => {
+      if (r.url().includes('/rpc/save_session')) {
+        const body = r.postDataJSON() as { p_events?: { kind: string }[] };
+        events.push((body.p_events ?? []).map((e) => e.kind));
+      }
+    });
     await signedIn(page, [], calls, GUEST);
     await page.goto('/caravanserai?open=chat');
 
@@ -72,6 +79,8 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await page.getByRole('button', { name: 'Leave the table' }).click();
     await expect(page.getByText('+10 XP')).toBeVisible();
     await expect.poll(() => calls.some((c) => c.rpc === 'save_subject_state')).toBe(true);
+    // The contract's event, and the first chat with this regular (migration 20261209000000).
+    expect(events[0]).toEqual(['inn-chat', 'inn-regular']);
     const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
       p_state: { chat: { name: string; told: Record<string, string[]>; chats: number } };
     };
@@ -79,6 +88,7 @@ test.describe('Sit and talk at the inn (E17)', () => {
       name: 'Adam',
       told: { 2: ['منيح، الحمد لله', 'طالب', 'شكرا'] },
       chats: 1,
+      hebrew: false,
     });
     await expect
       .poll(() => calls.find((c) => c.rpc === 'record_progress')?.args)
@@ -104,6 +114,36 @@ test.describe('Sit and talk at the inn (E17)', () => {
       page.getByText('Salim the carter has to serve a customer.', { exact: false }),
     ).toBeVisible();
     await expect(page.getByRole('button', { name: 'Back to the table' })).toBeVisible();
+  });
+
+  test('type in Hebrew letters: they read it in Arabic, and the choice is kept', async ({
+    page,
+  }) => {
+    const asked: InnAsk[] = [];
+    await page.route('**/api/partner', async (route) => {
+      asked.push(route.request().postDataJSON() as InnAsk);
+      await route.fulfill({ json: { text: 'أهلا! كيفك؟', left: 50 } });
+    });
+    const calls: SubjectCall[] = [];
+    await signedIn(page, [], calls, { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await page.goto('/caravanserai?open=chat');
+    await page.getByRole('button', { name: /Salim the carter/ }).click();
+    await expect(page.getByText('أهلا! كيفك؟')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Hebrew letters' }).click();
+    await expect(page.getByRole('group', { name: 'Arabic keyboard' })).toHaveCount(0);
+    await page.getByLabel('Your line, in Hebrew letters').fill("מניח, ח'לאץ");
+    await expect(page.getByText('They read: منيح، خلاص')).toBeVisible();
+    await page.getByRole('button', { name: 'Say it' }).click();
+    await expect.poll(() => asked.length).toBe(2);
+    expect(asked[1]?.turns.at(-1)).toEqual({ who: 'you', text: 'منيح، خلاص' });
+
+    await page.getByRole('button', { name: 'Leave the table' }).click();
+    await expect.poll(() => calls.some((c) => c.rpc === 'save_subject_state')).toBe(true);
+    const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
+      p_state: { chat: { hebrew: boolean } };
+    };
+    expect(saved.p_state.chat.hebrew).toBe(true);
   });
 
   test('opens from the innkeeper’s table, only for guests', async ({ page }) => {

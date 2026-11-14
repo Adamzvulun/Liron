@@ -894,6 +894,8 @@
 
 .arabic__chat-form input {
   flex: 1;
+  /* No width of its own: a text box's default size made the card wider than a phone. */
+  width: 0;
   min-width: 0;
   font-size: 22px;
 }
@@ -917,4 +919,36 @@
 
 .arabic__keys .arabic__key-wide {
   grid-column: span 3;
+}
+
+.arabic__chat-mode {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.arabic__chat-mode button {
+  flex: 1;
+  min-height: 36px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: #fff6df;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.arabic__chat-mode button[aria-pressed='true'] {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+}
+
+.arabic__chat-reads {
+  margin: 0 0 8px;
+  font-weight: 700;
+  text-align: start;
+}
+
+.arabic__chat-reads bdi {
+  font-size: 22px;
 }

@@ -75,8 +75,10 @@ const Progress = z.object({
       name: z.string().max(24).catch(''),
       told: z.record(z.string(), z.array(z.string().max(160)).max(3)).catch({}),
       chats: z.number().int().min(0).catch(0),
+      /** You type in Hebrew letters, read as Arabic (E17). */
+      hebrew: z.boolean().catch(false),
     })
-    .catch({ name: '', told: {}, chats: 0 }),
+    .catch({ name: '', told: {}, chats: 0, hebrew: false }),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -104,7 +106,7 @@ export const NEW_PROGRESS: ArabicProgress = {
     trials: [],
   },
   echo: { heard: [], streak: 0, rounds: 0, shadowed: 0 },
-  chat: { name: '', told: {}, chats: 0 },
+  chat: { name: '', told: {}, chats: 0, hebrew: false },
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */
