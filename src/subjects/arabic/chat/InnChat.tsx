@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
-import { PartnerError, type InnTurn } from '../../../core/partner.ts';
+import { PartnerError, type CoachTip, type InnTurn } from '../../../core/partner.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import type { Regular } from '../questline.ts';
 import {
@@ -16,6 +16,7 @@ import {
   MAX_LINES,
   MAX_TYPED,
   regularsToTalkTo,
+  tipsFrom,
 } from './innChat.ts';
 
 // "Sit and talk" at the innkeeper's table (E17, ADR 0038): a short chat in Palestinian Arabic
@@ -54,7 +55,16 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const [name, setName] = useState('');
   const [typed, setTyped] = useState('');
   const [shown, setShown] = useState<ReadonlySet<number>>(new Set());
+  /** The Coach after a chat (ADR 0007): not asked, asking, the tips, or no answer. */
+  const [coach, setCoach] = useState<'idle' | 'asking' | 'failed' | CoachTip[]>('idle');
   const saved = useRef(false);
+  const lines = useRef<HTMLOListElement>(null);
+  // The newest line is always in view: the list scrolls to its end as the chat grows.
+  const count = stage.kind === 'chat' ? stage.turns.length + (stage.waiting ? 1 : 0) : 0;
+  useEffect(() => {
+    const el = lines.current;
+    if (el && count) el.scrollTop = el.scrollHeight;
+  }, [count]);
   const live = useRef(true);
 
   useEffect(() => {
@@ -141,6 +151,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
     setProgress(p);
     saved.current = false;
     setShown(new Set());
+    setCoach('idle');
     setTyped('');
     ask({ kind: 'chat', regular, turns: [], waiting: true, started: now }, [], p);
   };
@@ -212,6 +223,13 @@ export function InnChat({ api }: { api: SubjectApi }) {
     setStage({ ...s, ended: 'You leave the table.' });
     save(s, s.turns, now, progress);
   };
+  const askCoach = () => {
+    setCoach('asking');
+    api.partner({ kind: 'inn-coach', turns: s.turns }).then(
+      (reply) => live.current && setCoach(tipsFrom(reply.text) ?? 'failed'),
+      () => live.current && setCoach('failed'),
+    );
+  };
   const toggle = (i: number) =>
     setShown((now) => {
       const next = new Set(now);
@@ -231,7 +249,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
         <p className="lesson__kicker">
           Sit and talk · {s.regular.who} · {mine} of {MAX_LINES}
         </p>
-        <ol className="arabic__chat-lines" aria-live="polite">
+        <ol className="arabic__chat-lines" aria-live="polite" ref={lines}>
           {s.turns.map((t, i) => (
             <li key={i} className={`arabic__bubble arabic__bubble--${t.who}`}>
               {t.who === 'them' ? (
@@ -258,7 +276,47 @@ export function InnChat({ api }: { api: SubjectApi }) {
           <>
             <p className="arabic__note">{s.ended}</p>
             {mine >= LINES_FOR_XP && <p className="arabic__xp">+{CHAT_XP} XP</p>}
+            {Array.isArray(coach) && (
+              <div className="arabic__coach" aria-label="The Coach">
+                <p className="lesson__kicker">The Coach</p>
+                {coach.length === 0 ? (
+                  <p>Nothing to fix. Well said!</p>
+                ) : (
+                  <ol>
+                    {coach.map((t) => (
+                      <li key={t.said}>
+                        <span className="arabic__coach-said" lang="ar" dir="rtl">
+                          {t.said}
+                        </span>
+                        <span className="arabic__coach-better" lang="ar" dir="rtl">
+                          {t.better}
+                        </span>
+                        <span className="arabic__bubble-he" lang="he" dir="rtl">
+                          {lineInHebrew(t.better)}
+                        </span>
+                        <span className="arabic__coach-why">{t.why}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+              </div>
+            )}
+            {coach === 'failed' && (
+              <p className="arabic__note">
+                The Coach couldn’t look at this chat. Try another time.
+              </p>
+            )}
             <div className="lesson__actions">
+              {mine > 0 && (coach === 'idle' || coach === 'asking') && (
+                <button
+                  type="button"
+                  className="lesson__plain"
+                  disabled={coach === 'asking'}
+                  onClick={askCoach}
+                >
+                  {coach === 'asking' ? 'The Coach is reading…' : 'Ask the Coach'}
+                </button>
+              )}
               <button
                 type="button"
                 className="lesson__go"

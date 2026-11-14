@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   cleanArabic,
+  cleanTips,
   firstLine,
   GEMINI_MODEL,
   GROQ_MODEL,
@@ -149,7 +150,8 @@ describe('POST /api/partner (E15, ADR 0036)', () => {
 describe('the partner prompt', () => {
   it('tells the character who you are and what they said before', () => {
     const ask = parseAsk(ASK);
-    if (!ask || ask.kind === 'inn-chat') throw new Error('the radio ask should parse');
+    if (!ask || ask.kind === 'inn-chat' || ask.kind === 'inn-coach')
+      throw new Error('the radio ask should parse');
     const prompt = radioPrompt(ask);
     expect(prompt).toContain('You are Ruth, a night owl on 40 m.');
     expect(prompt).toContain('name ADAM, town HAIFA');
@@ -165,7 +167,8 @@ describe('the partner prompt', () => {
       told: ['SICK'],
     };
     const ask = parseAsk(reply);
-    if (!ask || ask.kind === 'inn-chat') throw new Error('the reply ask should parse');
+    if (!ask || ask.kind === 'inn-chat' || ask.kind === 'inn-coach')
+      throw new Error('the reply ask should parse');
     const prompt = radioPrompt(ask);
     expect(prompt).toContain('Just now they sent you their news: "NEW JOB"');
     expect(prompt).toContain('Your news this time was: "CAT IS FINE"');
@@ -305,5 +308,64 @@ describe('cleanArabic (ADR 0038)', () => {
     expect(cleanArabic('ا'.repeat(161))).toBeNull();
     expect(cleanArabic('أنا ذكاء اصطناعي، مش إنسان')).toBeNull();
     expect(cleanArabic('...')).toBeNull();
+  });
+});
+
+const COACH = {
+  kind: 'inn-coach',
+  turns: [
+    { who: 'them', text: 'بدك قهوة؟' },
+    { who: 'you', text: 'نعم أريد قهوة' },
+    { who: 'them', text: 'سادة ولا حلوة؟' },
+    { who: 'you', text: 'سادة' },
+  ],
+};
+const TIP = { said: 'نعم أريد قهوة', better: 'آه بدّي قهوة', why: 'نعم and أريد are formal.' };
+
+describe('the Coach after a chat (ADR 0007, 0038)', () => {
+  it('claims a chat line, asks Groq for JSON about your own lines, and answers the tips', async () => {
+    const { calls, fetchFn } = services({
+      claim: () => Response.json(40),
+      groq: () => groqSays(JSON.stringify({ tips: [TIP] })),
+    });
+    const res = await json(await handle(request(COACH), ENV, fetchFn));
+    expect(res.status).toBe(200);
+    expect(JSON.parse(res.body.text as string)).toEqual({ tips: [TIP] });
+    expect(calls.map((c) => c.url)).toEqual([
+      'https://project.supabase.co/rest/v1/rpc/claim_chat_line',
+      'https://api.groq.com/openai/v1/chat/completions',
+    ]);
+    const sent = JSON.parse(String(calls[1]?.init.body)) as {
+      model: string;
+      response_format: unknown;
+      messages: { role: string; content: string }[];
+    };
+    expect(sent.model).toBe(INN_MODEL);
+    expect(sent.response_format).toEqual({ type: 'json_object' });
+    expect(sent.messages[1]?.content).toBe(
+      'Regular: بدك قهوة؟\nTraveler: نعم أريد قهوة\nRegular: سادة ولا حلوة؟\nTraveler: سادة',
+    );
+  });
+
+  it('needs a line of yours, and never goes to Gemini', async () => {
+    expect(parseAsk({ ...COACH, turns: [COACH.turns[0]] })).toBeNull();
+    const { calls, fetchFn } = services();
+    const res = await handle(request(COACH), { ...ENV, GROQ_API_KEY: undefined }, fetchFn);
+    expect(await json(res)).toMatchObject({ status: 503, body: { error: 'not-set-up' } });
+    expect(calls).toEqual([]);
+  });
+
+  it('keeps only tips about your own lines, in Arabic, at most 3', () => {
+    const ask = parseAsk(COACH);
+    if (ask?.kind !== 'inn-coach') throw new Error('the coach ask should parse');
+    const tips = (t: unknown[]) => cleanTips(JSON.stringify({ tips: t }), ask);
+    expect(tips([TIP, TIP])).toEqual([TIP]);
+    expect(tips([{ ...TIP, said: 'بدك قهوة؟' }])).toEqual([]);
+    expect(tips([{ ...TIP, better: 'Ah biddi ahwe' }])).toEqual([]);
+    expect(tips([{ ...TIP, better: TIP.said }])).toEqual([]);
+    expect(tips([{ ...TIP, why: '' }])).toEqual([]);
+    expect(tips([])).toEqual([]);
+    expect(cleanTips('not json', ask)).toBeNull();
+    expect(cleanTips('```json\n{"tips":[]}\n```', ask)).toEqual([]);
   });
 });

@@ -8,9 +8,10 @@
 /**
  * What a partner is asked to write: two lines of a Radio Room operator (ADR 0036, 0037),
  * `radio-news`, their news in the chat turn, and `radio-reply`, their answer to the news you keyed;
- * and `inn-chat`, a regular's next line in an Arabic chat at the inn (E17, ADR 0038).
+ * `inn-chat`, a regular's next line in an Arabic chat at the inn (E17, ADR 0038); and `inn-coach`,
+ * the Coach's tips after that chat, as JSON in the reply's text (`{ tips: CoachTip[] }`).
  */
-export type PartnerAsk = RadioNewsAsk | RadioReplyAsk | InnChatAsk;
+export type PartnerAsk = RadioNewsAsk | RadioReplyAsk | InnChatAsk | InnCoachAsk;
 
 /** One line of a chat at the inn: `them` is the regular, `you` the learner. */
 export interface InnTurn {
@@ -35,6 +36,19 @@ export interface InnChatAsk {
   told: readonly string[];
   /** This chat so far, oldest first; empty for their opening line. */
   turns: readonly InnTurn[];
+}
+
+/** The Coach's debrief after a chat at the inn (ADR 0007, 0038): only the chat itself is sent. */
+export interface InnCoachAsk {
+  kind: 'inn-coach';
+  turns: readonly InnTurn[];
+}
+
+/** One of the Coach's tips: a line of yours, how a Palestinian would say it, and why. */
+export interface CoachTip {
+  said: string;
+  better: string;
+  why: string;
 }
 
 interface RadioAsk {

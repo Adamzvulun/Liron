@@ -134,10 +134,20 @@ export interface InnAsk {
   turns: InnTurn[];
 }
 
+/**
+ * The Coach's debrief after a chat at the inn (ADR 0007, 0038): the chat itself, nothing else.
+ * Answered by Groq only, counted as one line against the day's chat lines.
+ */
+export interface CoachAsk {
+  kind: 'inn-coach';
+  turns: InnTurn[];
+}
+
 export type Ask =
   | (AskBase & { kind: 'radio-news' })
   | (AskBase & { kind: 'radio-reply'; news: string | null; heard: string })
-  | InnAsk;
+  | InnAsk
+  | CoachAsk;
 
 /** The most turns a chat sends: 8 of the learner's lines and the regular's answers. */
 export const MAX_TURNS = 17;
@@ -156,6 +166,18 @@ const strings = (v: unknown, most: number, max: number): string[] | null =>
     ? (v as string[]).map((p) => p.trim())
     : null;
 
+function parseTurns(v: unknown): InnTurn[] | null {
+  if (!Array.isArray(v) || v.length > MAX_TURNS) return null;
+  const turns: InnTurn[] = [];
+  for (const t of v as unknown[]) {
+    const turn = (t ?? {}) as Record<string, unknown>;
+    const said = text(turn.text, 160);
+    if ((turn.who !== 'them' && turn.who !== 'you') || !said) return null;
+    turns.push({ who: turn.who, text: said });
+  }
+  return turns;
+}
+
 function parseInn(b: Record<string, unknown>): InnAsk | null {
   const persona = (b.persona ?? {}) as Record<string, unknown>;
   const learner = (b.learner ?? {}) as Record<string, unknown>;
@@ -165,15 +187,8 @@ function parseInn(b: Record<string, unknown>): InnAsk | null {
   const theme = text(b.theme, 160);
   const words = b.words === undefined ? [] : strings(b.words, 40, 40);
   const told = b.told === undefined ? [] : strings(b.told, 3, 160);
-  if (!who || !about || !name || !theme || !words || !told) return null;
-  if (!Array.isArray(b.turns) || b.turns.length > MAX_TURNS) return null;
-  const turns: InnTurn[] = [];
-  for (const t of b.turns as unknown[]) {
-    const turn = (t ?? {}) as Record<string, unknown>;
-    const said = text(turn.text, 160);
-    if ((turn.who !== 'them' && turn.who !== 'you') || !said) return null;
-    turns.push({ who: turn.who, text: said });
-  }
+  const turns = parseTurns(b.turns);
+  if (!who || !about || !name || !theme || !words || !told || !turns) return null;
   return {
     kind: 'inn-chat',
     persona: { who, about },
@@ -190,6 +205,10 @@ export function parseAsk(body: unknown): Ask | null {
   if (typeof body !== 'object' || body === null) return null;
   const b = body as Record<string, unknown>;
   if (b.kind === 'inn-chat') return parseInn(b);
+  if (b.kind === 'inn-coach') {
+    const turns = parseTurns(b.turns);
+    return turns?.some((t) => t.who === 'you') ? { kind: 'inn-coach', turns } : null;
+  }
   const persona = (b.persona ?? {}) as Record<string, unknown>;
   const learner = (b.learner ?? {}) as Record<string, unknown>;
   const who = text(persona.who, 80);
@@ -281,7 +300,7 @@ export function cleanArabic(said: string): string | null {
 }
 
 /** What the character is told about this talk. */
-export function radioPrompt(ask: Exclude<Ask, InnAsk>): string {
+export function radioPrompt(ask: Exclude<Ask, InnAsk | CoachAsk>): string {
   const { persona, learner, past, told } = ask;
   return [
     `You are ${persona.who}. ${persona.about}`,
@@ -376,6 +395,7 @@ async function askGroq(
   messages: Message[],
   f: typeof fetch,
   model: string = GROQ_MODEL,
+  json = false,
 ): Promise<Said> {
   try {
     const res = await f(GROQ_URL, {
@@ -385,9 +405,14 @@ async function askGroq(
         model,
         messages,
         temperature: 1,
-        // gpt-oss thinks briefly first (about 15 tokens at low effort); 300 leaves room for it.
-        max_completion_tokens: 300,
-        ...(model === INN_MODEL ? { reasoning_effort: 'low', include_reasoning: false } : {}),
+        // gpt-oss thinks briefly first (about 15 tokens at low effort); 300 leaves room for it,
+        // and the Coach (medium effort, then JSON) gets 1,500.
+        max_completion_tokens: json ? 1500 : 300,
+        ...(json ? { response_format: { type: 'json_object' } } : {}),
+        // The Coach thinks a little longer: it answers once, after the chat, not mid-talk.
+        ...(model === INN_MODEL
+          ? { reasoning_effort: json ? 'medium' : 'low', include_reasoning: false }
+          : {}),
       }),
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
@@ -401,6 +426,69 @@ async function askGroq(
   } catch {
     return null;
   }
+}
+
+/** The silent Coach (ADR 0007): kind, short, and only about the traveler's own lines. */
+export const COACH_RULES = [
+  'You are a kind, brief coach of Palestinian colloquial Arabic (as spoken in Jerusalem or',
+  'Ramallah). A beginner who speaks Hebrew and English just chatted with someone at an inn.',
+  'Look ONLY at the lines marked "Traveler". Pick at most 3 that a Palestinian would say',
+  'differently: a wrong word, wrong grammar, Modern Standard Arabic, or something unnatural.',
+  'Skip lines that are fine. Never correct spelling alone, or a missing vowel mark. Never change',
+  'the gender of a word the traveler uses about themselves.',
+  'Your "better" line MUST itself be Palestinian colloquial, never Modern Standard Arabic: the',
+  'present with b- (بشتغل, بحب, بروح; not أعمل, أحب), بدّي (not أريد), شو (not ماذا), منيح (not',
+  'جيد or بخير), هلّق (not الآن), آه (not نعم), هاد/هاي (not هذا/هذه), مش (not ليس or لا before a verb).',
+  'A Modern Standard word in a traveler line (ماذا, أريد, نعم, جيد, الآن) is always worth a tip.',
+  'Answer ONLY with JSON: {"tips":[{"said":"<the traveler line, copied exactly>",',
+  '"better":"<how a Palestinian would say it, in Arabic script, short>",',
+  '"why":"<one short sentence in plain English, at most 15 words>"}]}.',
+  'If every line is fine, answer {"tips":[]}.',
+].join('\n');
+
+export function coachMessages(ask: CoachAsk): Message[] {
+  const chat = ask.turns
+    .map((t) => `${t.who === 'you' ? 'Traveler' : 'Regular'}: ${t.text}`)
+    .join('\n');
+  return [
+    { role: 'system', content: COACH_RULES },
+    { role: 'user', content: chat },
+  ];
+}
+
+export interface Tip {
+  said: string;
+  better: string;
+  why: string;
+}
+
+/**
+ * The Coach's tips, checked: each is about one of the traveler's own lines, says it better in
+ * Arabic only (cleanArabic), and explains why in a short line of plain text. At most 3; null when
+ * the answer isn't the JSON asked for.
+ */
+export function cleanTips(said: string, ask: CoachAsk): Tip[] | null {
+  const json = said.replace(/<think>[\s\S]*?<\/think>/g, '').replace(/^```(json)?|```$/gm, '');
+  let body: unknown;
+  try {
+    body = JSON.parse(json.trim());
+  } catch {
+    return null;
+  }
+  const tips = (body as { tips?: unknown } | null)?.tips;
+  if (!Array.isArray(tips)) return null;
+  const yours = new Set(ask.turns.filter((t) => t.who === 'you').map((t) => t.text.trim()));
+  const kept: Tip[] = [];
+  for (const t of tips as unknown[]) {
+    const tip = (t ?? {}) as Record<string, unknown>;
+    const line = typeof tip.said === 'string' ? tip.said.trim() : '';
+    const better = typeof tip.better === 'string' ? cleanArabic(tip.better) : null;
+    const why = typeof tip.why === 'string' ? tip.why.replace(/[<>*_#`]/g, '').trim() : '';
+    if (!yours.has(line) || !better || better === line || !why || why.length > 140) continue;
+    if (kept.some((k) => k.said === line)) continue;
+    kept.push({ said: line, better, why });
+  }
+  return kept.slice(0, 3);
 }
 
 /** The first line of a reply, without thinking tags or quotes, cut short. */
@@ -431,6 +519,26 @@ export async function handle(
   if (Number(request.headers.get('Content-Length') ?? 0) > 4000) return fail('bad-request');
   const ask = parseAsk(await request.json().catch(() => null));
   if (!ask) return fail('bad-request');
+
+  if (ask.kind === 'inn-coach') {
+    // The Coach, like the inn, talks only to Groq (ADR 0038), and costs one chat line.
+    if (!GROQ_API_KEY) return fail('not-set-up');
+    const left = await claim(
+      VITE_SUPABASE_URL,
+      VITE_SUPABASE_PUBLISHABLE_KEY,
+      token,
+      fetchFn,
+      'claim_chat_line',
+    );
+    if (typeof left !== 'number') return fail(left);
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const said = await askGroq(GROQ_API_KEY, coachMessages(ask), fetchFn, INN_MODEL, true);
+      if (said === 'busy') return fail('busy');
+      const tips = said ? cleanTips(said, ask) : null;
+      if (tips) return answer({ text: JSON.stringify({ tips }), left });
+    }
+    return fail('failed');
+  }
 
   if (ask.kind === 'inn-chat') {
     // The inn talks only to Groq (ADR 0038): no key, no chat.
