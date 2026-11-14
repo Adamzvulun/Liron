@@ -32054,7 +32054,7 @@
         "word": "pcav:1182",
         "arabic": "قطّع شْوَيّة توْم مْعمِّر عَ البيْض.",
         "latin": "gáʈʈi3 šwáyyit tōm m3ámmir 3a -lbēɖ.",
-        "english": "Cut a little chives over the eggs."
+        "english": "Chop some chives over the eggs."
       }
     },
     {
@@ -32119,7 +32119,7 @@
       "data": {
         "word": "pcav:1276",
         "arabic": "في القُدْس في مطْعم مِشْهور بِسنْدْوِش الطُّحل.",
-        "latin": "fi -lgúds fī máʈ3am mášhūr bi-sándwiš iʈʈúɧal.",
+        "latin": "fi -lgúds fī máʈ3am mišhūr bi-sándwiš iʈʈúɧal.",
         "english": "In Jerusalem there's a restaurant famous for its spleen sandwiches."
       }
     },
@@ -32340,7 +32340,7 @@
         "word": "pcav:3825",
         "arabic": "النّمْلة بِتْحِسّ بِقرْن الاِسْتِشْعار.",
         "latin": "innámle btiɧíss bi-garn ilistiš3ār.",
-        "english": "The ant feels with its feeler."
+        "english": "The ant feels its way with a feeler."
       }
     },
     {
@@ -32371,8 +32371,8 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:3844",
-        "arabic": "شجرِةْ الِصْنوْبر بِتْضلّها خضْرا بِالشّتا.",
-        "latin": "šájarit liʂnōbar btiɖállha xáɖra bi-ššíta.",
+        "arabic": "شجرِةْ الِصْنوْبر بِتْضلّ خضْرا بِالشّتا.",
+        "latin": "šájarit liʂnōbar btiɖáll xáɖra bi-ššíta.",
         "english": "The pine tree stays green in winter."
       }
     },
@@ -32516,7 +32516,7 @@
         "word": "pcav:4051",
         "arabic": "تالِت عدد ترْتيبي.",
         "latin": "tālit 3ádad tartībi.",
-        "english": "“Third” is an ordinal number."
+        "english": "Third is an ordinal number."
       }
     },
     {
@@ -32570,7 +32570,7 @@
       "data": {
         "word": "pcav:1748",
         "arabic": "راحت عَ دُكْتوْر السْنان وبيّضت سْنانْها.",
-        "latin": "rāɧat 3a duktōr issnān w-bayyáɖat snánha.",
+        "latin": "rāɧat 3a duktōr issnān w-bayyáɖat snānha.",
         "english": "She went to the dentist and got her teeth whitened."
       }
     },
@@ -32911,7 +32911,7 @@
       "data": {
         "word": "pcav:3808",
         "arabic": "الوَلد مْقمِّل، لازِم نِغْسِل شعرو.",
-        "latin": "ilwálad mgámmal, lāzim níɣsil šáʕru.",
+        "latin": "ilwálad mgámmal, lāzim níɣsil šá3ru.",
         "english": "The child has head lice, we have to wash his hair."
       }
     },
@@ -32922,7 +32922,7 @@
       "data": {
         "word": "pcav:4813",
         "arabic": "بعِد الحمّام بِنْقول نعيْماً.",
-        "latin": "bá3id ilɧammām binʔūl na3ēman.",
+        "latin": "bá3id ilɧammām bingūl na3ēman.",
         "english": "After a shower we say “na3ēman” (may it do you good)."
       }
     },
@@ -32933,7 +32933,7 @@
       "data": {
         "word": "pcav:4802",
         "arabic": "بعِد الصّلاة بِنْقول تقبّل الله.",
-        "latin": "bá3id iʂʂalā binʔūl taqábbal allāh.",
+        "latin": "bá3id iʂʂalā bingūl taqábbal allāh.",
         "english": "After the prayer we say “taqábbal allāh” (may God accept it)."
       }
     },
@@ -32944,7 +32944,7 @@
       "data": {
         "word": "pcav:4794",
         "arabic": "بِنْقول مبْروك الاِفْتِتاح لمّا حدا بِفْتح محلّ.",
-        "latin": "binʔūl mabrūk ilʔiftitāɧ lámma ɧáda bíftaɧ maɧáll.",
+        "latin": "bingūl mabrūk ilʔiftitāɧ lámma ɧáda bíftaɧ maɧáll.",
         "english": "We say “Congratulations on the opening” when someone opens a shop."
       }
     }

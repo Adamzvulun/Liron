@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
-import type { ReviewGrade } from '../../../core/srs/scheduler.ts';
+import type { ReviewGrade } from '../../../core/srs/grades.ts';
 import type { ArabicProgress } from '../progress.ts';
 import { lineInHebrew, type Glossary } from './innChat.ts';
 import { Glosses } from './Glosses.tsx';

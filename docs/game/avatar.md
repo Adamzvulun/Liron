@@ -32,7 +32,7 @@ Back gear, back hair, legs, feet, torso, satchel or cloak front, hand gear, arms
 | Desert wrap | head | starter |
 | Courier satchel | back | starter |
 | Walking staff | hand | starter |
-| Signaller's headset | head | reach level 5 in the Signal Tower |
+| Signaler's headset | head | reach level 5 in the Signal Tower |
 | Merchant cloak | back | keep a 7-day streak |
 | Copper-toe boots | feet | finish 10 daily contracts |
 | Rider's breeches | legs | pass a first-chapter trial in any guild |

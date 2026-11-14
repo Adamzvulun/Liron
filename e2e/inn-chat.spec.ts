@@ -270,4 +270,30 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await page.getByRole('button', { name: 'Sit and talk' }).click();
     await expect(page.getByRole('heading', { name: 'Who will you sit with?' })).toBeVisible();
   });
+  test('the table lists the newest regulars first, and the rest behind a button', async ({
+    page,
+  }) => {
+    const trials = Array.from({ length: 12 }, (_, i) => i + 2);
+    await signedIn(page, [], [], {
+      ...GUEST,
+      words: {
+        chapter: 14,
+        streak: 0,
+        passDay: null,
+        met: [],
+        done: false,
+        sessions: 0,
+        cards: [],
+        trials,
+      },
+    });
+    await page.goto('/caravanserai?open=chat');
+    const who = page.locator('.arabic__chat-who button');
+    await expect(who).toHaveCount(8);
+    await expect(page.getByText(/written by an AI \(Groq\)/)).toBeInViewport();
+    await expect(page.getByRole('button', { name: /Salim the carter/ })).toHaveCount(0);
+    await page.getByRole('button', { name: /Everyone else at the inn · 5/ }).click();
+    await expect(who).toHaveCount(13);
+    await expect(page.getByRole('button', { name: /Salim the carter/ })).toBeVisible();
+  });
 });

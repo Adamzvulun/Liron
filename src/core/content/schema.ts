@@ -1,14 +1,14 @@
 // The content format (issue #23, ADR 0023): one schema for items, lessons and media, used by
 // every subject. Content is data (CLAUDE.md). Each subject owns the shape of its items' `data`.
-import { z } from 'zod';
+import * as z from 'zod/mini';
 import { SUBJECT_ID } from '../subject.ts';
 
 /** Ids are stable forever: progress and reviews point at them. Example: `char:K`, `pcav:0003`. */
 export const ContentId = z
   .string()
-  .regex(/^[a-z0-9][a-z0-9:._-]{0,127}$/i, 'letters, digits and : . _ - only, up to 128');
+  .check(z.regex(/^[a-z0-9][a-z0-9:._-]{0,127}$/i, 'letters, digits and : . _ - only, up to 128'));
 
-export const SubjectId = z.string().regex(SUBJECT_ID);
+export const SubjectId = z.string().check(z.regex(SUBJECT_ID));
 
 /**
  * Where a media file lives:
@@ -18,42 +18,39 @@ export const SubjectId = z.string().regex(SUBJECT_ID);
 export const Media = z.object({
   kind: z.enum(['audio', 'image']),
   store: z.enum(['public', 'private']),
-  path: z
-    .string()
-    .regex(/^[a-z0-9][a-z0-9/._-]*$/i)
-    .max(256),
+  path: z.string().check(z.regex(/^[a-z0-9][a-z0-9/._-]*$/i), z.maxLength(256)),
 });
 
 export const Item = z.object({
   id: ContentId,
   subject: SubjectId,
   /** The subject's own item type, e.g. `morse-char`, `arabic-letter`, `phrase`. */
-  type: z.string().regex(/^[a-z][a-z0-9-]{1,39}$/),
+  type: z.string().check(z.regex(/^[a-z][a-z0-9-]{1,39}$/)),
   /** The subject's own fields. The subject validates them further. */
   data: z.record(z.string(), z.unknown()),
-  media: z.array(Media).default([]),
-  tags: z.array(z.string().min(1).max(40)).default([]),
+  media: z._default(z.array(Media), []),
+  tags: z._default(z.array(z.string().check(z.minLength(1), z.maxLength(40))), []),
 });
 
 export const Lesson = z.object({
   id: ContentId,
   subject: SubjectId,
-  title: z.string().min(1).max(120),
+  title: z.string().check(z.minLength(1), z.maxLength(120)),
   /** Position in the subject's path; lessons run in this order. */
-  order: z.number().int().nonnegative(),
-  items: z.array(ContentId).min(1),
-  tags: z.array(z.string().min(1).max(40)).default([]),
+  order: z.int().check(z.nonnegative()),
+  items: z.array(ContentId).check(z.minLength(1)),
+  tags: z._default(z.array(z.string().check(z.minLength(1), z.maxLength(40))), []),
 });
 
 /** One file of content: everything from one source for one subject. */
 export const ContentPack = z.object({
   subject: SubjectId,
   /** Where it came from, e.g. `waymark` (our own) or `lingualism-pcav`. */
-  source: z.string().regex(/^[a-z][a-z0-9-]{1,39}$/),
+  source: z.string().check(z.regex(/^[a-z][a-z0-9-]{1,39}$/)),
   /** Licence or terms, in a few words. */
-  license: z.string().min(1).max(200),
+  license: z.string().check(z.minLength(1), z.maxLength(200)),
   items: z.array(Item),
-  lessons: z.array(Lesson).default([]),
+  lessons: z._default(z.array(Lesson), []),
 });
 
 export type Media = z.infer<typeof Media>;

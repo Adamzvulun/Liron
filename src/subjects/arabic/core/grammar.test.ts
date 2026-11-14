@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { Item } from '../../../core/content/schema.ts';
 import { applyWordSession, NEW_PROGRESS, parseProgress } from '../progress.ts';
-import { cardDue, cardsRead, GRAMMAR_CARDS, grammarFrom, withCardRead } from './grammar.ts';
+import { cardDue, cardsRead, grammarFrom, withCardRead } from './grammar.ts';
+import { GRAMMAR_CARDS } from './grammarCards.ts';
 
 const sentence = (id: string): Item => ({
   id,
@@ -136,7 +137,7 @@ describe('grammar cards (#162)', () => {
   });
 
   it('reads its examples from the deck, leaving out any the deck lacks', () => {
-    const cards = grammarFrom([sentence('pcav:4703')]);
+    const cards = grammarFrom([sentence('pcav:4703')], GRAMMAR_CARDS);
     expect(cards[0]?.lines).toEqual([
       {
         arabic: 'أنا جاهِز!',

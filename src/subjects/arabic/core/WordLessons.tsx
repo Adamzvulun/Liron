@@ -26,7 +26,14 @@ import {
   type CoreWord,
   type WordQuestion,
 } from './coreWords.ts';
-import { cardDue, cardsRead, grammarFrom, withCardRead, type GrammarCard } from './grammar.ts';
+import {
+  cardDue,
+  cardsRead,
+  grammarFrom,
+  loadGrammarCards,
+  withCardRead,
+  type GrammarCard,
+} from './grammar.ts';
 import { reportWords, reportWordTrial, scoreOfWords, type WordAnswer } from './report.ts';
 
 type Stage =
@@ -81,12 +88,13 @@ export function WordLessons({
       api.privateContent(DECK),
       api.dueItems({ limit: 200 }),
       loadOwnSentences(),
+      loadGrammarCards(),
     ]).then(
-      ([state, pack, dueItems, own]) => {
+      ([state, pack, dueItems, own, cards]) => {
         if (!live) return;
         setProgress(parseProgress(state));
         setChapters(coreWordsFrom(pack.items, own));
-        setGrammar(grammarFrom(pack.items));
+        setGrammar(grammarFrom(pack.items, cards));
         setDue(new Set(dueItems.map((d) => d.itemId)));
       },
       () => live && setFailed(true),
@@ -235,7 +243,7 @@ export function WordLessons({
         <div className="lesson__card lesson__start">
           <p className="lesson__kicker">
             The innkeeper’s table ·{' '}
-            {w.done ? 'every chapter' : `chapter ${chapterNo} of ${WORD_CHAPTERS.length}`}
+            {w.done ? 'every chapter' : `chapter ${chapterNo} of\u00a0${WORD_CHAPTERS.length}`}
           </p>
           <h2 className="lesson__title">{w.done ? 'Keep them fresh' : chapter.title}</h2>
           <p>
