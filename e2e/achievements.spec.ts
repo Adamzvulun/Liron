@@ -9,7 +9,7 @@ test.describe('achievements and titles in Your House (#177)', () => {
     });
     await page.goto('/house');
     const wall = page.getByRole('region', { name: 'Achievements' });
-    await expect(wall.getByText('2 of 21 earned')).toBeVisible();
+    await expect(wall.getByText('2 of 22 earned')).toBeVisible();
     const overspeed = wall.getByRole('listitem').filter({ hasText: 'Overspeed' });
     await expect(overspeed).toContainText('Earned');
     await expect(overspeed).toContainText('Title: the Quick-Eared');
@@ -41,7 +41,7 @@ test.describe('achievements and titles in Your House (#177)', () => {
     await signedIn(page);
     await page.goto('/house');
     const wall = page.getByRole('region', { name: 'Achievements' });
-    await expect(wall.getByText('0 of 21 earned')).toBeVisible();
+    await expect(wall.getByText('0 of 22 earned')).toBeVisible();
     await expect(wall.getByText('Some achievements give a title')).toBeVisible();
     await expect(wall.getByRole('radio')).toHaveCount(1);
   });
