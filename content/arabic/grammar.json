@@ -1065,6 +1065,22 @@
       }
     },
     {
+      "id": "grammar:him-and-her-animals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 66,
+        "title": "dīk, jāja: one word for him, another for her",
+        "points": [
+          "Some farm animals have one word for the male and a different word for the female: dīk, rooster, and jāja, hen; xarūf, ram, and ɣánama, ewe.",
+          "Many animal words name the whole kind, and -a makes one, as with bread and eggs (chapter 26): bágar, cattle → bágara, a cow; jāj, chickens → jāja, a hen; ɣánam, sheep → ɣánama.",
+          "For these three, the -a word for one is also the female: the one you keep for milk and eggs.",
+          "Hebrew does it the other way: תרנגולת, hen, is the rooster’s word with -et."
+        ],
+        "examples": ["pcav:2971", "pcav:2966", "pcav:2967", "pcav:2959"]
+      }
+    },
+    {
       "id": "grammar:sunrise",
       "subject": "arabic",
       "type": "grammar-card",
