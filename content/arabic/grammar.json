@@ -1002,6 +1002,21 @@
       }
     },
     {
+      "id": "grammar:doing-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 64,
+        "title": "ištirāk, imtiɧān: naming the doing",
+        "points": [
+          "Verbs that start with i- and have a t after their first root letter name the doing with i…ā: ištárak, to join → ištirāk, membership; intáxab, to elect → intixābāt, elections; imtiɧān, a test, is the testing.",
+          "Verbs that start with ist- name it the same way: istágbal, to welcome → istigbāl, a welcome, and a hotel’s lobby; istirāɧa, a break.",
+          "It’s the same job ta- does for a verb with a doubled middle (chapter 52): tadxīn, smoking."
+        ],
+        "examples": ["pcav:2554", "pcav:2557", "pcav:2811", "pcav:1518", "pcav:2773"]
+      }
+    },
+    {
       "id": "grammar:ordinals",
       "subject": "arabic",
       "type": "grammar-card",
