@@ -1233,6 +1233,21 @@
       }
     },
     {
+      "id": "grammar:market-loans",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 72,
+        "title": "brōtīn, bāmya: words that travel",
+        "points": [
+          "Borrowed words keep their sound: brōtīn, protein; kāri, curry; kartōna, carton; blūberi, blueberries. basʈírma is Hebrew’s פסטרמה too.",
+          "Hebrew uses some of the same words: bāmya, okra, is במיה, and mlūxxíyya is מלוחיה.",
+          "nuʂʂ is both half and the middle: gáʈʈa3 bi-nnúʂʂ, to cut in half, is “cut in the middle”."
+        ],
+        "examples": ["pcav:1217", "pcav:1126", "pcav:1263", "pcav:0809"]
+      }
+    },
+    {
       "id": "grammar:kings-and-courts",
       "subject": "arabic",
       "type": "grammar-card",
