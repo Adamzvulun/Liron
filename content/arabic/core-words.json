@@ -12939,6 +12939,538 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:97",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 97,
+        "title": "Chores, renting, and the road",
+        "theme": "Jobs around the house, renting a place, crossing the street, and the car",
+        "words": [
+          {
+            "deck": "pcav:0737",
+            "gloss": "to do housework"
+          },
+          {
+            "deck": "pcav:0833",
+            "gloss": "garbage can"
+          },
+          {
+            "deck": "pcav:0825",
+            "gloss": "to do the dishes"
+          },
+          {
+            "deck": "pcav:0780",
+            "gloss": "to set the table"
+          },
+          {
+            "deck": "pcav:0778",
+            "gloss": "dining room"
+          },
+          {
+            "deck": "pcav:0849",
+            "gloss": "to make one's bed"
+          },
+          {
+            "deck": "pcav:0640",
+            "gloss": "to hang out the laundry"
+          },
+          {
+            "deck": "pcav:0641",
+            "gloss": "to dry the laundry"
+          },
+          {
+            "deck": "pcav:0756",
+            "gloss": "light switch"
+          },
+          {
+            "deck": "pcav:0831",
+            "gloss": "coffee maker"
+          },
+          {
+            "deck": "pcav:0914",
+            "gloss": "toilet paper"
+          },
+          {
+            "deck": "pcav:0840",
+            "gloss": "single bed, twin bed"
+          },
+          {
+            "deck": "pcav:0878",
+            "gloss": "to stay up late"
+          },
+          {
+            "deck": "pcav:0880",
+            "gloss": "to wake (someone) up"
+          },
+          {
+            "deck": "pcav:1083",
+            "gloss": "junk food, fast food"
+          },
+          {
+            "deck": "pcav:1007",
+            "gloss": "unhealthy"
+          },
+          {
+            "deck": "pcav:1006",
+            "gloss": "good for you"
+          },
+          {
+            "deck": "pcav:0692",
+            "gloss": "to rent an apartment"
+          },
+          {
+            "deck": "pcav:2025",
+            "gloss": "apartment building"
+          },
+          {
+            "deck": "pcav:2040",
+            "gloss": "top floor"
+          },
+          {
+            "deck": "pcav:0717",
+            "gloss": "front door"
+          },
+          {
+            "deck": "pcav:2033",
+            "gloss": "escalator"
+          },
+          {
+            "deck": "pcav:0633",
+            "gloss": "just right"
+          },
+          {
+            "deck": "pcav:1884",
+            "gloss": "crosswalk"
+          },
+          {
+            "deck": "pcav:1885",
+            "gloss": "to cross the street"
+          },
+          {
+            "deck": "pcav:1886",
+            "gloss": "traffic light"
+          },
+          {
+            "deck": "pcav:1970",
+            "gloss": "gas station"
+          },
+          {
+            "deck": "pcav:1972",
+            "gloss": "to get gas"
+          },
+          {
+            "deck": "pcav:1917",
+            "gloss": "the front seat"
+          },
+          {
+            "deck": "pcav:1918",
+            "gloss": "the back seat"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:98",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 98,
+        "title": "Exams, work hours, and aches",
+        "theme": "Passing and failing, the gym and the luck, full-time and part-time, and a sore back",
+        "words": [
+          {
+            "deck": "pcav:1525",
+            "gloss": "to pass an exam"
+          },
+          {
+            "deck": "pcav:1526",
+            "gloss": "to fail an exam"
+          },
+          {
+            "deck": "pcav:1527",
+            "gloss": "exam results"
+          },
+          {
+            "deck": "pcav:1500",
+            "gloss": "whiteboard"
+          },
+          {
+            "deck": "pcav:3353",
+            "gloss": "flashcard"
+          },
+          {
+            "deck": "pcav:3399",
+            "gloss": "question mark"
+          },
+          {
+            "deck": "pcav:3310",
+            "gloss": "alphabet"
+          },
+          {
+            "deck": "pcav:3126",
+            "gloss": "interested in"
+          },
+          {
+            "deck": "pcav:3205",
+            "gloss": "bad luck"
+          },
+          {
+            "deck": "pcav:4087",
+            "gloss": "three days ago"
+          },
+          {
+            "deck": "pcav:4108",
+            "gloss": "every other day"
+          },
+          {
+            "deck": "pcav:4388",
+            "gloss": "too __, too much"
+          },
+          {
+            "deck": "pcav:3945",
+            "gloss": "none of"
+          },
+          {
+            "deck": "pcav:2530",
+            "gloss": "to beat (a team)"
+          },
+          {
+            "deck": "pcav:2568",
+            "gloss": "to gain weight"
+          },
+          {
+            "deck": "pcav:2578",
+            "gloss": "changing room"
+          },
+          {
+            "deck": "pcav:2581",
+            "gloss": "gym clothes"
+          },
+          {
+            "deck": "pcav:1298",
+            "gloss": "full-time",
+            "sentence": "pcav:1299"
+          },
+          {
+            "deck": "pcav:1300",
+            "gloss": "part-time"
+          },
+          {
+            "deck": "pcav:1326",
+            "gloss": "to finish work"
+          },
+          {
+            "deck": "pcav:1338",
+            "gloss": "office worker"
+          },
+          {
+            "deck": "pcav:1395",
+            "gloss": "cleaner"
+          },
+          {
+            "deck": "pcav:1758",
+            "gloss": "to click on"
+          },
+          {
+            "deck": "pcav:1441",
+            "gloss": "travel agent"
+          },
+          {
+            "deck": "pcav:1786",
+            "gloss": "username",
+            "sentence": "pcav:1790"
+          },
+          {
+            "deck": "pcav:1649",
+            "gloss": "to have a backache"
+          },
+          {
+            "deck": "pcav:1653",
+            "gloss": "He has a stomachache."
+          },
+          {
+            "deck": "pcav:1697",
+            "gloss": "He broke his arm."
+          },
+          {
+            "deck": "pcav:1698",
+            "gloss": "a broken bone"
+          },
+          {
+            "deck": "pcav:1705",
+            "gloss": "pill"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:99",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 99,
+        "title": "Trips, town, and a night out",
+        "theme": "Packing and flying, the license and the highway, mail and coupons, and what's on TV and at the movies",
+        "words": [
+          {
+            "deck": "pcav:2669",
+            "gloss": "to pack one's suitcase"
+          },
+          {
+            "deck": "pcav:2671",
+            "gloss": "to unpack one's suitcase"
+          },
+          {
+            "deck": "pcav:2691",
+            "gloss": "exchange office"
+          },
+          {
+            "deck": "pcav:2707",
+            "gloss": "first class",
+            "sentence": "pcav:2708"
+          },
+          {
+            "deck": "pcav:2711",
+            "gloss": "economy class"
+          },
+          {
+            "deck": "pcav:2716",
+            "gloss": "aisle seat"
+          },
+          {
+            "deck": "pcav:2738",
+            "gloss": "waiting room"
+          },
+          {
+            "deck": "pcav:2629",
+            "gloss": "tour guide"
+          },
+          {
+            "deck": "pcav:2635",
+            "gloss": "on the coast"
+          },
+          {
+            "deck": "pcav:1872",
+            "gloss": "driver's license"
+          },
+          {
+            "deck": "pcav:1902",
+            "gloss": "highway"
+          },
+          {
+            "deck": "pcav:2008",
+            "gloss": "fire station"
+          },
+          {
+            "deck": "pcav:2026",
+            "gloss": "office building"
+          },
+          {
+            "deck": "pcav:2093",
+            "gloss": "mailbox"
+          },
+          {
+            "deck": "pcav:2096",
+            "gloss": "mail carrier"
+          },
+          {
+            "deck": "pcav:2168",
+            "gloss": "40% off"
+          },
+          {
+            "deck": "pcav:2169",
+            "gloss": "coupon"
+          },
+          {
+            "deck": "pcav:4167",
+            "gloss": "New Year's Eve"
+          },
+          {
+            "deck": "pcav:4168",
+            "gloss": "New Year's Day"
+          },
+          {
+            "deck": "pcav:3647",
+            "gloss": "temperature"
+          },
+          {
+            "deck": "pcav:3856",
+            "gloss": "sunflower"
+          },
+          {
+            "deck": "pcav:4194",
+            "gloss": "in five years"
+          },
+          {
+            "deck": "pcav:2441",
+            "gloss": "classical music"
+          },
+          {
+            "deck": "pcav:2445",
+            "gloss": "jazz"
+          },
+          {
+            "deck": "pcav:2363",
+            "gloss": "action movie"
+          },
+          {
+            "deck": "pcav:2366",
+            "gloss": "horror movie"
+          },
+          {
+            "deck": "pcav:3797",
+            "gloss": "A bee stung me."
+          },
+          {
+            "deck": "pcav:2051",
+            "gloss": "to borrow money from the bank"
+          },
+          {
+            "deck": "pcav:2258",
+            "gloss": "children's program"
+          },
+          {
+            "deck": "pcav:2226",
+            "gloss": "Today's my day off."
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:100",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 100,
+        "title": "Faces, clothes, and the kitchen",
+        "theme": "Round faces and curly hair, thumbs and toes, sleeves and heels, and eggs, meat and nuts",
+        "words": [
+          {
+            "deck": "pcav:0245",
+            "gloss": "He has a round face."
+          },
+          {
+            "deck": "pcav:0355",
+            "gloss": "blond hair"
+          },
+          {
+            "deck": "pcav:0366",
+            "gloss": "straight hair"
+          },
+          {
+            "deck": "pcav:0367",
+            "gloss": "curly hair"
+          },
+          {
+            "deck": "pcav:0370",
+            "gloss": "to comb one's hair"
+          },
+          {
+            "deck": "pcav:0259",
+            "gloss": "My eyes itch."
+          },
+          {
+            "deck": "pcav:0274",
+            "gloss": "to close one's eyes"
+          },
+          {
+            "deck": "pcav:0347",
+            "gloss": "to take a deep breath"
+          },
+          {
+            "deck": "pcav:2614",
+            "gloss": "to breathe out"
+          },
+          {
+            "deck": "pcav:0404",
+            "gloss": "dry skin"
+          },
+          {
+            "deck": "pcav:0426",
+            "gloss": "thumb"
+          },
+          {
+            "deck": "pcav:0449",
+            "gloss": "toe"
+          },
+          {
+            "deck": "pcav:0439",
+            "gloss": "to point to",
+            "sentence": "pcav:0440"
+          },
+          {
+            "deck": "pcav:0458",
+            "gloss": "internal organs"
+          },
+          {
+            "deck": "pcav:0498",
+            "gloss": "average height"
+          },
+          {
+            "deck": "pcav:0538",
+            "gloss": "long-sleeved shirt"
+          },
+          {
+            "deck": "pcav:0539",
+            "gloss": "short-sleeved shirt"
+          },
+          {
+            "deck": "pcav:0550",
+            "gloss": "suit jacket"
+          },
+          {
+            "deck": "pcav:0604",
+            "gloss": "high heels"
+          },
+          {
+            "deck": "pcav:0643",
+            "gloss": "(clothes) dryer"
+          },
+          {
+            "deck": "pcav:0671",
+            "gloss": "engagement ring"
+          },
+          {
+            "deck": "pcav:1221",
+            "gloss": "fried egg"
+          },
+          {
+            "deck": "pcav:1222",
+            "gloss": "boiled egg"
+          },
+          {
+            "deck": "pcav:1223",
+            "gloss": "scrambled egg"
+          },
+          {
+            "deck": "pcav:1231",
+            "gloss": "minced meat"
+          },
+          {
+            "deck": "pcav:1237",
+            "gloss": "lamb"
+          },
+          {
+            "deck": "pcav:1239",
+            "gloss": "pork"
+          },
+          {
+            "deck": "pcav:1247",
+            "gloss": "seafood"
+          },
+          {
+            "deck": "pcav:1172",
+            "gloss": "coconut"
+          },
+          {
+            "deck": "pcav:1173",
+            "gloss": "peanut"
+          }
+        ]
+      }
     }
   ]
 }
