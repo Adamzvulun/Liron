@@ -1248,6 +1248,36 @@
       }
     },
     {
+      "id": "grammar:war-and-peace",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 74,
+        "title": "ɧass iɧsās ɧílu: feel a good feeling",
+        "points": [
+          "salām is Hebrew שלום. ɧarb, war, shares its root with Hebrew חרב, a sword.",
+          "To feel good is ɧass iɧsās ɧílu, “felt a good feeling”: the verb with its own noun after it. To feel bad is ɧass b-ʔiɧsās bíši3.",
+          "Long verbs have long nouns: infijār, explosion; iɧtilāl, occupation; ittifāg, agreement; intiqād, criticism."
+        ],
+        "examples": ["pcav:2997", "pcav:2996", "pcav:3058", "pcav:3015"]
+      }
+    },
+    {
+      "id": "grammar:faith-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 75,
+        "title": "nábi, malāk, rōɧ: faith words Hebrew shares",
+        "points": [
+          "Many faith words are Hebrew’s too: nábi, נביא; malāk, מלאך; rōɧ, רוח; šīʈān, שטן.",
+          "ijjánna, Heaven, is “the garden”, the same root as Hebrew גן, as in גן עדן.",
+          "-íyya names a faith and -i an adjective or a follower: ilyahūdíyya, Judaism; būdi, Buddhist; dīni, religious (of religion). A religious person is mutadáyyin."
+        ],
+        "examples": ["pcav:3191", "pcav:3193", "pcav:3186", "pcav:3180"]
+      }
+    },
+    {
       "id": "grammar:can-be",
       "subject": "arabic",
       "type": "grammar-card",

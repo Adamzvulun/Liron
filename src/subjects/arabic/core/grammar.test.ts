@@ -93,6 +93,8 @@ describe('grammar cards (#162)', () => {
       ['grammar:his-blood-is-light', 70],
       ['grammar:undoing', 71],
       ['grammar:kings-and-courts', 73],
+      ['grammar:war-and-peace', 74],
+      ['grammar:faith-words', 75],
       ['grammar:can-be', 76],
       ['grammar:iyya-words', 77],
       ['grammar:at-the-dentist', 78],
