@@ -281,6 +281,54 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 96 | Last week, never, and without |
 
+- **Words 2,881–3,000 (2026-11-14): A2 phrases for the house, school, work and travel.** The next 120 A2 items from the 369 still untaught, each picked because the phrase is the thing to learn: chores (*to do the dishes*, *to set the table*, *to make one's bed*, *to hang out the laundry*), *to stay up late*, *to wake someone*, *to rent an apartment*, *top floor*, *escalator*, *just right*; crossing the street and the car (*crosswalk*, *traffic light*, *gas station*, *the front seat*); passing and failing a test, *flashcard*, *alphabet*, *bad luck*, *three days ago*, *every other day*, *too __*, *full-time* and *part-time*, a backache and a broken arm; packing, *aisle seat*, *waiting room*, *tour guide*, *driver's license*, *highway*, the mailbox and the mail carrier, *coupon*, *40% off*, New Year's Eve and New Year's Day, jazz, action and horror movies; and round faces, blond, straight and curly hair, *thumb*, *toe*, sleeves, high heels, *engagement ring*, eggs three ways, minced meat, lamb, pork, seafood, coconut and peanuts.
+  - **Left out on purpose:** items with the same meaning as a taught word, which the quiz couldn't tell apart (*a snack*, *soda*, *sleepy*, *to take a nap*, *to throw away*, *ground floor*, *to cry*, *to slow down*, *to sign*, *butcher shop*, the school types, *Who won?*, *Congratulations!*, *I apologize!*), and phrases that only add taught words together (*How much is the rent?*, *car door*, *window seat*, *professor* as "university teacher", *first grade*, *summer vacation*, *a 100-shekel bill*).
+  - **Deck sentences:** 4 of the 120 (*I work full-time*, *Enter your username and password*, *I've never flown first class*, *He pointed at the clock*); the other 116 are our own, and the checker passes them all.
+
+| Chapter | Theme |
+|---|---|
+| 97 | Chores, renting, and the road |
+| 98 | Exams, work hours, and aches |
+| 99 | Trips, town, and a night out |
+| 100 | Faces, clothes, and the kitchen |
+
+- **Words 3,001–3,030 (2026-11-14): the first B1 phrase chapter.** With the good A2 phrases used up, the next chapters draw on the 505 untaught B1 items, with the same check against taught glosses. Chapter 101 brings exams (*entrance*, *oral*, *written*, *a passing* and *a failing grade*), *school year*, *tuition*, *What are you majoring in?*, *campus*, *dorms*, *lecture hall*, *geometry*, *P.E.*, *psychology*, *social studies*, *grammar rule*, *vowel*, *native language* and *broken Arabic*; and work: *civil servant*, *applicant*, *employer*, *night shift*, *payday*, *retirement age*, *architect*, *head office*, *middle class* and *working class*.
+  - **Left out on purpose:** *to major in* and *salesperson* (taught), and phrases made of taught words (*mid-term*, *final exam*, *freshman* as "first year", *day shift*, *bank teller*, *customs officer*, *dentistry*, *political science*).
+  - **Deck sentences:** 2 of the 30 (*The students have to write an essay about a historical event*, *I work the night shift*); the other 28 are our own.
+
+| Chapter | Theme |
+|---|---|
+| 101 | Campus, exams, and the night shift |
+
+- **Words 3,031–3,060 (2026-11-14): cars, storms and the map.** B1 again: *stuck in traffic*, *rush hour*, *license plate*, *car insurance*, *windshield*, *trunk*, *glove compartment*, *dashboard*, *spare tire*, *gas pump*, *headlight*, *pickup truck*, *railroad*, *to take off*, *skyscraper*, *work permit*; the weather beyond rain (*heat wave*, *It's hailing*, *It's stormy*, *sandstorm*, *tornado*, *We're expecting a storm*, *changeable*, the high and the low); and the land (*sand dunes*, *peninsula*, *mountain range*, *cliff*, *equator*).
+  - **Left out on purpose:** *speed limit*, *in gear*, *gas pedal* (taught under other entries), and car parts and road words that only put taught words together (*hand brake*, *mirror* front and back, *We've run out of gas*, *taxi meter*, *cyclist*, *bike lane*, *airfare*, *express train*, *exchange rate*). All 30 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 102 | Cars, storms, and the map |
+
+- **Words 3,061–3,090 (2026-11-14): shows, music and sweets.** Kinds of TV and film (*documentary*, *game show*, *reality TV show*, *sitcom*, *talk show*, *sporting event*, *thriller*, *science fiction*, *fantasy*, *on stage*); stories and the desk (*comic book*, *fairy tale*, *bookmark*, *paperclip*, *typewriter*, *newspaper column*, *airmail*); *sewing machine*, *sewing needle*; *folk music*, *musical instrument*, *orchestra*, *belly dancing*; *backgammon*, *Checkmate!*, *personal trainer*; and *cotton candy*, *walnut*, *grapefruit*, *nutmeg*.
+  - **Left out on purpose:** *fishing*, *dice*, *jumping rope*, *to sunbathe*, *to tan* (taught under other entries), and taught words put together (*comedy program*, *tennis court*, *tennis racket*, *ballet dancer*, *a ball of wool*, *rice pudding*, *raspberries* as "red berries"). 1 deck sentence (*I'd like to hire a personal trainer*); the other 29 are our own.
+
+| Chapter | Theme |
+|---|---|
+| 103 | Shows, music, and sweets |
+
+- **Words 3,091–3,120 (2026-11-14): feelings, the doctor and the holidays.** *excited about*, *embarrassed by*, *fed up with*, *fun to be with* (dámmu xafīf, from the chapter 70 card), *emotion*, *How did you guess?*, *I wish...*, *I'm looking forward to seeing you*, *useless*, *somehow*, *by the time*; the doctor (*migraine*, *constipated*, *asthma*, *Band-Aid*, *X-ray*, *antibiotics*, *Are you contagious?*, *wheelchair*, *plastic surgery*, *When are you due?*); and the year and its sayings (*Thanksgiving*, *Mother's Day*, *Labor Day*, *the Mawlid*, *honeymoon*, *the Bible*, *My condolences*, *May he rest in peace*, *Welcome back from the hajj!*).
+  - **Left out on purpose:** *evil*, *decade*, *diarrhea*, *diabetes* (taught under other entries), and taught words put together (*at __ sharp*, *Friday sermon*, *dawn prayer*, *church service*, *Children's Day*). 3 deck sentences (*I wish I were in Palestine*, *The cat somehow got in the house*, *I lived in Gaza until I graduated*); the other 27 are our own.
+
+| Chapter | Theme |
+|---|---|
+| 104 | Feelings, the doctor, and the holidays |
+
+- **Words 3,121–3,180 (2026-11-14): the landlord, the bed and the body; family, public life and punctuation.** Chapter 105: *landlord*, *The power went out*, *vacuum cleaner*, *dish soap*, *water heater*, *double bed*, *headboard*, *mattress*, *pillowcase*, *in a deep sleep*, *bathrobe*, *electric razor*, *wrench*, *belt buckle*, *shoelaces*, *ironing board*, and the smaller parts of the face and body (*dark circles*, *cross-eyed*, *nostril*, *sense of smell*, *earlobe*, *pierced ears*, *wavy hair*, *ponytail*, *acne*, *oily skin*, *shin*, *calf*, *spine*, *skeleton*). Chapter 106: *I was adopted*, *to breastfeed*, *great-grandfather*, *in one's fifties*, *middle-aged*, *life span*, *a date*, *heartbroken*, *wedding anniversary*, *Just call me __*, *I don't have a nickname*, *table manners*, *penthouse*, *hair ribbon*, *crooked nose*, *a good complexion*, *back of the hand*; *businessman*, *VAT*, *vice president*, *accused of*, *air force*, *navy*, *shepherd*; and the marks and terms of grammar (*the article*, *preposition*, *consonant*, *exclamation mark*, *quotation marks*, *colon*).
+  - **Left out on purpose:** *landlady* (the landlord with -a), *stepfather* and *stepmother* (mother's husband, father's wife, like the in-law aunts left out before), *pinky* (the deck's Arabic is "the little finger"), and taught words put together (*hardwood floor*, *cook book*, *clothes line*, *reading glasses*, *bad breath*, *middle finger*, *half-brother*, *savings account*, *upper class*, *illegal*, *suffix*, *prefix*). All 60 sentences are our own.
+
+| Chapter | Theme |
+|---|---|
+| 105 | The landlord, the bed, and the body |
+| 106 | Family, public life, and punctuation |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).

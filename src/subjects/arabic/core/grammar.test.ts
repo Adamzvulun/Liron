@@ -72,11 +72,13 @@ describe('grammar cards (#162)', () => {
       ['grammar:three-words', 52],
       ['grammar:doer-and-done-to', 53],
       ['grammar:being-ill', 54],
+      ['grammar:cut-up', 55],
       ['grammar:while', 57],
       ['grammar:people-plurals', 58],
       ['grammar:verb-and-little-word', 59],
       ['grammar:verb-pairs', 60],
       ['grammar:going-up', 62],
+      ['grammar:verbs-from-things', 63],
       ['grammar:doing-words', 64],
       ['grammar:mit-words', 65],
       ['grammar:sunrise', 68],
@@ -89,6 +91,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:make-it-go', 80],
       ['grammar:muta-words', 82],
       ['grammar:take-and-give', 84],
+      ['grammar:grammar-words', 85],
       ['grammar:second-words', 86],
       ['grammar:same-letters', 88],
       ['grammar:chessboard', 89],
@@ -99,6 +102,8 @@ describe('grammar cards (#162)', () => {
       ['grammar:the-world-rains', 93],
       ['grammar:cousins', 94],
       ['grammar:last-and-never', 96],
+      ['grammar:front-and-back', 97],
+      ['grammar:ago-and-from-now', 99],
     ]);
     for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
   });

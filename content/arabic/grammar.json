@@ -923,6 +923,22 @@
       }
     },
     {
+      "id": "grammar:cut-up",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 55,
+        "title": "gáʈʈa3, xárraʈ: cutting into pieces",
+        "points": [
+          "One more job for a doubled middle (chapter 20): doing it to many pieces. gáʈa3 is to cut once, or cut across (gáʈa3 iššāri3, to cross the street); gáʈʈa3 is to cut up: gáʈʈa3 ilbaʂal, cut up the onion.",
+          "kásar is to break; kássar is to smash to bits.",
+          "Add what the pieces are like after it: gáʈʈa3 šarāyiɧ, to slice (cut into slices). xárraʈ, to chop fine, is a doubled verb too.",
+          "Hebrew’s piʿel does the same: שבר is broke, and שיבר is smashed."
+        ],
+        "examples": ["pcav:0805", "pcav:0807", "pcav:0808"]
+      }
+    },
+    {
       "id": "grammar:while",
       "subject": "arabic",
       "type": "grammar-card",
@@ -999,6 +1015,22 @@
           "Hebrew’s עלה does the same: you go up onto a plane or a bus."
         ],
         "examples": ["pcav:2034", "pcav:2720", "pcav:1827", "pcav:2667", "pcav:2232"]
+      }
+    },
+    {
+      "id": "grammar:verbs-from-things",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 63,
+        "title": "argīla → árgal: a verb made from a thing",
+        "points": [
+          "Arabic makes new verbs out of nouns, fitting the noun’s letters into a verb shape: argīla, a water pipe → árgal, yʔárgil, to smoke one.",
+          "šīša, the other word for a water pipe, gives šáyyaš, yšáyyiš, in the doubled-middle shape.",
+          "A cigarette you drink: šírib sigāra, to smoke a cigarette; dáxxan (chapter 52) is the general word.",
+          "Hebrew does the same with new things: from SMS it made לסמס, to text."
+        ],
+        "examples": ["pcav:2418", "pcav:2420", "pcav:2393"]
       }
     },
     {
@@ -1187,6 +1219,22 @@
       }
     },
     {
+      "id": "grammar:grammar-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 85,
+        "title": "mu3árraf, nákira: the words grammar uses",
+        "points": [
+          "Many of grammar’s own words are done-to words with mu- (chapter 53). mu3árraf, definite, is “made known”: a word with il- (chapter 4). nákira, indefinite, is a word without it.",
+          "muđákkar, masculine, and muʔánnaŧ, feminine (chapter 82), are the same shape. jins, gender, is the word for both.",
+          "One, two, many: múfrad, singular; muŧánna, dual, the -ēn of two (chapter 3); jámi3, plural.",
+          "Hebrew’s word for definite, מיודע, is the same idea in the same shape."
+        ],
+        "examples": ["pcav:3384", "pcav:3386", "pcav:3366", "pcav:3368"]
+      }
+    },
+    {
       "id": "grammar:second-words",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1326,6 +1374,22 @@
       }
     },
     {
+      "id": "grammar:front-and-back",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 97,
+        "title": "guddamāni, warrāni: the one in front, the one behind",
+        "points": [
+          "Put -āni on a word for a place and you get the one that’s there: guddām, in front, gives guddamāni, the front one; warā, behind, gives warrāni, the back one.",
+          "It goes after the word, like any describing word, with il- on both (chapter 32): ilkúrsi -lguddamāni, the front seat; ilkúrsi -lwarrāni, the back seat.",
+          "You’ll hear more of them: fōgāni, the upper one; taɧtāni, the lower one; juwwāni, the inner one; barrāni, the outer one.",
+          "The -i ending (chapter 47) can do the same job in a more formal word: bāb amāmi, the front door. Hebrew uses -i too: קדמי, front."
+        ],
+        "examples": ["pcav:1917", "pcav:1918", "pcav:0717"]
+      }
+    },
+    {
       "id": "grammar:last-and-never",
       "subject": "arabic",
       "type": "grammar-card",
@@ -1339,6 +1403,21 @@
           "wála márra, never, is word for word “not even once”, the same wála as wála íši, nothing (chapter 92): wála márra akált mlūxíyya, I’ve never eaten mulukhiyah."
         ],
         "examples": ["pcav:4124", "pcav:4157", "pcav:4191", "pcav:4370"]
+      }
+    },
+    {
+      "id": "grammar:ago-and-from-now",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 99,
+        "title": "min tálatt iyyām, kamān xams snīn: ago, and from now",
+        "points": [
+          "“Ago” is min, from, before the time: min tálatt iyyām, three days ago (word for word, from three days). gábil, before, works too: gábil 3išrīn sána, twenty years ago.",
+          "“In” a time from now is kamān, the word for “more” and “also”: kamān xams snīn, in five years (five more years); kamān šwayy, in a little while.",
+          "yōm bá3id yōm, word for word “a day after a day”, means every other day. yōm āh yōm la, “a day yes, a day no”, says the same."
+        ],
+        "examples": ["pcav:4087", "pcav:4194", "pcav:4108"]
       }
     }
   ]
