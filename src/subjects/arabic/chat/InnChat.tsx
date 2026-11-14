@@ -52,6 +52,9 @@ type Stage =
       started: number;
     };
 
+/** When the chat starts saying how many lines are left today (of 60, ADR 0038). */
+const FEW_LEFT = 10;
+
 function endLine(r: Regular, e: unknown): string {
   if (e instanceof PartnerError && e.problem === 'daily-limit')
     return 'That’s enough talk for one day. The regulars will be here tomorrow.';
@@ -74,6 +77,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const [due, setDue] = useState<readonly { itemId: string }[]>([]);
   /** Our glosses of the deck words, to show under a regular's line (built here, never sent). */
   const [glossary, setGlossary] = useState<Glossary>(new Map());
+  /** Lines left today across all chats (the function's count), once a reply has said. */
+  const [left, setLeft] = useState<number | null>(null);
   const saved = useRef(false);
   const lines = useRef<HTMLOListElement>(null);
   // The newest line is always in view: the list scrolls to its end as the chat grows.
@@ -159,6 +164,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
     api.partner(chatAsk(s.regular, p, turns)).then(
       (reply) => {
         if (!live.current) return;
+        setLeft(reply.left);
         const them: InnTurn[] = [...turns, { who: 'them', text: reply.text }];
         setStage((now) => (same(now) ? { ...s, turns: them, waiting: false } : now));
       },
@@ -324,6 +330,11 @@ export function InnChat({ api }: { api: SubjectApi }) {
         <p className="lesson__kicker">
           Sit and talk · {s.regular.who} · {mine} of {MAX_LINES}
         </p>
+        {left !== null && left <= FEW_LEFT && !s.ended && (
+          <p className="arabic__note">
+            {left === 1 ? '1 line' : `${left} lines`} of talk left today, at every table.
+          </p>
+        )}
         <ol className="arabic__chat-lines" aria-live="polite" ref={lines}>
           {s.turns.map((t, i) => (
             <li key={i} className={`arabic__bubble arabic__bubble--${t.who}`}>

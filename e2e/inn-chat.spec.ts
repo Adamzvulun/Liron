@@ -206,6 +206,21 @@ test.describe('Sit and talk at the inn (E17)', () => {
     );
   });
 
+  test('says how many lines are left today, once only a few are', async ({ page }) => {
+    let left = 11;
+    await page.route('**/api/partner', (route) =>
+      route.fulfill({ json: { text: 'أهلا! كيفك؟', left: left-- } }),
+    );
+    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await page.goto('/caravanserai?open=chat');
+    await page.getByRole('button', { name: /Salim the carter/ }).click();
+    await expect(page.getByText('أهلا! كيفك؟')).toBeVisible();
+    await expect(page.getByText(/left today/)).toHaveCount(0);
+    await page.getByLabel('Your line, in Arabic').fill('منيح');
+    await page.getByRole('button', { name: 'Say it' }).click();
+    await expect(page.getByText('10 lines of talk left today, at every table.')).toBeVisible();
+  });
+
   test('when the partner is busy, the regular has to go, kindly', async ({ page }) => {
     await page.route('**/api/partner', (route) =>
       route.fulfill({ status: 503, json: { error: 'busy' } }),
