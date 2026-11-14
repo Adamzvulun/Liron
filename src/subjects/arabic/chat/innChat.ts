@@ -57,6 +57,10 @@ export function chatAsk(r: Regular, p: ArabicProgress, turns: readonly InnTurn[]
     ),
     told: (p.chat.told[String(r.number)] ?? []).slice(-3),
     met: metWith(p, r),
+    // Their milestones happened once their trial is passed: shared memories (our own text).
+    memories: p.words.trials.includes(r.number)
+      ? r.milestones.slice(0, 3).map((m) => m.slice(0, 240))
+      : [],
     turns,
   };
 }
