@@ -2809,6 +2809,31 @@
         },
         "outro": "He sends the inn a wheel of halloumi and a note: “Fry it, don’t boil it, and come to the gym.”"
       }
+    },
+    {
+      "id": "road:109",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 109,
+        "wordChapter": 108,
+        "title": "The Keeper’s Notebook",
+        "who": "Marwan, who keeps the zoo by day and teaches piano by night",
+        "intro": "Marwan feeds the hippopotamus at dawn and writes everything down in a notebook he has kept for twenty years, under a pseudonym nobody at the zoo knows.",
+        "milestones": [
+          "He shows you the rhinoceros and the polar bear, and a beehive in the oak tree by the gate. A bee lands on your hand and waves its feelers.",
+          "Under the pine and the willow he talks about the tropics and the North Pole, the Pacific and the Atlantic, and how many cubic meters of water the hippo needs.",
+          "In the evening he tunes a piano, changes a guitar string for a student, and tells you about his thesis and the orphanage where he first learned the keys."
+        ],
+        "trial": {
+          "name": "Feed and Play",
+          "text": "Marwan reads you a page from his notebook, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "He sends the inn a jar of honey from the oak tree and a note: “For the guests who sing badly.”"
+      }
     }
   ]
 }
