@@ -10,7 +10,7 @@ const STORAGE_KEY = 'sb-127-auth-token'; // supabase-js: `sb-${first part of the
 
 export const PASSWORD = 'correct horse';
 
-function fakeSession() {
+export function fakeSession() {
   const now = Math.floor(Date.now() / 1000);
   return {
     access_token: 'e2e-access-token',

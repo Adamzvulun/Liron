@@ -66,13 +66,17 @@ describe('Typographic apostrophes (2026-11-15)', () => {
     expect(found).toEqual([]);
   });
 
-  it('are curly around a quoted word in what a player reads: “no”, not "no"', () => {
+  it('are curly around a quoted word in what a player reads: “no”, not "no", and … is one character', () => {
     const found: string[] = [];
     for (const f of files('content', /\.json$/)) {
       readFileSync(f, 'utf8')
         .split('\n')
         .forEach((line, i) => {
-          if (/^\s*"(english|note|gloss|tip|meaning|title|text|intro|outro)": ".*\\"/.test(line))
+          if (
+            /^\s*"(english|note|gloss|tip|meaning|title|text|intro|outro)": ".*(\\"|\.\.\.)/.test(
+              line,
+            )
+          )
             found.push(`${f}:${i + 1} ${line.trim()}`);
         });
     }
