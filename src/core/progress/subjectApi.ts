@@ -111,6 +111,21 @@ export function subjectApi<State extends object>(
   };
   // Saves still on their way; a load waits for them (see loadState).
   let saving: Promise<unknown> = Promise.resolve();
+  // The state of a save that didn't reach the database (offline, say), until one does. A door
+  // opened meanwhile builds on it, so its next save keeps it, as the warning promises, instead of
+  // starting again from older saved state (review, 2026-11-15). Kept only while the page is open.
+  let unsaved: { state: object } | null = null;
+  /** Sends a state to the database, remembering it if that fails. */
+  const sending = async <T>(state: object | undefined, send: () => Promise<T>): Promise<T> => {
+    try {
+      const done = await send();
+      if (state !== undefined) unsaved = null;
+      return done;
+    } catch (e) {
+      if (state !== undefined) unsaved = { state: structuredClone(state) };
+      throw e;
+    }
+  };
   const settle = <T>(p: Promise<T>): Promise<T> => {
     saving = Promise.allSettled([saving, p]);
     return p;
@@ -207,7 +222,7 @@ export function subjectApi<State extends object>(
       skillItems.set(itemId, rated.item);
       write.results.push({ skill, itemId, score, learner: rated.learner, item: rated.item });
     }
-    const { award } = await store.saveSession(id, write);
+    const { award } = await sending(state, () => store.saveSession(id, write));
     if (award) onAward(award);
   };
 
@@ -236,13 +251,17 @@ export function subjectApi<State extends object>(
     // run's state, not the one before it, and can't save over it (review, 2026-11-15).
     loadState: () => {
       void loadScheduler().catch(() => {});
-      return saving.then(() => store.loadState(id) as Promise<State | null>);
+      return saving.then(() =>
+        unsaved
+          ? (structuredClone(unsaved.state) as State)
+          : (store.loadState(id) as Promise<State | null>),
+      );
     },
     async saveState(state) {
       if (state === null || typeof state !== 'object' || Array.isArray(state)) {
         throw new TypeError('saveState: state must be a plain object');
       }
-      await settle(store.saveState(id, state));
+      await settle(sending(state, () => store.saveState(id, state)));
     },
 
     async recordReview(itemId, grade, at = new Date()) {
