@@ -18,7 +18,7 @@ import {
   weightsFor,
   type MorseProgress,
 } from './progress.ts';
-import { GATE_RUNS, scoreCopy, type RunScore } from './score.ts';
+import { GATE_RUNS, scoreCopy, SKIP, type RunScore } from './score.ts';
 import './lesson.css';
 
 // The Koch receive lesson (#31): meet each new character, copy two-minute runs, and light the
@@ -297,13 +297,16 @@ function Drill({
   useEffect(() => {
     void hear(answer);
   }, [answer, trial, hear]);
+  // The pause after an answer ends with the screen (review, 2026-11-15).
+  const pause = useRef(0);
+  useEffect(() => () => window.clearTimeout(pause.current), []);
 
   const choose = (c: string) => {
     if (feedback) return;
     const right = c === answer;
     setFeedback(right ? 'right' : 'wrong');
     setPicked(c);
-    window.setTimeout(
+    pause.current = window.setTimeout(
       () => {
         setFeedback(null);
         setPicked(null);
@@ -401,18 +404,21 @@ export function Run({
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
-    void player.play(plan.groups.join(' '), speed).then((pb) =>
-      pb.done.then(() => {
-        cancelAnimationFrame(frame);
-        if (stopped) return;
-        setPlaying(false);
-        // A moment to type the last character.
-        window.setTimeout(() => onDone(scoreCopy(plan.chars, copiedRef.current)), 1200);
-      }),
-    );
+    let last = 0;
+    const finish = () => {
+      cancelAnimationFrame(frame);
+      if (stopped) return;
+      setPlaying(false);
+      // A moment to type the last character. Leaving meanwhile cancels the run (review,
+      // 2026-11-15): it mustn't save after the hall has loaded.
+      last = window.setTimeout(() => onDone(scoreCopy(plan.chars, copiedRef.current)), 1200);
+    };
+    // If the sound can't start (the browser refused), the run still ends with what was copied.
+    player.play(plan.groups.join(' '), speed).then((pb) => pb.done.then(finish), finish);
     return () => {
       stopped = true;
       cancelAnimationFrame(frame);
+      window.clearTimeout(last);
       player.stop();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -423,7 +429,7 @@ export function Run({
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       const k = e.key.toUpperCase();
       if (unlocked.includes(k)) add(k);
-      else if (e.key === ' ') add('?');
+      else if (e.key === ' ') add(SKIP);
       else if (e.key === 'Backspace') add('⌫');
       else return;
       e.preventDefault();
@@ -472,10 +478,10 @@ export function Run({
         <button
           type="button"
           className="lesson__key lesson__key--aux"
-          onClick={() => add('?')}
+          onClick={() => add(SKIP)}
           aria-label="Skip one"
         >
-          ?
+          {SKIP}
         </button>
         <button
           type="button"
@@ -582,7 +588,7 @@ function Result({
                     type="button"
                     className="lesson__cell is-miss"
                     onClick={() => hear(r.char)}
-                    aria-label={`${r.char}, you copied ${r.copied || 'nothing'}. Hear ${r.char}`}
+                    aria-label={`${r.char}, you copied ${r.copied && r.copied !== SKIP ? r.copied : 'nothing'}. Hear ${r.char}`}
                   >
                     {r.char}
                     <small>{r.copied || '–'}</small>

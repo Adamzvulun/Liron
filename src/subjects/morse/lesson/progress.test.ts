@@ -96,6 +96,15 @@ describe('reportRun', () => {
     ]);
   });
 
+  it('pays a passed trial’s XP in the same save, with no call of its own (review, 2026-11-15)', async () => {
+    const saveSession = vi.fn<(report: { xp?: number }) => Promise<void>>(async () => undefined);
+    const awardXP = vi.fn();
+    const api = { saveSession, awardXP } as unknown as SubjectApi;
+    await reportRun(api, NEW_PROGRESS, run('KMKMK', 'KMKKK'), false, 120, at, 100);
+    expect(saveSession.mock.calls[0]?.[0].xp).toBe(101);
+    expect(awardXP).not.toHaveBeenCalled();
+  });
+
   it('names each trial passed so far (ADR 0033)', async () => {
     const saveSession = vi.fn<(report: { events?: unknown }) => Promise<void>>(
       async () => undefined,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { schedule } from '../timing.ts';
 import { buildRun, GROUP_SIZE, RUN_SECONDS, seededRandom } from './build.ts';
-import { nextEffectiveWpm, passesGate, scoreCopy } from './score.ts';
+import { nextEffectiveWpm, passesGate, scoreCopy, SKIP } from './score.ts';
 
 const split = (s: string) => s.split('');
 
@@ -39,13 +39,18 @@ describe('scoreCopy', () => {
     expect(s.accuracy).toBeCloseTo(0.5);
   });
 
-  it('marks a skip ("?") and a wrong letter as misses', () => {
-    const s = scoreCopy(split('KMK'), split('K?M'));
+  it('marks a skip and a wrong letter as misses', () => {
+    const s = scoreCopy(split('KMK'), ['K', SKIP, 'M']);
     expect(s.results).toEqual([
       { char: 'K', copied: 'K', right: true },
-      { char: 'M', copied: '?', right: false },
+      { char: 'M', copied: SKIP, right: false },
       { char: 'K', copied: 'M', right: false },
     ]);
+  });
+
+  it('a skip on a played "?" is a miss, and a copied "?" is right (review, 2026-11-15)', () => {
+    expect(scoreCopy(['K', '?'], ['K', SKIP]).results[1]).toMatchObject({ right: false });
+    expect(scoreCopy(['K', '?'], ['K', '?']).results[1]).toMatchObject({ right: true });
   });
 
   it('handles nothing copied', () => {

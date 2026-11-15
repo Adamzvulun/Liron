@@ -1,6 +1,10 @@
 // Scoring a copy run (docs/game/morse-lessons.md): per character, like LCWO. What you copied is
 // aligned to what played (edit distance), so one missed or extra character doesn't push the rest
-// out of line. "?" means "skipped" and never matches.
+// out of line. A skip is SKIP, which never matches: not "?", which is a Koch character from
+// chapter V and was scored right when skipped (review, 2026-11-15).
+
+/** What a skipped character is copied as: it matches nothing that can play. */
+export const SKIP = '–';
 
 export interface CharResult {
   char: string;
