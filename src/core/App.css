@@ -139,6 +139,7 @@
 
 .city--pan .hud__chip {
   min-height: 34px;
+  white-space: nowrap;
   gap: 5px;
   padding: 2px 9px;
   font-size: 14px;
@@ -165,6 +166,15 @@
   width: 44px;
   height: 44px;
   border-radius: 10px;
+}
+
+/* The narrowest phones (320px): the chips drop their units ("2", not "2 days"; their labels
+   still say it) and the plate its rank title ("Adam · Lv 3"), so the bar fits the screen. */
+@media (max-width: 359px) {
+  .city--pan .hud__unit,
+  .city--pan .hud__title {
+    display: none;
+  }
 }
 
 /* A place's screen (#25), until halls and houses get their own content. */
