@@ -87,7 +87,15 @@ export function Rush({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
-      if (e.target instanceof HTMLButtonElement && e.key === 'Enter') return;
+      // Enter on a focused button presses it, except a letter key: after tapping letters, Enter
+      // answers rather than typing the last one again (review, 2026-11-15).
+      if (
+        e.target instanceof HTMLButtonElement &&
+        e.key === 'Enter' &&
+        !e.target.closest('.lesson__pad')
+      ) {
+        return;
+      }
       const k = e.key === 'Backspace' ? '⌫' : e.key === 'Enter' ? 'Enter' : e.key.toUpperCase();
       if (k !== '⌫' && k !== 'Enter' && !keys.includes(k)) return;
       e.preventDefault();
