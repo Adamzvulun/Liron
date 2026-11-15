@@ -332,21 +332,10 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
         due: new Date(r.due),
       }));
     },
-    async saveReview(subjectId, itemId, review, reviewedAt) {
-      await call(
-        'record_review',
-        {
-          p_subject: subjectId,
-          p_item: itemId,
-          p_rating: review.rating,
-          p_reviewed_at: reviewedAt.toISOString(),
-          p_due: review.due.toISOString(),
-          p_state: review.state,
-          p_card: review.card,
-          p_log: review.log,
-        },
-        `save a ${subjectId} review`,
-      );
+    // Reviews and results reach the database only inside a session (ADR 0031): since the rewards
+    // were hardened (2026-11-15), record_review and record_result can't be called on their own.
+    async saveReview() {
+      throw new Error('Reviews are saved with saveSession (ADR 0031)');
     },
     async skillRatings(subjectId) {
       const { data, error } = await client
@@ -371,20 +360,8 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
         (data as (RatingRow & { item_id: string })[]).map((r) => [r.item_id, toRating(r)]),
       );
     },
-    async saveResult(subjectId, skill, itemId, score, learner, item) {
-      await call(
-        'record_result',
-        {
-          p_subject: subjectId,
-          p_skill: skill,
-          p_item: itemId,
-          p_score: score,
-          p_rated_at: learner.ratedAt.toISOString(),
-          p_learner: ratingArg(learner),
-          p_item_rating: ratingArg(item),
-        },
-        `save a ${subjectId} result`,
-      );
+    async saveResult() {
+      throw new Error('Results are saved with saveSession (ADR 0031)');
     },
     async saveState(subjectId, state) {
       await call(

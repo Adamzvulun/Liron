@@ -25,22 +25,16 @@ export interface InnTurn {
  */
 export interface InnChatAsk {
   kind: 'inn-chat';
-  /** The regular: their name and story (our own content). */
-  persona: { who: string; about: string };
+  /** The regular's road number: the function reads their story and chapter from our content. */
+  regular: number;
   /** The name the regulars know you by. */
   learner: { name: string };
-  /** The word chapter's theme, and our own English glosses of its words (never deck text). */
-  theme: string;
-  words: readonly string[];
   /** The last few things you said to this regular in earlier chats, oldest first. */
   told: readonly string[];
   /** How many chats with this regular came before this one (their reputation). */
   met: number;
-  /**
-   * What the traveler and this regular did together on the road (the regular's milestones, our
-   * own English text), once their trial is passed; at most 3.
-   */
-  memories: string[];
+  /** Whether their trial is passed, so the road you shared is something they remember. */
+  shared: boolean;
   /** This chat so far, oldest first; empty for their opening line. */
   turns: readonly InnTurn[];
 }
@@ -59,8 +53,8 @@ export interface CoachTip {
 }
 
 interface RadioAsk {
-  /** The character: who they are, and a few words about them (our own content). */
-  persona: { who: string; about: string };
+  /** The operator's id (`ruth`): the function reads who they are from our own content. */
+  operator: string;
   /** The learner as the character knows them: the name and town they keyed, contacts so far. */
   learner: { name: string; place: string; contacts: number };
   /** The character's own lines in earlier talks with this learner, oldest first (its memory). */

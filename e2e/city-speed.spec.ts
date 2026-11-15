@@ -197,10 +197,12 @@ test.describe('the city square stays fast (#123)', () => {
         document.body.append(ref);
       }, on);
 
-    // Noise on a shared runner only ever adds time, so each figure is the best of three rounds,
-    // and the reference is measured in the same rounds, right before the square.
+    // Noise on a shared runner only ever adds time, so each figure is the best of five rounds,
+    // and the reference is measured in the same rounds, right before the square. (Best of three
+    // read the hover raster at 0.38-0.52 of the reference, so it failed now and then against 0.5;
+    // best of five reads 0.38-0.43. The square before #123 read 0.57-0.67.)
     const runs = { ref: [] as Measured[], idle: [] as Measured[], hover: [] as Measured[] };
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       await reference(true);
       await page.waitForTimeout(500);
       runs.ref.push(await measure(2000, false));

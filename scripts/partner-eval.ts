@@ -21,28 +21,28 @@ const ME = { name: 'ADAM', place: 'HAIFA' };
 /** Made-up lines a learner might key: plain news, garbled reads and noise. */
 const HEARD = ['NEW JOB AT THE PORT', 'MY DOG IS SICK', 'TTT', 'NEW EIT TEI ANTENA', 'EXAM TMW'];
 
+// The function reads each operator's story from content/ by id (report §4bd).
 const ops = pack.items
-  .map((i) => i.data)
-  .filter((o) => !('terse' in o && o.terse))
-  .map((o) => ({ who: o.who, about: o.about }));
+  .filter((i) => !('terse' in i.data && i.data.terse))
+  .map((i) => i.id.replace(/^operator:/, ''));
 
 const asks = [
-  ...ops.map((persona) => ({
+  ...ops.map((operator) => ({
     kind: 'radio-news',
-    persona,
+    operator,
     learner: { ...ME, contacts: 0 },
     past: [],
   })),
-  ...ops.slice(0, 2).map((persona) => ({
+  ...ops.slice(0, 2).map((operator) => ({
     kind: 'radio-news',
-    persona,
+    operator,
     learner: { ...ME, contacts: 3 },
     past: ['NEW ANTENNA IN THE GARDEN'],
     told: ['MY DOG IS SICK'],
   })),
   ...HEARD.map((heard, i) => ({
     kind: 'radio-reply',
-    persona: ops[i % ops.length],
+    operator: ops[i % ops.length],
     learner: { ...ME, contacts: 1 },
     past: [],
     heard,

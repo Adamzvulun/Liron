@@ -34,7 +34,7 @@ describe('an operator’s news, written live (E15)', () => {
     const c = makeContact(op('ruth'), me, true, () => 0);
     expect(newsAsk(c, 2, { past: ['A', 'B', 'C', 'D'], told: ['NEW JOB'] })).toEqual({
       kind: 'radio-news',
-      persona: { who: op('ruth').who, about: op('ruth').about },
+      operator: 'ruth',
       learner: { name: 'ADAM', place: 'HAIFA', contacts: 2 },
       past: ['B', 'C', 'D'],
       told: ['NEW JOB'],

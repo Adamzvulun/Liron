@@ -33937,6 +33937,336 @@
         "latin": "mart axūy ɧatūlad fi ʔāxir iššáhir.",
         "english": "My brother's wife is due at the end of the month."
       }
+    },
+    {
+      "id": "own-sentence:pcav:0109",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0109",
+        "arabic": "عِنْدي أخو مِن الأبو، أكْبر مِنّي بْعشر سْنين.",
+        "latin": "3índi áxu min ilʔábu, ákbar mínni b-3ašr snīn.",
+        "english": "I have a half-brother on my father's side, ten years older than me."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0110",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0110",
+        "arabic": "سارة أُخْتي مِن الأمّ، أبوها مِش أبوي.",
+        "latin": "sāra úxti min ilʔámm, abūha miš abūy.",
+        "english": "Sara is my half-sister through my mother. Her father isn't mine."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0111",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0111",
+        "arabic": "سامي أخوي مِن أبوي، بسّ إمّو مِش إمّي.",
+        "latin": "sāmi axūy min abūy, bass ímmu miš ímmi.",
+        "english": "Sami is my half-brother on my father's side, but his mother isn't mine."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0117",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0117",
+        "arabic": "جوْز إمّي كْتير مْنيح معي.",
+        "latin": "jōz ímmi ktīr mnīɧ má3i.",
+        "english": "My stepfather is very good to me."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0118",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0118",
+        "arabic": "مرْت أبوي بْتُطبُخ أحْلى أكِل.",
+        "latin": "mart abūy btúʈbux áɧla ʔákil.",
+        "english": "My stepmother cooks the best food."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0119",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0119",
+        "arabic": "عِنْدي أخ مِن مرْت أبوي، عُمْرو عشر سْنين.",
+        "latin": "3índi ax min mart abūy, 3úmru 3ašr snīn.",
+        "english": "I have a brother by my father's wife. He's ten."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0120",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0120",
+        "arabic": "بِنْت مرْت أبوي صارت زيّ أُخْتي.",
+        "latin": "bint mart abūy ʂārat zayy úxti.",
+        "english": "My father's wife's daughter has become like a sister to me."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0121",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0121",
+        "arabic": "اِبِن جوْزْها بيِدْرُس في الجّامْعة.",
+        "latin": "íbin jōzha biyídrus fi -jjām3a.",
+        "english": "Her stepson studies at the university."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0122",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0122",
+        "arabic": "اِبِن مرْتو صار يْقولّو يابا.",
+        "latin": "íbin mártu ʂār ygúllu yāba.",
+        "english": "His stepson has started calling him Dad."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0123",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0123",
+        "arabic": "بِنْت جوْزْها بِتْساعِدْها في الدّار.",
+        "latin": "bint jōzha bitsā3ídha fi -ddār.",
+        "english": "Her stepdaughter helps her at home."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0124",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0124",
+        "arabic": "بِنْت مرْتو عُمُرْها خمس سْنين.",
+        "latin": "bint mártu 3úmurha xámas snīn.",
+        "english": "His stepdaughter is five years old."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0154",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0154",
+        "arabic": "عِنْدْهُم اِبِن بِالتّبنّي، وبيْحِبّوه كْتير.",
+        "latin": "3índhum íbin bi-ttabánni, w biyɧibbū ktīr.",
+        "english": "They have an adopted son, and they love him dearly."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0155",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0155",
+        "arabic": "أهْلو بِالتّبنّي إجو عَ حفْلِةْ التّخرُّج.",
+        "latin": "áhlu bi-ttabánni íju 3a ɧáflit ittaxárruj.",
+        "english": "His adoptive parents came to the graduation party."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0078",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0078",
+        "arabic": "إنْتو بْتِقْربوا لبعض؟ شكْلْكو زيّ بعض.",
+        "latin": "íntu btígrabu la-bá3ɖ? šákilku zayy bá3ɖ.",
+        "english": "Are you related? You look alike."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0202",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0202",
+        "arabic": "عمّي رِجِع اِتجوّز بعِد ما ماتت مرْتو.",
+        "latin": "3ámmi ríji3 idzáwwaj bá3id ma mātat mártu.",
+        "english": "My uncle remarried after his wife died."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0133",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0133",
+        "arabic": "مرْت عمّي بِتْعمل أطْيب أكِل.",
+        "latin": "mart 3ámmi bti3mal áʈyab ʔákil.",
+        "english": "My father's brother's wife makes the tastiest food."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0135",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0135",
+        "arabic": "جوْز عمّتي بيِشْتغِل في البنْك.",
+        "latin": "jōz 3ámmti biyištáɣil fi -lbank.",
+        "english": "My father's sister's husband works at the bank."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0137",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0137",
+        "arabic": "مرْت خالي مِن القُدْس.",
+        "latin": "mart xāli min ilquds.",
+        "english": "My mother's brother's wife is from Jerusalem."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0139",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0139",
+        "arabic": "جوْز خالْتي بيحْكي إنْجْليزي مْنيح.",
+        "latin": "jōz xālti bíɧki ʔinglīzi mnīɧ.",
+        "english": "My mother's sister's husband speaks English well."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0103",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0103",
+        "arabic": "أنا وَحيد، ما عِنْدي إخْوات.",
+        "latin": "ána waɧīd, ma 3índi ixwāt.",
+        "english": "I'm an only child. I don't have any siblings."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0101",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0101",
+        "arabic": "أُخْتي أصْغر واحْدة في العيْلة.",
+        "latin": "úxti áʂɣar wáɧda fi -l3ēla.",
+        "english": "My sister is the youngest in the family."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0102",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0102",
+        "arabic": "اِبْني الوَلد اللي بالنُّص، عِنْدو أخ أكْبر وأُخْت أصْغر.",
+        "latin": "íbni -lwálad ílli bi-nnúʂʂ, 3índu ax ákbar w uxt áʂɣar.",
+        "english": "My son is the middle child: he has an older brother and a younger sister."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0106",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0106",
+        "arabic": "إنْتو توْم؟ شكْلْكو واحد!",
+        "latin": "íntu tōm? šákilku wāɧad!",
+        "english": "Are you twins? You look exactly the same!"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0148",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0148",
+        "arabic": "أنا وسامي وْلاد عمّ.",
+        "latin": "ána w sāmi wlād 3amm.",
+        "english": "Sami and I are cousins."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0056",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0056",
+        "arabic": "وَقْتيْش اِنْوَلدت بِنْتك؟",
+        "latin": "wagtēš inwáladat bíntak?",
+        "english": "When was your daughter born?"
+      }
+    },
+    {
+      "id": "own-sentence:pcav:0050",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:0050",
+        "arabic": "سيدي عاش كُلّ حَياتو في القرْيَة.",
+        "latin": "sīdi 3āš kull ɧayātu fi -lqárya.",
+        "english": "My grandfather lived all his life in the village."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4174",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4174",
+        "arabic": "في عيد الطِّفِل بْنِشْتري للوْلاد حلَوِيّات.",
+        "latin": "fi 3īd iʈʈúfil bništári la-lwlād ɧalawiyyāt.",
+        "english": "On Children's Day we buy the children sweets."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4176",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4176",
+        "arabic": "ذِكْرى النّكْبة في خمسْتاعِش أيّار.",
+        "latin": "đíkra -nnákba fi xamstā3iš ayyār.",
+        "english": "Nakba Day is on May 15."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:4177",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:4177",
+        "arabic": "عيد الإسْتِقْلال في خمسْتاعِش تِشْرين التّاني.",
+        "latin": "3īd ilʔistiqlāl fi xamstā3iš tišrīn ittāni.",
+        "english": "Independence Day is on November 15."
+      }
+    },
+    {
+      "id": "own-sentence:pcav:2792",
+      "subject": "arabic",
+      "type": "own-sentence",
+      "data": {
+        "word": "pcav:2792",
+        "arabic": "قريت عن السُّلْطة الوَطنية الفلسْطينية في كْتاب التّاريخ.",
+        "latin": "garēt 3an issúlʈa -lwaʈaníyya -lfalasʈīníyya fi ktāb ittārīx.",
+        "english": "I read about the Palestinian National Authority in the history book."
+      }
     }
   ]
 }

@@ -1872,6 +1872,21 @@
         ],
         "examples": ["pcav:4811", "pcav:4809", "pcav:0072", "pcav:4447"]
       }
+    },
+    {
+      "id": "grammar:married-in",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 113,
+        "title": "mart, jōz, min: the family you marry into",
+        "points": [
+          "mart, “the wife of”, and jōz, “the husband of”, name the relatives you gain by marriage: mart 3amm, your father’s brother’s wife; jōz xāla, your mother’s sister’s husband.",
+          "A half-brother or half-sister is one “from” a parent: áxu min ilʔábu, úxut min ilʔámm. A stepchild is the child of your husband or wife: íbin jōz, bint mart.",
+          "bi-ttabánni, “by adoption”, goes after a family word: íbin bi-ttabánni, an adopted son; áhil bi-ttabánni, adoptive parents."
+        ],
+        "examples": ["pcav:0133", "pcav:0109", "pcav:0121", "pcav:0154"]
+      }
     }
   ]
 }

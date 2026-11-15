@@ -2936,6 +2936,32 @@
         "outro": "She leaves the innkeeper a birthday card: “Many happy returns, and may you see a hundred more!”",
         "she": true
       }
+    },
+    {
+      "id": "road:114",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 114,
+        "wordChapter": 113,
+        "title": "Two Families, One Table",
+        "who": "Lama, whose family is made of two",
+        "intro": "Lama’s father remarried last year, and this Friday both families sit down at the inn together for the first time. She is the middle child, she says, of a family that keeps growing.",
+        "milestones": [
+          "She sorts out who is who for you: her half-brother on her father’s side, her stepmother, and the boy her father and stepmother had together, a brother of ten who is already taller than her.",
+          "The aunts and uncles by marriage arrive: her father’s brother’s wife with a tray of food, her mother’s sister’s husband with a newspaper. “Are you two related?” a guest asks two cousins who look like twins.",
+          "Her grandfather, an only child who lived all his life in the village, gathered a family instead. Her adopted cousin reads the year’s days from his history book: Children’s Day in March, and the days in May and November."
+        ],
+        "trial": {
+          "name": "Who Is Who",
+          "text": "Lama walks you around the table and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She leaves the innkeeper a drawing of the table, every name written over every head: “So you never mix up my aunts again.”",
+        "she": true
+      }
     }
   ]
 }

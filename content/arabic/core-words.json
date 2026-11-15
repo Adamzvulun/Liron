@@ -15061,6 +15061,138 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:113",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 113,
+        "title": "Steps, halves and the year's days",
+        "theme": "The family you marry into: half- and step-siblings, stepchildren, aunts and uncles by marriage, adoption, your place in the family, and the national days",
+        "words": [
+          {
+            "deck": "pcav:0109",
+            "gloss": "half-brother (the same father)"
+          },
+          {
+            "deck": "pcav:0110",
+            "gloss": "half-sister (the same mother)"
+          },
+          {
+            "deck": "pcav:0111",
+            "gloss": "He's my half-brother on my father's side."
+          },
+          {
+            "deck": "pcav:0117",
+            "gloss": "stepfather"
+          },
+          {
+            "deck": "pcav:0118",
+            "gloss": "stepmother"
+          },
+          {
+            "deck": "pcav:0119",
+            "gloss": "brother by my father's wife (the deck: stepbrother)"
+          },
+          {
+            "deck": "pcav:0120",
+            "gloss": "sister by my father's wife (the deck: stepsister)"
+          },
+          {
+            "deck": "pcav:0121",
+            "gloss": "stepson (her husband's son)"
+          },
+          {
+            "deck": "pcav:0122",
+            "gloss": "stepson (his wife's son)"
+          },
+          {
+            "deck": "pcav:0123",
+            "gloss": "stepdaughter (her husband's daughter)"
+          },
+          {
+            "deck": "pcav:0124",
+            "gloss": "stepdaughter (his wife's daughter)"
+          },
+          {
+            "deck": "pcav:0154",
+            "gloss": "an adopted son"
+          },
+          {
+            "deck": "pcav:0155",
+            "gloss": "adoptive parents"
+          },
+          {
+            "deck": "pcav:0078",
+            "gloss": "Are you two related?"
+          },
+          {
+            "deck": "pcav:0202",
+            "gloss": "My father remarried last year."
+          },
+          {
+            "deck": "pcav:0133",
+            "gloss": "aunt by marriage (father's brother's wife)"
+          },
+          {
+            "deck": "pcav:0135",
+            "gloss": "uncle by marriage (father's sister's husband)"
+          },
+          {
+            "deck": "pcav:0137",
+            "gloss": "aunt by marriage (mother's brother's wife)"
+          },
+          {
+            "deck": "pcav:0139",
+            "gloss": "uncle by marriage (mother's sister's husband)"
+          },
+          {
+            "deck": "pcav:0103",
+            "gloss": "I'm an only child."
+          },
+          {
+            "deck": "pcav:0101",
+            "gloss": "I'm the youngest in my family."
+          },
+          {
+            "deck": "pcav:0102",
+            "gloss": "I'm the middle child."
+          },
+          {
+            "deck": "pcav:0106",
+            "gloss": "Are you twins?"
+          },
+          {
+            "deck": "pcav:0148",
+            "gloss": "We're cousins."
+          },
+          {
+            "deck": "pcav:0056",
+            "gloss": "When were you born?"
+          },
+          {
+            "deck": "pcav:0050",
+            "gloss": "all one's life"
+          },
+          {
+            "deck": "pcav:4174",
+            "gloss": "Children's Day (March 22)"
+          },
+          {
+            "deck": "pcav:4176",
+            "gloss": "Nakba Day (May 15)"
+          },
+          {
+            "deck": "pcav:4177",
+            "gloss": "Independence Day (November 15)"
+          },
+          {
+            "deck": "pcav:2792",
+            "gloss": "the Palestinian National Authority"
+          }
+        ]
+      }
     }
   ]
 }
