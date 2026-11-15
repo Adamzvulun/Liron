@@ -1827,6 +1827,51 @@
         ],
         "examples": ["pcav:3540", "pcav:3722", "pcav:3651", "pcav:4813"]
       }
+    },
+    {
+      "id": "grammar:it-looks-like",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 110,
+        "title": "šáklu, báʈin: how it looks, and the belly of things",
+        "points": [
+          "šáklu, “his shape”, says how a thing looks or seems: šákilha miš nāyma mnīɧ, she doesn’t look like she slept well; šáklu -lʔákil inɧárag, it looks like the food has burned.",
+          "báʈin, the belly, names the underside: báʈin ilʔīd, the ball of the hand; báʈin ríjil, the sole of the foot. It is Hebrew בטן.",
+          "A plural of things takes a plural describing word after it: ktāf 3rāɖ, broad shoulders; rmūšha ʈwāl, her eyelashes are long; šafāyif našfāt, chapped lips."
+        ],
+        "examples": ["pcav:0872", "pcav:0303", "pcav:0434", "pcav:0451"]
+      }
+    },
+    {
+      "id": "grammar:up-and-down",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 111,
+        "title": "múmkin t3álli, 3úmrak: could you, and have you ever",
+        "points": [
+          "múmkin with the verb asks politely: múmkin t3álli -ʂʂōt? Could you turn it up? múmkin abádlu? Can I exchange it?",
+          "3álla, to raise, comes from 3āli, high, and wáʈʈa, to lower, from wāʈi, low: the doubled middle makes a thing go, as ʈálla3 does from ʈíli3.",
+          "3úmrak, “your life”, with a past verb asks “have you ever”: 3úmrak šuft ɧālak 3a -ttilfizyōn? Have you ever seen yourself on TV?"
+        ],
+        "examples": ["pcav:2280", "pcav:2282", "pcav:2272", "pcav:2198"]
+      }
+    },
+    {
+      "id": "grammar:words-for-a-loss",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 112,
+        "title": "álla yirɧámha, la-bēn ma: words for a loss, and “by the time”",
+        "points": [
+          "When someone has died you say álla yirɧámu for a man, álla yirɧámha for a woman: God have mercy on him, on her. Hearing the news, you say álla yʂábbir áhlu, God give his family patience.",
+          "To the family you say ilbagíyya b-ɧayātak, and they answer t3īš. ayyām il3áza are the days when people come to the family’s house to sit with them.",
+          "la-bēn ma tells you by when: la-bēn ma wʂílna kān ilʔákil xíliʂ, by the time we got there, the food was gone."
+        ],
+        "examples": ["pcav:4811", "pcav:4809", "pcav:0072", "pcav:4447"]
+      }
     }
   ]
 }

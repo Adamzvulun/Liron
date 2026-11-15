@@ -54,7 +54,11 @@ test('signing out returns to the login screen and stays there after a reload', a
   await signedIn(page);
   await page.goto('/');
   await page.getByRole('button', { name: 'Settings' }).click();
+  // Signing out starts the page afresh (App.tsx, report §4ay): wait for that load, or the
+  // reload below can race it.
+  const fresh = page.waitForEvent('load');
   await page.getByRole('button', { name: 'Sign out' }).click();
+  await fresh;
   await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
   await page.reload();
   await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
