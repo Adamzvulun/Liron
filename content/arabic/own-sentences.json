@@ -33977,8 +33977,8 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:0117",
-        "arabic": "جوْز الأمّ تبعي كْتير مْنيح معي.",
-        "latin": "jōz ilʔámm tába3i ktīr mnīɧ má3i.",
+        "arabic": "جوْز إمّي كْتير مْنيح معي.",
+        "latin": "jōz ímmi ktīr mnīɧ má3i.",
         "english": "My stepfather is very good to me."
       }
     },
@@ -34001,7 +34001,7 @@
         "word": "pcav:0119",
         "arabic": "عِنْدي أخ مِن مرْت أبوي، عُمْرو عشر سْنين.",
         "latin": "3índi ax min mart abūy, 3úmru 3ašr snīn.",
-        "english": "I have a stepbrother, my father's wife's son. He's ten."
+        "english": "I have a brother by my father's wife. He's ten."
       }
     },
     {
@@ -34012,7 +34012,7 @@
         "word": "pcav:0120",
         "arabic": "بِنْت مرْت أبوي صارت زيّ أُخْتي.",
         "latin": "bint mart abūy ʂārat zayy úxti.",
-        "english": "My stepsister has become like a sister to me."
+        "english": "My father's wife's daughter has become like a sister to me."
       }
     },
     {
