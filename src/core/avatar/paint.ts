@@ -100,7 +100,22 @@ export const PAINTED_GEAR = [
   'night-lantern',
   'house-sash',
   'keffiyeh',
+  'signal-cap',
+  'ether-cloak',
+  'olive-sprig',
+  'dallah',
+  'tatreez-vest',
+  'story-cloak',
 ];
+
+/** The cloaks on the back (ADR 0006), and the rank cloaks cut the same (#176, 2026-11-15). */
+const CLOAKS: Record<string, readonly [string, string, string]> = {
+  cloak: ['#8A4C9A', '#5E2E70', '#2E1438'],
+  // Ghost of the Ether: pale as the night sky over the tower, with dots and dashes at the hem.
+  'ether-cloak': ['#DDEBFA', '#8FB0D8', '#3A4E78'],
+  // The storyteller's cloak: deep red, a gold hem.
+  'story-cloak': ['#C8443A', '#8A1E1A', '#3A0A08'],
+};
 
 export interface PaintOptions {
   /** Unique per avatar on the page (React's useId). */
@@ -143,16 +158,22 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
   }
 
   // ---- back gear
-  if (wear('back') === 'cloak') {
+  const cloak = CLOAKS[wear('back') ?? ''];
+  if (cloak) {
     back += `<path d="M${cx - sh + 2} 136 Q${cx - sh - 22} 214 ${cx - sh - 16} 280 Q${cx} 292 ${cx + sh + 16} 280 Q${cx + sh + 22} 214 ${cx + sh - 2} 136 Z" fill="${g.lin(
       [
-        [0, '#8A4C9A'],
-        [0.6, '#5E2E70'],
-        [1, '#2E1438'],
+        [0, cloak[0]],
+        [0.6, cloak[1]],
+        [1, cloak[2]],
       ],
       1,
       1,
     )}" ${OUT()}/>`;
+    const hemline = `M${cx - sh - 13} 276 Q${cx} 288 ${cx + sh + 13} 276`;
+    if (wear('back') === 'ether-cloak')
+      back += `<path d="${hemline}" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-dasharray="3 5 11 5" stroke-linecap="round" opacity=".9"/>`;
+    if (wear('back') === 'story-cloak')
+      back += `<path d="${hemline}" stroke="${INK}" stroke-width="8" fill="none" stroke-linecap="round"/><path d="${hemline}" stroke="#FFD36B" stroke-width="4" fill="none" stroke-linecap="round"/>`;
   }
 
   if (wear('back') === 'bedroll') {
@@ -335,14 +356,32 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     if (top === 'operator-coat')
       // The tower's spark, stitched in gold on the breast.
       body += `<path d="M${cx - 22} 150 L${cx - 14} 162 L${cx - 20} 164 L${cx - 10} 180" stroke="${INK}" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M${cx - 22} 150 L${cx - 14} 162 L${cx - 20} 164 L${cx - 10} 180" stroke="#FFD36B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
-  } else if (top === 'vest') {
-    // Over the linen shirt: two dark panels with gold stitching.
+  } else if (top === 'vest' || top === 'tatreez-vest') {
+    // Over the linen shirt: two dark panels with gold stitching. The local's vest is black, with
+    // rows of red cross-stitch (tatreez) down each panel.
+    const tatreez = top === 'tatreez-vest';
     for (const side of [-1, 1]) {
       const d = `M${cx + side * 11} 129 L${cx + side * sh} 140 Q${cx + side * (sh + 4)} 150 ${cx + side * (sh - 2)} 166 L${cx + side * (sh - 6)} 220 L${cx + side * 7} 222 L${cx + side * 5} 152 Z`;
-      body += `<path d="${d}" fill="${g.lin([
-        [0, '#7A3A3A'],
-        [1, '#3A1414'],
-      ])}" ${OUT(3)}/><path d="M${cx + side * 10} 150 L${cx + side * 11} 214" stroke="#FFD36B" stroke-width="2.4" stroke-dasharray="4 4"/>`;
+      body += `<path d="${d}" fill="${g.lin(
+        tatreez
+          ? [
+              [0, '#3A3238'],
+              [1, '#141014'],
+            ]
+          : [
+              [0, '#7A3A3A'],
+              [1, '#3A1414'],
+            ],
+      )}" ${OUT(3)}/>`;
+      if (!tatreez) {
+        body += `<path d="M${cx + side * 10} 150 L${cx + side * 11} 214" stroke="#FFD36B" stroke-width="2.4" stroke-dasharray="4 4"/>`;
+        continue;
+      }
+      for (let y = 156; y <= 208; y += 10)
+        for (const dx of [12, 22]) {
+          const x = cx + side * dx;
+          body += `<path d="M${x - 3} ${y - 3} L${x + 3} ${y + 3} M${x + 3} ${y - 3} L${x - 3} ${y + 3}" stroke="#D8303A" stroke-width="2" stroke-linecap="round"/>`;
+        }
     }
   }
   if (tunic) {
@@ -353,7 +392,13 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       [0, '#FFE39A'],
       [1, '#B07A2A'],
     ])}" stroke="${INK}" stroke-width="2.4"/>`;
-  } else if (!top || top === 'vest' || top === 'house-sash' || top === 'shawl') {
+  } else if (
+    !top ||
+    top === 'vest' ||
+    top === 'tatreez-vest' ||
+    top === 'house-sash' ||
+    top === 'shawl'
+  ) {
     body += `<path d="M${cx - 10} 129 Q${cx} 142 ${cx + 10} 129" fill="none" stroke="#A8916A" stroke-width="2.6"/>`;
     body += `<path d="M${cx - sh + 8} 212 Q${cx} 216 ${cx + sh - 8} 212" stroke="#A8916A" stroke-width="2.4" fill="none" opacity=".8"/>`;
   }
@@ -424,8 +469,8 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     body += `<path d="M${bx - 2} ${by - 16} L${bx + 4} ${by - 26} L${bx + 10} ${by - 16}" fill="#5A3418" stroke="${INK}" stroke-width="2.4"/><circle cx="${bx + 4}" cy="${by - 27}" r="3.5" fill="#E8A93A" stroke="${INK}" stroke-width="1.8"/>`;
     body += `<path d="M${bx - 10} ${by + 2} Q${bx} ${by + 8} ${bx + 12} ${by}" stroke="${INK}" stroke-width="1.8" fill="none" opacity=".5"/>`;
   }
-  if (wear('back') === 'cloak') {
-    body += `<path d="M${cx - 14} 130 Q${cx} 140 ${cx + 14} 130" stroke="${INK}" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M${cx - 14} 130 Q${cx} 140 ${cx + 14} 130" stroke="#8A4C9A" stroke-width="4" fill="none"/><circle cx="${cx}" cy="138" r="5" fill="#FFD36B" stroke="${INK}" stroke-width="2"/>`;
+  if (cloak) {
+    body += `<path d="M${cx - 14} 130 Q${cx} 140 ${cx + 14} 130" stroke="${INK}" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M${cx - 14} 130 Q${cx} 140 ${cx + 14} 130" stroke="${cloak[0]}" stroke-width="4" fill="none"/><circle cx="${cx}" cy="138" r="5" fill="#FFD36B" stroke="${INK}" stroke-width="2"/>`;
   }
 
   // ---- staff (held in the right hand, the viewer's left; drawn behind the hand)
@@ -530,6 +575,43 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       body += `<path d="M${hx + dx} ${hy + 27} V${hy + 57}" stroke="#3A3A44" stroke-width="2.6"/>`;
     body += `<rect x="${hx - 15}" y="${hy + 56}" width="30" height="8" rx="2" fill="#3A3A44" ${OUT(2.4)}/>`;
   }
+  if (wear('hand') === 'olive-sprig') {
+    // A neighbor's olive sprig: a twig in the left hand, silver-green leaves and two olives.
+    const [hx, hy] = handR;
+    body += `<path d="M${hx} ${hy + 6} Q${hx + 14} ${hy - 30} ${hx + 8} ${hy - 70}" stroke="${INK}" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M${hx} ${hy + 6} Q${hx + 14} ${hy - 30} ${hx + 8} ${hy - 70}" stroke="#7A5A3A" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+    for (const [lx, ly, rot] of [
+      [14, -14, 40],
+      [-2, -26, -40],
+      [18, -38, 35],
+      [2, -50, -35],
+      [16, -60, 25],
+      [6, -72, -10],
+    ] as const)
+      body += `<ellipse cx="${hx + lx}" cy="${hy + ly}" rx="12" ry="4.6" fill="#8FA878" stroke="${INK}" stroke-width="2" transform="rotate(${rot} ${hx + lx} ${hy + ly})"/>`;
+    for (const [ox, oy] of [
+      [18, -24],
+      [0, -40],
+      [16, -52],
+    ] as const)
+      body += `<circle cx="${hx + ox}" cy="${hy + oy}" r="4.6" fill="#3E4A24" stroke="${INK}" stroke-width="1.8"/>`;
+  }
+  if (wear('hand') === 'dallah') {
+    // A friend's coffee pot (dallah): brass, a tall lid with a finial, a long curved spout.
+    const [hx, hy] = handR;
+    const brass = g.lin(
+      [
+        [0, '#FFF0B8'],
+        [0.5, '#E8A93A'],
+        [1, '#7A4A10'],
+      ],
+      1,
+      0.3,
+    );
+    body += `<path d="M${hx + 12} ${hy + 6} Q${hx + 24} ${hy - 4} ${hx + 30} ${hy - 22}" stroke="${INK}" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M${hx + 12} ${hy + 6} Q${hx + 24} ${hy - 4} ${hx + 30} ${hy - 22}" stroke="#E8A93A" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+    body += `<path d="M${hx - 13} ${hy - 4} Q${hx - 18} ${hy + 18} ${hx - 10} ${hy + 30} H${hx + 10} Q${hx + 18} ${hy + 18} ${hx + 13} ${hy - 4} Z" fill="${brass}" ${OUT(2.6)}/>`;
+    body += `<path d="M${hx - 9} ${hy - 4} L${hx - 6} ${hy - 20} H${hx + 6} L${hx + 9} ${hy - 4} Z" fill="${brass}" ${OUT(2.4)}/><circle cx="${hx}" cy="${hy - 24}" r="4" fill="#E8A93A" stroke="${INK}" stroke-width="2"/>`;
+    body += `<path d="M${hx - 12} ${hy - 2} Q${hx - 24} ${hy + 8} ${hx - 12} ${hy + 20}" stroke="${INK}" stroke-width="3.4" fill="none"/>`;
+  }
 
   if (wear('hand') === 'falcon') {
     // A falconer's leather glove on the left hand, and the falcon perched on it.
@@ -629,6 +711,20 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
         [1, '#174E5A'],
       ])}" ${OUT(3)}/>`;
     front += `<path d="M${cx - 38} 100 Q${cx - 34} 118 ${cx - 14} 116" stroke="${INK}" stroke-width="3" fill="none"/><circle cx="${cx - 13}" cy="116" r="4" fill="#FFD36B" stroke="${INK}" stroke-width="2"/>`;
+  } else if (wear('head') === 'signal-cap') {
+    // The signal master's peaked cap: tower blue, a black visor, the gold spark on the band.
+    front += `<path d="M${cx - 36} 66 Q${cx - 40} 30 ${cx} 28 Q${cx + 40} 30 ${cx + 36} 66 Z" fill="${g.lin(
+      [
+        [0, '#6A9AE8'],
+        [0.6, '#2A52A8'],
+        [1, '#0C1A4A'],
+      ],
+      1,
+      0.4,
+    )}" ${OUT()}/>`;
+    front += `<path d="M${cx - 36} 64 H${cx + 36}" stroke="${INK}" stroke-width="10" stroke-linecap="round"/><path d="M${cx - 34} 64 H${cx + 34}" stroke="#FFD36B" stroke-width="4"/>`;
+    front += `<path d="M${cx - 34} 68 Q${cx} 84 ${cx + 34} 68 Q${cx} 76 ${cx - 34} 68 Z" fill="#141A2A" ${OUT(2.4)}/>`;
+    front += `<path d="M${cx - 4} 38 L${cx + 4} 48 L${cx - 2} 50 L${cx + 6} 60" stroke="${INK}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M${cx - 4} 38 L${cx + 4} 48 L${cx - 2} 50 L${cx + 6} 60" stroke="#FFD36B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
   } else if (turban) {
     const cloth = g.lin(
       [
