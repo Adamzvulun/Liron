@@ -28,17 +28,39 @@ test('the HUD shows the streak and today’s goal, and the goal can change', asy
   await page.goto('/');
   await expect(page.getByLabel('Streak: 2 days')).toBeVisible();
   await expect(goal(page, 6, 15)).toBeVisible();
-  await page.getByRole('button', { name: 'Settings' }).click();
-  await page.getByLabel('Minutes a day').selectOption('20');
+  // The goal chip opens its own panel, on the goal you have now.
+  await page.getByRole('button', { name: 'Daily goal: 6 of 15 minutes' }).click();
+  const panel = page.getByRole('group', { name: 'Daily goal' });
+  await expect(panel.getByText('6 of 15 min today')).toBeVisible();
+  await expect(panel.getByText('9 more minutes to open the daily chest.')).toBeVisible();
+  await expect(panel.getByRole('button', { name: '15 minutes a day', exact: true })).toBeFocused();
+  await expect(
+    panel.getByRole('button', { name: '15 minutes a day', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await panel.getByRole('button', { name: '20 minutes a day', exact: true }).click();
   await expect(goal(page, 6, 20)).toBeVisible();
+  await expect(panel.getByText('Saved: 20 minutes a day')).toBeVisible();
+  await expect(
+    panel.getByRole('button', { name: '20 minutes a day', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByRole('dialog')).toHaveCount(0);
+  // Settings show the goal too, and lead to the same panel.
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await expect(panel).toHaveCount(0);
+  const settings = page.getByRole('group', { name: 'Settings' });
+  await expect(settings.getByText('20 minutes a day')).toBeVisible();
+  await settings.getByRole('button', { name: 'Change' }).click();
+  await expect(panel.getByRole('button', { name: '20 minutes a day', exact: true })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(panel).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /^Daily goal:/ })).toBeFocused();
 });
 
 test('reaching the daily goal opens the chest and grows the streak', async ({ page }) => {
   await signedIn(page);
   await page.goto('/');
-  await page.getByRole('button', { name: 'Settings' }).click();
-  await page.getByLabel('Minutes a day').selectOption('5'); // 6 minutes done: goal reached
+  await page.getByRole('button', { name: /^Daily goal:/ }).click();
+  await page.getByRole('button', { name: '5 minutes a day', exact: true }).click(); // 6 minutes done: reached
   const dialog = page.getByRole('dialog', { name: '3 days' });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('+20 gold')).toBeVisible();
@@ -236,10 +258,10 @@ test('closing a celebration from the keyboard puts focus back where it was (revi
 }) => {
   await signedIn(page);
   await page.goto('/');
-  await page.getByRole('button', { name: 'Settings' }).click();
-  const minutes = page.getByLabel('Minutes a day');
+  await page.getByRole('button', { name: /^Daily goal:/ }).click();
+  const minutes = page.getByRole('button', { name: '5 minutes a day', exact: true });
   await minutes.focus(); // as a keyboard player would be
-  await minutes.selectOption('5'); // 6 minutes done: goal reached
+  await page.keyboard.press('Enter'); // 6 minutes done: goal reached
   const onward = page
     .getByRole('dialog', { name: '3 days' })
     .getByRole('button', { name: 'Onward' });
@@ -257,10 +279,13 @@ test("a goal that can't be saved says so and keeps the old one (review, 2026-11-
     route.fulfill({ status: 500, json: { message: 'down' } }),
   );
   await page.goto('/');
-  await page.getByRole('button', { name: 'Settings' }).click();
-  await page.getByLabel('Minutes a day').selectOption('20');
-  await expect(page.getByText("Couldn't save your goal")).toBeVisible();
-  await expect(page.getByLabel('Minutes a day')).toHaveValue('15');
+  await page.getByRole('button', { name: /^Daily goal:/ }).click();
+  await page.getByRole('button', { name: '20 minutes a day', exact: true }).click();
+  await expect(page.getByText("Couldn't save your goal. Try again.")).toBeVisible();
+  await expect(page.getByRole('button', { name: '15 minutes a day', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
   await expect(page.getByLabel('Streak: 2 days')).toBeVisible();
 });
 

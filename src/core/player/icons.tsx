@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 // Small HUD icons, from the city concept.
 export function FlameIcon({ lit = true }: { lit?: boolean }) {
   return (
@@ -66,6 +68,53 @@ export function ShieldIcon() {
         strokeLinejoin="round"
       />
       <path d="M10 5 V17" stroke="#e8a93a" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/**
+ * The daily goal's hourglass: the sand in the lower bulb fills as today's minutes reach the goal
+ * (`filled`, 0 to 1), and the top bulb empties.
+ */
+export function HourglassIcon({ filled = 0, size = 22 }: { filled?: number; size?: number }) {
+  const f = Math.max(0, Math.min(1, filled));
+  // The lower bulb holds sand from y 18.5 up to y 12 when full; the upper from y 3.5 down to 10.
+  const low = 18.5 - 6.5 * f;
+  const high = 3.5 + 6.5 * f;
+  const clip = useId();
+  return (
+    <svg
+      aria-hidden="true"
+      width={(size * 18) / 22}
+      height={size}
+      viewBox="0 0 18 22"
+      className="hourglass"
+    >
+      <defs>
+        <clipPath id={clip}>
+          <path d="M4 3 H14 C14 7 10 9.5 10 11 C10 12.5 14 15 14 19 H4 C4 15 8 12.5 8 11 C8 9.5 4 7 4 3 Z" />
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${clip})`}>
+        <rect x="0" y="0" width="18" height="22" fill="#fbf1d8" opacity="0.25" />
+        <rect x="0" y={high} width="18" height={Math.max(0, 10.5 - high)} fill="#e8a93a" />
+        <rect x="0" y={low} width="18" height={19 - low} fill="#e8a93a" />
+      </g>
+      <path
+        d="M4 3 H14 C14 7 10 9.5 10 11 C10 12.5 14 15 14 19 H4 C4 15 8 12.5 8 11 C8 9.5 4 7 4 3 Z"
+        fill="none"
+        stroke="#24160e"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path d="M2 2 H16 M2 20 H16" stroke="#8a5a33" strokeWidth="3" strokeLinecap="round" />
+      <path
+        d="M2 2 H16 M2 20 H16"
+        stroke="#24160e"
+        strokeWidth="1"
+        strokeLinecap="round"
+        opacity="0.6"
+      />
     </svg>
   );
 }
