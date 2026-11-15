@@ -102,6 +102,10 @@ export function analyseFist(decoded: Decoded): Fist {
         : undefined,
   };
 
+  // A press or three is too little to judge; praising it would be unearned (review, 2026-11-15).
+  if (dits.length + dahs.length < 4) {
+    return { ...fist, tip: 'Too little keying to judge your fist. Key the whole line next time.' };
+  }
   let tip = 'A clean fist. Next time, try keying a little faster.';
   let worst = 0;
   for (const key of ['ratio', 'element', 'letter', 'word'] as const) {

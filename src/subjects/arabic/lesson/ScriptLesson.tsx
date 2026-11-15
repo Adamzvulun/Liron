@@ -512,7 +512,11 @@ function MeetMark({
           <p className="arabic__sound">Sound: {mark.sound}</p>
         </div>
       </div>
-      <div className="arabic__forms" role="list" aria-label="On letters you know">
+      <div
+        className="arabic__forms arabic__forms--marks"
+        role="list"
+        aria-label="On letters you know"
+      >
         {carriers.map((c) => (
           <div key={c} className="arabic__form" role="listitem">
             <Ar className="arabic__form-glyph">{onLetter(c)}</Ar>

@@ -26,7 +26,7 @@
 
 /* A station's early word (locked, unreadable, no deck) stands outside its section: a card too. */
 .arabic__back ~ p.lesson__card {
-  margin: 0;
+  margin: 0 auto;
   font-size: 18px;
 }
 
@@ -188,6 +188,18 @@
   gap: 10px;
   width: 100%;
   margin-bottom: 10px;
+}
+
+/* A vowel mark on the letters you know: one to four tiles, centered in one row at a letter
+   tile's width, so three don't leave a gap on the right (or one alone below on a phone). */
+.arabic__forms--marks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.arabic__forms--marks .arabic__form {
+  flex: 0 1 calc((100% - 30px) / 4);
 }
 
 .arabic__form {
