@@ -25,6 +25,12 @@ test.describe('Arabic word lessons (#160)', () => {
     await expect(
       page.getByRole('button', { name: /The innkeeper’s table/ }).filter({ visible: true }),
     ).toHaveCount(0);
+    // Asked for by address, the shut table says so on a parchment card, not bare on the wall.
+    await page.goto('/caravanserai?open=words');
+    const shut = page.getByText(/opens once you’re a guest of the house/);
+    await expect(shut).toBeVisible();
+    await expect(shut).toHaveCSS('border-top-style', 'solid');
+    await expect(shut).not.toHaveCSS('background-image', 'none');
   });
 
   test('meet new words, practice them, and the session is saved', async ({ page }) => {

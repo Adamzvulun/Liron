@@ -196,3 +196,8 @@
   font-weight: 400;
   opacity: 0.75;
 }
+
+/* A callsign stays with the words that name it ("your call K4ADM"), never alone on a line. */
+.qso__nowrap {
+  white-space: nowrap;
+}
