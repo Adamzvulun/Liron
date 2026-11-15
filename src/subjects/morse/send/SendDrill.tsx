@@ -26,7 +26,7 @@ import {
   wordsRight,
   type LampResult,
 } from './lampSignal.ts';
-import { MORSE_CHARS } from '../code.ts';
+import { MORSE_CHARS, sendable, units } from '../code.ts';
 import { KEYER_DIT_MS } from '../ranks.ts';
 import { useDeskAudio, type Audio } from './deskAudio.ts';
 import '../lesson/lesson.css';
@@ -122,11 +122,13 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
 
   const finish = (text: string, marks: Mark[], seconds: number, words?: boolean) => {
     const decoded = decode(marks, { startDitMs });
-    const target = text.replace(/ /g, '').split('');
-    const sent = decoded.text.replace(/ /g, '').split('');
-    const score = scoreCopy(target, sent);
+    const score = scoreCopy(units(text), units(decoded.text));
     const fist = analyseFist(decoded);
-    const next = applyDrill(progress, decoded.ditMs);
+    // A drill the tower mostly couldn't read says little about your speed: keep the last one.
+    const next = applyDrill(
+      progress,
+      score.accuracy >= 0.5 ? decoded.ditMs : (progress.sending.ditMs ?? decoded.ditMs),
+    );
     setProgress(next);
     setStage({
       kind: 'result',
@@ -240,6 +242,8 @@ export function Keying({
   const finished = useRef(false);
   /** When the key went down, if it's down (a ref, so quick presses never see a stale value). */
   const down = useRef<number | null>(null);
+  /** The finger or mouse holding the brass key: another finger lifting doesn't let it go. */
+  const pointer = useRef<number | null>(null);
 
   const press = useCallback(
     (t: number) => {
@@ -259,6 +263,14 @@ export function Keying({
       down.current = null;
       setDownAt(null);
       setMarks((m) => [...m, { down: d, up: Math.max(t, d + 1) }]);
+    },
+    [audio],
+  );
+
+  // Leaving the desk with the key held (Done, Skip) mustn't leave the tone sounding.
+  useEffect(
+    () => () => {
+      if (down.current !== null) audio()?.tone.up();
     },
     [audio],
   );
@@ -302,8 +314,8 @@ export function Keying({
   }, []);
 
   const decoded = decode(marks, { startDitMs, now });
-  const target = text.replace(/ /g, '');
-  const sent = decoded.text.replace(/ /g, '');
+  const target = units(text);
+  const sent = units(decoded.text);
 
   // Done when every letter is in and the key has rested for a word gap.
   const last = marks[marks.length - 1];
@@ -328,7 +340,7 @@ export function Keying({
         <p className="send__target" aria-label={`Key: ${text}`}>
           {text.split(' ').map((group, g) => (
             <span key={g} className="send__group">
-              {[...group].map((c, k) => {
+              {sendable(group).map((c, k) => {
                 const at = i++;
                 const got = sent[at];
                 const cls =
@@ -336,7 +348,7 @@ export function Keying({
                     ? at === sent.length
                       ? ' is-current'
                       : ''
-                    : got === c
+                    : got === (c === '<BT>' ? '=' : c)
                       ? ' is-right'
                       : ' is-wrong';
                 return (
@@ -363,12 +375,14 @@ export function Keying({
         aria-label="Morse key: hold to key"
         onPointerDown={(e) => {
           e.preventDefault();
+          if (down.current !== null) return;
           e.currentTarget.setPointerCapture(e.pointerId);
+          pointer.current = e.pointerId;
           void audio()?.tone.unlock();
           press(e.timeStamp);
         }}
-        onPointerUp={(e) => release(e.timeStamp)}
-        onPointerCancel={(e) => release(e.timeStamp)}
+        onPointerUp={(e) => e.pointerId === pointer.current && release(e.timeStamp)}
+        onPointerCancel={(e) => e.pointerId === pointer.current && release(e.timeStamp)}
         onContextMenu={(e) => e.preventDefault()}
         onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
       >

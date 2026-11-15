@@ -58,6 +58,11 @@ const MAX_DIT_MS = 300;
 /** Key-downs this much apart in length are two kinds (dits and dahs), not one. */
 const TWO_KINDS = 1.8;
 
+/** A key-down shorter than this is a bounce or a brush of the key, not a dit (#7 review). */
+export const BOUNCE_MS = 15;
+/** A key-down this many times the median is a held key (testing the tone), not a dah. */
+const HELD = 8;
+
 const LETTER_ABOVE = 2;
 const WORD_ABOVE = 5;
 
@@ -78,9 +83,21 @@ const mean = (xs: readonly number[]) => xs.reduce((a, b) => a + b, 0) / xs.lengt
  * Sorts key-down lengths into dits and dahs, and finds the dit length. Returns, for each length,
  * whether it's a dah.
  */
-export function sortElements(lengths: readonly number[], guessDitMs = START_DIT_MS) {
+export function sortElements(
+  lengths: readonly number[],
+  guessDitMs = START_DIT_MS,
+): { dah: boolean[]; ditMs: number } {
   const guess = clampDit(guessDitMs);
   if (!lengths.length) return { dah: [] as boolean[], ditMs: guess };
+  // A held key says nothing about your speed: it's a dah, but the split ignores it.
+  const sorted = [...lengths].sort((a, b) => a - b);
+  const median = sorted[Math.floor(sorted.length / 2)] ?? 0;
+  const counted = lengths.filter((ms) => ms <= HELD * median);
+  if (counted.length < lengths.length) {
+    const { dah, ditMs } = sortElements(counted, guessDitMs);
+    let k = 0;
+    return { dah: lengths.map((ms) => (ms <= HELD * median ? (dah[k++] ?? false) : true)), ditMs };
+  }
   const logs = lengths.map((ms) => Math.log(Math.max(1, ms)));
   const lo = Math.min(...logs);
   const hi = Math.max(...logs);
@@ -120,6 +137,8 @@ export interface DecodeOptions {
 
 /** Decodes a sequence of key-downs into text. */
 export function decode(marks: readonly Mark[], options: DecodeOptions = {}): Decoded {
+  // Bounces aren't keying: they're left out, and the gaps around them join up.
+  marks = marks.filter((m) => m.up - m.down >= BOUNCE_MS);
   const { dah, ditMs } = sortElements(
     marks.map((m) => m.up - m.down),
     options.startDitMs,
