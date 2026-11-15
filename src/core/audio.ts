@@ -18,8 +18,25 @@ export function preferPlayback(nav: unknown = globalThis.navigator): void {
   }
 }
 
+/**
+ * If a context is still suspended (made a moment after the tap, as a drill's first sound is, which
+ * iPhone Safari may refuse), the next tap or key press resumes it, so the sound starts instead of
+ * staying silent (review, 2026-11-15).
+ */
+export function resumeOnGesture(ctx: AudioContext, target: EventTarget = globalThis): void {
+  if (ctx.state !== 'suspended' || typeof target.addEventListener !== 'function') return;
+  const events = ['pointerdown', 'keydown', 'touchend'] as const;
+  const resume = () => {
+    for (const e of events) target.removeEventListener(e, resume, true);
+    if (ctx.state === 'suspended') void ctx.resume().catch(() => {});
+  };
+  for (const e of events) target.addEventListener(e, resume, true);
+}
+
 /** A live audio context for sound you can hear, made after a tap or key press. */
 export function newAudioContext(options?: AudioContextOptions): AudioContext {
   preferPlayback();
-  return new AudioContext(options);
+  const ctx = new AudioContext(options);
+  resumeOnGesture(ctx);
+  return ctx;
 }
