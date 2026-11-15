@@ -276,7 +276,11 @@ export function subjectApi<State extends object>(
       if (!Number.isInteger(limit) || limit < 1 || limit > MAX_DUE) {
         throw new RangeError(`dueItems: limit is 1 to ${MAX_DUE}, got ${limit}`);
       }
-      return store.dueCards(id, now, limit);
+      // A card in long-term review that falls due later today is due now: a word answered at
+      // 21:00 with a day to wait comes back the next morning, not at 21:00 (review, 2026-11-15).
+      const dayEnd = new Date(now);
+      dayEnd.setHours(23, 59, 59, 999);
+      return store.dueCards(id, now, limit, dayEnd);
     },
     async reviewStatus(itemIds) {
       itemIds.forEach(checkItemId);

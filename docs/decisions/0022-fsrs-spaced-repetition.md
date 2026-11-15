@@ -27,7 +27,7 @@ Checked on npm on 2026-11-02:
   | Call | Does |
   |---|---|
   | `recordReview(itemId, 'again' \| 'hard' \| 'good' \| 'easy')` | Records how well the learner knew an item; returns when it's due again. When a session asks about an item several times, `gradeFrom(right, asked)` turns the count into a grade (all right: good, at least half: hard, fewer: again) |
-  | `dueItems({ limit })` | Items due now, most overdue first |
+  | `dueItems({ limit })` | Items due now, most overdue first. A card in long-term review that falls due later today counts as due now (as in Anki), so a word answered last night is due this morning; a learning step still waits its minutes (2026-11-15) |
   | `reviewStatus(itemIds)` | Due date, phase (new, learning, review, relearning), reps and lapses; items never reviewed are missing |
 
   **Item ids** are the subject's own stable strings, up to 128 characters, e.g. `char:K`. **Turning results into grades** (for example, Morse: wrong → again, slow → hard) is the subject's job.
