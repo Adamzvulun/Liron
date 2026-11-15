@@ -71,12 +71,12 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
     setStage({ kind: 'result', score, passed });
     const plan = score.results.map((r) => r.char).join('');
     const seconds = schedule(plan.replace(/(.{5})/g, '$1 '), speed).duration;
-    reportRun(api, next, score, false, seconds, at)
-      .then(() => (passed ? api.awardXP(trial.xp) : undefined))
-      .then(
-        () => setSaveFailed(false),
-        () => setSaveFailed(true),
-      );
+    // The trial's XP goes in the run's own save: paid apart, a failure lost it for good, since
+    // the trial no longer waits to be retried (review, 2026-11-15).
+    reportRun(api, next, score, false, seconds, at, passed ? trial.xp : 0).then(
+      () => setSaveFailed(false),
+      () => setSaveFailed(true),
+    );
   };
 
   return (
