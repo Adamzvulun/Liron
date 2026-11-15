@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
-import { MORSE_CHARS } from '../code.ts';
+import { charLabel, MORSE_CHARS } from '../code.ts';
 import { MorsePlayer } from '../player.ts';
 import { schedule } from '../timing.ts';
 import { buildRun, GROUP_SIZE, RUN_SECONDS } from './build.ts';
@@ -232,7 +232,7 @@ function StartCard({
         ))}
       </div>
       <h2 className="lesson__title">
-        {lessonNo === 1 ? 'Hear K and M' : `Add ${newChars.join(' and ')}`}
+        {lessonNo === 1 ? 'Hear K and M' : `Add ${newChars.map(charLabel).join(' and ')}`}
       </h2>
       <p>
         Characters play at full speed. Type or tap each one as you hear it. Two runs in a row at 90%
