@@ -350,6 +350,19 @@ The deck's own level tags (Lingualism's suggested CEFR levels, not an official l
 |---|---|
 | 109 | The land, the weather, and kind words |
 
+- **Words 3,271–3,360 (2026-11-15): the deck's last B1 lines and words.** A fresh count first: of the deck's untaught B1 items, about 80 are whole sentences with their own recording, and only about 20 words bring an Arabic word no taught item has. Everything else gives a taught gloss again, puts taught words together, or was left out on purpose. These three chapters take the useful sentences, the new words and a few compounds whose sense isn't their parts' (*báʈin ilʔīd*, “the belly of the hand”, is the ball of the hand).
+  - **110, shoelaces, soup and a bad night:** home and the mirror (*Your shoelaces have come undone.*, *The milk has gone bad.*, *I think I smell smoke.*, *She's a natural blond.*, *You can tell he wears a toupee.*), and *dark-skinned*, *broad shoulders*, *chapped lips*, *average-looking*, *ring finger*, *the sole of the foot*, *dental floss*, *shaving cream*, *heartbeat*.
+  - **111, rush hour, the gym and a long layover:** *You can just drop me off on the corner.*, *The police pulled me over for speeding.*, *I'm not very good at haggling.*, *Could you turn it down a bit?*, *My goal is to gain muscle.*, *Your flight has been delayed by two hours.*, and *a four-lane road*, *pop music*, *hunting rifle*, *company* and *customer service representative*, *bee sting*.
+  - **112, campus, kind wishes and the rising sun:** *Do you live on campus?*, *I can get by in Arabic.*, *Remind me to set my alarm.*, *I hope nothing happens to him.*, *It was nine o'clock by the time he got up.*, *The sun rises in the east.*, *Lightning struck the tree.*, *Happy birthday, and may you have many more!*, *I'm not related to him.*, *They have triplets.*, and the words for a death: *the days of mourning*, *God rest her soul* and *God give his family patience*.
+  - **Left out on purpose:** *to vomit* (the taught *to throw up*), *Thank you* in reply to condolences as ɧayātak ilbāgya (the taught t3īš), *We've run out of gas* and *The tank is full* (taught words put together), *Kiss me!*, *My God, those girls are so cute!*, and *He's my half-brother* with the rest of the stepfamily. All 90 sentences are our own, checked with no flags left. For a sentence item, ours is a new sentence on the same pattern, never the deck's line: a second scratch check flags any four words in a row shared with a deck sentence (the 2,995 sentences before these have 7 such runs, all by chance; these 90 have none).
+  - **Still waiting (ordered, not cut), and now a question for Adam:** the adult, toilet and grim words (about 30), the national days, the stepfamily, and taught words put together. After these three chapters the deck has no B1 item left that brings a new word or a useful line without one of those choices being reopened.
+
+| Chapter | Theme |
+|---|---|
+| 110 | Shoelaces, soup and a bad night |
+| 111 | Rush hour, the gym and a long layover |
+| 112 | Campus, kind wishes and the rising sun |
+
 - **Small words travel with every chapter:** prepositions, conjunctions, adverbs, common adjectives and verbs are spread across the chapters where they're needed, not saved for one chapter each.
 - **Within a chapter, words come in teaching order** (yes and no before *goodbye*). **99 of the 300 carry a deck sentence:** the shortest sentence that uses the word. Without vowel marks different words look alike (حبّ is *love* and *pimples*), so a sentence only counts when its English carries the word's meaning too. I checked the matches by eye and removed two wrong ones.
 - **Glosses are ours:** the list stores each deck id with our own English gloss, as `content/arabic/lesson-words.json` does (#125). The Arabic and the audio stay in Supabase behind login (ADR 0011).
