@@ -29,6 +29,7 @@ On 2026-11-10 Claude put six questions to Adam (report 2026-11-09 §4l), with th
 - **Keys:** `GEMINI_API_KEY` and `GROQ_API_KEY` in Vercel, server-only. The function works with either one. Without both, it answers "not set up" and the room stays scripted.
 
 ## Consequences
+- **Amended 2026-11-15 (report §4bd):** the browser names the operator by id; the function reads who they are from `content/morse/operators.json`, so no account can send a character of its own.
 - The second slice, operators answering the news you key, is [ADR 0037](0037-ai-partner-answers-your-news.md).
 - The adapter is in place for the bigger partners (Arabic chat, the Coach): a new `kind` in `PartnerAsk`, its rules and prompt in the function, and its fallback in the subject.
 - Free-tier terms can change. Re-read both pages before widening the partner (ADR 0004's rule), and before friends join (M5), when their text would go to Google too.
