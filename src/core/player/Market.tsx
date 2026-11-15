@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import type { Look, SlotId } from '../avatar/looks.ts';
 import type { MarketStall, Ware } from '../progress/store.ts';
+import { Link } from '../Link.tsx';
 import { CoinIcon, ShieldIcon } from './icons.tsx';
 import { wareName, wareNote } from './market.ts';
 import './market.css';
@@ -41,7 +42,7 @@ export function Market({
   onBuy: (id: string) => Promise<string | null>;
 }) {
   const [buying, setBuying] = useState<string | null>(null);
-  const [said, setSaid] = useState<{ id: string; text: string } | null>(null);
+  const [said, setSaid] = useState<{ id: string; text: string; ok: boolean } | null>(null);
   const [failed, setFailed] = useState(false);
   const load = useCallback(() => void onLoad().then((ok) => setFailed(!ok)), [onLoad]);
   const retry = () => {
@@ -67,7 +68,7 @@ export function Market({
     setBuying(w.id);
     const problem = await onBuy(w.id);
     setBuying(null);
-    setSaid({ id: w.id, text: problem ?? `${wareName(w)} is yours.` });
+    setSaid({ id: w.id, text: problem ?? `${wareName(w)} is yours.`, ok: problem === null });
   };
   return (
     <section className="market" aria-labelledby="market-title">
@@ -109,6 +110,11 @@ export function Market({
             <span className="market__said" role="status">
               {said?.id === w.id ? said.text : ''}
             </span>
+            {said?.id === w.id && said.ok && w.kind !== 'functional' && (
+              <Link className="market__try" href="/house">
+                Try it on at your house
+              </Link>
+            )}
           </li>
         ))}
       </ul>

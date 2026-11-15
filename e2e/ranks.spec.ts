@@ -42,7 +42,7 @@ test.describe('Guild ranks (#174)', () => {
     await page.goto('/signal-tower');
     const card = page.getByRole('dialog', { name: 'Listener' });
     await expect(card.getByText('Learn all 41 Koch characters')).toBeVisible();
-    await expect(card.getByText("Listener's ear-cups")).toBeVisible();
+    await expect(card.getByText('Listener’s ear-cups')).toBeVisible();
     await card.getByRole('button', { name: 'Take the rank' }).click();
     await expect(card).toHaveCount(0);
     await expect.poll(() => sent.length).toBe(1);
