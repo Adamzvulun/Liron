@@ -482,13 +482,20 @@
 
 .hud__quest {
   display: flex;
-  flex-direction: column;
-  gap: 1px;
+  flex-flow: row wrap;
+  align-items: baseline;
+  gap: 1px 12px;
   padding: 2px 0 2px 12px;
   border-left: 6px solid;
   border-radius: 3px;
   color: #f6e7c4;
   text-decoration: none;
+}
+
+/* The giver and the task take a line each; a contract's count and its reward share the last. */
+.hud__questgiver,
+.hud__questtext {
+  flex-basis: 100%;
 }
 
 .hud__quest:hover .hud__questtext {
@@ -723,13 +730,13 @@
 }
 
 .notice-board .hud__questlist {
-  gap: 16px;
-  padding-top: 8px;
+  gap: 20px;
+  padding-top: 14px;
 }
 
 .notice-board .hud__quest {
   position: relative;
-  padding: 20px 16px 12px 18px;
+  padding: 16px 16px 12px 18px;
   border-radius: 4px;
   background: linear-gradient(180deg, #fbf1d8, #ead7ae);
   box-shadow:
@@ -746,7 +753,8 @@
 .notice-board .hud__quest::before {
   content: '';
   position: absolute;
-  top: 6px;
+  /* On the note's top edge, as a pin holds paper, clear of the guild's name (review, 2026-11-15). */
+  top: -7px;
   left: 50%;
   width: 14px;
   height: 14px;
