@@ -2070,3 +2070,29 @@ describe('the daily cap on chat lines at the inn (ADR 0038)', () => {
     }
   });
 });
+
+describe('the licence and the AI allowances, hardened (2026-11-15)', () => {
+  it('a new account never becomes the licensee once any account exists', async () => {
+    await rows(`delete from content_licensees`);
+    const third = '00000000-0000-0000-0000-00000000000c';
+    await rows(`insert into auth.users (id, email) values ($1, 'c@example.com')`, [third]);
+    expect(await rows(`select user_id from content_licensees`)).toEqual([]);
+  });
+
+  it('a project’s very first account still does', async () => {
+    await rows(`delete from content_licensees`);
+    await rows(`alter table auth.users disable trigger user`);
+    await rows(`delete from auth.users`);
+    await rows(`alter table auth.users enable trigger user`);
+    const first = '00000000-0000-0000-0000-00000000000d';
+    await rows(`insert into auth.users (id, email) values ($1, 'd@example.com')`, [first]);
+    expect(await rows(`select user_id from content_licensees`)).toEqual([{ user_id: first }]);
+  });
+
+  it('anonymous sessions get no partner replies or chat lines', async () => {
+    await rows(`select set_config('request.jwt.claims', '{"is_anonymous": true}', true)`);
+    for (const sql of [`select claim_partner_reply()`, `select claim_chat_line()`])
+      await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/not signed in/);
+    await rows(`select set_config('request.jwt.claims', '', true)`);
+  });
+});

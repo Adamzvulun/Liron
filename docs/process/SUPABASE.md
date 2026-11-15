@@ -34,7 +34,7 @@ Facts checked on supabase.com on 2026-11-02:
 8. At the next release, do step 7 in **`waymark-prod`** too.
 
 ### Adding a licensee
-Only accounts listed in `content_licensees` can read the Lingualism deck ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)). Every account that existed when that migration ran was added, and so is the first account a fresh project ever gets. To add someone else, in that project's **SQL editor** (this is data, not a schema change, so it's fine to run by hand):
+Only accounts listed in `content_licensees` can read the Lingualism deck ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)). Every account that existed when that migration ran was added, and so is the first account a fresh project ever gets. Since `20261221000000_harden_licensee_and_allowances.sql`, that applies only while no other account exists: if the licensee's row is ever deleted, add it back by hand, because nobody who signs up later gets it. To add someone else, in that project's **SQL editor** (this is data, not a schema change, so it's fine to run by hand):
 
 ```sql
 insert into public.content_licensees (user_id)
@@ -63,7 +63,7 @@ Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrat
 If a run fails because a secret is missing, add it and start the workflow again: **Actions → DB migrate → Run workflow** on the right branch, or ask Claude, who can start it.
 
 ## Private content
-Copyrighted content (the Lingualism deck) is uploaded to each project automatically, right after migrations ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)). It's readable only by signed-in users. The workflow needs each project's **secret key**.
+Copyrighted content (the Lingualism deck) is uploaded to each project automatically, right after migrations ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)). Only the licensee can read it (see above). The workflow needs each project's **secret key**.
 
 **One-time setup (Adam), for each project:**
 1. Supabase → the project → **Project Settings → API Keys** → **Secret keys** → copy the default secret key (`sb_secret_…`), or create one named `github-actions`.

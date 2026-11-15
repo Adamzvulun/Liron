@@ -33,8 +33,8 @@ Content is data, not code (CLAUDE.md). #23 asks for one schema for items, lesson
   - `content/morse/characters.json`: the 41 characters in LCWO Koch order (26 letters, 10 digits, `. , ? / =`) with their ITU codes, and 40 Koch lessons (K M, then one more character each).
   - `content/arabic/letters.json`: the 28 letters, ids from their Unicode names, with Arabic and Latin names, alphabet position and whether they connect forward. The Hebrew bridge and the teaching order come with #38 and #39; ADR 0002 marks the bridge details as still proposed. *Update:* it now holds 32 entries (the 28 letters plus ة, ء, ى and لا), each with its bridge, family and lesson.
 - **Copyrighted content** (migration `20261103010000_private_content.sql`):
-  - `content_items` and `content_lessons` tables: readable by signed-in users only; nobody writes them through the API.
-  - A private `private-media` bucket (MP3 only, at most 5 MB per file). Its read policy allows signed-in users only.
+  - `content_items` and `content_lessons` tables: readable by signed-in users only; nobody writes them through the API. *Update:* since `20261104120000_harden_player_writes.sql` (ADR 0029), only the licensee (`content_licensees`, never an anonymous session) can read them.
+  - A private `private-media` bucket (MP3 only, at most 5 MB per file). Its read policy allows signed-in users only. *Update:* the licensee only, as above.
 - **Import:** `scripts/content/lingualism.ts` reads the `.apkg` directly. It uses only Node's built-ins: zstd and SQLite, plus a 60-line zip reader. It cleans the HTML fields and builds a pack:
 
   | Deck | Pack |
