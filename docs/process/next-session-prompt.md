@@ -11,7 +11,7 @@ Before you do anything, read `CLAUDE.md`, then `docs/process/STATUS.md`, then `d
 Actions minutes cost money, so keep CI use low:
 - Bundle smaller issues and features into one PR. No stacked PRs; push rarely, and never while a run is going.
 - Run the full checks locally before opening a PR: tsc, eslint, prettier, vitest (also with `TZ=UTC`, as CI runs), then the whole Playwright suite with `--trace off`.
-- Never treat a red, cancelled or flaky run as green. Check the job log: 5 skipped is normal (the desktop-only space-bar test made it 5, HANDOFF item 28).
+- Never treat a red, cancelled or flaky run as green. Check the job log: 9 skipped is normal: nine tests run on only one of the two projects, phone or desktop (`grep -n "test.skip" e2e/*.spec.ts` lists them).
 - If a job fails within seconds with no runner and no log, the Actions budget has run out. Tell me; don't push again to kick it.
 
 First:
