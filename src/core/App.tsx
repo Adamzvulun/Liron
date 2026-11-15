@@ -231,16 +231,7 @@ function Lobby({ player }: { player: Player }) {
       </>
     );
   }
-  if (path !== '/') {
-    return (
-      <main className="place-screen">
-        <h1 className="place-screen__title">Lost?</h1>
-        <p className="place-screen__soon">
-          There’s no such place in Waymark. <Link href="/">Back to the square</Link>
-        </p>
-      </main>
-    );
-  }
+  if (path !== '/') return <Lost />;
   return (
     <City subjects={subjects} look={state.profile?.avatar}>
       <div className="lobby__top">
@@ -259,5 +250,23 @@ function Lobby({ player }: { player: Player }) {
       {/* One celebration at a time: the level-up first, then the daily goal. */}
       {celebrations}
     </City>
+  );
+}
+
+/** An address that isn't a place in Waymark. */
+function Lost() {
+  useEffect(() => {
+    document.title = 'Lost? – Waymark';
+    return () => {
+      document.title = 'Waymark';
+    };
+  }, []);
+  return (
+    <main className="place-screen">
+      <h1 className="place-screen__title">Lost?</h1>
+      <p className="place-screen__soon">
+        There’s no such place in Waymark. <Link href="/">Back to the square</Link>
+      </p>
+    </main>
   );
 }

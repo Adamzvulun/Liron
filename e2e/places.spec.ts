@@ -74,6 +74,7 @@ test.describe('places in the city (#25)', () => {
     await signedIn(page);
     await page.goto('/nowhere');
     await expect(page.getByRole('heading', { name: 'Lost?' })).toBeVisible();
+    await expect(page).toHaveTitle('Lost? – Waymark');
     await page.getByRole('link', { name: 'Back to the square' }).click();
     await expect(page.getByRole('heading', { name: 'Signal Tower' })).toBeVisible();
   });
