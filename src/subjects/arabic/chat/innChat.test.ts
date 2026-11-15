@@ -56,17 +56,24 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     const next = afterChat(guest, first, turns);
     expect(next.chat.told[String(first.number)]).toEqual(['اثنين', 'ثلاثة', 'أربعة']);
     expect(next.chat.chats).toBe(1);
+    // The longest chat is kept, for the house's ranks: a shorter one never lowers it.
+    expect(next.chat.best).toBe(4);
+    expect(afterChat(next, first, turns.slice(0, 2)).chat.best).toBe(4);
     expect(afterChat(guest, first, [{ who: 'them', text: 'أهلا' }])).toBe(guest);
     expect(chatAsk(first, next, []).told).toEqual(['اثنين', 'ثلاثة', 'أربعة']);
     expect(parseProgress(next).chat).toEqual(next.chat);
   });
 
   it('reads old progress without a chat as a fresh one', () => {
+    // A chat saved before the longest-chat count (2026-11-15) reads with 0.
+    const before = { name: 'Adam', told: {}, chats: 3, met: { '2': 3 }, hebrew: false, tips: [] };
+    expect(parseProgress({ ...NEW_PROGRESS, chat: before }).chat).toEqual({ ...before, best: 0 });
     expect(parseProgress({ ...NEW_PROGRESS, chat: undefined }).chat).toEqual(NEW_PROGRESS.chat);
     expect(NEW_PROGRESS.chat).toEqual({
       name: '',
       told: {},
       chats: 0,
+      best: 0,
       met: {},
       hebrew: false,
       tips: [],

@@ -82,8 +82,10 @@
       "type": "rank",
       "data": {
         "name": "Ghost of the Ether",
-        "conditions": ["Head copy and sending at 30 wpm or faster"],
-        "later": "Real QSOs come with radio partners",
+        "conditions": [
+          "Head copy at 30 wpm: copy a call at 30 wpm or faster in the callsign rush",
+          "Send at 30 wpm or faster in a sending drill"
+        ],
         "order": 7
       }
     }

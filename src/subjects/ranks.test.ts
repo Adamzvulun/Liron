@@ -2,12 +2,22 @@ import { describe, expect, it } from 'vitest';
 import { needLine } from '../core/ranks/ranks.ts';
 import { GEAR } from '../core/avatar/looks.ts';
 import catalogue from '../../content/core/items.json' with { type: 'json' };
-import { ARABIC_RANKS, arabicStanding, SLATE_IDS } from './arabic/ranks.ts';
+import {
+  ARABIC_RANKS,
+  arabicStanding,
+  FRIEND_CHATS,
+  FRIEND_WORDS,
+  LOCAL_LINES,
+  LOCAL_WORDS,
+  NEIGHBOR_LINES,
+  SLATE_IDS,
+  STORY_FRIENDS,
+} from './arabic/ranks.ts';
 import { NEW_PROGRESS as ARABIC_NEW, type ArabicProgress } from './arabic/progress.ts';
 import { PHRASE_SETS } from './arabic/phrases/sets.ts';
 import { MORSE_CHARS } from './morse/code.ts';
-import { NEW_PROGRESS as MORSE_NEW } from './morse/lesson/progress.ts';
-import { MORSE_RANKS, morseStanding } from './morse/ranks.ts';
+import { NEW_PROGRESS as MORSE_NEW, type MorseProgress } from './morse/lesson/progress.ts';
+import { GHOST_DIT_MS, GHOST_WPM, MORSE_RANKS, morseStanding } from './morse/ranks.ts';
 import { PROSIGNS } from './morse/words.ts';
 
 describe('the Signal Tower’s ranks (#174)', () => {
@@ -74,6 +84,33 @@ describe('the Signal Tower’s ranks (#174)', () => {
     };
     expect(morseStanding(all).rank.id).toBe('telegraphist');
   });
+
+  it('makes you a Ghost with head copy and sending at 30 wpm, after Signal Master (2026-11-15)', () => {
+    const master: MorseProgress = {
+      ...MORSE_NEW,
+      unlocked: MORSE_CHARS.length,
+      trials: [1, 2, 3, 4, 5],
+      sending: { drills: 20, ditMs: 80 },
+      prosigns: PROSIGNS.map((p) => p.id),
+      rankTrials: ['lamp-signal', 'far-station', 'night-watch'],
+      radio: { ...MORSE_NEW.radio, cleanFast: true },
+    };
+    expect(morseStanding(master).rank.id).toBe('signal-master');
+    // Nothing in the guild is "comes later" any more.
+    expect(MORSE_RANKS.every((r) => !r.later)).toBe(true);
+    const fast = {
+      ...master,
+      rush: { ...master.rush, topWpm: GHOST_WPM },
+      sending: { drills: 21, ditMs: GHOST_DIT_MS },
+    };
+    expect(morseStanding(fast).rank.id).toBe('ghost');
+    expect(morseStanding({ ...fast, rush: { ...fast.rush, topWpm: 29 } }).rank.id).toBe(
+      'signal-master',
+    );
+    expect(morseStanding({ ...fast, sending: { drills: 21, ditMs: 41 } }).rank.id).toBe(
+      'signal-master',
+    );
+  });
 });
 
 describe('the House of the Crossing’s ranks (#174)', () => {
@@ -105,6 +142,34 @@ describe('the House of the Crossing’s ranks (#174)', () => {
       expect(s.rank.id).toBe('guest');
       expect(s.checks.filter((c) => !c.done)).toHaveLength(1);
     }
+  });
+
+  it('earns Neighbor, Friend, Local and Storyteller at the inn’s table (2026-11-15)', () => {
+    const met = (n: number) => Array.from({ length: n }, (_, i) => `pcav:${i}`);
+    const at = (chat: Partial<ArabicProgress['chat']>, words = 0): ArabicProgress => ({
+      ...traveler,
+      words: { ...traveler.words, met: met(words) },
+      chat: { ...traveler.chat, ...chat },
+    });
+    // Nothing is "comes later" any more: every rank can be reached.
+    expect(ARABIC_RANKS.every((r) => !r.later)).toBe(true);
+    expect(arabicStanding(at({ best: NEIGHBOR_LINES - 1 })).rank.id).toBe('traveler');
+    expect(arabicStanding(at({ best: NEIGHBOR_LINES })).rank.id).toBe('neighbor');
+    const friend = at({ best: NEIGHBOR_LINES, chats: FRIEND_CHATS }, FRIEND_WORDS);
+    expect(arabicStanding(friend).rank.id).toBe('friend');
+    expect(arabicStanding({ ...friend, chat: { ...friend.chat, chats: 19 } }).rank.id).toBe(
+      'neighbor',
+    );
+    const local = at({ best: LOCAL_LINES, chats: FRIEND_CHATS }, LOCAL_WORDS);
+    expect(arabicStanding(local).rank.id).toBe('local');
+    const old = Object.fromEntries([2, 3, 4, 5, 6].map((n) => [String(n), 5]));
+    expect(arabicStanding({ ...local, chat: { ...local.chat, met: old } }).rank.id).toBe(
+      'storyteller',
+    );
+    // Four old friends are not enough.
+    const four = Object.fromEntries([2, 3, 4, 5].map((n) => [String(n), 9]));
+    expect(arabicStanding({ ...local, chat: { ...local.chat, met: four } }).rank.id).toBe('local');
+    expect(STORY_FRIENDS).toBe(5);
   });
 
   it('teaches the 28 letters and the extras on the slate, but not the lam-alef ligature', () => {

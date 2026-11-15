@@ -97,6 +97,8 @@ test.describe('Sit and talk at the inn (E17)', () => {
       name: 'Adam',
       told: { 2: ['منيح، الحمد لله', 'طالب', 'شكرا'] },
       chats: 1,
+      // The longest chat, in your lines: the house's ranks count it (2026-11-15).
+      best: 3,
       met: { 2: 1 },
       hebrew: false,
       tips: [],

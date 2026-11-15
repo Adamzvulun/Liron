@@ -21,7 +21,7 @@ Ranks are a ladder: you take them in order. A rank's conditions are shown before
 | Operator | Listener and Keyer, the prosigns, and a first QSO | **New trial: "The Far Station"**, a scripted QSO with the tower's distant station | Later in E13 (it needs the QSO trial) |
 | Telegraphist | Head copy of common words at 20 wpm | **New trial: "The Night Watch"**: copy 20 common words at 20 wpm, at least 18 right | After Operator |
 | Signal Master | A QSO at 25 wpm with no repeats | Log a Radio Room contact at 25 wpm (Dex) with no AGN, no QRS and no resend ([radio QSO](radio-qso.md) §5) | ✅ (E16, 2026-11-10) |
-| Ghost of the Ether | 30+ wpm head copy and sending | — | M5 and later |
+| Ghost of the Ether | 30+ wpm head copy (a call copied right at 30 wpm in the callsign rush) and sending (a drill with a dit of 40 ms or less) | — | ✅ (2026-11-15; Adam: open it now the Radio Room has live operators) |
 
 - **Listener (my call):** the lore says "all 26 letters via Koch at ≥90%". In Koch order the last letter (X) is the 41st character, so the 26 letters finish with the whole course. The chapter V trial already tests all of them at 90%, so it is the gate, and no new trial is needed.
 - **Operator's QSO (my call):** the lore asks for a first full QSO, a conversation with another operator. Real partners come in M5. Until then the gate is a **scripted QSO with "the Far Station"**, a character the Silent Beacon already names. It plays a short, real-format exchange (CQ, callsigns, RST, name, QTH, 73). You copy its parts and send your own answers. A first QSO with a real person becomes an achievement in M5. It isn't dropped.
@@ -32,8 +32,12 @@ Ranks are a ladder: you take them in order. A rank's conditions are shown before
 | غريب Gharīb, Stranger | Join | none | ✅ (built) |
 | ضيف Ḍēf, Guest | Read the whole script | The Painted Sign | ✅ (built) |
 | مسافر Msāfer, Traveler | 300 words (word chapters 1–10 passed), every survival phrase set, and every letter written from memory on the slate | The Poet's Evening, the last regular's trial (#161) | ✅ |
-| جار Jār, Neighbor | A first real conversation with a partner | — | M5 (partners) |
-| صاحب Ṣāḥeb, Friend and beyond | 1,000 words + 20 conversations, … | — | M5 and later |
+| جار Jār, Neighbor | A first real chat at the inn: at least 3 of your lines | — | ✅ (2026-11-15) |
+| صاحب Ṣāḥeb, Friend | 1,000 words met + 20 chats at the inn | — | ✅ (2026-11-15) |
+| ابن البلد Local | 2,000 words met + a whole chat (all 8 of your lines) | — | ✅ (2026-11-15) |
+| حكواتي Storyteller | An old friend (5 chats) of 5 regulars | — | ✅ (2026-11-15) |
+
+- **The ranks after Traveler, at the inn (Adam, 2026-11-15, "map them to the inn"):** the partners these ranks waited for are the regulars (E17). The numbers live in `src/subjects/arabic/ranks.ts` and mirror the inn's: 3 lines earn a chat its XP, 8 is a whole chat, 5 chats make an old friend. Progress keeps `chat.best`, the most of your lines in one chat; chats before 2026-11-15 count as 0 there, so Neighbor needs one new chat. No rank gear for them yet (like Signal Master).
 
 - **Traveler's gate (my call):** the regulars' trials (#161) end with Jamil the poet at chapter 10 = word 300. His trial is the natural boss fight for Traveler, so no new trial is needed.
 - **Writing by hand:** the slate saves each passed letter in a new list in your progress (`written`), so the rank can count it. The slate's check is rough, so a letter counts the first time you pass it from memory; it is never taken away.
