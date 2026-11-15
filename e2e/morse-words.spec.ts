@@ -49,6 +49,27 @@ test.describe('the Codebook in the Signal Tower (#154)', () => {
       expect(c.args).toMatchObject({ p_subject: 'morse', p_skill: 'head-copy' });
   });
 
+  test('after tapping letters, Enter answers instead of typing the last one again (review, 2026-11-15)', async ({
+    page,
+  }) => {
+    test.setTimeout(60_000);
+    await signedIn(page, [], [], { unlocked: 9, met: [...'KMURESNAP'], trials: [1] });
+    await page.goto('/signal-tower?run=short');
+    await page
+      .getByRole('button', { name: /Codebook/ })
+      .first()
+      .click();
+    await page.getByRole('button', { name: 'Start a round' }).click();
+    await expect(page.getByText('Word 1 of 3 · type what you heard')).toBeVisible({
+      timeout: 10_000,
+    });
+    const pad = page.getByLabel('Letter keys');
+    await pad.getByRole('button', { name: 'A', exact: true }).click();
+    await pad.getByRole('button', { name: 'M', exact: true }).click();
+    await page.keyboard.press('Enter');
+    await expect(page.getByText(/^Right\.|You copied AM\./)).toBeVisible();
+  });
+
   test('the callsign rush opens with a digit, and saves its score', async ({ page }) => {
     test.setTimeout(60_000);
     const calls: SubjectCall[] = [];

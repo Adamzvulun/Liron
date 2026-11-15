@@ -52,7 +52,8 @@ type Stage =
   | { kind: 'qso'; qso: Qso; at: number; copies: Copies; reads: string[]; started: number }
   | { kind: 'result'; qso: Qso; copies: Copies; reads: string[]; result: QsoResult; xp: number };
 
-export function FarStation({ api }: { api: SubjectApi }) {
+/** `onRoom` goes to the Radio Room itself (review, 2026-11-15: its button led back here). */
+export function FarStation({ api, onRoom }: { api: SubjectApi; onRoom?: () => void }) {
   const [progress, setProgress] = useState<MorseProgress | null>(null);
   const [failed, setFailed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
@@ -138,7 +139,11 @@ export function FarStation({ api }: { api: SubjectApi }) {
         />
       )}
       {stage.kind === 'result' && (
-        <Log stage={stage} onAgain={begin} onLeave={() => setStage({ kind: 'intro' })} />
+        <Log
+          stage={stage}
+          onAgain={begin}
+          onLeave={onRoom ?? (() => setStage({ kind: 'intro' }))}
+        />
       )}
     </section>
   );

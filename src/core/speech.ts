@@ -6,7 +6,7 @@
 
 /** Why a check didn't give a transcript; the codes api/understood.ts answers with. */
 export type SpeechProblem =
-  'daily-limit' | 'busy' | 'too-big' | 'not-set-up' | 'signed-out' | 'failed';
+  'daily-limit' | 'busy' | 'too-big' | 'not-set-up' | 'signed-out' | 'not-allowed' | 'failed';
 
 export class SpeechError extends Error {
   constructor(readonly problem: SpeechProblem) {
@@ -33,6 +33,8 @@ const KNOWN: readonly SpeechProblem[] = [
   'too-big',
   'not-set-up',
   'signed-out',
+  // The check is only for the deck's licensee (ADR 0014); retrying won't help (review, 2026-11-15).
+  'not-allowed',
 ];
 
 /** Our Vercel function, signed in with the learner's current access token. */

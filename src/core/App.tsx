@@ -85,6 +85,21 @@ export function App() {
 
 function AuthGate() {
   const [auth, passwordChosen] = useAuth();
+  // Leaving an account, however it happens (the button, an expired login, another tab), starts
+  // the page afresh: the subjects' unsaved progress and in-memory deck and the player's purse
+  // are per account and mustn't reach the next one to sign in here. Signed out, the kept deck
+  // is wiped too, also on a fresh page, so a write that landed after a wipe goes as well
+  // (review, 2026-11-15; #124, ADR 0023).
+  const was = useRef(auth.status);
+  useEffect(() => {
+    const before = was.current;
+    was.current = auth.status;
+    if (auth.status !== 'signedOut') return;
+    const wiped = browserPackStore.clear().catch(() => {});
+    if (before === 'signedIn' || before === 'setPassword') {
+      void wiped.then(() => window.location.assign('/'));
+    }
+  }, [auth.status]);
   switch (auth.status) {
     case 'loading':
       return null;
@@ -236,8 +251,7 @@ function Lobby({ player }: { player: Player }) {
           onGoalChange={player.setDailyGoal}
           onNameChange={player.setDisplayName}
           onSignOut={() => {
-            // The kept deck goes with the login (#124).
-            void browserPackStore.clear().catch(() => {});
+            // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });
           }}
         />

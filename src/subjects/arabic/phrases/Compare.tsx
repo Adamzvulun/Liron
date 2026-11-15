@@ -73,6 +73,7 @@ const PROBLEMS: Record<SpeechProblem, string> = {
   'too-big': 'That one’s too long to check. Keep it under half a minute.',
   'not-set-up': 'The check isn’t set up yet. Judge it by ear.',
   'signed-out': 'Sign in again to use the check.',
+  'not-allowed': 'The check isn’t open to your account. Judge it by ear.',
   failed: 'Couldn’t check that one. Try again, or judge it by ear.',
 };
 
