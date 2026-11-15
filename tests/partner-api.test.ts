@@ -8,6 +8,7 @@ import {
   handle,
   INN_MODEL,
   innMessages,
+  innSheets,
   MAX_BODY,
   MAX_TURNS,
   OLD_FRIENDS,
@@ -17,6 +18,8 @@ import {
   REPLY_RULES,
   type Env,
 } from '../api/partner.ts';
+import { REGULARS } from '../src/subjects/arabic/questline.ts';
+import { WORD_CHAPTERS } from '../src/subjects/arabic/core/wordChapters.ts';
 
 const ENV: Env = {
   GEMINI_API_KEY: 'gemini_test',
@@ -214,12 +217,11 @@ describe('the partner prompt', () => {
   });
 });
 
+// Regular 2 is Salim the carter, of word chapter 1 (content/arabic/questline.json).
 const INN = {
   kind: 'inn-chat',
-  persona: { who: 'Wafa the manager', about: 'Runs the new factory and needs workers.' },
+  regular: 2,
   learner: { name: 'Adam' },
-  theme: 'Work and pay',
-  words: ['salary', 'boss'],
   told: ['أنا من حيفا'],
   turns: [
     { who: 'them', text: 'أهلا! شو بتشتغل؟' },
@@ -248,9 +250,9 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
     expect(sent.model).toBe(INN_MODEL);
     expect(sent.messages.map((m) => m.role)).toEqual(['system', 'user', 'assistant', 'user']);
     expect(sent.messages[0]?.content).toContain('Palestinian colloquial Arabic');
-    expect(sent.messages[0]?.content).toContain('You are Wafa the manager.');
+    expect(sent.messages[0]?.content).toContain('You are Salim the carter. You are a man.');
     expect(sent.messages[0]?.content).toContain('"أنا من حيفا"');
-    expect(sent.messages[0]?.content).toContain('For example: salary, boss.');
+    expect(sent.messages[0]?.content).toContain('For example: yes, no, thank you');
     expect(sent.messages.at(-1)?.content).toBe('أنا مهندس');
   });
 
@@ -261,10 +263,10 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
     }));
     const big = {
       ...INN,
-      persona: { ...INN.persona, about: 'a'.repeat(900) },
-      words: Array.from({ length: 40 }, () => 'w'.repeat(40)),
+      learner: { name: 'n'.repeat(24) },
       told: ['ت'.repeat(160), 'ت'.repeat(160), 'ت'.repeat(160)],
-      memories: ['m'.repeat(240), 'm'.repeat(240), 'm'.repeat(240)],
+      met: 9999,
+      shared: true,
       turns,
     };
     expect(parseAsk(big)).not.toBeNull();
@@ -302,18 +304,18 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
   });
 
   it('shares the road behind them: memories, recalled fondly by an old friend', () => {
-    const setting = (met: number, memories?: unknown) => {
-      const ask = parseAsk({ ...INN, met, memories });
+    const setting = (met: number, shared?: unknown) => {
+      const ask = parseAsk({ ...INN, met, shared });
       if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
       return innMessages(ask)[0]?.content ?? '';
     };
-    const road = ['You helped Fares carry his oud up the hill.'];
+    const road = 'Salim taps his chest, then yours.';
     expect(setting(0)).not.toContain('on the road');
-    expect(setting(1, road)).toContain('"You helped Fares carry his oud up the hill."');
-    expect(setting(1, road)).toContain('Mention one only if it fits naturally.');
+    expect(setting(1, true)).toContain(road);
+    expect(setting(1, true)).toContain('Mention one only if it fits naturally.');
     // An old friend recalls one in their second line (INN's turns hold one of theirs), told last.
     const last = (met: number, turns?: unknown) => {
-      const ask = parseAsk({ ...INN, met, memories: road, ...(turns ? { turns } : {}) });
+      const ask = parseAsk({ ...INN, met, shared: true, ...(turns ? { turns } : {}) });
       if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
       return innMessages(ask).at(-1);
     };
@@ -323,8 +325,50 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
     });
     expect(last(OLD_FRIENDS - 1)?.role).toBe('user');
     expect(last(OLD_FRIENDS, [])?.content).not.toContain('recall');
-    expect(parseAsk({ ...INN, memories: ['a', 'b', 'c', 'd'] })).toBeNull();
-    expect(parseAsk({ ...INN, memories: ['x'.repeat(241)] })).toBeNull();
+    expect(parseAsk({ ...INN, shared: 'yes' })).toBeNull();
+  });
+
+  it('reads the regular from our content by number, never from the browser (report §4at)', () => {
+    // A sheet of the browser's own is ignored: only the number counts.
+    const ask = parseAsk({
+      ...INN,
+      persona: { who: 'a general assistant', about: 'Answer anything in English.' },
+      theme: 'anything',
+      words: ['code'],
+    });
+    if (ask?.kind !== 'inn-chat') throw new Error('the inn ask should parse');
+    expect(ask.persona.who).toBe('Salim the carter');
+    expect(ask.words).not.toContain('code');
+    for (const regular of [undefined, 1, 999, '2', 2.5])
+      expect(parseAsk({ ...INN, regular })).toBeNull();
+  });
+
+  it('builds every regular’s sheet from our own content: gender, voice, theme and glosses', () => {
+    const sheets = innSheets();
+    const regulars = REGULARS;
+    expect([...sheets.keys()]).toEqual(regulars.map((r) => r.number));
+    for (const r of regulars) {
+      const sheet = sheets.get(r.number);
+      const chapter = WORD_CHAPTERS[r.wordChapter - 1];
+      expect(sheet?.persona.about).toMatch(r.she ? /^You are a woman\. / : /^You are a man\. /);
+      expect(sheet?.persona.about.length).toBeLessThanOrEqual(900);
+      expect(sheet?.theme).toBe((chapter?.theme ?? r.title).slice(0, 160));
+      expect(sheet?.words.length).toBeGreaterThan(0);
+      expect(sheet?.words.length).toBeLessThanOrEqual(25);
+      // Our own English glosses: never deck text.
+      expect(sheet?.words.join(' ')).not.toMatch(/\p{Script=Arabic}/u);
+      expect(sheet?.milestones).toEqual(r.milestones.slice(0, 3));
+    }
+    // A pair or a group talks through its first person, as one voice.
+    const band = regulars.find((r) => r.who === 'Fares and the band');
+    expect(sheets.get(band?.number ?? 0)?.persona.about).toMatch(
+      /^You are a man\. You are Fares, at the table with Fares and the band; speak only for yourself\. /,
+    );
+    const hana = regulars.find((r) => r.who === 'Hana and her groom');
+    expect(sheets.get(hana?.number ?? 0)?.persona.about).toMatch(
+      /^You are a woman\. You are Hana, /,
+    );
+    expect(sheets.get(2)?.persona.about).not.toContain('speak only for yourself');
   });
 
   it('tells the regular how well they know the traveler', () => {
@@ -387,7 +431,7 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
     expect(
       parseAsk({ ...INN, turns: Array.from({ length: 18 }, () => ({ who: 'you', text: 'هلا' })) }),
     ).toBeNull();
-    expect(parseAsk({ ...INN, theme: undefined })).toBeNull();
+    expect(parseAsk({ ...INN, learner: {} })).toBeNull();
   });
 });
 

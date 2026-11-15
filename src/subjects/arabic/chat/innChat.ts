@@ -3,7 +3,6 @@
 import type { CoachTip, InnChatAsk, InnTurn } from '../../../core/partner.ts';
 import type { ArabicProgress } from '../progress.ts';
 import { REGULARS, regularStatus, type Regular } from '../questline.ts';
-import { WORD_CHAPTERS } from '../core/wordChapters.ts';
 import { inHebrewVowelled } from '../marks.ts';
 import { LETTERS } from '../letters.ts';
 import type { Item } from '../../../core/content/schema.ts';
@@ -18,8 +17,6 @@ export const CHAT_XP = 10;
 export const LINES_FOR_XP = 3;
 /** The regular's own goodbye after your last line: no call to the function. */
 export const GOODBYE = 'يلّا، لازم أروح هلّق. مع السلامة!';
-/** The glosses of the chapter's words sent with each line, at most. */
-const WORDS_SENT = 25;
 
 /** Who sits at the table: the regular of your road now, and every regular whose trial you've passed. */
 export function regularsToTalkTo(p: ArabicProgress): Regular[] {
@@ -28,39 +25,20 @@ export function regularsToTalkTo(p: ArabicProgress): Regular[] {
   return REGULARS.filter((r) => r.number === now?.number || p.words.trials.includes(r.number));
 }
 
-/** What the regular is told about themselves: our own story text, and their gender for the grammar. */
-export function aboutOf(r: Regular): string {
-  const gender = r.she ? 'You are a woman.' : 'You are a man.';
-  const speaker = speakerOf(r);
-  // A pair or a group ("Fares and the band") talks through its first person, as one voice.
-  const group =
-    speaker === r.who
-      ? ''
-      : `You are ${speaker}, at the table with ${r.who}; speak only for yourself.`;
-  return `${gender} ${group} ${r.intro} ${r.outro}`.replace(/\s+/g, ' ').slice(0, 900);
-}
-
-/** Who speaks for a regular: the first person named ("Fares and the band" → Fares). */
-export const speakerOf = (r: Regular) => r.who.split(/ and |, /)[0] ?? r.who;
-
-/** The ask for the regular's next line: our own glosses only, never deck text (ADR 0038). */
+/**
+ * The ask for the regular's next line. The function looks the regular up by number in our own
+ * content (their story, the chapter's theme and glosses, never deck text; ADR 0038), so the browser
+ * sends only who, what you've told them, how often you've met, and whether their trial is passed.
+ */
 export function chatAsk(r: Regular, p: ArabicProgress, turns: readonly InnTurn[]): InnChatAsk {
-  const chapter = WORD_CHAPTERS[r.wordChapter - 1];
   return {
     kind: 'inn-chat',
-    persona: { who: r.who.slice(0, 80), about: aboutOf(r) },
+    regular: r.number,
     learner: { name: p.chat.name || 'traveler' },
-    theme: (chapter?.theme ?? r.title).slice(0, 160),
-    words: [...new Set((chapter?.words ?? []).map((w) => w.gloss.slice(0, 40)))].slice(
-      0,
-      WORDS_SENT,
-    ),
     told: (p.chat.told[String(r.number)] ?? []).slice(-3),
     met: metWith(p, r),
-    // Their milestones happened once their trial is passed: shared memories (our own text).
-    memories: p.words.trials.includes(r.number)
-      ? r.milestones.slice(0, 3).map((m) => m.slice(0, 240))
-      : [],
+    // Their milestones happened once their trial is passed: shared memories.
+    shared: p.words.trials.includes(r.number),
     turns,
   };
 }

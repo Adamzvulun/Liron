@@ -15,8 +15,13 @@
  * proves sign-in and takes one of today's replies.
  *
  * Self-contained on purpose: Vercel compiles this file on its own, so it imports nothing from
- * src/ (whose imports end in `.ts`).
+ * src/ (whose imports end in `.ts`). For the inn it reads the regulars and the word chapters from
+ * content/ at run time (vercel.json's `includeFiles` ships them), so the browser names a regular by
+ * number and can't hand the model a sheet of its own (report §4at).
  */
+
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export interface Env {
   GEMINI_API_KEY?: string;
@@ -191,29 +196,101 @@ function parseTurns(v: unknown): InnTurn[] | null {
   return turns;
 }
 
+/** The glosses of a regular's chapter sent with each line, at most. */
+export const WORDS_SENT = 25;
+
+interface RegularData {
+  number: number;
+  wordChapter: number;
+  title: string;
+  who: string;
+  intro: string;
+  outro: string;
+  milestones: string[];
+  she?: boolean;
+}
+
+/** What the inn tells the model about a regular, from our own content only. */
+export interface InnSheet {
+  persona: { who: string; about: string };
+  theme: string;
+  words: string[];
+  milestones: string[];
+}
+
+/** Who speaks for a regular: the first person named ("Fares and the band" → Fares). */
+const speakerOf = (who: string) => who.split(/ and |, /)[0] ?? who;
+
+/** A regular's sheet, as the browser's innChat.ts built it before (its tests check they match). */
+export function sheetOf(r: RegularData, chapter?: { theme: string; words: { gloss: string }[] }) {
+  const gender = r.she ? 'You are a woman.' : 'You are a man.';
+  const speaker = speakerOf(r.who);
+  const group =
+    speaker === r.who
+      ? ''
+      : `You are ${speaker}, at the table with ${r.who}; speak only for yourself.`;
+  return {
+    persona: {
+      who: r.who.slice(0, 80),
+      about: `${gender} ${group} ${r.intro} ${r.outro}`.replace(/\s+/g, ' ').slice(0, 900),
+    },
+    theme: (chapter?.theme ?? r.title).slice(0, 160),
+    words: [...new Set((chapter?.words ?? []).map((w) => w.gloss.slice(0, 40)))].slice(
+      0,
+      WORDS_SENT,
+    ),
+    milestones: r.milestones.slice(0, 3).map((m) => m.slice(0, 240)),
+  } satisfies InnSheet;
+}
+
+let sheets: Map<number, InnSheet> | null = null;
+
+/** The regulars' sheets by number, read once from content/ (our own text, never the deck's). */
+export function innSheets(root = process.cwd()): Map<number, InnSheet> {
+  if (sheets) return sheets;
+  const read = (f: string) =>
+    JSON.parse(readFileSync(join(root, 'content', 'arabic', f), 'utf8')) as {
+      items: { type: string; data: unknown }[];
+    };
+  const chapters = new Map(
+    read('core-words.json').items.map((i) => {
+      const c = i.data as { chapter: number; theme: string; words: { gloss: string }[] };
+      return [c.chapter, c] as const;
+    }),
+  );
+  sheets = new Map(
+    read('questline.json')
+      .items.filter((i) => i.type === 'regular')
+      .map((i) => {
+        const r = i.data as RegularData;
+        return [r.number, sheetOf(r, chapters.get(r.wordChapter))] as const;
+      }),
+  );
+  return sheets;
+}
+
 function parseInn(b: Record<string, unknown>): InnAsk | null {
-  const persona = (b.persona ?? {}) as Record<string, unknown>;
   const learner = (b.learner ?? {}) as Record<string, unknown>;
-  const who = text(persona.who, 80);
-  const about = text(persona.about, 900);
   const name = text(learner.name, 24);
-  const theme = text(b.theme, 160);
-  const words = b.words === undefined ? [] : strings(b.words, 40, 40);
   const told = b.told === undefined ? [] : strings(b.told, 3, 160);
-  const memories = b.memories === undefined ? [] : strings(b.memories, 3, 240);
   const turns = parseTurns(b.turns);
   const met = b.met === undefined ? 0 : b.met;
-  if (!who || !about || !name || !theme || !words || !told || !memories || !turns) return null;
+  const shared = b.shared === undefined ? false : b.shared;
+  if (!name || !told || !turns || typeof shared !== 'boolean') return null;
   if (typeof met !== 'number' || !Number.isInteger(met) || met < 0 || met > 9999) return null;
+  if (typeof b.regular !== 'number' || !Number.isInteger(b.regular)) return null;
+  const sheet = innSheets().get(b.regular);
+  if (!sheet) return null;
   return {
     kind: 'inn-chat',
-    persona: { who, about },
+    persona: sheet.persona,
     learner: { name },
-    theme,
-    words,
+    theme: sheet.theme,
+    words: sheet.words,
     told,
     met,
-    memories,
+    // Their milestones happened once their trial is passed: shared memories.
+    memories: shared ? sheet.milestones : [],
     turns,
   };
 }
