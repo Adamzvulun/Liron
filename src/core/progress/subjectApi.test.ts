@@ -72,13 +72,27 @@ describe('saving, then loading (review, 2026-11-15)', () => {
     release();
     await saved;
     expect(await loaded).toEqual({ n: 2 });
+  });
 
-    const failing = subjectApi<{ n: number }>(
-      { id: 'morse' },
-      { ...base, saveSession: async () => Promise.reject(new Error('offline')) },
-    );
-    await expect(failing.saveSession({ state: { n: 3 } })).rejects.toThrow('offline');
-    expect(await failing.loadState()).toEqual({ n: 2 });
+  it('a save that failed is what the next load gets, until a save gets through', async () => {
+    const base = memoryStore();
+    let online = false;
+    const store = {
+      ...base,
+      saveSession: async (...args: Parameters<typeof base.saveSession>) => {
+        if (!online) throw new Error('offline');
+        return base.saveSession(...args);
+      },
+    };
+    const api = subjectApi<{ n: number }>({ id: 'morse' }, store);
+    await api.saveState({ n: 2 });
+    await expect(api.saveSession({ state: { n: 3 } })).rejects.toThrow('offline');
+    // Leaving and opening another door: it builds on the run that didn't save.
+    expect(await api.loadState()).toEqual({ n: 3 });
+    online = true;
+    await api.saveSession({ state: { n: 4 } });
+    expect(await api.loadState()).toEqual({ n: 4 });
+    expect(await base.loadState('morse')).toEqual({ n: 4 });
   });
 });
 
