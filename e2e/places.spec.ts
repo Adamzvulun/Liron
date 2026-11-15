@@ -110,3 +110,15 @@ test("a place that can't load says so, can try again, and the top bar stays (rev
     await expect(loaded).toBeVisible();
   }
 });
+
+test("a place whose code won't download says so inside the place (review, 2026-11-15)", async ({
+  page,
+}) => {
+  await signedIn(page);
+  await page.route('**/assets/placeViews-*.js', (route) => route.abort());
+  await page.goto('/market');
+  await expect(page.getByRole('alert')).toContainText('This place couldn’t open');
+  await expect(page.getByText('Something went wrong')).toHaveCount(0);
+  await page.getByRole('link', { name: 'Back to the square' }).click();
+  await expect(page.getByRole('link', { name: /^Caravanserai: / })).toBeVisible();
+});
