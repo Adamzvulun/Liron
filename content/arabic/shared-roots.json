@@ -2872,6 +2872,34 @@
         "hebrew": "נעים",
         "note": "pleasant"
       }
+    },
+    {
+      "id": "kin:3904",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:3904",
+        "hebrew": "מרובע"
+      }
+    },
+    {
+      "id": "kin:0866",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:0866",
+        "hebrew": "כבש",
+        "note": "to press down"
+      }
+    },
+    {
+      "id": "kin:4176",
+      "subject": "arabic",
+      "type": "shared-root",
+      "data": {
+        "deck": "pcav:4176",
+        "hebrew": "זיכרון"
+      }
     }
   ]
 }

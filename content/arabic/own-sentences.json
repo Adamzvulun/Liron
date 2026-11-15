@@ -1395,9 +1395,9 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:0307",
-        "arabic": "سْمِعِت؟ في حدا عَ الباب.",
-        "latin": "smí3it? fī ɧáda 3a lbāb.",
-        "english": "Did you hear that? Someone's at the door."
+        "arabic": "سْمِعِت الوَلد بيحْكي.",
+        "latin": "smí3it ilwálad bíɧki.",
+        "english": "I heard the boy talking."
       }
     },
     {
@@ -11636,9 +11636,9 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:3340",
-        "arabic": "كيف بْتُنْطُق هادي الكِلْمة؟",
-        "latin": "kīf btúnʈug hādi lkílme?",
-        "english": "How do you pronounce this word?"
+        "arabic": "كيف بْتُنْطُق إسْمك؟",
+        "latin": "kīf btúnʈug ísmak?",
+        "english": "How do you pronounce your name?"
       }
     },
     {
@@ -28719,9 +28719,9 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:0493",
-        "arabic": "بدّي أروح عَ الحمّام.",
-        "latin": "bíddi arūɧ 3a -lɧammām.",
-        "english": "I need to go to the bathroom."
+        "arabic": "الوَلد بِدّو يْروح عَ الحمّام.",
+        "latin": "ilwálad bíddu yrūɧ 3a -lɧammām.",
+        "english": "The boy needs to go to the bathroom."
       }
     },
     {
