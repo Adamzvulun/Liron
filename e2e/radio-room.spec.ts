@@ -182,7 +182,7 @@ test.describe('The Radio Room on the air (E16)', () => {
     await expect.poll(() => asked.length).toBe(1);
     expect(asked[0]).toMatchObject({
       kind: 'radio-news',
-      persona: { who: 'Marta, a schoolteacher' },
+      operator: 'marta',
       learner: { name: 'ADAM', place: 'HAIFA', contacts: 0 },
       past: [],
       told: [],

@@ -6,7 +6,7 @@
   "outputDirectory": "dist",
   "functions": {
     "api/partner.ts": {
-      "includeFiles": "content/arabic/*.json"
+      "includeFiles": "content/**"
     }
   },
   "rewrites": [

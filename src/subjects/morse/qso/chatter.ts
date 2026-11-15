@@ -25,7 +25,7 @@ export interface Memory {
 }
 
 const about = (c: Contact, contacts: number, m: Memory) => ({
-  persona: { who: c.op.who, about: c.op.about },
+  operator: c.op.id,
   learner: { name: c.me.name, place: c.me.qth, contacts },
   past: m.past.slice(-NOTES_KEEP),
   told: m.told.slice(-NOTES_KEEP),

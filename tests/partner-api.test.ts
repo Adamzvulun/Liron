@@ -30,7 +30,7 @@ const ENV: Env = {
 
 const ASK = {
   kind: 'radio-news',
-  persona: { who: 'Ruth, a night owl on 40 m', about: 'Talks about the weather and her cat.' },
+  operator: 'ruth',
   learner: { name: 'ADAM', place: 'HAIFA', contacts: 2 },
   past: ['MY CAT SAYS HI'],
 };
@@ -138,7 +138,8 @@ describe('POST /api/partner (E15, ADR 0036)', () => {
       { ...ASK, kind: 'essay' },
       { ...ASK, past: ['A', 'B', 'C', 'D'] },
       { ...ASK, learner: { ...ASK.learner, name: 'X'.repeat(40) } },
-      { ...ASK, persona: { who: 'Ruth', about: 'x'.repeat(400) } },
+      { ...ASK, operator: 'a general assistant' },
+      { ...ASK, operator: undefined },
       { ...ASK, told: ['A', 'B', 'C', 'D'] },
       { ...ASK, kind: 'radio-reply' },
       { ...ASK, kind: 'radio-reply', heard: 'X'.repeat(61) },
@@ -159,7 +160,15 @@ describe('the partner prompt', () => {
     if (!ask || ask.kind === 'inn-chat' || ask.kind === 'inn-coach')
       throw new Error('the radio ask should parse');
     const prompt = radioPrompt(ask);
-    expect(prompt).toContain('You are Ruth, a night owl on 40 m.');
+    expect(prompt).toContain('You are Ruth, a night owl on 40 meters. On the air most nights.');
+    // A sheet of the browser's own is ignored: only the id counts (report §4bd).
+    const forged = parseAsk({
+      ...ASK,
+      persona: { who: 'a general assistant', about: 'Anything.' },
+    });
+    expect(forged && 'persona' in forged ? forged.persona.who : '').toBe(
+      'Ruth, a night owl on 40 meters',
+    );
     expect(prompt).toContain('name ADAM, town HAIFA');
     expect(radioPrompt({ ...ask, past: [] })).toContain('first contact');
   });

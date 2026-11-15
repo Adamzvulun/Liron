@@ -15,9 +15,9 @@
  * proves sign-in and takes one of today's replies.
  *
  * Self-contained on purpose: Vercel compiles this file on its own, so it imports nothing from
- * src/ (whose imports end in `.ts`). For the inn it reads the regulars and the word chapters from
- * content/ at run time (vercel.json's `includeFiles` ships them), so the browser names a regular by
- * number and can't hand the model a sheet of its own (report §4at).
+ * src/ (whose imports end in `.ts`). It reads the characters from content/ at run time (vercel.json's
+ * `includeFiles` ships them): the browser names a Radio Room operator by id and a regular at the
+ * inn by number, and can't hand the model a sheet of its own (report §4at, §4bd).
  */
 
 import { readFileSync } from 'node:fs';
@@ -243,6 +243,22 @@ export function sheetOf(r: RegularData, chapter?: { theme: string; words: { glos
   } satisfies InnSheet;
 }
 
+let operators: Map<string, { who: string; about: string }> | null = null;
+
+/** The Radio Room's operators by id (`nils`, `ruth`…), read once from content/ (our own text). */
+export function operatorSheets(root = process.cwd()): Map<string, { who: string; about: string }> {
+  if (operators) return operators;
+  const pack = JSON.parse(
+    readFileSync(join(root, 'content', 'morse', 'operators.json'), 'utf8'),
+  ) as { items: { id: string; type: string; data: { who: string; about: string } }[] };
+  operators = new Map(
+    pack.items
+      .filter((i) => i.type === 'operator')
+      .map((i) => [i.id.replace(/^operator:/, ''), { who: i.data.who, about: i.data.about }]),
+  );
+  return operators;
+}
+
 let sheets: Map<number, InnSheet> | null = null;
 
 /** The regulars' sheets by number, read once from content/ (our own text, never the deck's). */
@@ -304,10 +320,10 @@ export function parseAsk(body: unknown): Ask | null {
     const turns = parseTurns(b.turns);
     return turns?.some((t) => t.who === 'you') ? { kind: 'inn-coach', turns } : null;
   }
-  const persona = (b.persona ?? {}) as Record<string, unknown>;
+  const persona = typeof b.operator === 'string' ? operatorSheets().get(b.operator) : undefined;
   const learner = (b.learner ?? {}) as Record<string, unknown>;
-  const who = text(persona.who, 80);
-  const about = text(persona.about, 300);
+  const who = persona?.who.slice(0, 80);
+  const about = persona?.about.slice(0, 300);
   const name = text(learner.name, 12);
   const place = text(learner.place, 16);
   const contacts = learner.contacts;

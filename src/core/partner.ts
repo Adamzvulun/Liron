@@ -53,8 +53,8 @@ export interface CoachTip {
 }
 
 interface RadioAsk {
-  /** The character: who they are, and a few words about them (our own content). */
-  persona: { who: string; about: string };
+  /** The operator's id (`ruth`): the function reads who they are from our own content. */
+  operator: string;
   /** The learner as the character knows them: the name and town they keyed, contacts so far. */
   learner: { name: string; place: string; contacts: number };
   /** The character's own lines in earlier talks with this learner, oldest first (its memory). */
