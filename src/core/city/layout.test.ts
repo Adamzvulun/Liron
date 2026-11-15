@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { stageFit } from './layout.ts';
+import { placeAt, stageFit } from './layout.ts';
 
 const visible = (w: number, h: number) => {
   const { scale, x, y } = stageFit(w, h);
@@ -35,5 +35,14 @@ describe('stageFit', () => {
     const wide = visible(3440, 1440); // ultrawide
     expect((wide.bottom - wide.y - 1440) / (wide.bottom - wide.y)).toBeCloseTo(0.18, 6);
     expect(wide.x).toBeGreaterThan(0);
+  });
+});
+
+describe('placeAt', () => {
+  it('finds a place with or without a trailing slash (review, 2026-11-15)', () => {
+    expect(placeAt('/market')).toBe('market');
+    expect(placeAt('/market/')).toBe('market');
+    expect(placeAt('/')).toBeUndefined();
+    expect(placeAt('/nowhere')).toBeUndefined();
   });
 });

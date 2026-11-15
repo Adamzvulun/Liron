@@ -92,7 +92,8 @@ export function residentsOf(subjects: readonly SubjectInfo[]): Map<PlaceId, Subj
   return residents;
 }
 
-/** The place at a path, if any. */
+/** The place at a path, if any; a trailing slash ("/market/") is the same place. */
 export function placeAt(path: string): PlaceId | undefined {
-  return (Object.keys(PLACE_PATHS) as PlaceId[]).find((id) => PLACE_PATHS[id] === path);
+  const at = path.replace(/\/+$/, '') || '/';
+  return (Object.keys(PLACE_PATHS) as PlaceId[]).find((id) => PLACE_PATHS[id] === at);
 }

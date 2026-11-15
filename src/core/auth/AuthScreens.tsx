@@ -32,7 +32,16 @@ export function LoginScreen() {
     setMessage(null);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
-    if (error) setMessage({ kind: 'error', text: "That email and password don't match." });
+    if (!error) return;
+    // Only a refused login means a wrong password; offline or a busy server isn't the player's
+    // fault, and shouldn't send them to reset it (review, 2026-11-15).
+    const wrong = error.code === 'invalid_credentials' || error.status === 400;
+    setMessage({
+      kind: 'error',
+      text: wrong
+        ? "That email and password don't match."
+        : "Couldn't reach Waymark just now. Check your connection and try again.",
+    });
   }
 
   async function sendLink() {

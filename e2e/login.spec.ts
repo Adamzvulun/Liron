@@ -17,6 +17,18 @@ test('a wrong password shows an error', async ({ page }) => {
   await expect(page.getByRole('status')).toHaveText("That email and password don't match.");
 });
 
+test("a sign-in that can't reach the server doesn't blame the password (review, 2026-11-15)", async ({
+  page,
+}) => {
+  await fakeSupabase(page);
+  await page.route('**/auth/v1/token**', (route) => route.abort());
+  await page.goto('/');
+  await page.getByLabel('Email').fill('adam@example.com');
+  await page.getByLabel('Password').fill(PASSWORD);
+  await page.getByRole('button', { name: 'Enter Waymark' }).click();
+  await expect(page.getByRole('status')).toHaveText(/Couldn't reach Waymark just now/);
+});
+
 test('the right password opens the lobby, and the session survives a reload', async ({ page }) => {
   await fakeSupabase(page);
   await page.goto('/');

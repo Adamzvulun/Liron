@@ -44,7 +44,7 @@ describe('functionSpeech (ADR 0014)', () => {
       [() => Response.json({ error: 'busy' }, { status: 503 }), 'busy'],
       [() => Response.json({ error: 'too-big' }, { status: 413 }), 'too-big'],
       [() => Response.json({ error: 'not-set-up' }, { status: 503 }), 'not-set-up'],
-      [() => Response.json({ error: 'not-allowed' }, { status: 403 }), 'failed'],
+      [() => Response.json({ error: 'not-allowed' }, { status: 403 }), 'not-allowed'],
       [() => new Response('<html>404</html>', { status: 404 }), 'failed'],
       [
         () => {
