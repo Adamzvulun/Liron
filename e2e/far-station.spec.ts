@@ -90,6 +90,10 @@ test.describe('The Far Station (#178)', () => {
     await expect.poll(() => sent.length).toBe(1);
     expect(sent[0]?.p_events).toEqual([]);
     expect((sent[0]?.p_state as { rankTrials: string[] }).rankTrials).toEqual(['lamp-signal']);
+
+    // "The Radio Room" goes there (review, 2026-11-15); still shut, as this contact failed.
+    await page.getByRole('button', { name: 'The Radio Room' }).click();
+    await expect(page.getByText('The operators come on the air once you’ve worked')).toBeVisible();
   });
 });
 

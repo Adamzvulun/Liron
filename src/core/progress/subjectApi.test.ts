@@ -53,6 +53,35 @@ describe('subjectApi', () => {
   });
 });
 
+describe('saving, then loading (review, 2026-11-15)', () => {
+  it('a load waits for a save still on its way, even a failed one', async () => {
+    const base = memoryStore();
+    let release = () => {};
+    const slow = new Promise<void>((r) => (release = r));
+    const store = {
+      ...base,
+      saveSession: async (...args: Parameters<typeof base.saveSession>) => {
+        await slow;
+        return base.saveSession(...args);
+      },
+    };
+    const api = subjectApi<{ n: number }>({ id: 'morse' }, store);
+    await api.saveState({ n: 1 });
+    const saved = api.saveSession({ state: { n: 2 } });
+    const loaded = api.loadState();
+    release();
+    await saved;
+    expect(await loaded).toEqual({ n: 2 });
+
+    const failing = subjectApi<{ n: number }>(
+      { id: 'morse' },
+      { ...base, saveSession: async () => Promise.reject(new Error('offline')) },
+    );
+    await expect(failing.saveSession({ state: { n: 3 } })).rejects.toThrow('offline');
+    expect(await failing.loadState()).toEqual({ n: 2 });
+  });
+});
+
 describe('awards', () => {
   it('tell the platform about every award, including level-ups and what they paid', async () => {
     const awards: unknown[] = [];
