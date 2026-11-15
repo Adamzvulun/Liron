@@ -84,7 +84,7 @@ export function Wardrobe({
           </button>
           <p className="wardrobe__status" role="status">
             {status === 'saved' && 'Saved. The city sees your new look.'}
-            {status === 'failed' && "Couldn't save your look. Try again."}
+            {status === 'failed' && 'Couldn’t save your look. Try again.'}
           </p>
         </div>
       </div>

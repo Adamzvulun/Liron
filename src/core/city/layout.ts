@@ -51,7 +51,7 @@ export const PLAQUES: Record<PlaceId, Plaque> = {
 export const PLACE_LABELS: Record<PlaceId, string> = {
   tower: 'An empty guild hall',
   caravanserai: 'An empty guild hall',
-  board: "Today's quests",
+  board: 'Today’s quests',
   house: 'Wardrobe, trophies and stats',
   market: 'Gear and items',
 };

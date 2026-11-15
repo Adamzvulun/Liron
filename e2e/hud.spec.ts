@@ -281,7 +281,7 @@ test("a goal that can't be saved says so and keeps the old one (review, 2026-11-
   await page.goto('/');
   await page.getByRole('button', { name: /^Daily goal:/ }).click();
   await page.getByRole('button', { name: '20 minutes a day', exact: true }).click();
-  await expect(page.getByText("Couldn't save your goal. Try again.")).toBeVisible();
+  await expect(page.getByText('Couldn’t save your goal. Try again.')).toBeVisible();
   await expect(page.getByRole('button', { name: '15 minutes a day', exact: true })).toHaveAttribute(
     'aria-pressed',
     'true',

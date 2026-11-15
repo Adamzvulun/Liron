@@ -31,6 +31,7 @@
 
 .tower__lamp-char {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 32px;
 }
@@ -81,6 +82,7 @@
 .tower__chapter {
   margin: 0 0 14px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 34px;
   line-height: 1.15;
@@ -127,6 +129,7 @@
 .tower__rank {
   margin: 0;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 34px;
 }
@@ -223,6 +226,7 @@ button.tower__station:focus-visible .tower__part {
 
 .tower__plaque-title {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 22px;
   letter-spacing: 0.06em;
@@ -319,6 +323,7 @@ button.tower__station:focus-visible .tower__plaque,
 .hall__rank {
   margin: 0;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 34px;
   color: var(--guild-morse-ink);
@@ -365,6 +370,7 @@ button.tower__station:focus-visible .tower__plaque,
 .hall__stats dd {
   margin: 0;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 18px;
   text-align: right;
@@ -445,6 +451,7 @@ button.hall__door:active {
 
 .hall__door-title {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 20px;
   color: var(--wood);

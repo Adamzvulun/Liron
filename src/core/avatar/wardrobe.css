@@ -62,6 +62,7 @@
   background: linear-gradient(180deg, var(--parchment), #d9bf8a);
   color: var(--ink);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   letter-spacing: 0.04em;
   box-shadow: 0 4px 0 var(--ink);
@@ -79,6 +80,7 @@
 .wardrobe__heading {
   margin: 14px 0 4px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 24px;
   letter-spacing: 0.06em;

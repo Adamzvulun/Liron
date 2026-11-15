@@ -168,6 +168,7 @@
 .chestopen__title {
   margin: 0;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 30px;
   color: var(--wood);

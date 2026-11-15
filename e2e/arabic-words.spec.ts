@@ -110,7 +110,7 @@ test.describe('Arabic word lessons (#160)', () => {
     for (let i = 0; i < 3; i++) await page.getByRole('button', { name: 'Next word' }).click();
     await expect(page.getByText(/^New word · 4 of/)).toBeVisible();
     await expect(page.getByText('Our own sentence · no recording')).toBeVisible();
-    await expect(page.getByText("Thank you! — You're welcome.")).toBeVisible();
+    await expect(page.getByText('Thank you! — You’re welcome.')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Play the sentence' })).toHaveCount(0);
   });
 
