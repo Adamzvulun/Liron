@@ -26,10 +26,11 @@ import {
 import './city.css';
 
 /** Short names for the phone's dock, where space is tight. */
-// "Caravanserai" may break after "Caravan" on a narrow phone, as "Signal Tower" breaks at its space.
-const DOCK_LABELS: Partial<Record<PlaceId, ReactNode>> = {
-  board: 'Quests',
-  house: 'House',
+const DOCK_LABELS: Partial<Record<PlaceId, string>> = { board: 'Quests', house: 'House' };
+
+// "Caravanserai" may break after "Caravan" on a narrow phone, as "Signal Tower" breaks at its
+// space. The link keeps its whole name for screen readers (Chrome reads the break as a gap).
+const DOCK_BREAKS: Partial<Record<PlaceId, ReactNode>> = {
   caravanserai: (
     <>
       Caravan
@@ -266,8 +267,9 @@ export function City({
               href={PLACE_PATHS[id]}
               className="city__dockitem"
               style={{ borderTopColor: residents.get(id)?.guildColor }}
+              aria-label={DOCK_BREAKS[id] ? PLAQUES[id].title : undefined}
             >
-              {DOCK_LABELS[id] ?? residents.get(id)?.place ?? PLAQUES[id].title}
+              {DOCK_BREAKS[id] ?? DOCK_LABELS[id] ?? residents.get(id)?.place ?? PLAQUES[id].title}
             </Link>
           ))}
         </nav>
