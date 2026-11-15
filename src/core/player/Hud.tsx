@@ -13,7 +13,8 @@ import { useCountUp } from './useCountUp.ts';
 import './player.css';
 
 export interface HudActions {
-  onGoalChange: (minutes: number) => void;
+  /** Sets the daily goal; resolves false if it couldn't be saved. */
+  onGoalChange: (minutes: number) => Promise<boolean>;
   /** Saves the player's name; resolves false if it couldn't be saved. */
   onNameChange: (name: string) => Promise<boolean>;
   onSignOut: () => void;
@@ -264,20 +265,30 @@ function GoalPicker({
   goalMinutes: number;
   onGoalChange: HudActions['onGoalChange'];
 }) {
+  const [status, setStatus] = useState('');
   const choices = DAILY_GOAL_CHOICES.includes(goalMinutes as never)
     ? DAILY_GOAL_CHOICES
     : [...DAILY_GOAL_CHOICES, goalMinutes].sort((a, b) => a - b);
+  const change = async (minutes: number) => {
+    setStatus('');
+    if (!(await onGoalChange(minutes))) setStatus("Couldn't save your goal");
+  };
   return (
-    <label className="hud__field">
-      Minutes a day
-      <select value={goalMinutes} onChange={(e) => onGoalChange(Number(e.target.value))}>
-        {choices.map((m) => (
-          <option key={m} value={m}>
-            {m}
-          </option>
-        ))}
-      </select>
-    </label>
+    <div className="hud__field">
+      <label>
+        Minutes a day
+        <select value={goalMinutes} onChange={(e) => void change(Number(e.target.value))}>
+          {choices.map((m) => (
+            <option key={m} value={m}>
+              {m}
+            </option>
+          ))}
+        </select>
+      </label>
+      <span className="hud__fieldstatus" role="status">
+        {status}
+      </span>
+    </div>
   );
 }
 

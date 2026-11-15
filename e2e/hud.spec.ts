@@ -211,3 +211,22 @@ test('opening the last chest on the shelf still shows what it held (review, 2026
   await expect(opened).toBeHidden();
   await expect(shelf).toHaveCount(0);
 });
+
+test("a chest that won't open says so on the shelf and keeps the top bar (review, 2026-11-15)", async ({
+  page,
+}) => {
+  await signedIn(page, [], [], null, [], {
+    chests: [{ id: 'c1', kind: 'wooden', source: 'contracts', source_key: '2026-11-02' }],
+  });
+  await page.route('**/rest/v1/rpc/open_chest', (route) =>
+    route.fulfill({ status: 500, json: { message: 'down' } }),
+  );
+  await page.goto('/notice-board');
+  const shelf = page.getByRole('region', { name: 'Chests' });
+  await shelf.getByRole('button', { name: 'Open' }).click();
+  await expect(shelf.getByRole('alert')).toHaveText(/wouldn’t open/);
+  await expect(shelf.getByRole('button', { name: 'Open' })).toBeEnabled();
+  // Back on the square, without a reload, the top bar is still there.
+  await page.getByRole('link', { name: 'Back to the square' }).click();
+  await expect(page.getByRole('button', { name: 'Settings' })).toBeVisible();
+});
