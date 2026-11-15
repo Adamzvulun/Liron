@@ -2,7 +2,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-// A trial's story says how many words or characters, at what score: the same numbers the game
+// A trial's story (and a contract's line) says how many words or characters, at what score: the same numbers the game
 // uses. Both live in content/, so this keeps them from drifting apart (review, 2026-11-15).
 const CONTENT = join(import.meta.dirname, '..', 'content');
 
@@ -54,4 +54,34 @@ describe('trial texts', () => {
       }
     },
   );
+});
+
+interface Contract {
+  kind?: string;
+  target: number;
+  text: string;
+}
+
+const WORDS: Record<number, string> = { 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
+
+const contracts = jsonFiles(CONTENT)
+  .filter((f) => f.endsWith('contracts.json'))
+  .flatMap(
+    (f) =>
+      (JSON.parse(readFileSync(f, 'utf8')) as { items: { id: string; data: Contract }[] }).items,
+  );
+
+describe('contract lines', () => {
+  it.each(contracts.map((c) => [c.id, c.data] as const))('%s says its own numbers', (_, c) => {
+    // "Finish 3 Koch runs": the count is the target.
+    for (const [, n] of c.text.matchAll(/(\d+)(?!\d|%)/g)) expect(Number(n)).toBe(c.target);
+    if (c.target > 1)
+      expect(c.text.includes(String(c.target)) || c.text.includes(WORDS[c.target] ?? '?')).toBe(
+        true,
+      );
+    // "Pass a Koch run at 90%": the score is the one its event is named for (run-90).
+    const pct = [...c.text.matchAll(/(\d+)%/g)].map((m) => m[1]);
+    const named = /-(\d+)$/.exec(c.kind ?? '')?.[1];
+    expect(pct).toEqual(named ? [named] : []);
+  });
 });
