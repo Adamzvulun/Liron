@@ -9,7 +9,7 @@ import {
   wordsOpen,
   type ArabicProgress,
 } from '../progress.ts';
-import { seeded } from '../lesson/questions.ts';
+import { endsSentence, longChoices, seeded } from '../lesson/questions.ts';
 import { ArabicText } from '../ArabicText.tsx';
 import { regularStatus, type Regular } from '../questline.ts';
 import { useAudio } from '../lesson/useAudio.ts';
@@ -687,7 +687,7 @@ function Ask({
       )}
       {kind === 'recall' && <p className="arabic__word arabic__word--meaning">{word.meaning}</p>}
       <div
-        className={`arabic__choices${kind === 'recall' ? ' is-words' : ' is-meanings'}`}
+        className={`arabic__choices${kind === 'recall' ? ' is-words' : ' is-meanings'}${longChoices(question.choices) ? ' is-long' : ''}`}
         role="group"
         aria-label="Choices"
       >
@@ -713,7 +713,15 @@ function Ask({
             ) : (
               <>
                 Not quite: it was{' '}
-                <bdi lang={kind === 'recall' ? 'ar' : undefined}>{question.answer}</bdi>.
+                {endsSentence(question.answer) ? (
+                  <>
+                    “<bdi lang={kind === 'recall' ? 'ar' : undefined}>{question.answer}</bdi>”
+                  </>
+                ) : (
+                  <>
+                    <bdi lang={kind === 'recall' ? 'ar' : undefined}>{question.answer}</bdi>.
+                  </>
+                )}
               </>
             )}
           </p>

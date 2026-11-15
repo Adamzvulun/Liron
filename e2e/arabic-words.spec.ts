@@ -159,4 +159,41 @@ test.describe('Arabic word lessons (#160)', () => {
     expect(saved.p_state.words.chapter).toBe(2);
     expect([[], [2]]).toContainEqual(saved.p_state.words.trials ?? []);
   });
+
+  test('sentence-long choices stack on a phone, and a miss quotes the sentence (review, 2026-11-15)', async ({
+    page,
+  }) => {
+    // Chapter 111 teaches whole sentences ("I’m going to the dentist’s for a check-up…").
+    const ch = pack.items.find((c) => c.data.chapter === 111)?.data;
+    const rows = (ch?.words ?? []).map((w, i) => ({
+      ...deckWord(i + 1, `جملة ${i + 1}`, w.gloss),
+      item_id: w.deck,
+    }));
+    const state = { ...GUEST, words: { chapter: 111, cards: [] } };
+    await signedIn(page, [], [], state, rows);
+    await page.goto('/caravanserai?open=words&run=short');
+    await page.getByRole('button', { name: 'Start a session' }).click();
+    for (const name of ['Got it', 'Next word', 'Next word', 'Practice']) {
+      const button = page.getByRole('button', { name, exact: true });
+      if (name === 'Got it' && !(await button.isVisible())) continue;
+      await button.click();
+    }
+    for (let i = 0; i < 3; i++) {
+      const choices = page.getByRole('group', { name: 'Choices' });
+      await expect(choices).toBeVisible();
+      if (await choices.evaluate((el) => el.classList.contains('is-meanings'))) {
+        await expect(choices).toHaveClass(/is-long/);
+        const columns = await choices.evaluate(
+          (el) => getComputedStyle(el).gridTemplateColumns.split(' ').length,
+        );
+        expect(columns).toBe(test.info().project.name === 'phone' ? 1 : 2);
+      }
+      await choices.getByRole('button').first().click();
+      // A sentence is quoted whole, with no second period after its own.
+      await expect(page.locator('.arabic__feedback--word > p').first()).toHaveText(
+        /^(Right!|Not quite: it was (“.+[.?!؟]”|[^“].*[^.?!]\.))$/,
+      );
+      await page.getByRole('button', { name: 'Next', exact: true }).click();
+    }
+  });
 });
