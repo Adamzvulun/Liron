@@ -26,6 +26,13 @@ export function sendable(word: string): string[] {
   return word.toUpperCase().match(/<[A-Z]{2}>|./gsu) ?? [];
 }
 
+/**
+ * What was keyed, as units to compare (spaces dropped): a prosign is one unit, and `<BT>` is
+ * "=", since the two share a code and the tower reads it as "=" (#155).
+ */
+export const units = (text: string): string[] =>
+  sendable(text.replace(/ /g, '')).map((u) => (u === '<BT>' ? '=' : u));
+
 /** The code for one character or prosign (any case), or undefined if we don't teach it. */
 export function codeFor(char: string): string | undefined {
   return CODES.get(char.toUpperCase());

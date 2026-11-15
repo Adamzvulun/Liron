@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { codeFor, sendable } from '../code.ts';
+import { keyedRight } from '../qso/farStation.ts';
 import { seededRandom } from '../lesson/build.ts';
 import { decode, sortElements, type Mark } from './decoder.ts';
 import { analyseFist } from './fist.ts';
@@ -108,5 +109,33 @@ describe('fist analysis (#37)', () => {
     expect(analyseFist(decode(key('KMURES ANSWER', 100, { jitter: 0.3 }))).steadiness).toBeLessThan(
       0.75,
     );
+  });
+});
+
+describe('keying past the learner’s slips (review, 2026-11-15)', () => {
+  it('a held key (testing the tone) is a dah, and leaves the speed alone', () => {
+    const clean = key('KMR KMR', 100);
+    const held = [{ down: -4000, up: -1000 }, ...clean];
+    const after = [...clean, { down: 9000, up: 12000 }];
+    expect(decode(clean).ditMs).toBeCloseTo(100, -1);
+    expect(decode(held).text).toBe('T KMR KMR');
+    expect(decode(after).text).toBe('KMR KMR T');
+    for (const marks of [held, after]) expect(decode(marks).ditMs).toBeCloseTo(100, -1);
+  });
+
+  it('a bounce or a brush of the key is not a dit', () => {
+    const clean = key('KMR KMR', 100);
+    const first = clean[0] ?? { down: 0, up: 100 };
+    const bounce = [first, { down: first.up + 2, up: first.up + 3 }, ...clean.slice(1)];
+    const brush = [...clean, { down: 5000, up: 5012 }];
+    expect(decode(bounce).text).toBe('KMR KMR');
+    expect(decode(brush).text).toBe('KMR KMR');
+  });
+
+  it('a BT keyed on the air is read as "=", and counts as keyed right', () => {
+    const line = 'R TU NILS UR RST 599 <BT> NAME ADAM <BT> QTH HAIFA K';
+    const read = decode(key(line, 60)).text;
+    expect(read).toBe('R TU NILS UR RST 599 = NAME ADAM = QTH HAIFA K');
+    expect(keyedRight(line, read)).toBe(true);
   });
 });
