@@ -54,3 +54,21 @@ test.describe('the Signal Tower hall (#33, #34)', () => {
     await expect(page.getByRole('button', { name: /Face The Beacon’s Answer/ })).toHaveCount(0);
   });
 });
+
+test('if the server refuses the day-end filter, the lesson still loads what is due now (review, 2026-11-15)', async ({
+  page,
+}) => {
+  await signedIn(page, []);
+  const asked: string[] = [];
+  await page.route('**/rest/v1/review_cards**', (route) => {
+    const url = new URL(route.request().url());
+    asked.push(url.search);
+    return url.searchParams.has('or')
+      ? route.fulfill({ status: 400, json: { message: 'bad filter' } })
+      : route.fallback();
+  });
+  await page.goto('/signal-tower?open=koch');
+  await expect(page.getByRole('heading', { name: 'Hear K and M' })).toBeVisible();
+  expect(asked.some((q) => q.includes('or=') && q.includes('state.eq.2'))).toBe(true);
+  expect(asked.some((q) => q.includes('due=lte.'))).toBe(true);
+});
