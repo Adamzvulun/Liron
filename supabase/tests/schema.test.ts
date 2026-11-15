@@ -439,6 +439,37 @@ const fakeClient = {
         where.push(`${col} <= $${params.length}`);
         return q;
       },
+      // PostgREST's logic syntax, as far as the store uses it: `a.op.v,and(b.op.v,…)` with eq
+      // and lte, values bare or in double quotes.
+      or(expr: string) {
+        const parse = (text: string, join: 'or' | 'and'): string => {
+          const terms: string[] = [];
+          let depth = 0;
+          let quoted = false;
+          let start = 0;
+          for (let i = 0; i <= text.length; i++) {
+            const c = text[i];
+            if (c === '"') quoted = !quoted;
+            else if (!quoted && c === '(') depth++;
+            else if (!quoted && c === ')') depth--;
+            if (i === text.length || (c === ',' && depth === 0 && !quoted)) {
+              terms.push(text.slice(start, i));
+              start = i + 1;
+            }
+          }
+          const sql = terms.map((t) => {
+            const group = /^(and|or)\((.*)\)$/.exec(t);
+            if (group) return parse(group[2] ?? '', group[1] as 'or' | 'and');
+            const m = /^(\w+)\.(eq|lte)\.(.*)$/.exec(t);
+            if (!m) throw new Error(`fake or(): can't read "${t}"`);
+            params.push((m[3] ?? '').replace(/^"(.*)"$/, '$1'));
+            return `${m[1]} ${m[2] === 'eq' ? '=' : '<='} $${params.length}`;
+          });
+          return `(${sql.join(` ${join} `)})`;
+        };
+        where.push(parse(expr, 'or'));
+        return q;
+      },
       order(col: string) {
         tail += ` order by ${col}`;
         return q;
@@ -480,6 +511,16 @@ describe('supabaseStore against the real functions', () => {
       expect(due.map((d) => d.itemId)).toContain('char:K');
       const times = due.map((d) => d.due.getTime());
       expect(times).toEqual([...times].sort((a, b) => a - b));
+      // A card in long-term review is due all of its due day, through the real table
+      // (review, 2026-11-15).
+      const mDue = status.get('char:M')?.due;
+      if (!mDue) throw new Error('char:M has no due date');
+      const morning = new Date(mDue);
+      morning.setHours(0, 0, 1, 0);
+      const early = await morse.dueItems({ now: morning });
+      expect(early.map((d) => d.itemId)).toContain('char:M');
+      const dayBefore = await morse.dueItems({ now: new Date(morning.getTime() - 2_000) });
+      expect(dayBefore.map((d) => d.itemId)).not.toContain('char:M');
     });
     expect(
       await rows(
