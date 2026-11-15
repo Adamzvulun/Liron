@@ -28,6 +28,14 @@ test('the tab has our signpost icon', async ({ page, request }) => {
   const icon = await request.get('/favicon.svg');
   expect(icon.ok()).toBe(true);
   expect(icon.headers()['content-type']).toContain('image/svg+xml');
+  // An iPhone's home screen and shared links take a square PNG.
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute(
+    'href',
+    '/apple-touch-icon.png',
+  );
+  const touch = await request.get('/apple-touch-icon.png');
+  expect(touch.ok()).toBe(true);
+  expect(touch.headers()['content-type']).toContain('image/png');
 });
 
 test('fonts load from our own site, not a third party', async ({ page }) => {
