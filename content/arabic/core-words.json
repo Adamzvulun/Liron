@@ -14665,6 +14665,402 @@
           }
         ]
       }
+    },
+    {
+      "id": "core-words:110",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 110,
+        "title": "Shoelaces, soup and a bad night",
+        "theme": "At home and in the mirror: the kitchen, a short night's sleep, faces and hair, and the bathroom shelf",
+        "words": [
+          {
+            "deck": "pcav:0611",
+            "gloss": "Your shoelaces have come undone."
+          },
+          {
+            "deck": "pcav:0734",
+            "gloss": "I love that painting hanging over the sofa."
+          },
+          {
+            "deck": "pcav:0802",
+            "gloss": "I heated up the soup in the microwave."
+          },
+          {
+            "deck": "pcav:0852",
+            "gloss": "I only got four or five hours' sleep last night."
+          },
+          {
+            "deck": "pcav:0872",
+            "gloss": "You don't look like you slept well."
+          },
+          {
+            "deck": "pcav:0871",
+            "gloss": "unable to get to sleep"
+          },
+          {
+            "deck": "pcav:0984",
+            "gloss": "The milk tastes funny."
+          },
+          {
+            "deck": "pcav:0986",
+            "gloss": "The milk has gone bad."
+          },
+          {
+            "deck": "pcav:1090",
+            "gloss": "Dark chocolate is better for you than milk chocolate."
+          },
+          {
+            "deck": "pcav:0303",
+            "gloss": "I think I smell smoke."
+          },
+          {
+            "deck": "pcav:0361",
+            "gloss": "She dyes her hair blond."
+          },
+          {
+            "deck": "pcav:0362",
+            "gloss": "She's a natural blond."
+          },
+          {
+            "deck": "pcav:0246",
+            "gloss": "She has an oblong face."
+          },
+          {
+            "deck": "pcav:0269",
+            "gloss": "She has long eyelashes."
+          },
+          {
+            "deck": "pcav:0383",
+            "gloss": "You can tell he wears a toupee."
+          },
+          {
+            "deck": "pcav:0398",
+            "gloss": "As a teenager, he had a lot of acne."
+          },
+          {
+            "deck": "pcav:0512",
+            "gloss": "Don't overeat, so you don't get fat."
+          },
+          {
+            "deck": "pcav:0402",
+            "gloss": "dark-skinned"
+          },
+          {
+            "deck": "pcav:0451",
+            "gloss": "broad shoulders"
+          },
+          {
+            "deck": "pcav:0327",
+            "gloss": "chapped lips"
+          },
+          {
+            "deck": "pcav:0526",
+            "gloss": "average-looking"
+          },
+          {
+            "deck": "pcav:0309",
+            "gloss": "ringing in one's ear"
+          },
+          {
+            "deck": "pcav:0612",
+            "gloss": "shoe polish"
+          },
+          {
+            "deck": "pcav:1140",
+            "gloss": "Caesar salad"
+          },
+          {
+            "deck": "pcav:0429",
+            "gloss": "ring finger"
+          },
+          {
+            "deck": "pcav:0434",
+            "gloss": "ball of the hand"
+          },
+          {
+            "deck": "pcav:0447",
+            "gloss": "sole (of the foot)"
+          },
+          {
+            "deck": "pcav:0924",
+            "gloss": "dental floss"
+          },
+          {
+            "deck": "pcav:0931",
+            "gloss": "shaving cream"
+          },
+          {
+            "deck": "pcav:0465",
+            "gloss": "heartbeat, pulse"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:111",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 111,
+        "title": "Rush hour, the gym and a long layover",
+        "theme": "Out and about: the road and the police, the shops, the TV, a workout, the sun and the airport",
+        "words": [
+          {
+            "deck": "pcav:1877",
+            "gloss": "Let's not go downtown right now. It's rush hour."
+          },
+          {
+            "deck": "pcav:1909",
+            "gloss": "You can just drop me off on the corner."
+          },
+          {
+            "deck": "pcav:1965",
+            "gloss": "The police pulled me over for speeding."
+          },
+          {
+            "deck": "pcav:1986",
+            "gloss": "Turn on your headlights when it starts to get dark."
+          },
+          {
+            "deck": "pcav:1898",
+            "gloss": "a four-lane road"
+          },
+          {
+            "deck": "pcav:2175",
+            "gloss": "I'm not very good at haggling."
+          },
+          {
+            "deck": "pcav:2198",
+            "gloss": "Can I exchange this for another color?"
+          },
+          {
+            "deck": "pcav:2234",
+            "gloss": "We hung out at the mall yesterday evening."
+          },
+          {
+            "deck": "pcav:2248",
+            "gloss": "I like watching Palestinian dramas."
+          },
+          {
+            "deck": "pcav:2272",
+            "gloss": "Have you ever been on TV?"
+          },
+          {
+            "deck": "pcav:2280",
+            "gloss": "I can't hear what they're saying. Could you turn it up a bit?"
+          },
+          {
+            "deck": "pcav:2282",
+            "gloss": "I'm trying to study. Could you turn it down a bit?"
+          },
+          {
+            "deck": "pcav:2360",
+            "gloss": "I don't like to sit too close to the screen."
+          },
+          {
+            "deck": "pcav:2549",
+            "gloss": "I had a really good workout at the gym this morning."
+          },
+          {
+            "deck": "pcav:2566",
+            "gloss": "How much is a training session?"
+          },
+          {
+            "deck": "pcav:2567",
+            "gloss": "My goal is to gain muscle."
+          },
+          {
+            "deck": "pcav:2569",
+            "gloss": "I feel like I've put on a bit of weight."
+          },
+          {
+            "deck": "pcav:2602",
+            "gloss": "How many sit-ups can you do?"
+          },
+          {
+            "deck": "pcav:2645",
+            "gloss": "I'm so sunburned! It hurts!"
+          },
+          {
+            "deck": "pcav:2714",
+            "gloss": "The airfare was reasonable."
+          },
+          {
+            "deck": "pcav:2723",
+            "gloss": "Your flight has been delayed by two hours."
+          },
+          {
+            "deck": "pcav:2729",
+            "gloss": "I had a three-hour layover in Dubai."
+          },
+          {
+            "deck": "pcav:2438",
+            "gloss": "pop music"
+          },
+          {
+            "deck": "pcav:2416",
+            "gloss": "a pack of cigarettes"
+          },
+          {
+            "deck": "pcav:2339",
+            "gloss": "hunting rifle"
+          },
+          {
+            "deck": "pcav:0560",
+            "gloss": "courier bag"
+          },
+          {
+            "deck": "pcav:1339",
+            "gloss": "company representative"
+          },
+          {
+            "deck": "pcav:1397",
+            "gloss": "customer service representative"
+          },
+          {
+            "deck": "pcav:3798",
+            "gloss": "bee sting"
+          },
+          {
+            "deck": "pcav:1747",
+            "gloss": "I'm going to the dentist's for a check-up and a cleaning."
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-words:112",
+      "subject": "arabic",
+      "type": "core-words",
+      "data": {
+        "chapter": 112,
+        "title": "Campus, kind wishes and the rising sun",
+        "theme": "Student life and learning Arabic, hopes and worries, the sun and the storm, family news, and what to say when someone dies",
+        "words": [
+          {
+            "deck": "pcav:1577",
+            "gloss": "Do you live on campus?"
+          },
+          {
+            "deck": "pcav:1579",
+            "gloss": "When did you graduate from university?"
+          },
+          {
+            "deck": "pcav:1587",
+            "gloss": "All the freshmen have to attend an orientation."
+          },
+          {
+            "deck": "pcav:1589",
+            "gloss": "He got a certificate for completing the course."
+          },
+          {
+            "deck": "pcav:3317",
+            "gloss": "My handwriting is so bad."
+          },
+          {
+            "deck": "pcav:3325",
+            "gloss": "You can't understand a word he says."
+          },
+          {
+            "deck": "pcav:3332",
+            "gloss": "I can get by in Arabic."
+          },
+          {
+            "deck": "pcav:4431",
+            "gloss": "You have to study hard to learn Arabic well."
+          },
+          {
+            "deck": "pcav:3030",
+            "gloss": "Remind me to set my alarm."
+          },
+          {
+            "deck": "pcav:3076",
+            "gloss": "I'm really annoyed at myself for that."
+          },
+          {
+            "deck": "pcav:3167",
+            "gloss": "I hope nothing happens to him."
+          },
+          {
+            "deck": "pcav:3185",
+            "gloss": "She prayed to God that her son would be all right."
+          },
+          {
+            "deck": "pcav:4619",
+            "gloss": "I intend to succeed at my job."
+          },
+          {
+            "deck": "pcav:4432",
+            "gloss": "We had to leave home early to get there on time."
+          },
+          {
+            "deck": "pcav:4447",
+            "gloss": "It was nine o'clock by the time he got up."
+          },
+          {
+            "deck": "pcav:4450",
+            "gloss": "I did my homework while I was watching TV."
+          },
+          {
+            "deck": "pcav:3617",
+            "gloss": "The sun rises in the east."
+          },
+          {
+            "deck": "pcav:3619",
+            "gloss": "The sun sets in the west."
+          },
+          {
+            "deck": "pcav:3680",
+            "gloss": "The sun has come out."
+          },
+          {
+            "deck": "pcav:3709",
+            "gloss": "There's a rainstorm."
+          },
+          {
+            "deck": "pcav:3717",
+            "gloss": "Lightning struck the tree."
+          },
+          {
+            "deck": "pcav:3671",
+            "gloss": "How hot does it get where you're from?"
+          },
+          {
+            "deck": "pcav:0045",
+            "gloss": "Happy birthday, and may you have many more!"
+          },
+          {
+            "deck": "pcav:0079",
+            "gloss": "I'm not related to him."
+          },
+          {
+            "deck": "pcav:0092",
+            "gloss": "They have triplets."
+          },
+          {
+            "deck": "pcav:0225",
+            "gloss": "There's no need for titles."
+          },
+          {
+            "deck": "pcav:0072",
+            "gloss": "the days of mourning (when people visit the family)"
+          },
+          {
+            "deck": "pcav:4811",
+            "gloss": "God rest her soul."
+          },
+          {
+            "deck": "pcav:4809",
+            "gloss": "God give his family patience. (said when someone has died)"
+          },
+          {
+            "deck": "pcav:1733",
+            "gloss": "She's due in early July."
+          }
+        ]
+      }
     }
   ]
 }
