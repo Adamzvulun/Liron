@@ -6,16 +6,6 @@
   gap: 16px;
 }
 
-/* In Morse a digit is a character to copy: Alegreya's old-style 0 reads as a letter o
-   (a callsign like K0C showed as "KoC"), so the cards use lining figures. */
-.lesson,
-.lesson__card,
-.qso__progress,
-.qso__say,
-.ir__round {
-  font-variant-numeric: lining-nums;
-}
-
 .lesson__top {
   display: flex;
   flex-wrap: wrap;

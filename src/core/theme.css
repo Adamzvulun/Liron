@@ -39,6 +39,8 @@
 
   color-scheme: dark;
   font-family: var(--font-ui);
+  /* Full-height figures: Alegreya's old-style 0 reads as an o ("o/3", a callsign's "CoC"). */
+  font-variant-numeric: lining-nums;
   font-weight: 500;
   font-size: 18px;
   line-height: 1.4;

@@ -167,7 +167,7 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
       'true',
     );
     await page.getByRole('button', { name: 'This one: 2' }).click();
-    await expect(page.getByText(/^(Right!|Not quite\.)$/)).toBeVisible();
+    await expect(page.getByText(/^(Right!|Not quite: it was .+\.)$/)).toBeVisible();
     await expect(sounds.getByRole('button', { name: /✓/ })).toHaveCount(1);
 
     // Back at the start, choose Latin: it's saved with your progress.
