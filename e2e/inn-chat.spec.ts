@@ -257,7 +257,7 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await page.getByRole('button', { name: 'Back to the table' }).click();
     await salim.click();
     await expect.poll(() => n).toBe(3);
-    await held!();
+    await (held as (() => Promise<void>) | null)?.();
     await line.fill('شكرا');
     await page.getByRole('button', { name: 'Say it' }).click();
     await expect.poll(() => n).toBe(4);
