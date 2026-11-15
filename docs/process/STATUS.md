@@ -17,7 +17,7 @@
 | App code | ✅ M1–M3 done; M4's E15 (first slices), E16 and E17 built; polishing toward v1.0.0 on `dev` (2026-11-15). The city and five places, the Signal Tower (Koch lessons, recognition, sending, Codebook, callsign rush, the Radio Room), the Caravanserai (script, slate, coffee corner, 113 word chapters with regulars, echo well, Sit and talk), quests, contracts, chests, the Market, ranks and achievements. Live: https://waymark-phi.vercel.app (v0.1.0) · dev: https://waymark-git-dev-adamzvuluns-projects.vercel.app |
 
 ## What to do next (in order)
-**Now (2026-11-15):** polish toward v1.0.0: play each screen on a phone and on desktop, fix what's off, with tests (HANDOFF items 54–81). Waiting on Adam: try Sit and talk on the dev site (the Groq key), Maknuune, the iPhone sound check, and the v1.0.0 release. Below is the history of how we got here.
+**Now (2026-11-15):** polish toward v1.0.0: play each screen on a phone and on desktop, fix what's off, with tests (HANDOFF items 54–82). Waiting on Adam: try Sit and talk on the dev site (the Groq key), Maknuune, the iPhone sound check, and the v1.0.0 release. Below is the history of how we got here.
 
 1. **Leftovers for Adam:** optionally create the `v0.1.0` tag in GitHub Releases for the record (target `main`; the session's git proxy refuses tag pushes). The next tag is `v1.0.0` (ADR 0027). Delete the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` (both already in `dev`; Claude's session isn't allowed to delete branches).
 2. **M1: Foundations**: ~~E1 (#2)~~ is done. E2 (#3):
