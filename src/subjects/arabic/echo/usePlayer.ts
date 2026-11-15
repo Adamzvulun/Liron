@@ -37,21 +37,27 @@ export function usePlayer(api: SubjectApi, upcoming: readonly string[] = []) {
     if (key) links().prepare(key.split('\n'));
   }, [key, links]);
 
+  // Each stop (and so each play) takes a turn. A play still waiting for its link when a newer
+  // one starts, or when the screen closes, stays silent instead of playing over it (review,
+  // 2026-11-15).
+  const turn = useRef(0);
   const stop = useCallback(() => {
+    turn.current += 1;
     for (const a of playing.current) a.pause();
     playing.current = [];
+    return turn.current;
   }, []);
   useEffect(
     () => () => {
-      for (const a of playing.current) a.pause();
-      playing.current = [];
+      stop();
       void ctx.current?.close();
       ctx.current = null;
     },
-    [],
+    [stop],
   );
 
-  const start = useCallback(async (audios: HTMLAudioElement[]) => {
+  const start = useCallback(async (audios: HTMLAudioElement[], mine: number) => {
+    if (mine !== turn.current) return;
     playing.current = audios;
     const done = Promise.all(audios.map(whenDone));
     try {
@@ -76,9 +82,9 @@ export function usePlayer(api: SubjectApi, upcoming: readonly string[] = []) {
   /** The speaker at `rate`; resolves when it ends. */
   const play = useCallback(
     async (path: string, rate = 1) => {
-      stop();
+      const mine = stop();
       try {
-        await start([await speaker(path, rate)]);
+        await start([await speaker(path, rate)], mine);
       } catch {
         // No link (offline): nothing to play.
       }
@@ -89,8 +95,7 @@ export function usePlayer(api: SubjectApi, upcoming: readonly string[] = []) {
   /** Your recording (a blob URL in this tab). */
   const playMine = useCallback(
     async (url: string) => {
-      stop();
-      await start([new Audio(url)]);
+      await start([new Audio(url)], stop());
     },
     [start, stop],
   );
@@ -98,13 +103,14 @@ export function usePlayer(api: SubjectApi, upcoming: readonly string[] = []) {
   /** Both at once: the speaker in the middle, you a little to the right. */
   const together = useCallback(
     async (path: string, rate: number, url: string) => {
-      stop();
+      const turnNow = stop();
       let theirs: HTMLAudioElement;
       try {
         theirs = await speaker(path, rate);
       } catch {
         return;
       }
+      if (turnNow !== turn.current) return;
       const mine = new Audio(url);
       try {
         // Our own recording is same-origin, so it can go through a panner.
@@ -115,7 +121,7 @@ export function usePlayer(api: SubjectApi, upcoming: readonly string[] = []) {
       } catch {
         // No Web Audio: both still play, side by side in the middle.
       }
-      await start([theirs, mine]);
+      await start([theirs, mine], turnNow);
     },
     [speaker, start, stop],
   );

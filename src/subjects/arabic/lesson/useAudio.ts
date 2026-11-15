@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { MEDIA_LINK_SECONDS } from '../../../core/content/privateContent.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 
@@ -50,7 +50,8 @@ export function linkCache(
 }
 
 /**
- * Plays the deck's recordings by path: one at a time, links fetched once and renewed.
+ * Plays the deck's recordings by path: one at a time, the newest asked for, and none once the
+ * screen has closed. Links are fetched once and renewed.
  * `upcoming` (a session's recordings) are signed together as soon as they're known.
  */
 export function useAudio(api: SubjectApi, upcoming: readonly string[] = []) {
@@ -70,10 +71,24 @@ export function useAudio(api: SubjectApi, upcoming: readonly string[] = []) {
   useLayoutEffect(() => {
     if (key) links().prepare(key.split('\n'));
   }, [key, links]);
+  // Each play takes a turn; a play whose link arrives after a newer play, or after the screen
+  // has closed, stays silent (review, 2026-11-15).
+  const turn = useRef(0);
+  useEffect(
+    () => () => {
+      turn.current += 1;
+      playing.current?.pause();
+      playing.current = null;
+    },
+    [],
+  );
   return useCallback(
     async (path: string) => {
+      const mine = ++turn.current;
       try {
-        const audio = new Audio(await links()(path));
+        const url = await links()(path);
+        if (mine !== turn.current) return;
+        const audio = new Audio(url);
         playing.current?.pause();
         playing.current = audio;
         await audio.play();
