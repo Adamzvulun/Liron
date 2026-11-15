@@ -13,7 +13,7 @@ import {
 } from '../lesson/progress.ts';
 import { questStatus } from '../questline.ts';
 import { wordsOpen } from '../words/drill.ts';
-import { MORSE_CHARS } from '../code.ts';
+import { charLabel, MORSE_CHARS } from '../code.ts';
 import { lampOpen, lampPassed } from '../send/lampSignal.ts';
 import { watchOpen, watchPassed } from '../words/nightWatch.ts';
 import { farOpen, farPassed } from '../qso/farStation.ts';
@@ -252,7 +252,7 @@ function Room({
         ? 'Practice your letters'
         : lessonNo === 1
           ? 'Lesson 1 · Hear K and M'
-          : `Lesson ${lessonNo} · Add ${newest ?? ''}`,
+          : `Lesson ${lessonNo} · Add ${newest ? charLabel(newest) : ''}`,
       open: 'koch',
     },
     {
