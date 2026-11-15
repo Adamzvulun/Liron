@@ -99,6 +99,10 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
   it('reads what you type in Hebrew letters as Arabic', () => {
     expect(fromHebrew('מניח, אלחמד ללה')).toBe('منيح، الحمد لله');
     expect(fromHebrew("ח'בז וג'בנה")).toBe('خبز وجبنة');
+    // A final ה is ة, but ה׳ there is ه ("his"); a plain ג is ج (review, 2026-11-15).
+    expect(fromHebrew('כלה')).toBe('كلة');
+    expect(fromHebrew("כלה' פיה׳")).toBe('كله فيه');
+    expect(fromHebrew('גמיל')).toBe('جميل');
     expect(fromHebrew('ח׳לאץ')).toBe('خلاص');
     expect(fromHebrew('כיפכ?')).toBe('كيفك؟');
     expect(fromHebrew('שו אסמכ? אנא אדם')).toBe('شو اسمك؟ انا ادم');
@@ -111,6 +115,9 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(tipsFrom(JSON.stringify({ tips: [] }))).toEqual([]);
     expect(tipsFrom('nope')).toBeNull();
     expect(tipsFrom('{}')).toBeNull();
+    // One that the saved progress couldn't hold is dropped, not saved (review, 2026-11-15).
+    const long = { ...tip, better: 'آه '.repeat(60) };
+    expect(tipsFrom(JSON.stringify({ tips: [long, tip, { ...tip, said: ' ' }] }))).toEqual([tip]);
   });
 
   it('keeps the Coach’s tips as review items, once each, the newest 30', () => {

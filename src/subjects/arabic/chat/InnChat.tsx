@@ -83,7 +83,9 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const [glossary, setGlossary] = useState<Glossary>(new Map());
   /** Lines left today across all chats (the function's count), once a reply has said. */
   const [left, setLeft] = useState<number | null>(null);
-  const saved = useRef(false);
+  /** The chat at the table now (its start time), and the chats already saved, by start time. */
+  const open = useRef<number | null>(null);
+  const saved = useRef(new Set<number>());
   const lines = useRef<HTMLOListElement>(null);
   // The newest line is always in view: the list scrolls to its end as the chat grows.
   const count = stage.kind === 'chat' ? stage.turns.length + (stage.waiting ? 1 : 0) : 0;
@@ -140,8 +142,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
     now: number,
     p: ArabicProgress,
   ) => {
-    if (saved.current || !linesOf(turns)) return;
-    saved.current = true;
+    if (saved.current.has(s.started) || !linesOf(turns)) return;
+    saved.current.add(s.started);
     const next = afterChat(p, s.regular, turns);
     setProgress(next);
     api
@@ -174,6 +176,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
       },
       (e: unknown) => {
         if (!live.current) return;
+        // A chat you've already left (and maybe replaced) was saved then; don't save it again.
+        if (open.current !== s.started) return;
         setStage((now) =>
           same(now) ? { ...s, turns, waiting: false, ended: endLine(s.regular, e) } : now,
         );
@@ -186,7 +190,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
     const clean = name.trim().slice(0, 24);
     const p = { ...progress, chat: { ...progress.chat, name: clean } };
     setProgress(p);
-    saved.current = false;
+    open.current = now;
     setShown(new Set());
     setCoach('idle');
     setTyped('');
@@ -299,7 +303,8 @@ export function InnChat({ api }: { api: SubjectApi }) {
     setCoach('asking');
     api.partner({ kind: 'inn-coach', turns: s.turns }).then(
       (reply) => {
-        if (!live.current) return;
+        // An answer about a chat you've moved on from is dropped.
+        if (!live.current || open.current !== s.started) return;
         const tips = tipsFrom(reply.text);
         setCoach(tips ?? 'failed');
         if (!tips?.length) return;
@@ -318,7 +323,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
             () => setSaveFailed(true),
           );
       },
-      () => live.current && setCoach('failed'),
+      () => live.current && open.current === s.started && setCoach('failed'),
     );
   };
   const toggle = (i: number) =>
@@ -423,7 +428,10 @@ export function InnChat({ api }: { api: SubjectApi }) {
               <button
                 type="button"
                 className="lesson__go"
-                onClick={() => setStage({ kind: 'pick' })}
+                onClick={() => {
+                  open.current = null;
+                  setStage({ kind: 'pick' });
+                }}
               >
                 Back to the table
               </button>
@@ -461,12 +469,19 @@ export function InnChat({ api }: { api: SubjectApi }) {
             </form>
             <SayLine api={api} disabled={s.waiting} onHeard={heard} />
             {hebrew ? (
-              <p className="arabic__chat-reads">
-                They read:{' '}
-                <bdi lang="ar" dir="rtl">
-                  {line || '…'}
-                </bdi>
-              </p>
+              <>
+                <p className="arabic__chat-reads">
+                  They read:{' '}
+                  <bdi lang="ar" dir="rtl">
+                    {line || '…'}
+                  </bdi>
+                </p>
+                <p className="arabic__chat-hint">
+                  A <bdi lang="he">ה</bdi> at the end is <bdi lang="ar">ة</bdi>; type{' '}
+                  <bdi lang="he">ה׳</bdi> for <bdi lang="ar">ه</bdi>, as in{' '}
+                  <bdi lang="he">כלה׳</bdi> (<bdi lang="ar">كله</bdi>).
+                </p>
+              </>
             ) : (
               <div className="arabic__keys" role="group" aria-label="Arabic keyboard" dir="rtl">
                 {LETTERS.map((l) => (

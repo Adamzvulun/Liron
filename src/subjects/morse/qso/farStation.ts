@@ -93,8 +93,9 @@ export const fieldRight = (q: Qso, f: CopyField, typed: string) =>
 
 /** A keyed turn is read right when every word of it is in the tower's reading, in order. */
 export function keyedRight(text: string, read: string): boolean {
-  const sent = text.split(' ');
-  return wordsRight(sent, read.split(' ').filter(Boolean)) === sent.length;
+  // The tower reads BT's -...- as "=" (#155).
+  const sent = text.replace(/<BT>/gi, '=').split(' ');
+  return wordsRight(sent, read.replace(/<BT>/gi, '=').split(' ').filter(Boolean)) === sent.length;
 }
 
 export interface QsoResult {
