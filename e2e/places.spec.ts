@@ -75,3 +75,38 @@ test.describe('places in the city (#25)', () => {
     await expect(page.getByRole('heading', { name: 'Signal Tower' })).toBeVisible();
   });
 });
+
+test("a place that can't load says so, can try again, and the top bar stays (review, 2026-11-15)", async ({
+  page,
+}) => {
+  await signedIn(page);
+  let down = true;
+  const flaky = (path: string) =>
+    page.route(`**/rest/v1/rpc/${path}`, (route) =>
+      down ? route.fulfill({ status: 500, json: { message: 'down' } }) : route.fallback(),
+    );
+  await flaky('market_today');
+  await flaky('my_achievements');
+  const settings = page.getByRole('button', { name: 'Settings' });
+  const back = page.getByRole('link', { name: 'Back to the square' });
+  for (const [path, failed, loaded] of [
+    [
+      '/market',
+      'The stall couldn’t be set out.',
+      page.getByRole('heading', { name: 'Today’s wares' }),
+    ],
+    ['/house', 'The wall couldn’t be read.', page.getByText(/\d+ of \d+ earned/)],
+  ] as const) {
+    down = true;
+    await page.goto(path);
+    await expect(page.getByText(failed)).toBeVisible();
+    // Back on the square, without a reload, the top bar is still there.
+    await back.click();
+    await expect(settings).toBeVisible();
+    await page.goBack();
+    await expect(page.getByText(failed)).toBeVisible();
+    down = false;
+    await page.getByRole('button', { name: 'Try again' }).click();
+    await expect(loaded).toBeVisible();
+  }
+});

@@ -213,7 +213,7 @@ function Lobby({ player }: { player: Player }) {
           state={state}
           subjects={subjects}
           questlines={questlines}
-          onGoalChange={(m) => void player.setDailyGoal(m)}
+          onGoalChange={player.setDailyGoal}
           onNameChange={player.setDisplayName}
           onSignOut={() => {
             // The kept deck goes with the login (#124).

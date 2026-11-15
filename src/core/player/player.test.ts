@@ -163,7 +163,40 @@ describe('the player’s chests (ADR 0033)', () => {
     await player.load();
     await player.loadContracts();
     expect(await player.openChest('c1')).toBeNull();
-    expect(player.getSnapshot()).toMatchObject({ chests: [chest], error: expect.any(String) });
+    // The shelf says so; the HUD stays (review, 2026-11-15).
+    expect(player.getSnapshot()).toMatchObject({ chests: [chest], error: null });
+  });
+});
+
+describe('a place that fails to load (review, 2026-11-15)', () => {
+  it('says so to that place and keeps the HUD and what was shown', async () => {
+    let up = true;
+    const base = memoryStore();
+    const store = {
+      ...base,
+      market: async () => {
+        if (!up) throw new Error('down');
+        return base.market();
+      },
+      achievements: async () => {
+        if (!up) throw new Error('down');
+        return base.achievements();
+      },
+      setDailyGoal: async (m: number) => {
+        if (!up) throw new Error('down');
+        return base.setDailyGoal(m);
+      },
+    };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    expect(await player.loadMarket()).toBe(true);
+    expect(await player.loadAchievements()).toBe(true);
+    const { market, achievements, today } = player.getSnapshot();
+    up = false;
+    expect(await player.loadMarket()).toBe(false);
+    expect(await player.loadAchievements()).toBe(false);
+    expect(await player.setDailyGoal(60)).toBe(false);
+    expect(player.getSnapshot()).toMatchObject({ error: null, market, achievements, today });
   });
 });
 

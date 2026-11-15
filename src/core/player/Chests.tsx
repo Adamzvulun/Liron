@@ -60,11 +60,14 @@ export function ChestShelf({
 }) {
   const [opening, setOpening] = useState<string | null>(null);
   const [opened, setOpened] = useState<ChestContents | null>(null);
+  const [stuck, setStuck] = useState(false);
   const open = async (id: string) => {
     setOpening(id);
+    setStuck(false);
     const contents = await onOpen(id);
     setOpening(null);
     if (contents) setOpened(contents);
+    else setStuck(true);
   };
   // Opening your last chest empties the shelf, but its opening scene still has to show.
   const scene = opened && <ChestOpening contents={opened} onDone={() => setOpened(null)} />;
@@ -100,6 +103,11 @@ export function ChestShelf({
           </li>
         ))}
       </ul>
+      {stuck && (
+        <p className="chests__stuck" role="alert">
+          That chest wouldn’t open. Try again in a moment.
+        </p>
+      )}
       {scene}
     </section>
   );

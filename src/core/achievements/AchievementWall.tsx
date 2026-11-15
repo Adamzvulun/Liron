@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { GemIcon } from '../player/icons.tsx';
 import { earnedTitles, plaques, type MyAchievements } from './achievements.ts';
 import './achievements.css';
@@ -17,15 +17,22 @@ export function AchievementWall({
   mine: MyAchievements | null;
   /** The title worn now; '' for none. */
   title: string;
-  onLoad: () => void;
+  /** Reads the wall; resolves false if it couldn't. */
+  onLoad: () => Promise<boolean>;
   /** Wears a title ('' for none); resolves false if it couldn't be saved. */
   onWear: (title: string) => Promise<boolean>;
 }) {
-  // `onLoad` may be async: its promise mustn't become this effect's cleanup, which crashed the
-  // app on leaving the house (review, 2026-11-15).
+  const [failed, setFailed] = useState(false);
+  const load = useCallback(() => void onLoad().then((ok) => setFailed(!ok)), [onLoad]);
+  const retry = () => {
+    setFailed(false);
+    load();
+  };
+  // The load's promise mustn't become this effect's cleanup, which crashed the app on leaving
+  // the house (review, 2026-11-15).
   useEffect(() => {
-    void onLoad();
-  }, [onLoad]);
+    load();
+  }, [load]);
   const [status, setStatus] = useState<'idle' | 'saving' | 'failed'>('idle');
   const all = plaques(mine);
   const earned = all.filter((p) => p.earned).length;
@@ -39,8 +46,19 @@ export function AchievementWall({
       <h2 id="trophies-title" className="trophies__heading">
         Achievements
       </h2>
-      <p className="trophies__count">
-        {mine ? `${earned} of ${all.length} earned` : 'Reading the wall…'}
+      <p className="trophies__count" role="status">
+        {mine ? (
+          `${earned} of ${all.length} earned`
+        ) : failed ? (
+          <>
+            The wall couldn’t be read.{' '}
+            <button type="button" className="place__retry" onClick={retry}>
+              Try again
+            </button>
+          </>
+        ) : (
+          'Reading the wall…'
+        )}
       </p>
 
       <fieldset className="trophies__titles">

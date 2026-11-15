@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import type { Look, SlotId } from '../avatar/looks.ts';
 import type { MarketStall, Ware } from '../progress/store.ts';
@@ -36,13 +36,33 @@ export function Market({
   stall: MarketStall | null;
   look: Look;
   gold: number | null;
-  onLoad: () => Promise<void>;
+  /** Reads the stall; resolves false if it couldn't. */
+  onLoad: () => Promise<boolean>;
   onBuy: (id: string) => Promise<string | null>;
 }) {
   const [buying, setBuying] = useState<string | null>(null);
   const [said, setSaid] = useState<{ id: string; text: string } | null>(null);
-  useEffect(() => void onLoad(), [onLoad]);
-  if (!stall) return <p className="place__loading">Setting out the wares…</p>;
+  const [failed, setFailed] = useState(false);
+  const load = useCallback(() => void onLoad().then((ok) => setFailed(!ok)), [onLoad]);
+  const retry = () => {
+    setFailed(false);
+    load();
+  };
+  useEffect(() => {
+    load();
+  }, [load]);
+  if (!stall) {
+    return failed ? (
+      <p className="place__loading" role="status">
+        The stall couldn’t be set out.{' '}
+        <button type="button" className="place__retry" onClick={retry}>
+          Try again
+        </button>
+      </p>
+    ) : (
+      <p className="place__loading">Setting out the wares…</p>
+    );
+  }
   const buy = async (w: Ware) => {
     setBuying(w.id);
     const problem = await onBuy(w.id);
