@@ -18,6 +18,7 @@
 .words__played {
   margin: 0;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 34px;
   letter-spacing: 0.12em;
@@ -98,6 +99,7 @@
 .words__subtitle {
   margin: 22px 0 4px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-size: 22px;
 }
 

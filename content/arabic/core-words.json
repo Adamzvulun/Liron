@@ -29,7 +29,7 @@
           },
           {
             "deck": "pcav:4758",
-            "gloss": "you're welcome"
+            "gloss": "you’re welcome"
           },
           {
             "deck": "pcav:4759",
@@ -49,7 +49,7 @@
           },
           {
             "deck": "pcav:4768",
-            "gloss": "I'm fine"
+            "gloss": "I’m fine"
           },
           {
             "deck": "pcav:4771",
@@ -594,7 +594,7 @@
       "data": {
         "chapter": 5,
         "title": "Under one roof",
-        "theme": "The house, its rooms and what's in them",
+        "theme": "The house, its rooms and what’s in them",
         "words": [
           {
             "deck": "pcav:0685",
@@ -1142,7 +1142,7 @@
       "type": "core-words",
       "data": {
         "chapter": 9,
-        "title": "A day's work",
+        "title": "A day’s work",
         "theme": "Jobs, school, and getting things done",
         "words": [
           {
@@ -1597,19 +1597,19 @@
           },
           {
             "deck": "pcav:0132",
-            "gloss": "uncle (father's side)"
+            "gloss": "uncle (father’s side)"
           },
           {
             "deck": "pcav:0134",
-            "gloss": "aunt (father's side)"
+            "gloss": "aunt (father’s side)"
           },
           {
             "deck": "pcav:0136",
-            "gloss": "uncle (mother's side)"
+            "gloss": "uncle (mother’s side)"
           },
           {
             "deck": "pcav:0138",
-            "gloss": "aunt (mother's side)"
+            "gloss": "aunt (mother’s side)"
           },
           {
             "deck": "pcav:0172",
@@ -3984,7 +3984,7 @@
       "data": {
         "chapter": 30,
         "title": "Salt, sugar and spice",
-        "theme": "How food tastes, and the kitchen's everyday things",
+        "theme": "How food tastes, and the kitchen’s everyday things",
         "words": [
           {
             "deck": "pcav:0970",
@@ -4249,7 +4249,7 @@
       "type": "core-words",
       "data": {
         "chapter": 32,
-        "title": "A day's work",
+        "title": "A day’s work",
         "theme": "Jobs, the workplace, and what people do",
         "words": [
           {
@@ -5057,7 +5057,7 @@
       "data": {
         "chapter": 38,
         "title": "Coffee and cake",
-        "theme": "Snacks, sauces and what's on the plate",
+        "theme": "Snacks, sauces and what’s on the plate",
         "words": [
           {
             "deck": "pcav:0803",
@@ -6870,7 +6870,7 @@
           },
           {
             "deck": "pcav:4170",
-            "gloss": "Valentine's Day"
+            "gloss": "Valentine’s Day"
           },
           {
             "deck": "pcav:4171",
@@ -7201,7 +7201,7 @@
       "type": "core-words",
       "data": {
         "chapter": 54,
-        "title": "Doctor's orders",
+        "title": "Doctor’s orders",
         "theme": "Check-ups, illness, injuries and treatment",
         "words": [
           {
@@ -7600,7 +7600,7 @@
       "data": {
         "chapter": 57,
         "title": "Head to heel, dusk to dawn",
-        "theme": "The body in detail, and a night's sleep",
+        "theme": "The body in detail, and a night’s sleep",
         "words": [
           {
             "deck": "pcav:0241",
@@ -7701,7 +7701,7 @@
           },
           {
             "deck": "pcav:0868",
-            "gloss": "to talk in one's sleep"
+            "gloss": "to talk in one’s sleep"
           },
           {
             "deck": "pcav:0869",
@@ -8133,7 +8133,7 @@
       "data": {
         "chapter": 61,
         "title": "On the road",
-        "theme": "Taxis, lanes, the car's parts and what goes wrong",
+        "theme": "Taxis, lanes, the car’s parts and what goes wrong",
         "words": [
           {
             "deck": "pcav:1847",
@@ -8967,7 +8967,7 @@
           },
           {
             "deck": "pcav:2930",
-            "gloss": "to start one's own business"
+            "gloss": "to start one’s own business"
           },
           {
             "deck": "pcav:2931",
@@ -9338,7 +9338,7 @@
         "words": [
           {
             "deck": "pcav:0360",
-            "gloss": "to dye one's hair"
+            "gloss": "to dye one’s hair"
           },
           {
             "deck": "pcav:0374",
@@ -9363,7 +9363,7 @@
           },
           {
             "deck": "pcav:0388",
-            "gloss": "to trim one's beard"
+            "gloss": "to trim one’s beard"
           },
           {
             "deck": "pcav:0391",
@@ -9416,7 +9416,7 @@
           },
           {
             "deck": "pcav:0519",
-            "gloss": "one's looks"
+            "gloss": "one’s looks"
           },
           {
             "deck": "pcav:0524",
@@ -9424,7 +9424,7 @@
           },
           {
             "deck": "pcav:0298",
-            "gloss": "to blow one's nose"
+            "gloss": "to blow one’s nose"
           },
           {
             "deck": "pcav:0334",
@@ -9476,7 +9476,7 @@
           },
           {
             "deck": "pcav:0555",
-            "gloss": "to tie one's tie"
+            "gloss": "to tie one’s tie"
           },
           {
             "deck": "pcav:0567",
@@ -9516,15 +9516,15 @@
           },
           {
             "deck": "pcav:0609",
-            "gloss": "to tie one's shoes"
+            "gloss": "to tie one’s shoes"
           },
           {
             "deck": "pcav:0610",
-            "gloss": "to untie one's shoes"
+            "gloss": "to untie one’s shoes"
           },
           {
             "deck": "pcav:0613",
-            "gloss": "to polish one's shoes"
+            "gloss": "to polish one’s shoes"
           },
           {
             "deck": "pcav:0647",
@@ -9735,7 +9735,7 @@
       "data": {
         "chapter": 73,
         "title": "Kings and courts",
-        "theme": "Countries and how they're run, protests, and crime",
+        "theme": "Countries and how they’re run, protests, and crime",
         "words": [
           {
             "deck": "pcav:2779",
@@ -9971,7 +9971,7 @@
           },
           {
             "deck": "pcav:0175",
-            "gloss": "to break someone's heart"
+            "gloss": "to break someone’s heart"
           },
           {
             "deck": "pcav:0201",
@@ -9987,7 +9987,7 @@
           },
           {
             "deck": "pcav:0038",
-            "gloss": "in one's childhood"
+            "gloss": "in one’s childhood"
           }
         ]
       }
@@ -10171,11 +10171,11 @@
           },
           {
             "deck": "pcav:1590",
-            "gloss": "to get a bachelor's degree"
+            "gloss": "to get a bachelor’s degree"
           },
           {
             "deck": "pcav:1592",
-            "gloss": "to do a master's degree"
+            "gloss": "to do a master’s degree"
           },
           {
             "deck": "pcav:1719",
@@ -10501,7 +10501,7 @@
           },
           {
             "deck": "pcav:1746",
-            "gloss": "to get one's teeth cleaned"
+            "gloss": "to get one’s teeth cleaned"
           },
           {
             "deck": "pcav:0929",
@@ -10517,7 +10517,7 @@
           },
           {
             "deck": "pcav:0040",
-            "gloss": "in one's youth"
+            "gloss": "in one’s youth"
           }
         ]
       }
@@ -10565,7 +10565,7 @@
           },
           {
             "deck": "pcav:1366",
-            "gloss": "to quit one's job"
+            "gloss": "to quit one’s job"
           },
           {
             "deck": "pcav:1370",
@@ -10666,7 +10666,7 @@
         "words": [
           {
             "deck": "pcav:0590",
-            "gloss": "to take out of one's pocket"
+            "gloss": "to take out of one’s pocket"
           },
           {
             "deck": "pcav:0934",
@@ -10694,7 +10694,7 @@
           },
           {
             "deck": "pcav:1286",
-            "gloss": "to talk with one's mouth full"
+            "gloss": "to talk with one’s mouth full"
           },
           {
             "deck": "pcav:1880",
@@ -11133,7 +11133,7 @@
           },
           {
             "deck": "pcav:3691",
-            "gloss": "it's pouring"
+            "gloss": "it’s pouring"
           },
           {
             "deck": "pcav:3729",
@@ -11206,11 +11206,11 @@
           },
           {
             "deck": "pcav:0437",
-            "gloss": "to stretch out one's fingers"
+            "gloss": "to stretch out one’s fingers"
           },
           {
             "deck": "pcav:0299",
-            "gloss": "to pick one's nose"
+            "gloss": "to pick one’s nose"
           },
           {
             "deck": "pcav:0270",
@@ -11474,7 +11474,7 @@
           },
           {
             "deck": "pcav:0176",
-            "gloss": "to hurt (someone's feelings)"
+            "gloss": "to hurt (someone’s feelings)"
           },
           {
             "deck": "pcav:0709",
@@ -12206,7 +12206,7 @@
           },
           {
             "deck": "pcav:4427",
-            "gloss": "that's why",
+            "gloss": "that’s why",
             "sentence": "pcav:4429"
           },
           {
@@ -12420,7 +12420,7 @@
           },
           {
             "deck": "pcav:1817",
-            "gloss": "The phone's ringing!"
+            "gloss": "The phone’s ringing!"
           },
           {
             "deck": "pcav:1818",
@@ -12460,27 +12460,27 @@
           },
           {
             "deck": "pcav:3678",
-            "gloss": "It's sunny."
+            "gloss": "It’s sunny."
           },
           {
             "deck": "pcav:3685",
-            "gloss": "It's cloudy."
+            "gloss": "It’s cloudy."
           },
           {
             "deck": "pcav:3687",
-            "gloss": "It's raining."
+            "gloss": "It’s raining."
           },
           {
             "deck": "pcav:3689",
-            "gloss": "It's started to rain."
+            "gloss": "It’s started to rain."
           },
           {
             "deck": "pcav:3690",
-            "gloss": "It's stopped raining."
+            "gloss": "It’s stopped raining."
           },
           {
             "deck": "pcav:3699",
-            "gloss": "It's snowing.",
+            "gloss": "It’s snowing.",
             "sentence": "pcav:3700"
           },
           {
@@ -12551,19 +12551,19 @@
         "words": [
           {
             "deck": "pcav:0140",
-            "gloss": "cousin (your father's brother's son)"
+            "gloss": "cousin (your father’s brother’s son)"
           },
           {
             "deck": "pcav:0141",
-            "gloss": "cousin (your father's brother's daughter)"
+            "gloss": "cousin (your father’s brother’s daughter)"
           },
           {
             "deck": "pcav:0144",
-            "gloss": "cousin (your mother's brother's son)"
+            "gloss": "cousin (your mother’s brother’s son)"
           },
           {
             "deck": "pcav:0147",
-            "gloss": "cousin (your mother's sister's daughter)"
+            "gloss": "cousin (your mother’s sister’s daughter)"
           },
           {
             "deck": "pcav:0097",
@@ -12587,7 +12587,7 @@
           },
           {
             "deck": "pcav:3412",
-            "gloss": "I'm Palestinian."
+            "gloss": "I’m Palestinian."
           },
           {
             "deck": "pcav:0090",
@@ -12599,7 +12599,7 @@
           },
           {
             "deck": "pcav:1812",
-            "gloss": "What's your number?"
+            "gloss": "What’s your number?"
           },
           {
             "deck": "pcav:3060",
@@ -12623,7 +12623,7 @@
           },
           {
             "deck": "pcav:4770",
-            "gloss": "What's up?"
+            "gloss": "What’s up?"
           },
           {
             "deck": "pcav:4313",
@@ -12631,7 +12631,7 @@
           },
           {
             "deck": "pcav:1646",
-            "gloss": "What's wrong?"
+            "gloss": "What’s wrong?"
           },
           {
             "deck": "pcav:2497",
@@ -12651,11 +12651,11 @@
           },
           {
             "deck": "pcav:1647",
-            "gloss": "I'm sick."
+            "gloss": "I’m sick."
           },
           {
             "deck": "pcav:4703",
-            "gloss": "I'm ready!"
+            "gloss": "I’m ready!"
           },
           {
             "deck": "pcav:4775",
@@ -12663,7 +12663,7 @@
           },
           {
             "deck": "pcav:1290",
-            "gloss": "Thank you for the meal. (said in someone's home)"
+            "gloss": "Thank you for the meal. (said in someone’s home)"
           },
           {
             "deck": "pcav:4817",
@@ -12855,7 +12855,7 @@
           },
           {
             "deck": "pcav:3683",
-            "gloss": "It's gotten dark."
+            "gloss": "It’s gotten dark."
           },
           {
             "deck": "pcav:3681",
@@ -12887,11 +12887,11 @@
           },
           {
             "deck": "pcav:0637",
-            "gloss": "It's a bit big."
+            "gloss": "It’s a bit big."
           },
           {
             "deck": "pcav:0638",
-            "gloss": "It's a bit tight."
+            "gloss": "It’s a bit tight."
           },
           {
             "deck": "pcav:0614",
@@ -12971,7 +12971,7 @@
           },
           {
             "deck": "pcav:0849",
-            "gloss": "to make one's bed"
+            "gloss": "to make one’s bed"
           },
           {
             "deck": "pcav:0640",
@@ -13213,15 +13213,15 @@
       "data": {
         "chapter": 99,
         "title": "Trips, town, and a night out",
-        "theme": "Packing and flying, the license and the highway, mail and coupons, and what's on TV and at the movies",
+        "theme": "Packing and flying, the license and the highway, mail and coupons, and what’s on TV and at the movies",
         "words": [
           {
             "deck": "pcav:2669",
-            "gloss": "to pack one's suitcase"
+            "gloss": "to pack one’s suitcase"
           },
           {
             "deck": "pcav:2671",
-            "gloss": "to unpack one's suitcase"
+            "gloss": "to unpack one’s suitcase"
           },
           {
             "deck": "pcav:2691",
@@ -13254,7 +13254,7 @@
           },
           {
             "deck": "pcav:1872",
-            "gloss": "driver's license"
+            "gloss": "driver’s license"
           },
           {
             "deck": "pcav:1902",
@@ -13286,11 +13286,11 @@
           },
           {
             "deck": "pcav:4167",
-            "gloss": "New Year's Eve"
+            "gloss": "New Year’s Eve"
           },
           {
             "deck": "pcav:4168",
-            "gloss": "New Year's Day"
+            "gloss": "New Year’s Day"
           },
           {
             "deck": "pcav:3647",
@@ -13330,11 +13330,11 @@
           },
           {
             "deck": "pcav:2258",
-            "gloss": "children's program"
+            "gloss": "children’s program"
           },
           {
             "deck": "pcav:2226",
-            "gloss": "Today's my day off."
+            "gloss": "Today’s my day off."
           }
         ]
       }
@@ -13366,7 +13366,7 @@
           },
           {
             "deck": "pcav:0370",
-            "gloss": "to comb one's hair"
+            "gloss": "to comb one’s hair"
           },
           {
             "deck": "pcav:0259",
@@ -13374,7 +13374,7 @@
           },
           {
             "deck": "pcav:0274",
-            "gloss": "to close one's eyes"
+            "gloss": "to close one’s eyes"
           },
           {
             "deck": "pcav:0347",
@@ -13685,11 +13685,11 @@
           },
           {
             "deck": "pcav:3703",
-            "gloss": "It's hailing."
+            "gloss": "It’s hailing."
           },
           {
             "deck": "pcav:3708",
-            "gloss": "It's stormy."
+            "gloss": "It’s stormy."
           },
           {
             "deck": "pcav:3710",
@@ -13701,7 +13701,7 @@
           },
           {
             "deck": "pcav:3724",
-            "gloss": "We're expecting a storm."
+            "gloss": "We’re expecting a storm."
           },
           {
             "deck": "pcav:3730",
@@ -13745,7 +13745,7 @@
       "data": {
         "chapter": 103,
         "title": "Shows, music, and sweets",
-        "theme": "What's on TV, kinds of movies, stories and the desk, sewing, music and games, and a few sweets",
+        "theme": "What’s on TV, kinds of movies, stories and the desk, sewing, music and games, and a few sweets",
         "words": [
           {
             "deck": "pcav:2257",
@@ -13911,7 +13911,7 @@
           },
           {
             "deck": "pcav:3172",
-            "gloss": "I'm looking forward to seeing you."
+            "gloss": "I’m looking forward to seeing you."
           },
           {
             "deck": "pcav:4721",
@@ -13965,7 +13965,7 @@
           },
           {
             "deck": "pcav:4173",
-            "gloss": "Mother's Day"
+            "gloss": "Mother’s Day"
           },
           {
             "deck": "pcav:4175",
@@ -14165,7 +14165,7 @@
           },
           {
             "deck": "pcav:0028",
-            "gloss": "in one's fifties"
+            "gloss": "in one’s fifties"
           },
           {
             "deck": "pcav:0029",
@@ -14193,7 +14193,7 @@
           },
           {
             "deck": "pcav:0226",
-            "gloss": "I don't have a nickname."
+            "gloss": "I don’t have a nickname."
           },
           {
             "deck": "pcav:1284",
@@ -14276,7 +14276,7 @@
       "type": "core-words",
       "data": {
         "chapter": 107,
-        "title": "The deli, the gym, and the day's prayers",
+        "title": "The deli, the gym, and the day’s prayers",
         "theme": "Cheeses and dishes by name, the machines at the gym, the prayers of the day, and a few words from the news",
         "words": [
           {
@@ -14365,7 +14365,7 @@
           },
           {
             "deck": "pcav:2540",
-            "gloss": "(It's tied) three all."
+            "gloss": "(It’s tied) three all."
           },
           {
             "deck": "pcav:2560",
@@ -14513,7 +14513,7 @@
           },
           {
             "deck": "pcav:1748",
-            "gloss": "to get one's teeth whitened"
+            "gloss": "to get one’s teeth whitened"
           },
           {
             "deck": "pcav:2814",
@@ -14609,7 +14609,7 @@
           },
           {
             "deck": "pcav:3653",
-            "gloss": "It's about thirty (degrees)."
+            "gloss": "It’s about thirty (degrees)."
           },
           {
             "deck": "pcav:3651",
@@ -14621,7 +14621,7 @@
           },
           {
             "deck": "pcav:3722",
-            "gloss": "Do you think it's going to rain?"
+            "gloss": "Do you think it’s going to rain?"
           },
           {
             "deck": "pcav:3714",
@@ -14673,7 +14673,7 @@
       "data": {
         "chapter": 110,
         "title": "Shoelaces, soup and a bad night",
-        "theme": "At home and in the mirror: the kitchen, a short night's sleep, faces and hair, and the bathroom shelf",
+        "theme": "At home and in the mirror: the kitchen, a short night’s sleep, faces and hair, and the bathroom shelf",
         "words": [
           {
             "deck": "pcav:0611",
@@ -14693,7 +14693,7 @@
           },
           {
             "deck": "pcav:0872",
-            "gloss": "You don't look like you slept well."
+            "gloss": "You don’t look like you slept well."
           },
           {
             "deck": "pcav:0871",
@@ -14721,7 +14721,7 @@
           },
           {
             "deck": "pcav:0362",
-            "gloss": "She's a natural blond."
+            "gloss": "She’s a natural blond."
           },
           {
             "deck": "pcav:0246",
@@ -14741,7 +14741,7 @@
           },
           {
             "deck": "pcav:0512",
-            "gloss": "Don't overeat, so you don't get fat."
+            "gloss": "Don’t overeat, so you don’t get fat."
           },
           {
             "deck": "pcav:0402",
@@ -14761,7 +14761,7 @@
           },
           {
             "deck": "pcav:0309",
-            "gloss": "ringing in one's ear"
+            "gloss": "ringing in one’s ear"
           },
           {
             "deck": "pcav:0612",
@@ -14809,7 +14809,7 @@
         "words": [
           {
             "deck": "pcav:1877",
-            "gloss": "Let's not go downtown right now. It's rush hour."
+            "gloss": "Let’s not go downtown right now. It’s rush hour."
           },
           {
             "deck": "pcav:1909",
@@ -14829,7 +14829,7 @@
           },
           {
             "deck": "pcav:2175",
-            "gloss": "I'm not very good at haggling."
+            "gloss": "I’m not very good at haggling."
           },
           {
             "deck": "pcav:2198",
@@ -14849,15 +14849,15 @@
           },
           {
             "deck": "pcav:2280",
-            "gloss": "I can't hear what they're saying. Could you turn it up a bit?"
+            "gloss": "I can’t hear what they’re saying. Could you turn it up a bit?"
           },
           {
             "deck": "pcav:2282",
-            "gloss": "I'm trying to study. Could you turn it down a bit?"
+            "gloss": "I’m trying to study. Could you turn it down a bit?"
           },
           {
             "deck": "pcav:2360",
-            "gloss": "I don't like to sit too close to the screen."
+            "gloss": "I don’t like to sit too close to the screen."
           },
           {
             "deck": "pcav:2549",
@@ -14873,7 +14873,7 @@
           },
           {
             "deck": "pcav:2569",
-            "gloss": "I feel like I've put on a bit of weight."
+            "gloss": "I feel like I’ve put on a bit of weight."
           },
           {
             "deck": "pcav:2602",
@@ -14881,7 +14881,7 @@
           },
           {
             "deck": "pcav:2645",
-            "gloss": "I'm so sunburned! It hurts!"
+            "gloss": "I’m so sunburned! It hurts!"
           },
           {
             "deck": "pcav:2714",
@@ -14925,7 +14925,7 @@
           },
           {
             "deck": "pcav:1747",
-            "gloss": "I'm going to the dentist's for a check-up and a cleaning."
+            "gloss": "I’m going to the dentist’s for a check-up and a cleaning."
           }
         ]
       }
@@ -14961,7 +14961,7 @@
           },
           {
             "deck": "pcav:3325",
-            "gloss": "You can't understand a word he says."
+            "gloss": "You can’t understand a word he says."
           },
           {
             "deck": "pcav:3332",
@@ -14977,7 +14977,7 @@
           },
           {
             "deck": "pcav:3076",
-            "gloss": "I'm really annoyed at myself for that."
+            "gloss": "I’m really annoyed at myself for that."
           },
           {
             "deck": "pcav:3167",
@@ -15017,7 +15017,7 @@
           },
           {
             "deck": "pcav:3709",
-            "gloss": "There's a rainstorm."
+            "gloss": "There’s a rainstorm."
           },
           {
             "deck": "pcav:3717",
@@ -15025,7 +15025,7 @@
           },
           {
             "deck": "pcav:3671",
-            "gloss": "How hot does it get where you're from?"
+            "gloss": "How hot does it get where you’re from?"
           },
           {
             "deck": "pcav:0045",
@@ -15033,7 +15033,7 @@
           },
           {
             "deck": "pcav:0079",
-            "gloss": "I'm not related to him."
+            "gloss": "I’m not related to him."
           },
           {
             "deck": "pcav:0092",
@@ -15041,7 +15041,7 @@
           },
           {
             "deck": "pcav:0225",
-            "gloss": "There's no need for titles."
+            "gloss": "There’s no need for titles."
           },
           {
             "deck": "pcav:0072",
@@ -15057,7 +15057,7 @@
           },
           {
             "deck": "pcav:1733",
-            "gloss": "She's due in early July."
+            "gloss": "She’s due in early July."
           }
         ]
       }
@@ -15068,7 +15068,7 @@
       "type": "core-words",
       "data": {
         "chapter": 113,
-        "title": "Steps, halves and the year's days",
+        "title": "Steps, halves and the year’s days",
         "theme": "The family you marry into: half- and step-siblings, stepchildren, aunts and uncles by marriage, adoption, your place in the family, and the national days",
         "words": [
           {
@@ -15081,7 +15081,7 @@
           },
           {
             "deck": "pcav:0111",
-            "gloss": "He's my half-brother on my father's side."
+            "gloss": "He’s my half-brother on my father’s side."
           },
           {
             "deck": "pcav:0117",
@@ -15093,27 +15093,27 @@
           },
           {
             "deck": "pcav:0119",
-            "gloss": "brother by my father's wife (the deck: stepbrother)"
+            "gloss": "brother by my father’s wife (the deck: stepbrother)"
           },
           {
             "deck": "pcav:0120",
-            "gloss": "sister by my father's wife (the deck: stepsister)"
+            "gloss": "sister by my father’s wife (the deck: stepsister)"
           },
           {
             "deck": "pcav:0121",
-            "gloss": "stepson (her husband's son)"
+            "gloss": "stepson (her husband’s son)"
           },
           {
             "deck": "pcav:0122",
-            "gloss": "stepson (his wife's son)"
+            "gloss": "stepson (his wife’s son)"
           },
           {
             "deck": "pcav:0123",
-            "gloss": "stepdaughter (her husband's daughter)"
+            "gloss": "stepdaughter (her husband’s daughter)"
           },
           {
             "deck": "pcav:0124",
-            "gloss": "stepdaughter (his wife's daughter)"
+            "gloss": "stepdaughter (his wife’s daughter)"
           },
           {
             "deck": "pcav:0154",
@@ -15133,31 +15133,31 @@
           },
           {
             "deck": "pcav:0133",
-            "gloss": "aunt by marriage (father's brother's wife)"
+            "gloss": "aunt by marriage (father’s brother’s wife)"
           },
           {
             "deck": "pcav:0135",
-            "gloss": "uncle by marriage (father's sister's husband)"
+            "gloss": "uncle by marriage (father’s sister’s husband)"
           },
           {
             "deck": "pcav:0137",
-            "gloss": "aunt by marriage (mother's brother's wife)"
+            "gloss": "aunt by marriage (mother’s brother’s wife)"
           },
           {
             "deck": "pcav:0139",
-            "gloss": "uncle by marriage (mother's sister's husband)"
+            "gloss": "uncle by marriage (mother’s sister’s husband)"
           },
           {
             "deck": "pcav:0103",
-            "gloss": "I'm an only child."
+            "gloss": "I’m an only child."
           },
           {
             "deck": "pcav:0101",
-            "gloss": "I'm the youngest in my family."
+            "gloss": "I’m the youngest in my family."
           },
           {
             "deck": "pcav:0102",
-            "gloss": "I'm the middle child."
+            "gloss": "I’m the middle child."
           },
           {
             "deck": "pcav:0106",
@@ -15165,7 +15165,7 @@
           },
           {
             "deck": "pcav:0148",
-            "gloss": "We're cousins."
+            "gloss": "We’re cousins."
           },
           {
             "deck": "pcav:0056",
@@ -15173,11 +15173,11 @@
           },
           {
             "deck": "pcav:0050",
-            "gloss": "all one's life"
+            "gloss": "all one’s life"
           },
           {
             "deck": "pcav:4174",
-            "gloss": "Children's Day (March 22)"
+            "gloss": "Children’s Day (March 22)"
           },
           {
             "deck": "pcav:4176",

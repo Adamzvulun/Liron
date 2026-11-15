@@ -73,7 +73,7 @@ describe('checkPack', () => {
       items: [item('a', { media: [{ kind: 'audio', store: 'private', path: 'x/a.mp3' }] })],
     };
     expect(checkPack(p, { public: true })).toEqual([
-      "item a: private media can't be in public content",
+      'item a: private media can’t be in public content',
     ]);
     expect(checkPack(p, { public: false })).toEqual([]);
   });

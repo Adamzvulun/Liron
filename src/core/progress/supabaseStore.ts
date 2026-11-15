@@ -127,7 +127,7 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
         contracts: Contract[];
         paid_now: string[];
         gold: number;
-      }>('todays_contracts', {}, "load today's contracts");
+      }>('todays_contracts', {}, 'load today’s contracts');
       return { day: r.day, contracts: r.contracts, paidNow: r.paid_now, gold: r.gold };
     },
     async chests() {
@@ -223,7 +223,7 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       return { xp: Number(data?.xp ?? 0), gold: data?.gold ?? 0, gems: data?.gems ?? 0 };
     },
     async today() {
-      return toToday(await call<TodayRow>('today_status', {}, "read today's progress"));
+      return toToday(await call<TodayRow>('today_status', {}, 'read today’s progress'));
     },
     async setDailyGoal(minutes) {
       const r = await call<TodayRow & { wallet: { xp: number; gold: number; gems: number } }>(

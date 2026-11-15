@@ -23,7 +23,12 @@ export function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState<{ kind: 'error' | 'info'; text: string } | null>(null);
+  // Where the message came from: it shows under the control that was used.
+  const [message, setMessage] = useState<{
+    kind: 'error' | 'info';
+    text: string;
+    from: 'signin' | 'link';
+  } | null>(null);
 
   async function signIn(e: FormEvent) {
     e.preventDefault();
@@ -38,16 +43,17 @@ export function LoginScreen() {
     const wrong = error.code === 'invalid_credentials' || error.status === 400;
     setMessage({
       kind: 'error',
+      from: 'signin',
       text: wrong
-        ? "That email and password don't match."
-        : "Couldn't reach Waymark just now. Check your connection and try again.",
+        ? 'That email and password don’t match.'
+        : 'Couldn’t reach Waymark just now. Check your connection and try again.',
     });
   }
 
   async function sendLink() {
     if (!supabase) return;
     if (!email) {
-      setMessage({ kind: 'error', text: 'Type your email first.' });
+      setMessage({ kind: 'error', from: 'link', text: 'Type your email first.' });
       return;
     }
     setBusy(true);
@@ -58,8 +64,12 @@ export function LoginScreen() {
     setBusy(false);
     setMessage(
       error
-        ? { kind: 'error', text: "Couldn't send the email. Try again in a while." }
-        : { kind: 'info', text: 'If that email has an account, a link is on its way.' },
+        ? { kind: 'error', from: 'link', text: 'Couldn’t send the email. Try again in a while.' }
+        : {
+            kind: 'info',
+            from: 'link',
+            text: 'If that email has an account, a link is on its way.',
+          },
     );
   }
 
@@ -91,17 +101,23 @@ export function LoginScreen() {
         <button className="auth__button" type="submit" disabled={busy}>
           Enter Waymark
         </button>
+        {message?.from === 'signin' && <Said message={message} />}
         <button className="auth__link" type="button" onClick={sendLink} disabled={busy}>
           First time, or forgot your password?
           <span className="auth__link-action">Email me a link.</span>
         </button>
-        {message && (
-          <p className={`auth__message auth__message--${message.kind}`} role="status">
-            {message.text}
-          </p>
-        )}
+        {message?.from === 'link' && <Said message={message} />}
       </form>
     </Panel>
+  );
+}
+
+/** A sign-in or link message, under the button it answers. */
+function Said({ message }: { message: { kind: 'error' | 'info'; text: string } }) {
+  return (
+    <p className={`auth__message auth__message--${message.kind}`} role="status">
+      {message.text}
+    </p>
   );
 }
 
@@ -122,7 +138,7 @@ export function SetPasswordScreen({ onDone }: { onDone: () => void }) {
     setError(null);
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
-    if (error) setError("Couldn't save the password. Try again.");
+    if (error) setError('Couldn’t save the password. Try again.');
     else onDone();
   }
 

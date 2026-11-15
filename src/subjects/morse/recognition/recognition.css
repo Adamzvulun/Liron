@@ -15,6 +15,7 @@
 
 .ir__status strong {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-size: 26px;
   color: var(--lamplight);
 }
@@ -36,6 +37,7 @@
   background: radial-gradient(circle at 40% 35%, #fff6d6, var(--lamplight) 45%, var(--brass) 100%);
   color: var(--ink);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 84px;
   box-shadow:
