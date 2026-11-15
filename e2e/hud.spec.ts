@@ -307,3 +307,15 @@ test('coming back to the tab on a new day reads the day again (review, 2026-11-1
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect.poll(() => reads).toBe(2);
 });
+
+test('a phone held sideways sees the square, not the quests over it (2026-11-15)', async ({
+  page,
+}) => {
+  test.skip(onPhone(), 'the sideways size is set here; one run is enough');
+  await page.setViewportSize({ width: 844, height: 390 });
+  await signedIn(page);
+  await page.goto('/');
+  await expect(page.getByRole('progressbar', { name: 'Level 3 progress' })).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Quests' })).toBeHidden();
+  await expect(page.getByRole('link', { name: /Notice Board/ })).toBeVisible();
+});

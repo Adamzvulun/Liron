@@ -22,6 +22,14 @@ test.describe('signed in', () => {
   });
 });
 
+test('the tab has our signpost icon', async ({ page, request }) => {
+  await page.goto('/');
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', '/favicon.svg');
+  const icon = await request.get('/favicon.svg');
+  expect(icon.ok()).toBe(true);
+  expect(icon.headers()['content-type']).toContain('image/svg+xml');
+});
+
 test('fonts load from our own site, not a third party', async ({ page }) => {
   const external: string[] = [];
   page.on('request', (req) => {

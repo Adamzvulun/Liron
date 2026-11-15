@@ -51,6 +51,14 @@
   }
 }
 
+/* A short screen (a phone held sideways): today's quests stay on the Notice Board, so the
+   square isn't hidden behind them. */
+@media (max-height: 500px) {
+  .lobby__top .hud__quests {
+    display: none;
+  }
+}
+
 @media (min-width: 1400px) {
   .lobby__top .hud__banner {
     display: block;
@@ -205,8 +213,9 @@
 }
 
 /* On a phone, a station's screen (a lesson, a drill) gives the screen to the work: the hall's
-   title and tagline are left for screen readers, since its way back already names the hall. */
-@media (max-width: 640px) {
+   title and tagline are left for screen readers, since its way back already names the hall.
+   A phone held sideways is wide but short, so it counts too. */
+@media (max-width: 640px), (max-height: 500px) {
   .place-screen:has(> .hall-backdrop) {
     padding-top: 12px;
   }
