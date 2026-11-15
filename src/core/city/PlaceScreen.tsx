@@ -22,7 +22,15 @@ export function PlaceScreen({
   wide?: boolean;
 }) {
   const title = useRef<HTMLHeadingElement>(null);
+  const name = resident?.place ?? PLAQUES[place].title;
   useEffect(() => title.current?.focus(), [place]);
+  // The tab and the history list name the place, not only the app.
+  useEffect(() => {
+    document.title = `${name} – Waymark`;
+    return () => {
+      document.title = 'Waymark';
+    };
+  }, [name]);
   return (
     <main
       className={`place-screen${wide ? ' place-screen--wide' : ''}`}
@@ -32,7 +40,7 @@ export function PlaceScreen({
         ← Back to the square
       </Link>
       <h1 className="place-screen__title" tabIndex={-1} ref={title}>
-        {resident?.place ?? PLAQUES[place].title}
+        {name}
       </h1>
       {resident && <p className="place-screen__tagline">{resident.tagline}</p>}
       {children ?? <p className="place-screen__soon">{PLACE_SOON[place]}</p>}

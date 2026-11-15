@@ -25,9 +25,12 @@ test.describe('places in the city (#25)', () => {
     ]) {
       await page.goto(path);
       await expect(page.getByRole('heading', { level: 1, name: title })).toBeVisible();
+      // The tab names the place too.
+      await expect(page).toHaveTitle(`${title} – Waymark`);
     }
     await page.getByRole('link', { name: 'Back to the square' }).click();
     await expect(page.getByRole('heading', { name: 'Your House' })).toBeVisible();
+    await expect(page).toHaveTitle('Waymark');
   });
 
   test('you can walk out of each place back to the square, in the app (review, 2026-11-15)', async ({
