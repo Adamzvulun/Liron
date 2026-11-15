@@ -319,3 +319,12 @@ test('a phone held sideways sees the square, not the quests over it (2026-11-15)
   await expect(page.getByRole('region', { name: 'Quests' })).toBeHidden();
   await expect(page.getByRole('link', { name: /Notice Board/ })).toBeVisible();
 });
+
+test('on a phone, the settings button still takes a whole thumb (WCAG 2.5.5)', async ({ page }) => {
+  test.skip(test.info().project.name !== 'phone', 'the slim top bar is the phone’s');
+  await signedIn(page);
+  await page.goto('/');
+  const gear = await page.getByRole('button', { name: 'Settings' }).boundingBox();
+  expect(gear?.width).toBeGreaterThanOrEqual(44);
+  expect(gear?.height).toBeGreaterThanOrEqual(44);
+});
