@@ -83,7 +83,7 @@ test('the live site’s security headers are complete and break nothing', async 
   } else {
     await page.getByRole('group', { name: 'Choices' }).getByRole('button').first().click();
   }
-  await expect(page.getByText(/^(Right!|Not quite\.)$/)).toBeVisible();
+  await expect(page.getByText(/^(Right!|Not quite: it was .+\.)$/)).toBeVisible();
 
   expect(violations).toEqual([]);
 });

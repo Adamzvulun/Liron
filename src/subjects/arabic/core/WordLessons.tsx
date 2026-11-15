@@ -708,7 +708,14 @@ function Ask({
       {picked !== null && (
         <div className="arabic__feedback arabic__feedback--word" aria-live="polite">
           <p className={picked === question.answer ? 'arabic__good' : 'arabic__bad'}>
-            {picked === question.answer ? 'Right!' : 'Not quite.'}
+            {picked === question.answer ? (
+              'Right!'
+            ) : (
+              <>
+                Not quite: it was{' '}
+                <bdi lang={kind === 'recall' ? 'ar' : undefined}>{question.answer}</bdi>.
+              </>
+            )}
           </p>
           <WordCard word={word} play={play} />
           <SayWord key={word.deck} word={word} play={play} />

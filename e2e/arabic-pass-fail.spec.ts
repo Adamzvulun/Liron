@@ -75,7 +75,9 @@ async function session(page: Page, right: boolean) {
     const index = right ? labels.indexOf(want) : labels.findIndex((l) => l !== want);
     expect(index, `"${want}" among ${labels.join(', ')}`).toBeGreaterThanOrEqual(0);
     await buttons.nth(index).click();
-    await expect(page.getByText(right ? 'Right!' : 'Not quite.')).toBeVisible();
+    if (right) await expect(page.getByText('Right!')).toBeVisible();
+    // A miss names the right answer in words, not only by color.
+    else await expect(page.locator('.arabic__bad')).toHaveText(`Not quite: it was ${want}.`);
     await nthPlayed(page, first + i);
     await page.getByRole('button', { name: 'Next' }).click();
   }

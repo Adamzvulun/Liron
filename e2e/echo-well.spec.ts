@@ -48,7 +48,7 @@ test.describe('The echo well (#193)', () => {
       const choices = page.getByRole('group', { name: 'Choices' }).getByRole('button');
       await expect(choices).toHaveCount(2);
       await choices.first().click();
-      await expect(page.getByText(/^(Right!|Not quite\.)$/)).toBeVisible();
+      await expect(page.getByText(/^(Right!|Not quite: it was .+\.)$/)).toBeVisible();
       await page.getByRole('button', { name: 'Next' }).click();
     }
     await expect(page.getByText('Round done')).toBeVisible();

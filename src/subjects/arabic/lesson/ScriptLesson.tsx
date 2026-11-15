@@ -38,6 +38,9 @@ const cardsOf = (lesson: number): Card[] => [
   ...marksOfLesson(lesson),
 ];
 const isMark = (c: Card): c is Mark => 'mark' in c;
+/** What a choice shows: a letter to listen for, or a word in Hebrew or Latin letters. */
+const choiceLabel = (c: string | { letter: string } | undefined) =>
+  typeof c === 'string' ? c : (c?.letter ?? '');
 
 /** An Arabic word, right to left, in the Arabic font. */
 export function Ar({ children, className }: { children: string; className?: string }) {
@@ -687,7 +690,7 @@ export function Practice({
           aria-label="Choices"
         >
           {question.choices.map((c, i) => {
-            const label = typeof c === 'string' ? c : c.letter;
+            const label = choiceLabel(c);
             const state =
               picked === null ? '' : i === right ? ' is-right' : i === picked ? ' is-wrong' : '';
             return (
@@ -710,7 +713,22 @@ export function Practice({
       {picked !== null && (
         <div className="arabic__feedback" aria-live="polite">
           <p className={picked === right ? 'arabic__good' : 'arabic__bad'}>
-            {picked === right ? 'Right!' : 'Not quite.'}
+            {picked === right ? (
+              'Right!'
+            ) : sound ? (
+              `Not quite: it was ${right + 1}.`
+            ) : (
+              <>
+                Not quite: it was{' '}
+                <bdi
+                  lang={listen ? 'ar' : question.script === 'latin' ? 'en' : 'he'}
+                  dir={!listen && question.script === 'latin' ? 'ltr' : 'rtl'}
+                >
+                  {choiceLabel(question.choices[right])}
+                </bdi>
+                .
+              </>
+            )}
           </p>
           <p>
             <Ar className="arabic__example">{word.arabic}</Ar> ·{' '}

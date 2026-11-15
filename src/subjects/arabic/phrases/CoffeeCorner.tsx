@@ -367,7 +367,7 @@ function Understand({
       {picked !== null && (
         <div className="arabic__feedback" aria-live="polite">
           <p className={picked === phrase.meaning ? 'arabic__good' : 'arabic__bad'}>
-            {picked === phrase.meaning ? 'Right!' : 'Not quite.'}
+            {picked === phrase.meaning ? 'Right!' : `Not quite: it was “${phrase.meaning}”.`}
           </p>
           <PhraseCard phrase={phrase} play={play} />
           <button
