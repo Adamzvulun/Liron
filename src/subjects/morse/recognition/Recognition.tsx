@@ -317,7 +317,7 @@ function Summary({
           {summary.avgMs > 0 && <> · {summary.avgMs} ms on average</>}
         </p>
         <p className="lesson__keys">
-          Your best: {best} · +{xp} XP
+          {best > 0 && <>Your best: {best} · </>}+{xp} XP
         </p>
         <button type="button" className="lesson__go" onClick={onAgain}>
           Play again

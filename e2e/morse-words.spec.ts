@@ -92,6 +92,8 @@ test.describe('the Codebook in the Signal Tower (#154)', () => {
     await expect(page.getByText('Rush finished')).toBeVisible();
     await expect(page.getByText(/Score \d+ · \d of 3 calls/)).toBeVisible();
     await expect(page.getByRole('button', { name: 'Rush again' })).toBeVisible();
+    // Nothing copied on a first rush: no "Your best: 0" (review, 2026-11-15).
+    await expect(page.getByText(/Your best/)).toHaveCount(0);
     await expect
       .poll(() => calls.find((c) => c.rpc === 'save_subject_state')?.args)
       .toMatchObject({ p_subject: 'morse', p_state: { rush: { runs: 1 } } });

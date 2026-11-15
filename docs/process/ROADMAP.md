@@ -1,6 +1,6 @@
 # Roadmap: Waymark
 
-- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. **Where we are (2026-11-04):** M0 and M1 are done; M2 is mostly built (E6–E9), with E10 next. Current state: [STATUS.md](STATUS.md).
+- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. **Where we are (2026-11-15):** M0–M3 are done; M4's epics are built (E15's first slices, E16, E17); M5 is proposed (ADR 0039). v1.0.0 is being polished. Current state: [STATUS.md](STATUS.md).
 - **Inputs:** [vision](../vision.md), ADRs 0002–0010, discovery 02–04.
 - **Rhythm:** milestones are goal-based, not date-based. Retros go in `retros/`.
 
@@ -25,7 +25,7 @@
 | **E4 City v0** | Waymark city screen in the final art style; clickable Signal Tower, Caravanserai, Your House, Market, Notice Board; locked Arena; construction plots |
 | **E5 Avatar v0** | Paper-doll SVG system; base customization; 3–4 starter gear slots |
 
-## M2 — First playable *(in progress)*
+## M2 — First playable *(done)*
 **Built in sprints, one theme at a time, never mixed (Adam, 2026-11-03): first the Morse sprint (E6, E7), then the Arabic sprint (E8, E9), then quests and rewards (E10).**
 
 **Goal:** a real daily habit. 15–20 min/day for both subjects.
@@ -39,7 +39,7 @@
 | *Before E10* | The "did it understand you?" check: "Say it" sends a recording to Groq Whisper through a server-side Vercel function (Adam approved it, PR #87). It's the first slice of E14 and E15, brought forward; the rest of them stays in M3–M4. |
 | **E10 Quests & rewards** | Quest board (daily contracts); main-questline tracking; reward chest; Market v1 |
 
-## M3 — Depth
+## M3 — Depth *(done, [retro](retros/M3.md))*
 | Epic | Contents |
 |---|---|
 | **E11 Arabic core words** | First 300 → 1,000 words in sentences with audio, using FSRS and ratings; just-in-time grammar cards built in-house from the Madrasa beginners structure + deck sentences (ADR 0012) |

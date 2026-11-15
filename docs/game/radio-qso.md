@@ -3,7 +3,7 @@
 - **Status:** design and first build, written 2026-11-10 night while Adam slept (he said to make the calls he'd make). Every "my call" below is easy to change.
 - **Epic:** E16 Radio QSO in the [roadmap](../process/ROADMAP.md) (M4).
 - **Inputs:**
-  - [ADR 0007](../decisions/0007-ai-partners-simulate-people.md): partners are characters, the channel is realistic, and you're only heard as you keyed.
+  - [ADR 0007](../decisions/0007-partners-are-simulated-people.md): partners are characters, the channel is realistic, and you're only heard as you keyed.
   - The operator drafts in [discovery 03](../discovery/03-game-layer-and-partners.md) and [04](../discovery/04-world-and-lore.md).
   - The Far Station trial ([ranks §2](ranks-and-achievements.md)).
   - The Codebook's Q-codes and prosigns ([Morse words](morse-words.md)).

@@ -6,7 +6,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 
 **First tracks:** 🇸🇦 Arabic · 📻 Morse code
 
-> Status: **M1 – Foundations** is done. **M2 – First playable** is mostly built on `dev`: Morse receive and send, the Arabic script lessons, the slate and the coffee corner. Quests and rewards (E10) come next. **Start here: [`docs/process/STATUS.md`](docs/process/STATUS.md).**
+> Status: M1–M3 are done and M4's epics are built: Morse from first letters to live radio contacts, Arabic from the script to word chapters and chats at the inn, with quests, ranks and a Market. **Now: polishing toward v1.0.0.** **Start here: [`docs/process/STATUS.md`](docs/process/STATUS.md).**
 
 ## Where things live
 
