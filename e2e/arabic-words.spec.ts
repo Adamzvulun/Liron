@@ -31,6 +31,10 @@ test.describe('Arabic word lessons (#160)', () => {
     await expect(shut).toBeVisible();
     await expect(shut).toHaveCSS('border-top-style', 'solid');
     await expect(shut).not.toHaveCSS('background-image', 'none');
+    // Centered like every other card, not against the back button's edge.
+    const card = await shut.boundingBox();
+    const width = page.viewportSize()?.width ?? 0;
+    expect(Math.abs((card?.x ?? 0) * 2 + (card?.width ?? 0) - width)).toBeLessThan(4);
   });
 
   test('meet new words, practice them, and the session is saved', async ({ page }) => {

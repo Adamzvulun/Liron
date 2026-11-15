@@ -96,6 +96,12 @@ describe('fist analysis (#37)', () => {
     expect(fist.tip).toMatch(/clean fist/i);
   });
 
+  it('doesn’t judge a press or three', () => {
+    const fist = analyseFist(decode(key('T', 100)));
+    expect(fist.tip).toMatch(/too little keying/i);
+    expect(analyseFist(decode(key('KM', 100))).tip).toMatch(/clean fist/i);
+  });
+
   it('names the worst habit', () => {
     expect(analyseFist(decode(key('KMURES ANSWER', 100, { dah: 2 }))).tip).toMatch(
       /dahs are short/,
