@@ -25,6 +25,7 @@ For achievements:
 - **Achievements:** a new table `achievements(id, condition jsonb, gems, title)` and `player_achievements(user_id, achievement_id, earned_at)`. Both are readable by their owner and written only by `grant_achievements`. The chosen title is `profiles.title`, which may only name a title you've earned (a check in its update function).
 
 ## Consequences
+- **Amended 2026-11-15 (Adam):** the house's ranks after Traveler (Neighbor, Friend, Local, Storyteller) are earned at the inn's table with the regulars (E17) instead of waiting for M5 partners, and the guild's Ghost of the Ether opens on head copy and sending at 30 wpm (the Radio Room's live operators being its partners); conditions in `docs/game/ranks-and-achievements.md`.
 - A player who edits their own saved state could claim a rank, as they could claim a trial today. The gain is cosmetic gear and is limited to themselves. This is the trade-off ADR 0032 already accepted for subject events.
 - Ranks that need features not built yet (QSO, partners) stay unreachable and are shown as "comes later", never hidden.
 - Each new rank or achievement condition kind needs a migration; adding a row of an existing kind doesn't (beyond copying the data).
