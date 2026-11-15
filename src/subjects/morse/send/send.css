@@ -26,6 +26,7 @@
   border: 3px solid transparent;
   border-radius: 10px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 32px;
   color: var(--ink);
@@ -65,6 +66,7 @@
 
 .send__read-text {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 26px;
   letter-spacing: 0.12em;
@@ -209,6 +211,7 @@ kbd {
 .send__compare dd {
   margin: 0;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   letter-spacing: 0.12em;
 }

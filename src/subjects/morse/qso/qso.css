@@ -23,6 +23,7 @@
 .qso__air {
   margin: 0;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 800;
   color: #6b5640;
 }
@@ -42,6 +43,7 @@
   background: var(--vellum);
   color: var(--ink);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-size: 24px;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -71,6 +73,7 @@
   border-radius: 10px;
   background: var(--vellum);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-size: 20px;
   font-weight: 900;
   cursor: pointer;
@@ -111,6 +114,7 @@
 
 .qso__log strong {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   letter-spacing: 0.08em;
   overflow-wrap: anywhere;
 }
@@ -154,6 +158,7 @@
 .qso__op h3 {
   margin: 0 0 4px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-size: 20px;
 }
 
@@ -174,6 +179,7 @@
 
 .qso__count strong {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-size: 28px;
 }
 

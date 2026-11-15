@@ -291,6 +291,7 @@
 .place-screen__title {
   margin: 16px 0 8px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: clamp(32px, 7vw, 56px);
   letter-spacing: 0.04em;

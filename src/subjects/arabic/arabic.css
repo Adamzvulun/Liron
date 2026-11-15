@@ -45,6 +45,7 @@
 .arabic__door-title {
   margin: 4px 0 10px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 26px;
   color: var(--wood);
@@ -159,6 +160,7 @@
 
 .arabic__bridge {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 24px !important;
   color: var(--wood);
@@ -328,6 +330,7 @@
 
 .arabic__pct {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 56px !important;
   color: var(--wood);
@@ -390,6 +393,7 @@
 
 .arabic__rank-won {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 22px !important;
   color: var(--wood);

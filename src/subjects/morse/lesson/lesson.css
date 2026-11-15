@@ -31,6 +31,7 @@
   background: var(--guild-morse);
   color: var(--vellum);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   letter-spacing: 0.06em;
   box-shadow: 0 3px 0 var(--ink);
@@ -51,6 +52,7 @@
   background: rgba(255, 211, 107, 0.16);
   color: var(--lamplight);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
 }
 
@@ -108,6 +110,7 @@
 .lesson__title {
   margin: 8px 0 10px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 28px;
   letter-spacing: 0.03em;
@@ -117,6 +120,7 @@
 .lesson__subtitle {
   margin: 0 0 6px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 18px;
   color: var(--wood);
@@ -152,6 +156,7 @@
   background: radial-gradient(circle at 40% 35%, #fff6d6, var(--lamplight) 45%, var(--brass) 100%);
   color: var(--ink);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 88px;
   line-height: 1;
@@ -221,6 +226,7 @@
   background: linear-gradient(180deg, #fff6df, #ead3a3);
   color: var(--ink);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 52px;
   cursor: pointer;
@@ -297,6 +303,7 @@
   border-radius: 12px;
   background: var(--vellum);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 30px;
   letter-spacing: 0.14em;
@@ -329,6 +336,7 @@
   background: linear-gradient(180deg, #fff6df, #ead3a3);
   color: var(--ink);
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 34px;
   cursor: pointer;
@@ -366,6 +374,7 @@
 .lesson__pct {
   margin: 0 !important;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 76px !important;
   line-height: 1.1;
@@ -419,6 +428,7 @@
   color: var(--ink);
   font: inherit;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
   font-size: 24px;
   line-height: 1.1;
@@ -455,6 +465,7 @@
 
 .lesson__bar-char {
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-size: 22px;
 }
 

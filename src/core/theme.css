@@ -1,4 +1,14 @@
 /* Design tokens from the style guide v0 (docs/design/concept-v0/StyleGuide.dc.html). */
+/* Cinzel's 1 is the same glyph as its capital I, so "Chapter 11" read as "Chapter II" (Adam
+   wants plain numbers, report §4x). The display face takes its digits from Alegreya Sans. */
+@font-face {
+  font-family: 'Waymark Figures';
+  src: url('@fontsource/alegreya-sans/files/alegreya-sans-latin-800-normal.woff2') format('woff2');
+  font-weight: 700 900;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+}
+
 :root {
   --ink: #24160e;
   --parchment: #f3e2bc;
@@ -19,7 +29,7 @@
   --guild-arabic-ink: #8f3524;
   --ember-ink: #9a3f1f;
 
-  --font-display: 'Cinzel', serif;
+  --font-display: 'Waymark Figures', 'Cinzel', serif;
   --font-ui: 'Alegreya Sans', system-ui, sans-serif;
   --font-arabic: 'Noto Naskh Arabic', serif;
   --font-hebrew: 'Noto Sans Hebrew', sans-serif;
