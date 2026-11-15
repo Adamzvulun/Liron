@@ -177,7 +177,7 @@
 .chestopen__loot {
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 8px;
 }
 
 .chestopen__item {

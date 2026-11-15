@@ -524,6 +524,12 @@
   text-align: right;
 }
 
+/* A sentence-long word (chapters 101 on) is set smaller, so it doesn't stack five lines high
+   beside the play button on a phone. */
+.arabic__phrase-ar.is-long {
+  font-size: 26px;
+}
+
 .arabic__phrase-he {
   font-family: 'Noto Sans Hebrew', sans-serif;
   font-weight: 700;
@@ -615,6 +621,18 @@
 @media (prefers-reduced-motion: reduce) {
   .arabic__rec.is-on {
     animation: none;
+  }
+}
+
+/* Sentence-long choices (a phrase's meaning) get two to a row, and one on a phone, so none
+   wraps into a narrow tower of short lines. */
+.arabic__choices.is-long {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 560px) {
+  .arabic__choices.is-long {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
