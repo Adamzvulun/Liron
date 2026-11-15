@@ -85,3 +85,38 @@ describe('contract lines', () => {
     expect(pct).toEqual(named ? [named] : []);
   });
 });
+
+interface Achievement {
+  name: string;
+  text: string;
+  condition: { kind: string; n: number; kinds?: string[] };
+}
+
+const SAID: Record<number, string[]> = {
+  2: ['two', 'both'],
+  3: ['three'],
+  4: ['four'],
+  5: ['five'],
+  6: ['six'],
+  7: ['seven'],
+  8: ['eight'],
+  9: ['nine'],
+  10: ['ten'],
+};
+
+const achievements = (
+  JSON.parse(readFileSync(join(CONTENT, 'core', 'achievements.json'), 'utf8')) as {
+    items: { data: Achievement }[];
+  }
+).items.map((i) => i.data);
+
+describe('achievement lines', () => {
+  it.each(achievements.map((a) => [a.name, a] as const))('%s says its own count', (_, a) => {
+    const { n, kinds } = a.condition;
+    // "Pass all five Silent Beacon trials": a list of events is all of them.
+    if (kinds) expect(kinds).toHaveLength(n);
+    if (n < 2) return;
+    const said = [n.toLocaleString('en-US'), ...(SAID[n] ?? [])];
+    expect(said.some((s) => new RegExp(`\\b${s}\\b`, 'i').test(a.text))).toBe(true);
+  });
+});
