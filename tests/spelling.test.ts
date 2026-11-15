@@ -53,6 +53,16 @@ describe('Typographic apostrophes (2026-11-15)', () => {
           if (m) found.push(`${f}:${i + 1} ${line.trim()}`);
         });
     }
+    for (const f of files('content', /\.json$/)) {
+      readFileSync(f, 'utf8')
+        .split('\n')
+        .forEach((line, i) => {
+          // The license notes and the deck's own Latin spelling are left as they are.
+          if (/"(license|latin)":/.test(line)) return;
+          const m = /[A-Za-z]'(s|t|re|ve|ll|d|m)\b/.exec(line);
+          if (m) found.push(`${f}:${i + 1} ${line.trim()}`);
+        });
+    }
     expect(found).toEqual([]);
   });
 });
