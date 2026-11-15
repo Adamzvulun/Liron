@@ -92,3 +92,42 @@ test.describe('The Far Station (#178)', () => {
     expect((sent[0]?.p_state as { rankTrials: string[] }).rankTrials).toEqual(['lamp-signal']);
   });
 });
+
+test('leaving mid-turn closes the desk’s sound and opens no more (review, 2026-11-15)', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const w = window as unknown as { made: number; shut: number };
+    w.made = 0;
+    w.shut = 0;
+    const Real = window.AudioContext;
+    window.AudioContext = class extends Real {
+      constructor(o?: AudioContextOptions) {
+        super(o);
+        w.made += 1;
+      }
+      close() {
+        w.shut += 1;
+        return super.close();
+      }
+    };
+  });
+  await signedIn(page, [], [], keyer);
+  await page.goto('/signal-tower');
+  await page.getByRole('button', { name: /Radio Room.*Trial · The Far Station/ }).click();
+  await page.getByRole('button', { name: 'Tune in' }).click();
+  await expect(page.getByText('Turn 1 of 5')).toBeVisible();
+  await page.getByRole('button', { name: /Tower hall/ }).click();
+  await expect(page.getByText('Turn 1 of 5')).toHaveCount(0);
+  const counts = () =>
+    page.evaluate(() => {
+      const w = window as unknown as { made: number; shut: number };
+      return [w.made, w.shut];
+    });
+  await expect
+    .poll(async () => {
+      const [made, shut] = await counts();
+      return made - shut;
+    })
+    .toBe(0);
+});
