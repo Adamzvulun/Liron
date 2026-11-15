@@ -43,16 +43,21 @@ export interface RankStanding {
 /**
  * Where you stand: the highest rank whose conditions, and every rank's below it, are all met.
  * `met(rank)` gives one boolean per condition, in the order of the rank's conditions; the first
- * rank is always held.
+ * rank is always held. A rank in `taken` (one you've already taken) counts as met, so a rank is
+ * never lost when a condition later reads lower, such as a slower drill (review, 2026-11-15).
  */
-export function standing(ranks: readonly Rank[], met: (rank: Rank) => boolean[]): RankStanding {
+export function standing(
+  ranks: readonly Rank[],
+  met: (rank: Rank) => boolean[],
+  taken: readonly string[] = [],
+): RankStanding {
   const first = ranks[0];
   if (!first) throw new Error('A rank ladder needs at least one rank');
   let held = first;
   let i = 1;
   for (; i < ranks.length; i++) {
     const r = ranks[i];
-    if (!r || r.later || !met(r).every(Boolean)) break;
+    if (!r || r.later || !(taken.includes(r.id) || met(r).every(Boolean))) break;
     held = r;
   }
   const next = ranks[i];

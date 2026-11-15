@@ -37,13 +37,13 @@ Ranks are a ladder: you take them in order. A rank's conditions are shown before
 | ابن البلد Local | 2,000 words met + a whole chat (all 8 of your lines) | — | ✅ (2026-11-15) |
 | حكواتي Storyteller | An old friend (5 chats) of 5 regulars | — | ✅ (2026-11-15) |
 
-- **The ranks after Traveler, at the inn (Adam, 2026-11-15, "map them to the inn"):** the partners these ranks waited for are the regulars (E17). The numbers live in `src/subjects/arabic/ranks.ts` and mirror the inn's: 3 lines earn a chat its XP, 8 is a whole chat, 5 chats make an old friend. Progress keeps `chat.best`, the most of your lines in one chat; chats before 2026-11-15 count as 0 there, so Neighbor needs one new chat. No rank gear for them yet (like Signal Master).
+- **The ranks after Traveler, at the inn (Adam, 2026-11-15, "map them to the inn"):** the partners these ranks waited for are the regulars (E17). The numbers are the inn's own (`src/subjects/arabic/chat/limits.ts`, read by `ranks.ts`): 3 lines earn a chat its XP, 8 is a whole chat, 5 chats make an old friend. Progress keeps `chat.best`, the most of your lines in one chat; chats before 2026-11-15 count as 0 there, so Neighbor needs one new chat. Their gear is in §4.
 
 - **Traveler's gate (my call):** the regulars' trials (#161) end with Jamil the poet at chapter 10 = word 300. His trial is the natural boss fight for Traveler, so no new trial is needed.
 - **Writing by hand:** the slate saves each passed letter in a new list in your progress (`written`), so the rank can count it. The slate's check is rough, so a letter counts the first time you pass it from memory; it is never taken away.
 
 ## 4. Rank gear
-One piece for each rank you can reach now, painted like the other gear (`src/player/avatar/paint.ts`). It is never sold in the Market or dropped by chests:
+One piece for each rank you can reach now, painted like the other gear (`src/core/avatar/paint.ts`). It is never sold in the Market or dropped by chests:
 
 | Rank | Gear (my call) | Slot |
 |---|---|---|
@@ -53,6 +53,14 @@ One piece for each rank you can reach now, painted like the other gear (`src/pla
 | Telegraphist | Night-watch lantern | hand |
 | Guest | The house's embroidered sash, knotted at the hip | torso |
 | Traveler | A traveler's keffiyeh | head |
+| Signal Master | The signal master's cap, the tower's blue with the gold spark | head |
+| Ghost of the Ether | The cloak of the ether, pale, with a dot-dash hem | back |
+| Neighbor | An olive sprig | hand |
+| Friend | A brass coffee pot (a dallah) | hand |
+| Local | A black vest with red tatreez cross-stitch | torso |
+| Storyteller | A crimson cloak with a gold hem | back |
+
+**A rank you've taken stays yours** (review, 2026-11-15): the ladder counts a taken rank as met, so a condition that later reads lower can't take it away. Keyer and Ghost read your fastest drill, not your last one.
 
 There is no waist slot, so the key is carried in the hand and the sash is worn on the torso (my call: a new slot would mean a new avatar layer for two pieces). The headset that Morse level 5 already gives stays as it is. Rank gear is a new kind of milestone (`rank`), so the database gives it the same way it gives the milestone items (ADR 0033).
 

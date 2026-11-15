@@ -5,6 +5,7 @@ import { MORSE_CHARS } from './code.ts';
 import type { MorseProgress } from './lesson/progress.ts';
 import { CHAPTERS } from './questline.ts';
 import { PROSIGNS } from './words.ts';
+import { OVERSPEED_WPM } from './words/rush.ts';
 
 export const MORSE_RANKS = ranksFrom(pack);
 
@@ -16,8 +17,10 @@ export const KEYER_DRILLS = 20;
  * Room has live operators). Head copy is a call copied right at 30 wpm in the callsign rush (its
  * `topWpm`, as its rush-30 event); sending is a drill keyed with a dit of 1200 / 30 = 40 ms or less.
  */
-export const GHOST_WPM = 30;
+export const GHOST_WPM = OVERSPEED_WPM;
 export const GHOST_DIT_MS = 1200 / GHOST_WPM;
+/** Your fastest sending: the shortest dit of any drill (the last one's, in older progress). */
+const fastest = (p: MorseProgress) => p.sending.fastest ?? p.sending.ditMs;
 const LAST_CHAPTER = CHAPTERS[CHAPTERS.length - 1]?.number ?? 5;
 
 /** Which of a rank's conditions you've met, in the order ranks.json lists them. */
@@ -30,7 +33,7 @@ export function morseMet(rank: Rank, p: MorseProgress): boolean[] {
     case 'keyer':
       return [
         p.sending.drills >= KEYER_DRILLS,
-        p.sending.ditMs !== null && p.sending.ditMs <= KEYER_DIT_MS,
+        (fastest(p) ?? Infinity) <= KEYER_DIT_MS,
         p.rankTrials.includes('lamp-signal'),
       ];
     case 'telegraphist':
@@ -43,13 +46,12 @@ export function morseMet(rank: Rank, p: MorseProgress): boolean[] {
     case 'signal-master':
       return [p.radio.cleanFast];
     case 'ghost':
-      return [
-        p.rush.topWpm >= GHOST_WPM,
-        p.sending.ditMs !== null && p.sending.ditMs <= GHOST_DIT_MS,
-      ];
+      return [p.rush.topWpm >= GHOST_WPM, (fastest(p) ?? Infinity) <= GHOST_DIT_MS];
     default:
       return rank.conditions.map(() => false);
   }
 }
 
-export const morseStanding = (p: MorseProgress) => standing(MORSE_RANKS, (r) => morseMet(r, p));
+/** Where you stand in the guild: a rank you've taken stays yours. */
+export const morseStanding = (p: MorseProgress) =>
+  standing(MORSE_RANKS, (r) => morseMet(r, p), p.ranks);

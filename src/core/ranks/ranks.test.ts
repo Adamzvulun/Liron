@@ -44,6 +44,14 @@ describe('ranks', () => {
     expect(heldRanks(ranks, s).map((r) => r.id)).toEqual(['b']);
   });
 
+  it('counts a rank you have taken as met, but never one that comes later', () => {
+    const none = (r: { conditions: string[] }) => r.conditions.map(() => false);
+    expect(standing(ranks, none, ['b']).rank.id).toBe('b');
+    expect(standing(ranks, none, ['b', 'c']).rank.id).toBe('b');
+    // Taken out of order (b not taken, c can't be): the ladder still stops at b.
+    expect(standing(ranks, none, ['d']).rank.id).toBe('a');
+  });
+
   it('says when you are at the top', () => {
     const one = ranksFrom({ items: pack.items.slice(1, 2) });
     const s = standing(one, () => []);
