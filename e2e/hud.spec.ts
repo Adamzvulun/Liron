@@ -328,3 +328,22 @@ test('on a phone, the settings button still takes a whole thumb (WCAG 2.5.5)', a
   expect(gear?.width).toBeGreaterThanOrEqual(44);
   expect(gear?.height).toBeGreaterThanOrEqual(44);
 });
+
+test('on the narrowest phone, the top bar fits: chips on one line, the gear on screen', async ({
+  page,
+}) => {
+  test.skip(test.info().project.name !== 'phone', 'the slim top bar is the phone’s');
+  await page.setViewportSize({ width: 320, height: 640 });
+  await signedIn(page);
+  await page.goto('/');
+  // The units go; the labels keep them.
+  const streak = page.getByLabel('Streak: 2 days');
+  await expect(streak.locator('.hud__unit')).toBeHidden();
+  const bar = await page.locator('.lobby__top').boundingBox();
+  expect((bar?.x ?? 999) + (bar?.width ?? 0)).toBeLessThanOrEqual(320);
+  const gear = await page.getByRole('button', { name: 'Settings' }).boundingBox();
+  expect((gear?.x ?? 999) + (gear?.width ?? 0)).toBeLessThanOrEqual(320);
+  for (const chip of await page.locator('.hud__chip').all()) {
+    expect((await chip.boundingBox())?.height).toBeLessThan(40);
+  }
+});
