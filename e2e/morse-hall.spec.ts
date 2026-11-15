@@ -25,6 +25,29 @@ test.describe('the Signal Tower hall (#33, #34)', () => {
     await expect(page.getByText(/Listening/)).toBeVisible();
   });
 
+  test('the scroll on the wall holds each chapter whole, however long (review, 2026-11-15)', async ({
+    page,
+  }) => {
+    test.skip(test.info().project.name === 'phone', 'a phone shows the story as a card');
+    const koch = 'KMURESNAPTLWI.JZ=FOY,VG5/Q92H38B?47C1D60X';
+    for (const state of [
+      { unlocked: 2, met: [...'KM'] },
+      // The first trial's whole text under the last lamp's beat.
+      { unlocked: 8, met: [...'KMURESNA'] },
+      // The last chapter's outro, the longest story of all.
+      { unlocked: 41, met: [...koch], trials: [1, 2, 3, 4, 5] },
+    ]) {
+      await signedIn(page, [], [], state);
+      await page.goto('/signal-tower');
+      const scroll = page.getByRole('region', { name: 'Main questline' });
+      await expect(scroll.getByRole('heading', { name: /^Chapter \d+:/ })).toBeVisible();
+      await page.evaluate(() => document.fonts.ready);
+      await expect
+        .poll(() => scroll.evaluate((el) => el.scrollHeight - el.clientHeight))
+        .toBeLessThanOrEqual(1);
+    }
+  });
+
   test('while the Gatekeeper holds the gate, the lesson says runs are practice (review, 2026-11-15)', async ({
     page,
   }) => {
