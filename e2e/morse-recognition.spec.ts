@@ -26,7 +26,8 @@ test.describe('Instant Recognition in the Signal Tower (#32)', () => {
     await expect(page.getByText(/\d+ of \d+ right/)).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Slowest letters first' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Play again' })).toBeVisible();
-    await expect(page.getByText(/Your best: \d+ · \+\d+ XP/)).toBeVisible();
+    // A round that scored nothing has no best to show yet (review, 2026-11-15).
+    await expect(page.getByText(/^(Your best: [1-9]\d* · )?\+\d+ XP$/)).toBeVisible();
 
     // The round is saved: state with the best score, then a receive rating per letter played.
     await expect.poll(() => calls.some((c) => c.rpc === 'record_result')).toBe(true);

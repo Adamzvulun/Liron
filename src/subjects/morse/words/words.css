@@ -115,3 +115,8 @@
 .words__flash.is-wrong {
   color: #9a3a1c;
 }
+
+/* The best-score line sits under the centered score, so it is centered too. */
+.words__best {
+  text-align: center;
+}

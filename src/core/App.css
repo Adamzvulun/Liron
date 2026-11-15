@@ -182,7 +182,6 @@
   max-width: 720px;
   margin: 0 auto;
   padding: 32px 16px 48px;
-  border-top: 12px solid var(--lamplight);
 }
 
 .place-screen--wide {
@@ -195,7 +194,6 @@
   position: relative;
   max-width: none;
   padding: 0;
-  border-top: 0;
 }
 
 .place-screen:has(> .place-scene) > .place-screen__back {

@@ -186,11 +186,19 @@ export function RushSummaryCard({
       <p className="lesson__score">
         Score {s.score} · {s.right} of {calls.length} calls · +{xpForRush(s)} XP
       </p>
-      <p className="lesson__note">
-        {isBest ? 'A new best!' : `Your best: ${best}`}
-        {s.topWpm > 0 && ` · fastest call copied: ${s.topWpm} wpm`}
-        {s.topWpm > CHAR_WPM && ' (above your lesson speed)'}
-      </p>
+      {(isBest || best > 0 || s.topWpm > 0) && (
+        <p className="lesson__note words__best">
+          {[
+            isBest ? 'A new best!' : best > 0 ? `Your best: ${best}` : '',
+            s.topWpm > 0
+              ? `fastest call copied: ${s.topWpm} wpm${s.topWpm > CHAR_WPM ? ' (above your lesson speed)' : ''}`
+              : '',
+          ]
+            .filter(Boolean)
+            .join(' · ')
+            .replace(/^f/, 'F')}
+        </p>
+      )}
       <ul className="words__list">
         {calls.map((c, i) => (
           <li key={i} className={rushRight(c) ? 'is-right' : 'is-wrong'}>
