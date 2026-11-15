@@ -26,7 +26,18 @@ import {
 import './city.css';
 
 /** Short names for the phone's dock, where space is tight. */
-const DOCK_LABELS: Partial<Record<PlaceId, string>> = { board: 'Quests', house: 'House' };
+// "Caravanserai" may break after "Caravan" on a narrow phone, as "Signal Tower" breaks at its space.
+const DOCK_LABELS: Partial<Record<PlaceId, ReactNode>> = {
+  board: 'Quests',
+  house: 'House',
+  caravanserai: (
+    <>
+      Caravan
+      <wbr />
+      serai
+    </>
+  ),
+};
 
 // The painted scene never changes, so it is painted once per page load.
 let painted: ReturnType<typeof paintCity> | undefined;

@@ -329,7 +329,7 @@ test('on a phone, the settings button still takes a whole thumb (WCAG 2.5.5)', a
   expect(gear?.height).toBeGreaterThanOrEqual(44);
 });
 
-test('on the narrowest phone, the top bar fits: chips on one line, the gear on screen', async ({
+test('on the narrowest phone, the top bar and the dock fit: chips on one line, the gear and Market on screen', async ({
   page,
 }) => {
   test.skip(test.info().project.name !== 'phone', 'the slim top bar is the phone’s');
@@ -339,6 +339,10 @@ test('on the narrowest phone, the top bar fits: chips on one line, the gear on s
   // The units go; the labels keep them.
   const streak = page.getByLabel('Streak: 2 days');
   await expect(streak.locator('.hud__unit')).toBeHidden();
+  // The dock below fits too: all five places, none cut off.
+  const dock = page.getByRole('navigation', { name: 'Places' });
+  await expect(dock.getByRole('link')).toHaveCount(5);
+  expect(await dock.evaluate((d) => d.scrollWidth <= d.clientWidth)).toBe(true);
   const bar = await page.locator('.lobby__top').boundingBox();
   expect((bar?.x ?? 999) + (bar?.width ?? 0)).toBeLessThanOrEqual(320);
   const gear = await page.getByRole('button', { name: 'Settings' }).boundingBox();
