@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { signedIn } from './fake-supabase.ts';
+import { CONTRACTS, signedIn } from './fake-supabase.ts';
 
 /** Phones show the daily goal as a chip; wider screens in the quest panel (#27). */
 const onPhone = () => test.info().project.name === 'phone';
@@ -177,4 +177,108 @@ test('chests wait on the Notice Board and open once, paying what they held (ADR 
   await expect(opened).toBeHidden();
   await expect(shelf.getByRole('button', { name: 'Open' })).toHaveCount(0);
   await expect(shelf).not.toContainText('Brass chest');
+});
+
+test('opening the last chest on the shelf still shows what it held (review, 2026-11-15)', async ({
+  page,
+}) => {
+  await signedIn(page, [], [], null, [], {
+    chests: [{ id: 'c1', kind: 'wooden', source: 'contracts', source_key: '2026-11-02' }],
+  });
+  // All three of today's contracts done, so no locked chest stays on the shelf.
+  await page.route('**/rest/v1/rpc/todays_contracts', (route) =>
+    route.fulfill({
+      json: {
+        day: '2026-11-02',
+        // The kind is the fake's own bookkeeping; the database never sends it.
+        contracts: CONTRACTS.map((c) => ({
+          ...c,
+          kind: undefined,
+          progress: c.target,
+          paid: true,
+        })),
+        paid_now: [],
+        gold: 76,
+      },
+    }),
+  );
+  await page.goto('/notice-board');
+  const shelf = page.getByRole('region', { name: 'Chests' });
+  await shelf.getByRole('button', { name: 'Open' }).click();
+  const opened = page.getByRole('dialog', { name: 'Wooden chest' });
+  await expect(opened).toContainText('+30 gold');
+  await opened.getByRole('button', { name: 'Collect' }).click();
+  await expect(opened).toBeHidden();
+  await expect(shelf).toHaveCount(0);
+});
+
+test("a chest that won't open says so on the shelf and keeps the top bar (review, 2026-11-15)", async ({
+  page,
+}) => {
+  await signedIn(page, [], [], null, [], {
+    chests: [{ id: 'c1', kind: 'wooden', source: 'contracts', source_key: '2026-11-02' }],
+  });
+  await page.route('**/rest/v1/rpc/open_chest', (route) =>
+    route.fulfill({ status: 500, json: { message: 'down' } }),
+  );
+  await page.goto('/notice-board');
+  const shelf = page.getByRole('region', { name: 'Chests' });
+  await shelf.getByRole('button', { name: 'Open' }).click();
+  await expect(shelf.getByRole('alert')).toHaveText(/wouldn’t open/);
+  await expect(shelf.getByRole('button', { name: 'Open' })).toBeEnabled();
+  // Back on the square, without a reload, the top bar is still there.
+  await page.getByRole('link', { name: 'Back to the square' }).click();
+  await expect(page.getByRole('button', { name: 'Settings' })).toBeVisible();
+});
+
+test('closing a celebration from the keyboard puts focus back where it was (review, 2026-11-15)', async ({
+  page,
+}) => {
+  await signedIn(page);
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Settings' }).click();
+  const minutes = page.getByLabel('Minutes a day');
+  await minutes.focus(); // as a keyboard player would be
+  await minutes.selectOption('5'); // 6 minutes done: goal reached
+  const onward = page
+    .getByRole('dialog', { name: '3 days' })
+    .getByRole('button', { name: 'Onward' });
+  await expect(onward).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(minutes).toBeFocused();
+});
+
+test("a goal that can't be saved says so and keeps the old one (review, 2026-11-15)", async ({
+  page,
+}) => {
+  await signedIn(page);
+  await page.route('**/rest/v1/rpc/set_daily_goal', (route) =>
+    route.fulfill({ status: 500, json: { message: 'down' } }),
+  );
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await page.getByLabel('Minutes a day').selectOption('20');
+  await expect(page.getByText("Couldn't save your goal")).toBeVisible();
+  await expect(page.getByLabel('Minutes a day')).toHaveValue('15');
+  await expect(page.getByLabel('Streak: 2 days')).toBeVisible();
+});
+
+test('coming back to the tab on a new day reads the day again (review, 2026-11-15)', async ({
+  page,
+}) => {
+  await page.clock.install({ time: new Date('2026-11-02T23:50:00') });
+  await signedIn(page);
+  let reads = 0;
+  page.on('request', (r) => {
+    if (r.url().includes('/rest/v1/rpc/today_status')) reads += 1;
+  });
+  await page.goto('/');
+  await expect(page.getByLabel('Streak: 2 days')).toBeVisible();
+  await expect.poll(() => reads).toBe(1);
+  // Same day: nothing is read again.
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await page.clock.setSystemTime(new Date('2026-11-03T00:10:00'));
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect.poll(() => reads).toBe(2);
 });

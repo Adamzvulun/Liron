@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { useDialogFocus } from './useDialogFocus.ts';
 import type { ChestContents } from '../progress/store.ts';
 import { chestName, lootOf, type Loot, type ShelfChest } from './chests.ts';
 import { CoinIcon, GearIcon, GemIcon, ShieldIcon } from './icons.tsx';
@@ -60,13 +61,18 @@ export function ChestShelf({
 }) {
   const [opening, setOpening] = useState<string | null>(null);
   const [opened, setOpened] = useState<ChestContents | null>(null);
-  if (!shelf.length) return null;
+  const [stuck, setStuck] = useState(false);
   const open = async (id: string) => {
     setOpening(id);
+    setStuck(false);
     const contents = await onOpen(id);
     setOpening(null);
     if (contents) setOpened(contents);
+    else setStuck(true);
   };
+  // Opening your last chest empties the shelf, but its opening scene still has to show.
+  const scene = opened && <ChestOpening contents={opened} onDone={() => setOpened(null)} />;
+  if (!shelf.length) return scene || null;
   return (
     <section className="chests" aria-labelledby="chests-title">
       <h2 id="chests-title" className="hud__queststitle">
@@ -98,7 +104,12 @@ export function ChestShelf({
           </li>
         ))}
       </ul>
-      {opened && <ChestOpening contents={opened} onDone={() => setOpened(null)} />}
+      {stuck && (
+        <p className="chests__stuck" role="alert">
+          That chest wouldn’t open. Try again in a moment.
+        </p>
+      )}
+      {scene}
     </section>
   );
 }
@@ -118,8 +129,7 @@ export function ChestOpening({
   contents: ChestContents;
   onDone: () => void;
 }) {
-  const button = useRef<HTMLButtonElement>(null);
-  useEffect(() => button.current?.focus(), []);
+  const button = useDialogFocus();
   return (
     <div className="levelup" role="presentation" onKeyDown={(e) => e.key === 'Escape' && onDone()}>
       <div className="levelup__rays" aria-hidden="true" />

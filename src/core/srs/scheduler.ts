@@ -48,7 +48,15 @@ export function scheduleReview(
   const rating = GRADES[grade];
   if (rating === undefined) throw new RangeError(`Unknown grade: ${String(grade)}`);
   const card = stored ? (stored as unknown as Card) : createEmptyCard(now);
-  const result = scheduler.next(card, now, rating);
+  let result;
+  try {
+    result = scheduler.next(card, now, rating);
+  } catch (e) {
+    // A stored card FSRS can't read (no state, no stability) would fail every later save of
+    // its item; it starts over as new instead (review, 2026-11-15).
+    if (!stored) throw e;
+    result = scheduler.next(createEmptyCard(now), now, rating);
+  }
   return {
     due: result.card.due,
     phase: PHASES[result.card.state] ?? 'review',

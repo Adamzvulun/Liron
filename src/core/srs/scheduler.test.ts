@@ -50,6 +50,12 @@ describe('scheduleReview', () => {
     expect(a.log).toMatchObject({ rating: 3 });
   });
 
+  it('starts a stored card FSRS can’t read over as new, rather than failing (review, 2026-11-15)', () => {
+    const fresh = scheduleReview(null, 'good', t0);
+    const broken = { due: t0.toISOString(), stability: null, reps: 3 };
+    expect(scheduleReview(broken, 'good', t0).due).toEqual(fresh.due);
+  });
+
   it('rejects unknown grades', () => {
     expect(() => scheduleReview(null, 'perfect' as never, t0)).toThrow(RangeError);
   });

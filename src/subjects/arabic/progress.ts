@@ -206,7 +206,8 @@ export const wordsOpen = (p: ArabicProgress) => p.guest;
 
 /**
  * After a word session: the same gate as the letters, 90% in two sessions in a row, the second
- * on a later day. Passing moves you to the next chapter (`chapters` is how many there are).
+ * on a later day, and every word of the chapter met (`allMet`). Passing moves you to the next
+ * chapter (`chapters` is how many there are).
  */
 export function applyWordSession(
   p: ArabicProgress,
@@ -214,12 +215,13 @@ export function applyWordSession(
   met: readonly string[],
   chapters: number,
   day: string = localDay(),
+  allMet = true,
 ): { next: ArabicProgress; passed: boolean; sameDay: boolean } {
   const w = p.words;
   const good = score >= PASS_SCORE;
   const sameDay = good && w.streak > 0 && w.passDay === day;
   const streak = !good ? 0 : sameDay ? w.streak : w.streak + 1;
-  const passed = !w.done && streak >= PASSES_NEEDED;
+  const passed = !w.done && allMet && streak >= PASSES_NEEDED;
   const last = w.chapter >= chapters;
   return {
     passed,
