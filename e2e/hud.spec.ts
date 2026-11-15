@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { signedIn } from './fake-supabase.ts';
+import { CONTRACTS, signedIn } from './fake-supabase.ts';
 
 /** Phones show the daily goal as a chip; wider screens in the quest panel (#27). */
 const onPhone = () => test.info().project.name === 'phone';
@@ -177,4 +177,37 @@ test('chests wait on the Notice Board and open once, paying what they held (ADR 
   await expect(opened).toBeHidden();
   await expect(shelf.getByRole('button', { name: 'Open' })).toHaveCount(0);
   await expect(shelf).not.toContainText('Brass chest');
+});
+
+test('opening the last chest on the shelf still shows what it held (review, 2026-11-15)', async ({
+  page,
+}) => {
+  await signedIn(page, [], [], null, [], {
+    chests: [{ id: 'c1', kind: 'wooden', source: 'contracts', source_key: '2026-11-02' }],
+  });
+  // All three of today's contracts done, so no locked chest stays on the shelf.
+  await page.route('**/rest/v1/rpc/todays_contracts', (route) =>
+    route.fulfill({
+      json: {
+        day: '2026-11-02',
+        // The kind is the fake's own bookkeeping; the database never sends it.
+        contracts: CONTRACTS.map((c) => ({
+          ...c,
+          kind: undefined,
+          progress: c.target,
+          paid: true,
+        })),
+        paid_now: [],
+        gold: 76,
+      },
+    }),
+  );
+  await page.goto('/notice-board');
+  const shelf = page.getByRole('region', { name: 'Chests' });
+  await shelf.getByRole('button', { name: 'Open' }).click();
+  const opened = page.getByRole('dialog', { name: 'Wooden chest' });
+  await expect(opened).toContainText('+30 gold');
+  await opened.getByRole('button', { name: 'Collect' }).click();
+  await expect(opened).toBeHidden();
+  await expect(shelf).toHaveCount(0);
 });

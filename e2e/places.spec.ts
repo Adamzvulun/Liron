@@ -30,6 +30,24 @@ test.describe('places in the city (#25)', () => {
     await expect(page.getByRole('heading', { name: 'Your House' })).toBeVisible();
   });
 
+  test('you can walk out of each place back to the square, in the app (review, 2026-11-15)', async ({
+    page,
+  }) => {
+    await signedIn(page);
+    // Each place's view loads on its own (#137): wait for it before walking out.
+    for (const [path, ready] of [
+      ['/house', 'Achievements'],
+      ['/market', 'Market'],
+      ['/notice-board', 'Chests'],
+    ] as const) {
+      await page.goto(path);
+      await page.getByRole('heading', { name: ready, exact: true }).first().waitFor();
+      await page.getByRole('link', { name: 'Back to the square' }).click();
+      await expect(page.getByRole('link', { name: /^Caravanserai: / })).toBeVisible();
+      await expect(page.getByText('Something went wrong')).toHaveCount(0);
+    }
+  });
+
   test('places work from the keyboard', async ({ page }) => {
     test.skip(test.info().project.name === 'phone', 'no keyboard on the phone');
     await signedIn(page);

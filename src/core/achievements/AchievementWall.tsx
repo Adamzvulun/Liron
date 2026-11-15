@@ -21,7 +21,11 @@ export function AchievementWall({
   /** Wears a title ('' for none); resolves false if it couldn't be saved. */
   onWear: (title: string) => Promise<boolean>;
 }) {
-  useEffect(() => onLoad(), [onLoad]);
+  // `onLoad` may be async: its promise mustn't become this effect's cleanup, which crashed the
+  // app on leaving the house (review, 2026-11-15).
+  useEffect(() => {
+    void onLoad();
+  }, [onLoad]);
   const [status, setStatus] = useState<'idle' | 'saving' | 'failed'>('idle');
   const all = plaques(mine);
   const earned = all.filter((p) => p.earned).length;
