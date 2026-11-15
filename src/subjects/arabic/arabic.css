@@ -8,6 +8,7 @@
 }
 
 .arabic .lesson__card,
+.arabic__back ~ .lesson__card,
 .arabic__hall .arabic__door {
   width: min(100%, 760px);
   padding: 20px 22px;
@@ -20,6 +21,12 @@
 
 .arabic .lesson__card p {
   margin: 0 0 12px;
+  font-size: 18px;
+}
+
+/* A station's early word (locked, unreadable, no deck) stands outside its section: a card too. */
+.arabic__back ~ p.lesson__card {
+  margin: 0;
   font-size: 18px;
 }
 
