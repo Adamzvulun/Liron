@@ -168,7 +168,7 @@ export const MAX_TURNS = 17;
 export const OLD_FRIENDS = 5;
 
 /** The largest body the function reads, in bytes. */
-export const MAX_BODY = 12_000;
+export const MAX_BODY = 8_000;
 
 const text = (v: unknown, max: number) =>
   typeof v === 'string' && v.trim().length > 0 && v.length <= max ? v.trim() : null;
@@ -246,10 +246,10 @@ export function sheetOf(r: RegularData, chapter?: { theme: string; words: { glos
 let operators: Map<string, { who: string; about: string }> | null = null;
 
 /** The Radio Room's operators by id (`nils`, `ruth`…), read once from content/ (our own text). */
-export function operatorSheets(root = process.cwd()): Map<string, { who: string; about: string }> {
+export function operatorSheets(): Map<string, { who: string; about: string }> {
   if (operators) return operators;
   const pack = JSON.parse(
-    readFileSync(join(root, 'content', 'morse', 'operators.json'), 'utf8'),
+    readFileSync(join(process.cwd(), 'content', 'morse', 'operators.json'), 'utf8'),
   ) as { items: { id: string; type: string; data: { who: string; about: string } }[] };
   operators = new Map(
     pack.items
@@ -262,10 +262,10 @@ export function operatorSheets(root = process.cwd()): Map<string, { who: string;
 let sheets: Map<number, InnSheet> | null = null;
 
 /** The regulars' sheets by number, read once from content/ (our own text, never the deck's). */
-export function innSheets(root = process.cwd()): Map<number, InnSheet> {
+export function innSheets(): Map<number, InnSheet> {
   if (sheets) return sheets;
   const read = (f: string) =>
-    JSON.parse(readFileSync(join(root, 'content', 'arabic', f), 'utf8')) as {
+    JSON.parse(readFileSync(join(process.cwd(), 'content', 'arabic', f), 'utf8')) as {
       items: { type: string; data: unknown }[];
     };
   const chapters = new Map(
@@ -689,9 +689,9 @@ export async function handle(
   if (!(GEMINI_API_KEY || GROQ_API_KEY) || !VITE_SUPABASE_URL || !VITE_SUPABASE_PUBLISHABLE_KEY) {
     return fail('not-set-up');
   }
-  // Every field is capped by parseAsk; this only turns away a body far past those caps. A full
-  // chat at the inn reaches about 6 kB, and the most parseAsk takes about 9 kB (Arabic is 2 bytes
-  // a letter).
+  // Every field is capped by parseAsk; this only turns away a body past those caps. The most
+  // parseAsk takes is a full chat at the inn with three remembered lines, about 7 kB (Arabic is 2
+  // bytes a letter); since 2026-11-15 the characters' sheets no longer come in the body.
   // The header is a quick no; the body itself is measured too, since a sender can leave it out.
   if (Number(request.headers.get('Content-Length') ?? 0) > MAX_BODY) return fail('bad-request');
   const raw = await request.text().catch(() => '');
@@ -702,7 +702,13 @@ export async function handle(
   } catch {
     // parseAsk turns null away.
   }
-  const ask = parseAsk(body);
+  let ask: Ask | null;
+  try {
+    ask = parseAsk(body);
+  } catch {
+    // The characters' content didn't reach the function (vercel.json's includeFiles).
+    return fail('failed');
+  }
   if (!ask) return fail('bad-request');
 
   if (ask.kind === 'inn-coach') {

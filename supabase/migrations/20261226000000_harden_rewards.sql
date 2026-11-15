@@ -8,8 +8,8 @@
 --    that one. A numeric trial requires the trial before it (a trigger fills that in, so later
 --    migrations that register trial-N are covered); each rank requires the rank below it. The
 --    Morse trials 6-12, which have no lessons, are no longer registered.
--- 2. The review and rating tables are written only through the database functions, which cap
---    their JSON's size. Signed-in users kept insert and update grants from before save_session
+-- 2. The review and rating tables are written only by save_session, through functions no player
+--    can call on their own, which cap the JSON's size. Signed-in users kept insert and update grants from before save_session
 --    (ADR 0031) did those writes, so a player could fill the free database.
 -- 3. A time-zone change may not move the player's day backward, so it can't repair a missed
 --    streak day. Someone flying west gets the new zone once its date catches up (a few hours).
@@ -70,8 +70,10 @@ declare
   added integer;
 begin
   insert into public.subject_events (user_id, day, subject_id, kind, count)
-  select distinct p.user_id, (now() at time zone 'UTC')::date, p.subject_id, t.kind, 1
+  select distinct p.user_id, (now() at time zone coalesce(pr.time_zone, 'UTC'))::date,
+    p.subject_id, t.kind, 1
   from public.subject_progress p
+  left join public.profiles pr on pr.id = p.user_id
   cross join lateral (
     select 'trial-' || value as kind from jsonb_array_elements_text(
       case
@@ -261,6 +263,13 @@ $$;
 -- Its numbers are already bounded by the tables' checks; it only becomes security definer.
 alter function public.record_result(text, text, text, real, timestamptz, jsonb, jsonb)
   security definer;
+
+-- Both are called only by save_session (which runs as their owner), never by a player directly:
+-- otherwise a loop of calls could still fill the logs, and set any rating it liked.
+revoke execute on function public.record_review(text, text, integer, timestamptz, timestamptz,
+  integer, jsonb, jsonb) from public, anon, authenticated;
+revoke execute on function public.record_result(text, text, text, real, timestamptz, jsonb, jsonb)
+  from public, anon, authenticated;
 
 ---------------------------------------------------------------------------------------------
 -- 3. A time-zone change never moves the player's day backward

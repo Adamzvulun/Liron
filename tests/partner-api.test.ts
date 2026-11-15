@@ -352,6 +352,23 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
       expect(parseAsk({ ...INN, regular })).toBeNull();
   });
 
+  it('answers "failed", not a crash, when the characters’ content is missing', async () => {
+    vi.resetModules();
+    const cwd = vi.spyOn(process, 'cwd').mockReturnValue('/nowhere');
+    try {
+      const fresh = await import('../api/partner.ts');
+      const { calls, fetchFn } = services();
+      for (const ask of [INN, ASK])
+        expect(await json(await fresh.handle(request(ask), ENV, fetchFn))).toMatchObject({
+          status: 502,
+          body: { error: 'failed' },
+        });
+      expect(calls).toHaveLength(0);
+    } finally {
+      cwd.mockRestore();
+    }
+  });
+
   it('builds every regular’s sheet from our own content: gender, voice, theme and glosses', () => {
     const sheets = innSheets();
     const regulars = REGULARS;
