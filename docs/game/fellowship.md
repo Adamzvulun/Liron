@@ -1,6 +1,6 @@
 # The Fellowship: friends in Waymark (M5), a proposal
 
-- **Status:** proposal (2026-11-14). Nothing is built. It waits for Adam's answers in §6.
+- **Status:** proposal (2026-11-14), questions answered by [ADR 0039](../decisions/0039-fellowship-answers.md) (2026-11-15): option (a), §3 as written, visits before challenges, live Morse last, built after v1.0.0. Nothing is built yet.
 - **Builds on:** the vision ("friends can join … friendly, no demotion leagues"), [discovery 04 §7](../discovery/04-world-and-lore.md), [ADR 0016](../decisions/0016-invite-only-password-login.md) (invite-only login), and the roadmap's E18–E20.
 
 ## 1. What it is

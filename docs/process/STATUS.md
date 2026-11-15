@@ -8,7 +8,7 @@
 ## Where we are
 | Item | State |
 |---|---|
-| Vision, name (Waymark), ADRs 0001–0037 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
+| Vision, name (Waymark), ADRs 0001–0039 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
 | Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
 | Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
 | Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
@@ -159,7 +159,8 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 - ~~**The words left out on purpose**~~ (report §4bc): Adam answered on 2026-11-15. The stepfamily and the national days are in (chapter 113); the adult, toilet and grim words are skipped for now.
 - ~~**The inn's character sheets**~~ (report §4at): done on 2026-11-15 (§4bd). The server now looks the regulars up by number.
 - **New (2026-11-15, report §4be):** more words would need a new source. Maknuune is free (about 36,000 Palestinian entries, no audio) but CC BY-SA 4.0, so what we build from it would be share-alike too. Use it only to check meanings (my suggestion), or as a word source?
-- **Still open (2026-11-15):** the five M5 questions ([fellowship](../game/fellowship.md)), the regulars' voices (Azure costs money; Groq's free Arabic voice is Saudi and needs its terms accepted, report §4bf), `GROQ_API_KEY` in Vercel (Adam says it's added; please check it on the dev site, report §4bd), v1.0.0, and trying the Morse sound on an iPhone after a phone call or a locked screen (`resumeOnGesture`, §4ax).
+- **Answered (2026-11-15, later):** the five M5 questions are left to Claude: [ADR 0039](../decisions/0039-fellowship-answers.md) (no email, §3's list, visits first, live Morse last, after v1.0.0). **The regulars will speak aloud, but in the version after v1.0.0.** **v1.0.0 comes when Adam is satisfied**: until then, optimize and polish.
+- **Still open (2026-11-15):** `GROQ_API_KEY` (Adam says it's on the dev site; Claude can't check it, because the dev site's Vercel login stops every request from the cloud container. To check it yourself: on the dev site, sit and talk with a regular at the inn, or press "Would they understand me?" after a Say it. "Busy" or "isn't set up yet" means the key isn't reaching the dev site. The dev site is a *Preview* deployment, so in Vercel the key must be ticked for **Preview**, not only Production; and after adding it, redeploy `dev`). Also: trying the Morse sound on an iPhone after a phone call or a locked screen (`resumeOnGesture`, §4ax).
 - ~~**E15 (the Radio Room operators' free text)**~~: Adam said yes to all six questions (2026-11-10, ADR 0036). His one hand step: add `GEMINI_API_KEY` in Vercel.
 - ~~**The review's decisions**~~ (end of [the full review](reviews/2026-11-04-full-review.md)): all decided 2026-11-04. Adam answered three (prod keys in GitHub, the second-day gate, the final k) and left the rest to Claude ("do what you think is best"); all are built.
 - ~~In-app mic and data~~: decided 2026-11-04, the Groq check is approved, opt-in, through a server-side function.
