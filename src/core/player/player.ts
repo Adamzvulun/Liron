@@ -68,6 +68,15 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     listeners.forEach((l) => l());
   };
   const fail = (e: unknown) => set({ error: (e as Error).message });
+  // Purchases and chests can overlap. Each takes a ticket, and an older one's purse that
+  // answers late doesn't overwrite a newer one's (the database's purse is always right).
+  let purseTicket = 0;
+  let purseShown = 0;
+  const newerPurse = (ticket: number) => {
+    if (ticket < purseShown) return false;
+    purseShown = ticket;
+    return true;
+  };
   return {
     subscribe(listener: () => void) {
       listeners.add(listener);
@@ -115,10 +124,11 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
      * and the chest leaves the shelf. Returns what it held, or null if it couldn't be opened.
      */
     async openChest(id: string): Promise<ChestContents | null> {
+      const ticket = ++purseTicket;
       try {
         const c = await store.openChest(id);
         const next: Partial<PlayerState> = { chests: state.chests.filter((x) => x.id !== id) };
-        if (c.wallet) {
+        if (c.wallet && newerPurse(ticket)) {
           if (state.wallet) {
             next.wallet = { ...state.wallet, gold: c.wallet.gold, gems: c.wallet.gems };
           }
@@ -152,21 +162,24 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
      */
     async buy(id: string): Promise<string | null> {
       const ware = state.market?.wares.find((w) => w.id === id);
+      const ticket = ++purseTicket;
       try {
         const w = await store.buyItem(id);
         const next: Partial<PlayerState> = {};
-        if (state.wallet) next.wallet = { ...state.wallet, gold: w.gold, gems: w.gems };
-        if (state.today) next.today = { ...state.today, shields: w.shields };
+        const newer = newerPurse(ticket);
+        if (state.wallet && newer) next.wallet = { ...state.wallet, gold: w.gold, gems: w.gems };
+        if (state.today && newer) next.today = { ...state.today, shields: w.shields };
         if (ware?.kind !== 'functional' && state.profile && !state.profile.owned.includes(id)) {
           next.profile = { ...state.profile, owned: [...state.profile.owned, id] };
         }
+        const gold = newer ? w.gold : (state.wallet?.gold ?? w.gold);
         if (state.market) {
           next.market = {
             ...state.market,
             wares: state.market.wares.map((x) => ({
               ...x,
               owned: x.id === id ? x.kind !== 'functional' || w.shields >= 2 : x.owned,
-              affordable: w.gold >= x.price,
+              affordable: gold >= x.price,
             })),
           };
         }

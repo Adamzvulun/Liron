@@ -234,6 +234,32 @@ describe('the Market (#49)', () => {
     ]);
   });
 
+  it('keeps the newer purse when an earlier purchase answers last (review, 2026-11-15)', async () => {
+    const answers: Record<string, (w: { gold: number; gems: number; shields: number }) => void> =
+      {};
+    const store = {
+      ...memoryStore(),
+      market: async () => stall,
+      buyItem: (id: string) =>
+        new Promise<{ gold: number; gems: number; shields: number }>((r) => (answers[id] = r)),
+    };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    await player.loadMarket();
+    const first = player.buy('tarboosh');
+    const second = player.buy('streak-shield');
+    // The second purchase answers first, with the purse after both.
+    answers['streak-shield']?.({ gold: 20, gems: 0, shields: 1 });
+    await second;
+    answers['tarboosh']?.({ gold: 140, gems: 0, shields: 0 });
+    await first;
+    const s = player.getSnapshot();
+    expect(s.wallet?.gold).toBe(20);
+    expect(s.today?.shields).toBe(1);
+    expect(s.profile?.owned).toEqual(['tarboosh']);
+    expect(s.market?.wares.every((w) => !w.affordable)).toBe(true);
+  });
+
   it('says plainly why a ware could not be bought', async () => {
     const store = {
       ...memoryStore(),
