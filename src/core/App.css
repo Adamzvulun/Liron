@@ -327,6 +327,22 @@
   box-shadow: 0 5px 0 var(--ink);
 }
 
+/* While the sign-in is checked: it fades in only if the wait is long enough to notice. */
+.app__loading {
+  margin: 0;
+  padding-top: 40vh;
+  text-align: center;
+  font-weight: 700;
+  color: var(--parchment);
+  animation: app-loading-in 0.3s ease-out 0.6s both;
+}
+
+@keyframes app-loading-in {
+  from {
+    opacity: 0;
+  }
+}
+
 /* "Try again" when a place couldn't load what it shows (review, 2026-11-15). */
 .place__retry {
   min-height: 44px;
