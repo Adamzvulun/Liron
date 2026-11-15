@@ -16,8 +16,8 @@ import {
 import { NEW_PROGRESS as ARABIC_NEW, type ArabicProgress } from './arabic/progress.ts';
 import { PHRASE_SETS } from './arabic/phrases/sets.ts';
 import { MORSE_CHARS } from './morse/code.ts';
-import { NEW_PROGRESS as MORSE_NEW } from './morse/lesson/progress.ts';
-import { MORSE_RANKS, morseStanding } from './morse/ranks.ts';
+import { NEW_PROGRESS as MORSE_NEW, type MorseProgress } from './morse/lesson/progress.ts';
+import { GHOST_DIT_MS, GHOST_WPM, MORSE_RANKS, morseStanding } from './morse/ranks.ts';
 import { PROSIGNS } from './morse/words.ts';
 
 describe('the Signal Tower’s ranks (#174)', () => {
@@ -83,6 +83,33 @@ describe('the Signal Tower’s ranks (#174)', () => {
       rankTrials: ['lamp-signal', 'far-station', 'night-watch'],
     };
     expect(morseStanding(all).rank.id).toBe('telegraphist');
+  });
+
+  it('makes you a Ghost with head copy and sending at 30 wpm, after Signal Master (2026-11-15)', () => {
+    const master: MorseProgress = {
+      ...MORSE_NEW,
+      unlocked: MORSE_CHARS.length,
+      trials: [1, 2, 3, 4, 5],
+      sending: { drills: 20, ditMs: 80 },
+      prosigns: PROSIGNS.map((p) => p.id),
+      rankTrials: ['lamp-signal', 'far-station', 'night-watch'],
+      radio: { ...MORSE_NEW.radio, cleanFast: true },
+    };
+    expect(morseStanding(master).rank.id).toBe('signal-master');
+    // Nothing in the guild is "comes later" any more.
+    expect(MORSE_RANKS.every((r) => !r.later)).toBe(true);
+    const fast = {
+      ...master,
+      rush: { ...master.rush, topWpm: GHOST_WPM },
+      sending: { drills: 21, ditMs: GHOST_DIT_MS },
+    };
+    expect(morseStanding(fast).rank.id).toBe('ghost');
+    expect(morseStanding({ ...fast, rush: { ...fast.rush, topWpm: 29 } }).rank.id).toBe(
+      'signal-master',
+    );
+    expect(morseStanding({ ...fast, sending: { drills: 21, ditMs: 41 } }).rank.id).toBe(
+      'signal-master',
+    );
   });
 });
 

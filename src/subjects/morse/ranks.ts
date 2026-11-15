@@ -11,6 +11,13 @@ export const MORSE_RANKS = ranksFrom(pack);
 /** Keyer asks for 15 wpm: a dit of 1200 / 15 = 80 ms or shorter. */
 export const KEYER_DIT_MS = 1200 / 15;
 export const KEYER_DRILLS = 20;
+/**
+ * Ghost of the Ether: head copy and sending at 30 wpm (Adam, 2026-11-15: open it now the Radio
+ * Room has live operators). Head copy is a call copied right at 30 wpm in the callsign rush (its
+ * `topWpm`, as its rush-30 event); sending is a drill keyed with a dit of 1200 / 30 = 40 ms or less.
+ */
+export const GHOST_WPM = 30;
+export const GHOST_DIT_MS = 1200 / GHOST_WPM;
 const LAST_CHAPTER = CHAPTERS[CHAPTERS.length - 1]?.number ?? 5;
 
 /** Which of a rank's conditions you've met, in the order ranks.json lists them. */
@@ -35,6 +42,11 @@ export function morseMet(rank: Rank, p: MorseProgress): boolean[] {
       ];
     case 'signal-master':
       return [p.radio.cleanFast];
+    case 'ghost':
+      return [
+        p.rush.topWpm >= GHOST_WPM,
+        p.sending.ditMs !== null && p.sending.ditMs <= GHOST_DIT_MS,
+      ];
     default:
       return rank.conditions.map(() => false);
   }
