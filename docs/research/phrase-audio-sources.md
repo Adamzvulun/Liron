@@ -23,6 +23,7 @@
   - **إن شاء الله, a second voice:** انشالله by Mohammad-LPA, 10 August 2022, CC BY-SA 4.0 (credit needed).
   - **Not found:** السلام عليكم (there are only سلام by Muhammad and مع السلامة by AdrianAbdulBaha), *fhimt*, and any form said to a woman (*kīfik*, *tfaḍḍali*).
   - **Still unverified:** where Akram is from. lingualibre.org timed out again, and a second way to fetch it was refused in this session, so it was left at that.
+- **Fourth try (2026-11-15, later):** the item page, `index.php`, `Special:EntityData` and the API (`wbgetentities`) all timed out from this container, so Akram's origin is still unknown.
 - **Next:** when lingualibre.org loads, read Akram's item (Q917215: place, dialect). If he is Palestinian, bring Adam *ṣabāħ n-nūr* and *nšallah* to hear (CC0, so no credit line is needed). السلام عليكم and the forms said to a woman have no source yet.
 
 ## Sources
