@@ -148,11 +148,21 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* The daily goal: a chip with an hourglass that fills as you practice; it opens the goal panel. */
 .hud__chip--goal {
-  display: none; /* only on phones, where the quest panel is hidden (#27) */
+  font: inherit;
+  font-weight: 800;
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
 }
 
-.hud__settings {
+.hud__chip--goal:hover,
+.hud__chip--goal[aria-expanded='true'] {
+  color: var(--lamplight);
+}
+
+.hud__purse {
   position: relative;
 }
 
@@ -170,24 +180,213 @@
   cursor: pointer;
 }
 
+.hud__gear[aria-expanded='true'] {
+  background: linear-gradient(#4e2c16, #8a5a33);
+  box-shadow:
+    inset 0 2px 4px rgb(20 8 2 / 60%),
+    0 2px 0 var(--ink);
+  transform: translateY(2px);
+}
+
 .hud__gear:focus-visible,
 .hud__quest:focus-visible,
-.hud__signout:focus-visible {
+.hud__signout:focus-visible,
+.hud__chip--goal:focus-visible,
+.hud__close:focus-visible,
+.hud__textbutton:focus-visible,
+.hud__goalchoice:focus-visible {
   outline: 3px solid var(--lamplight);
   outline-offset: 3px;
 }
 
+/* A panel dropped from the purse: the goal or the settings. */
 .hud__panel {
   position: absolute;
   right: 0;
-  top: calc(100% + 10px);
+  top: calc(100% + 12px);
   z-index: 5;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  width: min(280px, calc(100vw - 32px));
-  padding: 16px;
+  gap: 16px;
+  width: min(340px, calc(100vw - 16px));
+  padding: 14px 16px 18px;
   border-radius: var(--radius-card);
+  animation: hud-drop 140ms ease-out;
+}
+
+@keyframes hud-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.hud__panelhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(138 90 51 / 70%);
+}
+
+.hud__paneltitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--lamplight);
+}
+
+.hud__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-right: -6px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: #c9b48e;
+  cursor: pointer;
+}
+
+.hud__close:hover {
+  background: rgb(255 214 150 / 12%);
+  color: var(--vellum);
+}
+
+/* The goal panel */
+.hud__goaltoday {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hud__goaltoday p {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+}
+
+.hud__goaltoday strong {
+  font-size: 19px;
+  color: var(--vellum);
+  font-variant-numeric: tabular-nums;
+}
+
+.hud__goaltoday span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #c9b48e;
+}
+
+.hud__goalchoices {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.hud__goalchoice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-height: 60px;
+  padding: 6px 2px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: rgb(243 226 188 / 10%);
+  box-shadow: 0 3px 0 var(--ink);
+  color: var(--parchment);
+  font: inherit;
+  cursor: pointer;
+}
+
+.hud__goalchoice:hover {
+  background: rgb(243 226 188 / 18%);
+}
+
+.hud__goalchoice[aria-pressed='true'] {
+  background: linear-gradient(#f6c25c, var(--brass));
+  color: var(--ink);
+  box-shadow:
+    inset 0 2px 0 rgb(255 245 210 / 70%),
+    0 3px 0 var(--ink);
+}
+
+.hud__goalchoice[aria-busy='true'] {
+  opacity: 0.75;
+}
+
+.hud__goalmin {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud__goalword {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.hud__goalfoot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hud__goalnote {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #c9b48e;
+}
+
+/* The settings panel */
+.hud__section + .hud__section {
+  padding-top: 14px;
+  border-top: 1px solid rgb(138 90 51 / 55%);
+}
+
+.hud__goalrow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 2px 12px;
+}
+
+.hud__rowlabel {
+  font-size: 15px;
+  font-weight: 700;
+  color: #c9b48e;
+}
+
+.hud__rowvalue {
+  grid-column: 1;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--vellum);
+}
+
+.hud__textbutton {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: rgb(243 226 188 / 12%);
+  color: var(--parchment);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.hud__textbutton:hover {
+  background: rgb(243 226 188 / 22%);
 }
 
 .hud__field,
@@ -200,8 +399,7 @@
   color: #c9b48e;
 }
 
-.hud__field input,
-.hud__field select {
+.hud__field input {
   min-height: 44px;
   padding: 0 10px;
   border: 2px solid var(--ink);
@@ -213,22 +411,32 @@
   font-weight: 800;
 }
 
+.hud__fieldhint {
+  font-size: 13px;
+  font-weight: 600;
+  color: #a8936f;
+}
+
 .hud__fieldstatus {
-  min-height: 1.2em;
   font-size: 14px;
   color: #e9cf9a;
 }
 
+/* Signing out ends the session: set apart at the foot, quieter than the panel's own controls. */
 .hud__signout {
+  width: 100%;
   min-height: 44px;
-  border: var(--outline-ui);
+  border: 2px solid #b5523b;
   border-radius: 12px;
-  background: var(--parchment);
-  color: var(--ink);
+  background: none;
+  color: #f0a48f;
   font: inherit;
   font-weight: 800;
-  box-shadow: 0 4px 0 var(--ink);
   cursor: pointer;
+}
+
+.hud__signout:hover {
+  background: rgb(181 82 59 / 18%);
 }
 
 .hud__quests {
@@ -350,6 +558,9 @@
 @media (prefers-reduced-motion: reduce) {
   .hud__fill {
     transition: none;
+  }
+  .hud__panel {
+    animation: none;
   }
 }
 
