@@ -40,7 +40,15 @@ const TABLES = [
 ] as const;
 const APPEND_ONLY: readonly string[] = ['review_log', 'rating_log'];
 // Written only by the database functions (security review, 2026-11-04).
-const FUNCTIONS_ONLY: readonly string[] = ['wallets', 'daily_activity', 'subject_progress'];
+const FUNCTIONS_ONLY: readonly string[] = [
+  'wallets',
+  'daily_activity',
+  'subject_progress',
+  // Since the rewards were hardened (2026-11-15): only save_session's functions write these.
+  'review_cards',
+  'skill_ratings',
+  'item_ratings',
+];
 
 let db: PGlite;
 
@@ -70,6 +78,16 @@ async function as<T>(userId: string | null, fn: () => Promise<T>): Promise<T> {
     return await fn();
   } finally {
     await db.exec('reset role');
+  }
+}
+
+/** Runs `fn` as the functions' owner with `userId`'s sign-in claim, as save_session calls them. */
+async function signedInOwner<T>(userId: string, fn: () => Promise<T>): Promise<T> {
+  await db.query(`select set_config('request.jwt.claim.sub', $1, true)`, [userId]);
+  try {
+    return await fn();
+  } finally {
+    await db.query(`select set_config('request.jwt.claim.sub', '', true)`);
   }
 }
 
@@ -501,9 +519,18 @@ describe('supabaseStore against the real functions', () => {
     await as(ADAM, async () => {
       const morse = subjectApi({ id: 'morse' }, supabaseStore(fakeClient));
       const t0 = new Date(Date.now() - 3 * 86_400_000); // three days ago
-      await morse.recordReview('char:K', 'again', t0);
-      await morse.recordReview('char:M', 'easy', t0);
-      await morse.recordReview('char:K', 'good', new Date(t0.getTime() + 60_000));
+      // Through save_session, the only way in since the rewards were hardened (2026-11-15).
+      await morse.saveSession({
+        reviews: [
+          { itemId: 'char:K', grade: 'again' },
+          { itemId: 'char:M', grade: 'easy' },
+        ],
+        at: t0,
+      });
+      await morse.saveSession({
+        reviews: [{ itemId: 'char:K', grade: 'good' }],
+        at: new Date(t0.getTime() + 60_000),
+      });
       const status = await morse.reviewStatus(['char:K', 'char:M', 'char:X']);
       expect([...status.keys()].sort()).toEqual(['char:K', 'char:M']);
       expect(status.get('char:K')).toMatchObject({ reps: 2 });
@@ -836,11 +863,15 @@ describe('spaced repetition tables (ADR 0022)', () => {
         rating,
         at,
       ]);
-    await expect(as(ADAM, () => call(3, '2999-01-01'))).rejects.toThrow(/future/);
-    await expect(as(ADAM, () => call(5, new Date().toISOString()))).rejects.toThrow(/check/);
-    await expect(as(null, () => call(3, new Date().toISOString()))).rejects.toThrow(
-      /permission denied/,
+    // save_session calls it as its owner; a player can't call it on their own (2026-11-15).
+    await expect(signedInOwner(ADAM, () => call(3, '2999-01-01'))).rejects.toThrow(/future/);
+    await expect(signedInOwner(ADAM, () => call(5, new Date().toISOString()))).rejects.toThrow(
+      /check/,
     );
+    for (const who of [ADAM, null])
+      await expect(as(who, () => call(3, new Date().toISOString()))).rejects.toThrow(
+        /permission denied/,
+      );
   });
 });
 
@@ -852,10 +883,19 @@ describe('skill ratings (ADR 0024)', () => {
         supabaseStore(fakeClient),
       );
       const at = new Date(Date.now() - 60_000);
-      const first = await morse.recordResult('receive', 'char:K', 1, { at });
-      await morse.recordResult('receive', 'char:K', 0, { at: new Date(at.getTime() + 1000) });
-      await morse.recordResult('send', 'char:M', 1, { at, itemSeed: 1200 });
-      expect(first.learner).toMatchObject({ games: 1, provisional: true }); // seeded row had 0
+      // Through save_session, the only way in since the rewards were hardened (2026-11-15).
+      await morse.saveSession({ results: [{ skill: 'receive', itemId: 'char:K', score: 1 }], at });
+      expect((await morse.skillRatings()).get('receive')).toMatchObject({
+        games: 1,
+        provisional: true,
+      }); // the seeded row had 0
+      await morse.saveSession({
+        results: [
+          { skill: 'receive', itemId: 'char:K', score: 0 },
+          { skill: 'send', itemId: 'char:M', score: 1, itemSeed: 1200 },
+        ],
+        at: new Date(at.getTime() + 1000),
+      });
       const skills = await morse.skillRatings();
       expect(skills.get('receive')).toMatchObject({ games: 2 });
       expect(skills.get('send')).toMatchObject({ games: 1 });
@@ -887,10 +927,11 @@ describe('skill ratings (ADR 0024)', () => {
         [score, at, rd],
       );
     const now = new Date().toISOString();
-    await expect(as(ADAM, () => call(1, '2999-01-01'))).rejects.toThrow(/future/);
-    await expect(as(ADAM, () => call(2, now))).rejects.toThrow(/check/);
-    await expect(as(ADAM, () => call(1, now, 400))).rejects.toThrow(/check/);
-    await expect(as(null, () => call(1, now))).rejects.toThrow(/permission denied/);
+    await expect(signedInOwner(ADAM, () => call(1, '2999-01-01'))).rejects.toThrow(/future/);
+    await expect(signedInOwner(ADAM, () => call(2, now))).rejects.toThrow(/check/);
+    await expect(signedInOwner(ADAM, () => call(1, now, 400))).rejects.toThrow(/check/);
+    for (const who of [ADAM, null])
+      await expect(as(who, () => call(1, now))).rejects.toThrow(/permission denied/);
   });
 });
 
@@ -2135,5 +2176,147 @@ describe('the licence and the AI allowances, hardened (2026-11-15)', () => {
     for (const sql of [`select claim_partner_reply()`, `select claim_chat_line()`])
       await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/not signed in/);
     await rows(`select set_config('request.jwt.claims', '', true)`);
+  });
+});
+
+describe('the rewards, hardened before friends join (2026-11-15, report §4au)', () => {
+  let session = 0;
+  const save = (subject: string, events: object[]) =>
+    as(ADAM, () =>
+      rows(`select save_session($1, $2, null, '[]', '[]', 0, 0, $3::jsonb)`, [
+        subject,
+        `d5d5d5d5-0000-4000-8000-${String(++session).padStart(12, '0')}`,
+        JSON.stringify(events),
+      ]),
+    );
+  const had = async (subject: string) =>
+    (
+      await rows(
+        `select kind from subject_events where user_id = $1 and subject_id = $2
+           and kind <> 'session' order by kind`,
+        [ADAM, subject],
+      )
+    ).map((r) => (r as { kind: string }).kind);
+
+  it('counts a trial only after the one before it', async () => {
+    await save('arabic', [{ kind: 'trial-3' }, { kind: 'trial-50' }]);
+    expect(await had('arabic')).toEqual([]);
+    await save('arabic', [{ kind: 'trial-1' }]);
+    await save('arabic', [{ kind: 'trial-3' }]);
+    expect(await had('arabic')).toEqual(['trial-1']);
+    // In one save, out of order: taken in number order, so all three count.
+    await save('arabic', [{ kind: 'trial-4' }, { kind: 'trial-2' }, { kind: 'trial-3' }]);
+    expect(await had('arabic')).toEqual(['trial-1', 'trial-2', 'trial-3', 'trial-4']);
+  });
+
+  it('counts a rank only after the rank below it, in either guild', async () => {
+    await save('morse', [{ kind: 'rank-keyer' }]);
+    await save('arabic', [{ kind: 'rank-traveler' }]);
+    expect([...(await had('morse')), ...(await had('arabic'))]).toEqual([]);
+    await save('morse', [{ kind: 'rank-listener' }, { kind: 'rank-keyer' }]);
+    expect(await had('morse')).toEqual(['rank-keyer', 'rank-listener']);
+  });
+
+  it('registers no Morse trial past the real lessons, and every numeric trial needs the last', async () => {
+    const morse = await rows(
+      `select kind from subject_event_kinds where subject_id = 'morse' and kind ~ '^trial-[0-9]+$'
+         order by kind`,
+    );
+    expect(morse).toEqual(
+      ['trial-1', 'trial-2', 'trial-3', 'trial-4', 'trial-5'].map((kind) => ({ kind })),
+    );
+    const loose = await rows(
+      `select subject_id, kind, requires from subject_event_kinds
+         where kind ~ '^trial-[0-9]+$' and substr(kind, 7)::integer > 1
+           and requires is distinct from 'trial-' || (substr(kind, 7)::integer - 1)`,
+    );
+    expect(loose).toEqual([]);
+    // A trial registered later gets its requirement by itself.
+    await rows(
+      `insert into subject_event_kinds (subject_id, kind, daily_cap) values ('arabic', 'trial-999', 1)`,
+    );
+    expect(await rows(`select requires from subject_event_kinds where kind = 'trial-999'`)).toEqual(
+      [{ requires: 'trial-998' }],
+    );
+  });
+
+  it('the review and rating tables take no direct writes, and their JSON is capped', async () => {
+    const card = `'{"due": "2026-11-15"}'`;
+    for (const sql of [
+      `insert into review_cards (user_id, subject_id, item_id, due, state, card)
+         values ('${ADAM}', 'morse', 'x', now(), 0, ${card})`,
+      `insert into review_log (user_id, subject_id, item_id, rating, reviewed_at, log)
+         values ('${ADAM}', 'morse', 'x', 3, now(), ${card})`,
+      `insert into rating_log (user_id, subject_id, skill, item_id, score, rated_at,
+         learner_rating, item_rating) values ('${ADAM}', 'morse', 'receive', 'x', 1, now(), 0, 0)`,
+      `update skill_ratings set games = 0 where user_id = '${ADAM}'`,
+    ])
+      await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/permission denied/);
+    for (const fn of [
+      `select record_review('morse', 'k', 3, now(), now(), 1, '{}', '{}')`,
+      `select record_result('morse', 'receive', 'k', 1, now(),
+         '{"rating": 1000, "rd": 200, "volatility": 0.06, "games": 1}',
+         '{"rating": 1000, "rd": 200, "volatility": 0.06, "games": 1}')`,
+    ])
+      await expect(as(ADAM, () => rows(fn))).rejects.toThrow(/permission denied/);
+    const review = (size: number) =>
+      signedInOwner(ADAM, () =>
+        rows(
+          `select record_review('morse', 'k', 3, now(), now(), 1,
+             jsonb_build_object('pad', repeat('x', $1::integer)), '{}')`,
+          [size],
+        ),
+      );
+    await review(100);
+    await expect(review(3000)).rejects.toThrow(/2 kB/);
+  });
+
+  it('fills in, once, the trials and ranks saved progress records but no event does', async () => {
+    await rows(
+      `insert into subject_progress (user_id, subject_id, state) values ($1, 'arabic', $2)
+         on conflict (user_id, subject_id) do update set state = excluded.state`,
+      [
+        ADAM,
+        JSON.stringify({ guest: true, words: { trials: [2, 3, 'x'] }, ranks: ['guest', 'nope'] }),
+      ],
+    );
+    await save('arabic', [{ kind: 'trial-4' }]);
+    expect(await had('arabic')).toEqual([]);
+    expect(await rows(`select backfill_ordered_events() as added`)).toEqual([{ added: 4 }]);
+    expect(await rows(`select backfill_ordered_events() as added`)).toEqual([{ added: 0 }]);
+    await save('arabic', [{ kind: 'trial-4' }, { kind: 'rank-traveler' }]);
+    expect(await had('arabic')).toEqual([
+      'rank-guest',
+      'rank-traveler',
+      'trial-1',
+      'trial-2',
+      'trial-3',
+      'trial-4',
+    ]);
+    await expect(as(ADAM, () => rows(`select backfill_ordered_events()`))).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+
+  it('a time-zone change never moves the day backward, so it repairs no missed day', async () => {
+    const zone = async () =>
+      (
+        (await rows(`select time_zone from profiles where id = $1`, [ADAM]))[0] as {
+          time_zone: string;
+        }
+      ).time_zone;
+    // Kiritimati (UTC+14) is always a day or more ahead of Pago Pago (UTC-11).
+    await rows(
+      `update profiles set time_zone = 'Pacific/Kiritimati', time_zone_set_at = null where id = $1`,
+      [ADAM],
+    );
+    await as(ADAM, () => rows(`select set_time_zone('Pacific/Pago_Pago')`));
+    expect(await zone()).toBe('Pacific/Kiritimati');
+    await rows(
+      `update profiles set time_zone = 'Pacific/Pago_Pago', time_zone_set_at = null where id = $1`,
+      [ADAM],
+    );
+    await as(ADAM, () => rows(`select set_time_zone('Pacific/Kiritimati')`));
+    expect(await zone()).toBe('Pacific/Kiritimati');
   });
 });

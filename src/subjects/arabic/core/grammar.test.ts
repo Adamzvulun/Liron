@@ -135,6 +135,7 @@ describe('grammar cards (#162)', () => {
       ['grammar:it-looks-like', 110],
       ['grammar:up-and-down', 111],
       ['grammar:words-for-a-loss', 112],
+      ['grammar:married-in', 113],
     ]);
     for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
   });

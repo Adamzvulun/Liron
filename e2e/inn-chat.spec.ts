@@ -10,9 +10,8 @@ const GUEST = { lesson: 8, done: true, guest: true, ranks: ['guest'] };
 
 interface InnAsk {
   kind: string;
-  persona: { who: string; about: string };
+  regular: number;
   learner: { name: string };
-  words: string[];
   told: string[];
   met: number;
   turns: { who: string; text: string }[];
@@ -53,12 +52,13 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(page.getByText('أهلا وسهلا! كيفك اليوم؟')).toBeVisible();
     expect(asked[0]).toMatchObject({
       kind: 'inn-chat',
-      persona: { who: 'Salim the carter' },
+      regular: 2, // Salim the carter: the function reads his sheet from our content.
       learner: { name: 'Adam' },
       turns: [],
       met: 0,
+      shared: false,
     });
-    expect(asked[0]?.persona.about).toMatch(/^You are a man\./);
+    expect(asked[0]).not.toHaveProperty('persona');
 
     // Tap their line: it's spelled in Hebrew letters.
     await page.getByRole('button', { name: /أهلا وسهلا/ }).click();

@@ -3,9 +3,7 @@ import type { WordReview } from '../words.ts';
 import { describe, expect, it } from 'vitest';
 import { NEW_PROGRESS, parseProgress } from '../progress.ts';
 import { REGULARS } from '../questline.ts';
-import { WORD_CHAPTERS } from '../core/wordChapters.ts';
 import {
-  aboutOf,
   afterChat,
   chatAsk,
   cleanTyped,
@@ -13,7 +11,6 @@ import {
   lineInHebrew,
   regularsToTalkTo,
   standingWith,
-  speakerOf,
   glossaryFrom,
   glossesIn,
   tipsFrom,
@@ -38,25 +35,17 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(regularsToTalkTo(on).map((r) => r.number)).toEqual([2, 3]);
   });
 
-  it('tells each regular their gender for the grammar', () => {
-    const she = REGULARS.find((r) => r.she);
-    const he = REGULARS.find((r) => !r.she);
-    expect(aboutOf(must(she))).toMatch(/^You are a woman\. /);
-    expect(aboutOf(must(he))).toMatch(/^You are a man\. /);
-    expect(REGULARS.every((r) => aboutOf(r).length <= 900)).toBe(true);
-  });
-
-  it('sends the theme and our own English glosses, never the deck', () => {
+  it('sends the regular by number and nothing of their sheet (report §4at)', () => {
     const ask = chatAsk(first, { ...guest, chat: { ...NEW_PROGRESS.chat, name: 'Adam' } }, []);
-    const chapter = must(WORD_CHAPTERS[first.wordChapter - 1]);
-    expect(ask).toMatchObject({ kind: 'inn-chat', learner: { name: 'Adam' }, turns: [] });
-    expect(ask.theme).toBe(chapter.theme.slice(0, 160));
-    expect(ask.words.length).toBeGreaterThan(0);
-    expect(ask.words.length).toBeLessThanOrEqual(25);
-    expect(ask.words.every((w) => chapter.words.some((x) => x.gloss.startsWith(w)))).toBe(true);
-    // The deck's ids and sentences stay home: glosses are English.
-    expect(JSON.stringify(ask)).not.toMatch(/deck|lingualism/i);
-    expect(ask.words.join(' ')).not.toMatch(/\p{Script=Arabic}/u);
+    expect(ask).toEqual({
+      kind: 'inn-chat',
+      regular: first.number,
+      learner: { name: 'Adam' },
+      told: [],
+      met: 0,
+      shared: false,
+      turns: [],
+    });
   });
 
   it('remembers the last three things you said to each regular', () => {
@@ -198,21 +187,9 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     ]);
   });
 
-  it('lets a pair or a group speak through its first person, whose gender it has', () => {
-    const band = must(REGULARS.find((r) => r.who === 'Fares and the band'));
-    expect(speakerOf(band)).toBe('Fares');
-    expect(aboutOf(band)).toMatch(
-      /^You are a man\. You are Fares, at the table with Fares and the band; speak only for yourself\. /,
-    );
-    const hana = must(REGULARS.find((r) => r.who === 'Hana and her groom'));
-    expect(aboutOf(hana)).toMatch(/^You are a woman\. You are Hana, /);
-    expect(speakerOf(first)).toBe(first.who);
-    expect(aboutOf(first)).not.toContain('speak only for yourself');
-  });
-
   it('sends a regular’s milestones as shared memories once their trial is passed', () => {
-    expect(chatAsk(first, guest, []).memories).toEqual([]);
+    expect(chatAsk(first, guest, []).shared).toBe(false);
     const passed = { ...guest, words: { ...guest.words, trials: [first.number] } };
-    expect(chatAsk(first, passed, []).memories).toEqual(first.milestones.slice(0, 3));
+    expect(chatAsk(first, passed, []).shared).toBe(true);
   });
 });
