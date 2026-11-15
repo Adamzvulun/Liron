@@ -2,7 +2,17 @@ import { describe, expect, it } from 'vitest';
 import { needLine } from '../core/ranks/ranks.ts';
 import { GEAR } from '../core/avatar/looks.ts';
 import catalogue from '../../content/core/items.json' with { type: 'json' };
-import { ARABIC_RANKS, arabicStanding, SLATE_IDS } from './arabic/ranks.ts';
+import {
+  ARABIC_RANKS,
+  arabicStanding,
+  FRIEND_CHATS,
+  FRIEND_WORDS,
+  LOCAL_LINES,
+  LOCAL_WORDS,
+  NEIGHBOR_LINES,
+  SLATE_IDS,
+  STORY_FRIENDS,
+} from './arabic/ranks.ts';
 import { NEW_PROGRESS as ARABIC_NEW, type ArabicProgress } from './arabic/progress.ts';
 import { PHRASE_SETS } from './arabic/phrases/sets.ts';
 import { MORSE_CHARS } from './morse/code.ts';
@@ -105,6 +115,34 @@ describe('the House of the Crossing’s ranks (#174)', () => {
       expect(s.rank.id).toBe('guest');
       expect(s.checks.filter((c) => !c.done)).toHaveLength(1);
     }
+  });
+
+  it('earns Neighbor, Friend, Local and Storyteller at the inn’s table (2026-11-15)', () => {
+    const met = (n: number) => Array.from({ length: n }, (_, i) => `pcav:${i}`);
+    const at = (chat: Partial<ArabicProgress['chat']>, words = 0): ArabicProgress => ({
+      ...traveler,
+      words: { ...traveler.words, met: met(words) },
+      chat: { ...traveler.chat, ...chat },
+    });
+    // Nothing is "comes later" any more: every rank can be reached.
+    expect(ARABIC_RANKS.every((r) => !r.later)).toBe(true);
+    expect(arabicStanding(at({ best: NEIGHBOR_LINES - 1 })).rank.id).toBe('traveler');
+    expect(arabicStanding(at({ best: NEIGHBOR_LINES })).rank.id).toBe('neighbor');
+    const friend = at({ best: NEIGHBOR_LINES, chats: FRIEND_CHATS }, FRIEND_WORDS);
+    expect(arabicStanding(friend).rank.id).toBe('friend');
+    expect(arabicStanding({ ...friend, chat: { ...friend.chat, chats: 19 } }).rank.id).toBe(
+      'neighbor',
+    );
+    const local = at({ best: LOCAL_LINES, chats: FRIEND_CHATS }, LOCAL_WORDS);
+    expect(arabicStanding(local).rank.id).toBe('local');
+    const old = Object.fromEntries([2, 3, 4, 5, 6].map((n) => [String(n), 5]));
+    expect(arabicStanding({ ...local, chat: { ...local.chat, met: old } }).rank.id).toBe(
+      'storyteller',
+    );
+    // Four old friends are not enough.
+    const four = Object.fromEntries([2, 3, 4, 5].map((n) => [String(n), 9]));
+    expect(arabicStanding({ ...local, chat: { ...local.chat, met: four } }).rank.id).toBe('local');
+    expect(STORY_FRIENDS).toBe(5);
   });
 
   it('teaches the 28 letters and the extras on the slate, but not the lam-alef ligature', () => {

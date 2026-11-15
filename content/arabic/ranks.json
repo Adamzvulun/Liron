@@ -50,8 +50,7 @@
       "data": {
         "name": "Neighbor",
         "arabic": "جار",
-        "conditions": ["A first real conversation with a partner"],
-        "later": "Conversation partners come later",
+        "conditions": ["Sit and talk with a regular at the inn: say at least 3 lines"],
         "order": 4
       }
     },
@@ -62,8 +61,7 @@
       "data": {
         "name": "Friend",
         "arabic": "صاحب",
-        "conditions": ["1,000 words", "20 conversations"],
-        "later": "Conversation partners come later",
+        "conditions": ["Meet 1,000 words on the word path", "Have 20 chats at the inn"],
         "order": 5
       }
     },
@@ -74,8 +72,10 @@
       "data": {
         "name": "Local",
         "arabic": "ابن البلد",
-        "conditions": ["2,000 words", "A 10-minute conversation without English"],
-        "later": "Conversation partners come later",
+        "conditions": [
+          "Meet 2,000 words on the word path",
+          "Talk a whole chat through: all 8 of your lines"
+        ],
         "order": 6
       }
     },
@@ -86,8 +86,7 @@
       "data": {
         "name": "Storyteller",
         "arabic": "حكواتي",
-        "conditions": ["Tell a story to a partner and understand theirs"],
-        "later": "Conversation partners come later",
+        "conditions": ["Become an old friend of 5 regulars (5 chats with each)"],
         "order": 7
       }
     }

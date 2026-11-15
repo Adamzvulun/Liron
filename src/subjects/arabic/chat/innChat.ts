@@ -87,6 +87,7 @@ export function afterChat(
       told: { ...p.chat.told, [key]: told },
       met: { ...p.chat.met, [key]: metWith(p, r) + 1 },
       chats: p.chat.chats + 1,
+      best: Math.max(p.chat.best, yours.length),
     },
   };
 }
