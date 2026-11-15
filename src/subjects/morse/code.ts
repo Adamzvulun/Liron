@@ -37,3 +37,17 @@ export const units = (text: string): string[] =>
 export function codeFor(char: string): string | undefined {
   return CODES.get(char.toUpperCase());
 }
+
+/** What a sign or heading calls a character: a lone mark is easy to miss, so it is named too. */
+const MARK_NAMES: Partial<Record<string, string>> = {
+  '.': 'the period',
+  ',': 'the comma',
+  '?': 'the question mark',
+  '/': 'the slash',
+  '=': 'the equals sign',
+};
+
+export const charLabel = (char: string): string => {
+  const name = MARK_NAMES[char];
+  return name ? `${name} (${char})` : char;
+};

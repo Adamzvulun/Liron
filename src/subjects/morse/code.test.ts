@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { codeFor, sendable, units } from './code.ts';
+import { charLabel, codeFor, MORSE_CHARS, sendable, units } from './code.ts';
 
 describe('what a line sends', () => {
   it('counts a prosign as one character', () => {
@@ -11,5 +11,20 @@ describe('what a line sends', () => {
     expect(units('UR 599 <BT> NAME')).toEqual([...'UR599', '=', ...'NAME']);
     expect(units('UR 599 = NAME')).toEqual(units('UR 599 <BT> NAME'));
     expect(units('RN<AR>')).toEqual(['R', 'N', '<AR>']);
+  });
+});
+
+describe('what a sign calls a character', () => {
+  it('names a lone mark, so "Add ." is never missed', () => {
+    expect(charLabel('.')).toBe('the period (.)');
+    expect(charLabel('=')).toBe('the equals sign (=)');
+    expect(charLabel('Q')).toBe('Q');
+    expect(charLabel('5')).toBe('5');
+  });
+
+  it('names every mark Koch teaches', () => {
+    const marks = MORSE_CHARS.filter((c) => c.kind === 'punctuation');
+    expect(marks.length).toBeGreaterThan(0);
+    for (const { char } of marks) expect(charLabel(char)).toMatch(/^the .+ \(.\)$/);
   });
 });
