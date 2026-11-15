@@ -45,6 +45,8 @@ test('the live site’s security headers are complete and break nothing', async 
       'Permissions-Policy',
     ]),
   );
+  // Waymark is invite-only: search engines keep out, the sign-in page included.
+  expect(HEADERS['X-Robots-Tag']).toBe('noindex, nofollow');
   // Built files carry a hash in their name, so a browser may keep them for good (#137).
   const assets = vercel.headers.find((h) => h.source === '/assets/(.*)');
   expect(assets?.headers).toContainEqual({
