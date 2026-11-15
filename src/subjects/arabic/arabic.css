@@ -524,6 +524,12 @@
   text-align: right;
 }
 
+/* A sentence-long word (chapters 101 on) is set smaller, so it doesn't stack five lines high
+   beside the play button on a phone. */
+.arabic__phrase-ar.is-long {
+  font-size: 26px;
+}
+
 .arabic__phrase-he {
   font-family: 'Noto Sans Hebrew', sans-serif;
   font-weight: 700;

@@ -166,23 +166,25 @@ test.describe('Arabic word lessons (#160)', () => {
     // Chapter 111 teaches whole sentences ("I’m going to the dentist’s for a check-up…").
     const ch = pack.items.find((c) => c.data.chapter === 111)?.data;
     const rows = (ch?.words ?? []).map((w, i) => ({
-      ...deckWord(i + 1, `جملة ${i + 1}`, w.gloss),
+      ...deckWord(i + 1, `ما بسمع شو بحكوا، ممكن تعلّي الصوت شوي ${i + 1}`, w.gloss),
       item_id: w.deck,
     }));
     const state = { ...GUEST, words: { chapter: 111, cards: [] } };
     await signedIn(page, [], [], state, rows);
     await page.goto('/caravanserai?open=words&run=short');
     await page.getByRole('button', { name: 'Start a session' }).click();
-    for (const name of ['Got it', 'Next word', 'Next word', 'Practice']) {
-      const button = page.getByRole('button', { name, exact: true });
-      if (name === 'Got it' && !(await button.isVisible())) continue;
-      await button.click();
+    // Chapter 111's grammar card comes first, then the meet card sets a sentence-long word
+    // smaller.
+    await page.getByRole('button', { name: 'Got it' }).click();
+    await expect(page.locator('.arabic__phrase-ar.is-long').first()).toHaveCSS('font-size', '26px');
+    for (const name of ['Next word', 'Next word', 'Practice']) {
+      await page.getByRole('button', { name, exact: true }).click();
     }
     for (let i = 0; i < 3; i++) {
       const choices = page.getByRole('group', { name: 'Choices' });
       await expect(choices).toBeVisible();
-      if (await choices.evaluate((el) => el.classList.contains('is-meanings'))) {
-        await expect(choices).toHaveClass(/is-long/);
+      await expect(choices).toHaveClass(/is-long/);
+      {
         const columns = await choices.evaluate(
           (el) => getComputedStyle(el).gridTemplateColumns.split(' ').length,
         );

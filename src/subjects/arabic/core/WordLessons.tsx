@@ -534,7 +534,11 @@ function WordCard({ word, play }: { word: CoreWord; play: (path: string) => void
       >
         ▶
       </button>
-      <bdi lang="ar" dir="rtl" className="arabic__phrase-ar">
+      <bdi
+        lang="ar"
+        dir="rtl"
+        className={`arabic__phrase-ar${longChoices([word.arabic]) ? ' is-long' : ''}`}
+      >
         {word.arabic}
       </bdi>
       <bdi lang="he" dir="rtl" className="arabic__phrase-he">
