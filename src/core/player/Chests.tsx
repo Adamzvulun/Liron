@@ -60,13 +60,15 @@ export function ChestShelf({
 }) {
   const [opening, setOpening] = useState<string | null>(null);
   const [opened, setOpened] = useState<ChestContents | null>(null);
-  if (!shelf.length) return null;
   const open = async (id: string) => {
     setOpening(id);
     const contents = await onOpen(id);
     setOpening(null);
     if (contents) setOpened(contents);
   };
+  // Opening your last chest empties the shelf, but its opening scene still has to show.
+  const scene = opened && <ChestOpening contents={opened} onDone={() => setOpened(null)} />;
+  if (!shelf.length) return scene || null;
   return (
     <section className="chests" aria-labelledby="chests-title">
       <h2 id="chests-title" className="hud__queststitle">
@@ -98,7 +100,7 @@ export function ChestShelf({
           </li>
         ))}
       </ul>
-      {opened && <ChestOpening contents={opened} onDone={() => setOpened(null)} />}
+      {scene}
     </section>
   );
 }
