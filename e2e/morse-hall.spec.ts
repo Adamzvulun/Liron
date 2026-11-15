@@ -95,3 +95,23 @@ test('if the server refuses the day-end filter, the lesson still loads what is d
   expect(asked.some((q) => q.includes('or=') && q.includes('state.eq.2'))).toBe(true);
   expect(asked.some((q) => q.includes('due=lte.'))).toBe(true);
 });
+
+test('in a short window the halls show their first card under the painting (review, 2026-11-15)', async ({
+  page,
+}) => {
+  // A phone held sideways, or a laptop at 200%: the writing moves into cards below the
+  // painting, and the first of them must start on the screen, not one scroll away.
+  test.skip(test.info().project.name === 'phone', 'the window size is set here; one run is enough');
+  await page.setViewportSize({ width: 915, height: 412 });
+  await signedIn(page);
+  for (const [path, name] of [
+    ['/signal-tower', 'Main questline'],
+    ['/caravanserai', 'Main questline'],
+  ] as const) {
+    await page.goto(path);
+    const card = page.getByRole('region', { name });
+    await expect(card).toBeAttached();
+    const top = (await card.boundingBox())?.y ?? Infinity;
+    expect(top, path).toBeLessThan(412 - 40);
+  }
+});
