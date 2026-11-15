@@ -108,6 +108,12 @@
   display: block;
 }
 
+.auth__hint {
+  margin: -6px 0 0;
+  font-weight: 400;
+  font-size: 15px;
+}
+
 .auth__message {
   margin: 0;
   font-weight: 700;
