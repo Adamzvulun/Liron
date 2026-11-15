@@ -121,8 +121,10 @@ export function shuffle<T>(list: readonly T[], rand: Rand): T[] {
 }
 
 /**
- * A session's words: due ones (from any chapter you've reached) first, then up to 5 of your
- * chapter's words you haven't met, in teaching order, then words you've met, shuffled.
+ * A session's words: due ones (from any chapter you've reached) first, then up to 5 words you
+ * haven't met, in teaching order (any left in earlier chapters first, then your chapter's), then
+ * words you've met, shuffled. A chapter only passes once all its words are met (review,
+ * 2026-11-15), and words an older version skipped come back this way.
  */
 export function pickSession(
   chapters: readonly (readonly CoreWord[])[],
@@ -137,7 +139,7 @@ export function pickSession(
     reached.filter((w) => met.has(w.deck) && due.has(w.itemId)),
     rand,
   ).slice(0, size);
-  const fresh = (chapters[chapter - 1] ?? [])
+  const fresh = reached
     .filter((w) => !met.has(w.deck))
     .slice(0, Math.min(NEW_PER_SESSION, size - dueWords.length));
   const taken = new Set([...dueWords, ...fresh].map((w) => w.deck));

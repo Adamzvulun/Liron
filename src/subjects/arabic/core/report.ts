@@ -50,12 +50,17 @@ export async function reportWordTrial(
   answers: readonly WordAnswer[],
   trial: { road: number; xp: number; passed: boolean },
   seconds: number,
+  met: ReadonlySet<string> = new Set(answers.map((a) => a.question.word.deck)),
   at = new Date(),
 ): Promise<void> {
   const right = answers.filter((a) => a.right).length;
   await api.saveSession({
     state: next,
-    reviews: answers.map((a) => ({ itemId: a.question.word.itemId, grade: gradeOf(a.right) })),
+    // Only words you've met get a review card: a card for one the path hasn't taught yet would
+    // stay due and crowd out the real reviews (review, 2026-11-15).
+    reviews: answers
+      .filter((a) => met.has(a.question.word.deck))
+      .map((a) => ({ itemId: a.question.word.itemId, grade: gradeOf(a.right) })),
     results: answers.map((a) => ({
       skill: skillOf(a.question.kind),
       itemId: a.question.word.itemId,

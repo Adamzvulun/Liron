@@ -145,10 +145,18 @@ export function WordLessons({
     });
   };
 
+  /** The due list without the words just answered. */
+  const without = (answers: readonly WordAnswer[]) => (now: ReadonlySet<string>) => {
+    const done = new Set(answers.map((x) => x.question.word.itemId));
+    return new Set([...now].filter((id) => !done.has(id)));
+  };
+
   const road = regularStatus(progress);
   const faceTrial = (regular: Regular, now: number) => {
     setStarted(now);
-    const words = shuffle(chapters[regular.wordChapter - 1] ?? [], seeded(now));
+    // Words you've met first: a trial tests what the path taught you.
+    const all = shuffle(chapters[regular.wordChapter - 1] ?? [], seeded(now));
+    const words = [...all.filter((w) => met.has(w.deck)), ...all.filter((w) => !met.has(w.deck))];
     ask(words.slice(0, regular.trial.words), now, regular);
   };
 
@@ -160,6 +168,7 @@ export function WordLessons({
       regular.trial.accuracy,
     );
     setProgress(next);
+    setDue(without(answers));
     setStage({ kind: 'result', answers, passed, sameDay: false, trial: regular });
     reportWordTrial(
       api,
@@ -167,6 +176,7 @@ export function WordLessons({
       answers,
       { road: regular.number, xp: regular.trial.xp, passed },
       (now - started) / 1000,
+      met,
     ).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
@@ -189,13 +199,19 @@ export function WordLessons({
 
   const finish = (answers: WordAnswer[], now: number) => {
     const fresh = answers.map((a) => a.question.word.deck).filter((d) => !met.has(d));
+    const nowMet = new Set([...met, ...fresh]);
+    const allMet = (chapters[chapterNo - 1] ?? []).every((w) => nowMet.has(w.deck));
     const { next, passed, sameDay } = applyWordSession(
       progress,
       scoreOfWords(answers),
       fresh,
       WORD_CHAPTERS.length,
+      undefined,
+      allMet,
     );
     setProgress(next);
+    // Just reviewed: not due again for "Another session" (review, 2026-11-15).
+    setDue(without(answers));
     setStage({ kind: 'result', answers, passed, sameDay });
     reportWords(api, next, answers, passed, (now - started) / 1000).then(
       () => setSaveFailed(false),
