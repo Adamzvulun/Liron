@@ -59,11 +59,11 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await page.goto('/house');
     // Locked pieces are folded under each slot, one line saying how many (report §4bk).
     const head = page.getByRole('group', { name: 'Head' });
-    await expect(page.getByText("Signaler's headset (locked)")).toBeHidden();
+    await expect(page.getByText('Signaler’s headset (locked)')).toBeHidden();
     await head.getByText(/^\d+ still to find$/).click();
-    await expect(page.getByText("Signaler's headset (locked)")).toBeVisible();
+    await expect(page.getByText('Signaler’s headset (locked)')).toBeVisible();
     await expect(page.getByText('Reach level 5 in the Signal Tower')).toBeVisible();
-    await expect(page.getByRole('radio', { name: "Signaler's headset" })).toHaveCount(0);
+    await expect(page.getByRole('radio', { name: 'Signaler’s headset' })).toHaveCount(0);
   });
 
   test('gear you own can be worn and saved (ADR 0033)', async ({ page }) => {
@@ -72,7 +72,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await page.goto('/house');
     await page.locator('label', { hasText: 'Merchant cloak' }).click();
     await expect(page.getByRole('radio', { name: 'Merchant cloak' })).toBeChecked();
-    await expect(page.getByText("Signaler's headset (locked)")).toBeAttached();
+    await expect(page.getByText('Signaler’s headset (locked)')).toBeAttached();
     await page.getByRole('button', { name: 'Save my look' }).click();
     // The save is a request: wait for it rather than read the list at the click.
     await expect
@@ -109,7 +109,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await expect(page.getByText('Crimson dye (locked)')).toBeAttached();
     await page.locator('label[title="Indigo dye"]').click();
     await expect(page.getByRole('radio', { name: 'Indigo dye' })).toBeChecked();
-    await expect(page.getByText("Guildmaster's coat (locked)")).toHaveCount(0);
+    await expect(page.getByText('Guildmaster’s coat (locked)')).toHaveCount(0);
     if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, fullPage: true });
     await page.getByRole('button', { name: 'Save my look' }).click();
     await expect
