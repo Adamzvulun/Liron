@@ -101,8 +101,25 @@ function AuthGate() {
 function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
   const path = usePath();
-  // Both at once (#137): the player keeps the contracts' purse, which is never older.
-  useEffect(() => void Promise.all([player.load(), player.loadContracts()]), [player]);
+  // Both at once (#137): the player keeps the contracts' purse, which is never older. Again when
+  // you come back to the tab on a new day, so the top bar doesn't show yesterday's goal and
+  // contracts after midnight (review, 2026-11-15).
+  useEffect(() => {
+    const load = () => void Promise.all([player.load(), player.loadContracts()]);
+    let day = new Date().toDateString();
+    load();
+    const back = () => {
+      if (document.visibilityState !== 'visible' || new Date().toDateString() === day) return;
+      day = new Date().toDateString();
+      load();
+    };
+    document.addEventListener('visibilitychange', back);
+    window.addEventListener('focus', back);
+    return () => {
+      document.removeEventListener('visibilitychange', back);
+      window.removeEventListener('focus', back);
+    };
+  }, [player]);
   const moved = useRef(false);
   useEffect(() => {
     // Again on every move: a session in a hall may have finished one.
