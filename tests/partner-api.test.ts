@@ -288,6 +288,17 @@ describe('a chat at the inn (E17, ADR 0038)', () => {
       status: 400,
       body: { error: 'bad-request' },
     });
+    // Without a Content-Length (a streamed body), the body itself is measured.
+    const unmarked = new Request('https://waymark.example/api/partner', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer user-token', 'Content-Type': 'application/json' },
+      body: huge,
+    });
+    expect(unmarked.headers.get('Content-Length')).toBeNull();
+    expect(await json(await handle(unmarked, ENV, fetchFn))).toMatchObject({
+      status: 400,
+      body: { error: 'bad-request' },
+    });
   });
 
   it('shares the road behind them: memories, recalled fondly by an old friend', () => {

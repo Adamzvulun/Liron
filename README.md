@@ -45,8 +45,10 @@ Then open the address it prints (usually http://localhost:5173). For the login t
 | `npm run lint` | ESLint, plus a Prettier formatting check |
 | `npm run format` | Rewrite files with Prettier |
 | `npm run typecheck` | TypeScript only |
-| `npm test` | Unit tests (Vitest), files named `src/**/*.test.ts` |
-| `npm run e2e` | Browser smoke tests (Playwright, `e2e/`) at desktop and phone sizes, against a production build |
+| `npm test` | Unit tests (Vitest): `*.test.ts(x)` files in `src/`, `tests/` and `supabase/tests/` |
+| `npm run test:watch` | The unit tests, rerun on every change |
+| `npm run coverage` | The unit tests with a coverage report (to read, not a gate; ADR 0030) |
+| `npm run e2e` | Browser tests (Playwright, `e2e/`) at desktop and phone sizes, against a production build with a fake Supabase (`e2e/fake-supabase.ts`) |
 
 `npm run e2e` needs a Chromium for Playwright. On your own machine, run `npx playwright install chromium` once. In the Claude cloud session it's already installed, so don't run that there.
 

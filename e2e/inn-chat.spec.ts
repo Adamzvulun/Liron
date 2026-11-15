@@ -232,6 +232,45 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(page.getByRole('button', { name: 'Back to the table' })).toBeVisible();
   });
 
+  test('a reply that fails after you have left does not touch the next chat', async ({ page }) => {
+    // The second line's reply is held, then fails once you've left and sat down again.
+    let held: (() => Promise<void>) | null = null;
+    let n = 0;
+    await page.route('**/api/partner', async (route) => {
+      n++;
+      if (n === 2) {
+        held = () => route.fulfill({ status: 503, json: { error: 'busy' } });
+        return;
+      }
+      await route.fulfill({ json: { text: 'أهلا وسهلا! كيفك اليوم؟', left: 50 } });
+    });
+    const calls: SubjectCall[] = [];
+    await signedIn(page, [], calls, { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await page.goto('/caravanserai?open=chat');
+    const salim = page.getByRole('button', { name: /Salim the carter/ });
+    const line = page.getByLabel('Your line, in Arabic');
+    await salim.click();
+    await line.fill('منيح');
+    await page.getByRole('button', { name: 'Say it' }).click();
+    await expect.poll(() => held !== null).toBe(true);
+    await page.getByRole('button', { name: 'Leave the table' }).click();
+    await page.getByRole('button', { name: 'Back to the table' }).click();
+    await salim.click();
+    await expect.poll(() => n).toBe(3);
+    await (held as (() => Promise<void>) | null)?.();
+    await line.fill('شكرا');
+    await page.getByRole('button', { name: 'Say it' }).click();
+    await expect.poll(() => n).toBe(4);
+    await page.getByRole('button', { name: 'Leave the table' }).click();
+
+    // Two chats, each saved once: the late failure saved nothing of its own.
+    const saves = () =>
+      calls
+        .filter((c) => c.rpc === 'save_subject_state')
+        .map((c) => (c.args as { p_state: { chat: { chats: number } } }).p_state.chat.chats);
+    await expect.poll(saves).toEqual([1, 2]);
+  });
+
   test('type in Hebrew letters: they read it in Arabic, and the choice is kept', async ({
     page,
   }) => {

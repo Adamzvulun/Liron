@@ -599,8 +599,17 @@ export async function handle(
   // Every field is capped by parseAsk; this only turns away a body far past those caps. A full
   // chat at the inn reaches about 6 kB, and the most parseAsk takes about 9 kB (Arabic is 2 bytes
   // a letter).
+  // The header is a quick no; the body itself is measured too, since a sender can leave it out.
   if (Number(request.headers.get('Content-Length') ?? 0) > MAX_BODY) return fail('bad-request');
-  const ask = parseAsk(await request.json().catch(() => null));
+  const raw = await request.text().catch(() => '');
+  if (new TextEncoder().encode(raw).length > MAX_BODY) return fail('bad-request');
+  let body: unknown = null;
+  try {
+    body = JSON.parse(raw);
+  } catch {
+    // parseAsk turns null away.
+  }
+  const ask = parseAsk(body);
   if (!ask) return fail('bad-request');
 
   if (ask.kind === 'inn-coach') {

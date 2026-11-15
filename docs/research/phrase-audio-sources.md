@@ -18,7 +18,12 @@
 - **Checked:** the ajp category exists with 3,323 recordings by about a dozen speakers (Khalil.rantissi 516+, Akram 345+, Muhammad 370+…). Licences are per file: CC BY-SA 4.0 needs credit, CC0 needs nothing. In the first ~1,500 file names there are greetings like *kīf l-ħāl* and *ʔahla fīk*, but none of our target phrases. The Arabic (ara) category has إن شاء الله by Fjmustak (CC BY-SA 4.0).
 - **Found on a second pass (2026-11-04):** a colloquial إن شاء الله, *nšallah*, by Akram (recorded by Fazlake), 26 August 2023, **CC0 1.0**, labelled South Levantine (ajp). The Commons page states no place or dialect for the speaker. Akram also has *mašallah* and *biddo*. The second pass reached about 1,640 of the 3,323 names before Commons rate-limited it again: no *salām*, *ṣabāħ*, *nūr*, *fhimt* or feminine forms (*kīfik*, *tfaḍḍali*) among them.
 - **Not checked yet:** each speaker's origin. That's on lingualibre.org, which didn't load (timeouts, then 503). Commons doesn't state it, and we don't guess from names. The other ~1,800 ajp file names weren't searched either, because Commons rate-limited this container.
-- **Next:** when lingualibre.org loads, read each speaker's item (place, dialect), then search the rest of the names for the target phrases and the feminine forms. If a Palestinian speaker has them, bring the files to Adam with their licence and the credit line.
+- **Third pass (2026-11-15): all 3,323 names searched.** The full list came through once Commons stopped rate-limiting. Found:
+  - **صباح النور:** *ṣabāħ n-nūr* by Akram (recorded by Fazlake), 11 September 2023, **CC0 1.0**. It is the same speaker and licence as *nšallah*, so two of the three missing phrases share one voice. Akram also has *ṣabāħ l-xēr*, *masa n-nūr*, *kīf l-ħāl*, *ʔahla fīk*, *yaʕṭīk l-ʕāfye* and *tūṣal bis-salāme*.
+  - **إن شاء الله, a second voice:** انشالله by Mohammad-LPA, 10 August 2022, CC BY-SA 4.0 (credit needed).
+  - **Not found:** السلام عليكم (there are only سلام by Muhammad and مع السلامة by AdrianAbdulBaha), *fhimt*, and any form said to a woman (*kīfik*, *tfaḍḍali*).
+  - **Still unverified:** where Akram is from. lingualibre.org timed out again, and a second way to fetch it was refused in this session, so it was left at that.
+- **Next:** when lingualibre.org loads, read Akram's item (Q917215: place, dialect). If he is Palestinian, bring Adam *ṣabāħ n-nūr* and *nšallah* to hear (CC0, so no credit line is needed). السلام عليكم and the forms said to a woman have no source yet.
 
 ## Sources
 - https://huggingface.co/hamdallah/Sofelia-TTS-82M (card, `inference.py`, `sofelia_frontend.py`)
