@@ -263,3 +263,22 @@ test("a goal that can't be saved says so and keeps the old one (review, 2026-11-
   await expect(page.getByLabel('Minutes a day')).toHaveValue('15');
   await expect(page.getByLabel('Streak: 2 days')).toBeVisible();
 });
+
+test('coming back to the tab on a new day reads the day again (review, 2026-11-15)', async ({
+  page,
+}) => {
+  await page.clock.install({ time: new Date('2026-11-02T23:50:00') });
+  await signedIn(page);
+  let reads = 0;
+  page.on('request', (r) => {
+    if (r.url().includes('/rest/v1/rpc/today_status')) reads += 1;
+  });
+  await page.goto('/');
+  await expect(page.getByLabel('Streak: 2 days')).toBeVisible();
+  await expect.poll(() => reads).toBe(1);
+  // Same day: nothing is read again.
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await page.clock.setSystemTime(new Date('2026-11-03T00:10:00'));
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect.poll(() => reads).toBe(2);
+});
