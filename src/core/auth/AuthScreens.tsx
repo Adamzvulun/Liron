@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useId, useState, type FormEvent, type ReactNode } from 'react';
 import { supabase } from './supabase.ts';
 import './auth.css';
 
@@ -123,6 +123,7 @@ function Said({ message }: { message: { kind: 'error' | 'info'; text: string } }
 
 /** Shown after following an invite or reset link. */
 export function SetPasswordScreen({ onDone }: { onDone: () => void }) {
+  const hintId = useId();
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -153,10 +154,14 @@ export function SetPasswordScreen({ onDone }: { onDone: () => void }) {
             autoComplete="new-password"
             required
             minLength={MIN_PASSWORD}
+            aria-describedby={hintId}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
+        <p id={hintId} className="auth__hint">
+          At least {MIN_PASSWORD} characters.
+        </p>
         <button className="auth__button" type="submit" disabled={busy}>
           Save and enter
         </button>
