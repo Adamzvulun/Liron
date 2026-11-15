@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { preferPlayback } from './audio.ts';
+import { describe, expect, it, vi } from 'vitest';
+import { preferPlayback, resumeOnGesture } from './audio.ts';
 
 describe('preferPlayback (iOS silent switch)', () => {
   it('asks Safari for a playback session', () => {
@@ -25,5 +25,32 @@ describe('preferPlayback (iOS silent switch)', () => {
       },
     };
     expect(() => preferPlayback(nav)).not.toThrow();
+  });
+});
+
+describe('resumeOnGesture (review, 2026-11-15)', () => {
+  it('resumes a suspended context on the next tap, once', async () => {
+    const target = new EventTarget();
+    let resumed = 0;
+    const ctx = {
+      state: 'suspended',
+      resume: async () => {
+        resumed += 1;
+        ctx.state = 'running';
+      },
+    };
+    resumeOnGesture(ctx as unknown as AudioContext, target);
+    target.dispatchEvent(new Event('pointerdown'));
+    target.dispatchEvent(new Event('keydown'));
+    await Promise.resolve();
+    expect(resumed).toBe(1);
+  });
+
+  it('leaves a running context alone', () => {
+    const target = new EventTarget();
+    const ctx = { state: 'running', resume: vi.fn() };
+    resumeOnGesture(ctx as unknown as AudioContext, target);
+    target.dispatchEvent(new Event('pointerdown'));
+    expect(ctx.resume).not.toHaveBeenCalled();
   });
 });
