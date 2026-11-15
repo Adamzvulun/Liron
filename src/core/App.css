@@ -160,9 +160,10 @@
   margin-left: auto;
 }
 
+/* The settings button keeps a whole thumb's 44px (WCAG 2.5.5), slim bar or not. */
 .city--pan .hud__gear {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 10px;
 }
 
