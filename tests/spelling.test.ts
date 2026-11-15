@@ -39,3 +39,20 @@ describe('American spelling (#126)', () => {
     expect(found).toEqual([]);
   });
 });
+
+describe('Typographic apostrophes (2026-11-15)', () => {
+  it("are curly in what the app says: don’t, not don't", () => {
+    const found: string[] = [];
+    for (const f of files('src', /\.(tsx?|jsx?)$/)) {
+      visible(readFileSync(f, 'utf8'))
+        .split('\n')
+        .forEach((line, i) => {
+          // Thrown errors are for us, not the player.
+          if (/\bnew \w*Error\(/.test(line)) return;
+          const m = /[A-Za-z]'(s|t|re|ve|ll|d|m)\b/.exec(line);
+          if (m) found.push(`${f}:${i + 1} ${line.trim()}`);
+        });
+    }
+    expect(found).toEqual([]);
+  });
+});

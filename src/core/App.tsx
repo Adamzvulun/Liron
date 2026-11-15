@@ -236,7 +236,7 @@ function Lobby({ player }: { player: Player }) {
       <main className="place-screen">
         <h1 className="place-screen__title">Lost?</h1>
         <p className="place-screen__soon">
-          There's no such place in Waymark. <Link href="/">Back to the square</Link>
+          There’s no such place in Waymark. <Link href="/">Back to the square</Link>
         </p>
       </main>
     );

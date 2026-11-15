@@ -37,7 +37,7 @@ export function Hud({
   if (state.error) {
     return (
       <p className="hud__error" role="status">
-        Couldn't load your progress. Try reloading the page.
+        Couldn’t load your progress. Try reloading the page.
       </p>
     );
   }
@@ -306,7 +306,7 @@ function GoalPanel({
     setSaving(minutes);
     const saved = await onGoalChange(minutes);
     setSaving(null);
-    setStatus(saved ? `Saved: ${minutes} minutes a day` : "Couldn't save your goal. Try again.");
+    setStatus(saved ? `Saved: ${minutes} minutes a day` : 'Couldn’t save your goal. Try again.');
   };
   const left = Math.max(0, goal - today.minutes);
   return (
@@ -398,7 +398,7 @@ function NameField({
   const [status, setStatus] = useState('');
   const save = async () => {
     if (draft.trim() === name) return;
-    setStatus((await onNameChange(draft)) ? 'Saved' : "Couldn't save your name. Try again.");
+    setStatus((await onNameChange(draft)) ? 'Saved' : 'Couldn’t save your name. Try again.');
   };
   return (
     <form

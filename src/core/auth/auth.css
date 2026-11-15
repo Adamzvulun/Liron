@@ -111,6 +111,7 @@
 .auth__message {
   margin: 0;
   font-weight: 700;
+  text-align: center;
 }
 
 .auth__message--error {

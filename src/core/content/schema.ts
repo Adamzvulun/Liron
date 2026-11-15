@@ -77,7 +77,7 @@ export function checkPack(input: unknown, { public: isPublic }: { public: boolea
     if (ids.has(item.id)) problems.push(`item ${item.id}: id used twice`);
     ids.add(item.id);
     if (isPublic && item.media.some((m) => m.store === 'private')) {
-      problems.push(`item ${item.id}: private media can't be in public content`);
+      problems.push(`item ${item.id}: private media can’t be in public content`);
     }
   }
   const lessonIds = new Set<string>();

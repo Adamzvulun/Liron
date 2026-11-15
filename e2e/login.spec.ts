@@ -14,7 +14,7 @@ test('a wrong password shows an error', async ({ page }) => {
   await page.getByLabel('Email').fill('adam@example.com');
   await page.getByLabel('Password').fill('wrong');
   await page.getByRole('button', { name: 'Enter Waymark' }).click();
-  await expect(page.getByRole('status')).toHaveText("That email and password don't match.");
+  await expect(page.getByRole('status')).toHaveText('That email and password don’t match.');
 });
 
 test("a sign-in that can't reach the server doesn't blame the password (review, 2026-11-15)", async ({
@@ -26,7 +26,7 @@ test("a sign-in that can't reach the server doesn't blame the password (review, 
   await page.getByLabel('Email').fill('adam@example.com');
   await page.getByLabel('Password').fill(PASSWORD);
   await page.getByRole('button', { name: 'Enter Waymark' }).click();
-  await expect(page.getByRole('status')).toHaveText(/Couldn't reach Waymark just now/);
+  await expect(page.getByRole('status')).toHaveText(/Couldn’t reach Waymark just now/);
 });
 
 test('the right password opens the lobby, and the session survives a reload', async ({ page }) => {
