@@ -97,10 +97,19 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
   if (!lesson) return null;
 
   // A fountain or storyteller round uses the letters you've met: this lesson's once you've
-  // met them, the ones before it otherwise.
+  // met them, the ones before it otherwise. None before the first lesson's are met, so a new
+  // learner is sent to meet them rather than quizzed on letters never seen (review, 2026-11-15).
   const cards = cardsOf(lesson.order);
   const metAll = lesson.letters.every((l) => progress.met.includes(l.id));
-  const knownLesson = progress.done || metAll ? lesson.order : Math.max(1, lesson.order - 1);
+  const knownLesson = progress.done || metAll ? lesson.order : lesson.order - 1;
+  if (only && knownLesson < 1) {
+    return (
+      <p className="lesson__card">
+        {ONLY_TEXT[only].place} waits for letters you’ve met. Meet the first ones at the scribe’s
+        table first, then come back.
+      </p>
+    );
+  }
 
   const startPractice = () => {
     const rand = seeded(Date.now());
