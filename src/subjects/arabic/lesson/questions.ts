@@ -260,3 +260,17 @@ export function seeded(seed: number): Rand {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
+
+/** Past this many characters, a choice reads better one to a row on a phone (review, 2026-11-15). */
+export const LONG_CHOICE = 28;
+
+/** Whether any choice is a sentence rather than a word, so the choices stack. */
+export function longChoices(choices: readonly string[]): boolean {
+  return choices.some((c) => c.length > LONG_CHOICE);
+}
+
+/** Whether an answer ends as a sentence does ("…the corner.", "How are you?", "…؟"), so a
+ * line that quotes it adds no period of its own. */
+export function endsSentence(answer: string): boolean {
+  return /[.?!…؟]\)?$/.test(answer.trim());
+}

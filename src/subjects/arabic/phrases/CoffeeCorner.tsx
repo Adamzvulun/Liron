@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ReviewGrade, SubjectApi } from '../../../core/subject.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
-import { seeded } from '../lesson/questions.ts';
+import { endsSentence, longChoices, seeded } from '../lesson/questions.ts';
 import { useAudio } from '../lesson/useAudio.ts';
 import { DECK } from '../words.ts';
 import {
@@ -351,7 +351,11 @@ function Understand({
       <button type="button" className="arabic__listen" onClick={() => play(phrase.audio)}>
         ▶ Play it again
       </button>
-      <div className="arabic__choices is-meanings" role="group" aria-label="Choices">
+      <div
+        className={`arabic__choices is-meanings${longChoices(question.choices) ? ' is-long' : ''}`}
+        role="group"
+        aria-label="Choices"
+      >
         {question.choices.map((c) => (
           <button
             key={c}
@@ -367,7 +371,9 @@ function Understand({
       {picked !== null && (
         <div className="arabic__feedback" aria-live="polite">
           <p className={picked === phrase.meaning ? 'arabic__good' : 'arabic__bad'}>
-            {picked === phrase.meaning ? 'Right!' : `Not quite: it was “${phrase.meaning}”.`}
+            {picked === phrase.meaning
+              ? 'Right!'
+              : `Not quite: it was “${phrase.meaning}${endsSentence(phrase.meaning) ? '' : '.'}”`}
           </p>
           <PhraseCard phrase={phrase} play={play} />
           <button
