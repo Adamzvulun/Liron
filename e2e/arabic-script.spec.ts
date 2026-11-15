@@ -206,6 +206,26 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
     expect(saved.p_state).toMatchObject({ lesson: 1, streak: 1 });
   });
 
+  test('a new learner is sent to meet letters before the fountain or the storyteller (review, 2026-11-15)', async ({
+    page,
+  }) => {
+    const calls: SubjectCall[] = [];
+    await signedIn(
+      page,
+      [],
+      calls,
+      { lesson: 1, streak: 0, met: [], done: false, sessions: 0 },
+      WORDS,
+    );
+    for (const station of ['The fountain', 'The storyteller']) {
+      await page.goto('/caravanserai');
+      await page.getByRole('button', { name: new RegExp(station) }).click();
+      await expect(page.getByText(`${station} waits for letters you’ve met.`)).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Begin' })).toHaveCount(0);
+    }
+    expect(calls.some((c) => c.rpc === 'record_review')).toBe(false);
+  });
+
   test('with no readable words, practice says so instead of crashing', async ({ page }) => {
     const met = ['letter:alef', 'letter:beh', 'letter:teh', 'letter:noon', 'letter:yeh'];
     const state = { lesson: 1, streak: 1, met, done: false, sessions: 1 };

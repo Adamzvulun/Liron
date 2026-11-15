@@ -1,4 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import type { SubjectApi } from '../../../core/subject.ts';
+import { reportWordTrial } from './report.ts';
 import type { Item } from '../../../core/content/schema.ts';
 import { seeded } from '../lesson/questions.ts';
 import { applyWordSession, NEW_PROGRESS, parseProgress, wordsOpen } from '../progress.ts';
@@ -116,11 +118,18 @@ describe('a word session', () => {
     const due = new Set(ch1.slice(0, 3).map((w) => w.itemId));
     const s = pickSession(chapters, 2, met, due, seeded(2));
     expect(s.words).toHaveLength(SESSION_WORDS);
-    expect(ids(s.fresh)).toEqual(ids(chapters[1]?.slice(0, 5) ?? []));
+    // Chapter 1 still has 10 words you haven't met: they come first (review, 2026-11-15).
+    expect(ids(s.fresh)).toEqual(ids(ch1.slice(20, 25)));
     for (const w of ch1.slice(0, 3)) expect(ids(s.words)).toContain(w.deck);
     // Words from chapters you haven't reached never come.
     expect(s.words.every((w) => w.chapter <= 2)).toBe(true);
     expect(new Set(ids(s.words)).size).toBe(s.words.length);
+  });
+
+  it('brings your chapter’s new words once every earlier word is met', () => {
+    const met = new Set(ids(chapters[0] ?? []));
+    const s = pickSession(chapters, 2, met, new Set(), seeded(4));
+    expect(ids(s.fresh)).toEqual(ids(chapters[1]?.slice(0, 5) ?? []));
   });
 
   it('asks each word once, taking turns, with 4 different choices including the answer', () => {
@@ -202,10 +211,43 @@ describe('the word path’s gate', () => {
     expect(applyWordSession(a.next, 0.5, [], 10, '2026-11-11').next.words.streak).toBe(0);
   });
 
+  it('waits for every word of the chapter to be met before it passes (review, 2026-11-15)', () => {
+    const a = applyWordSession(guest, 0.95, ['pcav:4751'], 10, '2026-11-10', false);
+    const b = applyWordSession(a.next, 0.95, ['pcav:4753'], 10, '2026-11-11', false);
+    expect(b).toMatchObject({ passed: false, next: { words: { chapter: 1, streak: 2 } } });
+    // The session that meets the last of them passes, the good days already behind it.
+    const c = applyWordSession(b.next, 0.95, ['pcav:4755'], 10, '2026-11-12', true);
+    expect(c).toMatchObject({ passed: true, next: { words: { chapter: 2 } } });
+  });
+
   it('ends after the last chapter, and reads old saves without a word path', () => {
     const last = { ...guest, words: { ...guest.words, chapter: 10, streak: 1, passDay: 'x' } };
     const r = applyWordSession(last, 1, [], 10, '2026-11-12');
     expect(r.next.words).toMatchObject({ chapter: 10, done: true });
     expect(parseProgress({ lesson: 3 }).words).toEqual(NEW_PROGRESS.words);
+  });
+});
+
+describe('a regular’s trial (review, 2026-11-15)', () => {
+  it('gives review cards only to the words you have met', async () => {
+    const saveSession = vi.fn().mockResolvedValue(undefined);
+    const api = { saveSession } as unknown as SubjectApi;
+    const words = (coreWordsFrom(deck(), OWN_SENTENCES)[0] ?? []).slice(0, 4);
+    const answers = wordQuestions(words, words, seeded(5)).map((question) => ({
+      question,
+      right: true,
+    }));
+    const met = new Set(words.slice(0, 2).map((w) => w.deck));
+    await reportWordTrial(api, NEW_PROGRESS, answers, { road: 2, xp: 50, passed: true }, 60, met);
+    const report = saveSession.mock.calls[0]?.[0];
+    expect(report.reviews.map((r: { itemId: string }) => r.itemId).sort()).toEqual(
+      words
+        .slice(0, 2)
+        .map((w) => w.itemId)
+        .sort(),
+    );
+    // Every answer still rates you, and the trial still pays.
+    expect(report.results).toHaveLength(4);
+    expect(report.events).toContainEqual({ kind: 'trial-2' });
   });
 });

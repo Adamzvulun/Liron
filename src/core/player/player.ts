@@ -129,17 +129,21 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
         }
         set(next);
         return c;
-      } catch (e) {
-        fail(e);
+      } catch {
+        // The shelf says it couldn't; the rest of the game carries on.
         return null;
       }
     },
-    /** Reads today's Market stall. A failure leaves the stall as it was. */
-    async loadMarket() {
+    /**
+     * Reads today's Market stall. Resolves false if it couldn't, leaving the stall as it was:
+     * the Market says so and offers to try again, and the rest of the game carries on.
+     */
+    async loadMarket(): Promise<boolean> {
       try {
         set({ market: await store.market() });
-      } catch (e) {
-        fail(e);
+        return true;
+      } catch {
+        return false;
       }
     },
     /**
@@ -199,12 +203,14 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
         goalReached: award.today.goalReachedNow ? award.today : state.goalReached,
       });
     },
-    async setDailyGoal(minutes: number) {
+    /** Sets the daily goal. Resolves false, keeping the old goal, if it couldn't be saved. */
+    async setDailyGoal(minutes: number): Promise<boolean> {
       try {
         const { wallet, today } = await store.setDailyGoal(minutes);
         set({ wallet, today, goalReached: today.goalReachedNow ? today : state.goalReached });
-      } catch (e) {
-        fail(e);
+        return true;
+      } catch {
+        return false;
       }
     },
     /** Saves the player's name (trimmed, at most 40 characters). Returns false if refused. */
@@ -226,8 +232,11 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
         return false;
       }
     },
-    /** Reads the achievements; any just met are given, and the gems they paid show at once. */
-    async loadAchievements() {
+    /**
+     * Reads the achievements; any just met are given, and the gems they paid show at once.
+     * Resolves false if they couldn't be read, keeping what was shown.
+     */
+    async loadAchievements(): Promise<boolean> {
       try {
         const achievements = await store.achievements();
         set({
@@ -235,9 +244,10 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
           wallet: state.wallet && { ...state.wallet, gems: achievements.gems },
           profile: state.profile && { ...state.profile, title: achievements.title },
         });
+        return true;
       } catch {
         // Your House still works without them; the wall says it couldn't load.
-        set({ achievements: null });
+        return false;
       }
     },
     /** Wears an earned title, or none with ''. Returns false, keeping the old one, if refused. */

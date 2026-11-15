@@ -30,6 +30,24 @@ test.describe('places in the city (#25)', () => {
     await expect(page.getByRole('heading', { name: 'Your House' })).toBeVisible();
   });
 
+  test('you can walk out of each place back to the square, in the app (review, 2026-11-15)', async ({
+    page,
+  }) => {
+    await signedIn(page);
+    // Each place's view loads on its own (#137): wait for it before walking out.
+    for (const [path, ready] of [
+      ['/house', 'Achievements'],
+      ['/market', 'Market'],
+      ['/notice-board', 'Chests'],
+    ] as const) {
+      await page.goto(path);
+      await page.getByRole('heading', { name: ready, exact: true }).first().waitFor();
+      await page.getByRole('link', { name: 'Back to the square' }).click();
+      await expect(page.getByRole('link', { name: /^Caravanserai: / })).toBeVisible();
+      await expect(page.getByText('Something went wrong')).toHaveCount(0);
+    }
+  });
+
   test('places work from the keyboard', async ({ page }) => {
     test.skip(test.info().project.name === 'phone', 'no keyboard on the phone');
     await signedIn(page);
@@ -56,4 +74,51 @@ test.describe('places in the city (#25)', () => {
     await page.getByRole('link', { name: 'Back to the square' }).click();
     await expect(page.getByRole('heading', { name: 'Signal Tower' })).toBeVisible();
   });
+});
+
+test("a place that can't load says so, can try again, and the top bar stays (review, 2026-11-15)", async ({
+  page,
+}) => {
+  await signedIn(page);
+  let down = true;
+  const flaky = (path: string) =>
+    page.route(`**/rest/v1/rpc/${path}`, (route) =>
+      down ? route.fulfill({ status: 500, json: { message: 'down' } }) : route.fallback(),
+    );
+  await flaky('market_today');
+  await flaky('my_achievements');
+  const settings = page.getByRole('button', { name: 'Settings' });
+  const back = page.getByRole('link', { name: 'Back to the square' });
+  for (const [path, failed, loaded] of [
+    [
+      '/market',
+      'The stall couldn’t be set out.',
+      page.getByRole('heading', { name: 'Today’s wares' }),
+    ],
+    ['/house', 'The wall couldn’t be read.', page.getByText(/\d+ of \d+ earned/)],
+  ] as const) {
+    down = true;
+    await page.goto(path);
+    await expect(page.getByText(failed)).toBeVisible();
+    // Back on the square, without a reload, the top bar is still there.
+    await back.click();
+    await expect(settings).toBeVisible();
+    await page.goBack();
+    await expect(page.getByText(failed)).toBeVisible();
+    down = false;
+    await page.getByRole('button', { name: 'Try again' }).click();
+    await expect(loaded).toBeVisible();
+  }
+});
+
+test("a place whose code won't download says so inside the place (review, 2026-11-15)", async ({
+  page,
+}) => {
+  await signedIn(page);
+  await page.route('**/assets/placeViews-*.js', (route) => route.abort());
+  await page.goto('/market');
+  await expect(page.getByRole('alert')).toContainText('This place couldn’t open');
+  await expect(page.getByText('Something went wrong')).toHaveCount(0);
+  await page.getByRole('link', { name: 'Back to the square' }).click();
+  await expect(page.getByRole('link', { name: /^Caravanserai: / })).toBeVisible();
 });

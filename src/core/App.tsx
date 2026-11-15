@@ -6,6 +6,7 @@ import { useAuth } from './auth/useAuth.ts';
 import { City } from './city/City.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
+import { PlaceBoundary } from './ErrorBoundary.tsx';
 import { Link } from './Link.tsx';
 import { usePath } from './router.ts';
 import { chestShelf } from './player/chests.ts';
@@ -100,8 +101,25 @@ function AuthGate() {
 function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
   const path = usePath();
-  // Both at once (#137): the player keeps the contracts' purse, which is never older.
-  useEffect(() => void Promise.all([player.load(), player.loadContracts()]), [player]);
+  // Both at once (#137): the player keeps the contracts' purse, which is never older. Again when
+  // you come back to the tab on a new day, so the top bar doesn't show yesterday's goal and
+  // contracts after midnight (review, 2026-11-15).
+  useEffect(() => {
+    const load = () => void Promise.all([player.load(), player.loadContracts()]);
+    let day = new Date().toDateString();
+    load();
+    const back = () => {
+      if (document.visibilityState !== 'visible' || new Date().toDateString() === day) return;
+      day = new Date().toDateString();
+      load();
+    };
+    document.addEventListener('visibilitychange', back);
+    window.addEventListener('focus', back);
+    return () => {
+      document.removeEventListener('visibilitychange', back);
+      window.removeEventListener('focus', back);
+    };
+  }, [player]);
   const moved = useRef(false);
   useEffect(() => {
     // Again on every move: a session in a hall may have finished one.
@@ -127,70 +145,72 @@ function Lobby({ player }: { player: Player }) {
           resident={resident}
           wide={place === 'house' || place === 'market' || !!Hall}
         >
-          {Hall && api && (
-            <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
-              <Hall api={api} />
-            </Suspense>
-          )}
-          {place === 'board' && (
-            <Suspense fallback={null}>
-              <BoardBackdrop />
-            </Suspense>
-          )}
-          {place === 'board' && state.today && (
-            <div className="hud notice-board">
-              <QuestTracker
-                today={state.today}
-                subjects={subjects}
-                questlines={questlines}
-                contracts={state.contracts}
-                full
-              />
+          <PlaceBoundary key={place}>
+            {Hall && api && (
+              <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
+                <Hall api={api} />
+              </Suspense>
+            )}
+            {place === 'board' && (
               <Suspense fallback={null}>
-                <ChestShelf
-                  shelf={chestShelf(state.chests, state.contracts, subjects)}
-                  onOpen={player.openChest}
+                <BoardBackdrop />
+              </Suspense>
+            )}
+            {place === 'board' && state.today && (
+              <div className="hud notice-board">
+                <QuestTracker
+                  today={state.today}
+                  subjects={subjects}
+                  questlines={questlines}
+                  contracts={state.contracts}
+                  full
+                />
+                <Suspense fallback={null}>
+                  <ChestShelf
+                    shelf={chestShelf(state.chests, state.contracts, subjects)}
+                    onOpen={player.openChest}
+                  />
+                </Suspense>
+              </div>
+            )}
+            {place === 'market' && (
+              <Suspense fallback={null}>
+                <MarketBackdrop />
+              </Suspense>
+            )}
+            {place === 'market' && state.profile && (
+              <Suspense fallback={<p className="place__loading">Setting out the wares…</p>}>
+                <Market
+                  stall={state.market}
+                  look={state.profile.avatar}
+                  gold={state.wallet?.gold ?? null}
+                  onLoad={player.loadMarket}
+                  onBuy={player.buy}
                 />
               </Suspense>
-            </div>
-          )}
-          {place === 'market' && (
-            <Suspense fallback={null}>
-              <MarketBackdrop />
-            </Suspense>
-          )}
-          {place === 'market' && state.profile && (
-            <Suspense fallback={null}>
-              <Market
-                stall={state.market}
-                look={state.profile.avatar}
-                gold={state.wallet?.gold ?? null}
-                onLoad={player.loadMarket}
-                onBuy={player.buy}
-              />
-            </Suspense>
-          )}
-          {place === 'house' && (
-            <Suspense fallback={null}>
-              <HouseBackdrop />
-            </Suspense>
-          )}
-          {place === 'house' && state.profile && (
-            <Suspense fallback={null}>
-              <Wardrobe
-                look={state.profile.avatar}
-                owned={state.profile.owned}
-                name={state.profile.displayName}
-                onSave={player.setAvatar}
-              />
-              <AchievementWall
-                mine={state.achievements}
-                title={state.profile.title}
-                onLoad={player.loadAchievements}
-                onWear={player.setTitle}
-              />
-            </Suspense>
-          )}
+            )}
+            {place === 'house' && (
+              <Suspense fallback={null}>
+                <HouseBackdrop />
+              </Suspense>
+            )}
+            {place === 'house' && state.profile && (
+              <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
+                <Wardrobe
+                  look={state.profile.avatar}
+                  owned={state.profile.owned}
+                  name={state.profile.displayName}
+                  onSave={player.setAvatar}
+                />
+                <AchievementWall
+                  mine={state.achievements}
+                  title={state.profile.title}
+                  onLoad={player.loadAchievements}
+                  onWear={player.setTitle}
+                />
+              </Suspense>
+            )}
+          </PlaceBoundary>
         </PlaceScreen>
         {celebrations}
       </>
@@ -213,7 +233,7 @@ function Lobby({ player }: { player: Player }) {
           state={state}
           subjects={subjects}
           questlines={questlines}
-          onGoalChange={(m) => void player.setDailyGoal(m)}
+          onGoalChange={player.setDailyGoal}
           onNameChange={player.setDisplayName}
           onSignOut={() => {
             // The kept deck goes with the login (#124).
