@@ -116,7 +116,7 @@ export function HearTurn({
             void run(play);
           }}
         >
-          AGN
+          AGN <small className="qso__gloss">again</small>
         </button>
         {qrs && (
           <button
@@ -128,7 +128,7 @@ export function HearTurn({
               void run(qrs);
             }}
           >
-            QRS
+            QRS <small className="qso__gloss">slower</small>
           </button>
         )}
         <button type="submit" className="lesson__go" disabled={!filled}>

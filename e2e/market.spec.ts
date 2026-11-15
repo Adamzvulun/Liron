@@ -24,7 +24,9 @@ test.describe('the Market (#49)', () => {
     // 70 left: the shield (120) is out of reach now.
     await expect(page.getByRole('button', { name: /Buy Streak shield/ })).toBeDisabled();
 
-    await page.goto('/house');
+    // The shop points you to the wardrobe to try it on.
+    await page.getByRole('link', { name: 'Try it on at your house' }).click();
+    await expect(page).toHaveURL(/\/house$/);
     await page.locator('label', { hasText: 'Red tarboosh' }).click();
     await expect(page.getByRole('radio', { name: 'Red tarboosh' })).toBeChecked();
   });
