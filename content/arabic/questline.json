@@ -2859,6 +2859,83 @@
         },
         "outro": "She leaves the innkeeper tomorrow’s forecast on a card: “Clear sky, about thirty. And na3ēman after your bath.”"
       }
+    },
+    {
+      "id": "road:111",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 111,
+        "wordChapter": 110,
+        "title": "The Mirror by the Door",
+        "who": "Nawal, who does hair in the room behind her kitchen",
+        "intro": "Nawal keeps a salon in the back room of her house, with a mirror by the door and a pot of soup always warm in the microwave. She only got four or five hours of sleep, she says, but her scissors never stop.",
+        "milestones": [
+          "A bride sits down with long eyelashes and an oblong face. Nawal dyes her hair blond, then swears to the bride’s mother that she is a natural blond.",
+          "Between clients she checks the milk (it has gone bad), gives you a bowl of soup, and tells you to tie your shoelaces before you trip on the stairs.",
+          "Her husband comes in, broad-shouldered and dark-skinned, with shaving cream still under one ear. You can tell the man in the next chair wears a toupee, and Nawal says nothing at all."
+        ],
+        "trial": {
+          "name": "The Blond Question",
+          "text": "Nawal tells the day’s gossip from the mirror, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She sends the inn a jar of lip balm for chapped lips and a note: “For the innkeeper, who smiles too much in the wind.”",
+        "she": true
+      }
+    },
+    {
+      "id": "road:112",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 112,
+        "wordChapter": 111,
+        "title": "The Long Way to Dubai",
+        "who": "Bilal, a company representative who lives between flights",
+        "intro": "Bilal sells machines for a company in Hebron and flies more than he sleeps. He comes into the inn at rush hour with a courier bag and a sunburn, and asks you to turn the TV down a bit.",
+        "milestones": [
+          "He tells you the police pulled him over for speeding on the four-lane road, and that he is not very good at haggling, so his boss sends him anyway.",
+          "Every morning he does sit-ups at the gym. His goal is to gain muscle, but he feels like he has only put on a bit of weight.",
+          "His flight was delayed by two hours, then he had a three-hour layover in Dubai. The airfare was reasonable, he says, and the coffee was not."
+        ],
+        "trial": {
+          "name": "Turn It Down",
+          "text": "Bilal tells you about his week on the road, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "He leaves a tin of sweets from Dubai on the counter and a note: “Drop me off on the corner next time. I’ll walk.”"
+      }
+    },
+    {
+      "id": "road:113",
+      "subject": "arabic",
+      "type": "regular",
+      "data": {
+        "number": 113,
+        "wordChapter": 112,
+        "title": "The First Year",
+        "who": "Ruba, a freshman who lives on campus far from home",
+        "intro": "Ruba is in her first year at the university and lives on campus. She can get by in Arabic, she says, but her handwriting is so bad that her teachers can’t read a word.",
+        "milestones": [
+          "She tells you about the orientation every freshman has to attend, and the certificate she got for her first course. Remind her to set her alarm, she asks: tomorrow is an early exam.",
+          "A storm comes over the hills. Lightning strikes the tree by the gate, then the rain stops and the sun comes out, low in the west.",
+          "Her grandmother died last winter, God rest her soul. She tells you about the days of mourning, the people who came to say “God give the family patience,” and her aunt, who is due in early July."
+        ],
+        "trial": {
+          "name": "Sun and Storm",
+          "text": "Ruba reads you a page from her notebook, and you give the meaning of each word. Hear and read 30 of the chapter’s words at 90% or better.",
+          "words": 30,
+          "accuracy": 0.9,
+          "xp": 50
+        },
+        "outro": "She leaves the innkeeper a birthday card: “Many happy returns, and may you see a hundred more!”",
+        "she": true
+      }
     }
   ]
 }

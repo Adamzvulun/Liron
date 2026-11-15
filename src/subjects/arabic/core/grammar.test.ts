@@ -132,6 +132,9 @@ describe('grammar cards (#162)', () => {
       ['grammar:prayer-times', 107],
       ['grammar:river-horse', 108],
       ['grammar:names-of-the-land', 109],
+      ['grammar:it-looks-like', 110],
+      ['grammar:up-and-down', 111],
+      ['grammar:words-for-a-loss', 112],
     ]);
     for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
   });

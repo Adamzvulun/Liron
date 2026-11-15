@@ -68,8 +68,8 @@ describe('the regulars past chapter 10 (#163, #205)', () => {
     expect(s).toMatchObject({ regular: { number: 22, who: 'Khalid the trader' }, lit: 0 });
     expect(REGULARS[33]).toMatchObject({ number: 35, who: 'The innkeeper' });
     expect(REGULARS[REGULARS.length - 1]).toMatchObject({
-      number: 110,
-      who: 'Basma, who reads the weather on the radio',
+      number: 113,
+      who: 'Ruba, a freshman who lives on campus far from home',
     });
   });
 
