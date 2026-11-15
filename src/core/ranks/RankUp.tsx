@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDialogFocus } from '../player/useDialogFocus.ts';
 import { GEAR } from '../avatar/looks.ts';
 import type { Rank, RankStanding } from './ranks.ts';
 import './ranks.css';
@@ -20,6 +21,7 @@ export function RankUp({
   onTake: () => Promise<void>;
 }) {
   const [state, setState] = useState<'idle' | 'saving' | 'failed'>('idle');
+  const button = useDialogFocus();
   const gear = GEAR.find((g) => g.id === rank.gear);
   const take = () => {
     setState('saving');
@@ -61,7 +63,13 @@ export function RankUp({
             Your rank couldn’t be saved. Check your connection and try again.
           </p>
         )}
-        <button type="button" className="rankup__go" onClick={take} disabled={state === 'saving'}>
+        <button
+          ref={button}
+          type="button"
+          className="rankup__go"
+          onClick={take}
+          disabled={state === 'saving'}
+        >
           {state === 'saving' ? 'Saving…' : 'Take the rank'}
         </button>
       </div>

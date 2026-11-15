@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { useDialogFocus } from './useDialogFocus.ts';
 import type { ChestContents } from '../progress/store.ts';
 import { chestName, lootOf, type Loot, type ShelfChest } from './chests.ts';
 import { CoinIcon, GearIcon, GemIcon, ShieldIcon } from './icons.tsx';
@@ -128,8 +129,7 @@ export function ChestOpening({
   contents: ChestContents;
   onDone: () => void;
 }) {
-  const button = useRef<HTMLButtonElement>(null);
-  useEffect(() => button.current?.focus(), []);
+  const button = useDialogFocus();
   return (
     <div className="levelup" role="presentation" onKeyDown={(e) => e.key === 'Escape' && onDone()}>
       <div className="levelup__rays" aria-hidden="true" />
