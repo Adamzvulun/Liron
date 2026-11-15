@@ -157,6 +157,7 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 - **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 
 ## Open questions for Adam
+- **New (2026-11-15, for v1.0.0):** the live site has its own database, so it will start you at level 1; your dev-site progress stays on the dev site. Keep it that way (a fresh start), or should I write a one-off copy before the release? The release steps are in [DEPLOY](DEPLOY.md#the-first-real-release-v100).
 - **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
 - ~~**The words left out on purpose**~~ (report §4bc): Adam answered on 2026-11-15. The stepfamily and the national days are in (chapter 113); the adult, toilet and grim words are skipped for now.
 - ~~**The inn's character sheets**~~ (report §4at): done on 2026-11-15 (§4bd). The server now looks the regulars up by number.

@@ -45,6 +45,18 @@ See [ADR 0015](../decisions/0015-branches-and-environments.md) and [WORKFLOW](WO
 3. When CI is green, Adam merges it with a **merge commit**.
 4. Tag `main` with `vX.Y.Z`.
 
+### The first real release, v1.0.0
+`main` still holds the M1 site (v0.1.0), so v1.0.0 carries everything since. When Adam says "release", these steps, in this order:
+1. **Vercel, Production environment:** check that `GROQ_API_KEY` and `GEMINI_API_KEY` are set for **Production**, not only Preview (the table above). Without them the live site runs, but Sit and talk, the "understood" check and the operators' live news stay off.
+2. **GitHub secrets:** check that `SUPABASE_PROD_DB_URL` and `SUPABASE_PROD_SECRET_KEY` are set ([SUPABASE](SUPABASE.md#migrations)). The DB migrate run stops at once without them.
+3. **The release PR** from `dev` into `main`, titled `Release v1.0.0`. When CI is green, Adam merges it with a merge commit.
+4. **Watch the DB migrate run on `main`.** It applies every migration since v0.1.0 to `waymark-prod`, then uploads the private content. Check its log before signing in.
+5. **Your account on `waymark-prod`:** if it doesn't have one yet, invite yourself (SUPABASE steps 7–8). Do this after step 4: the first account a project gets can read the deck. If you already had an account there, the licensee migration added it.
+6. **Tag `main` with `v1.0.0`** in GitHub Releases (the session's git proxy refuses tag pushes).
+7. **Play the live site** on a phone and a desktop.
+
+**Your progress doesn't move.** `waymark-prod` and `waymark-dev` are separate databases (ADR 0015), so the live site starts you at level 1, with what you've learned on the dev site left behind there. Copying it across would be a one-off script; ask for one before the release if you want it.
+
 ## Security headers
 `vercel.json` sends a strict Content-Security-Policy and the other security headers (security review M3, 2026-11-04). Scripts and styles come only from our own site, with no inline styles and no eval. The only outside host is Supabase (`https://*.supabase.co`, and `wss://` for realtime).
 - **Adding anything from another host** (a font, an API, an analytics script) means adding it to the CSP, or the browser blocks it.
