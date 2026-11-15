@@ -515,6 +515,102 @@
           "rank": "traveler"
         }
       }
+    },
+    {
+      "id": "signal-cap",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "signal-master"
+        }
+      }
+    },
+    {
+      "id": "ether-cloak",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "ghost"
+        }
+      }
+    },
+    {
+      "id": "olive-sprig",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "neighbor"
+        }
+      }
+    },
+    {
+      "id": "dallah",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "friend"
+        }
+      }
+    },
+    {
+      "id": "tatreez-vest",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "local"
+        }
+      }
+    },
+    {
+      "id": "story-cloak",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "storyteller"
+        }
+      }
     }
   ]
 }

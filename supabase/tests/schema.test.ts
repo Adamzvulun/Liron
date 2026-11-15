@@ -1823,7 +1823,7 @@ describe('the Market (ADR 0033, #49)', () => {
     const rank = (await rows(`select id from items where milestone ->> 'kind' = 'rank'`)) as {
       id: string;
     }[];
-    expect(rank).toHaveLength(6);
+    expect(rank).toHaveLength(12);
     for (const { id } of rank) expect(sold.map((s) => s.id)).not.toContain(id);
   });
 

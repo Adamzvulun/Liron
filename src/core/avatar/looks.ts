@@ -344,6 +344,48 @@ export const GEAR: readonly GearItem[] = [
     starter: false,
     earn: 'Take the Traveler rank in the Caravanserai',
   },
+  {
+    id: 'signal-cap',
+    slot: 'head',
+    name: "Signal master's cap",
+    starter: false,
+    earn: 'Take the Signal Master rank in the Signal Tower',
+  },
+  {
+    id: 'ether-cloak',
+    slot: 'back',
+    name: 'Cloak of the ether',
+    starter: false,
+    earn: 'Take the Ghost of the Ether rank in the Signal Tower',
+  },
+  {
+    id: 'olive-sprig',
+    slot: 'hand',
+    name: "Neighbor's olive sprig",
+    starter: false,
+    earn: 'Take the Neighbor rank in the Caravanserai',
+  },
+  {
+    id: 'dallah',
+    slot: 'hand',
+    name: "Friend's coffee pot",
+    starter: false,
+    earn: 'Take the Friend rank in the Caravanserai',
+  },
+  {
+    id: 'tatreez-vest',
+    slot: 'torso',
+    name: "Local's tatreez vest",
+    starter: false,
+    earn: 'Take the Local rank in the Caravanserai',
+  },
+  {
+    id: 'story-cloak',
+    slot: 'back',
+    name: "Storyteller's cloak",
+    starter: false,
+    earn: 'Take the Storyteller rank in the Caravanserai',
+  },
 ];
 
 /**
