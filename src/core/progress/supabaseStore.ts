@@ -9,6 +9,7 @@ import type {
   ProgressStore,
   Today,
 } from './store.ts';
+import { REVIEW_STATE } from './store.ts';
 import type { StoredRating } from '../rating/ratings.ts';
 
 interface RatingRow {
@@ -314,14 +315,17 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       }
       return found;
     },
-    async dueCards(subjectId, now, limit) {
-      const { data, error } = await client
-        .from('review_cards')
-        .select('item_id, due')
-        .eq('subject_id', subjectId)
-        .lte('due', now.toISOString())
+    async dueCards(subjectId, now, limit, dayEnd = now) {
+      const at = now.toISOString();
+      const end = dayEnd.toISOString();
+      const query = () =>
+        client.from('review_cards').select('item_id, due').eq('subject_id', subjectId);
+      let { data, error } = await query()
+        .or(`due.lte."${at}",and(state.eq.${REVIEW_STATE},due.lte."${end}")`)
         .order('due')
         .limit(limit);
+      // Should the server ever refuse the day-end filter, what's due right now still loads.
+      if (error) ({ data, error } = await query().lte('due', at).order('due').limit(limit));
       if (error) throw new Error(`Couldn't read due ${subjectId} reviews: ${error.message}`);
       return (data as { item_id: string; due: string }[]).map((r) => ({
         itemId: r.item_id,

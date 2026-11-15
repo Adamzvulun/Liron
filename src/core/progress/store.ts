@@ -149,6 +149,9 @@ export interface Profile {
 /** Names are 1-40 characters after trimming (the database checks the length too). */
 export const MAX_NAME_LENGTH = 40;
 
+/** FSRS's state number for a card in long-term review (0 new, 1 learning, 2 review, 3 relearning). */
+export const REVIEW_STATE = 2;
+
 /** Where progress is kept. Supabase in the app, memory in tests. Not used by subjects directly. */
 export interface ProgressStore {
   /** Adds XP and minutes to a subject, to today and to the wallet; pays gold, gems, chests. */
@@ -181,8 +184,16 @@ export interface ProgressStore {
   saveState(subjectId: string, state: object): Promise<void>;
   /** Stored FSRS cards for the given items (missing items have never been reviewed). */
   reviewCards(subjectId: string, itemIds: readonly string[]): Promise<Map<string, StoredCard>>;
-  /** Items due at `now`, most overdue first. */
-  dueCards(subjectId: string, now: Date, limit: number): Promise<{ itemId: string; due: Date }[]>;
+  /**
+   * Items due at `now`, most overdue first. A card in long-term review (FSRS state 2) that falls
+   * due by `dayEnd` counts as due too, so a word answered last night is due this morning.
+   */
+  dueCards(
+    subjectId: string,
+    now: Date,
+    limit: number,
+    dayEnd?: Date,
+  ): Promise<{ itemId: string; due: Date }[]>;
   /** Saves a review: the card's new state and the log entry, together. */
   saveReview(
     subjectId: string,
@@ -343,9 +354,11 @@ export function memoryStore(
       }
       return found;
     },
-    async dueCards(subjectId, now, limit) {
+    async dueCards(subjectId, now, limit, dayEnd = now) {
+      const isDue = (c: { due: Date; card: StoredCard }) =>
+        c.due <= now || (Number(c.card.state) === REVIEW_STATE && c.due <= dayEnd);
       return [...cards]
-        .filter(([key, c]) => key.startsWith(`${subjectId}/`) && c.due <= now)
+        .filter(([key, c]) => key.startsWith(`${subjectId}/`) && isDue(c))
         .sort(([, a], [, b]) => a.due.getTime() - b.due.getTime())
         .slice(0, limit)
         .map(([key, c]) => ({ itemId: key.slice(subjectId.length + 1), due: c.due }));
