@@ -141,6 +141,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           newChars={meeting.length ? meeting : newest ? [newest] : unlocked}
           gateDone={trailingPasses(progress.recent)}
           warmup={isWarmup(progress, new Date())}
+          trial={pendingTrial(progress)?.trial.name}
           onBegin={begin}
         />
       )}
@@ -195,14 +196,32 @@ function StartCard({
   newChars,
   gateDone,
   warmup,
+  trial,
   onBegin,
 }: {
   lessonNo: number;
   newChars: string[];
   gateDone: number;
   warmup: boolean;
+  /** The trial that holds the next lamp, if one does: runs then light nothing. */
+  trial?: string;
   onBegin: () => void;
 }) {
+  // While a trial holds the gate, runs are practice; promising a lamp misled (review, 2026-11-15).
+  if (trial) {
+    return (
+      <div className="lesson__card lesson__start">
+        <h2 className="lesson__title">Practice your letters</h2>
+        <p>
+          The next lamp waits behind the trial, <strong>{trial}</strong>, in the tower hall. Runs
+          here keep your ear sharp for it.
+        </p>
+        <button type="button" className="lesson__go" onClick={onBegin}>
+          Begin
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="lesson__card lesson__start">
       <div className="lesson__lamps" aria-hidden="true">

@@ -7,7 +7,7 @@ How the Signal Tower teaches you to hear Morse: the Koch lessons (#31) and how t
 - **Characters always play at 20 wpm.** What slows down for a beginner is the *gap between* characters (Farnsworth). The gap closes by itself as you get better (ADR 0009).
 - **A lesson is a few short runs.** One run is 2 minutes of sound, in groups of 5 characters (about 100 characters at 10 wpm overall). You copy what you hear as it plays. A good Morse day is about 10 minutes (3–4 runs); research and practitioners agree that short daily sessions beat long rare ones.
 - **A new character unlocks after two runs in a row at 90% or better.** Two runs are about 4 minutes of copy, close to the 5 minutes of continuous copy that older Koch guides use as the test.
-- **When a character is new, you meet it first:** it plays three times with its letter shown big, then a 20-second "this one or that one?" drill against characters you already know. Then it joins the runs.
+- **When a character is new, you meet it first:** it plays three times with its letter shown big, then 10 quick "this one or that one?" choices against characters you already know. Then it joins the runs.
 - **Weak characters come up more often.** Each character's accuracy and its spaced-repetition record decide how often it appears. Nothing you've unlocked ever disappears from the mix.
 - **On a phone you tap big buttons**, one for each unlocked character. On a computer you type.
 - **We measure from day one:** accuracy per character, minutes practised, characters unlocked, and the effective speed. The M2 retro answers "is it teaching Adam?" with these numbers.
@@ -20,9 +20,9 @@ I checked; these points aren't settled by research I could find, so they're my c
 - **The Farnsworth steps** (below). ADR 0009 says "automatic"; the step sizes are mine.
 
 ## A lesson, step by step
-1. **Warm-up (returning players).** If you've been away a day or more, the first run uses only characters you already have, with the ones due in spaced repetition weighted up. It can't unlock anything; it gets your ear back.
+1. **Warm-up (returning players).** If you've been away a day or more, the first run uses only characters you already have, with the ones due in spaced repetition weighted up. It can't unlock anything; it gets your ear back. It doesn't count toward the two runs in a row, and it doesn't break them either.
 2. **Meet the new character** (only the first time it appears). It plays three times with the letter shown large. Then 10 quick "which was it?" choices between it and two characters you know, with an instant replay when you miss.
-3. **Runs.** 2 minutes of sound in groups of 5, from all unlocked characters. You type or tap as you hear. A character you don't catch can be skipped (space on a keyboard, the "?" button on a phone). Guessing is fine.
+3. **Runs.** 2 minutes of sound in groups of 5, from all unlocked characters. You type or tap as you hear. A character you don't catch can be skipped (space on a keyboard, the "–" button on a phone). A skip is always a miss; "?" is a character of its own from chapter V. Guessing is fine.
 4. **After each run:** your score, a side-by-side of what played and what you copied, and replay buttons for every miss. If you passed the gate, the next character is announced and the meeting starts.
 
 ## Scoring and the gate
