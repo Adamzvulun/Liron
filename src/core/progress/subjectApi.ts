@@ -1,4 +1,10 @@
-import { SUBJECT_ID, type ReviewStatus, type SubjectApi, type SubjectInfo } from '../subject.ts';
+import {
+  SUBJECT_ID,
+  type ReviewStatus,
+  type SessionReport,
+  type SubjectApi,
+  type SubjectInfo,
+} from '../subject.ts';
 import type { StoredRating } from '../rating/ratings.ts';
 import type { Item, Lesson } from '../content/schema.ts';
 import { phaseOf, type StoredCard } from '../srs/grades.ts';
@@ -103,6 +109,123 @@ export function subjectApi<State extends object>(
       return source;
     });
   };
+  // Saves still on their way; a load waits for them (see loadState).
+  let saving: Promise<unknown> = Promise.resolve();
+  // The state of a save that didn't reach the database (offline, say), until one does. A door
+  // opened meanwhile builds on it, so its next save keeps it, as the warning promises, instead of
+  // starting again from older saved state (review, 2026-11-15). Kept only while the page is open.
+  let unsaved: { state: object } | null = null;
+  /** Sends a state to the database, remembering it if that fails. */
+  const sending = async <T>(state: object | undefined, send: () => Promise<T>): Promise<T> => {
+    try {
+      const done = await send();
+      if (state !== undefined) unsaved = null;
+      return done;
+    } catch (e) {
+      if (state !== undefined) unsaved = { state: structuredClone(state) };
+      throw e;
+    }
+  };
+  const settle = <T>(p: Promise<T>): Promise<T> => {
+    saving = Promise.allSettled([saving, p]);
+    return p;
+  };
+  const saveSessionNow = async ({
+    state,
+    reviews = [],
+    results = [],
+    events = [],
+    xp = 0,
+    minutes = 0,
+    at = new Date(),
+    sessionId = crypto.randomUUID(),
+  }: SessionReport<State>): Promise<void> => {
+    // Checked up front, so a bad report sends nothing at all.
+    if (
+      state !== undefined &&
+      (state === null || typeof state !== 'object' || Array.isArray(state))
+    ) {
+      throw new TypeError('saveSession: state must be a plain object');
+    }
+    if (reviews.length > MAX_SESSION_ITEMS || results.length > MAX_SESSION_ITEMS) {
+      throw new RangeError(`saveSession: at most ${MAX_SESSION_ITEMS} reviews and results`);
+    }
+    reviews.forEach((r) => checkItemId(r.itemId));
+    for (const r of results) {
+      checkSkill(r.skill);
+      checkItemId(r.itemId);
+      checkScore(r.score);
+      checkSeed(r.itemSeed);
+    }
+    if (events.length > MAX_EVENTS) {
+      throw new RangeError(`saveSession: at most ${MAX_EVENTS} events`);
+    }
+    for (const { kind, count = 1 } of events) {
+      if (!SUBJECT_ID.test(kind)) throw new TypeError(`saveSession: bad event kind "${kind}"`);
+      if (!Number.isInteger(count) || count < 1 || count > MAX_EVENT_COUNT) {
+        throw new RangeError(`saveSession: an event counts 1 to ${MAX_EVENT_COUNT}, got ${count}`);
+      }
+    }
+    if (!Number.isInteger(xp) || xp < 0 || xp > MAX_XP) {
+      throw new RangeError(`saveSession: xp is a whole number from 0 to ${MAX_XP}, got ${xp}`);
+    }
+    if (!Number.isFinite(minutes) || minutes < 0) {
+      throw new RangeError(`saveSession: expected 0 or more minutes, got ${minutes}`);
+    }
+
+    // One read per kind, then each answer builds on the one before it, in memory.
+    const skillsUsed = [...new Set(results.map((r) => r.skill))];
+    const [cards, learners, ...itemsBySkill] = await Promise.all([
+      reviews.length
+        ? store.reviewCards(id, [...new Set(reviews.map((r) => r.itemId))])
+        : Promise.resolve(new Map<string, StoredCard>()),
+      results.length ? store.skillRatings(id) : Promise.resolve(new Map<string, StoredRating>()),
+      ...skillsUsed.map((skill) =>
+        store.itemRatings(id, skill, [
+          ...new Set(results.filter((r) => r.skill === skill).map((r) => r.itemId)),
+        ]),
+      ),
+    ]);
+    const items = new Map(skillsUsed.map((skill, i) => [skill, itemsBySkill[i] ?? new Map()]));
+
+    const write: SessionWrite = {
+      sessionId,
+      state: state ?? null,
+      reviews: [],
+      results: [],
+      xp,
+      minutes: Math.round(Math.min(minutes, MAX_MINUTES)),
+      events: events.map(({ kind, count = 1 }) => ({ kind, count })),
+    };
+    // If the scheduler can't load (offline, or a new deploy removed the old file), the session
+    // is still saved, without its review cards: losing those beats losing it all (review,
+    // 2026-11-15).
+    const loaded = reviews.length ? await loadScheduler().catch(() => null) : null;
+    if (loaded) {
+      const { scheduleReview } = loaded;
+      for (const { itemId, grade } of reviews) {
+        const review = scheduleReview(cards.get(itemId) ?? null, grade, at);
+        cards.set(itemId, review.card);
+        write.reviews.push({ itemId, review, reviewedAt: at });
+      }
+    }
+    for (const { skill, itemId, score, itemSeed } of results) {
+      const skillItems = items.get(skill) ?? new Map<string, StoredRating>();
+      const rated = rateResult(
+        learners.get(skill) ?? null,
+        skillItems.get(itemId) ?? null,
+        score,
+        at,
+        itemSeed,
+      );
+      learners.set(skill, rated.learner);
+      skillItems.set(itemId, rated.item);
+      write.results.push({ skill, itemId, score, learner: rated.learner, item: rated.item });
+    }
+    const { award } = await sending(state, () => store.saveSession(id, write));
+    if (award) onAward(award);
+  };
+
   return {
     subjectId: id,
     async awardXP(amount) {
@@ -120,114 +243,27 @@ export function subjectApi<State extends object>(
       const whole = Math.round(Math.min(minutes, MAX_MINUTES));
       if (whole > 0) onAward(await store.record(id, 0, whole));
     },
-    async saveSession({
-      state,
-      reviews = [],
-      results = [],
-      events = [],
-      xp = 0,
-      minutes = 0,
-      at = new Date(),
-      sessionId = crypto.randomUUID(),
-    }) {
-      // Checked up front, so a bad report sends nothing at all.
-      if (
-        state !== undefined &&
-        (state === null || typeof state !== 'object' || Array.isArray(state))
-      ) {
-        throw new TypeError('saveSession: state must be a plain object');
-      }
-      if (reviews.length > MAX_SESSION_ITEMS || results.length > MAX_SESSION_ITEMS) {
-        throw new RangeError(`saveSession: at most ${MAX_SESSION_ITEMS} reviews and results`);
-      }
-      reviews.forEach((r) => checkItemId(r.itemId));
-      for (const r of results) {
-        checkSkill(r.skill);
-        checkItemId(r.itemId);
-        checkScore(r.score);
-        checkSeed(r.itemSeed);
-      }
-      if (events.length > MAX_EVENTS) {
-        throw new RangeError(`saveSession: at most ${MAX_EVENTS} events`);
-      }
-      for (const { kind, count = 1 } of events) {
-        if (!SUBJECT_ID.test(kind)) throw new TypeError(`saveSession: bad event kind "${kind}"`);
-        if (!Number.isInteger(count) || count < 1 || count > MAX_EVENT_COUNT) {
-          throw new RangeError(
-            `saveSession: an event counts 1 to ${MAX_EVENT_COUNT}, got ${count}`,
-          );
-        }
-      }
-      if (!Number.isInteger(xp) || xp < 0 || xp > MAX_XP) {
-        throw new RangeError(`saveSession: xp is a whole number from 0 to ${MAX_XP}, got ${xp}`);
-      }
-      if (!Number.isFinite(minutes) || minutes < 0) {
-        throw new RangeError(`saveSession: expected 0 or more minutes, got ${minutes}`);
-      }
-
-      // One read per kind, then each answer builds on the one before it, in memory.
-      const skillsUsed = [...new Set(results.map((r) => r.skill))];
-      const [cards, learners, ...itemsBySkill] = await Promise.all([
-        reviews.length
-          ? store.reviewCards(id, [...new Set(reviews.map((r) => r.itemId))])
-          : Promise.resolve(new Map<string, StoredCard>()),
-        results.length ? store.skillRatings(id) : Promise.resolve(new Map<string, StoredRating>()),
-        ...skillsUsed.map((skill) =>
-          store.itemRatings(id, skill, [
-            ...new Set(results.filter((r) => r.skill === skill).map((r) => r.itemId)),
-          ]),
-        ),
-      ]);
-      const items = new Map(skillsUsed.map((skill, i) => [skill, itemsBySkill[i] ?? new Map()]));
-
-      const write: SessionWrite = {
-        sessionId,
-        state: state ?? null,
-        reviews: [],
-        results: [],
-        xp,
-        minutes: Math.round(Math.min(minutes, MAX_MINUTES)),
-        events: events.map(({ kind, count = 1 }) => ({ kind, count })),
-      };
-      // If the scheduler can't load (offline, or a new deploy removed the old file), the session
-      // is still saved, without its review cards: losing those beats losing it all (review,
-      // 2026-11-15).
-      const loaded = reviews.length ? await loadScheduler().catch(() => null) : null;
-      if (loaded) {
-        const { scheduleReview } = loaded;
-        for (const { itemId, grade } of reviews) {
-          const review = scheduleReview(cards.get(itemId) ?? null, grade, at);
-          cards.set(itemId, review.card);
-          write.reviews.push({ itemId, review, reviewedAt: at });
-        }
-      }
-      for (const { skill, itemId, score, itemSeed } of results) {
-        const skillItems = items.get(skill) ?? new Map<string, StoredRating>();
-        const rated = rateResult(
-          learners.get(skill) ?? null,
-          skillItems.get(itemId) ?? null,
-          score,
-          at,
-          itemSeed,
-        );
-        learners.set(skill, rated.learner);
-        skillItems.set(itemId, rated.item);
-        write.results.push({ skill, itemId, score, learner: rated.learner, item: rated.item });
-      }
-      const { award } = await store.saveSession(id, write);
-      if (award) onAward(award);
+    saveSession(report) {
+      return settle(saveSessionNow(report));
     },
     progressSummary: () => store.summary(id),
+    // A load waits for any save still on its way, so a door opened right after a run reads that
+    // run's state, not the one before it, and can't save over it (review, 2026-11-15).
     loadState: () => {
       void loadScheduler().catch(() => {});
-      return store.loadState(id) as Promise<State | null>;
+      return saving.then(() =>
+        unsaved
+          ? (structuredClone(unsaved.state) as State)
+          : (store.loadState(id) as Promise<State | null>),
+      );
     },
     async saveState(state) {
       if (state === null || typeof state !== 'object' || Array.isArray(state)) {
         throw new TypeError('saveState: state must be a plain object');
       }
-      await store.saveState(id, state);
+      await settle(sending(state, () => store.saveState(id, state)));
     },
+
     async recordReview(itemId, grade, at = new Date()) {
       checkItemId(itemId);
       const stored = (await store.reviewCards(id, [itemId])).get(itemId) ?? null;

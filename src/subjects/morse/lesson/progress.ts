@@ -184,6 +184,8 @@ export async function reportRun(
   unlockedNow: boolean,
   seconds: number,
   at = new Date(),
+  /** A passed trial's XP, paid in the same save so it can't be lost apart from it. */
+  bonusXp = 0,
 ): Promise<void> {
   const chars = [...score.byChar].map(([c, t]) => ({ itemId: `char:${c}`, t }));
   await api.saveSession({
@@ -194,7 +196,7 @@ export async function reportRun(
       itemId,
       score: t.right / t.played,
     })),
-    xp: xpFor(score, unlockedNow),
+    xp: xpFor(score, unlockedNow) + bonusXp,
     minutes: seconds / 60,
     // Daily contracts (ADR 0032): a run, and a run at 90%.
     events: [

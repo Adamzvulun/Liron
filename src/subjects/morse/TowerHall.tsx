@@ -61,7 +61,7 @@ export function TowerHall({ api }: { api: SubjectApi }) {
       {view === 'lamp' && <SendDrill api={api} start="lamp" />}
       {view === 'words' && <WordDrill api={api} />}
       {view === 'watch' && <WordDrill api={api} start="watch" />}
-      {view === 'far' && <FarStation api={api} />}
+      {view === 'far' && <FarStation api={api} onRoom={() => setView('radio')} />}
       {view === 'radio' && <RadioRoom api={api} onFar={() => setView('far')} />}
       {view === 'trial' && <Trial api={api} onLeave={() => setView('hall')} />}
     </>

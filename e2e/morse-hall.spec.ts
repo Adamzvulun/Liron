@@ -25,6 +25,16 @@ test.describe('the Signal Tower hall (#33, #34)', () => {
     await expect(page.getByText(/Listening/)).toBeVisible();
   });
 
+  test('while the Gatekeeper holds the gate, the lesson says runs are practice (review, 2026-11-15)', async ({
+    page,
+  }) => {
+    await signedIn(page, [], [], { unlocked: 8, met: [...'KMURESNA'], recent: [0.95] });
+    await page.goto('/signal-tower?open=koch');
+    await expect(page.getByRole('heading', { name: 'Practice your letters' })).toBeVisible();
+    await expect(page.getByText('The Gatekeeper')).toBeVisible();
+    await expect(page.getByText('1 of 2 runs done')).toHaveCount(0);
+  });
+
   test('the last chapter has nine lamps, and its trial relights the beacon', async ({ page }) => {
     const koch = 'KMURESNAPTLWI.JZ=FOY,VG5/Q92H38B?47C1D60X';
     await signedIn(page, [], [], { unlocked: 41, met: [...koch], trials: [1, 2, 3, 4] });

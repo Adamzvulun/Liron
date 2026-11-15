@@ -10,6 +10,7 @@ import { useRecorder } from '../phrases/useRecorder.ts';
 const PROBLEM: Record<string, string> = {
   'daily-limit': 'That’s all the listening for today. Type your line instead.',
   'too-big': 'That was too long. Say a shorter line.',
+  'not-allowed': 'Listening isn’t open to your account. Type your line instead.',
 };
 
 export function SayLine({
