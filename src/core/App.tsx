@@ -6,6 +6,7 @@ import { useAuth } from './auth/useAuth.ts';
 import { City } from './city/City.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
+import { PlaceBoundary } from './ErrorBoundary.tsx';
 import { Link } from './Link.tsx';
 import { usePath } from './router.ts';
 import { chestShelf } from './player/chests.ts';
@@ -127,70 +128,72 @@ function Lobby({ player }: { player: Player }) {
           resident={resident}
           wide={place === 'house' || place === 'market' || !!Hall}
         >
-          {Hall && api && (
-            <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
-              <Hall api={api} />
-            </Suspense>
-          )}
-          {place === 'board' && (
-            <Suspense fallback={null}>
-              <BoardBackdrop />
-            </Suspense>
-          )}
-          {place === 'board' && state.today && (
-            <div className="hud notice-board">
-              <QuestTracker
-                today={state.today}
-                subjects={subjects}
-                questlines={questlines}
-                contracts={state.contracts}
-                full
-              />
+          <PlaceBoundary key={place}>
+            {Hall && api && (
+              <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
+                <Hall api={api} />
+              </Suspense>
+            )}
+            {place === 'board' && (
               <Suspense fallback={null}>
-                <ChestShelf
-                  shelf={chestShelf(state.chests, state.contracts, subjects)}
-                  onOpen={player.openChest}
+                <BoardBackdrop />
+              </Suspense>
+            )}
+            {place === 'board' && state.today && (
+              <div className="hud notice-board">
+                <QuestTracker
+                  today={state.today}
+                  subjects={subjects}
+                  questlines={questlines}
+                  contracts={state.contracts}
+                  full
+                />
+                <Suspense fallback={null}>
+                  <ChestShelf
+                    shelf={chestShelf(state.chests, state.contracts, subjects)}
+                    onOpen={player.openChest}
+                  />
+                </Suspense>
+              </div>
+            )}
+            {place === 'market' && (
+              <Suspense fallback={null}>
+                <MarketBackdrop />
+              </Suspense>
+            )}
+            {place === 'market' && state.profile && (
+              <Suspense fallback={<p className="place__loading">Setting out the wares…</p>}>
+                <Market
+                  stall={state.market}
+                  look={state.profile.avatar}
+                  gold={state.wallet?.gold ?? null}
+                  onLoad={player.loadMarket}
+                  onBuy={player.buy}
                 />
               </Suspense>
-            </div>
-          )}
-          {place === 'market' && (
-            <Suspense fallback={null}>
-              <MarketBackdrop />
-            </Suspense>
-          )}
-          {place === 'market' && state.profile && (
-            <Suspense fallback={null}>
-              <Market
-                stall={state.market}
-                look={state.profile.avatar}
-                gold={state.wallet?.gold ?? null}
-                onLoad={player.loadMarket}
-                onBuy={player.buy}
-              />
-            </Suspense>
-          )}
-          {place === 'house' && (
-            <Suspense fallback={null}>
-              <HouseBackdrop />
-            </Suspense>
-          )}
-          {place === 'house' && state.profile && (
-            <Suspense fallback={null}>
-              <Wardrobe
-                look={state.profile.avatar}
-                owned={state.profile.owned}
-                name={state.profile.displayName}
-                onSave={player.setAvatar}
-              />
-              <AchievementWall
-                mine={state.achievements}
-                title={state.profile.title}
-                onLoad={player.loadAchievements}
-                onWear={player.setTitle}
-              />
-            </Suspense>
-          )}
+            )}
+            {place === 'house' && (
+              <Suspense fallback={null}>
+                <HouseBackdrop />
+              </Suspense>
+            )}
+            {place === 'house' && state.profile && (
+              <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
+                <Wardrobe
+                  look={state.profile.avatar}
+                  owned={state.profile.owned}
+                  name={state.profile.displayName}
+                  onSave={player.setAvatar}
+                />
+                <AchievementWall
+                  mine={state.achievements}
+                  title={state.profile.title}
+                  onLoad={player.loadAchievements}
+                  onWear={player.setTitle}
+                />
+              </Suspense>
+            )}
+          </PlaceBoundary>
         </PlaceScreen>
         {celebrations}
       </>
