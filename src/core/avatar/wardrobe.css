@@ -179,29 +179,84 @@
   line-height: 1.2;
 }
 
-.wardrobe__locked {
-  display: flex;
+/* The pieces you don't own yet: one line under the slot, opened to a compact grid. */
+.wardrobe__tofind {
+  align-self: center;
+}
+
+.wardrobe__tofind[open] {
+  flex-basis: 100%;
+}
+
+.wardrobe__tofind summary {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 44px;
-  padding: 6px 12px;
-  border: 3px dashed rgba(42, 23, 12, 0.5);
-  border-radius: 12px;
+  min-height: 40px;
+  padding: 4px 12px;
+  border: 2px dashed rgba(42, 23, 12, 0.45);
+  border-radius: 999px;
   color: #6b5640;
   font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.wardrobe__tofind summary::-webkit-details-marker {
+  display: none;
+}
+
+.wardrobe__tofind summary::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  margin-left: 2px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.wardrobe__tofind[open] summary::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+.wardrobe__tofind summary:hover {
+  background: rgba(42, 23, 12, 0.06);
+}
+
+.wardrobe__tofind summary:focus-visible {
+  outline: 3px solid var(--brass);
+  outline-offset: 2px;
+}
+
+.wardrobe__lockedgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.wardrobe__locked {
+  padding: 6px 10px;
+  border: 2px dashed rgba(42, 23, 12, 0.35);
+  border-radius: 10px;
+  color: #6b5640;
+  font-size: 14px;
   line-height: 1.2;
 }
 
 .wardrobe__lock {
   flex-shrink: 0;
-  width: 18px;
-  height: 21px;
+  width: 14px;
+  height: 17px;
   color: #8a7258;
 }
 
 .wardrobe__earn {
   display: block;
-  font-size: 14px;
+  margin-top: 2px;
+  font-size: 13px;
   font-style: italic;
 }
 

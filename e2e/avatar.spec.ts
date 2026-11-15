@@ -57,6 +57,10 @@ test.describe('the avatar in Your House (#28, #29)', () => {
   test('locked gear says how to earn it and cannot be worn', async ({ page }) => {
     await signedIn(page);
     await page.goto('/house');
+    // Locked pieces are folded under each slot, one line saying how many (report §4bk).
+    const head = page.getByRole('group', { name: 'Head' });
+    await expect(page.getByText("Signaler's headset (locked)")).toBeHidden();
+    await head.getByText(/^\d+ still to find$/).click();
     await expect(page.getByText("Signaler's headset (locked)")).toBeVisible();
     await expect(page.getByText('Reach level 5 in the Signal Tower')).toBeVisible();
     await expect(page.getByRole('radio', { name: "Signaler's headset" })).toHaveCount(0);
@@ -68,7 +72,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await page.goto('/house');
     await page.locator('label', { hasText: 'Merchant cloak' }).click();
     await expect(page.getByRole('radio', { name: 'Merchant cloak' })).toBeChecked();
-    await expect(page.getByText("Signaler's headset (locked)")).toBeVisible();
+    await expect(page.getByText("Signaler's headset (locked)")).toBeAttached();
     await page.getByRole('button', { name: 'Save my look' }).click();
     // The save is a request: wait for it rather than read the list at the click.
     await expect
@@ -86,6 +90,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     await page.goto('/house');
     const row = page.getByRole('group', { name: 'Companion' });
     await expect(row.getByRole('radio', { name: 'None' })).toBeChecked();
+    await row.getByText(/still to find$/).click();
     await expect(row.getByText('Fennec fox (locked)')).toBeVisible();
     await row.locator('label', { hasText: 'Sand cat' }).click();
     await expect(row.getByRole('radio', { name: 'Sand cat' })).toBeChecked();
@@ -101,7 +106,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     const updates: unknown[] = [];
     await signedIn(page, updates, [], null, [], { owned: ['indigo-dye', 'coat'] });
     await page.goto('/house');
-    await expect(page.getByText('Crimson dye (locked)')).toBeVisible();
+    await expect(page.getByText('Crimson dye (locked)')).toBeAttached();
     await page.locator('label[title="Indigo dye"]').click();
     await expect(page.getByRole('radio', { name: 'Indigo dye' })).toBeChecked();
     await expect(page.getByText("Guildmaster's coat (locked)")).toHaveCount(0);

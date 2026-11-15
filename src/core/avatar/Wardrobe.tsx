@@ -223,8 +223,9 @@ export function Wardrobe({
                 label={slot.id === 'pet' ? 'None' : 'Plain'}
                 wide
               />
-              {items.map((item) =>
-                canWear(item, owned) ? (
+              {items
+                .filter((item) => canWear(item, owned))
+                .map((item) => (
                   <Option
                     key={item.id}
                     group={`gear-${slot.id}`}
@@ -233,10 +234,12 @@ export function Wardrobe({
                     label={item.name}
                     wide
                   />
-                ) : (
-                  <Locked key={item.id} name={item.name} earn={item.earn ?? ''} />
-                ),
-              )}
+                ))}
+              <ToFind
+                items={items
+                  .filter((item) => !canWear(item, owned))
+                  .map((item) => ({ id: item.id, name: item.name, earn: item.earn ?? '' }))}
+              />
             </Choice>
           );
         })}
@@ -250,28 +253,61 @@ export function Wardrobe({
           >
             <span className="wardrobe__swatch wardrobe__swatch--teal" />
           </Option>
-          {DYES.map((d) =>
-            owned.has(d.id) ? (
-              <Option
-                key={d.id}
-                group="dye"
-                checked={look.dye === d.id}
-                onChange={() => dyeWith(d.id)}
-                label={d.label}
-                swatch
-              >
-                <span
-                  className="wardrobe__swatch"
-                  style={{ background: `linear-gradient(160deg, ${d.light}, ${d.dark})` }}
-                />
-              </Option>
-            ) : (
-              <Locked key={d.id} name={d.label} earn="From chests and the Market" />
-            ),
-          )}
+          {DYES.filter((d) => owned.has(d.id)).map((d) => (
+            <Option
+              key={d.id}
+              group="dye"
+              checked={look.dye === d.id}
+              onChange={() => dyeWith(d.id)}
+              label={d.label}
+              swatch
+            >
+              <span
+                className="wardrobe__swatch"
+                style={{ background: `linear-gradient(160deg, ${d.light}, ${d.dark})` }}
+              />
+            </Option>
+          ))}
+          <ToFind
+            items={DYES.filter((d) => !owned.has(d.id)).map((d) => ({
+              id: d.id,
+              name: d.label,
+              earn: 'From chests and the Market',
+            }))}
+          />
         </Choice>
       </div>
     </div>
+  );
+}
+
+/**
+ * The pieces of a slot you don't own yet, folded away under one line ("3 still to find") so the
+ * wardrobe stays short; opened, each says how it's earned (report §4bk).
+ */
+function ToFind({ items }: { items: readonly { id: string; name: string; earn: string }[] }) {
+  if (!items.length) return null;
+  return (
+    <details className="wardrobe__tofind">
+      <summary>
+        <LockIcon />
+        {items.length} still to find
+      </summary>
+      <div className="wardrobe__lockedgrid">
+        {items.map((item) => (
+          <Locked key={item.id} name={item.name} earn={item.earn} />
+        ))}
+      </div>
+    </details>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg className="wardrobe__lock" aria-hidden="true" viewBox="0 0 24 28">
+      <path d="M6 12 V8 a6 6 0 0 1 12 0 V12" fill="none" stroke="currentColor" strokeWidth="3.5" />
+      <rect x="2" y="12" width="20" height="14" rx="3" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -279,15 +315,6 @@ export function Wardrobe({
 function Locked({ name, earn }: { name: string; earn: string }) {
   return (
     <div className="wardrobe__locked">
-      <svg className="wardrobe__lock" aria-hidden="true" viewBox="0 0 24 28">
-        <path
-          d="M6 12 V8 a6 6 0 0 1 12 0 V12"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3.5"
-        />
-        <rect x="2" y="12" width="20" height="14" rx="3" fill="currentColor" />
-      </svg>
       <span>
         <strong>{name}</strong>
         <span className="visually-hidden"> (locked)</span>
