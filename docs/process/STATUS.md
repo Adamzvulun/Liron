@@ -17,6 +17,8 @@
 | App code | ✅ M1–M3 done; M4's E15 (first slices), E16 and E17 built; polishing toward v1.0.0 on `dev` (2026-11-15). The city and five places, the Signal Tower (Koch lessons, recognition, sending, Codebook, callsign rush, the Radio Room), the Caravanserai (script, slate, coffee corner, 113 word chapters with regulars, echo well, Sit and talk), quests, contracts, chests, the Market, ranks and achievements. Live: https://waymark-phi.vercel.app (v0.1.0) · dev: https://waymark-git-dev-adamzvuluns-projects.vercel.app |
 
 ## What to do next (in order)
+**Now (2026-11-15):** polish toward v1.0.0: play each screen on a phone and on desktop, fix what's off, with tests (HANDOFF items 54–80). Waiting on Adam: try Sit and talk on the dev site (the Groq key), Maknuune, the iPhone sound check, and the v1.0.0 release. Below is the history of how we got here.
+
 1. **Leftovers for Adam:** optionally create the `v0.1.0` tag in GitHub Releases for the record (target `main`; the session's git proxy refuses tag pushes). The next tag is `v1.0.0` (ADR 0027). Delete the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` (both already in `dev`; Claude's session isn't allowed to delete branches).
 2. **M1: Foundations**: ~~E1 (#2)~~ is done. E2 (#3):
    - ~~#16 login~~: done. Adam is signed in on the dev site (2026-11-02).
@@ -30,7 +32,7 @@
    - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
    - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam's steps: [SUPABASE](SUPABASE.md).
    - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
-3. **M2: First playable** (#7–#11): **next.** Per the M1 retro: design first, and measure learning from day one.
+3. **M2: First playable** (#7–#11): **done** (see below). Per the M1 retro: design first, and measure learning from day one.
    - **Sprints, one theme each, never mixed** (Adam, 2026-11-03).
    - **The Morse sprint comes first** (E6 receive, E7 send), then the Arabic sprint (E8, E9).
    - Letter order settled: Koch order, K and M first (Adam: "A", [ADR 0028](../decisions/0028-morse-koch-order-and-gate.md)). How lessons work: [morse-lessons.md](../game/morse-lessons.md).
