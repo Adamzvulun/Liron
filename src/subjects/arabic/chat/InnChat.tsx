@@ -469,12 +469,19 @@ export function InnChat({ api }: { api: SubjectApi }) {
             </form>
             <SayLine api={api} disabled={s.waiting} onHeard={heard} />
             {hebrew ? (
-              <p className="arabic__chat-reads">
-                They read:{' '}
-                <bdi lang="ar" dir="rtl">
-                  {line || '…'}
-                </bdi>
-              </p>
+              <>
+                <p className="arabic__chat-reads">
+                  They read:{' '}
+                  <bdi lang="ar" dir="rtl">
+                    {line || '…'}
+                  </bdi>
+                </p>
+                <p className="arabic__chat-hint">
+                  A <bdi lang="he">ה</bdi> at the end is <bdi lang="ar">ة</bdi>; type{' '}
+                  <bdi lang="he">ה׳</bdi> for <bdi lang="ar">ه</bdi>, as in{' '}
+                  <bdi lang="he">כלה׳</bdi> (<bdi lang="ar">كله</bdi>).
+                </p>
+              </>
             ) : (
               <div className="arabic__keys" role="group" aria-label="Arabic keyboard" dir="rtl">
                 {LETTERS.map((l) => (

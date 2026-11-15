@@ -968,6 +968,17 @@
   font-size: 22px;
 }
 
+.arabic__chat-hint {
+  margin: -4px 0 8px;
+  font-size: 14px;
+  text-align: start;
+  opacity: 0.85;
+}
+
+.arabic__chat-hint bdi[lang='ar'] {
+  font-size: 18px;
+}
+
 /* The Coach after a chat (ADR 0007, 0038) */
 .arabic__coach {
   margin: 8px 0 12px;
