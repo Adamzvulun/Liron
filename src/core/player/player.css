@@ -146,7 +146,7 @@
   border-radius: 999px;
   font-weight: 800;
   font-size: 20px;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 /* The daily goal: a chip with an hourglass that fills as you practice; it opens the goal panel. */
@@ -154,7 +154,7 @@
   font: inherit;
   font-weight: 800;
   font-size: 20px;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums lining-nums;
   cursor: pointer;
 }
 
@@ -274,7 +274,7 @@
 .hud__goaltoday strong {
   font-size: 19px;
   color: var(--vellum);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .hud__goaltoday span {
@@ -325,7 +325,7 @@
   font-size: 22px;
   font-weight: 800;
   line-height: 1.1;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .hud__goalword {
