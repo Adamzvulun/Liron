@@ -40,4 +40,14 @@ describe('our own sentences (ADR 0011)', () => {
     );
     expect(copied).toEqual([]);
   }, 60_000);
+
+  it('use only Arabic letters, marks and plain punctuation (no پ, which the deck never uses)', () => {
+    // Letters ء-ي, the vowel marks and dagger alef, tatweel; then spaces, digits, punctuation.
+    const arabic = (c: number) => (c >= 0x621 && c <= 0x652) || c === 0x670 || c === 0x640;
+    const plain = (ch: string) => /[\s0-9.,!?؟،؛:"“”«»()'—–-]/u.test(ch);
+    const odd = own.items.filter(({ data }) =>
+      [...data.arabic].some((ch) => !arabic(ch.codePointAt(0) ?? 0) && !plain(ch)),
+    );
+    expect(odd.map((i) => i.data.word)).toEqual([]);
+  });
 });

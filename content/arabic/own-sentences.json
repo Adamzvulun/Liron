@@ -9645,8 +9645,8 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:0026",
-        "arabic": "الشّباب بيِلْعبوا فُطْبول.",
-        "latin": "iššabāb byil3ábu fúʈbōl.",
+        "arabic": "الشّباب بيِلْعبوا كوْرة.",
+        "latin": "iššabāb biyil3ábu kōra.",
         "english": "The young people are playing soccer."
       }
     },
@@ -28444,9 +28444,9 @@
       "type": "own-sentence",
       "data": {
         "word": "pcav:1776",
-        "arabic": "شو الپاسْوورْد تبع الواي فاي؟",
-        "latin": "šū -lpāswōrd tába3 ilwāy fāy?",
-        "english": "What's the wifi password?"
+        "arabic": "في واي فاي هان؟",
+        "latin": "fī wāy fāy hān?",
+        "english": "Is there wifi here?"
       }
     },
     {
