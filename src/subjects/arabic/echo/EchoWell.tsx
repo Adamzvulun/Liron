@@ -277,7 +277,9 @@ function Ask({
       {picked !== null && (
         <div className="arabic__feedback" aria-live="polite">
           <p className={picked === question.answer ? 'arabic__good' : 'arabic__bad'}>
-            {picked === question.answer ? 'Right!' : 'Not quite.'}
+            {picked === question.answer
+              ? 'Right!'
+              : `Not quite: it was ${question.kind === 'one' ? question[question.answer].gloss : pair[question.answer].label}.`}
           </p>
           <p>
             <Ar className="arabic__example">{said.arabic}</Ar> ·{' '}
