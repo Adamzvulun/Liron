@@ -202,7 +202,10 @@ function Turn({
   return (
     <>
       <p className="qso__progress">
-        Turn {stage.at + 1} of {total} · your call today is <strong>{stage.qso.me}</strong>
+        Turn {stage.at + 1} of {total} ·{' '}
+        <span className="qso__nowrap">
+          your call today is <strong>{stage.qso.me}</strong>
+        </span>
       </p>
       {step.kind === 'hear' ? (
         <Hear step={step} audio={audio} onDone={onCopied} />

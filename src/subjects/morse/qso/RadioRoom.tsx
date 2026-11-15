@@ -482,8 +482,10 @@ function Turn({
   return (
     <>
       <p className="qso__progress">
-        Turn {at + 1} of {steps.length} · {op.who} · {wpm} wpm · your call{' '}
-        <strong>{contact.me.call}</strong>
+        Turn {at + 1} of {steps.length} · {op.who} · {wpm} wpm ·{' '}
+        <span className="qso__nowrap">
+          your call <strong>{contact.me.call}</strong>
+        </span>
       </p>
       {step.kind === 'hear' ? (
         <HearTurn
