@@ -97,7 +97,15 @@ test('signing out wipes the deck kept in the browser (ADR 0011)', async ({ page 
 
   await page.goto('/');
   await page.getByRole('button', { name: 'Settings' }).click();
+  // A mark on this page: signing out starts the page afresh, so nothing of this account's
+  // (unsaved progress, the deck in memory, the purse) is there for the next (review, 2026-11-15).
+  await page.evaluate(() => ((window as unknown as { mark?: number }).mark = 1));
   await page.getByRole('button', { name: 'Sign out' }).click();
+  await expect
+    .poll(() =>
+      page.evaluate(() => (window as unknown as { mark?: number }).mark ?? 0).catch(() => -1),
+    )
+    .toBe(0);
   await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
   await expect.poll(keptPacks).toBe(0);
 });
