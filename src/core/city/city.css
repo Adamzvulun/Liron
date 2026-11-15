@@ -278,6 +278,8 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 6px;
+  /* On the narrowest phones the names may still be wider than the screen: scroll, never clip. */
+  overflow-x: auto;
   padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
   background: linear-gradient(#4e3220, #2a170c);
   border-top: 3px solid var(--ink);
@@ -306,6 +308,20 @@
   text-transform: uppercase;
   text-decoration: none;
   text-shadow: 0 1px 0 var(--ink);
+}
+
+@media (max-width: 359px) {
+  .city__dock {
+    gap: 4px;
+    padding-inline: 6px;
+  }
+
+  .city__dockitem {
+    padding-inline: 1px;
+    border-width: 2px;
+    border-top-width: 5px;
+    letter-spacing: 0;
+  }
 }
 
 .city__dockitem:focus-visible {

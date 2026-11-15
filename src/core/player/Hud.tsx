@@ -154,7 +154,14 @@ function Purse({ state, ...actions }: { state: PlayerState } & HudActions) {
       </span>
       <span className="hud__chip" aria-label={today ? `Streak: ${days}${held}` : 'Streak: …'}>
         <FlameIcon lit={Boolean(today?.goalReached)} />
-        {today ? days : '…'}
+        {today ? (
+          <>
+            {streak}
+            <span className="hud__unit"> {streak === 1 ? 'day' : 'days'}</span>
+          </>
+        ) : (
+          '…'
+        )}
         {shields > 0 && (
           <span className="hud__shields">
             <ShieldIcon />
@@ -173,7 +180,14 @@ function Purse({ state, ...actions }: { state: PlayerState } & HudActions) {
           onClick={() => toggle('goal')}
         >
           <HourglassIcon filled={today.minutes / today.goalMinutes} />
-          {today.goalReached ? 'Goal done' : `${today.minutes}/${today.goalMinutes} min`}
+          {today.goalReached ? (
+            'Goal done'
+          ) : (
+            <>
+              {today.minutes}/{today.goalMinutes}
+              <span className="hud__unit"> min</span>
+            </>
+          )}
         </button>
       )}
       <button
