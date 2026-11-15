@@ -204,6 +204,30 @@
   white-space: nowrap;
 }
 
+/* On a phone, a station's screen (a lesson, a drill) gives the screen to the work: the hall's
+   title and tagline are left for screen readers, since its way back already names the hall. */
+@media (max-width: 640px) {
+  .place-screen:has(> .hall-backdrop) {
+    padding-top: 12px;
+  }
+
+  /* The two ways back share a row: to the square, and to the hall. */
+  .place-screen:has(> .hall-backdrop) > .place-screen__back {
+    margin-right: 14px;
+  }
+
+  .place-screen:has(> .hall-backdrop) > .place-screen__title,
+  .place-screen:has(> .hall-backdrop) > .place-screen__tagline {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
 /* A station's screen keeps its hall's painting behind it, under the cards but above the page. */
 .place-screen:has(> .hall-backdrop) {
   isolation: isolate;
