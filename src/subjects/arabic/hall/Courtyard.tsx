@@ -153,6 +153,14 @@ function Ratings({
   ratings: ReadonlyMap<string, SkillRating>;
   className: string;
 }) {
+  // Before any rated session there's nothing to show: say when ratings come, not a row of dashes.
+  if (RATED.every(([skill]) => !ratings.get(skill))) {
+    return (
+      <p className={className} aria-label="Your skill ratings">
+        Skill ratings appear after your first sessions.
+      </p>
+    );
+  }
   return (
     <p className={className} aria-label="Your skill ratings">
       {RATED.map(([skill, label], i) => {
@@ -160,7 +168,7 @@ function Ratings({
         return (
           <span key={skill}>
             {i > 0 && <span className="khan__sep"> · </span>}
-            {label} {r ? Math.round(r.rating).toLocaleString('en-US') : '—'}
+            {label} {r ? Math.round(r.rating).toLocaleString('en-US') : 'not yet'}
             {r?.provisional && <small title="Provisional: still settling">?</small>}
           </span>
         );
@@ -247,12 +255,12 @@ function Scene({
       ? `${road.regular.who} keeps a place at the innkeeper’s table.`
       : road.trialReady
         ? road.regular.trial.text
-        : `Pass “${WORD_CHAPTERS[road.regular.wordChapter - 1]?.title ?? ''}” at the innkeeper’s table to face it. ${road.lit} of ${road.regular.milestones.length} milestones lit.`
+        : `${road.lit} of ${road.regular.milestones.length} milestones lit. Pass “${WORD_CHAPTERS[road.regular.wordChapter - 1]?.title ?? ''}” at the innkeeper’s table to face it.`
     : quest.guest
       ? 'You read it. You are a guest of the house.'
       : quest.trialReady
         ? quest.chapter.trial.text
-        : `Light all ${quest.chapter.lessons} milestones to face it. ${quest.lit} lit.`;
+        : `${quest.lit} of ${quest.chapter.lessons} milestones lit. Light them all to face it.`;
   const trialDoor = road?.trialReady
     ? {
         name: road.regular.trial.name,

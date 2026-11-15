@@ -73,14 +73,21 @@ test.describe('Skill ratings beside the rank (#180)', () => {
     ).toHaveText('Read 1,240 · Listen 1,180');
   });
 
-  test('a skill with no results yet shows a dash', async ({ page }) => {
+  test('a skill with no results yet says so, and none at all says when they come', async ({
+    page,
+  }) => {
     await signedIn(page, [], [], { lesson: 8, done: true, guest: true, ranks: ['guest'] }, [], {
       ratings: { arabic: { read: 1105 } },
     });
     await page.goto('/caravanserai');
     await expect(
       page.getByLabel('Your skill ratings').filter({ visible: true }).first(),
-    ).toHaveText('Read 1,105 · Listen —');
+    ).toHaveText('Read 1,105 · Listen not yet');
+    await signedIn(page, [], [], { lesson: 8, done: true, guest: true, ranks: ['guest'] });
+    await page.goto('/caravanserai');
+    await expect(
+      page.getByLabel('Your skill ratings').filter({ visible: true }).first(),
+    ).toHaveText('Skill ratings appear after your first sessions.');
   });
 
   test('the tower shows the receive rating beside the rank', async ({ page }) => {
