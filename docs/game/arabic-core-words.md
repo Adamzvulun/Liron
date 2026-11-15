@@ -387,18 +387,18 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 
 ## 4. A word lesson (#160)
 - **Where:** a new station in the courtyard, the innkeeper's table (my choice): a low table under the left arcade with her open guest book, bread and a lamp. The slate moved a little toward the road to make room. It's locked until "The Painted Sign" is passed.
-- **A session is 12 words:** due words first, then up to 5 new words from your chapter, then words you know (my choice, like the Codebook).
+- **A session is 12 words:** due words first, then up to 5 new words, the earliest you haven't met yet in the chapters you've reached (so a word skipped earlier is never left behind), then words you know (my choice, like the Codebook).
 - **Meet**, for each new word: the Arabic with its marks, the native recording, our gloss, the sound in Hebrew letters, and the deck sentence if there is one.
 - **Practice**, mixed:
   - **Listen:** hear the word, pick its meaning from 4.
-  - **Read:** see the word, pick its meaning from 4. Vowel marks fade as in the letter lessons.
+  - **Read:** see the word, pick its meaning from 4. The word keeps all its vowel marks (they don't fade as in the letter lessons; the code and this doc were brought in line in the 2026-11-15 review).
   - **Recall:** see the meaning, pick the Arabic from 4, then hear it.
 - **Saving (ADR 0031):**
-  - each word is an FSRS item `word:pcav:<n>`: right first time is Good, right after a miss is Hard, wrong is Again;
+  - each word is an FSRS item `word:pcav:<n>`: right is Good, wrong is Again (there's no second try, so no Hard);
   - each answer is a result in the `listen` or `read` skill, so word practice moves the same ratings as the letters;
   - XP is about 10 a minute (economy);
   - events `word-session`, and `word-90` for 90% or better. Their daily contracts (2 word sessions, 15 gold; a session at 90%, 20 gold) are only offered once you've had a word session on an earlier day ([economy](economy.md#daily-contracts)).
-- **The chapter gate:** like the letters, 90% in two sessions in a row, the second on a later day. Then the next chapter's words start coming.
+- **The chapter gate:** like the letters, 90% in two sessions in a row, the second on a later day. Then the next chapter's words start coming. A chapter passes only once you have met every one of its words (2026-11-15 review): two good sessions early in a chapter of 30 used to pass it with words still unseen.
 
 ## 5. The regulars ("The Long Road In", chapters 2 onward) (#161, #205)
 - **Chapter numbers are plain numbers** ("Chapter 88: The Monk and the Swallows"), in both questlines, since 2026-11-11: Adam didn't like the Roman numerals. The Roman numerals below (II, LXXXVIII) are the same chapters, as the notes were written at the time.
