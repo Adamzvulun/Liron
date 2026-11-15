@@ -43,11 +43,16 @@ const progressSchema = z.object({
       avgMs: z.record(z.string(), z.number().min(0)).catch({}),
     })
     .catch({ best: 0, rounds: 0, avgMs: {} }),
-  /** Sending drills (#36): how many, and your dit length (your keying speed) from the last one. */
+  /**
+   * Sending drills (#36): how many, your dit length (your keying speed) from the last one, and
+   * the shortest dit of any drill, which the ranks read (a slow drill later doesn't undo it;
+   * saved since 2026-11-15, so older progress falls back to the last dit).
+   */
   sending: z
     .object({
       drills: z.number().int().min(0).catch(0),
       ditMs: z.number().min(20).max(400).nullable().catch(null),
+      fastest: z.number().min(20).max(400).optional().catch(undefined),
     })
     .catch({ drills: 0, ditMs: null }),
   /** The word drill (#154): rounds played, and the most words copied right in one round. */

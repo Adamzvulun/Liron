@@ -1,6 +1,7 @@
 // The house's ranks (E13, #174; docs/game/ranks-and-achievements.md §3).
 import pack from '../../../content/arabic/ranks.json' with { type: 'json' };
 import { ranksFrom, standing, type Rank } from '../../core/ranks/ranks.ts';
+import { LINES_FOR_XP, MAX_LINES, OLD_FRIEND_CHATS } from './chat/limits.ts';
 import { LETTERS } from './letters.ts';
 import { PHRASE_SETS } from './phrases/sets.ts';
 import type { ArabicProgress } from './progress.ts';
@@ -14,19 +15,18 @@ export const SLATE_IDS = LETTERS.filter((l) => l.letter.length === 1).map((l) =>
 /** Traveler's trial: Jamil's, the tenth regular's (chapter 11). Later regulars come after. */
 const POETS_EVENING = 11;
 
-// The ranks after Traveler are earned at the inn's table (E17), since 2026-11-15 (Adam). The
-// numbers mirror innChat.ts, which this file doesn't import: it loads with the square.
-/** Neighbor: a first real chat, as many of your lines as earn a chat its XP (LINES_FOR_XP). */
-export const NEIGHBOR_LINES = 3;
+// The ranks after Traveler are earned at the inn's table (E17), since 2026-11-15 (Adam), with the
+// inn's own numbers (chat/limits.ts).
+/** Neighbor: a first real chat, as many of your lines as earn a chat its XP. */
+export const NEIGHBOR_LINES = LINES_FOR_XP;
 /** Friend: words met, and chats at the inn. */
 export const FRIEND_WORDS = 1000;
 export const FRIEND_CHATS = 20;
-/** Local: words met, and a whole chat, every line you may say (MAX_LINES). */
+/** Local: words met, and a whole chat, every line you may say. */
 export const LOCAL_WORDS = 2000;
-export const LOCAL_LINES = 8;
-/** Storyteller: regulars who call you an old friend (5 chats each, OLD_FRIENDS). */
+export const LOCAL_LINES = MAX_LINES;
+/** Storyteller: regulars who call you an old friend. */
 export const STORY_FRIENDS = 5;
-const OLD_FRIEND_CHATS = 5;
 
 export function arabicMet(rank: Rank, p: ArabicProgress): boolean[] {
   switch (rank.id) {
@@ -56,4 +56,6 @@ export function arabicMet(rank: Rank, p: ArabicProgress): boolean[] {
   }
 }
 
-export const arabicStanding = (p: ArabicProgress) => standing(ARABIC_RANKS, (r) => arabicMet(r, p));
+/** Where you stand in the house: a rank you've taken stays yours. */
+export const arabicStanding = (p: ArabicProgress) =>
+  standing(ARABIC_RANKS, (r) => arabicMet(r, p), p.ranks);

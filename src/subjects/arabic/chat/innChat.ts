@@ -7,14 +7,14 @@ import { inHebrewVowelled } from '../marks.ts';
 import { LETTERS } from '../letters.ts';
 import type { Item } from '../../../core/content/schema.ts';
 import { ECHO_POOL, type WordReview } from '../words.ts';
+import { LINES_FOR_XP, MAX_LINES, OLD_FRIEND_CHATS } from './limits.ts';
 
-/** Your lines in one chat; after that the regular has to go. */
-export const MAX_LINES = 8;
+export { LINES_FOR_XP, MAX_LINES, OLD_FRIEND_CHATS };
+
 /** A line you type, at most (the function takes 160). */
 export const MAX_TYPED = 120;
 /** XP for a chat of at least this many of your lines. */
 export const CHAT_XP = 10;
-export const LINES_FOR_XP = 3;
 /** The regular's own goodbye after your last line: no call to the function. */
 export const GOODBYE = 'يلّا، لازم أروح هلّق. مع السلامة!';
 
@@ -193,8 +193,7 @@ export const metWith = (p: ArabicProgress, r: Regular) => p.chat.met[String(r.nu
 /** How a regular knows you, from how often you've sat with them. */
 export function standingWith(p: ArabicProgress, r: Regular): string {
   const n = metWith(p, r);
-  // 5, as OLD_FRIENDS in api/partner.ts (which imports nothing from the app).
-  return n === 0 ? 'New face' : n < 5 ? 'Knows you' : 'Old friend';
+  return n === 0 ? 'New face' : n < OLD_FRIEND_CHATS ? 'Knows you' : 'Old friend';
 }
 
 /** A word's letters only: no vowel marks or punctuation, and every alif as ا. */
