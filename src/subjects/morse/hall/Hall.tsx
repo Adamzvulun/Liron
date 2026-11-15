@@ -311,7 +311,7 @@ function Room({
       ? 'Passed.'
       : quest.trialReady
         ? quest.chapter.trial.text
-        : `Light all ${quest.chapter.letters.length} lamps to face it. ${quest.lit.length} lit.`
+        : `${quest.lit.length} of ${quest.chapter.letters.length} lamps lit. Light them all to face it.`
     : '';
 
   const story: ReactNode = quest && (
@@ -337,7 +337,7 @@ function Room({
           <div key={skill}>
             <dt>{skill === 'receive' ? 'Receive' : 'Send'}</dt>
             <dd>
-              {r ? Math.round(r.rating).toLocaleString('en-US') : '—'}
+              {r ? Math.round(r.rating).toLocaleString('en-US') : <small>Not rated yet</small>}
               {r?.provisional && <small> provisional</small>}
             </dd>
           </div>
@@ -346,7 +346,7 @@ function Room({
       <div>
         <dt>Speed</dt>
         <dd>
-          {CHAR_WPM}/{progress.effWpm} <small>wpm</small>
+          {progress.effWpm} <small>wpm, letters at {CHAR_WPM}</small>
         </dd>
       </div>
     </dl>
