@@ -70,7 +70,17 @@ describe('a letter drill', () => {
     const api = { saveSession } as unknown as SubjectApi;
     const at = new Date(2026, 10, 14);
     const next = applyDrill(NEW_PROGRESS, 79.6);
-    expect(next.sending).toEqual({ drills: NEW_PROGRESS.sending.drills + 1, ditMs: 80 });
+    expect(next.sending).toEqual({
+      drills: NEW_PROGRESS.sending.drills + 1,
+      ditMs: 80,
+      fastest: 80,
+    });
+    // The fastest dit stays when a slower drill follows (the ranks read it, review 2026-11-15).
+    expect(applyDrill(next, 100).sending).toEqual({ drills: 2, ditMs: 100, fastest: 80 });
+    expect(applyDrill(applyDrill(next, 100), 60).sending.fastest).toBe(60);
+    // Progress from before the fastest dit was kept starts from its last one.
+    const old = { ...NEW_PROGRESS, sending: { drills: 5, ditMs: 70 } };
+    expect(applyDrill(old, 90).sending.fastest).toBe(70);
 
     await reportDrill(api, next, scoreCopy([...'KMKMK'], [...'KMKMK']), 90, at);
     await reportDrill(api, next, scoreCopy([...'KMKMK'], [...'KUUUK']), 30, at);

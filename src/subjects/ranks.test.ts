@@ -110,6 +110,26 @@ describe('the Signal Tower’s ranks (#174)', () => {
     expect(morseStanding({ ...fast, sending: { drills: 21, ditMs: 41 } }).rank.id).toBe(
       'signal-master',
     );
+    // The fastest drill counts, not the last one (review, 2026-11-15).
+    expect(
+      morseStanding({ ...fast, sending: { drills: 22, ditMs: 60, fastest: 40 } }).rank.id,
+    ).toBe('ghost');
+  });
+
+  it('keeps a rank you have taken when a condition later reads lower', () => {
+    // A Keyer whose last drill was slow (and whose old progress has no fastest dit) is still a
+    // Keyer once the rank is taken; before it's taken, the slow drill counts.
+    const slowKeyer = {
+      ...MORSE_NEW,
+      unlocked: MORSE_CHARS.length,
+      trials: [1, 2, 3, 4, 5],
+      rankTrials: ['lamp-signal'],
+      sending: { drills: 25, ditMs: 120 },
+    };
+    expect(morseStanding(slowKeyer).rank.id).toBe('listener');
+    const taken = { ...slowKeyer, ranks: ['listener', 'keyer'] };
+    expect(morseStanding(taken).rank.id).toBe('keyer');
+    expect(morseStanding(taken).next?.id).toBe('operator');
   });
 });
 

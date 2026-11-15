@@ -64,7 +64,9 @@ export function wordDrillText(
 export const xpForDrill = (score: RunScore) => Math.round(score.right * 0.6);
 
 export function applyDrill(p: MorseProgress, ditMs: number): MorseProgress {
-  return { ...p, sending: { drills: p.sending.drills + 1, ditMs: Math.round(ditMs) } };
+  const dit = Math.round(ditMs);
+  const fastest = Math.min(dit, p.sending.fastest ?? p.sending.ditMs ?? dit);
+  return { ...p, sending: { drills: p.sending.drills + 1, ditMs: dit, fastest } };
 }
 
 /** Saves a drill: state, then a send rating per letter, then XP and minutes. */
