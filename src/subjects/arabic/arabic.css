@@ -26,7 +26,7 @@
 
 /* A station's early word (locked, unreadable, no deck) stands outside its section: a card too. */
 .arabic__back ~ p.lesson__card {
-  margin: 0;
+  margin: 0 auto;
   font-size: 18px;
 }
 
