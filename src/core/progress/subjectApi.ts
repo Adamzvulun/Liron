@@ -4,7 +4,17 @@ import type { Item, Lesson } from '../content/schema.ts';
 import { phaseOf, type StoredCard } from '../srs/grades.ts';
 
 /** ts-fsrs loads with the first review saved, not with the square (#137). */
-const loadScheduler = () => import('../srs/scheduler.ts');
+type Scheduler = typeof import('../srs/scheduler.ts');
+let scheduler: Promise<Scheduler> | null = null;
+/**
+ * ts-fsrs loads on its own (#137). It starts loading when a subject's state is read, which every
+ * lesson does as it opens, so it's there by the save; a failed load is tried again next time.
+ */
+const loadScheduler = (): Promise<Scheduler> =>
+  (scheduler ??= import('../srs/scheduler.ts').catch((e: unknown) => {
+    scheduler = null;
+    throw e;
+  }));
 import { rateResult, toSkillRating } from '../rating/ratings.ts';
 import type { Award, ProgressStore, SessionWrite } from './store.ts';
 import type { ContentSource } from '../content/privateContent.ts';
@@ -179,8 +189,12 @@ export function subjectApi<State extends object>(
         minutes: Math.round(Math.min(minutes, MAX_MINUTES)),
         events: events.map(({ kind, count = 1 }) => ({ kind, count })),
       };
-      if (reviews.length) {
-        const { scheduleReview } = await loadScheduler();
+      // If the scheduler can't load (offline, or a new deploy removed the old file), the session
+      // is still saved, without its review cards: losing those beats losing it all (review,
+      // 2026-11-15).
+      const loaded = reviews.length ? await loadScheduler().catch(() => null) : null;
+      if (loaded) {
+        const { scheduleReview } = loaded;
         for (const { itemId, grade } of reviews) {
           const review = scheduleReview(cards.get(itemId) ?? null, grade, at);
           cards.set(itemId, review.card);
@@ -204,7 +218,10 @@ export function subjectApi<State extends object>(
       if (award) onAward(award);
     },
     progressSummary: () => store.summary(id),
-    loadState: () => store.loadState(id) as Promise<State | null>,
+    loadState: () => {
+      void loadScheduler().catch(() => {});
+      return store.loadState(id) as Promise<State | null>;
+    },
     async saveState(state) {
       if (state === null || typeof state !== 'object' || Array.isArray(state)) {
         throw new TypeError('saveState: state must be a plain object');
