@@ -88,11 +88,13 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const saved = useRef(new Set<number>());
   const lines = useRef<HTMLOListElement>(null);
   // The newest line is always in view: the list scrolls to its end as the chat grows.
-  const count = stage.kind === 'chat' ? stage.turns.length + (stage.waiting ? 1 : 0) : 0;
+  // Lines and the wait are counted apart: a reply takes the wait's place, and must scroll too.
+  const count = stage.kind === 'chat' ? stage.turns.length : 0;
+  const waiting = stage.kind === 'chat' && Boolean(stage.waiting);
   useEffect(() => {
     const el = lines.current;
-    if (el && count) el.scrollTop = el.scrollHeight;
-  }, [count]);
+    if (el && (count || waiting)) el.scrollTop = el.scrollHeight;
+  }, [count, waiting]);
   const live = useRef(true);
 
   useEffect(() => {

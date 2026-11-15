@@ -77,6 +77,11 @@ for (const type of ['invite', 'recovery'] as const) {
     await fakeSupabase(page, updates);
     await page.goto(`/${emailLinkFragment(type)}`);
     await expect(page.getByRole('heading', { name: 'Choose a password' })).toBeVisible();
+    // The rule is said up front, not only by the browser after a try.
+    await expect(page.getByRole('textbox', { name: 'New password', exact: true })).toBeVisible();
+    await expect(page.getByLabel('New password')).toHaveAccessibleDescription(
+      'At least 8 characters.',
+    );
     await page.getByLabel('New password').fill('short');
     await page.getByRole('button', { name: 'Save and enter' }).click();
     await expect(page.getByRole('heading', { name: 'Choose a password' })).toBeVisible();

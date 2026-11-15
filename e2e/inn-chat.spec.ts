@@ -337,4 +337,28 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(who).toHaveCount(13);
     await expect(page.getByRole('button', { name: /Salim the carter/ })).toBeVisible();
   });
+  test('the newest reply scrolls into view, even when it is taller than the wait (2026-11-15)', async ({
+    page,
+  }) => {
+    let n = 0;
+    await page.route('**/api/partner', (route) =>
+      route.fulfill({ json: { text: `منيح! وإنت شو بتشتغل هون يا صاحبي؟ ${++n}`, left: 30 } }),
+    );
+    await signedIn(page, [], [], GUEST);
+    await page.setViewportSize({ width: 390, height: 700 });
+    await page.goto('/caravanserai?open=chat');
+    await page.getByLabel('The name they know you by').fill('Adam');
+    await page.getByRole('button', { name: /Salim the carter/ }).click();
+    const line = page.getByLabel('Your line, in Arabic');
+    for (let i = 0; i < 5; i++) {
+      await line.fill(`جملة ${i}`);
+      await page.getByRole('button', { name: 'Say it' }).click();
+      await expect(page.getByText(`صاحبي؟ ${i + 2}`)).toBeVisible();
+    }
+    // The list has scrolled to its end: the last reply's bottom is inside it.
+    const gap = await page
+      .locator('.arabic__chat-lines')
+      .evaluate((el) => el.scrollHeight - el.clientHeight - el.scrollTop);
+    expect(gap).toBeLessThan(2);
+  });
 });
