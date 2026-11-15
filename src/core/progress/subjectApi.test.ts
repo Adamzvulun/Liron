@@ -289,3 +289,23 @@ describe('saveSession (ADR 0031)', () => {
     expect(events).toHaveLength(1);
   });
 });
+
+describe('what is due today (review, 2026-11-15)', () => {
+  it('a card in long-term review is due all of its day; a learning step waits its minutes', async () => {
+    const api = subjectApi({ id: 'morse' }, memoryStore());
+    const evening = new Date(2026, 10, 2, 21, 0);
+    const { due } = await api.recordReview('char:K', 'easy', evening);
+    expect(due.getTime()).toBeGreaterThan(evening.getTime() + 86_400_000 / 2);
+    const morning = new Date(due);
+    morning.setHours(0, 30, 0, 0);
+    expect((await api.dueItems({ now: morning })).map((d) => d.itemId)).toEqual(['char:K']);
+    const dayBefore = new Date(morning.getTime() - 86_400_000);
+    expect(await api.dueItems({ now: dayBefore })).toEqual([]);
+
+    const step = await api.recordReview('char:M', 'again', evening);
+    expect(step.phase).not.toBe('review');
+    const soon = new Date(evening.getTime() + 10_000);
+    expect((await api.dueItems({ now: soon })).map((d) => d.itemId)).not.toContain('char:M');
+    expect((await api.dueItems({ now: step.due })).map((d) => d.itemId)).toContain('char:M');
+  });
+});
