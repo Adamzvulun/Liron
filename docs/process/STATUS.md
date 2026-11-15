@@ -158,6 +158,7 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 - **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
 - ~~**The words left out on purpose**~~ (report §4bc): Adam answered on 2026-11-15. The stepfamily and the national days are in (chapter 113); the adult, toilet and grim words are skipped for now.
 - ~~**The inn's character sheets**~~ (report §4at): done on 2026-11-15 (§4bd). The server now looks the regulars up by number.
+- **New (2026-11-15, report §4be):** more words would need a new source. Maknuune is free (about 36,000 Palestinian entries, no audio) but CC BY-SA 4.0, so what we build from it would be share-alike too. Use it only to check meanings (my suggestion), or as a word source?
 - **Still open (2026-11-15):** the five M5 questions ([fellowship](../game/fellowship.md)), the regulars' voices (Azure costs money), `GROQ_API_KEY` in Vercel (Adam says it's added; please check it on the dev site, report §4bd), v1.0.0, and trying the Morse sound on an iPhone after a phone call or a locked screen (`resumeOnGesture`, §4ax).
 - ~~**E15 (the Radio Room operators' free text)**~~: Adam said yes to all six questions (2026-11-10, ADR 0036). His one hand step: add `GEMINI_API_KEY` in Vercel.
 - ~~**The review's decisions**~~ (end of [the full review](reviews/2026-11-04-full-review.md)): all decided 2026-11-04. Adam answered three (prod keys in GitHub, the second-day gate, the final k) and left the rest to Claude ("do what you think is best"); all are built.
