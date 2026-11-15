@@ -58,6 +58,15 @@ body {
   background: linear-gradient(180deg, var(--dusk) 0%, var(--night) 70%);
 }
 
+/* A plain link in running text takes its text's color (ink on parchment, parchment on the
+   night), not the browser's blue and purple. */
+a:not([class]) {
+  color: inherit;
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
 :lang(ar) {
   font-family: var(--font-arabic);
   font-size: max(22px, 1em);

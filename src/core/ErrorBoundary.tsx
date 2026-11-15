@@ -23,8 +23,8 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, { failed: 
         <h1>Something went wrong on this screen</h1>
         <p>Your saved progress is safe.</p>
         <p>
-          <a href="/">Back to the city</a> ·{' '}
-          <button type="button" onClick={() => window.location.reload()}>
+          <a href="/">Back to the square</a>{' '}
+          <button type="button" className="place__retry" onClick={() => window.location.reload()}>
             Reload
           </button>
         </p>
