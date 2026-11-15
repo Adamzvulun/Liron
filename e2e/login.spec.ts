@@ -1,5 +1,12 @@
 import { expect, test } from '@playwright/test';
-import { emailLinkFragment, fakeSupabase, PASSWORD, signedIn } from './fake-supabase.ts';
+import {
+  emailLinkFragment,
+  FAKE_SUPABASE_URL,
+  fakeSession,
+  fakeSupabase,
+  PASSWORD,
+  signedIn,
+} from './fake-supabase.ts';
 
 test('logged out, you see the login screen and not the lobby', async ({ page }) => {
   await fakeSupabase(page);
@@ -80,3 +87,24 @@ for (const type of ['invite', 'recovery'] as const) {
     expect(updates).toEqual([expect.objectContaining({ password: 'a long new password' })]);
   });
 }
+
+test('a slow sign-in check says so instead of showing an empty screen', async ({ page }) => {
+  await signedIn(page);
+  // The kept session has run out, so the app must renew it before it knows who you are.
+  await page.addInitScript(() => {
+    const key = 'sb-127-auth-token';
+    const kept = JSON.parse(localStorage.getItem(key) ?? '{}') as { expires_at?: number };
+    localStorage.setItem(key, JSON.stringify({ ...kept, expires_at: 1 }));
+  });
+  let renew!: () => void;
+  const renewed = new Promise<void>((done) => (renew = done));
+  await page.route(`${FAKE_SUPABASE_URL}/auth/v1/token**`, async (route) => {
+    await renewed;
+    await route.fulfill({ json: fakeSession() });
+  });
+  await page.goto('/');
+  await expect(page.getByRole('status').filter({ hasText: 'Opening the gates…' })).toBeVisible();
+  renew();
+  await expect(page.getByRole('heading', { name: 'Signal Tower' })).toBeVisible();
+  await expect(page.getByText('Opening the gates…')).toHaveCount(0);
+});

@@ -102,7 +102,12 @@ function AuthGate() {
   }, [auth.status]);
   switch (auth.status) {
     case 'loading':
-      return null;
+      // Usually gone before it shows; on a slow line, a word instead of an empty screen.
+      return (
+        <p className="app__loading" role="status">
+          Opening the gates…
+        </p>
+      );
     case 'signedOut':
       return <LoginScreen />;
     case 'setPassword':
