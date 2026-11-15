@@ -2231,19 +2231,29 @@ describe('the rewards, hardened before friends join (2026-11-15, report §4au)',
     await expect(review(3000)).rejects.toThrow(/2 kB/);
   });
 
-  it('fills in, once, the trials saved progress records but no event does', async () => {
+  it('fills in, once, the trials and ranks saved progress records but no event does', async () => {
     await rows(
       `insert into subject_progress (user_id, subject_id, state) values ($1, 'arabic', $2)
          on conflict (user_id, subject_id) do update set state = excluded.state`,
-      [ADAM, JSON.stringify({ guest: true, words: { trials: [2, 3, 'x'] } })],
+      [
+        ADAM,
+        JSON.stringify({ guest: true, words: { trials: [2, 3, 'x'] }, ranks: ['guest', 'nope'] }),
+      ],
     );
     await save('arabic', [{ kind: 'trial-4' }]);
     expect(await had('arabic')).toEqual([]);
-    expect(await rows(`select backfill_trial_events() as added`)).toEqual([{ added: 3 }]);
-    expect(await rows(`select backfill_trial_events() as added`)).toEqual([{ added: 0 }]);
-    await save('arabic', [{ kind: 'trial-4' }]);
-    expect(await had('arabic')).toEqual(['trial-1', 'trial-2', 'trial-3', 'trial-4']);
-    await expect(as(ADAM, () => rows(`select backfill_trial_events()`))).rejects.toThrow(
+    expect(await rows(`select backfill_ordered_events() as added`)).toEqual([{ added: 4 }]);
+    expect(await rows(`select backfill_ordered_events() as added`)).toEqual([{ added: 0 }]);
+    await save('arabic', [{ kind: 'trial-4' }, { kind: 'rank-traveler' }]);
+    expect(await had('arabic')).toEqual([
+      'rank-guest',
+      'rank-traveler',
+      'trial-1',
+      'trial-2',
+      'trial-3',
+      'trial-4',
+    ]);
+    await expect(as(ADAM, () => rows(`select backfill_ordered_events()`))).rejects.toThrow(
       /permission denied/,
     );
   });

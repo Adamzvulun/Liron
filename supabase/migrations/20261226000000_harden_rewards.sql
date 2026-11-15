@@ -59,21 +59,21 @@ update public.subject_event_kinds k set requires = r.requires
   ) as r (subject_id, kind, requires)
   where k.subject_id = r.subject_id and k.kind = r.kind;
 
--- Trials passed before their event kind was registered (trials 2-11 shipped a day before it)
--- left no event, and the order rule would now hold every later trial back. Once, fill in the
--- trials each player's saved progress already records: Arabic's Painted Sign (`guest`, trial 1)
--- and `words.trials`, Morse's `trials`. Only registered kinds, only where no event exists yet;
--- the chests they earned arrive with the next save (grant_chests).
-create function public.backfill_trial_events() returns integer
+-- Trials passed or ranks taken before their event kind was registered (trials 2-11 shipped a day
+-- before it) left no event, and the order rule would now hold every later one back. Once, fill in
+-- what each player's saved progress already records: Arabic's Painted Sign (`guest`, trial 1),
+-- `words.trials` and `ranks`, Morse's `trials` and `ranks`. Only registered kinds, only where no
+-- event exists yet; the chests and gear they earned arrive with the next save.
+create function public.backfill_ordered_events() returns integer
 language plpgsql security definer set search_path = '' as $$
 declare
   added integer;
 begin
   insert into public.subject_events (user_id, day, subject_id, kind, count)
-  select distinct p.user_id, (now() at time zone 'UTC')::date, p.subject_id, 'trial-' || t.n, 1
+  select distinct p.user_id, (now() at time zone 'UTC')::date, p.subject_id, t.kind, 1
   from public.subject_progress p
   cross join lateral (
-    select value::integer as n from jsonb_array_elements_text(
+    select 'trial-' || value as kind from jsonb_array_elements_text(
       case
         when p.subject_id = 'arabic' and jsonb_typeof(p.state->'words'->'trials') = 'array'
           then p.state->'words'->'trials'
@@ -83,21 +83,26 @@ begin
       end) as value
     where value ~ '^[0-9]{1,6}$'
     union
-    select 1 where p.subject_id = 'arabic' and p.state->>'guest' = 'true'
+    select 'trial-1' where p.subject_id = 'arabic' and p.state->>'guest' = 'true'
+    union
+    select 'rank-' || value from jsonb_array_elements_text(
+      case when jsonb_typeof(p.state->'ranks') = 'array' then p.state->'ranks' else '[]'::jsonb end
+    ) as value
+    where value ~ '^[a-z][a-z0-9-]{0,25}$'
   ) as t
   where exists (
       select 1 from public.subject_event_kinds k
-      where k.subject_id = p.subject_id and k.kind = 'trial-' || t.n)
+      where k.subject_id = p.subject_id and k.kind = t.kind)
     and not exists (
       select 1 from public.subject_events e
-      where e.user_id = p.user_id and e.subject_id = p.subject_id and e.kind = 'trial-' || t.n)
+      where e.user_id = p.user_id and e.subject_id = p.subject_id and e.kind = t.kind)
   on conflict do nothing;
   get diagnostics added = row_count;
   return added;
 end;
 $$;
-revoke execute on function public.backfill_trial_events() from public, anon, authenticated;
-select public.backfill_trial_events();
+revoke execute on function public.backfill_ordered_events() from public, anon, authenticated;
+select public.backfill_ordered_events();
 
 -- save_session as in 20261109000000_daily_contracts.sql, with two changes in the events loop:
 -- trials are taken in number order (the rest keep theirs), and a kind that requires another
