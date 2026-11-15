@@ -122,7 +122,8 @@ const FINALS: Record<string, string> = { ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ',
 /**
  * Hebrew letters to Arabic ones, from the letter table's own bridge (content/arabic/letters.json):
  * ח׳ is خ, ג׳ is ج, and so on (a plain apostrophe works as the geresh). A ה ending a word is ة,
- * but for الله.
+ * but for الله; ה׳ there is ه (كله׳ → كله). A plain ג is ج too: Arabic has no hard g of its own
+ * here, and it's the likeliest thing meant.
  */
 const FROM_HEBREW: ReadonlyMap<string, string> = new Map(
   LETTERS.filter((l) => !['ة', 'ء', 'ى', 'لا'].includes(l.letter)).map((l) => [
@@ -138,7 +139,7 @@ export function fromHebrew(text: string): string {
   for (let i = 0; i < plain.length; i++) {
     const c = plain[i] ?? '';
     const next = plain[i + 1];
-    const withGeresh = next === '׳' ? FROM_HEBREW.get(c + '׳') : undefined;
+    const withGeresh = next === '׳' ? (c === 'ה' ? 'ه' : FROM_HEBREW.get(c + '׳')) : undefined;
     if (withGeresh) {
       out += withGeresh;
       i++;
@@ -154,7 +155,7 @@ export function fromHebrew(text: string): string {
     if (c === '?') out += '؟';
     else if (c === ',') out += '،';
     else if (c === '׳') continue;
-    else out += FROM_HEBREW.get(c) ?? c;
+    else out += FROM_HEBREW.get(c) ?? (c === 'ג' ? 'ج' : c);
   }
   return out;
 }
@@ -171,7 +172,10 @@ export function tipsFrom(text: string): CoachTip[] | null {
           t !== null &&
           ['said', 'better', 'why'].every(
             (k) => typeof (t as Record<string, unknown>)[k] === 'string',
-          ),
+          ) &&
+          // What the saved progress can hold: one tip too long there would wipe every kept
+          // tip, so a tip that won't fit is dropped (`why` is cut to 140 in withTips).
+          [(t as CoachTip).said, (t as CoachTip).better].every((x) => x.trim() && x.length <= 160),
       )
       .slice(0, 3);
   } catch {
