@@ -51,7 +51,8 @@
         "name": "Neighbor",
         "arabic": "جار",
         "conditions": ["Sit and talk with a regular at the inn: say at least 3 lines"],
-        "order": 4
+        "order": 4,
+        "gear": "olive-sprig"
       }
     },
     {
@@ -62,7 +63,8 @@
         "name": "Friend",
         "arabic": "صاحب",
         "conditions": ["Meet 1,000 words on the word path", "Have 20 chats at the inn"],
-        "order": 5
+        "order": 5,
+        "gear": "dallah"
       }
     },
     {
@@ -76,7 +78,8 @@
           "Meet 2,000 words on the word path",
           "Talk a whole chat through: all 8 of your lines"
         ],
-        "order": 6
+        "order": 6,
+        "gear": "tatreez-vest"
       }
     },
     {
@@ -87,7 +90,8 @@
         "name": "Storyteller",
         "arabic": "حكواتي",
         "conditions": ["Become an old friend of 5 regulars (5 chats with each)"],
-        "order": 7
+        "order": 7,
+        "gear": "story-cloak"
       }
     }
   ]
