@@ -147,7 +147,7 @@ describe('The Long Road In as a road', () => {
       expect(step.invite).toMatch(/[.?]$/);
       expect(ARABIC_DOORS).toContain(step.door);
     }
-    expect(ARABIC_ROAD.filter((s) => !s.beat).map((s) => s.id)).toEqual(['a-few-letters']);
+    expect(ARABIC_ROAD.filter((s) => !s.beat).map((s) => s.id)).toEqual([]);
   });
 
   it('walks from the first step to the last: one next step at every point, open to do', () => {
