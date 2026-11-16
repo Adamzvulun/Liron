@@ -48,6 +48,8 @@ export const TODAY = {
 
 /** What a test can change about the player beyond the defaults (ADR 0033, 0034). */
 export interface Extras {
+  /** Leave the first page showing for a new player (the-road.md §8). */
+  firstPage?: boolean;
   /** Item ids the player owns. */
   owned?: string[];
   /** Overrides for today's status, e.g. shields held. */
@@ -322,6 +324,12 @@ export async function fakeSupabase(
     ) {
       // PostgREST answers "no row" for a single-object request like this; supabase-js's
       // maybeSingle() turns it into null.
+      // No subject asked for: the list of what was practiced, the latest save first.
+      if (url.pathname === '/rest/v1/subject_progress' && !url.searchParams.has('subject_id')) {
+        return route.fulfill({
+          json: [...saved.keys()].reverse().map((subject_id) => ({ subject_id })),
+        });
+      }
       const subject = url.searchParams.get('subject_id')?.replace(/^eq\./, '') ?? '';
       const state = saved.get(subject) ?? morseState;
       if (url.pathname === '/rest/v1/subject_progress' && state) {
@@ -588,13 +596,16 @@ export async function signedIn(
 ) {
   await fakeSupabase(page, [], profileUpdates, subjectCalls, morseState, content, extras);
   await page.addInitScript(
-    ([key, session]) => {
+    ([key, session, firstPage]) => {
       if (!sessionStorage.getItem('e2e-seeded')) {
         localStorage.setItem(key, JSON.stringify(session));
+        // The first page (the-road.md §8) covers the square for a new player; most tests are
+        // about something else, so it starts closed unless a test asks for it.
+        if (!firstPage) localStorage.setItem('waymark:first-page-closed', '1');
         sessionStorage.setItem('e2e-seeded', '1');
       }
     },
-    [STORAGE_KEY, fakeSession()] as const,
+    [STORAGE_KEY, fakeSession(), extras.firstPage ?? false] as const,
   );
 }
 

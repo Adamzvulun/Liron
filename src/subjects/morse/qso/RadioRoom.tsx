@@ -38,6 +38,7 @@ import { FreeTurn, HearTurn, KeyTurn, type Copies as TurnCopies } from './Turns.
 import '../lesson/lesson.css';
 import '../send/send.css';
 import './qso.css';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // The Radio Room on the air (E16): after the Far Station, a few operators call CQ each day. Pick
 // one, work the contact turn by turn, and it goes in your logbook. Rules in onAir.ts, the band's
@@ -606,6 +607,7 @@ function Log({
         <button type="button" className="lesson__plain" onClick={onLeave}>
           The Radio Room
         </button>
+        <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>
           {result.logged ? `Work ${contact.op.name} again` : 'Try again'}
         </button>

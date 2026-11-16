@@ -83,6 +83,12 @@
   display: none;
 }
 
+/* min-width: its one line is cut short with an ellipsis instead of widening the bar. */
+.city--pan .hud__compass {
+  display: block;
+  min-width: 0;
+}
+
 .city--pan .hud__player {
   gap: 8px;
 }

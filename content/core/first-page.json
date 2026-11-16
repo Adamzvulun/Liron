@@ -1,0 +1,21 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "first-page",
+      "subject": "core",
+      "type": "first-page",
+      "data": {
+        "title": "Waymark",
+        "paragraphs": [
+          "A city grown up around a crossroads, where travelers come to learn the arts that carry a voice across distance.",
+          "Two guild halls keep their doors open tonight. The Signal Tower’s beacon has been dark for forty winters, and its guild needs someone who can hear. At the Caravanserai, the road from the Levant ends at a table, and there is room on the bench.",
+          "You came with nothing but time. The city asks for a little of it each day."
+        ],
+        "later": "Look around the square first"
+      }
+    }
+  ]
+}

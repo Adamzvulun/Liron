@@ -15,6 +15,7 @@ import {
 } from './questions.ts';
 import { LESSON_BONUS, reportSession, scoreOf, xpFor, type Answer } from './report.ts';
 import { useAudio } from './useAudio.ts';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 type Stage =
   | { kind: 'meet'; index: number }
@@ -808,6 +809,7 @@ function Result({
         </p>
       )}
       <p className="arabic__xp">+{xpFor(answers, passed ? LESSON_BONUS : 0)} XP</p>
+      <NextStep onHere={onAgain} />
       <button type="button" className="lesson__go" onClick={onAgain}>
         Practice again
       </button>

@@ -296,6 +296,14 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       const data = await row(subjectId);
       return { xp: Number(data?.xp ?? 0), minutes: data?.minutes ?? 0 };
     },
+    async practiced() {
+      const { data, error } = await client
+        .from('subject_progress')
+        .select('subject_id, updated_at')
+        .order('updated_at', { ascending: false });
+      if (error) throw new Error(`Couldn't read what was practiced last: ${error.message}`);
+      return (data as { subject_id?: string }[]).flatMap((r) => r.subject_id ?? []);
+    },
     async loadState(subjectId) {
       const data = await row(subjectId);
       // A row can exist with the default empty state; that means "never saved".

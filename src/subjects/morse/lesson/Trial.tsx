@@ -16,6 +16,7 @@ import {
 import { Run } from './Lesson.tsx';
 import type { RunScore } from './score.ts';
 import './lesson.css';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // A chapter's trial (#34): with every lamp lit, copy the trial's characters (50) at its accuracy
 // (90%) to open the gate. Passing unlocks the next chapter's first character and pays the
@@ -135,6 +136,7 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
               <p className="lesson__note">
                 <Xp>{trial.xp}</Xp> · a new chapter begins
               </p>
+              <NextStep />
               <button type="button" className="lesson__go" onClick={onLeave}>
                 Back to the tower hall
               </button>
@@ -147,6 +149,7 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
                 try again now.
               </p>
               <div className="lesson__actions">
+                <NextStep />
                 <button type="button" className="lesson__plain" onClick={onLeave}>
                   Back to the hall
                 </button>

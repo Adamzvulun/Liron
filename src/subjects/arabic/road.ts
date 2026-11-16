@@ -17,7 +17,7 @@ import {
   type RoadRules,
   type RoadStep,
   type WaitReason,
-} from '../../core/road.ts';
+} from '../../core/road/road.ts';
 import { heldRanks } from '../../core/ranks/ranks.ts';
 import { MAX_LINES, LINES_FOR_XP, OLD_FRIEND_CHATS } from './chat/limits.ts';
 import { WORD_CHAPTERS } from './core/wordChapters.ts';

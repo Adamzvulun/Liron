@@ -2,7 +2,13 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { useStage } from '../../../core/city/useStage.ts';
 import type { SkillRating, SubjectApi } from '../../../core/subject.ts';
 import { LESSONS, lettersUpTo } from '../letters.ts';
-import { parseProgress, PASSES_NEEDED, wordsOpen, type ArabicProgress } from '../progress.ts';
+import {
+  localDay,
+  parseProgress,
+  PASSES_NEEDED,
+  wordsOpen,
+  type ArabicProgress,
+} from '../progress.ts';
 import { questStatus, regularStatus } from '../questline.ts';
 import { RankUp } from '../../../core/ranks/RankUp.tsx';
 import { heldRanks, needLine } from '../../../core/ranks/ranks.ts';
@@ -12,7 +18,23 @@ import { ArabicText } from '../ArabicText.tsx';
 import { PHRASE_SETS } from '../phrases/sets.ts';
 import { WORD_CHAPTERS } from '../core/coreWords.ts';
 import { currentPair } from '../echo/pairs.ts';
+import { opensAt } from '../../../core/road/road.ts';
+import { RoadLine } from '../../../core/road/RoadLine.tsx';
+import { arabicDone, arabicRoad, roadFor } from '../road.ts';
 import './khan.css';
+
+/** The station that holds each door, for marking where the compass points. */
+const HOME: Partial<Record<string, StationId>> = {
+  lesson: 'scribe',
+  write: 'slate',
+  words: 'innkeeper',
+  regular: 'innkeeper',
+  chat: 'innkeeper',
+  listen: 'fountain',
+  echo: 'well',
+  read: 'storyteller',
+  phrases: 'coffee',
+};
 
 // Inside the Caravanserai (#42): the inn's courtyard. "The Long Road In" (#43) runs from your
 // feet to the gate, a milestone per script lesson; the chapter is written on the scroll, your
@@ -202,7 +224,20 @@ function Scene({
   const total = lettersUpTo(LESSONS.length).length;
   const echoPair = currentPair(progress);
 
-  const stations: Station[] = [
+  // The road (docs/game/the-road.md): where this player stands, and the one thing to do now.
+  // Until the site can say what it has (task 1.8) and who may read the deck (task 2.1), the
+  // partner is there and the one player is the licensee.
+  const steps = roadFor(true);
+  const way = arabicRoad(progress, {
+    today: localDay(),
+    partner: 'ready',
+    licensee: true,
+    due: 0,
+  });
+  const nowDoor = way.now.kind === 'step' ? way.now.step.door : way.now.door;
+  const compassAt = HOME[nowDoor];
+
+  const written: Station[] = [
     {
       id: 'scribe',
       title: 'The scribe’s table',
@@ -248,19 +283,14 @@ function Scene({
     },
   ];
 
+  // The innkeeper's table, while it's locked, says which step opens it, in the road's own count.
+  const stations = written.map((s) => {
+    const note = !s.open && s.id === 'innkeeper' ? opensAt(way, steps, 'words') : null;
+    return note ? { ...s, text: note } : s;
+  });
+
   // After the Painted Sign, the road goes on with the regulars at the innkeeper's table (#161).
   const road = quest.guest ? regularStatus(progress) : undefined;
-  const trialLine = road
-    ? road.passed
-      ? `${road.regular.who} keeps a place at the innkeeper’s table.`
-      : road.trialReady
-        ? road.regular.trial.text
-        : `${road.lit} of ${road.regular.milestones.length} milestones lit. Pass “${WORD_CHAPTERS[road.regular.wordChapter - 1]?.title ?? ''}” at the innkeeper’s table to face it.`
-    : quest.guest
-      ? 'You read it. You are a guest of the house.'
-      : quest.trialReady
-        ? quest.chapter.trial.text
-        : `${quest.lit} of ${quest.chapter.lessons} milestones lit. Light them all to face it.`;
   const trialDoor = road?.trialReady
     ? {
         name: road.regular.trial.name,
@@ -292,9 +322,13 @@ function Scene({
           }
         />
       </blockquote>
-      <p className="khan__trial">
-        <strong>Trial: {road?.regular.trial.name ?? quest.chapter.trial.name}.</strong> {trialLine}
-      </p>
+      <RoadLine
+        answer={way}
+        steps={steps}
+        done={(step) => arabicDone(step, progress)}
+        onOpen={(door) => onOpen(door as CourtyardDoor)}
+        text={(words) => <ArabicText text={words} />}
+      />
     </>
   );
 
@@ -341,7 +375,7 @@ function Scene({
               <button
                 key={s.id}
                 type="button"
-                className={`khan__station khan__station--${s.id}`}
+                className={`khan__station khan__station--${s.id}${s.id === compassAt ? ' is-compass' : ''}`}
                 style={at(part.box)}
                 onClick={() => s.open && onOpen(s.open)}
                 tabIndex={compact ? -1 : undefined}
@@ -427,24 +461,26 @@ function Scene({
                 <span className="khan__door-go">Go →</span>
               </button>
             )}
-            {stations.map((s) =>
-              s.open ? (
-                <button
-                  key={s.id}
-                  type="button"
-                  className={`khan__card khan__door${s.id === (progress.guest ? 'innkeeper' : 'scribe') && !trialDoor ? ' is-main' : ''}`}
-                  onClick={() => s.open && onOpen(s.open)}
-                >
-                  <span className="khan__door-title">{s.title}</span>
-                  <span className="khan__door-text">{s.text}</span>
-                </button>
-              ) : (
-                <div key={s.id} className="khan__card khan__door is-locked">
-                  <span className="khan__door-title">{s.title}</span>
-                  <span className="khan__door-text">{s.text}</span>
-                </div>
-              ),
-            )}
+            {[...stations]
+              .sort((a, b) => Number(b.id === compassAt) - Number(a.id === compassAt))
+              .map((s) =>
+                s.open ? (
+                  <button
+                    key={s.id}
+                    type="button"
+                    className={`khan__card khan__door${s.id === compassAt && !trialDoor ? ' is-main' : ''}`}
+                    onClick={() => s.open && onOpen(s.open)}
+                  >
+                    <span className="khan__door-title">{s.title}</span>
+                    <span className="khan__door-text">{s.text}</span>
+                  </button>
+                ) : (
+                  <div key={s.id} className="khan__card khan__door is-locked">
+                    <span className="khan__door-title">{s.title}</span>
+                    <span className="khan__door-text">{s.text}</span>
+                  </div>
+                ),
+              )}
           </nav>
           <aside className="khan__card" aria-label="Your standing in the house">
             <p className="khan__card-kicker">House of the Crossing</p>
