@@ -135,7 +135,15 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
 
   const finish = (answers: Answer[], startedAt: number) => {
     const { next, passed, sameDay } = only
-      ? { next: { ...progress, sessions: progress.sessions + 1 }, passed: false, sameDay: false }
+      ? {
+          next: {
+            ...progress,
+            sessions: progress.sessions + 1,
+            only: { ...progress.only, [only]: progress.only[only] + 1 },
+          },
+          passed: false,
+          sameDay: false,
+        }
       : applySession(
           progress,
           scoreOf(answers),

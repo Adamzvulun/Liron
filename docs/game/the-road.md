@@ -266,7 +266,7 @@ Lesson letters, for the slate steps: lesson 1 ا ب ت ن ي · 2 ث ر ز و ·
 | 23 | Trial: The Painted Sign | Trial | `guest` |
 | 24 | Rank: Guest | the hall | `ranks` has `guest` |
 
-Day one for a new player is steps 1–3: a first lesson, a first greeting, a first five letters in chalk. Step 4 then waits for tomorrow, which is the right place to stop.
+Day one for a new player is steps 1–3: a first lesson, a first greeting, a first five letters in chalk. Step 4 (the lesson's second pass) then waits for tomorrow, and the compass offers the fountain meanwhile.
 
 ### Chapters 2–12: the first eleven regulars
 
@@ -377,7 +377,7 @@ compass(guild)   = the first step with done == false,
 | Not on this site | the step needs a service the site has no key for (task 1.8's answer) | “Nobody is at the table on this site yet.” The road goes on past it. |
 | Not for this player | the step needs `deck` and the player is not a licensee (task 2.1) | The step is left out of this player's road and its count. |
 
-- If a step is waiting, the compass moves to the next step that is open and not waiting. In practice that happens only for chat steps, because everything after a lesson's second pass is closed until the pass. The waiting step stays visible above the compass as a quiet line, so the player knows the road hasn't forgotten it.
+- If a step is waiting, the compass moves to the next step that is open and not waiting, **looking no further than the next chapter**. So on a script lesson's waiting day it offers the next station of chapter 1, and past a chat that can't be had it offers the chapter's words. It never jumps to a step far down the road ("have 20 chats") only because that door happens to be open. The waiting step stays visible above the compass as a quiet line, so the player knows the road hasn't forgotten it.
 - **If no step qualifies** (the road is waiting, or finished), the compass shows the **meanwhile**. It is the first of these that exists:
   1. **Reviews due** in this guild (the count is already known) → the station that reviews them.
   2. **Sit with your regular** (Caravanserai only, when the road waits on a word chapter and `partner` is available and unspent) → Sit and talk, with that chapter's regular.
@@ -437,11 +437,11 @@ Buttons: **Climb the Signal Tower** (goes straight to step 1, the first lesson) 
 
 ## 9. For the builder (task 1.3)
 
-**Data.** One `content/<subject>/road.json` per guild: the ordered steps, each with an `id`, its chapter, a `kind` (`lesson`, `visit`, `practice`, `trial`, `rank`, `finale`), a title, an invite, a beat, the door it opens, and what it `needs`, if anything. Don't write 204 near-identical steps by hand: the Long Road's chapter steps and the Beacon's lamp steps are generated from `questline.json` by the loader, and `road.json` holds the chapters' extra steps and where each goes (before or after which core step). The new chapters 6–10 go into `content/morse/questline.json` in the shape chapters 1–5 have, with `letters` empty.
+**Data (built 2026-11-16).** One `content/<subject>/road.json` per guild, read in file order. A `road-step` is a written step: its chapter, a `kind` (`lesson`, `visit`, `practice`, `trial`, `rank`, `finale`), a title, an invite, a beat, the door it opens, and what it `needs`, if anything. The repeated steps aren't written by hand: `road-lamps`, `road-trial`, `road-lesson` and `road-chapters` entries say where the lamps, trials, milestones and word chapters of `questline.json` fall, and the loader builds their steps. The Beacon's new chapters 6–10 are `road-chapter` entries in `content/morse/road.json`, not in `questline.json`: the code there takes every chapter to be a Koch chapter with letters and a trial.
 
 **Checks.** A table in each subject, `id → (progress) => boolean`, with patterns for the generated families (`lamp:<n>`, `pass:<chapter>`, `trial:<chapter>`). The checks are code; the words are content.
 
-**The contract.** Each subject exposes `road(state, today, services)`, which returns its position, its compass (a step, or a meanwhile) and any waiting line. The platform's city rule (§6) works on those answers alone. `src/core/` must not learn a subject's name.
+**The contract (built).** Each subject exposes `road(state, ctx)` on its `SubjectInfo` (`src/core/road.ts` has the shapes and the shared walk), which returns its position, its compass (a step, or a meanwhile) and any waiting line. The platform's city rule (§6) works on those answers alone. `src/core/` must not learn a subject's name.
 
 **Tests that must exist** (they are the "Done when" of 1.3, made exact):
 
