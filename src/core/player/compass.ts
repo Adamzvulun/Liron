@@ -3,7 +3,7 @@
 // for its road through the subject contract and never reads a road itself (ADR 0003, ADR 0019).
 import { useEffect, useState } from 'react';
 import { PLACE_PATHS } from '../city/layout.ts';
-import { HALL_DOOR, type RoadAnswer, type RoadContext } from '../road.ts';
+import { HALL_DOOR, type RoadAnswer, type RoadContext } from '../road/road.ts';
 import type { SubjectInfo } from '../subject.ts';
 
 export interface CompassLine {

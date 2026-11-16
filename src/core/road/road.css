@@ -1,0 +1,153 @@
+/* The road inside a hall (RoadLine.tsx). It takes its color from where it sits: ink on a
+   painted scroll, parchment on a dark card. */
+.road {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.road__count,
+button.road__next {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.road__count {
+  font-size: 0.85em;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.road__sofar {
+  font-weight: 600;
+}
+
+.road__wait {
+  margin: 0;
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+.road__next {
+  margin: 0;
+  line-height: 1.35;
+}
+
+button.road__next:hover,
+.road__count:hover {
+  text-decoration: underline;
+}
+
+.road__count:focus-visible,
+button.road__next:focus-visible,
+.road__close:focus-visible {
+  outline: 3px solid var(--brass);
+  outline-offset: 3px;
+}
+
+.road__veil {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(20 14 10 / 72%);
+}
+
+.road__book {
+  box-sizing: border-box;
+  width: min(100%, 620px);
+  max-height: min(100%, 720px);
+  overflow-y: auto;
+  padding: 22px 24px 26px;
+  border: 4px solid var(--ink);
+  border-radius: var(--radius-card);
+  background: var(--parchment);
+  box-shadow: 0 6px 0 var(--ink);
+  color: var(--ink);
+  font-size: 17px;
+  text-align: left;
+}
+
+.road__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.road__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.15;
+  color: var(--wood);
+}
+
+.road__close {
+  flex: none;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--wood);
+  color: var(--vellum);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.road__tally {
+  margin: 6px 0 0;
+  font-weight: 700;
+}
+
+.road__part {
+  margin: 20px 0 8px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a3a2e;
+}
+
+.road__ahead,
+.road__walked {
+  margin: 0;
+  padding-left: 2.2em;
+}
+
+.road__ahead {
+  list-style: disc;
+}
+
+.road__walked li {
+  margin-bottom: 12px;
+}
+
+.road__step {
+  display: block;
+  font-weight: 800;
+}
+
+.road__beat {
+  display: block;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.road__more {
+  margin: 6px 0 0;
+  font-style: italic;
+}

@@ -69,5 +69,5 @@ Written on 2026-11-09: [0032](../decisions/0032-subject-events-and-daily-contrac
 
 ## What it reuses
 - The gold and daily-chest machinery (economy.md, ADR 0020/0021): contract payouts copy the daily chest's pay-once pattern.
-- The subject contract (ADR 0019): two additions, `reportEvent` and the optional `questStatus`.
+- The subject contract (ADR 0019): two additions, `reportEvent` and the optional `questStatus`. (2026-11-16: `questStatus` is replaced by `road`, see [the-road.md](the-road.md).)
 - The avatar's items (`looks.ts`). There are only 4 locked items today (each earned by a milestone, e.g. a 7-day streak), so chests and the Market need **more gear drawn**: about 3 more per slot, about 18 items, as part of E10. That's the sprint's biggest art job.

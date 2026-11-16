@@ -16,7 +16,7 @@ import {
   type RoadContext,
   type RoadRules,
   type RoadStep,
-} from '../../core/road.ts';
+} from '../../core/road/road.ts';
 import { heldRanks } from '../../core/ranks/ranks.ts';
 import { charLabel, MORSE_CHARS } from './code.ts';
 import {

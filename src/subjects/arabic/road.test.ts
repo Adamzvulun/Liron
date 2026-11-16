@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import pack from '../../../content/arabic/road.json' with { type: 'json' };
-import type { RoadContext } from '../../core/road.ts';
+import type { RoadContext } from '../../core/road/road.ts';
 import { PAIRS } from './echo/pairs.ts';
 import { LETTERS } from './letters.ts';
 import { NEW_PROGRESS, type ArabicProgress } from './progress.ts';

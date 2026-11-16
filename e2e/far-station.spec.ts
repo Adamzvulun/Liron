@@ -39,7 +39,10 @@ test.describe('The Far Station (#178)', () => {
     await signedIn(page, [], [], listener);
     await page.goto('/signal-tower');
     await expect(
-      page.getByText('Locked · pass the Lamp Signal').filter({ visible: true }).first(),
+      page
+        .getByText(/Opens at step \d+ · .*Far Station/)
+        .filter({ visible: true })
+        .first(),
     ).toBeVisible();
     await page.goto('/signal-tower?open=far');
     await expect(page.getByRole('heading', { name: 'The Far Station' })).toBeVisible();

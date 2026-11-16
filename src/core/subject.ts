@@ -4,7 +4,7 @@ import type { Heard } from './speech.ts';
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
 import type { Item, Lesson } from './content/schema.ts';
-import type { RoadAnswer, RoadContext } from './road.ts';
+import type { RoadAnswer, RoadContext } from './road/road.ts';
 
 export type { ReviewGrade, ReviewPhase, SkillRating };
 

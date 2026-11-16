@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { RoadAnswer, RoadContext, RoadStep } from '../road.ts';
+import type { RoadAnswer, RoadContext, RoadStep } from '../road/road.ts';
 import type { SubjectInfo } from '../subject.ts';
 import { loadCompass, type CompassSources } from './compass.ts';
 

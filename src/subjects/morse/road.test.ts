@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import pack from '../../../content/morse/road.json' with { type: 'json' };
-import type { RoadContext } from '../../core/road.ts';
+import type { RoadContext } from '../../core/road/road.ts';
 import { MORSE_CHARS } from './code.ts';
 import { NEW_PROGRESS, type MorseProgress } from './lesson/progress.ts';
 import {
