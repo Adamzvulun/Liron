@@ -64,6 +64,7 @@ function RoadSoFar({
   const walked = steps.filter(done).reverse();
   const ahead = steps.filter((s) => !done(s));
   const more = ahead.length - AHEAD;
+  const chapters = [...new Set(steps.map((x) => x.chapter))];
   return (
     <div
       className="road__veil"
@@ -82,6 +83,13 @@ function RoadSoFar({
         </div>
         <p className="road__tally">
           {walked.length} of {steps.length} steps walked
+          {answer.position && (
+            <>
+              {' '}
+              · chapter {chapters.indexOf(answer.position.chapter.number) + 1} of {chapters.length}:{' '}
+              {answer.position.chapter.title}
+            </>
+          )}
         </p>
         {ahead.length > 0 && (
           <>

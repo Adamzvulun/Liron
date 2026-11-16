@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
+import { GateScene, WaymarkPost } from './auth/Scenes.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
 import { City } from './city/City.tsx';
@@ -112,9 +113,10 @@ function AuthGate() {
     case 'loading':
       // Usually gone before it shows; on a slow line, a word instead of an empty screen.
       return (
-        <p className="app__loading" role="status">
-          Opening the gates…
-        </p>
+        <div className="app__loading">
+          <GateScene open />
+          <p role="status">Opening the gates…</p>
+        </div>
       );
     case 'signedOut':
       return <LoginScreen />;
@@ -296,8 +298,9 @@ function Lost() {
     };
   }, []);
   return (
-    <main className="place-screen">
+    <main className="place-screen" data-ground="cobble">
       <h1 className="place-screen__title">Lost?</h1>
+      <WaymarkPost />
       <p className="place-screen__soon">
         There’s no such place in Waymark. <Link href="/">Back to the square</Link>
       </p>

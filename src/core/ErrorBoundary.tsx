@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { WaymarkPost } from './auth/Scenes.tsx';
 
 /**
  * If a screen throws while drawing, show a way back instead of a blank page (2026-11-04 QA
@@ -19,11 +20,11 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, { failed: 
   render() {
     if (!this.state.failed) return this.props.children;
     return (
-      <main className="lesson__card" role="alert" style={{ margin: '2rem auto', maxWidth: 560 }}>
-        <h1>Something went wrong on this screen</h1>
-        <p>Your saved progress is safe.</p>
-        <p>
-          <a href="/">Back to the square</a>{' '}
+      <main className="place-screen" data-ground="cobble" role="alert">
+        <h1 className="place-screen__title">Something went wrong on this screen</h1>
+        <WaymarkPost lit={false} />
+        <p className="place-screen__soon">
+          Your saved progress is safe. <a href="/">Back to the square</a>{' '}
           <button type="button" className="place__retry" onClick={() => window.location.reload()}>
             Reload
           </button>
