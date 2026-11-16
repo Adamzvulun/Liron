@@ -1,4 +1,4 @@
-# Prompt for the next Claude session (written 2026-11-15, updated the same day)
+# Prompt for the next Claude session (written 2026-11-15, updated 2026-11-16)
 
 Paste this as the first message of a new session:
 
@@ -18,8 +18,7 @@ Actions minutes cost money, so keep CI use low:
 
 First:
 1. If an open PR from the last session is still there, check its CI log. If it's clean, squash-merge it with the full head SHA and unsubscribe.
-2. Then pick from the plan in HANDOFF/STATUS:
-   - The deck's words that I want taught are all in (HANDOFF items 60–61; I said to skip the adult words for now). Any further word chapters need a new free source or a new decision from me, so ask before building them. Word chapters have their own sentences, grammar card and regular. The scratch scripts don't survive a session, so rebuild them in your scratchpad (HANDOFF says what they do). Deck text and deck analysis never go into `content/`, the bundle or commits (ADR 0011): an own sentence is never the deck's line.
-   - **The goal now is v1.0.0 (2026-11-15):** optimize and polish until I'm satisfied, then I'll say release. The regulars' voices and M5 (ADR 0039) come after v1.0.0. What still waits on me is under "Open questions" in STATUS.
+2. Find your place: PLAN.md's ticked boxes and VERSIONS.md's "Where things stand" say what is done. Start at the first unticked task of the current version. On 2026-11-16 that is **v1.0, task 1.1** (what's left of it: the "+N XP" line), bundled with slice (a) of task 1.3.
+3. Rules that outlast the plan: deck text and deck analysis never go into `content/`, the bundle or commits (ADR 0011). No new word chapters without a new source or a decision from me. The regulars' voices are parked until I've looked at Azure. Don't release anything until I say so; when a version is ready, cut its release branch (or ask me to), open the release PR, and tell me what my part is.
 
 Keep `docs/process/STATUS.md`, `HANDOFF.md`, this prompt and my report (`docs/process/reports/`) current as you go. Screenshot any visual change and look at it before showing me. Ask me anything that costs money, shares data or locks us in. If I'm away, make the call I'd make, note it in the report, and keep working.

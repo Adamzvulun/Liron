@@ -73,7 +73,8 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 **Goal:** a player who has never seen Waymark always knows what to do next, from the first minute to the last chapter, on a phone and on a desktop. No screen is a blue gradient. Adam walks a checklist in under an hour, says "release", and merges one PR.
 
 ### ☐ 1.1 (#309) · v1.0 · Land the work in flight
-- **Do:** run the full checks on the local commits (dialog focus trap, lesson header contrast, the Arena tap area, the halls' peeking card, the chest shelf on a narrow phone, their docs, this plan). Then finish the started fix: every "+N XP" keeps the number and "XP" on one line (a non-breaking space) in `morse/lesson/Trial.tsx`, `words/WordDrill.tsx`, `words/Rush.tsx`, `recognition/Recognition.tsx`, and wherever else a result line can wrap. Several browser tests match "XP" after a normal space; update them to accept the non-breaking space. Open one PR.
+- **Landed (2026-11-16):** the commits in flight (dialog focus trap, lesson header contrast, the Arena tap area, the halls' peeking card, the chest shelf on a narrow phone), this plan, VERSIONS.md and the three designs are in `dev`.
+- **Still to do:** every "+N XP" keeps the number and "XP" on one line (a non-breaking space) in `morse/lesson/Trial.tsx`, `words/WordDrill.tsx`, `words/Rush.tsx`, `recognition/Recognition.tsx`, and wherever else a result line can wrap. Several browser tests match "XP" after a normal space; update them to accept the non-breaking space. Bundle it with the next PR (slice (a) of 1.3).
 - **Done when:** the PR is merged; at 320 pixels no result line breaks between a number and its unit.
 
 ### ☑ 1.2 (#310) · v1.0 · ✏️ The Road: one linear story for each guild, every step written down
