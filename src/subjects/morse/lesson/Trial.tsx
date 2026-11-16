@@ -1,3 +1,4 @@
+import { Xp } from '../../../core/player/Xp.tsx';
 import { useEffect, useMemo, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
@@ -92,7 +93,8 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
           <h2 className="lesson__title">{trial.name}</h2>
           <p>{trial.text}</p>
           <p className="lesson__note">
-            {trial.chars} characters · {Math.round(trial.accuracy * 100)}% to pass · +{trial.xp} XP
+            {trial.chars} characters · {Math.round(trial.accuracy * 100)}% to pass ·{' '}
+            <Xp>{trial.xp}</Xp>
           </p>
           <button
             type="button"
@@ -130,7 +132,9 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
             <>
               <h2 className="lesson__title">The gate opens</h2>
               <p>{chapter.outro}</p>
-              <p className="lesson__note">+{trial.xp} XP · a new chapter begins</p>
+              <p className="lesson__note">
+                <Xp>{trial.xp}</Xp> · a new chapter begins
+              </p>
               <button type="button" className="lesson__go" onClick={onLeave}>
                 Back to the tower hall
               </button>

@@ -1,3 +1,4 @@
+import { Xp } from '../../../core/player/Xp.tsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CHAR_WPM, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
 import { MorsePlayer } from '../player.ts';
@@ -184,7 +185,7 @@ export function RushSummaryCard({
     <div className="lesson__card words__result">
       <p className="lesson__kicker">Rush finished</p>
       <p className="lesson__score">
-        Score {s.score} · {s.right} of {calls.length} calls · +{xpForRush(s)} XP
+        Score {s.score} · {s.right} of {calls.length} calls · <Xp>{xpForRush(s)}</Xp>
       </p>
       {(isBest || best > 0 || s.topWpm > 0) && (
         <p className="lesson__note words__best">

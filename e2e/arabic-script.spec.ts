@@ -203,7 +203,8 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
     const saved = calls.find((c) => c.rpc === 'save_subject_state')?.args as {
       p_state: { lesson: number; streak: number };
     };
-    expect(saved.p_state).toMatchObject({ lesson: 1, streak: 1 });
+    // The round is counted, so a first visit to the fountain can be a step on the road.
+    expect(saved.p_state).toMatchObject({ lesson: 1, streak: 1, only: { listen: 1, read: 0 } });
   });
 
   test('a new learner is sent to meet letters before the fountain or the storyteller (review, 2026-11-15)', async ({

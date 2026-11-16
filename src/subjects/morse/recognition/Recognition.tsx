@@ -1,3 +1,4 @@
+import { Xp } from '../../../core/player/Xp.tsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
@@ -317,7 +318,8 @@ function Summary({
           {summary.avgMs > 0 && <> · {summary.avgMs} ms on average</>}
         </p>
         <p className="lesson__keys">
-          {best > 0 && <>Your best: {best} · </>}+{xp} XP
+          {best > 0 && <>Your best: {best} · </>}
+          <Xp>{xp}</Xp>
         </p>
         <button type="button" className="lesson__go" onClick={onAgain}>
           Play again

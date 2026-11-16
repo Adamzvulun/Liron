@@ -4,6 +4,7 @@ import type { Heard } from './speech.ts';
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
 import type { Item, Lesson } from './content/schema.ts';
+import type { RoadAnswer, RoadContext } from './road.ts';
 
 export type { ReviewGrade, ReviewPhase, SkillRating };
 
@@ -71,6 +72,12 @@ export interface SubjectInfo {
    * square's first load small (#124).
    */
   questStatus?: (state: unknown) => Promise<QuestlineStatus | null>;
+  /**
+   * Its road (docs/game/the-road.md): where the learner stands on its one linear story and the
+   * one thing to do now, from its own saved state and what the platform knows about today.
+   * Async for the same reason as `questStatus`.
+   */
+  road?: (state: unknown, ctx: RoadContext) => Promise<RoadAnswer>;
   /**
    * The skills this subject rates separately (ADR 0010), e.g. Morse: receive, send, head-copy.
    * Same format as subject ids. If listed, ratings for any other skill are refused.
