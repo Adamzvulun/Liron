@@ -72,9 +72,9 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 
 **Goal:** a player who has never seen Waymark always knows what to do next, from the first minute to the last chapter, on a phone and on a desktop. No screen is a blue gradient. Adam walks a checklist in under an hour, says "release", and merges one PR.
 
-### ☐ 1.1 (#309) · v1.0 · Land the work in flight
+### ☑ 1.1 (#309) · v1.0 · Land the work in flight
 - **Landed (2026-11-16):** the commits in flight (dialog focus trap, lesson header contrast, the Arena tap area, the halls' peeking card, the chest shelf on a narrow phone), this plan, VERSIONS.md and the three designs are in `dev`.
-- **Still to do:** every "+N XP" keeps the number and "XP" on one line (a non-breaking space) in `morse/lesson/Trial.tsx`, `words/WordDrill.tsx`, `words/Rush.tsx`, `recognition/Recognition.tsx`, and wherever else a result line can wrap. Several browser tests match "XP" after a normal space; update them to accept the non-breaking space. Bundle it with the next PR (slice (a) of 1.3).
+- **Done (2026-11-16):** `<Xp>` keeps the number and its unit together with `white-space: nowrap`, so no test text changed. *The original brief:* every "+N XP" keeps the number and "XP" on one line (a non-breaking space) in `morse/lesson/Trial.tsx`, `words/WordDrill.tsx`, `words/Rush.tsx`, `recognition/Recognition.tsx`, and wherever else a result line can wrap. Several browser tests match "XP" after a normal space; update them to accept the non-breaking space. Bundle it with the next PR (slice (a) of 1.3).
 - **Done when:** the PR is merged; at 320 pixels no result line breaks between a number and its unit.
 
 ### ☑ 1.2 (#310) · v1.0 · ✏️ The Road: one linear story for each guild, every step written down
@@ -93,7 +93,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 ### ☐ 1.3 (#311) · v1.0 · ✏️ The compass: the next step is always on screen
 - **Depends on:** 1.2. **Spec:** [the-road.md](../game/the-road.md) §6–§9; its nine tests are this task's "Done when", made exact.
 - **Build it in four PRs, in this order** (it is the largest task in the plan, and about 15 result screens change):
-  - **(a) The road with no screen:** `road.json` for both guilds, the checks, `road(state, today, services)` on the subject contract, the two new counters (`only.listen`, `only.read`), the new chapters 6–10 in `content/morse/questline.json`, and tests 1–8. Nothing a player sees changes.
+  - **(a) ☑ merged 2026-11-16. The road with no screen:** `road.json` for both guilds, the checks, `road(state, today, services)` on the subject contract, the two new counters (`only.listen`, `only.read`), the new chapters 6–10 in `content/morse/questline.json`, and tests 1–8. Nothing a player sees changes.
   - **(b) The compass in the square and the halls,** the "Opens at step N" wording, and "the road so far".
   - **(c) Every result screen.** Before touching one, list every browser test that clicks a result screen's buttons. Add "Next" as a new first button and keep the existing buttons' names, so the 278 tests keep passing for the right reason.
   - **(d) The first page and the three city errands.**

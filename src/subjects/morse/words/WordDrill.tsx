@@ -1,3 +1,4 @@
+import { Xp } from '../../../core/player/Xp.tsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
@@ -504,7 +505,7 @@ function Summary({ attempts, onAgain }: { attempts: WordAttempt[]; onAgain: () =
     <div className="lesson__card words__result">
       <p className="lesson__kicker">Round finished</p>
       <p className="lesson__score">
-        {right} of {attempts.length} words · +{xpForWords(attempts)} XP
+        {right} of {attempts.length} words · <Xp>{xpForWords(attempts)}</Xp>
       </p>
       <ul className="words__list">
         {attempts.map((a, i) => (

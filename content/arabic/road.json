@@ -1,0 +1,719 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (story text written for Waymark)",
+  "items": [
+    {
+      "id": "road:a-few-letters",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "lesson",
+        "door": "lesson",
+        "title": "A Few Letters",
+        "invite": "Sit at the scribe’s table for your first letters."
+      }
+    },
+    {
+      "id": "road:at-the-door",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "visit",
+        "door": "phrases",
+        "title": "At the Door",
+        "invite": "Learn the greetings at the coffee corner.",
+        "beat": "The innkeeper pours a cup you didn’t ask for. “Before letters, manners. Nobody walks past a door here without a word.” You say it back, badly. She pours anyway.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:the-slate",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "visit",
+        "door": "write",
+        "title": "The Slate",
+        "invite": "Write your first five letters on the slate.",
+        "beat": "The scribe wipes the slate with his sleeve and hands you the chalk. Your ب has its dot in the wrong place. He moves it with one finger and says nothing."
+      }
+    },
+    {
+      "id": "road:lesson:1",
+      "subject": "arabic",
+      "type": "road-lesson",
+      "data": {
+        "lesson": 1
+      }
+    },
+    {
+      "id": "road:the-fountain",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "visit",
+        "door": "listen",
+        "title": "The Fountain",
+        "invite": "Listen at the fountain: which letter did you hear?",
+        "beat": "The children by the fountain shout letters at each other like a game. You catch one, then another. They start shouting them at you."
+      }
+    },
+    {
+      "id": "road:lesson:2",
+      "subject": "arabic",
+      "type": "road-lesson",
+      "data": {
+        "lesson": 2
+      }
+    },
+    {
+      "id": "road:please-and-thanks",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "practice",
+        "door": "phrases",
+        "title": "Please and Thanks",
+        "invite": "Learn please and thanks at the coffee corner.",
+        "beat": "The cook hands you a plate, and this time you have the word for it. She pretends to be shocked.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:the-storyteller",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "visit",
+        "door": "read",
+        "title": "The Storyteller",
+        "invite": "Read short words with the storyteller.",
+        "beat": "The storyteller holds up a card with one short word on it and waits. He has all evening. You read it. He holds up another."
+      }
+    },
+    {
+      "id": "road:lesson:3",
+      "subject": "arabic",
+      "type": "road-lesson",
+      "data": {
+        "lesson": 3
+      }
+    },
+    {
+      "id": "road:a-line-of-letters",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "practice",
+        "door": "write",
+        "title": "A Line of Letters",
+        "invite": "Write every letter of lessons 1 to 3 on the slate.",
+        "beat": "A whole line across the slate, with no help. The scribe turns it around to show the boy with the rice, who is not impressed."
+      }
+    },
+    {
+      "id": "road:lesson:4",
+      "subject": "arabic",
+      "type": "road-lesson",
+      "data": {
+        "lesson": 4
+      }
+    },
+    {
+      "id": "road:counting",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "practice",
+        "door": "phrases",
+        "title": "Counting",
+        "invite": "Learn to count at the coffee corner.",
+        "beat": "The innkeeper counts the cups on the tray out loud, slowly, for your benefit. You count them back.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:lesson:5",
+      "subject": "arabic",
+      "type": "road-lesson",
+      "data": {
+        "lesson": 5
+      }
+    },
+    {
+      "id": "road:the-echo-well",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "visit",
+        "door": "echo",
+        "title": "The Echo Well",
+        "invite": "Hear the difference at the echo well: ḥ or h.",
+        "beat": "The cook leans over the well and calls a word down it. It comes back twice, once from the throat and once from the chest. Now you can tell which is which.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:lesson:6",
+      "subject": "arabic",
+      "type": "road-lesson",
+      "data": {
+        "lesson": 6
+      }
+    },
+    {
+      "id": "road:a-catch-in-the-throat",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "practice",
+        "door": "echo",
+        "title": "A Catch in the Throat",
+        "invite": "At the echo well: ʿayn, or only a catch?",
+        "beat": "ع is the letter that makes the well ring. You have stopped hearing it as a pause and started hearing it as a letter.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:two-lines-of-letters",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "practice",
+        "door": "write",
+        "title": "Two Lines of Letters",
+        "invite": "Write every letter of lessons 1 to 6 on the slate.",
+        "beat": "Two lines now. The scribe has started saving you the good chalk."
+      }
+    },
+    {
+      "id": "road:lesson:7",
+      "subject": "arabic",
+      "type": "road-lesson",
+      "data": {
+        "lesson": 7
+      }
+    },
+    {
+      "id": "road:two-rough-sounds",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "practice",
+        "door": "echo",
+        "title": "Two Rough Sounds",
+        "invite": "At the echo well: kh or ḥ.",
+        "beat": "One of them scrapes and one of them breathes. The old man by the fountain says both for you until you stop guessing.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:lesson:8",
+      "subject": "arabic",
+      "type": "road-lesson",
+      "data": {
+        "lesson": 8
+      }
+    },
+    {
+      "id": "road:the-whole-slate",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "practice",
+        "door": "write",
+        "title": "The Whole Slate",
+        "invite": "Write every letter on the slate.",
+        "beat": "Every letter of the script, from memory, in your own hand. The scribe doesn’t wipe it off. He leans the slate against the wall where people can see it."
+      }
+    },
+    {
+      "id": "road:deeper-still",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "practice",
+        "door": "echo",
+        "title": "Deeper Still",
+        "invite": "At the echo well: gh or kh.",
+        "beat": "The last pair before the gate. The well gives them back one after the other, and you name each before the echo fades.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:trial:1",
+      "subject": "arabic",
+      "type": "road-trial",
+      "data": {
+        "chapter": 1
+      }
+    },
+    {
+      "id": "road:rank-guest",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Guest",
+        "invite": "Take your rank in the courtyard.",
+        "beat": "The house sash goes over your shoulder. ضيف: guest. People move over on the bench without being asked."
+      }
+    },
+    {
+      "id": "road:innkeepers-table",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 2,
+        "kind": "visit",
+        "door": "words",
+        "title": "The Innkeeper’s Table",
+        "invite": "Sit at the innkeeper’s table for your first words.",
+        "beat": "The innkeeper clears a place at her own table. “Letters are for signs,” she says. “Words are for people. Sit.”",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:sit-with-salim",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 2,
+        "kind": "visit",
+        "door": "chat",
+        "title": "Sit with Salim",
+        "invite": "Sit and talk with Salim.",
+        "beat": "Salim asks where you’re from and waits for the answer, however long it takes. It takes a while. He has time, and tea.",
+        "needs": "partner"
+      }
+    },
+    {
+      "id": "road:chapters:2-2",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 2,
+        "to": 2
+      }
+    },
+    {
+      "id": "road:questions",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 3,
+        "kind": "practice",
+        "door": "phrases",
+        "title": "Questions",
+        "invite": "Learn to ask questions at the coffee corner.",
+        "beat": "Umm Khalil’s questions come faster than you can answer them. At the coffee corner you learn to ask a few of your own.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:chapters:3-3",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 3,
+        "to": 3
+      }
+    },
+    {
+      "id": "road:at-the-shop",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 4,
+        "kind": "practice",
+        "door": "phrases",
+        "title": "At the Shop",
+        "invite": "Learn the shop’s phrases at the coffee corner.",
+        "beat": "Yusuf needs lamp oil before the shop closes. He sends you, with the right words and the exact coins.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:the-heavy-s",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 4,
+        "kind": "practice",
+        "door": "echo",
+        "title": "The Heavy S",
+        "invite": "At the echo well: heavy ṣ or s.",
+        "beat": "Yusuf taps two gears together. One rings and one thuds. “ص,” he says, of the thud.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:chapters:4-4",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 4,
+        "to": 4
+      }
+    },
+    {
+      "id": "road:getting-to-know-you",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 5,
+        "kind": "practice",
+        "door": "phrases",
+        "title": "Getting to Know You",
+        "invite": "Learn to say who you are at the coffee corner.",
+        "beat": "Rana wants to know everything about you before the bread is out of the oven.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:the-heavy-d",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 5,
+        "kind": "practice",
+        "door": "echo",
+        "title": "The Heavy D",
+        "invite": "At the echo well: heavy ḍ or d.",
+        "beat": "Rana drops a full sack of flour and then an empty one. “Hear it? ض is the full one.”",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:chapters:5-5",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 5,
+        "to": 5
+      }
+    },
+    {
+      "id": "road:at-the-coffee-corner",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 6,
+        "kind": "practice",
+        "door": "phrases",
+        "title": "At the Coffee Corner",
+        "invite": "Learn to order at the coffee corner.",
+        "beat": "Abu Fadi takes his coffee without sugar and expects you to order it right.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:the-heavy-t",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 6,
+        "kind": "practice",
+        "door": "echo",
+        "title": "The Heavy T",
+        "invite": "At the echo well: heavy ṭ or t.",
+        "beat": "Abu Fadi knocks on plaster, then on stone. “ط,” he says, with his knuckles on the stone.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:chapters:6-6",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 6,
+        "to": 6
+      }
+    },
+    {
+      "id": "road:which-way",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 7,
+        "kind": "practice",
+        "door": "phrases",
+        "title": "Which Way",
+        "invite": "Learn to ask the way at the coffee corner.",
+        "beat": "Nasser won’t point. He makes you ask.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:three-ways-to-say-it",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 7,
+        "kind": "practice",
+        "door": "echo",
+        "title": "Three Ways to Say It",
+        "invite": "At the echo well: g or k.",
+        "beat": "Nasser says ق three ways in one sentence, to show off. You catch all three.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:chapters:7-7",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 7,
+        "to": 7
+      }
+    },
+    {
+      "id": "road:today-and-tomorrow",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 8,
+        "kind": "practice",
+        "door": "phrases",
+        "title": "Today and Tomorrow",
+        "invite": "Learn today and tomorrow at the coffee corner.",
+        "beat": "Leila will finish the portrait tomorrow, she says. Or the day after. You learn the words for both.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:chapters:8-8",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 8,
+        "to": 8
+      }
+    },
+    {
+      "id": "road:in-hassans-voice",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 9,
+        "kind": "visit",
+        "door": "echo",
+        "title": "In Hassan’s Voice",
+        "invite": "Shadow 5 sentences at the echo well.",
+        "beat": "Hassan says a whole sentence and has you say it along with him, on top of him, the way he learned to sell. By the fifth one, the well can’t tell you apart.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:chapters:9-11",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 9,
+        "to": 11
+      }
+    },
+    {
+      "id": "road:rank-traveler",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 11,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Traveler",
+        "invite": "Take your rank in the courtyard.",
+        "beat": "The innkeeper ties the keffiyeh herself. مسافر: traveler. “You could leave tomorrow and get by,” she says. “Don’t.”"
+      }
+    },
+    {
+      "id": "road:three-lines",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 12,
+        "kind": "practice",
+        "door": "chat",
+        "title": "Three Lines",
+        "invite": "Say three lines to a regular at the inn.",
+        "beat": "You say three things to Samira in a row, and she answers each one as if it were ordinary. It is.",
+        "needs": "partner"
+      }
+    },
+    {
+      "id": "road:rank-neighbor",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 12,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Neighbor",
+        "invite": "Take your rank in the courtyard.",
+        "beat": "A sprig of olive for your collar. جار: neighbor. The night watchman stops asking who you are."
+      }
+    },
+    {
+      "id": "road:chapters:12-35",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 12,
+        "to": 35
+      }
+    },
+    {
+      "id": "road:a-thousand-words",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 35,
+        "kind": "practice",
+        "door": "words",
+        "title": "A Thousand Words",
+        "invite": "Meet 1,000 words on the word path.",
+        "beat": "A thousand words. You stopped counting some time ago. The innkeeper didn’t.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:twenty-evenings",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 35,
+        "kind": "practice",
+        "door": "chat",
+        "title": "Twenty Evenings",
+        "invite": "Have 20 chats at the inn.",
+        "beat": "Twenty evenings of talk at this table. Somebody has started saving your seat.",
+        "needs": "partner"
+      }
+    },
+    {
+      "id": "road:rank-friend",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 35,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Friend",
+        "invite": "Take your rank in the courtyard.",
+        "beat": "The innkeeper sets a small brass coffee pot at your place. صاحب: friend. You pour for the others now."
+      }
+    },
+    {
+      "id": "road:chapters:36-68",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 36,
+        "to": 68
+      }
+    },
+    {
+      "id": "road:two-thousand-words",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 68,
+        "kind": "practice",
+        "door": "words",
+        "title": "Two Thousand Words",
+        "invite": "Meet 2,000 words on the word path.",
+        "beat": "Two thousand words. The boy with the rice, who is not a boy anymore, asks you what one of them means.",
+        "needs": "deck"
+      }
+    },
+    {
+      "id": "road:a-whole-evening",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 68,
+        "kind": "practice",
+        "door": "chat",
+        "title": "A Whole Evening",
+        "invite": "Talk a whole chat through: all 8 of your lines.",
+        "beat": "You talk a whole evening through and don’t notice until the lamp needs oil.",
+        "needs": "partner"
+      }
+    },
+    {
+      "id": "road:rank-local",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 68,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Local",
+        "invite": "Take your rank in the courtyard.",
+        "beat": "The embroidered vest has been on someone’s needle since the week you came. ابن البلد: one of ours."
+      }
+    },
+    {
+      "id": "road:chapters:69-100",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 69,
+        "to": 100
+      }
+    },
+    {
+      "id": "road:five-old-friends",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 100,
+        "kind": "practice",
+        "door": "chat",
+        "title": "Five Old Friends",
+        "invite": "Become an old friend of 5 regulars.",
+        "beat": "Five people at this table would notice if you missed an evening. Two of them would come looking.",
+        "needs": "partner"
+      }
+    },
+    {
+      "id": "road:rank-storyteller",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 100,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Storyteller",
+        "invite": "Take your rank in the courtyard.",
+        "beat": "The old storyteller takes off his cloak and puts it around your shoulders. حكواتي. “I’ve told all of mine,” he says. “Yours they haven’t heard.” The innkeeper keeps one page of her book empty. She won’t say who it’s for."
+      }
+    },
+    {
+      "id": "road:chapters:101-114",
+      "subject": "arabic",
+      "type": "road-chapters",
+      "data": {
+        "from": 101,
+        "to": 114
+      }
+    }
+  ]
+}

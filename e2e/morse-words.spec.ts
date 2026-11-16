@@ -37,6 +37,8 @@ test.describe('the Codebook in the Signal Tower (#154)', () => {
 
     await expect(page.getByText('Round finished')).toBeVisible();
     await expect(page.getByText(/\d of 3 words · \+\d+ XP/)).toBeVisible();
+    // The number and "XP" never break apart on a narrow phone.
+    await expect(page.getByText(/^\+\d+ XP$/)).toHaveCSS('white-space', 'nowrap');
     await expect(page.getByRole('button', { name: 'Another round' })).toBeVisible();
 
     // One save: the state with the round counted, and a head-copy result per word.

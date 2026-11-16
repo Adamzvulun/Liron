@@ -6,7 +6,7 @@ Paste this as the first message of a new session:
 
 We're continuing work on Waymark, my personal learning hub for Arabic and Morse (repo: Liron). Branch from `dev` (ADR 0015) and open PRs into `dev`. Merge your own PRs into `dev` once CI is green and the work checks out; only I merge into `main`. Don't release v1.0.0 until I say so.
 
-Before you do anything, read `CLAUDE.md`, then `docs/process/STATUS.md`, then `docs/process/HANDOFF.md` (items 54–82 are the latest), and follow them.
+Before you do anything, read `CLAUDE.md`, then `docs/process/STATUS.md`, then `docs/process/HANDOFF.md` (items 54–83 are the latest), and follow them.
 
 Actions minutes cost money, so keep CI use low:
 - Bundle smaller issues and features into one PR. No stacked PRs; push rarely, and never while a run is going.
@@ -18,7 +18,7 @@ Actions minutes cost money, so keep CI use low:
 
 First:
 1. If an open PR from the last session is still there, check its CI log. If it's clean, squash-merge it with the full head SHA and unsubscribe.
-2. Find your place: PLAN.md's ticked boxes and VERSIONS.md's "Where things stand" say what is done. Start at the first unticked task of the current version. On 2026-11-16 that is **v1.0, task 1.1** (what's left of it: the "+N XP" line), bundled with slice (a) of task 1.3.
+2. Find your place: PLAN.md's ticked boxes and VERSIONS.md's "Where things stand" say what is done. Start at the first unticked task of the current version. On 2026-11-16 that is **v1.0, task 1.3, slice (b)**: the compass in the square and the halls (HANDOFF item 83 says what slice (a) built).
 3. Rules that outlast the plan: deck text and deck analysis never go into `content/`, the bundle or commits (ADR 0011). No new word chapters without a new source or a decision from me. The regulars' voices are parked until I've looked at Azure. Don't release anything until I say so; when a version is ready, cut its release branch (or ask me to), open the release PR, and tell me what my part is.
 
 Keep `docs/process/STATUS.md`, `HANDOFF.md`, this prompt and my report (`docs/process/reports/`) current as you go. Screenshot any visual change and look at it before showing me. Ask me anything that costs money, shares data or locks us in. If I'm away, make the call I'd make, note it in the report, and keep working.

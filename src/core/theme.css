@@ -84,3 +84,8 @@ a:not([class]) {
     transition: none !important;
   }
 }
+
+/* A number and its unit stay together ("+50 XP"). */
+.nowrap {
+  white-space: nowrap;
+}

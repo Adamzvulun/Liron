@@ -31,6 +31,16 @@ const Progress = z.object({
   written: z.array(z.string()).catch([]),
   /** House ranks you've taken (#174): their rank-up card is seen and their event sent. */
   ranks: z.array(z.string()).catch([]),
+  /**
+   * Rounds finished at the fountain (listen only) and with the storyteller (read only), so a
+   * first visit to each can be a step on the road (docs/game/the-road.md, break 5).
+   */
+  only: z
+    .object({
+      listen: z.number().int().min(0).catch(0),
+      read: z.number().int().min(0).catch(0),
+    })
+    .catch({ listen: 0, read: 0 }),
   /** The word path (#160): your chapter, passes towards it, and the words you've met (deck ids). */
   words: z
     .object({
@@ -111,6 +121,7 @@ export const NEW_PROGRESS: ArabicProgress = {
   knownChoices: 'sound',
   written: [],
   ranks: [],
+  only: { listen: 0, read: 0 },
   words: {
     chapter: 1,
     streak: 0,
