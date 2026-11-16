@@ -35,6 +35,7 @@ import {
   type GrammarCard,
 } from './grammar.ts';
 import { reportWords, reportWordTrial, scoreOfWords, type WordAnswer } from './report.ts';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 type Stage =
   | { kind: 'start' }
@@ -414,6 +415,7 @@ export function WordLessons({
               (stage.passed ? stage.trial.trial.xp : 0)}{' '}
             XP
           </p>
+          <NextStep />
           {!stage.passed && (
             <button
               type="button"
@@ -455,6 +457,7 @@ export function WordLessons({
               </li>
             ))}
           </ul>
+          <NextStep onHere={() => setStage({ kind: 'start' })} />
           <button type="button" className="lesson__go" onClick={() => setStage({ kind: 'start' })}>
             Another session
           </button>

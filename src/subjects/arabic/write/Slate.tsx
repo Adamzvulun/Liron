@@ -4,6 +4,7 @@ import { lettersUpTo, LESSONS, type Letter } from '../letters.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import { seeded } from '../lesson/questions.ts';
 import { dilate, FREE_PASS, gridFrom, scoreTrace, TRACE_PASS, type TraceScore } from './trace.ts';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 /** Letters in a slate session; each is traced, then written from memory. */
 export const SLATE_LETTERS = 5;
@@ -216,6 +217,7 @@ export function Slate({ api }: { api: SubjectApi }) {
           <p className="arabic__xp">
             +{attempts.filter((a) => a.score.passed).length * XP_PER_SHAPE} XP
           </p>
+          <NextStep />
         </div>
       )}
     </section>

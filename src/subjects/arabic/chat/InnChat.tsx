@@ -27,6 +27,7 @@ import {
   dueTips,
   withTips,
 } from './innChat.ts';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // "Sit and talk" at the innkeeper's table (E17, ADR 0038): a short chat in Palestinian Arabic
 // with one of the regulars. Their lines are written live by api/partner.ts on Groq; when it
@@ -427,6 +428,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
                   {coach === 'asking' ? 'The Coach is reading…' : 'Ask the Coach'}
                 </button>
               )}
+              <NextStep />
               <button
                 type="button"
                 className="lesson__go"

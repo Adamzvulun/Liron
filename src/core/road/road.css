@@ -151,3 +151,54 @@ button.road__next:focus-visible,
   margin: 6px 0 0;
   font-style: italic;
 }
+
+/* The end of a session (NextStep.tsx): the step just finished, then the way on. The screen's
+   own button comes after it, and steps back to a plain look. */
+.road-next__done {
+  flex-basis: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 4px 0 14px;
+  padding: 12px 16px;
+  border-left: 6px solid var(--brass);
+  border-radius: 6px;
+  background: rgb(232 169 58 / 14%);
+  text-align: left;
+}
+
+.road-next__kicker {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.road-next__title {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.road-next__beat {
+  margin: 6px 0 0;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.road-next__go {
+  max-width: 100%;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.road-next__go ~ .lesson__go {
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  color: var(--vellum);
+}
+
+/* Outside a row of buttons nothing sets a gap, so the way on keeps its own. */
+:not(.lesson__actions) > .road-next__go {
+  margin-bottom: 12px;
+}

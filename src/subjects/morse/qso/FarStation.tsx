@@ -26,6 +26,7 @@ import { HearTurn, KeyTurn, type Copies as TurnCopies } from './Turns.tsx';
 import '../lesson/lesson.css';
 import '../send/send.css';
 import './qso.css';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // The Radio Room (#178): the Far Station, the Operator's trial. A whole contact, turn by turn:
 // hear the far station and copy it, answer with the key, and so on to its SK. The rules are in
@@ -323,6 +324,7 @@ function Log({
         <button type="button" className="lesson__plain" onClick={onLeave}>
           The Radio Room
         </button>
+        <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>
           {result.passed ? 'Work another station' : 'Try again'}
         </button>

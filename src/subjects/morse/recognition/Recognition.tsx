@@ -15,6 +15,7 @@ import {
 } from './game.ts';
 import '../lesson/lesson.css';
 import './recognition.css';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // Instant Recognition (#32): a character plays, you press it before the lamp goes out. Only
 // characters unlocked in the Koch lessons are used. Each round saves the personal best and each
@@ -321,6 +322,7 @@ function Summary({
           {best > 0 && <>Your best: {best} · </>}
           <Xp>{xp}</Xp>
         </p>
+        <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>
           Play again
         </button>
