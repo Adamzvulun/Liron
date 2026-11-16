@@ -266,6 +266,11 @@ test('closing a celebration from the keyboard puts focus back where it was (revi
     .getByRole('dialog', { name: '3 days' })
     .getByRole('button', { name: 'Onward' });
   await expect(onward).toBeFocused();
+  // Tab stays inside the dialog: the page behind it can't take focus while it's open.
+  await page.keyboard.press('Tab');
+  await expect(onward).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await expect(onward).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(minutes).toBeFocused();

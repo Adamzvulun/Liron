@@ -1,6 +1,6 @@
 # Roadmap: Waymark
 
-- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. **Where we are (2026-11-15):** M0–M3 are done; M4's epics are built (E15's first slices, E16, E17); M5 is proposed (ADR 0039). v1.0.0 is being polished. Current state: [STATUS.md](STATUS.md).
+- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. **Where we are (2026-11-15):** M0–M3 are done; M4's epics are built (E15's first slices, E16, E17); M5 is proposed (ADR 0039). v1.0.0 is being polished. Current state: [STATUS.md](STATUS.md). **From 2026-11-16 the releases are mapped in [VERSIONS.md](VERSIONS.md)** (1.0 to 4.0) and the tasks are in [PLAN.md](PLAN.md); the milestones below are the history..
 - **Inputs:** [vision](../vision.md), ADRs 0002–0010, discovery 02–04.
 - **Rhythm:** milestones are goal-based, not date-based. Retros go in `retros/`.
 

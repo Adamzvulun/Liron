@@ -1,6 +1,6 @@
 # 0027 — Release versions: each release to `main` is a new major version
 
-- **Status:** Accepted
+- **Status:** Accepted; what X and Y mean was changed by [ADR 0040](0040-versions-on-a-map.md) (2026-11-16)
 - **Date:** 2026-11-03
 
 ## Context

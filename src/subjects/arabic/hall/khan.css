@@ -276,9 +276,16 @@ button.khan__station:focus-visible .khan__plaque,
   text-shadow: none;
 }
 
+/* Too small to read on the painting (a phone held sideways, a zoomed-in window): the writing
+   moves below it, so the painting stops short of the bottom and the first card shows there. */
+.khan.is-compact .khan__view {
+  height: 80svh;
+}
+
 /* An upright phone: the courtyard pans sideways, and the writing follows below it. */
 @media (max-width: 899px) and (orientation: portrait) {
-  .khan__view {
+  .khan__view,
+  .khan.is-compact .khan__view {
     height: 62svh;
   }
 }

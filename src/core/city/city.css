@@ -197,6 +197,14 @@
   opacity: 0.9;
 }
 
+/* The sign is drawn on the scaled square, so on a phone it is only ~20px tall; an invisible
+   margin makes the tap area bigger than the 24px WCAG 2.5.8 asks, without changing the look. */
+.city__sign--arena::after {
+  content: '';
+  position: absolute;
+  inset: -12px -6px;
+}
+
 .city__sign--arena:hover,
 .city__sign--arena:focus-visible {
   opacity: 1;
