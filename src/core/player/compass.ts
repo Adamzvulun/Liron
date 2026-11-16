@@ -135,12 +135,15 @@ export async function loadCompass(
 export function useCompass(
   subjects: readonly SubjectInfo[],
   sources: CompassSources,
-  day: CompassDay | null,
+  /** The player's local day, once it's known. */
+  today: string | undefined,
+  /** Subjects with an unpaid contract today. */
+  unpaid: readonly string[],
   when: unknown,
 ): readonly CompassLine[] {
   const [lines, setLines] = useState<readonly CompassLine[]>([]);
-  const today = day?.today;
-  const contracts = day?.contracts.join(',');
+  // As text, so a new list with the same subjects doesn't read everything again.
+  const contracts = unpaid.join(',');
   useEffect(() => {
     if (!today) return;
     let live = true;

@@ -49,7 +49,8 @@ const guild = (id: string, building: 'tower' | 'caravanserai'): SubjectInfo => (
   building,
   road: async (state, ctx) => road(state, ctx),
 });
-const guilds = [guild('morse', 'tower'), guild('arabic', 'caravanserai')];
+const tower = guild('morse', 'tower');
+const guilds = [tower, guild('arabic', 'caravanserai')];
 const day = { today: '2026-11-16', contracts: [] };
 
 const sources = (
@@ -119,7 +120,7 @@ describe('the compass in the square (the-road.md §6)', () => {
       },
     };
     const lines = await loadCompass(
-      [guilds[0]!, broken],
+      [tower, broken],
       sources({ morse: { at: 2, door: 'hall' } }),
       day,
     );

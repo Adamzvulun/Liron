@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useRef } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
@@ -153,12 +153,7 @@ function Lobby({ player }: { player: Player }) {
   const place = placeAt(path);
   // Read again on every move, so coming back from a hall shows the step just done.
   const unpaid = state.contracts?.contracts.flatMap((c) => (c.paid || !c.subject ? [] : c.subject));
-  const day = useMemo(
-    () => (state.today ? { today: state.today.day, contracts: unpaid ?? [] } : null),
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- `unpaid` is a new list each render
-    [state.today?.day, unpaid?.join(',')],
-  );
-  const compass = useCompass(subjects, compassSources, day, path);
+  const compass = useCompass(subjects, compassSources, state.today?.day, unpaid ?? [], path);
   const celebrations = state.levelUp ? (
     <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
   ) : (
