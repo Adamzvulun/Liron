@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef } from 'react';
 import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
@@ -14,7 +14,7 @@ import { GoalReached } from './player/GoalReached.tsx';
 import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
-import { useQuestlines } from './player/questlines.ts';
+import { useCompass, type CompassSources } from './player/compass.ts';
 import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
@@ -75,8 +75,12 @@ const apis = new Map(
     : [],
 );
 
-/** A subject's saved state, for its questline status (#47). */
-const loadState = (subjectId: string) => apis.get(subjectId)?.loadState() ?? Promise.resolve(null);
+/** What the compass asks about each subject (docs/game/the-road.md §6). */
+const compassSources: CompassSources = {
+  loadState: (id) => apis.get(id)?.loadState() ?? Promise.resolve(null),
+  due: async (id) => (await apis.get(id)?.dueItems())?.length ?? 0,
+  practiced: () => store?.practiced() ?? Promise.resolve([]),
+};
 
 export function App() {
   if (!supabase) return <NotConfiguredScreen missing={missingConfig} />;
@@ -147,8 +151,14 @@ function Lobby({ player }: { player: Player }) {
     moved.current = true;
   }, [player, path]);
   const place = placeAt(path);
-  // Read again on every move, so coming back from a hall shows the lamp just lit.
-  const questlines = useQuestlines(subjects, loadState, path);
+  // Read again on every move, so coming back from a hall shows the step just done.
+  const unpaid = state.contracts?.contracts.flatMap((c) => (c.paid || !c.subject ? [] : c.subject));
+  const day = useMemo(
+    () => (state.today ? { today: state.today.day, contracts: unpaid ?? [] } : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `unpaid` is a new list each render
+    [state.today?.day, unpaid?.join(',')],
+  );
+  const compass = useCompass(subjects, compassSources, day, path);
   const celebrations = state.levelUp ? (
     <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
   ) : (
@@ -181,7 +191,7 @@ function Lobby({ player }: { player: Player }) {
                 <QuestTracker
                   today={state.today}
                   subjects={subjects}
-                  questlines={questlines}
+                  compass={compass}
                   contracts={state.contracts}
                   full
                 />
@@ -243,7 +253,7 @@ function Lobby({ player }: { player: Player }) {
         <Hud
           state={state}
           subjects={subjects}
-          questlines={questlines}
+          compass={compass}
           onGoalChange={player.setDailyGoal}
           onNameChange={player.setDisplayName}
           onSignOut={() => {

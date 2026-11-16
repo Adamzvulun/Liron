@@ -1,0 +1,156 @@
+// The compass in the square (docs/game/the-road.md §6, "Across the city"): one line per guild
+// saying the one thing to do now, the guild practiced last first. The platform asks each subject
+// for its road through the subject contract and never reads a road itself (ADR 0003, ADR 0019).
+import { useEffect, useState } from 'react';
+import { PLACE_PATHS } from '../city/layout.ts';
+import { HALL_DOOR, type RoadAnswer, type RoadContext } from '../road.ts';
+import type { SubjectInfo } from '../subject.ts';
+
+export interface CompassLine {
+  subject: string;
+  /** The guild's place, shown above the line. */
+  giver: string;
+  color: string;
+  /** Straight to the door where the step is done. */
+  href: string;
+  /** What to do now. */
+  text: string;
+  /** Where the player stands: "Step 14 of 74". */
+  progress: string;
+  /** A step the road is waiting on, said plainly. */
+  waiting?: string;
+  /** A guild not started yet, when it isn't the main line: shown in a quieter voice. */
+  quiet: boolean;
+}
+
+interface Found {
+  subject: SubjectInfo;
+  road: RoadAnswer;
+  started: boolean;
+}
+
+/** What the platform can tell every subject about today. */
+export interface CompassDay {
+  /** The player's local day, YYYY-MM-DD. */
+  today: string;
+  /** Subjects with an unpaid contract today. */
+  contracts: readonly string[];
+}
+
+export interface CompassSources {
+  loadState(subjectId: string): Promise<unknown>;
+  /** Reviews due now in a subject. */
+  due(subjectId: string): Promise<number>;
+  /** Subjects with saved progress, the one practiced last first. */
+  practiced(): Promise<readonly string[]>;
+}
+
+/** The address of a hall's door. */
+export function doorHref(subject: SubjectInfo, door: string): string {
+  const hall = subject.building ? PLACE_PATHS[subject.building] : '/';
+  return door === HALL_DOOR ? hall : `${hall}?open=${door}`;
+}
+
+async function find(
+  subject: SubjectInfo,
+  sources: CompassSources,
+  day: CompassDay,
+): Promise<Found | null> {
+  if (!subject.road || !subject.building) return null;
+  try {
+    const state = await sources.loadState(subject.id);
+    const ctx: RoadContext = {
+      today: day.today,
+      // Until the site can say what it has (task 1.8) and who may read the deck (task 2.1): the
+      // partner is there, and the one player is the licensee.
+      partner: 'ready',
+      licensee: true,
+      due: 0,
+      ...(day.contracts.includes(subject.id) && { contractDoor: HALL_DOOR }),
+    };
+    let road = await subject.road(state, ctx);
+    // The count of reviews only matters when the road has no step to offer, so it's asked then.
+    if (road.now.kind === 'meanwhile') {
+      const due = await sources.due(subject.id).catch(() => 0);
+      if (due > 0) road = await subject.road(state, { ...ctx, due });
+    }
+    return { subject, road, started: road.position === null || road.position.index > 0 };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The order of the lines: registry order for a new player; otherwise the guild practiced last,
+ * unless its road is waiting or finished and another guild has a real step to offer.
+ */
+export function inOrder(found: readonly Found[], practiced: readonly string[]): Found[] {
+  if (!found.some((f) => f.started)) return [...found];
+  const rank = (f: Found) => {
+    const at = practiced.indexOf(f.subject.id);
+    return at < 0 ? practiced.length : at;
+  };
+  const sorted = [...found].sort((a, b) => rank(a) - rank(b));
+  if (sorted[0]?.road.now.kind === 'meanwhile') {
+    const step = sorted.findIndex((f) => f.road.now.kind === 'step');
+    if (step > 0) sorted.unshift(...sorted.splice(step, 1));
+  }
+  return sorted;
+}
+
+function line(f: Found, first: boolean): CompassLine {
+  const { subject, road } = f;
+  const now = road.now;
+  return {
+    subject: subject.id,
+    giver: subject.place,
+    color: subject.guildColor,
+    href: doorHref(subject, now.kind === 'step' ? now.step.door : now.door),
+    text: now.kind === 'step' ? now.step.invite : now.line,
+    progress: road.position
+      ? `Step ${road.position.index + 1} of ${road.steps}`
+      : `${road.questline}: the road is walked`,
+    ...(road.waiting && { waiting: road.waiting.line }),
+    quiet: !first && !f.started,
+  };
+}
+
+/** Every guild's compass line, the main one first. A guild whose road fails to load is left out. */
+export async function loadCompass(
+  subjects: readonly SubjectInfo[],
+  sources: CompassSources,
+  day: CompassDay,
+): Promise<CompassLine[]> {
+  const [found, practiced] = await Promise.all([
+    Promise.all(subjects.map((s) => find(s, sources, day))),
+    sources.practiced().catch(() => []),
+  ]);
+  return inOrder(
+    found.filter((f) => f !== null),
+    practiced,
+  ).map((f, i) => line(f, i === 0));
+}
+
+/** The compass, read again whenever `when` changes (e.g. on coming back to the square). */
+export function useCompass(
+  subjects: readonly SubjectInfo[],
+  sources: CompassSources,
+  day: CompassDay | null,
+  when: unknown,
+): readonly CompassLine[] {
+  const [lines, setLines] = useState<readonly CompassLine[]>([]);
+  const today = day?.today;
+  const contracts = day?.contracts.join(',');
+  useEffect(() => {
+    if (!today) return;
+    let live = true;
+    void loadCompass(subjects, sources, {
+      today,
+      contracts: contracts ? contracts.split(',') : [],
+    }).then((c) => live && setLines(c));
+    return () => {
+      live = false;
+    };
+  }, [subjects, sources, today, contracts, when]);
+  return lines;
+}

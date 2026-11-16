@@ -92,25 +92,33 @@ test('the HUD shows your name and today’s quests, which lead to their places',
   // Two subjects and the daily goal, then the contracts: a summary in the HUD, each on the
   // Notice Board (where the phone's Quests button leads).
   await expect(quests.getByRole('link')).toHaveCount(onPhone() ? 6 : 4);
-  await quests.getByRole('link', { name: /hear K and M/ }).click();
-  await expect(page).toHaveURL(/\/signal-tower$/);
+  // A guild's line is its compass: the next step of its road, and a link straight to its door.
+  await quests.getByRole('link', { name: /Hear your first two sounds, K and M/ }).click();
+  await expect(page).toHaveURL(/\/signal-tower\?open=koch$/);
 });
 
-test('a started questline shows where it stands, and leads to its hall (#47)', async ({ page }) => {
-  await signedIn(page, [], [], { unlocked: 6 });
+test('the compass says the next step of your road, and leads to its door', async ({ page }) => {
+  // One run done and six lamps lit: the first step not done is the brass key (step 4).
+  await signedIn(page, [], [], { unlocked: 6, runs: 3 });
   await page.goto('/');
   if (onPhone()) {
-    await page
-      .getByRole('navigation', { name: 'Places' })
-      .getByRole('link', { name: 'Quests' })
-      .click();
+    // On a phone it is one line under the top bar, with the other guild behind a small count.
+    const compass = page.getByRole('navigation', { name: 'Next on your road' });
+    await expect(compass.getByRole('link')).toHaveCount(1);
+    await expect(compass.getByRole('link')).toContainText('Signal Tower: ');
+    await compass.getByRole('button', { name: 'Show the other guilds' }).click();
+    await expect(compass.getByRole('link')).toHaveCount(2);
+    await expect(compass.getByRole('link').nth(1)).toContainText('Caravanserai: ');
+    await compass.getByRole('link').first().click();
+  } else {
+    const quests = page.getByRole('region', { name: 'Quests' });
+    const tower = quests.getByRole('link', { name: /Signal Tower/ });
+    await expect(tower).toContainText('Step 4 of 74');
+    // The guild with a step done comes first; the one not started is second.
+    await expect(quests.getByRole('link').first()).toContainText('Signal Tower');
+    await tower.click();
   }
-  const beacon = page
-    .getByRole('region', { name: 'Quests' })
-    .getByRole('link', { name: /The Silent Beacon, Chapter 1: Embers/ });
-  await expect(beacon).toContainText('6/8 lamps');
-  await beacon.click();
-  await expect(page).toHaveURL(/\/signal-tower$/);
+  await expect(page).toHaveURL(/\/signal-tower\?open=sending$/);
 });
 
 test('settings change your name, and Escape closes them', async ({ page }) => {

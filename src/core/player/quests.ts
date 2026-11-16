@@ -1,12 +1,12 @@
 // Today's quests on the Notice Board (#26). Each subject names its own line (ADR 0019); the
 // platform adds the daily contract. Subject lines carry no reward until quests are real (E10,
-// #46), so the board never promises what nothing pays (2026-11-04 review). Once a subject's
-// questline is started, its line tracks it instead (ADR 0032, #47). Below them come today's
+// #46), so the board never promises what nothing pays (2026-11-04 review). Once a subject's road
+// is loaded, its line is the compass instead (docs/game/the-road.md). Below them come today's
 // contracts (#46): each on the Notice Board, one summary line in the HUD.
 import { PLACE_PATHS } from '../city/layout.ts';
 import type { TodaysContracts } from '../progress/store.ts';
-import type { QuestlineStatus, SubjectInfo, SubjectQuest } from '../subject.ts';
-import type { Questlines } from './questlines.ts';
+import type { SubjectInfo, SubjectQuest } from '../subject.ts';
+import type { CompassLine } from './compass.ts';
 
 export interface Quest extends SubjectQuest {
   /** Unique in the list (defaults to the giver). */
@@ -15,8 +15,12 @@ export interface Quest extends SubjectQuest {
   done?: boolean;
   /** Who gives the quest, shown in capitals above it. */
   giver: string;
-  /** How far along it is, e.g. "6/8 lamps · Trial: The Gatekeeper". */
+  /** How far along it is, e.g. "Step 14 of 74". */
   progress?: string;
+  /** A quiet line under it: a step the road is waiting on. */
+  note?: string;
+  /** A guild not started yet, said in a quieter voice. */
+  quiet?: boolean;
   /** What it pays, if anything. */
   reward?: string;
   /** Where to go for it. */
@@ -25,26 +29,34 @@ export interface Quest extends SubjectQuest {
   color: string;
 }
 
-/** A started questline's line: its name and chapter, then the steps done and what's next. */
-const tracked = (q: QuestlineStatus): SubjectQuest & { progress: string } => ({
-  text: `${q.questline}, ${q.chapter}`,
-  progress: [`${q.done}/${q.total} ${q.unit}`, q.next].filter(Boolean).join(' · '),
-});
-
+/**
+ * The guilds' lines, then the daily goal. A guild whose road is loaded shows its compass (the
+ * one thing to do now, docs/game/the-road.md §6) in the compass's order; until then, or without
+ * a road, it shows its plain line.
+ */
 export function todaysQuests(
   subjects: readonly SubjectInfo[],
   goalMinutes: number,
-  questlines: Questlines = new Map(),
+  compass: readonly CompassLine[] = [],
 ): Quest[] {
-  const fromSubjects = subjects.flatMap((s) => {
-    const status = questlines.get(s.id);
-    const line = status ? tracked(status) : s.quest;
-    return line && s.building
-      ? [{ ...line, giver: s.place, href: PLACE_PATHS[s.building], color: s.guildColor }]
-      : [];
-  });
+  const onRoad = compass.map((c) => ({
+    key: c.subject,
+    giver: c.giver,
+    text: c.text,
+    progress: c.progress,
+    ...(c.waiting && { note: c.waiting }),
+    ...(c.quiet && { quiet: true }),
+    href: c.href,
+    color: c.color,
+  }));
+  const plain = subjects.flatMap((s) =>
+    s.quest && s.building && !compass.some((c) => c.subject === s.id)
+      ? [{ ...s.quest, giver: s.place, href: PLACE_PATHS[s.building], color: s.guildColor }]
+      : [],
+  );
   return [
-    ...fromSubjects,
+    ...onRoad,
+    ...plain,
     {
       giver: 'Daily goal',
       text: `Practice ${goalMinutes} minutes today`,

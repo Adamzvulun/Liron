@@ -793,3 +793,95 @@
 .notice-board .hud__quest:focus-visible {
   outline-color: var(--ink);
 }
+
+/* The road's compass (docs/game/the-road.md §6). In the Quests panel a waiting step is a quiet
+   line under the invite, and a guild not started yet speaks more softly. */
+.hud__questnote {
+  flex-basis: 100%;
+  font-size: 14px;
+  font-style: italic;
+  color: #c9b48e;
+}
+
+.hud__quest.is-quiet .hud__questtext {
+  font-size: 16px;
+  font-weight: 600;
+  color: #d8c6a0;
+}
+
+/* On a phone the panel is behind the dock, so the compass gets its own line under the purse
+   (App.css shows it there). */
+.hud__compass {
+  display: none;
+}
+
+.hud__compassrow {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.hud__compassline {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  display: block;
+  padding: 0 10px;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-left: 8px solid;
+  border-radius: 10px;
+  background: linear-gradient(#4e3220, #2a170c);
+  box-shadow: 0 3px 0 var(--ink);
+  color: #f6e7c4;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 38px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hud__compassline.is-quiet {
+  font-weight: 600;
+  color: #d8c6a0;
+}
+
+.hud__compassgiver {
+  color: var(--lamplight);
+}
+
+.hud__compassmore {
+  flex: none;
+  width: 44px;
+  min-height: 44px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: linear-gradient(#4e3220, #2a170c);
+  box-shadow: 0 3px 0 var(--ink);
+  color: #ffe3a3;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.hud__compassmore[aria-expanded='true'] {
+  background: #2a170c;
+  box-shadow: none;
+  transform: translateY(3px);
+}
+
+.hud__compassrest {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hud__compassline:focus-visible,
+.hud__compassmore:focus-visible {
+  outline: 3px solid var(--lamplight);
+  outline-offset: 2px;
+}

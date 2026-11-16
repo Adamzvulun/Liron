@@ -35,29 +35,48 @@ describe("today's quests (ADR 0019)", () => {
     expect(quests[0]?.reward).toBeUndefined();
   });
 
-  it('tracks a started questline in place of its plain line (#47)', () => {
-    const status = {
-      questline: 'The Silent Beacon',
-      chapter: 'Chapter 1: Embers',
-      done: 8,
-      total: 8,
-      unit: 'lamps',
-      next: 'Trial: The Gatekeeper',
-    };
-    const [line] = todaysQuests([tower], 15, new Map([['beacon', status]]));
-    expect(line).toEqual({
-      giver: 'Beacon Hall',
-      text: 'The Silent Beacon, Chapter 1: Embers',
-      progress: '8/8 lamps · Trial: The Gatekeeper',
-      href: '/signal-tower',
+  it('shows a guild’s compass in place of its plain line, in the compass’s order', () => {
+    const inn: SubjectInfo = { ...tower, id: 'inn', place: 'The Inn', building: 'caravanserai' };
+    const line = (subject: string, giver: string, extra = {}) => ({
+      subject,
+      giver,
       color: 'red',
+      href: `/${subject}?open=door`,
+      text: `Do the next thing at ${giver}.`,
+      progress: 'Step 3 of 74',
+      quiet: false,
+      ...extra,
     });
-    const [plain] = todaysQuests(
-      [tower],
-      15,
-      new Map([['beacon', { ...status, next: undefined }]]),
-    );
-    expect(plain?.progress).toBe('8/8 lamps');
+    const quests = todaysQuests([tower, inn], 15, [
+      line('inn', 'The Inn', { waiting: 'The road goes on tomorrow: Milestone 2.' }),
+      line('beacon', 'Beacon Hall', { quiet: true }),
+    ]);
+    expect(quests.slice(0, 2)).toEqual([
+      {
+        key: 'inn',
+        giver: 'The Inn',
+        text: 'Do the next thing at The Inn.',
+        progress: 'Step 3 of 74',
+        note: 'The road goes on tomorrow: Milestone 2.',
+        href: '/inn?open=door',
+        color: 'red',
+      },
+      {
+        key: 'beacon',
+        giver: 'Beacon Hall',
+        text: 'Do the next thing at Beacon Hall.',
+        progress: 'Step 3 of 74',
+        quiet: true,
+        href: '/beacon?open=door',
+        color: 'red',
+      },
+    ]);
+    // A guild whose road isn't loaded keeps its plain line, after the compass.
+    expect(todaysQuests([tower, inn], 15, [line('inn', 'The Inn')]).map((q) => q.giver)).toEqual([
+      'The Inn',
+      'Beacon Hall',
+      'Daily goal',
+    ]);
   });
 
   it("lists each of today's contracts on the board, and a summary in the HUD (#46)", () => {

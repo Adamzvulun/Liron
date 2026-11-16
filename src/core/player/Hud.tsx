@@ -7,7 +7,7 @@ import { MAX_NAME_LENGTH } from '../progress/store.ts';
 import { CoinIcon, FlameIcon, GearIcon, GemIcon, HourglassIcon, ShieldIcon } from './icons.tsx';
 import type { SubjectInfo } from '../subject.ts';
 import type { PlayerState } from './player.ts';
-import type { Questlines } from './questlines.ts';
+import type { CompassLine } from './compass.ts';
 import { chestQuests, contractQuests, shieldNote, todaysQuests } from './quests.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
@@ -27,12 +27,12 @@ export interface HudActions {
 export function Hud({
   state,
   subjects,
-  questlines,
+  compass,
   ...actions
 }: {
   state: PlayerState;
   subjects: readonly SubjectInfo[];
-  questlines?: Questlines;
+  compass?: readonly CompassLine[];
 } & HudActions) {
   if (state.error) {
     return (
@@ -55,11 +55,12 @@ export function Hud({
         Waymark
       </div>
       <Purse state={state} {...actions} />
+      {compass && compass.length > 0 && <Compass lines={compass} />}
       {today && (
         <QuestTracker
           today={today}
           subjects={subjects}
-          questlines={questlines}
+          compass={compass}
           contracts={state.contracts}
           chests={state.chests.length}
         />
@@ -108,6 +109,53 @@ function PlayerPlate({
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * The compass on a phone, where the Quests panel is behind the dock: one line under the top bar
+ * saying the one thing to do now, and a small count that opens the other guilds' lines.
+ */
+function Compass({ lines }: { lines: readonly CompassLine[] }) {
+  const [all, setAll] = useState(false);
+  const listId = useId();
+  const [main, ...others] = lines;
+  if (!main) return null;
+  const row = (c: CompassLine) => (
+    <Link
+      className={`hud__compassline${c.quiet ? ' is-quiet' : ''}`}
+      href={c.href}
+      style={{ borderLeftColor: c.color }}
+    >
+      <span className="hud__compassgiver">{c.giver}: </span>
+      {c.text}
+    </Link>
+  );
+  return (
+    <nav className="hud__compass" aria-label="Next on your road">
+      <div className="hud__compassrow">
+        {row(main)}
+        {others.length > 0 && (
+          <button
+            type="button"
+            className="hud__compassmore"
+            aria-expanded={all}
+            aria-controls={listId}
+            aria-label={all ? 'Hide the other guilds' : 'Show the other guilds'}
+            onClick={() => setAll((a) => !a)}
+          >
+            {lines.length}
+          </button>
+        )}
+      </div>
+      {all && (
+        <ul id={listId} className="hud__compassrest">
+          {others.map((c) => (
+            <li key={c.subject}>{row(c)}</li>
+          ))}
+        </ul>
+      )}
+    </nav>
   );
 }
 
@@ -448,15 +496,15 @@ function NameField({
 export function QuestTracker({
   today,
   subjects,
-  questlines,
+  compass,
   contracts = null,
   chests = 0,
   full = false,
 }: {
   today: NonNullable<PlayerState['today']>;
   subjects: readonly SubjectInfo[];
-  /** Started questlines, shown in place of their subjects' plain lines (#47). */
-  questlines?: Questlines;
+  /** Each guild's compass line, shown in place of its plain line (the-road.md §6). */
+  compass?: readonly CompassLine[];
   /** Today's contracts (#46). */
   contracts?: PlayerState['contracts'];
   /** Chests waiting to be opened; the board shows them on its shelf instead. */
@@ -499,13 +547,13 @@ export function QuestTracker({
       )}
       <ul className="hud__questlist">
         {[
-          ...todaysQuests(subjects, today.goalMinutes, questlines),
+          ...todaysQuests(subjects, today.goalMinutes, compass),
           ...contractQuests(subjects, contracts, full),
           ...(full ? [] : chestQuests(chests)),
         ].map((q) => (
           <li key={q.key ?? q.giver}>
             <Link
-              className={`hud__quest${q.done ? ' is-done' : ''}`}
+              className={`hud__quest${q.done ? ' is-done' : ''}${q.quiet ? ' is-quiet' : ''}`}
               href={q.href}
               style={{ borderLeftColor: q.color }}
             >
@@ -524,6 +572,7 @@ export function QuestTracker({
                 )}
               </span>
               {q.progress && <span className="hud__questprogress">{q.progress}</span>}
+              {q.note && <span className="hud__questnote">{q.note}</span>}
               {q.reward && <span className="hud__questreward">{q.reward}</span>}
             </Link>
           </li>

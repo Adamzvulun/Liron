@@ -322,6 +322,12 @@ export async function fakeSupabase(
     ) {
       // PostgREST answers "no row" for a single-object request like this; supabase-js's
       // maybeSingle() turns it into null.
+      // No subject asked for: the list of what was practiced, the latest save first.
+      if (url.pathname === '/rest/v1/subject_progress' && !url.searchParams.has('subject_id')) {
+        return route.fulfill({
+          json: [...saved.keys()].reverse().map((subject_id) => ({ subject_id })),
+        });
+      }
       const subject = url.searchParams.get('subject_id')?.replace(/^eq\./, '') ?? '';
       const state = saved.get(subject) ?? morseState;
       if (url.pathname === '/rest/v1/subject_progress' && state) {
