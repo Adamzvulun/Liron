@@ -42,7 +42,7 @@
   border-radius: 6px;
   /* A dark base under the lamplight, so the letters read over the light poster in the
      painting behind them too (it showed through the old pale tint). */
-  background: rgba(28, 20, 38, 0.78);
+  background: rgba(31, 23, 17, 0.78);
   box-shadow: inset 0 0 0 1px rgba(255, 211, 107, 0.4);
   color: var(--lamplight);
   font-family: var(--font-display);

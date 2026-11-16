@@ -90,7 +90,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
   6. **An ADR** if the vision's wording needs to change (it is locked; changes need one).
 - **Done when:** the doc has the complete numbered road for both guilds with no "to be decided"; every existing station, trial and rank appears in it exactly once as a step; every break found has a decided fix; the first page and the "which road is next" rule are written; Adam is shown the two roads in the report as plain lists.
 
-### ☐ 1.3 (#311) · v1.0 · ✏️ The compass: the next step is always on screen
+### ☑ 1.3 (#311) · v1.0 · ✏️ The compass: the next step is always on screen
 - **Depends on:** 1.2. **Spec:** [the-road.md](../game/the-road.md) §6–§9; its nine tests are this task's "Done when", made exact.
 - **Build it in four PRs, in this order** (it is the largest task in the plan, and about 15 result screens change):
   - **(a) ☑ merged 2026-11-16. The road with no screen:** `road.json` for both guilds, the checks, `road(state, today, services)` on the subject contract, the two new counters (`only.listen`, `only.read`), the new chapters 6–10 in `content/morse/questline.json`, and tests 1–8. Nothing a player sees changes.
@@ -117,11 +117,12 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Do:** with the road fixed, read both questlines start to finish as a reader would: every chapter's beat, every regular's story, every trial's text, every rank's line. Fix what breaks the thread: a chapter that doesn't follow from the last, a character who appears unannounced, a station whose first visit has no line of story, a trial that doesn't say what's at stake, a rank that arrives with no word from the guild. Write the missing lines (short, in the voice already there). Give every chapter a visible "Chapter N of M" and the road a visible length, so progress is felt.
 - **Done when:** each road can be read as a continuous text in the design doc (export it there); no step lacks a line of story; a test checks every road step has a title and a beat; the spelling and curly-quote tests pass on the new text.
 
-### ☐ 1.5 (#313) · v1.0 · ✏️ No blue backgrounds
+### ☑ 1.5 (#313) · v1.0 · ✏️ No blue backgrounds
 - **Why:** gap 3. Adam: "design everything so there are no blue backgrounds."
 - **Art direction:** [docs/design/grounds.md](../design/grounds.md): four materials (wood, stone, earth, cobble), a painted city gate for sign-in, a waymark post for "Lost?", and the exact pixel test.
 - **Do:** list every screen and state where the navy gradient shows, by screenshot at 320, 412 and 1280 pixels: sign-in, "Choose a password", "Opening the gates…", "Not set up yet", "Lost?", the error screens, the space under a hall's painting on a phone and in a short window, the Notice Board's surround, Your House and the Market around their panels, every station screen at its edges, the gaps between cards on long pages. Then give each a painted or textured ground that belongs to its place (ADR 0006, ADR 0025: painted in the browser, no image files): the city gate at dusk for sign-in, a road out of town for "Lost?", wood, stone or plaster continuing a hall's painting below it. The `body` gradient itself goes, so nothing can fall through to it.
 - **Done when:** a browser test visits every route and state in the list at three sizes and fails if the navy gradient's colors are visible anywhere (sample the screenshot's pixels at the edges and between cards); each new ground is screenshotted and looked at; text on them meets 4.5:1; the speed budget from 1.7 still holds.
+- **Done (2026-11-16):** built as [grounds.md](../design/grounds.md) §7 records, with three deviations noted there. `e2e/grounds.spec.ts` is the pixel test; `tests/grounds.test.ts` reads the style sheets.
 
 ### ☐ 1.6 (#314) · v1.1 · ✏️ The ledger: learning you can see (stats in Your House)
 - **Why:** gap 4.

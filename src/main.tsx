@@ -3,6 +3,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './core/fonts.ts';
 import './core/theme.css';
+import './core/grounds.css';
 import { App } from './core/App.tsx';
 import { ErrorBoundary } from './core/ErrorBoundary.tsx';
 

@@ -15,8 +15,6 @@
   --wood: #6b3f20;
   --brass: #e8a93a;
   --stone: #a6957f;
-  --night: #1e2636;
-  --dusk: #33397a;
   --ember: #d9784f;
   --lamplight: #ffd36b;
   --vellum: #fbf1d8;
@@ -45,7 +43,8 @@
   font-size: 18px;
   line-height: 1.4;
   color: var(--vellum);
-  background: var(--night);
+  /* Under the page's ground (grounds.css), for the moment before it paints. */
+  background: #2a1a10;
 }
 
 * {
@@ -55,7 +54,6 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--dusk) 0%, var(--night) 70%);
 }
 
 /* A plain link in running text takes its text's color (ink on parchment, parchment on the

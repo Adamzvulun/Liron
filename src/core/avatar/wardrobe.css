@@ -347,7 +347,7 @@
     bottom: 0;
     z-index: 1;
     padding: 10px 0 12px;
-    background: var(--night);
+    background: #2f1d12;
     border-top: 3px solid var(--wood);
   }
 }

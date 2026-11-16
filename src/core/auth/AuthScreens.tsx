@@ -1,5 +1,6 @@
 import { useId, useState, type FormEvent, type ReactNode } from 'react';
 import { supabase } from './supabase.ts';
+import { GateScene } from './Scenes.tsx';
 import './auth.css';
 
 const MIN_PASSWORD = 8;
@@ -7,6 +8,7 @@ const MIN_PASSWORD = 8;
 function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
     <main className="auth">
+      <GateScene />
       <p className="auth__brand">Waymark</p>
       <section className="auth__panel" aria-labelledby="auth-title">
         <h1 id="auth-title" className="auth__title">

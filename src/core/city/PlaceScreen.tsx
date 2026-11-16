@@ -4,6 +4,15 @@ import type { SubjectInfo } from '../subject.ts';
 import { PLACE_SOON, PLAQUES } from './layout.ts';
 import type { PlaceId } from './painter.js';
 
+/** What each place stands on (docs/design/grounds.md). */
+const GROUND: Record<PlaceId, string> = {
+  tower: 'stone',
+  caravanserai: 'earth',
+  market: 'cobble',
+  board: 'wood',
+  house: 'wood',
+};
+
 /**
  * A place's screen. Until halls and houses get their own content (E5, E6, E8, E10), it says
  * what will be there. Focus moves to the title, so screen readers announce the new screen.
@@ -34,6 +43,7 @@ export function PlaceScreen({
   return (
     <main
       className={`place-screen${wide ? ' place-screen--wide' : ''}`}
+      data-ground={GROUND[place]}
       style={{ borderTopColor: resident?.guildColor }}
     >
       <Link className="place-screen__back" href="/">
