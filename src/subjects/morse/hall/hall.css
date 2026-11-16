@@ -274,9 +274,16 @@ button.tower__station:focus-visible .tower__plaque,
   text-shadow: none;
 }
 
+/* Too small to read on the painting (a phone held sideways, a zoomed-in window): the writing
+   moves below it, so the painting stops short of the bottom and the first card shows there. */
+.tower.is-compact .tower__view {
+  height: 80svh;
+}
+
 /* An upright phone: the room pans sideways, and the writing follows below it. */
 @media (max-width: 899px) and (orientation: portrait) {
-  .tower__view {
+  .tower__view,
+  .tower.is-compact .tower__view {
     height: 62svh;
   }
 }

@@ -72,6 +72,29 @@
   cursor: pointer;
 }
 
+/* A narrow phone: the button drops under the words, so they get the width beside the chest
+   instead of wrapping a word to a line. */
+@media (max-width: 420px) {
+  .chests__item {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .chests__text {
+    flex-basis: 55%;
+  }
+
+  /* Under its own chest's words (the drawing is 72px wide, then the 12px gap). */
+  .chests__open {
+    margin-inline-start: 84px;
+    min-width: 120px;
+  }
+
+  .chests__shelf {
+    gap: 18px;
+  }
+}
+
 .chests__open:disabled {
   opacity: 0.7;
   cursor: progress;
