@@ -140,10 +140,11 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Done when:** the budget is written and tested; the report shows the numbers in plain words; #137 is closed with a link, or labelled `needs:adam` with one sentence saying what he should try.
 - **Done (2026-11-16):** the budget is in [CI.md](CI.md) and `e2e/load-budget.spec.ts` enforces it. The time ceilings are wider than "plus 15%", and CI.md says why. #137 is labelled `needs:adam`: whether it *feels* fast is his to say.
 
-### ☐ 1.8 (#316) · v1.0 · A "what's switched on" line in Settings
+### ☑ 1.8 (#316) · v1.0 · A "what's switched on" line in Settings
 - **Why:** gap 6.
 - **Do:** a tiny server function that answers, for a signed-in player only, which AI services the site has keys for: booleans only, never a key or part of one. Show it in Settings under "Services" in plain words ("Sit and talk: ready" / "not set up on this site"). Rate-limit it like the other functions. Add it to DEPLOY's table.
 - **Done when:** on a site with no keys the line says so, with a browser test; unit tests prove the function leaks nothing and refuses anonymous callers.
+- **Done (2026-11-16):** `api/services.ts`, shown under Settings → Services. **One deviation:** it has no daily counter of its own. It makes no AI call and spends nothing; a caller without a token Supabase knows is refused, and the browser keeps the answer for five minutes. A counter would need a new table for something that costs nothing.
 
 ### ☐ 1.9 (#317) · v1.0 · The weekly keep-alive (approved by Adam)
 - **Do:** a scheduled GitHub Actions workflow, once a week, that runs one trivial read against `waymark-prod` and `waymark-dev` using the secrets that already exist. It must take seconds, print nothing secret, and fail loudly if a project is paused. Document it in SUPABASE.md, with what to do when it fails.

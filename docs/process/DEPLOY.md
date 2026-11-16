@@ -32,6 +32,16 @@ Set them in **Settings → Environment Variables**, never in git (`.env*` is git
 | `GROQ_API_KEY` | ✓ | ✓ | The "understood" check (ADR 0014), in `api/understood.ts`. **No `VITE_` prefix**: server-only, never sent to the browser. Use separate keys for Production and Preview if you can. The function also reads the two Supabase variables above, at run time. |
 | `GEMINI_API_KEY` | ✓ | ✓ | The AI partner (E15, ADR 0036), in `api/partner.ts`: the Radio Room operators' news. Server-only, like the Groq key. A free AI Studio key; **don't attach a billing account** to its Cloud project (ADR 0036 keeps it on the free tier). The partner also uses `GROQ_API_KEY` as its backup and works with either key alone. Without both, operators keep their scripted lines. |
 
+**The functions in `api/`** (each needs the two Supabase variables at run time, to check who is asking):
+
+| Function | What it does | Keys it uses | What it spends |
+|---|---|---|---|
+| `api/understood.ts` | "Say it": writes down what it hears in a recording | `GROQ_API_KEY` | One of the player's 100 checks a day |
+| `api/partner.ts` | The Radio Room operators' lines, Sit and talk, the Coach | `GEMINI_API_KEY` and `GROQ_API_KEY` (operators work with either; the inn needs Groq) | One of the player's lines for the day |
+| `api/services.ts` | Tells a signed-in player which of the above are switched on (#316): three true-or-false answers, never a key or anything about one | Reads whether the two keys exist | Nothing: no AI call. It asks Supabase whose token it was sent, and the browser keeps the answer for five minutes |
+
+After adding or removing a key, open **Settings → Services** on the site: it should say "ready" or "not set up on this site" for each line.
+
 ## Free-plan limits (checked 2026-11-02 on vercel.com/docs)
 - 100 deployments/day, 1 build at a time, 45 min per build.
 - 100 GB data transfer/month, 1,000,000 requests/month, 1,000,000 function invocations/month.

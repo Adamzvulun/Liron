@@ -22,6 +22,7 @@ import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
 import { privatePackVersion, supabaseContent } from './content/privateContent.ts';
 import { functionPartner } from './partner.ts';
+import { functionServices } from './services.ts';
 import { functionSpeech } from './speech.ts';
 import './App.css';
 
@@ -59,6 +60,9 @@ const speechOf = (client: NonNullable<typeof supabase>) => functionSpeech(access
 
 /** The AI partner (E15, ADR 0036), signed in as the current learner. */
 const partnerOf = (client: NonNullable<typeof supabase>) => functionPartner(accessToken(client));
+
+/** What's switched on (#316), asked as the current learner, once per page. */
+const services = supabase ? functionServices(accessToken(supabase)) : undefined;
 
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
@@ -272,6 +276,7 @@ function Lobby({ player }: { player: Player }) {
           compass={compass}
           onGoalChange={player.setDailyGoal}
           onNameChange={player.setDisplayName}
+          services={services}
           onSignOut={() => {
             // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });
