@@ -151,7 +151,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Done when:** the workflow exists, has run once by hand with a green log, and the doc explains it.
 - **Built (2026-11-16), one line open:** the workflow and its section in SUPABASE.md exist. It runs Mondays and Thursdays, not once a week, so a late run never leaves a full week's gap. **Still to do:** the run by hand with a green log. GitHub can only start a workflow that is on `main`, so that happens right after the v1.0.0 release (it is on the release checklist, task 1.12).
 
-### ☐ 1.10 (#318) · v1.0 · Docs fit for a release
+### ☑ 1.10 (#318) · v1.0 · Docs fit for a release
 - **Do:** rewrite `STATUS.md` so its top is a short current state; move the history paragraph into `docs/process/HISTORY.md` unchanged. Write `retros/M2.md` and `retros/M4.md`. Set `package.json` to `1.0.0`. Draft `docs/process/releases/v1.0.0.md`: what a player gets, in plain words, grouped by place. Bring README, ROADMAP and the next-session prompt in line with this plan.
 - **Done when:** a newcomer can read STATUS in two minutes and know the state; both retros exist; the notes are ready to paste into the release PR.
 

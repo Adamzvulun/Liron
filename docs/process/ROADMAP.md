@@ -1,6 +1,6 @@
 # Roadmap: Waymark
 
-- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. **Where we are (2026-11-15):** M0–M3 are done; M4's epics are built (E15's first slices, E16, E17); M5 is proposed (ADR 0039). v1.0.0 is being polished. Current state: [STATUS.md](STATUS.md). **From 2026-11-16 the releases are mapped in [VERSIONS.md](VERSIONS.md)** (1.0 to 4.0) and the tasks are in [PLAN.md](PLAN.md); the milestones below are the history..
+- **Status:** v1 (2026-11-01). M1–M2 are GitHub issues (#1–#49); M3+ stay here until M2 is nearly done. **Where we are (2026-11-15):** M0–M3 are done; M4's epics are built (E15's first slices, E16, E17); M5 is proposed (ADR 0039). v1.0.0 is being polished. Current state: [STATUS.md](STATUS.md). **From 2026-11-16 the releases are mapped in [VERSIONS.md](VERSIONS.md)** (1.0 to 4.0) and the tasks are in [PLAN.md](PLAN.md); the milestones below are the history. Retros: [M1](retros/M1.md), [M2](retros/M2.md), [M3](retros/M3.md), [M4](retros/M4.md).
 - **Inputs:** [vision](../vision.md), ADRs 0002–0010, discovery 02–04.
 - **Rhythm:** milestones are goal-based, not date-based. Retros go in `retros/`.
 
@@ -25,7 +25,7 @@
 | **E4 City v0** | Waymark city screen in the final art style; clickable Signal Tower, Caravanserai, Your House, Market, Notice Board; locked Arena; construction plots |
 | **E5 Avatar v0** | Paper-doll SVG system; base customization; 3–4 starter gear slots |
 
-## M2 — First playable *(done)*
+## M2 — First playable *(done, [retro](retros/M2.md))*
 **Built in sprints, one theme at a time, never mixed (Adam, 2026-11-03): first the Morse sprint (E6, E7), then the Arabic sprint (E8, E9), then quests and rewards (E10).**
 
 **Goal:** a real daily habit. 15–20 min/day for both subjects.
@@ -47,7 +47,7 @@
 | **E13 Ranks & trials** | Guild ranks (milestone + rating); boss trials; achievements and titles |
 | **E14 Mic practice** | Shadowing, record-and-compare, minimal-pair ear training; optional "did it understand you?" sentence check via Groq Whisper (ADR 0013, 0014) |
 
-## M4 — The people
+## M4 — The people *(built, [retro](retros/M4.md))*
 | Epic | Contents |
 |---|---|
 | **E15 AI adapter** | Vercel serverless function; Gemini + backup; Groq Whisper for speech; caps; eval set (ADR 0004, 0014). **First slice built** (2026-11-10, ADR 0036): `api/partner.ts` on `gemini-3.5-flash-lite` with Groq as the backup, 40 replies a day, writing the Radio Room operators' news. **Second slice** (ADR 0037): you key your own news in a free turn and the operator answers it live, and remembers it. **Eval set:** `scripts/partner-eval.ts` (by hand, with the keys). |

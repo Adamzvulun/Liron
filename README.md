@@ -6,7 +6,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 
 **First tracks:** 🇸🇦 Arabic · 📻 Morse code
 
-> Status: M1–M3 are done and M4's epics are built: Morse from first letters to live radio contacts, Arabic from the script to word chapters and chats at the inn, with quests, ranks and a Market. **Now: polishing toward v1.0.0.** **Start here: [`docs/process/STATUS.md`](docs/process/STATUS.md).**
+> Status: the game is playable on the dev site and is being finished for its first real release, **v1.0.0**: Morse from first letters to live radio contacts, Arabic from the script to 3,390 words and chats at the inn, each as one road with the next step always on screen. The work order is [`PLAN.md`](docs/process/PLAN.md), by version ([`VERSIONS.md`](docs/process/VERSIONS.md)). **Start here: [`docs/process/STATUS.md`](docs/process/STATUS.md).**
 
 ## Where things live
 
@@ -20,9 +20,9 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 | [`docs/research/`](docs/research/) | Research notes on methods, apps, and sources |
 | [`docs/decisions/`](docs/decisions/) | Architecture & product decision records (ADRs) |
 | [`docs/design/`](docs/design/) | Visual concepts and the city generator |
-| [`docs/game/`](docs/game/) | Game rules and numbers: [economy](docs/game/economy.md) (XP, levels, gold, gems) |
+| [`docs/game/`](docs/game/) | Game rules and numbers: [economy](docs/game/economy.md) (XP, levels, gold, gems), [the Road](docs/game/the-road.md) (both stories, step by step) and [the tale](docs/game/the-tale.md) (both as one text) |
 | [`spikes/`](spikes/) | Throwaway experiments that answer one question |
-| [`docs/process/`](docs/process/) | Current status ([`STATUS.md`](docs/process/STATUS.md)), how we work ([`WORKFLOW.md`](docs/process/WORKFLOW.md)), the [`ROADMAP.md`](docs/process/ROADMAP.md), and retros |
+| [`docs/process/`](docs/process/) | Current status ([`STATUS.md`](docs/process/STATUS.md)), the plan ([`PLAN.md`](docs/process/PLAN.md)) and the version map ([`VERSIONS.md`](docs/process/VERSIONS.md)), how we work ([`WORKFLOW.md`](docs/process/WORKFLOW.md)), release notes ([`releases/`](docs/process/releases/)), the history ([`HISTORY.md`](docs/process/HISTORY.md), [`ROADMAP.md`](docs/process/ROADMAP.md)) and retros |
 | [`CLAUDE.md`](CLAUDE.md) | Team charter: roles, conventions, skills |
 | [`sources/`](sources/) | Raw learning material (books, decks). Upload new files to `sources/_inbox/` |
 | `.claude/` | Claude Code skills, commands, and settings |
