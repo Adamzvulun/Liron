@@ -5,8 +5,9 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
-  /* Windows taller than 16:9 show sky above and ground below, in the scene's edge colours. */
-  background: linear-gradient(#5d7fa8, #6182a9 50%, #5a3f2b 50%, #3e2a1c);
+  /* Windows taller than 16:9 show a beam above the painting and the street's cobbles below
+     it, never the page or a plain color (docs/design/grounds.md). */
+  background: linear-gradient(#3a2416, #2a1a10 50%, #4a3c33 50%, #352a24);
 }
 
 .city__view {
@@ -22,7 +23,7 @@
   transform-origin: top left;
   font-family: var(--font-ui);
   color: #24160e;
-  background: #8fb0d6;
+  background: #4a3c33;
 }
 
 .city__layer,

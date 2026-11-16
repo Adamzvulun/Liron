@@ -59,3 +59,14 @@ Also required: each ground and the gate scene screenshotted and looked at on a p
 - No animated grounds. One lamplight flicker on the gate's lanterns at most, off under reduced motion.
 - Don't recolor the guilds. Teal and terracotta stay the accents; the grounds are neutral.
 - Don't make the grounds busy. If a pattern can be seen through a card's text at arm's length, halve its contrast.
+
+## 7. As built (2026-11-16)
+
+Built in task 1.5. Where the build differs from the brief above:
+
+- **The page wears the ground.** The four materials are on `body`, chosen with `body:has([data-ground])`, as well as being classes. Nothing can show a plain color behind a screen.
+- **A station keeps its hall's blurred painting**, tinted with `sepia()` under a brown veil, instead of swapping to the flat material. It keeps the sense of place and has no blue.
+- **The sign-in notice is centered over the gate**, not nailed to the left door, and there is no lantern under the keystone (it sat behind the name). On a phone the wall and the light between the doors show around the notice.
+- **"Lost?" keeps its link's words**, "Back to the square"; the post stands above it.
+- **Your House has no plaster band:** its own painting fills the screen at every size.
+- **The pixel test** samples a 14-pixel grid, but only points where the ground itself is the top element, at 1280, 412 and 320. A style-sheet test backs it up.

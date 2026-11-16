@@ -271,7 +271,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(5px) saturate(0.85);
+  /* Sepia takes the painting's night sky to lamplit brown: behind a card it is a ground, and
+     no ground is blue (docs/design/grounds.md). */
+  filter: blur(5px) sepia(0.7) saturate(0.85);
   transform: scale(1.04);
 }
 
@@ -279,7 +281,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(20 22 52 / 62%) 0%, rgb(14 16 36 / 80%) 100%);
+  background: linear-gradient(180deg, rgb(30 18 9 / 62%) 0%, rgb(20 12 6 / 80%) 100%);
 }
 
 /* Your House (A2), the Market (A3), the Notice Board (A4), the Radio Room (A5) and the two
@@ -292,7 +294,7 @@
 .hall-backdrop[data-hall='radio'] img,
 .hall-backdrop[data-hall='inn'] img,
 .hall-backdrop[data-hall='desk'] img {
-  filter: blur(2px) saturate(0.9);
+  filter: blur(2px) sepia(0.6) saturate(0.9);
 }
 
 .hall-backdrop[data-hall='house']::after,
@@ -301,7 +303,7 @@
 .hall-backdrop[data-hall='radio']::after,
 .hall-backdrop[data-hall='inn']::after,
 .hall-backdrop[data-hall='desk']::after {
-  background: linear-gradient(180deg, rgb(20 22 52 / 35%) 0%, rgb(14 16 36 / 62%) 100%);
+  background: linear-gradient(180deg, rgb(30 18 9 / 35%) 0%, rgb(20 12 6 / 62%) 100%);
 }
 
 .place-screen__back {
@@ -349,6 +351,7 @@
   text-align: center;
   font-weight: 700;
   color: var(--parchment);
+  text-shadow: 0 2px 0 var(--ink);
   animation: app-loading-in 0.3s ease-out 0.6s both;
 }
 
@@ -370,4 +373,13 @@
   font: inherit;
   font-weight: 800;
   cursor: pointer;
+}
+
+/* The words stand on the gate's light, so they carry their own dark plate. */
+.app__loading p {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgb(30 18 9 / 85%);
 }

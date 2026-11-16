@@ -10,6 +10,7 @@ import {
   inSentence,
   stationOfDay,
   walk,
+  withIntros,
   type Meanwhile,
   type RoadAnswer,
   type RoadChapter,
@@ -214,7 +215,7 @@ function build(): { steps: Built[]; chapters: RoadChapter[] } {
       }
     }
   }
-  return { steps, chapters };
+  return { steps: withIntros(steps, chapters), chapters };
 }
 
 const built = build();

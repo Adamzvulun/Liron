@@ -134,5 +134,5 @@ A version is **done** when everything in its list is true *and* the release step
 | Version | State |
 |---|---|
 | 0.1.0 | Live (the scaffold) |
-| 1.0 | In progress: the designs are written; building starts at task 1.1 |
+| 1.0 | In progress: tasks 1.1–1.5 are built (the road, the compass, the tale, the grounds); next is 1.7, the speed budget |
 | 1.1 – 4.0 | Not started |

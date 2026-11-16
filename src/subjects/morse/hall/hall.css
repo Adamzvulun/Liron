@@ -4,7 +4,7 @@
 
 .tower {
   position: relative;
-  background: #1c1426;
+  background: #1f1711;
 }
 
 .tower__view {
@@ -397,7 +397,7 @@ button.tower__station:focus-visible .tower__plaque,
 
 /* The questline: dark tower stone instead of parchment, so the lamps can glow. */
 .hall__quest {
-  background: linear-gradient(180deg, #2a2438, #3b2f2a);
+  background: linear-gradient(180deg, #2c2520, #3b2f2a);
   color: var(--parchment);
 }
 

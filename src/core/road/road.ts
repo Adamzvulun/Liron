@@ -219,3 +219,20 @@ export function opensAt(
   if (!first || !answer.position || answer.position.index >= n - 1) return null;
   return `Opens at step ${n} · ${first.title}`;
 }
+
+/**
+ * A chapter's first step is told by the chapter's own opening: where such a step has no beat of
+ * its own, it takes the chapter's intro, so no step is without a line of the tale.
+ */
+export function withIntros<S extends RoadStep>(
+  steps: readonly S[],
+  chapters: readonly RoadChapter[],
+): S[] {
+  const seen = new Set<number>();
+  return steps.map((step) => {
+    const first = !seen.has(step.chapter);
+    seen.add(step.chapter);
+    const intro = chapters.find((c) => c.number === step.chapter)?.intro;
+    return first && !step.beat && intro ? { ...step, beat: intro } : step;
+  });
+}

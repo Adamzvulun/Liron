@@ -5,6 +5,7 @@
   max-width: 440px;
   margin: 0 auto;
   padding: 48px 16px;
+  isolation: isolate;
 }
 
 .auth__brand {
