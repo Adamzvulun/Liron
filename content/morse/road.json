@@ -317,7 +317,8 @@
         "kind": "trial",
         "door": "lamp",
         "title": "Trial: The Lamp Signal",
-        "invite": "Face the Lamp Signal."
+        "invite": "Face the Lamp Signal.",
+        "beat": "Every letter of the message leaves your hand clean and on time. The Guildmaster, who has been counting under her breath, stops counting."
       }
     },
     {
@@ -442,7 +443,8 @@
         "kind": "trial",
         "door": "watch",
         "title": "Trial: The Night Watch",
-        "invite": "Face the Night Watch."
+        "invite": "Face the Night Watch.",
+        "beat": "Twenty words go by at full speed and you write none of them down. When the last one fades, you say them back to the empty room, in order."
       }
     },
     {

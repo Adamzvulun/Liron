@@ -111,7 +111,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
   - Waiting states (reviews due, come back tomorrow, the daily cap) each have a test for what the compass says.
   - It fits 320 pixels, works by keyboard, and is announced to screen readers.
 
-### ☐ 1.4 (#312) · v1.0 · ✏️ The story reads as one tale
+### ☑ 1.4 (#312) · v1.0 · ✏️ The story reads as one tale
 - **Depends on:** 1.2, and can be built alongside 1.3.
 - **Already written:** every missing line (the invites and beats of 60 new steps, five new Beacon chapters, both finales, the first page) is in [the-road.md](../game/the-road.md) §4, §5 and §8. This task puts them into `content/`, reads both roads through from start to end as a reader, and mends what still jars.
 - **Do:** with the road fixed, read both questlines start to finish as a reader would: every chapter's beat, every regular's story, every trial's text, every rank's line. Fix what breaks the thread: a chapter that doesn't follow from the last, a character who appears unannounced, a station whose first visit has no line of story, a trial that doesn't say what's at stake, a rank that arrives with no word from the guild. Write the missing lines (short, in the voice already there). Give every chapter a visible "Chapter N of M" and the road a visible length, so progress is felt.

@@ -94,12 +94,8 @@ describe('The Silent Beacon as a road', () => {
       expect(step.invite).toMatch(/[.?]$/);
       expect(MORSE_DOORS).toContain(step.door);
     }
-    // Every step but the very first has a line of story.
-    expect(MORSE_ROAD.filter((s) => !s.beat).map((s) => s.id)).toEqual([
-      'first-sounds',
-      'lamp-signal',
-      'night-watch',
-    ]);
+    // Every step has a line of story (a chapter's first step may take the chapter's opening).
+    expect(MORSE_ROAD.filter((s) => !s.beat).map((s) => s.id)).toEqual([]);
   });
 
   it('walks from the first step to the last: one next step at every point, open to do', () => {

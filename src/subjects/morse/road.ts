@@ -10,6 +10,7 @@ import {
   inSentence,
   stationOfDay,
   walk,
+  withIntros,
   type Meanwhile,
   type RoadAnswer,
   type RoadChapter,
@@ -149,7 +150,8 @@ function build(): { steps: Built[]; chapters: RoadChapter[] } {
           chapter,
           kind: 'lesson',
           door: 'koch',
-          title: `Lamp ${charLabel(char)}`,
+          // “Lamp U”, but “Lamp for the period (.)”.
+          title: `Lamp ${charLabel(char).replace(/^the /, 'for the ')}`,
           invite: `Light the next lamp: learn ${charLabel(char)}.`,
           beat: beats?.get(char),
           done: (p) => p.unlocked >= at + 1,
@@ -174,7 +176,8 @@ function build(): { steps: Built[]; chapters: RoadChapter[] } {
       });
     }
   }
-  return { steps, chapters: chapters.sort((a, b) => a.number - b.number) };
+  chapters.sort((a, b) => a.number - b.number);
+  return { steps: withIntros(steps, chapters), chapters };
 }
 
 const built = build();

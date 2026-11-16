@@ -130,7 +130,7 @@ test('the hall shows where the road stands, what is next, and the road so far', 
   // The road so far: what's ahead by name, and every step walked with its line of the tale.
   await quest.getByRole('button', { name: /the road so far/ }).click();
   const book = page.getByRole('dialog', { name: 'The Silent Beacon: the road so far' });
-  await expect(book.getByText('5 of 74 steps walked')).toBeVisible();
+  await expect(book.getByText('5 of 74 steps walked · chapter 1 of 10: Embers')).toBeVisible();
   await expect(book.getByText('The Warm Key')).toBeVisible();
   await expect(book.getByText('and 66 more')).toBeVisible();
   await expect(book.getByText('Lamp U')).toBeVisible();
