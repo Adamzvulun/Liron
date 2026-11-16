@@ -41,7 +41,7 @@ What a player feels when the site loads, each with a ceiling that CI enforces in
 - **Drawn and clickable are one moment today:** places are links, usable as soon as they are on screen. The test still measures both.
 - **Frames while the square is open** have their own budget in `e2e/city-speed.spec.ts` (#123).
 - **If it fails:** the log line `load budget: …` has every round's raw times. If one number rose and the yardstick didn't, something got slower: find what the PR added to the square or to the startup script. Don't raise a ceiling to get green without writing the reason here.
-- **CI stays on one Playwright worker.** Two would halve the run, but the timed tests need a quiet machine; the job has 20 minutes and takes about 12.
+- **CI stays on one Playwright worker.** Two would halve the run, but the timed tests need a quiet machine; the job has 25 minutes and takes 15 to 17 on a slow runner.
 
 ## Locally
 The same steps are `npm run lint`, `npm run typecheck`, `npm test`, `npm run build` and `npm run e2e` (see the README).
