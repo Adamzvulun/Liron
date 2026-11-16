@@ -20,6 +20,7 @@ import {
 import { reportRound, xpOfRound, type PairAnswer } from './report.ts';
 import { Shadowing } from './Shadowing.tsx';
 import './echo.css';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 type Stage =
   | { kind: 'start' }
@@ -349,6 +350,7 @@ function Result({
         <p>Good listening. Every pair stays sharp this way.</p>
       )}
       <p className="arabic__xp">+{xpOfRound(answers)} XP</p>
+      <NextStep onHere={onAgain} />
       <button type="button" className="lesson__go" onClick={onAgain}>
         Another round
       </button>

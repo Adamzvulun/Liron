@@ -6,7 +6,7 @@ test.describe('the Codebook in the Signal Tower (#154)', () => {
     await signedIn(page, []);
     await page.goto('/signal-tower');
     await expect(
-      page.getByText('Locked · pass the Gatekeeper').filter({ visible: true }),
+      page.getByText('Opens at step 11 · The Logbook’s Words').filter({ visible: true }),
     ).toBeVisible();
     await expect(page.getByRole('button', { name: /Codebook/ })).toHaveCount(0);
   });

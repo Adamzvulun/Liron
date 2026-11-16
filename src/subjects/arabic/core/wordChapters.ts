@@ -1,6 +1,6 @@
 // The word path's chapters (#160, E11): deck ids and our glosses in chapters of 30, from
-// content/arabic/core-words.json. Kept apart from coreWords.ts so the square's questline tracker
-// (tracker.ts) loads the chapters without the 2,000-odd own sentences (#137).
+// content/arabic/core-words.json. Kept apart from coreWords.ts so the square's compass
+// (road.ts) loads the chapters without the 2,000-odd own sentences (#137).
 import { z } from 'zod';
 import pack from '../../../../content/arabic/core-words.json' with { type: 'json' };
 

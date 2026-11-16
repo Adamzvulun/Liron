@@ -431,3 +431,33 @@ button.khan__door:active {
 .khan__door.is-locked .khan__door-title {
   color: #d9c49a;
 }
+
+/* The station the road's compass points at: its plaque glows. */
+.khan__station.is-compass .khan__plaque {
+  border-color: var(--lamplight);
+  box-shadow:
+    0 0 0 4px rgb(255 211 107 / 55%),
+    0 0 26px 6px rgb(255 211 107 / 60%);
+  animation: khan-compass 2.4s ease-in-out infinite;
+}
+
+@keyframes khan-compass {
+  50% {
+    opacity: 0.86;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .khan__station.is-compass .khan__plaque {
+    animation: none;
+  }
+}
+
+/* The road's lines on the painted scroll, in stage pixels. */
+.khan__scroll .road {
+  font-size: 20px;
+}
+
+.khan__quest .road {
+  font-size: 16px;
+}

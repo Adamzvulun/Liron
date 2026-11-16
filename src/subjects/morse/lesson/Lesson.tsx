@@ -20,6 +20,7 @@ import {
 } from './progress.ts';
 import { GATE_RUNS, scoreCopy, SKIP, type RunScore } from './score.ts';
 import './lesson.css';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // The Koch receive lesson (#31): meet each new character, copy two-minute runs, and light the
 // next lamp after two runs in a row at 90% (docs/game/morse-lessons.md, ADR 0028). Progress is
@@ -583,6 +584,7 @@ function Result({
                       ? 'One more run at 90% lights the next lamp.'
                       : 'Keep going: two runs in a row at 90% light the next lamp.'}
             </p>
+            <NextStep onHere={onAgain} />
             <button type="button" className="lesson__go" onClick={onAgain}>
               Next run
             </button>

@@ -73,7 +73,6 @@ test.describe('the Signal Tower hall (#33, #34)', () => {
     await signedIn(page, [], [], { unlocked: 41, met: [...koch], trials: [1, 2, 3, 4, 5] });
     await page.goto('/signal-tower');
     await expect(page.getByText(/The beacon blazes/)).toBeVisible();
-    await expect(page.getByText('Passed.')).toBeVisible();
     await expect(page.getByRole('button', { name: /Face The Beacon’s Answer/ })).toHaveCount(0);
   });
 });
@@ -114,4 +113,32 @@ test('in a short window the halls show their first card under the painting (revi
     const top = (await card.boundingBox())?.y ?? Infinity;
     expect(top, path).toBeLessThan(412 - 40);
   }
+});
+
+test('the hall shows where the road stands, what is next, and the road so far', async ({
+  page,
+}) => {
+  await signedIn(page, [], [], { unlocked: 6, runs: 3 });
+  await page.goto('/signal-tower');
+  const quest = page.getByRole('region', { name: 'Main questline' });
+  // The same count as the square, and the one thing to do now.
+  await expect(quest.getByRole('button', { name: /^Step 4 of 74/ })).toBeVisible();
+  // A locked station says which step opens it.
+  await expect(
+    page.getByText('Opens at step 11 · The Logbook’s Words').filter({ visible: true }),
+  ).toBeVisible();
+  // The road so far: what's ahead by name, and every step walked with its line of the tale.
+  await quest.getByRole('button', { name: /the road so far/ }).click();
+  const book = page.getByRole('dialog', { name: 'The Silent Beacon: the road so far' });
+  await expect(book.getByText('5 of 74 steps walked')).toBeVisible();
+  await expect(book.getByText('The Warm Key')).toBeVisible();
+  await expect(book.getByText('and 66 more')).toBeVisible();
+  await expect(book.getByText('Lamp U')).toBeVisible();
+  await expect(book.getByRole('button', { name: 'Close' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(book).toHaveCount(0);
+  // "Next" opens the step's own door.
+  await quest.getByRole('button', { name: /^Next: Key your first letters/ }).click();
+  await expect(page.getByText(/straight key|brass key/i).first()).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Main questline' })).toHaveCount(0);
 });

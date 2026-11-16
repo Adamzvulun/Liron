@@ -40,6 +40,7 @@ import {
 } from './rush.ts';
 import '../lesson/lesson.css';
 import './words.css';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // The Codebook (#154): head copy of whole words. A word plays once; you type it when the sound
 // has ended. AGN plays it again, once, for half credit. Q-codes, abbreviations and prosigns show
@@ -518,6 +519,7 @@ function Summary({ attempts, onAgain }: { attempts: WordAttempt[]; onAgain: () =
         ))}
       </ul>
       <div className="lesson__actions">
+        <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>
           Another round
         </button>
@@ -603,6 +605,7 @@ function WatchResultCard({
         <button type="button" className="lesson__plain" onClick={onPractice}>
           Practice in the Codebook
         </button>
+        <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>
           {result.passed ? 'Keep it again' : 'Try again'}
         </button>

@@ -9,6 +9,7 @@ import { readQuestions, seeded, type Question, sessionAudio } from './questions.
 import { reportSession, scoreOf, xpFor, type Answer } from './report.ts';
 import { Practice } from './ScriptLesson.tsx';
 import { useAudio } from './useAudio.ts';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 type Stage =
   | { kind: 'start' }
@@ -153,6 +154,7 @@ export function Trial({ api }: { api: SubjectApi }) {
             </p>
           )}
           <p className="arabic__xp">+{xpFor(stage.answers, stage.passed ? trial.xp : 0)} XP</p>
+          <NextStep />
           {!stage.passed && (
             <button type="button" className="lesson__go" onClick={begin}>
               Try again

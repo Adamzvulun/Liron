@@ -180,6 +180,8 @@ export interface ProgressStore {
   /** The IANA time zone that decides when the player's day starts. */
   setTimeZone(zone: string): Promise<void>;
   summary(subjectId: string): Promise<SubjectProgress>;
+  /** The subjects with saved progress, the one practiced most recently first. */
+  practiced(): Promise<string[]>;
   loadState(subjectId: string): Promise<object | null>;
   saveState(subjectId: string, state: object): Promise<void>;
   /** Stored FSRS cards for the given items (missing items have never been reviewed). */
@@ -238,10 +240,12 @@ export function memoryStore(
   reviewLog: readonly object[];
   ratingLog: readonly object[];
 } {
-  const subjects = new Map<string, SubjectProgress & { state: object | null }>();
+  const subjects = new Map<string, SubjectProgress & { state: object | null; at: number }>();
+  // Counts writes, so `practiced` knows which subject was saved last.
+  let tick = 0;
   const get = (id: string) => {
     let s = subjects.get(id);
-    if (!s) subjects.set(id, (s = { xp: 0, minutes: 0, state: null }));
+    if (!s) subjects.set(id, (s = { xp: 0, minutes: 0, state: null, at: 0 }));
     return s;
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
@@ -367,8 +371,15 @@ export function memoryStore(
       cards.set(`${subjectId}/${itemId}`, { due: review.due, card: structuredClone(review.card) });
       reviewLog.push({ subjectId, itemId, rating: review.rating, at: reviewedAt });
     },
+    async practiced() {
+      return [...subjects]
+        .filter(([, s]) => s.at > 0)
+        .sort(([, a], [, b]) => b.at - a.at)
+        .map(([id]) => id);
+    },
     async record(id, xp, minutes) {
       const s = get(id);
+      s.at = ++tick;
       s.xp += xp;
       s.minutes += minutes;
       const day = todayIs();
@@ -441,6 +452,7 @@ export function memoryStore(
       return state === null ? null : structuredClone(state);
     },
     async saveState(id, state) {
+      get(id).at = ++tick;
       get(id).state = structuredClone(state);
     },
   };

@@ -20,7 +20,7 @@ test.describe('Arabic word lessons (#160)', () => {
     await signedIn(page, [], [], { lesson: 3 }, WORDS);
     await page.goto('/caravanserai');
     await expect(
-      page.getByText('Words · pass the Painted Sign').filter({ visible: true }),
+      page.getByText('Opens at step 25 · The Innkeeper’s Table').filter({ visible: true }),
     ).toBeVisible();
     await expect(
       page.getByRole('button', { name: /The innkeeper’s table/ }).filter({ visible: true }),

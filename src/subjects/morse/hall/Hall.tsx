@@ -11,6 +11,9 @@ import {
   unlockedChars,
   type MorseProgress,
 } from '../lesson/progress.ts';
+import { localDay, opensAt } from '../../../core/road/road.ts';
+import { RoadLine } from '../../../core/road/RoadLine.tsx';
+import { MORSE_ROAD, morseDone, morseRoad } from '../road.ts';
 import { questStatus } from '../questline.ts';
 import { wordsOpen } from '../words/drill.ts';
 import { charLabel, MORSE_CHARS } from '../code.ts';
@@ -94,7 +97,21 @@ interface Station {
   title: string;
   text: string;
   open?: HallDoor;
+  /** The door the road reaches it by, when that isn't `open` (a station still locked). */
+  road?: HallDoor;
 }
+
+/** The station that holds each door, for marking where the compass points. */
+const HOME: Partial<Record<string, StationId>> = {
+  koch: 'lessons',
+  recognition: 'recognition',
+  sending: 'sending',
+  lamp: 'sending',
+  words: 'codebook',
+  watch: 'codebook',
+  far: 'radio',
+  radio: 'radio',
+};
 
 /** The questline's lamps on the stair: lit ones glow, the next one flickers. */
 function Lamps({ letters, lit }: { letters: readonly string[]; lit: readonly string[] }) {
@@ -243,7 +260,17 @@ function Room({
   const trial = pendingTrial(progress);
   const newest = unlocked[unlocked.length - 1];
 
-  const stations: Station[] = [
+  // The road (docs/game/the-road.md): where this player stands, and the one thing to do now.
+  const road = morseRoad(progress, {
+    today: localDay(),
+    partner: 'ready',
+    licensee: true,
+    due: 0,
+  });
+  const nowDoor = road.now.kind === 'step' ? road.now.step.door : road.now.door;
+  const compassAt = HOME[nowDoor];
+
+  const written: Station[] = [
     {
       id: 'lessons',
       plaque: { x: 360, y: 900 },
@@ -280,6 +307,7 @@ function Room({
       id: 'codebook',
       plaque: { x: 690, y: 978 },
       title: 'Codebook',
+      road: 'words',
       text: !wordsOpen(progress)
         ? 'Locked · pass the Gatekeeper'
         : watchOpen(progress, MORSE_CHARS.length) && !watchPassed(progress)
@@ -293,6 +321,7 @@ function Room({
       id: 'radio',
       plaque: { x: 1800, y: 790 },
       title: 'Radio Room',
+      road: 'far',
       text: !farOpen(progress)
         ? 'Locked · pass the Lamp Signal'
         : farPassed(progress)
@@ -304,16 +333,14 @@ function Room({
     },
   ];
 
+  // A locked station says which step opens it, in the road's own count.
+  const stations = written.map((s) => {
+    const note = !s.open && s.road ? opensAt(road, MORSE_ROAD, s.road) : null;
+    return note ? { ...s, text: note } : s;
+  });
+
   /** The chapter's trial is behind you: only after the last chapter, the beacon relit. */
   const passed = !!quest && progress.trials.includes(quest.chapter.number);
-  const trialLine = quest
-    ? passed
-      ? 'Passed.'
-      : quest.trialReady
-        ? quest.chapter.trial.text
-        : `${quest.lit.length} of ${quest.chapter.letters.length} lamps lit. Light them all to face it.`
-    : '';
-
   const story: ReactNode = quest && (
     <>
       <p className="tower__kicker">Main questline · {quest.chapter.questline}</p>
@@ -323,9 +350,12 @@ function Room({
       <blockquote className="tower__beat">
         {passed ? quest.chapter.outro : (quest.beat ?? quest.chapter.intro)}
       </blockquote>
-      <p className="tower__trial">
-        <strong>Trial: {quest.chapter.trial.name}.</strong> {trialLine}
-      </p>
+      <RoadLine
+        answer={road}
+        steps={MORSE_ROAD}
+        done={(step) => morseDone(step, progress)}
+        onOpen={(door) => onOpen(door as HallDoor)}
+      />
     </>
   );
 
@@ -410,7 +440,7 @@ function Room({
               <button
                 key={s.id}
                 type="button"
-                className={`tower__station tower__station--${s.id}`}
+                className={`tower__station tower__station--${s.id}${s.id === compassAt ? ' is-compass' : ''}`}
                 style={at(part.box)}
                 onClick={() => s.open && onOpen(s.open)}
                 tabIndex={compact ? -1 : undefined}
@@ -472,24 +502,26 @@ function Room({
                 <span className="hall__door-go">Open the gate →</span>
               </button>
             )}
-            {stations.map((s) =>
-              s.open ? (
-                <button
-                  key={s.id}
-                  type="button"
-                  className={`hall__card hall__door${s.id === 'lessons' && !trial ? ' is-main' : ''}`}
-                  onClick={() => s.open && onOpen(s.open)}
-                >
-                  <span className="hall__door-title">{s.title}</span>
-                  <span className="hall__door-text">{s.text}</span>
-                </button>
-              ) : (
-                <div key={s.id} className="hall__card hall__door is-locked">
-                  <span className="hall__door-title">{s.title}</span>
-                  <span className="hall__door-text">{s.text}</span>
-                </div>
-              ),
-            )}
+            {[...stations]
+              .sort((a, b) => Number(b.id === compassAt) - Number(a.id === compassAt))
+              .map((s) =>
+                s.open ? (
+                  <button
+                    key={s.id}
+                    type="button"
+                    className={`hall__card hall__door${s.id === compassAt && !trial ? ' is-main' : ''}`}
+                    onClick={() => s.open && onOpen(s.open)}
+                  >
+                    <span className="hall__door-title">{s.title}</span>
+                    <span className="hall__door-text">{s.text}</span>
+                  </button>
+                ) : (
+                  <div key={s.id} className="hall__card hall__door is-locked">
+                    <span className="hall__door-title">{s.title}</span>
+                    <span className="hall__door-text">{s.text}</span>
+                  </div>
+                ),
+              )}
           </nav>
           <aside className="hall__card hall__guild" aria-label="Your standing in the guild">
             <p className="hall__kicker">Guild of Signalers</p>

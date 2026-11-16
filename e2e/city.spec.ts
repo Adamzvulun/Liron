@@ -80,7 +80,7 @@ test.describe('the city square (#24)', () => {
     }
     await dock.getByRole('link', { name: 'Quests' }).click();
     await expect(page.getByRole('heading', { level: 1, name: 'Notice Board' })).toBeVisible();
-    await expect(page.getByRole('link', { name: /hear K and M/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Hear your first two sounds/ })).toBeVisible();
   });
 
   test('wide screens have no dock', async ({ page }) => {

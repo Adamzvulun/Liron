@@ -19,6 +19,7 @@ import {
   type ShadowLine,
 } from './shadow.ts';
 import { usePlayer } from './usePlayer.ts';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 type Judged = { line: ShadowLine; judgement: Judgement };
 type Player = ReturnType<typeof usePlayer>;
@@ -101,6 +102,7 @@ export function Shadowing({
         </p>
         <p className="arabic__xp">+{judged.length * XP_PER_SENTENCE} XP</p>
         <div className="lesson__actions">
+          <NextStep />
           <button type="button" className="lesson__plain" onClick={onLeave}>
             Back to the well
           </button>

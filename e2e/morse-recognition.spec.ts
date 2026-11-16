@@ -39,5 +39,11 @@ test.describe('Instant Recognition in the Signal Tower (#32)', () => {
     for (const c of calls.filter((c) => c.rpc === 'record_result')) {
       expect(c.args).toMatchObject({ p_subject: 'morse', p_skill: 'receive' });
     }
+
+    // The road (the-road.md §6): this first round was a step, so its title and its line of the
+    // tale are shown, and the first button leads to the road's next step, at its own door.
+    await expect(page.getByText('Before the Lamp Fades')).toBeVisible();
+    await page.getByRole('button', { name: 'Next: Hear your first two sounds, K and M' }).click();
+    await expect(page.getByRole('heading', { name: 'Hear K and M' })).toBeVisible();
   });
 });

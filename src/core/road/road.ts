@@ -127,6 +127,12 @@ const WAIT_LINE: Record<WaitReason, (title: string) => string> = {
   off: () => 'Nobody is at the table on this site yet.',
 };
 
+/** The player's local day, YYYY-MM-DD. */
+export function localDay(now = new Date()): string {
+  const two = (n: number) => String(n).padStart(2, '0');
+  return `${now.getFullYear()}-${two(now.getMonth() + 1)}-${two(now.getDate())}`;
+}
+
 /** Days since 1970 for a local day, so a pick can rotate with the calendar. */
 export function dayNumber(day: string): number {
   const [y, m, d] = day.split('-').map(Number);
@@ -187,3 +193,29 @@ export function answer(
 
 /** “The Gatekeeper” inside a sentence: “the Gatekeeper”. */
 export const inSentence = (name: string) => name.replace(/^The /, 'the ');
+
+/** "Step 14 of 74": the same count the square shows. */
+export function standingLine(answer: RoadAnswer): string {
+  const at = answer.position;
+  return at ? `Step ${at.index + 1} of ${answer.steps}` : `All ${answer.steps} steps walked`;
+}
+
+/** The step where the road first reaches a door, from 1; 0 if it never does. */
+export function stepAt(steps: readonly RoadStep[], door: string): number {
+  return steps.findIndex((s) => s.door === door) + 1;
+}
+
+/**
+ * What a locked station says: the step that opens it, in the road's own count. Null when the
+ * road never reaches that door, or already has.
+ */
+export function opensAt(
+  answer: RoadAnswer,
+  steps: readonly RoadStep[],
+  door: string,
+): string | null {
+  const n = stepAt(steps, door);
+  const first = steps[n - 1];
+  if (!first || !answer.position || answer.position.index >= n - 1) return null;
+  return `Opens at step ${n} · ${first.title}`;
+}

@@ -513,3 +513,32 @@ button.hall__door:active {
 .tower.is-compact .tower__plaque {
   display: none;
 }
+
+/* The station the road's compass points at: its plaque glows like the next lamp. */
+.tower__station.is-compass .tower__plaque {
+  border-color: var(--lamplight);
+  box-shadow:
+    0 0 0 4px rgb(255 211 107 / 55%),
+    0 0 26px 6px rgb(255 211 107 / 60%);
+  animation: lamp-flicker 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tower__station.is-compass .tower__plaque {
+    animation: none;
+  }
+}
+
+/* The road's lines on the painted scroll, in stage pixels. */
+.tower__scroll .road {
+  font-size: 20px;
+}
+
+.hall__quest .road {
+  font-size: 16px;
+  color: #e8d9b8;
+}
+
+.hall__quest .road__next strong {
+  color: var(--lamplight);
+}

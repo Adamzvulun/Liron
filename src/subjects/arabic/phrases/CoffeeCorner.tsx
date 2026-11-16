@@ -15,6 +15,7 @@ import {
 } from './sets.ts';
 import { Compare } from './Compare.tsx';
 import type { Heard } from '../../../core/speech.ts';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 /** Due phrases from earlier sets mixed into a session. */
 const REVIEWS = 5;
@@ -261,6 +262,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
           <p className="arabic__xp">
             +{coffeeXp(stage.right.length, stage.said.length, stage.passed)} XP
           </p>
+          <NextStep onHere={() => setStage({ kind: 'start' })} />
           <button type="button" className="lesson__go" onClick={() => setStage({ kind: 'start' })}>
             Another round
           </button>

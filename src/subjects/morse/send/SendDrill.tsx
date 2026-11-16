@@ -31,6 +31,7 @@ import { KEYER_DIT_MS } from '../ranks.ts';
 import { useDeskAudio, type Audio } from './deskAudio.ts';
 import '../lesson/lesson.css';
 import './send.css';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // The telegraph table (#35, #36, #37): key a short text with the space bar or the brass key,
 // hear it as you key, watch the tower read it, then see how clean your fist is.
@@ -546,6 +547,7 @@ function Result({
       </dl>
       <p className="lesson__note">+{xp} XP</p>
       <div className="lesson__actions">
+        <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>
           Key another
         </button>
@@ -632,6 +634,7 @@ function LampResultCard({
         <button type="button" className="lesson__plain" onClick={onPractice}>
           Practice sending
         </button>
+        <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>
           {result.passed ? 'Send it again' : 'Try again'}
         </button>

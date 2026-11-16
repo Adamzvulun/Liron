@@ -12,6 +12,7 @@ import {
   xpForRush,
   type RushCall,
 } from './rush.ts';
+import { NextStep } from '../../../core/road/NextStep.tsx';
 
 // The callsign rush (#156): a made-up callsign plays at the rush's speed, with standard spacing.
 // Type it and press Enter: right makes the next one 2 wpm faster, a miss 2 wpm slower.
@@ -209,6 +210,7 @@ export function RushSummaryCard({
         ))}
       </ul>
       <div className="lesson__actions">
+        <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>
           Rush again
         </button>
