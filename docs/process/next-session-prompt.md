@@ -14,6 +14,8 @@ Actions minutes cost money, so keep CI use low:
 - Never treat a red, cancelled or flaky run as green. Check the job log: 9 skipped is normal: nine tests run on only one of the two projects, phone or desktop (`grep -n "test.skip" e2e/*.spec.ts` lists them).
 - If a job fails within seconds with no runner and no log, the Actions budget has run out. Tell me; don't push again to kick it.
 
+**Your work order is `docs/process/PLAN.md`** (2026-11-16). Read it after HANDOFF and work it top to bottom, ticking tasks off in the file. At a gate, ask me once and carry on with the next task that doesn't depend on it.
+
 First:
 1. If an open PR from the last session is still there, check its CI log. If it's clean, squash-merge it with the full head SHA and unsubscribe.
 2. Then pick from the plan in HANDOFF/STATUS:
