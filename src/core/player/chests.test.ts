@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import type { Chest, TodaysContracts } from '../progress/store.ts';
 import type { SubjectInfo } from '../subject.ts';
 import { chestName, chestShelf, lootOf } from './chests.ts';
-import { chestQuests } from './quests.ts';
 
 const tower: SubjectInfo = {
   id: 'morse',
@@ -81,13 +80,6 @@ describe('reward chests (ADR 0033)', () => {
       '+50 gold',
       'Copper-toe boots, already yours: +60 gold',
       'Streak shield, you hold 2: +120 gold',
-    ]);
-  });
-
-  it('puts a line in the HUD while chests wait', () => {
-    expect(chestQuests(0)).toEqual([]);
-    expect(chestQuests(2)).toEqual([
-      expect.objectContaining({ giver: 'Chests', text: '2 to open', href: '/notice-board' }),
     ]);
   });
 });

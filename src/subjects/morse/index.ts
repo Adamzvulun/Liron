@@ -10,6 +10,7 @@ export const morse: SubjectInfo = {
   guildColor: 'var(--guild-morse)',
   building: 'tower',
   quest: { text: 'The Silent Beacon, Chapter 1: hear K and M' },
+  welcome: 'Climb the Signal Tower',
   road: (state, ctx) => import('./road.ts').then((m) => m.morseRoad(state, ctx)),
   skills: ['receive', 'send', 'head-copy'],
   Hall: TowerHall,

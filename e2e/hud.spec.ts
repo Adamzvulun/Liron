@@ -106,7 +106,7 @@ test('the compass says the next step of your road, and leads to its door', async
     const compass = page.getByRole('navigation', { name: 'Next on your road' });
     await expect(compass.getByRole('link')).toHaveCount(1);
     await expect(compass.getByRole('link')).toContainText('Signal Tower: ');
-    await compass.getByRole('button', { name: 'Show the other guilds' }).click();
+    await compass.getByRole('button', { name: 'Show the other lines' }).click();
     await expect(compass.getByRole('link')).toHaveCount(2);
     await expect(compass.getByRole('link').nth(1)).toContainText('Caravanserai: ');
     await compass.getByRole('link').first().click();
@@ -184,10 +184,15 @@ test('chests wait on the Notice Board and open once, paying what they held (ADR 
     chests: [{ id: 'c1', kind: 'brass', source: 'streak', source_key: '2026-11-02:7' }],
   });
   await page.goto('/');
-  if (!onPhone()) {
+  // The city's errand (the-road.md §7): a line after the guilds', on both sizes.
+  if (onPhone()) {
+    const compass = page.getByRole('navigation', { name: 'Next on your road' });
+    await compass.getByRole('button', { name: 'Show the other lines' }).click();
+    await expect(compass.getByRole('link').last()).toContainText('A chest is waiting');
+  } else {
     await expect(
-      page.getByRole('region', { name: 'Quests' }).getByRole('link', { name: /Chests/ }),
-    ).toContainText('1 to open');
+      page.getByRole('region', { name: 'Quests' }).getByRole('link', { name: /Notice Board/ }),
+    ).toContainText('A chest is waiting at the Notice Board.');
   }
   await page.goto('/notice-board');
   const shelf = page.getByRole('region', { name: 'Chests' });

@@ -45,6 +45,7 @@ describe("today's quests (ADR 0019)", () => {
       text: `Do the next thing at ${giver}.`,
       progress: 'Step 3 of 74',
       quiet: false,
+      started: true,
       ...extra,
     });
     const quests = todaysQuests([tower, inn], 15, [

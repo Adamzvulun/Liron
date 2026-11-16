@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
@@ -14,7 +14,8 @@ import { GoalReached } from './player/GoalReached.tsx';
 import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
-import { useCompass, type CompassSources } from './player/compass.ts';
+import { cityErrands, useCompass, type CompassSources } from './player/compass.ts';
+import { firstPageClosed } from './player/firstPage.ts';
 import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
@@ -25,6 +26,9 @@ import './App.css';
 
 // The house, the market and the board load when you go there, not with the square (#137).
 const views = () => import('./placeViews.tsx');
+const FirstPage = lazy(() =>
+  import('./player/FirstPage.tsx').then((m) => ({ default: m.FirstPage })),
+);
 const Wardrobe = lazy(() => views().then((m) => ({ default: m.Wardrobe })));
 const AchievementWall = lazy(() => views().then((m) => ({ default: m.AchievementWall })));
 const Market = lazy(() => views().then((m) => ({ default: m.Market })));
@@ -153,7 +157,22 @@ function Lobby({ player }: { player: Player }) {
   const place = placeAt(path);
   // Read again on every move, so coming back from a hall shows the step just done.
   const unpaid = state.contracts?.contracts.flatMap((c) => (c.paid || !c.subject ? [] : c.subject));
-  const compass = useCompass(subjects, compassSources, state.today?.day, unpaid ?? [], path);
+  const roads = useCompass(subjects, compassSources, state.today?.day, unpaid ?? [], path);
+  // The guilds' lines, then the city's own errands (the-road.md §7).
+  const compass = [
+    ...roads,
+    ...(state.wallet && state.profile
+      ? cityErrands({
+          chests: state.chests.length,
+          gold: state.wallet.gold,
+          owned: state.profile.owned,
+          avatar: state.profile.avatar,
+        })
+      : []),
+  ];
+  // The first page (§8): for a player with no step done anywhere, until closed on this device.
+  const [closed, setClosed] = useState(firstPageClosed);
+  const welcome = !closed && roads.length > 0 && roads.every((r) => !r.started);
   const celebrations = state.levelUp ? (
     <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
   ) : (
@@ -258,7 +277,12 @@ function Lobby({ player }: { player: Player }) {
         />
       </div>
       {/* One celebration at a time: the level-up first, then the daily goal. */}
-      {celebrations}
+      {celebrations ||
+        (welcome && (
+          <Suspense fallback={null}>
+            <FirstPage guilds={roads} onClose={() => setClosed(true)} />
+          </Suspense>
+        ))}
     </City>
   );
 }

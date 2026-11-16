@@ -418,12 +418,12 @@ Three prompts introduce the city's own places. They are not road steps and never
 | Errand | Shown when | Gone when |
 |---|---|---|
 | “A chest is waiting at the Notice Board.” | a chest is unopened (the HUD already knows) | no chest is waiting |
-| “You have gold. The Market is open.” | gold ≥ the cheapest ware, and nothing was ever bought | the first purchase |
+| “You have gold. The Market is open.” | gold ≥ the cheapest ware, and nothing is owned (built 2026-11-16: the app doesn't record purchases apart from other gear, and a player with gear from a rank or a chest already knows what gear is) | the first gear owned |
 | “Your House has a wardrobe.” | the first gear is owned (a rank's gear or a purchase) and the avatar was never changed | the avatar is saved once |
 
 ## 8. The first page
 
-Shown before the square to a player with no step done on any road. It closes for good with the first finished step, so it needs no saved flag. It can also be closed, and then it is not shown again on that device.
+Shown before the square to a player with no step done on any road. It closes for good with the first finished step, so it needs no saved flag. It can also be closed (“Look around the square first”), and then it is not shown again on that device (a flag in the browser's storage, nothing saved to the account).
 
 > **Waymark**
 >

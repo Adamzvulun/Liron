@@ -96,7 +96,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
   - **(a) ☑ merged 2026-11-16. The road with no screen:** `road.json` for both guilds, the checks, `road(state, today, services)` on the subject contract, the two new counters (`only.listen`, `only.read`), the new chapters 6–10 in `content/morse/questline.json`, and tests 1–8. Nothing a player sees changes.
   - **(b) ☑ built 2026-11-16 (in its PR). The compass in the square and the halls,** the "Opens at step N" wording, and "the road so far". The old questline tracker (`questStatus`, `tracker.ts`, `questlines.ts`) is gone: the compass replaced it.
   - **(c) ☑ built 2026-11-16 (in its PR). Every result screen.** Before touching one, list every browser test that clicks a result screen's buttons. Add "Next" as a new first button and keep the existing buttons' names, so the 278 tests keep passing for the right reason.
-  - **(d) The first page and the three city errands.**
+  - **(d) ☑ built 2026-11-16 (in the same PR as (b) and (c)). The first page and the three city errands.**
 - **Do:** build the road as **data** (`content/*/road.json`, one ordered list per guild) and one pure function, `nextStep(progress)`, that returns the single next step for a guild, plus the city-level pick from 1.2's rule. Then show it everywhere, in the world's look:
   - **The square, phone and desktop:** the next step is visible without opening anything, with one tap to go there. Concept it first (a signpost by the compass, a line under the top bar; screenshot both sizes and choose).
   - **Each hall:** the station that holds the next step is marked on the painting and in the cards below it. Stations not yet reached in the story say which step opens them, in one line, not "Locked".

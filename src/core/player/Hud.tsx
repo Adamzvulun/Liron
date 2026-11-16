@@ -8,7 +8,7 @@ import { CoinIcon, FlameIcon, GearIcon, GemIcon, HourglassIcon, ShieldIcon } fro
 import type { SubjectInfo } from '../subject.ts';
 import type { PlayerState } from './player.ts';
 import type { CompassLine } from './compass.ts';
-import { chestQuests, contractQuests, shieldNote, todaysQuests } from './quests.ts';
+import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
 
@@ -62,7 +62,6 @@ export function Hud({
           subjects={subjects}
           compass={compass}
           contracts={state.contracts}
-          chests={state.chests.length}
         />
       )}
     </div>
@@ -141,7 +140,7 @@ function Compass({ lines }: { lines: readonly CompassLine[] }) {
             className="hud__compassmore"
             aria-expanded={all}
             aria-controls={listId}
-            aria-label={all ? 'Hide the other guilds' : 'Show the other guilds'}
+            aria-label={all ? 'Hide the other lines' : 'Show the other lines'}
             onClick={() => setAll((a) => !a)}
           >
             {lines.length}
@@ -498,7 +497,6 @@ export function QuestTracker({
   subjects,
   compass,
   contracts = null,
-  chests = 0,
   full = false,
 }: {
   today: NonNullable<PlayerState['today']>;
@@ -507,8 +505,6 @@ export function QuestTracker({
   compass?: readonly CompassLine[];
   /** Today's contracts (#46). */
   contracts?: PlayerState['contracts'];
-  /** Chests waiting to be opened; the board shows them on its shelf instead. */
-  chests?: number;
   /** On the Notice Board: every contract, not just how many are done. */
   full?: boolean;
 }) {
@@ -549,7 +545,6 @@ export function QuestTracker({
         {[
           ...todaysQuests(subjects, today.goalMinutes, compass),
           ...contractQuests(subjects, contracts, full),
-          ...(full ? [] : chestQuests(chests)),
         ].map((q) => (
           <li key={q.key ?? q.giver}>
             <Link

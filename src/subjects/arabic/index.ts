@@ -15,6 +15,7 @@ export const arabic: SubjectInfo = {
     text: 'The Long Road In, Chapter 1:',
     script: { text: 'ا ب ت ن ي', lang: 'ar', dir: 'rtl' },
   },
+  welcome: 'Sit down at the Caravanserai',
   road: (state, ctx) => import('./road.ts').then((m) => m.arabicRoad(state, ctx)),
   skills: ['listen', 'read', 'write', 'speak'],
   Hall: Caravanserai,

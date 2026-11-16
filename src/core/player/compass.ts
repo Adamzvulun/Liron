@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import { PLACE_PATHS } from '../city/layout.ts';
 import { HALL_DOOR, type RoadAnswer, type RoadContext } from '../road/road.ts';
+import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import type { SubjectInfo } from '../subject.ts';
 
 export interface CompassLine {
@@ -15,12 +16,16 @@ export interface CompassLine {
   href: string;
   /** What to do now. */
   text: string;
-  /** Where the player stands: "Step 14 of 74". */
-  progress: string;
+  /** Where the player stands: "Step 14 of 74". An errand has none. */
+  progress?: string;
   /** A step the road is waiting on, said plainly. */
   waiting?: string;
   /** A guild not started yet, when it isn't the main line: shown in a quieter voice. */
   quiet: boolean;
+  /** Has the player done any step of this road? */
+  started: boolean;
+  /** What the guild's button on the first page says. */
+  welcome?: string;
 }
 
 interface Found {
@@ -112,6 +117,8 @@ function line(f: Found, first: boolean): CompassLine {
       : `${road.questline}: the road is walked`,
     ...(road.waiting && { waiting: road.waiting.line }),
     quiet: !first && !f.started,
+    started: f.started,
+    ...(subject.welcome && { welcome: subject.welcome }),
   };
 }
 
@@ -156,4 +163,53 @@ export function useCompass(
     };
   }, [subjects, sources, today, contracts, when]);
   return lines;
+}
+
+/** The price of the Market's cheapest ware (content/core/items.json; a test keeps it true). */
+export const CHEAPEST_WARE = 60;
+
+const BOARD_COLOR = '#e8a93a';
+
+/**
+ * The city's own errands (the-road.md §7): one line each for the Notice Board, the Market and
+ * Your House, shown after the guilds' lines while its reason holds and never once it's done.
+ */
+export function cityErrands(player: {
+  chests: number;
+  gold: number;
+  owned: readonly string[];
+  avatar: Look;
+}): CompassLine[] {
+  const errand = (id: string, giver: string, href: string, text: string): CompassLine => ({
+    subject: `errand:${id}`,
+    giver,
+    color: BOARD_COLOR,
+    href,
+    text,
+    quiet: false,
+    started: true,
+  });
+  const untouched = JSON.stringify(player.avatar) === JSON.stringify(DEFAULT_LOOK);
+  return [
+    ...(player.chests > 0
+      ? [
+          errand(
+            'chest',
+            'Notice Board',
+            '/notice-board',
+            player.chests === 1
+              ? 'A chest is waiting at the Notice Board.'
+              : `${player.chests} chests are waiting at the Notice Board.`,
+          ),
+        ]
+      : []),
+    // "Never bought anything" is read as owning nothing: gear from a rank or a chest has
+    // already shown the player what gear is.
+    ...(player.gold >= CHEAPEST_WARE && player.owned.length === 0
+      ? [errand('market', 'Market', '/market', 'You have gold. The Market is open.')]
+      : []),
+    ...(player.owned.length > 0 && untouched
+      ? [errand('house', 'Your House', '/house', 'Your House has a wardrobe.')]
+      : []),
+  ];
 }

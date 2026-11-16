@@ -43,7 +43,7 @@ export function todaysQuests(
     key: c.subject,
     giver: c.giver,
     text: c.text,
-    progress: c.progress,
+    ...(c.progress && { progress: c.progress }),
     ...(c.waiting && { note: c.waiting }),
     ...(c.quiet && { quiet: true }),
     href: c.href,
@@ -116,18 +116,4 @@ export function contractQuests(
       done: c.paid,
     };
   });
-}
-
-/** The HUD's line for chests waiting to be opened (ADR 0033), if any. */
-export function chestQuests(waiting: number): Quest[] {
-  if (!waiting) return [];
-  return [
-    {
-      giver: 'Chests',
-      text: `${waiting} to open`,
-      reward: 'On the Notice Board',
-      href: '/notice-board',
-      color: BOARD_COLOR,
-    },
-  ];
 }

@@ -48,6 +48,11 @@ export interface SubjectInfo {
    */
   quest?: SubjectQuest;
   /**
+   * What its button on the first page says (docs/game/the-road.md §8), as an invitation:
+   * “Climb the Signal Tower”.
+   */
+  welcome?: string;
+  /**
    * Its road (docs/game/the-road.md): where the learner stands on its one linear story and the
    * one thing to do now, from its own saved state and what the platform knows about today.
    * Async so a subject can load its road lazily, keeping the square's first load small (#124).

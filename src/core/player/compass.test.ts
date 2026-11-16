@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import type { RoadAnswer, RoadContext, RoadStep } from '../road/road.ts';
 import type { SubjectInfo } from '../subject.ts';
-import { loadCompass, type CompassSources } from './compass.ts';
+import catalogue from '../../../content/core/items.json' with { type: 'json' };
+import { DEFAULT_LOOK } from '../avatar/looks.ts';
+import { CHEAPEST_WARE, cityErrands, loadCompass, type CompassSources } from './compass.ts';
 
 const step = (n: number, door = 'koch'): RoadStep => ({
   id: `s${n}`,
@@ -75,6 +77,7 @@ describe('the compass in the square (the-road.md §6)', () => {
         text: 'Do step 1.',
         progress: 'Step 1 of 10',
         quiet: false,
+        started: false,
       },
       expect.objectContaining({ subject: 'arabic', href: '/caravanserai?open=koch', quiet: true }),
     ]);
@@ -125,5 +128,45 @@ describe('the compass in the square (the-road.md §6)', () => {
       day,
     );
     expect(lines.map((l) => l.href)).toEqual(['/signal-tower']);
+  });
+});
+
+describe('city errands (the-road.md §7)', () => {
+  const player = { chests: 0, gold: 0, owned: [] as string[], avatar: DEFAULT_LOOK };
+  const errands = (p: Partial<typeof player>) =>
+    cityErrands({ ...player, ...p }).map((e) => [e.href, e.text]);
+
+  it('has nothing to say to a player with nothing', () => {
+    expect(errands({})).toEqual([]);
+  });
+
+  it('points at a waiting chest until it is opened', () => {
+    expect(errands({ chests: 1 })).toEqual([
+      ['/notice-board', 'A chest is waiting at the Notice Board.'],
+    ]);
+    expect(errands({ chests: 3 })[0]?.[1]).toBe('3 chests are waiting at the Notice Board.');
+  });
+
+  it('points at the Market once the cheapest ware is affordable, until something is owned', () => {
+    expect(errands({ gold: CHEAPEST_WARE - 1 })).toEqual([]);
+    expect(errands({ gold: CHEAPEST_WARE })).toEqual([
+      ['/market', 'You have gold. The Market is open.'],
+    ]);
+    expect(
+      errands({ gold: 500, owned: ['boots'], avatar: { ...DEFAULT_LOOK, hair: 'long' } }),
+    ).toEqual([]);
+  });
+
+  it('points at Your House from the first gear until the avatar is changed', () => {
+    expect(errands({ owned: ['boots'] })).toEqual([['/house', 'Your House has a wardrobe.']]);
+    expect(errands({ owned: ['boots'], avatar: { ...DEFAULT_LOOK, hair: 'long' } })).toEqual([]);
+  });
+
+  it('knows the price of the cheapest ware', () => {
+    const prices = catalogue.items.flatMap((i) => {
+      const price = (i.data as { price?: number }).price;
+      return typeof price === 'number' ? [price] : [];
+    });
+    expect(CHEAPEST_WARE).toBe(Math.min(...prices));
   });
 });
