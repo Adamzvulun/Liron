@@ -62,6 +62,20 @@ Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrat
 
 If a run fails because a secret is missing, add it and start the workflow again: **Actions → DB migrate → Run workflow** on the right branch, or ask Claude, who can start it.
 
+## Keep-alive
+
+A free project is paused when it has had too little database activity for about a week (Supabase's words, checked on supabase.com on 2026-11-16: "sufficient user database activity over the past week"; they give no number). A paused project takes its site down until it is restored by hand. Adam is the only player, so a week away would do it.
+
+`.github/workflows/keep-alive.yml` prevents that. Every Monday and Thursday at 05:17 UTC it runs one small real query against each project (a count of the `subjects` table) with the database secrets the migrations already use. It prints only that number, takes a few seconds, and costs about two minutes of the Actions allowance a month. Twice a week, not once, so a late run never leaves a full week's gap.
+
+- **GitHub only runs schedules from `main`.** The workflow starts working with the first release that carries it (v1.0.0). Until then, and at any time, it can be started by hand: **Actions → Keep alive → Run workflow**.
+- **GitHub switches a schedule off after 60 days without any commit to the repo**, and emails first. If that happens, press **Enable workflow** on the same page.
+- **If a run fails,** GitHub emails the repo's owner, and the log names the project that didn't answer.
+  1. Open supabase.com → the project. If it says **Paused**, press **Restore project** and wait a few minutes. The data is kept (a paused project can be restored for a long time; Supabase says a year).
+  2. If it isn't paused, look at the log: "No database URL secret" means the secret was removed or renamed (see Migrations above); otherwise the database password may have changed, so update the secret.
+  3. Start the workflow again by hand and check it's green.
+- **No promise:** Supabase doesn't publish how much activity is "sufficient". One real query twice a week is what their staff describe as enough. If a project is ever paused while this workflow is green, that is the first thing to tell Claude.
+
 ## Private content
 Copyrighted content (the Lingualism deck) is uploaded to each project automatically, right after migrations ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)). Only the licensee can read it (see above). The workflow needs each project's **secret key**.
 

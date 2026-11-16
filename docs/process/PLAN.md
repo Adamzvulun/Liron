@@ -149,6 +149,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 ### ☐ 1.9 (#317) · v1.0 · The weekly keep-alive (approved by Adam)
 - **Do:** a scheduled GitHub Actions workflow, once a week, that runs one trivial read against `waymark-prod` and `waymark-dev` using the secrets that already exist. It must take seconds, print nothing secret, and fail loudly if a project is paused. Document it in SUPABASE.md, with what to do when it fails.
 - **Done when:** the workflow exists, has run once by hand with a green log, and the doc explains it.
+- **Built (2026-11-16), one line open:** the workflow and its section in SUPABASE.md exist. It runs Mondays and Thursdays, not once a week, so a late run never leaves a full week's gap. **Still to do:** the run by hand with a green log. GitHub can only start a workflow that is on `main`, so that happens right after the v1.0.0 release (it is on the release checklist, task 1.12).
 
 ### ☐ 1.10 (#318) · v1.0 · Docs fit for a release
 - **Do:** rewrite `STATUS.md` so its top is a short current state; move the history paragraph into `docs/process/HISTORY.md` unchanged. Write `retros/M2.md` and `retros/M4.md`. Set `package.json` to `1.0.0`. Draft `docs/process/releases/v1.0.0.md`: what a player gets, in plain words, grouped by place. Bring README, ROADMAP and the next-session prompt in line with this plan.
