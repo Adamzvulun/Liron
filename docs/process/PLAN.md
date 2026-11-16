@@ -15,6 +15,8 @@
 5. **Design before building.** Tasks marked ✏️ change what the player sees or how the story runs. For those: write the design in `docs/game/`, draw the concept, screenshot it, look at it, and show Adam in the report. Don't wait for his answer unless the task is a gate; he has said to make the call he would make.
 6. **Verify before building.** If something a task asks for already exists and meets its "Done when" list, tick the task and write one line saying where it lives.
 7. **If a task turns out wrong or impossible,** don't drop it quietly. Write what you found under the task and on its issue, propose the change, and move on.
+8. **The designs are already decided.** Three documents were written with this plan so that the hardest calls aren't made mid-build: [the Road](../game/the-road.md) (tasks 1.2–1.4, 4.1, 4.2 and the capstones' story), [Grounds](../design/grounds.md) (task 1.5) and [the Fellowship build](../game/fellowship-build.md) (tasks 2.4 and 3.1–3.6). Build to them. Where one is wrong against the code, fix the document in the same PR and say so in the report; don't quietly build something else.
+9. **Keep the place.** After every merged PR, tick the task (or write "slice b of 4 merged") here, so a new session can find where the work stands from this file alone.
 
 ## What the audit found (2026-11-16)
 
@@ -45,6 +47,25 @@
 
 **Not gaps (checked, leave alone):** error monitoring (a third-party service would share data; the error boundary and save-failure messages are enough), offline use (a website, not a PWA), backups (Adam chose the keep-alive only).
 
+## Where this plan is most likely to go wrong
+
+A pre-mortem, written before the work starts. Each line is a way the run fails and what to do instead.
+
+| # | How it fails | Guard |
+|---|---|---|
+| 1 | **The compass lands as one huge PR** that touches every result screen, and half the browser tests break at once. | Four PRs, in the order task 1.3 gives. Slice (a) changes nothing a player sees. |
+| 2 | **A check that can go backwards** (a streak, the last drill's speed) makes a finished step come undone, and the player's place on the road jumps back. | The Road's rule 2, and its test 3. Review every check for this before merging slice (a). |
+| 3 | **"Next" buttons point at a hall instead of a door**, so the player still has to find the station. | A step names a door. The browser test asserts the landing screen, not the address. |
+| 4 | **The story is pasted in and never read.** Sixty new lines sit beside 150 old ones written weeks apart. | Task 1.4's read-through is real work: export each road as one text and read it top to bottom. |
+| 5 | **Grounds get busy**, and text over cards becomes harder to read than on the old flat blue. | Grounds §6: halve the pattern's contrast if it shows through text. Screenshot at arm's length. |
+| 6 | **A Fellowship view or policy quietly shows one player's data to another.** With one test player it looks fine. | Fellowship build §1 and §6. No slice of Phase 3 merges without the three-player test. |
+| 7 | **Things that can't be tested here get called done:** Supabase Realtime, real keys, iPhone Safari, a real microphone, two real devices. | Say so in the task, mark it "untested", and put it on Adam's checklist (1.12, 3.7). A fake channel in the test backend proves our code, not Supabase's. |
+| 8 | **The free AI quota is spent by tests or by the capstone judge's eval set.** | Evals run by hand from `scripts/`, never in CI, and record their results in the repo. |
+| 9 | **The Actions budget runs out** (a job that fails in seconds with no runner). About 35 PRs remain in this plan. | Bundle small tasks. Never push during a run. If it happens, stop pushing and tell Adam the same hour. |
+| 10 | **A session ends mid-task and the next one starts over or skips it.** | Rule 9 above: this file always says where the work stands. |
+| 11 | **A gate is treated as a wall** and the run stops at 1.12, or a gate is treated as optional and something reaches `main` or costs money. | Rule 2: ask once, carry on with the next task that doesn't depend on it, and never act for Adam. |
+| 12 | **The long middle of the Arabic road (chapters 13–114) feels like a treadmill** even with a compass. | It is honest about its length ("Chapter 40 of 115"), each chapter's waiting day offers a talk with its regular, and ranks mark chapters 35, 68 and 100. If Adam still finds it flat when he plays, world events (4.4) are the tool; don't invent filler steps. |
+
 ---
 
 ## Phase 1 — v1.0.0: never lost, fully painted, ready to release (epic #304)
@@ -55,7 +76,8 @@
 - **Do:** run the full checks on the local commits (dialog focus trap, lesson header contrast, the Arena tap area, the halls' peeking card, the chest shelf on a narrow phone, their docs, this plan). Then finish the started fix: every "+N XP" keeps the number and "XP" on one line (a non-breaking space) in `morse/lesson/Trial.tsx`, `words/WordDrill.tsx`, `words/Rush.tsx`, `recognition/Recognition.tsx`, and wherever else a result line can wrap. Several browser tests match "XP" after a normal space; update them to accept the non-breaking space. Open one PR.
 - **Done when:** the PR is merged; at 320 pixels no result line breaks between a number and its unit.
 
-### ☐ 1.2 (#310) ✏️ The Road: one linear story for each guild, every step written down
+### ☑ 1.2 (#310) ✏️ The Road: one linear story for each guild, every step written down
+- **Done (2026-11-16, by the manager):** the design is [docs/game/the-road.md](../game/the-road.md). The Silent Beacon is 75 steps in 10 chapters (five new chapters carry sending, the Far Station, the Night Watch, the Radio Room and the last ranks, and finish the Guildmaster's story). The Long Road In is 275 steps in 115 chapters. Eleven breaks were found and each has a decided fix. No ADR was needed: the subjects stay independent. *The original brief is kept below for the record.*
 - **Why:** gap 2. Adam: "a complete storyline, so the user always knows where to go… progressional and linear."
 - **What exists:** each guild has a main questline (The Silent Beacon: chapters of lamps and a trial each; The Long Road In: the script chapter, then a regular and a trial for every word chapter). Stations beside it open by rules of their own, and ranks have their own conditions. The pieces are good. They aren't one line.
 - **Do, as a design in `docs/game/the-road.md`, before any code:**
@@ -68,7 +90,12 @@
 - **Done when:** the doc has the complete numbered road for both guilds with no "to be decided"; every existing station, trial and rank appears in it exactly once as a step; every break found has a decided fix; the first page and the "which road is next" rule are written; Adam is shown the two roads in the report as plain lists.
 
 ### ☐ 1.3 (#311) ✏️ The compass: the next step is always on screen
-- **Depends on:** 1.2.
+- **Depends on:** 1.2. **Spec:** [the-road.md](../game/the-road.md) §6–§9; its nine tests are this task's "Done when", made exact.
+- **Build it in four PRs, in this order** (it is the largest task in the plan, and about 15 result screens change):
+  - **(a) The road with no screen:** `road.json` for both guilds, the checks, `road(state, today, services)` on the subject contract, the two new counters (`only.listen`, `only.read`), the new chapters 6–10 in `content/morse/questline.json`, and tests 1–8. Nothing a player sees changes.
+  - **(b) The compass in the square and the halls,** the "Opens at step N" wording, and "the road so far".
+  - **(c) Every result screen.** Before touching one, list every browser test that clicks a result screen's buttons. Add "Next" as a new first button and keep the existing buttons' names, so the 278 tests keep passing for the right reason.
+  - **(d) The first page and the three city errands.**
 - **Do:** build the road as **data** (`content/*/road.json`, one ordered list per guild) and one pure function, `nextStep(progress)`, that returns the single next step for a guild, plus the city-level pick from 1.2's rule. Then show it everywhere, in the world's look:
   - **The square, phone and desktop:** the next step is visible without opening anything, with one tap to go there. Concept it first (a signpost by the compass, a line under the top bar; screenshot both sizes and choose).
   - **Each hall:** the station that holds the next step is marked on the painting and in the cards below it. Stations not yet reached in the story say which step opens them, in one line, not "Locked".
@@ -85,11 +112,13 @@
 
 ### ☐ 1.4 (#312) ✏️ The story reads as one tale
 - **Depends on:** 1.2, and can be built alongside 1.3.
+- **Already written:** every missing line (the invites and beats of 60 new steps, five new Beacon chapters, both finales, the first page) is in [the-road.md](../game/the-road.md) §4, §5 and §8. This task puts them into `content/`, reads both roads through from start to end as a reader, and mends what still jars.
 - **Do:** with the road fixed, read both questlines start to finish as a reader would: every chapter's beat, every regular's story, every trial's text, every rank's line. Fix what breaks the thread: a chapter that doesn't follow from the last, a character who appears unannounced, a station whose first visit has no line of story, a trial that doesn't say what's at stake, a rank that arrives with no word from the guild. Write the missing lines (short, in the voice already there). Give every chapter a visible "Chapter N of M" and the road a visible length, so progress is felt.
 - **Done when:** each road can be read as a continuous text in the design doc (export it there); no step lacks a line of story; a test checks every road step has a title and a beat; the spelling and curly-quote tests pass on the new text.
 
 ### ☐ 1.5 (#313) ✏️ No blue backgrounds
 - **Why:** gap 3. Adam: "design everything so there are no blue backgrounds."
+- **Art direction:** [docs/design/grounds.md](../design/grounds.md): four materials (wood, stone, earth, cobble), a painted city gate for sign-in, a waymark post for "Lost?", and the exact pixel test.
 - **Do:** list every screen and state where the navy gradient shows, by screenshot at 320, 412 and 1280 pixels: sign-in, "Choose a password", "Opening the gates…", "Not set up yet", "Lost?", the error screens, the space under a hall's painting on a phone and in a short window, the Notice Board's surround, Your House and the Market around their panels, every station screen at its edges, the gaps between cards on long pages. Then give each a painted or textured ground that belongs to its place (ADR 0006, ADR 0025: painted in the browser, no image files): the city gate at dusk for sign-in, a road out of town for "Lost?", wood, stone or plaster continuing a hall's painting below it. The `body` gradient itself goes, so nothing can fall through to it.
 - **Done when:** a browser test visits every route and state in the list at three sizes and fails if the navy gradient's colors are visible anywhere (sample the screenshot's pixels at the edges and between cards); each new ground is screenshotted and looked at; text on them meets 4.5:1; the speed budget from 1.7 still holds.
 
@@ -158,6 +187,7 @@
 - **Done when:** a player can change their password, with tests; the login copy is honest; FRIENDS.md exists, with any step that couldn't be tried marked "untested" and added to Adam's checklist.
 
 ### ☐ 2.4 (#325) Two players, one database
+- **Spec:** [fellowship-build.md](../game/fellowship-build.md) §6, tests 1 and 2 (every table and every granted function, read from the database so nothing new can be forgotten).
 - **Do:** a test pass with two fake players proving that neither can read or change anything of the other's: reviews, ratings, state, chats, memories, chests, purchases, allowances. Fix anything found. Check every server function for per-player limits.
 - **Done when:** the tests exist and pass; findings are fixed; the review file lists what was checked.
 
@@ -166,6 +196,8 @@
 ## Phase 3 — The Fellowship (M5) (epic #306)
 
 **Goal:** friends share the city, as written in [fellowship.md](../game/fellowship.md) and settled by ADR 0039. **Every slice ships on its own PR and is useful alone.**
+
+**Build to [fellowship-build.md](../game/fellowship-build.md):** its five traps, tables, functions and nine tests. The database tests go in `supabase/tests/` beside `schema.test.ts`, which already runs the real migrations in PGlite and checks row-level security as each player.
 
 Rules for the whole phase: what friends see is §3's list and nothing else, enforced by the database (a view plus row-level security), never by the screen. No leagues, no demotion, no public ranking. A player with no friends sees no empty social clutter. Each epic gets its design in `docs/game/` first (✏️). **The social features join the road**: meeting your first friend, your first visit and your first challenge are steps the compass can point to once a player has a friend, and never before.
 
@@ -217,14 +249,17 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 ### ☐ 4.1 (#333) ✏️ The long evenings: a daily loop for a player who has finished
 - **Why:** gap 14. FSRS reviews thin out by design, so a finished player's day shrinks to almost nothing.
+- **Already decided:** the rule is the compass's "meanwhile" ([the-road.md](../game/the-road.md) §6), built in 1.3. A finished road uses the same function. This task gives it more to point at.
 - **Do:** design what a day looks like at the end of each road, using what exists: reviews due, the Radio Room's live operators, Sit and talk, the rush, the daily contracts and chests. Add what's missing so the compass always has something real to point at: for example a "today in Waymark" step that rotates among the open-ended stations, harder contract tiers for finished players, and personal-best chases. No new content sources; mastery still can't be bought.
 - **Done when:** for a player with everything passed, the compass names a worthwhile step every day for 30 simulated days (a unit test over the rotation); the contracts scale; nothing says "you've finished, come back never".
 
 ### ☐ 4.2 (#334) ✏️ Two endings
+- **Already written:** both finales, with their trials, screens, epilogues, titles and gear: [the-road.md](../game/the-road.md) §4 ("Forty Winters") and §5 ("The Stranger at the Gate").
 - **Do:** write and build the last chapter of The Silent Beacon and of The Long Road In: a final trial that uses the whole skill, a finale screen worth reaching (painted, with the guild's people in it), a title and a piece of gear that can be earned no other way, and an epilogue line that leads into 4.1's loop. The roads in `road.json` get their last steps.
 - **Done when:** both roads have a final step and a tested path to it; the finale screens are painted, screenshotted and fit phone and desktop; the party feed (3.3) announces it.
 
 ### ☐ 4.3 (#335) ✏️ The capstones: have the goals been met?
+- **The capstones are the two finales' trials** ([the-road.md](../game/the-road.md) §4 and §5), so build 4.2 and 4.3 together.
 - **Do:** define, in the design doc, a test for each learner goal that uses only what Waymark can honestly judge:
   - **Arabic:** a longer conversation at the inn on everyday topics, judged by the same model that plays the regulars against a written rubric (understood, answered, kept going), with an eval set proving the judge is consistent; reading a short text in script; writing a few words on the slate. Say plainly what it can't judge (pronunciation, ADR 0013).
   - **Morse:** head copy of plain text at 20 wpm, and a sent passage the decoder reads cleanly at 15 wpm or more.
