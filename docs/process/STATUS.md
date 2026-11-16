@@ -17,7 +17,7 @@
 | App code | ✅ M1–M3 done; M4's E15 (first slices), E16 and E17 built; polishing toward v1.0.0 on `dev` (2026-11-15). The city and five places, the Signal Tower (Koch lessons, recognition, sending, Codebook, callsign rush, the Radio Room), the Caravanserai (script, slate, coffee corner, 113 word chapters with regulars, echo well, Sit and talk), quests, contracts, chests, the Market, ranks and achievements. Live: https://waymark-phi.vercel.app (v0.1.0) · dev: https://waymark-git-dev-adamzvuluns-projects.vercel.app |
 
 ## What to do next (in order)
-**The work order from 2026-11-16 on is [PLAN.md](PLAN.md):** five phases to "done" (v1.0.0, the regulars' voices, ready for friends, the Fellowship, closing), each task with its finish line, and five gates that are Adam's. Work it top to bottom.
+**The work order from 2026-11-16 on is [PLAN.md](PLAN.md):** five phases to "done" (v1.0.0 with a linear road and no blue backgrounds; ready for friends; the Fellowship; the whole vision; closing), each task with its finish line and its GitHub issue (epics #304–#308, tasks #309–#342). The regulars' voices are parked until Adam has looked at Azure. Work it top to bottom.
 
 **Now (2026-11-15):** polish toward v1.0.0: play each screen on a phone and on desktop, fix what's off, with tests (HANDOFF items 54–82). Waiting on Adam: try Sit and talk on the dev site (the Groq key), Maknuune, the iPhone sound check, and the v1.0.0 release. Below is the history of how we got here.
 

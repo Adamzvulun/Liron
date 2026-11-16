@@ -1,18 +1,20 @@
 # The plan to "done"
 
-- **Written:** 2026-11-16, by Claude as manager, at Adam's request. **This file is the work order.** Whoever builds next (Claude as engineer) works through it top to bottom and ticks tasks off here.
-- **"Done" means** (Adam, 2026-11-16): v1.0.0 is released, the regulars speak aloud, and the Fellowship (M5: friends, visits, challenges, live Morse, the Arena) is built and released. When every task below is ticked and the last gate is passed, the project is done.
-- **Adam's answers that shape it (2026-11-16):** the scope is everything including the Fellowship; the live site gets a **fresh start** (no copy of dev progress); a **weekly keep-alive ping** is approved; no in-app export.
+- **Written:** 2026-11-16, by Claude as manager, at Adam's request; revised the same day after his notes. **This file is the work order.** Whoever builds next (Claude as engineer) works through it top to bottom and ticks tasks off here. Each task is also a GitHub issue (the number is beside its title).
+- **"Done" has two levels** (Adam, 2026-11-16):
+  - **v1.0.0** is Phase 1: a solo player is never lost, every screen is painted, learning is visible, and Adam has walked the checklist.
+  - **100% done** is everything after it: friends (Phases 2–3) and the whole vision (Phase 4), closed out in Phase 5.
+- **Adam's answers that shape it (2026-11-16):** the scope is everything including the Fellowship; the live site gets a **fresh start** (no copy of dev progress); a **weekly keep-alive ping** is approved; no in-app export; **the regulars' voices are parked** until Adam has looked at Azure himself; **no blue backgrounds anywhere**; **the player must never feel lost: one linear, progressing story with a pointer to the next step at all times.**
 
 ## How to work this plan
 
-1. **Order.** Phases run in order: 1, 2, 3, 4, 5. Inside a phase, tasks run in the order listed unless a task says it can run alongside another.
+1. **Order.** Phases run in order: 1, 2, 3, 4, 5. Inside a phase, tasks run in the order listed unless a task says otherwise.
 2. **Gates.** A 🚧 gate is a point where only Adam can act. At a gate: do everything up to it, write the question or the checklist where the task says, tell Adam once, and **keep working on the next task that doesn't depend on the gate**. Never wait idle, and never act for Adam (no merge into `main`, no spending, no new data sharing).
 3. **Rules that still hold** (CLAUDE.md, HANDOFF, next-session-prompt): research before suggesting; ask Adam about cost, data or lock-in; no technology without an ADR; content is data; American English; deck text never in the bundle or commits; screenshot visual work and look at it; bundle small tasks into one PR into `dev`; full local checks before a PR; never push during a CI run; check the job log before merging; only Adam merges into `main`.
-4. **Definition of done for every task:** its "Done when" list is true; tests cover the new behavior and fail without it; tsc, eslint, prettier, vitest (also `TZ=UTC`) and the whole Playwright suite pass; docs are updated in the same PR (STATUS, HANDOFF, the report); the PR is merged into `dev`; the task's box is ticked here.
-5. **Verify before building.** Several tasks start with "check whether this already exists". If it does and meets the "Done when" list, tick the task and write one line saying where it lives. Don't build a second one.
-6. **If a task turns out wrong or impossible,** don't drop it quietly. Write what you found under the task, propose the change, and move on to the next task.
-7. **GitHub issues.** Create one epic issue per phase and one issue per task (title = the task's title, body = its section here), with the existing labels. PRs reference them.
+4. **Definition of done for every task:** its "Done when" list is true; tests cover the new behavior and fail without it; tsc, eslint, prettier, vitest (also `TZ=UTC`) and the whole Playwright suite pass; docs are updated in the same PR (STATUS, HANDOFF, the report); the PR is merged into `dev`; the task's box is ticked here and its issue is closed.
+5. **Design before building.** Tasks marked ✏️ change what the player sees or how the story runs. For those: write the design in `docs/game/`, draw the concept, screenshot it, look at it, and show Adam in the report. Don't wait for his answer unless the task is a gate; he has said to make the call he would make.
+6. **Verify before building.** If something a task asks for already exists and meets its "Done when" list, tick the task and write one line saying where it lives.
+7. **If a task turns out wrong or impossible,** don't drop it quietly. Write what you found under the task and on its issue, propose the change, and move on.
 
 ## What the audit found (2026-11-16)
 
@@ -20,188 +22,263 @@
 
 **Gaps that matter for a finished project:**
 
-| # | Gap | Where it's handled |
+| # | Gap | Task |
 |---|---|---|
 | 1 | Twelve commits sit on the work branch with no PR. One small fix (keeping "+100 XP" on one line) was started and put back. | 1.1 |
-| 2 | **Nobody has measured learning.** Both retros say so. Your House promises "stats" in its own placeholder text and has none. | 1.4 |
-| 3 | A new player lands in the square with nothing telling them where to start. Adam knew; a friend won't. | 1.3 |
-| 4 | **Nobody knows if the AI keys work on the dev or live site.** Claude can't reach those sites, and this has blocked "Sit and talk" for days. | 1.5 |
-| 5 | The free database pauses after 7 idle days. | 1.6 |
-| 6 | Tests run on Chromium only. iPhone Safari, real sound, the real microphone and real keying have only been tried by Adam in passing. | 1.8 (Adam's checklist) |
-| 7 | Issues #9, #38, #39 are still open waiting for Adam's try; #137 (speed) is open with no stated finish line. | 1.2, 1.8 |
-| 8 | STATUS's "Last updated" line is one paragraph of about 10,000 characters. There are no retros for M2 or M4. `package.json` says version 0.0.0. | 1.7 |
-| 9 | A few phrases the deck lacks (السلام عليكم, صباح النور, إن شاء الله, and the "to a woman" forms) have no free, licensed recording. The only lead (Lingua Libre) can't be verified. | 5.2 |
-| 10 | **Friends can't learn Arabic words.** Only licensees may read the Lingualism deck (ADR 0011, 0029). A friend who opens the Caravanserai today sees "The deck's words haven't been loaded into Waymark yet." | 3.1 🚧 |
-| 11 | "Email me a link" on the login screen can't reach a friend (Supabase's built-in email only reaches Adam). | 3.3 |
-| 12 | The AI allowances were set for one player. With friends, everyone shares the same free quotas at Groq and Gemini. | 3.2 |
-| 13 | There is no free Arabic voice chosen for the regulars. Azure and on-device models are ruled out (Adam, 2026-11-02). | 2.1 🚧 |
-| 14 | Supabase Realtime (live Morse) is a new technology with no ADR. | 4.6 |
+| 2 | **The player can get lost.** Checked on 2026-11-16 with a new account: the desktop square shows a Quests panel, but the phone square shows no quest at all (they are behind the "Quests" button). There are two questlines side by side and no single "do this next". Most stations (the slate, the echo well, the coffee corner, Instant Recognition, sending, the Codebook) are not steps in any story: they open by a rule and sit there. The end of a session doesn't say what comes next. Nothing introduces the city. | 1.2, 1.3, 1.4 |
+| 3 | **Blue backgrounds remain.** The login screens, the "Lost?" page, the loading and error states, and the space under and around the cards on a phone (below a hall's painting, around the Notice Board) are the old navy gradient. | 1.5 |
+| 4 | **Nobody has measured learning.** Both retros say so. Your House promises "stats" in its own placeholder text and has none. | 1.6 |
+| 5 | Speed issue #137 is open with no stated finish line. | 1.7 |
+| 6 | **Nobody knows if the AI keys work on the dev or live site.** Claude can't reach those sites, and this has blocked "Sit and talk" for days. | 1.8 |
+| 7 | The free database pauses after 7 idle days. | 1.9 |
+| 8 | STATUS's "Last updated" line is one paragraph of about 10,000 characters. There are no retros for M2 or M4. `package.json` says version 0.0.0. | 1.10 |
+| 9 | Tests run on Chromium only. iPhone Safari, real sound, the real microphone and real keying have only been tried by Adam in passing. Issues #9, #38, #39 still wait for his try. | 1.12 |
+| 10 | **Friends can't learn Arabic words.** Only licensees may read the Lingualism deck (ADR 0011, 0029). A friend who opens the Caravanserai today sees "The deck's words haven't been loaded into Waymark yet." | 2.1 🚧 |
+| 11 | The AI allowances were set for one player. With friends, everyone shares the same free quotas. | 2.2 |
+| 12 | "Email me a link" on the login screen can't reach a friend (Supabase's built-in email only reaches Adam). | 2.3 |
+| 13 | Supabase Realtime (live Morse) is a new technology with no ADR. | 3.6 |
+| 14 | **Nothing says what happens when the content runs out.** A player who has passed every chapter and taken every rank has no story left and no reason to come back but the reviews. Neither questline has an ending. | 4.1, 4.2 |
+| 15 | **The learner goals have no finish line.** The vision says "hold a conversation" and "send and receive without thinking". Nothing tests either. | 4.3 |
+| 16 | The vision promises "room to grow" (empty plots for new subjects). Nobody has written down how a subject is added, and it has never been tried. | 4.5 |
+| 17 | A few phrases the deck lacks (السلام عليكم, صباح النور, إن شاء الله, and the "to a woman" forms) have no free, licensed recording. | Parked |
+| 18 | There is no Arabic voice for the regulars. | Parked 🚧 |
 
-**Not gaps (checked, leave alone):** error monitoring (a third-party service would share data; the error boundary and save-failure messages are enough for now), offline use (a website, not a PWA), backups (Adam chose the keep-alive only), more word chapters (the deck is used up; a new source is Adam's call, see 5.2).
+**Not gaps (checked, leave alone):** error monitoring (a third-party service would share data; the error boundary and save-failure messages are enough), offline use (a website, not a PWA), backups (Adam chose the keep-alive only).
 
 ---
 
-## Phase 1 — Ready to release v1.0.0
+## Phase 1 — v1.0.0: never lost, fully painted, ready to release (epic #304)
 
-**Goal:** Adam can open the dev site, walk a checklist in under an hour, say "release", and merge one PR.
+**Goal:** a player who has never seen Waymark always knows what to do next, from the first minute to the last chapter, on a phone and on a desktop. No screen is a blue gradient. Adam walks a checklist in under an hour, says "release", and merges one PR.
 
-### ☐ 1.1 Land the work in flight
-- **Do:** run the full checks on the 12 local commits (dialog focus trap, lesson header contrast, the Arena tap area, the halls' peeking card, the chest shelf on a narrow phone, their docs). Then finish the started fix: every "+N XP" keeps the number and "XP" on one line (a non-breaking space) in `morse/lesson/Trial.tsx`, `words/WordDrill.tsx`, `words/Rush.tsx`, `recognition/Recognition.tsx`, and wherever else a result line can wrap. Several browser tests match "XP" after a normal space; update them to accept the non-breaking space. Open one PR.
-- **Done when:** the PR is merged; at 320 pixels no result line breaks between a number and its unit; this plan and §4bz are in `dev`.
+### ☐ 1.1 (#309) Land the work in flight
+- **Do:** run the full checks on the local commits (dialog focus trap, lesson header contrast, the Arena tap area, the halls' peeking card, the chest shelf on a narrow phone, their docs, this plan). Then finish the started fix: every "+N XP" keeps the number and "XP" on one line (a non-breaking space) in `morse/lesson/Trial.tsx`, `words/WordDrill.tsx`, `words/Rush.tsx`, `recognition/Recognition.tsx`, and wherever else a result line can wrap. Several browser tests match "XP" after a normal space; update them to accept the non-breaking space. Open one PR.
+- **Done when:** the PR is merged; at 320 pixels no result line breaks between a number and its unit.
 
-### ☐ 1.2 Give speed (#137) a finish line, then close it
-- **Why:** the issue has been open since 2026-11-09 with many fixes and no definition of "fast enough".
-- **Do:** measure on the production build with the slowed-phone settings `e2e/city-speed.spec.ts` already uses: first paint of the square, time until a place can be clicked, return to the square from a hall, and the gzipped startup script. Write a budget in `docs/process/CI.md` (use today's numbers plus 15% as the limit, unless a number is plainly bad, in which case fix it first). Make the existing speed test fail above the budget. Put the numbers in the report in plain words.
-- **Done when:** the budget is written and tested; the report shows before/after; #137 is closed with a link, or labelled `needs:adam` with one sentence saying what he should try.
+### ☐ 1.2 (#310) ✏️ The Road: one linear story for each guild, every step written down
+- **Why:** gap 2. Adam: "a complete storyline, so the user always knows where to go… progressional and linear."
+- **What exists:** each guild has a main questline (The Silent Beacon: chapters of lamps and a trial each; The Long Road In: the script chapter, then a regular and a trial for every word chapter). Stations beside it open by rules of their own, and ranks have their own conditions. The pieces are good. They aren't one line.
+- **Do, as a design in `docs/game/the-road.md`, before any code:**
+  1. **List every thing a player can do in each guild**: every lesson kind, station, trial, rank, and the rule that opens it today (read `questline.json`, `ranks.json`, the halls' station lists and the unlock functions; don't trust the docs).
+  2. **Put them in one order per guild**: a numbered list of steps from "your first lamp" to the last rank, where each step has a name in the world's voice, the screen it happens on, what finishes it (always something the game already records), and what it opens. Every station gets a **first visit that is a step in the story** (for example: after the first vowel marks, the scribe asks you to the slate; after lesson 8, the innkeeper sends you to the well). After its first visit a station stays open as practice, and the daily contracts keep pointing at it.
+  3. **Find the breaks**: places where today's unlock rules would make the line fork, stall or skip (a station that opens before the story mentions it; a rank that needs something no step asked for; a trial with no chapter). Propose the smallest rule or copy change that mends each one. Changing when something opens is allowed; removing something isn't (ordering is not cutting).
+  4. **The city's own first page**: who you are and why you came to Waymark, in three or four sentences, shown once. Then a first choice the story makes for you by default (the Signal Tower's first lamp), with the other guild one tap away. The vision keeps the two subjects independent, so a player may walk one road or both; the design must say how "next" is chosen when both are open (proposal: continue the road you last walked; the other road's next step is always shown second).
+  5. **What "next" is when a road is waiting**: reviews due, a gate that needs a second day, a daily cap reached. The player must be told what to do meanwhile and when the road goes on.
+  6. **An ADR** if the vision's wording needs to change (it is locked; changes need one).
+- **Done when:** the doc has the complete numbered road for both guilds with no "to be decided"; every existing station, trial and rank appears in it exactly once as a step; every break found has a decided fix; the first page and the "which road is next" rule are written; Adam is shown the two roads in the report as plain lists.
 
-### ☐ 1.3 A first-day welcome
-- **Why:** gap 3. A level-1 player with no progress sees a square and five doors.
-- **Do:** first check what a brand-new account sees today (fake backend with empty state; screenshot phone and desktop). Then design the smallest thing that points the way, in the world's voice, not a tutorial overlay: for example a first quest pinned at the top of the quests ("Start here: the Signal Tower's first lamp" and "…the Caravanserai's first letters") and a one-time note from the city. Screenshot it, look at it, and keep it to one screen. It must never show again once either subject has progress.
-- **Done when:** a new account is told in one glance where to go first, on phone and desktop; an account with progress never sees it; browser tests cover both; keyboard and screen-reader users can dismiss it.
+### ☐ 1.3 (#311) ✏️ The compass: the next step is always on screen
+- **Depends on:** 1.2.
+- **Do:** build the road as **data** (`content/*/road.json`, one ordered list per guild) and one pure function, `nextStep(progress)`, that returns the single next step for a guild, plus the city-level pick from 1.2's rule. Then show it everywhere, in the world's look:
+  - **The square, phone and desktop:** the next step is visible without opening anything, with one tap to go there. Concept it first (a signpost by the compass, a line under the top bar; screenshot both sizes and choose).
+  - **Each hall:** the station that holds the next step is marked on the painting and in the cards below it. Stations not yet reached in the story say which step opens them, in one line, not "Locked".
+  - **The end of every session, trial and round** (all of them: lessons, the slate, the well, shadowing, the coffee corner, word sessions, trials, chats, recognition, sending, the Codebook, the rush, the Radio Room, the Far Station): one clear button that goes to the next step, and a quieter one to do the same thing again. Never a dead end with only a way back.
+  - **The Notice Board:** the main questline note shows the same step in the same words.
+  - **The first page** from 1.2, once, then the first step.
+- **Done when:**
+  - A unit test walks a simulated player through every step of both roads in order and proves that at every point `nextStep` returns exactly one step, and that finishing it leads to the following one, to the end.
+  - A browser test for a new account, on phone and desktop, reaches the first lesson in two taps from sign-in without opening a menu.
+  - A browser test checks that every result screen has a "next" button that lands on the screen where the next step can be done.
+  - No station anywhere says only "Locked".
+  - Waiting states (reviews due, come back tomorrow, the daily cap) each have a test for what the compass says.
+  - It fits 320 pixels, works by keyboard, and is announced to screen readers.
 
-### ☐ 1.4 The ledger: learning you can see (stats in Your House)
-- **Why:** gap 2. The vision's test is "every lesson teaches something that actually matters", and nothing shows whether it does.
-- **Do:** design first, in `docs/game/ledger.md` (short). Use **only data already saved**: reviews and their due dates (FSRS), skill ratings (Glicko-2), subject state (letters unlocked, chapters, trials, sending speed), the daily minutes and streak. Don't add tracking. Proposed contents, to adjust after reading the tables:
+### ☐ 1.4 (#312) ✏️ The story reads as one tale
+- **Depends on:** 1.2, and can be built alongside 1.3.
+- **Do:** with the road fixed, read both questlines start to finish as a reader would: every chapter's beat, every regular's story, every trial's text, every rank's line. Fix what breaks the thread: a chapter that doesn't follow from the last, a character who appears unannounced, a station whose first visit has no line of story, a trial that doesn't say what's at stake, a rank that arrives with no word from the guild. Write the missing lines (short, in the voice already there). Give every chapter a visible "Chapter N of M" and the road a visible length, so progress is felt.
+- **Done when:** each road can be read as a continuous text in the design doc (export it there); no step lacks a line of story; a test checks every road step has a title and a beat; the spelling and curly-quote tests pass on the new text.
+
+### ☐ 1.5 (#313) ✏️ No blue backgrounds
+- **Why:** gap 3. Adam: "design everything so there are no blue backgrounds."
+- **Do:** list every screen and state where the navy gradient shows, by screenshot at 320, 412 and 1280 pixels: sign-in, "Choose a password", "Opening the gates…", "Not set up yet", "Lost?", the error screens, the space under a hall's painting on a phone and in a short window, the Notice Board's surround, Your House and the Market around their panels, every station screen at its edges, the gaps between cards on long pages. Then give each a painted or textured ground that belongs to its place (ADR 0006, ADR 0025: painted in the browser, no image files): the city gate at dusk for sign-in, a road out of town for "Lost?", wood, stone or plaster continuing a hall's painting below it. The `body` gradient itself goes, so nothing can fall through to it.
+- **Done when:** a browser test visits every route and state in the list at three sizes and fails if the navy gradient's colors are visible anywhere (sample the screenshot's pixels at the edges and between cards); each new ground is screenshotted and looked at; text on them meets 4.5:1; the speed budget from 1.7 still holds.
+
+### ☐ 1.6 (#314) ✏️ The ledger: learning you can see (stats in Your House)
+- **Why:** gap 4.
+- **Do:** design first, in `docs/game/ledger.md` (short). Use **only data already saved**: reviews and their due dates (FSRS), skill ratings (Glicko-2), subject state, the daily minutes and streak. Don't add tracking. Proposed contents, to adjust after reading the tables:
   - Arabic: letters known; words met, and words "known" (define it: for example an FSRS interval of 21 days or more); reviews due today; chapters passed; chats held.
   - Morse: characters learned; copy speed; sending speed; recognition best; contacts logged.
   - Habit: days practiced in the last 30, minutes this week, longest streak.
+  - Where you are on each road ("step 14 of 96"), from 1.3.
   - One line a subject that says the trend in words ("12 more words known than a week ago").
-  Build it as a third panel in Your House, with the house's look. Replace the placeholder sentence in `PLACE_SOON.house`. If a number needs a new database read, add one function with row-level security and a test, the way `my_achievements()` was done.
+  Build it as a panel in Your House, with the house's look. Replace the placeholder sentence in `PLACE_SOON.house`.
 - **Done when:** Your House shows the ledger for a new player (honest zeros, no "NaN", no empty boxes) and for an advanced one; every number is defined in the design doc and unit-tested against that definition; it fits 320 pixels; no new data is collected.
 
-### ☐ 1.5 A "what's switched on" line in Settings
-- **Why:** gap 4.
-- **Do:** add a tiny server function (or extend an existing one) that answers, for a signed-in player only, which AI services the site has keys for: `{ groq: true|false, gemini: true|false }`. Booleans only; never a key, never part of one. Show it in Settings under a "Services" heading in plain words ("Sit and talk: ready" / "not set up on this site"). Rate-limit it like the other functions. Add it to DEPLOY's table.
-- **Done when:** on a site with no keys the line says so, with a browser test; the function's unit tests prove it leaks nothing and refuses anonymous callers; Adam can read the state of the dev site from his phone.
+### ☐ 1.7 (#315) Give speed (#137) a finish line, then close it
+- **Do:** measure on the production build with the slowed-phone settings `e2e/city-speed.spec.ts` already uses: first paint of the square, time until a place can be clicked, return to the square from a hall, and the gzipped startup script. Write a budget in `docs/process/CI.md` (today's numbers plus 15%, unless a number is plainly bad, in which case fix it first). Make the existing speed test fail above the budget. Do this **after 1.3 and 1.5**, since both add to the square.
+- **Done when:** the budget is written and tested; the report shows the numbers in plain words; #137 is closed with a link, or labelled `needs:adam` with one sentence saying what he should try.
 
-### ☐ 1.6 The weekly keep-alive (approved by Adam)
+### ☐ 1.8 (#316) A "what's switched on" line in Settings
+- **Why:** gap 6.
+- **Do:** a tiny server function that answers, for a signed-in player only, which AI services the site has keys for: booleans only, never a key or part of one. Show it in Settings under "Services" in plain words ("Sit and talk: ready" / "not set up on this site"). Rate-limit it like the other functions. Add it to DEPLOY's table.
+- **Done when:** on a site with no keys the line says so, with a browser test; unit tests prove the function leaks nothing and refuses anonymous callers.
+
+### ☐ 1.9 (#317) The weekly keep-alive (approved by Adam)
 - **Do:** a scheduled GitHub Actions workflow, once a week, that runs one trivial read against `waymark-prod` and `waymark-dev` using the secrets that already exist. It must take seconds, print nothing secret, and fail loudly if a project is paused. Document it in SUPABASE.md, with what to do when it fails.
-- **Done when:** the workflow exists, has run once by hand (`workflow_dispatch`) with a green log, and the doc explains it. Note for Adam in the report: it uses a few seconds of Actions time a week.
+- **Done when:** the workflow exists, has run once by hand with a green log, and the doc explains it.
 
-### ☐ 1.7 Docs fit for a release
-- **Do:**
-  - Rewrite `STATUS.md` so its top is a short current state (phase, what's live, what's next, what waits on Adam). Move the history paragraph into `docs/process/HISTORY.md` unchanged. Keep every link working (`tests/doc-links.test.ts`).
-  - Write the missing retros: `retros/M2.md` and `retros/M4.md`, in the shape of M1's and M3's.
-  - Set `package.json` to `1.0.0`.
-  - Draft the release notes in `docs/process/releases/v1.0.0.md`: what a player gets, in plain words, grouped by place. Not a commit list.
-  - Bring README, ROADMAP and the next-session prompt in line with this plan.
+### ☐ 1.10 (#318) Docs fit for a release
+- **Do:** rewrite `STATUS.md` so its top is a short current state; move the history paragraph into `docs/process/HISTORY.md` unchanged. Write `retros/M2.md` and `retros/M4.md`. Set `package.json` to `1.0.0`. Draft `docs/process/releases/v1.0.0.md`: what a player gets, in plain words, grouped by place. Bring README, ROADMAP and the next-session prompt in line with this plan.
 - **Done when:** a newcomer can read STATUS in two minutes and know the state; both retros exist; the notes are ready to paste into the release PR.
 
-### ☐ 1.8 Adam's release checklist 🚧
-- **Why:** gaps 6 and 7. These are things only a person with a phone can check.
-- **Do:** write `docs/process/release-checklist.md`, a walk of about 45 minutes, each line a checkbox with what to do and what "good" looks like. It must cover: iPhone Safari and desktop; sound with the silent switch on and off; the microphone prompt and "Say it"; keying with the tap pad (does the tone lag?); one Koch lesson; one script lesson (#38, #39); one word session; the coffee corner; Sit and talk and a Radio Room contact (after reading 1.5's line); buying something; opening a chest; changing the avatar; sign out and in; "Email me a link". End with "anything that annoyed you".
+### ☐ 1.11 (#319) One last review pass
+- **Do:** with the `code-reviewer` and `secure-code-guardian` skills, review everything changed since the last review of each area (2026-11-15), plus `api/`, `vercel.json` headers and the migrations added since. Then a UX pass with fresh eyes over the whole road on a phone: play the first ten steps of each guild as a new player and write down every moment of doubt. Fix findings with tests.
+- **Done when:** the review file exists in `docs/process/reviews/`; no open finding of medium or higher; no moment of doubt left unanswered.
+
+### ☐ 1.12 (#320) Adam's release checklist 🚧
+- **Do:** write `docs/process/release-checklist.md`, a walk of about 45 minutes, each line a checkbox with what to do and what "good" looks like. It must cover: starting as a new player and following the compass for ten minutes without help; iPhone Safari and desktop; sound with the silent switch on and off; the microphone prompt and "Say it"; keying with the tap pad (does the tone lag?); one Koch lesson; one script lesson (#38, #39); one word session; the coffee corner; Sit and talk and a Radio Room contact (after reading 1.8's line); buying something; opening a chest; changing the avatar; sign out and in. End with "anything that annoyed you, and any moment you didn't know what to do".
 - **Then:** tell Adam it's ready. Fix what he reports, with tests. Close #9, #38 and #39 when he has ticked their lines.
-- **Done when:** the checklist exists; Adam has walked it; every problem he found is fixed or filed with his agreement.
+- **Done when:** Adam has walked it; every problem he found is fixed or filed with his agreement.
 
-### ☐ 1.9 One last review pass
-- **Do:** with the `code-reviewer` and `secure-code-guardian` skills, review everything changed since the last review of each area (2026-11-15), plus `api/`, `vercel.json` headers and the migrations added since. Run `npm audit`. Fix findings with tests. List what was reviewed in `docs/process/reviews/`.
-- **Done when:** the review file exists; no open finding of medium or higher.
-
-### ☐ 1.10 The release PR 🚧
-- **Do:** follow DEPLOY's "The first real release, v1.0.0" (already written). Open the PR from `dev` into `main` titled `Release v1.0.0` with the release notes. Tell Adam the steps that are his: the Production keys, merging, his account on the live database (a fresh start, as he chose), the tag.
+### ☐ 1.13 (#321) The release PR 🚧
+- **Do:** follow DEPLOY's "The first real release, v1.0.0". Open the PR from `dev` into `main` titled `Release v1.0.0` with the release notes. Tell Adam the steps that are his: the Production keys, merging, his account on the live database (a fresh start, as he chose), the tag.
 - **Done when:** Adam has merged it, the DB migrate run on `main` is green, and he has signed in on the live site. **Don't wait for this to start Phase 2.**
 
 ---
 
-## Phase 2 — The regulars speak aloud
+## Phase 2 — Ready for friends (epic #305)
 
-**Goal:** at the inn, a regular's line can be heard as well as read. Text first stays the default (ADR 0007).
+**Goal:** a second person can use Waymark safely and fairly before any social feature exists.
 
-### ☐ 2.1 Find a voice, then ask Adam 🚧
-- **Constraints already decided:** free tier only; hosted (nothing runs on the device as a model); **not Azure**; the free AI must not need a card; say openly what is sent where.
-- **Do:** a research note, `docs/research/arabic-voices.md`. Verify each candidate on its own documentation, today, not from memory: is there a free tier, what are its limits, does it speak Arabic, which dialect, what happens to the text sent, is a card needed. Start with the two providers Waymark already uses (Gemini's speech output, which the 2026-11 spike used once, and whatever Groq offers), then the browser's built-in speech (free, no data leaves the device, but quality and dialect vary by phone; check whether it counts as "running locally" in Adam's sense and say so). For each one that qualifies, make five sample lines from our own sentences (never deck text) and note how Palestinian they sound to the extent you can judge; say plainly that Adam's ear is the test.
-- **Then:** write ADR 0040 with a recommendation and put the question to Adam in STATUS: which voice, or none. Attach or link the samples.
-- **Done when:** the note, the samples and the ADR exist, and the question is asked. If no candidate qualifies, say so; the phase then ends here with the reason recorded, and that counts as done.
-
-### ☐ 2.2 Build it (after Adam's answer)
-- **Do:** a server function in the pattern of `api/partner.ts` (key on the server, signed-in callers only, a daily allowance in the database, an eval script). A small play button on each regular's line; the line's audio is fetched on press, never automatically. Keep the "said openly" note at the table truthful about the new service. Respect the phone's silent switch the way Morse audio does. No voice for the Coach.
-- **Done when:** a line plays on phone and desktop; over the allowance it says so kindly and the text still works; without the key the button isn't shown; tests cover the function (caps, refusal, no key) and the button; DEPLOY's table and 1.5's Services line include it.
-
----
-
-## Phase 3 — Ready for friends
-
-**Goal:** a second person can use Waymark safely and fairly before any social feature exists. This phase is short, and it comes first because E18 builds on it.
-
-### ☐ 3.1 What a friend may learn 🚧
-- **Why:** gap 10. This is a licence question, so it's Adam's.
-- **Do:** read the Lingualism deck's licence terms as recorded in `sources/README.md` and on the seller's page, and write down exactly what they allow. Then put the options to Adam with a recommendation:
-  - (a) A friend who buys their own deck is added as a licensee by Adam (SUPABASE.md already has the step). Cost: the friend's, $25.
+### ☐ 2.1 (#322) What a friend may learn 🚧
+- **Why:** gap 10. This is a license question, so it's Adam's.
+- **Do:** read the Lingualism deck's license terms as recorded in `sources/README.md` and on the seller's page, and write down exactly what they allow. Then put the options to Adam with a recommendation:
+  - (a) A friend who buys their own deck is added as a licensee by Adam. Cost: the friend's, $25.
   - (b) Friends without the deck get everything that is ours: Morse in full, the Arabic letters and marks, the echo well's sounds, the grammar cards. The word path and phrases stay shut for them.
-  - Both can hold at once (my recommendation, if the licence reads the way ADR 0011 says).
-- **Build, whatever he picks:** a non-licensee never sees "haven't been loaded". Each shut station says why in one friendly line and what opens it. The courtyard's plaques and the quests don't point a non-licensee at shut stations.
-- **Done when:** Adam has answered; a browser test signs in as a non-licensee and walks the Caravanserai with no dead end and no misleading message.
+  - Both can hold at once (the recommendation, if the license reads the way ADR 0011 says).
+- **Build, whatever he picks:** a non-licensee never sees "haven't been loaded". Their road (1.2) is the road they can actually walk: steps that need the deck are left out of it for them, with one friendly line saying what would open them.
+- **Done when:** Adam has answered; a browser test signs in as a non-licensee and follows the compass through the Caravanserai with no dead end and no misleading message.
 
-### ☐ 3.2 Fair shares of the free AI
-- **Why:** gap 12.
-- **Do:** list every allowance (inn lines, partner replies, speech checks, voices if built) with the provider's current free limits, checked on their pages. Work out what five players at once would use. Change the per-player numbers, or add a site-wide daily ceiling in the database, so one player can't use up everyone's day. Say what a player sees when the site's day is spent.
-- **Done when:** the sums are in the ADR or the design doc; the ceilings are enforced in the database with tests; the messages are tested.
+### ☐ 2.2 (#323) Fair shares of the free AI
+- **Do:** list every allowance (inn lines, partner replies, speech checks) with the provider's current free limits, checked on their pages. Work out what five players at once would use. Change the per-player numbers, or add a site-wide daily ceiling in the database, so one player can't use up everyone's day. Say what a player sees when the site's day is spent.
+- **Done when:** the sums are in an ADR; the ceilings are enforced in the database with tests; the messages are tested.
 
-### ☐ 3.3 Sign-in for someone who isn't Adam
-- **Why:** gap 11, and ADR 0039's option (a).
-- **Do:** "Change your password" in Settings (one form, the current rules). Rewrite the login screen's "Email me a link" so it doesn't promise what can't arrive: keep it working for Adam, and tell everyone else to ask whoever invited them. Write `docs/process/FRIENDS.md` for Adam: how to create a friend's account in the Supabase dashboard, hand over a password, reset one, add a licensee, and remove a friend and their data. Try the account creation once on `waymark-dev` if the tools allow it; if not, mark the steps "untested" clearly and add them to Adam's checklist.
-- **Done when:** a player can change their password, with tests; the login copy is honest; FRIENDS.md exists.
+### ☐ 2.3 (#324) Sign-in for someone who isn't Adam
+- **Do:** "Change your password" in Settings. Rewrite the login screen's "Email me a link" so it doesn't promise what can't arrive: keep it working for Adam, and tell everyone else to ask whoever invited them. Write `docs/process/FRIENDS.md` for Adam: how to create a friend's account in the Supabase dashboard, hand over a password, reset one, add a licensee, and remove a friend and their data.
+- **Done when:** a player can change their password, with tests; the login copy is honest; FRIENDS.md exists, with any step that couldn't be tried marked "untested" and added to Adam's checklist.
 
-### ☐ 3.4 Two players, one database
-- **Do:** a test pass with two fake players proving that neither can read or change anything of the other's: reviews, ratings, state, chats, memories, chests, purchases, allowances. Extend the existing database tests; fix anything found. Check every server function for per-player limits.
+### ☐ 2.4 (#325) Two players, one database
+- **Do:** a test pass with two fake players proving that neither can read or change anything of the other's: reviews, ratings, state, chats, memories, chests, purchases, allowances. Fix anything found. Check every server function for per-player limits.
 - **Done when:** the tests exist and pass; findings are fixed; the review file lists what was checked.
 
 ---
 
-## Phase 4 — The Fellowship (M5)
+## Phase 3 — The Fellowship (M5) (epic #306)
 
-**Goal:** friends share the city, as written in [fellowship.md](../game/fellowship.md) and settled by ADR 0039. Order: invites, visits, the feed, friends in the square, challenges and the Arena, co-op quests, gifts, live Morse. **Every slice ships on its own PR and is useful alone.**
+**Goal:** friends share the city, as written in [fellowship.md](../game/fellowship.md) and settled by ADR 0039. **Every slice ships on its own PR and is useful alone.**
 
-Rules for the whole phase: what friends see is §3's list and nothing else, enforced by the database (a view plus row-level security), never by the screen. No leagues, no demotion, no public ranking. A player with no friends sees no empty social clutter. Write the design for each epic in `docs/game/` before building, with screenshots of the concept, as E10–E17 did.
+Rules for the whole phase: what friends see is §3's list and nothing else, enforced by the database (a view plus row-level security), never by the screen. No leagues, no demotion, no public ranking. A player with no friends sees no empty social clutter. Each epic gets its design in `docs/game/` first (✏️). **The social features join the road**: meeting your first friend, your first visit and your first challenge are steps the compass can point to once a player has a friend, and never before.
 
-### ☐ 4.1 E18 — Friend codes and the Fellowship list
-- **Do:** the `friendships` table and the shared view (ADR 0039's consequences). "Add a friend" by code: each player has a short code; typing a friend's code sends a request; they accept or decline; either can remove the other. The Fellowship list in Your House: each friend's avatar, name, level, ranks and titles, streak, pet.
+### ☐ 3.1 (#326) ✏️ E18 — Friend codes and the Fellowship list
+- **Do:** the `friendships` table and the shared view. "Add a friend" by code: each player has a short code; typing a friend's code sends a request; they accept or decline; either can remove the other. The Fellowship list in Your House: each friend's avatar, name, level, ranks and titles, streak, pet.
 - **Done when:** two test players can link and unlink; a non-friend can read nothing; requests can't be spammed (a limit, tested); the list fits 320 pixels and has a kind empty state that explains friend codes.
 
-### ☐ 4.2 E19a — Visit a friend's house
+### ☐ 3.2 (#327) ✏️ E19a — Visit a friend's house
 - **Do:** from the list, walk into a friend's house: their room, avatar, gear and trophies, read-only.
 - **Done when:** it shows only §3's fields (a test asserts the exact fields the view returns); there is a clear way home; no wardrobe controls appear.
 
-### ☐ 4.3 E19b — The party feed and friends in the square
-- **Do:** milestones as events friends can read (a rank taken, a chapter passed, a trial passed, a streak of 7/30/100, an achievement), written by the database when they happen, never by the browser. Show them on the Notice Board. Then draw friends' avatars standing in the square (a few, without hurting 1.2's speed budget).
+### ☐ 3.3 (#328) ✏️ E19b — The party feed and friends in the square
+- **Do:** milestones as events friends can read (a rank taken, a chapter passed, a trial passed, a streak of 7/30/100, an achievement), written by the database when they happen, never by the browser. Show them on the Notice Board. Then draw friends' avatars standing in the square, inside 1.7's speed budget.
 - **Done when:** the feed shows friends' milestones newest first and nothing private; a player can switch off sharing their own milestones in Settings; the square stays inside the speed budget with five friends.
 
-### ☐ 4.4 E19c — Challenges and the Arena (A7)
-- **Do:** opt-in challenges built on scores that exist: a callsign rush and a word round. One friend sends a challenge with their score; the other plays the same kind of round when they like; both personal bests are shown; no loser screen. Paint the Arena and open it as the challenges' home; retire the "locked" sign and its message.
-- **Done when:** a challenge can be sent, played, answered and declined, with tests for each state and for expiry; scores are checked by the database, not trusted from the browser; the Arena is painted, screenshotted and fits phone and desktop.
+### ☐ 3.4 (#329) ✏️ E19c — Challenges and the Arena (A7)
+- **Do:** opt-in challenges built on scores that exist: a callsign rush and a word round. One friend sends a challenge with their score; the other plays the same kind of round when they like; both personal bests are shown; no loser screen. Paint the Arena and open it as the challenges' home; retire the "locked" sign.
+- **Done when:** a challenge can be sent, played, answered and declined, with tests for each state and for expiry; scores are checked by the database; the Arena is painted, screenshotted and fits phone and desktop.
 
-### ☐ 4.5 E19d — Fellowship quests and gifts
+### ☐ 3.5 (#330) ✏️ E19d — Fellowship quests and gifts
 - **Do:** co-op goals on the daily-contract machinery (ADR 0032): "together, 10 chats at the inn this week". Then gifting a Market ware to a friend, paid in the giver's gold, through the database's purchase path (ADR 0029, 0033).
 - **Done when:** progress counts every member's real events once; rewards are paid by the database once each; a gift can't create gold or duplicate an item (tests for both).
 
-### ☐ 4.6 E20 — Live Morse between friends
+### ☐ 3.6 (#331) ✏️ E20 — Live Morse between friends
 - **Do:** first the ADR for Supabase Realtime (limits checked on Supabase's pages today; what is sent; what happens on a dropped connection). Then: two friends in the Signal Tower, each hearing the other's key as tones, with the timing sent as key-down and key-up events. Reuse the sidetone and the decoder. Nothing is stored.
 - **Done when:** two browser contexts in one test can key to each other and decode it; a dropped link says so and recovers or ends cleanly; only friends can join a room (tested); it works with the phone tap pad.
 
-### ☐ 4.7 Release the Fellowship 🚧
+### ☐ 3.7 (#332) Release the Fellowship 🚧
 - **Do:** the M5 retro, release notes, an addition to Adam's checklist for two accounts on two devices, and the release PR (the next major version, ADR 0027). Adam merges.
 - **Done when:** it's live and Adam has added a first friend using FRIENDS.md.
 
 ---
 
-## Phase 5 — Closing
+## Phase 4 — The whole vision (beyond the releases) (epic #307)
 
-### ☐ 5.1 The last sweep
-- **Do:** repeat the phone-and-desktop sweep over everything built in phases 2–4 (the method is in HANDOFF items 54–82). Bring every doc in line with what exists. Empty the "open questions" list or mark each as Adam's standing choice.
-- **Done when:** STATUS says the project is done, with what lives where and how to run it.
+**Goal:** Waymark does everything the vision promises, and keeps being worth opening after the last chapter. This is what "100% done" adds once a solo player and their friends are served.
 
-### ☐ 5.2 What stays open on purpose (write it down, don't build it)
-- **Do:** one file, `docs/process/LATER.md`, listing what was ordered after "done" and why: more word chapters (needs a new source; Maknuune is CC BY-SA, so anything built from it must be shared alike, which is Adam's call); recordings for the phrases the deck lacks ([research](../research/phrase-audio-sources.md)); pronunciation scoring (no free service does it, ADR 0013); a domain and email invites (a yearly cost); backups (Adam chose the keep-alive only); M6's world events and new guild halls.
-- **Done when:** the file exists and the roadmap points to it. Per CLAUDE.md, this is ordering, not cutting.
+**What 100% looks like, measured against the vision:**
+
+| The vision says | 100% means | Task |
+|---|---|---|
+| "Small daily lessons, a visible path, streaks" | A player who has finished both roads still has a reason to come every day | 4.1 |
+| "Main questlines are the curriculum" | Both stories end. There is a last chapter, a finale and an epilogue | 4.2 |
+| "Hold a conversation" · "send and receive without thinking" | Each goal has a capstone the player can pass, and the ledger says how far away it is | 4.3 |
+| "World events" (M6) | The city changes with the calendar, without anyone having to deploy | 4.4 |
+| "Room to grow: empty plots… adding a subject means building a new place" | The way to add a guild hall is written, and has been proven once | 4.5 |
+| "Creatively stunning" | The city sounds alive and moves, within taste and the speed budget | 4.6 |
+| It keeps running | Adam can look after it without Claude: updates, keys, friends, a paused database | 4.7 |
+
+### ☐ 4.1 (#333) ✏️ The long evenings: a daily loop for a player who has finished
+- **Why:** gap 14. FSRS reviews thin out by design, so a finished player's day shrinks to almost nothing.
+- **Do:** design what a day looks like at the end of each road, using what exists: reviews due, the Radio Room's live operators, Sit and talk, the rush, the daily contracts and chests. Add what's missing so the compass always has something real to point at: for example a "today in Waymark" step that rotates among the open-ended stations, harder contract tiers for finished players, and personal-best chases. No new content sources; mastery still can't be bought.
+- **Done when:** for a player with everything passed, the compass names a worthwhile step every day for 30 simulated days (a unit test over the rotation); the contracts scale; nothing says "you've finished, come back never".
+
+### ☐ 4.2 (#334) ✏️ Two endings
+- **Do:** write and build the last chapter of The Silent Beacon and of The Long Road In: a final trial that uses the whole skill, a finale screen worth reaching (painted, with the guild's people in it), a title and a piece of gear that can be earned no other way, and an epilogue line that leads into 4.1's loop. The roads in `road.json` get their last steps.
+- **Done when:** both roads have a final step and a tested path to it; the finale screens are painted, screenshotted and fit phone and desktop; the party feed (3.3) announces it.
+
+### ☐ 4.3 (#335) ✏️ The capstones: have the goals been met?
+- **Do:** define, in the design doc, a test for each learner goal that uses only what Waymark can honestly judge:
+  - **Arabic:** a longer conversation at the inn on everyday topics, judged by the same model that plays the regulars against a written rubric (understood, answered, kept going), with an eval set proving the judge is consistent; reading a short text in script; writing a few words on the slate. Say plainly what it can't judge (pronunciation, ADR 0013).
+  - **Morse:** head copy of plain text at 20 wpm, and a sent passage the decoder reads cleanly at 15 wpm or more.
+  Show the distance to each capstone in the ledger (1.6).
+- **Done when:** both capstones can be attempted and passed, with tests; the judge's eval set is in `scripts/` with its results recorded; the ledger shows progress toward each.
+
+### ☐ 4.4 (#336) ✏️ World events
+- **Do:** a small calendar of events as **data** (`content/core/events.json`): a week when the square is dressed differently, a themed contract set, a chest that only that week gives. They start and end by date with no deploy. Begin with three or four across the year that fit the two cultures of the city. Art is painted in the browser like everything else.
+- **Done when:** an event appears and ends by the clock (tested with a fixed date); a player who misses one loses nothing they had; the square stays inside the speed budget.
+
+### ☐ 4.5 (#337) The guild-hall kit, and the third hall 🚧
+- **Do:** write `docs/process/ADDING-A-SUBJECT.md` from the subject contract (ADR 0019) and from how the two halls were actually built: the content packs, the road, the hall painting, the ranks, the contracts, the tests every subject must pass. Then prove it: ask Adam which subject fills the first empty plot, and build its smallest honest first chapter using only the kit. Fix the kit wherever the build had to step outside it.
+- **Done when:** the guide exists; a third hall stands on a plot with one playable chapter on its own road; nothing in `src/core/` had to learn the new subject's name. **Gate:** the choice of subject is Adam's; until he picks, the guide alone is the deliverable.
+
+### ☐ 4.6 (#338) ✏️ The city sounds and moves
+- **Do:** sound made in the browser with Web Audio, like the Morse tones (no audio files, no licenses to clear): a soft click and chime language for buttons, rewards and level-ups, and an optional ambient bed per place. Small motion that answers the player: the avatar walking to a door, lamps lighting when a step is done. A sound switch in Settings, off respected everywhere, reduced motion respected everywhere.
+- **Done when:** every sound can be switched off and stays off across reloads; nothing plays before the player's first tap; reduced motion shows none of the new movement; the speed budget holds.
+
+### ☐ 4.7 (#339) The keeper's handbook
+- **Do:** `docs/process/RUNNING.md` for Adam: what to do each month and each year (dependency updates and how to run the checks, rotating keys, what the keep-alive's failure means, the free tiers' limits and where to read your usage, adding and removing friends, restoring a paused project, releasing). A monthly reminder issue template.
+- **Done when:** the handbook exists and each procedure in it has been followed once, or is marked "untested" with the reason.
 
 ---
+
+## Phase 5 — Closing (epic #308)
+
+### ☐ 5.1 (#340) The last sweep
+- **Do:** repeat the phone-and-desktop sweep over everything built in Phases 2–4 (the method is in HANDOFF items 54–82), and the "moment of doubt" walk from 1.11 over the whole road, endings included. Bring every doc in line with what exists. Empty the "open questions" list or mark each as Adam's standing choice. Write the final retro.
+- **Done when:** STATUS says the project is done, with what lives where and how to run it.
+
+### ☐ 5.2 (#341) What stays open on purpose
+- **Do:** one file, `docs/process/LATER.md`, listing what is parked and why, each with what would un-park it. Per CLAUDE.md this is ordering, not cutting.
+- **Done when:** the file exists and the roadmap points to it.
+
+---
+
+## Parked: ordered after everything above, each waiting on Adam
+
+| Item | Why it waits | What un-parks it |
+|---|---|---|
+| **The regulars speak aloud** 🚧 (#342) | There is no free Arabic voice that meets the rules so far. Adam will look at Azure himself (2026-11-16); he ruled it out on 2026-11-02, so the choice is his to reopen. | Adam's answer on Azure. Then: a research note comparing Azure with whatever else qualifies that day (free tier, card needed or not, dialect, what happens to the text), sample lines from our own sentences, an ADR, and the build: a play button on each regular's line, fetched on press, with a daily allowance, in the pattern of `api/partner.ts`. |
+| More Arabic word chapters | The deck is used up. Maknuune is CC BY-SA, so anything built from it must be shared alike. | Adam's call on Maknuune or another source. |
+| Recordings for the phrases the deck lacks | No free, licensed source could be verified ([research](../research/phrase-audio-sources.md)). | A verified source, or the voice above. |
+| Pronunciation scoring | No free service does it (ADR 0013). Azure's does. | The Azure answer above. |
+| A domain and email invites | A yearly cost. | Adam, if handing out passwords proves annoying (ADR 0039). |
+| Backups | Adam chose the keep-alive only. | Adam. |
 
 ## The gates, in one place (for Adam)
 
 | Gate | What you do | Blocks |
 |---|---|---|
-| 1.8 | Walk the release checklist on your phone and desktop | The v1.0.0 release |
-| 1.10 | Set the Production keys, merge `Release v1.0.0`, sign in, tag | Being live |
-| 2.1 | Listen to the voice samples and pick one, or none | Phase 2's build |
-| 3.1 | Decide what friends without the deck may learn | Friends learning Arabic |
-| 4.7 | Merge the Fellowship release and add a first friend | "Done" |
+| 1.12 | Walk the release checklist on your phone and desktop | The v1.0.0 release |
+| 1.13 | Set the Production keys, merge `Release v1.0.0`, sign in, tag | Being live |
+| 2.1 | Decide what friends without the deck may learn | Friends learning Arabic |
+| 3.7 | Merge the Fellowship release and add a first friend | Friends on the live site |
+| 4.5 | Pick the subject for the first empty plot | The third hall (the guide is written either way) |
+| Parked | Look at Azure and say yes or no | The regulars' voices, and pronunciation scoring |
