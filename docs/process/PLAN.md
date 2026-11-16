@@ -135,9 +135,10 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
   Build it as a panel in Your House, with the house's look. Replace the placeholder sentence in `PLACE_SOON.house`.
 - **Done when:** Your House shows the ledger for a new player (honest zeros, no "NaN", no empty boxes) and for an advanced one; every number is defined in the design doc and unit-tested against that definition; it fits 320 pixels; no new data is collected.
 
-### ☐ 1.7 (#315) · v1.0 · Give speed (#137) a finish line, then close it
+### ☑ 1.7 (#315) · v1.0 · Give speed (#137) a finish line, then close it
 - **Do:** measure on the production build with the slowed-phone settings `e2e/city-speed.spec.ts` already uses: first paint of the square, time until a place can be clicked, return to the square from a hall, and the gzipped startup script. Write a budget in `docs/process/CI.md` (today's numbers plus 15%, unless a number is plainly bad, in which case fix it first). Make the existing speed test fail above the budget. Do this **after 1.3 and 1.5**, since both add to the square.
 - **Done when:** the budget is written and tested; the report shows the numbers in plain words; #137 is closed with a link, or labelled `needs:adam` with one sentence saying what he should try.
+- **Done (2026-11-16):** the budget is in [CI.md](CI.md) and `e2e/load-budget.spec.ts` enforces it. The time ceilings are wider than "plus 15%", and CI.md says why. #137 is labelled `needs:adam`: whether it *feels* fast is his to say.
 
 ### ☐ 1.8 (#316) · v1.0 · A "what's switched on" line in Settings
 - **Why:** gap 6.
