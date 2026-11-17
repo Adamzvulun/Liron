@@ -151,16 +151,26 @@
   font-size: 13px;
 }
 
+/* One row while it fits; a long-time player's chips (five-figure gold, shields) wrap rather
+   than push the settings button off the screen, which keeps its place at the row's end
+   (review, 2026-11-17). */
 .city--pan .hud__purse {
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 6px;
+  padding-right: 50px;
+}
+
+.city--pan .hud__purse > .hud__gear {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .city--pan .hud__chip {
   min-height: 34px;
   white-space: nowrap;
   gap: 5px;
-  padding: 2px 9px;
+  padding: 2px 8px;
   font-size: 14px;
   box-shadow:
     inset 0 0 0 2px #8a5a33,
