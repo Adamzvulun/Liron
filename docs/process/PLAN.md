@@ -135,20 +135,23 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
   Build it as a panel in Your House, with the house's look. Replace the placeholder sentence in `PLACE_SOON.house`.
 - **Done when:** Your House shows the ledger for a new player (honest zeros, no "NaN", no empty boxes) and for an advanced one; every number is defined in the design doc and unit-tested against that definition; it fits 320 pixels; no new data is collected.
 
-### ☐ 1.7 (#315) · v1.0 · Give speed (#137) a finish line, then close it
+### ☑ 1.7 (#315) · v1.0 · Give speed (#137) a finish line, then close it
 - **Do:** measure on the production build with the slowed-phone settings `e2e/city-speed.spec.ts` already uses: first paint of the square, time until a place can be clicked, return to the square from a hall, and the gzipped startup script. Write a budget in `docs/process/CI.md` (today's numbers plus 15%, unless a number is plainly bad, in which case fix it first). Make the existing speed test fail above the budget. Do this **after 1.3 and 1.5**, since both add to the square.
 - **Done when:** the budget is written and tested; the report shows the numbers in plain words; #137 is closed with a link, or labelled `needs:adam` with one sentence saying what he should try.
+- **Done (2026-11-16):** the budget is in [CI.md](CI.md) and `e2e/load-budget.spec.ts` enforces it. The time ceilings are wider than "plus 15%", and CI.md says why. #137 is labelled `needs:adam`: whether it *feels* fast is his to say.
 
-### ☐ 1.8 (#316) · v1.0 · A "what's switched on" line in Settings
+### ☑ 1.8 (#316) · v1.0 · A "what's switched on" line in Settings
 - **Why:** gap 6.
 - **Do:** a tiny server function that answers, for a signed-in player only, which AI services the site has keys for: booleans only, never a key or part of one. Show it in Settings under "Services" in plain words ("Sit and talk: ready" / "not set up on this site"). Rate-limit it like the other functions. Add it to DEPLOY's table.
 - **Done when:** on a site with no keys the line says so, with a browser test; unit tests prove the function leaks nothing and refuses anonymous callers.
+- **Done (2026-11-16):** `api/services.ts`, shown under Settings → Services. **One deviation:** it has no daily counter of its own. It makes no AI call and spends nothing; a caller without a token Supabase knows is refused, and the browser keeps the answer for five minutes. A counter would need a new table for something that costs nothing.
 
 ### ☐ 1.9 (#317) · v1.0 · The weekly keep-alive (approved by Adam)
 - **Do:** a scheduled GitHub Actions workflow, once a week, that runs one trivial read against `waymark-prod` and `waymark-dev` using the secrets that already exist. It must take seconds, print nothing secret, and fail loudly if a project is paused. Document it in SUPABASE.md, with what to do when it fails.
 - **Done when:** the workflow exists, has run once by hand with a green log, and the doc explains it.
+- **Built (2026-11-16), one line open:** the workflow and its section in SUPABASE.md exist. It runs Mondays and Thursdays, not once a week, so a late run never leaves a full week's gap. **Still to do:** the run by hand with a green log. GitHub can only start a workflow that is on `main`, so that happens right after the v1.0.0 release (it is on the release checklist, task 1.12).
 
-### ☐ 1.10 (#318) · v1.0 · Docs fit for a release
+### ☑ 1.10 (#318) · v1.0 · Docs fit for a release
 - **Do:** rewrite `STATUS.md` so its top is a short current state; move the history paragraph into `docs/process/HISTORY.md` unchanged. Write `retros/M2.md` and `retros/M4.md`. Set `package.json` to `1.0.0`. Draft `docs/process/releases/v1.0.0.md`: what a player gets, in plain words, grouped by place. Bring README, ROADMAP and the next-session prompt in line with this plan.
 - **Done when:** a newcomer can read STATUS in two minutes and know the state; both retros exist; the notes are ready to paste into the release PR.
 

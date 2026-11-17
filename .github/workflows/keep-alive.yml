@@ -1,0 +1,47 @@
+# Keeps both Supabase projects awake (#317). A free project is paused after about a week with
+# no database activity, and a paused project takes the site down until someone restores it by
+# hand. Twice a week this runs one small real query against each project:
+#   waymark-dev  (secret SUPABASE_DEV_DB_URL)
+#   waymark-prod (secret SUPABASE_PROD_DB_URL)
+# It reads a row count and prints only that. If a project is paused or unreachable, the job
+# fails, and GitHub emails the repo's owner. What to do then: docs/process/SUPABASE.md.
+name: Keep alive
+
+on:
+  schedule:
+    # Mondays and Thursdays, 05:17 UTC: never a full week between two runs, even if one is late.
+    - cron: '17 5 * * 1,4'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    strategy:
+      fail-fast: false # one project being down mustn't skip the other
+      matrix:
+        include:
+          - target: waymark-dev
+            secret: SUPABASE_DEV_DB_URL
+          - target: waymark-prod
+            secret: SUPABASE_PROD_DB_URL
+    steps:
+      - name: Read one number from ${{ matrix.target }}
+        env:
+          DB_URL: ${{ secrets[matrix.secret] }}
+          TARGET: ${{ matrix.target }}
+        run: |
+          if [ -z "$DB_URL" ]; then
+            echo "::error::No database URL secret for $TARGET. See docs/process/SUPABASE.md#keep-alive."
+            exit 1
+          fi
+          # psql's own errors can name the host and user, so they are kept out of the log.
+          if COUNT=$(PGCONNECT_TIMEOUT=30 psql "$DB_URL" -X -At -v ON_ERROR_STOP=1 \
+            -c 'select count(*) from public.subjects' 2>/dev/null) && [ -n "$COUNT" ]; then
+            echo "$TARGET answered: $COUNT subjects."
+          else
+            echo "::error::$TARGET did not answer. It may be paused. See docs/process/SUPABASE.md#keep-alive."
+            exit 1
+          fi
