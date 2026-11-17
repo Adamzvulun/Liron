@@ -98,7 +98,7 @@ A version is **done** when everything in its list is true *and* the release step
 
 - The Supabase Realtime ADR, then live Morse between two friends in the Signal Tower (3.6).
 
-**Done when:** two browser windows in one test key to each other and decode it; a dropped link says so and ends cleanly; only the two friends can join; **and Adam has tried it with a friend on two devices**, because Realtime itself can't be tested here.
+**Done when:** two browser windows in one test key to each other and decode it; a dropped link says so and ends cleanly; only the two friends can join; **and Adam has tried it with a friend on two devices**, because Realtime itself can't be tested here. Before that try, Adam switches off "Allow public access" in Supabase's Realtime settings ([ADR 0046](../decisions/0046-the-wire.md), RUNNING.md).
 
 ### 3.0 — Journey's End
 
@@ -140,4 +140,6 @@ A version is **done** when everything in its list is true *and* the release step
 | 2.0 | Built except Adam's part: 2.1 (what friends may learn) and a first friend |
 | 2.1 | Built (the feed, friends in the square); waits for v2.0's release |
 | 2.2 | Built (challenges, the Arena); waits for v2.0's release |
-| 2.3 – 4.0 | Not started |
+| 2.3 | Built (Fellowship quests, gifts); waits for v2.0's release |
+| 2.4 | Built (the wire); waits for v2.0's release, Adam's Realtime setting (RUNNING.md, Friends) and a try on two devices |
+| 2.5 – 4.0 | Not started |

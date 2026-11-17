@@ -2,6 +2,7 @@ import type { ComponentType } from 'react';
 import type { PartnerAsk, PartnerReply } from './partner.ts';
 import type { Heard } from './speech.ts';
 import type { RoundsApi } from './fellowship/challenges.ts';
+import type { WireApi } from './fellowship/wire.ts';
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
 import type { Item, Lesson } from './content/schema.ts';
@@ -213,4 +214,6 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
    * friend, or answer a friend's challenge with it.
    */
   rounds: RoundsApi;
+  /** A live line to a friend (task 3.6, ADR 0046): your key's edges out, theirs in. */
+  wire: WireApi;
 }

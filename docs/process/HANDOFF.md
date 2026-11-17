@@ -273,3 +273,15 @@
     - **Subject:** `reportRush` and `reportWords` make a session id, then record the score, and return a `ScoredRound`. `TowerHall` takes `?open=rush`, which opens the Codebook straight into a rush.
     - **e2e:** `Extras.fellowship.challenges`. The fake answers with the last recorded score. See `e2e/challenges.spec.ts`.
     - **Next (v2.3, task 3.5):** Fellowship quests and gifts.
+105. **Fellowship quests and gifts, task 3.5 (2026-11-17, report §4cs):** [ADR 0045](../decisions/0045-fellowship-quests-and-gifts.md).
+    - **Database:** `fellowship_quests` (rows), `quest_part`, `fellowship_quest()` and `collect_fellowship_quest()` (`fellowship_quest_rewards` is keyed on player and week). `give_item(friend, item)`, `my_gifts()`, and the `gifts` table. `owned_items.source` allows `'gift'`. Migration `20270102000000_fellowship_quests_and_gifts.sql`.
+    - **Browser:** `together.ts` (the source, quest lines, gift messages), `TogetherQuest.tsx` on the board, `GiftOffer.tsx` in `Market.tsx` (the `giving` prop, built in `App.tsx`), and "Gifts for you" in `Fellowship.tsx`. `player.purse()` gives a ticket for a purse paid elsewhere.
+    - **e2e:** `Extras.fellowship.quest` and `.gifts`, in `e2e/together.spec.ts`.
+    - **Next (v2.4, task 3.6):** live Morse between friends. It needs an ADR with research on Supabase Realtime (its free-tier limits) before any code.
+106. **The wire, task 3.6 (2026-11-17, report §4ct):** [ADR 0046](../decisions/0046-the-wire.md).
+    - **Database:** `may_use_wire(topic)`, plus the policies "the wire: friends hear" and "friends key" on `realtime.messages` (migration `20270103000000_the_wire.sql`). The test shim (`supabase-shim.sql`) has a stand-in `realtime` schema. `realtime.topic()` reads the setting `realtime.topic`.
+    - **Platform:** `src/core/fellowship/wire.ts` holds `WireApi` (on `SubjectApi.wire`), `supabaseWire`, `LineWatch` (the line's state from pure timing) and `wireTopic`. Each line is a private broadcast channel with the events `key {d,t}`, `here` and `bye`.
+    - **Subject:** `src/subjects/morse/wire/` has `Wire.tsx` (the friend picker and the line), `playback.ts` (250 ms behind, timed by the sender's clock) and `wire.css`. `Keying` takes `onEdge` and `readLabel`, and `Strip` is exported. `SendDrill` shows "Key to a friend". The hall door is `wire` (`?open=wire`).
+    - **e2e:** `e2e/fake-realtime.ts` (`wireRelay()`) routes the Realtime websocket for one or more pages. It reads supabase-js's binary broadcast frames and relays them as JSON. See `e2e/wire.spec.ts`. On a phone, press the brass key with `mouse.down/up`: a dispatched pointer event can't be captured.
+    - **Adam's part:** switch off "Allow public access" (Realtime → Settings), then try it on two devices.
+    - **Next:** 3.7 is Adam's (the Fellowship release). Carry on with v3.0, Phase 4, in VERSIONS.md's order.

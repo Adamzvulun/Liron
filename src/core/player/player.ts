@@ -293,6 +293,24 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     dismissGoal() {
       set({ goalReached: null });
     },
+    /**
+     * Shows the purse the database returned after paying or spending elsewhere: a Fellowship
+     * quest collected, a gift given (task 3.5). Call `purse()` before the request, so a slow
+     * answer doesn't overwrite a newer purse.
+     */
+    purse() {
+      const ticket = ++purseTicket;
+      return (gold: number) => {
+        if (!newerPurse(ticket) || !state.wallet) return;
+        set({
+          wallet: { ...state.wallet, gold },
+          market: state.market && {
+            ...state.market,
+            wares: state.market.wares.map((x) => ({ ...x, affordable: gold >= x.price })),
+          },
+        });
+      };
+    },
   };
 }
 

@@ -2,7 +2,10 @@ import { useCallback, useEffect, useId, useState, type FormEvent } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import { Link } from '../Link.tsx';
 import { FlameIcon } from '../player/icons.tsx';
+import { wareName } from '../player/market.ts';
+import type { Gift } from './together.ts';
 import {
+  dayLabel,
   FellowshipError,
   rankName,
   showCode,
@@ -14,6 +17,7 @@ import {
   type FriendRequest,
 } from './fellowship.ts';
 import './fellowship.css';
+import './together.css';
 
 type Loaded = { cards: FriendCard[]; requests: FriendRequest[]; code: string };
 
@@ -30,7 +34,28 @@ const refused = (e: unknown) => REFUSED[e instanceof FellowshipError ? e.problem
  * Your House's Fellowship (task 3.1, #326; docs/game/fellowship.md): your friend code, requests
  * waiting for you, and your friends, each with what fellowship.md §3 lets them share.
  */
-export function Fellowship({ source }: { source: FellowshipSource }) {
+export function Fellowship({
+  source,
+  gifts,
+  today,
+}: {
+  source: FellowshipSource;
+  /** Gifts friends sent you (task 3.5); absent without a database. */
+  gifts?: () => Promise<Gift[]>;
+  today?: string;
+}) {
+  const [received, setReceived] = useState<Gift[]>([]);
+  useEffect(() => {
+    if (!gifts) return;
+    let live = true;
+    gifts().then(
+      (g) => live && setReceived(g),
+      () => undefined,
+    );
+    return () => {
+      live = false;
+    };
+  }, [gifts]);
   const [state, setState] = useState<Loaded | 'loading' | 'failed'>('loading');
   const [said, setSaid] = useState('');
 
@@ -93,6 +118,19 @@ export function Fellowship({ source }: { source: FellowshipSource }) {
               )
             }
           />
+          {received.length > 0 && (
+            <>
+              <h3 className="fellowship__subheading">Gifts for you</h3>
+              <ul className="fellowship__gifts">
+                {received.map((g) => (
+                  <li key={g.id}>
+                    {g.name} sent you the {wareName({ id: g.item })}
+                    {today && g.day ? ` · ${dayLabel(g.day, today)}` : ''}. It’s in your wardrobe.
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
           <Friends
             friends={state.cards.filter((c) => !c.me)}
             onRemove={(f) => act(() => source.remove(f.id), `${f.name} has left your Fellowship.`)}

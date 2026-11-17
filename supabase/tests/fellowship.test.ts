@@ -482,3 +482,281 @@ describe('challenges (task 3.4, docs/game/challenges.md)', () => {
     ).rejects.toThrow(/permission denied/);
   });
 });
+
+describe('Fellowship quests (task 3.5, fellowship-build.md §5)', () => {
+  type Quest = {
+    id: string;
+    metric: 'minutes' | 'event';
+    subject: string | null;
+    target: number;
+    gold: number;
+    week: string;
+    total: number;
+    mine: number;
+    collected: boolean;
+  };
+  const quest = async (who: string) => (await as(who, 'select fellowship_quest()')) as Quest | null;
+  const gold = async (who: string) =>
+    ((await rows('select gold from wallets where user_id = $1', [who]))[0] as { gold: number })
+      .gold;
+  /** Adds `amount` to a player's part of this week's quest, as their real play would. */
+  async function help(who: string, q: Quest, amount: number) {
+    const def = (await rows('select * from fellowship_quests where id = $1', [q.id]))[0] as {
+      subject_id: string;
+      kind: string;
+    };
+    for (let day = 0; amount > 0; day++) {
+      const part = Math.min(amount, q.metric === 'minutes' ? 1440 : 1000);
+      amount -= part;
+      if (q.metric === 'minutes') {
+        await rows(
+          `insert into daily_activity (user_id, day, minutes) values ($1, $2::date + $3::int, $4)
+           on conflict (user_id, day) do update set minutes = excluded.minutes`,
+          [who, q.week, day, part],
+        );
+      } else {
+        await rows(
+          `insert into subject_events (user_id, day, subject_id, kind, count)
+           values ($1, $2::date + $3::int, $4, $5, $6)`,
+          [who, q.week, day, def.subject_id, def.kind, part],
+        );
+      }
+    }
+  }
+
+  it('is only for a player with a friend, and the same for everyone this week', async () => {
+    expect(await quest(A)).toBeNull();
+    await befriend(A, B);
+    const a = await quest(A);
+    expect(a).toMatchObject({ total: 0, mine: 0, collected: false });
+    expect((await quest(B))?.id).toBe(a?.id);
+    expect(new Date(`${a?.week}T00:00:00Z`).getUTCDay()).toBe(1);
+  });
+
+  it('counts each member’s own rows once, and only your Fellowship’s', async () => {
+    await befriend(A, B);
+    await befriend(A, C);
+    const q = (await quest(A)) as Quest;
+    await help(A, q, 2);
+    await help(B, q, 3);
+    await help(C, q, 4);
+    expect(await quest(A)).toMatchObject({ total: 9, mine: 2 });
+    // B and C aren't friends: B's Fellowship is B and A.
+    expect(await quest(B)).toMatchObject({ total: 5, mine: 3 });
+    // Last week's play doesn't count.
+    await rows(`update daily_activity set day = day - 7 where user_id = $1`, [C]);
+    await rows(`update subject_events set day = day - 7 where user_id = $1 and day >= $2`, [
+      C,
+      q.week,
+    ]);
+    expect(await quest(A)).toMatchObject({ total: 5 });
+  });
+
+  it('pays once, to members who helped, when the Fellowship reaches it', async () => {
+    await befriend(A, B);
+    const q = (await quest(A)) as Quest;
+    await help(B, q, q.target - 1);
+    await expect(as(B, 'select collect_fellowship_quest()')).rejects.toThrow(/not done yet/);
+    await help(A, q, 1);
+    const before = await gold(B);
+    expect(await as(B, 'select collect_fellowship_quest()')).toBe(before + q.gold);
+    await expect(as(B, 'select collect_fellowship_quest()')).rejects.toThrow(/already collected/);
+    expect(await gold(B)).toBe(before + q.gold);
+    expect(await quest(B)).toMatchObject({ collected: true });
+    // C helped nobody's Fellowship: no friend, no quest, no pay.
+    await expect(as(C, 'select collect_fellowship_quest()')).rejects.toThrow(/not done yet/);
+  });
+
+  it('a member who didn’t help collects nothing', async () => {
+    await befriend(A, B);
+    const q = (await quest(A)) as Quest;
+    await help(B, q, q.target);
+    await expect(as(A, 'select collect_fellowship_quest()')).rejects.toThrow(/help first/);
+  });
+
+  it('nobody writes rewards or quests through the API', async () => {
+    await expect(
+      as(
+        B,
+        `insert into fellowship_quest_rewards (user_id, week, quest_id, gold)
+             values ('${B}', '2026-11-16', 'inn-talk', 100)`,
+      ),
+    ).rejects.toThrow(/permission denied/);
+    await expect(as(B, `update fellowship_quests set gold = 100`)).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+});
+
+describe('gifts (task 3.5, fellowship-build.md §5)', () => {
+  /** Today's giftable wares (gear and colors on the stall), cheapest first. */
+  const wares = async () =>
+    (await rows(
+      `select i.id, i.price from unnest(market_stock((now() at time zone 'utc')::date)) s(id)
+       join items i on i.id = s.id where i.kind <> 'functional' order by i.price`,
+    )) as { id: string; price: number }[];
+  const give = (who: string, friend: string, item: string) =>
+    as(who, 'select give_item($1, $2)', [friend, item]);
+  const goldOf = async (who: string) =>
+    ((await rows('select gold from wallets where user_id = $1', [who]))[0] as { gold: number })
+      .gold;
+  const owns = async (who: string, item: string) =>
+    (await rows('select source from owned_items where user_id = $1 and item_id = $2', [who, item]))
+      .length > 0;
+
+  it('a gift to a stranger fails and costs nothing', async () => {
+    const [w] = await wares();
+    await expect(give(A, B, w.id)).rejects.toThrow(/only a friend/);
+    expect(await goldOf(A)).toBe(999);
+    expect(await owns(B, w.id)).toBe(false);
+  });
+
+  it('gives a ware from today’s stall, paid in the giver’s gold', async () => {
+    await befriend(A, B);
+    const [w] = await wares();
+    expect(await give(A, B, w.id)).toBe(999 - w.price);
+    expect(await goldOf(A)).toBe(999 - w.price);
+    expect(
+      await rows('select source from owned_items where user_id = $1 and item_id = $2', [B, w.id]),
+    ).toEqual([{ source: 'gift' }]);
+    expect(await owns(A, w.id)).toBe(false);
+    const got = (await as(B, 'select my_gifts()')) as { name: string; item: string }[];
+    expect(got).toMatchObject([{ name: 'Adam', item: w.id }]);
+    expect(await as(A, 'select my_gifts()')).toEqual([]);
+  });
+
+  it('a ware they own already fails and costs nothing; twice gives once', async () => {
+    await befriend(A, B);
+    const [w] = await wares();
+    await give(A, B, w.id);
+    await expect(give(A, B, w.id)).rejects.toThrow(/they have it/);
+    expect(await goldOf(A)).toBe(999 - w.price);
+  });
+
+  it('refuses shields, rank gear and wares not on today’s stall', async () => {
+    await befriend(A, B);
+    for (const item of ['streak-shield', 'ear-cups', 'no-such-thing']) {
+      await expect(give(A, B, item)).rejects.toThrow(/not for giving today/);
+    }
+  });
+
+  it('never takes gold below zero', async () => {
+    await befriend(A, B);
+    await rows('update wallets set gold = 1 where user_id = $1', [B]);
+    const [w] = await wares();
+    await expect(give(B, A, w.id)).rejects.toThrow(/too little gold/);
+    expect(await goldOf(B)).toBe(1);
+    expect(await owns(A, w.id)).toBe(false);
+  });
+
+  it('three gifts a day', async () => {
+    await befriend(A, B);
+    await befriend(A, C);
+    const stall = await wares();
+    expect(stall.length).toBe(3);
+    for (const w of stall) await give(A, B, w.id);
+    await expect(give(A, C, stall[0].id)).rejects.toThrow(/enough for today/);
+  });
+
+  it('a removed friend’s gifts vanish from the list, and nobody writes gifts directly', async () => {
+    await befriend(A, B);
+    const [w] = await wares();
+    await give(A, B, w.id);
+    await as(A, 'select remove_friend($1)', [B]);
+    expect(await as(B, 'select my_gifts()')).toEqual([]);
+    expect(await owns(B, w.id)).toBe(true);
+    await expect(
+      as(
+        B,
+        `insert into gifts (from_id, to_id, item_id, price) values ('${A}', '${B}', '${w.id}', 1)`,
+      ),
+    ).rejects.toThrow(/permission denied/);
+  });
+});
+
+describe('the wire (task 3.6, ADR 0046): who may join a private Realtime channel', () => {
+  const pair = (x: string, y: string) => (x < y ? `wire:${x}:${y}` : `wire:${y}:${x}`);
+  /**
+   * Does what Realtime does to authorize a private channel: as the player, with the topic set,
+   * try to send (insert) or hear (select) a broadcast row, then roll it back.
+   */
+  async function may(who: string, topic: string, how: 'send' | 'hear', extension = 'broadcast') {
+    await db.exec('savepoint wire');
+    try {
+      await db.exec('set role authenticated');
+      await db.query(`select set_config('request.jwt.claim.sub', $1, true)`, [who]);
+      await db.query(`select set_config('realtime.topic', $1, true)`, [topic]);
+      if (how === 'send') {
+        await db.query(
+          `insert into realtime.messages (topic, extension, private) values ($1, $2, true)`,
+          [topic, extension],
+        );
+        return true;
+      }
+      // Realtime's check for hearing: a row it wrote itself, read back as the player.
+      await db.exec('reset role');
+      await db.query(
+        `insert into realtime.messages (topic, extension, private) values ($1, $2, true)`,
+        [topic, extension],
+      );
+      await db.exec('set role authenticated');
+      const r = await db.query('select 1 from realtime.messages where topic = $1', [topic]);
+      return r.rows.length > 0;
+    } catch {
+      return false;
+    } finally {
+      await db.exec('rollback to savepoint wire');
+      await db.exec('reset role');
+    }
+  }
+
+  it('two friends may join, send and hear on their own wire', async () => {
+    await befriend(A, B);
+    for (const who of [A, B]) {
+      expect(await may(who, pair(A, B), 'send')).toBe(true);
+      expect(await may(who, pair(A, B), 'hear')).toBe(true);
+    }
+  });
+
+  it('a stranger, or a friend on someone else’s wire, may not', async () => {
+    await befriend(A, B);
+    await befriend(A, C);
+    expect(await may(C, pair(A, B), 'send')).toBe(false);
+    expect(await may(C, pair(A, B), 'hear')).toBe(false);
+    // B and C aren't friends: their wire doesn't open, even though both know A.
+    expect(await may(B, pair(B, C), 'send')).toBe(false);
+  });
+
+  it('a removed friend’s wire closes', async () => {
+    await befriend(A, B);
+    await as(A, 'select remove_friend($1)', [B]);
+    expect(await may(B, pair(A, B), 'send')).toBe(false);
+  });
+
+  it('only broadcast, only the wire’s own shape of name', async () => {
+    await befriend(A, B);
+    expect(await may(A, pair(A, B), 'send', 'presence')).toBe(false);
+    const [low, high] = A < B ? [A, B] : [B, A];
+    expect(await may(A, `wire:${high}:${low}`, 'send')).toBe(false);
+    expect(await may(A, `room:${low}:${high}`, 'send')).toBe(false);
+    expect(await may(A, `wire:${low}:${high}:x`, 'send')).toBe(false);
+    expect(await may(A, 'wire:not-a-uuid-at-all-not-a-uuid-at-a:x', 'send')).toBe(false);
+  });
+
+  it('a signed-out visitor may not', async () => {
+    await befriend(A, B);
+    await db.exec('savepoint anon');
+    try {
+      await db.exec('set role anon');
+      await db.query(`select set_config('realtime.topic', $1, true)`, [pair(A, B)]);
+      await expect(
+        db.query(`insert into realtime.messages (topic, extension) values ($1, 'broadcast')`, [
+          pair(A, B),
+        ]),
+      ).rejects.toThrow(/row-level security/);
+    } finally {
+      await db.exec('rollback to savepoint anon');
+      await db.exec('reset role');
+    }
+  });
+});

@@ -30,6 +30,9 @@ import { privatePackVersion, supabaseContent } from './content/privateContent.ts
 import { functionPartner } from './partner.ts';
 import { supabaseFellowship, type FriendCard } from './fellowship/fellowship.ts';
 import { supabaseChallenges } from './fellowship/challenges.ts';
+import { giftProblem, supabaseTogether } from './fellowship/together.ts';
+import { supabaseWire } from './fellowship/wire.ts';
+import type { Giving } from './fellowship/GiftOffer.tsx';
 import { functionServices } from './services.ts';
 import { functionSpeech } from './speech.ts';
 import { armSound, cue, setAmbient } from './sound/sound.ts';
@@ -51,6 +54,7 @@ const ChestShelf = lazy(() => views().then((m) => ({ default: m.ChestShelf })));
 const HouseBackdrop = lazy(() => views().then((m) => ({ default: m.HouseBackdrop })));
 const MarketBackdrop = lazy(() => views().then((m) => ({ default: m.MarketBackdrop })));
 const BoardBackdrop = lazy(() => views().then((m) => ({ default: m.BoardBackdrop })));
+const TogetherQuest = lazy(() => views().then((m) => ({ default: m.TogetherQuest })));
 const Arena = lazy(() => views().then((m) => ({ default: m.Arena })));
 const ArenaBackdrop = lazy(() => views().then((m) => ({ default: m.ArenaBackdrop })));
 
@@ -90,6 +94,20 @@ const challenges =
           .then((cards) => cards.filter((c) => !c.me).map((c) => ({ id: c.id, name: c.name }))),
       )
     : null;
+
+/** The wire (task 3.6): live Morse between two friends, over a private Realtime channel. */
+const wire =
+  supabase && fellowship
+    ? supabaseWire(supabase, () =>
+        fellowship
+          .cards()
+          .then((cards) => cards.filter((c) => !c.me).map((c) => ({ id: c.id, name: c.name }))),
+      )
+    : null;
+
+/** Fellowship quests and gifts (task 3.5): counted, paid and given by the database. */
+const together = supabase && fellowship ? supabaseTogether(supabase) : null;
+const readGifts = together ? () => together.gifts() : undefined;
 
 const sharing = fellowship
   ? {
@@ -138,6 +156,7 @@ const apis = new Map(
               supabase ? speechOf(supabase) : null,
               supabase ? partnerOf(supabase) : null,
               challenges ?? undefined,
+              wire ?? undefined,
             ),
           ] as const,
       )
@@ -317,6 +336,33 @@ function Lobby({ player }: { player: Player }) {
       clearTimeout(later);
     };
   }, [path]);
+  // Gifts in the Market (task 3.5): the friends to give to, read on arrival there.
+  const [giftFriends, setGiftFriends] = useState<{ id: string; name: string }[]>([]);
+  useEffect(() => {
+    if (place !== 'market' || !fellowship) return;
+    let live = true;
+    fellowship.cards().then(
+      (cards) =>
+        live && setGiftFriends(cards.filter((c) => !c.me).map((c) => ({ id: c.id, name: c.name }))),
+      () => undefined,
+    );
+    return () => {
+      live = false;
+    };
+  }, [place]);
+  const giving: Giving | null = together && {
+    friends: giftFriends,
+    give: (friend, item) => {
+      const show = player.purse();
+      return together.give(friend.id, item).then(
+        (gold) => {
+          show(gold);
+          return null;
+        },
+        (e: unknown) => giftProblem(e, friend.name),
+      );
+    },
+  };
   // The first page (§8): for a player with no step done anywhere, until closed on this device.
   const [closed, setClosed] = useState(firstPageClosed);
   const welcome = !closed && roads.length > 0 && roads.every((r) => !r.started);
@@ -394,6 +440,7 @@ function Lobby({ player }: { player: Player }) {
                     shelf={chestShelf(state.chests, state.contracts, subjects, event?.chest)}
                     onOpen={openChest}
                   />
+                  {together && <TogetherQuest source={together} onPurse={player.purse} />}
                   {fellowship && (
                     <PartyFeed source={fellowship} places={PLACES} today={state.today.day} />
                   )}
@@ -413,6 +460,7 @@ function Lobby({ player }: { player: Player }) {
                   gold={state.wallet?.gold ?? null}
                   onLoad={player.loadMarket}
                   onBuy={buy}
+                  giving={giving}
                 />
               </Suspense>
             )}
@@ -436,7 +484,7 @@ function Lobby({ player }: { player: Player }) {
                   onLoad={player.loadAchievements}
                   onWear={player.setTitle}
                 />
-                {fellowship && <Fellowship source={fellowship} />}
+                {fellowship && <Fellowship source={fellowship} gifts={readGifts} today={today} />}
               </Suspense>
             )}
           </PlaceBoundary>

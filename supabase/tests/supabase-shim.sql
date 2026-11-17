@@ -35,3 +35,25 @@ create table storage.objects (
 alter table storage.objects enable row level security;
 grant usage on schema storage to anon, authenticated;
 grant select on storage.objects to anon, authenticated;
+
+-- Supabase Realtime's authorization table, reduced to what our policies read (task 3.6, ADR
+-- 0046). Realtime checks a private channel by inserting a row here (sending) or selecting one
+-- (receiving) as the user, under RLS, with the topic in the `realtime.topic` setting; it keeps
+-- nothing. realtime.topic() is Supabase's own function, which reads that setting.
+create schema realtime;
+create table realtime.messages (
+  id uuid primary key default gen_random_uuid(),
+  topic text not null,
+  extension text not null,
+  payload jsonb,
+  event text,
+  private boolean default false,
+  inserted_at timestamp not null default now()
+);
+alter table realtime.messages enable row level security;
+create function realtime.topic() returns text language sql stable as $$
+  select nullif(current_setting('realtime.topic', true), '')::text
+$$;
+grant usage on schema realtime to anon, authenticated;
+grant select, insert on realtime.messages to anon, authenticated;
+grant execute on function realtime.topic() to anon, authenticated;

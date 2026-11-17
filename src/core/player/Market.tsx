@@ -5,6 +5,7 @@ import type { MarketStall, Ware } from '../progress/store.ts';
 import { Link } from '../Link.tsx';
 import { CoinIcon, ShieldIcon } from './icons.tsx';
 import { wareName, wareNote } from './market.ts';
+import { GiftOffer, type Giving } from '../fellowship/GiftOffer.tsx';
 import './market.css';
 
 /** The ware, drawn: your traveler wearing the gear, a dyed tunic, or the shield. */
@@ -33,6 +34,7 @@ export function Market({
   gold,
   onLoad,
   onBuy,
+  giving,
 }: {
   stall: MarketStall | null;
   look: Look;
@@ -40,6 +42,8 @@ export function Market({
   /** Reads the stall; resolves false if it couldn't. */
   onLoad: () => Promise<boolean>;
   onBuy: (id: string) => Promise<string | null>;
+  /** Gifts for friends (task 3.5); absent for a player with no friend. */
+  giving?: Giving | null;
 }) {
   const [buying, setBuying] = useState<string | null>(null);
   const [said, setSaid] = useState<{ id: string; text: string; ok: boolean } | null>(null);
@@ -110,6 +114,15 @@ export function Market({
             <span className="market__said" role="status">
               {said?.id === w.id ? said.text : ''}
             </span>
+            {giving && giving.friends.length > 0 && w.kind !== 'functional' && (
+              <GiftOffer
+                item={w.id}
+                name={wareName(w)}
+                price={w.price}
+                affordable={w.affordable}
+                giving={giving}
+              />
+            )}
             {said?.id === w.id && said.ok && w.kind !== 'functional' && (
               <Link className="market__try" href="/house">
                 Try it on at your house

@@ -12,6 +12,7 @@ import { FarStation } from './qso/FarStation.tsx';
 import { RadioRoom } from './qso/RadioRoom.tsx';
 import { SendDrill } from './send/SendDrill.tsx';
 import { WordDrill } from './words/WordDrill.tsx';
+import { Wire } from './wire/Wire.tsx';
 import { RoadGuide } from '../../core/road/NextStep.tsx';
 import { localDay } from '../../core/road/road.ts';
 import type { RoadReading } from '../../core/road/roadHere.ts';
@@ -38,6 +39,7 @@ const DOORS: readonly HallDoor[] = [
   'watch',
   'far',
   'radio',
+  'wire',
 ];
 
 /**
@@ -81,8 +83,9 @@ export function TowerHall({ api }: { api: SubjectApi }) {
       <Fragment key={round}>
         {view === 'koch' && <KochLesson api={api} />}
         {view === 'recognition' && <Recognition api={api} />}
-        {view === 'sending' && <SendDrill api={api} />}
+        {view === 'sending' && <SendDrill api={api} onWire={() => go('wire')} />}
         {view === 'lamp' && <SendDrill api={api} start="lamp" />}
+        {view === 'wire' && <Wire api={api} />}
         {view === 'words' && (
           <WordDrill api={api} start={opening === 'rush' && round === 0 ? 'rush' : undefined} />
         )}
