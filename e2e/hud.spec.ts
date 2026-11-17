@@ -113,7 +113,7 @@ test('the compass says the next step of your road, and leads to its door', async
   } else {
     const quests = page.getByRole('region', { name: 'Quests' });
     const tower = quests.getByRole('link', { name: /Signal Tower/ });
-    await expect(tower).toContainText('Step 4 of 74');
+    await expect(tower).toContainText('Step 4 of 75');
     // The guild with a step done comes first; the one not started is second.
     await expect(quests.getByRole('link').first()).toContainText('Signal Tower');
     await tower.click();

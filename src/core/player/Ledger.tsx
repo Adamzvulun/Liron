@@ -82,11 +82,17 @@ export function Ledger({
   );
 }
 
+/** A value longer than this (a capstone's distance) gets a line of its own, where it wraps. */
+const LONG_VALUE = 16;
+
 function Rows({ rows }: { rows: readonly LedgerRow[] }) {
   return (
     <dl className="ledger__rows">
       {rows.map((r) => (
-        <div key={r.label} className="ledger__row">
+        <div
+          key={r.label}
+          className={`ledger__row${r.value.length > LONG_VALUE ? ' ledger__row--long' : ''}`}
+        >
           <dt>{r.label}</dt>
           <dd>{r.value}</dd>
         </div>
