@@ -371,6 +371,26 @@ test('on the narrowest phone, the top bar and the dock fit: chips on one line, t
   }
 });
 
+test('on the narrowest phone, a long-time player’s purse wraps and keeps the gear on screen (review, 2026-11-17)', async ({
+  page,
+}) => {
+  test.skip(test.info().project.name !== 'phone', 'the slim top bar is the phone’s');
+  await page.setViewportSize({ width: 320, height: 640 });
+  await signedIn(page, [], [], null, [], {
+    gold: 99999,
+    today: { streak: 365, streak_shields: 2, minutes: 120, goal_minutes: 60, goal_reached: true },
+  });
+  await page.goto('/');
+  await expect(page.getByLabel('Gold: 99999')).toBeVisible();
+  const gear = await page.getByRole('button', { name: 'Settings' }).boundingBox();
+  expect((gear?.x ?? 999) + (gear?.width ?? 0)).toBeLessThanOrEqual(320);
+  for (const chip of await page.locator('.hud__chip').all()) {
+    const box = await chip.boundingBox();
+    expect((box?.x ?? 999) + (box?.width ?? 0)).toBeLessThanOrEqual(320);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
+});
+
 test('Settings say which services are switched on (#316)', async ({ page }) => {
   await signedIn(page);
   let asked = 0;

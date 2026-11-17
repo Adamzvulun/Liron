@@ -109,3 +109,16 @@ test('signing out wipes the deck kept in the browser (ADR 0011)', async ({ page 
   await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
   await expect.poll(keptPacks).toBe(0);
 });
+
+test('Your House says so when your records can’t be read, rather than stand empty', async ({
+  page,
+}) => {
+  test.setTimeout(60_000);
+  await signedIn(page);
+  await page.route('**/rest/v1/**', (route) => route.fulfill({ status: 503, body: '' }));
+  await page.goto('/house');
+  await expect(page.getByRole('alert')).toContainText('Your records couldn’t be read.', {
+    timeout: 30_000,
+  });
+  await expect(page.getByRole('button', { name: 'Reload' })).toBeVisible();
+});
