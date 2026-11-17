@@ -1,0 +1,646 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "headset",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "rare",
+        "price": 180,
+        "milestone": {
+          "kind": "subject-level",
+          "subject": "morse",
+          "level": 5
+        }
+      }
+    },
+    {
+      "id": "cloak",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "rare",
+        "price": 180,
+        "milestone": {
+          "kind": "streak",
+          "days": 7
+        }
+      }
+    },
+    {
+      "id": "boots",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "feet",
+        "rarity": "common",
+        "price": 60,
+        "milestone": {
+          "kind": "contracts",
+          "count": 10
+        }
+      }
+    },
+    {
+      "id": "breeches",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "legs",
+        "rarity": "common",
+        "price": 60,
+        "milestone": {
+          "kind": "trial",
+          "chapter": 1
+        }
+      }
+    },
+    {
+      "id": "tarboosh",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "sunhat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "turban",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "vest",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "robe",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "coat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "sirwal",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "legs",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "silks",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "legs",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "sandals",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "feet",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "ridingboots",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "feet",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "flags",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "scroll",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "lamp",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "bedroll",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "oud",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "banner",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "kufi",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "shawl",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "gold-sirwal",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "legs",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "slippers",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "feet",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "falcon",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "waterskin",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "sand-cat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "pet",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "hedgehog",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "pet",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "fennec",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "pet",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "camel-calf",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "pet",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "crimson-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "saffron-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "indigo-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "forest-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "rose-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "charcoal-dye",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "color",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "streak-shield",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "functional",
+        "rarity": "functional",
+        "price": 120
+      }
+    },
+    {
+      "id": "ear-cups",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "listener"
+        }
+      }
+    },
+    {
+      "id": "brass-key",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "keyer"
+        }
+      }
+    },
+    {
+      "id": "operator-coat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "operator"
+        }
+      }
+    },
+    {
+      "id": "night-lantern",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "telegraphist"
+        }
+      }
+    },
+    {
+      "id": "house-sash",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "guest"
+        }
+      }
+    },
+    {
+      "id": "keffiyeh",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "traveler"
+        }
+      }
+    },
+    {
+      "id": "signal-cap",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "head",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "signal-master"
+        }
+      }
+    },
+    {
+      "id": "ether-cloak",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "ghost"
+        }
+      }
+    },
+    {
+      "id": "olive-sprig",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "neighbor"
+        }
+      }
+    },
+    {
+      "id": "dallah",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "friend"
+        }
+      }
+    },
+    {
+      "id": "tatreez-vest",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "torso",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "local"
+        }
+      }
+    },
+    {
+      "id": "story-cloak",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "back",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "storyteller"
+        }
+      }
+    },
+    {
+      "id": "beacon-lens",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "trial",
+          "chapter": "forty-winters"
+        }
+      }
+    },
+    {
+      "id": "guest-book-pen",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "trial",
+          "chapter": "stranger-at-the-gate"
+        }
+      }
+    }
+  ]
+}

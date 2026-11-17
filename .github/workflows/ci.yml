@@ -1,5 +1,7 @@
 # CI for Waymark (issue #14): lint, typecheck, unit tests, build, Playwright smoke.
-# Runs on every PR and on pushes to dev and main (branch flow: ADR 0015).
+# Runs on every PR and on pushes to main (branch flow: ADR 0015). Pushes to dev don't run it:
+# every PR already ran the full check before it merged, and Actions minutes cost money (2026-11-10).
+# A PR that changes only docs/ or Markdown files skips the build and Playwright (about 8 of 9 minutes).
 # Private repo on GitHub Free: about 2,000 Linux minutes/month are included ($12 of compute).
 # Without a payment method, runs are blocked (not billed) once that's used up.
 # Kept cheap: one job, Chromium only, superseded runs on the same branch are cancelled.
@@ -8,7 +10,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [dev, main]
+    branches: [main]
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -20,9 +22,26 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The browser suite alone takes 12 to 14 minutes on one worker, and the whole job up to 17
+    # (2026-11-16: a run passed all 272 tests and was cancelled at 15:00, one second after the
+    # last one; a later green run of 282 took 16.5 minutes).
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      # Docs only: every changed file is under docs/ or ends in .md.
+      - id: scope
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          full=true
+          if [ -n "$BASE" ]; then
+            changed=$(git diff --name-only "$BASE" HEAD)
+            if [ -n "$changed" ] && ! echo "$changed" | grep -qvE '^docs/|\.md$'; then full=false; fi
+          fi
+          echo "full=$full" >> "$GITHUB_OUTPUT"
+          echo "Full check: $full"
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
@@ -31,10 +50,17 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
-      - run: npm run build
+      - if: steps.scope.outputs.full == 'true'
+        run: npm run build
       # Fine on GitHub's runners. In the Claude cloud session Chromium is pre-installed instead.
-      - run: npx playwright install --with-deps chromium
-      - run: npm run e2e
+      # The runner image already has Chromium's libraries; --with-deps only adds fonts from
+      # Ubuntu's mirrors (about 15 s). When those mirrors can't be reached (2026-11-11, twice:
+      # apt retried for 7 minutes, then failed before any test ran), give up after 2 minutes and
+      # install the browser alone.
+      - if: steps.scope.outputs.full == 'true'
+        run: timeout -k 10 120 npx playwright install --with-deps chromium || npx playwright install chromium
+      - if: steps.scope.outputs.full == 'true'
+        run: npm run e2e
         env:
           CI: true
       - if: failure()

@@ -1,0 +1,194 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (characters from Waymark's world lore, docs/discovery/03-game-layer-and-partners.md and 04-world-and-lore.md)",
+  "items": [
+    {
+      "id": "operator:nils",
+      "subject": "morse",
+      "type": "operator",
+      "data": {
+        "name": "NILS",
+        "who": "Nils, a fellow newcomer",
+        "about": "Slow and friendly. He got his license last month and still sends a word twice when he’s unsure.",
+        "call": "QN4IL",
+        "qth": "UMEA",
+        "wpm": 12,
+        "opensAt": 0,
+        "fist": {
+          "weight": 3.6,
+          "swing": 1.5,
+          "jitter": 0.18
+        },
+        "band": {
+          "noise": 0.15,
+          "qsb": 0,
+          "qrm": 0
+        },
+        "rst": ["579", "589"],
+        "temps": ["2", "4", "1"],
+        "greet": "GE GE",
+        "greetAgain": "GE {my} GE GE NICE TO CU AGN",
+        "chat": "R R FB {my} <BT> RIG HR IS MY DADS OLD RADIO <BT> WX COLD COLD TEMP {temp}C <BT> FIRST QSO THIS WEEK",
+        "agn": "AGN? AGN?",
+        "sign": "TU TU {my} 73 73 <SK>"
+      }
+    },
+    {
+      "id": "operator:marta",
+      "subject": "morse",
+      "type": "operator",
+      "data": {
+        "name": "MARTA",
+        "who": "Marta, a schoolteacher",
+        "about": "Patient and chatty. She runs the radio club at her school and loves a long contact.",
+        "call": "QM2RTA",
+        "qth": "PORTO",
+        "wpm": 15,
+        "opensAt": 0,
+        "fist": {
+          "weight": 3,
+          "swing": 1.05,
+          "jitter": 0.04
+        },
+        "band": {
+          "noise": 0.3,
+          "qsb": 0.1,
+          "qrm": 0
+        },
+        "rst": ["579", "569"],
+        "temps": ["18", "21", "16"],
+        "greet": "GM DR OM",
+        "greetAgain": "GM {my} GLAD TO CU AGN",
+        "chat": "R TNX {my} <BT> RIG HR IS 50W TO A WIRE <BT> WX SUNNY TEMP {temp}C <BT> MY CLASS IS LISTENING",
+        "agn": "PSE AGN",
+        "sign": "TNX FER QSO {my} 73 <SK>"
+      }
+    },
+    {
+      "id": "operator:ivo",
+      "subject": "morse",
+      "type": "operator",
+      "data": {
+        "name": "IVO",
+        "who": "Captain Ivo, a retired ship’s radio officer",
+        "about": "Forty years of watches at sea. His fist is a metronome, and every contact comes with a story.",
+        "call": "QV7IVO",
+        "qth": "SPLIT",
+        "wpm": 18,
+        "opensAt": 0,
+        "fist": {
+          "weight": 3,
+          "swing": 1,
+          "jitter": 0
+        },
+        "band": {
+          "noise": 0.35,
+          "qsb": 0.35,
+          "qrm": 0
+        },
+        "rst": ["569", "559"],
+        "temps": ["24", "19", "27"],
+        "greet": "GE OM",
+        "greetAgain": "GE {my} OLD FRIEND",
+        "chat": "R R {my} <BT> RIG HR IS THE OLD SHIP RADIO <BT> WX WIND FROM SEA TEMP {temp}C <BT> SENT MY FIRST CQ IN 1979",
+        "agn": "QRZ? PSE RPT",
+        "sign": "73 ES FAIR WINDS {my} <SK>"
+      }
+    },
+    {
+      "id": "operator:kai",
+      "subject": "morse",
+      "type": "operator",
+      "data": {
+        "name": "KAI",
+        "who": "Kai, on a mountaintop",
+        "about": "Operating portable from a summit with a small radio and a battery that is running down.",
+        "call": "QK9TOP",
+        "qth": "SUMMIT",
+        "wpm": 16,
+        "opensAt": 3,
+        "fist": {
+          "weight": 3.1,
+          "swing": 1.1,
+          "jitter": 0.06
+        },
+        "band": {
+          "noise": 0.55,
+          "qsb": 0.7,
+          "qrm": 0
+        },
+        "rst": ["449", "559"],
+        "temps": ["3", "5", "0"],
+        "greet": "GM",
+        "greetAgain": "GM {my} AGN",
+        "chat": "R {my} <BT> RIG HR IS 5W ON A BATTERY <BT> WX WINDY TEMP {temp}C <BT> BATT LOW",
+        "agn": "?",
+        "sign": "TU 73 QRT <SK>"
+      }
+    },
+    {
+      "id": "operator:ruth",
+      "subject": "morse",
+      "type": "operator",
+      "data": {
+        "name": "RUTH",
+        "who": "Ruth, a night owl on 40 meters",
+        "about": "On the air most nights. She talks about the weather and her cat, who sits on the key.",
+        "call": "QR3UTH",
+        "qth": "CORK",
+        "wpm": 20,
+        "opensAt": 6,
+        "fist": {
+          "weight": 3.2,
+          "swing": 1.2,
+          "jitter": 0.07
+        },
+        "band": {
+          "noise": 0.4,
+          "qsb": 0.25,
+          "qrm": 0.5
+        },
+        "rst": ["579", "569"],
+        "temps": ["9", "11", "7"],
+        "greet": "GE",
+        "greetAgain": "GE {my} HPE UR WELL",
+        "chat": "R FB {my} <BT> RIG HR IS 100W TO A DIPOLE <BT> WX RAIN TEMP {temp}C <BT> MY CAT SAYS HI",
+        "agn": "AGN PSE",
+        "sign": "GN {my} 73 <SK>"
+      }
+    },
+    {
+      "id": "operator:dex",
+      "subject": "morse",
+      "type": "operator",
+      "data": {
+        "name": "DEX",
+        "who": "Dex, a contest operator",
+        "about": "Fast and terse. In a contest every second counts: no small talk, just the exchange.",
+        "call": "QX1DEX",
+        "qth": "OHIO",
+        "wpm": 25,
+        "opensAt": 10,
+        "terse": true,
+        "fist": {
+          "weight": 3,
+          "swing": 1,
+          "jitter": 0
+        },
+        "band": {
+          "noise": 0.4,
+          "qsb": 0.1,
+          "qrm": 0.7
+        },
+        "rst": ["5NN"],
+        "temps": ["20"],
+        "greet": "",
+        "greetAgain": "",
+        "chat": "",
+        "agn": "?",
+        "sign": "TU"
+      }
+    }
+  ]
+}

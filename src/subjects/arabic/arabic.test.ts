@@ -1,0 +1,486 @@
+import { describe, expect, it } from 'vitest';
+import type { Item } from '../../core/content/schema.ts';
+import type { SubjectApi } from '../../core/subject.ts';
+import {
+  formsOf,
+  inHebrew,
+  LESSONS,
+  LETTERS,
+  lettersOf,
+  lettersUpTo,
+  lookalikes,
+} from './letters.ts';
+import { inHebrewVowelled } from './marks.ts';
+import { applySession, NEW_PROGRESS, parseProgress } from './progress.ts';
+import { NO_REVIEW, readableWith, spokenHebrew, wordsFrom } from './words.ts';
+import {
+  dotSwaps,
+  heardAsAnother,
+  listenQuestions,
+  readQuestions,
+  seeded,
+} from './lesson/questions.ts';
+import { reportSession, scoreOf, xpFor, type Answer } from './lesson/report.ts';
+
+// Everyday words (not the deck's rows), shaped like deck items.
+const vocab = (id: string, arabic: string, english = '', type = 'vocab'): Item => ({
+  id,
+  subject: 'arabic',
+  type,
+  data: { arabic, pronunciation: '', english },
+  media: [{ kind: 'audio', store: 'private', path: `deck/${id}.mp3` }],
+  tags: [],
+});
+const ITEMS = [
+  vocab('w:1', 'بَيْت', 'house'),
+  vocab('w:2', 'تين', 'figs'),
+  vocab('w:3', 'أنا', 'I'),
+  vocab('w:4', 'بِنْت', 'girl'),
+  vocab('w:5', 'نَبي', 'prophet'),
+  vocab('w:6', 'يابا', 'dad'),
+  vocab('w:7', 'بنّ', 'coffee beans'),
+  vocab('w:8', 'تِبِن', 'hay'),
+  vocab('w:9', 'باب', 'door'),
+  vocab('w:10', 'سوق', 'market'),
+  vocab('w:11', 'حمار', 'donkey'),
+  vocab('w:12', 'كبير جدا', 'very big'),
+  vocab('w:13', 'بِـ', 'in'),
+  vocab('w:14', 'بيت', 'house again', 'vocab'),
+  vocab('w:15', 'X', 'not arabic'),
+];
+
+describe('the letters (#38, #39)', () => {
+  it('reads a written word into letters, ignoring vowel marks; alif with hamza is alif', () => {
+    expect(lettersOf('بَيْت')?.map((l) => l.id)).toEqual([
+      'letter:beh',
+      'letter:yeh',
+      'letter:teh',
+    ]);
+    expect(lettersOf('أنا')?.[0]?.id).toBe('letter:alef');
+    expect(lettersOf('سؤال')?.[1]?.id).toBe('letter:hamza');
+    expect(lettersOf('hello')).toBeNull();
+  });
+
+  it('writes words in Hebrew letters, with final forms', () => {
+    const he = (w: string) => inHebrew(lettersOf(w) ?? []);
+    expect(he('بيت')).toBe('בית');
+    expect(he('تين')).toBe('תין');
+    expect(he('جبنة')).toBe('ג׳בנה');
+    expect(he('خبز')).toBe('ח׳בז');
+    expect(he('أرض')).toBe('ארץ׳');
+    expect(he('ملك')).toBe('מלכ'); // a final k is never ך, which reads as kh
+  });
+
+  it('shapes each letter in its four positions', () => {
+    const beh = LETTERS.find((l) => l.letter === 'ب');
+    const dal = LETTERS.find((l) => l.letter === 'د');
+    expect(beh && formsOf(beh)).toEqual({
+      isolated: 'ب',
+      initial: 'ب‍',
+      medial: '‍ب‍',
+      final: '‍ب',
+    });
+    expect(dal && formsOf(dal).medial).toBe('‍د');
+    const tehMarbuta = LETTERS.find((l) => l.letter === 'ة');
+    expect(tehMarbuta && formsOf(tehMarbuta).initial).toBeNull();
+  });
+
+  it('knows which letters are easily confused', () => {
+    const hah = LETTERS.find((l) => l.letter === 'ح');
+    expect(
+      hah &&
+        lookalikes(hah)
+          .map((l) => l.letter)
+          .slice(0, 2),
+    ).toEqual(['ه', 'خ']);
+  });
+
+  it('knows the letters up to a lesson', () => {
+    expect(
+      lettersUpTo(1)
+        .map((l) => l.letter)
+        .join(''),
+    ).toBe('ابتني');
+    expect(lettersUpTo(8)).toHaveLength(LETTERS.length);
+    expect(LESSONS).toHaveLength(8);
+  });
+});
+
+describe('words from the deck', () => {
+  const words = wordsFrom(ITEMS, NO_REVIEW);
+
+  it('keeps single words we can spell, once each, with their audio and Hebrew', () => {
+    expect(words.map((w) => w.id)).toEqual([
+      'w:1',
+      'w:2',
+      'w:3',
+      'w:4',
+      'w:5',
+      'w:6',
+      'w:7',
+      'w:8',
+      'w:9',
+      'w:10',
+      'w:11',
+    ]);
+    expect(words[0]).toMatchObject({
+      arabic: 'بَيْت',
+      hebrew: 'בית',
+      audio: 'deck/w:1.mp3',
+      meaning: 'house',
+    });
+  });
+
+  it('finds the words you can read', () => {
+    const known = new Set(lettersUpTo(1).map((l) => l.id));
+    expect(readableWith(words, known).map((w) => w.id)).toEqual([
+      'w:1',
+      'w:2',
+      'w:3',
+      'w:4',
+      'w:5',
+      'w:6',
+      'w:7',
+      'w:8',
+      'w:9',
+    ]);
+  });
+});
+
+describe('reviewed lesson words, verbs, tags and homographs (#125)', () => {
+  const said = (id: string, arabic: string, sound: string, english = ''): Item => ({
+    ...vocab(id, arabic),
+    data: { arabic, pronunciation: sound, english },
+  });
+
+  it('uses only the listed words in a reviewed lesson, with our gloss and Latin', () => {
+    const review = {
+      lessons: new Set([1]),
+      words: new Map([['r:1', { gloss: 'dad; also the Pope', latin: 'bāba' }]]),
+    };
+    const ws = wordsFrom(
+      [
+        said('r:1', 'بابا', 'bāba [m.]', 'pope'),
+        said('r:2', 'تين', 'tīn', 'figs'),
+        said('r:3', 'دار', 'dār [pl.]', 'house'),
+      ],
+      review,
+    );
+    expect(ws.map((w) => [w.id, w.meaning, w.sound])).toEqual([
+      ['r:1', 'dad; also the Pope', 'bāba'],
+      ['r:3', 'house', 'dār'],
+    ]);
+  });
+
+  it('strips grammar tags and leaves verbs out of unreviewed lessons', () => {
+    const ws = wordsFrom(
+      [said('v:1', 'نزّلت', 'názzalat [55] [f.]', 'x'), said('v:2', 'بدّل', 'báddal', 'to change')],
+      NO_REVIEW,
+    );
+    expect(ws.map((w) => w.sound)).toEqual(['názzalat']);
+  });
+
+  it('keeps words that differ only in their marks as homographs, never shown bare', () => {
+    const ws = wordsFrom(
+      [
+        said('h:1', 'لُوَز', 'lúwaz', 'tonsils'),
+        said('h:2', 'لوْز', 'lōz', 'almonds'),
+        said('h:3', 'برْد', 'bard', 'cold'),
+        said('h:4', 'برد', 'barad', 'hail'),
+        said('h:5', 'دار', 'dār', 'home'),
+        said('h:6', 'مرا', 'mára', 'woman'),
+        said('h:7', 'موز', 'mōz', 'bananas'),
+        said('h:8', 'لبن', 'lában', 'yogurt'),
+      ],
+      NO_REVIEW,
+    );
+    expect(ws.map((w) => [w.id, w.homograph])).toEqual([
+      ['h:1', true],
+      ['h:2', true],
+      ['h:3', false],
+      ['h:5', false],
+      ['h:6', false],
+      ['h:7', false],
+      ['h:8', false],
+    ]);
+    for (let seed = 1; seed < 20; seed++) {
+      for (const q of readQuestions(ws, 4, seeded(seed))) {
+        if (q.word.homograph) expect(q.shown, q.word.id).toMatch(/[\u064b-\u0652]/);
+      }
+    }
+  });
+});
+
+describe('the spoken form on a reveal (review concern 2)', () => {
+  it('writes the speaker’s pronunciation in Hebrew letters, so ق said g shows as ג', () => {
+    expect(spokenHebrew({ sound: 'gáhwa' })).toMatch(/^ג/);
+    expect(spokenHebrew({ sound: 'gáhwa' })).not.toMatch(/[קa-z]/i);
+  });
+  it('is empty when the word has no romanisation', () => {
+    expect(spokenHebrew({ sound: '' })).toBe('');
+    expect(spokenHebrew({ sound: 'بيت' })).toBe('');
+  });
+});
+
+describe('a session’s questions', () => {
+  const words = wordsFrom(ITEMS, NO_REVIEW);
+
+  it('asks Listen about known first letters, never alif, with the answer among 4 choices', () => {
+    const qs = listenQuestions(words, 1, seeded(1));
+    expect(qs.length).toBeGreaterThan(0);
+    for (const q of qs) {
+      expect(q.choices).toContain(q.answer);
+      expect(new Set(q.choices).size).toBe(q.choices.length);
+      expect(q.choices.length).toBeLessThanOrEqual(4);
+      expect(q.answer.letter).not.toBe('ا');
+      expect(q.answer.lesson).toBe(1);
+    }
+  });
+
+  it('puts a lookalike among the Listen choices when you know one', () => {
+    const qs = listenQuestions(words, 5, seeded(3));
+    const hah = qs.find((q) => q.answer.letter === 'ح');
+    expect(hah?.choices.map((c) => c.letter)).toContain('ه');
+  });
+
+  it('asks Read only about readable words, with distinct Hebrew choices', () => {
+    const qs = readQuestions(words, 1, seeded(2));
+    expect(qs.length).toBe(8);
+    for (const q of qs) {
+      expect(q.choices).toContain(q.answer);
+      expect(new Set(q.choices).size).toBe(q.choices.length);
+      // Lesson 1 teaches fatha, kasra and damma only: no sukun or shadda is shown yet.
+      expect(q.shown).not.toMatch(/[\u0651\u0652]/);
+      expect(q.word.letters.every((l) => l.lesson === 1)).toBe(true);
+    }
+  });
+
+  it('writes the marks into the choices as niqqud, with a vowel-swapped twin', () => {
+    // These test words have no Latin, so the 'latin' mode keeps every choice in Hebrew letters.
+    const qs = readQuestions(words, 3, seeded(4), undefined, 'latin');
+    const girl = qs.find((q) => q.word.arabic === 'بِنْت');
+    if (girl) {
+      expect(girl.answer).toBe('בִּנְת'.normalize('NFC'));
+      expect(
+        girl.choices.some(
+          (c) => c === 'בַּנְת'.normalize('NFC') || c === 'בֻּנְת'.normalize('NFC'),
+        ),
+      ).toBe(true);
+      expect(girl.marks.map((m) => m.id)).toEqual(['mark:kasra', 'mark:sukun']);
+    }
+    for (const q of qs) expect(q.choices).toContain(q.answer);
+  });
+
+  it('swaps one letter for a known letter that differs only in its dots (review concern 3)', () => {
+    const known = new Set(['letter:alif', 'letter:beh', 'letter:teh', 'letter:noon', 'letter:yeh']);
+    const swapped = dotSwaps('بَيت', known);
+    expect(swapped).toEqual(expect.arrayContaining(['تَيت', 'نَيت', 'بَبت', 'بَيب']));
+    // The vowel mark stays; ث isn't known yet, so it's never used; ا has no dot twins.
+    expect(swapped.every((w) => w.includes('َ'))).toBe(true);
+    expect(swapped.some((w) => w.includes('ث'))).toBe(false);
+    expect(dotSwaps('ا', known)).toEqual([]);
+  });
+
+  it('puts a dots-only twin among the Hebrew choices', () => {
+    const qs = readQuestions(words, 1, seeded(2), undefined, 'latin');
+    const he = qs.filter((q) => q.script === 'he');
+    expect(he.length).toBeGreaterThan(0);
+    const known = new Set(LESSONS[0]?.letters.map((l) => l.id));
+    for (const q of he) {
+      if (dotSwaps(q.shown, known).length === 0) continue;
+      const twins = dotSwaps(q.shown, known).map((a) => inHebrewVowelled(a));
+      expect(q.choices.some((c) => twins.includes(c))).toBe(true);
+    }
+  });
+
+  it('shows every other word bare from lesson 4, as real signs are', () => {
+    const qs = readQuestions(words, 4, seeded(5), undefined, 'latin');
+    qs.forEach((q, i) => {
+      if (i % 2 === 1) {
+        expect(q.shown).not.toMatch(/[\u064b-\u0652]/);
+        expect(q.answer).toBe(q.word.hebrew);
+        expect(q.marks).toHaveLength(0);
+      }
+    });
+  });
+
+  it('asks for the recording once a word’s letters were taught two lessons ago, or Latin if chosen', () => {
+    const said = (id: string, arabic: string, sound: string): Item => ({
+      ...vocab(id, arabic),
+      data: { arabic, pronunciation: sound, english: '' },
+    });
+    const ws = wordsFrom(
+      [
+        said('l:1', 'بيت', 'bēt'),
+        said('l:2', 'تين', 'tīn'),
+        said('l:3', 'بنت', 'bint'),
+        said('l:4', 'نبي', 'nabi'),
+        said('l:5', 'يابا', 'yāba'),
+        said('l:6', 'دار', 'dār [pl.]'),
+      ],
+      NO_REVIEW,
+    );
+    const early = readQuestions(ws, 2, seeded(1));
+    expect(early.every((q) => q.script === 'he')).toBe(true);
+    const heard = readQuestions(ws, 3, seeded(1));
+    const sound = heard.filter((q) => q.script === 'sound');
+    expect(sound.length).toBeGreaterThan(0);
+    for (const q of sound) {
+      expect(q.word.letters.every((l) => l.lesson <= 1)).toBe(true);
+      expect(q.answer).toBe(q.word.audio);
+      expect(q.choices).toContain(q.answer);
+      expect(new Set(q.choices).size).toBe(q.choices.length);
+      expect(q.choices.length).toBeGreaterThanOrEqual(2);
+    }
+    expect(heard.some((q) => q.script === 'latin')).toBe(false);
+    const later = readQuestions(ws, 3, seeded(1), undefined, 'latin');
+    const latin = later.filter((q) => q.script === 'latin');
+    expect(latin.length).toBeGreaterThan(0);
+    for (const q of latin) {
+      expect(q.word.letters.every((l) => l.lesson <= 1)).toBe(true);
+      expect(q.choices).toContain(q.answer);
+      expect(q.answer).not.toMatch(/\[/);
+    }
+    // دار has a lesson-3 letter: still in Hebrew letters.
+    expect(later.find((q) => q.word.arabic === 'دار')?.script).toBe('he');
+  });
+
+  it('doesn’t ask Listen about a word whose first letter is said as another (ث as s)', () => {
+    const said = (id: string, arabic: string, sound: string): Item => ({
+      ...vocab(id, arabic),
+      data: { arabic, pronunciation: sound, english: '' },
+    });
+    const ws = wordsFrom(
+      [
+        said('t:1', 'ثانوي', 'sānawi'),
+        said('t:2', 'ثقافة', 'ŧaqāfa'),
+        said('t:3', 'ذكي', 'záki'),
+        said('t:4', 'قبر', 'gábur'),
+      ],
+      NO_REVIEW,
+    );
+    expect(ws.map(heardAsAnother)).toEqual([true, false, true, false]);
+    const asked = listenQuestions(ws, 8, seeded(3), 10).map((q) => q.word.arabic);
+    expect(asked).not.toContain('ثانوي');
+    expect(asked).not.toContain('ذكي');
+  });
+
+  it('is the same session for the same seed', () => {
+    expect(readQuestions(words, 1, seeded(9))).toEqual(readQuestions(words, 1, seeded(9)));
+  });
+});
+
+describe('progress: 90% twice in a row, on different days, passes a lesson', () => {
+  it('reads odd saved state as a fresh start', () => {
+    expect(parseProgress(null)).toEqual(NEW_PROGRESS);
+    expect(parseProgress({ lesson: 99, streak: 'x' })).toMatchObject({ lesson: 1, streak: 0 });
+  });
+
+  it('counts passes in a row and moves on after two', () => {
+    let p = NEW_PROGRESS;
+    p = applySession(p, 0.95, ['letter:beh'], '2026-11-04').next;
+    expect(p).toMatchObject({ lesson: 1, streak: 1, met: ['letter:beh'], sessions: 1 });
+    p = applySession(p, 0.8, [], '2026-11-04').next;
+    expect(p.streak).toBe(0);
+    p = applySession(p, 0.9, [], '2026-11-04').next;
+    const last = applySession(p, 1, ['letter:teh'], '2026-11-05');
+    expect(last.passed).toBe(true);
+    expect(last.next).toMatchObject({ lesson: 2, streak: 0, met: ['letter:beh', 'letter:teh'] });
+  });
+
+  it('needs the second 90% on a later day (spaced, not massed)', () => {
+    let p = applySession(NEW_PROGRESS, 1, [], '2026-11-04').next;
+    expect(p).toMatchObject({ streak: 1, passDay: '2026-11-04' });
+    const again = applySession(p, 1, [], '2026-11-04');
+    expect(again).toMatchObject({ passed: false, sameDay: true });
+    expect(again.next).toMatchObject({ lesson: 1, streak: 1, passDay: '2026-11-04' });
+    p = applySession(again.next, 0.95, [], '2026-11-06').next;
+    expect(p).toMatchObject({ lesson: 2, streak: 0, passDay: null });
+  });
+
+  it('a miss on the same day still resets the run', () => {
+    let p = applySession(NEW_PROGRESS, 1, [], '2026-11-04').next;
+    p = applySession(p, 0.5, [], '2026-11-04').next;
+    expect(p).toMatchObject({ streak: 0, passDay: null });
+    expect(applySession(p, 1, [], '2026-11-05').passed).toBe(false);
+  });
+
+  it('finishes the script after the last lesson', () => {
+    const p = { ...NEW_PROGRESS, lesson: 8, streak: 1 };
+    expect(applySession(p, 1, []).next).toMatchObject({ lesson: 8, done: true });
+  });
+
+  it('never passes the last lesson twice once the script is done', () => {
+    const p = { ...NEW_PROGRESS, lesson: 8, streak: 1, done: true };
+    expect(applySession(p, 1, []).passed).toBe(false);
+    expect(applySession(applySession(p, 1, []).next, 1, []).passed).toBe(false);
+  });
+});
+
+describe('reporting a session', () => {
+  const answers: Answer[] = [
+    { kind: 'listen', wordId: 'w:1', letters: ['letter:beh'], right: true },
+    {
+      kind: 'read',
+      wordId: 'w:2',
+      letters: ['letter:teh', 'letter:yeh', 'letter:noon'],
+      right: false,
+    },
+    {
+      kind: 'read',
+      wordId: 'w:1',
+      letters: ['letter:beh', 'letter:yeh', 'letter:teh'],
+      right: true,
+    },
+  ];
+
+  it('scores and pays about 10 XP a minute, plus 30 for passing a lesson', () => {
+    expect(scoreOf(answers)).toBeCloseTo(2 / 3);
+    expect(scoreOf([])).toBe(0);
+    expect(xpFor(answers, 0)).toBe(4);
+    expect(xpFor(answers, 30)).toBe(34);
+  });
+
+  it('saves, reviews each letter, rates listen by letter and read by word, then XP and minutes', async () => {
+    const reports: unknown[] = [];
+    const api = {
+      saveSession: async (report: unknown) => void reports.push(report),
+    } as unknown as SubjectApi;
+    await reportSession(api, NEW_PROGRESS, answers, 0, 120);
+    expect(reports).toEqual([
+      {
+        state: NEW_PROGRESS,
+        reviews: [
+          { itemId: 'letter:beh', grade: 'good' },
+          // Right once of twice: shaky, not forgotten.
+          { itemId: 'letter:teh', grade: 'hard' },
+          { itemId: 'letter:yeh', grade: 'hard' },
+          { itemId: 'letter:noon', grade: 'again' },
+        ],
+        results: [
+          { skill: 'listen', itemId: 'letter:beh', score: 1 },
+          { skill: 'read', itemId: 'w:2', score: 0 },
+          { skill: 'read', itemId: 'w:1', score: 1 },
+        ],
+        xp: 4,
+        minutes: 2,
+        // 2 of 3 right: a session, but not one at 90%.
+        events: [{ kind: 'letters-session' }],
+        at: expect.any(Date),
+      },
+    ]);
+    reports.length = 0;
+    await reportSession(api, NEW_PROGRESS, answers.slice(0, 1), 0, 60);
+    expect(reports).toEqual([
+      expect.objectContaining({ events: [{ kind: 'letters-session' }, { kind: 'letters-90' }] }),
+    ]);
+    reports.length = 0;
+    // Once the Painted Sign is passed, every save names it, for its gear (ADR 0033).
+    await reportSession(api, { ...NEW_PROGRESS, guest: true }, answers.slice(0, 1), 0, 60);
+    expect(reports).toEqual([
+      expect.objectContaining({
+        events: [{ kind: 'letters-session' }, { kind: 'letters-90' }, { kind: 'trial-1' }],
+      }),
+    ]);
+  });
+});

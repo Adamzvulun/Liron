@@ -1,0 +1,515 @@
+/* The city square (issue #24). Stage sizes are in design pixels (1920×1080); the stage is scaled
+   as a whole to fit the window. Animations come from concept v3 (Main.dc.html). */
+
+.city {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  /* Windows taller than 16:9 show a beam above the painting and the street's cobbles below
+     it, never the page or a plain color (docs/design/grounds.md). */
+  background: linear-gradient(#3a2416, #2a1a10 50%, #4a3c33 50%, #352a24);
+}
+
+.city__view {
+  position: absolute;
+  inset: 0;
+}
+
+.city__stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  transform-origin: top left;
+  font-family: var(--font-ui);
+  color: #24160e;
+  background: #4a3c33;
+}
+
+.city__layer,
+.city__part,
+.city__figure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+.city__front {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Gradients and filters every layer refers to. */
+.city__defs {
+  position: absolute;
+}
+
+/* An animated piece as its own small layer (#123). Only transform and opacity animate, so the
+   browser moves a picture it drew once instead of repainting the scene. Never put a blend mode
+   or a filter on anything above these: the browser would redo it every frame. */
+.city__sprite {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.city__place .city__sprite {
+  pointer-events: auto;
+}
+
+.city__place,
+.city__avatar,
+.city__plot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Places are links (#25). Only their painted shapes and plaques take the pointer, so
+   overlapping boxes never steal each other's clicks. Each is its own layer from the start
+   (#137): lifting it on hover then moves a ready-drawn picture. Without will-change the browser
+   made the layer on every hover and drew the whole building again, before anything moved. */
+.city__place {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+  will-change: transform;
+  transition: transform 0.18s ease;
+}
+
+/* The hover glow (#123): drawn once, faded in with opacity. */
+.city__glow {
+  position: absolute;
+  overflow: visible;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  will-change: opacity;
+}
+
+.city__place .city__part * {
+  pointer-events: visiblePainted;
+}
+
+.city__place .city__plaque {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.city__place:hover,
+.city__place:focus-visible {
+  transform: translateY(-6px);
+}
+
+/* Lighting up answers the pointer at once (#137); fading out again can take its time. */
+.city__place:hover,
+.city__place:focus-visible,
+.city__place:hover .city__glow,
+.city__place:focus-visible .city__glow,
+.city__place:hover .city__plaque::after,
+.city__place:focus-visible .city__plaque::after {
+  transition-duration: 0.08s;
+  transition-timing-function: ease-out;
+}
+
+.city__place:hover .city__glow,
+.city__place:focus-visible .city__glow,
+.city__place:hover .city__plaque::after,
+.city__place:focus-visible .city__plaque::after {
+  opacity: 1;
+}
+
+.city__place:focus-visible .city__plaque {
+  outline: 4px solid #ffd36b;
+  outline-offset: 4px;
+}
+
+.city__plot .city__part * {
+  pointer-events: visiblePainted;
+}
+
+.city__plaque {
+  position: absolute;
+  margin: 0;
+  padding: 7px 0 8px;
+  text-align: center;
+  background: linear-gradient(#8a5a33, #5a341a 55%, #43240f);
+  border: 3px solid #24160e;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 214, 150, 0.55),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.25),
+    0 5px 0 #24160e,
+    0 10px 16px rgba(30, 12, 4, 0.45);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #fbebc8;
+  text-shadow: 0 2px 0 #24160e;
+}
+
+.city__plaque::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  box-shadow: 0 0 18px rgba(255, 211, 107, 0.85);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+  /* Its own layer too, or lighting it would redraw the building's layer underneath (#137). */
+  will-change: opacity;
+}
+
+.city__plaque--small {
+  font-size: 15px;
+}
+
+.city__plaque-sub {
+  display: block;
+  padding-top: 2px;
+  font-family: var(--font-arabic);
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
+.city__sign--arena {
+  position: absolute;
+  cursor: pointer;
+  padding: 4px 14px;
+  background: linear-gradient(#6b5e52, #4a3f36);
+  border: 2px solid #2a1f18;
+  border-radius: 10px;
+  box-shadow: 0 3px 0 #2a1f18;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #eadfcb;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+/* The sign is drawn on the scaled square, so on a phone it is only ~20px tall; an invisible
+   margin makes the tap area bigger than the 24px WCAG 2.5.8 asks, without changing the look. */
+.city__sign--arena::after {
+  content: '';
+  position: absolute;
+  inset: -12px -6px;
+}
+
+.city__sign--arena:hover,
+.city__sign--arena:focus-visible {
+  opacity: 1;
+  outline: 3px solid #ffd36b;
+  outline-offset: 3px;
+}
+
+/* The HUD and other screen-space UI, unscaled, above the stage. */
+.city__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.city__overlay > * {
+  pointer-events: auto;
+}
+
+/* Phones held upright (#27): the HUD on top, the scene filling the height and panning
+   sideways, and a dock of places at the bottom, in reach of a thumb. */
+.city--pan {
+  display: flex;
+  flex-direction: column;
+}
+
+.city--pan .city__overlay {
+  position: relative;
+  order: 0;
+  flex: none;
+}
+
+.city--pan .city__view {
+  position: relative;
+  order: 1;
+  flex: 1;
+  min-height: 0; /* else the sizer keeps the view from shrinking when the HUD loads */
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.city--pan .city__stage {
+  left: 0;
+  top: 0;
+  transform-origin: top left;
+}
+
+.city__dock {
+  order: 2;
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  /* On the narrowest phones the names may still be wider than the screen: scroll, never clip. */
+  overflow-x: auto;
+  padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+  background: linear-gradient(#4e3220, #2a170c);
+  border-top: 3px solid var(--ink);
+  box-shadow: inset 0 2px 0 #8a5a33;
+}
+
+.city__dockitem {
+  display: grid;
+  place-items: center;
+  min-height: 56px;
+  padding: 4px 2px;
+  border: 3px solid var(--ink);
+  border-top-width: 6px;
+  border-top-color: var(--brass);
+  border-radius: 10px;
+  background: linear-gradient(#8a5a33, #5a341a 55%, #43240f);
+  box-shadow: inset 0 2px 0 rgb(255 214 150 / 45%);
+  color: #fbebc8;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  font-size: 11px;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-shadow: 0 1px 0 var(--ink);
+}
+
+@media (max-width: 359px) {
+  .city__dock {
+    gap: 4px;
+    padding-inline: 6px;
+  }
+
+  .city__dockitem {
+    padding-inline: 1px;
+    border-width: 2px;
+    border-top-width: 5px;
+    letter-spacing: 0;
+  }
+}
+
+.city__dockitem:focus-visible {
+  outline: 3px solid var(--lamplight);
+  outline-offset: 2px;
+}
+
+/* Ambient life, from the concept. */
+@keyframes wm-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+@keyframes wm-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.82;
+  }
+  55% {
+    opacity: 0.96;
+  }
+  72% {
+    opacity: 0.78;
+  }
+}
+@keyframes wm-steam {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  30% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+}
+@keyframes wm-smoke {
+  0% {
+    opacity: 0;
+    transform: translate(0, 4px) scale(0.8);
+  }
+  40% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(14px, -40px) scale(1.5);
+  }
+}
+@keyframes wm-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(22px);
+  }
+}
+@keyframes wm-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.city .wm-pulse {
+  animation: wm-pulse 2.6s ease-in-out infinite;
+}
+.city .wm-flicker {
+  animation: wm-flicker 1.9s ease-in-out infinite;
+}
+.city .wm-steam {
+  animation: wm-steam 2.6s ease-out infinite;
+}
+.city .wm-smoke {
+  animation: wm-smoke 3.6s ease-out infinite;
+}
+.city .wm-smoke2 {
+  animation: wm-smoke 3.6s ease-out 1.8s infinite;
+}
+.city .wm-drift {
+  animation: wm-drift 28s ease-in-out infinite;
+}
+.city .wm-sway {
+  animation: wm-sway 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city * {
+    animation: none !important;
+  }
+  .city__place,
+  .city__glow,
+  .city__plaque::after {
+    transition: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Task 4.6: the avatar walks toward a door before the place opens, with a small bob in its
+   step, and a building's lamps flare when a step on its road was just done. Neither moves for
+   a player who asked for less motion. */
+.city__figure {
+  transition: transform 0.3s ease-in;
+}
+
+.city__figure--walking {
+  animation: city-step 0.15s ease-in-out 2;
+}
+
+@keyframes city-step {
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+.city__place--lit .city__glow {
+  animation: city-lit 2s ease-out;
+}
+
+@keyframes city-lit {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  25%,
+  60% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city__figure,
+  .city__figure--walking,
+  .city__place--lit .city__glow {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* The bunting for a world event (task 4.4): over the square, never in the way of a tap. */
+.city__bunting {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Friends in the square (task 3.3): smaller than you, each a way to their house. */
+.city__friend {
+  position: absolute;
+  display: block;
+  text-decoration: none;
+}
+
+.city__friend svg {
+  display: block;
+  overflow: visible;
+}
+
+.city__friend-name {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  translate: -50% 0;
+  max-width: 180px;
+  padding: 2px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  background: #f3dc9e;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.city__friend:hover .city__friend-name,
+.city__friend:focus-visible .city__friend-name {
+  background: var(--brass);
+}

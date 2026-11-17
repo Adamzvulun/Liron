@@ -1,6 +1,6 @@
 # 0003 — The hub is a lobby of independent subjects
 
-- **Status:** Accepted
+- **Status:** Accepted. The contract is designed in [0019](0019-subject-contract.md).
 - **Date:** 2026-11-01
 
 ## Context

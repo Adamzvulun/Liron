@@ -1,0 +1,15 @@
+/* Forty Winters (task 4.2): the keying and the questions. The card is src/core/city/finale.css. */
+.finale__key {
+  width: min(100%, 760px);
+}
+
+/* The questions' choices are sentences, not prosigns: the reading font, and room between them. */
+.finale .qso__choices {
+  margin-bottom: 14px;
+}
+
+.finale .qso__choices label {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: 700;
+}

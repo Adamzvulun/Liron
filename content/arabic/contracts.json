@@ -1,0 +1,200 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "arabic-letters-90",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "letters-90",
+        "target": 1,
+        "gold": 20,
+        "text": "Score 90% in a letters session"
+      }
+    },
+    {
+      "id": "arabic-letters",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "letters-session",
+        "target": 2,
+        "gold": 15,
+        "text": "Finish 2 letters sessions"
+      }
+    },
+    {
+      "id": "arabic-slate",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "slate",
+        "target": 1,
+        "gold": 15,
+        "text": "Write letters on the slate"
+      }
+    },
+    {
+      "id": "arabic-coffee",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "coffee",
+        "target": 1,
+        "gold": 15,
+        "text": "Practice phrases at the coffee corner"
+      }
+    },
+    {
+      "id": "arabic-words",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "word-session",
+        "target": 2,
+        "gold": 15,
+        "text": "Finish 2 sessions at the innkeeper’s table",
+        "requires": "word-session"
+      }
+    },
+    {
+      "id": "arabic-words-90",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "word-90",
+        "target": 1,
+        "gold": 20,
+        "text": "Score 90% at the innkeeper’s table",
+        "requires": "word-session"
+      }
+    },
+    {
+      "id": "arabic-echo",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "pairs-round",
+        "target": 2,
+        "gold": 15,
+        "text": "Play 2 rounds at the echo well"
+      }
+    },
+    {
+      "id": "arabic-shadow",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "shadow-sentence",
+        "target": 5,
+        "gold": 15,
+        "text": "Shadow 5 sentences at the echo well"
+      }
+    },
+    {
+      "id": "arabic-chat",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "inn-chat",
+        "target": 1,
+        "gold": 15,
+        "text": "Sit and talk with a regular at the inn",
+        "requires": "inn-chat"
+      }
+    },
+    {
+      "id": "event-olive-harvest",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "coffee",
+        "target": 2,
+        "gold": 20,
+        "text": "The olive harvest: practice two rounds of phrases at the coffee corner",
+        "event": "olive-harvest"
+      }
+    },
+    {
+      "id": "event-arabic-language-day",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "slate",
+        "target": 1,
+        "gold": 20,
+        "text": "Arabic Language Day: write letters on the slate",
+        "event": "arabic-language-day"
+      }
+    },
+    {
+      "id": "arabic-master-words",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "word-90",
+        "target": 2,
+        "gold": 35,
+        "text": "Score 90% in 2 sessions at the innkeeper’s table",
+        "requires": "trial-stranger-at-the-gate",
+        "tier": 1
+      }
+    },
+    {
+      "id": "arabic-master-chat",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "inn-chat",
+        "target": 2,
+        "gold": 35,
+        "text": "Sit and talk with two regulars at the inn",
+        "requires": "trial-stranger-at-the-gate",
+        "tier": 1
+      }
+    },
+    {
+      "id": "arabic-master-shadow",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "shadow-sentence",
+        "target": 10,
+        "gold": 30,
+        "text": "Shadow 10 sentences at the echo well",
+        "requires": "trial-stranger-at-the-gate",
+        "tier": 1
+      }
+    },
+    {
+      "id": "arabic-master-echo",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "pairs-round",
+        "target": 4,
+        "gold": 30,
+        "text": "Play 4 rounds at the echo well",
+        "requires": "trial-stranger-at-the-gate",
+        "tier": 1
+      }
+    }
+  ]
+}

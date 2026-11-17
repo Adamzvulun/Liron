@@ -1,0 +1,173 @@
+import { describe, expect, it } from 'vitest';
+import type { Item } from '../../../core/content/schema.ts';
+import { applyWordSession, NEW_PROGRESS, parseProgress } from '../progress.ts';
+import { cardDue, cardsRead, grammarFrom, withCardRead } from './grammar.ts';
+import { GRAMMAR_CARDS } from './grammarCards.ts';
+
+const sentence = (id: string): Item => ({
+  id,
+  subject: 'arabic',
+  type: 'vocab',
+  data: { arabic: 'أنا جاهِز!', pronunciation: 'ána jāhiz!', english: 'I’m ready!' },
+  media: [{ kind: 'audio', store: 'private', path: `deck/${id}.mp3` }],
+  tags: [],
+});
+
+describe('grammar cards (#162)', () => {
+  const guest = { ...NEW_PROGRESS, guest: true };
+
+  it('has a card for each of chapters 1 to 36, then cards for later chapters', () => {
+    expect(GRAMMAR_CARDS.map((c) => [c.id, c.chapter])).toEqual([
+      ['grammar:no-is', 1],
+      ['grammar:endings', 2],
+      ['grammar:counting', 3],
+      ['grammar:article', 4],
+      ['grammar:there-is', 5],
+      ['grammar:want', 6],
+      ['grammar:present', 7],
+      ['grammar:feminine-pairs', 7],
+      ['grammar:have', 8],
+      ['grammar:not', 9],
+      ['grammar:past', 10],
+      ['grammar:feminine', 11],
+      ['grammar:future', 12],
+      ['grammar:may-must', 13],
+      ['grammar:object-endings', 14],
+      ['grammar:was', 15],
+      ['grammar:illi', 16],
+      ['grammar:more', 17],
+      ['grammar:commands', 18],
+      ['grammar:right-now', 19],
+      ['grammar:verb-forms', 20],
+      ['grammar:plurals', 21],
+      ['grammar:if', 22],
+      ['grammar:when-because', 23],
+      ['grammar:kull', 24],
+      ['grammar:self', 25],
+      ['grammar:questions', 26],
+      ['grammar:one-of', 26],
+      ['grammar:time', 27],
+      ['grammar:joining', 28],
+      ['grammar:still-already', 29],
+      ['grammar:before-after', 30],
+      ['grammar:done-to', 30],
+      ['grammar:where', 31],
+      ['grammar:the-big-house', 32],
+      ['grammar:of', 33],
+      ['grammar:since-until', 34],
+      ['grammar:age', 35],
+      ['grammar:state-words', 36],
+      ['grammar:colors-and-looks', 37],
+      ['grammar:hungry', 38],
+      ['grammar:palms-and-seeds', 39],
+      ['grammar:places', 40],
+      ['grammar:school-words', 41],
+      ['grammar:old-verbs-new-jobs', 42],
+      ['grammar:ways-to-play', 43],
+      ['grammar:a-plurals', 44],
+      ['grammar:lets', 45],
+      ['grammar:someone', 45],
+      ['grammar:jobs', 46],
+      ['grammar:i-ending', 47],
+      ['grammar:parts-and-sums', 48],
+      ['grammar:hope-and-wish', 49],
+      ['grammar:long-plurals', 50],
+      ['grammar:two-ways-to-pray', 51],
+      ['grammar:three-words', 52],
+      ['grammar:doer-and-done-to', 53],
+      ['grammar:being-ill', 54],
+      ['grammar:cut-up', 55],
+      ['grammar:put-and-lift', 56],
+      ['grammar:while', 57],
+      ['grammar:people-plurals', 58],
+      ['grammar:verb-and-little-word', 59],
+      ['grammar:verb-pairs', 60],
+      ['grammar:driving-verbs', 61],
+      ['grammar:going-up', 62],
+      ['grammar:verbs-from-things', 63],
+      ['grammar:doing-words', 64],
+      ['grammar:mit-words', 65],
+      ['grammar:him-and-her-animals', 66],
+      ['grammar:trade-words', 67],
+      ['grammar:sunrise', 68],
+      ['grammar:hidden-t', 69],
+      ['grammar:his-blood-is-light', 70],
+      ['grammar:undoing', 71],
+      ['grammar:market-loans', 72],
+      ['grammar:kings-and-courts', 73],
+      ['grammar:war-and-peace', 74],
+      ['grammar:faith-words', 75],
+      ['grammar:can-be', 76],
+      ['grammar:iyya-words', 77],
+      ['grammar:at-the-dentist', 78],
+      ['grammar:machines', 79],
+      ['grammar:make-it-go', 80],
+      ['grammar:long-vowel-plurals', 81],
+      ['grammar:muta-words', 82],
+      ['grammar:colors-from-things', 83],
+      ['grammar:take-and-give', 84],
+      ['grammar:grammar-words', 85],
+      ['grammar:second-words', 86],
+      ['grammar:second-words-roots', 87],
+      ['grammar:same-letters', 88],
+      ['grammar:chessboard', 89],
+      ['grammar:ordinals', 90],
+      ['grammar:how-much', 91],
+      ['grammar:nothing', 92],
+      ['grammar:wishes', 92],
+      ['grammar:the-world-rains', 93],
+      ['grammar:cousins', 94],
+      ['grammar:two-word-places', 95],
+      ['grammar:last-and-never', 96],
+      ['grammar:front-and-back', 97],
+      ['grammar:too-much', 98],
+      ['grammar:ago-and-from-now', 99],
+      ['grammar:boiled-and-curly', 100],
+      ['grammar:written-and-yearly', 101],
+      ['grammar:map-pictures', 102],
+      ['grammar:picture-sweets', 103],
+      ['grammar:feelings-and-little-words', 104],
+      ['grammar:horse-tail', 105],
+      ['grammar:decades', 106],
+      ['grammar:prayer-times', 107],
+      ['grammar:river-horse', 108],
+      ['grammar:names-of-the-land', 109],
+      ['grammar:it-looks-like', 110],
+      ['grammar:up-and-down', 111],
+      ['grammar:words-for-a-loss', 112],
+      ['grammar:married-in', 113],
+    ]);
+    for (const c of GRAMMAR_CARDS) expect(c.examples.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('reads its examples from the deck, leaving out any the deck lacks', () => {
+    const cards = grammarFrom([sentence('pcav:4703')], GRAMMAR_CARDS);
+    expect(cards[0]?.lines).toEqual([
+      {
+        arabic: 'أنا جاهِز!',
+        latin: 'ána jāhiz!',
+        english: 'I’m ready!',
+        audio: 'deck/pcav:4703.mp3',
+      },
+    ]);
+    expect(cards[1]?.lines).toEqual([]);
+  });
+
+  it('comes once, before the first session of its chapter', () => {
+    expect(cardDue(GRAMMAR_CARDS, guest)?.id).toBe('grammar:no-is');
+    const read = withCardRead(guest, 'grammar:no-is');
+    expect(cardDue(GRAMMAR_CARDS, read)).toBeUndefined();
+    expect(withCardRead(read, 'grammar:no-is')).toBe(read);
+    const ch2 = { ...read, words: { ...read.words, chapter: 2 } };
+    expect(cardDue(GRAMMAR_CARDS, ch2)?.id).toBe('grammar:endings');
+    expect(cardsRead(GRAMMAR_CARDS, ch2).map((c) => c.id)).toEqual(['grammar:no-is']);
+  });
+
+  it('is kept through sessions, and old saves start with none read', () => {
+    const read = withCardRead(guest, 'grammar:no-is');
+    expect(applyWordSession(read, 1, [], 10, '2026-11-10').next.words.cards).toEqual([
+      'grammar:no-is',
+    ]);
+    expect(parseProgress({ words: { chapter: 3 } }).words.cards).toEqual([]);
+  });
+});

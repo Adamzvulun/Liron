@@ -1,0 +1,98 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (rank names and conditions from Waymark's world lore, docs/discovery/04-world-and-lore.md)",
+  "items": [
+    {
+      "id": "rank:stranger",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Stranger",
+        "arabic": "غريب",
+        "conditions": ["Arrive at the house"],
+        "order": 1
+      }
+    },
+    {
+      "id": "rank:guest",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "gear": "house-sash",
+        "name": "Guest",
+        "arabic": "ضيف",
+        "conditions": ["Learn every letter of the script", "Pass the Painted Sign"],
+        "order": 2
+      }
+    },
+    {
+      "id": "rank:traveler",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "gear": "keffiyeh",
+        "name": "Traveler",
+        "arabic": "مسافر",
+        "conditions": [
+          "Pass the first 10 word chapters (300 words)",
+          "Meet every survival phrase set",
+          "Write every letter from memory on the slate",
+          "Pass the Poet’s Evening"
+        ],
+        "order": 3
+      }
+    },
+    {
+      "id": "rank:neighbor",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Neighbor",
+        "arabic": "جار",
+        "conditions": ["Sit and talk with a regular at the inn: say at least 3 lines"],
+        "order": 4,
+        "gear": "olive-sprig"
+      }
+    },
+    {
+      "id": "rank:friend",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Friend",
+        "arabic": "صاحب",
+        "conditions": ["Meet 1,000 words on the word path", "Have 20 chats at the inn"],
+        "order": 5,
+        "gear": "dallah"
+      }
+    },
+    {
+      "id": "rank:local",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Local",
+        "arabic": "ابن البلد",
+        "conditions": [
+          "Meet 2,000 words on the word path",
+          "Talk a whole chat through: all 8 of your lines"
+        ],
+        "order": 6,
+        "gear": "tatreez-vest"
+      }
+    },
+    {
+      "id": "rank:storyteller",
+      "subject": "arabic",
+      "type": "rank",
+      "data": {
+        "name": "Storyteller",
+        "arabic": "حكواتي",
+        "conditions": ["Become an old friend of 5 regulars (5 chats with each)"],
+        "order": 7,
+        "gear": "story-cloak"
+      }
+    }
+  ]
+}

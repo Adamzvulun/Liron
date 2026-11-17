@@ -1,0 +1,1892 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (written for Waymark). Examples are deck ids only; the deck stays private (ADR 0011).",
+  "items": [
+    {
+      "id": "grammar:no-is",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 1,
+        "title": "No word for “is”",
+        "points": [
+          "In the present, Arabic has no word for am, is or are. You put the two parts side by side: “I ready” is “I’m ready”.",
+          "A question is the same words, with your voice rising at the end."
+        ],
+        "examples": ["pcav:4703", "pcav:3412", "pcav:0186"]
+      }
+    },
+    {
+      "id": "grammar:endings",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 2,
+        "title": "My, your, his: endings",
+        "points": [
+          "My, your and his are endings on the word: ism (name) → ismi, my name.",
+          "A word ending in -a shows a t before the ending: gahwa (coffee) → gahwitak, your coffee.",
+          "The same endings go on other words too: wēn (where) → wēnik, where are you (to a woman)?"
+        ],
+        "table": [
+          ["-i", "my"],
+          ["-ak", "your (to a man)"],
+          ["-ik", "your (to a woman)"],
+          ["-u", "his"],
+          ["-ha", "her"],
+          ["-na", "our"],
+          ["-kum", "your (to several)"],
+          ["-hum", "their"]
+        ],
+        "examples": ["pcav:0216", "pcav:0215", "pcav:0086", "pcav:1046"]
+      }
+    },
+    {
+      "id": "grammar:counting",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 3,
+        "title": "Counting things",
+        "points": [
+          "Two of something is one word with -ēn on the end: dagīga (a minute) → dagigtēn, two minutes.",
+          "From 3 to 10, a short form of the number comes before the plural: talāta (three) → talat layāli, three nights.",
+          "A plural that starts with a vowel takes a t after the number: ayyām (days) → xamas tiyyām, five days.",
+          "From 11 up, the word stays singular."
+        ],
+        "examples": ["pcav:0800", "pcav:2768", "pcav:1296", "pcav:1475"]
+      }
+    },
+    {
+      "id": "grammar:article",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 4,
+        "title": "il-, “the”, and the sun letters",
+        "points": [
+          "“The” is il- in front of the word: xēr (good) → ilxēr.",
+          "Before the sun letters, the l becomes the next sound, said twice: il + šams → iššams, the sun. You still write the lām; a shadda marks the doubled letter.",
+          "In Palestinian, j often counts as a sun letter too: ijjaww, the weather."
+        ],
+        "letters": "ت ث د ذ ر ز س ش ص ض ط ظ ل ن",
+        "examples": ["pcav:4764", "pcav:3681", "pcav:4224", "pcav:3678"]
+      }
+    },
+    {
+      "id": "grammar:there-is",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 5,
+        "title": "fī, “there is”",
+        "points": [
+          "There is and there are are one word, fī, in front of the thing: fī ɧáda 3a -lbāb, someone is at the door.",
+          "Asking is the same words with a rising voice: fī wāyirlis hān? Is there wifi here?",
+          "There isn’t is fiš (or mā fī): fiš ɧadd, no one."
+        ],
+        "examples": ["pcav:4282", "pcav:1037", "pcav:1777", "pcav:4288"]
+      }
+    },
+    {
+      "id": "grammar:want",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 6,
+        "title": "bidd-, “want”",
+        "points": [
+          "Want is bidd- with the endings from chapter 2: bíddi, I want; bíddak, you want. It also means need.",
+          "Then the thing you want: bíddak kōla? Would you like some cola?",
+          "Or what you want to do, in the verb’s plain form: bíddi ʔarūɧ, I want to go."
+        ],
+        "table": [
+          ["bíddi", "I want"],
+          ["bíddak", "you want (to a man)"],
+          ["bíddik", "you want (to a woman)"],
+          ["bíddu", "he wants"],
+          ["bíddha", "she wants"],
+          ["bíddna", "we want"],
+          ["bídkum", "you want (to several)"],
+          ["bíddhum", "they want"]
+        ],
+        "examples": ["pcav:1030", "pcav:0494", "pcav:0952", "pcav:2763"]
+      }
+    },
+    {
+      "id": "grammar:present",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 7,
+        "title": "The present: b-",
+        "points": [
+          "A verb in the present starts with b-, and a sound after it says who: baɧíbb, I like; biɧíbb, he likes.",
+          "The same form says what you do in general and what you’re doing now: baštíɣil dawām kāmil, I work full-time.",
+          "A second verb drops the b-: baɧíbb asāfir, I like to travel. After bidd- too: bíddi ʔarūɧ."
+        ],
+        "table": [
+          ["baɧíbb", "I like"],
+          ["btiɧíbb", "you like (to a man); she likes"],
+          ["btiɧíbbi", "you like (to a woman)"],
+          ["biɧíbb", "he likes"],
+          ["mniɧíbb", "we like"],
+          ["btiɧíbbu", "you like (to several)"],
+          ["biɧíbbu", "they like"]
+        ],
+        "examples": ["pcav:0160", "pcav:1299", "pcav:3122", "pcav:3700"]
+      }
+    },
+    {
+      "id": "grammar:feminine-pairs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 7,
+        "title": "dān, ríjil: feminine with no -a",
+        "points": [
+          "Most feminine words end in -a, but a few don’t. Many are parts of the body that come in pairs: dān, ear; ríjil, leg or foot; īd, hand; 3ēn, eye. šámis, the sun, is one too.",
+          "A describing word after them takes -a anyway: dān maxzūga, a pierced ear.",
+          "Hebrew does the same with יד and רגל."
+        ],
+        "examples": ["pcav:0313", "pcav:0304", "pcav:0441", "pcav:0615"]
+      }
+    },
+    {
+      "id": "grammar:have",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 8,
+        "title": "3ind-, “have”",
+        "points": [
+          "There’s no verb for have. You say “at me”: 3índ- with the endings: 3índi, I have; 3índak, you have.",
+          "Asking is the same with a rising voice: 3índak wlād? Do you have any children?",
+          "I don’t have: mā 3índi."
+        ],
+        "examples": ["pcav:0108", "pcav:0090", "pcav:0092", "pcav:0302"]
+      }
+    },
+    {
+      "id": "grammar:not",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 9,
+        "title": "mā…š and miš, “not”",
+        "points": [
+          "A verb is made negative with -š on the end, and often mā in front: baɧíbb → baɧíbbiš, I don’t like.",
+          "Anything that isn’t a verb takes miš in front: miš mnīɧ, not good; ána miš mihtámm, I’m not interested.",
+          "You’ve met two already: fī → fiš, there isn’t; 3índi → mā 3índi, I don’t have."
+        ],
+        "examples": ["pcav:1001", "pcav:2659", "pcav:3127", "pcav:0636"]
+      }
+    },
+    {
+      "id": "grammar:past",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 10,
+        "title": "The past",
+        "points": [
+          "The past has endings instead of b-. Its plain form is “he did”: kátab, he wrote. That’s the first form the word path gives you for a verb (kátab, yíktib: he wrote, he writes).",
+          "The other people are endings on it. The -t of I and you is often said -it: dafá3it, I paid.",
+          "Two kinds of verb bend a little. A doubled verb takes -ēt: ɧaʈʈ (he put) → ɧaʈʈēt, I put. A verb with a long ā shortens it: nām (he slept) → nimt, I slept."
+        ],
+        "table": [
+          ["kátab", "he wrote"],
+          ["kátbat", "she wrote"],
+          ["katábt", "I wrote; you wrote (to a man)"],
+          ["katábti", "you wrote (to a woman)"],
+          ["katábna", "we wrote"],
+          ["katábtu", "you wrote (to several)"],
+          ["kátabu", "they wrote"]
+        ],
+        "examples": ["pcav:2148", "pcav:0057", "pcav:4461", "pcav:0095"]
+      }
+    },
+    {
+      "id": "grammar:feminine",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 11,
+        "title": "She, and the -a ending",
+        "points": [
+          "Most words for a woman, or a thing that counts as feminine, end in -a: ustāz → ustāza, a teacher (a woman).",
+          "A describing word takes -a after a feminine word: kbīr → kbīra, big; ɧábba kbīra, a big pimple. Things in the plural take it too: maɧallāt ɧílwa, nice shops.",
+          "Colors have their own feminine: áɧmar → ɧámra, red; áxɖar → xáɖra, green; ábyaɖ → bēɖa, white; áswad → sōda, black."
+        ],
+        "examples": ["pcav:1888", "pcav:1887", "pcav:2172", "pcav:0396"]
+      }
+    },
+    {
+      "id": "grammar:future",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 12,
+        "title": "The future: ɧa-",
+        "points": [
+          "For what’s going to happen, put ɧa- in front of the verb, in place of the b-: ɧanām, I’m going to sleep.",
+          "It works for everyone: ɧatílbis, you’re going to wear; ɧatūlad, she’s due (going to give birth).",
+          "Many speakers say raɧ instead, as a word of its own: raɧ anām. The two mean the same."
+        ],
+        "examples": ["pcav:4217", "pcav:0620", "pcav:3722", "pcav:1733"]
+      }
+    },
+    {
+      "id": "grammar:may-must",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 13,
+        "title": "múmkin and lāzim: “can” and “must”",
+        "points": [
+          "Can I…? Could you…? is múmkin before a verb in its plain form: múmkin āxud kubbāyit máyya? Can I have a glass of water?",
+          "Must, need to is lāzim, the same way: lāzim aštíɣil, I need to work.",
+          "Neither word changes: the verb after it shows who. Add law samáɧit, please, to be polite."
+        ],
+        "examples": ["pcav:1024", "pcav:0755", "pcav:3324", "pcav:1536"]
+      }
+    },
+    {
+      "id": "grammar:object-endings",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 14,
+        "title": "Me, you, him: endings on verbs",
+        "points": [
+          "The endings from chapter 2 also go on verbs, for who it’s done to: baɧíbb → baɧíbbak, I love you.",
+          "Me is -ni on a verb (not -i): būsni, kiss me; bitɧúkkni, it itches (me).",
+          "It and them take -u, -ha and -hum, like his, her and their: bitɧíbbha, you like it (a feminine thing)."
+        ],
+        "examples": ["pcav:0160", "pcav:0209", "pcav:0259", "pcav:2371"]
+      }
+    },
+    {
+      "id": "grammar:was",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 15,
+        "title": "kān: “was” and “used to”",
+        "points": [
+          "Was is kān, with the past endings: kunt, I was; kānat, she was.",
+          "There was is kān fī: kān fī bárig, there was lightning.",
+          "kān before a present verb says what someone was doing, or used to do: kunt tʂáyyiɧ? Were you crying?"
+        ],
+        "table": [
+          ["kunt", "I was; you were (to a man)"],
+          ["kunti", "you were (to a woman)"],
+          ["kān", "he was"],
+          ["kānat", "she was"],
+          ["kunna", "we were"],
+          ["kuntu", "you were (to several)"],
+          ["kānu", "they were"]
+        ],
+        "examples": ["pcav:0423", "pcav:3716", "pcav:0287", "pcav:4447"]
+      }
+    },
+    {
+      "id": "grammar:illi",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 16,
+        "title": "ílli: “who”, “which”, “that”",
+        "points": [
+          "One word joins a description to a thing or a person: ílli. ilwálad ílli bi-nnúʂʂ, the child who’s in the middle.",
+          "On its own it means the one who, or what: min ílli gúltu, of what you said.",
+          "When the thing is what the verb is done to, the verb takes an ending for it: ilʔaflām ílli bitɧíbbha, the movies you like (them)."
+        ],
+        "examples": ["pcav:0102", "pcav:1002", "pcav:2371", "pcav:4558"]
+      }
+    },
+    {
+      "id": "grammar:more",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 17,
+        "title": "ákbar: “bigger”, “more”",
+        "points": [
+          "Comparing words have one shape: kbīr → ákbar, bigger; ʂɣīr → áʂɣar, smaller; ktīr → áktar, more.",
+          "Than is min: ákbar mínni, older than me. The word doesn’t change for a woman or for several.",
+          "Before a noun it means the most: áʂɣar wāɧad, the youngest one; áktar barnāmij, the favorite program."
+        ],
+        "examples": ["pcav:0100", "pcav:0101", "pcav:3140", "pcav:2246"]
+      }
+    },
+    {
+      "id": "grammar:commands",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 18,
+        "title": "Commands",
+        "points": [
+          "A command to a man is the verb with no b- and no sound for who: íʈla3 fōg! Come upstairs! xūd šmāl! Turn left!",
+          "To a woman add -i, to several add -u: íʈla3i, íʈla3u.",
+          "Don’t is mā with the you form of the present, or -š on it: mā tínsa! Don’t forget! tiɧkīš! Don’t talk!"
+        ],
+        "examples": ["pcav:1851", "pcav:4415", "pcav:2615", "pcav:1287"]
+      }
+    },
+    {
+      "id": "grammar:right-now",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 19,
+        "title": "gā3id: “right now”",
+        "points": [
+          "To say something is going on right now, put gā3id before the present verb: gā3id bágra, I’m (busy) studying.",
+          "It changes like a describing word: gā3id for a man, gā3da for a woman or a feminine thing, gā3dīn for several.",
+          "On its own it means sitting, or off work: ána gā3id, I’m off work."
+        ],
+        "examples": ["pcav:2282", "pcav:3866", "pcav:1335"]
+      }
+    },
+    {
+      "id": "grammar:verb-forms",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 20,
+        "title": "Verb shapes: your binyanim",
+        "points": [
+          "Like Hebrew, Arabic builds verbs from a root in a few set shapes. If you know the binyanim, you already know how these work.",
+          "A doubled middle letter makes a verb do more, or make someone do it, like piʿel: dáras, he studied → dárras, he taught. Hebrew does the same with למד and לימד.",
+          "t- in front of that shape is done to or for yourself, like hitpaʿel: it3állam, he learned; atdárrab, I practice.",
+          "in- in front is something that happens to you, like nifʿal: inwálad, he was born (נולד); inkásar, it broke (נשבר)."
+        ],
+        "table": [
+          ["dárras", "doubled middle: like piʿel"],
+          ["it3állam", "t- + doubled: like hitpaʿel"],
+          ["inwálad", "in-: like nifʿal"],
+          ["á3ʈa", "a-: like hifʿil (less common in speech)"]
+        ],
+        "examples": ["pcav:1547", "pcav:3122", "pcav:0057", "pcav:1697"]
+      }
+    },
+    {
+      "id": "grammar:plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 21,
+        "title": "Plurals inside the word",
+        "points": [
+          "Hebrew adds -im or -ot. Arabic often changes the vowels inside the word instead: bēt → byūt, houses; kalb → klāb, dogs.",
+          "These are learned with the word: that’s why a word’s card shows its plural in brackets.",
+          "Some words do take an ending: -īn for groups of people (m3allim → m3allimīn, teachers), -āt for many others (sayyāra → sayyārāt, cars).",
+          "Plural things count as feminine (chapter 11): maɧallāt ɧílwa, nice shops."
+        ],
+        "examples": ["pcav:0686", "pcav:3736", "pcav:0258", "pcav:1452"]
+      }
+    },
+    {
+      "id": "grammar:if",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 22,
+        "title": "law: “if”",
+        "points": [
+          "If is law: law má3i maʂāri, if I have money.",
+          "law samáɧit, “if you allow”, is please.",
+          "yā rēt law… is I wish: yā rēt law 3índi sayyāra, I wish I had a car."
+        ],
+        "examples": ["pcav:4452", "pcav:2210", "pcav:3170", "pcav:4453"]
+      }
+    },
+    {
+      "id": "grammar:when-because",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 23,
+        "title": "lámma and 3ašān: “when” and “because”",
+        "points": [
+          "When is lámma: lámma ʔajū3, when I get hungry.",
+          "Because, and so that, is 3ašān: 3ašān tit3állam 3árabi, so that you learn Arabic. With an ending: 3ašānni, because I.",
+          "la-ʔínn- also means because: la-ʔínni batmárran, because I exercise."
+        ],
+        "examples": ["pcav:1021", "pcav:1375", "pcav:4425", "pcav:4431"]
+      }
+    },
+    {
+      "id": "grammar:kull",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 24,
+        "title": "kull: “every”, “all”",
+        "points": [
+          "kull before a word with no il- is every: kull yōm, every day.",
+          "Before a plural with il- it’s all: kull liɣrāɖ, all the things.",
+          "kull 3ām w ínta b-xēr, “every year and you’re well”, is said for birthdays and holidays."
+        ],
+        "examples": ["pcav:1841", "pcav:0390", "pcav:4031", "pcav:0043"]
+      }
+    },
+    {
+      "id": "grammar:self",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 25,
+        "title": "ɧāl-: “yourself”; bá3ɖ: “each other”",
+        "points": [
+          "Myself, yourself is ɧāl- with the endings: ɧāli, ɧālak. intíbih 3a ɧālak! Take care (of yourself)!",
+          "kēf ɧālak? “How is yourself?” is How are you? ɧāsis ɧāli… “I feel myself…” is I feel…",
+          "Each other is bá3ɖ: btígrabu la-bá3ɖ? Are you related (to each other)?"
+        ],
+        "examples": ["pcav:4765", "pcav:4779", "pcav:1631", "pcav:0078"]
+      }
+    },
+    {
+      "id": "grammar:questions",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 26,
+        "title": "Question words",
+        "points": [
+          "A question word usually comes first, and the rest stays in the same order as the answer: šū ísmak? What’s your name?",
+          "kam takes a singular word: kam wálad? How many children? gaddēš asks how much: gaddēš 3umrak? How old are you (how much is your age)?"
+        ],
+        "table": [
+          ["šū", "what"],
+          ["mīn", "who"],
+          ["wēn", "where"],
+          ["lēš", "why"],
+          ["kēf", "how"],
+          ["wagtēš", "when"],
+          ["gaddēš", "how much"],
+          ["kam", "how many"]
+        ],
+        "examples": ["pcav:0215", "pcav:4306", "pcav:0091", "pcav:0287"]
+      }
+    },
+    {
+      "id": "grammar:one-of",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 26,
+        "title": "xúbiz, xúbza: -a for one",
+        "points": [
+          "Some foods and plants are named as a whole, with no -a: xúbiz, bread; bēɖ, eggs; šájar, trees.",
+          "Add -a for one of them: xúbza, a slice or a loaf; bēɖa, an egg; šájara, a tree.",
+          "The one with -a is feminine (chapter 11): bāɖat bēɖa, she laid an egg."
+        ],
+        "examples": ["pcav:1206", "pcav:1208", "pcav:1218", "pcav:2973", "pcav:3833"]
+      }
+    },
+    {
+      "id": "grammar:time",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 27,
+        "title": "Telling the time",
+        "points": [
+          "What time is it? is gaddēš issā3a? The answer is issā3a and the hour: issā3a talāta, it’s three.",
+          "Past the hour is w, “and”: talāta w rúbi3, a quarter past three. To the hour is ílla, “but”: árba3a ílla rúbi3, a quarter to four.",
+          "The twenty minutes is a third, tilt: talāta w tilt, twenty past three."
+        ],
+        "table": [
+          ["w xámsa", "five past"],
+          ["w 3ášara", "ten past"],
+          ["w rúbi3", "a quarter past"],
+          ["w tilt", "twenty past"],
+          ["w nuʂʂ", "half past"],
+          ["ílla tilt", "twenty to"],
+          ["ílla rúbi3", "a quarter to"]
+        ],
+        "examples": ["pcav:4224", "pcav:4230", "pcav:4236", "pcav:0883"]
+      }
+    },
+    {
+      "id": "grammar:joining",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 28,
+        "title": "w, bass, wálla, ínnu: the joining words",
+        "points": [
+          "And is w, said with the next word: ána w ínta, me and you.",
+          "bass is but, and also just: baɧíbb áɧɖar riyāɖa bass mā bál3abha, I like watching sports but I don’t play; bass ɧúʈʈu dagigtēn, just put it in for two minutes.",
+          "Or is aw; in a question it’s wálla: jāhiz wálla líssa? Ready, or not yet?",
+          "That, after think or say, is ínnu: aʐúnn ínnu…, I think that…"
+        ],
+        "examples": ["pcav:2498", "pcav:0800", "pcav:4702", "pcav:2872"]
+      }
+    },
+    {
+      "id": "grammar:still-already",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 29,
+        "title": "líssa and min gábil: “still”, “yet”, “already”",
+        "points": [
+          "líssa before a word is still: ána líssa ja3ān, I’m still hungry.",
+          "Before a negative verb it’s not yet: líssa mā wíʂliš, he isn’t here yet. A question can end … wálla líssa? … or not yet?",
+          "Already is min gábil after the verb: (i)tɣaddēt min gábil, I’ve already eaten lunch."
+        ],
+        "examples": ["pcav:4397", "pcav:4398", "pcav:1314", "pcav:4403"]
+      }
+    },
+    {
+      "id": "grammar:before-after",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 30,
+        "title": "gábil and bá3id: “before” and “after”",
+        "points": [
+          "Before is gábil, after is bá3id, in front of a word: bá3id la3b ilkōra, after playing soccer.",
+          "In front of a whole sentence they take ma: gábil ma tdūb, before it melts; bá3id ma xállaʂ, after he finished.",
+          "gábil hēk is before (now): 3úmrak sāfarit gábil hēk? Have you ever traveled before?"
+        ],
+        "examples": ["pcav:1072", "pcav:1589", "pcav:0423", "pcav:2684"]
+      }
+    },
+    {
+      "id": "grammar:done-to",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 30,
+        "title": "maslūg, maftūɧ: the done-to shape",
+        "points": [
+          "Many describing words say something was done to the thing, with ma- in front and a long ū: maslūg, boiled, from sálag, to boil; maftūɧ, open, from fátaɧ, to open; maksūr, broken, from kásar.",
+          "Verbs that end in a vowel give ma…i: mágli, fried; mášwi, grilled.",
+          "It comes after the thing: bēɖ maslūg, a boiled egg; bēɖ mágli, a fried egg.",
+          "Hebrew’s paʿul shape does the same. Hebrew פתוח is maftūɧ."
+        ],
+        "examples": ["pcav:1222", "pcav:1221", "pcav:4727", "pcav:0177", "pcav:1272"]
+      }
+    },
+    {
+      "id": "grammar:where",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 31,
+        "title": "fōg, taɧt, jamb: where things are",
+        "points": [
+          "Words for where go before the thing: fōg ilkánaba, over the sofa; jamb ilmamárr, next to the aisle.",
+          "On their own they’re places: íʈla3 fōg! Come upstairs!",
+          "They take the endings too: jambi, next to me; guddāmak, in front of you."
+        ],
+        "table": [
+          ["fōg", "over, upstairs"],
+          ["taɧt", "under, downstairs"],
+          ["jamb", "next to"],
+          ["guddām", "in front of"],
+          ["wára", "behind"]
+        ],
+        "examples": ["pcav:4489", "pcav:2718", "pcav:4505", "pcav:3655"]
+      }
+    },
+    {
+      "id": "grammar:the-big-house",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 32,
+        "title": "ilbēt ilkbīr: il- on both",
+        "points": [
+          "A describing word comes after the thing: bēt kbīr, a big house.",
+          "When the thing has il-, so does the describing word: ilbēt ilkbīr, the big house; ilʔákil ilɧarrāg, the spicy food.",
+          "Without the second il-, it’s a sentence: ilbēt kbīr, the house is big (chapter 1: no word for is)."
+        ],
+        "examples": ["pcav:1001", "pcav:0734", "pcav:1890", "pcav:0396"]
+      }
+    },
+    {
+      "id": "grammar:of",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 33,
+        "title": "kubbāyit máyya: “of” by putting words together",
+        "points": [
+          "A glass of water is two words side by side: kubbāyit máyya. Hebrew does the same: כוס מים.",
+          "A first word ending in -a shows its t: kubbāya, a glass, becomes kubbāyit; dáraja becomes dárajit (dárajit ilɧarāra, the temperature).",
+          "The first word never takes il-; for “the”, il- goes on the last word: kílmit issírr, the password."
+        ],
+        "examples": ["pcav:1024", "pcav:3648", "pcav:1790", "pcav:2566"]
+      }
+    },
+    {
+      "id": "grammar:since-until",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 34,
+        "title": "min and la-ɧádd: “since” and “until”",
+        "points": [
+          "min is since: ána 3āyiš fi ɣázza min ilʔalfēn w 3ášara, I’ve been living in Gaza since 2010.",
+          "The verb stays in the present, where English says I’ve been living. Hebrew does the same.",
+          "la-ɧádd is until, before a thing: la-ɧádd issā3a ɧadā3iš, until eleven o’clock.",
+          "Before a whole sentence, until is la-3índ ma: la-3índ ma -txarrájit, until I graduated."
+        ],
+        "examples": ["pcav:4263", "pcav:4266", "pcav:4443"]
+      }
+    },
+    {
+      "id": "grammar:age",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 35,
+        "title": "3úmri: age, and “ever”",
+        "points": [
+          "Age is 3úmr with an ending (chapter 2): 3úmri 3išrīn, I’m 20, word for word my age twenty. To ask: gaddēš 3úmrak?",
+          "To turn an age, use ʂār, to become: ɧáyʂīr 3úmru 3išrīn sána, he’s turning twenty.",
+          "Before a past verb, 3úmr- means ever: 3úmrak sāfarit gábil hēk?, have you ever been abroad? With ma it means never: 3úmri ma sāfárit…, I’ve never flown…"
+        ],
+        "examples": ["pcav:0052", "pcav:4325", "pcav:0054", "pcav:2684", "pcav:2708"]
+      }
+    },
+    {
+      "id": "grammar:state-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 36,
+        "title": "lābis, sākin: words for a state",
+        "points": [
+          "Many verbs have a describing word in one shape: lābis, wearing; sākin, living (somewhere); nāyim, asleep; rāyiɧ, going; 3āyiš, living.",
+          "It says the state you’re in now, with no b-: lābis naɖɖārāt ilyōm?, are you wearing glasses today? wēn sākin?, where do you live?",
+          "It changes like a describing word: rāyiɧ for a man, rāyɧa for a woman or a feminine thing, lābsīn for several.",
+          "Hebrew’s present tense is this same kind of word. Arabic lābis has the shape of Hebrew לובש."
+        ],
+        "examples": ["pcav:0663", "pcav:4306", "pcav:4485", "pcav:0418", "pcav:0003"]
+      }
+    },
+    {
+      "id": "grammar:colors-and-looks",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 37,
+        "title": "áɧmar, ɧámra: colors and looks",
+        "points": [
+          "Colors and how someone looks share one shape, with a- in front: áɧmar, red; ásmar, dark-skinned; á3ma, blind; áʂla3, bald.",
+          "For a woman or a feminine thing, the a- goes and -a comes at the end: ɧámra, sámra, 3ámya. For several: ɧúmur, súmur, 3imyān.",
+          "It follows the word it describes: šá3arha ášgar, her hair is blond, since šá3ar, hair, is masculine.",
+          "Hebrew gives these a shape of their own too: עִוֵּר, blind; אִלֵּם, mute."
+        ],
+        "examples": ["pcav:3877", "pcav:0278", "pcav:0402", "pcav:0372", "pcav:0361"]
+      }
+    },
+    {
+      "id": "grammar:hungry",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 38,
+        "title": "ja3ān, šab3ān: hungry and full",
+        "points": [
+          "Many words for how your body feels end in -ān: ja3ān, hungry; 3aʈšān, thirsty; šab3ān, full; ta3bān, tired. For a woman they end in -āna.",
+          "Each has a verb for getting that way: jā3, to get hungry; 3íʈiš, to get thirsty; šíbi3, to get full.",
+          "The past of that verb says how you are now: šbí3it, I’m full, word for word I got full. Hebrew does the same with שבעתי."
+        ],
+        "examples": ["pcav:0972", "pcav:4397", "pcav:0977", "pcav:0976", "pcav:4425"]
+      }
+    },
+    {
+      "id": "grammar:palms-and-seeds",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 39,
+        "title": "náxil, náxla: more wholes and ones",
+        "points": [
+          "Like xúbiz and xúbza (chapter 26), the field has wholes and ones: náxil, palm trees, and náxla, one palm; bízir, seeds, and bízra, one seed.",
+          "Many fruits are named as a whole too: míšmiš, apricots; káraz, cherries. So are bees: náɧil.",
+          "zára3 is to plant, and zár3a is a plant, from the same root as Hebrew זרע (zéra, seed; lizróa, to sow)."
+        ],
+        "examples": ["pcav:3841", "pcav:3863", "pcav:3864", "pcav:3832"]
+      }
+    },
+    {
+      "id": "grammar:places",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 40,
+        "title": "máʈbax, máɣsala: where it’s done",
+        "points": [
+          "ma- in front of a verb’s root names the place where it’s done: máʈbax, kitchen (ʈábax, to cook); mál3ab, playground (lí3ib, to play); máktab, office (kátab, to write); mádrasa, school (dáras, to study).",
+          "Some name a thing it’s done in or with: máɣsala, sink (ɣásal, to wash); múknisa, broom.",
+          "Their plurals share one shape: maʈābix, malā3ib, makātib, maɣāsil.",
+          "Hebrew builds the same way: מִטְבָּח from טבח, and mádrasa is Hebrew’s מדרשה."
+        ],
+        "examples": ["pcav:0792", "pcav:1505", "pcav:2947", "pcav:1452", "pcav:0823", "pcav:0741"]
+      }
+    },
+    {
+      "id": "grammar:school-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 41,
+        "title": "ibtidāʔi, i3dādi, sānawi: school words",
+        "points": [
+          "The three stages are -i words, short for a school of that kind: ibtidāʔi, elementary; i3dādi, middle; sānawi, high (in full, madrase ibtidāʔíyye and so on).",
+          "Two you already know from Hebrew: lōɧ, the board, is לוח; tārīx is history, and also a date, like תאריך.",
+          "A verb and its noun: náʈag, to pronounce, and núʈug, pronunciation. Plurals to learn whole: ɧarf, ɧrūf (letters); júmla, júmal (sentences); mādda, mawādd (subjects)."
+        ],
+        "examples": ["pcav:1457", "pcav:1498", "pcav:3340", "pcav:3338"]
+      }
+    },
+    {
+      "id": "grammar:old-verbs-new-jobs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 42,
+        "title": "ráfa3, názzal: old verbs, new jobs",
+        "points": [
+          "Screens took their verbs from everyday life. ráfa3 lifts (ráfa3 īdu, he raised his hand) and also uploads; názzal lowers (názzal iššubbāk, he rolled the window down) and also downloads.",
+          "fátaɧ opens a door, a file, or the internet: fátaɧ innít, to go online. sákkar closes a program, and sákkar ilxáʈʈ hangs up the phone.",
+          "šáɣɣal starts a car, turns on a computer, and plays a song.",
+          "Hebrew did the same: להוריד, to bring down, also downloads, and להעלות, to bring up, uploads."
+        ],
+        "examples": ["pcav:1782", "pcav:1781", "pcav:1774", "pcav:1769", "pcav:2299"]
+      }
+    },
+    {
+      "id": "grammar:ways-to-play",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 43,
+        "title": "lí3ib, 3ázaf 3ála: three ways to play",
+        "points": [
+          "lí3ib plays a game: lí3ib šádda, to play cards. It also plays a part (lí3ib dōr, to play the role of) and works out (lí3ib kārdyō, to do cardio).",
+          "3ázaf 3ála plays an instrument, always with 3ála: bí3zif 3ála -l3ūd, he plays the oud.",
+          "šáɣɣal plays a song: it turns the music on (chapter 42).",
+          "Hebrew splits it too: לשחק, to play a game, and לנגן, to play music."
+        ],
+        "examples": ["pcav:2478", "pcav:2379", "pcav:2590", "pcav:2450", "pcav:2299"]
+      }
+    },
+    {
+      "id": "grammar:a-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 44,
+        "title": "anhār, aflām: plurals with a- in front",
+        "points": [
+          "Many short words make their plural with a- in front and a long ā: náhir → anhār, rivers; náfag → anfāg, tunnels; fílim → aflām, movies.",
+          "The root letters stay in order, and only the vowels move: n-h-r in náhir and in anhār.",
+          "Words you know take it too: šáxʂ → ašxāʂ, people; sí3ir → as3ār, prices; šúɣul → ašɣāl, jobs."
+        ],
+        "examples": ["pcav:3577", "pcav:3555", "pcav:2256", "pcav:0018", "pcav:2157"]
+      }
+    },
+    {
+      "id": "grammar:lets",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 45,
+        "title": "xallīna: “let’s”",
+        "points": [
+          "xallīna and a verb with no b- means let’s: xallīna núg3ud bárra, let’s sit outside.",
+          "The verb after it starts with n-, for we: nrūɧ, níšrab, núg3ud.",
+          "It comes from xálla, to let or allow: xallīna is word for word let us. It can stand alone: xallīna júwwa, let’s stay inside."
+        ],
+        "examples": ["pcav:4410", "pcav:2181", "pcav:4362", "pcav:4408", "pcav:4543"]
+      }
+    },
+    {
+      "id": "grammar:someone",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 45,
+        "title": "ɧáda, íši: “someone”, “something”",
+        "points": [
+          "ɧáda is someone and íši is something: fī ɧáda 3a -lbāb, someone is at the door; bíddi ākul íši ɧílu, I want to eat something sweet.",
+          "ayy before them makes any: ayy ɧáda, anyone; ayy íši, anything.",
+          "kull íši is everything (chapter 24). With not, íši means anything at all: mā fhímtiš íši, I didn’t understand a thing."
+        ],
+        "examples": ["pcav:4282", "pcav:4292", "pcav:4294", "pcav:4290", "pcav:4558"]
+      }
+    },
+    {
+      "id": "grammar:i-ending",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 47,
+        "title": "janūbi: the -i ending",
+        "points": [
+          "Add -i to a word to get a describing word from it: janūb, south; janūbi, southern. šamāli is northern; dáwli is international.",
+          "Languages and peoples work the same way: 3árabi, Arabic.",
+          "With il-, both words take it (chapter 32): ilqúʈb iššamāli, the North Pole.",
+          "Hebrew has the same ending. Hebrew דרומי is southern, from דרום."
+        ],
+        "examples": ["pcav:3625", "pcav:3635", "pcav:3634", "pcav:3638", "pcav:3406", "pcav:3289"]
+      }
+    },
+    {
+      "id": "grammar:jobs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 46,
+        "title": "najjār, xabbāz: the job shape",
+        "points": [
+          "Many jobs have one shape, a doubled middle and a long ā: xabbāz, baker; najjār, carpenter; rassām, painter (of art); bayyā3, shop assistant.",
+          "It comes from what the person does: rásam, to draw, gives rassām; bā3, to sell, gives bayyā3; sāg, to drive, gives sawwāg tāksi, taxi driver.",
+          "Hebrew has this shape too, and najjār is the same word as Hebrew נגר, a carpenter."
+        ],
+        "examples": ["pcav:1385", "pcav:1391", "pcav:1419", "pcav:1434", "pcav:1438"]
+      }
+    },
+    {
+      "id": "grammar:parts-and-sums",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 48,
+        "title": "tult, rúbi3: parts, and sums",
+        "points": [
+          "A part is named from its number’s root: talāta, three → tult, a third; árba3a, four → rúbi3, a quarter. A half is nuʂʂ.",
+          "Hebrew does the same: שליש, a third, comes from שלוש, three, and רבע, a quarter, from ארבע, four.",
+          "Sums: zāʔid, plus; nāgiʂ, minus; ɖarb, times; taqsīm, divided by. Equals is bisāwi or bíʈla3: talāta ɖarb árba3a bisāwi tnā3iš, three times four is twelve."
+        ],
+        "examples": ["pcav:4068", "pcav:4069", "pcav:4066", "pcav:4043", "pcav:4047", "pcav:4049"]
+      }
+    },
+    {
+      "id": "grammar:hope-and-wish",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 49,
+        "title": "batmánna and yā rēt: “I hope”, “I wish”",
+        "points": [
+          "batmánna, I hope, takes a verb with no b-: batmánna ʔašūfak márra tānya, I hope to see you again.",
+          "For not, put mā before the verb: batmánna mā yʂīrlu íši, I hope nothing happens to him.",
+          "yā rēt, I wish, is for what isn’t so: yā rēt kúnit fi falasʈīn, I wish I were in Palestine. With law (chapter 22): yā rēt law 3índi sayyāra, I wish I had a car.",
+          "yā rēt is Hebrew’s הלוואי."
+        ],
+        "examples": ["pcav:3166", "pcav:3167", "pcav:1375", "pcav:3169", "pcav:3170"]
+      }
+    },
+    {
+      "id": "grammar:long-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 50,
+        "title": "ta3ālib, ɖafāɖi3: the plural of a four-letter root",
+        "points": [
+          "A word with four root letters makes its plural on one shape, a-ā-i: tá3lab → ta3ālib, foxes; ɖúfɖa3 → ɖafāɖi3, frogs; sulɧufā → salāɧif, turtles.",
+          "Longer words fit the shape too, and drop what’s left over: 3ankabūt → 3anākib, spiders.",
+          "A long vowel at the end stays long, as ī: dulfīn → dalāfīn, dolphins.",
+          "You’ve met the shape already: maʈābix, kitchens (chapter 40).",
+          "Some of these are old relatives: tá3lab is Hebrew’s שועל, fox, and ɖúfɖa3 is its צפרדע, frog."
+        ],
+        "examples": ["pcav:3750", "pcav:3790", "pcav:3789", "pcav:3815", "pcav:3767"]
+      }
+    },
+    {
+      "id": "grammar:two-ways-to-pray",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 51,
+        "title": "dá3a and ʂálla: two ways to pray",
+        "points": [
+          "Arabic has two verbs where Hebrew has להתפלל: dá3a is to ask God for something (a du3āʔ); ʂálla is to say the set prayers (a ʂalā).",
+          "-i makes a word “of” something: islāmi, Islamic; masīɧi, Christian, from ilmasīɧ, Christ; yahūdi, Jewish. With -íyya it names the faith: ilmasīɧíyya.",
+          "málik and málika are Hebrew מלך and מלכה. dīn also means judgment (yōm iddīn, Judgment Day), and in that sense it is Hebrew דין."
+        ],
+        "examples": ["pcav:3183", "pcav:3236", "pcav:3213", "pcav:2487"]
+      }
+    },
+    {
+      "id": "grammar:three-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 52,
+        "title": "dáxxan, tadxīn, mudáxxin: one verb, three words",
+        "points": [
+          "A verb with a doubled middle (chapter 20) makes its -ing word with ta- and a long ī: dáxxan, to smoke; tadxīn, smoking. The same way: tawqī3, a signature; ta3līm, education; tadrīb, practice.",
+          "The one who does it starts with mu-: mudáxxin, a smoker.",
+          "Hebrew’s piʿel does the same. Hebrew מעשן is a smoker."
+        ],
+        "examples": ["pcav:2392", "pcav:2394", "pcav:2396", "pcav:2078", "pcav:1445"]
+      }
+    },
+    {
+      "id": "grammar:doer-and-done-to",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 53,
+        "title": "mʂálliɧ, muwáʐʐaf: the doer and the done-to",
+        "points": [
+          "The mu- word of a doubled-middle verb (chapter 52) has two faces, one vowel apart. With i, it’s the one who does it: mʂálliɧ, a repairman (ʂállaɧ, to fix); muɧárrir, an editor.",
+          "With a, it’s the one it’s done to: muwáʐʐaf, an employee, the one employed (wáʐʐaf, to employ); msákkar, closed (sákkar, to close); mɧámmar, roasted.",
+          "In speech mu- often shrinks to m-: mʂálliɧ, msákkar.",
+          "Hebrew splits the same way: מנהל is a manager, and מנוהל is managed."
+        ],
+        "examples": ["pcav:1429", "pcav:1400", "pcav:1317", "pcav:4728", "pcav:1270"]
+      }
+    },
+    {
+      "id": "grammar:being-ill",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 54,
+        "title": "3índu, má3u: being ill",
+        "points": [
+          "Many illnesses take 3ind- (chapter 8): 3índu rábu, he has asthma; 3índu ɖáɣiʈ, he has high blood pressure.",
+          "Some take ma3-, with: má3u súkkar, he’s diabetic; má3u ʔinfluwánza, he has the flu. Learn each one with its own.",
+          "For an ache, the part that hurts does the hurting: rāsu ʔája3u, he has a headache, word for word his head hurts him. Pointing: fī wája3 hān, it hurts here."
+        ],
+        "examples": ["pcav:1681", "pcav:1683", "pcav:1680", "pcav:1661", "pcav:1650", "pcav:1654"]
+      }
+    },
+    {
+      "id": "grammar:cut-up",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 55,
+        "title": "gáʈʈa3, xárraʈ: cutting into pieces",
+        "points": [
+          "One more job for a doubled middle (chapter 20): doing it to many pieces. gáʈa3 is to cut once, or cut across (gáʈa3 iššāri3, to cross the street); gáʈʈa3 is to cut up: gáʈʈa3 ilbaʂal, cut up the onion.",
+          "kásar is to break; kássar is to smash to bits.",
+          "Add what the pieces are like after it: gáʈʈa3 šarāyiɧ, to slice (cut into slices). xárraʈ, to chop fine, is a doubled verb too.",
+          "Hebrew’s piʿel does the same: שבר is broke, and שיבר is smashed."
+        ],
+        "examples": ["pcav:0805", "pcav:0807", "pcav:0808"]
+      }
+    },
+    {
+      "id": "grammar:put-and-lift",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 56,
+        "title": "ɧaʈʈ and šāl: put it in, take it off",
+        "points": [
+          "ɧaʈʈ, to put, does a lot of work with things: ɧaʈʈ ilfīša, to plug in (put the plug).",
+          "šāl, to lift off or take away, undoes it: šāl ilfīša, to unplug (lift the plug).",
+          "You’ll meet ɧaʈʈ again in the car: ɧaʈʈ ɧzām ilʔamān, to put on a seat belt."
+        ],
+        "examples": ["pcav:0759", "pcav:0760"]
+      }
+    },
+    {
+      "id": "grammar:while",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 57,
+        "title": "w húwwa nāyim: “while”, with w",
+        "points": [
+          "w, “and”, before a person and their state says “while”: ɧáka w húwwa nāyim, to talk in one’s sleep (he talked while he was asleep); máša w húwwa nāyim, to sleepwalk.",
+          "It takes any state or doing: sāg w húwwa sakrān, he drove drunk; ɧallēt ilwāgib w ána batfárraj 3a -ttilfizyōn, I did my homework while watching TV.",
+          "The person is said again, even when it’s the same one: w húwwa, w ána.",
+          "Hebrew needs a word of its own for it: בזמן, while."
+        ],
+        "examples": ["pcav:0868", "pcav:0869", "pcav:1064", "pcav:4450"]
+      }
+    },
+    {
+      "id": "grammar:people-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 58,
+        "title": "wazīr, wúzara: a plural for people",
+        "points": [
+          "Many words for people, with a long ī before the last letter, make their plural with u…a…a: wazīr → wúzara, ministers; raʔīs → rúʔasa, presidents; sajīn → sújana, prisoners.",
+          "Words you know take it too: zamīl → zúmala, coworkers; 3amīl → 3úmala, clients; fagīr → fúgara, the poor.",
+          "A few with a long ā in front take it as well: šā3ir → šú3ara, poets."
+        ],
+        "examples": ["pcav:2783", "pcav:2788", "pcav:2883", "pcav:1320", "pcav:1344"]
+      }
+    },
+    {
+      "id": "grammar:verb-and-little-word",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 59,
+        "title": "ittáffag ma3, jādal 3ála: a verb and its little word",
+        "points": [
+          "Many verbs come with a little word, learned together: ittáffag ma3, to agree with; jādal 3ála, to argue about; ɧass b-, to feel; xáʈʈaʈ la-, to plan on.",
+          "It isn’t always the one English uses: radd 3ála, to answer (word for word, to answer on); fāz 3ála, to beat a team; itfárraj 3ála, to watch.",
+          "That’s why a verb’s card shows its little word in both forms: ittáffag ma3, yittíffig ma3.",
+          "Hebrew does this too: להסכים עם is to agree with, and להתווכח על is to argue about."
+        ],
+        "examples": ["pcav:3142", "pcav:3144", "pcav:3145", "pcav:4545", "pcav:2530", "pcav:4672"]
+      }
+    },
+    {
+      "id": "grammar:verb-pairs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 60,
+        "title": "wāfag, ywāfig: a verb comes in pairs",
+        "points": [
+          "Each verb is given in two forms, he did and he does: wāfag, ywāfig, to approve of. The b- of chapter 7 goes on the second: biwāfig, he approves.",
+          "The vowel in the second form can’t be guessed from the first: níjiɧ, yínjaɧ, to succeed; ámar, yúʔmur, to order. Learn the pair together.",
+          "A long ā in the middle changes in the second form: rāɧ, yrūɧ, to go; bā3, ybī3, to sell.",
+          "Hebrew dictionaries list a verb by he did too."
+        ],
+        "examples": ["pcav:4550", "pcav:4655", "pcav:4633", "pcav:4537", "pcav:2146"]
+      }
+    },
+    {
+      "id": "grammar:driving-verbs",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 61,
+        "title": "dá3as brēk, ríji3 wára: driving with everyday verbs",
+        "points": [
+          "Most driving words are plain verbs you know, with the car part after them: dá3as brēk, to brake (to step on the brake); ɣáyyar il3ájal, to change a tire.",
+          "ríji3 wára, to back up, is word for word “go back behind”.",
+          "A flat tire lets its breath out: náffas il3ájal, from náfas, breath."
+        ],
+        "examples": ["pcav:1947", "pcav:1958", "pcav:1936"]
+      }
+    },
+    {
+      "id": "grammar:going-up",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 62,
+        "title": "ʈíli3: going up, and going out",
+        "points": [
+          "ʈíli3 goes up: ʈíli3 3a -ddáraj, to go upstairs; íʈla3 fōg!, come upstairs (chapter 18).",
+          "Getting on is going up: ʈíli3 3a -ʈʈayyāra, to board a plane; ʈíli3 fi -lbāʂ, to take the bus. A plane or a bus that ʈíli3 departs.",
+          "Going out to do something is ʈíli3 and the thing: ʈíli3 sēr, to go hiking; ʈíli3 taxyīm, to go camping. On its own, ʈíli3 is to hang out.",
+          "Hebrew’s עלה does the same: you go up onto a plane or a bus."
+        ],
+        "examples": ["pcav:2034", "pcav:2720", "pcav:1827", "pcav:2667", "pcav:2232"]
+      }
+    },
+    {
+      "id": "grammar:verbs-from-things",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 63,
+        "title": "argīla → árgal: a verb made from a thing",
+        "points": [
+          "Arabic makes new verbs out of nouns, fitting the noun’s letters into a verb shape: argīla, a water pipe → árgal, yʔárgil, to smoke one.",
+          "šīša, the other word for a water pipe, gives šáyyaš, yšáyyiš, in the doubled-middle shape.",
+          "A cigarette you drink: šírib sigāra, to smoke a cigarette; dáxxan (chapter 52) is the general word.",
+          "Hebrew does the same with new things: from SMS it made לסמס, to text."
+        ],
+        "examples": ["pcav:2418", "pcav:2420", "pcav:2393"]
+      }
+    },
+    {
+      "id": "grammar:doing-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 64,
+        "title": "ištirāk, imtiɧān: naming the doing",
+        "points": [
+          "Verbs that start with i- and have a t after their first root letter name the doing with i…ā: ištárak, to join → ištirāk, membership; intáxab, to elect → intixābāt, elections; imtiɧān, a test, is the testing.",
+          "Verbs that start with ist- name it the same way: istágbal, to welcome → istigbāl, a welcome, and a hotel’s lobby; istirāɧa, a break.",
+          "It’s the same job ta- does for a verb with a doubled middle (chapter 52): tadxīn, smoking."
+        ],
+        "examples": ["pcav:2554", "pcav:2557", "pcav:2811", "pcav:1518", "pcav:2773"]
+      }
+    },
+    {
+      "id": "grammar:mit-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 65,
+        "title": "mit3állim, mitʔáxxir: the state a t- verb leaves you in",
+        "points": [
+          "A verb with t- in front (chapter 20) gives a describing word with mit- in front and an i: it3állam, he learned → mit3állim, educated; itʔáxxar, to be delayed (chapter 62) → mitʔáxxir, late.",
+          "It says the state you’re in, like lābis and sākin (chapter 36): mitʔákkid, sure; mitɧámmis la-, excited about; mitšáwwig, looking forward to.",
+          "A student majoring in a subject is mitxáʂʂiʂ: mitxáʂʂiʂ ādāb inglīzi, I’m majoring in English literature.",
+          "Hebrew’s hitpaʿel does the same with mit-: מתרגש, excited."
+        ],
+        "examples": ["pcav:1446", "pcav:4260", "pcav:3148", "pcav:3083", "pcav:1574"]
+      }
+    },
+    {
+      "id": "grammar:him-and-her-animals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 66,
+        "title": "dīk, jāja: one word for him, another for her",
+        "points": [
+          "Some farm animals have one word for the male and a different word for the female: dīk, rooster, and jāja, hen; xarūf, ram, and ɣánama, ewe.",
+          "Many animal words name the whole kind, and -a makes one, as with bread and eggs (chapter 26): bágar, cattle → bágara, a cow; jāj, chickens → jāja, a hen; ɣánam, sheep → ɣánama.",
+          "For these three, the -a word for one is also the female: the one you keep for milk and eggs.",
+          "Hebrew builds the hen from the rooster’s word: תרנגול → תרנגולת."
+        ],
+        "examples": ["pcav:2971", "pcav:2966", "pcav:2967", "pcav:2959"]
+      }
+    },
+    {
+      "id": "grammar:trade-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 67,
+        "title": "tijāra, tijāri: trade and its -i",
+        "points": [
+          "agōra is borrowed from Hebrew אגורה: shekels and agorot are the money you pay with.",
+          "-i turns the thing into “of the thing”: tijāra, trade, and tijāri, commercial. The same -i is in māli, financial.",
+          "A verb and its noun: ʂánna3, to manufacture, and ʂinā3a, industry. tas3īra, a fixed price, comes from sí3ir, price (chapter 25)."
+        ],
+        "examples": ["pcav:2898", "pcav:2925", "pcav:2951", "pcav:2953"]
+      }
+    },
+    {
+      "id": "grammar:sunrise",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 68,
+        "title": "šurūg, ɣurūb: sunrise, sunset and other doings",
+        "points": [
+          "Many plain verbs name their doing with a u and a long ū: iššáms btúšrug, the sun rises → šurūg, sunrise; iššáms btúɣrub, the sun sets → ɣurūb, sunset.",
+          "dáxal, to go in, gives duxūl, entering: imtiɧān duxūl, an entrance exam. marr, to pass, gives murūr, traffic: išārit murūr, a traffic light.",
+          "It’s the same job as i…ā for verbs with i- (chapter 64): ištirāk, membership."
+        ],
+        "examples": ["pcav:3617", "pcav:3616", "pcav:3618", "pcav:1522", "pcav:1886"]
+      }
+    },
+    {
+      "id": "grammar:hidden-t",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 69,
+        "title": "iʈʈállag, idzáwwaj: the t- that hides",
+        "points": [
+          "The t- in front of a verb (chapter 20) often melts into the letter after it, the way il- does before a sun letter (chapter 4): t + ʈállag → iʈʈállag, to get divorced; t + dárrab → iddárrab, to work out.",
+          "Before a z it turns into a d: idzáwwaj, to get married; idzákkar, to remember.",
+          "So a verb that starts with a doubled letter, or with dz, has a t- hiding in it.",
+          "Hebrew does it too: הזדקן, grew old, not התזקן."
+        ],
+        "examples": ["pcav:0199", "pcav:2546", "pcav:0189", "pcav:3027"]
+      }
+    },
+    {
+      "id": "grammar:his-blood-is-light",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 70,
+        "title": "dámmu xafīf: say it about a part of them",
+        "points": [
+          "Arabic often describes a person through a part of them, with an ending (chapter 2): sáma3u tgīl, he’s hard of hearing (his hearing is heavy); nōmu xafīf, he’s a light sleeper (his sleep is light).",
+          "Some of these are sayings: dámmu xafīf, he’s fun to be with (his blood is light); maksūr gálbu, heartbroken (broken of heart).",
+          "šáklu is his looks, and it also says “it looks like”: šáklu bíddak naɖɖārāt, I think you need glasses.",
+          "Change the ending for someone else: dámmha xafīf, she’s fun to be with."
+        ],
+        "examples": ["pcav:0310", "pcav:0875", "pcav:3113", "pcav:0177", "pcav:0284"]
+      }
+    },
+    {
+      "id": "grammar:undoing",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 71,
+        "title": "rábaʈ and fakk: doing and undoing",
+        "points": [
+          "English undoes with un-. Arabic uses a verb of its own, and fakk undoes what’s tied or fastened: rábaʈ bōtu, to tie one’s shoes → fakk rabbāʈ bōtu, to untie them (undo their laces); sákkar lizrār, to button up → fakk lizrār, to unbutton.",
+          "A zipper closes and opens, like a door: sákkar issaɧɧāb, to zip up; fátaɧ issaɧɧāb, to unzip.",
+          "rábaʈ ties more than shoes: rábaʈ grāftu, to tie one’s tie."
+        ],
+        "examples": ["pcav:0609", "pcav:0610", "pcav:0592", "pcav:0593", "pcav:0595", "pcav:0596"]
+      }
+    },
+    {
+      "id": "grammar:market-loans",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 72,
+        "title": "brōtīn, bāmya: words that travel",
+        "points": [
+          "Borrowed words keep their sound: brōtīn, protein; kāri, curry; kartōna, carton; blūberi, blueberries. basʈírma is Hebrew’s פסטרמה too.",
+          "Hebrew uses some of the same words: bāmya, okra, is במיה, and mlūxxíyya is מלוחיה.",
+          "nuʂʂ is both half and the middle: gáʈʈa3 bi-nnúʂʂ, to cut in half, is “cut in the middle”."
+        ],
+        "examples": ["pcav:1217", "pcav:1126", "pcav:1263", "pcav:0809"]
+      }
+    },
+    {
+      "id": "grammar:kings-and-courts",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 73,
+        "title": "mámlaka, ɧákam: roots you know from Hebrew",
+        "points": [
+          "mámlaka, kingdom, is Hebrew ממלכה, from the root of málik, king.",
+          "ɧákam shares its root with Hebrew חכם, wise. In Arabic the root rules and judges: ɧákam, to govern; inɧákam 3alē, to be sentenced.",
+          "gátil is murder and gātil is the murderer: the long ā marks the doer, as in lābis (chapter 36). -íyya names the system and -i its adjective: dīmuqrāʈíyya, dīmuqrāʈi."
+        ],
+        "examples": ["pcav:2793", "pcav:2850", "pcav:2815", "pcav:2879"]
+      }
+    },
+    {
+      "id": "grammar:war-and-peace",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 74,
+        "title": "ɧass iɧsās ɧílu: feel a good feeling",
+        "points": [
+          "salām is Hebrew שלום. ɧarb, war, shares its root with Hebrew חרב, a sword.",
+          "To feel good is ɧass iɧsās ɧílu, “felt a good feeling”: the verb with its own noun after it. To feel bad is ɧass b-ʔiɧsās bíši3, with b- before the noun; both ways are said.",
+          "Long verbs have long nouns: infijār, explosion; iɧtilāl, occupation; ittifāg, agreement; intiqād, criticism."
+        ],
+        "examples": ["pcav:2997", "pcav:2996", "pcav:3058", "pcav:3015"]
+      }
+    },
+    {
+      "id": "grammar:faith-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 75,
+        "title": "nábi, malāk, rōɧ: faith words Hebrew shares",
+        "points": [
+          "Many faith words are Hebrew’s too: nábi, נביא; malāk, מלאך; rōɧ, רוח; šīʈān, שטן.",
+          "ijjánna, Heaven, is “the garden”, the same root as Hebrew גן, as in גן עדן.",
+          "-íyya names a faith and -i an adjective or a follower: ilyahūdíyya, Judaism; būdi, Buddhist; dīni, religious (of religion). A religious person is mutadáyyin."
+        ],
+        "examples": ["pcav:3191", "pcav:3193", "pcav:3186", "pcav:3180"]
+      }
+    },
+    {
+      "id": "grammar:can-be",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 76,
+        "title": "bingára, binɧább: in- for “can be”",
+        "points": [
+          "An in- verb (chapter 20) in the present, with b-, says what can be done to a thing: bingára, it can be read, so legible (from gára, to read or study).",
+          "With mā…š, it can’t be: xáʈʈu mā bingarāš bi-lmárra, his handwriting is completely illegible.",
+          "A person can be one too: binɧább, friendly (word for word, he can be loved)."
+        ],
+        "examples": ["pcav:3318", "pcav:3319", "pcav:3320", "pcav:3101"]
+      }
+    },
+    {
+      "id": "grammar:iyya-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 77,
+        "title": "aɣlabíyya, malakíyya: -íyya makes an idea",
+        "points": [
+          "Add -íyya to a word to name the idea behind it: áɣlab, most → aɣlabíyya, the majority; málik, king → malakíyya, monarchy; diktātōr → diktātōríyya, dictatorship.",
+          "Faiths and systems take it too: ilmasīɧíyya, Christianity; dīmuqrāʈíyya, democracy; jumhūríyya, a republic.",
+          "It’s the -i ending (chapter 47) with -a after it: masīɧi, Christian → ilmasīɧíyya."
+        ],
+        "examples": ["pcav:2806", "pcav:2807", "pcav:2794", "pcav:2820", "pcav:3212"]
+      }
+    },
+    {
+      "id": "grammar:at-the-dentist",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 78,
+        "title": "ɧáša sínnu: you say you did it",
+        "points": [
+          "English says you “get” a thing done at the dentist. Arabic just says you did it: ɧáša sínnu, he got a filling (word for word, he filled his tooth).",
+          "The same way: xála3 sinn, to get a tooth pulled (he pulled a tooth); náɖɖaf snānu, to get his teeth cleaned (he cleaned his teeth).",
+          "What you have stays with 3índu (chapter 54): 3índu tasáwwus, he has a cavity; 3índu ɧasāsíyya, he has a rash."
+        ],
+        "examples": ["pcav:1743", "pcav:1745", "pcav:1746", "pcav:1740"]
+      }
+    },
+    {
+      "id": "grammar:machines",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 79,
+        "title": "dabbāsa, ɣassāla: the machine shape",
+        "points": [
+          "The job shape (chapter 46) names a person. With -a after it, it names the thing that does the work: dabbāsa, stapler (dábbas, to staple); ɣassāla, washing machine (ɣásal, to wash); gallāya, frying pan (gála, to fry).",
+          "More of them: maɧɧāya, eraser (máɧa, to erase); ʈaffāya, ashtray (ʈáfa, to put out).",
+          "Some you know already: ʈayyāra, airplane; tallāja, refrigerator; maššāya, treadmill."
+        ],
+        "examples": ["pcav:2135", "pcav:0642", "pcav:0815", "pcav:2123", "pcav:2414"]
+      }
+    },
+    {
+      "id": "grammar:make-it-go",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 80,
+        "title": "ʈíli3 → ʈálla3: making a thing go",
+        "points": [
+          "Double the middle of a going verb, and you make something else go (chapter 20): ʈíli3, to go out → ʈálla3, to take out (ʈálla3 lizbāla, to take out the garbage); nízil, to go down → názzal, to lower (názzal iššubbāk, to roll the window down).",
+          "ríji3, to go back → rájja3, to give back: rájja3, to return something you bought.",
+          "wíʂil, to arrive → wáʂʂal, to take someone there, to give a lift: wáʂʂal ilbarīd, to deliver the mail.",
+          "Hebrew’s hifʿil does this job: יצא, went out, and הוציא, took out."
+        ],
+        "examples": ["pcav:0837", "pcav:0590", "pcav:1924", "pcav:2196", "pcav:1910"]
+      }
+    },
+    {
+      "id": "grammar:long-vowel-plurals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 81,
+        "title": "ʂarʂūr, ʂarāʂīr: more four-letter plurals",
+        "points": [
+          "Four-letter words take the plural of chapter 50: qúndus, qanādis; láqlaq, laqāliq; máxlab, maxālib.",
+          "And as with dulfīn, a long vowel before the last letter stays long, as ī: ʂarʂūr, ʂarāʂīr; barɣūt, barāɣīt; dabbūr, dabābīr; jāmūsa, jawāmīs.",
+          "kárma, a vine, shares its root with Hebrew כרם, a vineyard."
+        ],
+        "examples": ["pcav:3746", "pcav:3802", "pcav:3818", "pcav:3862"]
+      }
+    },
+    {
+      "id": "grammar:muta-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 82,
+        "title": "mutaqáddim: the formal mit-",
+        "points": [
+          "The mit- words of chapter 65 have a formal twin with muta- in front. Words from books, news and school keep it: mutawássiʈ, intermediate; mutaqáddim, advanced.",
+          "So do some words for people: mutafárrij, a spectator; mutaʐāhir, a protester; mutadáyyin, religious.",
+          "Everyday words say mit-: mitʔáxxir, late; mitšáwwig, looking forward to."
+        ],
+        "examples": ["pcav:3304", "pcav:3305", "pcav:2383", "pcav:2831", "pcav:3180"]
+      }
+    },
+    {
+      "id": "grammar:colors-from-things",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 83,
+        "title": "kúɧli, ramādi: colors named after things",
+        "points": [
+          "Past the basic colors (chapter 37), most color words are a thing with -i on the end, like a place word (chapter 47): ramād, ash → ramādi, gray; kuɧl, kohl, the dark eyeliner → kúɧli, navy blue.",
+          "You know more of them already: bunn, coffee beans → bínni, brown; burtaqāl, oranges → burtaqāli, orange; zahr, flowers → záhri, pink; banáfsaj, violets → banáfsaji, purple.",
+          "Two are coming: lamūni, lemon-yellow (lamūn, lemons) and zēti, olive green (zēt, oil)."
+        ],
+        "examples": ["pcav:3885", "pcav:3882", "pcav:3880"]
+      }
+    },
+    {
+      "id": "grammar:take-and-give",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 84,
+        "title": "áxad and á3ʈa: take and give",
+        "points": [
+          "áxad, to take, does much of the work of English’s get: áxad 3alāwa, to get a raise; áxad 3alāma 3ālya, to get a good grade; áxad dušš, to take a shower; áxad bard, to catch a cold.",
+          "á3ʈa, to give, is the other side: á3ʈa __ 3alāwa, to give someone a raise; á3ʈa dáwra, to teach a course (to give one).",
+          "Money that comes back is taken too: áxad maʂārī, to get a refund; áxad fawāyid, to earn interest.",
+          "Hebrew talks the same way: לקחת, to take a course."
+        ],
+        "examples": ["pcav:1356", "pcav:1357", "pcav:1548", "pcav:1659", "pcav:2063"]
+      }
+    },
+    {
+      "id": "grammar:grammar-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 85,
+        "title": "mu3árraf, nákira: the words grammar uses",
+        "points": [
+          "Many of grammar’s own words are done-to words with mu- (chapter 53). mu3árraf, definite, is “made known”: a word with il- (chapter 4). nákira, indefinite, is a word without it.",
+          "muđákkar, masculine, and muʔánnaŧ, feminine (chapter 82), are the same shape. jins, gender, is the word for both.",
+          "One, two, many: múfrad, singular; muŧánna, dual, the -ēn of two (chapter 3); jámi3, plural.",
+          "Hebrew’s word for definite, מיודע, is the same idea in the same shape."
+        ],
+        "examples": ["pcav:3384", "pcav:3386", "pcav:3366", "pcav:3368"]
+      }
+    },
+    {
+      "id": "grammar:second-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 86,
+        "title": "ʈárrad, fáʂal: a second word for the same thing",
+        "points": [
+          "Many things have two words, and you’ll hear both: ʈárrad and fáʂal, to fire; naʈūr and bawwāb, a doorman; 3ájjaz and xátyar, to grow old; múštarik and 3úɖu, a member.",
+          "Often one of the two is borrowed from English: dram beside ʈábil, a drum; fítnis beside layāqa, fitness.",
+          "You don’t have to say both. Know the second one when you hear it, and keep saying the one you like."
+        ],
+        "examples": ["pcav:1369", "pcav:0709", "pcav:0035", "pcav:2555", "pcav:2457"]
+      }
+    },
+    {
+      "id": "grammar:second-words-roots",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 87,
+        "title": "kāhin, gaʂʂ: second words with Hebrew roots",
+        "points": [
+          "Some second words are easy for a Hebrew speaker: kāhin, priest, is כהן; ilāh, a god, is אלוה; gaʂʂ, to cut, shares its root with קיצץ.",
+          "A noun you know can give a verb: zamb, sin (chapter 75), and áznab, to sin.",
+          "ma3gūl, reasonable or likely, has the root of 3ágil, mind (chapter 34), in the done-to shape of maftūɧ (chapter 30): what the mind accepts."
+        ],
+        "examples": ["pcav:3254", "pcav:4588", "pcav:3199", "pcav:4749"]
+      }
+    },
+    {
+      "id": "grammar:same-letters",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 88,
+        "title": "súkkar, tálij: one word, two things",
+        "points": [
+          "Some words you know name a second thing too: súkkar, sugar, is also diabetes; tálij, snow, is also ice; gáhwa, coffee, is also a coffeehouse; istirāɧa, a break, is also a cafeteria.",
+          "kamān, the violin, sounds just like kamān, more: kamān šwáyya, in a bit; kamān xams snīn, in five years.",
+          "The words around it tell you which one is meant."
+        ],
+        "examples": ["pcav:1192", "pcav:1678", "pcav:1023", "pcav:3698", "pcav:2017", "pcav:2454"]
+      }
+    },
+    {
+      "id": "grammar:chessboard",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 89,
+        "title": "wazīr, fīl: the pieces on a chessboard",
+        "points": [
+          "The chess pieces are words you know: wazīr, a minister, is the queen; fīl, an elephant, is the bishop; ɧʂān, a horse, is the knight; júndi, a soldier, is the pawn.",
+          "So are other second meanings in this chapter: xaʈʈ, a line, is a lane on the road; arɖ, the floor or the land, is a field; bard, a cold, is the coolness in the air.",
+          "When a word turns up in a new place, try the meaning you know first."
+        ],
+        "examples": ["pcav:2488", "pcav:2489", "pcav:2490", "pcav:2492", "pcav:1895"]
+      }
+    },
+    {
+      "id": "grammar:ordinals",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 90,
+        "title": "tālit, rābi3: first, second, third",
+        "points": [
+          "First is áwwal (ūla for a feminine thing). From second to tenth, the number takes the shape tālit: tāni, tālit, rābi3, xāmis, up to 3āšir.",
+          "For a feminine thing they end in -a: tālta, rāb3a. ilqanā -ttālta, channel 3.",
+          "After the thing, with il- on both (chapter 32): iʈʈābig irrābi3, the fourth floor. Before it, with no il-: 3āšir sána, the tenth year."
+        ],
+        "examples": ["pcav:1460", "pcav:2275", "pcav:0691", "pcav:1735", "pcav:0197"]
+      }
+    },
+    {
+      "id": "grammar:how-much",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 91,
+        "title": "gaddēš ɧájim: “how big” is “how much size”",
+        "points": [
+          "Where English says how and a describing word, Arabic asks how much of the thing, with gaddēš (chapter 26): gaddēš ɧájim dārku?, how big is your house? Word for word, how much size.",
+          "The same for how far: gaddēš ilmasāfa min hān la-lbálad?, how far is it to downtown? (how much is the distance).",
+          "How often is every how much: kull gaddēš bitmárran?, how often do you exercise?",
+          "Hebrew asks one this way too: כמה זמן, how long, is how much time."
+        ],
+        "examples": ["pcav:4326", "pcav:4330", "pcav:4333", "pcav:4324"]
+      }
+    },
+    {
+      "id": "grammar:nothing",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 92,
+        "title": "wála íši: “nothing”, “no one”",
+        "points": [
+          "wála before ɧáda or íši makes no one, nothing: wála ɧáda, no one; wála ʔíši, nothing.",
+          "It works as a whole answer: šū -štarēt? – wála ʔíši, what did you buy? – Nothing!",
+          "In a sentence, fiš ɧadd says no one: fiš ɧadd bi3īš la-lʔábad, no one lives forever. kull wāɧad is everyone, and ayy ɧáda is anyone (chapter 45)."
+        ],
+        "examples": ["pcav:4296", "pcav:4288", "pcav:4279", "pcav:4285"]
+      }
+    },
+    {
+      "id": "grammar:wishes",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 92,
+        "title": "álla ywáffgak: wishing someone well",
+        "points": [
+          "Many wishes are álla, God, and a verb with no b-: álla ywáffgak, good luck (word for word, God make you succeed); álla yišfīk, get well soon.",
+          "The ending says who it’s for (chapter 14): álla yírɧamu, may he rest in peace; álla yirɧámha, for a woman.",
+          "Thanks are often a wish too: álla ybārik fīk, God bless you, which is also how you answer mabrūk, congratulations.",
+          "Hebrew’s blessing יְבָרֶכְךָ, may He bless you, wishes with the same y- in front."
+        ],
+        "examples": ["pcav:4800", "pcav:4812", "pcav:4810", "pcav:4811", "pcav:4823", "pcav:4788"]
+      }
+    },
+    {
+      "id": "grammar:the-world-rains",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 93,
+        "title": "iddínya bitmáʈʈir: the world is raining",
+        "points": [
+          "English says “it’s raining”. Arabic says the world is: iddínya bitmáʈʈir; iddínya bittálij, it’s snowing.",
+          "iddínya is feminine, so the verb is in the she form, even when iddínya is left out: bádat tmáʈʈir, it’s started to rain; wággafat máʈar, it’s stopped raining.",
+          "The weather’s look is ijjáww and a describing word: ijjáww múšmis, it’s sunny; ijjáww mɣáyyim, it’s cloudy.",
+          "šákilha ɧatmáʈʈir, it looks like rain, is word for word “her look, she will rain”: the world again."
+        ],
+        "examples": ["pcav:3687", "pcav:3699", "pcav:3689", "pcav:3690", "pcav:3678", "pcav:3723"]
+      }
+    },
+    {
+      "id": "grammar:cousins",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 94,
+        "title": "íbin 3amm, bint xāla: which side a cousin is on",
+        "points": [
+          "Arabic has no one word for a cousin. It says whose child they are: íbin 3amm, the son of your father’s brother; bint xāla, the daughter of your mother’s sister.",
+          "So the uncles and aunts (chapter 12) decide it: 3amm and 3ámma are your father’s side, xāl and xāla your mother’s. íbin xāli is my cousin on my mother’s side.",
+          "It’s the “of” shape (chapter 33), and the ending goes on the last word: bint 3ámmi, my cousin, word for word the daughter of my uncle.",
+          "As in chapter 17, ákbar and áʂɣar before a word mean the most: ákbar áxu, the oldest brother; áʂɣar úxut, the youngest sister."
+        ],
+        "examples": ["pcav:0140", "pcav:0141", "pcav:0144", "pcav:0147", "pcav:0097", "pcav:0098"]
+      }
+    },
+    {
+      "id": "grammar:two-word-places",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 95,
+        "title": "máktab barīd, makātib barīd: two-word names",
+        "points": [
+          "Many places are two words side by side, as in chapter 33: márkaz šúrʈa, police station; maɧáʈʈit bāʂāt, bus station; ɣúrfit nōm, bedroom.",
+          "In the plural only the first word changes: máktab barīd, makātib barīd, post offices.",
+          "When the second word is an adjective, it changes too: márkaz tijāri, marākiz tijāríyya, shopping malls. A plural of things takes the adjective with -a."
+        ],
+        "examples": ["pcav:2011", "pcav:2012", "pcav:1838", "pcav:2178"]
+      }
+    },
+    {
+      "id": "grammar:front-and-back",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 97,
+        "title": "guddamāni, warrāni: the one in front, the one behind",
+        "points": [
+          "Put -āni on a word for a place and you get the one that’s there: guddām, in front, gives guddamāni, the front one; warā, behind, gives warrāni, the back one.",
+          "It goes after the word, like any describing word, with il- on both (chapter 32): ilkúrsi -lguddamāni, the front seat; ilkúrsi -lwarrāni, the back seat.",
+          "You’ll hear more of them: fōgāni, the upper one; taɧtāni, the lower one; juwwāni, the inner one; barrāni, the outer one.",
+          "The -i ending (chapter 47) can do the same job in a more formal word: bāb amāmi, the front door. Hebrew uses -i too: קדמי, front."
+        ],
+        "examples": ["pcav:1917", "pcav:1918", "pcav:0717"]
+      }
+    },
+    {
+      "id": "grammar:last-and-never",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 96,
+        "title": "lisbū3 ilmāɖi, wála márra: the week that passed, not even once",
+        "points": [
+          "“Last” is the one that passed, after the word with il- on both (chapter 32): lisbū3 ilmāɖi, last week; iššáhir ilmāɖi, last month.",
+          "It takes -a after a feminine word: issána ilmāɖya, last year.",
+          "In talk you’ll also hear ílli fāt, “that went by”: iššáhir ílli fāt, last month.",
+          "wála márra, never, is word for word “not even once”, the same wála as wála íši, nothing (chapter 92): wála márra akált mlūxíyya, I’ve never eaten mulukhiyah."
+        ],
+        "examples": ["pcav:4124", "pcav:4157", "pcav:4191", "pcav:4370"]
+      }
+    },
+    {
+      "id": "grammar:too-much",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 98,
+        "title": "zyāda 3an illuzūm, wála wāɧad: too much, and not one",
+        "points": [
+          "“Too” is zyāda 3an illuzūm, more than is needed, after the describing word: iššāy ɧílu zyāda 3an illuzūm, the tea is too sweet.",
+          "In talk, ktīr often does the job: kbīr ktīr is very big, or too big. Which one is meant comes from the moment.",
+          "wála wāɧad min is not one of, none of, the same wála as wála íši, nothing (chapter 92): wála wāɧad min ʂɧābi ʔíja, none of my friends came."
+        ],
+        "examples": ["pcav:4388", "pcav:3945"]
+      }
+    },
+    {
+      "id": "grammar:ago-and-from-now",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 99,
+        "title": "min tálatt iyyām, kamān xams snīn: ago, and from now",
+        "points": [
+          "“Ago” is min, from, before the time: min tálatt iyyām, three days ago (word for word, from three days). gábil, before, works too: gábil 3išrīn sána, twenty years ago.",
+          "“In” a time from now is kamān, the word for “more” and “also”: kamān xams snīn, in five years (five more years); kamān šwayy, in a little while.",
+          "yōm bá3id yōm, word for word “a day after a day”, means every other day. yōm āh yōm la, “a day yes, a day no”, says the same."
+        ],
+        "examples": ["pcav:4087", "pcav:4194", "pcav:4108"]
+      }
+    },
+    {
+      "id": "grammar:boiled-and-curly",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 100,
+        "title": "maslūg, mjá33ad: what was done to it",
+        "points": [
+          "The kitchen speaks in the done-to shape (chapter 30): bēɖ maslūg, boiled eggs; bēɖ maxfūg, scrambled; bēɖ mágli, fried; láɧma mafrūma, minced meat.",
+          "A doubled-middle verb’s done-to word has m- and an a (chapter 53): mdáwwar, round; mjá33ad, curly.",
+          "With an i it’s the doer: mujáffifit ilɣasīl, the clothes dryer, “the one that dries”."
+        ],
+        "examples": ["pcav:1222", "pcav:1223", "pcav:0367", "pcav:0643"]
+      }
+    },
+    {
+      "id": "grammar:written-and-yearly",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 101,
+        "title": "kitābi, dirāsíyya: -i and -íyya",
+        "points": [
+          "An -i adjective follows its noun: imtiɧān kitābi, a written exam; imtiɧān šáfawi, an oral one.",
+          "After a noun with -a, -i becomes -íyya: sána dirāsíyya, a school year; qā3ida naɧawíyya, a grammar rule. Hebrew does the same with -i and -it: אקדמי, אקדמית.",
+          "lúɣa ʔumm, native language, is “mother language”, like Hebrew שפת אם."
+        ],
+        "examples": ["pcav:1524", "pcav:1556", "pcav:3359", "pcav:3272"]
+      }
+    },
+    {
+      "id": "grammar:map-pictures",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 102,
+        "title": "guddamāni, šíbih jazīra: front glass, nearly an island",
+        "points": [
+          "-āni makes a word for where it sits: guddām, in front (chapter 6), gives guddamāni, front: gzāz guddamāni, the windshield; ɖaww guddamāni, a headlight.",
+          "Map words are pictures: šíbih jazīra, a peninsula, is “like an island” (Hebrew says half an island, חצי אי); nāʈaɧit saɧāb, a skyscraper, is “the one that butts the clouds”.",
+          "xaʈʈ ilʔistiwāʔ, the equator, is “the line of evenness”, like Hebrew קו המשווה."
+        ],
+        "examples": ["pcav:1914", "pcav:3553", "pcav:2028", "pcav:3587"]
+      }
+    },
+    {
+      "id": "grammar:picture-sweets",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 103,
+        "title": "šá3ar ilbanāt: names that are pictures",
+        "points": [
+          "Sweets and nuts with picture names: šá3ar ilbanāt, cotton candy, is “girls’ hair” (Hebrew says grandma’s hair, שערות סבתא); 3ēn iljámal, a walnut, is “the camel’s eye”.",
+          "A kind of show is barnāmij and what it’s made of: barnāmij musābagāt, a game show, “a program of contests”; barnāmij ɧiwāri, a talk show.",
+          "A kind of film is fílim and its kind: fílim waŧāʔiqi, a documentary; fílim iŧāra, a thriller."
+        ],
+        "examples": ["pcav:1095", "pcav:1175", "pcav:2261", "pcav:2257"]
+      }
+    },
+    {
+      "id": "grammar:feelings-and-little-words",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 104,
+        "title": "mitɧámmis la-, middāyag min: a feeling and its little word",
+        "points": [
+          "Like a verb (chapter 59), a word for a feeling comes with its own little word, and you learn the two together.",
+          "min, from, is for what the feeling comes from: m3áʂʂib min, angry with; middāyag min, fed up with; múɧrij min, embarrassed by; xāf min, to be afraid of.",
+          "la- is for what you look forward to: mitɧámmis la-, excited about. bi- and fi-, in, go with interest and pride: mihtámm bi-, interested in; faxūr fi, proud of.",
+          "English picks a different word each time (with, of, by, about), so don’t translate the little word; learn it with the feeling."
+        ],
+        "examples": ["pcav:3075", "pcav:3092", "pcav:3083", "pcav:3126"]
+      }
+    },
+    {
+      "id": "grammar:horse-tail",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 105,
+        "title": "dēl liɧʂān, áɧwal: pictures and looks",
+        "points": [
+          "Things around the house and body are pictures too: dēl liɧʂān, a ponytail, is “the horse’s tail”, like Hebrew זנב סוס; wíjih mxádda, a pillowcase, is “the pillow’s face”; muftāɧ inglīzi, a wrench, is an “English key”, as in Hebrew מפתח אנגלי.",
+          "áɧwal, cross-eyed, has the shape of áɧmar (chapter 37): ɧōla for a woman, ɧíwil for several.",
+          "b-sābi3 nōma, in a deep sleep, is “in the seventh sleep”."
+        ],
+        "examples": ["pcav:0375", "pcav:0848", "pcav:0950", "pcav:0277"]
+      }
+    },
+    {
+      "id": "grammar:decades",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 106,
+        "title": "ittamānīnāt, ilxamsīnāt: decades, and an age",
+        "points": [
+          "Put -āt on a tens number and you get its decade: tamānīn, eighty → ittamānīnāt, the eighties (chapter 51); xamsīn, fifty → ilxamsīnāt, the fifties.",
+          "The same word gives a person’s age: abūy fi -lxamsīnāt, my father is in his fifties.",
+          "bi- or fi- in front means “in”: bi-ttamānīnāt, in the eighties."
+        ],
+        "examples": ["pcav:4198", "pcav:0028"]
+      }
+    },
+    {
+      "id": "grammar:prayer-times",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 107,
+        "title": "ʂalāt ilfájir: the prayers by name",
+        "points": [
+          "ʂalā shows its t before the next word, as in chapter 33: ʂalāt ilfájir, the dawn prayer; ʂalāt ilmáɣrib, the sunset prayer; ʂalāt il3íša, the evening prayer.",
+          "máɣrib, sunset, shares its root with Hebrew ערב, evening, and מערב, west.",
+          "Cheeses take the -i of a place: jíbna sʈanbūli, Istanbul cheese; jíbna rūmi, from Rūm, the old name for the Byzantine lands. These are set names, so they keep -i after jíbna."
+        ],
+        "examples": ["pcav:3238", "pcav:3243", "pcav:3244", "pcav:1081"]
+      }
+    },
+    {
+      "id": "grammar:river-horse",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 108,
+        "title": "fáras náhir: the river horse",
+        "points": [
+          "fáras náhir, a hippopotamus, is “river horse”, just as the Greek name says; waɧīd ilqárn, a rhinoceros, is “the one-horned”, and qárn is Hebrew קרן.",
+          "The -i of a place again: qúʈb, a pole, gives dubb qúʈbi, a polar bear.",
+          "Numbers have names for their jobs: 3ádad áʂli, a cardinal number, “a number of origin”; 3ádad tartībi, an ordinal, “a number of order”. Fractions say the count, then the part: talt xmās, three fifths."
+        ],
+        "examples": ["pcav:3752", "pcav:3760", "pcav:3758", "pcav:4071"]
+      }
+    },
+    {
+      "id": "grammar:names-of-the-land",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 109,
+        "title": "bīr issábi3, bālak: the land and the moment",
+        "points": [
+          "Some names are the same in Hebrew: bīr issábi3 is באר שבע, “the well of seven” (or of the oath); ʈabaríyya is טבריה.",
+          "bālak, “your mind”, asks what someone thinks: bālak ɧatmáʈʈir? Do you think it’ll rain?",
+          "The weather in degrees: b-nuʂʂ il3išrīn, in the mid-twenties, “in the half of the twenties”; b-ʔāxir il3išrīn, “at the end of the twenties”.",
+          "Kind words for the moment: na3ēman after a bath; taqábbal allāh after a prayer; mabrūk ilʔiftitāɧ for a new shop."
+        ],
+        "examples": ["pcav:3540", "pcav:3722", "pcav:3651", "pcav:4813"]
+      }
+    },
+    {
+      "id": "grammar:it-looks-like",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 110,
+        "title": "šáklu, báʈin: how it looks, and the belly of things",
+        "points": [
+          "šáklu, “his shape”, says how a thing looks or seems: šákilha miš nāyma mnīɧ, she doesn’t look like she slept well; šáklu -lʔákil inɧárag, it looks like the food has burned.",
+          "báʈin, the belly, names the underside: báʈin ilʔīd, the ball of the hand; báʈin ríjil, the sole of the foot. It is Hebrew בטן.",
+          "A plural of things takes a plural describing word after it: ktāf 3rāɖ, broad shoulders; rmūšha ʈwāl, her eyelashes are long; šafāyif našfāt, chapped lips."
+        ],
+        "examples": ["pcav:0872", "pcav:0303", "pcav:0434", "pcav:0451"]
+      }
+    },
+    {
+      "id": "grammar:up-and-down",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 111,
+        "title": "múmkin t3álli, 3úmrak: could you, and have you ever",
+        "points": [
+          "múmkin with the verb asks politely: múmkin t3álli -ʂʂōt? Could you turn it up? múmkin abádlu? Can I exchange it?",
+          "3álla, to raise, comes from 3āli, high, and wáʈʈa, to lower, from wāʈi, low: the doubled middle makes a thing go, as ʈálla3 does from ʈíli3.",
+          "3úmrak, “your life”, with a past verb asks “have you ever”: 3úmrak šuft ɧālak 3a -ttilfizyōn? Have you ever seen yourself on TV?"
+        ],
+        "examples": ["pcav:2280", "pcav:2282", "pcav:2272", "pcav:2198"]
+      }
+    },
+    {
+      "id": "grammar:words-for-a-loss",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 112,
+        "title": "álla yirɧámha, la-bēn ma: words for a loss, and “by the time”",
+        "points": [
+          "When someone has died you say álla yirɧámu for a man, álla yirɧámha for a woman: God have mercy on him, on her. Hearing the news, you say álla yʂábbir áhlu, God give his family patience.",
+          "To the family you say ilbagíyya b-ɧayātak, and they answer t3īš. ayyām il3áza are the days when people come to the family’s house to sit with them.",
+          "la-bēn ma tells you by when: la-bēn ma wʂílna kān ilʔákil xíliʂ, by the time we got there, the food was gone."
+        ],
+        "examples": ["pcav:4811", "pcav:4809", "pcav:0072", "pcav:4447"]
+      }
+    },
+    {
+      "id": "grammar:married-in",
+      "subject": "arabic",
+      "type": "grammar-card",
+      "data": {
+        "chapter": 113,
+        "title": "mart, jōz, min: the family you marry into",
+        "points": [
+          "mart, “the wife of”, and jōz, “the husband of”, name the relatives you gain by marriage: mart 3amm, your father’s brother’s wife; jōz xāla, your mother’s sister’s husband.",
+          "A half-brother or half-sister is one “from” a parent: áxu min ilʔábu, úxut min ilʔámm. A stepchild is the child of your husband or wife: íbin jōz, bint mart.",
+          "bi-ttabánni, “by adoption”, goes after a family word: íbin bi-ttabánni, an adopted son; áhil bi-ttabánni, adoptive parents."
+        ],
+        "examples": ["pcav:0133", "pcav:0109", "pcav:0121", "pcav:0154"]
+      }
+    }
+  ]
+}

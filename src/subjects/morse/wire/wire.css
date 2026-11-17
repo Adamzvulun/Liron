@@ -1,0 +1,76 @@
+/* The wire (task 3.6): a lamp on the line, lit like the tower's lamps: steady when the friend is
+   on, slow when waiting, quick when reconnecting, dark when the line is down. */
+
+.wire__friends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Each row of friends fills the card, so a long name doesn't leave the buttons ragged. */
+.wire__friends > button {
+  flex: 1 1 auto;
+}
+
+.wire__state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--parchment);
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.wire__lamp {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: #8a7a62;
+}
+
+.wire__state--open .wire__lamp {
+  background: #f2b33d;
+  box-shadow: 0 0 10px 2px rgb(255 196 80 / 75%);
+}
+
+.wire__state--waiting .wire__lamp,
+.wire__state--connecting .wire__lamp {
+  background: #d9a441;
+  animation: wire-wait 1.6s ease-in-out infinite;
+}
+
+.wire__state--dropped .wire__lamp {
+  background: #d9a441;
+  animation: wire-wait 0.5s ease-in-out infinite;
+}
+
+.wire__state--lost .wire__lamp,
+.wire__state--failed .wire__lamp {
+  background: #8a2b1b;
+}
+
+@keyframes wire-wait {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wire__lamp {
+    animation: none !important;
+  }
+}
+
+.wire__theirs {
+  margin-bottom: 12px;
+}
+
+.wire__actions {
+  margin-top: 12px;
+}

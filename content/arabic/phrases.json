@@ -1,0 +1,249 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (the sets only: the phrases themselves are the Lingualism deck's, private, ADR 0011)",
+  "items": [
+    {
+      "id": "phrases:1",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 1,
+        "title": "At the door",
+        "intro": "Greetings: the first thing anyone says to you.",
+        "items": [
+          "pcav:4761",
+          "pcav:4762",
+          "pcav:4764",
+          "pcav:4765",
+          "pcav:4767",
+          "pcav:4766",
+          "pcav:4780",
+          "pcav:4771",
+          "pcav:4772",
+          "pcav:4773"
+        ],
+        "glosses": {
+          "pcav:4765": "How are you? (to a man)",
+          "pcav:4767": "Fine, all good",
+          "pcav:4766": "Praise God! (= I’m fine)"
+        }
+      }
+    },
+    {
+      "id": "phrases:2",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 2,
+        "title": "Please and thanks",
+        "intro": "Yes, no, please, thank you, sorry: small words that open doors.",
+        "items": [
+          "pcav:4751",
+          "pcav:4753",
+          "pcav:4755",
+          "pcav:4757",
+          "pcav:4758",
+          "pcav:4756",
+          "pcav:4759",
+          "pcav:4754",
+          "pcav:4818",
+          "pcav:4819"
+        ],
+        "glosses": {
+          "pcav:4754": "Excuse me (to a man)",
+          "pcav:4756": "Here you are! / Go ahead!",
+          "pcav:4818": "God give you strength! (thanks for your effort, to a man)",
+          "pcav:4819": "God keep you well! (the reply, to a man)"
+        },
+        "latin": {
+          "pcav:4753": "laʔ"
+        }
+      }
+    },
+    {
+      "id": "phrases:3",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 3,
+        "title": "Counting",
+        "intro": "One to ten, for prices, buses and phone numbers.",
+        "items": [
+          "pcav:3970",
+          "pcav:3971",
+          "pcav:3973",
+          "pcav:3974",
+          "pcav:3975",
+          "pcav:3976",
+          "pcav:3977",
+          "pcav:3978",
+          "pcav:3979",
+          "pcav:3980"
+        ]
+      }
+    },
+    {
+      "id": "phrases:4",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 4,
+        "title": "Questions",
+        "intro": "Who, what, where, how much: and the first questions people ask you.",
+        "items": [
+          "pcav:4297",
+          "pcav:4300",
+          "pcav:4305",
+          "pcav:4310",
+          "pcav:4312",
+          "pcav:4314",
+          "pcav:4298",
+          "pcav:4299",
+          "pcav:4306",
+          "pcav:4325"
+        ],
+        "glosses": {
+          "pcav:4314": "how much, how many",
+          "pcav:4299": "What do you want? (to a man)",
+          "pcav:4306": "Where do you live? (to a man)",
+          "pcav:4325": "How old are you? (to a man)"
+        }
+      }
+    },
+    {
+      "id": "phrases:5",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 5,
+        "title": "At the shop",
+        "intro": "Asking prices, paying and getting your change.",
+        "items": [
+          "pcav:4318",
+          "pcav:4319",
+          "pcav:2160",
+          "pcav:2159",
+          "pcav:2897",
+          "pcav:2153",
+          "pcav:2194",
+          "pcav:2165",
+          "pcav:2210",
+          "pcav:2904"
+        ],
+        "glosses": {
+          "pcav:4318": "How much is it?",
+          "pcav:4319": "How much is this?",
+          "pcav:2194": "Would you like a bag? (to a man)",
+          "pcav:2210": "Excuse me, the bill please",
+          "pcav:2904": "Could you break this bill, please? (to a man)"
+        }
+      }
+    },
+    {
+      "id": "phrases:6",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 6,
+        "title": "Getting to know you",
+        "intro": "Names, where people are from, and asking them to slow down.",
+        "items": [
+          "pcav:0215",
+          "pcav:3410",
+          "pcav:4784",
+          "pcav:0186",
+          "pcav:3328",
+          "pcav:3331",
+          "pcav:4395",
+          "pcav:4336",
+          "pcav:4342",
+          "pcav:4558",
+          "pcav:4777"
+        ],
+        "glosses": {
+          "pcav:0215": "What’s your name? (to a man)",
+          "pcav:3410": "Where are you from? (to a man)",
+          "pcav:4784": "Nice to meet you (to a man)",
+          "pcav:0186": "Are you married? (to a man)",
+          "pcav:3328": "Can you speak Arabic? (to a man)",
+          "pcav:4395": "You speak Arabic well (to a man)",
+          "pcav:4558": "I didn’t understand a thing you said",
+          "pcav:4777": "See you later! (to a man)"
+        }
+      }
+    },
+    {
+      "id": "phrases:7",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 7,
+        "title": "At the coffee corner",
+        "intro": "Coffee, tea and how sweet you like it.",
+        "items": [
+          "pcav:1043",
+          "pcav:1045",
+          "pcav:1055",
+          "pcav:1022",
+          "pcav:1067",
+          "pcav:1192",
+          "pcav:1047",
+          "pcav:1048",
+          "pcav:1046",
+          "pcav:2204"
+        ],
+        "glosses": {
+          "pcav:1046": "How do you take your coffee? (to a man)"
+        }
+      }
+    },
+    {
+      "id": "phrases:8",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 8,
+        "title": "Which way",
+        "intro": "Right, left, straight on: buses, taxis and the bathroom.",
+        "items": [
+          "pcav:1852",
+          "pcav:1850",
+          "pcav:1853",
+          "pcav:1851",
+          "pcav:1856",
+          "pcav:4496",
+          "pcav:1835",
+          "pcav:1843",
+          "pcav:0494",
+          "pcav:1777"
+        ]
+      }
+    },
+    {
+      "id": "phrases:9",
+      "subject": "arabic",
+      "type": "phrase-set",
+      "data": {
+        "order": 9,
+        "title": "Today and tomorrow",
+        "intro": "Days, the time, and when things happen.",
+        "items": [
+          "pcav:4093",
+          "pcav:4101",
+          "pcav:4089",
+          "pcav:4204",
+          "pcav:4218",
+          "pcav:4224",
+          "pcav:4225",
+          "pcav:4226",
+          "pcav:4102",
+          "pcav:4249"
+        ],
+        "glosses": {
+          "pcav:4204": "right now / just now"
+        }
+      }
+    }
+  ]
+}

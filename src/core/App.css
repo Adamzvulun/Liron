@@ -1,53 +1,408 @@
-.lobby {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 48px 16px;
+.lobby__top {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.lobby__title {
-  margin: 0;
+/* Only the HUD's panels take clicks; the gaps between them belong to the city. */
+.city__overlay .lobby__top,
+.lobby__top .hud {
+  pointer-events: none;
+}
+
+.lobby__top .hud > * {
+  pointer-events: auto;
+}
+
+/* Wide screens: the concept's layout (#26). The player top left, the banner in the middle,
+   the purse and settings top right, today's quests under them. */
+@media (min-width: 900px) {
+  .lobby__top .hud {
+    flex: 1;
+    grid-template-columns: minmax(0, auto) 1fr auto;
+    grid-template-areas:
+      'player banner purse'
+      '. . quests';
+  }
+
+  .lobby__top .hud__player {
+    grid-area: player;
+  }
+
+  .lobby__top .hud__banner {
+    grid-area: banner;
+    justify-self: center;
+  }
+
+  .lobby__top .hud__purse {
+    grid-area: purse;
+    flex-wrap: nowrap;
+  }
+
+  .lobby__top .hud__quests {
+    grid-area: quests;
+    justify-self: end;
+    width: 360px;
+  }
+}
+
+/* A short screen (a phone held sideways): today's quests stay on the Notice Board, so the
+   square isn't hidden behind them. */
+@media (max-height: 500px) {
+  .lobby__top .hud__quests {
+    display: none;
+  }
+}
+
+@media (min-width: 1400px) {
+  .lobby__top .hud__banner {
+    display: block;
+  }
+}
+
+/* Phones held upright (#27): a slim HUD, so the square gets the screen. One row for who you
+   are, one for the purse and today's goal; the quests are behind the dock's Quests button. */
+.city--pan .lobby__top {
+  position: static;
+  padding: 6px 8px;
+}
+
+.city--pan .hud {
+  flex: 1;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.city--pan .hud__quests,
+.city--pan .hud__banner {
+  display: none;
+}
+
+/* min-width: the line never widens the bar. It may take two lines, so the next step is read
+   whole (a third of the road's invites don't fit on one line of a 412-pixel phone); only a
+   longer one is cut short. */
+.city--pan .hud__compass {
+  display: block;
+  min-width: 0;
+}
+
+.city--pan .hud__compassline {
+  display: -webkit-box;
+  /* One line sits in the middle of the 44-pixel button; two make it taller. */
+  padding: 9px 10px;
+  line-height: 19px;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.city--pan .hud__player {
+  gap: 8px;
+}
+
+.city--pan .hud__portrait {
+  width: 40px;
+  height: 40px;
+  border-width: 3px;
+  box-shadow:
+    inset 0 0 0 3px var(--brass),
+    0 3px 0 var(--ink);
+}
+
+.city--pan .hud__plate {
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.city--pan .hud__who {
+  flex-wrap: nowrap;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.city--pan .hud__name {
+  overflow: hidden;
+  max-width: 8em;
+  text-overflow: ellipsis;
+}
+
+.city--pan .hud__xp {
+  flex: 1;
+  gap: 6px;
+}
+
+.city--pan .hud__bar {
+  min-width: 40px;
+  height: 10px;
+  border-width: 2px;
+}
+
+.city--pan .hud__xptext {
+  font-size: 13px;
+}
+
+/* One row while it fits; a long-time player's chips (five-figure gold, shields) wrap rather
+   than push the settings button off the screen, which keeps its place at the row's end
+   (review, 2026-11-17). */
+.city--pan .hud__purse {
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-right: 50px;
+}
+
+.city--pan .hud__purse > .hud__gear {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.city--pan .hud__chip {
+  min-height: 34px;
+  white-space: nowrap;
+  gap: 5px;
+  padding: 2px 8px;
+  font-size: 14px;
+  box-shadow:
+    inset 0 0 0 2px #8a5a33,
+    0 3px 0 var(--ink);
+}
+
+.city--pan .hud__chip svg {
+  width: 18px;
+  height: 18px;
+}
+
+.city--pan .hud__chip--goal {
+  display: inline-flex;
+}
+
+.city--pan .hud__gear {
+  margin-left: auto;
+}
+
+/* The settings button keeps a whole thumb's 44px (WCAG 2.5.5), slim bar or not. */
+.city--pan .hud__gear {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+}
+
+/* The narrowest phones (320px): the chips drop their units ("2", not "2 days"; their labels
+   still say it) and the plate its rank title ("Adam · Lv 3"), so the bar fits the screen. */
+@media (max-width: 359px) {
+  .city--pan .hud__unit,
+  .city--pan .hud__title {
+    display: none;
+  }
+}
+
+/* A place's screen (#25), until halls and houses get their own content. */
+.place-screen {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+}
+
+.place-screen--wide {
+  max-width: 1140px;
+}
+
+/* A hall that paints its own room (a child with .place-scene) gets the whole window; the way
+   back floats over the room and the title is left for screen readers. */
+.place-screen:has(> .place-scene) {
+  position: relative;
+  max-width: none;
+  padding: 0;
+}
+
+.place-screen:has(> .place-scene) > .place-screen__back {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  left: 12px;
+  padding: 4px 16px;
+  border: var(--outline-ui);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  box-shadow: 0 4px 0 var(--ink);
+  color: var(--vellum);
+  text-decoration: none;
+}
+
+.place-screen:has(> .place-scene) > .place-screen__title,
+.place-screen:has(> .place-scene) > .place-screen__tagline {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* On a phone, a station's screen (a lesson, a drill) gives the screen to the work: the hall's
+   title and tagline are left for screen readers, since its way back already names the hall.
+   A phone held sideways is wide but short, so it counts too. */
+@media (max-width: 640px), (max-height: 500px) {
+  .place-screen:has(> .hall-backdrop) {
+    padding-top: 12px;
+  }
+
+  /* The two ways back share a row: to the square, and to the hall. */
+  .place-screen:has(> .hall-backdrop) > .place-screen__back {
+    margin-right: 14px;
+  }
+
+  .place-screen:has(> .hall-backdrop) > .place-screen__title,
+  .place-screen:has(> .hall-backdrop) > .place-screen__tagline {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* A station's screen keeps its hall's painting behind it, under the cards but above the page. */
+.place-screen:has(> .hall-backdrop) {
+  isolation: isolate;
+}
+
+.hall-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* The hall's painting behind a station (roadmap A1): still, blurred, and darkened toward the
+   bottom so the cards and the text between them stay easy to read. */
+.hall-backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Sepia takes the painting's night sky to lamplit brown: behind a card it is a ground, and
+     no ground is blue (docs/design/grounds.md). */
+  filter: blur(5px) sepia(0.7) saturate(0.85);
+  transform: scale(1.04);
+}
+
+.hall-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(30 18 9 / 62%) 0%, rgb(20 12 6 / 80%) 100%);
+}
+
+/* Your House (A2), the Market (A3), the Notice Board (A4), the Radio Room (A5) and the two
+   station close-ups (A6: the innkeeper's table, the listening desk) are places of their own,
+   not a hall seen from a station: less blur and a lighter veil, so the room or the lane still
+   reads around the cards. */
+.hall-backdrop[data-hall='house'] img,
+.hall-backdrop[data-hall='market'] img,
+.hall-backdrop[data-hall='board'] img,
+.hall-backdrop[data-hall='radio'] img,
+.hall-backdrop[data-hall='inn'] img,
+.hall-backdrop[data-hall='desk'] img {
+  filter: blur(2px) sepia(0.6) saturate(0.9);
+}
+
+.hall-backdrop[data-hall='house']::after,
+.hall-backdrop[data-hall='market']::after,
+.hall-backdrop[data-hall='board']::after,
+.hall-backdrop[data-hall='radio']::after,
+.hall-backdrop[data-hall='inn']::after,
+.hall-backdrop[data-hall='desk']::after {
+  background: linear-gradient(180deg, rgb(30 18 9 / 35%) 0%, rgb(20 12 6 / 62%) 100%);
+}
+
+.place-screen__back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+  color: var(--parchment);
+}
+
+.place-screen__title {
+  margin: 16px 0 8px;
   font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
   font-weight: 900;
-  font-size: clamp(40px, 8vw, 72px);
+  font-size: clamp(32px, 7vw, 56px);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--lamplight);
   text-shadow: 0 4px 0 var(--ink);
+  outline: none;
 }
 
-.lobby__lead {
-  margin: 8px 0 32px;
-  font-size: 19px;
+.place-screen__tagline {
+  margin: 0 0 24px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.lobby__places {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+.place-screen__soon {
   margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.place {
   padding: 20px 24px;
   border: var(--outline-ui);
-  border-left-width: 12px;
   border-radius: var(--radius-card);
   background: var(--parchment);
   color: var(--ink);
+  font-size: 18px;
   box-shadow: 0 5px 0 var(--ink);
 }
 
-.place__sign {
-  margin: 0 0 4px;
-  font-family: var(--font-display);
+/* While the sign-in is checked: it fades in only if the wait is long enough to notice. */
+.app__loading {
+  margin: 0;
+  padding-top: 40vh;
+  text-align: center;
   font-weight: 700;
-  font-size: 24px;
-  text-transform: uppercase;
+  color: var(--parchment);
+  text-shadow: 0 2px 0 var(--ink);
+  animation: app-loading-in 0.3s ease-out 0.6s both;
 }
 
-.place__tagline {
+@keyframes app-loading-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* "Try again" when a place couldn't load what it shows (review, 2026-11-15). */
+.place__retry {
+  min-height: 44px;
+  margin-left: 4px;
+  padding: 0 16px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: linear-gradient(#ffd98a, var(--brass));
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* The words stand on the gate's light, so they carry their own dark plate. */
+.app__loading p {
+  display: inline-block;
   margin: 0;
-  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgb(30 18 9 / 85%);
 }
