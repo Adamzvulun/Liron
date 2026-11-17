@@ -14,7 +14,12 @@ import {
 } from './fortyWinters.ts';
 
 const KEYABLE = new Set([...MORSE_CHARS.map((c) => c.char), ' ']);
-const first = FINALE_MESSAGES[0]!;
+/** The first of a list, which the test needs to be there. */
+function must<T>(x: T | undefined): T {
+  if (x === undefined) throw new Error('missing');
+  return x;
+}
+const first = must(FINALE_MESSAGES[0]);
 const right = first.questions.map((q) => q.answer);
 
 describe('Forty Winters, the Morse capstone', () => {
@@ -39,7 +44,7 @@ describe('Forty Winters, the Morse capstone', () => {
   });
 
   it('offers every choice once', () => {
-    const q = first.questions[0]!;
+    const q = must(first.questions[0]);
     expect(choicesFor(q, () => 0.5).sort()).toEqual([q.answer, ...q.wrong].sort());
   });
 

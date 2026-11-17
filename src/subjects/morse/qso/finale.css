@@ -1,32 +1,4 @@
-/* Forty Winters, the finale (task 4.2): the painting leads the card, framed like a picture. */
-.finale__card {
-  width: min(100%, 820px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.finale__picture {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 2;
-  margin: 0 0 16px;
-  border: var(--outline-ui);
-  border-radius: 10px;
-  box-shadow: 0 4px 0 var(--ink);
-}
-
-.finale__epilogue {
-  max-width: 60ch;
-  font-style: italic;
-}
-
-.finale__reward {
-  font-weight: 700;
-}
-
+/* Forty Winters (task 4.2): the keying and the questions. The card is src/core/city/finale.css. */
 .finale__key {
   width: min(100%, 760px);
 }

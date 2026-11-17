@@ -410,6 +410,24 @@
         "title": "Keeper of the Hour",
         "order": 23
       }
+    },
+    {
+      "id": "stranger-at-the-gate",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "The Stranger at the Gate",
+        "text": "Tell the whole table your story: pass the Caravanserai’s finale",
+        "condition": {
+          "kind": "events",
+          "subject": "arabic",
+          "kinds": ["trial-stranger-at-the-gate"],
+          "n": 1
+        },
+        "gems": 5,
+        "title": "Keeper of the Table",
+        "order": 24
+      }
     }
   ]
 }

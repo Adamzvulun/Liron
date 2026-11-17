@@ -1,0 +1,103 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (story text written for Waymark)",
+  "items": [
+    {
+      "id": "finale:stranger-at-the-gate",
+      "subject": "arabic",
+      "type": "finale",
+      "data": {
+        "title": "The Stranger at the Gate",
+        "intro": "Dusk, and dust on someone’s boots. A stranger stands at the gate, looks up at the words painted over the arch, and can’t read them. The innkeeper has her hands in the dough. She looks at you.",
+        "rules": "Three parts, as the innkeeper asks. Read a page of her guest book: say what each line means. Write the stranger’s name on the slate, from memory. Then tell the whole table the story of your road, in Arabic, at least 6 of your lines. A judge reads the chat for three things: you understood, you answered, you kept it going. It can’t hear you, so it never judges your pronunciation.",
+        "book": "The innkeeper wipes her hands and opens the guest book to a page in her own hand. “Read it to them,” she says, and nods at the stranger.",
+        "slate": "The stranger tells you their name. The scribe slides the slate across the table: the guest book wants it in Arabic.",
+        "story": "“Now,” says the innkeeper, pulling out the bench, “tell them how you got here.” The whole table turns to listen.",
+        "screen": "The full table at night, every regular’s keepsake in its place: Salim’s cup, Nasser’s map, Leila’s portrait over the table. The stranger sits on the bench, and the guest book lies open.",
+        "epilogue": "You say what was said to you. “You can’t read the signs on the road? Then sit. Every traveler starts with a few letters.” The innkeeper opens her book to a clean page and, this time, hands you the pen.",
+        "missed": "The stranger smiles and stays the night anyway. The innkeeper says you can try again whenever you like: the table isn’t going anywhere."
+      }
+    },
+    {
+      "id": "finale:stranger:1",
+      "subject": "arabic",
+      "type": "stranger",
+      "data": {
+        "arabic": "نور",
+        "latin": "Nūr",
+        "hebrew": "נור"
+      }
+    },
+    {
+      "id": "finale:stranger:2",
+      "subject": "arabic",
+      "type": "stranger",
+      "data": {
+        "arabic": "سامي",
+        "latin": "Sāmī",
+        "hebrew": "סאמי"
+      }
+    },
+    {
+      "id": "finale:stranger:3",
+      "subject": "arabic",
+      "type": "stranger",
+      "data": {
+        "arabic": "هدى",
+        "latin": "Hudā",
+        "hebrew": "הדא"
+      }
+    },
+    {
+      "id": "finale:stranger:4",
+      "subject": "arabic",
+      "type": "stranger",
+      "data": {
+        "arabic": "كريم",
+        "latin": "Karīm",
+        "hebrew": "כרים"
+      }
+    },
+    {
+      "id": "finale:stranger:5",
+      "subject": "arabic",
+      "type": "stranger",
+      "data": {
+        "arabic": "سلمى",
+        "latin": "Salmā",
+        "hebrew": "סלמא"
+      }
+    },
+    {
+      "id": "finale:stranger:6",
+      "subject": "arabic",
+      "type": "stranger",
+      "data": {
+        "arabic": "رامي",
+        "latin": "Rāmī",
+        "hebrew": "ראמי"
+      }
+    },
+    {
+      "id": "finale:stranger:7",
+      "subject": "arabic",
+      "type": "stranger",
+      "data": {
+        "arabic": "لينا",
+        "latin": "Līnā",
+        "hebrew": "לינא"
+      }
+    },
+    {
+      "id": "finale:stranger:8",
+      "subject": "arabic",
+      "type": "stranger",
+      "data": {
+        "arabic": "مازن",
+        "latin": "Māzin",
+        "hebrew": "מאזן"
+      }
+    }
+  ]
+}

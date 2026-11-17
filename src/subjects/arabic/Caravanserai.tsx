@@ -11,6 +11,7 @@ import { CoffeeCorner } from './phrases/CoffeeCorner.tsx';
 import { WordLessons } from './core/WordLessons.tsx';
 import { EchoWell } from './echo/EchoWell.tsx';
 import { InnChat } from './chat/InnChat.tsx';
+import { StrangerAtTheGate } from './finale/StrangerAtTheGate.tsx';
 import { RoadGuide } from '../../core/road/NextStep.tsx';
 import type { RoadReading } from '../../core/road/roadHere.ts';
 import { ArabicText } from './ArabicText.tsx';
@@ -42,6 +43,7 @@ const VIEWS: readonly View[] = [
   'regular',
   'echo',
   'chat',
+  'gate',
 ];
 
 /**
@@ -49,7 +51,7 @@ const VIEWS: readonly View[] = [
  * lesson, the fountain's listening, the storyteller's reading (#38–#41) and the Painted Sign
  * (#43), the slate's writing (#41), the coffee corner's phrases (#45) and the innkeeper's word
  * lessons (#160) with the regulars' trials (#161) and chats (E17). ?open=lesson (or listen, read, write, phrases,
- * words, trial, regular, echo, chat) in the address goes straight there (for tests).
+ * words, trial, regular, echo, chat, gate) in the address goes straight there (for tests).
  */
 export function Caravanserai({ api }: { api: SubjectApi }) {
   const [view, setView] = useState<View>(() => {
@@ -68,7 +70,7 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
   return (
     <RoadGuide view={view} loadState={loadState} read={readRoad} go={go} text={beat}>
       {/* The word lessons and the regulars' trials sit at the innkeeper's table (roadmap A6). */}
-      {view === 'words' || view === 'regular' || view === 'chat' ? (
+      {view === 'words' || view === 'regular' || view === 'chat' || view === 'gate' ? (
         <HallBackdrop id="inn" {...INN_TABLE_STAGE} paint={paintInnTable} />
       ) : (
         <HallBackdrop id="khan" {...KHAN_STAGE} paint={wholeCourtyard} />
@@ -87,6 +89,8 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
           <EchoWell api={api} />
         ) : view === 'chat' ? (
           <InnChat api={api} />
+        ) : view === 'gate' ? (
+          <StrangerAtTheGate api={api} onTable={() => go('chat')} />
         ) : view === 'words' || view === 'regular' ? (
           <WordLessons
             key={view}

@@ -2,7 +2,9 @@
  * The AI partner (E15, ADR 0004, 0007, 0036): a Vercel function (ADR 0011 #3) that writes one
  * line a character says. Three kinds so far: two of a Radio Room operator's, `radio-news`, their
  * news (ADR 0036), and `radio-reply`, their answer to the news the learner keyed (ADR 0037); and
- * `inn-chat`, a regular's next line in an Arabic chat at the inn (E17, ADR 0038).
+ * `inn-chat`, a regular's next line in an Arabic chat at the inn (E17, ADR 0038); and for the
+ * Long Road In's finale (ADR 0047), `inn-story`, the innkeeper's next question about your road,
+ * and `inn-judge`, the verdict on that chat against the capstone's rubric.
  *
  * POST /api/partner, `Authorization: Bearer <the learner's Supabase access token>`, a JSON body
  * shaped like `PartnerAsk` in src/core/partner.ts. Answers `{ text, left }`: the line and how many
@@ -164,11 +166,32 @@ export interface CoachAsk {
   turns: InnTurn[];
 }
 
+/**
+ * "Your Story", the Long Road In's finale (task 4.2, ADR 0047): the innkeeper, with the regulars
+ * listening, asks the traveler about their road. Answered by Groq only, one chat line each.
+ */
+export interface StoryAsk {
+  kind: 'inn-story';
+  learner: { name: string };
+  turns: InnTurn[];
+}
+
+/**
+ * The judge of "Your Story" (task 4.3, ADR 0047): the finished chat against the written rubric.
+ * Answered by Groq only, as JSON, one chat line.
+ */
+export interface JudgeAsk {
+  kind: 'inn-judge';
+  turns: InnTurn[];
+}
+
 export type Ask =
   | (AskBase & { kind: 'radio-news' })
   | (AskBase & { kind: 'radio-reply'; news: string | null; heard: string })
   | InnAsk
-  | CoachAsk;
+  | CoachAsk
+  | StoryAsk
+  | JudgeAsk;
 
 /** The most turns a chat sends: 8 of the learner's lines and the regular's answers. */
 export const MAX_TURNS = 17;
@@ -329,6 +352,15 @@ export function parseAsk(body: unknown): Ask | null {
     const turns = parseTurns(b.turns);
     return turns?.some((t) => t.who === 'you') ? { kind: 'inn-coach', turns } : null;
   }
+  if (b.kind === 'inn-story') {
+    const name = text(((b.learner ?? {}) as Record<string, unknown>).name, 24);
+    const turns = parseTurns(b.turns);
+    return name && turns ? { kind: 'inn-story', learner: { name }, turns } : null;
+  }
+  if (b.kind === 'inn-judge') {
+    const turns = parseTurns(b.turns);
+    return turns?.some((t) => t.who === 'you') ? { kind: 'inn-judge', turns } : null;
+  }
   const persona = typeof b.operator === 'string' ? operatorSheets().get(b.operator) : undefined;
   const learner = (b.learner ?? {}) as Record<string, unknown>;
   const who = persona?.who.slice(0, 80);
@@ -466,7 +498,7 @@ export function cleanArabic(said: string): string | null {
 }
 
 /** What the character is told about this talk. */
-export function radioPrompt(ask: Exclude<Ask, InnAsk | CoachAsk>): string {
+export function radioPrompt(ask: Exclude<Ask, InnAsk | CoachAsk | StoryAsk | JudgeAsk>): string {
   const { persona, learner, past, told } = ask;
   return [
     `You are ${persona.who}. ${persona.about}`,
@@ -594,6 +626,100 @@ async function askGroq(
   } catch {
     return null;
   }
+}
+
+/** Who asks for the traveler's story (task 4.2): the innkeeper, from our own story text. */
+export const STORY_SETTING = [
+  'You are the innkeeper of an old caravanserai in Palestine: a broad woman with flour on her',
+  'sleeves, warm and direct. Months ago this traveler came to your gate unable to read a word,',
+  'and you sat them down. They learned the letters, then the words, then talked with everyone at',
+  'your table: Salim the carter, Umm Khalil, Yusuf the clockmender, Rana, Abu Fadi the mason,',
+  'Nasser the guide, Leila the painter and the rest. Tonight the whole table is here, a stranger',
+  'who cannot read has just come in, and you ask the traveler to tell everyone the story of their',
+  'own road, in Arabic.',
+  'Ask ONE simple question at a time about their road and their life: where they come from, why',
+  'they came, what was hard, who they met here, what they like, what they will do next. Now and',
+  'then react warmly to what they said before you ask. You may speak for another regular at the',
+  'table once in a while ("سليم بسأل: …").',
+  'You are a woman: use the grammar of your own gender.',
+].join('\n');
+
+export function storyMessages(ask: StoryAsk): Message[] {
+  const turns = ask.turns.map((t) => ({
+    role: t.who === 'them' ? ('assistant' as const) : ('user' as const),
+    content: t.text,
+  }));
+  return [
+    {
+      role: 'system',
+      content: `${INN_RULES}\n\n${STORY_SETTING}\nThe traveler's name is ${ask.learner.name}.`,
+    },
+    ...(turns.length === 0 || turns[0]?.role === 'assistant'
+      ? [
+          {
+            role: 'user' as const,
+            content:
+              '(The table goes quiet. Greet the traveler by name, then ask them to tell everyone their story, in a few simple words.)',
+          },
+        ]
+      : []),
+    ...turns,
+  ];
+}
+
+/**
+ * The judge of "Your Story" (task 4.3): the written rubric, one yes or no for each part. It sees
+ * only the chat. It can't hear, so it never judges pronunciation (ADR 0013).
+ */
+export const JUDGE_RULES = [
+  'You judge a beginner learner of Palestinian colloquial Arabic. They just told the story of their',
+  'own road at an inn, answering the innkeeper\'s questions in a chat. The lines marked "Innkeeper"',
+  'are the questions; the lines marked "Traveler" are the learner\'s.',
+  'Judge ONLY the Traveler lines, against three parts. Be fair to a beginner: small mistakes of',
+  'grammar or spelling, Modern Standard words, missing vowel marks and short sentences are fine.',
+  'Hebrew or English words are not Arabic.',
+  '1. understood: most Traveler lines fit what the Innkeeper had just asked or said, so the learner',
+  'understood it. A line that ignores the question, or answers a different one, does not.',
+  '2. answered: the Traveler lines are Arabic a Palestinian could follow, and together they tell',
+  'something real about the learner (where from, why, what was hard, who they met, what next). A',
+  'string of single words, copied questions, or lines with no meaning do not.',
+  '3. kept_going: the learner kept the talk going: several lines of more than two words, and at',
+  'least once they added something nobody asked for, or asked something back.',
+  'Answer ONLY with JSON: {"understood":true|false,"answered":true|false,"kept_going":true|false,',
+  '"why":"<one short sentence in plain English, at most 25 words, kind, to the learner>"}.',
+].join('\n');
+
+export function judgeMessages(ask: JudgeAsk): Message[] {
+  const chat = ask.turns
+    .map((t) => `${t.who === 'you' ? 'Traveler' : 'Innkeeper'}: ${t.text}`)
+    .join('\n');
+  return [
+    { role: 'system', content: JUDGE_RULES },
+    { role: 'user', content: chat },
+  ];
+}
+
+export interface Verdict {
+  understood: boolean;
+  answered: boolean;
+  keptGoing: boolean;
+  why: string;
+}
+
+/** The judge's answer, checked: three yes-or-noes and a short reason, or null. */
+export function cleanVerdict(said: string): Verdict | null {
+  const json = said.replace(/<think>[\s\S]*?<\/think>/g, '').replace(/^```(json)?|```$/gm, '');
+  let body: unknown;
+  try {
+    body = JSON.parse(json.trim());
+  } catch {
+    return null;
+  }
+  const v = (body ?? {}) as Record<string, unknown>;
+  const why = typeof v.why === 'string' ? v.why.replace(/[<>*_#`]/g, '').trim() : '';
+  if (typeof v.understood !== 'boolean' || typeof v.answered !== 'boolean') return null;
+  if (typeof v.kept_going !== 'boolean' || !why || why.length > 200) return null;
+  return { understood: v.understood, answered: v.answered, keptGoing: v.kept_going, why };
 }
 
 /** The silent Coach (ADR 0007): kind, short, and only about the traveler's own lines. */
@@ -741,7 +867,27 @@ export async function handle(
     return fail('failed');
   }
 
-  if (ask.kind === 'inn-chat') {
+  if (ask.kind === 'inn-judge') {
+    // The judge, like the Coach, talks only to Groq and costs one chat line.
+    if (!GROQ_API_KEY) return fail('not-set-up');
+    const left = await claim(
+      VITE_SUPABASE_URL,
+      VITE_SUPABASE_PUBLISHABLE_KEY,
+      token,
+      fetchFn,
+      'claim_chat_line',
+    );
+    if (typeof left !== 'number') return fail(left);
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const said = await askGroq(GROQ_API_KEY, judgeMessages(ask), fetchFn, INN_MODEL, true);
+      if (said === 'busy') return fail('busy');
+      const verdict = said ? cleanVerdict(said) : null;
+      if (verdict) return answer({ text: JSON.stringify(verdict), left });
+    }
+    return fail('failed');
+  }
+
+  if (ask.kind === 'inn-chat' || ask.kind === 'inn-story') {
     // The inn talks only to Groq (ADR 0038): no key, no chat.
     if (!GROQ_API_KEY) return fail('not-set-up');
     const left = await claim(
@@ -755,7 +901,8 @@ export async function handle(
     let busy = false;
     // A line that breaks the rules is asked for once more; then the regular has to go.
     for (let attempt = 0; attempt < 2; attempt++) {
-      const said = await askGroq(GROQ_API_KEY, innMessages(ask), fetchFn, INN_MODEL);
+      const messages = ask.kind === 'inn-story' ? storyMessages(ask) : innMessages(ask);
+      const said = await askGroq(GROQ_API_KEY, messages, fetchFn, INN_MODEL);
       if (said === 'busy') {
         busy = true;
         break;

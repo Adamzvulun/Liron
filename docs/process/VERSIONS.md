@@ -142,4 +142,5 @@ A version is **done** when everything in its list is true *and* the release step
 | 2.2 | Built (challenges, the Arena); waits for v2.0's release |
 | 2.3 | Built (Fellowship quests, gifts); waits for v2.0's release |
 | 2.4 | Built (the wire); waits for v2.0's release, Adam's Realtime setting (RUNNING.md, Friends) and a try on two devices |
-| 2.5 – 4.0 | Not started |
+| 3.0 | Part built: both finales and capstones (4.2, 4.3); 4.1 and the prepared test account next |
+| 4.0 | Not started |

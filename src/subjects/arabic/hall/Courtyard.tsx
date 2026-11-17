@@ -21,6 +21,7 @@ import { currentPair } from '../echo/pairs.ts';
 import { opensAt } from '../../../core/road/road.ts';
 import { RoadLine } from '../../../core/road/RoadLine.tsx';
 import { arabicDone, arabicRoad, roadFor } from '../road.ts';
+import { FINALE_STORY, finaleOpen } from '../finale/stranger.ts';
 import './khan.css';
 
 /** The station that holds each door, for marking where the compass points. */
@@ -51,7 +52,8 @@ export type CourtyardDoor =
   | 'trial'
   | 'regular'
   | 'echo'
-  | 'chat';
+  | 'chat'
+  | 'gate';
 
 // The room never changes, so it's painted once per page load (paintedKhan).
 const courtyard = paintedKhan;
@@ -303,7 +305,14 @@ function Scene({
           where: 'Trial · Chapter 1 · at the gate',
           open: 'trial' as const,
         }
-      : undefined;
+      : finaleOpen(progress)
+        ? {
+            // The Long Road In's finale (task 4.2): a stranger at the very gate you came in by.
+            name: FINALE_STORY.title,
+            where: 'Finale · Chapter 115 · at the gate',
+            open: 'gate' as const,
+          }
+        : undefined;
 
   const story = (
     <>

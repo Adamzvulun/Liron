@@ -5,8 +5,14 @@ import {
   firstLine,
   GEMINI_MODEL,
   GROQ_MODEL,
+  cleanVerdict,
   handle,
   INN_MODEL,
+  INN_RULES,
+  JUDGE_RULES,
+  judgeMessages,
+  STORY_SETTING,
+  storyMessages,
   innMessages,
   innSheets,
   MAX_BODY,
@@ -168,7 +174,7 @@ describe('POST /api/partner (E15, ADR 0036)', () => {
 describe('the partner prompt', () => {
   it('tells the character who you are and what they said before', () => {
     const ask = parseAsk(ASK);
-    if (!ask || ask.kind === 'inn-chat' || ask.kind === 'inn-coach')
+    if (!ask || (ask.kind !== 'radio-news' && ask.kind !== 'radio-reply'))
       throw new Error('the radio ask should parse');
     const prompt = radioPrompt(ask);
     expect(prompt).toContain('You are Ruth, a night owl on 40 meters. On the air most nights.');
@@ -193,7 +199,7 @@ describe('the partner prompt', () => {
       told: ['SICK'],
     };
     const ask = parseAsk(reply);
-    if (!ask || ask.kind === 'inn-chat' || ask.kind === 'inn-coach')
+    if (!ask || (ask.kind !== 'radio-news' && ask.kind !== 'radio-reply'))
       throw new Error('the reply ask should parse');
     const prompt = radioPrompt(ask);
     expect(prompt).toContain('Just now they sent you their news: "NEW JOB"');
@@ -556,5 +562,59 @@ describe('the Coach after a chat (ADR 0007, 0038)', () => {
     expect(tips([])).toEqual([]);
     expect(cleanTips('not json', ask)).toBeNull();
     expect(cleanTips('```json\n{"tips":[]}\n```', ask)).toEqual([]);
+  });
+});
+
+describe('"Your Story", the Long Road In’s finale (task 4.2, ADR 0047)', () => {
+  const turns = [
+    { who: 'them' as const, text: 'أهلين آدم! احكيلنا قصتك.' },
+    { who: 'you' as const, text: 'أنا من حيفا وجيت أتعلم عربي.' },
+  ];
+
+  it('asks the innkeeper for the next question, with the traveler’s name and nothing else', () => {
+    const ask = parseAsk({ kind: 'inn-story', learner: { name: 'Adam' }, turns });
+    expect(ask).toEqual({ kind: 'inn-story', learner: { name: 'Adam' }, turns });
+    if (ask?.kind !== 'inn-story') throw new Error('it should parse');
+    const [system, ...rest] = storyMessages(ask);
+    expect(system?.content).toContain(INN_RULES);
+    expect(system?.content).toContain(STORY_SETTING);
+    expect(system?.content).toContain("The traveler's name is Adam.");
+    expect(rest.map((m) => m.role)).toEqual(['user', 'assistant', 'user']);
+    expect(parseAsk({ kind: 'inn-story', turns })).toBeNull();
+  });
+
+  it('judges only a chat with lines of the traveler’s', () => {
+    expect(parseAsk({ kind: 'inn-judge', turns })).toEqual({ kind: 'inn-judge', turns });
+    expect(parseAsk({ kind: 'inn-judge', turns: turns.slice(0, 1) })).toBeNull();
+    const ask = parseAsk({ kind: 'inn-judge', turns });
+    if (ask?.kind !== 'inn-judge') throw new Error('it should parse');
+    const [system, chat] = judgeMessages(ask);
+    expect(system?.content).toBe(JUDGE_RULES);
+    expect(chat?.content).toBe(
+      'Innkeeper: أهلين آدم! احكيلنا قصتك.\nTraveler: أنا من حيفا وجيت أتعلم عربي.',
+    );
+  });
+
+  it('reads the verdict only when it is the JSON asked for', () => {
+    expect(
+      cleanVerdict(
+        '{"understood":true,"answered":true,"kept_going":false,"why":"Ask something back next time."}',
+      ),
+    ).toEqual({
+      understood: true,
+      answered: true,
+      keptGoing: false,
+      why: 'Ask something back next time.',
+    });
+    expect(
+      cleanVerdict(
+        '```json\n{"understood":true,"answered":true,"kept_going":true,"why":"Good."}\n```',
+      ),
+    ).toMatchObject({ keptGoing: true });
+    expect(
+      cleanVerdict('{"understood":"yes","answered":true,"kept_going":true,"why":"x"}'),
+    ).toBeNull();
+    expect(cleanVerdict('{"understood":true,"answered":true,"kept_going":true}')).toBeNull();
+    expect(cleanVerdict('Well done!')).toBeNull();
   });
 });

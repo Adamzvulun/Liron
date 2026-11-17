@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { BEACON_STAGE, paintBeacon } from '../../../core/city/paintBeacon.ts';
+import { pictureUrl } from '../../../core/city/picture.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
 import { parseProgress, type MorseProgress } from '../lesson/progress.ts';
 import { decode, START_DIT_MS } from '../send/decoder.ts';
@@ -23,6 +24,7 @@ import {
 import '../lesson/lesson.css';
 import '../send/send.css';
 import './qso.css';
+import '../../../core/city/finale.css';
 import './finale.css';
 
 // Forty Winters (tasks 4.2 and 4.3; ADR 0047): the Silent Beacon's last step. Hear the far voice
@@ -39,19 +41,6 @@ type Stage =
 /** `?run=short` plays only the message's first word (for tests: the whole one takes 40 s). */
 const SHORT =
   typeof location !== 'undefined' && new URLSearchParams(location.search).get('run') === 'short';
-
-/** The finale painting as an image, made once per page load. */
-let painted: string | null = null;
-function beaconPicture(): string {
-  if (!painted) {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${BEACON_STAGE.width}" height="${BEACON_STAGE.height}" viewBox="0 0 ${BEACON_STAGE.width} ${BEACON_STAGE.height}">${paintBeacon()}</svg>`;
-    painted =
-      typeof URL.createObjectURL === 'function'
-        ? URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }))
-        : `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-  }
-  return painted;
-}
 
 export function FortyWinters({ api, onRoom }: { api: SubjectApi; onRoom?: () => void }) {
   const [progress, setProgress] = useState<MorseProgress | null>(null);
@@ -337,7 +326,7 @@ function Missed({
 
 /** The finale screen: worth reaching. */
 function Finale({ xp, onRoom }: { xp: number; onRoom?: () => void }) {
-  const picture = useMemo(beaconPicture, []);
+  const picture = useMemo(() => pictureUrl('beacon', BEACON_STAGE, paintBeacon), []);
   return (
     <div className="lesson__card finale__card">
       <img className="finale__picture" src={picture} alt={FINALE_STORY.screen} />

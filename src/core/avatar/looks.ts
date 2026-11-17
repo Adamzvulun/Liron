@@ -393,6 +393,13 @@ export const GEAR: readonly GearItem[] = [
     starter: false,
     earn: 'Pass Forty Winters, the Signal Tower’s finale',
   },
+  {
+    id: 'guest-book-pen',
+    slot: 'hand',
+    name: 'Innkeeper’s pen',
+    starter: false,
+    earn: 'Pass The Stranger at the Gate, the Caravanserai’s finale',
+  },
 ];
 
 /**

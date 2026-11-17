@@ -31,6 +31,8 @@ const Progress = z.object({
   written: z.array(z.string()).catch([]),
   /** House ranks you've taken (#174): their rank-up card is seen and their event sent. */
   ranks: z.array(z.string()).catch([]),
+  /** The finale, The Stranger at the Gate (task 4.2), is passed: Keeper of the Table. */
+  finale: z.boolean().catch(false),
   /**
    * Rounds finished at the fountain (listen only) and with the storyteller (read only), so a
    * first visit to each can be a step on the road (docs/game/the-road.md, break 5).
@@ -121,6 +123,7 @@ export const NEW_PROGRESS: ArabicProgress = {
   knownChoices: 'sound',
   written: [],
   ranks: [],
+  finale: false,
   only: { listen: 0, read: 0 },
   words: {
     chapter: 1,

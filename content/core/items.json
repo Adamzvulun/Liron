@@ -626,6 +626,21 @@
           "chapter": "forty-winters"
         }
       }
+    },
+    {
+      "id": "guest-book-pen",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "trial",
+          "chapter": "stranger-at-the-gate"
+        }
+      }
     }
   ]
 }

@@ -3,6 +3,7 @@ import { WORD_CHAPTERS } from './core/wordChapters.ts';
 import { arabicLedger } from './ledger.ts';
 import { LESSON_COUNT, LETTERS } from './letters.ts';
 import { NEW_PROGRESS } from './progress.ts';
+import { SLATE_IDS } from './ranks.ts';
 
 // The Caravanserai's lines in docs/game/ledger.md.
 
@@ -21,6 +22,7 @@ describe('the Caravanserai ledger', () => {
       `0 of ${WORD_CHAPTERS.length}`,
       '0',
       '0',
+      `Read 0 words · write 0 of ${SLATE_IDS.length} letters · talk 0 of 8 lines · opens at Storyteller`,
     ]);
     expect(l.trend).toBe('No reviews this week yet.');
     expect(l.rows.every((r) => r.value !== '' && !r.value.includes('NaN'))).toBe(true);
@@ -66,5 +68,18 @@ describe('the Caravanserai ledger', () => {
     expect(value(l.rows, 'Script lessons passed')).toBe(`${LESSON_COUNT} of ${LESSON_COUNT}`);
     const all = WORD_CHAPTERS.length;
     expect(value(l.rows, 'Word chapters passed')).toBe(`${all} of ${all}`);
+  });
+
+  it('shows the capstone open to a Storyteller, and passed', () => {
+    const open = { ...NEW_PROGRESS, ranks: ['storyteller'] };
+    expect(value(arabicLedger(open, empty).rows, 'Capstone: The Stranger at the Gate')).toBe(
+      'Open: a stranger is at the gate',
+    );
+    expect(
+      value(
+        arabicLedger({ ...open, finale: true }, empty).rows,
+        'Capstone: The Stranger at the Gate',
+      ),
+    ).toBe('Passed: Keeper of the Table');
   });
 });

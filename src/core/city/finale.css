@@ -1,0 +1,29 @@
+/* The finales (task 4.2, ADR 0047): the painting leads the card, framed like a picture. Shared by
+   Forty Winters and The Stranger at the Gate. */
+.finale__card {
+  width: min(100%, 820px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.finale__picture {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  margin: 0 0 16px;
+  border: var(--outline-ui);
+  border-radius: 10px;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.finale__epilogue {
+  max-width: 60ch;
+  font-style: italic;
+}
+
+.finale__reward {
+  font-weight: 700;
+}

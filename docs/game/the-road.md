@@ -308,7 +308,7 @@ It carries the first chapter's title on purpose.
 - *The trial, “Your Story” (this is the Arabic capstone of task 4.3), in three parts:* read a page of the innkeeper's guest book in script (a short text built from words the player has met); write the stranger's name on the slate; then tell the table the story of your own road. The last part is a longer conversation at the inn, where the regulars ask and the player tells, judged against the written rubric of 4.3 (understood, answered, kept going). It needs `partner`. It can't judge pronunciation, and says so.
 - *The finale screen:* the full table at night, every regular's keepsake in its place (Salim's cup, Nasser's map, Leila's portrait over the table), the stranger on the bench, the guest book open.
 - *Epilogue:* You say what was said to you. “You can’t read the signs on the road? Then sit. Every traveler starts with a few letters.” The innkeeper opens her book to a clean page and, this time, hands you the pen.
-- *Reward:* the title **Keeper of the Table** and gear earned no other way (the innkeeper's pen, `guest-book-pen`). The door into the daily loop: the table is never empty, and someone always wants to talk.
+- *Reward:* the title **Keeper of the Table** and gear earned no other way (the innkeeper's pen, `guest-book-pen`, held up in the hand). The door into the daily loop: the table is never empty, and someone always wants to talk. *Built 2026-11-17 ([ADR 0047](../decisions/0047-the-two-finales.md)): the guest book's page uses our own sentences only, the name is judged as one shape on the slate, and the story is told to the innkeeper with the table listening; the judge's eval set is in [judge-eval.md](../research/judge-eval.md).*
 - *Until the finale is built, chapter 114's last beat ends:* “The innkeeper keeps one page of her book empty. She won’t say who it’s for.”
 
 ### The new text for The Long Road In
@@ -452,7 +452,7 @@ Buttons: **Climb the Signal Tower** (goes straight to step 1, the first lesson) 
 5. *Each waiting reason* gives the wording in §6 and the right meanwhile, with a fixed date.
 6. *The meanwhile is never empty* for a finished road on 30 consecutive dates, and never the same station twice running.
 7. *Every door a step names exists* in the hall's door list.
-8. *Counts.* The Silent Beacon has 75 steps in 10 chapters and The Long Road In has 275 in 115 (74 and 274 until the finales are built). If content changes the count, this test is updated on purpose, in the same commit.
+8. *Counts.* The Silent Beacon has 75 steps in 10 chapters and The Long Road In has 275 in 115 (both finales built 2026-11-17). If content changes the count, this test is updated on purpose, in the same commit.
 9. *Browser:* a new account reaches its first lesson in two taps; every result screen's first button lands on the compass step's door; at 320 pixels the compass line doesn't wrap past two lines; it is reachable by keyboard and announced as a navigation landmark.
 
 **What not to build:** no saved road position; no locking of anything open today; no per-step rewards (XP and gold stay where they are; a step is direction, not payment); no map screen beyond "the road so far".
