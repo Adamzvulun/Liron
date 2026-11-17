@@ -216,13 +216,15 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 
 Rules for the whole phase: what friends see is §3's list and nothing else, enforced by the database (a view plus row-level security), never by the screen. No leagues, no demotion, no public ranking. A player with no friends sees no empty social clutter. Each epic gets its design in `docs/game/` first (✏️). **The social features join the road**: meeting your first friend, your first visit and your first challenge are steps the compass can point to once a player has a friend, and never before.
 
-### ☐ 3.1 (#326) · v2.0 · ✏️ E18 — Friend codes and the Fellowship list
+### ☑ 3.1 (#326) · v2.0 · ✏️ E18 — Friend codes and the Fellowship list
 - **Do:** the `friendships` table and the shared view. "Add a friend" by code: each player has a short code; typing a friend's code sends a request; they accept or decline; either can remove the other. The Fellowship list in Your House: each friend's avatar, name, level, ranks and titles, streak, pet.
 - **Done when:** two test players can link and unlink; a non-friend can read nothing; requests can't be spammed (a limit, tested); the list fits 320 pixels and has a kind empty state that explains friend codes.
+- **Done (2026-11-17):** [ADR 0042](../decisions/0042-the-fellowship-first-slice.md). Migration `20261230000000_fellowship.sql`; `supabase/tests/fellowship.test.ts` (tests 3–7 of fellowship-build.md §6, the three-player test among them); the list in Your House (`src/core/fellowship/`), tested in `e2e/fellowship.spec.ts`, 320 pixels included. Test 8 (the feed switch) belongs to 3.3; test 9 holds today (no social thing shows without friends).
 
-### ☐ 3.2 (#327) · v2.0 · ✏️ E19a — Visit a friend's house
+### ☑ 3.2 (#327) · v2.0 · ✏️ E19a — Visit a friend's house
 - **Do:** from the list, walk into a friend's house: their room, avatar, gear and trophies, read-only.
 - **Done when:** it shows only §3's fields (a test asserts the exact fields the view returns); there is a clear way home; no wardrobe controls appear.
+- **Done (2026-11-17):** `/house/visit/<id>` (`FriendHouse.tsx`), painted from the card alone; the card's keys are asserted in `fellowship.test.ts`; "Back to your house" and "Back to the square"; no wardrobe and no buttons in the room (e2e). A non-friend finds the door closed.
 
 ### ☐ 3.3 (#328) · v2.1 · ✏️ E19b — The party feed and friends in the square
 - **Do:** milestones as events friends can read (a rank taken, a chapter passed, a trial passed, a streak of 7/30/100, an achievement), written by the database when they happen, never by the browser. Show them on the Notice Board. Then draw friends' avatars standing in the square, inside 1.7's speed budget.

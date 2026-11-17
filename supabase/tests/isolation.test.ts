@@ -15,6 +15,8 @@ const migrations = readdirSync(join(root, 'migrations'))
 
 const A = '00000000-0000-0000-0000-0000000000a1';
 const B = '00000000-0000-0000-0000-0000000000b2';
+/** A third player, after both in id order, so each of A and B has a pair row with them. */
+const T = '00000000-0000-0000-0000-0000000000f3';
 
 /**
  * Every table holding a player's own rows, and the column naming the player. A new one fails
@@ -41,6 +43,10 @@ const PLAYER_TABLES: Record<string, string> = {
   partner_replies: 'user_id',
   chat_lines: 'user_id',
   content_licensees: 'user_id',
+  friend_codes: 'user_id',
+  fellowship_limits: 'user_id',
+  // A pair is one row (low < high); each player reads the rows they're in, nothing else.
+  friendships: 'low',
 };
 
 /** Tables with no player in them: game data and counters, read only by the functions or by licensees. */
@@ -92,6 +98,19 @@ const CALLABLE: Record<string, string> = {
   'todays_contracts()': 'the caller’s own contracts',
   'touch_updated_at()': 'a trigger function; calling it directly does nothing',
   'xp_for_level(p_level integer)': 'pure arithmetic',
+  // The Fellowship (task 3.1, fellowship-build.md §3).
+  'my_friend_code()': 'the caller’s own code',
+  'new_friend_code()': 'the caller’s own code; 3 a day',
+  'ask_friend(p_code text)':
+    'answers nothing about the code; 10 a day, 5 waiting, 20 friends (fellowship.test.ts)',
+  'answer_friend(p_other uuid, p_accept boolean)': 'only a request sent to the caller',
+  'remove_friend(p_other uuid)': 'only a pair the caller is in',
+  'fellowship()': 'the caller’s card and accepted friends’ cards, with §3’s fields only',
+  'fellowship_requests()': 'requests to the caller: name and look only',
+  'friends_max()': 'a constant',
+  'friend_asks_per_day()': 'a constant',
+  'waiting_asks_max()': 'a constant',
+  'new_codes_per_day()': 'a constant',
 };
 
 let db: PGlite;
@@ -156,6 +175,10 @@ async function seed(id: string) {
     `insert into partner_replies (user_id, day, replies) values ($1, '2026-11-02', 1)`,
     `insert into chat_lines (user_id, day, lines) values ($1, '2026-11-02', 1)`,
     `insert into content_licensees (user_id) values ($1) on conflict do nothing`,
+    `insert into friend_codes (user_id, code)
+       values ($1, 'ABCDEFG' || case when $1::uuid = '${A}' then 'H' else 'J' end)`,
+    `insert into fellowship_limits (user_id, day, kind, used) values ($1, '2026-11-02', 'ask', 1)`,
+    `insert into friendships (low, high, asked_by) values ($1, '${T}', $1)`,
   ];
   for (const sql of statements) await db.query(sql, [id]);
 }
@@ -164,6 +187,7 @@ beforeAll(async () => {
   db = new PGlite();
   await db.exec(shim);
   for (const m of migrations) await db.exec(m);
+  await db.query('insert into auth.users (id, email) values ($1, $2)', [T, 't@example.com']);
   for (const [id, email] of [
     [A, 'a@example.com'],
     [B, 'b@example.com'],
