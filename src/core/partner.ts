@@ -11,7 +11,29 @@
  * `inn-chat`, a regular's next line in an Arabic chat at the inn (E17, ADR 0038); and `inn-coach`,
  * the Coach's tips after that chat, as JSON in the reply's text (`{ tips: CoachTip[] }`).
  */
-export type PartnerAsk = RadioNewsAsk | RadioReplyAsk | InnChatAsk | InnCoachAsk;
+export type PartnerAsk =
+  RadioNewsAsk | RadioReplyAsk | InnChatAsk | InnCoachAsk | InnStoryAsk | InnJudgeAsk;
+
+/** "Your Story" (task 4.2, ADR 0047): the innkeeper's next question about your road. */
+export interface InnStoryAsk {
+  kind: 'inn-story';
+  learner: { name: string };
+  turns: readonly InnTurn[];
+}
+
+/** The judge of "Your Story" (task 4.3): the verdict as JSON in the reply's text (`Verdict`). */
+export interface InnJudgeAsk {
+  kind: 'inn-judge';
+  turns: readonly InnTurn[];
+}
+
+/** The judge's verdict on "Your Story": one yes or no for each part of the rubric. */
+export interface Verdict {
+  understood: boolean;
+  answered: boolean;
+  keptGoing: boolean;
+  why: string;
+}
 
 /** One line of a chat at the inn: `them` is the regular, `you` the learner. */
 export interface InnTurn {

@@ -4,7 +4,7 @@ Both roads read straight through: each chapter’s opening, then every step with
 
 ## The Silent Beacon
 
-74 steps in 10 chapters.
+75 steps in 10 chapters.
 
 ### Chapter 1: Embers
 
@@ -137,10 +137,11 @@ There is a speed past which code stops being sound and becomes meaning, the way 
 72. **Thirty by Ear.** A callsign goes by at thirty words a minute, and you have it before it ends.
 73. **Thirty by Hand.** Thirty words a minute off your own key. The relay below can’t keep up; it hums instead.
 74. **Rank: Ghost of the Ether.** No ceremony. One evening the cloak is on your peg, gray as static, with a note in the Guildmaster’s hand: “Ghost of the Ether. Don’t let it go to your head. Nobody can see you.” The far voice is still calling. One night soon, it won’t be for you.
+75. **Finale: Forty Winters.** She sends two letters, her own. The far voice answers with two of its own. Then both of them slow down, for your sake, and make room on the frequency. “Well?” she says, without turning around. “The band’s open. Somebody will be calling.”
 
 ## The Long Road In
 
-274 steps in 114 chapters.
+275 steps in 115 chapters.
 
 ### Chapter 1: The Stranger at the Gate
 
@@ -985,3 +986,9 @@ Lama’s father remarried last year, and this Friday both families sit down at t
 
 273. **Two Families, One Table.** Her grandfather, an only child who lived all his life in the village, gathered a family instead. Her adopted cousin reads the year’s days from his history book: Children’s Day in March, and the days in May and November.
 274. **Trial: Who Is Who.** She leaves the innkeeper a drawing of the table, every name written over every head: “So you never mix up my aunts again.”
+
+### Chapter 115: The Stranger at the Gate
+
+Dusk, and dust on someone’s boots. A stranger stands at the gate, looks up at the words painted over the arch, and can’t read them. The innkeeper has her hands in the dough. She looks at you.
+
+275. **Finale: The Stranger at the Gate.** You say what was said to you. “You can’t read the signs on the road? Then sit. Every traveler starts with a few letters.” The innkeeper opens her book to a clean page and, this time, hands you the pen.

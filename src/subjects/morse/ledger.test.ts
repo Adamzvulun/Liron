@@ -19,6 +19,7 @@ describe('the Signal Tower ledger', () => {
       '0',
       '0',
       '0',
+      'Hear 10 of 20 wpm · key 0 of 15 wpm',
     ]);
     expect(l.trend).toBe('No reviews this week yet.');
   });
@@ -49,6 +50,18 @@ describe('the Signal Tower ledger', () => {
     expect(value(l.rows, 'Contacts logged')).toBe('3');
     expect(value(l.rows, 'Reviews due')).toBe('1');
     expect(l.trend).toBe('This week: 1 new character met, 3 reviews.');
+    expect(value(l.rows, 'Capstone: Forty Winters')).toBe('Hear 14 of 20 wpm · key 15 of 15 wpm');
+  });
+
+  it('shows the distance to the capstone, and when it’s passed (task 4.3)', () => {
+    const watched = { ...NEW_PROGRESS, effWpm: 12, rankTrials: ['night-watch'] };
+    expect(value(morseLedger(watched, empty).rows, 'Capstone: Forty Winters')).toBe(
+      'Hear 20 of 20 wpm · key 0 of 15 wpm',
+    );
+    const passed = { ...watched, rankTrials: ['night-watch', 'forty-winters'] };
+    expect(value(morseLedger(passed, empty).rows, 'Capstone: Forty Winters')).toBe(
+      'Passed: Keeper of the Hour',
+    );
   });
 
   it('falls back to the last drill for progress saved before the fastest was kept', () => {

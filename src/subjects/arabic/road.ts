@@ -35,6 +35,7 @@ import {
   SLATE_IDS,
   STORY_FRIENDS,
 } from './ranks.ts';
+import { FINALE_STORY, finaleOpen, finalePassed } from './finale/stranger.ts';
 
 /** The courtyard's doors a step may open (Courtyard.tsx's `CourtyardDoor`, and the hall itself). */
 export const ARABIC_DOORS = [
@@ -48,6 +49,7 @@ export const ARABIC_DOORS = [
   'regular',
   'echo',
   'chat',
+  'gate',
   HALL_DOOR,
 ] as const;
 
@@ -139,7 +141,11 @@ export const ARABIC_CHECKS: Record<string, Check> = {
     open: guest,
   },
   'rank-storyteller': rank('storyteller'),
+  'stranger-at-the-gate': { done: finalePassed, open: finaleOpen },
 };
+
+/** The Long Road In's last chapter, after the 114 of the regulars. */
+const FINALE_CHAPTER = 115;
 
 type Built = RoadStep & Check;
 
@@ -148,6 +154,13 @@ function build(): { steps: Built[]; chapters: RoadChapter[] } {
   const chapters: RoadChapter[] = [
     { number: CHAPTER.number, title: CHAPTER.title, intro: CHAPTER.intro, outro: CHAPTER.outro },
     ...REGULARS.map((r) => ({ number: r.number, title: r.title, intro: r.intro, outro: r.outro })),
+    // The finale's own chapter (task 4.2): the stranger at the gate.
+    {
+      number: FINALE_CHAPTER,
+      title: FINALE_STORY.title,
+      intro: FINALE_STORY.intro,
+      outro: FINALE_STORY.epilogue,
+    },
   ];
   for (const item of pack.items) {
     if (item.type === 'road-step') {
@@ -249,6 +262,19 @@ const STATION_LINE: Record<string, string> = {
   chat: 'Tonight: sit and talk with a regular at the inn.',
 };
 
+/**
+ * The long evenings (task 4.1): after the finale, the table is never empty; and the words you've
+ * met are a number worth keeping.
+ */
+function evening(door: string, p: P): string | null {
+  if (door === 'chat' && p.finale)
+    return 'Tonight: the table is never empty. Sit and talk with a regular.';
+  const words = new Set(p.words.met).size;
+  if (door === 'words' && words >= 100)
+    return `Tonight: the innkeeper’s table. Keep your ${words.toLocaleString('en-US')} words fresh.`;
+  return null;
+}
+
 function meanwhile(
   p: P,
   ctx: RoadContext,
@@ -286,7 +312,10 @@ function meanwhile(
   const door = stationOfDay(open, ctx.today) ?? 'lesson';
   return {
     door,
-    line: STATION_LINE[door] ?? 'Tonight: the scribe’s table. Go over your letters.',
+    line:
+      evening(door, p) ??
+      STATION_LINE[door] ??
+      'Tonight: the scribe’s table. Go over your letters.',
     why: 'station',
   };
 }

@@ -714,6 +714,20 @@
         "from": 101,
         "to": 114
       }
+    },
+    {
+      "id": "road:stranger-at-the-gate",
+      "subject": "arabic",
+      "type": "road-step",
+      "data": {
+        "chapter": 115,
+        "kind": "finale",
+        "door": "gate",
+        "needs": "partner",
+        "title": "Finale: The Stranger at the Gate",
+        "invite": "A stranger stands at the gate and can’t read the sign. Go and meet them.",
+        "beat": "You say what was said to you. “You can’t read the signs on the road? Then sit. Every traveler starts with a few letters.” The innkeeper opens her book to a clean page and, this time, hands you the pen."
+      }
     }
   ]
 }

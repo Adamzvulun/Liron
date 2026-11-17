@@ -31,7 +31,7 @@ The level is computed from XP, never stored (ADR 0017), so retuning the curve mo
 - **1 gold per 5 XP**, counted on your XP total so nothing is lost to rounding. About 30 gold on a 15-minute day.
 - **Reaching level *L* pays 5 × *L* gold.** For example, level 5 pays 25 gold.
 - **Daily chest:** 20 gold (below).
-- **Daily contracts:** 10 to 20 gold each, about 45 a day for all 3 (below).
+- **Daily contracts:** 10 to 20 gold each, about 45 a day for all 3 (below). After a road's finale its master contracts pay 30 to 40, about 80 a day.
 - Spent in the Market (#49, see below).
 
 ## Gems (rare)
@@ -60,6 +60,8 @@ Three a day on the Notice Board ([ADR 0032](../decisions/0032-subject-events-and
 | Morse, once you've run a callsign rush on an earlier day: a rush · 3 callsigns above your speed | 1 · 3 | 15 · 20 |
 | Arabic: a letters session at 90% · 2 letters sessions · a slate page · a coffee corner visit | 1 · 2 · 1 · 1 | 20 · 15 · 15 · 15 |
 | Arabic, once you've had a session at the innkeeper's table on an earlier day: 2 word sessions · a word session at 90% | 2 · 1 | 15 · 20 |
+| **Master contracts** (task 4.1, [ADR 0048](../decisions/0048-the-long-evenings.md)), from the day after a road's finale; they take that road's place on the board. Morse: 3 Koch runs at 90% · 5 recognition rounds · 2 whole Codebook rounds · a rush best · a clean, fast contact | 3 · 5 · 2 · 1 · 1 | 35 · 30 · 35 · 35 · 40 |
+| Master, Arabic: 2 word sessions at 90% · 2 chats at the inn · 10 shadowed sentences · 4 echo well rounds | 2 · 2 · 10 · 4 | 35 · 35 · 30 · 30 |
 
 ## Reward chests
 Separate from the daily-goal chest above, which pays at once. These wait on the Notice Board until you open them ([ADR 0033](../decisions/0033-inventory-chests-and-market.md), #48). Each source gives one chest. What's inside is rolled by the database when you open it, seeded by the chest, so reloading can't change it. The drop tables are data in `content/core/chests.json`.
@@ -89,11 +91,12 @@ The Market building sells 4 wares a day: 2 gear, 1 tunic dye and the streak shie
 - You can't buy what you own, or a shield while holding 2. A ware you can't afford yet says how much more gold you need.
 
 ## Coming later (not dropped)
+Achievements pay gems since #177 ([ADR 0035](../decisions/0035-ranks-and-achievements.md)). What's still to come is in [LATER.md](../process/LATER.md).
+
 | Reward | Where |
 |---|---|
 | Combo bonus inside activities | E10 (quests and rewards). It was planned for E6–E9 but not built there; the end-of-activity screens were. |
 | Weekly league | M5 (friends) |
-| Achievements and boss challenges paying gems | later epics |
 
 ## What other apps do (researched 2026-11-02)
 - **Duolingo** hides levels; the profile shows total XP. The old level table still exists in the background: level 2 at 60 XP, level 10 at 2,250, level 25 at 30,000. Momentum comes from small rewards instead: 10–20 XP per lesson plus combo bonuses, three daily quests opening chests, finishing all three unlocking a short triple-XP boost, chests holding gems (about 4–15), streaks with freezes, weekly leagues. In Duolingo's A/B tests, the streak wager raised 14-day retention by 5%. These figures come from fan wikis and third-party write-ups ([Splaitor](https://splaitor.com/how-many-levels-are-in-duolingo), [Lingoly](https://lingoly.io/earn-gems-duolingo/), [Econsultancy](https://econsultancy.com/six-a-b-tests-used-by-duolingo-to-tap-into-habit-forming-behaviour/)); Duolingo's own pages refused automated reading.

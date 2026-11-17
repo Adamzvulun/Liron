@@ -95,6 +95,16 @@
   white-space: nowrap;
 }
 
+/* A long value (a capstone's distance) goes on a line of its own below its label, and wraps. */
+.ledger__row--long {
+  flex-wrap: wrap;
+}
+
+.ledger__row--long dd {
+  flex-basis: 100%;
+  white-space: normal;
+}
+
 .ledger__trend {
   margin: 10px 0 0;
   font-style: italic;

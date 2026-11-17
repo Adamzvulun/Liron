@@ -1,0 +1,83 @@
+/* The Stranger at the Gate (task 4.2): the guest book's lines and the table's verdict. */
+.stranger__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.stranger__result {
+  text-align: center;
+}
+
+/* A line of the guest book, and its meaning among three. */
+.stranger__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 6px;
+  padding: 0;
+  border: 0;
+}
+
+.stranger__choices legend {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.finale__arabic {
+  display: block;
+  font-family: var(--font-arabic);
+  font-size: 30px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.stranger__choices label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 6px 16px;
+  border: var(--outline-ui);
+  border-radius: 10px;
+  background: var(--vellum);
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stranger__choices label.is-picked {
+  background: var(--lamplight);
+}
+
+.finale__say {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* The judge's three parts: green when met, red when not yet. */
+.stranger__log {
+  display: grid;
+  gap: 6px;
+  width: min(100%, 520px);
+  margin: 0 auto 12px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.stranger__log li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 10px;
+  border-left: 6px solid #3d7a3a;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 35%);
+}
+
+.stranger__log li.is-wrong {
+  border-left-color: #a0281e;
+  background: rgb(160 40 30 / 12%);
+}

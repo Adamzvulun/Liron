@@ -51,6 +51,7 @@ function finish(p: MorseProgress, id: string): MorseProgress {
     'no-repeats': () => ({ ...p, radio: { ...p.radio, cleanFast: true } }),
     'thirty-by-ear': () => ({ ...p, rush: { ...p.rush, topWpm: 30 } }),
     'thirty-by-hand': () => fast(40),
+    'forty-winters': () => trial('forty-winters'),
   };
   const change = by[id];
   if (!change) throw new Error(`the test can't finish ${id}`);
@@ -73,11 +74,16 @@ describe('The Silent Beacon as a road', () => {
     expect([...written].sort()).toEqual(Object.keys(MORSE_CHECKS).sort());
   });
 
-  it('is 74 steps in 10 chapters until the finale is built', () => {
-    expect(MORSE_ROAD).toHaveLength(74);
+  it('is 75 steps in 10 chapters, ending at the finale', () => {
+    expect(MORSE_ROAD).toHaveLength(75);
+    expect(MORSE_ROAD.at(-1)).toMatchObject({
+      id: 'forty-winters',
+      kind: 'finale',
+      door: 'beacon',
+    });
     expect(MORSE_ROAD_CHAPTERS.map((c) => c.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-    expect(new Set(MORSE_ROAD.map((s) => s.id)).size).toBe(74);
-    expect(morseRoad(null, ctx)).toMatchObject({ steps: 74, chapters: 10 });
+    expect(new Set(MORSE_ROAD.map((s) => s.id)).size).toBe(75);
+    expect(morseRoad(null, ctx)).toMatchObject({ steps: 75, chapters: 10 });
   });
 
   it('lights every lamp once, in Koch order, after the first two sounds', () => {
@@ -161,6 +167,29 @@ describe('The Silent Beacon as a road', () => {
       expect(now.door).not.toBe(last);
       last = now.door;
     }
+  });
+
+  it('after the last step, the evenings chase your personal bests (task 4.1)', () => {
+    const done = upTo();
+    const p = {
+      ...done,
+      recognition: { ...done.recognition, best: 31 },
+      sending: { ...done.sending, fastest: 36 },
+      words: { ...done.words, best: 12 },
+    };
+    const lines = new Map<string, string>();
+    for (let d = 1; d <= 30; d++) {
+      const now = morseRoad(p, { ...ctx, today: `2027-03-${String(d).padStart(2, '0')}` }).now;
+      if (now.kind === 'meanwhile') lines.set(now.door, now.line);
+    }
+    expect(lines.get('recognition')).toBe(
+      'Tonight: Instant Recognition. Your best is 31: beat it.',
+    );
+    expect(lines.get('sending')).toBe(
+      'Tonight: the brass key. Your fastest drill is 33 wpm: beat it.',
+    );
+    expect(lines.get('words')).toBe('Tonight: the Codebook. Your best round is 12 words: beat it.');
+    expect(lines.get('radio')).toBe('Tonight: the Radio Room. Somebody is calling.');
   });
 
   it('puts due reviews first, then a contract, when the road is done', () => {

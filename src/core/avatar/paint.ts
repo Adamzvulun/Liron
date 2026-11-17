@@ -106,6 +106,8 @@ export const PAINTED_GEAR = [
   'dallah',
   'tatreez-vest',
   'story-cloak',
+  'beacon-lens',
+  'guest-book-pen',
 ];
 
 /** The cloaks on the back (ADR 0006), and the rank cloaks cut the same (#176, 2026-11-15). */
@@ -574,6 +576,33 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
     for (const dx of [-5, 5])
       body += `<path d="M${hx + dx} ${hy + 27} V${hy + 57}" stroke="#3A3A44" stroke-width="2.6"/>`;
     body += `<rect x="${hx - 15}" y="${hy + 56}" width="30" height="8" rx="2" fill="#3A3A44" ${OUT(2.4)}/>`;
+  }
+  if (wear('hand') === 'beacon-lens') {
+    // Keeper of the Hour (Forty Winters): a round lens from the tower's lamp, ringed in brass
+    // and held up by its handle, still glowing.
+    const [hx, hy] = handR;
+    body += `<path d="M${hx} ${hy + 8} L${hx + 4} ${hy - 22}" stroke="${INK}" stroke-width="9" stroke-linecap="round"/><path d="M${hx} ${hy + 8} L${hx + 4} ${hy - 22}" stroke="#8A5A20" stroke-width="5" stroke-linecap="round"/>`;
+    body += `<circle cx="${hx + 6}" cy="${hy - 46}" r="30" fill="${g.rad(
+      [
+        [0, '#FFFBEA'],
+        [0.45, '#FFD36B'],
+        [1, '#E8A93A'],
+      ],
+      0.5,
+      0.5,
+      0.6,
+    )}" stroke="${INK}" stroke-width="3"/>`;
+    body += `<circle cx="${hx + 6}" cy="${hy - 46}" r="30" fill="none" stroke="#F0C46A" stroke-width="5"/><circle cx="${hx + 6}" cy="${hy - 46}" r="33" fill="none" stroke="${INK}" stroke-width="2.4"/>`;
+    for (const r of [10, 19])
+      body += `<circle cx="${hx + 6}" cy="${hy - 46}" r="${r}" fill="none" stroke="#C88A2A" stroke-width="1.8" opacity=".7"/>`;
+  }
+  if (wear('hand') === 'guest-book-pen') {
+    // Keeper of the Table (The Stranger at the Gate): the innkeeper's reed pen, held up, nib
+    // inked, with a ribbon of the house's red tied round it.
+    const [hx, hy] = handR;
+    body += `<path d="M${hx - 4} ${hy + 14} L${hx + 14} ${hy - 58}" stroke="${INK}" stroke-width="10" stroke-linecap="round"/><path d="M${hx - 4} ${hy + 14} L${hx + 14} ${hy - 58}" stroke="#C9A066" stroke-width="6" stroke-linecap="round"/>`;
+    body += `<path d="M${hx + 11} ${hy - 46} L${hx + 14} ${hy - 58} L${hx + 19} ${hy - 72} L${hx + 17} ${hy - 56} Z" fill="#2A1A10" stroke="${INK}" stroke-width="2"/>`;
+    body += `<path d="M${hx + 8} ${hy - 30} q-14 6 -16 22 M${hx + 8} ${hy - 30} q10 10 6 26" stroke="${INK}" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M${hx + 8} ${hy - 30} q-14 6 -16 22 M${hx + 8} ${hy - 30} q10 10 6 26" stroke="#B5432F" stroke-width="3" fill="none" stroke-linecap="round"/>`;
   }
   if (wear('hand') === 'olive-sprig') {
     // A neighbor's olive sprig: a twig in the left hand, silver-green leaves and two olives.

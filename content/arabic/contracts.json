@@ -139,6 +139,62 @@
         "text": "Arabic Language Day: write letters on the slate",
         "event": "arabic-language-day"
       }
+    },
+    {
+      "id": "arabic-master-words",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "word-90",
+        "target": 2,
+        "gold": 35,
+        "text": "Score 90% in 2 sessions at the innkeeper’s table",
+        "requires": "trial-stranger-at-the-gate",
+        "tier": 1
+      }
+    },
+    {
+      "id": "arabic-master-chat",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "inn-chat",
+        "target": 2,
+        "gold": 35,
+        "text": "Sit and talk with two regulars at the inn",
+        "requires": "trial-stranger-at-the-gate",
+        "tier": 1
+      }
+    },
+    {
+      "id": "arabic-master-shadow",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "shadow-sentence",
+        "target": 10,
+        "gold": 30,
+        "text": "Shadow 10 sentences at the echo well",
+        "requires": "trial-stranger-at-the-gate",
+        "tier": 1
+      }
+    },
+    {
+      "id": "arabic-master-echo",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "pairs-round",
+        "target": 4,
+        "gold": 30,
+        "text": "Play 4 rounds at the echo well",
+        "requires": "trial-stranger-at-the-gate",
+        "tier": 1
+      }
     }
   ]
 }
