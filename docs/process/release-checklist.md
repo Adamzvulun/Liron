@@ -46,7 +46,7 @@ To start as a new player, use a second account, or ask Claude to reset yours on 
 1.0.0 now carries everything on `dev` ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md)), so the walk covers it too.
 
 - [ ] **The ledger** in Your House. Good: the numbers look true for what you've done, and nothing reads blank or "NaN".
-- [ ] 🖥 **Sound and motion.** Tap around the square, then switch each off in Settings and reload. Good: the sounds are small and fitting, and off stays off.
+- [ ] 🖥 **Sound.** Tap around the square, then switch both sounds off in Settings and reload. Good: the sounds are small and fitting, and off stays off.
 - [ ] **One ending.** Make a second account on `waymark-dev` the way [FRIENDS.md](FRIENDS.md) says (never use your own). Get its SQL: ask Claude for it with that account's email, or run `node scripts/endings.ts <its email> > endings.sql` yourself (Node 22.18 or newer). Paste it into the **dev** project's SQL editor and run it. Sign in with it. Good: the compass points at Forty Winters or the Stranger at the Gate, the finale plays to its end, and afterwards the compass still names something to do.
 - [ ] *Optional, needs a friend's account:* **The Fellowship.** Make a second account ([FRIENDS.md](FRIENDS.md)), link the two by code, and visit each other's house. Good: each sees the other, and nothing private. Skip this and the friend features simply stay hidden on the live site until you invite someone.
 
