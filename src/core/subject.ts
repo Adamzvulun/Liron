@@ -5,6 +5,7 @@ import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
 import type { Item, Lesson } from './content/schema.ts';
 import type { RoadAnswer, RoadContext } from './road/road.ts';
+import type { LedgerAnswer, LedgerLook } from './player/ledger.ts';
 
 export type { ReviewGrade, ReviewPhase, SkillRating };
 
@@ -58,6 +59,11 @@ export interface SubjectInfo {
    * Async so a subject can load its road lazily, keeping the square's first load small (#124).
    */
   road?: (state: unknown, ctx: RoadContext) => Promise<RoadAnswer>;
+  /**
+   * Its block of the ledger in Your House (docs/game/ledger.md): what the learner has learned,
+   * from its saved state and the cards the platform hands it. Async so it loads lazily.
+   */
+  ledger?: (state: unknown, look: LedgerLook) => Promise<LedgerAnswer>;
   /**
    * The skills this subject rates separately (ADR 0010), e.g. Morse: receive, send, head-copy.
    * Same format as subject ids. If listed, ratings for any other skill are refused.

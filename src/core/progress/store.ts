@@ -153,6 +153,13 @@ export const MAX_NAME_LENGTH = 40;
 export const REVIEW_STATE = 2;
 
 /** Where progress is kept. Supabase in the app, memory in tests. Not used by subjects directly. */
+/** A card as the ledger reads it: FSRS's interval in days, and how many reviews it has had. */
+export interface CardSummary {
+  itemId: string;
+  interval: number;
+  reps: number;
+}
+
 export interface ProgressStore {
   /** Adds XP and minutes to a subject, to today and to the wallet; pays gold, gems, chests. */
   record(subjectId: string, xp: number, minutes: number): Promise<Award>;
@@ -196,6 +203,12 @@ export interface ProgressStore {
     limit: number,
     dayEnd?: Date,
   ): Promise<{ itemId: string; due: Date }[]>;
+  /** Every card of a subject, with its interval and review count (docs/game/ledger.md). */
+  cardSummary(subjectId: string): Promise<CardSummary[]>;
+  /** The item of each review of a subject since `since`: one entry per review. */
+  reviewsSince(subjectId: string, since: Date): Promise<string[]>;
+  /** The minutes practiced on each day that has any, every subject together. */
+  activity(): Promise<{ day: string; minutes: number }[]>;
   /** Saves a review: the card's new state and the log entry, together. */
   saveReview(
     subjectId: string,
@@ -366,6 +379,25 @@ export function memoryStore(
         .sort(([, a], [, b]) => a.due.getTime() - b.due.getTime())
         .slice(0, limit)
         .map(([key, c]) => ({ itemId: key.slice(subjectId.length + 1), due: c.due }));
+    },
+    async cardSummary(subjectId) {
+      return [...cards]
+        .filter(([key]) => key.startsWith(`${subjectId}/`))
+        .map(([key, c]) => ({
+          itemId: key.slice(subjectId.length + 1),
+          interval: Number(c.card.scheduled_days) || 0,
+          reps: Number(c.card.reps) || 0,
+        }));
+    },
+    async reviewsSince(subjectId, since) {
+      return reviewLog
+        .filter((r) => r.subjectId === subjectId && r.at >= since)
+        .map((r) => r.itemId);
+    },
+    async activity() {
+      return [...days]
+        .filter(([, d]) => d.minutes > 0)
+        .map(([day, d]) => ({ day, minutes: d.minutes }));
     },
     async saveReview(subjectId, itemId, review, reviewedAt) {
       cards.set(`${subjectId}/${itemId}`, { due: review.due, card: structuredClone(review.card) });
