@@ -315,9 +315,10 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 ## Phase 5 — Closing (epic #308)
 
-### ☐ 5.1 (#340) · v4.0 · The last sweep
+### ☑ 5.1 (#340) · v4.0 · The last sweep
 - **Do:** repeat the phone-and-desktop sweep over everything built in Phases 2–4 (the method is in HANDOFF items 54–82), and the "moment of doubt" walk from 1.11 over the whole road, endings included. Bring every doc in line with what exists. Empty the "open questions" list or mark each as Adam's standing choice. Write the final retro.
 - **Done when:** STATUS says the project is done, with what lives where and how to run it.
+- **Done (2026-11-17), for everything that exists:** every Phase 2–4 screen at 320 pixels and on desktop. It found and fixed two things: the Notice Board's quiet quest line, unreadable on parchment, and a long friend's name broken mid-word (a narrow portrait now gives it room, and the wire's buttons fill their row). The doubt walk is the road tests: one open next step from the first step to each finale and 30 days past it. The open questions are emptied or marked as Adam's, the [final retro](retros/final.md) is written, and STATUS says what's done, what lives where and how to run it. **When the third hall is built (4.5), repeat this sweep over it.**
 
 ### ☑ 5.2 (#341) · v4.0 · What stays open on purpose
 - **Do:** one file, `docs/process/LATER.md`, listing what is parked and why, each with what would un-park it. Per CLAUDE.md this is ordering, not cutting.

@@ -143,4 +143,4 @@ A version is **done** when everything in its list is true *and* the release step
 | 2.3 | Built (Fellowship quests, gifts); waits for v2.0's release |
 | 2.4 | Built (the wire); waits for v2.0's release, Adam's Realtime setting (RUNNING.md, Friends) and a try on two devices |
 | 3.0 | Built (both finales and capstones, the long evenings, the prepared account); waits for v2.0's release and Adam's look at both endings |
-| 4.0 | Not started |
+| 4.0 | Partly built: the guide (4.5's first half), LATER.md (5.2) and the last sweep (5.1). The third hall waits on Adam's choice of subject |

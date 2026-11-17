@@ -70,13 +70,22 @@
   background: #d9c08e;
 }
 
+/* On a narrow phone the friend's portrait gives way, so the name keeps whole words. */
+@media (max-width: 360px) {
+  .fellowship__friend .fellowship__face {
+    width: 52px;
+    height: 52px;
+  }
+}
+
 .fellowship__name {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 20px;
+  /* A little smaller on a phone, so a long name breaks at its hyphen, not mid-word. */
+  font-size: clamp(17px, 5.4vw, 20px);
+  overflow-wrap: break-word;
   color: var(--wood);
-  overflow-wrap: anywhere;
 }
 
 .fellowship__line,
