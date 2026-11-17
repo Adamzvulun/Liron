@@ -7,6 +7,11 @@
   gap: 10px;
 }
 
+/* Each row of friends fills the card, so a long name doesn't leave the buttons ragged. */
+.wire__friends > button {
+  flex: 1 1 auto;
+}
+
 .wire__state {
   display: flex;
   align-items: center;

@@ -7,23 +7,32 @@
 
 ## Where we are
 
-**Waymark is a playable game on the dev site, being finished for its first real release, v1.0.0.** Adam is the only player. `main` (the live site) still holds the v0.1.0 scaffold; everything below is on `dev`.
+**Waymark is built, as far as it can be without Adam.** Every task in [PLAN.md](PLAN.md) that Claude can do alone is done and merged into `dev` (the last sweep, task 5.1, on 2026-11-17; [final retro](retros/final.md)). What is left is Adam's: his gates at the end of PLAN.md, the choice of a third subject (4.5), and the releases. `main` (the live site) still holds the v0.1.0 scaffold; everything below is on `dev`.
 
 | | State |
 |---|---|
-| **The city** | The square, Your House (avatar and wardrobe), the Market, the Notice Board (quests, contracts, chests) |
-| **Signal Tower (Morse)** | The whole road: 75 steps in 10 chapters, ending in the finale Forty Winters (the Morse capstone). Koch lessons for 41 characters, Instant Recognition, sending with a key, the Codebook's words, the callsign rush, three rank trials, the Radio Room with AI operators |
+| **The city** | The square, Your House (avatar, wardrobe, ledger, Fellowship), the Market, the Notice Board (quests, contracts, chests, the party feed), the Arena |
+| **Signal Tower (Morse)** | The whole road: 75 steps in 10 chapters, ending in the finale Forty Winters (the Morse capstone). Koch lessons for 41 characters, Instant Recognition, sending with a key, the Codebook's words, the callsign rush, three rank trials, the Radio Room with AI operators, and the wire to a friend |
 | **Caravanserai (Arabic)** | The whole road: 275 steps in 115 chapters, ending in the finale The Stranger at the Gate (the Arabic capstone). The script and its marks, the slate, the echo well, survival phrases, 3,390 words in 113 chapters, each with a regular and a trial, grammar cards, Sit and talk with the regulars, the Coach |
+| **After the end** | The long evenings: master contracts, a station of the day, personal bests to beat ([ADR 0048](../decisions/0048-the-long-evenings.md)) |
 | **Never lost** | One compass line says the next step everywhere: the square, both halls, every result screen. A first page greets a new player ([the Road](../game/the-road.md)) |
 | **The look** | Painted in the browser; no screen stands on a blue background ([Grounds](../design/grounds.md)) |
-| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire (live Morse between friends), two finales and the long evenings. 48 ADRs; unit and browser tests on every PR |
+| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 48 ADRs; unit and browser tests on every PR |
+
+### What lives where, and how to run it
+- **The code:** `src/core/` is the platform, `src/subjects/<id>/` one subject each; content is data in `content/`; the database is `supabase/migrations/`. The [README](../../README.md) has the map and every script (`npm run dev`, `npm test`, `npm run e2e`).
+- **Running the game day to day:** [RUNNING.md](RUNNING.md), the keeper's handbook (keys, allowances, friends, the keep-alive). Hosting: [DEPLOY.md](DEPLOY.md) and [SUPABASE.md](SUPABASE.md).
+- **Releasing:** [release-checklist.md](release-checklist.md), then a PR from `dev` into `main` that only Adam merges.
+- **Adding a subject:** [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md). **What stays open on purpose:** [LATER.md](LATER.md).
 
 ## What comes next
 
-1. **Finish v1.0** ([PLAN](PLAN.md) Phase 1). Built: tasks 1.1–1.5 and 1.7–1.11 (1.9 needs its first run after the release). Left: two gates that are Adam's: **1.12, his release checklist** ([written](release-checklist.md), waiting for his walk), and **1.13, the release PR** into `main`.
-2. **Then v1.1 to 4.0** in the order of [VERSIONS.md](VERSIONS.md). v1.1 (the ledger, the keeper's handbook in [RUNNING](RUNNING.md)) and v1.2 (sound, motion and world events) are built and wait for Adam's look. **v2.0 is built except Adam's part:** fair shares of the free AI (2.2), passwords and FRIENDS.md (2.3), the two-player tests (2.4), friend codes and the Fellowship list (3.1), and visits (3.2). Waiting on him: 2.1, what friends without the deck may learn, and making a first friend's account. v2.1 (3.3, the feed and friends in the square), v2.2 (3.4, challenges and the Arena) v2.3 (3.5, Fellowship quests and gifts) and v2.4 (3.6, the wire: live Morse between friends) are built too. v2.4 also waits on Adam to switch off "Allow public access" in Supabase's Realtime settings ([RUNNING](RUNNING.md#friends)) and to try it with a friend on two devices. **v3.0 (Journey's End) is built:** both finales and their capstones (4.2, 4.3; [ADR 0047](../decisions/0047-the-two-finales.md)), with the judge's eval set run and recorded ([judge-eval.md](../research/judge-eval.md)), and the long evenings (4.1; [ADR 0048](../decisions/0048-the-long-evenings.md)). To look at both endings on the dev site, Adam runs `scripts/endings.ts` for an account (VERSIONS.md, 3.0). 3.7 (releasing the Fellowship) is Adam's. **v4.0 so far:** the guild-hall kit is written ([ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md)), and so is what stays open on purpose ([LATER.md](LATER.md), task 5.2). **Waiting on Adam for v4.0:** which subject fills the third hall (4.5). **Next to build without him:** 5.1, the last sweep (phone and desktop over Phases 2–4, the doubt walk with both endings).
+All of it is Adam's, in the order of [VERSIONS.md](VERSIONS.md):
 
-**Waiting on Adam:** nothing blocks the work today. His gates are listed at the end of PLAN.md. The regulars' voices are parked until he has looked at Azure (#342). #137 (speed) waits for him to try the dev site on his phone.
+1. **Release v1.0.0:** walk the [release checklist](release-checklist.md) (1.12), then the release PR into `main` (1.13). The live site starts fresh (Adam, 2026-11-16).
+2. **v1.1 to v3.0 are built and wait for his look** on the dev site. Friends (v2.x) also wait on 2.1 (what friends without the deck may learn), a first friend's account, the Realtime "Allow public access" switch ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 releases the Fellowship. To see both endings, run `scripts/endings.ts` for a dev account (VERSIONS.md, 3.0).
+3. **v4.0:** pick the third subject (4.5). Its build starts with the "Known gaps" in [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), and ends with the sweep repeated over the new hall.
+4. **Parked, each waiting on him:** the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All listed in [LATER.md](LATER.md).
 
 **After the release, once:** run the "Keep alive" workflow by hand and see it green ([SUPABASE](SUPABASE.md#keep-alive)).
 
@@ -89,15 +98,16 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 - **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 
 ## Open questions for Adam
-- **New (2026-11-15, for v1.0.0):** the live site has its own database, so it will start you at level 1; your dev-site progress stays on the dev site. Keep it that way (a fresh start), or should I write a one-off copy before the release? The release steps are in [DEPLOY](DEPLOY.md#the-first-real-release-v100).
-- **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
+Emptied on 2026-11-17 (task 5.1): each is answered, or marked as his to settle. Answered ones are kept, struck, for the record.
+- ~~**The live site's progress**~~: Adam chose a fresh start (2026-11-16). Your dev-site progress stays on the dev site ([DEPLOY](DEPLOY.md#the-first-real-release-v100)).
+- **Adam's, standing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
+- **Adam's, standing:** more words need a new source. Maknuune is free but CC BY-SA 4.0. Listed in [LATER.md](LATER.md).
+- **Adam's, standing:** `GROQ_API_KEY` on the dev site (Claude can't reach the dev site to check). Settings → Services says whether it's on (task 1.8); the key must be ticked for **Preview** in Vercel. Also: try the Morse sound on an iPhone after a phone call or a locked screen (`resumeOnGesture`, §4ax).
 - ~~**The words left out on purpose**~~ (report §4bc): Adam answered on 2026-11-15. The stepfamily and the national days are in (chapter 113); the adult, toilet and grim words are skipped for now.
-- ~~**The inn's character sheets**~~ (report §4at): done on 2026-11-15 (§4bd). The server now looks the regulars up by number.
-- **New (2026-11-15, report §4be):** more words would need a new source. Maknuune is free (about 36,000 Palestinian entries, no audio) but CC BY-SA 4.0, so what we build from it would be share-alike too. Use it only to check meanings (my suggestion), or as a word source?
-- **Answered (2026-11-15, later):** the five M5 questions are left to Claude: [ADR 0039](../decisions/0039-fellowship-answers.md) (no email, §3's list, visits first, live Morse last, after v1.0.0). **The regulars will speak aloud, but in the version after v1.0.0.** **v1.0.0 comes when Adam is satisfied**: until then, optimize and polish.
-- **Still open (2026-11-15):** `GROQ_API_KEY` (Adam says it's on the dev site; Claude can't check it, because the dev site's Vercel login stops every request from the cloud container. To check it yourself: on the dev site, sit and talk with a regular at the inn, or press "Would they understand me?" after a Say it. "Busy" or "isn't set up yet" means the key isn't reaching the dev site. The dev site is a *Preview* deployment, so in Vercel the key must be ticked for **Preview**, not only Production; and after adding it, redeploy `dev`). Also: trying the Morse sound on an iPhone after a phone call or a locked screen (`resumeOnGesture`, §4ax).
-- ~~**E15 (the Radio Room operators' free text)**~~: Adam said yes to all six questions (2026-11-10, ADR 0036). His one hand step: add `GEMINI_API_KEY` in Vercel.
-- ~~**The review's decisions**~~ (end of [the full review](reviews/2026-11-04-full-review.md)): all decided 2026-11-04. Adam answered three (prod keys in GitHub, the second-day gate, the final k) and left the rest to Claude ("do what you think is best"); all are built.
+- ~~**The inn's character sheets**~~ (report §4at): done on 2026-11-15 (§4bd).
+- ~~**The M5 questions**~~: left to Claude, [ADR 0039](../decisions/0039-fellowship-answers.md). The regulars' voices wait on Adam's look at Azure (#342).
+- ~~**E15 (the Radio Room operators' free text)**~~: Adam said yes to all six questions (2026-11-10, ADR 0036).
+- ~~**The review's decisions**~~ (end of [the full review](reviews/2026-11-04-full-review.md)): all decided 2026-11-04.
 - ~~In-app mic and data~~: decided 2026-11-04, the Groq check is approved, opt-in, through a server-side function.
-- Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure; nothing runs locally (no in-browser or on-machine models); hosted free APIs only. He wants one stable model rather than hopping between models.
+- Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure (he will look again himself, 2026-11-16); nothing runs locally; hosted free APIs only. He wants one stable model rather than hopping between models.
 - Decided 2026-11-02: git flow feature → dev → main with two live sites (ADR 0015). Vercel and Supabase accounts created.
