@@ -83,10 +83,23 @@
   display: none;
 }
 
-/* min-width: its one line is cut short with an ellipsis instead of widening the bar. */
+/* min-width: the line never widens the bar. It may take two lines, so the next step is read
+   whole (a third of the road's invites don't fit on one line of a 412-pixel phone); only a
+   longer one is cut short. */
 .city--pan .hud__compass {
   display: block;
   min-width: 0;
+}
+
+.city--pan .hud__compassline {
+  display: -webkit-box;
+  /* One line sits in the middle of the 44-pixel button; two make it taller. */
+  padding: 9px 10px;
+  line-height: 19px;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .city--pan .hud__player {

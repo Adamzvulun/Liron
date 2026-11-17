@@ -155,14 +155,16 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Do:** rewrite `STATUS.md` so its top is a short current state; move the history paragraph into `docs/process/HISTORY.md` unchanged. Write `retros/M2.md` and `retros/M4.md`. Set `package.json` to `1.0.0`. Draft `docs/process/releases/v1.0.0.md`: what a player gets, in plain words, grouped by place. Bring README, ROADMAP and the next-session prompt in line with this plan.
 - **Done when:** a newcomer can read STATUS in two minutes and know the state; both retros exist; the notes are ready to paste into the release PR.
 
-### ☐ 1.11 (#319) · v1.0 · One last review pass
+### ☑ 1.11 (#319) · v1.0 · One last review pass
 - **Do:** with the `code-reviewer` and `secure-code-guardian` skills, review everything changed since the last review of each area (2026-11-15), plus `api/`, `vercel.json` headers and the migrations added since. Then a UX pass with fresh eyes over the whole road on a phone: play the first ten steps of each guild as a new player and write down every moment of doubt. Fix findings with tests.
 - **Done when:** the review file exists in `docs/process/reviews/`; no open finding of medium or higher; no moment of doubt left unanswered.
+- **Done (2026-11-17):** [reviews/2026-11-17-v1-review.md](reviews/2026-11-17-v1-review.md). Two mediums found and fixed (the phone's compass cut mid-word; a speed test that failed at random); two lows left for task 2.1, where they belong.
 
 ### ☐ 1.12 (#320) · v1.0 · Adam's release checklist 🚧
 - **Do:** write `docs/process/release-checklist.md`, a walk of about 45 minutes, each line a checkbox with what to do and what "good" looks like. It must cover: starting as a new player and following the compass for ten minutes without help; iPhone Safari and desktop; sound with the silent switch on and off; the microphone prompt and "Say it"; keying with the tap pad (does the tone lag?); one Koch lesson; one script lesson (#38, #39); one word session; the coffee corner; Sit and talk and a Radio Room contact (after reading 1.8's line); buying something; opening a chest; changing the avatar; sign out and in. End with "anything that annoyed you, and any moment you didn't know what to do".
 - **Then:** tell Adam it's ready. Fix what he reports, with tests. Close #9, #38 and #39 when he has ticked their lines.
 - **Done when:** Adam has walked it; every problem he found is fixed or filed with his agreement.
+- **Written (2026-11-17):** [release-checklist.md](release-checklist.md). Waiting for Adam's walk.
 
 ### ☐ 1.13 (#321) · v1.0 · The release PR 🚧
 - **Do:** follow DEPLOY's "The first real release, v1.0.0" and the release steps in VERSIONS.md (cut `release/v1.0.0` from `dev`). Open the PR from that branch into `main` titled `Release v1.0.0` with the release notes. Tell Adam the steps that are his: the Production keys, merging, his account on the live database (a fresh start, as he chose), the tag.

@@ -134,5 +134,5 @@ A version is **done** when everything in its list is true *and* the release step
 | Version | State |
 |---|---|
 | 0.1.0 | Live (the scaffold) |
-| 1.0 | In progress: tasks 1.1–1.5 and 1.7–1.10 are built; next is 1.11 (a last review), then Adam's checklist |
+| 1.0 | In progress: tasks 1.1–1.5 and 1.7–1.11 are built; next is Adam's checklist (1.12) and the release PR (1.13) |
 | 1.1 – 4.0 | Not started |
