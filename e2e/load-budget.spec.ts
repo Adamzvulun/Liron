@@ -11,20 +11,20 @@ import { signedIn } from './fake-supabase.ts';
 // same page in the same minutes, because a shared runner can be slow for a whole test.
 
 /**
- * The ceilings (CI.md has the table). Measured on 2026-11-16, over eight runs:
- * - The startup script: 172.9 kB gzipped (1 kB = 1000 bytes). Its ceiling is that plus 15%.
+ * The ceilings (CI.md has the table):
+ * - The startup script: 172.9 kB gzipped on 2026-11-16 (1 kB = 1000 bytes), plus 15%.
  * - Drawn and clickable, as multiples of the page's own yardstick (`yardstick()` below):
- *   7.3-9.9× (best rounds 573-664 ms against 71-80 ms). Places are links, so the square can be
- *   clicked the moment it is drawn; both are still measured, in case that changes.
- * - Back from a hall: 5.6-7.1× (494-553 ms).
- * A timed figure moves by a quarter from run to run on the same code, so "plus 15%" would fail
- * at random. The time ceilings are about a third above the slowest reading: they catch a real
- * slowdown (half as slow again as usual) and not the weather.
+ *   1.9-2.2× over four runs on 2026-11-17 (best rounds 694-752 ms against 348-366 ms). Places
+ *   are links, so the square can be clicked the moment it is drawn; both are still measured.
+ * - Back from a hall: 1.6-1.9× (606-637 ms).
+ * A timed figure still moves by about a sixth from run to run on the same code, so "plus 15%"
+ * would fail at random. The time ceilings are about a third above the slowest reading: they
+ * catch a real slowdown (half as slow again as usual) and not the weather.
  */
 const STARTUP_KB = 199;
-const DRAWN = 13;
-const CLICKABLE = 13;
-const RETURN = 9.5;
+const DRAWN = 3;
+const CLICKABLE = 3;
+const RETURN = 2.6;
 
 /** Marks, in the page's own clock, the moment the square is drawn and a place can be clicked. */
 async function watchSquare(page: Page) {
@@ -43,14 +43,18 @@ async function watchSquare(page: Page) {
   });
 }
 
-/** A fixed piece of work (sorting and joining), timed on this page: best of twelve, in ms. */
+/**
+ * A fixed piece of work (sorting and joining), timed on this page: best of five, in ms. It is
+ * long (about 350 ms slowed) because Chrome slows the CPU in time slices: a 70 ms task caught
+ * them unevenly and swung by a third between rounds (2026-11-17).
+ */
 const yardstick = (page: Page) =>
   page.evaluate(() => {
     let best = Infinity;
-    for (let round = 0; round < 12; round++) {
+    for (let round = 0; round < 5; round++) {
       const start = performance.now();
       let seed = 7;
-      const numbers = Array.from({ length: 60_000 }, () => (seed = (seed * 16807) % 2147483647));
+      const numbers = Array.from({ length: 200_000 }, () => (seed = (seed * 16807) % 2147483647));
       numbers.sort((a, b) => a - b);
       if (numbers.join(',').length === 0) throw new Error('no work done');
       best = Math.min(best, performance.now() - start);
@@ -71,6 +75,12 @@ test('the square is drawn, clickable and back from a hall within the budget', as
   page,
 }, info) => {
   test.skip(info.project.name !== 'phone', 'the budget is for a phone; one viewport is enough');
+  // Tests running beside it slow the page far more than the yardstick (17× against 9× alone,
+  // 2026-11-17), so the timings are taken only on one worker, as CI runs.
+  test.skip(
+    info.config.workers > 1,
+    'timings need a quiet machine: run with --workers 1 (CI does)',
+  );
   test.setTimeout(180_000);
   await watchSquare(page);
   await signedIn(page);
