@@ -4,11 +4,14 @@ import { AVATAR_BOX } from '../avatar/paint.ts';
 import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import { Link } from '../Link.tsx';
 import { navigate } from '../router.ts';
+import { visitPath } from '../fellowship/fellowship.ts';
 import type { SubjectInfo } from '../subject.ts';
 import {
   ARENA_LOCKED,
   ARENA_SIGN,
   AVATAR_SPOT,
+  FRIEND_SCALE,
+  FRIEND_SPOTS,
   stepToward,
   WALK_MS,
   PLACE_LABELS,
@@ -204,6 +207,7 @@ export function City({
   children,
   lit = [],
   event = null,
+  friends = [],
 }: {
   subjects: readonly SubjectInfo[];
   /** The player's avatar; the default traveller until the profile loads. */
@@ -213,6 +217,8 @@ export function City({
   lit?: readonly PlaceId[];
   /** The world event on today, which dresses the square (task 4.4). */
   event?: { name: string; colors: readonly string[] } | null;
+  /** Friends standing in the square (task 3.3); each is a way to their house. */
+  friends?: readonly { id: string; name: string; look: Look }[];
 }) {
   const city = scene();
   // The avatar walks a few steps toward the door before the place opens (task 4.6).
@@ -303,6 +309,29 @@ export function City({
             );
           })}
           {event && <Bunting name={event.name} colors={event.colors} />}
+          {friends.slice(0, FRIEND_SPOTS.length).map((f, i) => {
+            const spot = FRIEND_SPOTS[i] as (typeof FRIEND_SPOTS)[number];
+            return (
+              <Link
+                key={f.id}
+                href={visitPath(f.id)}
+                className="city__friend"
+                aria-label={`${f.name}, a friend: visit their house`}
+                style={{
+                  left: spot.x - (AVATAR_BOX.width / 2) * FRIEND_SCALE,
+                  top: spot.feetY - AVATAR_BOX.feetY * FRIEND_SCALE,
+                }}
+              >
+                <Avatar
+                  look={f.look}
+                  shadow
+                  width={AVATAR_BOX.width * FRIEND_SCALE}
+                  height={(AVATAR_BOX.height + 10) * FRIEND_SCALE}
+                />
+                <span className="city__friend-name">{f.name}</span>
+              </Link>
+            );
+          })}
           <div className="city__avatar" role="img" aria-label="Your character">
             <Part part={city.avatar} />
             <Avatar

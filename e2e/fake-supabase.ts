@@ -81,6 +81,10 @@ export interface Extras {
     requests?: Record<string, unknown>[];
     calls?: { fn: string; args: unknown }[];
     refuse?: Record<string, string>;
+    /** The party feed's rows (task 3.3), as `fellowship_feed` returns them. */
+    feed?: Record<string, unknown>[];
+    /** Whether the player shares their milestones (default true). */
+    sharing?: boolean;
   };
 }
 
@@ -224,7 +228,7 @@ export async function fakeSupabase(
     }
     // The Fellowship's functions (task 3.1): a list that changes as the player acts.
     const fellowshipFn =
-      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests)$/.exec(
+      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests|fellowship_feed)$/.exec(
         url.pathname,
       )?.[1];
     if (fellowshipFn) {
@@ -251,6 +255,8 @@ export async function fakeSupabase(
           });
         case 'fellowship_requests':
           return route.fulfill({ json: waiting });
+        case 'fellowship_feed':
+          return route.fulfill({ json: f.feed ?? [] });
         case 'answer_friend': {
           const i = waiting.findIndex((r) => r.id === args?.p_other);
           if (i >= 0) {
@@ -528,7 +534,11 @@ export async function fakeSupabase(
         profileUpdates.push(route.request().postDataJSON());
         return route.fulfill({ status: 204 });
       }
-      const profile = { ...PROFILE, title };
+      const profile = {
+        ...PROFILE,
+        title,
+        share_milestones: extras.fellowship?.sharing ?? true,
+      };
       return route.fulfill({ json: single ? profile : [profile] });
     }
     if (url.pathname === '/rest/v1/wallets') {

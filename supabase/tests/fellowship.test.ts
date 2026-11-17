@@ -242,3 +242,89 @@ describe('names others will read (fellowship-build.md §1 trap 4)', () => {
     expect((await cards(B)).find((c) => c.id === A)?.name).toBe('Adam Z');
   });
 });
+
+describe('the party feed (task 3.3, fellowship-build.md §6 test 8)', () => {
+  type Row = { who: string; name: string; me: boolean; kind: string; detail: string; day: string };
+  const feed = async (who: string) => (await as(who, 'select fellowship_feed()')) as Row[];
+  const event = (who: string, kind: string, subject = 'morse') =>
+    rows(
+      `insert into subject_events (user_id, day, subject_id, kind, count)
+       values ($1, current_date, $2, $3, 1)
+       on conflict (user_id, day, subject_id, kind) do update set count = subject_events.count + 1`,
+      [who, subject, kind],
+    );
+
+  it('the database writes a milestone as it happens, once, and friends read it newest first', async () => {
+    await befriend(A, B);
+    await event(A, 'rank-keyer');
+    await event(A, 'rank-keyer');
+    await rows(`update fellowship_feed set at = now() - interval '1 hour'`);
+    await event(A, 'trial-3', 'arabic');
+    const theirs = await feed(B);
+    expect(theirs.map((r) => [r.kind, r.detail])).toEqual([
+      ['trial', 'arabic:trial-3'],
+      ['rank', 'morse:rank-keyer'],
+      ['rank', 'morse:rank-listener'],
+    ]);
+    expect(theirs[0]).toMatchObject({ who: A, name: 'Adam', me: false });
+    expect(theirs[0].day).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(Object.keys(theirs[0]).sort()).toEqual([
+      'day',
+      'detail',
+      'id',
+      'kind',
+      'me',
+      'name',
+      'who',
+    ]);
+  });
+
+  it('achievements and streak chests are milestones; ordinary events are not', async () => {
+    await rows(
+      `insert into player_achievements (user_id, achievement_id)
+       values ($1, (select id from achievements order by 1 limit 1))`,
+      [A],
+    );
+    await rows(
+      `insert into chests (user_id, kind, source, source_key)
+       values ($1, (select kind from chest_drops order by 1 limit 1), 'streak', '2026-11-02:30')`,
+      [A],
+    );
+    await event(A, 'recognition-round');
+    const kinds = (await feed(A)).map((r) => `${r.kind}:${r.detail}`);
+    expect(kinds).toContain('streak:30');
+    expect(kinds.some((k) => k.startsWith('achievement:'))).toBe(true);
+    expect(kinds.some((k) => k.includes('recognition'))).toBe(false);
+  });
+
+  it('with sharing off, a rank writes no feed row', async () => {
+    await as(A, `update profiles set share_milestones = false where id = '${A}'`);
+    await event(A, 'rank-keyer');
+    expect(
+      await rows(`select * from fellowship_feed where user_id = $1 and detail like '%keyer'`, [A]),
+    ).toEqual([]);
+  });
+
+  it('a stranger, or a removed friend, reads none of it', async () => {
+    await befriend(A, B);
+    await event(A, 'rank-keyer');
+    expect((await feed(C)).filter((r) => r.who === A)).toEqual([]);
+    await as(A, 'select remove_friend($1)', [B]);
+    expect((await feed(B)).filter((r) => r.who === A)).toEqual([]);
+  });
+
+  it('forgets milestones older than 60 days', async () => {
+    await event(A, 'rank-keyer');
+    await rows(`update fellowship_feed set at = now() - interval '61 days' where user_id = $1`, [
+      A,
+    ]);
+    expect(await feed(A)).toEqual([]);
+    expect(await rows(`select * from fellowship_feed where user_id = $1`, [A])).toEqual([]);
+  });
+
+  it('nobody writes the feed through the API', async () => {
+    await expect(
+      as(A, `insert into fellowship_feed (user_id, kind, detail) values ('${A}', 'streak', '100')`),
+    ).rejects.toThrow(/permission denied/);
+  });
+});

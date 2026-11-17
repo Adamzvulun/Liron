@@ -262,3 +262,8 @@
       - `PlaceScreen` takes a `title`.
     - **e2e:** `Extras.fellowship` (`friends`, `requests`, `refuse`, and `calls` to read back) and `friendCard()` in the fake.
     - **Next (v2.1, task 3.3):** the feed table and `share_milestones`, from fellowship-build.md §2.
+103. **The party feed and the square, task 3.3 (2026-11-17, report §4cq):** [ADR 0043](../decisions/0043-the-party-feed.md).
+    - **Database:** triggers on `subject_events`, `player_achievements` and `chests` call `feed_milestone` (migration `20261231000000_fellowship_feed.sql`). `profiles.share_milestones` is writable by its owner.
+    - **Browser:** `PartyFeed.tsx` sits on the board. `SharingRow` in `Hud.tsx` gets its `sharing` source from `App.tsx`. `FRIEND_SPOTS` and `FRIEND_SCALE` are in `layout.ts`, and `.city__friend` is in `City.tsx`; App reads the cards 400 ms after each arrival on the square.
+    - **e2e:** `Extras.fellowship.feed` and `.sharing`. `load-budget.spec.ts` has five friends in the square.
+    - **Next (v2.2, task 3.4):** challenges and the Arena. The rules for scores are in fellowship-build.md §5.

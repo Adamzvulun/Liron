@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import { expect, test, type Page } from '@playwright/test';
-import { signedIn } from './fake-supabase.ts';
+import { friendCard, signedIn } from './fake-supabase.ts';
 
 // The speed budget (#137, #315; the numbers and how to read them are in docs/process/CI.md).
 // Four things a player feels, each with a ceiling: how soon the square is drawn, how soon a
@@ -83,7 +83,14 @@ test('the square is drawn, clickable and back from a hall within the budget', as
   );
   test.setTimeout(180_000);
   await watchSquare(page);
-  await signedIn(page);
+  // Five friends stand in the square (task 3.3: the budget holds "with five friends"). They are
+  // read after the square's first paint, so each round waits for them before going on.
+  const friends = [1, 2, 3, 4, 5].map((n) =>
+    friendCard(`00000000-0000-0000-0000-00000000000${n}`, `Friend ${n}`, {
+      look: { hair: n % 2 ? 'long' : 'curly', gear: { torso: 'tunic', pet: 'sand-cat' } },
+    }),
+  );
+  await signedIn(page, [], [], undefined, [], { fellowship: { friends } });
   const cdp = await page.context().newCDPSession(page);
   await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
@@ -94,6 +101,7 @@ test('the square is drawn, clickable and back from a hall within the budget', as
   for (let round = 0; round < 4; round++) {
     await page.goto('/');
     await page.locator('a.city__place').first().waitFor();
+    await expect(page.locator('.city__friend')).toHaveCount(5);
     const unit = await yardstick(page);
     const marks = await page.evaluate(
       () => (window as unknown as { square: { drawn: number; clickable: number } }).square,

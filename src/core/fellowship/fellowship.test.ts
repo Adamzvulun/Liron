@@ -1,7 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { paintAvatar } from '../avatar/paint.ts';
 import { DEFAULT_LOOK } from '../avatar/looks.ts';
-import { rankName, readCard, readRequest, showCode, tidyCode } from './fellowship.ts';
+import {
+  dayLabel,
+  milestoneLine,
+  rankName,
+  readCard,
+  readMilestone,
+  readRequest,
+  showCode,
+  tidyCode,
+  type Milestone,
+} from './fellowship.ts';
 
 const ID = '00000000-0000-0000-0000-0000000000a1';
 
@@ -81,5 +91,46 @@ describe('codes and ranks, as people read them', () => {
   it('a rank’s name comes from its id', () => {
     expect(rankName('morse:rank-listener')).toBe('Listener');
     expect(rankName('arabic:rank-master-storyteller')).toBe('Master storyteller');
+  });
+});
+
+describe('the party feed in words (task 3.3)', () => {
+  const places = new Map([
+    ['morse', 'the Signal Tower'],
+    ['arabic', 'the Caravanserai'],
+  ]);
+  const m = (kind: Milestone['kind'], detail: string, me = false): Milestone => ({
+    id: 1,
+    who: ID,
+    name: 'Basma',
+    me,
+    kind,
+    detail,
+    day: '2026-11-17',
+  });
+
+  it('says each kind of milestone, from its codes alone', () => {
+    expect(milestoneLine(m('rank', 'morse:rank-keyer'), places)).toBe(
+      'Basma took the rank of Keyer at the Signal Tower.',
+    );
+    expect(milestoneLine(m('trial', 'arabic:trial-12'), places)).toBe(
+      'Basma passed the chapter 12 trial at the Caravanserai.',
+    );
+    expect(milestoneLine(m('achievement', 'first-light'), places)).toBe(
+      'Basma earned First Light.',
+    );
+    expect(milestoneLine(m('streak', '30', true), places)).toBe('You kept a 30-day streak.');
+  });
+
+  it('turns away rows that aren’t milestones', () => {
+    expect(readMilestone({ ...m('rank', 'x'), kind: 'gold' })).toBeNull();
+    expect(readMilestone({ ...m('rank', 'x'), day: '2026-11-17T10:00' })).toBeNull();
+    expect(readMilestone(m('rank', 'morse:rank-keyer'))).toEqual(m('rank', 'morse:rank-keyer'));
+  });
+
+  it('dates read as today, yesterday, or the day', () => {
+    expect(dayLabel('2026-11-17', '2026-11-17')).toBe('Today');
+    expect(dayLabel('2026-11-16', '2026-11-17')).toBe('Yesterday');
+    expect(dayLabel('2026-11-03', '2026-11-17')).toBe('Nov 3');
   });
 });

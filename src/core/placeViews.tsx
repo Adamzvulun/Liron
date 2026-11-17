@@ -12,6 +12,7 @@ export { Market } from './player/Market.tsx';
 export { Ledger } from './player/Ledger.tsx';
 export { Fellowship } from './fellowship/Fellowship.tsx';
 export { FriendHouse } from './fellowship/FriendHouse.tsx';
+export { PartyFeed } from './fellowship/PartyFeed.tsx';
 
 export function HouseBackdrop() {
   return <HallBackdrop id="house" {...HOUSE_STAGE} paint={paintHouse} />;

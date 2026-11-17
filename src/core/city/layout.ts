@@ -80,6 +80,22 @@ export const PLACE_SOON: Record<PlaceId, string> = {
 /** Where the player's avatar stands in the square: by the compass, 190 design px tall. */
 export const AVATAR_SPOT = { x: 1010, feetY: 938, scale: 0.74 } as const;
 
+/**
+ * Where friends stand in the square (task 3.3), nearest first, a little smaller than you. At
+ * most eight, so the square stays inside the speed budget (fellowship-build.md §5).
+ */
+export const FRIEND_SPOTS = [
+  { x: 800, feetY: 960 },
+  { x: 1220, feetY: 965 },
+  { x: 660, feetY: 1010 },
+  { x: 1370, feetY: 1015 },
+  { x: 900, feetY: 1040 },
+  { x: 1110, feetY: 1045 },
+  { x: 520, feetY: 1050 },
+  { x: 1520, feetY: 1055 },
+] as const;
+export const FRIEND_SCALE = 0.56;
+
 /** The Arena's message when someone knocks. */
 export const ARENA_LOCKED = 'The Arena opens with the Fellowship, when friends can join you.';
 
