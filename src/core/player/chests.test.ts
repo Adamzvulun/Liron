@@ -59,6 +59,13 @@ describe('reward chests (ADR 0033)', () => {
     expect(shelf[3]).toMatchObject({ id: null, kind: 'wooden', seals: { done: 2, of: 3 } });
   });
 
+  it('in a world event’s week, today’s locked chest is the event’s (task 4.4)', () => {
+    const shelf = chestShelf([], board([false, false, true]), [], 'olive-chest');
+    expect(shelf).toEqual([
+      expect.objectContaining({ id: null, kind: 'olive-chest', name: 'Olive-wood chest' }),
+    ]);
+  });
+
   it('drops the locked chest once all three are done, and shows none without contracts', () => {
     expect(chestShelf([], board([true, true, true]), [])).toEqual([]);
     expect(chestShelf([], null, [])).toEqual([]);

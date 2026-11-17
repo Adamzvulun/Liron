@@ -145,6 +145,33 @@
   fill: #4b2f6b;
 }
 
+/* The world events' chests (task 4.4): each in its event's colors, with brass fittings. */
+.chest--signal-chest .chest__body {
+  fill: #2f6f7a;
+}
+
+.chest--beacon-chest .chest__body {
+  fill: #9a3f2d;
+}
+
+.chest--olive-chest .chest__body {
+  fill: #6b7d3a;
+}
+
+.chest--ink-chest .chest__body {
+  fill: #2a3a5a;
+}
+
+:is(.chest--signal-chest, .chest--beacon-chest, .chest--olive-chest, .chest--ink-chest)
+  :is(.chest__band) {
+  stroke: var(--brass);
+}
+
+:is(.chest--signal-chest, .chest--beacon-chest, .chest--olive-chest, .chest--ink-chest)
+  .chest__lock {
+  fill: var(--brass);
+}
+
 .chest__jewel {
   fill: #7fd1de;
   stroke: var(--ink);

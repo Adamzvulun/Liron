@@ -43,6 +43,58 @@
       }
     },
     {
+      "id": "signal-chest",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Signal chest",
+        "gold": [30, 70],
+        "gemChance": 0.3,
+        "gems": [1, 1],
+        "gearChance": 0.35,
+        "shieldChance": 0.1
+      }
+    },
+    {
+      "id": "beacon-chest",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Beacon chest",
+        "gold": [30, 70],
+        "gemChance": 0.3,
+        "gems": [1, 1],
+        "gearChance": 0.35,
+        "shieldChance": 0.1
+      }
+    },
+    {
+      "id": "olive-chest",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Olive-wood chest",
+        "gold": [30, 70],
+        "gemChance": 0.3,
+        "gems": [1, 1],
+        "gearChance": 0.35,
+        "shieldChance": 0.1
+      }
+    },
+    {
+      "id": "ink-chest",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Scribe’s chest",
+        "gold": [30, 70],
+        "gemChance": 0.3,
+        "gems": [1, 1],
+        "gearChance": 0.35,
+        "shieldChance": 0.1
+      }
+    },
+    {
       "id": "contracts",
       "subject": "core",
       "type": "chest-source",

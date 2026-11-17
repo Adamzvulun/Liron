@@ -113,6 +113,32 @@
         "text": "Sit and talk with a regular at the inn",
         "requires": "inn-chat"
       }
+    },
+    {
+      "id": "event-olive-harvest",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "coffee",
+        "target": 2,
+        "gold": 20,
+        "text": "The olive harvest: practice two rounds of phrases at the coffee corner",
+        "event": "olive-harvest"
+      }
+    },
+    {
+      "id": "event-arabic-language-day",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "slate",
+        "target": 1,
+        "gold": 20,
+        "text": "Arabic Language Day: write letters on the slate",
+        "event": "arabic-language-day"
+      }
     }
   ]
 }

@@ -20,6 +20,7 @@ import { cityErrands, useCompass, type CompassSources } from './player/compass.t
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
 import { localDay } from './road/road.ts';
+import { eventOn } from './events.ts';
 import { stepWatcher } from './player/stepsDone.ts';
 import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
@@ -184,6 +185,8 @@ function Lobby({ player }: { player: Player }) {
     [today],
   );
   const place = placeAt(path);
+  // The world event on the player's day, if any (task 4.4).
+  const event = eventOn(today);
   // The city's sounds (task 4.6): armed once, and the bed follows the player; halls have none.
   useEffect(() => armSound(), []);
   const resident = place ? residentsOf(subjects).get(place) : undefined;
@@ -275,6 +278,11 @@ function Lobby({ player }: { player: Player }) {
             )}
             {place === 'board' && state.today && (
               <div className="hud notice-board">
+                {event && (
+                  <p className="notice-board__event" role="note">
+                    {event.line}
+                  </p>
+                )}
                 <QuestTracker
                   today={state.today}
                   subjects={subjects}
@@ -284,7 +292,7 @@ function Lobby({ player }: { player: Player }) {
                 />
                 <Suspense fallback={null}>
                   <ChestShelf
-                    shelf={chestShelf(state.chests, state.contracts, subjects)}
+                    shelf={chestShelf(state.chests, state.contracts, subjects, event?.chest)}
                     onOpen={openChest}
                   />
                 </Suspense>
@@ -336,7 +344,7 @@ function Lobby({ player }: { player: Player }) {
   }
   if (path !== '/') return <Lost />;
   return (
-    <City subjects={subjects} look={state.profile?.avatar} lit={lit}>
+    <City subjects={subjects} look={state.profile?.avatar} lit={lit} event={event}>
       <div className="lobby__top">
         <Hud
           state={state}

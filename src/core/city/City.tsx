@@ -150,6 +150,49 @@ function Glow({ part }: { part: PaintedPart }) {
   );
 }
 
+/** The strings of bunting, in stage pixels: from, to, and how far each sags in the middle. */
+const STRINGS = [
+  // Your House's gable to the tower, the tower to the Caravanserai, and on to the market.
+  { from: [400, 440], to: [640, 480], sag: 36 },
+  { from: [770, 470], to: [1010, 420], sag: 44 },
+  { from: [1360, 420], to: [1640, 690], sag: 30 },
+] as const;
+
+/** One string: the curve, and a pennant every 64 pixels along it, in turn of the colors. */
+function bunting(s: (typeof STRINGS)[number], colors: readonly string[]) {
+  const [x0, y0] = s.from;
+  const [x1, y1] = s.to;
+  const cx = (x0 + x1) / 2;
+  const cy = (y0 + y1) / 2 + s.sag * 2;
+  const at = (t: number): [number, number] => [
+    (1 - t) ** 2 * x0 + 2 * (1 - t) * t * cx + t ** 2 * x1,
+    (1 - t) ** 2 * y0 + 2 * (1 - t) * t * cy + t ** 2 * y1,
+  ];
+  const n = Math.max(3, Math.round(Math.hypot(x1 - x0, y1 - y0) / 44));
+  let flags = '';
+  for (let i = 1; i < n; i += 1) {
+    const [x, y] = at(i / n);
+    flags += `<path d="M${x - 15} ${y} L${x + 15} ${y} L${x} ${y + 36} Z" fill="${colors[i % colors.length]}" stroke="#2A170C" stroke-width="3" stroke-linejoin="round"/>`;
+  }
+  return `<path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#2A170C" stroke-width="4"/>${flags}`;
+}
+
+/** The square dressed for a world event (task 4.4): bunting strung across it. */
+function Bunting({ name, colors }: { name: string; colors: readonly string[] }) {
+  const svg = STRINGS.map((s) => bunting(s, colors)).join('');
+  return (
+    <svg
+      className="city__bunting"
+      viewBox={`0 0 ${STAGE.width} ${STAGE.height}`}
+      width={STAGE.width}
+      height={STAGE.height}
+      role="img"
+      aria-label={`The square is dressed for ${name}`}
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  );
+}
+
 /**
  * The city square (issue #24): the approved concept v3, painted in the browser and scaled to
  * fit the window. Each place is a link to its screen (#25). `children` (the HUD) sit on top,
@@ -160,6 +203,7 @@ export function City({
   look = DEFAULT_LOOK,
   children,
   lit = [],
+  event = null,
 }: {
   subjects: readonly SubjectInfo[];
   /** The player's avatar; the default traveller until the profile loads. */
@@ -167,6 +211,8 @@ export function City({
   children?: ReactNode;
   /** Buildings whose lamps light up now: a step on their road was just done (task 4.6). */
   lit?: readonly PlaceId[];
+  /** The world event on today, which dresses the square (task 4.4). */
+  event?: { name: string; colors: readonly string[] } | null;
 }) {
   const city = scene();
   // The avatar walks a few steps toward the door before the place opens (task 4.6).
@@ -256,6 +302,7 @@ export function City({
               </Link>
             );
           })}
+          {event && <Bunting name={event.name} colors={event.colors} />}
           <div className="city__avatar" role="img" aria-label="Your character">
             <Part part={city.avatar} />
             <Avatar

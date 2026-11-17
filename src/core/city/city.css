@@ -496,3 +496,11 @@
     animation: none;
   }
 }
+
+/* The bunting for a world event (task 4.4): over the square, never in the way of a tap. */
+.city__bunting {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}

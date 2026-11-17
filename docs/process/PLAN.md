@@ -275,9 +275,10 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
   Show the distance to each capstone in the ledger (1.6).
 - **Done when:** both capstones can be attempted and passed, with tests; the judge's eval set is in `scripts/` with its results recorded; the ledger shows progress toward each.
 
-### ☐ 4.4 (#336) · v1.2 · ✏️ World events
+### ☑ 4.4 (#336) · v1.2 · ✏️ World events
 - **Do:** a small calendar of events as **data** (`content/core/events.json`): a week when the square is dressed differently, a themed contract set, a chest that only that week gives. They start and end by date with no deploy. Begin with three or four across the year that fit the two cultures of the city. Art is painted in the browser like everything else.
 - **Done when:** an event appears and ends by the clock (tested with a fixed date); a player who misses one loses nothing they had; the square stays inside the speed budget.
+- **Built (2026-11-17):** [events.md](../game/events.md). There are four events, on fixed dates: World Radio Day, World Amateur Radio Day, the olive harvest, and World Arabic Language Day. Each one has bunting, a notice, a themed contract and its own chest. Lunar feasts are left out, because their dates move every year; events.md says why.
 
 ### ☐ 4.5 (#337) · v4.0 · The guild-hall kit, and the third hall 🚧
 - **Do:** write `docs/process/ADDING-A-SUBJECT.md` from the subject contract (ADR 0019) and from how the two halls were actually built: the content packs, the road, the hall painting, the ranks, the contracts, the tests every subject must pass. Then prove it: ask Adam which subject fills the first empty plot, and build its smallest honest first chapter using only the kit. Fix the kit wherever the build had to step outside it.

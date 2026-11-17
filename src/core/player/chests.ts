@@ -49,6 +49,8 @@ export function chestShelf(
   chests: readonly Chest[],
   contracts: TodaysContracts | null,
   subjects: readonly SubjectInfo[],
+  /** The chest today's contracts give, in a world event's week (task 4.4). */
+  eventChest?: string,
 ): ShelfChest[] {
   const shelf: ShelfChest[] = chests.map((c) => ({
     id: c.id,
@@ -59,7 +61,7 @@ export function chestShelf(
   const list = contracts?.contracts ?? [];
   const done = list.filter((c) => c.paid).length;
   if (list.length && done < list.length) {
-    const kind = CONTRACTS_CHEST;
+    const kind = eventChest ?? CONTRACTS_CHEST;
     shelf.push({
       id: null,
       kind,
