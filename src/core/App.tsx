@@ -29,6 +29,7 @@ import { browserPackStore, cachedContent } from './content/packCache.ts';
 import { privatePackVersion, supabaseContent } from './content/privateContent.ts';
 import { functionPartner } from './partner.ts';
 import { supabaseFellowship, type FriendCard } from './fellowship/fellowship.ts';
+import { supabaseChallenges } from './fellowship/challenges.ts';
 import { functionServices } from './services.ts';
 import { functionSpeech } from './speech.ts';
 import { armSound, cue, setAmbient } from './sound/sound.ts';
@@ -50,6 +51,8 @@ const ChestShelf = lazy(() => views().then((m) => ({ default: m.ChestShelf })));
 const HouseBackdrop = lazy(() => views().then((m) => ({ default: m.HouseBackdrop })));
 const MarketBackdrop = lazy(() => views().then((m) => ({ default: m.MarketBackdrop })));
 const BoardBackdrop = lazy(() => views().then((m) => ({ default: m.BoardBackdrop })));
+const Arena = lazy(() => views().then((m) => ({ default: m.Arena })));
+const ArenaBackdrop = lazy(() => views().then((m) => ({ default: m.ArenaBackdrop })));
 
 // The signed-in player. Subjects' APIs report awards to it (ADR 0019, 0020).
 const store = supabase ? supabaseStore(supabase) : null;
@@ -78,6 +81,16 @@ const services = supabase ? functionServices(accessToken(supabase)) : undefined;
 /** Friends (task 3.1): through the database's Fellowship functions only. */
 const fellowship = supabase ? supabaseFellowship(supabase) : null;
 /** Settings' sharing switch (task 3.3). */
+/** Challenges between friends (task 3.4): scores come from saved sessions only. */
+const challenges =
+  supabase && fellowship
+    ? supabaseChallenges(supabase, () =>
+        fellowship
+          .cards()
+          .then((cards) => cards.filter((c) => !c.me).map((c) => ({ id: c.id, name: c.name }))),
+      )
+    : null;
+
 const sharing = fellowship
   ? {
       load: () =>
@@ -96,6 +109,8 @@ const sharing = fellowship
 const PLACES = new Map(subjects.map((s) => [s.id, `the ${s.place}`]));
 /** A friend's house: /house/visit/<their id> (task 3.2). */
 const VISIT = /^\/house\/visit\/([0-9a-f-]{36})\/?$/i;
+/** The Arena beyond the square (task 3.4): challenges between friends. */
+const ARENA = /^\/arena\/?$/;
 
 /** Settings' "Change your password" (#324): null when saved, else what to tell the player. */
 const changePassword = async (password: string): Promise<string | null> => {
@@ -122,6 +137,7 @@ const apis = new Map(
               supabase ? contentOf(supabase) : null,
               supabase ? speechOf(supabase) : null,
               supabase ? partnerOf(supabase) : null,
+              challenges ?? undefined,
             ),
           ] as const,
       )
@@ -321,6 +337,19 @@ function Lobby({ player }: { player: Player }) {
             backdrop={<HouseBackdrop />}
           />
         </Suspense>
+        {celebrations}
+      </>
+    );
+  }
+  if (ARENA.test(path) && challenges) {
+    return (
+      <>
+        <PlaceScreen place="arena" wide>
+          <Suspense fallback={<p className="place__loading">Opening the gates…</p>}>
+            <ArenaBackdrop />
+            <Arena source={challenges} today={today ?? localDay()} />
+          </Suspense>
+        </PlaceScreen>
         {celebrations}
       </>
     );

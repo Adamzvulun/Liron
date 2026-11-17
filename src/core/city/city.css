@@ -195,6 +195,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #eadfcb;
+  text-decoration: none;
   opacity: 0.9;
 }
 
@@ -222,28 +223,6 @@
 
 .city__overlay > * {
   pointer-events: auto;
-}
-
-/* A short message, e.g. after knocking on the locked Arena. */
-.city__notice:empty {
-  display: none;
-}
-
-.city__notice {
-  position: absolute;
-  left: 50%;
-  bottom: 24px;
-  max-width: calc(100% - 32px);
-  margin: 0;
-  padding: 12px 20px;
-  transform: translateX(-50%);
-  border: var(--outline-ui);
-  border-radius: 12px;
-  background: var(--parchment);
-  color: var(--ink);
-  font-weight: 700;
-  text-align: center;
-  box-shadow: 0 4px 0 var(--ink);
 }
 
 /* Phones held upright (#27): the HUD on top, the scene filling the height and panning
@@ -274,11 +253,6 @@
   left: 0;
   top: 0;
   transform-origin: top left;
-}
-
-.city--pan .city__notice {
-  position: fixed;
-  bottom: calc(84px + env(safe-area-inset-bottom));
 }
 
 .city__dock {

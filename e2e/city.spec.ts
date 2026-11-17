@@ -10,7 +10,7 @@ test.describe('the city square (#24)', () => {
     }
     await expect(page.getByRole('link', { name: /Signal Tower: / })).toBeAttached();
     await expect(page.getByRole('img', { name: 'Your character' })).toBeAttached();
-    await expect(page.getByText('The Arena · Locked')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'The Arena' })).toBeVisible();
   });
 
   test('fills the window without distortion', async ({ page }) => {

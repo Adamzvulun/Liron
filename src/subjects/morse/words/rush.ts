@@ -2,6 +2,7 @@
 // and slower after a miss (overspeed practice). Pure rules here; the screen is in WordDrill.tsx.
 // Design: docs/game/morse-words.md.
 
+import type { ScoredRound } from '../../../core/fellowship/challenges.ts';
 import type { SubjectApi } from '../../../core/subject.ts';
 import type { MorseProgress } from '../lesson/progress.ts';
 
@@ -97,10 +98,12 @@ export async function reportRush(
   charWpm: number,
   seconds: number,
   at = new Date(),
-): Promise<void> {
+): Promise<ScoredRound | null> {
   const s = summarizeRush(calls);
   const fast = calls.filter((c) => rushRight(c) && c.wpm > charWpm).length;
+  const sessionId = crypto.randomUUID();
   await api.saveSession({
+    sessionId,
     state: next,
     xp: xpForRush(s),
     minutes: seconds / 60,
@@ -112,4 +115,7 @@ export async function reportRush(
     ],
     at,
   });
+  // The score friends see comes from this saved session (task 3.4, docs/game/challenges.md).
+  const recorded = await api.rounds.record(sessionId, 'rush', s.score);
+  return recorded && { sessionId, kind: 'rush', score: s.score, recorded };
 }

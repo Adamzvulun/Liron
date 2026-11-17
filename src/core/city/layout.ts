@@ -56,8 +56,8 @@ export const PLACE_LABELS: Record<PlaceId, string> = {
   market: 'Gear and items',
 };
 
-/** The Arena's sign: locked until the Fellowship opens (M5). */
-export const ARENA_SIGN = { x: 250, y: 262, text: 'The Arena · Locked' } as const;
+/** The Arena's sign, over the far amphitheater: challenges between friends (task 3.4). */
+export const ARENA_SIGN = { x: 250, y: 262, text: 'The Arena' } as const;
 
 /** Each place's address. Halls and screens get shareable URLs; the square is "/". */
 export const PLACE_PATHS: Record<PlaceId, string> = {
@@ -95,9 +95,6 @@ export const FRIEND_SPOTS = [
   { x: 1520, feetY: 1055 },
 ] as const;
 export const FRIEND_SCALE = 0.56;
-
-/** The Arena's message when someone knocks. */
-export const ARENA_LOCKED = 'The Arena opens with the Fellowship, when friends can join you.';
 
 /** Which subject lives in which building. */
 export function residentsOf(subjects: readonly SubjectInfo[]): Map<PlaceId, SubjectInfo> {

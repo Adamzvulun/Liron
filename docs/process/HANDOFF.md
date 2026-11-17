@@ -267,3 +267,9 @@
     - **Browser:** `PartyFeed.tsx` sits on the board. `SharingRow` in `Hud.tsx` gets its `sharing` source from `App.tsx`. `FRIEND_SPOTS` and `FRIEND_SCALE` are in `layout.ts`, and `.city__friend` is in `City.tsx`; App reads the cards 400 ms after each arrival on the square.
     - **e2e:** `Extras.fellowship.feed` and `.sharing`. `load-budget.spec.ts` has five friends in the square.
     - **Next (v2.2, task 3.4):** challenges and the Arena. The rules for scores are in fellowship-build.md §5.
+104. **Challenges and the Arena, task 3.4 (2026-11-17, report §4cr):** [ADR 0044](../decisions/0044-challenges-and-the-arena.md), design in [challenges.md](../game/challenges.md).
+    - **Database:** `round_kinds` (rows, not code), `round_scores` (one per saved session) and `challenges` (migration `20270101000000_challenges.sql`). Its functions are `record_round_score`, `send_challenge`, `answer_challenge`, `decline_challenge` and `my_challenges`. `created_at` and `round_scores.at` use `clock_timestamp()`, because "played after" must hold inside one test transaction.
+    - **Platform:** `src/core/fellowship/challenges.ts` holds `RoundsApi` (on `SubjectApi.rounds`), `supabaseChallenges`, and `takeOn`/`takenOn` (sessionStorage `waymark:taken-on`). `record` also answers a challenge that was taken on. `ChallengeOffer.tsx` goes under a result, and `Arena.tsx` with `arena.css` makes the screen. `paintArena.ts` is the backdrop. `/arena` is routed in `App.tsx` (`ARENA`), and `PlaceScreen` takes `place="arena"`.
+    - **Subject:** `reportRush` and `reportWords` make a session id, then record the score, and return a `ScoredRound`. `TowerHall` takes `?open=rush`, which opens the Codebook straight into a rush.
+    - **e2e:** `Extras.fellowship.challenges`. The fake answers with the last recorded score. See `e2e/challenges.spec.ts`.
+    - **Next (v2.3, task 3.5):** Fellowship quests and gifts.
