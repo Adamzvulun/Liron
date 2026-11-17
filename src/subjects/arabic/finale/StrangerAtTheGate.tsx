@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
-import type { InnTurn, Verdict } from '../../../core/partner.ts';
+import { PartnerError, type InnTurn, type Verdict } from '../../../core/partner.ts';
 import { paintTable, TABLE_STAGE } from '../../../core/city/paintTable.ts';
 import { pictureUrl } from '../../../core/city/picture.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
@@ -35,6 +35,17 @@ import './stranger.css';
 // The Stranger at the Gate (tasks 4.2 and 4.3; ADR 0047): the Long Road In's last chapter. Read
 // the guest book, write the stranger's name, tell the table your story; then the finale screen.
 // The rules are in stranger.ts, the story in content/arabic/finale.json.
+
+/** Why the table stopped listening, said plainly, so a retry isn't a blind one. */
+function quietLine(e: unknown, otherwise: string): string {
+  if (e instanceof PartnerError && e.problem === 'daily-limit')
+    return 'You’ve used today’s lines at the inn. The table will hear your story tomorrow.';
+  if (e instanceof PartnerError && e.problem === 'site-limit')
+    return 'The inn is full tonight: everyone’s talk has used up the day. Come back tomorrow.';
+  if (e instanceof PartnerError && e.problem === 'not-set-up')
+    return 'The table can’t hear stories on this site yet: Settings → Services says what’s missing.';
+  return otherwise;
+}
 
 /** Tries at the stranger's name before the part is missed. */
 const NAME_TRIES = 3;
@@ -124,13 +135,16 @@ export function StrangerAtTheGate({
           if (!live.current) return;
           setStage({ ...s, turns: [...turns, { who: 'them', text: reply.text }], waiting: false });
         },
-        () => {
+        (e: unknown) => {
           if (!live.current) return;
           setStage({
             ...s,
             turns,
             waiting: false,
-            ended: 'The innkeeper is called to the kitchen. Tell your story another evening.',
+            ended: quietLine(
+              e,
+              'The innkeeper is called to the kitchen. Tell your story another evening.',
+            ),
           });
         },
       );
@@ -149,11 +163,14 @@ export function StrangerAtTheGate({
         const passed = storyPassed(verdict, turns);
         end(passed, started, verdict.why, verdict);
       },
-      () =>
+      (e: unknown) =>
         live.current &&
         setStage({
           kind: 'missed',
-          why: 'The table couldn’t agree tonight. Your story is still yours: tell it again another evening.',
+          why: quietLine(
+            e,
+            'The table couldn’t agree tonight. Your story is still yours: tell it again another evening.',
+          ),
           xp: 0,
         }),
     );
