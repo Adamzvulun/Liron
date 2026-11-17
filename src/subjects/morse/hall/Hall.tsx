@@ -39,7 +39,16 @@ import './hall.css';
 // the room pans sideways and the same things follow below it as cards.
 
 export type HallDoor =
-  'koch' | 'recognition' | 'trial' | 'sending' | 'lamp' | 'words' | 'watch' | 'far' | 'radio';
+  | 'koch'
+  | 'recognition'
+  | 'trial'
+  | 'sending'
+  | 'lamp'
+  | 'words'
+  | 'watch'
+  | 'far'
+  | 'radio'
+  | 'wire';
 
 // The room never changes, so it's painted once per page load (paintedTower).
 const room = paintedTower;
@@ -111,6 +120,7 @@ const HOME: Partial<Record<string, StationId>> = {
   watch: 'codebook',
   far: 'radio',
   radio: 'radio',
+  wire: 'sending',
 };
 
 /** The questline's lamps on the stair: lit ones glow, the next one flickers. */

@@ -15,6 +15,7 @@ export { Fellowship } from './fellowship/Fellowship.tsx';
 export { FriendHouse } from './fellowship/FriendHouse.tsx';
 export { PartyFeed } from './fellowship/PartyFeed.tsx';
 export { Arena } from './fellowship/Arena.tsx';
+export { TogetherQuest } from './fellowship/TogetherQuest.tsx';
 
 export function HouseBackdrop() {
   return <HallBackdrop id="house" {...HOUSE_STAGE} paint={paintHouse} />;

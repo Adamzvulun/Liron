@@ -26,6 +26,7 @@ import type { Award, ProgressStore, SessionWrite } from './store.ts';
 import type { ContentSource } from '../content/privateContent.ts';
 import { PartnerError, type PartnerSource } from '../partner.ts';
 import { NO_ROUNDS, type RoundsApi } from '../fellowship/challenges.ts';
+import { NO_WIRE, type WireApi } from '../fellowship/wire.ts';
 import { SpeechError, type SpeechSource } from '../speech.ts';
 import { ContentPack, Media } from '../content/schema.ts';
 
@@ -68,6 +69,7 @@ export function subjectApi<State extends object>(
   speech: SpeechSource | null = null,
   partner: PartnerSource | null = null,
   rounds: RoundsApi = NO_ROUNDS,
+  wire: WireApi = NO_WIRE,
 ): SubjectApi<State> {
   const packs = new Map<string, Promise<{ items: Item[]; lessons: Lesson[] }>>();
   // The private media each loaded pack names: a subject may only link files its own content names
@@ -377,5 +379,6 @@ export function subjectApi<State extends object>(
       return partner.reply(ask);
     },
     rounds,
+    wire,
   };
 }
