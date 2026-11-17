@@ -21,7 +21,7 @@
 ## What comes next
 
 1. **Finish v1.0** ([PLAN](PLAN.md) Phase 1). Built: tasks 1.1–1.5 and 1.7–1.11 (1.9 needs its first run after the release). Left: two gates that are Adam's: **1.12, his release checklist** ([written](release-checklist.md), waiting for his walk), and **1.13, the release PR** into `main`.
-2. **Then v1.1 to 4.0** in the order of [VERSIONS.md](VERSIONS.md): the ledger (stats in Your House), ready for friends, the Fellowship, the rest of the vision.
+2. **Then v1.1 to 4.0** in the order of [VERSIONS.md](VERSIONS.md). v1.1 is built: the ledger (1.6) and the keeper's handbook (4.7, [RUNNING](RUNNING.md)); it waits for Adam's 10-minute look. Then ready for friends, the Fellowship, the rest of the vision.
 
 **Waiting on Adam:** nothing blocks the work today. His gates are listed at the end of PLAN.md. The regulars' voices are parked until he has looked at Azure (#342). #137 (speed) waits for him to try the dev site on his phone.
 
