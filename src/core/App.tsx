@@ -411,6 +411,20 @@ function Lobby({ player }: { player: Player }) {
           wide={place === 'house' || place === 'market' || !!Hall}
         >
           <PlaceBoundary key={place}>
+            {/* The house, market and board stand on the player's own records: if those couldn't
+                load, say so, rather than leave an empty room (review, 2026-11-17). */}
+            {(place === 'house' || place === 'market' || place === 'board') && state.error && (
+              <p className="place__loading" role="alert">
+                Your records couldn’t be read. Check your connection.{' '}
+                <button
+                  type="button"
+                  className="place__retry"
+                  onClick={() => window.location.reload()}
+                >
+                  Reload
+                </button>
+              </p>
+            )}
             {Hall && api && (
               <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
                 <Hall api={api} />
