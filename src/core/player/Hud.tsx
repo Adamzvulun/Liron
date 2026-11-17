@@ -10,6 +10,7 @@ import type { PlayerState } from './player.ts';
 import type { CompassLine } from './compass.ts';
 import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
 import { serviceLines, type ServicesSource } from '../services.ts';
+import { setSound, useSoundSettings } from '../sound/sound.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
 
@@ -443,6 +444,7 @@ function SettingsPanel({
           </button>
         </section>
       )}
+      <SoundRows />
       {services && <ServicesRows source={services} />}
       <section className="hud__section" aria-label="Account">
         <button type="button" className="hud__signout" onClick={onSignOut}>
@@ -450,6 +452,37 @@ function SettingsPanel({
         </button>
       </section>
     </>
+  );
+}
+
+/** The city's sound switches (task 4.6), kept on this device. Lessons keep their own sound. */
+function SoundRows() {
+  const sound = useSoundSettings();
+  return (
+    <section className="hud__section" aria-labelledby="hud-sound">
+      <h3 id="hud-sound" className="hud__rowlabel hud__serviceshead">
+        Sound
+      </h3>
+      <label className="hud__switch">
+        <input
+          type="checkbox"
+          role="switch"
+          checked={sound.effects}
+          onChange={(e) => setSound({ effects: e.target.checked })}
+        />
+        Clicks and chimes
+      </label>
+      <label className="hud__switch">
+        <input
+          type="checkbox"
+          role="switch"
+          checked={sound.ambient}
+          onChange={(e) => setSound({ ambient: e.target.checked })}
+        />
+        Sounds of each place
+      </label>
+      <p className="hud__switchnote">Lessons play their own sound either way.</p>
+    </section>
   );
 }
 

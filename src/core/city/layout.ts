@@ -97,3 +97,15 @@ export function placeAt(path: string): PlaceId | undefined {
   const at = path.replace(/\/+$/, '') || '/';
   return (Object.keys(PLACE_PATHS) as PlaceId[]).find((id) => PLACE_PATHS[id] === at);
 }
+
+/** How long the avatar walks before the place opens, in ms: long enough to see, short enough not to wait. */
+export const WALK_MS = 300;
+
+/** The avatar's walk toward a building's door: part of the way, at most 240 stage pixels. */
+export function stepToward(door: { x: number; y: number; w: number; h: number }) {
+  const dx = door.x + door.w / 2 - AVATAR_SPOT.x;
+  const dy = Math.min(0, door.y + door.h - AVATAR_SPOT.feetY);
+  const far = Math.hypot(dx, dy) || 1;
+  const go = Math.min(far * 0.4, 240) / far;
+  return { dx: Math.round(dx * go), dy: Math.round(dy * go) };
+}

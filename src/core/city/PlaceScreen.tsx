@@ -44,6 +44,8 @@ export function PlaceScreen({
     <main
       className={`place-screen${wide ? ' place-screen--wide' : ''}`}
       data-ground={GROUND[place]}
+      // A hall's sounds are its lessons: no clicks over them (task 4.6).
+      data-sound={resident ? 'quiet' : undefined}
       style={{ borderTopColor: resident?.guildColor }}
     >
       <Link className="place-screen__back" href="/">
