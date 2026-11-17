@@ -1,0 +1,176 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (story text written for Waymark)",
+  "items": [
+    {
+      "id": "finale:forty-winters",
+      "subject": "morse",
+      "type": "finale",
+      "data": {
+        "title": "Forty Winters",
+        "intro": "Nine minutes past. The Guildmaster climbs the stair with two cups of tea and sits down beside the set, not at it. The far voice comes up out of the static, and tonight it isn’t sending its two letters. It is sending words. “Once,” she says. “It only ever sends once. Don’t write. Listen.”",
+        "rules": "The far voice sends a message once, in plain words at 20 wpm. Copy it in your head: there is nothing to type while it plays. Then answer three questions about what it said, and key the reply. The tower must read your reply cleanly, at 15 wpm or faster.",
+        "screen": "The lantern room at night. Across the water the far beacon turns, and the tower’s own beacon answers it. The Guildmaster sits in the operator’s chair with her hand on the key.",
+        "epilogue": "She sends two letters, her own. The far voice answers with two of its own. Then both of them slow down, for your sake, and make room on the frequency. “Well?” she says, without turning around. “The band’s open. Somebody will be calling.”",
+        "missed": "The far voice waits a moment, then signs off for the night. It will be back at nine minutes past. It always is."
+      }
+    },
+    {
+      "id": "finale:message:1",
+      "subject": "morse",
+      "type": "finale-message",
+      "data": {
+        "text": "I KEPT THE HOUR FORTY WINTERS = THE LIGHT IS BACK ON MY SIDE TOO = IS SHE THERE ?",
+        "questions": [
+          {
+            "ask": "How long has the far voice kept the hour?",
+            "answer": "Forty winters",
+            "wrong": ["Four winters", "Forty nights"]
+          },
+          {
+            "ask": "What is back on its side?",
+            "answer": "The light",
+            "wrong": ["The boat", "The bell"]
+          },
+          {
+            "ask": "What does it ask?",
+            "answer": "Whether she is there",
+            "wrong": ["Whether you are awake", "Whether the tea is warm"]
+          }
+        ],
+        "reply": "SHE IS HERE = PLEASE WAIT"
+      }
+    },
+    {
+      "id": "finale:message:2",
+      "subject": "morse",
+      "type": "finale-message",
+      "data": {
+        "text": "THE ICE WENT OUT OF THE BAY TODAY = I SAW YOUR LAMP FROM THE ROCKS = TELL HER THE TEA IS STILL WARM",
+        "questions": [
+          {
+            "ask": "What went out of the bay?",
+            "answer": "The ice",
+            "wrong": ["The fog", "The boats"]
+          },
+          {
+            "ask": "Where did it see your lamp from?",
+            "answer": "The rocks",
+            "wrong": ["The hill", "A boat"]
+          },
+          {
+            "ask": "What should you tell her?",
+            "answer": "The tea is still warm",
+            "wrong": ["The ice is gone", "The lamp is out"]
+          }
+        ],
+        "reply": "I WILL TELL HER = SHE IS HERE"
+      }
+    },
+    {
+      "id": "finale:message:3",
+      "subject": "morse",
+      "type": "finale-message",
+      "data": {
+        "text": "THREE SHIPS PASSED IN THE NIGHT = THE SECOND ONE CALLED FOR YOU BY NAME = DID YOU HEAR IT ?",
+        "questions": [
+          {
+            "ask": "How many ships passed?",
+            "answer": "Three",
+            "wrong": ["Two", "Five"]
+          },
+          {
+            "ask": "Which ship called for you by name?",
+            "answer": "The second",
+            "wrong": ["The first", "The last"]
+          },
+          {
+            "ask": "What does it ask?",
+            "answer": "Whether you heard it",
+            "wrong": ["Whether she is there", "Where the ships went"]
+          }
+        ],
+        "reply": "WE HEARD IT = ALL WELL HERE"
+      }
+    },
+    {
+      "id": "finale:message:4",
+      "subject": "morse",
+      "type": "finale-message",
+      "data": {
+        "text": "SNOW ON THE STATION ROOF = MY KEY IS COLD BUT MY HAND IS STEADY = SEND ME HER INITIALS",
+        "questions": [
+          {
+            "ask": "What is on the station roof?",
+            "answer": "Snow",
+            "wrong": ["Rain", "Gulls"]
+          },
+          {
+            "ask": "What is cold?",
+            "answer": "Its key",
+            "wrong": ["Its tea", "Its room"]
+          },
+          {
+            "ask": "What does it ask for?",
+            "answer": "Her initials",
+            "wrong": ["The weather", "Your name"]
+          }
+        ],
+        "reply": "SHE WILL SEND THEM HERSELF"
+      }
+    },
+    {
+      "id": "finale:message:5",
+      "subject": "morse",
+      "type": "finale-message",
+      "data": {
+        "text": "I FOUND HER LAST LOG PAGE IN A DRAWER = IT SAYS I WILL ANSWER TOMORROW = IT IS TOMORROW",
+        "questions": [
+          {
+            "ask": "What did the far voice find?",
+            "answer": "Her last log page",
+            "wrong": ["A letter", "An old photo"]
+          },
+          {
+            "ask": "Where was it?",
+            "answer": "In a drawer",
+            "wrong": ["In a coat", "Under the key"]
+          },
+          {
+            "ask": "What does the page say?",
+            "answer": "I will answer tomorrow",
+            "wrong": ["The light is out", "Come home"]
+          }
+        ],
+        "reply": "SHE IS COMING TO THE KEY"
+      }
+    },
+    {
+      "id": "finale:message:6",
+      "subject": "morse",
+      "type": "finale-message",
+      "data": {
+        "text": "THE GULLS ARE BACK ON THE PIER = MY DAUGHTER RUNS THE STATION NOW = I STILL TAKE THE NINE PAST",
+        "questions": [
+          {
+            "ask": "What is back on the pier?",
+            "answer": "The gulls",
+            "wrong": ["The boats", "The nets"]
+          },
+          {
+            "ask": "Who runs the far station now?",
+            "answer": "Its daughter",
+            "wrong": ["Its son", "Its brother"]
+          },
+          {
+            "ask": "What does the far voice still take?",
+            "answer": "The nine past",
+            "wrong": ["The morning boat", "The night off"]
+          }
+        ],
+        "reply": "WE KEEP IT TOO = SHE IS HERE"
+      }
+    }
+  ]
+}

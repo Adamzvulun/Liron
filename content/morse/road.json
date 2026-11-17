@@ -584,6 +584,19 @@
         "invite": "Take your rank in the hall.",
         "beat": "No ceremony. One evening the cloak is on your peg, gray as static, with a note in the Guildmaster’s hand: “Ghost of the Ether. Don’t let it go to your head. Nobody can see you.” The far voice is still calling. One night soon, it won’t be for you."
       }
+    },
+    {
+      "id": "road:forty-winters",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 10,
+        "kind": "finale",
+        "door": "beacon",
+        "title": "Finale: Forty Winters",
+        "invite": "At nine minutes past, answer the far voice from the lantern room.",
+        "beat": "She sends two letters, her own. The far voice answers with two of its own. Then both of them slow down, for your sake, and make room on the frequency. “Well?” she says, without turning around. “The band’s open. Somebody will be calling.”"
+      }
     }
   ]
 }

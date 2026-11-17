@@ -4,7 +4,7 @@ Both roads read straight through: each chapter’s opening, then every step with
 
 ## The Silent Beacon
 
-74 steps in 10 chapters.
+75 steps in 10 chapters.
 
 ### Chapter 1: Embers
 
@@ -137,6 +137,7 @@ There is a speed past which code stops being sound and becomes meaning, the way 
 72. **Thirty by Ear.** A callsign goes by at thirty words a minute, and you have it before it ends.
 73. **Thirty by Hand.** Thirty words a minute off your own key. The relay below can’t keep up; it hums instead.
 74. **Rank: Ghost of the Ether.** No ceremony. One evening the cloak is on your peg, gray as static, with a note in the Guildmaster’s hand: “Ghost of the Ether. Don’t let it go to your head. Nobody can see you.” The far voice is still calling. One night soon, it won’t be for you.
+75. **Finale: Forty Winters.** She sends two letters, her own. The far voice answers with two of its own. Then both of them slow down, for your sake, and make room on the frequency. “Well?” she says, without turning around. “The band’s open. Somebody will be calling.”
 
 ## The Long Road In
 

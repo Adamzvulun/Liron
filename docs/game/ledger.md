@@ -47,6 +47,7 @@ The compass's own "Step 14 of 74" for each guild (task 1.3). "Finished" when eve
 | Recognition best | Your best Instant Recognition score |
 | Contacts logged | Contacts in the Radio Room's logbook |
 | Reviews due | Reviews due now |
+| Capstone: Forty Winters | The distance to the Morse capstone (task 4.3): copy speed of 20 wpm (the Night Watch counts as 20) and sending speed of 15 wpm, or "Passed" |
 
 **The trend line:** "This week: 3 new characters met, 25 reviews."
 

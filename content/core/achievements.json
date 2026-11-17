@@ -392,6 +392,24 @@
         "title": "the Well-Spoken",
         "order": 22
       }
+    },
+    {
+      "id": "forty-winters",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Forty Winters",
+        "text": "Answer the far voice: pass the Signal Tower’s finale",
+        "condition": {
+          "kind": "events",
+          "subject": "morse",
+          "kinds": ["trial-forty-winters"],
+          "n": 1
+        },
+        "gems": 5,
+        "title": "Keeper of the Hour",
+        "order": 23
+      }
     }
   ]
 }

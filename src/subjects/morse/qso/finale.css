@@ -1,0 +1,43 @@
+/* Forty Winters, the finale (task 4.2): the painting leads the card, framed like a picture. */
+.finale__card {
+  width: min(100%, 820px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.finale__picture {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  margin: 0 0 16px;
+  border: var(--outline-ui);
+  border-radius: 10px;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.finale__epilogue {
+  max-width: 60ch;
+  font-style: italic;
+}
+
+.finale__reward {
+  font-weight: 700;
+}
+
+.finale__key {
+  width: min(100%, 760px);
+}
+
+/* The questions' choices are sentences, not prosigns: the reading font, and room between them. */
+.finale .qso__choices {
+  margin-bottom: 14px;
+}
+
+.finale .qso__choices label {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: 700;
+}

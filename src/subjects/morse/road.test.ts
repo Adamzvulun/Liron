@@ -51,6 +51,7 @@ function finish(p: MorseProgress, id: string): MorseProgress {
     'no-repeats': () => ({ ...p, radio: { ...p.radio, cleanFast: true } }),
     'thirty-by-ear': () => ({ ...p, rush: { ...p.rush, topWpm: 30 } }),
     'thirty-by-hand': () => fast(40),
+    'forty-winters': () => trial('forty-winters'),
   };
   const change = by[id];
   if (!change) throw new Error(`the test can't finish ${id}`);
@@ -73,11 +74,16 @@ describe('The Silent Beacon as a road', () => {
     expect([...written].sort()).toEqual(Object.keys(MORSE_CHECKS).sort());
   });
 
-  it('is 74 steps in 10 chapters until the finale is built', () => {
-    expect(MORSE_ROAD).toHaveLength(74);
+  it('is 75 steps in 10 chapters, ending at the finale', () => {
+    expect(MORSE_ROAD).toHaveLength(75);
+    expect(MORSE_ROAD.at(-1)).toMatchObject({
+      id: 'forty-winters',
+      kind: 'finale',
+      door: 'beacon',
+    });
     expect(MORSE_ROAD_CHAPTERS.map((c) => c.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-    expect(new Set(MORSE_ROAD.map((s) => s.id)).size).toBe(74);
-    expect(morseRoad(null, ctx)).toMatchObject({ steps: 74, chapters: 10 });
+    expect(new Set(MORSE_ROAD.map((s) => s.id)).size).toBe(75);
+    expect(morseRoad(null, ctx)).toMatchObject({ steps: 75, chapters: 10 });
   });
 
   it('lights every lamp once, in Koch order, after the first two sounds', () => {

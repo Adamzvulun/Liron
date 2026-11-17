@@ -13,6 +13,7 @@ import { RadioRoom } from './qso/RadioRoom.tsx';
 import { SendDrill } from './send/SendDrill.tsx';
 import { WordDrill } from './words/WordDrill.tsx';
 import { Wire } from './wire/Wire.tsx';
+import { FortyWinters } from './qso/FortyWinters.tsx';
 import { RoadGuide } from '../../core/road/NextStep.tsx';
 import { localDay } from '../../core/road/road.ts';
 import type { RoadReading } from '../../core/road/roadHere.ts';
@@ -40,6 +41,7 @@ const DOORS: readonly HallDoor[] = [
   'far',
   'radio',
   'wire',
+  'beacon',
 ];
 
 /**
@@ -48,7 +50,7 @@ const DOORS: readonly HallDoor[] = [
  * Codebook's words (#154), and the rank trials: the Lamp Signal (#175), the Night Watch (#179) and
  * the Far Station (#178), and the Radio Room on the air (E16). Opening a door with ?open=koch, ?open=recognition, ?open=trial,
  * ?open=sending, ?open=lamp, ?open=words, ?open=watch, ?open=far or ?open=radio in the address goes straight
- * there (for tests).
+ * there (for tests). The finale, Forty Winters (task 4.2), opens with ?open=beacon.
  */
 export function TowerHall({ api }: { api: SubjectApi }) {
   const [opening] = useState(() =>
@@ -70,7 +72,7 @@ export function TowerHall({ api }: { api: SubjectApi }) {
     <RoadGuide view={view} loadState={loadState} read={readRoad} go={go}>
       {/* The Radio Room and the Far Station have a room of their own (roadmap A5); the lessons
           and drills sit at the listening desk (A6); the trials face the whole tower hall. */}
-      {view === 'radio' || view === 'far' ? (
+      {view === 'radio' || view === 'far' || view === 'beacon' ? (
         <HallBackdrop id="radio" {...RADIO_STAGE} paint={paintRadioRoom} />
       ) : view === 'trial' ? (
         <HallBackdrop id="tower" {...TOWER_STAGE} paint={wholeTower} />
@@ -92,6 +94,7 @@ export function TowerHall({ api }: { api: SubjectApi }) {
         {view === 'watch' && <WordDrill api={api} start="watch" />}
         {view === 'far' && <FarStation api={api} onRoom={() => setView('radio')} />}
         {view === 'radio' && <RadioRoom api={api} onFar={() => setView('far')} />}
+        {view === 'beacon' && <FortyWinters api={api} onRoom={() => go('radio')} />}
         {view === 'trial' && <Trial api={api} onLeave={() => setView('hall')} />}
       </Fragment>
     </RoadGuide>
