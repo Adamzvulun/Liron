@@ -216,4 +216,33 @@ test.describe('The Stranger at the Gate, the Long Road In’s finale', () => {
     await page.getByRole('button', { name: 'Try again' }).click();
     await expect(page.getByText('Try 2 of 3', { exact: false })).toBeVisible();
   });
+
+  test('when today’s lines run out mid-story, it says so, and saves nothing', async ({ page }) => {
+    test.setTimeout(90_000);
+    const sent = saves(page);
+    let told = 0;
+    await page.route('**/api/partner', async (route) => {
+      told += 1;
+      // The innkeeper's opening, then one reply, then the player's lines for today are spent.
+      if (told <= 2) await route.fulfill({ json: { text: 'حلو! وبعدين؟', left: 1 } });
+      else await route.fulfill({ status: 429, json: { error: 'daily-limit' } });
+    });
+    await signedIn(page, [], [], storyteller);
+    await page.goto('/caravanserai?open=gate');
+    await page.getByRole('button', { name: 'Go to the gate' }).click();
+    await readBook(page);
+    await writeName(page, 'نور');
+    await page.getByRole('button', { name: 'Write it in the book' }).click();
+    await tell(page, 1);
+    await page.getByLabel('Your line, in Arabic').fill('وبعدين رحت على السوق');
+    await page.getByRole('button', { name: 'Say it' }).click();
+    await expect(
+      page.getByText(
+        'You’ve used today’s lines at the inn. The table will hear your story tomorrow.',
+      ),
+    ).toBeVisible();
+    await page.getByRole('button', { name: 'Back to the gate' }).click();
+    await expect(page.getByRole('button', { name: 'Go to the gate' })).toBeVisible();
+    expect(sent).toHaveLength(0);
+  });
 });

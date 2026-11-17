@@ -176,12 +176,16 @@ export function WordDrill({
       const result = watchResult(attempts);
       const first = result.passed && !watchPassed(before);
       const next = applyWatch(before, result);
-      latest.current = next;
-      setProgress(next);
       setRound(null);
       setWatchDone({ attempts, result, xp: first ? WATCH_XP.pass : WATCH_XP.try });
+      // The pass is kept only once it is saved: a retry after a failed save must still send the
+      // rank trial's event, or its gear would never come.
       reportWatch(api, before, next, result, seconds).then(
-        () => setSaveFailed(false),
+        () => {
+          latest.current = next;
+          setProgress(next);
+          setSaveFailed(false);
+        },
         () => setSaveFailed(true),
       );
     },

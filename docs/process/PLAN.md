@@ -165,10 +165,10 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Do:** write `docs/process/release-checklist.md`, a walk of about 45 minutes, each line a checkbox with what to do and what "good" looks like. It must cover: starting as a new player and following the compass for ten minutes without help; iPhone Safari and desktop; sound with the silent switch on and off; the microphone prompt and "Say it"; keying with the tap pad (does the tone lag?); one Koch lesson; one script lesson (#38, #39); one word session; the coffee corner; Sit and talk and a Radio Room contact (after reading 1.8's line); buying something; opening a chest; changing the avatar; sign out and in. End with "anything that annoyed you, and any moment you didn't know what to do".
 - **Then:** tell Adam it's ready. Fix what he reports, with tests. Close #9, #38 and #39 when he has ticked their lines.
 - **Done when:** Adam has walked it; every problem he found is fixed or filed with his agreement.
-- **Written (2026-11-17):** [release-checklist.md](release-checklist.md). Waiting for Adam's walk.
+- **Written (2026-11-17):** [release-checklist.md](release-checklist.md). Waiting for Adam's walk. **Grown the same day** to cover what 1.0.0 now carries (ADR 0049): the ledger, sound, one ending, and an optional friend.
 
 ### ☐ 1.13 (#321) · v1.0 · The release PR 🚧
-- **Do:** follow DEPLOY's "The first real release, v1.0.0" and the release steps in VERSIONS.md (cut `release/v1.0.0` from `dev`). Open the PR from that branch into `main` titled `Release v1.0.0` with the release notes. Tell Adam the steps that are his: the Production keys, merging, his account on the live database (a fresh start, as he chose), the tag.
+- **Do:** follow DEPLOY's "The first real release, v1.0.0" and the release steps in VERSIONS.md (cut `release/v1.0.0` from `dev`'s head: since ADR 0049, 1.0.0 carries everything up to 3.0). Open the PR from that branch into `main` titled `Release v1.0.0` with the release notes. Tell Adam the steps that are his: the Production keys, merging, his account on the live database (a fresh start, as he chose), the tag.
 - **Done when:** Adam has merged it, the DB migrate run on `main` is green, and he has signed in on the live site. **Don't wait for this to start Phase 2.**
 
 ---
@@ -247,8 +247,8 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 - **Done (2026-11-17):** [ADR 0046](../decisions/0046-the-wire.md), with the Realtime limits read on Supabase's pages that day. Migration `20270103000000_the_wire.sql`: policies on `realtime.messages` that only the two friends pass, tested in `fellowship.test.ts` against a stand-in in the shim. The wire at `/signal-tower?open=wire`, reached from the sending table ("Key to a friend"); the friend's key plays 250 ms behind at 760 Hz. `e2e/wire.spec.ts` keys K between two pages over a fake Realtime socket (`e2e/fake-realtime.ts`), drops and recovers the line, refuses and retries it, and keys from the phone's brass key; screenshotted at 320 pixels and on desktop. **Untested against real Realtime:** Adam's try on two devices, after switching off "Allow public access" (RUNNING.md, Friends).
 
 ### ☐ 3.7 (#332) · v2.0–2.4 · Release the Fellowship 🚧
-- **Now five releases, not one** (VERSIONS.md): 2.0, 2.1, 2.2, 2.3 and 2.4 each follow the release steps there. This task is what remains at the end of them.
-- **Do:** the M5 retro, and the two-accounts-on-two-devices lines in Adam's checklist for each of those releases. Adam merges each.
+- **Since ADR 0049 (2026-11-17), the Fellowship ships inside 1.0.0**, hidden until a player has a friend. This task is now opening it to a first friend: 2.1's decision, the Realtime setting, and the try on two devices.
+- **Do:** the M5 retro (the [final retro](retros/final.md) covers the build; add what the first friend teaches), and the two-accounts-on-two-devices lines, which are in the release checklist's §6 as optional.
 - **Done when:** it's live and Adam has added a first friend using FRIENDS.md.
 
 ---

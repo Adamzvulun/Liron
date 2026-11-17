@@ -81,7 +81,6 @@ export function FortyWinters({ api, onRoom }: { api: SubjectApi; onRoom?: () => 
     const result = finaleResult(s.message, s.answers, { text, ditMs });
     const first = result.passed && !finalePassed(progress);
     const next = applyFinale(progress, result);
-    setProgress(next);
     setStage({
       kind: 'result',
       message: s.message,
@@ -89,8 +88,13 @@ export function FortyWinters({ api, onRoom }: { api: SubjectApi; onRoom?: () => 
       result,
       xp: first ? FINALE_XP.pass : FINALE_XP.try,
     });
+    // The pass is kept only once it is saved: a retry after a failed save must still send the
+    // finale's event, or the lens and the title would never come.
     reportFinale(api, progress, next, result, (performance.now() - s.started) / 1000).then(
-      () => setSaveFailed(false),
+      () => {
+        setProgress(next);
+        setSaveFailed(false);
+      },
       () => setSaveFailed(true),
     );
   };

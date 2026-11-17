@@ -102,7 +102,6 @@ export function FarStation({ api, onRoom }: { api: SubjectApi; onRoom?: () => vo
     const result = qsoResult(s.qso, copies, reads);
     const first = result.passed && !farPassed(progress);
     const next = applyFar(progress, result);
-    setProgress(next);
     setStage({
       kind: 'result',
       qso: s.qso,
@@ -112,8 +111,13 @@ export function FarStation({ api, onRoom }: { api: SubjectApi; onRoom?: () => vo
       xp: first ? FAR_XP.pass : FAR_XP.try,
     });
     const seconds = (performance.now() - s.started) / 1000;
+    // The pass is kept only once it is saved: a retry after a failed save must still send the
+    // rank trial's event, or its gear would never come.
     reportFar(api, progress, next, result, seconds).then(
-      () => setSaveFailed(false),
+      () => {
+        setProgress(next);
+        setSaveFailed(false);
+      },
       () => setSaveFailed(true),
     );
   };

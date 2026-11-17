@@ -17,7 +17,7 @@
 | **After the end** | The long evenings: master contracts, a station of the day, personal bests to beat ([ADR 0048](../decisions/0048-the-long-evenings.md)) |
 | **Never lost** | One compass line says the next step everywhere: the square, both halls, every result screen. A first page greets a new player ([the Road](../game/the-road.md)) |
 | **The look** | Painted in the browser; no screen stands on a blue background ([Grounds](../design/grounds.md)) |
-| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 48 ADRs; unit and browser tests on every PR |
+| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 49 ADRs; unit and browser tests on every PR |
 
 ### What lives where, and how to run it
 - **The code:** `src/core/` is the platform, `src/subjects/<id>/` one subject each; content is data in `content/`; the database is `supabase/migrations/`. The [README](../../README.md) has the map and every script (`npm run dev`, `npm test`, `npm run e2e`).
@@ -29,8 +29,8 @@
 
 All of it is Adam's, in the order of [VERSIONS.md](VERSIONS.md):
 
-1. **Release v1.0.0:** walk the [release checklist](release-checklist.md) (1.12), then the release PR into `main` (1.13). The live site starts fresh (Adam, 2026-11-16).
-2. **v1.1 to v3.0 are built and wait for his look** on the dev site. Friends (v2.x) also wait on 2.1 (what friends without the deck may learn), a first friend's account, the Realtime "Allow public access" switch ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 releases the Fellowship. To see both endings, run `scripts/endings.ts` for a dev account (VERSIONS.md, 3.0).
+1. **Release v1.0.0, which now carries everything on `dev`** ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md); Adam can overturn it before merging): walk the [release checklist](release-checklist.md) (1.12, about an hour, one ending included), then the release PR into `main` (1.13). The live site starts fresh (Adam, 2026-11-16).
+2. **Before inviting a friend:** 2.1 (what friends without the deck may learn), a first friend's account ([FRIENDS.md](FRIENDS.md)), the Realtime "Allow public access" switch on both projects ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 opens the Fellowship to friends.
 3. **v4.0:** pick the third subject (4.5). Its build starts with the "Known gaps" in [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), and ends with the sweep repeated over the new hall.
 4. **Parked, each waiting on him:** the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All listed in [LATER.md](LATER.md).
 

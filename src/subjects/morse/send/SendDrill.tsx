@@ -127,7 +127,6 @@ export function SendDrill({
     const result = lampResult(text, decoded);
     const first = result.passed && !lampPassed(progress);
     const next = applyLamp(progress, result);
-    setProgress(next);
     setStage({
       kind: 'lamp-result',
       text,
@@ -135,8 +134,13 @@ export function SendDrill({
       result,
       xp: first ? LAMP_XP.pass : LAMP_XP.try,
     });
+    // The pass is kept only once it is saved: a retry after a failed save must still send the
+    // rank trial's event, or its gear would never come.
     reportLamp(api, progress, next, result, seconds).then(
-      () => setSaveFailed(false),
+      () => {
+        setProgress(next);
+        setSaveFailed(false);
+      },
       () => setSaveFailed(true),
     );
   };

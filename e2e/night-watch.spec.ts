@@ -75,6 +75,38 @@ test.describe('The Night Watch (#179)', () => {
     if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, fullPage: true });
   });
 
+  test('a pass whose save failed still sends its event when kept again (review, 2026-11-17)', async ({
+    page,
+  }) => {
+    test.setTimeout(120_000);
+    await page.addInitScript(() => {
+      Math.random = () => 0;
+    });
+    const words = watchWords(() => 0, 3).map((w) => w.text);
+    const sent = saves(page);
+    await signedIn(page, [], [], keyer);
+    let failOnce = true;
+    await page.route('**/rest/v1/rpc/save_session', async (route) => {
+      if (failOnce) {
+        failOnce = false;
+        await route.fulfill({ status: 500, json: { message: 'offline' } });
+      } else await route.fallback();
+    });
+    await page.goto('/signal-tower?open=watch&run=short');
+    await page.getByRole('button', { name: 'Keep the watch' }).click();
+    await keepWatch(page, (i) => words[i] ?? '');
+    await expect(page.getByRole('heading', { name: 'Dawn, and nothing missed' })).toBeVisible();
+    await expect(
+      page.getByText('Your last round couldn’t be saved.', { exact: false }),
+    ).toBeVisible();
+
+    await page.getByRole('button', { name: 'Keep it again' }).click();
+    await keepWatch(page, (i) => words[i] ?? '');
+    await expect(page.getByRole('heading', { name: 'Dawn, and nothing missed' })).toBeVisible();
+    await expect.poll(() => sent.length).toBe(2);
+    expect(sent[1]?.p_events).toEqual([{ kind: 'trial-night-watch', count: 1 }]);
+  });
+
   test('a watch with misses fails, and is saved with no trial event', async ({ page }) => {
     test.setTimeout(90_000);
     const sent = saves(page);
