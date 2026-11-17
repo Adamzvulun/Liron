@@ -10,6 +10,7 @@ import type { PlayerState } from './player.ts';
 import type { CompassLine } from './compass.ts';
 import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
 import { serviceLines, type ServicesSource } from '../services.ts';
+import { MIN_PASSWORD, passwordProblem } from '../auth/password.ts';
 import { setSound, useSoundSettings } from '../sound/sound.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
@@ -20,6 +21,8 @@ export interface HudActions {
   /** Saves the player's name; resolves false if it couldn't be saved. */
   onNameChange: (name: string) => Promise<boolean>;
   onSignOut: () => void;
+  /** Changes the password; resolves to null when saved, or what to tell the player. */
+  onPasswordChange?: (password: string) => Promise<string | null>;
   /** Which AI services this site has switched on (#316); absent where there is no server. */
   services?: ServicesSource;
 }
@@ -429,6 +432,7 @@ function SettingsPanel({
   onSignOut,
   onEditGoal,
   services,
+  onPasswordChange,
 }: { state: PlayerState; onEditGoal: () => void } & HudActions) {
   return (
     <>
@@ -447,6 +451,7 @@ function SettingsPanel({
       <SoundRows />
       {services && <ServicesRows source={services} />}
       <section className="hud__section" aria-label="Account">
+        {onPasswordChange && <PasswordRows onPasswordChange={onPasswordChange} />}
         <button type="button" className="hud__signout" onClick={onSignOut}>
           Sign out
         </button>
@@ -519,6 +524,110 @@ function ServicesRows({ source }: { source: ServicesSource }) {
         </ul>
       )}
     </section>
+  );
+}
+
+/** "Change your password" (#324): closed until asked for, so the panel stays short. */
+function PasswordRows({
+  onPasswordChange,
+}: {
+  onPasswordChange: NonNullable<HudActions['onPasswordChange']>;
+}) {
+  const hintId = useId();
+  const [open, setOpen] = useState(false);
+  const [password, setPassword] = useState('');
+  const [again, setAgain] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [status, setStatus] = useState('');
+  if (!open) {
+    return (
+      <>
+        <button
+          type="button"
+          className="hud__textbutton hud__password"
+          onClick={() => setOpen(true)}
+        >
+          Change your password
+        </button>
+        {status && (
+          <p className="hud__fieldstatus" role="status">
+            {status}
+          </p>
+        )}
+      </>
+    );
+  }
+  const save = async () => {
+    const problem = passwordProblem(password, again);
+    if (problem) {
+      setStatus(problem);
+      return;
+    }
+    setBusy(true);
+    setStatus('');
+    const refused = await onPasswordChange(password);
+    setBusy(false);
+    if (refused) {
+      setStatus(refused);
+      return;
+    }
+    setPassword('');
+    setAgain('');
+    setOpen(false);
+    setStatus('Password changed. Use it next time you sign in.');
+  };
+  return (
+    <form
+      className="hud__field hud__passwordform"
+      onSubmit={(e) => {
+        e.preventDefault();
+        void save();
+      }}
+    >
+      <label>
+        New password
+        <input
+          type="password"
+          autoComplete="new-password"
+          minLength={MIN_PASSWORD}
+          required
+          aria-describedby={hintId}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </label>
+      <span id={hintId} className="hud__fieldhint">
+        At least {MIN_PASSWORD} characters.
+      </span>
+      <label>
+        The same again
+        <input
+          type="password"
+          autoComplete="new-password"
+          required
+          value={again}
+          onChange={(e) => setAgain(e.target.value)}
+        />
+      </label>
+      <div className="hud__passwordbuttons">
+        <button type="submit" className="hud__textbutton" disabled={busy}>
+          Save the new password
+        </button>
+        <button
+          type="button"
+          className="hud__textbutton"
+          onClick={() => {
+            setOpen(false);
+            setStatus('');
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+      <span className="hud__fieldstatus" role="status">
+        {status}
+      </span>
+    </form>
   );
 }
 

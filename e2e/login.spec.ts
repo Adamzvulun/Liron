@@ -52,9 +52,36 @@ test('"email me a link" confirms without saying whether the account exists', asy
   await page.goto('/');
   await page.getByLabel('Email').fill('someone@example.com');
   await page.getByRole('button', { name: /Email me a link/ }).click();
+  // Supabase's own mail reaches only the projects' owner, so friends are told who can help (#324).
   await expect(page.getByRole('status')).toHaveText(
-    'If that email has an account, a link is on its way.',
+    'If that email has an account, a link is on its way. Nothing after a few minutes? Ask whoever invited you to set a new password.',
   );
+  await expect(page.getByText('First time')).toHaveCount(0);
+  await expect(page.getByText('New here? Sign in with the password you were given')).toBeVisible();
+});
+
+test('a player changes their password in Settings (#324)', async ({ page }) => {
+  const updates: unknown[] = [];
+  await fakeSupabase(page, updates);
+  await page.addInitScript(() => localStorage.setItem('waymark:first-page-closed', '1'));
+  await page.goto('/');
+  await page.getByLabel('Email').fill('friend@example.com');
+  await page.getByLabel('Password').fill(PASSWORD);
+  await page.getByRole('button', { name: 'Enter Waymark' }).click();
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await page.getByRole('button', { name: 'Change your password' }).click();
+  const fresh = page.getByLabel('New password');
+  await expect(fresh).toHaveAccessibleDescription('At least 8 characters.');
+  await fresh.fill('a long new password');
+  await page.getByLabel('The same again').fill('a long new passwort');
+  await page.getByRole('button', { name: 'Save the new password' }).click();
+  await expect(page.getByText('The two passwords don’t match.')).toBeVisible();
+  expect(updates).toEqual([]);
+  await page.getByLabel('The same again').fill('a long new password');
+  await page.getByRole('button', { name: 'Save the new password' }).click();
+  await expect(page.getByText('Password changed. Use it next time you sign in.')).toBeVisible();
+  expect(updates).toEqual([expect.objectContaining({ password: 'a long new password' })]);
+  await expect(page.getByLabel('New password')).toHaveCount(0);
 });
 
 test('signing out returns to the login screen and stays there after a reload', async ({ page }) => {

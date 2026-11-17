@@ -4,6 +4,7 @@ import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/Auth
 import { GateScene, WaymarkPost } from './auth/Scenes.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
+import { passwordRefused } from './auth/password.ts';
 import { City } from './city/City.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
 import type { PlaceId } from './city/painter.js';
@@ -70,6 +71,17 @@ const partnerOf = (client: NonNullable<typeof supabase>) => functionPartner(acce
 
 /** What's switched on (#316), asked as the current learner, once per page. */
 const services = supabase ? functionServices(accessToken(supabase)) : undefined;
+
+/** Settings' "Change your password" (#324): null when saved, else what to tell the player. */
+const changePassword = async (password: string): Promise<string | null> => {
+  if (!supabase) return passwordRefused(undefined);
+  try {
+    const { error } = await supabase.auth.updateUser({ password });
+    return error ? passwordRefused(error.code) : null;
+  } catch {
+    return passwordRefused(undefined);
+  }
+};
 
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
@@ -353,6 +365,7 @@ function Lobby({ player }: { player: Player }) {
           onGoalChange={player.setDailyGoal}
           onNameChange={player.setDisplayName}
           services={services}
+          onPasswordChange={changePassword}
           onSignOut={() => {
             // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });

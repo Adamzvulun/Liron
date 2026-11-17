@@ -195,9 +195,10 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Done when:** the sums are in an ADR; the ceilings are enforced in the database with tests; the messages are tested.
 - **Done (2026-11-17):** [ADR 0041](../decisions/0041-fair-shares-of-the-free-ai.md). The inn is the tight one: Groq's 200,000 tokens a day cover about 200 lines, not five players' 300. Site-wide daily ceilings (speech 1,500, partner 500, inn 150) in `20261229000000_site_ceilings.sql`, tested in `schema.test.ts`; the `site-limit` messages are tested in the API tests and `inn-chat`/`inn-voice` e2e. **For Adam:** read the free numbers once on console.groq.com/settings/limits and aistudio.google.com/rate-limit (Groq's public page now shows the Developer plan's).
 
-### ☐ 2.3 (#324) · v2.0 · Sign-in for someone who isn't Adam
+### ☑ 2.3 (#324) · v2.0 · Sign-in for someone who isn't Adam
 - **Do:** "Change your password" in Settings. Rewrite the login screen's "Email me a link" so it doesn't promise what can't arrive: keep it working for Adam, and tell everyone else to ask whoever invited them. Write `docs/process/FRIENDS.md` for Adam: how to create a friend's account in the Supabase dashboard, hand over a password, reset one, add a licensee, and remove a friend and their data.
 - **Done when:** a player can change their password, with tests; the login copy is honest; FRIENDS.md exists, with any step that couldn't be tried marked "untested" and added to Adam's checklist.
+- **Done (2026-11-17):** Settings → **Change your password** (`src/core/auth/password.ts`, `Hud.tsx` `PasswordRows`; tests in `password.test.ts` and `e2e/login.spec.ts`). The login screen no longer says "First time… Email me a link": it says "Forgot your password?", and its reply tells everyone but Adam to ask whoever invited them. [FRIENDS.md](FRIENDS.md) has every step, all marked untested, and they're on Adam's checklist in STATUS.md.
 
 ### ☐ 2.4 (#325) · v2.0 · Two players, one database
 - **Spec:** [fellowship-build.md](../game/fellowship-build.md) §6, tests 1 and 2 (every table and every granted function, read from the database so nothing new can be forgotten).
@@ -331,6 +332,8 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 | 1.12 | Walk the release checklist on your phone and desktop | The v1.0.0 release |
 | 1.13 | Set the Production keys, merge `Release v1.0.0`, sign in, tag | Being live |
 | 2.1 | Decide what friends without the deck may learn | Friends learning Arabic |
+| 2.2 | Once: read the free numbers on console.groq.com/settings/limits and aistudio.google.com/rate-limit; if the inn's model allows under 200,000 tokens a day, tell Claude ([ADR 0041](../decisions/0041-fair-shares-of-the-free-ai.md)) | Nothing; the ceilings are set low to be safe |
+| 2.3 | Try [FRIENDS.md](FRIENDS.md) once on `waymark-dev`: make an account, reset its password by SQL, delete it | Trusting the steps before the first real friend |
 | 3.7 | Merge the Fellowship release and add a first friend | Friends on the live site |
 | 4.5 | Pick the subject for the first empty plot | The third hall (the guide is written either way) |
 | Parked | Look at Azure and say yes or no | The regulars' voices, and pronunciation scoring |
