@@ -91,11 +91,12 @@ The Market building sells 4 wares a day: 2 gear, 1 tunic dye and the streak shie
 - You can't buy what you own, or a shield while holding 2. A ware you can't afford yet says how much more gold you need.
 
 ## Coming later (not dropped)
+Achievements pay gems since #177 ([ADR 0035](../decisions/0035-ranks-and-achievements.md)). What's still to come is in [LATER.md](../process/LATER.md).
+
 | Reward | Where |
 |---|---|
 | Combo bonus inside activities | E10 (quests and rewards). It was planned for E6–E9 but not built there; the end-of-activity screens were. |
 | Weekly league | M5 (friends) |
-| Achievements and boss challenges paying gems | later epics |
 
 ## What other apps do (researched 2026-11-02)
 - **Duolingo** hides levels; the profile shows total XP. The old level table still exists in the background: level 2 at 60 XP, level 10 at 2,250, level 25 at 30,000. Momentum comes from small rewards instead: 10–20 XP per lesson plus combo bonuses, three daily quests opening chests, finishing all three unlocking a short triple-XP boost, chests holding gems (about 4–15), streaks with freezes, weekly leagues. In Duolingo's A/B tests, the streak wager raised 14-day retention by 5%. These figures come from fan wikis and third-party write-ups ([Splaitor](https://splaitor.com/how-many-levels-are-in-duolingo), [Lingoly](https://lingoly.io/earn-gems-duolingo/), [Econsultancy](https://econsultancy.com/six-a-b-tests-used-by-duolingo-to-tap-into-habit-forming-behaviour/)); Duolingo's own pages refused automated reading.

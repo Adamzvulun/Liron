@@ -298,4 +298,6 @@
     - **Compass:** `bestLine` in `morse/road.ts` and `evening` in `arabic/road.ts` word the station of the day with a personal best, or "the table is never empty" after the Arabic finale.
     - **Courtyard:** `atGate` shows chapter 115 on the scroll once the gate is open.
     - **Endings account:** `scripts/endings.ts` (`MORSE_BEFORE_FINALE`, `ARABIC_BEFORE_FINALE`, `endingsSql(email)`), proved by `tests/endings.test.ts`.
-    - **Next:** v3.0's PR into `dev`. Then v4.0 (task 4.5): write the guild-hall kit, and ask Adam which subject fills the third hall.
+    - **Next:** v3.0's PR into `dev`.
+109. **v4.0's first pieces (2026-11-17, report §4cw):** [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), the guild-hall kit (task 4.5). Its last section lists where `src/core/` still names the two halls (`HALL_BUILDINGS`, `PlaceId` and `PLACE_PATHS`, the city painter's plots, a `caravanserai` case in `City.tsx`, and the halls' sound check in `App.tsx`). The third hall's build starts by fixing them, in one ADR. [LATER.md](LATER.md) is task 5.2, checked against the code. economy.md's stale "achievements paying gems" row is gone.
+    - **Next:** 4.5 waits on Adam's subject. 5.1, the last sweep, can start: the method is in items 54–82.

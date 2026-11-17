@@ -299,6 +299,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☐ 4.5 (#337) · v4.0 · The guild-hall kit, and the third hall 🚧
 - **Do:** write `docs/process/ADDING-A-SUBJECT.md` from the subject contract (ADR 0019) and from how the two halls were actually built: the content packs, the road, the hall painting, the ranks, the contracts, the tests every subject must pass. Then prove it: ask Adam which subject fills the first empty plot, and build its smallest honest first chapter using only the kit. Fix the kit wherever the build had to step outside it.
 - **Done when:** the guide exists; a third hall stands on a plot with one playable chapter on its own road; nothing in `src/core/` had to learn the new subject's name. **Gate:** the choice of subject is Adam's; until he picks, the guide alone is the deliverable.
+- **Guide written (2026-11-17):** [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md). Writing it found where `src/core/` still names the two halls (its last section): the third hall's build starts by fixing those, in one ADR. **Waiting on Adam:** which subject fills the first empty plot.
 
 ### ☑ 4.6 (#338) · v1.2 · ✏️ The city sounds and moves
 - **Do:** sound made in the browser with Web Audio, like the Morse tones (no audio files, no licenses to clear): a soft click and chime language for buttons, rewards and level-ups, and an optional ambient bed per place. Small motion that answers the player: the avatar walking to a door, lamps lighting when a step is done. A sound switch in Settings, off respected everywhere, reduced motion respected everywhere.
@@ -318,9 +319,10 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 - **Do:** repeat the phone-and-desktop sweep over everything built in Phases 2–4 (the method is in HANDOFF items 54–82), and the "moment of doubt" walk from 1.11 over the whole road, endings included. Bring every doc in line with what exists. Empty the "open questions" list or mark each as Adam's standing choice. Write the final retro.
 - **Done when:** STATUS says the project is done, with what lives where and how to run it.
 
-### ☐ 5.2 (#341) · v4.0 · What stays open on purpose
+### ☑ 5.2 (#341) · v4.0 · What stays open on purpose
 - **Do:** one file, `docs/process/LATER.md`, listing what is parked and why, each with what would un-park it. Per CLAUDE.md this is ordering, not cutting.
 - **Done when:** the file exists and the roadmap points to it.
+- **Done (2026-11-17):** [LATER.md](LATER.md), checked against the code that day; ROADMAP.md and economy.md point to it. Keep it current as items un-park.
 
 ---
 
