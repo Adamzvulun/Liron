@@ -154,3 +154,18 @@ describe('which presses click', () => {
     expect(pressSound(null)).toBeNull();
   });
 });
+
+describe('a tap that wants no sound', () => {
+  it('makes no synthesizer: a press in a hall, with the places quiet', async () => {
+    const s = await load();
+    const d = fakeDocument();
+    s.armSound(d.doc);
+    d.fire('pointerdown');
+    d.fire('click', element(['button', 'data-sound="quiet"']));
+    await settle();
+    expect(s.awake()).toBe(false);
+    s.cue('reward');
+    await settle();
+    expect(synth.cue).toHaveBeenCalledWith('reward');
+  });
+});

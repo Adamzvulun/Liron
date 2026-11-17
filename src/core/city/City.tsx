@@ -1,13 +1,16 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type MouseEvent, type ReactNode } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import { AVATAR_BOX } from '../avatar/paint.ts';
 import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import { Link } from '../Link.tsx';
+import { navigate } from '../router.ts';
 import type { SubjectInfo } from '../subject.ts';
 import {
   ARENA_LOCKED,
   ARENA_SIGN,
   AVATAR_SPOT,
+  stepToward,
+  WALK_MS,
   PLACE_LABELS,
   PLACE_PATHS,
   PLAQUES,
@@ -156,13 +159,25 @@ export function City({
   subjects,
   look = DEFAULT_LOOK,
   children,
+  lit = [],
 }: {
   subjects: readonly SubjectInfo[];
   /** The player's avatar; the default traveller until the profile loads. */
   look?: Look;
   children?: ReactNode;
+  /** Buildings whose lamps light up now: a step on their road was just done (task 4.6). */
+  lit?: readonly PlaceId[];
 }) {
   const city = scene();
+  // The avatar walks a few steps toward the door before the place opens (task 4.6).
+  const [walk, setWalk] = useState<{ dx: number; dy: number } | null>(null);
+  const walkTo = (id: PlaceId, href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || walk) return;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    e.preventDefault();
+    setWalk(stepToward(city.places[id].box));
+    setTimeout(() => navigate(href), WALK_MS);
+  };
   const [ref, { scale, x, y, pan }] = useStage(START_X);
   const residents = residentsOf(subjects);
   const [knocked, setKnocked] = useState(false);
@@ -221,7 +236,8 @@ export function City({
               <Link
                 key={id}
                 href={PLACE_PATHS[id]}
-                className={`city__place city__place--${id}`}
+                onClick={walkTo(id, PLACE_PATHS[id])}
+                className={`city__place city__place--${id}${lit.includes(id) ? ' city__place--lit' : ''}`}
                 aria-label={`${resident?.place ?? plaque.title}: ${resident?.tagline ?? PLACE_LABELS[id]}`}
               >
                 <Glow part={city.places[id]} />
@@ -245,12 +261,13 @@ export function City({
             <Avatar
               look={look}
               shadow={false}
-              className="city__figure"
+              className={`city__figure${walk ? ' city__figure--walking' : ''}`}
               width={AVATAR_BOX.width * AVATAR_SPOT.scale}
               height={(AVATAR_BOX.height + 10) * AVATAR_SPOT.scale}
               style={{
                 left: AVATAR_SPOT.x - (AVATAR_BOX.width / 2) * AVATAR_SPOT.scale,
                 top: AVATAR_SPOT.feetY - AVATAR_BOX.feetY * AVATAR_SPOT.scale,
+                ...(walk && { transform: `translate(${walk.dx}px, ${walk.dy}px)` }),
               }}
             />
           </div>

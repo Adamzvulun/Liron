@@ -24,3 +24,7 @@ Every sound is quiet: no note above a tenth of full volume, and no bed above 5% 
 ## Motion
 
 Motion answers the player and never runs by itself. All of it is off when the device asks for reduced motion.
+
+- **The walk:** tapping a building on the square makes the avatar take a few steps toward its door (40% of the way, at most 240 stage pixels, with a small bob), and the place opens 300 ms later. The dock under a panned phone square opens places at once: the avatar may be off screen.
+- **The lamps:** coming back to the square after a step on a guild's road, that guild's building glows for two seconds and the "step" bell rings. The square remembers each road's step for the page only (`src/core/player/stepsDone.ts`); nothing is saved.
+- **Reduced motion:** no walk (the place opens at once) and no glow. The bell still rings if sounds are on.

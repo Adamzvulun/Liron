@@ -283,9 +283,10 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 - **Do:** write `docs/process/ADDING-A-SUBJECT.md` from the subject contract (ADR 0019) and from how the two halls were actually built: the content packs, the road, the hall painting, the ranks, the contracts, the tests every subject must pass. Then prove it: ask Adam which subject fills the first empty plot, and build its smallest honest first chapter using only the kit. Fix the kit wherever the build had to step outside it.
 - **Done when:** the guide exists; a third hall stands on a plot with one playable chapter on its own road; nothing in `src/core/` had to learn the new subject's name. **Gate:** the choice of subject is Adam's; until he picks, the guide alone is the deliverable.
 
-### ☐ 4.6 (#338) · v1.2 · ✏️ The city sounds and moves
+### ☑ 4.6 (#338) · v1.2 · ✏️ The city sounds and moves
 - **Do:** sound made in the browser with Web Audio, like the Morse tones (no audio files, no licenses to clear): a soft click and chime language for buttons, rewards and level-ups, and an optional ambient bed per place. Small motion that answers the player: the avatar walking to a door, lamps lighting when a step is done. A sound switch in Settings, off respected everywhere, reduced motion respected everywhere.
 - **Done when:** every sound can be switched off and stays off across reloads; nothing plays before the player's first tap; reduced motion shows none of the new movement; the speed budget holds.
+- **Built (2026-11-17):** [sound.md](../design/sound.md). Two switches in Settings: clicks and chimes (on by default) and each place's bed of sound (off by default). The halls are quiet, because their sound is the lessons. The avatar walks toward a door, and a building lights up when its road moved on.
 
 ### ☐ 4.7 (#339) · v1.1 · The keeper's handbook
 - **Do:** `docs/process/RUNNING.md` for Adam: what to do each month and each year (dependency updates and how to run the checks, rotating keys, what the keep-alive's failure means, the free tiers' limits and where to read your usage, adding and removing friends, restoring a paused project, releasing). A monthly reminder issue template.

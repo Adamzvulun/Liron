@@ -46,3 +46,17 @@ describe('placeAt', () => {
     expect(placeAt('/nowhere')).toBeUndefined();
   });
 });
+
+describe('the walk to a door (task 4.6)', () => {
+  it('goes part of the way toward the door, never down, and never far', async () => {
+    const { stepToward, AVATAR_SPOT } = await import('./layout.ts');
+    const right = stepToward({ x: AVATAR_SPOT.x + 400, y: 300, w: 200, h: 300 });
+    expect(right.dx).toBeGreaterThan(0);
+    expect(right.dy).toBeLessThan(0);
+    expect(Math.hypot(right.dx, right.dy)).toBeLessThanOrEqual(240);
+    const near = stepToward({ x: AVATAR_SPOT.x - 60, y: AVATAR_SPOT.feetY - 100, w: 20, h: 100 });
+    expect(near).toEqual({ dx: -20, dy: 0 });
+    const below = stepToward({ x: AVATAR_SPOT.x, y: AVATAR_SPOT.feetY, w: 0, h: 50 });
+    expect(below.dy).toBe(0);
+  });
+});

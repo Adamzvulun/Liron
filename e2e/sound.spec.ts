@@ -73,3 +73,24 @@ test('the halls are quiet: their sounds are the lessons', async ({ page }) => {
   await page.goto('/house');
   await expect(page.locator('main.place-screen')).not.toHaveAttribute('data-sound', 'quiet');
 });
+
+test('the avatar walks toward the door, then the place opens', async ({ page }, info) => {
+  test.skip(info.project.name === 'phone', 'on a phone the square pans; one viewport is enough');
+  await signedIn(page);
+  await page.goto('/');
+  const figure = page.locator('.city__figure');
+  await page.locator('a.city__place--house .city__plaque').click({ force: true }); // its sprites never stand still
+  await expect(figure).toHaveClass(/city__figure--walking/);
+  await expect(page).toHaveURL(/\/house$/);
+});
+
+test.describe('with reduced motion', () => {
+  test.use({ reducedMotion: 'reduce' });
+  test('the place opens at once, with no walk', async ({ page }, info) => {
+    test.skip(info.project.name === 'phone', 'one viewport is enough');
+    await signedIn(page);
+    await page.goto('/');
+    await page.locator('a.city__place--house .city__plaque').click({ force: true }); // its sprites never stand still
+    await expect(page).toHaveURL(/\/house$/, { timeout: 250 });
+  });
+});

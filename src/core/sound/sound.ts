@@ -1,7 +1,7 @@
 // The city's own sounds (task 4.6, docs/design/sound.md): a click when you press something, chimes
 // for rewards, and a quiet bed of sound in each place. This part loads with the square and is
 // small: the switches, and the rule that nothing plays before the player's first tap. The
-// synthesizer itself (citySound.ts) loads on that first tap.
+// synthesizer itself (citySound.ts) loads when a sound is first wanted after that tap.
 //
 // The halls are left out on purpose: their sounds are the lessons, and a click over a Morse
 // character would get in the way of hearing it.
@@ -48,7 +48,7 @@ export function setSound(change: Partial<SoundSettings>) {
     // Private browsing: the choice holds until the page closes.
   }
   for (const l of listeners) l();
-  void synth?.then((s) => s.apply(settings, place));
+  follow();
 }
 
 export function useSoundSettings(): SoundSettings {
@@ -61,8 +61,10 @@ export function useSoundSettings(): SoundSettings {
 type Synth = typeof import('./citySound.ts');
 let synth: Promise<Synth> | null = null;
 let place: Ambient | null = null;
+/** Has the player tapped or pressed a key on this page? Nothing plays before. */
+let tapped = false;
 
-/** Starts the synthesizer: only ever from inside a tap or key press, so nothing plays before. */
+/** Starts the synthesizer the first time a sound is wanted, after the first tap. */
 function wake(): Promise<Synth> {
   synth ??= import('./citySound.ts').then((s) => {
     s.start();
@@ -72,19 +74,25 @@ function wake(): Promise<Synth> {
   return synth;
 }
 
-/** True once the player has tapped or pressed a key on this page. */
+/** Starts, swaps or stops the bed of sound to match the switches and the place. */
+function follow() {
+  if (synth) void synth.then((s) => s.apply(settings, place));
+  else if (tapped && settings.ambient && place) void wake();
+}
+
+/** True once a sound has been wanted on this page (and the synthesizer made). */
 export const awake = () => synth !== null;
 
 /** Plays a cue, if sounds are on and the player has tapped since the page opened. */
 export function cue(kind: Cue) {
-  if (!settings.effects || !synth) return;
-  void synth.then((s) => s.cue(kind));
+  if (!settings.effects || !tapped) return;
+  void wake().then((s) => s.cue(kind));
 }
 
 /** The bed of sound for where the player is now (null for none). */
 export function setAmbient(next: Ambient | null) {
   place = next;
-  void synth?.then((s) => s.apply(settings, place));
+  follow();
 }
 
 /** What a press on this element sounds like: a click, unless it's in a hall or not pressable. */
@@ -100,18 +108,17 @@ export function pressSound(target: EventTarget | null): Cue | null {
 }
 
 /**
- * Listens for the first tap or key press (and wakes the synthesizer then), and clicks for each
- * press after that. Returns a function that stops listening.
+ * Listens for the player's taps and key presses: the first one allows sound on this page, and
+ * each press of a button or link in the city clicks. The synthesizer is made only when a sound
+ * is wanted, so a tap inside a hall makes none. Returns a function that stops listening.
  */
 export function armSound(doc: Document = document): () => void {
   const first = () => {
-    if (settings.effects || settings.ambient) void wake();
+    tapped = true;
+    follow();
   };
   const press = (e: Event) => {
-    if (!synth) {
-      if (settings.effects || settings.ambient) void wake();
-      return;
-    }
+    tapped = true;
     const kind = pressSound(e.target);
     if (kind) cue(kind);
   };
@@ -130,4 +137,5 @@ export function resetSoundForTests() {
   settings = read();
   synth = null;
   place = null;
+  tapped = false;
 }

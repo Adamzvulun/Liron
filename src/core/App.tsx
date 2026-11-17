@@ -6,6 +6,7 @@ import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
 import { City } from './city/City.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
+import type { PlaceId } from './city/painter.js';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
 import { PlaceBoundary } from './ErrorBoundary.tsx';
 import { Link } from './Link.tsx';
@@ -19,6 +20,7 @@ import { cityErrands, useCompass, type CompassSources } from './player/compass.t
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
 import { localDay } from './road/road.ts';
+import { stepWatcher } from './player/stepsDone.ts';
 import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
@@ -87,6 +89,9 @@ const apis = new Map(
       )
     : [],
 );
+
+/** The guilds whose road moved since the square was last shown (task 4.6). */
+const stepsDone = stepWatcher();
 
 /** Where the ledger in Your House reads from (docs/game/ledger.md). */
 const ledgerSources: LedgerSources = {
@@ -217,6 +222,28 @@ function Lobby({ player }: { player: Player }) {
         })
       : []),
   ];
+  // Back on the square after a step: that guild's building lights up, with a bell (task 4.6).
+  const [lit, setLit] = useState<PlaceId[]>([]);
+  useEffect(() => {
+    if (path !== '/') {
+      // Out of the square the lamps go out, so they can light again on the way back.
+      const out = setTimeout(() => setLit([]), 0);
+      return () => clearTimeout(out);
+    }
+    const moved = stepsDone(roads).flatMap((id) => {
+      const building = subjects.find((s) => s.id === id)?.building;
+      return building ? [building] : [];
+    });
+    if (moved.length === 0) return;
+    cue('step');
+    // After the square's first paint, so the lamps visibly light.
+    const on = setTimeout(() => setLit(moved), 0);
+    const off = setTimeout(() => setLit([]), 2000);
+    return () => {
+      clearTimeout(on);
+      clearTimeout(off);
+    };
+  }, [path, roads]);
   // The first page (§8): for a player with no step done anywhere, until closed on this device.
   const [closed, setClosed] = useState(firstPageClosed);
   const welcome = !closed && roads.length > 0 && roads.every((r) => !r.started);
@@ -309,7 +336,7 @@ function Lobby({ player }: { player: Player }) {
   }
   if (path !== '/') return <Lost />;
   return (
-    <City subjects={subjects} look={state.profile?.avatar}>
+    <City subjects={subjects} look={state.profile?.avatar} lit={lit}>
       <div className="lobby__top">
         <Hud
           state={state}
