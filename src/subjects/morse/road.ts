@@ -28,6 +28,7 @@ import {
 } from './lesson/progress.ts';
 import { stationOf } from './qso/onAir.ts';
 import { farOpen, farPassed } from './qso/farStation.ts';
+import { finaleOpen, finalePassed } from './qso/fortyWinters.ts';
 import { CHAPTERS } from './questline.ts';
 import { GHOST_DIT_MS, GHOST_WPM, KEYER_DIT_MS, MORSE_RANKS, morseStanding } from './ranks.ts';
 import { lampOpen, lampPassed } from './send/lampSignal.ts';
@@ -47,6 +48,7 @@ export const MORSE_DOORS = [
   'watch',
   'far',
   'radio',
+  'beacon',
   HALL_DOOR,
 ] as const;
 
@@ -119,6 +121,7 @@ export const MORSE_CHECKS: Record<string, Check> = {
   'thirty-by-ear': { done: (p) => p.rush.topWpm >= GHOST_WPM, open: rush },
   'thirty-by-hand': { done: (p) => fastest(p) <= GHOST_DIT_MS, open: always },
   'rank-ghost': { done: rank('ghost'), open: rankOpen('ghost') },
+  'forty-winters': { done: finalePassed, open: finaleOpen },
 };
 
 type Built = RoadStep & Check;
@@ -223,7 +226,22 @@ function meanwhile(p: MorseProgress, ctx: RoadContext): Meanwhile {
     ...(farPassed(p) ? ['radio'] : []),
   ];
   const door = stationOfDay(open, ctx.today) ?? 'koch';
-  return { door, line: STATION_LINE[door] ?? '', why: 'station' };
+  return { door, line: bestLine(door, p) ?? STATION_LINE[door] ?? '', why: 'station' };
+}
+
+/**
+ * A personal best to chase at a station, once there is one (task 4.1, the long evenings): what a
+ * player keeps coming back for after the road ends.
+ */
+function bestLine(door: string, p: MorseProgress): string | null {
+  const dit = p.sending.fastest ?? p.sending.ditMs;
+  if (door === 'recognition' && p.recognition.best > 0)
+    return `Tonight: Instant Recognition. Your best is ${p.recognition.best}: beat it.`;
+  if (door === 'sending' && dit)
+    return `Tonight: the brass key. Your fastest drill is ${Math.round(1200 / dit)} wpm: beat it.`;
+  if (door === 'words' && p.words.best > 0)
+    return `Tonight: the Codebook. Your best round is ${p.words.best} words: beat it.`;
+  return null;
 }
 
 /** Where a player stands on The Silent Beacon, and the one thing to do now. */

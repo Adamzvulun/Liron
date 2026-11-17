@@ -4,13 +4,11 @@ import { lettersUpTo, LESSONS, type Letter } from '../letters.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import { seeded } from '../lesson/questions.ts';
 import { dilate, FREE_PASS, gridFrom, scoreTrace, TRACE_PASS, type TraceScore } from './trace.ts';
+import { drawGlyph, FONT, GRID, glyphGrid, PAD } from './glyph.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
 
 /** Letters in a slate session; each is traced, then written from memory. */
 export const SLATE_LETTERS = 5;
-const PAD = 320;
-const GRID = 64;
-const FONT = `700 ${Math.round(PAD * 0.78)}px "Noto Naskh Arabic"`;
 const INK = 22;
 
 type Step = 'trace' | 'free';
@@ -34,29 +32,6 @@ function slateLetters(p: ArabicProgress, seed: number): Letter[] {
   return [...mix(newest), ...mix(unwritten), ...mix(rest)]
     .map(([, l]) => l)
     .slice(0, SLATE_LETTERS);
-}
-
-/** Draws a letter on a canvas the pad's size, filled, and reads it onto the grid. */
-function letterGrid(letter: string) {
-  const c = document.createElement('canvas');
-  c.width = PAD;
-  c.height = PAD;
-  const g = c.getContext('2d');
-  if (!g) return null;
-  drawGlyph(g, letter, '#000');
-  return gridFrom(g.getImageData(0, 0, PAD, PAD).data, PAD, PAD, GRID);
-}
-
-function drawGlyph(g: CanvasRenderingContext2D, letter: string, color: string) {
-  g.font = FONT;
-  g.textAlign = 'center';
-  g.textBaseline = 'alphabetic';
-  g.fillStyle = color;
-  // Centre the letter's own ink, since letters sit very differently on the line (ا, ن, ي).
-  const m = g.measureText(letter);
-  const up = m.actualBoundingBoxAscent || PAD * 0.4;
-  const down = m.actualBoundingBoxDescent || 0;
-  g.fillText(letter, PAD / 2, PAD / 2 + (up - down) / 2);
 }
 
 /**
@@ -181,7 +156,7 @@ export function Slate({ api }: { api: SubjectApi }) {
             guide={step === 'trace'}
             score={score}
             onCheck={(ink) => {
-              const shape = letterGrid(letter.letter);
+              const shape = glyphGrid(letter.letter);
               if (!shape) return;
               setScore(
                 scoreTrace(shape, dilate(shape, 4), ink, step === 'trace' ? TRACE_PASS : FREE_PASS),
@@ -225,7 +200,7 @@ export function Slate({ api }: { api: SubjectApi }) {
 }
 
 /** The drawing pad: a faint guide letter (when tracing) and your ink. */
-function Pad({
+export function Pad({
   letter,
   guide,
   score,

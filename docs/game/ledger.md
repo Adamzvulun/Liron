@@ -34,6 +34,7 @@ The compass's own "Step 14 of 74" for each guild (task 1.3). "Finished" when eve
 | Word chapters passed | Chapters before the one you're on, or all when the path is done |
 | Chats held | Chats with the regulars at the inn |
 | Reviews due | Reviews due now, the number the compass uses |
+| Capstone: The Stranger at the Gate | The distance to the Arabic capstone (task 4.3), in its three parts: words met (reading), slate letters written from memory (writing) and your longest evening at the inn, of 8 lines (talking). It opens at Storyteller; then "Open", and "Passed" once it is |
 
 **The trend line:** "This week: 12 new words met, 40 reviews." A week without reviews reads "No reviews this week yet."
 
@@ -47,6 +48,7 @@ The compass's own "Step 14 of 74" for each guild (task 1.3). "Finished" when eve
 | Recognition best | Your best Instant Recognition score |
 | Contacts logged | Contacts in the Radio Room's logbook |
 | Reviews due | Reviews due now |
+| Capstone: Forty Winters | The distance to the Morse capstone (task 4.3): copy speed of 20 wpm (the Night Watch counts as 20) and sending speed of 15 wpm, or "Passed" |
 
 **The trend line:** "This week: 3 new characters met, 25 reviews."
 

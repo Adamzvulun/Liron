@@ -1,24 +1,21 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { PartnerError, type CoachTip, type InnTurn } from '../../../core/partner.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import type { Regular } from '../questline.ts';
 import { CoachPhrases } from './CoachPhrases.tsx';
-import { SayLine } from './SayLine.tsx';
+import { LineInput } from './LineInput.tsx';
 import { Glosses } from './Glosses.tsx';
 import { DECK } from '../words.ts';
 import {
   afterChat,
   CHAT_XP,
   chatAsk,
-  cleanTyped,
-  fromHebrew,
   GOODBYE,
   lineInHebrew,
   linesOf,
   LINES_FOR_XP,
   MAX_LINES,
-  MAX_TYPED,
   regularsToTalkTo,
   standingWith,
   glossaryFrom,
@@ -32,12 +29,6 @@ import { NextStep } from '../../../core/road/NextStep.tsx';
 // "Sit and talk" at the innkeeper's table (E17, ADR 0038): a short chat in Palestinian Arabic
 // with one of the regulars. Their lines are written live by api/partner.ts on Groq; when it
 // can't answer, the regular has to go and serve someone, and the chat ends kindly.
-
-/** The on-screen keyboard: the letters in alphabetical order, then the other forms. */
-const LETTERS = [
-  ...'ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي'.split(' '),
-  ...'ة ى ء أ إ آ ؤ ئ'.split(' '),
-];
 
 type Stage =
   | { kind: 'pick' }
@@ -74,9 +65,6 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const [name, setName] = useState('');
   /** The table shows the newest regulars first; the older ones wait behind a button. */
   const [everyone, setEveryone] = useState(false);
-  const [typed, setTyped] = useState('');
-  /** What Whisper heard you say: it goes into the text box in Arabic, to fix before sending. */
-  const heard = useCallback((text: string) => setTyped(text.slice(0, MAX_TYPED)), []);
   const [shown, setShown] = useState<ReadonlySet<number>>(new Set());
   /** The Coach after a chat (ADR 0007): not asked, asking, the tips, or no answer. */
   const [coach, setCoach] = useState<'idle' | 'asking' | 'failed' | CoachTip[]>('idle');
@@ -198,7 +186,6 @@ export function InnChat({ api }: { api: SubjectApi }) {
     open.current = now;
     setShown(new Set());
     setCoach('idle');
-    setTyped('');
     ask({ kind: 'chat', regular, turns: [], waiting: true, started: now }, [], p);
   };
 
@@ -281,16 +268,10 @@ export function InnChat({ api }: { api: SubjectApi }) {
   const s = stage;
   const mine = linesOf(s.turns);
   const hebrew = progress.chat.hebrew;
-  /** What they'll read: what you typed, from Hebrew letters if that's how you type. */
-  const line = cleanTyped(hebrew ? fromHebrew(typed) : typed);
-  const setHebrew = (on: boolean) => {
+  const setHebrew = (on: boolean) =>
     setProgress({ ...progress, chat: { ...progress.chat, hebrew: on } });
-    setTyped('');
-  };
-  const send = (now: number) => {
-    const text = line;
+  const send = (text: string, now: number) => {
     if (!text || s.waiting || s.ended) return;
-    setTyped('');
     const turns: InnTurn[] = [...s.turns, { who: 'you', text }];
     if (linesOf(turns) >= MAX_LINES) {
       const last: InnTurn[] = [...turns, { who: 'them', text: GOODBYE }];
@@ -445,79 +426,13 @@ export function InnChat({ api }: { api: SubjectApi }) {
           </>
         ) : (
           <>
-            <div className="arabic__chat-mode" role="group" aria-label="Type in">
-              <button type="button" aria-pressed={!hebrew} onClick={() => setHebrew(false)}>
-                Arabic
-              </button>
-              <button type="button" aria-pressed={hebrew} onClick={() => setHebrew(true)}>
-                Hebrew letters
-              </button>
-            </div>
-            <form
-              className="arabic__chat-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                send(Date.now());
-              }}
-            >
-              <input
-                lang={hebrew ? 'he' : 'ar'}
-                dir="rtl"
-                aria-label={hebrew ? 'Your line, in Hebrew letters' : 'Your line, in Arabic'}
-                value={typed}
-                maxLength={MAX_TYPED}
-                autoComplete="off"
-                onChange={(e) => setTyped(e.target.value)}
-              />
-              <button type="submit" className="lesson__go" disabled={s.waiting || !line}>
-                Say it
-              </button>
-            </form>
-            <SayLine api={api} disabled={s.waiting} onHeard={heard} />
-            {hebrew ? (
-              <>
-                <p className="arabic__chat-reads">
-                  They read:{' '}
-                  <bdi lang="ar" dir="rtl">
-                    {line || '…'}
-                  </bdi>
-                </p>
-                <p className="arabic__chat-hint">
-                  A <bdi lang="he">ה</bdi> at the end is <bdi lang="ar">ة</bdi>; type{' '}
-                  <bdi lang="he">ה׳</bdi> for <bdi lang="ar">ه</bdi>, as in{' '}
-                  <bdi lang="he">כלה׳</bdi> (<bdi lang="ar">كله</bdi>).
-                </p>
-              </>
-            ) : (
-              <div className="arabic__keys" role="group" aria-label="Arabic keyboard" dir="rtl">
-                {LETTERS.map((l) => (
-                  <button key={l} type="button" onClick={() => setTyped((t) => t + l)}>
-                    {l}
-                  </button>
-                ))}
-                <button type="button" onClick={() => setTyped((t) => t + '؟')}>
-                  ؟
-                </button>
-                <button type="button" onClick={() => setTyped((t) => t + '،')}>
-                  ،
-                </button>
-                <button
-                  type="button"
-                  className="arabic__key-wide"
-                  aria-label="Space"
-                  onClick={() => setTyped((t) => t + ' ')}
-                >
-                  ␣
-                </button>
-                <button
-                  type="button"
-                  aria-label="Delete"
-                  onClick={() => setTyped((t) => [...t].slice(0, -1).join(''))}
-                >
-                  ⌫
-                </button>
-              </div>
-            )}
+            <LineInput
+              api={api}
+              hebrew={hebrew}
+              onHebrew={setHebrew}
+              disabled={s.waiting}
+              onSay={(text) => send(text, Date.now())}
+            />
             <div className="lesson__actions">
               <button type="button" className="lesson__plain" onClick={() => leave(Date.now())}>
                 Leave the table

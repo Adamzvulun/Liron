@@ -75,4 +75,6 @@ Only three screens are painted so far: the city square, the Signal Tower room an
 | **E20 Live Morse** | Friend-to-friend live QSO in the Signal Tower (Supabase Realtime) |
 
 ## M6+ — Beyond
+What stays open on purpose, and what would un-park each item: [LATER.md](LATER.md).
+
 World events, more partners and gear sets, more questline chapters, and new guild halls (new subjects).

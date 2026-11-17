@@ -21,6 +21,7 @@ import { currentPair } from '../echo/pairs.ts';
 import { opensAt } from '../../../core/road/road.ts';
 import { RoadLine } from '../../../core/road/RoadLine.tsx';
 import { arabicDone, arabicRoad, roadFor } from '../road.ts';
+import { FINALE_STORY, finaleOpen } from '../finale/stranger.ts';
 import './khan.css';
 
 /** The station that holds each door, for marking where the compass points. */
@@ -51,7 +52,8 @@ export type CourtyardDoor =
   | 'trial'
   | 'regular'
   | 'echo'
-  | 'chat';
+  | 'chat'
+  | 'gate';
 
 // The room never changes, so it's painted once per page load (paintedKhan).
 const courtyard = paintedKhan;
@@ -303,22 +305,38 @@ function Scene({
           where: 'Trial · Chapter 1 · at the gate',
           open: 'trial' as const,
         }
-      : undefined;
+      : finaleOpen(progress)
+        ? {
+            // The Long Road In's finale (task 4.2): a stranger at the very gate you came in by.
+            name: FINALE_STORY.title,
+            where: 'Finale · Chapter 115 · at the gate',
+            open: 'gate' as const,
+          }
+        : undefined;
+
+  // The finale's chapter (task 4.2), once the gate is open and no regular's trial waits.
+  const atGate = finaleOpen(progress) && !road?.trialReady;
 
   const story = (
     <>
       <p className="khan__kicker">Main questline · {quest.chapter.questline}</p>
       <h2 className="khan__chapter">
-        Chapter {road?.regular.number ?? 1}: {road?.regular.title ?? quest.chapter.title}
+        {atGate
+          ? `Chapter 115: ${FINALE_STORY.title}`
+          : `Chapter ${road?.regular.number ?? 1}: ${road?.regular.title ?? quest.chapter.title}`}
       </h2>
       <blockquote className="khan__beat">
         <ArabicText
           text={
-            road
-              ? (road.beat ?? road.regular.intro)
-              : quest.guest
-                ? quest.chapter.outro
-                : (quest.beat ?? quest.chapter.intro)
+            atGate
+              ? progress.finale
+                ? FINALE_STORY.epilogue
+                : FINALE_STORY.intro
+              : road
+                ? (road.beat ?? road.regular.intro)
+                : quest.guest
+                  ? quest.chapter.outro
+                  : (quest.beat ?? quest.chapter.intro)
           }
         />
       </blockquote>

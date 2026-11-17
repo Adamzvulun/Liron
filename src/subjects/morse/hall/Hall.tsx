@@ -48,7 +48,8 @@ export type HallDoor =
   | 'watch'
   | 'far'
   | 'radio'
-  | 'wire';
+  | 'wire'
+  | 'beacon';
 
 // The room never changes, so it's painted once per page load (paintedTower).
 const room = paintedTower;
@@ -121,6 +122,7 @@ const HOME: Partial<Record<string, StationId>> = {
   far: 'radio',
   radio: 'radio',
   wire: 'sending',
+  beacon: 'radio',
 };
 
 /** The questline's lamps on the stair: lit ones glow, the next one flickers. */

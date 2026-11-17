@@ -269,24 +269,27 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 | "Creatively stunning" | The city sounds alive and moves, within taste and the speed budget | 4.6 |
 | It keeps running | Adam can look after it without Claude: updates, keys, friends, a paused database | 4.7 |
 
-### ☐ 4.1 (#333) · v3.0 · ✏️ The long evenings: a daily loop for a player who has finished
+### ☑ 4.1 (#333) · v3.0 · ✏️ The long evenings: a daily loop for a player who has finished
 - **Why:** gap 14. FSRS reviews thin out by design, so a finished player's day shrinks to almost nothing.
 - **Already decided:** the rule is the compass's "meanwhile" ([the-road.md](../game/the-road.md) §6), built in 1.3. A finished road uses the same function. This task gives it more to point at.
 - **Do:** design what a day looks like at the end of each road, using what exists: reviews due, the Radio Room's live operators, Sit and talk, the rush, the daily contracts and chests. Add what's missing so the compass always has something real to point at: for example a "today in Waymark" step that rotates among the open-ended stations, harder contract tiers for finished players, and personal-best chases. No new content sources; mastery still can't be bought.
 - **Done when:** for a player with everything passed, the compass names a worthwhile step every day for 30 simulated days (a unit test over the rotation); the contracts scale; nothing says "you've finished, come back never".
+- **Done (2026-11-17):** [ADR 0048](../decisions/0048-the-long-evenings.md). Master contracts (30–40 gold) open the day after a road's finale and take that road's place on the board (migration `20270106000000_the_long_evenings.sql`, tested over 30 days in `schema.test.ts`). The evening's lines name your bests ("Your best is 31: beat it"), tested over 30 simulated days in both roads' tests. The courtyard keeps chapter 115 on its scroll after the finale. For checking: `scripts/endings.ts` prints SQL that puts a dev account one step before each finale (`tests/endings.test.ts`).
 
-### ☐ 4.2 (#334) · v3.0 · ✏️ Two endings
+### ☑ 4.2 (#334) · v3.0 · ✏️ Two endings
 - **Already written:** both finales, with their trials, screens, epilogues, titles and gear: [the-road.md](../game/the-road.md) §4 ("Forty Winters") and §5 ("The Stranger at the Gate").
 - **Do:** write and build the last chapter of The Silent Beacon and of The Long Road In: a final trial that uses the whole skill, a finale screen worth reaching (painted, with the guild's people in it), a title and a piece of gear that can be earned no other way, and an epilogue line that leads into 4.1's loop. The roads in `road.json` get their last steps.
 - **Done when:** both roads have a final step and a tested path to it; the finale screens are painted, screenshotted and fit phone and desktop; the party feed (3.3) announces it.
+- **Done (2026-11-17), with 4.3:** [ADR 0047](../decisions/0047-the-two-finales.md). Forty Winters is step 75 of the Silent Beacon (the lantern room, `paintBeacon.ts`); The Stranger at the Gate is step 275 of the Long Road In, in its own chapter 115 (the full table at night, `paintTable.ts`). Each opens at its road's last rank, is reached from its hall (the lantern room's door; the courtyard's gate) and by the compass, and ends on a door into the daily loop. Rewards come from the database: migrations `20270104000000_forty_winters.sql` and `20270105000000_stranger_at_the_gate.sql` (beacon lens and Keeper of the Hour; innkeeper's pen and Keeper of the Table; the feed announces both achievements). The Morse title changed from the doc's Keeper of the Beacon, which Beacon Relit already gives. Both screens screenshotted at phone and desktop; `e2e/forty-winters.spec.ts` and `e2e/stranger-at-the-gate.spec.ts` walk both, pass and miss.
 
-### ☐ 4.3 (#335) · v3.0 · ✏️ The capstones: have the goals been met?
+### ☑ 4.3 (#335) · v3.0 · ✏️ The capstones: have the goals been met?
 - **The capstones are the two finales' trials** ([the-road.md](../game/the-road.md) §4 and §5), so build 4.2 and 4.3 together.
 - **Do:** define, in the design doc, a test for each learner goal that uses only what Waymark can honestly judge:
   - **Arabic:** a longer conversation at the inn on everyday topics, judged by the same model that plays the regulars against a written rubric (understood, answered, kept going), with an eval set proving the judge is consistent; reading a short text in script; writing a few words on the slate. Say plainly what it can't judge (pronunciation, ADR 0013).
   - **Morse:** head copy of plain text at 20 wpm, and a sent passage the decoder reads cleanly at 15 wpm or more.
   Show the distance to each capstone in the ledger (1.6).
 - **Done when:** both capstones can be attempted and passed, with tests; the judge's eval set is in `scripts/` with its results recorded; the ledger shows progress toward each.
+- **Done (2026-11-17):** the tests are written in [the-road.md](../game/the-road.md) §4 and §5 and [ADR 0047](../decisions/0047-the-two-finales.md). Morse: head copy at 20 wpm (three questions on a message heard once) and a reply the decoder reads at 15 wpm or more. Arabic: a guest-book page of our own sentences, the stranger's name from memory on the slate, and "Your Story" judged on the rubric; pronunciation isn't judged, and the intro says so. The eval set is `scripts/judge-eval.ts`: 30 of 30 runs right, no chat both passed and failed ([judge-eval.md](../research/judge-eval.md)). The ledger has a capstone line in each hall's block.
 
 ### ☑ 4.4 (#336) · v1.2 · ✏️ World events
 - **Do:** a small calendar of events as **data** (`content/core/events.json`): a week when the square is dressed differently, a themed contract set, a chest that only that week gives. They start and end by date with no deploy. Begin with three or four across the year that fit the two cultures of the city. Art is painted in the browser like everything else.
@@ -296,6 +299,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☐ 4.5 (#337) · v4.0 · The guild-hall kit, and the third hall 🚧
 - **Do:** write `docs/process/ADDING-A-SUBJECT.md` from the subject contract (ADR 0019) and from how the two halls were actually built: the content packs, the road, the hall painting, the ranks, the contracts, the tests every subject must pass. Then prove it: ask Adam which subject fills the first empty plot, and build its smallest honest first chapter using only the kit. Fix the kit wherever the build had to step outside it.
 - **Done when:** the guide exists; a third hall stands on a plot with one playable chapter on its own road; nothing in `src/core/` had to learn the new subject's name. **Gate:** the choice of subject is Adam's; until he picks, the guide alone is the deliverable.
+- **Guide written (2026-11-17):** [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md). Writing it found where `src/core/` still names the two halls (its last section): the third hall's build starts by fixing those, in one ADR. **Waiting on Adam:** which subject fills the first empty plot.
 
 ### ☑ 4.6 (#338) · v1.2 · ✏️ The city sounds and moves
 - **Do:** sound made in the browser with Web Audio, like the Morse tones (no audio files, no licenses to clear): a soft click and chime language for buttons, rewards and level-ups, and an optional ambient bed per place. Small motion that answers the player: the avatar walking to a door, lamps lighting when a step is done. A sound switch in Settings, off respected everywhere, reduced motion respected everywhere.
@@ -315,9 +319,10 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 - **Do:** repeat the phone-and-desktop sweep over everything built in Phases 2–4 (the method is in HANDOFF items 54–82), and the "moment of doubt" walk from 1.11 over the whole road, endings included. Bring every doc in line with what exists. Empty the "open questions" list or mark each as Adam's standing choice. Write the final retro.
 - **Done when:** STATUS says the project is done, with what lives where and how to run it.
 
-### ☐ 5.2 (#341) · v4.0 · What stays open on purpose
+### ☑ 5.2 (#341) · v4.0 · What stays open on purpose
 - **Do:** one file, `docs/process/LATER.md`, listing what is parked and why, each with what would un-park it. Per CLAUDE.md this is ordering, not cutting.
 - **Done when:** the file exists and the roadmap points to it.
+- **Done (2026-11-17):** [LATER.md](LATER.md), checked against the code that day; ROADMAP.md and economy.md point to it. Keep it current as items un-park.
 
 ---
 
