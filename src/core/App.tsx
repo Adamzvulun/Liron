@@ -26,6 +26,7 @@ import { privatePackVersion, supabaseContent } from './content/privateContent.ts
 import { functionPartner } from './partner.ts';
 import { functionServices } from './services.ts';
 import { functionSpeech } from './speech.ts';
+import { armSound, cue, setAmbient } from './sound/sound.ts';
 import './App.css';
 
 // The house, the market and the board load when you go there, not with the square (#137).
@@ -178,6 +179,29 @@ function Lobby({ player }: { player: Player }) {
     [today],
   );
   const place = placeAt(path);
+  // The city's sounds (task 4.6): armed once, and the bed follows the player; halls have none.
+  useEffect(() => armSound(), []);
+  const resident = place ? residentsOf(subjects).get(place) : undefined;
+  useEffect(() => {
+    const bed = place === 'tower' || place === 'caravanserai' || resident ? null : place;
+    setAmbient(place ? (bed ?? null) : path === '/' ? 'square' : null);
+  }, [place, resident, path]);
+  const openChest = useCallback(
+    async (id: string) => {
+      const c = await player.openChest(id);
+      if (c) cue('reward');
+      return c;
+    },
+    [player],
+  );
+  const buy = useCallback(
+    async (id: string) => {
+      const why = await player.buy(id);
+      if (why === null) cue('reward');
+      return why;
+    },
+    [player],
+  );
   // Read again on every move, so coming back from a hall shows the step just done.
   const unpaid = state.contracts?.contracts.flatMap((c) => (c.paid || !c.subject ? [] : c.subject));
   const roads = useCompass(subjects, compassSources, state.today?.day, unpaid ?? [], path);
@@ -202,7 +226,6 @@ function Lobby({ player }: { player: Player }) {
     state.goalReached && <GoalReached day={state.goalReached} onDone={player.dismissGoal} />
   );
   if (place) {
-    const resident = residentsOf(subjects).get(place);
     const Hall = resident?.Hall;
     const api = resident && apis.get(resident.id);
     return (
@@ -235,7 +258,7 @@ function Lobby({ player }: { player: Player }) {
                 <Suspense fallback={null}>
                   <ChestShelf
                     shelf={chestShelf(state.chests, state.contracts, subjects)}
-                    onOpen={player.openChest}
+                    onOpen={openChest}
                   />
                 </Suspense>
               </div>
@@ -252,7 +275,7 @@ function Lobby({ player }: { player: Player }) {
                   look={state.profile.avatar}
                   gold={state.wallet?.gold ?? null}
                   onLoad={player.loadMarket}
-                  onBuy={player.buy}
+                  onBuy={buy}
                 />
               </Suspense>
             )}

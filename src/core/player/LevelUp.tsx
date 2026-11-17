@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { cue } from '../sound/sound.ts';
 import { useDialogFocus } from './useDialogFocus.ts';
 import { titleForLevel } from '../progress/economy.ts';
 import type { LevelUpInfo } from './player.ts';
@@ -7,6 +9,7 @@ import './player.css';
 /** The level-up celebration. Shown over the page until the player moves on. */
 export function LevelUp({ award, onDone }: { award: LevelUpInfo; onDone: () => void }) {
   const button = useDialogFocus();
+  useEffect(() => cue('levelUp'), []);
   const newTitle =
     titleForLevel(award.level) !== titleForLevel(award.levelBefore)
       ? titleForLevel(award.level)
