@@ -1,0 +1,146 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "wooden",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Wooden chest",
+        "gold": [15, 40],
+        "gemChance": 0.05,
+        "gems": [1, 1],
+        "gearChance": 0.1,
+        "shieldChance": 0.05
+      }
+    },
+    {
+      "id": "brass",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Brass chest",
+        "gold": [40, 80],
+        "gemChance": 0.25,
+        "gems": [1, 1],
+        "gearChance": 0.4,
+        "shieldChance": 0.15
+      }
+    },
+    {
+      "id": "jeweled",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Jeweled chest",
+        "gold": [80, 150],
+        "gemChance": 1.0,
+        "gems": [1, 2],
+        "gearChance": 0.6,
+        "shieldChance": 0.4
+      }
+    },
+    {
+      "id": "signal-chest",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Signal chest",
+        "gold": [30, 70],
+        "gemChance": 0.3,
+        "gems": [1, 1],
+        "gearChance": 0.35,
+        "shieldChance": 0.1
+      }
+    },
+    {
+      "id": "beacon-chest",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Beacon chest",
+        "gold": [30, 70],
+        "gemChance": 0.3,
+        "gems": [1, 1],
+        "gearChance": 0.35,
+        "shieldChance": 0.1
+      }
+    },
+    {
+      "id": "olive-chest",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Olive-wood chest",
+        "gold": [30, 70],
+        "gemChance": 0.3,
+        "gems": [1, 1],
+        "gearChance": 0.35,
+        "shieldChance": 0.1
+      }
+    },
+    {
+      "id": "ink-chest",
+      "subject": "core",
+      "type": "chest",
+      "data": {
+        "name": "Scribe’s chest",
+        "gold": [30, 70],
+        "gemChance": 0.3,
+        "gems": [1, 1],
+        "gearChance": 0.35,
+        "shieldChance": 0.1
+      }
+    },
+    {
+      "id": "contracts",
+      "subject": "core",
+      "type": "chest-source",
+      "data": {
+        "source": "contracts",
+        "chest": "wooden"
+      }
+    },
+    {
+      "id": "trial",
+      "subject": "core",
+      "type": "chest-source",
+      "data": {
+        "source": "trial",
+        "chest": "brass"
+      }
+    },
+    {
+      "id": "streak-7",
+      "subject": "core",
+      "type": "chest-source",
+      "data": {
+        "source": "streak",
+        "days": 7,
+        "chest": "brass"
+      }
+    },
+    {
+      "id": "streak-30",
+      "subject": "core",
+      "type": "chest-source",
+      "data": {
+        "source": "streak",
+        "days": 30,
+        "chest": "jeweled"
+      }
+    },
+    {
+      "id": "streak-100",
+      "subject": "core",
+      "type": "chest-source",
+      "data": {
+        "source": "streak",
+        "days": 100,
+        "chest": "jeweled"
+      }
+    }
+  ]
+}

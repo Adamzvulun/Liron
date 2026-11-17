@@ -29,7 +29,7 @@ The tone moves from "cute" to **heroic-stylized MMO**: bold and colorful, but no
   2. **Buildings in a ring around a dirt plaza, turned toward the centre**, packed and overlapping.
   3. **Three depth bands:** large near buildings at the frame edges; mid buildings; small, hazy back rooftops (atmospheric perspective). A distant landmark (our locked Arena) fades in the haze.
   4. **Volume:** front faces light, side faces dark, roof planes shaded, plaster and stone texture, contact shadows.
-  5. **Varied roof colours, chimneys, and hanging icon banners** on each building.
+  5. **Varied roof colours and chimneys** on each building. (Hanging icon banners were dropped at Adam's request, 2026-11-03.)
   6. **Dark foreground framing** at the bottom edge, plus a warm edge vignette.
 
 ## Amendment 3 (2026-11-01): painted rendering

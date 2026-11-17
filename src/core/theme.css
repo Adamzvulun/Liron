@@ -1,12 +1,20 @@
 /* Design tokens from the style guide v0 (docs/design/concept-v0/StyleGuide.dc.html). */
+/* Cinzel's 1 is the same glyph as its capital I, so "Chapter 11" read as "Chapter II" (Adam
+   wants plain numbers, report §4x). The display face takes its digits from Alegreya Sans. */
+@font-face {
+  font-family: 'Waymark Figures';
+  src: url('@fontsource/alegreya-sans/files/alegreya-sans-latin-800-normal.woff2') format('woff2');
+  font-weight: 700 900;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+}
+
 :root {
   --ink: #24160e;
   --parchment: #f3e2bc;
   --wood: #6b3f20;
   --brass: #e8a93a;
   --stone: #a6957f;
-  --night: #1e2636;
-  --dusk: #33397a;
   --ember: #d9784f;
   --lamplight: #ffd36b;
   --vellum: #fbf1d8;
@@ -14,8 +22,12 @@
   /* Guilds: each subject owns one hue. */
   --guild-morse: #2e8fa3;
   --guild-arabic: #c8553d;
+  /* Darker inks of the same hues for text on parchment: at least 4.5:1 (AA). Bright hues stay for fills. */
+  --guild-morse-ink: #1f6675;
+  --guild-arabic-ink: #8f3524;
+  --ember-ink: #9a3f1f;
 
-  --font-display: 'Cinzel', serif;
+  --font-display: 'Waymark Figures', 'Cinzel', serif;
   --font-ui: 'Alegreya Sans', system-ui, sans-serif;
   --font-arabic: 'Noto Naskh Arabic', serif;
   --font-hebrew: 'Noto Sans Hebrew', sans-serif;
@@ -25,11 +37,14 @@
 
   color-scheme: dark;
   font-family: var(--font-ui);
+  /* Full-height figures: Alegreya's old-style 0 reads as an o ("o/3", a callsign's "CoC"). */
+  font-variant-numeric: lining-nums;
   font-weight: 500;
   font-size: 18px;
   line-height: 1.4;
   color: var(--vellum);
-  background: var(--night);
+  /* Under the page's ground (grounds.css), for the moment before it paints. */
+  background: #2a1a10;
 }
 
 * {
@@ -39,7 +54,15 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--dusk) 0%, var(--night) 70%);
+}
+
+/* A plain link in running text takes its text's color (ink on parchment, parchment on the
+   night), not the browser's blue and purple. */
+a:not([class]) {
+  color: inherit;
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 :lang(ar) {
@@ -58,4 +81,9 @@ body {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* A number and its unit stay together ("+50 XP"). */
+.nowrap {
+  white-space: nowrap;
 }

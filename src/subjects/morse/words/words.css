@@ -1,0 +1,122 @@
+/* The Codebook (#154): the answer card and the round's list, on top of the lesson styles. */
+
+.words__answer {
+  min-height: 92px;
+  padding: 12px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+}
+
+.words__answer.is-right {
+  background: linear-gradient(180deg, #d8f2da, #a9e3b0);
+}
+
+.words__answer.is-wrong {
+  background: linear-gradient(180deg, #f8ddd4, #f2c3b6);
+}
+
+.words__played {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  font-size: 34px;
+  letter-spacing: 0.12em;
+}
+
+.words__verdict {
+  margin: 4px 0 0;
+  font-weight: 700;
+}
+
+.words__meaning {
+  margin: 8px 0 0;
+}
+
+.words__meaning span,
+.words__list small {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b5640;
+}
+
+.words__typed span:not(.lesson__hint) {
+  letter-spacing: 0.14em;
+}
+
+.lesson__key--aux.words__agn,
+.lesson__key--aux.words__send {
+  width: auto;
+  padding: 0 18px;
+  font-size: 20px;
+}
+
+.lesson__key:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.words__list {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.words__list li {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(95, 174, 106, 0.18);
+}
+
+.words__list li.is-wrong {
+  background: rgba(217, 120, 79, 0.22);
+}
+
+.words__list li.is-wrong::before {
+  content: '✕ ';
+  font-weight: 900;
+  color: #9a3a1c;
+}
+
+.words__list small {
+  display: block;
+  margin: 2px 0 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* AGN, delete and Answer side by side. */
+.words .lesson__aux {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.words__subtitle {
+  margin: 22px 0 4px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-size: 22px;
+}
+
+.words__flash {
+  margin: 8px 0 0;
+  font-weight: 800;
+}
+
+.words__flash.is-right {
+  color: #2f6b38;
+}
+
+.words__flash.is-wrong {
+  color: #9a3a1c;
+}
+
+/* The best-score line sits under the centered score, so it is centered too. */
+.words__best {
+  text-align: center;
+}

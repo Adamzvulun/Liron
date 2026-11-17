@@ -1,0 +1,174 @@
+/* The Market's stall (#49): 4 wares under a striped awning. */
+.market {
+  position: relative;
+  margin-top: 8px;
+  padding: 34px 16px 16px;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius-card);
+  background: linear-gradient(rgb(78 50 32 / 96%), rgb(42 23 12 / 96%));
+  color: #f6e7c4;
+}
+
+/* The awning */
+.market::before {
+  content: '';
+  position: absolute;
+  inset: -3px -3px auto;
+  height: 20px;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  background: repeating-linear-gradient(90deg, #b8402e 0 28px, var(--vellum) 28px 56px);
+}
+
+.market__title {
+  margin: 0;
+  font-family: var(--font-display, inherit);
+  font-size: 24px;
+  color: var(--lamplight);
+}
+
+.market__lede {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: center;
+  margin: 4px 0 14px;
+  font-weight: 600;
+  color: #c9b48e;
+}
+
+.market__purse {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 30%);
+  font-weight: 800;
+  color: var(--lamplight);
+}
+
+.market__wares {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 760px) {
+  .market__wares {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.market__ware {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 8px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: linear-gradient(var(--vellum), #e6d3ae);
+  color: var(--ink);
+  text-align: center;
+}
+
+.market__ware--rare {
+  box-shadow: inset 0 0 0 3px #3e7ab8;
+}
+
+.market__ware--epic {
+  box-shadow: inset 0 0 0 3px #8a4ec8;
+}
+
+.market__figure {
+  display: block;
+}
+
+.market__shield {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 124px;
+}
+
+.market__shield svg {
+  width: 64px;
+  height: 64px;
+}
+
+.market__name {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.market__note {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b5236;
+}
+
+.market__buy,
+.market__owned {
+  min-height: 44px;
+  margin-top: auto;
+  padding: 0 16px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 38px;
+}
+
+.market__buy {
+  background: linear-gradient(#ffd98a, var(--brass));
+  color: var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+  cursor: pointer;
+}
+
+.market__buy:disabled {
+  background: var(--stone);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.market__buy:focus-visible {
+  outline: 3px solid var(--lamplight);
+  outline-offset: 3px;
+}
+
+.market__owned {
+  border-style: dashed;
+  color: #3e7a4a;
+}
+
+.market__short {
+  font-size: 14px;
+  font-weight: 700;
+  color: #8a3020;
+}
+
+.market__said {
+  min-height: 1.2em;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.market__try {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.market__dawn {
+  margin: 14px 0 0;
+  font-weight: 600;
+  color: #c9b48e;
+  text-align: center;
+}

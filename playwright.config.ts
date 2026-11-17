@@ -20,5 +20,10 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    // A fake Supabase address: tests answer its requests themselves (e2e/fake-supabase.ts).
+    env: {
+      VITE_SUPABASE_URL: 'http://127.0.0.1:54321',
+      VITE_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_e2e',
+    },
   },
 });

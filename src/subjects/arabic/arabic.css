@@ -1,0 +1,1084 @@
+/* The Caravanserai's screens (#38–#41). Shared card and button styles come from Morse's lesson
+   look, repeated here so subjects stay independent (ADR 0019). */
+.arabic,
+.arabic__hall {
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+
+.arabic .lesson__card,
+.arabic__back ~ .lesson__card,
+.arabic__hall .arabic__door {
+  width: min(100%, 760px);
+  padding: 20px 22px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--parchment), #e8d2a4);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.arabic .lesson__card p {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+/* A station's early word (locked, unreadable, no deck) stands outside its section: a card too. */
+.arabic__back ~ p.lesson__card {
+  margin: 0 auto;
+  font-size: 18px;
+}
+
+.arabic .lesson__start,
+.arabic__meet,
+.arabic__question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.arabic .lesson__kicker {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px !important;
+  color: #6b5640;
+}
+
+.arabic .lesson__title,
+.arabic .lesson__subtitle,
+.arabic__door-title {
+  margin: 4px 0 10px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  font-size: 26px;
+  color: var(--wood);
+}
+
+.arabic .lesson__subtitle {
+  font-size: 20px;
+}
+
+.arabic .lesson__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.arabic .lesson__go,
+.arabic .lesson__plain,
+.arabic__back {
+  min-height: 52px;
+  padding: 10px 26px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 19px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.arabic .lesson__go {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+  color: var(--ink);
+}
+
+.arabic .lesson__plain,
+.arabic__back {
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  color: var(--vellum);
+}
+
+.arabic__back {
+  justify-self: start;
+  min-height: 44px;
+  font-size: 17px;
+}
+
+.arabic .lesson__warning {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #fbe3dc;
+  color: #7a2416;
+  font-weight: 700;
+}
+
+.arabic__loading {
+  color: var(--vellum);
+  font-weight: 700;
+}
+
+.arabic__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 4px 0 12px;
+}
+
+.arabic__chip {
+  display: inline-grid;
+  place-items: center;
+  min-width: 48px;
+  height: 48px;
+  padding: 0 8px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: #fff6df;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.arabic__note {
+  font-weight: 700;
+  color: var(--guild-arabic-ink);
+}
+
+/* Meet a letter */
+.arabic__hero {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 6px 0 12px;
+  text-align: start;
+}
+
+.arabic__hero p {
+  margin: 0 0 4px !important;
+}
+
+.arabic__big {
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+  border: var(--outline-ui);
+  border-radius: 22px;
+  background: radial-gradient(circle at 40% 35%, #fff6df, #ead3a3);
+  box-shadow: 0 5px 0 var(--ink);
+  font-size: 84px;
+  line-height: 1;
+}
+
+.arabic__bridge {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  font-size: 24px !important;
+  color: var(--wood);
+}
+
+.arabic__bridge bdi {
+  font-family: var(--font-hebrew);
+  font-size: 30px;
+}
+
+.arabic__name {
+  font-weight: 700;
+}
+
+.arabic__forms {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* A vowel mark on the letters you know: one to four tiles, centered in one row at a letter
+   tile's width, so three don't leave a gap on the right (or one alone below on a phone). */
+.arabic__forms--marks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.arabic__forms--marks .arabic__form {
+  flex: 0 1 calc((100% - 30px) / 4);
+}
+
+.arabic__form {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: #fff6df;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.arabic__form-glyph {
+  font-size: 40px;
+  line-height: 1.5;
+}
+
+.arabic__form.is-none {
+  opacity: 0.45;
+}
+
+.arabic__joins {
+  font-weight: 700;
+}
+
+.arabic__examples {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  text-align: start;
+}
+
+.arabic__examples li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255, 246, 223, 0.7);
+}
+
+.arabic__example {
+  font-size: 30px;
+}
+
+.arabic__play,
+.arabic__listen {
+  min-width: 44px;
+  min-height: 44px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+  /* Ink on brass, like every other brass button (white was 1.4:1, UX review H2). */
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.arabic__listen {
+  padding: 8px 20px;
+  margin-bottom: 14px;
+}
+
+/* A question */
+.arabic__bar {
+  width: 100%;
+  height: 8px;
+  margin-bottom: 12px;
+  border-radius: 99px;
+  background: rgba(36, 22, 14, 0.15);
+  overflow: hidden;
+}
+
+.arabic__bar span {
+  display: block;
+  height: 100%;
+  background: var(--guild-arabic);
+}
+
+.arabic__word {
+  margin: 4px 0 16px;
+  font-size: 64px;
+  line-height: 1.4;
+}
+
+.arabic__choices {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.arabic__choices.is-words {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.arabic__choice {
+  min-height: 84px;
+  border: var(--outline-ui);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff6df, #ead3a3);
+  color: var(--ink);
+  font-size: 44px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.arabic__choices.is-words .arabic__choice {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.arabic__choice:disabled {
+  cursor: default;
+}
+
+.arabic__choice.is-right {
+  background: linear-gradient(180deg, #d9f2c4, #9fd27a);
+}
+
+.arabic__choice.is-wrong {
+  background: linear-gradient(180deg, #fbd6cc, #e58b74);
+}
+
+.arabic__feedback {
+  display: grid;
+  justify-items: center;
+}
+
+.arabic__good {
+  color: #2f6b1e;
+  font-weight: 800;
+}
+
+.arabic__bad {
+  color: #8a2a18;
+  font-weight: 800;
+}
+
+.arabic__pct {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  font-size: 56px !important;
+  color: var(--wood);
+}
+
+.arabic__xp {
+  font-weight: 800;
+  color: var(--wood);
+}
+
+/* The hall, until the painted courtyard (#42) */
+.arabic__door {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  text-align: center;
+  font: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.arabic__door.is-soon {
+  cursor: default;
+  opacity: 0.6;
+  border-style: dashed;
+}
+
+.arabic__known {
+  color: var(--vellum);
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .arabic__hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .arabic__forms {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .arabic__choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .arabic__word {
+    font-size: 52px;
+  }
+}
+
+.arabic__beat {
+  margin: 0 0 12px;
+  padding-left: 14px;
+  border-left: 5px solid var(--brass);
+  font-size: 18px;
+  font-style: italic;
+  text-align: left;
+}
+
+.arabic__rank-won {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  font-size: 22px !important;
+  color: var(--wood);
+}
+
+.arabic-run {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* The slate (#41): a square pad, a faint guide letter, ink that doesn't scroll the page. */
+.arabic__slate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.arabic__slate-model {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 1.6em;
+}
+
+.arabic__pad-wrap {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  width: 100%;
+}
+
+.arabic__pad {
+  width: min(100%, 320px);
+  aspect-ratio: 1;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: #f8efd8;
+  box-shadow: inset 0 0 0 6px #e8d2a4;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.arabic__key {
+  margin: 10px 0 0 !important;
+  font-size: 15px !important;
+  color: #6b5640;
+}
+
+/* Read by recording: four play buttons, the one you last heard marked, then "This one". */
+.arabic__sound {
+  font-family: var(--font-ui);
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.arabic__sound.is-heard {
+  background: linear-gradient(180deg, #fff1b8, #f0c560);
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.arabic__toggle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0 14px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.arabic__toggle input {
+  width: 20px;
+  height: 20px;
+  color-scheme: light;
+  accent-color: var(--ink);
+}
+
+.arabic__choice:lang(en) {
+  font-family: var(--font-ui);
+  font-weight: 800;
+}
+
+/* The coffee corner (#45): a phrase's four faces, and recording yourself. */
+.arabic__phrase {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  align-items: center;
+  width: 100%;
+  margin: 8px 0 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 246, 223, 0.8);
+  text-align: left;
+}
+
+.arabic__phrase .arabic__play {
+  grid-row: span 4;
+}
+
+.arabic__phrase-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.4;
+  text-align: right;
+}
+
+/* A sentence-long word (chapters 101 on) is set smaller, so it doesn't stack five lines high
+   beside the play button on a phone. */
+.arabic__phrase-ar.is-long {
+  font-size: 26px;
+}
+
+.arabic__phrase-he {
+  font-family: 'Noto Sans Hebrew', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: right;
+}
+
+.arabic__phrase-latin {
+  font-style: italic;
+  font-size: 18px;
+  color: #6b5640;
+}
+
+.arabic__phrase-meaning {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+/* A taught word that shares its root with a Hebrew word (ADR 0002). */
+.arabic__kin {
+  grid-column: 2;
+  justify-self: start;
+  padding: 3px 10px;
+  border: 2px solid #b07a2a;
+  border-radius: 999px;
+  background: #fff1c8;
+  color: #4a2e10;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.arabic__kin bdi {
+  font-family: 'Noto Sans Hebrew', sans-serif;
+  font-size: 17px;
+}
+
+.arabic__compare {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.arabic__rec.is-on {
+  animation: arabic-rec 1s ease-in-out infinite;
+}
+
+/* "Would they understand me?" (ADR 0014): a full-width row under the recording buttons. */
+.arabic__check {
+  flex-basis: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.arabic__check .arabic__note {
+  margin: 0;
+  font-size: 15px;
+}
+
+.arabic__heard {
+  margin: 0;
+  padding: 6px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+.arabic__heard.is-right {
+  background: #d9efc4;
+}
+
+.arabic__heard.is-wrong {
+  background: #f6dcc8;
+}
+
+.arabic__heard-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 24px;
+}
+
+@keyframes arabic-rec {
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arabic__rec.is-on {
+    animation: none;
+  }
+}
+
+/* Sentence-long choices (a phrase's meaning) get two to a row, and one on a phone, so none
+   wraps into a narrow tower of short lines. */
+.arabic__choices.is-long {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 560px) {
+  .arabic__choices.is-long {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.arabic__choices.is-meanings .arabic__choice {
+  min-height: 64px;
+  padding: 8px 12px;
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.arabic__feedback .arabic__phrase {
+  width: min(100%, 460px);
+  margin-inline: auto;
+}
+
+/* How the deck's speaker says the word, under the spelling on a reveal. */
+.arabic__said {
+  margin-top: 4px;
+  font-size: 15px;
+  color: #6b5640;
+}
+
+/* The innkeeper's table (#160): a word's deck sentence, the recall prompt, a session's words. */
+.arabic__sentence {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 14px;
+  align-items: center;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 10px 16px;
+  border: 2px dashed rgba(36, 22, 14, 0.35);
+  border-radius: 14px;
+  text-align: left;
+}
+
+.arabic__sentence .arabic__play {
+  grid-row: span 2;
+}
+
+.arabic__sentence-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 26px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.arabic__sentence-en {
+  font-size: 16px;
+  color: #6b5640;
+}
+
+.arabic__word--meaning {
+  font-family: var(--font-ui);
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.arabic__choices.is-words .arabic__choice[lang='ar'] {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 28px;
+  line-height: 1.4;
+  padding: 6px 10px;
+}
+
+.arabic__words {
+  display: grid;
+  gap: 4px;
+  width: min(100%, 460px);
+  margin: 0 auto 16px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.arabic__words li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.arabic__words li.is-right {
+  background: rgba(159, 210, 122, 0.35);
+}
+
+.arabic__words li.is-wrong {
+  background: rgba(229, 139, 116, 0.35);
+}
+
+.arabic__words bdi {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 22px;
+}
+
+.arabic__feedback--word {
+  width: 100%;
+}
+
+/* Grammar cards and the grammar book (#162). */
+.arabic__grammar {
+  text-align: left;
+}
+
+.arabic__grammar > p {
+  margin: 0 0 10px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.arabic__grammar .lesson__kicker,
+.arabic__grammar .lesson__title {
+  text-align: center;
+}
+
+.arabic__grammar-table {
+  margin: 4px auto 14px;
+  border-collapse: collapse;
+  font-size: 17px;
+}
+
+.arabic__grammar-table th,
+.arabic__grammar-table td {
+  padding: 3px 12px;
+  border-bottom: 1px solid rgba(36, 22, 14, 0.15);
+  text-align: left;
+}
+
+.arabic__grammar-table th {
+  font-weight: 800;
+}
+
+.arabic__grammar-letters {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 28px;
+  text-align: center;
+}
+
+/* Our own sentence (#164): text only, so no play button and one column. */
+.arabic__sentence.is-written {
+  grid-template-columns: 1fr;
+}
+
+.arabic__sentence-he {
+  font-size: 17px;
+  text-align: right;
+  color: #6b5640;
+}
+
+.arabic__sentence-note {
+  font-size: 13px;
+  color: #8a735a;
+}
+
+.arabic__grammar .arabic__sentence .arabic__play {
+  grid-row: span 3;
+}
+
+.arabic__sentence-latin {
+  font-size: 15px;
+  font-style: italic;
+  color: #6b5640;
+}
+
+.arabic__book {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.arabic__book-card {
+  width: 100%;
+  padding: 10px 16px;
+  border: 2px solid rgba(36, 22, 14, 0.35);
+  border-radius: 12px;
+  background: rgba(255, 250, 240, 0.7);
+  color: #2a1a10;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.arabic__book-card:hover,
+.arabic__book-card:focus-visible {
+  border-color: #8a5a2b;
+}
+
+.arabic__book-chapter {
+  margin-right: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b5640;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.arabic__say {
+  margin-bottom: 12px;
+}
+
+/* Sit and talk at the innkeeper's table (E17, ADR 0038) */
+.arabic__chat-name {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0;
+  font-weight: 700;
+  text-align: start;
+}
+
+.arabic__chat-name input,
+.arabic__chat-form input {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: #fff6df;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 18px;
+}
+
+.arabic__chat-who {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arabic__chat-who button {
+  width: 100%;
+  text-align: start;
+}
+
+.arabic__chat-lines {
+  display: grid;
+  gap: 8px;
+  max-height: 46vh;
+  margin: 8px 0 12px;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.arabic__bubble {
+  max-width: 85%;
+  padding: 8px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  font-size: 22px;
+  line-height: 1.5;
+}
+
+.arabic__bubble--them {
+  justify-self: start;
+  background: #fff6df;
+}
+
+.arabic__bubble--you {
+  justify-self: end;
+  background: #f3d58f;
+}
+
+.arabic__bubble button {
+  display: grid;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: right;
+  cursor: pointer;
+}
+
+.arabic__bubble-he {
+  font-size: 18px;
+  color: var(--guild-arabic-ink);
+}
+
+/* The words of their line from the word path, each with our gloss. */
+.arabic__bubble-glosses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--ink);
+  font-family: var(--font-ui);
+}
+
+.arabic__bubble-glosses [lang='ar'] {
+  font-size: 17px;
+}
+
+.arabic__typing {
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.arabic__chat-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.arabic__chat-form input {
+  flex: 1;
+  /* No width of its own: a text box's default size made the card wider than a phone. */
+  width: 0;
+  min-width: 0;
+  font-size: 22px;
+}
+
+.arabic__keys {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.arabic__keys button {
+  min-height: 42px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: #fff6df;
+  color: var(--ink);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.arabic__keys .arabic__key-wide {
+  grid-column: span 3;
+}
+
+.arabic__chat-mode {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.arabic__chat-mode button {
+  flex: 1;
+  min-height: 36px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: #fff6df;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.arabic__chat-mode button[aria-pressed='true'] {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+}
+
+.arabic__chat-reads {
+  margin: 0 0 8px;
+  font-weight: 700;
+  text-align: start;
+}
+
+.arabic__chat-reads bdi {
+  font-size: 22px;
+}
+
+.arabic__chat-hint {
+  margin: -4px 0 8px;
+  font-size: 14px;
+  text-align: start;
+  opacity: 0.85;
+}
+
+.arabic__chat-hint bdi[lang='ar'] {
+  font-size: 18px;
+}
+
+/* The Coach after a chat (ADR 0007, 0038) */
+.arabic__coach {
+  margin: 8px 0 12px;
+  padding: 10px 12px;
+  border: 2px dashed var(--ink);
+  border-radius: 12px;
+  background: #fff6df;
+  text-align: start;
+}
+
+.arabic__coach ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arabic__coach li {
+  display: grid;
+  gap: 2px;
+}
+
+.arabic__coach-said {
+  font-size: 18px;
+  color: var(--guild-arabic-ink);
+  text-decoration: line-through;
+}
+
+.arabic__coach-better {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.arabic__coach-why {
+  font-size: 15px;
+}
+
+.arabic__coach-said-big {
+  font-size: 24px;
+  color: var(--guild-arabic-ink);
+}
+
+.arabic__question .arabic__coach-better {
+  display: block;
+  font-size: 28px;
+}
+
+.arabic__say-line {
+  margin-bottom: 8px;
+}
+
+.arabic__say-line button {
+  width: 100%;
+}
+
+.arabic__chat-standing {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.85;
+}

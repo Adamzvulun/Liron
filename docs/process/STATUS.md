@@ -1,33 +1,41 @@
 # Status: start here
 
-**Read this first in every new session.** It says where we are, what's next, and how this environment behaves. Keep it current: update it at the end of every session.
+**Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-02
-- **Phase:** **M1 (Foundations) started** (Adam said go, 2026-11-02). #12–#14 (scaffold, tests, CI) are merged into `dev` ([PR #50](https://github.com/Adamzvulun/Liron/pull/50)); `dev` is the default branch. #15 (Vercel) is in progress. **New branch flow (ADR 0015):** feature → `dev` (live dev site) → `main` (live site). Adam has free Vercel and Supabase accounts (2026-11-02).
+- **Last updated:** 2026-11-17.
+- **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are
-| Item | State |
-|---|---|
-| Vision, name (Waymark), ADRs 0001–0014 | ✅ locked ([vision](../vision.md), [decisions](../decisions/)) |
-| Visual concept: city v3 (painted style) | ✅ approved "for now" ([concept](../design/concept-v0/README.md), live canvas linked there) |
-| Sources: Lingualism deck (bought), Maknuune, Madrasa structure | ✅ ([sources](../../sources/README.md), [research](../research/arabic-sources.md)) |
-| Backlog: M1 + M2 as GitHub issues | ✅ #1–#49 |
-| Gemini speech spike (#1) | ✅ **partial** and closed: transcription usable; pronunciation scoring doesn't work on free Gemini, so feedback uses record-and-compare and ear training ([results](../../spikes/gemini-speech/README.md#results-phase-1-2026-11-01), [ADR 0013](../decisions/0013-speech-on-free-gemini.md)). |
-| Non-Gemini speech API | ✅ **Groq `whisper-large-v3`** is the speech model (2026-11-02): 28/30 deck sentences usable vs Gemini's 24/30, 2,000 requests/day free. It catches no pronunciation mistakes either (ح/ه 0/6), so there's still no per-sound scoring. ([analysis](../../spikes/gemini-speech/results/2026-11-02-groq-analysis.md), [ADR 0014](../decisions/0014-groq-whisper-for-speech.md)) |
-| App code | ✅ scaffold (#12), tests (#13), CI (#14), merged into `dev`. ⏳ hosting (#15, [DEPLOY](DEPLOY.md)). Not live yet. |
 
-## What to do next (in order)
-1. **#15 Vercel**, in this order (details in [DEPLOY](DEPLOY.md)):
-   1. Adam merges the #15 PR (`vercel.json`, DEPLOY.md) into `dev`.
-   2. Adam merges the release PR **v0.1.0** (`dev` → `main`), so `main` has the app. **Don't import into Vercel before this:** Vercel would serve the raw repo files, `sources/` included.
-   3. Adam imports the repo in Vercel (project `waymark`), checks that the production branch is `main`, turns on Vercel Authentication, and sends Claude the production URL and the dev URL.
-   4. Claude tags `v0.1.0`, records the URLs here, and closes #15.
-   - Adam deletes the old branches `claude/learning-hub-arabic-morse-20ckww` and `claude/nifty-cray-n4594x` in GitHub (both already in `dev`; Claude's session isn't allowed to delete branches).
-2. **M1: Foundations**, E1 (#2): ~~scaffold (#12)~~ → ~~tests (#13)~~ → ~~CI (#14)~~ → Vercel (#15, above).
-   - Adam has created the free Vercel and Supabase accounts (2026-11-02). Connecting the GitHub repo to Vercel happens in his dashboard; Claude gives the steps.
-   - #16 (Supabase): **two free projects**, `waymark-prod` and `waymark-dev` (Adam, 2026-11-02; ADR 0015). Adam creates them in the Supabase dashboard; Claude gives the steps.
-   - After E1, do E2 (#3) and E3 (#4) before E4 (#5) and E5 (#6).
-3. **M2: First playable** (#7–#11), after M1.
+**Waymark is built, as far as it can be without Adam.** Every task in [PLAN.md](PLAN.md) that Claude can do alone is done and merged into `dev` (the last sweep, task 5.1, on 2026-11-17; [final retro](retros/final.md)). What is left is Adam's: his gates at the end of PLAN.md, the choice of a third subject (4.5), and the releases. `main` (the live site) still holds the v0.1.0 scaffold; everything below is on `dev`.
+
+| | State |
+|---|---|
+| **The city** | The square, Your House (avatar, wardrobe, ledger, Fellowship), the Market, the Notice Board (quests, contracts, chests, the party feed), the Arena |
+| **Signal Tower (Morse)** | The whole road: 75 steps in 10 chapters, ending in the finale Forty Winters (the Morse capstone). Koch lessons for 41 characters, Instant Recognition, sending with a key, the Codebook's words, the callsign rush, three rank trials, the Radio Room with AI operators, and the wire to a friend |
+| **Caravanserai (Arabic)** | The whole road: 275 steps in 115 chapters, ending in the finale The Stranger at the Gate (the Arabic capstone). The script and its marks, the slate, the echo well, survival phrases, 3,390 words in 113 chapters, each with a regular and a trial, grammar cards, Sit and talk with the regulars, the Coach |
+| **After the end** | The long evenings: master contracts, a station of the day, personal bests to beat ([ADR 0048](../decisions/0048-the-long-evenings.md)) |
+| **Never lost** | One compass line says the next step everywhere: the square, both halls, every result screen. A first page greets a new player ([the Road](../game/the-road.md)) |
+| **The look** | Painted in the browser; no screen stands on a blue background ([Grounds](../design/grounds.md)) |
+| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 49 ADRs; unit and browser tests on every PR |
+
+### What lives where, and how to run it
+- **The code:** `src/core/` is the platform, `src/subjects/<id>/` one subject each; content is data in `content/`; the database is `supabase/migrations/`. The [README](../../README.md) has the map and every script (`npm run dev`, `npm test`, `npm run e2e`).
+- **Running the game day to day:** [RUNNING.md](RUNNING.md), the keeper's handbook (keys, allowances, friends, the keep-alive). Hosting: [DEPLOY.md](DEPLOY.md) and [SUPABASE.md](SUPABASE.md).
+- **Releasing:** [release-checklist.md](release-checklist.md), then a PR from `dev` into `main` that only Adam merges.
+- **Adding a subject:** [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md). **What stays open on purpose:** [LATER.md](LATER.md).
+
+## What comes next
+
+All of it is Adam's, in the order of [VERSIONS.md](VERSIONS.md):
+
+1. **Release v1.0.0, which now carries everything on `dev`** ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md); Adam can overturn it before merging): walk the [release checklist](release-checklist.md) (1.12, about an hour, one ending included), then the release PR into `main` (1.13). The live site starts fresh (Adam, 2026-11-16).
+2. **Before inviting a friend:** 2.1 (what friends without the deck may learn), a first friend's account ([FRIENDS.md](FRIENDS.md)), the Realtime "Allow public access" switch on both projects ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 opens the Fellowship to friends.
+3. **v4.0:** pick the third subject (4.5). Its build starts with the "Known gaps" in [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), and ends with the sweep repeated over the new hall.
+4. **Parked, each waiting on him:** the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All listed in [LATER.md](LATER.md).
+
+**After the release, once:** run the "Keep alive" workflow by hand and see it green ([SUPABASE](SUPABASE.md#keep-alive)).
+
 
 ## Backlog map
 | Milestone | Epic | Issues |
@@ -43,8 +51,13 @@
 | M2 | E8 Caravanserai: script | #9 → #38 #39 #40 #41 #42 #43 |
 | M2 | E9 Survival phrases | #10 → #44 #45 |
 | M2 | E10 Quests & rewards | #11 → #46 #47 #48 #49 |
+| M2 | The Silent Beacon III–V | #147 |
+| M3 | E12 Morse words & head copy | #149 → #153 #154 #155 #156 |
+| M3 | E11 Arabic core words | #150 → #159 #160 #161 #162 #163 #164 #205 |
+| M3 | E13 Ranks, trials & achievements | #151 → #174 #175 #176 #177 #178 #179 #180 |
+| M3 | E14 Mic practice | #152 → #193 #194 #195 #196 #197 |
 
-M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into issues when M2 is nearly done.
+M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.md) as docs until M3 is nearly done.
 
 ## How the backlog is organised in GitHub
 - **Milestones are labels** (`milestone:M0`, `milestone:M1`, `milestone:M2`), because the GitHub tools available to Claude can't create real milestones. Adam can convert them in the GitHub UI if he wants.
@@ -53,10 +66,13 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Gotcha:** creating an issue *with a parent* fails if one of its labels doesn't exist yet. Create the issue first, then attach it with the sub-issue tool. Issues without a parent create missing labels automatically.
 
 ## How to work (short version of [WORKFLOW](WORKFLOW.md) and [CLAUDE.md](../../CLAUDE.md))
-- **Branches ([ADR 0015](../decisions/0015-branches-and-environments.md)):** `main` is the live site, and `dev` is the live dev site and the default branch (once Adam switches it).
+- **Branches ([ADR 0015](../decisions/0015-branches-and-environments.md)):** `main` is the live site, and `dev` is the live dev site and the default branch.
   - Feature branches come from `dev`; PRs go into `dev` (`Closes #N`). Several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks.
   - Releases are PRs from `dev` into `main`; only Adam merges them.
+  - **When to release (Adam, 2026-11-03):** only when the game has a real base, meaning something the user can learn. Decor and styling alone are not a release. The first candidate is once M2 has lessons (e.g. E6 hearing Morse, E8 Arabic letters); Adam decides.
+  - **Version numbers ([ADR 0027](../decisions/0027-release-versioning.md)):** each release to `main` is a new X in X.Y.Z. **The first playable release is v1.0.0.** Y is a rare small addition between releases, and Z is a hotfix. 0.y.z means nothing is playable yet. The release PR sets `package.json`'s version, and Adam creates the tag.
   - **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
+  - **Always watch the PRs you open** (Adam, 2026-11-02): subscribe to PR activity right after creating a PR, fix red CI and answer review comments. Claude may merge its own PRs into `dev` once CI is green and it has checked the work (Adam, 2026-11-04). Only Adam merges into `main`.
   - Claude's session branch (`claude/…`) is the feature branch. If it doesn't start from `dev`, rebase it onto `dev` first.
 - **Rules from Adam:**
   - Research before suggesting.
@@ -72,6 +88,8 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
   - Reachable (checked 2026-11-01): GitHub, `generativelanguage.googleapis.com` (Gemini), `registry.npmjs.org`, `supabase.com`, `api.vercel.com`.
   - Blocked: `openrouter.ai` and most websites. Use web search for research, and say when a fact comes only from search snippets.
 - **Secrets:** `GEMINI_API_KEY` (added 2026-11-01) and the Groq key (added 2026-11-02). **The Groq secret is actually named `GROQ_KEY`**, not `GROQ_API_KEY`; `groq.mjs` reads either. Rename it in the environment settings if you want them to match. Never ask for keys in chat; Adam adds them in the environment settings, and a new session picks them up.
+- **Git tags:** the session's git proxy disconnects on `git push` of a tag, and the GitHub tools can't create tags, so Adam tags releases in GitHub → Releases.
+- **Adam's working rule (2026-11-02):** automate everything. Hand steps only where it's truly impossible otherwise (account creation, secrets, approvals). Say why each time.
 - **npm gotcha:** npm 10 (Node 22's npm) crashes (`reading 'edgesOut'`) when it resolves vitest's optional peers from scratch. Installing from the lockfile works. To add or upgrade dependencies, run `npx -y npm@12.2.1 install …`, which updates the lockfile.
 - **Pinning:** exact versions, using releases at least two weeks old. `@playwright/test` stays at the pre-installed Playwright version (1.63.0) so it finds `/opt/pw-browsers`.
 - **Tools present:** Node 22, Python 3, `ffmpeg`, Playwright with a pre-installed Chromium (don't run `playwright install`). The `zstd` CLI is **not always present** (missing on 2026-11-01, and `apt` failed). `prep.py` falls back to Node 22's built-in `zlib.zstdDecompressSync`, so it works either way.
@@ -80,7 +98,16 @@ M3–M6 (E11–E20) stay in the [roadmap](ROADMAP.md) as docs. Turn them into is
 - **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 
 ## Open questions for Adam
-- **Billing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
-- **In-app mic and data:** any in-app "did it understand you?" check now sends his audio to **Groq** (ADR 0014). Groq keeps no audio by default, except up to 30 days of abuse logs. Is it OK in the app when he chooses to use it, or record-and-compare only (no upload)? Default until he answers: opt-in, off. Not needed before M2 #45.
-- Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure; nothing runs locally (no in-browser or on-machine models); hosted free APIs only. He wants one stable model rather than hopping between models.
+Emptied on 2026-11-17 (task 5.1): each is answered, or marked as his to settle. Answered ones are kept, struck, for the record.
+- ~~**The live site's progress**~~: Adam chose a fresh start (2026-11-16). Your dev-site progress stays on the dev site ([DEPLOY](DEPLOY.md#the-first-real-release-v100)).
+- **Adam's, standing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
+- **Adam's, standing:** more words need a new source. Maknuune is free but CC BY-SA 4.0. Listed in [LATER.md](LATER.md).
+- **Adam's, standing:** `GROQ_API_KEY` on the dev site (Claude can't reach the dev site to check). Settings → Services says whether it's on (task 1.8); the key must be ticked for **Preview** in Vercel. Also: try the Morse sound on an iPhone after a phone call or a locked screen (`resumeOnGesture`, §4ax).
+- ~~**The words left out on purpose**~~ (report §4bc): Adam answered on 2026-11-15. The stepfamily and the national days are in (chapter 113); the adult, toilet and grim words are skipped for now.
+- ~~**The inn's character sheets**~~ (report §4at): done on 2026-11-15 (§4bd).
+- ~~**The M5 questions**~~: left to Claude, [ADR 0039](../decisions/0039-fellowship-answers.md). The regulars' voices wait on Adam's look at Azure (#342).
+- ~~**E15 (the Radio Room operators' free text)**~~: Adam said yes to all six questions (2026-11-10, ADR 0036).
+- ~~**The review's decisions**~~ (end of [the full review](reviews/2026-11-04-full-review.md)): all decided 2026-11-04.
+- ~~In-app mic and data~~: decided 2026-11-04, the Groq check is approved, opt-in, through a server-side function.
+- Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure (he will look again himself, 2026-11-16); nothing runs locally; hosted free APIs only. He wants one stable model rather than hopping between models.
 - Decided 2026-11-02: git flow feature → dev → main with two live sites (ADR 0015). Vercel and Supabase accounts created.

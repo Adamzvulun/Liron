@@ -1,0 +1,602 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (story text written for Waymark)",
+  "items": [
+    {
+      "id": "road:first-sounds",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "lesson",
+        "door": "koch",
+        "title": "The First Two Sounds",
+        "invite": "Hear your first two sounds, K and M."
+      }
+    },
+    {
+      "id": "road:lamps:1a",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 1,
+        "chars": ["U", "R"]
+      }
+    },
+    {
+      "id": "road:warm-key",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "visit",
+        "door": "sending",
+        "title": "The Warm Key",
+        "invite": "Key your first letters on the brass key.",
+        "beat": "The brass key is warm under your fingers. You press, and far below a relay clicks in answer. The Guildmaster, passing with her ledger, stops for the length of one letter."
+      }
+    },
+    {
+      "id": "road:lamps:1b",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 1,
+        "chars": ["E"]
+      }
+    },
+    {
+      "id": "road:lamp-fades",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 1,
+        "kind": "visit",
+        "door": "recognition",
+        "title": "Before the Lamp Fades",
+        "invite": "Name each letter before its lamp fades.",
+        "beat": "A lamp flares, you name it, and it holds a moment longer. “Good,” says the Guildmaster. “Don’t count the sounds. Know them.”"
+      }
+    },
+    {
+      "id": "road:lamps:1c",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 1,
+        "chars": ["S", "N", "A"]
+      }
+    },
+    {
+      "id": "road:trial:1",
+      "subject": "morse",
+      "type": "road-trial",
+      "data": {
+        "chapter": 1
+      }
+    },
+    {
+      "id": "road:logbook-words",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 2,
+        "kind": "visit",
+        "door": "words",
+        "title": "The Logbook’s Words",
+        "invite": "Copy whole words in the Codebook.",
+        "beat": "Past the gate stands a shelf of codebooks, swollen with damp. The first page you open is a list of short words, each ticked in the last operator’s hand. You tick the first one yourself."
+      }
+    },
+    {
+      "id": "road:lamps:2a",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 2,
+        "chars": ["P", "T", "L", "W"]
+      }
+    },
+    {
+      "id": "road:steadier-hand",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 2,
+        "kind": "practice",
+        "door": "sending",
+        "title": "A Steadier Hand",
+        "invite": "Key 4 sending drills in all.",
+        "beat": "Your dits have stopped tripping over your dahs. The relay below keeps time with you now."
+      }
+    },
+    {
+      "id": "road:lamps:2b",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 2,
+        "chars": ["I", ".", "J", "Z"]
+      }
+    },
+    {
+      "id": "road:trial:2",
+      "subject": "morse",
+      "type": "road-trial",
+      "data": {
+        "chapter": 2
+      }
+    },
+    {
+      "id": "road:lamps:3a",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 3,
+        "chars": ["=", "F", "O", "Y"]
+      }
+    },
+    {
+      "id": "road:operators-chair",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 3,
+        "kind": "practice",
+        "door": "sending",
+        "title": "The Operator’s Chair",
+        "invite": "Key 8 sending drills in all.",
+        "beat": "You sit in the last operator’s chair to key. This time it doesn’t creak."
+      }
+    },
+    {
+      "id": "road:lamps:3b",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 3,
+        "chars": [",", "V", "G", "5"]
+      }
+    },
+    {
+      "id": "road:list-of-stations",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 3,
+        "kind": "visit",
+        "door": "words",
+        "title": "The List of Stations",
+        "invite": "Copy callsigns in the callsign rush.",
+        "beat": "You read the crossed-out list aloud, call by call, as fast as you can copy them. One call near the bottom was never crossed out."
+      }
+    },
+    {
+      "id": "road:trial:3",
+      "subject": "morse",
+      "type": "road-trial",
+      "data": {
+        "chapter": 3
+      }
+    },
+    {
+      "id": "road:lamps:4a",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 4,
+        "chars": ["/", "Q", "9", "2"]
+      }
+    },
+    {
+      "id": "road:nine-minutes-past",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 4,
+        "kind": "practice",
+        "door": "sending",
+        "title": "Nine Minutes Past",
+        "invite": "Key 12 sending drills in all.",
+        "beat": "At nine minutes past you key the tower’s call into the dark, though nothing is connected yet. The Guildmaster pretends not to hear."
+      }
+    },
+    {
+      "id": "road:lamps:4b",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 4,
+        "chars": ["H", "3", "8", "B"]
+      }
+    },
+    {
+      "id": "road:trial:4",
+      "subject": "morse",
+      "type": "road-trial",
+      "data": {
+        "chapter": 4
+      }
+    },
+    {
+      "id": "road:lamps:5a",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 5,
+        "chars": ["?", "4", "7", "C"]
+      }
+    },
+    {
+      "id": "road:one-more-night",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 5,
+        "kind": "practice",
+        "door": "sending",
+        "title": "One More Night",
+        "invite": "Key 16 sending drills in all.",
+        "beat": "Sixteen messages keyed. Under the logbook’s last entry, you write tonight’s date in your own hand."
+      }
+    },
+    {
+      "id": "road:lamps:5b",
+      "subject": "morse",
+      "type": "road-lamps",
+      "data": {
+        "chapter": 5,
+        "chars": ["1", "D", "6", "0", "X"]
+      }
+    },
+    {
+      "id": "road:trial:5",
+      "subject": "morse",
+      "type": "road-trial",
+      "data": {
+        "chapter": 5
+      }
+    },
+    {
+      "id": "road:rank-listener",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 5,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Listener",
+        "invite": "Take your rank in the hall.",
+        "beat": "The Guildmaster hangs a pair of ear cups on your peg. “Listener. You hear what the tower hears.”"
+      }
+    },
+    {
+      "id": "road:chapter:6",
+      "subject": "morse",
+      "type": "road-chapter",
+      "data": {
+        "number": 6,
+        "title": "A Hand for the Key",
+        "intro": "The radio room stands open, and the far voice is clear in the headset: a callsign, a question mark, a pause. It is waiting for an answer. The Guildmaster stands in the doorway and doesn’t come in. “You can hear it. So could I. Hearing was never the hard part.” She nods at the brass key. “Show me your hand first.”",
+        "outro": "From the lantern room the lamp spells your signal across the water, and the square below reads it letter by letter."
+      }
+    },
+    {
+      "id": "road:twenty-messages",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 6,
+        "kind": "practice",
+        "door": "sending",
+        "title": "Twenty Messages",
+        "invite": "Key 20 sending drills in all.",
+        "beat": "Twenty messages keyed. Your hand has stopped thinking about it."
+      }
+    },
+    {
+      "id": "road:fifteen-wpm",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 6,
+        "kind": "practice",
+        "door": "sending",
+        "title": "Fifteen Words a Minute",
+        "invite": "Key a drill at 15 wpm or faster.",
+        "beat": "Fifteen words a minute, and clean. The relay below sounds like rain on a tin roof."
+      }
+    },
+    {
+      "id": "road:lamp-signal",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 6,
+        "kind": "trial",
+        "door": "lamp",
+        "title": "Trial: The Lamp Signal",
+        "invite": "Face the Lamp Signal.",
+        "beat": "Every letter of the message leaves your hand clean and on time. The Guildmaster, who has been counting under her breath, stops counting."
+      }
+    },
+    {
+      "id": "road:rank-keyer",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 6,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Keyer",
+        "invite": "Take your rank in the hall.",
+        "beat": "The Guildmaster sets the brass key in your palm and closes your fingers over it. “Keyer. It was mine once. It’s better off working.”"
+      }
+    },
+    {
+      "id": "road:chapter:7",
+      "subject": "morse",
+      "type": "road-chapter",
+      "data": {
+        "number": 7,
+        "title": "The Far Station",
+        "intro": "Every night at nine minutes past, the far voice calls. An answer on the air has its manners: who is calling, who is answering, when a thought ends, when the talk is over. The codebook keeps four signs for that. “Learn them,” says the Guildmaster, “and then answer it. Somebody should.”",
+        "outro": "The Guildmaster stayed in the doorway through the whole contact. When the far voice signed off she said, mostly to herself, “It still sends the old way.”"
+      }
+    },
+    {
+      "id": "road:four-signs",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 7,
+        "kind": "practice",
+        "door": "words",
+        "title": "The Four Signs",
+        "invite": "Copy all four prosigns in the Codebook.",
+        "beat": "Four signs: a message ends, a contact ends, a breath, an invitation. Now you can hold a door open on the air, and close it."
+      }
+    },
+    {
+      "id": "road:far-station",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 7,
+        "kind": "trial",
+        "door": "far",
+        "title": "Trial: The Far Station",
+        "invite": "Answer the far voice: face the Far Station.",
+        "beat": "The far voice gives its report, its name and its town as if no time had passed at all. You send your thanks and 73. It signs off, and for the first time in forty winters the logbook has a finished entry."
+      }
+    },
+    {
+      "id": "road:rank-operator",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 7,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Operator",
+        "invite": "Take your rank in the hall.",
+        "beat": "The Guildmaster reads your entry twice, then holds the coat out by its shoulders. “Operator. It asked for the tower and it got you. That’ll do.”"
+      }
+    },
+    {
+      "id": "road:own-call",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 7,
+        "kind": "visit",
+        "door": "radio",
+        "title": "A Call of Your Own",
+        "invite": "Set up your station in the Radio Room.",
+        "beat": "Your own call goes up on the wall, under a row of calls nobody has used in years."
+      }
+    },
+    {
+      "id": "road:first-on-air",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 7,
+        "kind": "visit",
+        "door": "radio",
+        "title": "First on the Air",
+        "invite": "Answer a call in the Radio Room.",
+        "beat": "A stranger answers you, gives you a report and a name, and wishes you 73. The band is full of people. It always was."
+      }
+    },
+    {
+      "id": "road:chapter:8",
+      "subject": "morse",
+      "type": "road-chapter",
+      "data": {
+        "number": 8,
+        "title": "The Night Watch",
+        "intro": "Operators on the night watch don’t write. They listen with their hands in their pockets and know what was said. The Guildmaster stood the watch once. “I wrote everything down, that last night,” she says. “Every letter. I was so busy writing that I never answered.”",
+        "outro": "You stand the watch with your hands in your pockets. At nine minutes past, the far voice sends its two letters, and this time you know them without thinking. They are the Guildmaster’s initials."
+      }
+    },
+    {
+      "id": "road:words-by-ear",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 8,
+        "kind": "practice",
+        "door": "words",
+        "title": "Words by Ear",
+        "invite": "Copy 10 Codebook rounds in all.",
+        "beat": "The words have stopped arriving as letters. They arrive whole, like faces."
+      }
+    },
+    {
+      "id": "road:night-watch",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 8,
+        "kind": "trial",
+        "door": "watch",
+        "title": "Trial: The Night Watch",
+        "invite": "Face the Night Watch.",
+        "beat": "Twenty words go by at full speed and you write none of them down. When the last one fades, you say them back to the empty room, in order."
+      }
+    },
+    {
+      "id": "road:rank-telegraphist",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 8,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Telegraphist",
+        "invite": "Take your rank in the hall.",
+        "beat": "She lights the night lantern and hands it to you. “Telegraphist. The watch is yours. I’m going to sleep through one, for once.”"
+      }
+    },
+    {
+      "id": "road:chapter:9",
+      "subject": "morse",
+      "type": "road-chapter",
+      "data": {
+        "number": 9,
+        "title": "On the Air",
+        "intro": "The band is busy at night. Operators on three coasts have heard that the tower is back, and each wants it in their log. The far voice is among them, patient, and faster than the rest. To hold a contact at its speed, you’ll have to keep up with everyone else first.",
+        "outro": "That night the far voice changes its call. It no longer asks for the tower. It asks for you."
+      }
+    },
+    {
+      "id": "road:three-in-log",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 9,
+        "kind": "practice",
+        "door": "radio",
+        "title": "Three in the Log",
+        "invite": "Log 3 contacts in all.",
+        "beat": "Three contacts. A new station has heard about you and starts calling."
+      }
+    },
+    {
+      "id": "road:six-in-log",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 9,
+        "kind": "practice",
+        "door": "radio",
+        "title": "Six in the Log",
+        "invite": "Log 6 contacts in all.",
+        "beat": "Six contacts. An operator who sends like a metronome puts out a call for the tower by name."
+      }
+    },
+    {
+      "id": "road:ten-in-log",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 9,
+        "kind": "practice",
+        "door": "radio",
+        "title": "Ten in the Log",
+        "invite": "Log 10 contacts in all.",
+        "beat": "Ten contacts. Someone comes on at twenty-five words a minute and doesn’t slow down for anybody."
+      }
+    },
+    {
+      "id": "road:no-repeats",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 9,
+        "kind": "practice",
+        "door": "radio",
+        "title": "No Repeats",
+        "invite": "Log a contact at 25 wpm with no AGN, no QRS and no resend.",
+        "beat": "Twenty-five words a minute from start to finish, and you asked for nothing twice. Before signing off, the other station adds two letters: FB. Fine business."
+      }
+    },
+    {
+      "id": "road:rank-signal-master",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 9,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Signal Master",
+        "invite": "Take your rank in the hall.",
+        "beat": "The Guildmaster sets the cap on your head herself. “Signal Master. There were four of us when I was young. Now there’s you.”"
+      }
+    },
+    {
+      "id": "road:chapter:10",
+      "subject": "morse",
+      "type": "road-chapter",
+      "data": {
+        "number": 10,
+        "title": "Ghost of the Ether",
+        "intro": "There is a speed past which code stops being sound and becomes meaning, the way a sentence in your own language does. The old operators called anyone who worked there a ghost: on the air they were only ever a rhythm, never seen. The far voice works at that speed when it thinks nobody is listening. The Guildmaster knows, because she used to work there with it."
+      }
+    },
+    {
+      "id": "road:thirty-by-ear",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 10,
+        "kind": "practice",
+        "door": "words",
+        "title": "Thirty by Ear",
+        "invite": "Copy a call at 30 wpm in the callsign rush.",
+        "beat": "A callsign goes by at thirty words a minute, and you have it before it ends."
+      }
+    },
+    {
+      "id": "road:thirty-by-hand",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 10,
+        "kind": "practice",
+        "door": "sending",
+        "title": "Thirty by Hand",
+        "invite": "Key a drill at 30 wpm or faster.",
+        "beat": "Thirty words a minute off your own key. The relay below can’t keep up; it hums instead."
+      }
+    },
+    {
+      "id": "road:rank-ghost",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 10,
+        "kind": "rank",
+        "door": "hall",
+        "title": "Rank: Ghost of the Ether",
+        "invite": "Take your rank in the hall.",
+        "beat": "No ceremony. One evening the cloak is on your peg, gray as static, with a note in the Guildmaster’s hand: “Ghost of the Ether. Don’t let it go to your head. Nobody can see you.” The far voice is still calling. One night soon, it won’t be for you."
+      }
+    },
+    {
+      "id": "road:forty-winters",
+      "subject": "morse",
+      "type": "road-step",
+      "data": {
+        "chapter": 10,
+        "kind": "finale",
+        "door": "beacon",
+        "title": "Finale: Forty Winters",
+        "invite": "At nine minutes past, answer the far voice from the lantern room.",
+        "beat": "She sends two letters, her own. The far voice answers with two of its own. Then both of them slow down, for your sake, and make room on the frequency. “Well?” she says, without turning around. “The band’s open. Somebody will be calling.”"
+      }
+    }
+  ]
+}

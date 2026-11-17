@@ -1,0 +1,36 @@
+/* Challenges (task 3.4): the offer under a round's result. The Arena's own styles are in
+   arena.css. */
+
+.challenge-offer {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 2px dashed color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.challenge-offer p {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.challenge-offer__answered {
+  color: var(--wood);
+}
+
+.challenge-offer__problem {
+  color: #8a2b1b;
+}
+
+.challenge-offer__friends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.challenge-offer__ask {
+  flex-basis: 100%;
+}

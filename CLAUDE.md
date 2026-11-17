@@ -3,7 +3,7 @@
 This repo (`Liron`) holds **Waymark**: a personal, game-like learning hub. The first two tracks are **Arabic** and **Morse code**.
 It is built by a team of two: **Adam** (product owner, creative director, and the learner) and **Claude** (who covers the roles below).
 
-**New session? Read [`docs/process/STATUS.md`](docs/process/STATUS.md) first.** It holds the current state, the next steps and the environment facts. Update it before ending a session.
+**New session? Read [`docs/process/STATUS.md`](docs/process/STATUS.md) first, then [`docs/process/HANDOFF.md`](docs/process/HANDOFF.md).** It holds the current state, the next steps and the environment facts. Update it before ending a session.
 
 ## Roles (the hats Claude wears)
 
@@ -42,6 +42,7 @@ See [`docs/process/WORKFLOW.md`](docs/process/WORKFLOW.md). In short:
 ## Conventions
 
 - Docs are Markdown in git. If code and docs disagree, fix whichever one is wrong in the same PR.
+- **American English** in everything a player sees: practice (not practise), traveler, color, gray, center. `tests/spelling.test.ts` checks the app and `content/`. Stored ids and keys (`hairColour`, the `grey` hair id) stay as saved profiles use them. Fix docs to American as you touch them (#126).
 - Content (letters, words, Morse characters, lessons) is **data**, not code. It lives in `content/` once that exists.
 - Commits are small, written in the imperative mood, and reference an issue where one exists.
 - Don't pick a technology without an ADR.

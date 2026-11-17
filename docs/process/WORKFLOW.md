@@ -19,7 +19,7 @@ Idea ──► Discovery doc ──► ADR(s) ──► Epic issue ──► Fea
 
 ## 3. Planning (GitHub)
 - **Milestones** are goal-based releases, for example `M1 – Foundations`. In GitHub they are labels (`milestone:M1`), because Claude's GitHub tools can't create real milestones.
-- **Epics** are issues labeled `type:epic`, each with a checklist of its feature issues.
+- **Epics** are issues labeled `type:epic`, with their feature issues attached as GitHub sub-issues.
 - **Features, tasks, and bugs** are issues with acceptance criteria. `feature-forge` writes them in EARS / Given-When-Then format.
 - **Labels:**
   - `track:core`, `track:arabic`, `track:morse`

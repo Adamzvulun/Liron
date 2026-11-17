@@ -1,0 +1,353 @@
+/* The customiser in Your House (#29): a mirror on the left, options on the right. On a phone
+   the mirror sits on top and stays in view while the options scroll beneath it. */
+
+.wardrobe {
+  display: grid;
+  grid-template-columns: minmax(260px, 380px) 1fr;
+  gap: 20px 28px;
+  align-items: start;
+}
+
+.wardrobe__side {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.wardrobe__mirror {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 24px 16px 14px;
+  border: 6px solid var(--ink);
+  border-radius: 180px 180px 18px 18px;
+  box-shadow:
+    inset 0 0 0 6px var(--brass),
+    0 6px 0 var(--ink);
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 18%, rgba(255, 241, 207, 0.55), transparent 70%),
+    linear-gradient(180deg, #c99a62 0%, #a8784a 62%, #6b3f20 62%, #4a2a14 100%);
+}
+
+/* Wall planks and floor boards behind the figure, all drawn with gradients. */
+.wardrobe__room {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 46px, rgba(42, 23, 12, 0.16) 46px 49px) top /
+      100% 62% no-repeat,
+    repeating-linear-gradient(180deg, transparent 0 22px, rgba(42, 23, 12, 0.22) 22px 24px) bottom /
+      100% 38% no-repeat,
+    linear-gradient(180deg, transparent 61%, rgba(42, 23, 12, 0.5) 62%, transparent 64%);
+  pointer-events: none;
+}
+
+.wardrobe__figure {
+  position: relative;
+  width: min(100%, 240px);
+  height: auto;
+  filter: drop-shadow(0 0 22px rgba(255, 211, 107, 0.35));
+}
+
+.wardrobe__name {
+  position: relative;
+  margin: 4px 0 0;
+  padding: 4px 18px;
+  border: var(--outline-ui);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--parchment), #d9bf8a);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.wardrobe__options {
+  padding: 8px 20px 20px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--parchment), #e8d2a4);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.wardrobe__heading {
+  margin: 14px 0 4px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--wood);
+}
+
+.wardrobe__choice {
+  margin: 0;
+  padding: 8px 0 10px;
+  border: 0;
+  border-top: 2px dashed rgba(107, 63, 32, 0.35);
+}
+
+.wardrobe__choice legend {
+  padding: 0;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.wardrobe__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.wardrobe__option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 72px;
+  min-height: 44px;
+  padding: 4px 6px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff6df, #ead3a3);
+  box-shadow: 0 3px 0 var(--ink);
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.wardrobe__option svg {
+  display: block;
+}
+
+.wardrobe__option:hover {
+  transform: translateY(-2px);
+}
+
+.wardrobe__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wardrobe__option:has(input:checked) {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+  box-shadow:
+    0 3px 0 var(--ink),
+    0 0 0 3px var(--lamplight);
+}
+
+.wardrobe__option:has(input:focus-visible) {
+  outline: 4px solid var(--guild-morse);
+  outline-offset: 2px;
+}
+
+.wardrobe__option--swatch {
+  min-width: 48px;
+  min-height: 48px;
+  padding: 4px;
+  justify-content: center;
+}
+
+.wardrobe__option--wide {
+  justify-content: center;
+  padding: 8px 14px;
+}
+
+.wardrobe__swatch {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+}
+
+.wardrobe__swatch--teal {
+  background: linear-gradient(160deg, #5fc0d2, #174e5a);
+}
+
+.wardrobe__label {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+/* The pieces you don't own yet: one line under the slot, opened to a compact grid. */
+.wardrobe__tofind {
+  align-self: center;
+}
+
+.wardrobe__tofind[open] {
+  flex-basis: 100%;
+}
+
+.wardrobe__tofind summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 4px 12px;
+  border: 2px dashed rgba(42, 23, 12, 0.45);
+  border-radius: 999px;
+  color: #6b5640;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.wardrobe__tofind summary::-webkit-details-marker {
+  display: none;
+}
+
+.wardrobe__tofind summary::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  margin-left: 2px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.wardrobe__tofind[open] summary::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+.wardrobe__tofind summary:hover {
+  background: rgba(42, 23, 12, 0.06);
+}
+
+.wardrobe__tofind summary:focus-visible {
+  outline: 3px solid var(--brass);
+  outline-offset: 2px;
+}
+
+.wardrobe__lockedgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.wardrobe__locked {
+  padding: 6px 10px;
+  border: 2px dashed rgba(42, 23, 12, 0.35);
+  border-radius: 10px;
+  color: #6b5640;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.wardrobe__lock {
+  flex-shrink: 0;
+  width: 14px;
+  height: 17px;
+  color: #8a7258;
+}
+
+.wardrobe__earn {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.wardrobe__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.wardrobe__save,
+.wardrobe__undo {
+  min-height: 48px;
+  padding: 8px 20px;
+  border: var(--outline-ui);
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.wardrobe__save {
+  background: linear-gradient(180deg, #ffe39a, var(--brass));
+  color: var(--ink);
+}
+
+.wardrobe__undo {
+  background: linear-gradient(180deg, #7a5a40, var(--wood));
+  color: var(--vellum);
+}
+
+.wardrobe__save:disabled,
+.wardrobe__undo:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.wardrobe__status {
+  flex-basis: 100%;
+  margin: 0;
+  min-height: 1.4em;
+  font-weight: 700;
+}
+
+/* Phone: mirror on top, kept in view as the options scroll; save bar at the bottom. */
+@media (max-width: 760px) {
+  .wardrobe {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* The mirror sticks to the top, the buttons to the bottom, the options scroll between. */
+  .wardrobe__side {
+    display: contents;
+  }
+
+  .wardrobe__mirror {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 12px 8px;
+    border-radius: 90px 90px 14px 14px;
+  }
+
+  .wardrobe__figure {
+    width: auto;
+    height: 24vh;
+  }
+
+  .wardrobe__name {
+    align-self: flex-end;
+    margin-bottom: 6px;
+  }
+
+  .wardrobe__options {
+    padding: 4px 14px 14px;
+  }
+
+  .wardrobe__actions {
+    order: 1;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    padding: 10px 0 12px;
+    background: #2f1d12;
+    border-top: 3px solid var(--wood);
+  }
+}
