@@ -390,7 +390,9 @@ export function memoryStore(
         }));
     },
     async reviewsSince(subjectId, since) {
-      return reviewLog.filter((r) => r.subjectId === subjectId && r.at >= since).map((r) => r.itemId);
+      return reviewLog
+        .filter((r) => r.subjectId === subjectId && r.at >= since)
+        .map((r) => r.itemId);
     },
     async activity() {
       return [...days]

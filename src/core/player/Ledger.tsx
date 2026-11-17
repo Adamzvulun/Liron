@@ -18,10 +18,11 @@ export function Ledger({
 }) {
   const [ledger, setLedger] = useState<LedgerData | null>(null);
   const [failed, setFailed] = useState(false);
-  const load = useCallback(() => {
+  const load = useCallback(() => void onLoad().then(setLedger, () => setFailed(true)), [onLoad]);
+  const retry = () => {
     setFailed(false);
-    onLoad().then(setLedger, () => setFailed(true));
-  }, [onLoad]);
+    load();
+  };
   useEffect(() => {
     load();
   }, [load]);
@@ -35,7 +36,7 @@ export function Ledger({
           {failed ? (
             <>
               The ledger couldn’t be read.{' '}
-              <button type="button" className="place__retry" onClick={load}>
+              <button type="button" className="place__retry" onClick={retry}>
                 Try again
               </button>
             </>

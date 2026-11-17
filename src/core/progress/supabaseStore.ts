@@ -310,13 +310,14 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       return data && Object.keys(data.state).length > 0 ? data.state : null;
     },
     async cardSummary(subjectId) {
-      const rows = await everyRow<{ item_id: string; interval: unknown; reps: unknown }>((from, to) =>
-        client
-          .from('review_cards')
-          .select('item_id, interval:card->scheduled_days, reps:card->reps')
-          .eq('subject_id', subjectId)
-          .order('item_id')
-          .range(from, to),
+      const rows = await everyRow<{ item_id: string; interval: unknown; reps: unknown }>(
+        (from, to) =>
+          client
+            .from('review_cards')
+            .select('item_id, interval:card->scheduled_days, reps:card->reps')
+            .eq('subject_id', subjectId)
+            .order('item_id')
+            .range(from, to),
       );
       return rows.map((r) => ({
         itemId: r.item_id,
