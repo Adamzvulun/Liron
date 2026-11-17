@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { subjects } from '../subjects/index.ts';
 import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
 import { GateScene, WaymarkPost } from './auth/Scenes.tsx';
@@ -16,7 +16,9 @@ import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { cityErrands, useCompass, type CompassSources } from './player/compass.ts';
+import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
+import { localDay } from './road/road.ts';
 import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
@@ -34,6 +36,7 @@ const FirstPage = lazy(() =>
 const Wardrobe = lazy(() => views().then((m) => ({ default: m.Wardrobe })));
 const AchievementWall = lazy(() => views().then((m) => ({ default: m.AchievementWall })));
 const Market = lazy(() => views().then((m) => ({ default: m.Market })));
+const Ledger = lazy(() => views().then((m) => ({ default: m.Ledger })));
 const ChestShelf = lazy(() => views().then((m) => ({ default: m.ChestShelf })));
 const HouseBackdrop = lazy(() => views().then((m) => ({ default: m.HouseBackdrop })));
 const MarketBackdrop = lazy(() => views().then((m) => ({ default: m.MarketBackdrop })));
@@ -83,6 +86,15 @@ const apis = new Map(
       )
     : [],
 );
+
+/** Where the ledger in Your House reads from (docs/game/ledger.md). */
+const ledgerSources: LedgerSources = {
+  loadState: (id) => compassSources.loadState(id),
+  due: (id) => compassSources.due(id),
+  cards: (id) => store?.cardSummary(id) ?? Promise.resolve([]),
+  reviewsSince: (id, since) => store?.reviewsSince(id, since) ?? Promise.resolve([]),
+  activity: () => store?.activity() ?? Promise.resolve([]),
+};
 
 /** What the compass asks about each subject (docs/game/the-road.md §6). */
 const compassSources: CompassSources = {
@@ -160,6 +172,11 @@ function Lobby({ player }: { player: Player }) {
     if (moved.current) void player.loadContracts();
     moved.current = true;
   }, [player, path]);
+  const today = state.today?.day;
+  const readLedger = useCallback(
+    () => loadLedger(subjects, ledgerSources, today ?? localDay()),
+    [today],
+  );
   const place = placeAt(path);
   // Read again on every move, so coming back from a hall shows the step just done.
   const unpaid = state.contracts?.contracts.flatMap((c) => (c.paid || !c.subject ? [] : c.subject));
@@ -252,6 +269,7 @@ function Lobby({ player }: { player: Player }) {
                   name={state.profile.displayName}
                   onSave={player.setAvatar}
                 />
+                {today && <Ledger onLoad={readLedger} roads={roads} />}
                 <AchievementWall
                   mine={state.achievements}
                   title={state.profile.title}

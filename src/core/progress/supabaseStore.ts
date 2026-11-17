@@ -309,6 +309,44 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       // A row can exist with the default empty state; that means "never saved".
       return data && Object.keys(data.state).length > 0 ? data.state : null;
     },
+    async cardSummary(subjectId) {
+      const rows = await everyRow<{ item_id: string; interval: unknown; reps: unknown }>((from, to) =>
+        client
+          .from('review_cards')
+          .select('item_id, interval:card->scheduled_days, reps:card->reps')
+          .eq('subject_id', subjectId)
+          .order('item_id')
+          .range(from, to),
+      );
+      return rows.map((r) => ({
+        itemId: r.item_id,
+        interval: Number(r.interval) || 0,
+        reps: Number(r.reps) || 0,
+      }));
+    },
+    async reviewsSince(subjectId, since) {
+      const rows = await everyRow<{ item_id: string }>((from, to) =>
+        client
+          .from('review_log')
+          .select('item_id')
+          .eq('subject_id', subjectId)
+          .gte('reviewed_at', since.toISOString())
+          .order('id')
+          .range(from, to),
+      );
+      return rows.map((r) => r.item_id);
+    },
+    async activity() {
+      const rows = await everyRow<{ day: string; minutes: number }>((from, to) =>
+        client
+          .from('daily_activity')
+          .select('day, minutes')
+          .gt('minutes', 0)
+          .order('day')
+          .range(from, to),
+      );
+      return rows.map((r) => ({ day: r.day, minutes: r.minutes }));
+    },
     async reviewCards(subjectId, itemIds) {
       const found = new Map<string, Record<string, unknown>>();
       if (itemIds.length === 0) return found;
@@ -379,4 +417,23 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       );
     },
   };
+}
+
+/** The server sends at most 1000 rows at once (Supabase's default), so longer lists come in pages. */
+const PAGE = 1000;
+
+async function everyRow<T>(
+  page: (
+    from: number,
+    to: number,
+  ) => PromiseLike<{ data: unknown; error: { message: string } | null }>,
+): Promise<T[]> {
+  const rows: T[] = [];
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await page(from, from + PAGE - 1);
+    if (error) throw new Error(`Couldn't read the ledger: ${error.message}`);
+    const got = (data ?? []) as T[];
+    rows.push(...got);
+    if (got.length < PAGE) return rows;
+  }
 }

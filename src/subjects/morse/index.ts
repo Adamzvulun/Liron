@@ -12,6 +12,7 @@ export const morse: SubjectInfo = {
   quest: { text: 'The Silent Beacon, Chapter 1: hear K and M' },
   welcome: 'Climb the Signal Tower',
   road: (state, ctx) => import('./road.ts').then((m) => m.morseRoad(state, ctx)),
+  ledger: (state, look) => import('./ledger.ts').then((m) => m.morseLedger(state, look)),
   skills: ['receive', 'send', 'head-copy'],
   Hall: TowerHall,
 };

@@ -17,6 +17,7 @@ export const arabic: SubjectInfo = {
   },
   welcome: 'Sit down at the Caravanserai',
   road: (state, ctx) => import('./road.ts').then((m) => m.arabicRoad(state, ctx)),
+  ledger: (state, look) => import('./ledger.ts').then((m) => m.arabicLedger(state, look)),
   skills: ['listen', 'read', 'write', 'speak'],
   Hall: Caravanserai,
 };

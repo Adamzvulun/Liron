@@ -1,0 +1,102 @@
+/* Your House's ledger (docs/game/ledger.md): a bound account book on the desk. Each guild has a
+   page with its ribbon down the side; the lines are ruled, with dotted leaders to the figure. */
+
+.ledger {
+  margin-top: 24px;
+  padding: 8px 20px 20px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, #6b3f20, #4e2c15);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.ledger__heading {
+  margin: 14px 0 12px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.ledger__note {
+  margin: 4px 0 10px;
+  font-weight: 700;
+}
+
+.ledger > .ledger__note {
+  color: var(--parchment);
+}
+
+.ledger__page {
+  margin-top: 14px;
+  padding: 10px 16px 12px 22px;
+  border: 3px solid var(--ink);
+  border-radius: 6px 12px 12px 6px;
+  /* The guild's ribbon on the left, then the paper. */
+  background:
+    linear-gradient(90deg, var(--ledger-guild, var(--wood)) 0 8px, transparent 8px),
+    linear-gradient(180deg, #fff6df, #ecd7aa);
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+.ledger__page--habit {
+  --ledger-guild: var(--brass);
+}
+
+.ledger__place {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 19px;
+  color: var(--wood);
+}
+
+.ledger__road {
+  margin: 0 0 4px;
+  font-weight: 700;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.ledger__rows {
+  margin: 6px 0 0;
+}
+
+.ledger__row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 0 4px;
+  border-bottom: 1px solid rgba(107, 63, 32, 0.25);
+}
+
+.ledger__row dt {
+  font-weight: 600;
+}
+
+/* The dotted leader from the label to the figure. */
+.ledger__row::after {
+  order: 1;
+  flex: 1;
+  min-width: 12px;
+  border-bottom: 2px dotted rgba(42, 23, 12, 0.35);
+  content: '';
+}
+
+.ledger__row dd {
+  order: 2;
+  margin: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 800;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ledger__trend {
+  margin: 10px 0 0;
+  font-style: italic;
+  font-weight: 600;
+}

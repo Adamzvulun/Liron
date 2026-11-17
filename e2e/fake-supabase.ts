@@ -66,6 +66,12 @@ export interface Extras {
   progress?: Record<string, number>;
   /** The title worn at the start ('' for none). */
   title?: string;
+  /** What the ledger reads (docs/game/ledger.md): cards, this week's reviews and the days. */
+  ledger?: {
+    cards?: Record<string, { item_id: string; interval: number; reps: number }[]>;
+    week?: Record<string, string[]>;
+    days?: { day: string; minutes: number }[];
+  };
 }
 
 /** Today's fake Market stall (#49): 2 gear, 1 dye and the streak shield. */
@@ -311,6 +317,22 @@ export async function fakeSupabase(
         return route.fulfill({ json: { signedURL: `${path}?token=e2e` } });
       }
       return route.fulfill({ contentType: 'audio/wav', body: SILENT_WAV });
+    }
+    // The ledger's reads (docs/game/ledger.md): all of a subject's cards, its week, the days.
+    if (
+      url.pathname === '/rest/v1/review_cards' &&
+      url.searchParams.get('select')?.includes('reps')
+    ) {
+      const subject = url.searchParams.get('subject_id')?.replace(/^eq\./, '') ?? '';
+      return route.fulfill({ json: extras.ledger?.cards?.[subject] ?? [] });
+    }
+    if (url.pathname === '/rest/v1/review_log') {
+      const subject = url.searchParams.get('subject_id')?.replace(/^eq\./, '') ?? '';
+      const week = extras.ledger?.week?.[subject] ?? [];
+      return route.fulfill({ json: week.map((item_id) => ({ item_id })) });
+    }
+    if (url.pathname === '/rest/v1/daily_activity') {
+      return route.fulfill({ json: extras.ledger?.days ?? [] });
     }
     // A subject's progress: no saved state, nothing reviewed or rated yet. Writes are recorded.
     const single = route.request().headers()['accept']?.includes('vnd.pgrst.object');

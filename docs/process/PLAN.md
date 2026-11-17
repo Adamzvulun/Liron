@@ -124,7 +124,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Done when:** a browser test visits every route and state in the list at three sizes and fails if the navy gradient's colors are visible anywhere (sample the screenshot's pixels at the edges and between cards); each new ground is screenshotted and looked at; text on them meets 4.5:1; the speed budget from 1.7 still holds.
 - **Done (2026-11-16):** built as [grounds.md](../design/grounds.md) §7 records, with three deviations noted there. `e2e/grounds.spec.ts` is the pixel test; `tests/grounds.test.ts` reads the style sheets.
 
-### ☐ 1.6 (#314) · v1.1 · ✏️ The ledger: learning you can see (stats in Your House)
+### ☑ 1.6 (#314) · v1.1 · ✏️ The ledger: learning you can see (stats in Your House)
 - **Why:** gap 4.
 - **Do:** design first, in `docs/game/ledger.md` (short). Use **only data already saved**: reviews and their due dates (FSRS), skill ratings (Glicko-2), subject state, the daily minutes and streak. Don't add tracking. Proposed contents, to adjust after reading the tables:
   - Arabic: letters known; words met, and words "known" (define it: for example an FSRS interval of 21 days or more); reviews due today; chapters passed; chats held.
@@ -134,6 +134,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
   - One line a subject that says the trend in words ("12 more words known than a week ago").
   Build it as a panel in Your House, with the house's look. Replace the placeholder sentence in `PLACE_SOON.house`.
 - **Done when:** Your House shows the ledger for a new player (honest zeros, no "NaN", no empty boxes) and for an advanced one; every number is defined in the design doc and unit-tested against that definition; it fits 320 pixels; no new data is collected.
+- **Built (2026-11-17):** the design is [ledger.md](../game/ledger.md). The ledger is a panel in Your House, between the wardrobe and the achievements, and it reads only what was already saved. "Known" means an FSRS interval of 21 days or more. "Longest run" counts days with any minutes, so it is not the goal streak; the doc says so.
 
 ### ☑ 1.7 (#315) · v1.0 · Give speed (#137) a finish line, then close it
 - **Do:** measure on the production build with the slowed-phone settings `e2e/city-speed.spec.ts` already uses: first paint of the square, time until a place can be clicked, return to the square from a hall, and the gzipped startup script. Write a budget in `docs/process/CI.md` (today's numbers plus 15%, unless a number is plainly bad, in which case fix it first). Make the existing speed test fail above the budget. Do this **after 1.3 and 1.5**, since both add to the square.

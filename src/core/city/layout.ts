@@ -73,7 +73,7 @@ export const PLACE_SOON: Record<PlaceId, string> = {
   tower: 'No guild has moved in yet.',
   caravanserai: 'No guild has moved in yet.',
   board: 'Today’s quests will be posted here.',
-  house: 'Your wardrobe, trophies and stats will live here.',
+  house: 'Your wardrobe, ledger and trophies are kept here.',
   market: 'Gear and items will be for sale here.',
 };
 
