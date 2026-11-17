@@ -290,6 +290,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☐ 4.7 (#339) · v1.1 · The keeper's handbook
 - **Do:** `docs/process/RUNNING.md` for Adam: what to do each month and each year (dependency updates and how to run the checks, rotating keys, what the keep-alive's failure means, the free tiers' limits and where to read your usage, adding and removing friends, restoring a paused project, releasing). A monthly reminder issue template.
 - **Done when:** the handbook exists and each procedure in it has been followed once, or is marked "untested" with the reason.
+- **Written (2026-11-17):** [RUNNING.md](RUNNING.md) and the **Monthly check** issue template. Every procedure is marked untested so far: each needs Adam's dashboards or the release. The ticks come as he follows them.
 
 ---
 
