@@ -236,9 +236,10 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 - **Done when:** a challenge can be sent, played, answered and declined, with tests for each state and for expiry; scores are checked by the database; the Arena is painted, screenshotted and fits phone and desktop.
 - **Done (2026-11-17):** [ADR 0044](../decisions/0044-challenges-and-the-arena.md). Migration `20270101000000_challenges.sql`, with tests in `fellowship.test.ts` (recording, sending, answering, declining, expiry, limits, who sees what). The offer sits under the rush's and the Codebook's results; the Arena at `/arena` is painted (`paintArena.ts`) and screenshotted at 320 pixels and on desktop; the square's sign opens it. `e2e/challenges.spec.ts`.
 
-### ☐ 3.5 (#330) · v2.3 · ✏️ E19d — Fellowship quests and gifts
+### ☑ 3.5 (#330) · v2.3 · ✏️ E19d — Fellowship quests and gifts
 - **Do:** co-op goals on the daily-contract machinery (ADR 0032): "together, 10 chats at the inn this week". Then gifting a Market ware to a friend, paid in the giver's gold, through the database's purchase path (ADR 0029, 0033).
 - **Done when:** progress counts every member's real events once; rewards are paid by the database once each; a gift can't create gold or duplicate an item (tests for both).
+- **Done (2026-11-17):** [ADR 0045](../decisions/0045-fellowship-quests-and-gifts.md). Migration `20270102000000_fellowship_quests_and_gifts.sql`, with tests in `fellowship.test.ts` (counting once, only your Fellowship, paid once and only to helpers, gifts to strangers, owned wares, gold never below zero, three a day). "Together this week" on the Notice Board, "Give to a friend" in the Market, "Gifts for you" in Your House; `e2e/together.spec.ts`, screenshotted at 320 pixels and on desktop.
 
 ### ☐ 3.6 (#331) · v2.4 · ✏️ E20 — Live Morse between friends
 - **Do:** first the ADR for Supabase Realtime (limits checked on Supabase's pages today; what is sent; what happens on a dropped connection). Then: two friends in the Signal Tower, each hearing the other's key as tones, with the timing sent as key-down and key-up events. Reuse the sidetone and the decoder. Nothing is stored.

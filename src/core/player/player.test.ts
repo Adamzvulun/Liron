@@ -367,4 +367,15 @@ describe('the player’s achievements and title (#177)', () => {
     expect(await player.setTitle('')).toBe(true);
     expect(player.getSnapshot().profile?.title).toBe('');
   });
+
+  it('shows a purse paid elsewhere, unless a newer one has answered (task 3.5)', async () => {
+    const store = memoryStore();
+    const player = createPlayer(store);
+    await player.load();
+    const older = player.purse();
+    const newer = player.purse();
+    newer(120);
+    older(80);
+    expect(player.getSnapshot().wallet?.gold).toBe(120);
+  });
 });

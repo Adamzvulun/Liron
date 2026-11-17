@@ -90,6 +90,10 @@ export interface Extras {
      * change them; the last recorded round's score answers a challenge.
      */
     challenges?: Record<string, unknown>[];
+    /** This week's Fellowship quest (task 3.5), as `fellowship_quest` returns it. */
+    quest?: Record<string, unknown> | null;
+    /** Gifts for the player, as `my_gifts` returns them. */
+    gifts?: Record<string, unknown>[];
   };
 }
 
@@ -233,7 +237,7 @@ export async function fakeSupabase(
     }
     // The Fellowship's functions (task 3.1): a list that changes as the player acts.
     const fellowshipFn =
-      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests|fellowship_feed|record_round_score|send_challenge|answer_challenge|decline_challenge|my_challenges)$/.exec(
+      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests|fellowship_feed|record_round_score|send_challenge|answer_challenge|decline_challenge|my_challenges|fellowship_quest|collect_fellowship_quest|give_item|my_gifts)$/.exec(
         url.pathname,
       )?.[1];
     if (fellowshipFn) {
@@ -275,6 +279,22 @@ export async function fakeSupabase(
           if (i >= 0) friends.splice(i, 1);
           return route.fulfill({ json: null });
         }
+        case 'fellowship_quest':
+          return route.fulfill({ json: f.quest ?? null });
+        case 'collect_fellowship_quest': {
+          if (f.quest) {
+            f.quest.collected = true;
+            spent -= Number(f.quest.gold);
+          }
+          return route.fulfill({ json: board().gold });
+        }
+        case 'give_item': {
+          const ware = STALL.find((w) => w.id === args?.p_item);
+          if (ware) spent += ware.price;
+          return route.fulfill({ json: board().gold });
+        }
+        case 'my_gifts':
+          return route.fulfill({ json: f.gifts ?? [] });
         case 'my_challenges':
           return route.fulfill({ json: f.challenges ?? [] });
         case 'decline_challenge': {

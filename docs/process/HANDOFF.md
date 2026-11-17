@@ -273,3 +273,8 @@
     - **Subject:** `reportRush` and `reportWords` make a session id, then record the score, and return a `ScoredRound`. `TowerHall` takes `?open=rush`, which opens the Codebook straight into a rush.
     - **e2e:** `Extras.fellowship.challenges`. The fake answers with the last recorded score. See `e2e/challenges.spec.ts`.
     - **Next (v2.3, task 3.5):** Fellowship quests and gifts.
+105. **Fellowship quests and gifts, task 3.5 (2026-11-17, report §4cs):** [ADR 0045](../decisions/0045-fellowship-quests-and-gifts.md).
+    - **Database:** `fellowship_quests` (rows), `quest_part`, `fellowship_quest()` and `collect_fellowship_quest()` (`fellowship_quest_rewards` is keyed on player and week). `give_item(friend, item)`, `my_gifts()`, and the `gifts` table. `owned_items.source` allows `'gift'`. Migration `20270102000000_fellowship_quests_and_gifts.sql`.
+    - **Browser:** `together.ts` (the source, quest lines, gift messages), `TogetherQuest.tsx` on the board, `GiftOffer.tsx` in `Market.tsx` (the `giving` prop, built in `App.tsx`), and "Gifts for you" in `Fellowship.tsx`. `player.purse()` gives a ticket for a purse paid elsewhere.
+    - **e2e:** `Extras.fellowship.quest` and `.gifts`, in `e2e/together.spec.ts`.
+    - **Next (v2.4, task 3.6):** live Morse between friends. It needs an ADR with research on Supabase Realtime (its free-tier limits) before any code.

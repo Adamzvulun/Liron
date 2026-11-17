@@ -51,6 +51,9 @@ const PLAYER_TABLES: Record<string, string> = {
   round_scores: 'user_id',
   // A challenge has two players; each reads theirs through my_challenges() only.
   challenges: 'from_id',
+  fellowship_quest_rewards: 'user_id',
+  // A gift has two players; the receiver reads theirs through my_gifts() only.
+  gifts: 'from_id',
 };
 
 /** Tables with no player in them: game data and counters, read only by the functions or by licensees. */
@@ -61,6 +64,7 @@ const SHARED_TABLES = [
   'content_items',
   'content_lessons',
   'contract_templates',
+  'fellowship_quests',
   'items',
   'round_kinds',
   'site_usage',
@@ -125,6 +129,13 @@ const CALLABLE: Record<string, string> = {
   'my_challenges()': 'the caller’s challenges with current friends: names, scores, bests',
   'challenges_per_day()': 'a constant',
   'open_challenges_max()': 'a constant',
+  // Fellowship quests and gifts (task 3.5, ADR 0045).
+  'fellowship_quest()': 'this week’s quest: the caller’s part and their Fellowship’s total',
+  'collect_fellowship_quest()': 'pays the caller once a week, if reached and they helped',
+  'give_item(p_friend uuid, p_item text)':
+    'a friend only, one of today’s gear or colors, in the giver’s gold; 3 a day',
+  'my_gifts()': 'gifts to the caller from current friends: who, what, the day',
+  'gifts_per_day()': 'a constant',
   'friend_asks_per_day()': 'a constant',
   'waiting_asks_max()': 'a constant',
   'new_codes_per_day()': 'a constant',
@@ -202,6 +213,9 @@ async function seed(id: string) {
     `insert into round_scores (user_id, session_id, kind, score)
        values ($1, '00000000-0000-0000-0000-00000000c0de', 'rush', 100)`,
     `insert into challenges (kind, from_id, to_id, from_score) values ('rush', $1, '${T}', 100)`,
+    `insert into fellowship_quest_rewards (user_id, week, quest_id, gold)
+       values ($1, '2026-11-02', 'inn-talk', 40)`,
+    `insert into gifts (from_id, to_id, item_id, price) values ($1, '${T}', 'cloak', 180)`,
   ];
   for (const sql of statements) await db.query(sql, [id]);
 }
