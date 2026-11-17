@@ -6,7 +6,7 @@ A personal learning hub, designed and owned by Adam. It combines the best ideas 
 
 **First tracks:** 🇸🇦 Arabic · 📻 Morse code
 
-> Status: the game is playable on the dev site and is being finished for its first real release, **v1.0.0**: Morse from first letters to live radio contacts, Arabic from the script to 3,390 words and chats at the inn, each as one road with the next step always on screen. The work order is [`PLAN.md`](docs/process/PLAN.md), by version ([`VERSIONS.md`](docs/process/VERSIONS.md)). **Start here: [`docs/process/STATUS.md`](docs/process/STATUS.md).**
+> Status: the game is built on the dev site and waits for its first real release, **v1.0.0**: Morse from first letters to a last message forty winters old, Arabic from the script to 3,390 words and a story told at the inn, each as one road with the next step always on screen, and friends to play it with. What is left is Adam's (STATUS.md). The work order is [`PLAN.md`](docs/process/PLAN.md), by version ([`VERSIONS.md`](docs/process/VERSIONS.md)). **Start here: [`docs/process/STATUS.md`](docs/process/STATUS.md).**
 
 ## Where things live
 

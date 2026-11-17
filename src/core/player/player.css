@@ -823,6 +823,11 @@
   color: #d8c6a0;
 }
 
+/* On the board's parchment the HUD's pale quiet color can't be read (sweep, 2026-11-17). */
+.notice-board .hud__quest.is-quiet .hud__questtext {
+  color: #6a4a32;
+}
+
 /* On a phone the panel is behind the dock, so the compass gets its own line under the purse
    (App.css shows it there). */
 .hud__compass {

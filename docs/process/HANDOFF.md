@@ -301,3 +301,10 @@
     - **Next:** v3.0's PR into `dev`.
 109. **v4.0's first pieces (2026-11-17, report §4cw):** [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), the guild-hall kit (task 4.5). Its last section lists where `src/core/` still names the two halls (`HALL_BUILDINGS`, `PlaceId` and `PLACE_PATHS`, the city painter's plots, a `caravanserai` case in `City.tsx`, and the halls' sound check in `App.tsx`). The third hall's build starts by fixing them, in one ADR. [LATER.md](LATER.md) is task 5.2, checked against the code. economy.md's stale "achievements paying gems" row is gone.
     - **Next:** 4.5 waits on Adam's subject. 5.1, the last sweep, can start: the method is in items 54–82.
+110. **5.1, the last sweep (2026-11-17, report §4cx):** every Phase 2–4 screen photographed at 320 pixels and 1280 (a throwaway spec, deleted): the Fellowship, a friend's house, the Notice Board with the feed, the Arena, the Market's gifts, the wire, both finales, both halls and the ledger. Fixed:
+    - **The Notice Board's quiet line** (a guild not started yet) used the HUD's pale `#d8c6a0` on parchment and could hardly be read. `.notice-board .hud__quest.is-quiet .hud__questtext` is now `#6a4a32`.
+    - **A long friend's name** broke mid-word ("Christoph / er-"). The name is `clamp(17px, 5.4vw, 20px)` with `overflow-wrap: break-word`, and the portrait shrinks to 52 pixels under 360, so it breaks at its hyphen.
+    - **The wire's friend buttons** fill their row (`flex: 1 1 auto`), so a long name doesn't leave them ragged.
+    - **Docs:** STATUS now says the project is built as far as it can be without Adam, with what lives where and how to run it; its open questions are emptied or marked as his. The [final retro](retros/final.md) is written. PLAN 5.1 ticked, VERSIONS 4.0 "partly built", README and the next-session prompt updated.
+    - **The doubt walk** is the road tests (one open next step from the first step to each finale and 30 days past it), which passed.
+    - **Next:** nothing Claude can build alone. Adam's gates are listed at the end of PLAN.md; when the third hall is built, repeat this sweep over it.
