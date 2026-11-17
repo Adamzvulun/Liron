@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { CONTRACTS, signedIn } from './fake-supabase.ts';
+import { MORSE_ROAD } from '../src/subjects/morse/road.ts';
 
 /** Phones show the daily goal as a chip; wider screens in the quest panel (#27). */
 const onPhone = () => test.info().project.name === 'phone';
@@ -113,7 +114,7 @@ test('the compass says the next step of your road, and leads to its door', async
   } else {
     const quests = page.getByRole('region', { name: 'Quests' });
     const tower = quests.getByRole('link', { name: /Signal Tower/ });
-    await expect(tower).toContainText('Step 4 of 75');
+    await expect(tower).toContainText(`Step 4 of ${MORSE_ROAD.length}`);
     // The guild with a step done comes first; the one not started is second.
     await expect(quests.getByRole('link').first()).toContainText('Signal Tower');
     await tower.click();

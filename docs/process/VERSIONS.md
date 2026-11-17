@@ -43,6 +43,8 @@ A version is **done** when everything in its list is true *and* the release step
 
 ### 1.0 — The Crossing
 
+**1.0.0 now ships everything on `dev`, 1.1 to 3.0 included** ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md), 2026-11-17). Adam hadn't walked 1.0 yet when the rest was built, and a cut at 1.0's last commit would have shipped code older than what he walks on the dev site. The sections for 1.1 to 3.0 below stay as the record of what each part had to do. Their gates that need a friend move from "before releasing" to "before inviting a friend".
+
 **Already built and waiting on `dev` (it all ships here):** the city and its five places; the avatar, wardrobe, pets and the Market; XP, levels, gold, chests, the streak and its shields; daily contracts; ranks and achievements. The Signal Tower: 41 Koch lessons, five trials, Instant Recognition, sending, the Codebook, the callsign rush, three rank trials and the Radio Room with six operators. The Caravanserai: the script, the slate, the fountain, the storyteller, the echo well and shadowing, nine phrase sets, 113 word chapters each with a regular, a trial and a grammar card, and Sit and talk with the Coach.
 
 **Added for this release:**
@@ -134,7 +136,7 @@ A version is **done** when everything in its list is true *and* the release step
 | Version | State |
 |---|---|
 | 0.1.0 | Live (the scaffold) |
-| 1.0 | In progress: tasks 1.1–1.5 and 1.7–1.11 are built; next is Adam's checklist (1.12) and the release PR (1.13) |
+| 1.0 | Built, carrying 1.1 to 3.0 too (ADR 0049); next is Adam's checklist (1.12, now about an hour) and the release PR (1.13) |
 | 1.1 | Built (the ledger, the handbook); waits for Adam's look |
 | 1.2 | Built (sound, motion, world events); waits for Adam's look |
 | 2.0 | Built except Adam's part: 2.1 (what friends may learn) and a first friend |

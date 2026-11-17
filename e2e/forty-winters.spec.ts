@@ -1,6 +1,7 @@
 import { expect, type Page, test } from '@playwright/test';
 import { codeFor } from '../src/subjects/morse/code.ts';
 import { signedIn, type SaveSessionArgs } from './fake-supabase.ts';
+import { MORSE_ROAD } from '../src/subjects/morse/road.ts';
 
 // Forty Winters (tasks 4.2 and 4.3, #334, #335; ADR 0047): the Silent Beacon's finale. With
 // Math.random at 0 the far voice sends its first message; ?run=short plays only its first word.
@@ -79,7 +80,9 @@ test.describe('Forty Winters, the Silent Beacon’s finale', () => {
     await signedIn(page, [], [], ghost);
     await page.goto('/signal-tower');
     await expect(
-      page.getByRole('button', { name: 'Step 75 of 75 · the road so far' }),
+      page.getByRole('button', {
+        name: `Step ${MORSE_ROAD.length} of ${MORSE_ROAD.length} · the road so far`,
+      }),
     ).toBeVisible();
     await page
       .getByRole('button', { name: /Next: At nine minutes past, answer the far voice/ })

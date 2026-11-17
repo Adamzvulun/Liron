@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { signedIn } from './fake-supabase.ts';
+import { MORSE_ROAD } from '../src/subjects/morse/road.ts';
 
 test.describe('the Signal Tower hall (#33, #34)', () => {
   test('a new player sees chapter I, two lit lamps and the first lesson', async ({ page }) => {
@@ -122,7 +123,9 @@ test('the hall shows where the road stands, what is next, and the road so far', 
   await page.goto('/signal-tower');
   const quest = page.getByRole('region', { name: 'Main questline' });
   // The same count as the square, and the one thing to do now.
-  await expect(quest.getByRole('button', { name: /^Step 4 of 75/ })).toBeVisible();
+  await expect(
+    quest.getByRole('button', { name: new RegExp(`^Step 4 of ${MORSE_ROAD.length}`) }),
+  ).toBeVisible();
   // A locked station says which step opens it.
   await expect(
     page.getByText('Opens at step 11 · The Logbook’s Words').filter({ visible: true }),
@@ -130,7 +133,9 @@ test('the hall shows where the road stands, what is next, and the road so far', 
   // The road so far: what's ahead by name, and every step walked with its line of the tale.
   await quest.getByRole('button', { name: /the road so far/ }).click();
   const book = page.getByRole('dialog', { name: 'The Silent Beacon: the road so far' });
-  await expect(book.getByText('5 of 75 steps walked · chapter 1 of 10: Embers')).toBeVisible();
+  await expect(
+    book.getByText(`5 of ${MORSE_ROAD.length} steps walked · chapter 1 of 10: Embers`),
+  ).toBeVisible();
   await expect(book.getByText('The Warm Key')).toBeVisible();
   await expect(book.getByText('and 67 more')).toBeVisible();
   await expect(book.getByText('Lamp U')).toBeVisible();
