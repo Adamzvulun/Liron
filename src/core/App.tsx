@@ -31,6 +31,7 @@ import { functionPartner } from './partner.ts';
 import { supabaseFellowship, type FriendCard } from './fellowship/fellowship.ts';
 import { supabaseChallenges } from './fellowship/challenges.ts';
 import { giftProblem, supabaseTogether } from './fellowship/together.ts';
+import { supabaseWire } from './fellowship/wire.ts';
 import type { Giving } from './fellowship/GiftOffer.tsx';
 import { functionServices } from './services.ts';
 import { functionSpeech } from './speech.ts';
@@ -94,6 +95,16 @@ const challenges =
       )
     : null;
 
+/** The wire (task 3.6): live Morse between two friends, over a private Realtime channel. */
+const wire =
+  supabase && fellowship
+    ? supabaseWire(supabase, () =>
+        fellowship
+          .cards()
+          .then((cards) => cards.filter((c) => !c.me).map((c) => ({ id: c.id, name: c.name }))),
+      )
+    : null;
+
 /** Fellowship quests and gifts (task 3.5): counted, paid and given by the database. */
 const together = supabase && fellowship ? supabaseTogether(supabase) : null;
 const readGifts = together ? () => together.gifts() : undefined;
@@ -145,6 +156,7 @@ const apis = new Map(
               supabase ? speechOf(supabase) : null,
               supabase ? partnerOf(supabase) : null,
               challenges ?? undefined,
+              wire ?? undefined,
             ),
           ] as const,
       )

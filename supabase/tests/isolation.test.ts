@@ -136,6 +136,8 @@ const CALLABLE: Record<string, string> = {
     'a friend only, one of today’s gear or colors, in the giver’s gold; 3 a day',
   'my_gifts()': 'gifts to the caller from current friends: who, what, the day',
   'gifts_per_day()': 'a constant',
+  // The wire (task 3.6, ADR 0046): Realtime's policies call it as the player.
+  'may_use_wire(p_topic text)': 'true only for one of the two friends a wire: topic names',
   'friend_asks_per_day()': 'a constant',
   'waiting_asks_max()': 'a constant',
   'new_codes_per_day()': 'a constant',

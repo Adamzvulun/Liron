@@ -55,7 +55,27 @@ type Stage =
 /** Seconds of keying shown on the timing strip. */
 const STRIP_SECONDS = 8;
 
-export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
+export function SendDrill({
+  api,
+  start,
+  onWire,
+}: {
+  api: SubjectApi;
+  start?: 'lamp';
+  /** Opens the wire to a friend (task 3.6); offered once the player has a friend. */
+  onWire?: () => void;
+}) {
+  const [hasFriend, setHasFriend] = useState(false);
+  useEffect(() => {
+    let live = true;
+    api.wire.friends().then(
+      (f) => live && setHasFriend(f.length > 0),
+      () => undefined,
+    );
+    return () => {
+      live = false;
+    };
+  }, [api]);
   const [progress, setProgress] = useState<MorseProgress | null>(null);
   const [failed, setFailed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
@@ -182,6 +202,11 @@ export function SendDrill({ api, start }: { api: SubjectApi; start?: 'lamp' }) {
               {lampPassed(progress) ? 'The Lamp Signal · passed' : 'Trial · The Lamp Signal'}
             </button>
           )}
+          {hasFriend && onWire && (
+            <button type="button" className="lesson__plain" onClick={onWire}>
+              Key to a friend
+            </button>
+          )}
         </div>
       )}
       {stage.kind === 'lamp-intro' && (
@@ -225,6 +250,8 @@ export function Keying({
   audio,
   onDone,
   free = false,
+  onEdge,
+  readLabel = 'The tower reads',
 }: {
   text: string;
   startDitMs: number;
@@ -235,6 +262,13 @@ export function Keying({
    * by itself; Done ends it. `text` is ignored.
    */
   free?: boolean;
+  /**
+   * Each edge of the key as it happens, at ms since the first press: the wire sends them to a
+   * friend (task 3.6). With it, there's nothing to finish: Done is hidden.
+   */
+  onEdge?: (down: boolean, t: number) => void;
+  /** What the reading above the strip is called. */
+  readLabel?: string;
 }) {
   const [marks, setMarks] = useState<Mark[]>([]);
   const [downAt, setDownAt] = useState<number | null>(null);
@@ -251,21 +285,23 @@ export function Keying({
       if (down.current !== null || finished.current) return;
       audio()?.tone.down();
       started.current ??= t;
+      onEdge?.(true, t - started.current);
       down.current = t;
       setDownAt(t);
     },
-    [audio],
+    [audio, onEdge],
   );
   const release = useCallback(
     (t: number) => {
       const d = down.current;
       if (d === null) return;
       audio()?.tone.up();
+      onEdge?.(false, t - (started.current ?? d));
       down.current = null;
       setDownAt(null);
       setMarks((m) => [...m, { down: d, up: Math.max(t, d + 1) }]);
     },
-    [audio],
+    [audio, onEdge],
   );
 
   // Leaving the desk with the key held (Done, Skip) mustn't leave the tone sounding.
@@ -336,7 +372,9 @@ export function Keying({
   let i = 0;
   return (
     <div className="lesson__card send__desk">
-      <p className="lesson__kicker">{free ? 'Key your own words' : 'Key this'}</p>
+      <p className="lesson__kicker">
+        {onEdge ? 'Your key' : free ? 'Key your own words' : 'Key this'}
+      </p>
       {!free && (
         <p className="send__target" aria-label={`Key: ${text}`}>
           {text.split(' ').map((group, g) => (
@@ -363,7 +401,7 @@ export function Keying({
         </p>
       )}
       <p className="send__read" aria-live="polite">
-        <span className="send__read-label">The tower reads</span>
+        <span className="send__read-label">{readLabel}</span>
         <span className="send__read-text">
           {decoded.text || (decoded.keying ? '' : '…')}
           {decoded.keying && <span className="send__keying" aria-label="keying" />}
@@ -415,21 +453,32 @@ export function Keying({
           className="lesson__plain"
           onClick={() => {
             setMarks([]);
-            started.current = null;
+            // On the wire the clock runs on: the friend's playback is timed by it.
+            if (!onEdge) started.current = null;
           }}
         >
-          Start over
+          {onEdge ? 'Clear' : 'Start over'}
         </button>
-        <button type="button" className="lesson__go" onClick={finishNow} disabled={!marks.length}>
-          Done
-        </button>
+        {!onEdge && (
+          <button type="button" className="lesson__go" onClick={finishNow} disabled={!marks.length}>
+            Done
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
 /** The last few seconds of keying, as bars on a line: a timing strip, not a dot-dash chart. */
-function Strip({ marks, downAt, now }: { marks: Mark[]; downAt: number | null; now: number }) {
+export function Strip({
+  marks,
+  downAt,
+  now,
+}: {
+  marks: Mark[];
+  downAt: number | null;
+  now: number;
+}) {
   const W = 1000;
   const from = now - STRIP_SECONDS * 1000;
   const x = (t: number) => ((t - from) / (STRIP_SECONDS * 1000)) * W;

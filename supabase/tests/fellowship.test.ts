@@ -673,3 +673,90 @@ describe('gifts (task 3.5, fellowship-build.md §5)', () => {
     ).rejects.toThrow(/permission denied/);
   });
 });
+
+describe('the wire (task 3.6, ADR 0046): who may join a private Realtime channel', () => {
+  const pair = (x: string, y: string) => (x < y ? `wire:${x}:${y}` : `wire:${y}:${x}`);
+  /**
+   * Does what Realtime does to authorize a private channel: as the player, with the topic set,
+   * try to send (insert) or hear (select) a broadcast row, then roll it back.
+   */
+  async function may(who: string, topic: string, how: 'send' | 'hear', extension = 'broadcast') {
+    await db.exec('savepoint wire');
+    try {
+      await db.exec('set role authenticated');
+      await db.query(`select set_config('request.jwt.claim.sub', $1, true)`, [who]);
+      await db.query(`select set_config('realtime.topic', $1, true)`, [topic]);
+      if (how === 'send') {
+        await db.query(
+          `insert into realtime.messages (topic, extension, private) values ($1, $2, true)`,
+          [topic, extension],
+        );
+        return true;
+      }
+      // Realtime's check for hearing: a row it wrote itself, read back as the player.
+      await db.exec('reset role');
+      await db.query(
+        `insert into realtime.messages (topic, extension, private) values ($1, $2, true)`,
+        [topic, extension],
+      );
+      await db.exec('set role authenticated');
+      const r = await db.query('select 1 from realtime.messages where topic = $1', [topic]);
+      return r.rows.length > 0;
+    } catch {
+      return false;
+    } finally {
+      await db.exec('rollback to savepoint wire');
+      await db.exec('reset role');
+    }
+  }
+
+  it('two friends may join, send and hear on their own wire', async () => {
+    await befriend(A, B);
+    for (const who of [A, B]) {
+      expect(await may(who, pair(A, B), 'send')).toBe(true);
+      expect(await may(who, pair(A, B), 'hear')).toBe(true);
+    }
+  });
+
+  it('a stranger, or a friend on someone else’s wire, may not', async () => {
+    await befriend(A, B);
+    await befriend(A, C);
+    expect(await may(C, pair(A, B), 'send')).toBe(false);
+    expect(await may(C, pair(A, B), 'hear')).toBe(false);
+    // B and C aren't friends: their wire doesn't open, even though both know A.
+    expect(await may(B, pair(B, C), 'send')).toBe(false);
+  });
+
+  it('a removed friend’s wire closes', async () => {
+    await befriend(A, B);
+    await as(A, 'select remove_friend($1)', [B]);
+    expect(await may(B, pair(A, B), 'send')).toBe(false);
+  });
+
+  it('only broadcast, only the wire’s own shape of name', async () => {
+    await befriend(A, B);
+    expect(await may(A, pair(A, B), 'send', 'presence')).toBe(false);
+    const [low, high] = A < B ? [A, B] : [B, A];
+    expect(await may(A, `wire:${high}:${low}`, 'send')).toBe(false);
+    expect(await may(A, `room:${low}:${high}`, 'send')).toBe(false);
+    expect(await may(A, `wire:${low}:${high}:x`, 'send')).toBe(false);
+    expect(await may(A, 'wire:not-a-uuid-at-all-not-a-uuid-at-a:x', 'send')).toBe(false);
+  });
+
+  it('a signed-out visitor may not', async () => {
+    await befriend(A, B);
+    await db.exec('savepoint anon');
+    try {
+      await db.exec('set role anon');
+      await db.query(`select set_config('realtime.topic', $1, true)`, [pair(A, B)]);
+      await expect(
+        db.query(`insert into realtime.messages (topic, extension) values ($1, 'broadcast')`, [
+          pair(A, B),
+        ]),
+      ).rejects.toThrow(/row-level security/);
+    } finally {
+      await db.exec('rollback to savepoint anon');
+      await db.exec('reset role');
+    }
+  });
+});
