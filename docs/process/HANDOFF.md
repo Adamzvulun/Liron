@@ -293,3 +293,9 @@
     - **Database:** `20270104000000_forty_winters.sql` and `20270105000000_stranger_at_the_gate.sql`: the event kinds, the gear (`beacon-lens`, `guest-book-pen`, both `hand`, trial milestones) and the achievements (Keeper of the Hour, Keeper of the Table). 24 achievements now.
     - **e2e:** `e2e/forty-winters.spec.ts` and `e2e/stranger-at-the-gate.spec.ts`. The Arabic spec writes the name on the pad from the glyph drawn in the page's own font, and fakes the partner (`inn-story` lines, `inn-judge` verdicts).
     - **Next:** 4.1 (the long evenings) and v3.0's prepared test account (a script that writes saved state one step before each finale, on the dev database only, VERSIONS.md); then one PR for v3.0.
+108. **The long evenings, task 4.1 (2026-11-17, report §4cv):** [ADR 0048](../decisions/0048-the-long-evenings.md).
+    - **Database:** `contract_templates.tier`; nine master contracts that require the finale's event; `pick_contracts` orders a road's templates by `tier desc` before the seed. Migration `20270106000000_the_long_evenings.sql`. Content: `"tier": 1` and `"requires"` in each subject's `contracts.json` (the schema test compares `tier`).
+    - **Compass:** `bestLine` in `morse/road.ts` and `evening` in `arabic/road.ts` word the station of the day with a personal best, or "the table is never empty" after the Arabic finale.
+    - **Courtyard:** `atGate` shows chapter 115 on the scroll once the gate is open.
+    - **Endings account:** `scripts/endings.ts` (`MORSE_BEFORE_FINALE`, `ARABIC_BEFORE_FINALE`, `endingsSql(email)`), proved by `tests/endings.test.ts`.
+    - **Next:** v3.0's PR into `dev`. Then v4.0 (task 4.5): write the guild-hall kit, and ask Adam which subject fills the third hall.

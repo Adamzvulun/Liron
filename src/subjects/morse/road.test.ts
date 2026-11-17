@@ -169,6 +169,29 @@ describe('The Silent Beacon as a road', () => {
     }
   });
 
+  it('after the last step, the evenings chase your personal bests (task 4.1)', () => {
+    const done = upTo();
+    const p = {
+      ...done,
+      recognition: { ...done.recognition, best: 31 },
+      sending: { ...done.sending, fastest: 36 },
+      words: { ...done.words, best: 12 },
+    };
+    const lines = new Map<string, string>();
+    for (let d = 1; d <= 30; d++) {
+      const now = morseRoad(p, { ...ctx, today: `2027-03-${String(d).padStart(2, '0')}` }).now;
+      if (now.kind === 'meanwhile') lines.set(now.door, now.line);
+    }
+    expect(lines.get('recognition')).toBe(
+      'Tonight: Instant Recognition. Your best is 31: beat it.',
+    );
+    expect(lines.get('sending')).toBe(
+      'Tonight: the brass key. Your fastest drill is 33 wpm: beat it.',
+    );
+    expect(lines.get('words')).toBe('Tonight: the Codebook. Your best round is 12 words: beat it.');
+    expect(lines.get('radio')).toBe('Tonight: the Radio Room. Somebody is calling.');
+  });
+
   it('puts due reviews first, then a contract, when the road is done', () => {
     const p = upTo();
     expect(morseRoad(p, { ...ctx, due: 3 }).now).toMatchObject({

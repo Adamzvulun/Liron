@@ -6,7 +6,7 @@ Paste this as the first message of a new session:
 
 We're continuing work on Waymark, my personal learning hub for Arabic and Morse (repo: Liron). Branch from `dev` (ADR 0015) and open PRs into `dev`. Merge your own PRs into `dev` once CI is green and the work checks out; only I merge into `main`. Don't release v1.0.0 until I say so.
 
-Before you do anything, read `CLAUDE.md`, then `docs/process/STATUS.md`, then `docs/process/HANDOFF.md` (items 94–107 are the latest), and follow them.
+Before you do anything, read `CLAUDE.md`, then `docs/process/STATUS.md`, then `docs/process/HANDOFF.md` (items 94–108 are the latest), and follow them.
 
 Actions minutes cost money, so keep CI use low:
 - Bundle smaller issues and features into one PR. No stacked PRs; push rarely, and never while a run is going.
@@ -18,7 +18,7 @@ Actions minutes cost money, so keep CI use low:
 
 First:
 1. If an open PR from the last session is still there, check its CI log. If it's clean, squash-merge it with the full head SHA and unsubscribe.
-2. Find your place: PLAN.md's ticked boxes and VERSIONS.md's "Where things stand" say what is done. Start at the first unticked task of the current version. On 2026-11-17, v1.0's gates (1.12, 1.13) wait on Adam, and v1.1, v1.2 and v2.0 are built (HANDOFF items 94–105), except v2.0's task 2.1, which is Adam's decision. v2.1 to v2.4 (tasks 3.3–3.6) are built too (HANDOFF items 104–106); 3.7 is Adam's. v3.0's tasks 4.2 and 4.3 (both finales) are built (HANDOFF item 107). Carry on with **4.1** and v3.0's prepared test account, then v3.0's PR.
+2. Find your place: PLAN.md's ticked boxes and VERSIONS.md's "Where things stand" say what is done. Start at the first unticked task of the current version. On 2026-11-17, v1.0's gates (1.12, 1.13) wait on Adam, and v1.1, v1.2 and v2.0 are built (HANDOFF items 94–105), except v2.0's task 2.1, which is Adam's decision. v2.1 to v2.4 (tasks 3.3–3.6) are built too (HANDOFF items 104–106); 3.7 is Adam's. v3.0 (tasks 4.1–4.3) is built (HANDOFF items 107–108). If its PR is merged, carry on with **v4.0** (task 4.5): write the guild-hall kit, and ask me which subject fills the third hall.
 3. Rules that outlast the plan: deck text and deck analysis never go into `content/`, the bundle or commits (ADR 0011). No new word chapters without a new source or a decision from me. The regulars' voices are parked until I've looked at Azure. Don't release anything until I say so; when a version is ready, cut its release branch (or ask me to), open the release PR, and tell me what my part is.
 
 Keep `docs/process/STATUS.md`, `HANDOFF.md`, this prompt and my report (`docs/process/reports/`) current as you go. Screenshot any visual change and look at it before showing me. Ask me anything that costs money, shares data or locks us in. If I'm away, make the call I'd make, note it in the report, and keep working.

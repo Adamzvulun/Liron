@@ -269,11 +269,12 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 | "Creatively stunning" | The city sounds alive and moves, within taste and the speed budget | 4.6 |
 | It keeps running | Adam can look after it without Claude: updates, keys, friends, a paused database | 4.7 |
 
-### ☐ 4.1 (#333) · v3.0 · ✏️ The long evenings: a daily loop for a player who has finished
+### ☑ 4.1 (#333) · v3.0 · ✏️ The long evenings: a daily loop for a player who has finished
 - **Why:** gap 14. FSRS reviews thin out by design, so a finished player's day shrinks to almost nothing.
 - **Already decided:** the rule is the compass's "meanwhile" ([the-road.md](../game/the-road.md) §6), built in 1.3. A finished road uses the same function. This task gives it more to point at.
 - **Do:** design what a day looks like at the end of each road, using what exists: reviews due, the Radio Room's live operators, Sit and talk, the rush, the daily contracts and chests. Add what's missing so the compass always has something real to point at: for example a "today in Waymark" step that rotates among the open-ended stations, harder contract tiers for finished players, and personal-best chases. No new content sources; mastery still can't be bought.
 - **Done when:** for a player with everything passed, the compass names a worthwhile step every day for 30 simulated days (a unit test over the rotation); the contracts scale; nothing says "you've finished, come back never".
+- **Done (2026-11-17):** [ADR 0048](../decisions/0048-the-long-evenings.md). Master contracts (30–40 gold) open the day after a road's finale and take that road's place on the board (migration `20270106000000_the_long_evenings.sql`, tested over 30 days in `schema.test.ts`). The evening's lines name your bests ("Your best is 31: beat it"), tested over 30 simulated days in both roads' tests. The courtyard keeps chapter 115 on its scroll after the finale. For checking: `scripts/endings.ts` prints SQL that puts a dev account one step before each finale (`tests/endings.test.ts`).
 
 ### ☑ 4.2 (#334) · v3.0 · ✏️ Two endings
 - **Already written:** both finales, with their trials, screens, epilogues, titles and gear: [the-road.md](../game/the-road.md) §4 ("Forty Winters") and §5 ("The Stranger at the Gate").

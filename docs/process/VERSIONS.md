@@ -108,7 +108,7 @@ A version is **done** when everything in its list is true *and* the release step
 
 **Done when:** both roads have a tested last step; the judge's eval set is run and recorded; a finished player's compass names something worthwhile on 30 days running.
 
-**Reaching the endings to check them:** Adam can't play a year in an afternoon. The release checklist for 3.0 uses a prepared test account on the dev site whose progress stands one step before each finale (made by a script that writes saved state, on the dev database only).
+**Reaching the endings to check them:** Adam can't play a year in an afternoon. The release checklist for 3.0 uses a prepared test account on the dev site whose progress stands one step before each finale (made by a script that writes saved state, on the dev database only). The script is `scripts/endings.ts`: `node scripts/endings.ts <the account's email> > endings.sql`, then paste it into the dev project's SQL editor.
 
 ### 4.0 — A Third Guild
 
@@ -142,5 +142,5 @@ A version is **done** when everything in its list is true *and* the release step
 | 2.2 | Built (challenges, the Arena); waits for v2.0's release |
 | 2.3 | Built (Fellowship quests, gifts); waits for v2.0's release |
 | 2.4 | Built (the wire); waits for v2.0's release, Adam's Realtime setting (RUNNING.md, Friends) and a try on two devices |
-| 3.0 | Part built: both finales and capstones (4.2, 4.3); 4.1 and the prepared test account next |
+| 3.0 | Built (both finales and capstones, the long evenings, the prepared account); waits for v2.0's release and Adam's look at both endings |
 | 4.0 | Not started |

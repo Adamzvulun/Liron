@@ -262,6 +262,19 @@ const STATION_LINE: Record<string, string> = {
   chat: 'Tonight: sit and talk with a regular at the inn.',
 };
 
+/**
+ * The long evenings (task 4.1): after the finale, the table is never empty; and the words you've
+ * met are a number worth keeping.
+ */
+function evening(door: string, p: P): string | null {
+  if (door === 'chat' && p.finale)
+    return 'Tonight: the table is never empty. Sit and talk with a regular.';
+  const words = new Set(p.words.met).size;
+  if (door === 'words' && words >= 100)
+    return `Tonight: the innkeeper’s table. Keep your ${words.toLocaleString('en-US')} words fresh.`;
+  return null;
+}
+
 function meanwhile(
   p: P,
   ctx: RoadContext,
@@ -299,7 +312,10 @@ function meanwhile(
   const door = stationOfDay(open, ctx.today) ?? 'lesson';
   return {
     door,
-    line: STATION_LINE[door] ?? 'Tonight: the scribe’s table. Go over your letters.',
+    line:
+      evening(door, p) ??
+      STATION_LINE[door] ??
+      'Tonight: the scribe’s table. Go over your letters.',
     why: 'station',
   };
 }

@@ -1147,6 +1147,7 @@ describe('daily contracts (ADR 0032)', () => {
           text: i.data.text,
           requires_kind: i.data.requires ?? null,
           event_id: i.data.event ?? null,
+          tier: i.data.tier ?? 0,
         })),
       )
       .sort((a, b) => a.id.localeCompare(b.id));
@@ -1195,6 +1196,40 @@ describe('daily contracts (ADR 0032)', () => {
     const after = drill(await picked(51, 90));
     expect(after.length).toBeGreaterThan(0);
     expect(after.every((id) => id.startsWith('morse-words'))).toBe(true);
+  });
+
+  it('gives a road’s master contracts from the day after its finale, always (task 4.1)', async () => {
+    const day0 = await today(ADAM);
+    const board = async (d: number) => {
+      const day = addDays(day0, d);
+      await rows(`select pick_contracts($1, $2::date)`, [ADAM, day]);
+      return (
+        (await rows(
+          `select template_id from daily_contracts where user_id = $1 and day = $2::date
+             order by slot`,
+          [ADAM, day],
+        )) as { template_id: string }[]
+      ).map((r) => r.template_id);
+    };
+    for (let d = 1; d <= 20; d += 1)
+      expect((await board(d)).some((id) => id.includes('-master-'))).toBe(false);
+    await rows(
+      `insert into subject_events (user_id, day, subject_id, kind, count)
+       values ($1, $2::date, 'morse', 'trial-forty-winters', 1)`,
+      [ADAM, addDays(day0, 21)],
+    );
+    expect((await board(21)).some((id) => id.includes('-master-'))).toBe(false);
+    // Morse is the only road started: both its places are master contracts, varied by the day.
+    const seen = new Set<string>();
+    for (let d = 22; d <= 50; d += 1) {
+      const ids = await board(d);
+      expect(
+        ids.slice(1).every((id) => id.startsWith('morse-master-')),
+        ids.join(),
+      ).toBe(true);
+      for (const id of ids.slice(1)) seen.add(id);
+    }
+    expect(seen.size).toBeGreaterThanOrEqual(4);
   });
 
   it('counts the drills’ events toward their contracts', async () => {

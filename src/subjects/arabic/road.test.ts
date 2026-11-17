@@ -278,4 +278,20 @@ describe('The Long Road In as a road', () => {
       'write',
     ]);
   });
+
+  it('after the finale, the evenings name the table and the words kept (task 4.1)', () => {
+    const p = upTo();
+    expect(p.finale).toBe(true);
+    const lines = new Map<string, string>();
+    for (let d = 1; d <= 30; d++) {
+      const now = arabicRoad(p, { ...ctx, today: `2027-03-${String(d).padStart(2, '0')}` }).now;
+      if (now.kind === 'meanwhile') lines.set(now.door, now.line);
+    }
+    expect(lines.get('chat')).toBe(
+      'Tonight: the table is never empty. Sit and talk with a regular.',
+    );
+    expect(lines.get('words')).toMatch(
+      /^Tonight: the innkeeper’s table\. Keep your [\d,]+ words fresh\.$/,
+    );
+  });
 });

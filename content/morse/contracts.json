@@ -166,6 +166,76 @@
         "text": "World Amateur Radio Day: key a sending drill at 80%",
         "event": "amateur-radio-day"
       }
+    },
+    {
+      "id": "morse-master-runs",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "run-90",
+        "target": 3,
+        "gold": 35,
+        "text": "Pass 3 Koch runs at 90%",
+        "requires": "trial-forty-winters",
+        "tier": 1
+      }
+    },
+    {
+      "id": "morse-master-recognition",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "recognition-round",
+        "target": 5,
+        "gold": 30,
+        "text": "Play 5 rounds of Instant Recognition",
+        "requires": "trial-forty-winters",
+        "tier": 1
+      }
+    },
+    {
+      "id": "morse-master-words",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "words-perfect",
+        "target": 2,
+        "gold": 35,
+        "text": "Copy 2 whole Codebook rounds right",
+        "requires": "trial-forty-winters",
+        "tier": 1
+      }
+    },
+    {
+      "id": "morse-master-rush",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "rush-best",
+        "target": 1,
+        "gold": 35,
+        "text": "Beat your best in the callsign rush",
+        "requires": "trial-forty-winters",
+        "tier": 1
+      }
+    },
+    {
+      "id": "morse-master-qso",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "qso-clean-fast",
+        "target": 1,
+        "gold": 40,
+        "text": "Work a clean, fast contact in the Radio Room",
+        "requires": "trial-forty-winters",
+        "tier": 1
+      }
     }
   ]
 }

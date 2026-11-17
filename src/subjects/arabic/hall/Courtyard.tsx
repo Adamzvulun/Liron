@@ -314,20 +314,29 @@ function Scene({
           }
         : undefined;
 
+  // The finale's chapter (task 4.2), once the gate is open and no regular's trial waits.
+  const atGate = finaleOpen(progress) && !road?.trialReady;
+
   const story = (
     <>
       <p className="khan__kicker">Main questline · {quest.chapter.questline}</p>
       <h2 className="khan__chapter">
-        Chapter {road?.regular.number ?? 1}: {road?.regular.title ?? quest.chapter.title}
+        {atGate
+          ? `Chapter 115: ${FINALE_STORY.title}`
+          : `Chapter ${road?.regular.number ?? 1}: ${road?.regular.title ?? quest.chapter.title}`}
       </h2>
       <blockquote className="khan__beat">
         <ArabicText
           text={
-            road
-              ? (road.beat ?? road.regular.intro)
-              : quest.guest
-                ? quest.chapter.outro
-                : (quest.beat ?? quest.chapter.intro)
+            atGate
+              ? progress.finale
+                ? FINALE_STORY.epilogue
+                : FINALE_STORY.intro
+              : road
+                ? (road.beat ?? road.regular.intro)
+                : quest.guest
+                  ? quest.chapter.outro
+                  : (quest.beat ?? quest.chapter.intro)
           }
         />
       </blockquote>
