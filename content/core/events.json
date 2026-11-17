@@ -1,0 +1,59 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "radio-day",
+      "subject": "core",
+      "type": "event",
+      "data": {
+        "name": "World Radio Day",
+        "from": "02-10",
+        "to": "02-16",
+        "chest": "signal-chest",
+        "colors": ["#2f8f9d", "#ffd36b", "#fbf1d8"],
+        "line": "World Radio Day week (13 February): the tower flies its pennants, and today’s contracts end in a Signal chest."
+      }
+    },
+    {
+      "id": "amateur-radio-day",
+      "subject": "core",
+      "type": "event",
+      "data": {
+        "name": "World Amateur Radio Day",
+        "from": "04-15",
+        "to": "04-21",
+        "chest": "beacon-chest",
+        "colors": ["#c8553d", "#2f8f9d", "#ffd36b"],
+        "line": "World Amateur Radio Day week (18 April): operators everywhere are on the air, and today’s contracts end in a Beacon chest."
+      }
+    },
+    {
+      "id": "olive-harvest",
+      "subject": "core",
+      "type": "event",
+      "data": {
+        "name": "The Olive Harvest",
+        "from": "10-20",
+        "to": "10-26",
+        "chest": "olive-chest",
+        "colors": ["#6b7d3a", "#d9b68c", "#4b5a2a"],
+        "line": "The olive harvest: the Caravanserai is full of pickers back from the groves, and today’s contracts end in an Olive-wood chest."
+      }
+    },
+    {
+      "id": "arabic-language-day",
+      "subject": "core",
+      "type": "event",
+      "data": {
+        "name": "World Arabic Language Day",
+        "from": "12-15",
+        "to": "12-21",
+        "chest": "ink-chest",
+        "colors": ["#c8553d", "#fbf1d8", "#e8a93a", "#2f8f9d"],
+        "line": "World Arabic Language Day week (18 December): the scribes hang their best lines over the square, and today’s contracts end in a Scribe’s chest."
+      }
+    }
+  ]
+}

@@ -717,6 +717,20 @@
 
 /* The Notice Board (roadmap A4, after the E10 concept): the quest panel is the board itself,
    wooden planks in a frame, and each quest is a parchment note held by a brass pin. */
+/* A world event's notice, pinned above the day's quests (task 4.4). */
+.notice-board__event {
+  margin: 0 0 14px;
+  padding: 12px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+  background: linear-gradient(180deg, #fff6df, #ecd7aa);
+  box-shadow: 0 3px 0 var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.4;
+  rotate: -0.6deg;
+}
+
 .notice-board .hud__quests {
   padding: 18px 20px 24px;
   border: 4px solid var(--ink);
@@ -887,6 +901,70 @@
 }
 
 /* Settings: which AI services the site has switched on (#316). */
+.hud__switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  font-size: 16px;
+  color: var(--vellum);
+  cursor: pointer;
+}
+
+/* A brass toggle: the knob slides right and the track lights when on. */
+.hud__switch input {
+  position: relative;
+  flex: none;
+  width: 46px;
+  height: 26px;
+  margin: 0;
+  border: 2px solid var(--ink);
+  border-radius: 13px;
+  background: #5a4632;
+  appearance: none;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.hud__switch input::after {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--vellum);
+  box-shadow: 0 1px 0 var(--ink);
+  content: '';
+  transition: transform 0.15s;
+}
+
+.hud__switch input:checked {
+  background: var(--brass);
+}
+
+.hud__switch input:checked::after {
+  transform: translateX(20px);
+}
+
+.hud__switch input:focus-visible {
+  outline: 3px solid var(--lamplight);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hud__switch input,
+  .hud__switch input::after {
+    transition: none;
+  }
+}
+
+.hud__switchnote {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: #c9b48e;
+}
+
 .hud__serviceshead {
   margin: 0 0 4px;
   font-family: inherit;

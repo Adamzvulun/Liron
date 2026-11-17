@@ -454,3 +454,53 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* Task 4.6: the avatar walks toward a door before the place opens, with a small bob in its
+   step, and a building's lamps flare when a step on its road was just done. Neither moves for
+   a player who asked for less motion. */
+.city__figure {
+  transition: transform 0.3s ease-in;
+}
+
+.city__figure--walking {
+  animation: city-step 0.15s ease-in-out 2;
+}
+
+@keyframes city-step {
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+.city__place--lit .city__glow {
+  animation: city-lit 2s ease-out;
+}
+
+@keyframes city-lit {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  25%,
+  60% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city__figure,
+  .city__figure--walking,
+  .city__place--lit .city__glow {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* The bunting for a world event (task 4.4): over the square, never in the way of a tap. */
+.city__bunting {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}

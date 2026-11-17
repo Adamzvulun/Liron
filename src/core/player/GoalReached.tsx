@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { cue } from '../sound/sound.ts';
 import { useDialogFocus } from './useDialogFocus.ts';
 import type { DayResult } from '../progress/store.ts';
 import { CoinIcon, FlameIcon, GemIcon } from './icons.tsx';
@@ -6,6 +8,7 @@ import './player.css';
 /** The daily-goal celebration: the streak and the daily chest. */
 export function GoalReached({ day, onDone }: { day: DayResult; onDone: () => void }) {
   const button = useDialogFocus();
+  useEffect(() => cue('reward'), []);
   return (
     <div className="levelup" role="presentation" onKeyDown={(e) => e.key === 'Escape' && onDone()}>
       <div className="levelup__rays" aria-hidden="true" />

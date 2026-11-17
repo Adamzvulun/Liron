@@ -140,6 +140,32 @@
         "text": "Answer 2 calls in the Radio Room",
         "requires": "qso"
       }
+    },
+    {
+      "id": "event-radio-day",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "recognition-round",
+        "target": 2,
+        "gold": 20,
+        "text": "World Radio Day: play 2 rounds of Instant Recognition",
+        "event": "radio-day"
+      }
+    },
+    {
+      "id": "event-amateur-radio-day",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "drill-80",
+        "target": 1,
+        "gold": 20,
+        "text": "World Amateur Radio Day: key a sending drill at 80%",
+        "event": "amateur-radio-day"
+      }
     }
   ]
 }

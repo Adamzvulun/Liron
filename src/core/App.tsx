@@ -6,6 +6,7 @@ import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
 import { City } from './city/City.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
+import type { PlaceId } from './city/painter.js';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
 import { PlaceBoundary } from './ErrorBoundary.tsx';
 import { Link } from './Link.tsx';
@@ -19,6 +20,8 @@ import { cityErrands, useCompass, type CompassSources } from './player/compass.t
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
 import { localDay } from './road/road.ts';
+import { eventOn } from './events.ts';
+import { stepWatcher } from './player/stepsDone.ts';
 import { subjectApi } from './progress/subjectApi.ts';
 import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
@@ -26,6 +29,7 @@ import { privatePackVersion, supabaseContent } from './content/privateContent.ts
 import { functionPartner } from './partner.ts';
 import { functionServices } from './services.ts';
 import { functionSpeech } from './speech.ts';
+import { armSound, cue, setAmbient } from './sound/sound.ts';
 import './App.css';
 
 // The house, the market and the board load when you go there, not with the square (#137).
@@ -86,6 +90,9 @@ const apis = new Map(
       )
     : [],
 );
+
+/** The guilds whose road moved since the square was last shown (task 4.6). */
+const stepsDone = stepWatcher();
 
 /** Where the ledger in Your House reads from (docs/game/ledger.md). */
 const ledgerSources: LedgerSources = {
@@ -178,6 +185,31 @@ function Lobby({ player }: { player: Player }) {
     [today],
   );
   const place = placeAt(path);
+  // The world event on the player's day, if any (task 4.4).
+  const event = eventOn(today);
+  // The city's sounds (task 4.6): armed once, and the bed follows the player; halls have none.
+  useEffect(() => armSound(), []);
+  const resident = place ? residentsOf(subjects).get(place) : undefined;
+  useEffect(() => {
+    const bed = place === 'tower' || place === 'caravanserai' || resident ? null : place;
+    setAmbient(place ? (bed ?? null) : path === '/' ? 'square' : null);
+  }, [place, resident, path]);
+  const openChest = useCallback(
+    async (id: string) => {
+      const c = await player.openChest(id);
+      if (c) cue('reward');
+      return c;
+    },
+    [player],
+  );
+  const buy = useCallback(
+    async (id: string) => {
+      const why = await player.buy(id);
+      if (why === null) cue('reward');
+      return why;
+    },
+    [player],
+  );
   // Read again on every move, so coming back from a hall shows the step just done.
   const unpaid = state.contracts?.contracts.flatMap((c) => (c.paid || !c.subject ? [] : c.subject));
   const roads = useCompass(subjects, compassSources, state.today?.day, unpaid ?? [], path);
@@ -193,6 +225,28 @@ function Lobby({ player }: { player: Player }) {
         })
       : []),
   ];
+  // Back on the square after a step: that guild's building lights up, with a bell (task 4.6).
+  const [lit, setLit] = useState<PlaceId[]>([]);
+  useEffect(() => {
+    if (path !== '/') {
+      // Out of the square the lamps go out, so they can light again on the way back.
+      const out = setTimeout(() => setLit([]), 0);
+      return () => clearTimeout(out);
+    }
+    const moved = stepsDone(roads).flatMap((id) => {
+      const building = subjects.find((s) => s.id === id)?.building;
+      return building ? [building] : [];
+    });
+    if (moved.length === 0) return;
+    cue('step');
+    // After the square's first paint, so the lamps visibly light.
+    const on = setTimeout(() => setLit(moved), 0);
+    const off = setTimeout(() => setLit([]), 2000);
+    return () => {
+      clearTimeout(on);
+      clearTimeout(off);
+    };
+  }, [path, roads]);
   // The first page (§8): for a player with no step done anywhere, until closed on this device.
   const [closed, setClosed] = useState(firstPageClosed);
   const welcome = !closed && roads.length > 0 && roads.every((r) => !r.started);
@@ -202,7 +256,6 @@ function Lobby({ player }: { player: Player }) {
     state.goalReached && <GoalReached day={state.goalReached} onDone={player.dismissGoal} />
   );
   if (place) {
-    const resident = residentsOf(subjects).get(place);
     const Hall = resident?.Hall;
     const api = resident && apis.get(resident.id);
     return (
@@ -225,6 +278,11 @@ function Lobby({ player }: { player: Player }) {
             )}
             {place === 'board' && state.today && (
               <div className="hud notice-board">
+                {event && (
+                  <p className="notice-board__event" role="note">
+                    {event.line}
+                  </p>
+                )}
                 <QuestTracker
                   today={state.today}
                   subjects={subjects}
@@ -234,8 +292,8 @@ function Lobby({ player }: { player: Player }) {
                 />
                 <Suspense fallback={null}>
                   <ChestShelf
-                    shelf={chestShelf(state.chests, state.contracts, subjects)}
-                    onOpen={player.openChest}
+                    shelf={chestShelf(state.chests, state.contracts, subjects, event?.chest)}
+                    onOpen={openChest}
                   />
                 </Suspense>
               </div>
@@ -252,7 +310,7 @@ function Lobby({ player }: { player: Player }) {
                   look={state.profile.avatar}
                   gold={state.wallet?.gold ?? null}
                   onLoad={player.loadMarket}
-                  onBuy={player.buy}
+                  onBuy={buy}
                 />
               </Suspense>
             )}
@@ -286,7 +344,7 @@ function Lobby({ player }: { player: Player }) {
   }
   if (path !== '/') return <Lost />;
   return (
-    <City subjects={subjects} look={state.profile?.avatar}>
+    <City subjects={subjects} look={state.profile?.avatar} lit={lit} event={event}>
       <div className="lobby__top">
         <Hud
           state={state}

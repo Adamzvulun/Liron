@@ -1146,6 +1146,7 @@ describe('daily contracts (ADR 0032)', () => {
           gold: i.data.gold,
           text: i.data.text,
           requires_kind: i.data.requires ?? null,
+          event_id: i.data.event ?? null,
         })),
       )
       .sort((a, b) => a.id.localeCompare(b.id));
@@ -1346,6 +1347,95 @@ describe('daily contracts (ADR 0032)', () => {
       )
     ).map((r) => (r as { kind: string }).kind);
     expect(kinds.filter((k) => !have.includes(k))).toEqual([]);
+  });
+});
+
+describe('world events (task 4.4, docs/game/events.md)', () => {
+  const picks = async (day: string) => {
+    await rows(`select pick_contracts($1, $2::date)`, [ADAM, day]);
+    return (
+      (await rows(
+        `select template_id from daily_contracts where user_id = $1 and day = $2::date order by slot`,
+        [ADAM, day],
+      )) as { template_id: string }[]
+    ).map((r) => r.template_id);
+  };
+  const on = async (day: string) =>
+    ((await rows(`select event_on($1::date) as e`, [day]))[0] as { e: string | null }).e;
+
+  it('holds exactly the events in content/core/events.json', async () => {
+    const pack = JSON.parse(
+      readFileSync(join(root, '..', 'content', 'core', 'events.json'), 'utf8'),
+    ) as {
+      items: { id: string; data: { name: string; from: string; to: string; chest: string } }[];
+    };
+    const want = pack.items
+      .map((i) => ({
+        id: i.id,
+        name: i.data.name,
+        starts: i.data.from,
+        ends: i.data.to,
+        chest: i.data.chest,
+      }))
+      .sort((a, b) => a.id.localeCompare(b.id));
+    expect(await rows(`select * from world_events order by id`)).toEqual(want);
+  });
+
+  it('knows the event on a day by the calendar, both ends included, every year', async () => {
+    expect(await on('2027-02-09')).toBeNull();
+    expect(await on('2027-02-10')).toBe('radio-day');
+    expect(await on('2031-02-16')).toBe('radio-day');
+    expect(await on('2027-02-17')).toBeNull();
+    expect(await on('2027-12-18')).toBe('arabic-language-day');
+    expect(await on('2027-07-01')).toBeNull();
+  });
+
+  it('runs over the new year when it starts in December and ends in January', async () => {
+    await rows(
+      `insert into world_events values ('new-year', 'New Year', '12-30', '01-02', 'brass')`,
+    );
+    expect(await on('2027-12-31')).toBe('new-year');
+    expect(await on('2028-01-02')).toBe('new-year');
+    expect(await on('2028-01-03')).toBeNull();
+  });
+
+  it('puts the event’s contract last on the board in its week, and never outside it', async () => {
+    const inside = await picks('2027-02-13');
+    expect(inside).toHaveLength(3);
+    expect(inside[2]).toBe('event-radio-day');
+    for (let d = 1; d <= 60; d += 1) {
+      const day = addDays('2027-05-01', d);
+      expect((await picks(day)).some((id) => id.startsWith('event-'))).toBe(false);
+    }
+  });
+
+  it('offers an event’s contract only for a subject the player has started', async () => {
+    await rows(`delete from subject_progress where user_id = $1 and subject_id = 'arabic'`, [ADAM]);
+    expect(await picks('2027-12-18')).not.toContain('event-arabic-language-day');
+    await rows(`insert into subject_progress (user_id, subject_id) values ($1, 'arabic')`, [ADAM]);
+    const days = ['2028-12-16', '2028-12-17', '2028-12-18', '2028-12-19'];
+    const all = (await Promise.all(days.map(picks))).flat();
+    expect(all).toContain('event-arabic-language-day');
+  });
+
+  it('gives the event’s chest for a day’s contracts in its week, and the wooden one after', async () => {
+    const finish = async (day: string) => {
+      for (const [i, id] of ['habit-minutes', 'morse-runs', 'morse-run-90'].entries())
+        await rows(
+          `insert into daily_contracts (user_id, day, template_id, slot, paid_gold)
+           values ($1, $2::date, $3, $4, 10)`,
+          [ADAM, day, id, i + 1],
+        );
+      await rows(`select grant_chests($1, $2::date)`, [ADAM, day]);
+      return (
+        (await rows(
+          `select kind from chests where user_id = $1 and source = 'contracts' and source_key = $2`,
+          [ADAM, day],
+        )) as { kind: string }[]
+      ).map((r) => r.kind);
+    };
+    expect(await finish('2027-10-22')).toEqual(['olive-chest']);
+    expect(await finish('2027-10-27')).toEqual(['wooden']);
   });
 });
 
