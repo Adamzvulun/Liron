@@ -137,12 +137,12 @@ A version is **done** when everything in its list is true *and* the release step
 |---|---|
 | 0.1.0 | Live (the scaffold) |
 | 1.0 | Built, carrying 1.1 to 3.0 too (ADR 0049); next is Adam's checklist (1.12, now about an hour) and the release PR (1.13) |
-| 1.1 | Built (the ledger, the handbook); waits for Adam's look |
-| 1.2 | Built (sound, motion, world events); waits for Adam's look |
-| 2.0 | Built except Adam's part: 2.1 (what friends may learn) and a first friend |
-| 2.1 | Built (the feed, friends in the square); waits for v2.0's release |
-| 2.2 | Built (challenges, the Arena); waits for v2.0's release |
-| 2.3 | Built (Fellowship quests, gifts); waits for v2.0's release |
-| 2.4 | Built (the wire); waits for v2.0's release, Adam's Realtime setting (RUNNING.md, Friends) and a try on two devices |
-| 3.0 | Built (both finales and capstones, the long evenings, the prepared account); waits for v2.0's release and Adam's look at both endings |
+| 1.1 | Built (the ledger, the handbook); ships in 1.0.0 (ADR 0049) |
+| 1.2 | Built (sound, motion, world events); ships in 1.0.0 (ADR 0049) |
+| 2.0 | Built; ships in 1.0.0 (ADR 0049). Adam's part comes before inviting a friend: 2.1 (what friends may learn) and a first friend |
+| 2.1 | Built (the feed, friends in the square); ships in 1.0.0, shows once a friend is invited |
+| 2.2 | Built (challenges, the Arena); ships in 1.0.0, shows once a friend is invited |
+| 2.3 | Built (Fellowship quests, gifts); ships in 1.0.0, shows once a friend is invited |
+| 2.4 | Built (the wire); ships in 1.0.0. Waits on Adam's Realtime setting (DEPLOY step 7) and a try on two devices |
+| 3.0 | Built (both finales and capstones, the long evenings, the prepared account); ships in 1.0.0. Adam looks at one ending in the checklist (§6) |
 | 4.0 | Partly built: the guide (4.5's first half), LATER.md (5.2) and the last sweep (5.1). The third hall waits on Adam's choice of subject |
