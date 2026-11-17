@@ -2,6 +2,7 @@
 // scoring, the state after a round, the report); the screen is WordDrill.tsx. Design:
 // docs/game/morse-words.md.
 
+import type { ScoredRound } from '../../../core/fellowship/challenges.ts';
 import type { ReviewGrade, SubjectApi } from '../../../core/subject.ts';
 import type { MorseProgress } from '../lesson/progress.ts';
 import { wordSeed, type MorseWord } from '../words.ts';
@@ -117,9 +118,11 @@ export async function reportWords(
   attempts: readonly WordAttempt[],
   seconds: number,
   at = new Date(),
-): Promise<void> {
+): Promise<ScoredRound | null> {
   const perfect = attempts.length >= ROUND_WORDS && attempts.every((a) => isRight(a) && !a.again);
+  const sessionId = crypto.randomUUID();
   await api.saveSession({
+    sessionId,
     state: next,
     reviews: attempts.map((a) => ({ itemId: a.word.id, grade: gradeOf(a) })),
     results: attempts.map((a) => ({
@@ -133,4 +136,8 @@ export async function reportWords(
     events: [{ kind: 'words-round' }, ...(perfect ? [{ kind: 'words-perfect' }] : [])],
     at,
   });
+  // The score friends see comes from this saved session (task 3.4, docs/game/challenges.md).
+  const score = attempts.filter(isRight).length;
+  const recorded = await api.rounds.record(sessionId, 'words', score);
+  return recorded && { sessionId, kind: 'words', score, recorded };
 }

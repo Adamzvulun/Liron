@@ -100,7 +100,10 @@ describe('the word drill (#154)', () => {
 
   it('reports one save with reviews, head-copy results and events', async () => {
     const saveSession = vi.fn().mockResolvedValue(undefined);
-    const api = { saveSession } as unknown as SubjectApi;
+    const api = {
+      saveSession,
+      rounds: { record: vi.fn().mockResolvedValue(null) },
+    } as unknown as SubjectApi;
     const attempts = Array.from({ length: 10 }, () => attempt('abbr:qth', 'QTH'));
     await reportWords(api, NEW_PROGRESS, attempts, 90, new Date('2026-11-10T00:00:00Z'));
     const report = saveSession.mock.calls[0]?.[0];
@@ -114,5 +117,20 @@ describe('the word drill (#154)', () => {
     expect(report.xp).toBe(20);
     expect(report.minutes).toBe(1.5);
     expect(report.events).toEqual([{ kind: 'words-round' }, { kind: 'words-perfect' }]);
+  });
+
+  it('records the words copied right against the saved session (task 3.4)', async () => {
+    const saveSession = vi.fn().mockResolvedValue(undefined);
+    const record = vi.fn().mockResolvedValue({ answered: { name: 'Basma', theirs: 7 } });
+    const api = { saveSession, rounds: { record } } as unknown as SubjectApi;
+    const attempts = [
+      ...Array.from({ length: 8 }, () => attempt('abbr:qth', 'QTH')),
+      attempt('abbr:qth', 'QTX'),
+      attempt('abbr:qth', 'QT'),
+    ];
+    const round = await reportWords(api, NEW_PROGRESS, attempts, 90);
+    const sessionId = saveSession.mock.calls[0]?.[0].sessionId;
+    expect(record).toHaveBeenCalledWith(sessionId, 'words', 8);
+    expect(round?.recorded.answered).toEqual({ name: 'Basma', theirs: 7 });
   });
 });

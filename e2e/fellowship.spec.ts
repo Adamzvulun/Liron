@@ -196,3 +196,109 @@ test.describe('a friend’s house (task 3.2)', () => {
     await expect(page.getByRole('link', { name: '← Back to the square' })).toBeVisible();
   });
 });
+
+test.describe('the party feed and sharing (task 3.3)', () => {
+  const ME = '00000000-0000-0000-0000-00000000000a';
+  const feed = [
+    {
+      id: 3,
+      who: BASMA,
+      name: 'Basma',
+      me: false,
+      kind: 'rank',
+      detail: 'morse:rank-keyer',
+      day: '2026-11-02',
+    },
+    { id: 2, who: ME, name: 'Adam', me: true, kind: 'streak', detail: '7', day: '2026-11-01' },
+    {
+      id: 1,
+      who: BASMA,
+      name: 'Basma',
+      me: false,
+      kind: 'achievement',
+      detail: 'first-light',
+      day: '2026-10-28',
+    },
+  ];
+
+  test('friends’ milestones are pinned on the Notice Board, newest first', async ({ page }) => {
+    await signedIn(
+      page,
+      [],
+      [],
+      undefined,
+      [],
+      withFellowship({ friends: [friendCard(BASMA, 'Basma')], feed }),
+    );
+    await page.goto('/notice-board');
+    const news = page.getByRole('region', { name: 'Word in the square' });
+    await expect(news.getByRole('listitem')).toHaveText([
+      'Basma took the rank of Keyer at the Signal Tower.Today',
+      'You kept a 7-day streak.Yesterday',
+      'Basma earned First Light.Oct 28',
+    ]);
+  });
+
+  test('a player with no friends sees no feed and no sharing switch', async ({ page }) => {
+    await signedIn(page, [], [], undefined, [], withFellowship({ feed }));
+    await page.goto('/notice-board');
+    // The day's quests are on the board; the feed isn't.
+    await expect(page.locator('.notice-board .hud__quests')).toBeVisible();
+    await expect(page.getByRole('region', { name: 'Word in the square' })).toHaveCount(0);
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Settings' }).click();
+    await expect(page.getByRole('switch', { name: 'Clicks and chimes' })).toBeVisible();
+    await expect(
+      page.getByRole('switch', { name: 'Share my milestones with friends' }),
+    ).toHaveCount(0);
+  });
+
+  test('a player with a friend can stop sharing their milestones', async ({ page }) => {
+    const profileUpdates: unknown[] = [];
+    await signedIn(
+      page,
+      profileUpdates,
+      [],
+      undefined,
+      [],
+      withFellowship({ friends: [friendCard(BASMA, 'Basma')] }),
+    );
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Settings' }).click();
+    const share = page.getByRole('switch', { name: 'Share my milestones with friends' });
+    await expect(share).toBeChecked();
+    await share.click();
+    await expect(share).not.toBeChecked();
+    await expect.poll(() => profileUpdates).toContainEqual({ share_milestones: false });
+  });
+});
+
+test.describe('friends in the square (task 3.3)', () => {
+  test('friends stand in the square, and each one is a way to their house', async ({
+    page,
+  }, info) => {
+    test.skip(info.project.name === 'phone', 'on a phone the square pans; one viewport is enough');
+    await signedIn(
+      page,
+      [],
+      [],
+      undefined,
+      [],
+      withFellowship({ friends: [friendCard(BASMA, 'Basma'), friendCard(CHEN, 'Chen')] }),
+    );
+    await page.goto('/');
+    const basma = page.getByRole('link', { name: 'Basma, a friend: visit their house' });
+    await expect(basma).toBeVisible();
+    await expect(page.locator('.city__friend')).toHaveCount(2);
+    await basma.click({ force: true }); // the square's sprites never stand still
+    await expect(page).toHaveURL(new RegExp(`/house/visit/${BASMA}$`));
+  });
+
+  test('a player with no friends has the square to themself', async ({ page }) => {
+    await signedIn(page);
+    await page.goto('/');
+    await expect(page.locator('a.city__place').first()).toBeVisible();
+    await page.waitForTimeout(700);
+    await expect(page.locator('.city__friend')).toHaveCount(0);
+  });
+});

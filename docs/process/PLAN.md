@@ -226,13 +226,15 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 - **Done when:** it shows only §3's fields (a test asserts the exact fields the view returns); there is a clear way home; no wardrobe controls appear.
 - **Done (2026-11-17):** `/house/visit/<id>` (`FriendHouse.tsx`), painted from the card alone; the card's keys are asserted in `fellowship.test.ts`; "Back to your house" and "Back to the square"; no wardrobe and no buttons in the room (e2e). A non-friend finds the door closed.
 
-### ☐ 3.3 (#328) · v2.1 · ✏️ E19b — The party feed and friends in the square
+### ☑ 3.3 (#328) · v2.1 · ✏️ E19b — The party feed and friends in the square
 - **Do:** milestones as events friends can read (a rank taken, a chapter passed, a trial passed, a streak of 7/30/100, an achievement), written by the database when they happen, never by the browser. Show them on the Notice Board. Then draw friends' avatars standing in the square, inside 1.7's speed budget.
 - **Done when:** the feed shows friends' milestones newest first and nothing private; a player can switch off sharing their own milestones in Settings; the square stays inside the speed budget with five friends.
+- **Done (2026-11-17):** [ADR 0043](../decisions/0043-the-party-feed.md). Triggers write the feed (migration `20261231000000_fellowship_feed.sql`, tests in `fellowship.test.ts`, test 8 among them); "Word in the square" on the Notice Board; Settings' switch for a player with a friend; up to eight friends in the square, each a way to their house. `load-budget.spec.ts` now runs with five friends: 2.0×, 2.0×, 1.5×.
 
-### ☐ 3.4 (#329) · v2.2 · ✏️ E19c — Challenges and the Arena (A7)
+### ☑ 3.4 (#329) · v2.2 · ✏️ E19c — Challenges and the Arena (A7)
 - **Do:** opt-in challenges built on scores that exist: a callsign rush and a word round. One friend sends a challenge with their score; the other plays the same kind of round when they like; both personal bests are shown; no loser screen. Paint the Arena and open it as the challenges' home; retire the "locked" sign.
 - **Done when:** a challenge can be sent, played, answered and declined, with tests for each state and for expiry; scores are checked by the database; the Arena is painted, screenshotted and fits phone and desktop.
+- **Done (2026-11-17):** [ADR 0044](../decisions/0044-challenges-and-the-arena.md). Migration `20270101000000_challenges.sql`, with tests in `fellowship.test.ts` (recording, sending, answering, declining, expiry, limits, who sees what). The offer sits under the rush's and the Codebook's results; the Arena at `/arena` is painted (`paintArena.ts`) and screenshotted at 320 pixels and on desktop; the square's sign opens it. `e2e/challenges.spec.ts`.
 
 ### ☐ 3.5 (#330) · v2.3 · ✏️ E19d — Fellowship quests and gifts
 - **Do:** co-op goals on the daily-contract machinery (ADR 0032): "together, 10 chats at the inn this week". Then gifting a Market ware to a friend, paid in the giver's gold, through the database's purchase path (ADR 0029, 0033).

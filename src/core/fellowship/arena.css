@@ -1,0 +1,176 @@
+/* The Arena (task 3.4): challenges as plaques hung on the stands' wall over the painted sand. A
+   finished challenge is chalked on a slate, the two scores side by side with nothing to crown
+   either one. Warm stone and slate only: no blue (Adam, v2.0). */
+
+.arena {
+  display: grid;
+  gap: 22px;
+  max-width: 760px;
+}
+
+.arena__note,
+.arena__plaque {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.arena__plaque {
+  padding: 16px 20px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, #c99d6e, #a97b52);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.arena__plaque a {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.arena__section {
+  display: grid;
+  gap: 10px;
+}
+
+.arena__heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--brass);
+  text-shadow: 0 2px 0 var(--ink);
+}
+
+.arena__list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arena__bout {
+  padding: 14px 18px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: var(--parchment);
+  color: var(--ink);
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+/* A challenge waiting for you is hung with a banner's red edge. */
+.arena__bout--call {
+  border-left: 12px solid #b5432f;
+}
+
+.arena__bout--closed {
+  background: #e3d2ad;
+}
+
+.arena__line {
+  margin: 0;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.arena__number {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  font-variant-numeric: lining-nums;
+}
+
+.arena__meta {
+  margin: 4px 0 0;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--wood);
+}
+
+.arena__meta--warm {
+  margin-top: 8px;
+  color: #8a4b12;
+}
+
+.arena__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.arena__button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--brass);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.arena__button--quiet {
+  background: transparent;
+}
+
+.arena__button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.arena__button:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* The slate: two columns of chalk. */
+.arena__slate {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 8px;
+  border: 3px solid #5b4030;
+  border-radius: 10px;
+  background: #3b3530;
+  color: #f1e8d6;
+}
+
+.arena__side {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 8px 12px;
+  min-width: 0;
+}
+
+.arena__side + .arena__side {
+  border-left: 2px dashed rgb(241 232 214 / 40%);
+}
+
+.arena__who {
+  max-width: 100%;
+  font-weight: 800;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.arena__score {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 1.1;
+  font-variant-numeric: lining-nums;
+}
+
+.arena__best {
+  font-weight: 700;
+  font-size: 13px;
+  opacity: 0.8;
+}

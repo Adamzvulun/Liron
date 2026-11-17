@@ -25,6 +25,7 @@ import { rateResult, toSkillRating } from '../rating/ratings.ts';
 import type { Award, ProgressStore, SessionWrite } from './store.ts';
 import type { ContentSource } from '../content/privateContent.ts';
 import { PartnerError, type PartnerSource } from '../partner.ts';
+import { NO_ROUNDS, type RoundsApi } from '../fellowship/challenges.ts';
 import { SpeechError, type SpeechSource } from '../speech.ts';
 import { ContentPack, Media } from '../content/schema.ts';
 
@@ -66,6 +67,7 @@ export function subjectApi<State extends object>(
   content: ContentSource | null = null,
   speech: SpeechSource | null = null,
   partner: PartnerSource | null = null,
+  rounds: RoundsApi = NO_ROUNDS,
 ): SubjectApi<State> {
   const packs = new Map<string, Promise<{ items: Item[]; lessons: Lesson[] }>>();
   // The private media each loaded pack names: a subject may only link files its own content names
@@ -374,5 +376,6 @@ export function subjectApi<State extends object>(
       if (!partner) return Promise.reject(new PartnerError('not-set-up'));
       return partner.reply(ask);
     },
+    rounds,
   };
 }

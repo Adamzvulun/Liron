@@ -1,5 +1,5 @@
 import { Xp } from '../../../core/player/Xp.tsx';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { CHAR_WPM, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
 import { MorsePlayer } from '../player.ts';
 import {
@@ -175,11 +175,14 @@ export function RushSummaryCard({
   best,
   isBest,
   onAgain,
+  children,
 }: {
   calls: RushCall[];
   best: number;
   isBest: boolean;
   onAgain: () => void;
+  /** What sits under the calls: the challenge offer (task 3.4). */
+  children?: ReactNode;
 }) {
   const s = summarizeRush(calls);
   return (
@@ -209,6 +212,7 @@ export function RushSummaryCard({
           </li>
         ))}
       </ul>
+      {children}
       <div className="lesson__actions">
         <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>

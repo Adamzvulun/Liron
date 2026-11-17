@@ -296,3 +296,55 @@
   padding-left: 20px;
   font-weight: 700;
 }
+
+/* The party feed (task 3.3): news slips pinned on the Notice Board, under the day's quests. */
+.party-feed {
+  margin-top: 22px;
+}
+
+.party-feed__title {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--brass);
+  text-shadow: 0 2px 0 var(--ink);
+}
+
+.party-feed__list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.party-feed__slip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 12px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #fbf1d8, #ead7ae);
+  box-shadow: 0 2px 0 rgb(42 23 12 / 60%);
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.party-feed__slip--mine {
+  background: linear-gradient(180deg, #f6e7c0, #e3c98f);
+}
+
+.party-feed__line {
+  overflow-wrap: anywhere;
+}
+
+.party-feed__day {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6a4a2a;
+}

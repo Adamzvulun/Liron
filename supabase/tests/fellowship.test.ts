@@ -242,3 +242,243 @@ describe('names others will read (fellowship-build.md §1 trap 4)', () => {
     expect((await cards(B)).find((c) => c.id === A)?.name).toBe('Adam Z');
   });
 });
+
+describe('the party feed (task 3.3, fellowship-build.md §6 test 8)', () => {
+  type Row = { who: string; name: string; me: boolean; kind: string; detail: string; day: string };
+  const feed = async (who: string) => (await as(who, 'select fellowship_feed()')) as Row[];
+  const event = (who: string, kind: string, subject = 'morse') =>
+    rows(
+      `insert into subject_events (user_id, day, subject_id, kind, count)
+       values ($1, current_date, $2, $3, 1)
+       on conflict (user_id, day, subject_id, kind) do update set count = subject_events.count + 1`,
+      [who, subject, kind],
+    );
+
+  it('the database writes a milestone as it happens, once, and friends read it newest first', async () => {
+    await befriend(A, B);
+    await event(A, 'rank-keyer');
+    await event(A, 'rank-keyer');
+    await rows(`update fellowship_feed set at = now() - interval '1 hour'`);
+    await event(A, 'trial-3', 'arabic');
+    const theirs = await feed(B);
+    expect(theirs.map((r) => [r.kind, r.detail])).toEqual([
+      ['trial', 'arabic:trial-3'],
+      ['rank', 'morse:rank-keyer'],
+      ['rank', 'morse:rank-listener'],
+    ]);
+    expect(theirs[0]).toMatchObject({ who: A, name: 'Adam', me: false });
+    expect(theirs[0].day).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(Object.keys(theirs[0]).sort()).toEqual([
+      'day',
+      'detail',
+      'id',
+      'kind',
+      'me',
+      'name',
+      'who',
+    ]);
+  });
+
+  it('achievements and streak chests are milestones; ordinary events are not', async () => {
+    await rows(
+      `insert into player_achievements (user_id, achievement_id)
+       values ($1, (select id from achievements order by 1 limit 1))`,
+      [A],
+    );
+    await rows(
+      `insert into chests (user_id, kind, source, source_key)
+       values ($1, (select kind from chest_drops order by 1 limit 1), 'streak', '2026-11-02:30')`,
+      [A],
+    );
+    await event(A, 'recognition-round');
+    const kinds = (await feed(A)).map((r) => `${r.kind}:${r.detail}`);
+    expect(kinds).toContain('streak:30');
+    expect(kinds.some((k) => k.startsWith('achievement:'))).toBe(true);
+    expect(kinds.some((k) => k.includes('recognition'))).toBe(false);
+  });
+
+  it('with sharing off, a rank writes no feed row', async () => {
+    await as(A, `update profiles set share_milestones = false where id = '${A}'`);
+    await event(A, 'rank-keyer');
+    expect(
+      await rows(`select * from fellowship_feed where user_id = $1 and detail like '%keyer'`, [A]),
+    ).toEqual([]);
+  });
+
+  it('a stranger, or a removed friend, reads none of it', async () => {
+    await befriend(A, B);
+    await event(A, 'rank-keyer');
+    expect((await feed(C)).filter((r) => r.who === A)).toEqual([]);
+    await as(A, 'select remove_friend($1)', [B]);
+    expect((await feed(B)).filter((r) => r.who === A)).toEqual([]);
+  });
+
+  it('forgets milestones older than 60 days', async () => {
+    await event(A, 'rank-keyer');
+    await rows(`update fellowship_feed set at = now() - interval '61 days' where user_id = $1`, [
+      A,
+    ]);
+    expect(await feed(A)).toEqual([]);
+    expect(await rows(`select * from fellowship_feed where user_id = $1`, [A])).toEqual([]);
+  });
+
+  it('nobody writes the feed through the API', async () => {
+    await expect(
+      as(A, `insert into fellowship_feed (user_id, kind, detail) values ('${A}', 'streak', '100')`),
+    ).rejects.toThrow(/permission denied/);
+  });
+});
+
+describe('challenges (task 3.4, docs/game/challenges.md)', () => {
+  let n = 0;
+  /** Saves a round as the player would: a session, its event, then its score. */
+  async function play(who: string, kind: 'rush' | 'words', score: number) {
+    n += 1;
+    const session = `00000000-0000-0000-0000-${(0xc000 + n).toString(16).padStart(12, '0')}`;
+    await rows(
+      `insert into saved_sessions (user_id, session_id, subject_id) values ($1, $2, 'morse')`,
+      [who, session],
+    );
+    await rows(
+      `insert into subject_events (user_id, day, subject_id, kind, count)
+       values ($1, (now() at time zone 'utc')::date, 'morse', $2, 1) on conflict do nothing`,
+      [who, kind === 'rush' ? 'rush-round' : 'words-round'],
+    );
+    await as(who, 'select record_round_score($1, $2, $3)', [session, kind, score]);
+    return session;
+  }
+  type Challenge = {
+    id: string;
+    kind: string;
+    mine: boolean;
+    state: string;
+    from: { name: string; score: number; best: number };
+    to: { name: string; score: number | null; best: number | null };
+  };
+  const mine = async (who: string) => (await as(who, 'select my_challenges()')) as Challenge[];
+  const send = async (who: string, friend: string, session: string) =>
+    (await as(who, 'select send_challenge($1, $2)', [friend, session])) as string;
+
+  it('a score is kept only for your own fresh round, once, in range', async () => {
+    const s = await play(A, 'rush', 534);
+    await expect(as(A, 'select record_round_score($1, $2, $3)', [s, 'rush', 600])).rejects.toThrow(
+      /already has a score/,
+    );
+    await rows(
+      `insert into saved_sessions (user_id, session_id, subject_id) values ($1, $2, 'morse')`,
+      [A, '00000000-0000-0000-0000-00000000dead'],
+    );
+    await expect(
+      as(A, 'select record_round_score($1, $2, $3)', [
+        '00000000-0000-0000-0000-00000000dead',
+        'rush',
+        9999,
+      ]),
+    ).rejects.toThrow(/not a score/);
+    await expect(
+      as(B, 'select record_round_score($1, $2, $3)', [
+        '00000000-0000-0000-0000-00000000dead',
+        'rush',
+        10,
+      ]),
+    ).rejects.toThrow(/no such round/);
+    await rows(
+      `update saved_sessions set saved_at = now() - interval '20 minutes'
+       where session_id = '00000000-0000-0000-0000-00000000dead'`,
+    );
+    await expect(
+      as(A, 'select record_round_score($1, $2, $3)', [
+        '00000000-0000-0000-0000-00000000dead',
+        'rush',
+        10,
+      ]),
+    ).rejects.toThrow(/no such round/);
+  });
+
+  it('a round with no round event counted today can’t be scored', async () => {
+    await rows(
+      `insert into saved_sessions (user_id, session_id, subject_id) values ($1, $2, 'morse')`,
+      [B, '00000000-0000-0000-0000-00000000beef'],
+    );
+    await expect(
+      as(B, 'select record_round_score($1, $2, $3)', [
+        '00000000-0000-0000-0000-00000000beef',
+        'words',
+        7,
+      ]),
+    ).rejects.toThrow(/no such round/);
+  });
+
+  it('sent, then answered: both see both scores and both bests', async () => {
+    await befriend(A, B);
+    await play(A, 'rush', 610);
+    const id = await send(A, B, await play(A, 'rush', 534));
+    expect((await mine(B))[0]).toMatchObject({
+      id,
+      mine: false,
+      state: 'open',
+      from: { score: 534 },
+    });
+    await as(B, 'select answer_challenge($1, $2)', [id, await play(B, 'rush', 498)]);
+    const done = (await mine(A))[0];
+    expect(done).toMatchObject({
+      state: 'answered',
+      mine: true,
+      from: { name: 'Adam', score: 534, best: 610 },
+      to: { name: 'Basma', score: 498, best: 498 },
+    });
+  });
+
+  it('only a round of the same kind, played after the challenge, answers it', async () => {
+    await befriend(A, B);
+    const early = await play(B, 'rush', 900);
+    const id = await send(A, B, await play(A, 'rush', 534));
+    await expect(as(B, 'select answer_challenge($1, $2)', [id, early])).rejects.toThrow(
+      /no such round/,
+    );
+    await expect(
+      as(B, 'select answer_challenge($1, $2)', [id, await play(B, 'words', 9)]),
+    ).rejects.toThrow(/no such round/);
+    await expect(
+      as(C, 'select answer_challenge($1, $2)', [id, await play(C, 'rush', 1)]),
+    ).rejects.toThrow(/closed/);
+  });
+
+  it('declined and expired challenges close, and can’t be answered', async () => {
+    await befriend(A, B);
+    const one = await send(A, B, await play(A, 'words', 8));
+    const two = await send(A, B, await play(A, 'words', 9));
+    await as(B, 'select decline_challenge($1)', [one]);
+    await rows(`update challenges set expires_at = now() - interval '1 minute' where id = $1`, [
+      two,
+    ]);
+    const states = Object.fromEntries((await mine(A)).map((c) => [c.id, c.state]));
+    expect(states).toEqual({ [one]: 'declined', [two]: 'expired' });
+    await expect(
+      as(B, 'select answer_challenge($1, $2)', [two, await play(B, 'words', 10)]),
+    ).rejects.toThrow(/closed/);
+  });
+
+  it('only friends, three open a pair, and a removed friend reads nothing more', async () => {
+    await expect(send(A, C, await play(A, 'rush', 100))).rejects.toThrow(/only a friend/);
+    await befriend(A, B);
+    for (let i = 0; i < 3; i++) await send(A, B, await play(A, 'rush', 100 + i));
+    await expect(send(B, A, await play(B, 'rush', 50))).rejects.toThrow(/too many open/);
+    expect(await mine(C)).toEqual([]);
+    await as(A, 'select remove_friend($1)', [B]);
+    expect(await mine(B)).toEqual([]);
+  });
+
+  it('a score typed into a call never becomes a challenge', async () => {
+    await befriend(A, B);
+    await expect(send(A, B, '00000000-0000-0000-0000-000000000999')).rejects.toThrow(
+      /no such round/,
+    );
+    await expect(
+      as(
+        A,
+        `insert into challenges (kind, from_id, to_id, from_score) values ('rush', '${A}', '${B}', 1250)`,
+      ),
+    ).rejects.toThrow(/permission denied/);
+  });
+});

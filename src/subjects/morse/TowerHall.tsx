@@ -49,11 +49,13 @@ const DOORS: readonly HallDoor[] = [
  * there (for tests).
  */
 export function TowerHall({ api }: { api: SubjectApi }) {
-  const [view, setView] = useState<'hall' | HallDoor>(() => {
-    const open =
-      typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('open');
-    return DOORS.find((d) => d === open) ?? 'hall';
-  });
+  const [opening] = useState(() =>
+    typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('open'),
+  );
+  // ?open=rush (a challenge taken on in the Arena, task 3.4) opens the Codebook into a rush.
+  const [view, setView] = useState<'hall' | HallDoor>(() =>
+    opening === 'rush' ? 'words' : (DOORS.find((d) => d === opening) ?? 'hall'),
+  );
   // Counts doors opened from a result screen, so the same door opens afresh.
   const [round, setRound] = useState(0);
   const loadState = useCallback(() => api.loadState(), [api]);
@@ -81,7 +83,9 @@ export function TowerHall({ api }: { api: SubjectApi }) {
         {view === 'recognition' && <Recognition api={api} />}
         {view === 'sending' && <SendDrill api={api} />}
         {view === 'lamp' && <SendDrill api={api} start="lamp" />}
-        {view === 'words' && <WordDrill api={api} />}
+        {view === 'words' && (
+          <WordDrill api={api} start={opening === 'rush' && round === 0 ? 'rush' : undefined} />
+        )}
         {view === 'watch' && <WordDrill api={api} start="watch" />}
         {view === 'far' && <FarStation api={api} onRoom={() => setView('radio')} />}
         {view === 'radio' && <RadioRoom api={api} onFar={() => setView('far')} />}
