@@ -28,7 +28,8 @@ import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
 import { privatePackVersion, supabaseContent } from './content/privateContent.ts';
 import { functionPartner } from './partner.ts';
-import { supabaseFellowship } from './fellowship/fellowship.ts';
+import { supabaseFellowship, type FriendCard } from './fellowship/fellowship.ts';
+import { supabaseChallenges } from './fellowship/challenges.ts';
 import { functionServices } from './services.ts';
 import { functionSpeech } from './speech.ts';
 import { armSound, cue, setAmbient } from './sound/sound.ts';
@@ -45,10 +46,13 @@ const Market = lazy(() => views().then((m) => ({ default: m.Market })));
 const Ledger = lazy(() => views().then((m) => ({ default: m.Ledger })));
 const Fellowship = lazy(() => views().then((m) => ({ default: m.Fellowship })));
 const FriendHouse = lazy(() => views().then((m) => ({ default: m.FriendHouse })));
+const PartyFeed = lazy(() => views().then((m) => ({ default: m.PartyFeed })));
 const ChestShelf = lazy(() => views().then((m) => ({ default: m.ChestShelf })));
 const HouseBackdrop = lazy(() => views().then((m) => ({ default: m.HouseBackdrop })));
 const MarketBackdrop = lazy(() => views().then((m) => ({ default: m.MarketBackdrop })));
 const BoardBackdrop = lazy(() => views().then((m) => ({ default: m.BoardBackdrop })));
+const Arena = lazy(() => views().then((m) => ({ default: m.Arena })));
+const ArenaBackdrop = lazy(() => views().then((m) => ({ default: m.ArenaBackdrop })));
 
 // The signed-in player. Subjects' APIs report awards to it (ADR 0019, 0020).
 const store = supabase ? supabaseStore(supabase) : null;
@@ -76,8 +80,37 @@ const partnerOf = (client: NonNullable<typeof supabase>) => functionPartner(acce
 const services = supabase ? functionServices(accessToken(supabase)) : undefined;
 /** Friends (task 3.1): through the database's Fellowship functions only. */
 const fellowship = supabase ? supabaseFellowship(supabase) : null;
+/** Settings' sharing switch (task 3.3). */
+/** Challenges between friends (task 3.4): scores come from saved sessions only. */
+const challenges =
+  supabase && fellowship
+    ? supabaseChallenges(supabase, () =>
+        fellowship
+          .cards()
+          .then((cards) => cards.filter((c) => !c.me).map((c) => ({ id: c.id, name: c.name }))),
+      )
+    : null;
+
+const sharing = fellowship
+  ? {
+      load: () =>
+        Promise.all([fellowship.cards(), fellowship.sharing()]).then(
+          ([cards, on]) => ({ friends: cards.some((c) => !c.me), on }),
+          () => null,
+        ),
+      set: (on: boolean) =>
+        fellowship.setSharing(on).then(
+          () => true,
+          () => false,
+        ),
+    }
+  : undefined;
+/** Each guild's building, for the party feed's lines: `morse` → "the Signal Tower". */
+const PLACES = new Map(subjects.map((s) => [s.id, `the ${s.place}`]));
 /** A friend's house: /house/visit/<their id> (task 3.2). */
 const VISIT = /^\/house\/visit\/([0-9a-f-]{36})\/?$/i;
+/** The Arena beyond the square (task 3.4): challenges between friends. */
+const ARENA = /^\/arena\/?$/;
 
 /** Settings' "Change your password" (#324): null when saved, else what to tell the player. */
 const changePassword = async (password: string): Promise<string | null> => {
@@ -104,6 +137,7 @@ const apis = new Map(
               supabase ? contentOf(supabase) : null,
               supabase ? speechOf(supabase) : null,
               supabase ? partnerOf(supabase) : null,
+              challenges ?? undefined,
             ),
           ] as const,
       )
@@ -266,6 +300,23 @@ function Lobby({ player }: { player: Player }) {
       clearTimeout(off);
     };
   }, [path, roads]);
+  // Friends in the square (task 3.3): read once the square is up, so they never slow its first
+  // paint (task 1.7's budget), and again on each return to the square.
+  const [friends, setFriends] = useState<FriendCard[]>([]);
+  useEffect(() => {
+    if (path !== '/' || !fellowship) return;
+    let live = true;
+    const later = setTimeout(() => {
+      fellowship.cards().then(
+        (cards) => live && setFriends(cards.filter((c) => !c.me)),
+        () => undefined,
+      );
+    }, 400);
+    return () => {
+      live = false;
+      clearTimeout(later);
+    };
+  }, [path]);
   // The first page (§8): for a player with no step done anywhere, until closed on this device.
   const [closed, setClosed] = useState(firstPageClosed);
   const welcome = !closed && roads.length > 0 && roads.every((r) => !r.started);
@@ -286,6 +337,19 @@ function Lobby({ player }: { player: Player }) {
             backdrop={<HouseBackdrop />}
           />
         </Suspense>
+        {celebrations}
+      </>
+    );
+  }
+  if (ARENA.test(path) && challenges) {
+    return (
+      <>
+        <PlaceScreen place="arena" wide>
+          <Suspense fallback={<p className="place__loading">Opening the gates…</p>}>
+            <ArenaBackdrop />
+            <Arena source={challenges} today={today ?? localDay()} />
+          </Suspense>
+        </PlaceScreen>
         {celebrations}
       </>
     );
@@ -330,6 +394,9 @@ function Lobby({ player }: { player: Player }) {
                     shelf={chestShelf(state.chests, state.contracts, subjects, event?.chest)}
                     onOpen={openChest}
                   />
+                  {fellowship && (
+                    <PartyFeed source={fellowship} places={PLACES} today={state.today.day} />
+                  )}
                 </Suspense>
               </div>
             )}
@@ -380,7 +447,13 @@ function Lobby({ player }: { player: Player }) {
   }
   if (path !== '/') return <Lost />;
   return (
-    <City subjects={subjects} look={state.profile?.avatar} lit={lit} event={event}>
+    <City
+      subjects={subjects}
+      look={state.profile?.avatar}
+      lit={lit}
+      event={event}
+      friends={friends}
+    >
       <div className="lobby__top">
         <Hud
           state={state}
@@ -390,6 +463,7 @@ function Lobby({ player }: { player: Player }) {
           onNameChange={player.setDisplayName}
           services={services}
           onPasswordChange={changePassword}
+          sharing={sharing}
           onSignOut={() => {
             // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });

@@ -1,14 +1,16 @@
-import { useEffect, useState, type MouseEvent, type ReactNode } from 'react';
+import { useState, type MouseEvent, type ReactNode } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import { AVATAR_BOX } from '../avatar/paint.ts';
 import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import { Link } from '../Link.tsx';
 import { navigate } from '../router.ts';
+import { visitPath } from '../fellowship/fellowship.ts';
 import type { SubjectInfo } from '../subject.ts';
 import {
-  ARENA_LOCKED,
   ARENA_SIGN,
   AVATAR_SPOT,
+  FRIEND_SCALE,
+  FRIEND_SPOTS,
   stepToward,
   WALK_MS,
   PLACE_LABELS,
@@ -204,6 +206,7 @@ export function City({
   children,
   lit = [],
   event = null,
+  friends = [],
 }: {
   subjects: readonly SubjectInfo[];
   /** The player's avatar; the default traveller until the profile loads. */
@@ -213,6 +216,8 @@ export function City({
   lit?: readonly PlaceId[];
   /** The world event on today, which dresses the square (task 4.4). */
   event?: { name: string; colors: readonly string[] } | null;
+  /** Friends standing in the square (task 3.3); each is a way to their house. */
+  friends?: readonly { id: string; name: string; look: Look }[];
 }) {
   const city = scene();
   // The avatar walks a few steps toward the door before the place opens (task 4.6).
@@ -226,12 +231,6 @@ export function City({
   };
   const [ref, { scale, x, y, pan }] = useStage(START_X);
   const residents = residentsOf(subjects);
-  const [knocked, setKnocked] = useState(false);
-  useEffect(() => {
-    if (!knocked) return;
-    const t = setTimeout(() => setKnocked(false), 5000);
-    return () => clearTimeout(t);
-  }, [knocked]);
   return (
     <main className={`city${pan ? ' city--pan' : ''}`}>
       <h1 className="visually-hidden">Waymark</h1>
@@ -256,14 +255,13 @@ export function City({
           <Segments segments={city.layers.sky} box={FULL_STAGE} className="city__layer" />
           <Segments segments={city.layers.ground} box={FULL_STAGE} className="city__layer" />
           <Segments segments={city.layers.mid} box={FULL_STAGE} className="city__layer" />
-          <button
-            type="button"
+          <Link
+            href="/arena"
             className="city__sign city__sign--arena"
             style={{ left: ARENA_SIGN.x, top: ARENA_SIGN.y }}
-            onClick={() => setKnocked(true)}
           >
             {ARENA_SIGN.text}
-          </button>
+          </Link>
           {city.plots.map((plot, i) => (
             <div
               key={i}
@@ -303,6 +301,29 @@ export function City({
             );
           })}
           {event && <Bunting name={event.name} colors={event.colors} />}
+          {friends.slice(0, FRIEND_SPOTS.length).map((f, i) => {
+            const spot = FRIEND_SPOTS[i] as (typeof FRIEND_SPOTS)[number];
+            return (
+              <Link
+                key={f.id}
+                href={visitPath(f.id)}
+                className="city__friend"
+                aria-label={`${f.name}, a friend: visit their house`}
+                style={{
+                  left: spot.x - (AVATAR_BOX.width / 2) * FRIEND_SCALE,
+                  top: spot.feetY - AVATAR_BOX.feetY * FRIEND_SCALE,
+                }}
+              >
+                <Avatar
+                  look={f.look}
+                  shadow
+                  width={AVATAR_BOX.width * FRIEND_SCALE}
+                  height={(AVATAR_BOX.height + 10) * FRIEND_SCALE}
+                />
+                <span className="city__friend-name">{f.name}</span>
+              </Link>
+            );
+          })}
           <div className="city__avatar" role="img" aria-label="Your character">
             <Part part={city.avatar} />
             <Avatar
@@ -338,12 +359,7 @@ export function City({
           ))}
         </nav>
       )}
-      <div className="city__overlay">
-        {children}
-        <p className="city__notice" role="status">
-          {knocked && ARENA_LOCKED}
-        </p>
-      </div>
+      <div className="city__overlay">{children}</div>
     </main>
   );
 }

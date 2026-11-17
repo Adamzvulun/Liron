@@ -58,7 +58,10 @@ describe('the callsign rush (#156)', () => {
 
   it('reports the round, a new best, and calls above your speed', async () => {
     const saveSession = vi.fn().mockResolvedValue(undefined);
-    const api = { saveSession } as unknown as SubjectApi;
+    const api = {
+      saveSession,
+      rounds: { record: vi.fn().mockResolvedValue(null) },
+    } as unknown as SubjectApi;
     await reportRush(api, NEW_PROGRESS, calls, 40, 20, 60);
     const report = saveSession.mock.calls[0]?.[0];
     expect(report.events).toEqual([
@@ -72,7 +75,10 @@ describe('the callsign rush (#156)', () => {
 
   it('sends rush-30 for a call copied at 30 wpm or faster (Overspeed, #177)', async () => {
     const saveSession = vi.fn().mockResolvedValue(undefined);
-    const api = { saveSession } as unknown as SubjectApi;
+    const api = {
+      saveSession,
+      rounds: { record: vi.fn().mockResolvedValue(null) },
+    } as unknown as SubjectApi;
     const fast: RushCall[] = [
       { call: 'K5AT', wpm: 30, typed: 'K5AT' },
       { call: 'W5X', wpm: 32, typed: 'W5' },
@@ -85,5 +91,30 @@ describe('the callsign rush (#156)', () => {
     // 28 wpm is not enough.
     await reportRush(api, NEW_PROGRESS, [{ call: 'K5AT', wpm: 28, typed: 'K5AT' }], 100, 40, 60);
     expect(saveSession.mock.calls[1]?.[0].events).toEqual([{ kind: 'rush-round' }]);
+  });
+
+  it('records the score against the saved session, for challenges (task 3.4)', async () => {
+    const saveSession = vi.fn().mockResolvedValue(undefined);
+    const record = vi.fn().mockResolvedValue({ answered: null });
+    const api = { saveSession, rounds: { record } } as unknown as SubjectApi;
+    const round = await reportRush(api, NEW_PROGRESS, calls, 40, 20, 60);
+    const sessionId = saveSession.mock.calls[0]?.[0].sessionId;
+    expect(sessionId).toMatch(/^[0-9a-f-]{36}$/);
+    expect(record).toHaveBeenCalledWith(sessionId, 'rush', summarizeRush(calls).score);
+    expect(round).toEqual({
+      sessionId,
+      kind: 'rush',
+      score: summarizeRush(calls).score,
+      recorded: { answered: null },
+    });
+  });
+
+  it('offers no challenge when the score could not be recorded', async () => {
+    const saveSession = vi.fn().mockResolvedValue(undefined);
+    const api = {
+      saveSession,
+      rounds: { record: vi.fn().mockResolvedValue(null) },
+    } as unknown as SubjectApi;
+    expect(await reportRush(api, NEW_PROGRESS, calls, 40, 20, 60)).toBeNull();
   });
 });

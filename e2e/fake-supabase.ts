@@ -81,6 +81,15 @@ export interface Extras {
     requests?: Record<string, unknown>[];
     calls?: { fn: string; args: unknown }[];
     refuse?: Record<string, string>;
+    /** The party feed's rows (task 3.3), as `fellowship_feed` returns them. */
+    feed?: Record<string, unknown>[];
+    /** Whether the player shares their milestones (default true). */
+    sharing?: boolean;
+    /**
+     * Challenges (task 3.4), as `my_challenges` returns them. Answering, declining and sending
+     * change them; the last recorded round's score answers a challenge.
+     */
+    challenges?: Record<string, unknown>[];
   };
 }
 
@@ -224,7 +233,7 @@ export async function fakeSupabase(
     }
     // The Fellowship's functions (task 3.1): a list that changes as the player acts.
     const fellowshipFn =
-      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests)$/.exec(
+      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests|fellowship_feed|record_round_score|send_challenge|answer_challenge|decline_challenge|my_challenges)$/.exec(
         url.pathname,
       )?.[1];
     if (fellowshipFn) {
@@ -251,6 +260,8 @@ export async function fakeSupabase(
           });
         case 'fellowship_requests':
           return route.fulfill({ json: waiting });
+        case 'fellowship_feed':
+          return route.fulfill({ json: f.feed ?? [] });
         case 'answer_friend': {
           const i = waiting.findIndex((r) => r.id === args?.p_other);
           if (i >= 0) {
@@ -263,6 +274,39 @@ export async function fakeSupabase(
           const i = friends.findIndex((c) => c.id === args?.p_other);
           if (i >= 0) friends.splice(i, 1);
           return route.fulfill({ json: null });
+        }
+        case 'my_challenges':
+          return route.fulfill({ json: f.challenges ?? [] });
+        case 'decline_challenge': {
+          const c = f.challenges?.find((x) => x.id === args?.p_challenge);
+          if (c) c.state = 'declined';
+          return route.fulfill({ json: null });
+        }
+        case 'answer_challenge': {
+          const c = f.challenges?.find((x) => x.id === args?.p_challenge);
+          const scored = f.calls.findLast((x) => x.fn === 'record_round_score');
+          const score = (scored?.args as { p_score?: number } | undefined)?.p_score ?? 0;
+          if (c) {
+            c.state = 'answered';
+            c.to = { ...(c.to as object), score, best: score };
+          }
+          return route.fulfill({ json: null });
+        }
+        case 'send_challenge': {
+          const to = friends.find((x) => x.id === args?.p_friend);
+          const scored = f.calls.findLast((x) => x.fn === 'record_round_score');
+          const a = scored?.args as { p_kind?: string; p_score?: number } | undefined;
+          const id = `00000000-0000-4000-8000-${String((f.challenges ??= []).length + 1).padStart(12, '0')}`;
+          f.challenges.unshift({
+            id,
+            kind: a?.p_kind ?? 'rush',
+            mine: true,
+            from: { id: fakeSession().user.id, name: 'Adam', score: a?.p_score ?? 0, best: null },
+            to: { id: to?.id, name: to?.name, score: null, best: null },
+            state: 'open',
+            sent: new Date().toISOString().slice(0, 10),
+          });
+          return route.fulfill({ json: id });
         }
         default:
           return route.fulfill({ json: null });
@@ -528,7 +572,11 @@ export async function fakeSupabase(
         profileUpdates.push(route.request().postDataJSON());
         return route.fulfill({ status: 204 });
       }
-      const profile = { ...PROFILE, title };
+      const profile = {
+        ...PROFILE,
+        title,
+        share_milestones: extras.fellowship?.sharing ?? true,
+      };
       return route.fulfill({ json: single ? profile : [profile] });
     }
     if (url.pathname === '/rest/v1/wallets') {

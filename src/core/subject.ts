@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import type { PartnerAsk, PartnerReply } from './partner.ts';
 import type { Heard } from './speech.ts';
+import type { RoundsApi } from './fellowship/challenges.ts';
 import type { ReviewGrade, ReviewPhase } from './srs/scheduler.ts';
 import type { SkillRating } from './rating/ratings.ts';
 import type { Item, Lesson } from './content/schema.ts';
@@ -206,4 +207,10 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
    * caller keeps a scripted line to fall back on.
    */
   partner(ask: PartnerAsk): Promise<PartnerReply>;
+  /**
+   * Challenges between friends (task 3.4, docs/game/challenges.md): record a finished round's
+   * score against the session that saved it (pass `sessionId` to `saveSession`), offer it to a
+   * friend, or answer a friend's challenge with it.
+   */
+  rounds: RoundsApi;
 }

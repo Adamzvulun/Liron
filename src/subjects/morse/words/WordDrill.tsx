@@ -1,5 +1,5 @@
 import { Xp } from '../../../core/player/Xp.tsx';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
 import { CHAR_WPM, parseProgress, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
@@ -41,6 +41,8 @@ import {
 import '../lesson/lesson.css';
 import './words.css';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { ChallengeOffer } from '../../../core/fellowship/ChallengeOffer.tsx';
+import type { ScoredRound } from '../../../core/fellowship/challenges.ts';
 
 // The Codebook (#154): head copy of whole words. A word plays once; you type it when the sound
 // has ended. AGN plays it again, once, for half credit. Q-codes, abbreviations and prosigns show
@@ -66,14 +68,23 @@ interface Round {
   watch?: boolean;
 }
 
-export function WordDrill({ api, start: opening }: { api: SubjectApi; start?: 'watch' }) {
+export function WordDrill({
+  api,
+  start: opening,
+}: {
+  api: SubjectApi;
+  /** Open on the Night Watch's door, or straight into a rush (a challenge taken on, task 3.4). */
+  start?: 'watch' | 'rush';
+}) {
   const [progress, setProgress] = useState<MorseProgress | null>(null);
   const [failed, setFailed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
   const [round, setRound] = useState<Round | null>(null);
   const [result, setResult] = useState<WordAttempt[] | null>(null);
   const [starting, setStarting] = useState(false);
-  const [rushing, setRushing] = useState(false);
+  const [rushing, setRushing] = useState(opening === 'rush');
+  /** The last round as scored for challenges (task 3.4); null until it's recorded. */
+  const [scored, setScored] = useState<ScoredRound | null>(null);
   const [rushResult, setRushResult] = useState<{ calls: RushCall[]; bestBefore: number } | null>(
     null,
   );
@@ -136,8 +147,12 @@ export function WordDrill({ api, start: opening }: { api: SubjectApi; start?: 'w
       setProgress(next);
       setRound(null);
       setResult(attempts);
+      setScored(null);
       reportWords(api, next, attempts, seconds).then(
-        () => setSaveFailed(false),
+        (round) => {
+          setSaveFailed(false);
+          setScored(round);
+        },
         () => setSaveFailed(true),
       );
     },
@@ -188,8 +203,12 @@ export function WordDrill({ api, start: opening }: { api: SubjectApi; start?: 'w
       setProgress(next);
       setRushing(false);
       setRushResult({ calls, bestBefore: before.rush.best });
+      setScored(null);
       reportRush(api, next, calls, before.rush.best, CHAR_WPM, seconds).then(
-        () => setSaveFailed(false),
+        (round) => {
+          setSaveFailed(false);
+          setScored(round);
+        },
         () => setSaveFailed(true),
       );
     },
@@ -229,7 +248,7 @@ export function WordDrill({ api, start: opening }: { api: SubjectApi; start?: 'w
           onAgain={beginWatch}
           onPractice={() => setWatchDone(null)}
         />
-      ) : rushing ? (
+      ) : rushing && rushOpen(unlockedChars(progress)) ? (
         <Rush progress={progress} onDone={finishRush} />
       ) : rushResult ? (
         <RushSummaryCard
@@ -237,9 +256,13 @@ export function WordDrill({ api, start: opening }: { api: SubjectApi; start?: 'w
           best={progress.rush.best}
           isBest={summarizeRush(rushResult.calls).score > rushResult.bestBefore}
           onAgain={startRush}
-        />
+        >
+          {scored && <ChallengeOffer rounds={api.rounds} round={scored} />}
+        </RushSummaryCard>
       ) : result ? (
-        <Summary attempts={result} onAgain={() => void start()} />
+        <Summary attempts={result} onAgain={() => void start()}>
+          {scored && <ChallengeOffer rounds={api.rounds} round={scored} />}
+        </Summary>
       ) : (
         <div className="lesson__card lesson__start">
           <span className="lesson__lamp lesson__lamp--small" aria-hidden="true">
@@ -500,7 +523,15 @@ function Copy({
   );
 }
 
-function Summary({ attempts, onAgain }: { attempts: WordAttempt[]; onAgain: () => void }) {
+function Summary({
+  attempts,
+  onAgain,
+  children,
+}: {
+  attempts: WordAttempt[];
+  onAgain: () => void;
+  children?: ReactNode;
+}) {
   const right = attempts.filter(isRight).length;
   return (
     <div className="lesson__card words__result">
@@ -518,6 +549,7 @@ function Summary({ attempts, onAgain }: { attempts: WordAttempt[]; onAgain: () =
           </li>
         ))}
       </ul>
+      {children}
       <div className="lesson__actions">
         <NextStep onHere={onAgain} />
         <button type="button" className="lesson__go" onClick={onAgain}>

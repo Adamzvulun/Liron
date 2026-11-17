@@ -15,6 +15,14 @@ import { setSound, useSoundSettings } from '../sound/sound.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
 
+/** Settings' sharing switch: shown only to a player with a friend (fellowship-build.md §6, 9). */
+export interface SharingSource {
+  /** Whether the player has a friend, and whether they share; null if it couldn't be read. */
+  load: () => Promise<{ friends: boolean; on: boolean } | null>;
+  /** Resolves false if it couldn't be saved. */
+  set: (on: boolean) => Promise<boolean>;
+}
+
 export interface HudActions {
   /** Sets the daily goal; resolves false if it couldn't be saved. */
   onGoalChange: (minutes: number) => Promise<boolean>;
@@ -23,6 +31,8 @@ export interface HudActions {
   onSignOut: () => void;
   /** Changes the password; resolves to null when saved, or what to tell the player. */
   onPasswordChange?: (password: string) => Promise<string | null>;
+  /** Sharing your milestones with friends (task 3.3); absent with no database. */
+  sharing?: SharingSource;
   /** Which AI services this site has switched on (#316); absent where there is no server. */
   services?: ServicesSource;
 }
@@ -433,6 +443,7 @@ function SettingsPanel({
   onEditGoal,
   services,
   onPasswordChange,
+  sharing,
 }: { state: PlayerState; onEditGoal: () => void } & HudActions) {
   return (
     <>
@@ -449,6 +460,7 @@ function SettingsPanel({
         </section>
       )}
       <SoundRows />
+      {sharing && <SharingRow source={sharing} />}
       {services && <ServicesRows source={services} />}
       <section className="hud__section" aria-label="Account">
         {onPasswordChange && <PasswordRows onPasswordChange={onPasswordChange} />}
@@ -487,6 +499,48 @@ function SoundRows() {
         Sounds of each place
       </label>
       <p className="hud__switchnote">Lessons play their own sound either way.</p>
+    </section>
+  );
+}
+
+/** "Share my milestones with friends" (task 3.3): only for a player who has a friend. */
+function SharingRow({ source }: { source: SharingSource }) {
+  const [state, setState] = useState<{ friends: boolean; on: boolean } | null>(null);
+  const [note, setNote] = useState('');
+  useEffect(() => {
+    let live = true;
+    void source.load().then((s) => live && setState(s));
+    return () => {
+      live = false;
+    };
+  }, [source]);
+  if (!state?.friends) return null;
+  return (
+    <section className="hud__section" aria-labelledby="hud-sharing">
+      <h3 id="hud-sharing" className="hud__rowlabel hud__serviceshead">
+        Fellowship
+      </h3>
+      <label className="hud__switch">
+        <input
+          type="checkbox"
+          role="switch"
+          checked={state.on}
+          onChange={(e) => {
+            const on = e.target.checked;
+            setState({ ...state, on });
+            setNote('');
+            void source.set(on).then((ok) => {
+              if (ok) return;
+              setState({ ...state, on: !on });
+              setNote('Couldn’t save that. Try again.');
+            });
+          }}
+        />
+        Share my milestones with friends
+      </label>
+      <p className="hud__switchnote" role="status">
+        {note || 'Ranks, trials, achievements and long streaks, on the Notice Board.'}
+      </p>
     </section>
   );
 }

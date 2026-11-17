@@ -138,4 +138,6 @@ A version is **done** when everything in its list is true *and* the release step
 | 1.1 | Built (the ledger, the handbook); waits for Adam's look |
 | 1.2 | Built (sound, motion, world events); waits for Adam's look |
 | 2.0 | Built except Adam's part: 2.1 (what friends may learn) and a first friend |
-| 2.1 – 4.0 | Not started |
+| 2.1 | Built (the feed, friends in the square); waits for v2.0's release |
+| 2.2 | Built (challenges, the Arena); waits for v2.0's release |
+| 2.3 – 4.0 | Not started |

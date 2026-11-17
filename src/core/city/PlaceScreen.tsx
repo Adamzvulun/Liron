@@ -5,7 +5,8 @@ import { PLACE_SOON, PLAQUES } from './layout.ts';
 import type { PlaceId } from './painter.js';
 
 /** What each place stands on (docs/design/grounds.md). */
-const GROUND: Record<PlaceId, string> = {
+const GROUND: Record<PlaceId | 'arena', string> = {
+  arena: 'earth',
   tower: 'stone',
   caravanserai: 'earth',
   market: 'cobble',
@@ -24,7 +25,8 @@ export function PlaceScreen({
   wide,
   title: named,
 }: {
-  place: PlaceId;
+  /** A building on the square, or the Arena beyond it (task 3.4). */
+  place: PlaceId | 'arena';
   resident?: SubjectInfo;
   /** What the place already offers, shown instead of the "coming" note. */
   children?: ReactNode;
@@ -34,7 +36,7 @@ export function PlaceScreen({
   title?: string;
 }) {
   const title = useRef<HTMLHeadingElement>(null);
-  const name = named ?? resident?.place ?? PLAQUES[place].title;
+  const name = named ?? resident?.place ?? (place === 'arena' ? 'The Arena' : PLAQUES[place].title);
   useEffect(() => title.current?.focus(), [place, named]);
   // The tab and the history list name the place, not only the app.
   useEffect(() => {
@@ -58,7 +60,7 @@ export function PlaceScreen({
         {name}
       </h1>
       {resident && <p className="place-screen__tagline">{resident.tagline}</p>}
-      {children ?? <p className="place-screen__soon">{PLACE_SOON[place]}</p>}
+      {children ?? (place !== 'arena' && <p className="place-screen__soon">{PLACE_SOON[place]}</p>)}
     </main>
   );
 }
