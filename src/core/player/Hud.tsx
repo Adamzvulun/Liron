@@ -9,6 +9,7 @@ import type { SubjectInfo } from '../subject.ts';
 import type { PlayerState } from './player.ts';
 import type { CompassLine } from './compass.ts';
 import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
+import { serviceLines, type ServicesSource } from '../services.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
 
@@ -18,6 +19,8 @@ export interface HudActions {
   /** Saves the player's name; resolves false if it couldn't be saved. */
   onNameChange: (name: string) => Promise<boolean>;
   onSignOut: () => void;
+  /** Which AI services this site has switched on (#316); absent where there is no server. */
+  services?: ServicesSource;
 }
 
 /**
@@ -424,6 +427,7 @@ function SettingsPanel({
   onNameChange,
   onSignOut,
   onEditGoal,
+  services,
 }: { state: PlayerState; onEditGoal: () => void } & HudActions) {
   return (
     <>
@@ -439,12 +443,49 @@ function SettingsPanel({
           </button>
         </section>
       )}
+      {services && <ServicesRows source={services} />}
       <section className="hud__section" aria-label="Account">
         <button type="button" className="hud__signout" onClick={onSignOut}>
           Sign out
         </button>
       </section>
     </>
+  );
+}
+
+/**
+ * Which of the site's AI services are switched on (#316), so a player knows before walking to
+ * a station that can't answer. Asked when Settings opens.
+ */
+function ServicesRows({ source }: { source: ServicesSource }) {
+  const [lines, setLines] = useState<ReturnType<typeof serviceLines> | null | 'failed'>(null);
+  useEffect(() => {
+    let live = true;
+    void source().then((s) => live && setLines(s ? serviceLines(s) : 'failed'));
+    return () => {
+      live = false;
+    };
+  }, [source]);
+  return (
+    <section className="hud__section" aria-labelledby="hud-services">
+      <h3 id="hud-services" className="hud__rowlabel hud__serviceshead">
+        Services
+      </h3>
+      {lines === null && <p className="hud__service">Checking…</p>}
+      {lines === 'failed' && <p className="hud__service">Couldn’t check right now.</p>}
+      {Array.isArray(lines) && (
+        <ul className="hud__services">
+          {lines.map((l) => (
+            <li key={l.name} className="hud__service">
+              {l.name}:{' '}
+              <strong className={l.ready ? 'is-ready' : undefined}>
+                {l.ready ? 'ready' : 'not set up on this site'}
+              </strong>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 

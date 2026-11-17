@@ -369,3 +369,40 @@ test('on the narrowest phone, the top bar and the dock fit: chips on one line, t
     expect((await chip.boundingBox())?.height).toBeLessThan(40);
   }
 });
+
+test('Settings say which services are switched on (#316)', async ({ page }) => {
+  await signedIn(page);
+  let asked = 0;
+  let answer: object = { say: false, talk: false, radio: false };
+  await page.route('**/api/services', (route) => {
+    asked++;
+    expect(route.request().headers().authorization).toMatch(/^Bearer \S+/);
+    return route.fulfill({ json: answer });
+  });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Settings' }).click();
+  const settings = page.getByRole('group', { name: 'Settings' });
+  // A site with no keys says so, for each service by the name its station uses.
+  for (const name of ['Sit and talk', 'Say it', 'Radio operators']) {
+    await expect(settings.getByText(`${name}: not set up on this site`)).toBeVisible();
+  }
+  // Closing and opening Settings doesn't ask again.
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await expect(settings.getByText('Sit and talk: not set up on this site')).toBeVisible();
+  expect(asked).toBe(1);
+
+  answer = { say: true, talk: true, radio: true };
+  await page.reload();
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await expect(settings.getByText('Sit and talk: ready')).toBeVisible();
+  await expect(settings.getByText('Radio operators: ready')).toBeVisible();
+});
+
+test('Settings say so when the services can’t be checked', async ({ page }) => {
+  await signedIn(page);
+  await page.route('**/api/services', (route) => route.fulfill({ status: 502, json: {} }));
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await expect(page.getByText('Couldn’t check right now.')).toBeVisible();
+});

@@ -885,3 +885,30 @@
   outline: 3px solid var(--lamplight);
   outline-offset: 2px;
 }
+
+/* Settings: which AI services the site has switched on (#316). */
+.hud__serviceshead {
+  margin: 0 0 4px;
+  font-family: inherit;
+}
+
+.hud__services {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hud__service {
+  margin: 0;
+  font-size: 16px;
+  color: var(--vellum);
+}
+
+.hud__service strong {
+  font-weight: 800;
+  color: #c9b48e;
+}
+
+.hud__service strong.is-ready {
+  color: var(--lamplight);
+}
