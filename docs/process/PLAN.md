@@ -185,19 +185,26 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
   - Both can hold at once (the recommendation, if the license reads the way ADR 0011 says).
 - **Build, whatever he picks:** a non-licensee never sees "haven't been loaded". Their road (1.2) is the road they can actually walk: steps that need the deck are left out of it for them, with one friendly line saying what would open them.
 - **Done when:** Adam has answered; a browser test signs in as a non-licensee and follows the compass through the Caravanserai with no dead end and no misleading message.
+- **Asked (2026-11-17), waiting on Adam:**
+  - **What we know of the license:** our record (`sources/arabic/lingualism-palestinian-vocabulary/README.md`) says "Copyrighted. Personal use." The seller's own pages couldn't be read from here: lingualism.com refused automated reads (404 and "too many requests"). Adam can check the terms in a browser.
+  - **What a non-licensee can do today:** only the slate. The script lessons, the fountain, the storyteller, the coffee corner, the echo well, the word path and the inn's chats all read the deck. So option (b) "the letters for everyone" means building a reading practice from our own words (`own-sentences.json` is ours, but it has no recordings and no per-word glosses).
+  - **Recommendation:** (a) now, since it needs no building, and (b) later as its own task if friends without the deck should learn the letters too.
 
-### ☐ 2.2 (#323) · v2.0 · Fair shares of the free AI
+### ☑ 2.2 (#323) · v2.0 · Fair shares of the free AI
 - **Do:** list every allowance (inn lines, partner replies, speech checks) with the provider's current free limits, checked on their pages. Work out what five players at once would use. Change the per-player numbers, or add a site-wide daily ceiling in the database, so one player can't use up everyone's day. Say what a player sees when the site's day is spent.
 - **Done when:** the sums are in an ADR; the ceilings are enforced in the database with tests; the messages are tested.
+- **Done (2026-11-17):** [ADR 0041](../decisions/0041-fair-shares-of-the-free-ai.md). The inn is the tight one: Groq's 200,000 tokens a day cover about 200 lines, not five players' 300. Site-wide daily ceilings (speech 1,500, partner 500, inn 150) in `20261229000000_site_ceilings.sql`, tested in `schema.test.ts`; the `site-limit` messages are tested in the API tests and `inn-chat`/`inn-voice` e2e. **For Adam:** read the free numbers once on console.groq.com/settings/limits and aistudio.google.com/rate-limit (Groq's public page now shows the Developer plan's).
 
-### ☐ 2.3 (#324) · v2.0 · Sign-in for someone who isn't Adam
+### ☑ 2.3 (#324) · v2.0 · Sign-in for someone who isn't Adam
 - **Do:** "Change your password" in Settings. Rewrite the login screen's "Email me a link" so it doesn't promise what can't arrive: keep it working for Adam, and tell everyone else to ask whoever invited them. Write `docs/process/FRIENDS.md` for Adam: how to create a friend's account in the Supabase dashboard, hand over a password, reset one, add a licensee, and remove a friend and their data.
 - **Done when:** a player can change their password, with tests; the login copy is honest; FRIENDS.md exists, with any step that couldn't be tried marked "untested" and added to Adam's checklist.
+- **Done (2026-11-17):** Settings → **Change your password** (`src/core/auth/password.ts`, `Hud.tsx` `PasswordRows`; tests in `password.test.ts` and `e2e/login.spec.ts`). The login screen no longer says "First time… Email me a link": it says "Forgot your password?", and its reply tells everyone but Adam to ask whoever invited them. [FRIENDS.md](FRIENDS.md) has every step, all marked untested, and they're on Adam's checklist in STATUS.md.
 
-### ☐ 2.4 (#325) · v2.0 · Two players, one database
+### ☑ 2.4 (#325) · v2.0 · Two players, one database
 - **Spec:** [fellowship-build.md](../game/fellowship-build.md) §6, tests 1 and 2 (every table and every granted function, read from the database so nothing new can be forgotten).
 - **Do:** a test pass with two fake players proving that neither can read or change anything of the other's: reviews, ratings, state, chats, memories, chests, purchases, allowances. Fix anything found. Check every server function for per-player limits.
 - **Done when:** the tests exist and pass; findings are fixed; the review file lists what was checked.
+- **Done (2026-11-17):** `supabase/tests/isolation.test.ts` (26 tests; every list read from the database), and the test stand-in now grants what Supabase grants by default, so a forgotten `revoke` fails. Review: [2026-11-17-two-players.md](reviews/2026-11-17-two-players.md). Nothing leaked.
 
 ---
 
@@ -209,13 +216,15 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 
 Rules for the whole phase: what friends see is §3's list and nothing else, enforced by the database (a view plus row-level security), never by the screen. No leagues, no demotion, no public ranking. A player with no friends sees no empty social clutter. Each epic gets its design in `docs/game/` first (✏️). **The social features join the road**: meeting your first friend, your first visit and your first challenge are steps the compass can point to once a player has a friend, and never before.
 
-### ☐ 3.1 (#326) · v2.0 · ✏️ E18 — Friend codes and the Fellowship list
+### ☑ 3.1 (#326) · v2.0 · ✏️ E18 — Friend codes and the Fellowship list
 - **Do:** the `friendships` table and the shared view. "Add a friend" by code: each player has a short code; typing a friend's code sends a request; they accept or decline; either can remove the other. The Fellowship list in Your House: each friend's avatar, name, level, ranks and titles, streak, pet.
 - **Done when:** two test players can link and unlink; a non-friend can read nothing; requests can't be spammed (a limit, tested); the list fits 320 pixels and has a kind empty state that explains friend codes.
+- **Done (2026-11-17):** [ADR 0042](../decisions/0042-the-fellowship-first-slice.md). Migration `20261230000000_fellowship.sql`; `supabase/tests/fellowship.test.ts` (tests 3–7 of fellowship-build.md §6, the three-player test among them); the list in Your House (`src/core/fellowship/`), tested in `e2e/fellowship.spec.ts`, 320 pixels included. Test 8 (the feed switch) belongs to 3.3; test 9 holds today (no social thing shows without friends).
 
-### ☐ 3.2 (#327) · v2.0 · ✏️ E19a — Visit a friend's house
+### ☑ 3.2 (#327) · v2.0 · ✏️ E19a — Visit a friend's house
 - **Do:** from the list, walk into a friend's house: their room, avatar, gear and trophies, read-only.
 - **Done when:** it shows only §3's fields (a test asserts the exact fields the view returns); there is a clear way home; no wardrobe controls appear.
+- **Done (2026-11-17):** `/house/visit/<id>` (`FriendHouse.tsx`), painted from the card alone; the card's keys are asserted in `fellowship.test.ts`; "Back to your house" and "Back to the square"; no wardrobe and no buttons in the room (e2e). A non-friend finds the door closed.
 
 ### ☐ 3.3 (#328) · v2.1 · ✏️ E19b — The party feed and friends in the square
 - **Do:** milestones as events friends can read (a rank taken, a chapter passed, a trial passed, a streak of 7/30/100, an achievement), written by the database when they happen, never by the browser. Show them on the Notice Board. Then draw friends' avatars standing in the square, inside 1.7's speed budget.
@@ -326,6 +335,8 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 | 1.12 | Walk the release checklist on your phone and desktop | The v1.0.0 release |
 | 1.13 | Set the Production keys, merge `Release v1.0.0`, sign in, tag | Being live |
 | 2.1 | Decide what friends without the deck may learn | Friends learning Arabic |
+| 2.2 | Once: read the free numbers on console.groq.com/settings/limits and aistudio.google.com/rate-limit; if the inn's model allows under 200,000 tokens a day, tell Claude ([ADR 0041](../decisions/0041-fair-shares-of-the-free-ai.md)) | Nothing; the ceilings are set low to be safe |
+| 2.3 | Try [FRIENDS.md](FRIENDS.md) once on `waymark-dev`: make an account, reset its password by SQL, delete it | Trusting the steps before the first real friend |
 | 3.7 | Merge the Fellowship release and add a first friend | Friends on the live site |
 | 4.5 | Pick the subject for the first empty plot | The third hall (the guide is written either way) |
 | Parked | Look at Azure and say yes or no | The regulars' voices, and pronunciation scoring |

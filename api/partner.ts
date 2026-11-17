@@ -31,7 +31,14 @@ export interface Env {
 }
 
 export type PartnerFailure =
-  'method' | 'signed-out' | 'not-set-up' | 'bad-request' | 'daily-limit' | 'busy' | 'failed';
+  | 'method'
+  | 'signed-out'
+  | 'not-set-up'
+  | 'bad-request'
+  | 'daily-limit'
+  | 'site-limit'
+  | 'busy'
+  | 'failed';
 
 const STATUS: Record<PartnerFailure, number> = {
   method: 405,
@@ -39,6 +46,8 @@ const STATUS: Record<PartnerFailure, number> = {
   'not-set-up': 503,
   'bad-request': 400,
   'daily-limit': 429,
+  // Everyone's replies or lines for today are used up (ADR 0041).
+  'site-limit': 429,
   busy: 503,
   failed: 502,
 };
@@ -510,6 +519,7 @@ async function claim(
   if (!res.ok) return 'failed';
   const left = Number(await res.json().catch(() => NaN));
   if (!Number.isInteger(left)) return 'failed';
+  if (left === -2) return 'site-limit';
   return left < 0 ? 'daily-limit' : left;
 }
 

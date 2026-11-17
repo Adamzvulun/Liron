@@ -49,7 +49,7 @@ test('the HUD shows the streak and today’s goal, and the goal can change', asy
   await expect(panel).toHaveCount(0);
   const settings = page.getByRole('group', { name: 'Settings' });
   await expect(settings.getByText('20 minutes a day')).toBeVisible();
-  await settings.getByRole('button', { name: 'Change' }).click();
+  await settings.getByRole('button', { name: 'Change', exact: true }).click();
   await expect(panel.getByRole('button', { name: '20 minutes a day', exact: true })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(panel).toHaveCount(0);

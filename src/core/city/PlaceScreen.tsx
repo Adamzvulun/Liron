@@ -22,6 +22,7 @@ export function PlaceScreen({
   resident,
   children,
   wide,
+  title: named,
 }: {
   place: PlaceId;
   resident?: SubjectInfo;
@@ -29,10 +30,12 @@ export function PlaceScreen({
   children?: ReactNode;
   /** Room for a two-column screen, like the wardrobe in Your House. */
   wide?: boolean;
+  /** A name other than the place's own, e.g. a friend's house (task 3.2). */
+  title?: string;
 }) {
   const title = useRef<HTMLHeadingElement>(null);
-  const name = resident?.place ?? PLAQUES[place].title;
-  useEffect(() => title.current?.focus(), [place]);
+  const name = named ?? resident?.place ?? PLAQUES[place].title;
+  useEffect(() => title.current?.focus(), [place, named]);
   // The tab and the history list name the place, not only the app.
   useEffect(() => {
     document.title = `${name} – Waymark`;

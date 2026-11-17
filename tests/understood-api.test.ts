@@ -102,6 +102,7 @@ describe('POST /api/understood (ADR 0014)', () => {
       [() => new Response('{}', { status: 401 }), 401, 'signed-out'],
       [() => new Response('{}', { status: 403 }), 403, 'not-allowed'],
       [() => Response.json(-1), 429, 'daily-limit'],
+      [() => Response.json(-2), 429, 'site-limit'],
       [() => new Response('oops', { status: 500 }), 502, 'failed'],
     ] as const) {
       const { calls, fetchFn } = services({ claim });

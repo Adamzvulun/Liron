@@ -72,6 +72,32 @@ export interface Extras {
     week?: Record<string, string[]>;
     days?: { day: string; minutes: number }[];
   };
+  /**
+   * The Fellowship (task 3.1): the player's friends' cards and the requests waiting for them.
+   * Each call to a Fellowship function is pushed to `calls`, and `refuse` makes one fail.
+   */
+  fellowship?: {
+    friends?: Record<string, unknown>[];
+    requests?: Record<string, unknown>[];
+    calls?: { fn: string; args: unknown }[];
+    refuse?: Record<string, string>;
+  };
+}
+
+/** A friend's card as the database returns it (fellowship-build.md §3). */
+export function friendCard(id: string, name: string, more: Record<string, unknown> = {}) {
+  return {
+    id,
+    me: false,
+    name,
+    look: {},
+    title: '',
+    level: 3,
+    streak: 2,
+    ranks: [],
+    achievements: [],
+    ...more,
+  };
 }
 
 /** Today's fake Market stall (#49): 2 gear, 1 dye and the streak shield. */
@@ -195,6 +221,52 @@ export async function fakeSupabase(
           },
         },
       });
+    }
+    // The Fellowship's functions (task 3.1): a list that changes as the player acts.
+    const fellowshipFn =
+      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests)$/.exec(
+        url.pathname,
+      )?.[1];
+    if (fellowshipFn) {
+      const f = (extras.fellowship ??= {});
+      const args = route.request().postDataJSON() as Record<string, unknown> | null;
+      (f.calls ??= []).push({ fn: fellowshipFn, args });
+      const refusal = f.refuse?.[fellowshipFn];
+      if (refusal) {
+        return route.fulfill({
+          status: 400,
+          json: { message: 'no', hint: refusal, code: 'P0001' },
+        });
+      }
+      const friends = (f.friends ??= []);
+      const waiting = (f.requests ??= []);
+      switch (fellowshipFn) {
+        case 'my_friend_code':
+          return route.fulfill({ json: 'K7QM4RXA' });
+        case 'new_friend_code':
+          return route.fulfill({ json: 'N3WCPDE5' });
+        case 'fellowship':
+          return route.fulfill({
+            json: [{ ...friendCard(fakeSession().user.id, 'Adam'), me: true }, ...friends],
+          });
+        case 'fellowship_requests':
+          return route.fulfill({ json: waiting });
+        case 'answer_friend': {
+          const i = waiting.findIndex((r) => r.id === args?.p_other);
+          if (i >= 0) {
+            const [r] = waiting.splice(i, 1);
+            if (args?.p_accept) friends.push(friendCard(String(r.id), String(r.name)));
+          }
+          return route.fulfill({ json: null });
+        }
+        case 'remove_friend': {
+          const i = friends.findIndex((c) => c.id === args?.p_other);
+          if (i >= 0) friends.splice(i, 1);
+          return route.fulfill({ json: null });
+        }
+        default:
+          return route.fulfill({ json: null });
+      }
     }
     if (url.pathname === '/rest/v1/rpc/my_achievements') {
       return route.fulfill({

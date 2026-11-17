@@ -4,6 +4,7 @@ import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/Auth
 import { GateScene, WaymarkPost } from './auth/Scenes.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
+import { passwordRefused } from './auth/password.ts';
 import { City } from './city/City.tsx';
 import { placeAt, residentsOf } from './city/layout.ts';
 import type { PlaceId } from './city/painter.js';
@@ -27,6 +28,7 @@ import { supabaseStore } from './progress/supabaseStore.ts';
 import { browserPackStore, cachedContent } from './content/packCache.ts';
 import { privatePackVersion, supabaseContent } from './content/privateContent.ts';
 import { functionPartner } from './partner.ts';
+import { supabaseFellowship } from './fellowship/fellowship.ts';
 import { functionServices } from './services.ts';
 import { functionSpeech } from './speech.ts';
 import { armSound, cue, setAmbient } from './sound/sound.ts';
@@ -41,6 +43,8 @@ const Wardrobe = lazy(() => views().then((m) => ({ default: m.Wardrobe })));
 const AchievementWall = lazy(() => views().then((m) => ({ default: m.AchievementWall })));
 const Market = lazy(() => views().then((m) => ({ default: m.Market })));
 const Ledger = lazy(() => views().then((m) => ({ default: m.Ledger })));
+const Fellowship = lazy(() => views().then((m) => ({ default: m.Fellowship })));
+const FriendHouse = lazy(() => views().then((m) => ({ default: m.FriendHouse })));
 const ChestShelf = lazy(() => views().then((m) => ({ default: m.ChestShelf })));
 const HouseBackdrop = lazy(() => views().then((m) => ({ default: m.HouseBackdrop })));
 const MarketBackdrop = lazy(() => views().then((m) => ({ default: m.MarketBackdrop })));
@@ -70,6 +74,21 @@ const partnerOf = (client: NonNullable<typeof supabase>) => functionPartner(acce
 
 /** What's switched on (#316), asked as the current learner, once per page. */
 const services = supabase ? functionServices(accessToken(supabase)) : undefined;
+/** Friends (task 3.1): through the database's Fellowship functions only. */
+const fellowship = supabase ? supabaseFellowship(supabase) : null;
+/** A friend's house: /house/visit/<their id> (task 3.2). */
+const VISIT = /^\/house\/visit\/([0-9a-f-]{36})\/?$/i;
+
+/** Settings' "Change your password" (#324): null when saved, else what to tell the player. */
+const changePassword = async (password: string): Promise<string | null> => {
+  if (!supabase) return passwordRefused(undefined);
+  try {
+    const { error } = await supabase.auth.updateUser({ password });
+    return error ? passwordRefused(error.code) : null;
+  } catch {
+    return passwordRefused(undefined);
+  }
+};
 
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
@@ -255,6 +274,22 @@ function Lobby({ player }: { player: Player }) {
   ) : (
     state.goalReached && <GoalReached day={state.goalReached} onDone={player.dismissGoal} />
   );
+  const visiting = VISIT.exec(path)?.[1];
+  if (visiting && fellowship) {
+    return (
+      <>
+        <Suspense fallback={<p className="place__loading">Knocking at the door…</p>}>
+          <FriendHouse
+            key={visiting}
+            id={visiting}
+            source={fellowship}
+            backdrop={<HouseBackdrop />}
+          />
+        </Suspense>
+        {celebrations}
+      </>
+    );
+  }
   if (place) {
     const Hall = resident?.Hall;
     const api = resident && apis.get(resident.id);
@@ -334,6 +369,7 @@ function Lobby({ player }: { player: Player }) {
                   onLoad={player.loadAchievements}
                   onWear={player.setTitle}
                 />
+                {fellowship && <Fellowship source={fellowship} />}
               </Suspense>
             )}
           </PlaceBoundary>
@@ -353,6 +389,7 @@ function Lobby({ player }: { player: Player }) {
           onGoalChange={player.setDailyGoal}
           onNameChange={player.setDisplayName}
           services={services}
+          onPasswordChange={changePassword}
           onSignOut={() => {
             // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });

@@ -61,6 +61,8 @@ const FIRST_SHOWN = 8;
 function endLine(r: Regular, e: unknown): string {
   if (e instanceof PartnerError && e.problem === 'daily-limit')
     return 'That’s enough talk for one day. The regulars will be here tomorrow.';
+  if (e instanceof PartnerError && e.problem === 'site-limit')
+    return 'The inn is full tonight: everyone’s talk has used up the day. Come back tomorrow.';
   return `${r.who} has to serve a customer. Come back in a while.`;
 }
 

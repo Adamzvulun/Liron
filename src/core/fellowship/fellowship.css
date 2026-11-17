@@ -1,0 +1,298 @@
+/* Your House's Fellowship (task 3.1): a wall of framed portraits under the ledger, and the
+   player's friend code cut into a brass plate by the door. */
+
+.fellowship {
+  margin-top: 24px;
+  padding: 8px 20px 20px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, #5a3a22, #432914);
+  color: var(--parchment);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.fellowship__heading {
+  margin: 14px 0 12px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.fellowship__note,
+.fellowship__empty {
+  margin: 4px 0 14px;
+  font-weight: 700;
+  line-height: 1.45;
+  max-width: 62ch;
+}
+
+.fellowship__friends,
+.fellowship__requests,
+.fellowship__ranks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fellowship__friends,
+.fellowship__requests {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* Each friend hangs in a frame: portrait, then who they are, then what you can do. */
+.fellowship__friend,
+.fellowship__request {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff6df, #ecd7aa);
+  color: var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+.fellowship__friend .fellowship__buttons,
+.fellowship__request .fellowship__buttons {
+  grid-column: 1 / -1;
+}
+
+.fellowship__face {
+  border: 3px solid var(--wood);
+  border-radius: 50%;
+  background: #d9c08e;
+}
+
+.fellowship__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--wood);
+  overflow-wrap: anywhere;
+}
+
+.fellowship__line,
+.fellowship__ask {
+  margin: 2px 0 0;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.fellowship__flame svg {
+  width: 14px;
+  height: 17px;
+  vertical-align: -2px;
+}
+
+.fellowship__ranks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.fellowship__ranks li {
+  padding: 1px 9px;
+  border: 2px solid var(--wood);
+  border-radius: 999px;
+  background: #f3dc9e;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.fellowship__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.fellowship__button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--brass);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fellowship__button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.fellowship__button--quiet {
+  background: transparent;
+  border-color: currentColor;
+}
+
+/* On the dark wood, a quiet button is drawn in parchment; on the paper cards, in ink. */
+.fellowship__codes .fellowship__button--quiet {
+  color: var(--parchment);
+}
+
+.fellowship__codes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px 24px;
+}
+
+.fellowship__label {
+  display: block;
+  margin: 0 0 6px;
+  font-weight: 800;
+  color: #e9cf9a;
+}
+
+/* The code, cut into brass: the one thing in the panel meant to be read aloud. */
+.fellowship__plate {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 18px;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f4d58a, #c99a3e);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 45%),
+    0 3px 0 var(--ink);
+  color: #3b2410;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(22px, 7vw, 28px);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 rgb(255 240 200 / 60%);
+}
+
+.fellowship__hint {
+  margin: 6px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #cdb68c;
+}
+
+.fellowship__input {
+  width: 100%;
+  max-width: 16ch;
+  min-height: 44px;
+  padding: 0 10px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.fellowship__codes .fellowship__buttons,
+.fellowship__add .fellowship__button {
+  margin-top: 10px;
+}
+
+.fellowship__said {
+  margin: 14px 0 0;
+  font-weight: 700;
+  color: #f2dfae;
+}
+
+.fellowship__said:empty {
+  display: none;
+}
+
+/* A friend's house (task 3.2): their figure on a plinth, and a shelf of what they've earned. */
+.friend-house__home {
+  display: inline-block;
+  margin: 0 0 14px;
+  font-weight: 800;
+  color: var(--parchment);
+}
+
+.friend-house {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.friend-house__figure {
+  display: grid;
+  justify-items: center;
+  margin: 0;
+}
+
+.friend-house__avatar {
+  max-width: 100%;
+  height: auto;
+}
+
+.friend-house__plate {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  margin-top: -6px;
+  padding: 8px 20px;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f4d58a, #c99a3e);
+  box-shadow: 0 3px 0 var(--ink);
+  color: #3b2410;
+  text-align: center;
+}
+
+.friend-house__name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  overflow-wrap: anywhere;
+}
+
+.friend-house__shelf {
+  padding: 12px 18px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff6df, #ecd7aa);
+  box-shadow: 0 3px 0 var(--ink);
+  color: var(--ink);
+}
+
+.friend-house__heading {
+  margin: 14px 0 6px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--wood);
+}
+
+.friend-house__line,
+.friend-house__note {
+  margin: 2px 0 0;
+  font-weight: 700;
+}
+
+.friend-house > .friend-house__note,
+.place-screen > .friend-house__note {
+  color: var(--parchment);
+}
+
+.friend-house__trophies {
+  margin: 0;
+  padding-left: 20px;
+  font-weight: 700;
+}

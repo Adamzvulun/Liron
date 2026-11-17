@@ -458,3 +458,14 @@ export function parseLook(raw: unknown, owned: ReadonlySet<string> = new Set()):
   const { dye, ...rest } = look;
   return dye && owned.has(dye) ? { ...rest, gear, dye } : { ...rest, gear };
 }
+
+/**
+ * Reads someone else's look: a friend's, for their card and their house (fellowship-build.md
+ * §1 trap 3). It is another person's input, so it goes through the same schema as your own,
+ * and gear and dye are kept only if they exist in the catalog, in the right slot. Ownership
+ * isn't checked: what a friend may wear is theirs to know.
+ */
+export function parseOthersLook(raw: unknown): Look {
+  const everything = new Set<string>([...GEAR.map((g) => g.id), ...DYES.map((d) => d.id)]);
+  return parseLook(raw, everything);
+}

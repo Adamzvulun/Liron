@@ -54,3 +54,21 @@ test('when the listening fails, it says so and you can type', async ({ page }) =
   await expect(page.getByText('That’s all the listening for today.')).toBeVisible();
   await expect(page.getByLabel('Your line, in Arabic')).toHaveValue('');
 });
+
+test('when everyone’s listening is used up, it says so and you can type (ADR 0041)', async ({
+  page,
+}) => {
+  await page.route('**/api/partner', (route) =>
+    route.fulfill({ json: { text: 'أهلا! كيفك؟', left: 50 } }),
+  );
+  await page.route('**/api/understood', (route) =>
+    route.fulfill({ status: 429, json: { error: 'site-limit' } }),
+  );
+  await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+  await page.goto('/caravanserai?open=chat');
+  await page.getByRole('button', { name: /Salim the carter/ }).click();
+  await page.getByRole('button', { name: '🎙 Say your line' }).click();
+  await page.getByRole('button', { name: '■ Stop' }).click();
+  await expect(page.getByText('The listening is used up for everyone today.')).toBeVisible();
+  await expect(page.getByLabel('Your line, in Arabic')).toBeEditable();
+});

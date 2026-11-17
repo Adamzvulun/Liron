@@ -1,9 +1,8 @@
 import { useId, useState, type FormEvent, type ReactNode } from 'react';
 import { supabase } from './supabase.ts';
 import { GateScene } from './Scenes.tsx';
+import { MIN_PASSWORD } from './password.ts';
 import './auth.css';
-
-const MIN_PASSWORD = 8;
 
 function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -70,7 +69,9 @@ export function LoginScreen() {
         : {
             kind: 'info',
             from: 'link',
-            text: 'If that email has an account, a link is on its way.',
+            // Supabase's own mail reaches only the projects' owner (SUPABASE.md), so friends are
+            // told who can help instead of waiting for nothing (#324).
+            text: 'If that email has an account, a link is on its way. Nothing after a few minutes? Ask whoever invited you to set a new password.',
           },
     );
   }
@@ -105,10 +106,13 @@ export function LoginScreen() {
         </button>
         {message?.from === 'signin' && <Said message={message} />}
         <button className="auth__link" type="button" onClick={sendLink} disabled={busy}>
-          First time, or forgot your password?
+          Forgot your password?
           <span className="auth__link-action">Email me a link.</span>
         </button>
         {message?.from === 'link' && <Said message={message} />}
+        <p className="auth__hint">
+          New here? Sign in with the password you were given, then change it in Settings.
+        </p>
       </form>
     </Panel>
   );
