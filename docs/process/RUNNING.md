@@ -75,7 +75,7 @@ The site shows its login screen but can't sign in, or the keep-alive fails. In S
 
 Waymark is invite-only: sign-ups are switched off in Supabase.
 
-- **To add a friend:** Supabase → `waymark-prod` → **Authentication → Users → Add user → Send invitation**, with their email. They choose a password from the email's link. Don't add them to `content_licensees`: the licensed deck is yours only (ADR 0011, [SUPABASE](SUPABASE.md#adding-a-licensee)). *Untested: Phase 2 (ready for friends, PLAN.md) is what makes the site good for a non-licensee. Until then a friend meets steps that need the deck.*
+- **To add a friend, or reset their password:** [FRIENDS.md](FRIENDS.md). Supabase's own email doesn't reach friends, so you make the account with a password and hand it over; they change it in **Settings → Change your password**. Don't add them to `content_licensees`: the licensed deck is yours only (ADR 0011). *Untested.*
 - **To remove a friend:** the same page → their row → **Delete user**. Everything of theirs goes with the account: progress, wallet and reviews are deleted with it (`on delete cascade`). *Untested.*
 
 ## Releasing

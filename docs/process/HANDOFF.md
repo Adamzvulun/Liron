@@ -251,3 +251,14 @@
     - **Database:** migration `20261228000000_world_events.sql` adds `world_events`, `event_on(day)` and `contract_templates.event_id`. It also changes `pick_contracts` (the event's contract takes the last slot in its week, for a started subject only) and `grant_chests` (the event's chest for the day's contracts).
     - **Browser:** `src/core/events.ts` (`eventOn`) dresses the square (`Bunting` in City.tsx), pins the notice on the board, and puts the right chest on the shelf.
     - **Tests:** with a fixed date, in `supabase/tests` ("world events"), `src/core/events.test.ts` and `e2e/events.spec.ts`, which uses `extras.today.day`.
+99. **Fair shares, task 2.2 (2026-11-17, report §4co):** [ADR 0041](../decisions/0041-fair-shares-of-the-free-ai.md). `site_usage`, `site_ceiling(what)` and `take_site_share(what)` (migration `20261229000000_site_ceilings.sql`). Each `claim_*` checks the player first, then the site, and returns `-2` when the site's day is spent, taking nothing from the player. The functions answer `site-limit` (429). `SpeechProblem` and `PartnerProblem` know it, and Compare, SayLine and InnChat each have a line for it. Raise a ceiling with a new migration.
+100. **Passwords, task 2.3 (2026-11-17):** `src/core/auth/password.ts` holds the rules and Supabase's refusal codes. Settings' `PasswordRows` is in `Hud.tsx`, and `changePassword` is in `App.tsx`. The login copy no longer promises a link to friends. Adam's steps are in [FRIENDS.md](FRIENDS.md), all untested.
+101. **Two players, task 2.4 (2026-11-17):** `supabase/tests/isolation.test.ts` reads every table and callable function from the database. A new table needs an entry in `PLAYER_TABLES` (with a seed row) or `SHARED_TABLES`, and a new function needs an entry in `CALLABLE`. `supabase-shim.sql` now has Supabase's default privileges, so a migration must revoke what it doesn't mean to grant, including `from public` for functions.
+102. **The Fellowship, tasks 3.1 and 3.2 (2026-11-17, report §4cp):** [ADR 0042](../decisions/0042-the-fellowship-first-slice.md), migration `20261230000000_fellowship.sql`, tests in `supabase/tests/fellowship.test.ts`.
+    - **Browser:** `src/core/fellowship/`:
+      - `fellowship.ts` holds the source, `readCard` and `parseOthersLook` (trap 3).
+      - `Fellowship.tsx` is the list in Your House.
+      - `FriendHouse.tsx` is the house at `/house/visit/<id>`, matched by `VISIT` in `App.tsx`.
+      - `PlaceScreen` takes a `title`.
+    - **e2e:** `Extras.fellowship` (`friends`, `requests`, `refuse`, and `calls` to read back) and `friendCard()` in the fake.
+    - **Next (v2.1, task 3.3):** the feed table and `share_milestones`, from fellowship-build.md §2.

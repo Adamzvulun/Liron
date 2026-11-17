@@ -21,7 +21,7 @@
 ## What comes next
 
 1. **Finish v1.0** ([PLAN](PLAN.md) Phase 1). Built: tasks 1.1–1.5 and 1.7–1.11 (1.9 needs its first run after the release). Left: two gates that are Adam's: **1.12, his release checklist** ([written](release-checklist.md), waiting for his walk), and **1.13, the release PR** into `main`.
-2. **Then v1.1 to 4.0** in the order of [VERSIONS.md](VERSIONS.md). v1.1 (the ledger, the keeper's handbook in [RUNNING](RUNNING.md)) and v1.2 (sound, motion and world events) are built and wait for Adam's look. Next: v2.0, which starts with his answer on what friends may learn (2.1). Then ready for friends, the Fellowship, the rest of the vision.
+2. **Then v1.1 to 4.0** in the order of [VERSIONS.md](VERSIONS.md). v1.1 (the ledger, the keeper's handbook in [RUNNING](RUNNING.md)) and v1.2 (sound, motion and world events) are built and wait for Adam's look. **v2.0 is built except Adam's part:** fair shares of the free AI (2.2), passwords and FRIENDS.md (2.3), the two-player tests (2.4), friend codes and the Fellowship list (3.1), and visits (3.2). Waiting on him: 2.1, what friends without the deck may learn, and making a first friend's account. Next to build: v2.1 (3.3, the feed and friends in the square).
 
 **Waiting on Adam:** nothing blocks the work today. His gates are listed at the end of PLAN.md. The regulars' voices are parked until he has looked at Azure (#342). #137 (speed) waits for him to try the dev site on his phone.
 

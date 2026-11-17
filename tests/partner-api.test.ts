@@ -128,6 +128,17 @@ describe('POST /api/partner (E15, ADR 0036)', () => {
     expect(calls).toHaveLength(1);
   });
 
+  it('stops when the site’s day is spent (ADR 0041), for the radio and the inn alike', async () => {
+    for (const body of [undefined, INN]) {
+      const { calls, fetchFn } = services({ claim: () => Response.json(-2) });
+      expect(await json(await handle(request(body), ENV, fetchFn))).toEqual({
+        status: 429,
+        body: { error: 'site-limit' },
+      });
+      expect(calls).toHaveLength(1);
+    }
+  });
+
   it('turns away the signed-out, the unset and the malformed before claiming', async () => {
     const { calls, fetchFn } = services();
     expect((await handle(request(ASK, null), ENV, fetchFn)).status).toBe(401);
