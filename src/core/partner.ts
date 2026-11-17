@@ -82,7 +82,8 @@ export interface PartnerReply {
 }
 
 /** Why there was no reply; the codes api/partner.ts answers with. */
-export type PartnerProblem = 'daily-limit' | 'busy' | 'not-set-up' | 'signed-out' | 'failed';
+export type PartnerProblem =
+  'daily-limit' | 'site-limit' | 'busy' | 'not-set-up' | 'signed-out' | 'failed';
 
 export class PartnerError extends Error {
   constructor(readonly problem: PartnerProblem) {
@@ -96,7 +97,13 @@ export interface PartnerSource {
   reply(ask: PartnerAsk): Promise<PartnerReply>;
 }
 
-const KNOWN: readonly PartnerProblem[] = ['daily-limit', 'busy', 'not-set-up', 'signed-out'];
+const KNOWN: readonly PartnerProblem[] = [
+  'daily-limit',
+  'site-limit',
+  'busy',
+  'not-set-up',
+  'signed-out',
+];
 
 /** Our Vercel function, signed in with the learner's current access token. */
 export function functionPartner(

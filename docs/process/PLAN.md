@@ -185,10 +185,15 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
   - Both can hold at once (the recommendation, if the license reads the way ADR 0011 says).
 - **Build, whatever he picks:** a non-licensee never sees "haven't been loaded". Their road (1.2) is the road they can actually walk: steps that need the deck are left out of it for them, with one friendly line saying what would open them.
 - **Done when:** Adam has answered; a browser test signs in as a non-licensee and follows the compass through the Caravanserai with no dead end and no misleading message.
+- **Asked (2026-11-17), waiting on Adam:**
+  - **What we know of the license:** our record (`sources/arabic/lingualism-palestinian-vocabulary/README.md`) says "Copyrighted. Personal use." The seller's own pages couldn't be read from here: lingualism.com refused automated reads (404 and "too many requests"). Adam can check the terms in a browser.
+  - **What a non-licensee can do today:** only the slate. The script lessons, the fountain, the storyteller, the coffee corner, the echo well, the word path and the inn's chats all read the deck. So option (b) "the letters for everyone" means building a reading practice from our own words (`own-sentences.json` is ours, but it has no recordings and no per-word glosses).
+  - **Recommendation:** (a) now, since it needs no building, and (b) later as its own task if friends without the deck should learn the letters too.
 
-### ☐ 2.2 (#323) · v2.0 · Fair shares of the free AI
+### ☑ 2.2 (#323) · v2.0 · Fair shares of the free AI
 - **Do:** list every allowance (inn lines, partner replies, speech checks) with the provider's current free limits, checked on their pages. Work out what five players at once would use. Change the per-player numbers, or add a site-wide daily ceiling in the database, so one player can't use up everyone's day. Say what a player sees when the site's day is spent.
 - **Done when:** the sums are in an ADR; the ceilings are enforced in the database with tests; the messages are tested.
+- **Done (2026-11-17):** [ADR 0041](../decisions/0041-fair-shares-of-the-free-ai.md). The inn is the tight one: Groq's 200,000 tokens a day cover about 200 lines, not five players' 300. Site-wide daily ceilings (speech 1,500, partner 500, inn 150) in `20261229000000_site_ceilings.sql`, tested in `schema.test.ts`; the `site-limit` messages are tested in the API tests and `inn-chat`/`inn-voice` e2e. **For Adam:** read the free numbers once on console.groq.com/settings/limits and aistudio.google.com/rate-limit (Groq's public page now shows the Developer plan's).
 
 ### ☐ 2.3 (#324) · v2.0 · Sign-in for someone who isn't Adam
 - **Do:** "Change your password" in Settings. Rewrite the login screen's "Email me a link" so it doesn't promise what can't arrive: keep it working for Adam, and tell everyone else to ask whoever invited them. Write `docs/process/FRIENDS.md` for Adam: how to create a friend's account in the Supabase dashboard, hand over a password, reset one, add a licensee, and remove a friend and their data.

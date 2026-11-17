@@ -69,6 +69,7 @@ export function Compare({
 
 const PROBLEMS: Record<SpeechProblem, string> = {
   'daily-limit': 'That’s all of today’s checks. Judge it by ear; more tomorrow.',
+  'site-limit': 'Everyone’s checks for today are used up. Judge it by ear; more tomorrow.',
   busy: 'Groq is busy right now. Try again in a minute.',
   'too-big': 'That one’s too long to check. Keep it under half a minute.',
   'not-set-up': 'The check isn’t set up yet. Judge it by ear.',

@@ -6,7 +6,14 @@
 
 /** Why a check didn't give a transcript; the codes api/understood.ts answers with. */
 export type SpeechProblem =
-  'daily-limit' | 'busy' | 'too-big' | 'not-set-up' | 'signed-out' | 'not-allowed' | 'failed';
+  | 'daily-limit'
+  | 'site-limit'
+  | 'busy'
+  | 'too-big'
+  | 'not-set-up'
+  | 'signed-out'
+  | 'not-allowed'
+  | 'failed';
 
 export class SpeechError extends Error {
   constructor(readonly problem: SpeechProblem) {
@@ -29,6 +36,7 @@ export interface SpeechSource {
 
 const KNOWN: readonly SpeechProblem[] = [
   'daily-limit',
+  'site-limit',
   'busy',
   'too-big',
   'not-set-up',

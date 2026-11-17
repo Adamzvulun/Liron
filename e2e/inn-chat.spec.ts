@@ -234,6 +234,17 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await expect(page.getByRole('button', { name: 'Back to the table' })).toBeVisible();
   });
 
+  test('when everyone’s talk has used up the day, the inn says so (ADR 0041)', async ({ page }) => {
+    await page.route('**/api/partner', (route) =>
+      route.fulfill({ status: 429, json: { error: 'site-limit' } }),
+    );
+    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await page.goto('/caravanserai?open=chat');
+    await page.getByRole('button', { name: /Salim the carter/ }).click();
+    await expect(page.getByText('The inn is full tonight', { exact: false })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Back to the table' })).toBeVisible();
+  });
+
   test('a reply that fails after you have left does not touch the next chat', async ({ page }) => {
     // The second line's reply is held, then fails once you've left and sat down again.
     let held: (() => Promise<void>) | null = null;

@@ -2243,6 +2243,80 @@ describe('the daily cap on chat lines at the inn (ADR 0038)', () => {
   });
 });
 
+describe('the site’s ceilings on the free AI (task 2.2, ADR 0041)', () => {
+  const claim = async (fn: string, userId = ADAM) =>
+    ((await as(userId, () => rows(`select ${fn}() as left`)))[0] as { left: number }).left;
+  const fill = (kind: string, used: number) =>
+    rows(
+      `insert into site_usage (kind, day, used) values ($1, (now() at time zone 'utc')::date, $2)`,
+      [kind, used],
+    );
+  const site = async (kind: string) =>
+    (
+      (await rows(`select coalesce(sum(used), 0)::int as used from site_usage where kind = $1`, [
+        kind,
+      ])) as { used: number }[]
+    )[0].used;
+
+  it('keeps each ceiling below the free key’s own daily limit', async () => {
+    expect(
+      await rows(
+        `select site_ceiling('speech') as speech, site_ceiling('partner') as partner,
+                site_ceiling('chat') as chat`,
+      ),
+    ).toEqual([{ speech: 1500, partner: 500, chat: 150 }]);
+  });
+
+  it('counts every player’s claims into the site’s day', async () => {
+    await claim('claim_chat_line', ADAM);
+    await claim('claim_chat_line', OTHER);
+    await claim('claim_partner_reply', OTHER);
+    await claim('claim_speech_check', ADAM);
+    expect([await site('chat'), await site('partner'), await site('speech')]).toEqual([2, 1, 1]);
+  });
+
+  for (const [fn, kind, cap, table, column] of [
+    ['claim_speech_check', 'speech', 1500, 'speech_checks', 'checks'],
+    ['claim_partner_reply', 'partner', 500, 'partner_replies', 'replies'],
+    ['claim_chat_line', 'chat', 150, 'chat_lines', 'lines'],
+  ] as const) {
+    it(`${fn}: when the site’s day is spent, says so and takes nothing from the player`, async () => {
+      await fill(kind, cap - 1);
+      expect(await claim(fn)).toBeGreaterThanOrEqual(0);
+      expect(await claim(fn)).toBe(-2);
+      expect(await claim(fn)).toBe(-2);
+      expect(await site(kind)).toBe(cap);
+      expect(await rows(`select ${column} as n from ${table} where user_id = $1`, [ADAM])).toEqual([
+        { n: 1 },
+      ]);
+    });
+  }
+
+  it('a player’s own limit still answers -1 first, and the site starts again each UTC day', async () => {
+    await rows(
+      `insert into chat_lines (user_id, day, lines) values ($1, (now() at time zone 'utc')::date, 60)`,
+      [ADAM],
+    );
+    expect(await claim('claim_chat_line')).toBe(-1);
+    expect(await site('chat')).toBe(0);
+    await rows(
+      `insert into site_usage (kind, day, used)
+       values ('chat', (now() at time zone 'utc')::date - 1, 150)`,
+    );
+    expect(await claim('claim_chat_line', OTHER)).toBe(59);
+  });
+
+  it('nobody reads or writes the site’s counts through the API', async () => {
+    for (const sql of [
+      `select * from site_usage`,
+      `insert into site_usage (kind, day, used) values ('chat', '2026-01-01', 0)`,
+      `select take_site_share('chat')`,
+    ]) {
+      await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/permission denied/);
+    }
+  });
+});
+
 describe('the licence and the AI allowances, hardened (2026-11-15)', () => {
   it('a new account never becomes the licensee once any account exists', async () => {
     await rows(`delete from content_licensees`);
