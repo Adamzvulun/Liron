@@ -200,10 +200,11 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Done when:** a player can change their password, with tests; the login copy is honest; FRIENDS.md exists, with any step that couldn't be tried marked "untested" and added to Adam's checklist.
 - **Done (2026-11-17):** Settings → **Change your password** (`src/core/auth/password.ts`, `Hud.tsx` `PasswordRows`; tests in `password.test.ts` and `e2e/login.spec.ts`). The login screen no longer says "First time… Email me a link": it says "Forgot your password?", and its reply tells everyone but Adam to ask whoever invited them. [FRIENDS.md](FRIENDS.md) has every step, all marked untested, and they're on Adam's checklist in STATUS.md.
 
-### ☐ 2.4 (#325) · v2.0 · Two players, one database
+### ☑ 2.4 (#325) · v2.0 · Two players, one database
 - **Spec:** [fellowship-build.md](../game/fellowship-build.md) §6, tests 1 and 2 (every table and every granted function, read from the database so nothing new can be forgotten).
 - **Do:** a test pass with two fake players proving that neither can read or change anything of the other's: reviews, ratings, state, chats, memories, chests, purchases, allowances. Fix anything found. Check every server function for per-player limits.
 - **Done when:** the tests exist and pass; findings are fixed; the review file lists what was checked.
+- **Done (2026-11-17):** `supabase/tests/isolation.test.ts` (26 tests; every list read from the database), and the test stand-in now grants what Supabase grants by default, so a forgotten `revoke` fails. Review: [2026-11-17-two-players.md](reviews/2026-11-17-two-players.md). Nothing leaked.
 
 ---
 
