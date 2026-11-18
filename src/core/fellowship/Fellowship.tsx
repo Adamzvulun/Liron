@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import { Link } from '../Link.tsx';
 import { FlameIcon } from '../player/icons.tsx';
@@ -76,14 +76,20 @@ export function Fellowship({
     void load();
   }, [load]);
 
+  /** One action at a time: a double click mustn't spend two of the day's new codes. */
+  const running = useRef(false);
   /** Runs an action, then reads the list again. */
   const act = async (what: () => Promise<unknown>, done: string) => {
+    if (running.current) return false;
+    running.current = true;
     try {
       await what();
       setSaid(done);
     } catch (e) {
       setSaid(refused(e));
       return false;
+    } finally {
+      running.current = false;
     }
     await load();
     return true;
