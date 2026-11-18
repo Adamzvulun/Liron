@@ -16,10 +16,14 @@
 
 **Why this costs about the same:** each job pays its own set-up (about a minute with the caches), but the browser tests are the same work split three ways, and the phone half of a dev PR is about a third smaller. The wait is the longest job's, not the sum.
 
+**Measured (#370, the first run, 2026-11-18, every cache cold):** 6 minutes from start to the last job, against 16 before. `check` 2.2 min; `browser (1 of 2)` 6.0 (its tests 4.7, 160 passed); `browser (2 of 2)` 4.7 (tests 3.4); `browser (timing)` 3.4 (tests 2.0). Nothing retried. Billed: about 16 runner minutes, about $0.08 at $0.005, the same as the one long job. With warm caches each job saves about a minute of `npm ci` and the browser download. The split is uneven (the first half has the slow Morse specs): a third browser job would bring the wait to about 4.5 minutes for about a cent more a run, not done without Adam's say.
+
+The release PR for v1.1.0 (#371), which runs every spec on the phone too, took 7.7 minutes, all green.
+
 ## Cost (checked 2026-11-02 on docs.github.com)
 - The repo is **private**. GitHub Free for personal accounts includes **$12/month of Actions compute**. On the standard Linux runner ($0.006/min) that's about **2,000 minutes/month**.
-- One CI run takes roughly 2–4 minutes (estimate; check the first real runs). Even 10 runs a day stays under ~1,200 minutes a month.
-- To keep it cheap: one job, Chromium only, and a newer push to the same branch cancels the older run.
+- One CI run bills about 16 runner minutes on arm64 (four jobs, measured above), about $0.08. The 2,400 arm64 minutes a month cover about 150 runs.
+- To keep it cheap: Chromium only, the phone suite in full only on release PRs, docs-only PRs skip the browser, and a newer push to the same branch cancels the older run.
 - **If the allowance runs out:** with no payment method on the GitHub account, runs are **blocked, not billed**, until the next month. With a payment method on file, spending is limited by the account's budgets. Check *Settings → Billing → Budgets* and set the Actions budget to $0 if you never want to pay.
 
 ## "A red check blocks merging": not available on our plan
