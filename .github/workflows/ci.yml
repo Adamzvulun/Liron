@@ -5,8 +5,13 @@
 # A PR that changes only docs/ or Markdown files skips the build and Playwright.
 # Private repo on GitHub Free: $12 of compute a month is included (2,000 minutes on x64 Linux at
 # $0.006, 2,400 on arm64 Linux at $0.005). Without a payment method, runs stop when it's used up.
-# Kept cheap (2026-11-18): one job on the cheaper arm64 runner, the browser tests on two workers
-# (the runner has 2 CPUs), and superseded runs on the same branch are cancelled.
+#
+# Fast (2026-11-18, Adam: "16 minutes is way too long"): four jobs side by side instead of one
+# after another. `check` (lint, types, unit tests), two halves of the browser tests, and the
+# `@timing` tests alone. Each job pays its own set-up, so the minutes billed stay about what one
+# long job cost, while the wait is the longest job's. On a PR into `dev` the phone runs only the
+# specs that check the phone (PHONE_SPECS in playwright.config.ts); a release PR into `main`
+# runs every spec on both. Numbers in docs/process/CI.md.
 name: CI
 
 on:
@@ -24,9 +29,39 @@ jobs:
     # Same 2 CPUs and 8 GB as ubuntu-latest for a private repo, at $0.005 a minute instead of
     # $0.006. Playwright ships Chromium for arm64 Ubuntu 24.04.
     runs-on: ubuntu-24.04-arm
-    # On one worker the browser tests took 18-20 minutes of a 20-23 minute job (424 tests,
-    # 2026-11-18). On two workers they took about 40% less on 2 CPUs locally.
-    timeout-minutes: 20
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      # node_modules as the lockfile makes it: restored in seconds instead of `npm ci`'s 40.
+      - id: modules
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: node_modules
+          key: modules-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
+      - if: steps.modules.outputs.cache-hit != 'true'
+        run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+
+  browser:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - part: 1 of 2
+            args: --grep-invert @timing --shard 1/2
+          - part: 2 of 2
+            args: --grep-invert @timing --shard 2/2
+          # They measure speed, and tests running beside them would slow the page they time.
+          - part: timing
+            args: --grep @timing --workers 1
+    name: browser (${{ matrix.part }})
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -43,31 +78,41 @@ jobs:
           fi
           echo "full=$full" >> "$GITHUB_OUTPUT"
           echo "Full check: $full"
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      - if: steps.scope.outputs.full == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm test
+      - if: steps.scope.outputs.full == 'true'
+        id: modules
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: node_modules
+          key: modules-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
+      - if: steps.scope.outputs.full == 'true' && steps.modules.outputs.cache-hit != 'true'
+        run: npm ci
+      # The browser, kept between runs for the same Playwright version.
+      - if: steps.scope.outputs.full == 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
       # Fine on GitHub's runners. In the Claude cloud session Chromium is pre-installed instead.
       # The runner image already has Chromium's libraries; --with-deps only adds fonts from
       # Ubuntu's mirrors (about 15 s). When those mirrors can't be reached (2026-11-11, twice:
       # apt retried for 7 minutes, then failed before any test ran), give up after 2 minutes and
-      # install the browser alone.
+      # install the browser alone. A cached browser isn't downloaded again.
       - if: steps.scope.outputs.full == 'true'
         run: timeout -k 10 120 npx playwright install --with-deps chromium || npx playwright install chromium
       # Playwright builds the app first (with the fake Supabase address), so the build is checked
-      # here. `npm run e2e` runs them on two workers, then the @timing tests alone: they measure speed, and tests running
-      # beside them would slow the page they time.
+      # here too.
       - if: steps.scope.outputs.full == 'true'
-        run: npm run e2e
+        run: npx playwright test ${{ matrix.args }}
         env:
           CI: true
+          PHONE_ALL: ${{ github.base_ref == 'main' && '1' || '' }}
       - if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: playwright-report
+          name: playwright-report-${{ strategy.job-index }}
           path: test-results/
           retention-days: 7
