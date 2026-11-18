@@ -1,7 +1,7 @@
 import { expect, type Page, test } from '@playwright/test';
-import { codeFor } from '../src/subjects/morse/code.ts';
+import { codeFor } from '../../src/subjects/morse/code.ts';
 import { signedIn, type SaveSessionArgs } from './fake-supabase.ts';
-import { MORSE_ROAD } from '../src/subjects/morse/road.ts';
+import { MORSE_ROAD } from '../../src/subjects/morse/road.ts';
 
 // Forty Winters (tasks 4.2 and 4.3, #334, #335; ADR 0047): the Silent Beacon's finale. With
 // Math.random at 0 the far voice sends its first message; ?run=short plays only its first word.

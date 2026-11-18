@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { CONTRACTS, signedIn } from './fake-supabase.ts';
-import { MORSE_ROAD } from '../src/subjects/morse/road.ts';
+import { MORSE_ROAD } from '../../src/subjects/morse/road.ts';
 
 /** Phones show the daily goal as a chip; wider screens in the quest panel (#27). */
 const onPhone = () => test.info().project.name === 'phone';

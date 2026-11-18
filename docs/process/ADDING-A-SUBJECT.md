@@ -8,7 +8,7 @@ How to add a third guild to Waymark, written from the subject contract ([ADR 001
 
 - **The subject, and what "learned" means for it.** One learner goal in plain words, like "send and receive without thinking". The capstone at the end of the road will test exactly that (task 4.3).
 - **Its place and guild:** the building's name on the sign, the guild's name, its color (no blue backgrounds: the night is warm), and its first chapter's story. Write it in `docs/game/` like `morse-lessons.md` and `arabic-script-lessons.md`.
-- **Its sources and their licenses**, checked before anything is proposed ([CLAUDE.md](../../CLAUDE.md): research first). Free sources only. Licensed material stays private (ADR 0008, ADR 0023).
+- **Its sources and their licenses**, checked before anything is proposed ([CLAUDE.md](../../.claude/CLAUDE.md): research first). Free sources only. Licensed material stays private (ADR 0008, ADR 0023).
 - **An ADR** for anything new in kind: a new service, a new kind of content, a new way of judging.
 
 ## 2. The folder and the registry
@@ -73,7 +73,7 @@ Its tests walk from the first step to the last, with one open next step at every
 
 ## 9. Before the PR
 
-The usual checks (WORKFLOW.md): `tsc -b`, eslint, prettier, vitest (also with `TZ=UTC`), the whole Playwright suite with `--trace off`, and the load budget with `--workers 1`. Each hall gets an e2e spec for its first chapter, using `signedIn(page, …, state)` from `e2e/fake-supabase.ts`.
+The usual checks (WORKFLOW.md): `tsc -b`, eslint, prettier, vitest (also with `TZ=UTC`), the whole Playwright suite with `--trace off`, and the load budget with `--workers 1`. Each hall gets an e2e spec for its first chapter, using `signedIn(page, …, state)` from `tests/e2e/fake-supabase.ts`.
 
 ## Known gaps: where `src/core/` still names the two halls
 
@@ -87,4 +87,4 @@ A third hall can't be added without touching the platform yet. These are the pla
 | `src/core/city/City.tsx` | A special case for `caravanserai` | Move it into the subject's building painting |
 | `src/core/App.tsx` | `place === 'tower' \|\| place === 'caravanserai'` (no sound bed in halls) | Ask whether the place has a resident subject |
 
-The painted halls are new city art, so the fix has its own screenshots at every width, and stays inside the square's speed budget (`e2e/city-speed.spec.ts`).
+The painted halls are new city art, so the fix has its own screenshots at every width, and stays inside the square's speed budget (`tests/e2e/city-speed.spec.ts`).

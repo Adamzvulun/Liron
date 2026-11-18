@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { signedIn } from './fake-supabase.ts';
-import { MORSE_ROAD } from '../src/subjects/morse/road.ts';
+import { MORSE_ROAD } from '../../src/subjects/morse/road.ts';
 
 test.describe('the Signal Tower hall (#33, #34)', () => {
   test('a new player sees chapter I, two lit lamps and the first lesson', async ({ page }) => {

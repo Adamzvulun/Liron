@@ -6,12 +6,12 @@ Paste this as the first message of a new session:
 
 We're continuing work on Waymark, my personal learning hub for Arabic and Morse (repo: Liron). Branch from `dev` (ADR 0015) and open PRs into `dev`. Merge your own PRs into `dev` once CI is green and the work checks out; only I merge into `main`. Don't release v1.0.0 until I say so.
 
-Before you do anything, read `CLAUDE.md`, then `docs/process/STATUS.md`, then `docs/process/HANDOFF.md` (items 94–110 are the latest), and follow them.
+Before you do anything, read `.claude/CLAUDE.md`, then `docs/process/STATUS.md`, then `docs/process/HANDOFF.md` (items 94–110 are the latest), and follow them.
 
 Actions minutes cost money, so keep CI use low:
 - Bundle smaller issues and features into one PR. No stacked PRs; push rarely, and never while a run is going.
 - Run the full checks locally before opening a PR: tsc, eslint, prettier, vitest (also with `TZ=UTC`, as CI runs), then the whole Playwright suite with `--trace off`.
-- Never treat a red, cancelled or flaky run as green. Check the job log. 10 skipped is normal: ten tests run on only one of the two projects, phone or desktop (`grep -n "test.skip" e2e/*.spec.ts` lists them).
+- Never treat a red, cancelled or flaky run as green. Check the job log. 10 skipped is normal: ten tests run on only one of the two projects, phone or desktop (`grep -n "test.skip" tests/e2e/*.spec.ts` lists them).
 - If a job fails within seconds with no runner and no log, the Actions budget has run out. Tell me; don't push again to kick it.
 
 **Your work order is `docs/process/PLAN.md`** (2026-11-16). Read it after HANDOFF. **`docs/process/VERSIONS.md` gives the order**: work the versions in turn (1.0 first), ticking tasks off in the plan. The designs are already written (`docs/game/the-road.md`, `docs/design/grounds.md`, `docs/game/fellowship-build.md`): build to them. At a gate, ask me once and carry on with the next task that doesn't depend on it.

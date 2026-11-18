@@ -1,5 +1,5 @@
 import { expect, type Page, test } from '@playwright/test';
-import own from '../content/arabic/own-sentences.json' with { type: 'json' };
+import own from '../../content/arabic/own-sentences.json' with { type: 'json' };
 import { signedIn, type SaveSessionArgs } from './fake-supabase.ts';
 
 // The Stranger at the Gate (tasks 4.2 and 4.3, #334, #335; ADR 0047): the Long Road In's finale.

@@ -1,6 +1,6 @@
 # Later: what stays open on purpose
 
-Everything Waymark's docs promise but haven't built yet, in one place (task 5.2, #341). Per [CLAUDE.md](../../CLAUDE.md), this is **ordering, not cutting**: nothing here is dropped. Each item says why it waits and what would un-park it. When one un-parks, it becomes the next free version of the current chapter ([VERSIONS.md](VERSIONS.md)).
+Everything Waymark's docs promise but haven't built yet, in one place (task 5.2, #341). Per [CLAUDE.md](../../.claude/CLAUDE.md), this is **ordering, not cutting**: nothing here is dropped. Each item says why it waits and what would un-park it. When one un-parks, it becomes the next free version of the current chapter ([VERSIONS.md](VERSIONS.md)).
 
 Checked against the code on 2026-11-17.
 
