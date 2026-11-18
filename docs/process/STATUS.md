@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-18 (v1.1.0's release PR open).
+- **Last updated:** 2026-11-19 (overnight; v1.1.0's release PR waits on Adam).
 - **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are
@@ -35,7 +35,7 @@
 2. **Merge the v1.1.0 release PR, then the first friend:** the five steps at the top of [FRIENDS.md](FRIENDS.md); then 3.7 opens the Fellowship.
 3. **Parked:** the third subject (4.5; Adam, 2026-11-18: "won't come soon"), the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All in [LATER.md](LATER.md).
 
-**The repo itself (2026-11-18):** its front page opens on a banner of the square ([README](../../.github/README.md)), and its root lists 23 entries (the charter is now `.claude/CLAUDE.md`). CI costs about 40% less a run (arm64 runners, two Playwright workers, no second run when a release lands on `main`), and since #370 it takes 6 minutes instead of 16: four jobs side by side ([CI.md](CI.md)). The live site was checked from outside the same day: it loads in 1–2 s on desktop and phone, with no console errors and every security header in place.
+**The repo itself (2026-11-18):** its front page opens on a banner of the square ([README](../../.github/README.md)), and its root lists 23 entries (the charter is now `.claude/CLAUDE.md`). CI costs about 40% less a run (arm64 runners, two Playwright workers, no second run when a release lands on `main`), and since #370 and #373 it takes about 5.5 minutes instead of 16: four jobs side by side, with caches every PR can read ([CI.md](CI.md)). The live site was checked from outside the same day: it loads in 1–2 s on desktop and phone, with no console errors and every security header in place.
 
 **Keep alive** ran green on 2026-11-18 (Adam, by hand) and now runs on Mondays and Thursdays. Before that nothing had ever used `waymark-prod`, so it had paused ([SUPABASE](SUPABASE.md#keep-alive)).
 
