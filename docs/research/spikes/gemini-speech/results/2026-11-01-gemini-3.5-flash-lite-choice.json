@@ -1,0 +1,508 @@
+{
+ "summary": {
+  "model": "gemini-3.5-flash-lite",
+  "date": "2026-11-01",
+  "pairs": 50,
+  "correct": 46,
+  "accuracy": 0.92,
+  "answeredA": 22,
+  "bySwap": {
+   "ع→ا": [
+    14,
+    14
+   ],
+   "ص→س": [
+    3,
+    3
+   ],
+   "ح→ه": [
+    13,
+    15
+   ],
+   "ط→ت": [
+    4,
+    4
+   ],
+   "ه→ح": [
+    3,
+    4
+   ],
+   "خ→ح": [
+    1,
+    1
+   ],
+   "ق→ك": [
+    4,
+    4
+   ],
+   "غ→ر": [
+    2,
+    2
+   ],
+   "ك→ق": [
+    1,
+    1
+   ],
+   "ظ→ز": [
+    1,
+    1
+   ],
+   "د→ض": [
+    0,
+    1
+   ]
+  }
+ },
+ "rows": [
+  {
+   "id": "4410",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker used the voiced uvular plosive /q/ sound in 'نُقْعُد', characteristic of Palestinian Arabic, rather than the glottal stop /ʔ/."
+  },
+  {
+   "id": "0636",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker uses the preposition 'عَ' (a), which is standard in this dialectal phrase 'عَ قدّي', matching option B."
+  },
+  {
+   "id": "0102",
+   "kind": "sentence",
+   "swap": "ص→س",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word with a 'ص' sound (بالنُّص) rather than a 'س' sound."
+  },
+  {
+   "id": "4534",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker clearly pronounces the 'ain' in 'أعيش' (aeish), making option B the correct choice."
+  },
+  {
+   "id": "1877",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word with a 'ح' (zahma) rather than a 'ه' (zehma), making option B the correct transcript."
+  },
+  {
+   "id": "1601",
+   "kind": "sentence",
+   "swap": "ط→ت",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker clearly pronounces the 'a' vowel in 'شاطِر' (shātir), which corresponds to option B, rather than the 'a' followed by 'w' sound in 'شواتر' or short 'a' in 'شاتِر' with a different length/vowel. Specifically, option B uses 'شاطِر' (shātir) with the alif maddah sound, which matches the audio."
+  },
+  {
+   "id": "1541",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word with a 'ح' (ḥ) in 'حدث' (ḥadath), making it option B."
+  },
+  {
+   "id": "0852",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the final sound in 'إمْبارِح' with a clear 'ح' (H), which matches option A."
+  },
+  {
+   "id": "4530",
+   "kind": "sentence",
+   "swap": "ه→ح",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker clearly pronounces a 'd' sound at the end of 'بْإيدْها' rather than a 'h' sound."
+  },
+  {
+   "id": "0611",
+   "kind": "sentence",
+   "swap": "ط→ت",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounces the word with a 't' sound (ربّاط), making option A the correct choice."
+  },
+  {
+   "id": "4453",
+   "kind": "sentence",
+   "swap": "ص→س",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker uses the emphatic consonant 'ص' in مصاريا, making option A the correct choice."
+  },
+  {
+   "id": "4208",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker clearly pronounces the 'ain' in 'ba'mlo', making text B the correct choice."
+  },
+  {
+   "id": "0418",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word as 'ساعات' (sa'at) with an emphatic 'س' rather than 'سااات' (saaat)."
+  },
+  {
+   "id": "4290",
+   "kind": "sentence",
+   "swap": "ه→ح",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word with a 'zh' sound (جاهز), which corresponds to option B."
+  },
+  {
+   "id": "3125",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker clearly pronounces the 's' sound in 'اصحى' (I wake up) rather than a 'h' sound."
+  },
+  {
+   "id": "0184",
+   "kind": "sentence",
+   "swap": "خ→ح",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker clearly pronounces the 'خ' (kha) sound in 'خطيبْها' at the beginning, which corresponds to option A, rather than the 'ح' (ha) in option B."
+  },
+  {
+   "id": "0148",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the word as 'ihna' with a clear /ħ/ sound, corresponding to the spelling with 'ح' in option A rather than the 'ه' in option B."
+  },
+  {
+   "id": "0494",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker clearly pronounced the 'h' sound in 'أروح' (arouh) rather than 'أروه' (arouh without the voiceless glottal fricative)."
+  },
+  {
+   "id": "1490",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker used the preposition 'على' (ala) rather than 'الى' (ila) after the verb 'جاوب' (jawwaba)."
+  },
+  {
+   "id": "1573",
+   "kind": "sentence",
+   "swap": "ق→ك",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the first word with a voiced uvular plosive 'qaf' sound, as in 'بقْرا', rather than a voiceless velar plosive 'kaf' sound."
+  },
+  {
+   "id": "3719",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the word 'صحّاني' with the consonant /ح/ (Haa), which corresponds to option A, rather than /ه/ (Haa) in option B."
+  },
+  {
+   "id": "4355",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the letter 'h' with its full fricative sound in 'نروح', matching option A."
+  },
+  {
+   "id": "0108",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker clearly pronounced the voiced pharyngeal fricative Ayn at the beginning of the word 'andi', which corresponds to option B, rather than the voiceless glottal stop Alif in option A."
+  },
+  {
+   "id": "4234",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the letter 'ain' in the word 'السّاعة' clearly."
+  },
+  {
+   "id": "1333",
+   "kind": "sentence",
+   "swap": "غ→ر",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounces the 'ghayn' sound clearly in 'bistighil', which corresponds to option B."
+  },
+  {
+   "id": "4511",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker used the pharyngeal fricative sound [ħ] in the word 'حَوَليْن' instead of the glottal fricative [h], which is characteristic of the Palestinian Arabic pronunciation of this word."
+  },
+  {
+   "id": "4429",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the final consonant of 'إمبارح' as 'ح' (H), which corresponds to option B."
+  },
+  {
+   "id": "4495",
+   "kind": "sentence",
+   "swap": "ك→ق",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the word as 'maktab' with a 'k' sound rather than 'maqtab' with a 'q'."
+  },
+  {
+   "id": "3079",
+   "kind": "sentence",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker clearly pronounces the 'an' (عن) with the letter 'ayn, making option A the correct transcript."
+  },
+  {
+   "id": "1517",
+   "kind": "sentence",
+   "swap": "ح→ه",
+   "correct": false,
+   "answer": "A",
+   "trueIs": "B",
+   "reason": "The speaker pronounces the word for 'classes' with a heavy emphatic 's' sound (ص), which matches the first option 'الهِصص' rather than 'الحِصص'."
+  },
+  {
+   "id": "3985",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the word as خمستاعِش, which matches option A."
+  },
+  {
+   "id": "2828",
+   "kind": "word",
+   "swap": "ظ→ز",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker clearly pronounces the 'dh' sound (ظ) instead of 'z' (ز) in the word 'muzahara'."
+  },
+  {
+   "id": "0038",
+   "kind": "word",
+   "swap": "ط→ت",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker clearly pronounces the 't' as a pharyngealized emphatic 'ط' (ta) in 'بْطُفولْتو', matching option B rather than the plain 'ت' in option A."
+  },
+  {
+   "id": "1479",
+   "kind": "word",
+   "swap": "ق→ك",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word with a 'qaf' sound, which corresponds to 'قْرايَة' (B) in Palestinian Arabic."
+  },
+  {
+   "id": "3775",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speake r pro nounced t he co nson ant 'ain (ع) clearly, which correspo nds to text A ('na'ama'), whereas B omits this sound."
+  },
+  {
+   "id": "3232",
+   "kind": "word",
+   "swap": "د→ض",
+   "correct": false,
+   "answer": "A",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the sound /dˤ/ (ض), which corresponds to option A («أضان»)."
+  },
+  {
+   "id": "1450",
+   "kind": "word",
+   "swap": "ه→ح",
+   "correct": false,
+   "answer": "B",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the sound /ħ/ which corresponds to the spelling 'جحِل'."
+  },
+  {
+   "id": "2130",
+   "kind": "word",
+   "swap": "ق→ك",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounces the sound /q/ as a voiceless uvular stop [q] or a glottal stop variant typical of Palestinian Arabic, which corresponds to the spelling with ق (waraqa) rather than ك (waraqa with kaf)."
+  },
+  {
+   "id": "3216",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the final sound 'ع' (/ʕ/), which corresponds to text B."
+  },
+  {
+   "id": "1125",
+   "kind": "word",
+   "swap": "ط→ت",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word with a 'ط' sound, making it 'فِطِر'."
+  },
+  {
+   "id": "1054",
+   "kind": "word",
+   "swap": "ه→ح",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced 'nescafe' with a final 'h' sound representing the Lebanese/Levantine pronunciation of the loanword, which corresponds to option B."
+  },
+  {
+   "id": "3451",
+   "kind": "word",
+   "swap": "ص→س",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word with a emphatic 'S' (ص), which corresponds to option B 'الصّومال'."
+  },
+  {
+   "id": "1092",
+   "kind": "word",
+   "swap": "ح→ه",
+   "correct": false,
+   "answer": "A",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the first sound as an 'h' (ه), which corresponds to option A 'هِلو', rather than the 'ḥ' (ح) in option B."
+  },
+  {
+   "id": "3344",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker clearly pronounces the final consonant 'ع' in 'استماع', making option A the correct choice."
+  },
+  {
+   "id": "3269",
+   "kind": "word",
+   "swap": "غ→ر",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker clearly pronounced the voiced velar fricative 'ghain' in 'لغة', which corresponds to option B."
+  },
+  {
+   "id": "2743",
+   "kind": "word",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker pronounced the word with a '7' (ح), which corresponds to option A 'راح', rather than the 'h' (ه) sound in option B."
+  },
+  {
+   "id": "0564",
+   "kind": "word",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker pronounced the word with the pharyngeal voiceless fricative 'H' (حِجاب), which corresponds to option B, rather than the velar voiced stop/fricative 'h' (هِجاب) of option A."
+  },
+  {
+   "id": "4026",
+   "kind": "word",
+   "swap": "ح→ه",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker clearly pronounces the 'H' sound as a voiceless pharyngeal fricative (ح), which corresponds to 'حْساب', rather than the voiceless glottal fricative (ه) in 'هْساب'."
+  },
+  {
+   "id": "1245",
+   "kind": "word",
+   "swap": "ق→ك",
+   "correct": true,
+   "answer": "B",
+   "trueIs": "B",
+   "reason": "The speaker used the uvular plosive [q] sound typical of Palestinian Arabic for the word 'قِرْش' (qirsh), rather than the voiceless postalveolar fricative or affricate [k]. Therefore, option B is correct."
+  },
+  {
+   "id": "3446",
+   "kind": "word",
+   "swap": "ع→ا",
+   "correct": true,
+   "answer": "A",
+   "trueIs": "A",
+   "reason": "The speaker clearly pronounces the 'ain' consonant in 'سُعودي', which corresponds to option A."
+  }
+ ]
+}
