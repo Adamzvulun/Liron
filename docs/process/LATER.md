@@ -13,7 +13,6 @@ Checked against the code on 2026-11-17.
 | **More Arabic word chapters** | The deck is used up at 3,390 words. Maknuune is CC BY-SA, so anything built from it must be shared alike. Adult and toilet words were skipped on purpose (Adam, 2026-11-15). | Adam's call on Maknuune or another source. |
 | **Recordings for the phrases the deck lacks** | No free, licensed source could be verified ([research](../research/phrase-audio-sources.md)). | A verified source, or the voice above. |
 | **The third guild hall** (task 4.5) | Parked by Adam on 2026-11-18: "third subject won't come soon". The subject is his choice. The guide is written: [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md). | His pick. The build starts with that guide's "Known gaps". Don't start it before then. |
-| **What friends without the deck may learn** (task 2.1) | Decided 2026-11-18: friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)). The build is v1.1.0, so this row is no longer parked. | Nothing. |
 | **A domain and email invites** | A yearly cost. | Adam, if handing out passwords proves annoying ([ADR 0039](../decisions/0039-fellowship-answers.md)). |
 | **Backups** | Adam chose the keep-alive only. | Adam. |
 | **Pre-rendered scenery** (#137) | Prototyped on 2026-11-09. It made the slowed phone slower, and Adam's yes depended on it helping (HANDOFF, item 4). | Adam's report from his phone on how the square feels now. |
@@ -30,4 +29,4 @@ Checked against the code on 2026-11-17.
 
 ## Not on this list
 
-Things that were once "later" and are now built are ticked in [PLAN.md](PLAN.md) and their design docs. Examples: world events, the city's sounds, the Fellowship, both finales, and the long evenings.
+Things that were once "later" and are now built are ticked in [PLAN.md](PLAN.md) and their design docs. Examples: world events, the city's sounds, the Fellowship, both finales, the long evenings, and friends learning from the deck (v1.1.0, [ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)).
