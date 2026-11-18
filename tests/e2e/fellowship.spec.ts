@@ -26,6 +26,20 @@ test.describe('the Fellowship in Your House', () => {
     await expect(page.getByText(/Fellowship|friend/i)).toHaveCount(0);
   });
 
+  test('a player with no name is told friends see “A traveler” until they choose one', async ({
+    page,
+  }) => {
+    await signedIn(page, [], [], null, [], { name: '' });
+    await page.goto('/house');
+    const panel = page.getByRole('region', { name: 'Fellowship' });
+    await expect(panel).toContainText('Friends see you as “A traveler”');
+    // Named, it says nothing of it.
+    await signedIn(page);
+    await page.goto('/house');
+    await expect(panel.getByLabel(/Your friend code/)).toBeVisible();
+    await expect(panel).not.toContainText('A traveler');
+  });
+
   test('a request can be accepted, and the friend joins the list', async ({ page }) => {
     const extras = withFellowship({ requests: [{ id: BASMA, name: 'Basma', look: {} }] });
     await signedIn(page, [], [], undefined, [], extras);

@@ -2,8 +2,37 @@ import { defineConfig, devices } from '@playwright/test';
 
 const PORT = 4173;
 
+/**
+ * The specs that check how things look or work on a phone: each has phone-only steps or
+ * measures the screen. On a pull request into `dev`, CI runs only these on the phone, and every
+ * spec on the desktop; a release PR into `main` (PHONE_ALL=1), and every local run, runs every
+ * spec on both (ADR 0005). `tests/phone-specs.test.ts` keeps this list honest.
+ */
+export const PHONE_SPECS = [
+  'arabic-script',
+  'arabic-words',
+  'city-speed',
+  'city',
+  'fellowship',
+  'grounds',
+  'hud',
+  'inn-chat',
+  'ledger',
+  'load-budget',
+  'morse-hall',
+  'morse-send',
+  'no-deck',
+  'places',
+  'smoke',
+  'sound',
+  'wire',
+];
+const phoneAll = !process.env.CI || process.env.PHONE_ALL === '1';
+
 export default defineConfig({
   testDir: './tests/e2e',
+  // Every test on its own, so CI's shards get equal shares of the work (ci.yml).
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   // CI's runner has 2 CPUs: two workers took about 40% less time than one; three starved the
@@ -15,7 +44,11 @@ export default defineConfig({
   // pre-installed Chromium only, so never run `playwright install` there.
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
-    { name: 'phone', use: { ...devices['Pixel 7'] } },
+    {
+      name: 'phone',
+      use: { ...devices['Pixel 7'] },
+      ...(!phoneAll && { testMatch: PHONE_SPECS.map((name) => `${name}.spec.ts`) }),
+    },
   ],
   // Tests run against the production build, like the deployed site.
   webServer: {

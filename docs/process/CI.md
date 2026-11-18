@@ -2,7 +2,19 @@
 
 `.github/workflows/db-migrate.yml` applies database migrations on pushes to `dev` and `main` that touch `supabase/migrations/`, `sources/`, `scripts/content/` or `src/core/content/` (ADR 0018), or when run by hand. The `migrate` job takes well under a minute. A second job, `content`, then uploads the private content (ADR 0023); it has a 20-minute limit, and the first full upload took about 26 minutes.
 
-`.github/workflows/ci.yml` runs on every pull request and on pushes to `dev` and `main` (branch flow: [ADR 0015](../decisions/0015-branches-and-environments.md)). It has one job: `npm ci` → lint → typecheck → unit tests → build → Playwright smoke test (Chromium, desktop and phone).
+`.github/workflows/ci.yml` runs on every pull request (branch flow: [ADR 0015](../decisions/0015-branches-and-environments.md)). Since 2026-11-18 it has four jobs that run side by side:
+
+| Job | What | Docs-only PR |
+|---|---|---|
+| `check` | lint, typecheck, unit and database tests | runs |
+| `browser (1 of 2)`, `browser (2 of 2)` | the browser tests except `@timing`, split in two (`--shard`, with `fullyParallel` so each half gets an even share) | skipped |
+| `browser (timing)` | the `@timing` tests alone on one worker | skipped |
+
+`node_modules` and Playwright's Chromium are cached by the lockfile's hash, so a job doesn't spend 40 s on `npm ci` or download the browser again.
+
+**The phone on dev PRs (Adam, 2026-11-18: "16 minutes is way too long").** On a PR into `dev`, the phone project runs only the specs that check the phone: those with phone-only steps or that measure the screen (`PHONE_SPECS` in `playwright.config.ts`; `tests/phone-specs.test.ts` fails if a spec with phone-only steps is missing from it). Every other spec runs on the desktop. A release PR into `main` sets `PHONE_ALL=1` and runs every spec on both, so nothing reaches the live site without the whole phone suite ([ADR 0005](../decisions/0005-stack.md)). Local `npm run e2e` runs everything on both, as before.
+
+**Why this costs about the same:** each job pays its own set-up (about a minute with the caches), but the browser tests are the same work split three ways, and the phone half of a dev PR is about a third smaller. The wait is the longest job's, not the sum.
 
 ## Cost (checked 2026-11-02 on docs.github.com)
 - The repo is **private**. GitHub Free for personal accounts includes **$12/month of Actions compute**. On the standard Linux runner ($0.006/min) that's about **2,000 minutes/month**.
