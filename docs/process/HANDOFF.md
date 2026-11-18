@@ -348,3 +348,5 @@
     - **The Koch lesson's `?run=short`** is 4 seconds instead of 8 (its specs played 3 or 4 runs each in real time).
     - **Fellowship:** a player with no name is told friends see them as "A traveler" until they choose one (`Fellowship` takes `named`; `Extras.name` in the fake; a test in `fellowship.spec.ts`).
     - **Docs:** the-road.md's "not for this account" row and the README follow ADR 0050.
+    - **Measured (#370):** 6 minutes of wall time, against 16. `check` 2.2 min, the halves 6.0 and 4.7, `timing` 3.4; about 16 billed runner minutes, as before. Numbers in CI.md.
+116. **The release PR is open (2026-11-18, report §4dd).** [Release v1.1.0](https://github.com/Adamzvulun/Liron/pull/371): `release/v1.1.0` from `dev` at `db47750`, plus a commit with the version (1.1.0 in `package.json` and both of `package-lock.json`'s fields), the notes' last two lines and CI's measured time. The same commit's changes go into `dev` on the working branch. Adam merges with a merge commit; then DB migrate on `main`, the tag, and FRIENDS.md's five steps.
