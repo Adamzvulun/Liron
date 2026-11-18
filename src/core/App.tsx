@@ -524,7 +524,14 @@ function Lobby({ player }: { player: Player }) {
                   onLoad={player.loadAchievements}
                   onWear={player.setTitle}
                 />
-                {fellowship && <Fellowship source={fellowship} gifts={readGifts} today={today} />}
+                {fellowship && (
+                  <Fellowship
+                    source={fellowship}
+                    gifts={readGifts}
+                    today={today}
+                    named={state.profile.displayName.trim() !== ''}
+                  />
+                )}
               </Suspense>
             )}
           </PlaceBoundary>
