@@ -27,4 +27,22 @@ describe('what a road depends on (task 2.1, #316)', () => {
     });
     expect(await facts()).toEqual(ASSUMED_FACTS);
   });
+
+  it('asks again after a failed or unsure answer, and keeps a sure one (review, 2026-11-18)', async () => {
+    let calls = 0;
+    let online = false;
+    const facts = readFacts({
+      licensee: async () => {
+        calls++;
+        if (!online) throw new Error('offline');
+        return false;
+      },
+      talk: async () => (online ? false : null),
+    });
+    expect(await facts()).toEqual(ASSUMED_FACTS);
+    online = true;
+    expect(await facts()).toEqual({ licensee: false, partner: 'off' });
+    await facts();
+    expect(calls).toBe(2);
+  });
 });
