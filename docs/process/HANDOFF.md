@@ -335,3 +335,11 @@
       - any 1.0.x fixes Adam reports.
     - Then cut `release/v1.1.0` from `dev`, open the release PR into `main` with notes (`docs/process/releases/v1.1.0.md`), and tell Adam his part. Only he merges into `main`.
     - **Adam's standing instruction for the next session:** "continue working on the next version, don't stop working until you're out of usage, whatever questions may arise do what you think I would've done."
+114. **v1.1.0, Open to Friends, built (2026-11-18, report §4db).** Adam: "continue working on the next version."
+    - **Database:** `20270107000000_every_account_reads_the_deck.sql`: the trigger `every_account_is_licensee()` replaces `first_account_is_licensee()`, plus a backfill. `supabase/tests/schema.test.ts` shows a later account reads deck rows, a deleted licence stays deleted, the backfill, and that nobody signed in can add one. Tests that needed a non-licensee now delete OTHER's row first.
+    - **Facts:** `src/core/road/facts.ts` (`readFacts`, `RoadFactsContext`, `useRoadFacts`, `ASSUMED_FACTS`). `App.tsx` asks `is_content_licensee()` and `/api/services` once a page; the compass gets them through `CompassSources.facts`, the halls through the context. Morse's halls don't need them (no partner or deck steps).
+    - **Road:** `WaitReason` gains `deck`, `Meanwhile.why` gains `closed` (its line says the wait, so `answer()` drops the separate waiting line). Arabic: `roadFor` is gone; `DECK_DOORS` and `needsDeck` make deck steps wait for a non-licensee; no contract meanwhile without the deck; `CLOSED_LINE` when nothing is open. `inOrder` lets a guild with a step lead for a new player too.
+    - **Doors:** `src/subjects/arabic/NoDeck.tsx` replaces every "haven't been loaded" (it still says that for a licensee, where it's true: an empty database). The echo well says it before showing its rounds.
+    - **e2e:** `Extras.licensee` in the fake (rpc `is_content_licensee`; no deck rows when false). `tests/e2e/no-deck.spec.ts`.
+    - **Adam (2026-11-18): update `next-session-prompt.md` only when he says we're moving to a new session.**
+    - **Docs:** FRIENDS.md (checked against the code, with Adam's five steps for the first friend), SUPABASE.md, RUNNING.md, ADR 0050 "Built", PLAN 2.1 ticked (with why the road keeps deck steps instead of dropping them), the v1 review's lows closed, `releases/v1.1.0.md`.

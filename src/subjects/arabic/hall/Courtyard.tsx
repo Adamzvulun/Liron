@@ -20,7 +20,8 @@ import { WORD_CHAPTERS } from '../core/coreWords.ts';
 import { currentPair } from '../echo/pairs.ts';
 import { opensAt } from '../../../core/road/road.ts';
 import { RoadLine } from '../../../core/road/RoadLine.tsx';
-import { arabicDone, arabicRoad, roadFor } from '../road.ts';
+import { ARABIC_ROAD, arabicDone, arabicRoad } from '../road.ts';
+import { useRoadFacts } from '../../../core/road/facts.ts';
 import { FINALE_STORY, finaleOpen } from '../finale/stranger.ts';
 import './khan.css';
 
@@ -211,6 +212,7 @@ function Scene({
   onOpen: (door: CourtyardDoor) => void;
 }) {
   const [ref, { scale, x, y, pan }] = useStage(KHAN_STAGE.width * 0.3, khanFit);
+  const facts = useRoadFacts();
   const compact = pan || scale < READABLE_SCALE;
   const khan = courtyard();
   const quest = questStatus(progress);
@@ -226,16 +228,10 @@ function Scene({
   const total = lettersUpTo(LESSONS.length).length;
   const echoPair = currentPair(progress);
 
-  // The road (docs/game/the-road.md): where this player stands, and the one thing to do now.
-  // Until the site can say what it has (task 1.8) and who may read the deck (task 2.1), the
-  // partner is there and the one player is the licensee.
-  const steps = roadFor(true);
-  const way = arabicRoad(progress, {
-    today: localDay(),
-    partner: 'ready',
-    licensee: true,
-    due: 0,
-  });
+  // The road (docs/game/the-road.md): where this player stands, and the one thing to do now,
+  // with what the site knows: the deck (ADR 0050) and whether the regulars are in (#316).
+  const steps = ARABIC_ROAD;
+  const way = arabicRoad(progress, { today: localDay(), ...facts, due: 0 });
   const nowDoor = way.now.kind === 'step' ? way.now.step.door : way.now.door;
   const compassAt = HOME[nowDoor];
 

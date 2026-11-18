@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useState, type ReactNode } from 'react';
+import { Fragment, useCallback, useMemo, useState, type ReactNode } from 'react';
 import type { SubjectApi } from '../../core/subject.ts';
 import { HallBackdrop } from '../../core/city/HallBackdrop.tsx';
 import { Courtyard, type CourtyardDoor } from './hall/Courtyard.tsx';
@@ -16,17 +16,20 @@ import { RoadGuide } from '../../core/road/NextStep.tsx';
 import type { RoadReading } from '../../core/road/roadHere.ts';
 import { ArabicText } from './ArabicText.tsx';
 import { localDay, parseProgress } from './progress.ts';
-import { arabicDone, arabicRoad, roadFor } from './road.ts';
+import { ARABIC_ROAD, arabicDone, arabicRoad } from './road.ts';
+import { useRoadFacts, type RoadFacts } from '../../core/road/facts.ts';
 import './arabic.css';
 
 /** Where a saved state stands on the road, for the "Next" button after a session. */
-function readRoad(state: unknown): RoadReading {
-  const p = parseProgress(state);
-  return {
-    answer: arabicRoad(p, { today: localDay(), partner: 'ready', licensee: true, due: 0 }),
-    done: roadFor(true).filter((step) => arabicDone(step, p)),
+const roadReader =
+  (facts: RoadFacts) =>
+  (state: unknown): RoadReading => {
+    const p = parseProgress(state);
+    return {
+      answer: arabicRoad(p, { today: localDay(), ...facts, due: 0 }),
+      done: ARABIC_ROAD.filter((step) => arabicDone(step, p)),
+    };
   };
-}
 
 const beat = (words: string): ReactNode => <ArabicText text={words} />;
 
@@ -66,6 +69,8 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
     setView(VIEWS.find((v) => v === door) ?? 'hall');
     setRound((n) => n + 1);
   }, []);
+  const facts = useRoadFacts();
+  const readRoad = useMemo(() => roadReader(facts), [facts]);
   if (view === 'hall') return <Courtyard api={api} onOpen={setView} />;
   return (
     <RoadGuide view={view} loadState={loadState} read={readRoad} go={go} text={beat}>
