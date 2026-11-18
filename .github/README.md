@@ -91,7 +91,7 @@ The same city, sized for a thumb. The top bar always names the next step, and th
 | **Tests** | 1,119 unit tests (Vitest), 226 database tests on real migrations (PGlite), and 400+ browser tests at desktop and phone sizes (Playwright). |
 | **Decisions** | 49 [decision records](../docs/decisions/), one per choice. |
 
-Content is data, not code. Letters, Morse characters, lessons and the road itself live in [`content/`](../content/). The licensed Arabic word deck stays in `sources/` in this private repo and never enters `content/` or the site's bundle: it's uploaded to the database, readable only behind login by its licensee.
+Content is data, not code. Letters, Morse characters, lessons and the road itself live in [`content/`](../content/). The licensed Arabic word deck stays in `sources/` in this private repo and never enters `content/` or the site's bundle: it's uploaded to the database, readable only behind login, by the accounts Adam makes ([ADR 0050](../docs/decisions/0050-friends-learn-from-the-deck.md)).
 
 <details>
 <summary><b>Run it locally</b></summary>
