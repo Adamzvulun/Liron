@@ -96,6 +96,73 @@ describe('saving, then loading (review, 2026-11-15)', () => {
   });
 });
 
+describe('a save that failed goes again (review, 2026-11-19)', () => {
+  const flaky = () => {
+    const base = memoryStore();
+    const line = { online: false, broken: false };
+    const sent: { id: string; xp: number; events: string[]; state: unknown }[] = [];
+    const store = {
+      ...base,
+      saveSession: async (...args: Parameters<typeof base.saveSession>) => {
+        const [, w] = args;
+        if (line.broken && w.xp === 13) throw new Error('refused');
+        if (!line.online) throw new Error('offline');
+        sent.push({
+          id: w.sessionId,
+          xp: w.xp,
+          events: w.events.map((e) => e.kind),
+          state: w.state,
+        });
+        return base.saveSession(...args);
+      },
+      reviewCards: async (...args: Parameters<typeof base.reviewCards>) => {
+        if (!line.online) throw new Error('offline');
+        return base.reviewCards(...args);
+      },
+    };
+    return { base, line, sent, api: subjectApi<{ n: number }>({ id: 'morse' }, store) };
+  };
+
+  it('with its XP and events, before the next save, and without its old state', async () => {
+    const { base, line, sent, api } = flaky();
+    const id = 'b5d3c7a0-0000-4000-8000-00000000000a';
+    await expect(
+      api.saveSession({ state: { n: 1 }, xp: 40, events: [{ kind: 'trial-1' }], sessionId: id }),
+    ).rejects.toThrow('offline');
+    line.online = true;
+    await api.saveSession({ state: { n: 2 }, xp: 5 });
+    expect(sent.map((s) => [s.id === id, s.xp, s.events, s.state])).toEqual([
+      [true, 40, ['trial-1'], null],
+      [false, 5, [], { n: 2 }],
+    ]);
+    expect(await base.summary('morse')).toMatchObject({ xp: 45 });
+    // Sent again by now; the database would ignore it if it came a third time (ADR 0031).
+    await api.saveSession({ xp: 1 });
+    expect(sent.filter((s) => s.id === id)).toHaveLength(1);
+  });
+
+  it('even when it failed reading what it builds on, and keeps that state', async () => {
+    const { line, sent, api } = flaky();
+    const reviews = [{ itemId: 'a', grade: 'good' as const }];
+    await expect(api.saveSession({ state: { n: 7 }, xp: 9, reviews })).rejects.toThrow('offline');
+    expect(await api.loadState()).toEqual({ n: 7 });
+    line.online = true;
+    await api.saveSession({ xp: 1 });
+    expect(sent.map((s) => s.xp)).toEqual([9, 1]);
+  });
+
+  it('lets go of one the database keeps refusing, and never blocks a new save', async () => {
+    const { line, sent, api } = flaky();
+    line.online = true;
+    line.broken = true;
+    await expect(api.saveSession({ xp: 13 })).rejects.toThrow('refused');
+    for (let i = 0; i < 4; i++) await api.saveSession({ xp: 1 });
+    line.broken = false;
+    await api.saveSession({ xp: 2 });
+    expect(sent.map((s) => s.xp)).toEqual([1, 1, 1, 1, 2]);
+  });
+});
+
 describe('awards', () => {
   it('tell the platform about every award, including level-ups and what they paid', async () => {
     const awards: unknown[] = [];

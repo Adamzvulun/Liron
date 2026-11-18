@@ -134,6 +134,29 @@ export function subjectApi<State extends object>(
     saving = Promise.allSettled([saving, p]);
     return p;
   };
+  /** A report that passed its checks, with its id and time fixed, so it can be sent again. */
+  type Checked = Required<Omit<SessionReport<State>, 'state'>> & { state?: State };
+  // The rest of a save that didn't get through: its XP, events, reviews and results. It goes again,
+  // under its own session id, before the next save, so being offline for one run costs nothing:
+  // the database applies a session once however often it's sent (ADR 0031). Without this, a run's
+  // one-time moments (a passed trial's XP, the Signal Master's contact) were lost for good (review,
+  // 2026-11-19). Its state isn't sent again: `unsaved` and the next save carry newer state. One
+  // the database keeps refusing is let go after a few tries. Kept only while the page is open.
+  let held: { report: Checked; tries: number }[] = [];
+  const HOLD_AT_MOST = 5;
+  const TRIES = 3;
+  const sendHeld = async () => {
+    for (const h of [...held]) {
+      try {
+        await deliver(h.report);
+        held = held.filter((x) => x !== h);
+      } catch {
+        h.tries += 1;
+        if (h.tries >= TRIES) held = held.filter((x) => x !== h);
+        return; // Still offline, most likely: the new save is tried all the same.
+      }
+    }
+  };
   const saveSessionNow = async ({
     state,
     reviews = [],
@@ -177,6 +200,26 @@ export function subjectApi<State extends object>(
       throw new RangeError(`saveSession: expected 0 or more minutes, got ${minutes}`);
     }
 
+    const report: Checked = { state, reviews, results, events, xp, minutes, at, sessionId };
+    await sendHeld();
+    try {
+      await sending(state, () => deliver(report));
+    } catch (e) {
+      held = [...held, { report: { ...report, state: undefined }, tries: 0 }].slice(-HOLD_AT_MOST);
+      throw e;
+    }
+  };
+  /** Builds a checked report's write from what the database holds now, and sends it. */
+  const deliver = async ({
+    state,
+    reviews,
+    results,
+    events,
+    xp,
+    minutes,
+    at,
+    sessionId,
+  }: Checked): Promise<void> => {
     // One read per kind, then each answer builds on the one before it, in memory.
     const skillsUsed = [...new Set(results.map((r) => r.skill))];
     const [cards, learners, ...itemsBySkill] = await Promise.all([
@@ -226,7 +269,7 @@ export function subjectApi<State extends object>(
       skillItems.set(itemId, rated.item);
       write.results.push({ skill, itemId, score, learner: rated.learner, item: rated.item });
     }
-    const { award } = await sending(state, () => store.saveSession(id, write));
+    const { award } = await store.saveSession(id, write);
     if (award) onAward(award);
   };
 

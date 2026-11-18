@@ -353,8 +353,9 @@ export async function reportRadio(
   });
 }
 
-/** QRS: this many wpm slower, or null at the slowest. */
-export const slower = (wpm: number) => (wpm - QRS_STEP >= SLOWEST_WPM ? wpm - QRS_STEP : null);
+/** QRS: this many wpm slower but never under the slowest, or null once there (Nils at 12 goes to 10). */
+export const slower = (wpm: number) =>
+  wpm > SLOWEST_WPM ? Math.max(SLOWEST_WPM, wpm - QRS_STEP) : null;
 
 /** Today in the browser's time zone, as YYYY-MM-DD: the day's pick and the log use it. */
 export function radioDay(now = new Date()): string {

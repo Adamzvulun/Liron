@@ -46,7 +46,11 @@ export function HearTurn({
   /** Plays with `how`; whoever calls it has set `playing`. */
   const run = useCallback(async (how: () => Promise<void>) => {
     const id = ++plays.current;
-    await how();
+    try {
+      await how();
+    } catch {
+      // No sound (the browser refused it): AGN stays there to try again.
+    }
     if (id === plays.current) setPlaying(false);
   }, []);
 

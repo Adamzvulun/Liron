@@ -3,7 +3,7 @@
 
 import type { SubjectApi } from '../../../core/subject.ts';
 import type { MorseProgress } from '../lesson/progress.ts';
-import { ratingScore, type Attempt, type RoundSummary } from './game.ts';
+import { FUSE_MS, ratingScore, type Attempt, type RoundSummary } from './game.ts';
 
 /** About 10 XP a minute (docs/game/economy.md): a good minute is ~25 right answers. */
 export const xpForRound = (summary: RoundSummary) => Math.round(summary.right * 0.4);
@@ -13,7 +13,7 @@ export function applyRound(p: MorseProgress, summary: RoundSummary): MorseProgre
   const avgMs = { ...p.recognition.avgMs };
   for (const [c, t] of summary.byChar) {
     // A letter never answered right counts as slow (the fuse length).
-    const ms = t.right ? t.avgMs : 3000;
+    const ms = t.right ? t.avgMs : FUSE_MS;
     const prev = avgMs[c];
     avgMs[c] = Math.round(prev === undefined ? ms : 0.6 * prev + 0.4 * ms);
   }
