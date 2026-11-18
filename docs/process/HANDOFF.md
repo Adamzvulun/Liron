@@ -341,4 +341,5 @@
     - **Road:** `WaitReason` gains `deck`, `Meanwhile.why` gains `closed` (its line says the wait, so `answer()` drops the separate waiting line). Arabic: `roadFor` is gone; `DECK_DOORS` and `needsDeck` make deck steps wait for a non-licensee; no contract meanwhile without the deck; `CLOSED_LINE` when nothing is open. `inOrder` lets a guild with a step lead for a new player too.
     - **Doors:** `src/subjects/arabic/NoDeck.tsx` replaces every "haven't been loaded" (it still says that for a licensee, where it's true: an empty database). The echo well says it before showing its rounds.
     - **e2e:** `Extras.licensee` in the fake (rpc `is_content_licensee`; no deck rows when false). `tests/e2e/no-deck.spec.ts`.
+    - **Adam (2026-11-18): update `next-session-prompt.md` only when he says we're moving to a new session.**
     - **Docs:** FRIENDS.md (checked against the code, with Adam's five steps for the first friend), SUPABASE.md, RUNNING.md, ADR 0050 "Built", PLAN 2.1 ticked (with why the road keeps deck steps instead of dropping them), the v1 review's lows closed, `releases/v1.1.0.md`.
