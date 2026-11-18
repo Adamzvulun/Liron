@@ -88,144 +88,145 @@ test.describe('the city square stays fast (#123)', () => {
     expect(await place.evaluate((el) => getComputedStyle(el).filter)).toBe('none');
   });
 
-  test('frame budget: idle and hovering, with the CPU slowed 4×', async ({
-    page,
-    browser,
-  }, info) => {
-    test.skip(info.project.name !== 'desktop', 'hovering needs a mouse; one viewport is enough');
-    test.setTimeout(120_000);
-    await openSquare(page);
-    await page.waitForTimeout(500);
-    const cdp = await page.context().newCDPSession(page);
-    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
-
-    /** The middle of each place's plaque, where the hover pass points. */
-    const spots: { x: number; y: number }[] = [];
-    for (const plaque of await page.locator('.city__plaque').all()) {
-      const box = await plaque.boundingBox();
-      if (box) spots.push({ x: box.x + box.width / 2, y: box.y + box.height / 2 });
-    }
-    expect(spots.length).toBeGreaterThan(3);
-
-    /** Frame gaps (rAF) and, from a Chrome trace, the compositor's and the rasteriser's work. */
-    async function measure(ms: number, hover: boolean): Promise<Measured> {
-      await page.evaluate(() => {
-        const w = window as unknown as { gaps: number[]; stop: boolean };
-        w.gaps = [];
-        w.stop = false;
-        let last = performance.now();
-        const tick = (t: number) => {
-          w.gaps.push(t - last);
-          last = t;
-          if (!w.stop) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      });
-      await browser.startTracing(page, {
-        categories: ['disabled-by-default-devtools.timeline', 'viz'],
-      });
-      const start = Date.now();
-      // Hovering as a person does (#137): onto a place, a pause while it lights up, off again.
-      for (let i = 0; Date.now() - start < ms; i++) {
-        const spot = spots[i % spots.length];
-        if (hover && spot) {
-          await page.mouse.move(spot.x, spot.y, { steps: 3 });
-          await page.waitForTimeout(150);
-          await page.mouse.move(spot.x, 4, { steps: 3 }); // the sky above it
-          await page.waitForTimeout(100);
-        } else await page.waitForTimeout(100);
-      }
-      const wall = Date.now() - start;
-      const events = JSON.parse((await browser.stopTracing()).toString()).traceEvents as {
-        name: string;
-        ph: string;
-        dur?: number;
-      }[];
-      const busy = (name: string) =>
-        events
-          .filter((e) => e.ph === 'X' && e.name === name)
-          .reduce((t, e) => t + (e.dur ?? 0), 0) / wall; // µs per ms of wall time = ms of work per second
-      const gaps = await page.evaluate(() => {
-        const w = window as unknown as { gaps: number[]; stop: boolean };
-        w.stop = true;
-        return w.gaps.slice(1).sort((a, b) => a - b);
-      });
-      const p95 = gaps[Math.floor(gaps.length * 0.95)];
-      return { p95, compositor: busy('Display::DrawAndSwap'), raster: busy('RasterTask') };
-    }
-
-    /**
-     * A reference scene drawn on the same machine, in the same minutes: a full-window still
-     * picture with 16 small layers moving by transform and opacity. That is what the square should
-     * cost the compositor, so it measures how fast this machine composites right now. A busy
-     * runner slows both alike; the old square's blend modes cost far more than it.
-     * (Built with the DOM and Web Animations, which the strict CSP allows.)
-     */
-    const reference = (on: boolean) =>
-      page.evaluate((on) => {
-        const city = document.querySelector<HTMLElement>('.city');
-        if (city) city.style.display = on ? 'none' : '';
-        document.getElementById('frame-reference')?.remove();
-        if (!on) return;
-        const ref = document.createElement('div');
-        ref.id = 'frame-reference';
-        Object.assign(ref.style, {
-          position: 'fixed',
-          inset: '0',
-          background: 'linear-gradient(160deg, #3b2a1a, #b98b4e 40%, #6d4c2c 70%, #1f150c)',
-        });
-        for (let i = 0; i < 16; i++) {
-          const dot = document.createElement('div');
-          Object.assign(dot.style, {
-            position: 'absolute',
-            left: `${(i * 6 + 3) % 96}%`,
-            top: `${(i * 23 + 10) % 85}%`,
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-            background: 'radial-gradient(#ffd98a, transparent 70%)',
-          });
-          dot.animate(
-            [
-              { transform: 'translateY(0)', opacity: 0.6 },
-              { transform: 'translateY(-12px)', opacity: 1 },
-            ],
-            { duration: 1200 + i * 90, iterations: Infinity, direction: 'alternate' },
-          );
-          ref.append(dot);
-        }
-        document.body.append(ref);
-      }, on);
-
-    // Noise on a shared runner only ever adds time, so each figure is the best of five rounds,
-    // and the reference is measured in the same rounds, right before the square. (Best of three
-    // read the hover raster at 0.38-0.52 of the reference, so it failed now and then against 0.5;
-    // best of five reads 0.38-0.43. The square before #123 read 0.57-0.67.)
-    const runs = { ref: [] as Measured[], idle: [] as Measured[], hover: [] as Measured[] };
-    for (let i = 0; i < 5; i++) {
-      await reference(true);
+  test(
+    'frame budget: idle and hovering, with the CPU slowed 4×',
+    { tag: '@timing' },
+    async ({ page, browser }, info) => {
+      test.skip(info.project.name !== 'desktop', 'hovering needs a mouse; one viewport is enough');
+      test.setTimeout(120_000);
+      await openSquare(page);
       await page.waitForTimeout(500);
-      runs.ref.push(await measure(2000, false));
-      await reference(false);
-      await page.waitForTimeout(1500); // the square repaints once when it comes back
-      runs.idle.push(await measure(2000, false));
-      runs.hover.push(await measure(2000, true));
-    }
-    const best = (rs: Measured[]) => {
-      const min = (k: keyof Measured) => Math.min(...rs.map((r) => r[k] ?? Infinity));
-      return { p95: min('p95'), compositor: min('compositor'), raster: min('raster') };
-    };
-    const [ref, idle, hover] = [best(runs.ref), best(runs.idle), best(runs.hover)];
-    console.log(
-      `reference ${JSON.stringify(ref)} square idle ${JSON.stringify(idle)} hover ${JSON.stringify(hover)}`,
-    );
-    // Frame times come in whole frames, but the browser rounds its clock to 0.1 ms, so two
-    // frames can read 33.4 against a reference of 16.7 + one frame = 33.37. Half a millisecond
-    // of slack absorbs the rounding without letting a second dropped frame through.
-    const frame = 1000 / 60;
-    expect(idle.p95).toBeLessThanOrEqual(ref.p95 + frame + 0.5);
-    expect(idle.compositor).toBeLessThan(ref.compositor * IDLE_RATIO);
-    expect(hover.compositor).toBeLessThan(ref.compositor * HOVER_RATIO);
-    expect(hover.raster).toBeLessThan(ref.compositor * HOVER_RASTER_RATIO);
-  });
+      const cdp = await page.context().newCDPSession(page);
+      await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+
+      /** The middle of each place's plaque, where the hover pass points. */
+      const spots: { x: number; y: number }[] = [];
+      for (const plaque of await page.locator('.city__plaque').all()) {
+        const box = await plaque.boundingBox();
+        if (box) spots.push({ x: box.x + box.width / 2, y: box.y + box.height / 2 });
+      }
+      expect(spots.length).toBeGreaterThan(3);
+
+      /** Frame gaps (rAF) and, from a Chrome trace, the compositor's and the rasteriser's work. */
+      async function measure(ms: number, hover: boolean): Promise<Measured> {
+        await page.evaluate(() => {
+          const w = window as unknown as { gaps: number[]; stop: boolean };
+          w.gaps = [];
+          w.stop = false;
+          let last = performance.now();
+          const tick = (t: number) => {
+            w.gaps.push(t - last);
+            last = t;
+            if (!w.stop) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        });
+        await browser.startTracing(page, {
+          categories: ['disabled-by-default-devtools.timeline', 'viz'],
+        });
+        const start = Date.now();
+        // Hovering as a person does (#137): onto a place, a pause while it lights up, off again.
+        for (let i = 0; Date.now() - start < ms; i++) {
+          const spot = spots[i % spots.length];
+          if (hover && spot) {
+            await page.mouse.move(spot.x, spot.y, { steps: 3 });
+            await page.waitForTimeout(150);
+            await page.mouse.move(spot.x, 4, { steps: 3 }); // the sky above it
+            await page.waitForTimeout(100);
+          } else await page.waitForTimeout(100);
+        }
+        const wall = Date.now() - start;
+        const events = JSON.parse((await browser.stopTracing()).toString()).traceEvents as {
+          name: string;
+          ph: string;
+          dur?: number;
+        }[];
+        const busy = (name: string) =>
+          events
+            .filter((e) => e.ph === 'X' && e.name === name)
+            .reduce((t, e) => t + (e.dur ?? 0), 0) / wall; // µs per ms of wall time = ms of work per second
+        const gaps = await page.evaluate(() => {
+          const w = window as unknown as { gaps: number[]; stop: boolean };
+          w.stop = true;
+          return w.gaps.slice(1).sort((a, b) => a - b);
+        });
+        const p95 = gaps[Math.floor(gaps.length * 0.95)];
+        return { p95, compositor: busy('Display::DrawAndSwap'), raster: busy('RasterTask') };
+      }
+
+      /**
+       * A reference scene drawn on the same machine, in the same minutes: a full-window still
+       * picture with 16 small layers moving by transform and opacity. That is what the square should
+       * cost the compositor, so it measures how fast this machine composites right now. A busy
+       * runner slows both alike; the old square's blend modes cost far more than it.
+       * (Built with the DOM and Web Animations, which the strict CSP allows.)
+       */
+      const reference = (on: boolean) =>
+        page.evaluate((on) => {
+          const city = document.querySelector<HTMLElement>('.city');
+          if (city) city.style.display = on ? 'none' : '';
+          document.getElementById('frame-reference')?.remove();
+          if (!on) return;
+          const ref = document.createElement('div');
+          ref.id = 'frame-reference';
+          Object.assign(ref.style, {
+            position: 'fixed',
+            inset: '0',
+            background: 'linear-gradient(160deg, #3b2a1a, #b98b4e 40%, #6d4c2c 70%, #1f150c)',
+          });
+          for (let i = 0; i < 16; i++) {
+            const dot = document.createElement('div');
+            Object.assign(dot.style, {
+              position: 'absolute',
+              left: `${(i * 6 + 3) % 96}%`,
+              top: `${(i * 23 + 10) % 85}%`,
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              background: 'radial-gradient(#ffd98a, transparent 70%)',
+            });
+            dot.animate(
+              [
+                { transform: 'translateY(0)', opacity: 0.6 },
+                { transform: 'translateY(-12px)', opacity: 1 },
+              ],
+              { duration: 1200 + i * 90, iterations: Infinity, direction: 'alternate' },
+            );
+            ref.append(dot);
+          }
+          document.body.append(ref);
+        }, on);
+
+      // Noise on a shared runner only ever adds time, so each figure is the best of five rounds,
+      // and the reference is measured in the same rounds, right before the square. (Best of three
+      // read the hover raster at 0.38-0.52 of the reference, so it failed now and then against 0.5;
+      // best of five reads 0.38-0.43. The square before #123 read 0.57-0.67.)
+      const runs = { ref: [] as Measured[], idle: [] as Measured[], hover: [] as Measured[] };
+      for (let i = 0; i < 5; i++) {
+        await reference(true);
+        await page.waitForTimeout(500);
+        runs.ref.push(await measure(2000, false));
+        await reference(false);
+        await page.waitForTimeout(1500); // the square repaints once when it comes back
+        runs.idle.push(await measure(2000, false));
+        runs.hover.push(await measure(2000, true));
+      }
+      const best = (rs: Measured[]) => {
+        const min = (k: keyof Measured) => Math.min(...rs.map((r) => r[k] ?? Infinity));
+        return { p95: min('p95'), compositor: min('compositor'), raster: min('raster') };
+      };
+      const [ref, idle, hover] = [best(runs.ref), best(runs.idle), best(runs.hover)];
+      console.log(
+        `reference ${JSON.stringify(ref)} square idle ${JSON.stringify(idle)} hover ${JSON.stringify(hover)}`,
+      );
+      // Frame times come in whole frames, but the browser rounds its clock to 0.1 ms, so two
+      // frames can read 33.4 against a reference of 16.7 + one frame = 33.37. Half a millisecond
+      // of slack absorbs the rounding without letting a second dropped frame through.
+      const frame = 1000 / 60;
+      expect(idle.p95).toBeLessThanOrEqual(ref.p95 + frame + 0.5);
+      expect(idle.compositor).toBeLessThan(ref.compositor * IDLE_RATIO);
+      expect(hover.compositor).toBeLessThan(ref.compositor * HOVER_RATIO);
+      expect(hover.raster).toBeLessThan(ref.compositor * HOVER_RASTER_RATIO);
+    },
+  );
 });
