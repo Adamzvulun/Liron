@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-17.
+- **Last updated:** 2026-11-18.
 - **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are
@@ -33,6 +33,8 @@ All of it is Adam's, in the order of [VERSIONS.md](VERSIONS.md):
 2. **Before inviting a friend:** 2.1 (what friends without the deck may learn), a first friend's account ([FRIENDS.md](FRIENDS.md)), the Realtime "Allow public access" switch on both projects ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 opens the Fellowship to friends.
 3. **v4.0:** pick the third subject (4.5). Its build starts with the "Known gaps" in [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), and ends with the sweep repeated over the new hall.
 4. **Parked, each waiting on him:** the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All listed in [LATER.md](LATER.md).
+
+**The repo itself (2026-11-18):** its front page opens on a banner of the square ([README](../../.github/README.md)), and its root lists 23 entries (the charter is now `.claude/CLAUDE.md`). CI costs about 40% less a run: arm64 runners, two Playwright workers, and no second run when a release lands on `main` ([CI.md](CI.md)). The live site was checked from outside the same day: it loads in 1–2 s on desktop and phone, with no console errors and every security header in place.
 
 **Keep alive** ran green on 2026-11-18 (Adam, by hand) and now runs on Mondays and Thursdays. Before that nothing had ever used `waymark-prod`, so it had paused ([SUPABASE](SUPABASE.md#keep-alive)).
 
