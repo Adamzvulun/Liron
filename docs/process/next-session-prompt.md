@@ -1,24 +1,38 @@
-# Prompt for the next Claude session (written 2026-11-15, updated 2026-11-17)
+# Prompt for the next Claude session (written 2026-11-15, updated 2026-11-18)
 
 Paste this as the first message of a new session:
 
 ---
 
-We're continuing work on Waymark, my personal learning hub for Arabic and Morse (repo: Liron). Branch from `dev` (ADR 0015) and open PRs into `dev`. Merge your own PRs into `dev` once CI is green and the work checks out; only I merge into `main`. Don't release v1.0.0 until I say so.
+We're continuing work on Waymark, my personal learning hub for Arabic and Morse (repo: Liron). v1.0.0 is live. Branch from `dev` (ADR 0015) and open PRs into `dev`. Merge your own PRs into `dev` once CI is green and the work checks out. Only I merge into `main`.
 
-Before you do anything, read `.claude/CLAUDE.md`, then `docs/process/STATUS.md`, then `docs/process/HANDOFF.md` (items 94–110 are the latest), and follow them.
+So continue working on the next version. Don't stop working until you're out of usage. Whatever questions arise, do what you think I would've done.
+
+Before you do anything, read `.claude/CLAUDE.md`, then `docs/process/STATUS.md`, then `docs/process/HANDOFF.md` (items 111–113 are the latest), and follow them.
+
+**The next version is v1.1.0, Open to Friends** (`docs/process/VERSIONS.md`, "Next: v1.1.0"):
+1. **My friends get the deck.** This is decided: `docs/decisions/0050-friends-learn-from-the-deck.md`. Don't reopen it. Make every account a licensee with no step from me: a migration plus a backfill, with database tests. Keep the path for an account without a licence honest, with no dead end and no "haven't been loaded". That's task 2.1's "Done when" in PLAN.md.
+2. **Everything for 3.7 (Release the Fellowship) that doesn't need me:**
+   - the two lows the v1 review left for 2.1;
+   - FRIENDS.md checked against the code;
+   - my steps for the first friend, as one short list.
+3. **Fix anything I report** from the live site.
+4. **When it's all merged into `dev`,** cut `release/v1.1.0`, write `docs/process/releases/v1.1.0.md`, open the release PR into `main`, and tell me my part.
+
+Then keep going. Look for real gaps, bugs, rough edges and test holes in what's built, and fix them in bundled PRs. Everything parked stays parked: the third subject (I said it won't come soon), the regulars' voices (Azure), new word chapters, and #137. Those are in `docs/process/LATER.md`.
 
 Actions minutes cost money, so keep CI use low:
-- Bundle smaller issues and features into one PR. No stacked PRs; push rarely, and never while a run is going.
-- Run the full checks locally before opening a PR: tsc, eslint, prettier, vitest (also with `TZ=UTC`, as CI runs), then `npm run e2e` (the whole Playwright suite, then the `@timing` tests alone on one worker).
-- Never treat a red, cancelled or flaky run as green. Check the job log. 10 skipped is normal: ten tests run on only one of the two projects, phone or desktop (`grep -n "test.skip" tests/e2e/*.spec.ts` lists them).
-- If a job fails within seconds with no runner and no log, the Actions budget has run out. Tell me; don't push again to kick it.
+- Bundle smaller fixes into one PR. No stacked PRs. Push rarely, and never while a run is going. A docs-only PR skips the browser tests (about 2 minutes); one that touches code runs about 16.
+- Run the full checks locally before opening a PR:
+  - tsc, eslint, prettier;
+  - vitest, and again with `TZ=UTC` as CI runs it;
+  - `npx vitest run supabase/tests`;
+  - `npm run e2e` (the whole Playwright suite, then the `@timing` tests alone on one worker).
+- Never treat a red, cancelled or flaky run as green: check the job log. On arm64 the load budget passes with less headroom than on x64 (CI.md). If it fails at random, compare with x64 before blaming the PR.
+- If a job fails within seconds with no runner and no log, the Actions budget has run out. Tell me, and don't push again to kick it.
 
-**Your work order is `docs/process/PLAN.md`** (2026-11-16). Read it after HANDOFF. **`docs/process/VERSIONS.md` gives the order**: work the versions in turn (1.0 first), ticking tasks off in the plan. The designs are already written (`docs/game/the-road.md`, `docs/design/grounds.md`, `docs/game/fellowship-build.md`): build to them. At a gate, ask me once and carry on with the next task that doesn't depend on it.
-
-First:
-1. If an open PR from the last session is still there, check its CI log. If it's clean, squash-merge it with the full head SHA and unsubscribe.
-2. Find your place: PLAN.md's ticked boxes and VERSIONS.md's "Where things stand" say what is done. Start at the first unticked task of the current version. On 2026-11-17, v1.0's gates (1.12, 1.13) wait on Adam, and v1.1, v1.2 and v2.0 are built (HANDOFF items 94–105), except v2.0's task 2.1, which is Adam's decision. v2.1 to v2.4 (tasks 3.3–3.6) are built too (HANDOFF items 104–106); 3.7 is Adam's. v3.0 (tasks 4.1–4.3) is built (HANDOFF items 107–108). v4.0's guild-hall kit and LATER.md are written (item 109); 4.5's build waits for my pick of subject. 5.1, the last sweep, is done (item 110): **everything Claude can build alone is built.** What remains waits on me: ask me which gate I want to walk first, or for the third subject, and in the meantime fix only what I report from the dev site.
-3. Rules that outlast the plan: deck text and deck analysis never go into `content/`, the bundle or commits (ADR 0011). No new word chapters without a new source or a decision from me. The regulars' voices are parked until I've looked at Azure. Don't release anything until I say so; when a version is ready, cut its release branch (or ask me to), open the release PR, and tell me what my part is.
+Rules that outlast the plan:
+- Deck text and deck analysis never go into `content/`, the bundle or commits (ADR 0011). Friends reading the deck through the database doesn't change that.
+- Don't release anything until I merge the release PR.
 
 Keep `docs/process/STATUS.md`, `HANDOFF.md`, this prompt and my report (`docs/process/reports/`) current as you go. Screenshot any visual change and look at it before showing me. Ask me anything that costs money, shares data or locks us in. If I'm away, make the call I'd make, note it in the report, and keep working.

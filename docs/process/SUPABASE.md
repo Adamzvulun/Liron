@@ -41,7 +41,7 @@ insert into public.content_licensees (user_id)
 select id from auth.users where email = 'their@email';
 ```
 
-Only add people the deck's licence covers (ADR 0011).
+Adam's friends may all read the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md), 2026-11-18). v1.1.0 is to add every account automatically; until then, run this for each friend.
 
 ## Migrations
 Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrations/), applied in name order. Never edit one that's already applied; add a new file instead. Schema: [ADR 0017](../decisions/0017-player-data-schema.md). (The first migration's header still says "Apply with the Supabase SQL editor": that predates ADR 0018 and is wrong, but the file stays as it was applied.)
