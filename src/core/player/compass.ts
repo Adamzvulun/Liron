@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { PLACE_PATHS } from '../city/layout.ts';
 import { HALL_DOOR, type RoadAnswer, type RoadContext } from '../road/road.ts';
 import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
+import { ASSUMED_FACTS, type RoadFacts } from '../road/facts.ts';
 import type { SubjectInfo } from '../subject.ts';
 
 export interface CompassLine {
@@ -48,6 +49,8 @@ export interface CompassSources {
   due(subjectId: string): Promise<number>;
   /** Subjects with saved progress, the one practiced last first. */
   practiced(): Promise<readonly string[]>;
+  /** May this player read the deck, and is the partner set up (road/facts.ts)? */
+  facts?: () => Promise<RoadFacts>;
 }
 
 /** The address of a hall's door. */
@@ -63,13 +66,13 @@ async function find(
 ): Promise<Found | null> {
   if (!subject.road || !subject.building) return null;
   try {
-    const state = await sources.loadState(subject.id);
+    const [state, facts] = await Promise.all([
+      sources.loadState(subject.id),
+      sources.facts?.().catch(() => ASSUMED_FACTS) ?? ASSUMED_FACTS,
+    ]);
     const ctx: RoadContext = {
       today: day.today,
-      // Until the site can say what it has (task 1.8) and who may read the deck (task 2.1): the
-      // partner is there, and the one player is the licensee.
-      partner: 'ready',
-      licensee: true,
+      ...facts,
       due: 0,
       ...(day.contracts.includes(subject.id) && { contractDoor: HALL_DOOR }),
     };
@@ -86,16 +89,18 @@ async function find(
 }
 
 /**
- * The order of the lines: registry order for a new player; otherwise the guild practiced last,
- * unless its road is waiting or finished and another guild has a real step to offer.
+ * The order of the lines: registry order for a new player; otherwise the guild practiced last.
+ * Either way, a road that is waiting or finished yields the first place to a guild with a real
+ * step to offer (a new player whose account can't read the deck starts with Morse, task 2.1).
  */
 export function inOrder(found: readonly Found[], practiced: readonly string[]): Found[] {
-  if (!found.some((f) => f.started)) return [...found];
   const rank = (f: Found) => {
     const at = practiced.indexOf(f.subject.id);
     return at < 0 ? practiced.length : at;
   };
-  const sorted = [...found].sort((a, b) => rank(a) - rank(b));
+  const sorted = found.some((f) => f.started)
+    ? [...found].sort((a, b) => rank(a) - rank(b))
+    : [...found];
   if (sorted[0]?.road.now.kind === 'meanwhile') {
     const step = sorted.findIndex((f) => f.road.now.kind === 'step');
     if (step > 0) sorted.unshift(...sorted.splice(step, 1));

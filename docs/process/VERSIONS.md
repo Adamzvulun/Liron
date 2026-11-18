@@ -156,3 +156,5 @@ The next release, per ADR 0049 §5 (a 1.Y after 1.0.0). It carries:
 3. **Whatever Adam reports from the live site** (1.0.x fixes).
 
 **Done when:** the above is merged into `dev` with green CI; the release PR `release/v1.1.0` → `main` is open with its notes; Adam merges it and makes a first friend's account.
+
+**Built (2026-11-18):** all three, in `dev` ([release notes](releases/v1.1.0.md), HANDOFF item 114). Waiting for Adam to merge the release PR.

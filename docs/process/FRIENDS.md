@@ -4,7 +4,15 @@ For Adam. Waymark is invite-only (sign-ups are off in Supabase, [ADR 0016](../de
 
 **Why not an email invite?** Supabase's built-in email only reaches members of the project's team (you), at most 2 an hour ([SUPABASE](SUPABASE.md)). An invite or a "forgot your password" email to a friend never arrives. Sending to anyone would need our own mail server (custom SMTP), which is a decision for you: it may cost money and it shares your friends' addresses with a mail provider. Until then, you give friends a password yourself. The login screen says so: "Nothing after a few minutes? Ask whoever invited you to set a new password."
 
-Every step below is **untested**: nobody has done it on the real projects yet. Each is on Adam's checklist in STATUS.md. Fix this page if a button has moved.
+Every step below is **untested**: nobody has done it on the real projects yet. Each is on Adam's checklist in STATUS.md. Fix this page if a button has moved. Checked against the code on 2026-11-18 (v1.1.0): the login screen's line, Settings' password change, the friend code, the licence trigger and the cascade on every table that names a player.
+
+## Your first friend, in order (task 3.7)
+
+1. **v1.1.0 is live:** you merged its release PR and the **DB migrate** run on `main` is green. That run makes every account a licensee.
+2. **Realtime:** on both projects, **Realtime → Settings → Allow public access** is off ([RUNNING](RUNNING.md#friends)). Check it once; it stays off.
+3. **Their account:** "Make a friend's account" below. That's all: the deck opens for them by itself.
+4. **Become friends in the game:** you both open **Your House → Fellowship**. One of you types the other's friend code; the other accepts the request.
+5. **Try the wire, on two devices:** both open the Signal Tower's **Sending** and press **Key to a friend**, pick each other, and key a few letters. Then tell Claude what you heard and saw (release checklist §6).
 
 ## Make a friend's account
 
@@ -13,7 +21,7 @@ Every step below is **untested**: nobody has done it on the real projects yet. E
 3. Send them the address of the site, their email and the password, in a private message or in person, never in a group.
 4. Tell them: sign in, then **Settings → Change your password**. From then on only they know it.
 
-**Friends get the deck** ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md), 2026-11-18). Until v1.1.0 does it by itself, add them to `content_licensees` with the SQL in [SUPABASE](SUPABASE.md#adding-a-licensee) right after making the account.
+**Friends get the deck** ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)). Since v1.1.0, every account becomes a licensee the moment it's made (`20270107000000_every_account_reads_the_deck.sql`), so there's nothing more to do.
 
 ## A friend forgot their password
 
@@ -36,9 +44,9 @@ Then they change it again in Settings.
 
 Your own "Email me a link" works, because you own the project. If it doesn't arrive, do the same as for a friend.
 
-## Make a friend a licensee
+## A friend says the Arabic lessons are closed to them
 
-Only if the license allows it, which is a question for you (task 2.1). The steps are in [SUPABASE](SUPABASE.md#adding-a-licensee).
+The Caravanserai says "This account can't read the deck yet: ask whoever invited you." That only happens if their row in `content_licensees` was deleted by hand (or v1.1.0's migration hasn't run on that project). Add it back with the SQL in [SUPABASE](SUPABASE.md#adding-a-licensee); they reload the page. The rest of the city works for them meanwhile.
 
 ## Remove a friend, and everything of theirs
 
