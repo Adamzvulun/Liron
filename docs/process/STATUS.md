@@ -29,12 +29,12 @@
 
 All of it is Adam's, in the order of [VERSIONS.md](VERSIONS.md):
 
-1. **Release v1.0.0, which now carries everything on `dev`** ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md); Adam can overturn it before merging): walk the [release checklist](release-checklist.md) (1.12, about an hour, one ending included), then the release PR into `main` (1.13). The live site starts fresh (Adam, 2026-11-16).
+1. **Finish v1.0.0's release (live since 2026-11-17, #359; database migrated 2026-11-18, #360):** your account on `waymark-prod` (SUPABASE step 8), Realtime's "Allow public access" off there, the `v1.0.0` tag and GitHub Release (Releases → Draft a new release, target `main`; the text is #359's), and play the live site. The checklist walk (1.12) can still be done there.
 2. **Before inviting a friend:** 2.1 (what friends without the deck may learn), a first friend's account ([FRIENDS.md](FRIENDS.md)), the Realtime "Allow public access" switch on both projects ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 opens the Fellowship to friends.
 3. **v4.0:** pick the third subject (4.5). Its build starts with the "Known gaps" in [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), and ends with the sweep repeated over the new hall.
 4. **Parked, each waiting on him:** the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All listed in [LATER.md](LATER.md).
 
-**After the release, once:** run the "Keep alive" workflow by hand and see it green ([SUPABASE](SUPABASE.md#keep-alive)).
+**Once, now:** run the "Keep alive" workflow by hand (Actions → Keep alive → Run workflow on `main`) and see it green. Until v1.0.0 it had never run, so `waymark-prod` had paused ([SUPABASE](SUPABASE.md#keep-alive)).
 
 
 ## Backlog map
