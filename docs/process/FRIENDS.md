@@ -13,7 +13,7 @@ Every step below is **untested**: nobody has done it on the real projects yet. E
 3. Send them the address of the site, their email and the password, in a private message or in person, never in a group.
 4. Tell them: sign in, then **Settings → Change your password**. From then on only they know it.
 
-**Don't** add them to `content_licensees`. The licensed Arabic deck is yours only ([ADR 0011](../decisions/0011-technical-corrections.md); [SUPABASE](SUPABASE.md#adding-a-licensee)). What a friend without the deck can learn is the open question in PLAN.md task 2.1.
+**Friends get the deck** ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md), 2026-11-18). Until v1.1.0 does it by itself, add them to `content_licensees` with the SQL in [SUPABASE](SUPABASE.md#adding-a-licensee) right after making the account.
 
 ## A friend forgot their password
 
