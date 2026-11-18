@@ -16,6 +16,7 @@ import {
 import { Compare } from './Compare.tsx';
 import type { Heard } from '../../../core/speech.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { NoDeck } from '../NoDeck.tsx';
 
 /** Due phrases from earlier sets mixed into a session. */
 const REVIEWS = 5;
@@ -91,8 +92,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
       </p>
     );
   if (!progress || !all || !set) return <p className="arabic__loading">Brewing the coffee…</p>;
-  if (!phrases.length)
-    return <p className="lesson__card">The deck’s phrases haven’t been loaded into Waymark yet.</p>;
+  if (!phrases.length) return <NoDeck what="phrases" />;
 
   const pool = all.flat();
   const begin = (now: number) => {
@@ -208,9 +208,7 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
           }
         />
       )}
-      {stage.kind === 'understand' && stage.questions.length === 0 && (
-        <p className="lesson__card">This set’s phrases haven’t been loaded into Waymark yet.</p>
-      )}
+      {stage.kind === 'understand' && stage.questions.length === 0 && <NoDeck what="phrases" />}
       {stage.kind === 'understand' && current && (
         <Understand
           key={stage.index}

@@ -16,7 +16,10 @@ const step = (n: number, door = 'koch'): RoadStep => ({
 
 /** A road whose state says where it stands: `at` (a step number), or a meanwhile. */
 const road = (state: unknown, ctx: RoadContext): RoadAnswer => {
-  const s = (state ?? { at: 0 }) as { at: number | 'waiting' | 'done'; door?: string };
+  const s = (state ?? { at: 0 }) as {
+    at: number | 'waiting' | 'closed' | 'done';
+    door?: string;
+  };
   const position = (index: number) => ({
     index,
     step: step(index + 1),
@@ -35,7 +38,7 @@ const road = (state: unknown, ctx: RoadContext): RoadAnswer => {
   const line = ctx.due ? `${ctx.due} due` : ctx.contractDoor ? 'A contract' : 'The fountain';
   return {
     ...base,
-    position: s.at === 'done' ? null : position(4),
+    position: s.at === 'done' ? null : position(s.at === 'closed' ? 0 : 4),
     now: { kind: 'meanwhile', door: 'listen', line, why: 'station' },
     ...(s.at === 'waiting' && {
       waiting: { step: step(5), reason: 'tomorrow', line: 'The road goes on tomorrow: Step 5.' },
@@ -128,6 +131,46 @@ describe('the compass in the square (the-road.md §6)', () => {
       day,
     );
     expect(lines.map((l) => l.href)).toEqual(['/signal-tower']);
+  });
+
+  it('hands every road what the site knows: the deck and the partner (task 2.1, #316)', async () => {
+    const seen: RoadContext[] = [];
+    const watching = guilds.map((g) => ({
+      ...g,
+      road: async (state: unknown, ctx: RoadContext) => (seen.push(ctx), road(state, ctx)),
+    }));
+    await loadCompass(
+      watching,
+      { ...sources({}), facts: async () => ({ licensee: false, partner: 'off' }) },
+      day,
+    );
+    expect(seen.map((c) => [c.licensee, c.partner])).toEqual([
+      [false, 'off'],
+      [false, 'off'],
+    ]);
+    // When the site can't say, the common case is assumed rather than a guild going missing.
+    seen.length = 0;
+    await loadCompass(
+      watching,
+      { ...sources({}), facts: () => Promise.reject(new Error('offline')) },
+      day,
+    );
+    expect(seen.map((c) => [c.licensee, c.partner])).toEqual([
+      [true, 'ready'],
+      [true, 'ready'],
+    ]);
+  });
+
+  it('a new player whose first guild can’t offer a step starts with one that can', async () => {
+    const lines = await loadCompass(
+      [guild('arabic', 'caravanserai'), tower],
+      sources({ arabic: { at: 'closed' } }),
+      day,
+    );
+    expect(lines.map((l) => [l.subject, l.quiet])).toEqual([
+      ['morse', false],
+      ['arabic', true],
+    ]);
   });
 });
 

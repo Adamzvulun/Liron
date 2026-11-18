@@ -958,8 +958,19 @@ describe('private content (ADR 0023)', () => {
     ]);
   });
 
-  it('other signed-in accounts, and anonymous sessions, read nothing (ADR 0011)', async () => {
-    // OTHER signed up after the migration, so it isn't a licensee.
+  it('an account signed up later reads them too: every account is a licensee (ADR 0050)', async () => {
+    // OTHER signed up after the migrations ran, as a friend does.
+    expect(await as(OTHER, () => rows(`select item_id from content_items`))).toEqual([
+      { item_id: 'pcav:0001' },
+    ]);
+    expect(await as(OTHER, () => rows(`select name from storage.objects`))).toEqual([
+      { name: 'lingualism-pcav/pcav01-1.mp3' },
+    ]);
+  });
+
+  it('an account without a licence, and anonymous sessions, read nothing (ADR 0011)', async () => {
+    // The safety net (ADR 0050 §3): a licence deleted by hand takes the deck away.
+    await rows(`delete from content_licensees where user_id = $1`, [OTHER]);
     expect(await as(OTHER, () => rows(`select item_id from content_items`))).toEqual([]);
     expect(await as(OTHER, () => rows(`select lesson_id from content_lessons`))).toEqual([]);
     expect(await as(OTHER, () => rows(`select name from storage.objects`))).toEqual([]);
@@ -1061,6 +1072,8 @@ describe('the daily cap on speech checks (ADR 0011 #4, ADR 0014)', () => {
   });
 
   it('is for the signed-in licensee only, never anonymous sessions or logged-out visitors', async () => {
+    expect(await claim(OTHER)).toBe(99);
+    await rows(`delete from content_licensees where user_id = $1`, [OTHER]);
     await expect(claim(OTHER)).rejects.toThrow(/only the licensed learner/);
     await rows(`select set_config('request.jwt.claims', '{"is_anonymous": true}', true)`);
     await expect(claim(ADAM)).rejects.toThrow(/only the licensed learner/);
@@ -2353,21 +2366,45 @@ describe('the site’s ceilings on the free AI (task 2.2, ADR 0041)', () => {
 });
 
 describe('the licence and the AI allowances, hardened (2026-11-15)', () => {
-  it('a new account never becomes the licensee once any account exists', async () => {
-    await rows(`delete from content_licensees`);
+  it('every new account becomes a licensee as it is made (ADR 0050)', async () => {
     const third = '00000000-0000-0000-0000-00000000000c';
     await rows(`insert into auth.users (id, email) values ($1, 'c@example.com')`, [third]);
-    expect(await rows(`select user_id from content_licensees`)).toEqual([]);
+    expect(await rows(`select 1 from content_licensees where user_id = $1`, [third])).toHaveLength(
+      1,
+    );
+    expect(await as(third, () => rows(`select public.is_content_licensee() as ok`))).toEqual([
+      { ok: true },
+    ]);
   });
 
-  it('a project’s very first account still does', async () => {
+  it('a licence deleted by hand stays deleted: nothing gives it back on its own', async () => {
+    await rows(`delete from content_licensees where user_id = $1`, [OTHER]);
+    const fourth = '00000000-0000-0000-0000-00000000000d';
+    await rows(`insert into auth.users (id, email) values ($1, 'd@example.com')`, [fourth]);
+    expect(await as(OTHER, () => rows(`select public.is_content_licensee() as ok`))).toEqual([
+      { ok: false },
+    ]);
+  });
+
+  it('the backfill makes every account that already exists a licensee', async () => {
+    // Undo the migration's own work, then run its backfill line again, as `main` will.
+    const migration =
+      migrations[migrationFiles.indexOf('20270107000000_every_account_reads_the_deck.sql')];
+    if (!migration) throw new Error('the migration is missing');
     await rows(`delete from content_licensees`);
-    await rows(`alter table auth.users disable trigger user`);
-    await rows(`delete from auth.users`);
-    await rows(`alter table auth.users enable trigger user`);
-    const first = '00000000-0000-0000-0000-00000000000d';
-    await rows(`insert into auth.users (id, email) values ($1, 'd@example.com')`, [first]);
-    expect(await rows(`select user_id from content_licensees`)).toEqual([{ user_id: first }]);
+    await db.exec(migration);
+    expect(await rows(`select user_id from content_licensees order by user_id`)).toEqual(
+      await rows(`select id as user_id from auth.users order by id`),
+    );
+  });
+
+  it('nobody signed in can add or remove a licence', async () => {
+    for (const sql of [
+      `insert into content_licensees (user_id) values ('${OTHER}')`,
+      `delete from content_licensees`,
+      `select every_account_is_licensee()`,
+    ])
+      await expect(as(ADAM, () => rows(sql))).rejects.toThrow(/permission denied/);
   });
 
   it('anonymous sessions get no partner replies or chat lines', async () => {
