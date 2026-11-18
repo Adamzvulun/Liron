@@ -349,6 +349,23 @@ describe('two players, one database (task 2.4, #325)', () => {
     expect((await callable('anon')).filter((f) => !pure.includes(f))).toEqual([]);
   });
 
+  it('every function that runs with its owner’s rights fixes its search path', async () => {
+    // A security definer function that looked names up through the caller's search_path could be
+    // handed a look-alike table or function of the caller's own making.
+    const loose = await rows(
+      `select p.proname as name from pg_proc p
+       where p.pronamespace = 'public'::regnamespace and p.prosecdef
+         and not exists (select 1 from unnest(coalesce(p.proconfig, '{}')) c where c like 'search_path=%')
+       order by 1`,
+    );
+    expect(loose).toEqual([]);
+    const [{ n }] = (await rows(
+      `select count(*)::int as n from pg_proc
+       where pronamespace = 'public'::regnamespace and prosecdef`,
+    )) as { n: number }[];
+    expect(n, 'there are such functions to check').toBeGreaterThan(20);
+  });
+
   it('a chest of the other player’s can’t be opened', async () => {
     const [{ id }] = (await rows(`select id from chests where user_id = $1`, [A])) as {
       id: string;
