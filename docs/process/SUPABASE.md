@@ -74,7 +74,7 @@ A free project is paused when it has had too little database activity for about 
   1. Open supabase.com → the project. If it says **Paused**, press **Restore project** and wait a few minutes. The data is kept (a paused project can be restored for a long time; Supabase says a year).
   2. If it isn't paused, look at the log: "No database URL secret" means the secret was removed or renamed (see Migrations above); otherwise the database password may have changed, so update the secret.
   3. Start the workflow again by hand and check it's green.
-- **It runs only from `main`.** GitHub runs a scheduled workflow only from the default branch, so Keep alive never ran until v1.0.0 put it on `main` (2026-11-17), and `waymark-prod` had paused by then. The first DB migrate run on `main` failed with "tenant/user … not found", the pooler's answer for a paused project (or a wrong connection string); the fix is Restore project, then a new run.
+- **`waymark-prod` had paused before v1.0.0.** Nothing had used it since it was made, and Keep alive (added 2026-11-17, Tuesday) wasn't due to run until the Thursday. GitHub runs a scheduled workflow from the default branch, which is `dev`. The first DB migrate run on `main` failed with "tenant/user … not found", the pooler's answer for a paused project (or a wrong connection string); the fix is Restore project, then a new run.
 - **No promise:** Supabase doesn't publish how much activity is "sufficient". One real query twice a week is what their staff describe as enough. If a project is ever paused while this workflow is green, that is the first thing to tell Claude.
 
 ## Private content
