@@ -3,7 +3,7 @@
 This repo (`Liron`) holds **Waymark**: a personal, game-like learning hub. The first two tracks are **Arabic** and **Morse code**.
 It is built by a team of two: **Adam** (product owner, creative director, and the learner) and **Claude** (who covers the roles below).
 
-**New session? Read [`docs/process/STATUS.md`](docs/process/STATUS.md) first, then [`docs/process/HANDOFF.md`](docs/process/HANDOFF.md).** It holds the current state, the next steps and the environment facts. Update it before ending a session.
+**New session? Read [`docs/process/STATUS.md`](../docs/process/STATUS.md) first, then [`docs/process/HANDOFF.md`](../docs/process/HANDOFF.md).** It holds the current state, the next steps and the environment facts. Update it before ending a session.
 
 ## Roles (the hats Claude wears)
 
@@ -24,12 +24,12 @@ It is built by a team of two: **Adam** (product owner, creative director, and th
 
 ## How we work
 
-See [`docs/process/WORKFLOW.md`](docs/process/WORKFLOW.md). In short:
+See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 
 1. **Discover**: brainstorm and research in `docs/discovery/` and `docs/research/`.
 2. **Decide**: record decisions as ADRs in `docs/decisions/` (one decision per file, numbered).
 3. **Plan**: break work into GitHub Issues grouped into epics and milestones.
-4. **Build**: one branch per issue or feature, from `dev`. Its PR goes into `dev`, references its issue, includes tests, and updates docs. Adam checks the live dev site, then a release PR takes `dev` to `main`, the live site ([ADR 0015](docs/decisions/0015-branches-and-environments.md)).
+4. **Build**: one branch per issue or feature, from `dev`. Its PR goes into `dev`, references its issue, includes tests, and updates docs. Adam checks the live dev site, then a release PR takes `dev` to `main`, the live site ([ADR 0015](../docs/decisions/0015-branches-and-environments.md)).
 5. **Reflect**: write a short retro per milestone in `docs/process/retros/`.
 
 ## Rules for Claude (from Adam)

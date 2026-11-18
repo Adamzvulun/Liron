@@ -8,7 +8,7 @@ Waymark is hosted on **Vercel's free Hobby plan**, connected to this GitHub repo
 | `dev` | **Preview**, at the stable branch URL **https://waymark-git-dev-adamzvuluns-projects.vercel.app**: the live dev site | Only people logged into the Vercel account (Deployment Protection) |
 | feature branches / PRs | **Preview**, one URL per push, plus a stable per-branch URL | Same as `dev` |
 
-`vercel.json` pins the build: framework Vite, `npm ci`, `npm run build`, and **only `dist/` is published**, plus the functions in `api/` (Vercel builds each on its own, so they import nothing from `src/`). Every path except `/api/` falls back to `index.html`. That matters because the repo also holds `docs/`, `spikes/` and the copyrighted `sources/` (ADR 0011). Without a build, Vercel would serve the repo's files as they are. `package.json` pins Node `22.x`, the same as CI. Without that, Vercel would pick its newest Node.
+`vercel.json` pins the build: framework Vite, `npm ci`, `npm run build`, and **only `dist/` is published**, plus the functions in `api/` (Vercel builds each on its own, so they import nothing from `src/`). Every path except `/api/` falls back to `index.html`. That matters because the repo also holds `docs/` (with its spikes) and the copyrighted `sources/` (ADR 0011). Without a build, Vercel would serve the repo's files as they are. `package.json` pins Node `22.x`, the same as CI. Without that, Vercel would pick its newest Node.
 
 ## One-time setup (Adam, in the Vercel dashboard)
 Do this only **after `main` contains the app** (the first release, `v0.1.0`). Importing while `main` has no app would publish the raw repo files.

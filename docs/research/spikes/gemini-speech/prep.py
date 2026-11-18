@@ -6,7 +6,7 @@ Writes clips/ (git-ignored audio) and manifest.json (text + metadata).
 import json, os, random, re, shutil, sqlite3, subprocess, tempfile, zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-APKG = os.path.join(HERE, '..', '..', 'sources', 'arabic', 'lingualism-palestinian-vocabulary', 'lingualism-pcav.apkg')
+APKG = os.path.join(HERE, '..', '..', '..', '..', 'sources', 'arabic', 'lingualism-palestinian-vocabulary', 'lingualism-pcav.apkg')
 HARD = set('حهعءأإؤئقخغصضطظ')
 
 def unzstd(src, dst):

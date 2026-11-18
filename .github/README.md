@@ -1,13 +1,13 @@
 <div align="center">
 
-<img src="docs/assets/readme/square.webp" alt="The Waymark city square: a painted lighthouse tower, a domed caravanserai, a house, a notice board and a market around a compass rose, with the player's character standing in the middle and today's quests in the corner" width="100%">
+<img src="../docs/assets/readme/square.webp" alt="The Waymark city square: a painted lighthouse tower, a domed caravanserai, a house, a notice board and a market around a compass rose, with the player's character standing in the middle and today's quests in the corner" width="100%">
 
 # Waymark
 
 **Learn Morse code and spoken Palestinian Arabic by walking a painted city.**<br>
 One road per subject, and the next step is always on screen.
 
-[Live site](https://waymark-phi.vercel.app) · [What's in 1.0.0](docs/process/releases/v1.0.0.md) · [Where things stand](docs/process/STATUS.md)
+[Live site](https://waymark-phi.vercel.app) · [What's in 1.0.0](../docs/process/releases/v1.0.0.md) · [Where things stand](../docs/process/STATUS.md)
 
 </div>
 
@@ -20,7 +20,7 @@ Waymark is a game for one learner and a few friends. Each subject is a guild hal
 <table>
 <tr>
 <td width="50%" valign="top">
-<img src="docs/assets/readme/tower.webp" alt="Inside the Signal Tower: a spiral stair hung with lamps lettered K, M and U, a desk with a candle, a straight key and a banner showing the player's guild rank">
+<img src="../docs/assets/readme/tower.webp" alt="Inside the Signal Tower: a spiral stair hung with lamps lettered K, M and U, a desk with a candle, a straight key and a banner showing the player's guild rank">
 
 ### The Signal Tower · Morse code
 
@@ -32,7 +32,7 @@ Waymark is a game for one learner and a few friends. Each subject is a guild hal
 
 </td>
 <td width="50%" valign="top">
-<img src="docs/assets/readme/caravanserai.webp" alt="The Caravanserai courtyard at night: lanterns over an arched cloister, a fountain, a well, a slate and the scribe's table, each a station you can walk up to">
+<img src="../docs/assets/readme/caravanserai.webp" alt="The Caravanserai courtyard at night: lanterns over an arched cloister, a fountain, a well, a slate and the scribe's table, each a station you can walk up to">
 
 ### The Caravanserai · Palestinian Arabic
 
@@ -50,9 +50,9 @@ Waymark is a game for one learner and a few friends. Each subject is a guild hal
 
 <table>
 <tr>
-<td width="33%"><img src="docs/assets/readme/house.webp" alt="Your House: the character in an arched frame beside the wardrobe of builds, skins, faces and hair"></td>
-<td width="33%"><img src="docs/assets/readme/board.webp" alt="The Notice Board: today's quests pinned as parchment notes, with the daily goal bar"></td>
-<td width="33%"><img src="docs/assets/readme/koch.webp" alt="A Morse lesson at the listening desk: Hear K and M, with a Begin button"></td>
+<td width="33%"><img src="../docs/assets/readme/house.webp" alt="Your House: the character in an arched frame beside the wardrobe of builds, skins, faces and hair"></td>
+<td width="33%"><img src="../docs/assets/readme/board.webp" alt="The Notice Board: today's quests pinned as parchment notes, with the daily goal bar"></td>
+<td width="33%"><img src="../docs/assets/readme/koch.webp" alt="A Morse lesson at the listening desk: Hear K and M, with a Begin button"></td>
 </tr>
 <tr>
 <td valign="top"><b>Your House.</b> Dress your character in what you've earned, keep a pet, and read the ledger: what you've really learned, in numbers.</td>
@@ -63,8 +63,8 @@ Waymark is a game for one learner and a few friends. Each subject is a guild hal
 
 <table>
 <tr>
-<td width="30%"><img src="docs/assets/readme/phone-square.webp" alt="The square on a phone: a slim top bar with level, gold, streak and the next step, and a dock of places along the bottom"></td>
-<td width="30%"><img src="docs/assets/readme/phone-tower.webp" alt="The Signal Tower on a phone: the painted stair above, and the chapter card with the next step below"></td>
+<td width="30%"><img src="../docs/assets/readme/phone-square.webp" alt="The square on a phone: a slim top bar with level, gold, streak and the next step, and a dock of places along the bottom"></td>
+<td width="30%"><img src="../docs/assets/readme/phone-tower.webp" alt="The Signal Tower on a phone: the painted stair above, and the chapter card with the next step below"></td>
 <td valign="top">
 
 ### On a phone
@@ -81,15 +81,15 @@ The same city, sized for a thumb. The top bar always names the next step, and th
 
 | Part | What it is |
 |---|---|
-| **App** | React 19, TypeScript and Vite. `src/core/` is the platform and `src/subjects/<id>/` holds one subject each, so a third hall plugs in ([guide](docs/process/ADDING-A-SUBJECT.md)). |
+| **App** | React 19, TypeScript and Vite. `src/core/` is the platform and `src/subjects/<id>/` holds one subject each, so a third hall plugs in ([guide](../docs/process/ADDING-A-SUBJECT.md)). |
 | **Art** | Every scene is drawn in code as SVG: the city, both halls and a room behind every station. |
 | **Backend** | Supabase: Postgres with row-level security, where the database's own functions give out every reward; Realtime for the wire. |
 | **Learning** | FSRS spaced repetition (`ts-fsrs`), Koch-method Morse at Farnsworth spacing, and Glicko-style ratings per skill. |
 | **Hosting** | Vercel: `main` is the live site, `dev` the dev site. |
 | **Tests** | 1,119 unit tests (Vitest), 226 database tests on real migrations (PGlite), and 400+ browser tests at desktop and phone sizes (Playwright). |
-| **Decisions** | 49 [decision records](docs/decisions/), one per choice. |
+| **Decisions** | 49 [decision records](../docs/decisions/), one per choice. |
 
-Content is data, not code. Letters, Morse characters, lessons and the road itself live in [`content/`](content/). The licensed Arabic word deck stays in `sources/` in this private repo and never enters `content/` or the site's bundle: it's uploaded to the database, readable only behind login by its licensee.
+Content is data, not code. Letters, Morse characters, lessons and the road itself live in [`content/`](../content/). The licensed Arabic word deck stays in `sources/` in this private repo and never enters `content/` or the site's bundle: it's uploaded to the database, readable only behind login by its licensee.
 
 <details>
 <summary><b>Run it locally</b></summary>
@@ -103,7 +103,7 @@ npm install
 npm run dev
 ```
 
-Then open the address it prints (usually http://localhost:5173). For the login to work, first copy `.env.example` to `.env.local` and fill in the `waymark-dev` Supabase values ([SUPABASE](docs/process/SUPABASE.md)).
+Then open the address it prints (usually http://localhost:5173). For the login to work, first copy `.env.example` to `.env.local` and fill in the `waymark-dev` Supabase values ([SUPABASE](../docs/process/SUPABASE.md)).
 
 | Script | What it does |
 |---|---|
@@ -131,18 +131,17 @@ Dependencies are pinned to exact versions (`.npmrc` has `save-exact=true`). `@pl
 
 | Path | What |
 |---|---|
-| [`src/`](src/) | The app. `src/core/` is the platform, `src/subjects/<id>/` holds one subject each (ADR 0003, contract in ADR 0019; start a new one from `src/subjects/example/`) |
-| [`content/`](content/) | Learning content as data (letters, words, Morse characters, lessons) |
-| [`supabase/`](supabase/) | Database migrations and their tests |
-| [`docs/process/`](docs/process/) | Current status ([`STATUS.md`](docs/process/STATUS.md)), the plan ([`PLAN.md`](docs/process/PLAN.md)) and the version map ([`VERSIONS.md`](docs/process/VERSIONS.md)), how we work ([`WORKFLOW.md`](docs/process/WORKFLOW.md)), deploying ([`DEPLOY.md`](docs/process/DEPLOY.md)), release notes ([`releases/`](docs/process/releases/)), the history and retros |
-| [`docs/vision.md`](docs/vision.md) | North star: what we are building |
-| [`docs/game/`](docs/game/) | Game rules and numbers: [economy](docs/game/economy.md), [the Road](docs/game/the-road.md) (both stories, step by step) and [the tale](docs/game/the-tale.md) |
-| [`docs/decisions/`](docs/decisions/) | Architecture and product decision records (ADRs) |
-| [`docs/design/`](docs/design/) | Visual concepts and the city generator |
-| [`docs/discovery/`](docs/discovery/), [`docs/research/`](docs/research/) | Brainstorms, and research on methods, apps and sources |
-| [`spikes/`](spikes/) | Throwaway experiments that answer one question |
-| [`sources/`](sources/) | Raw learning material. Upload new files to `sources/_inbox/` |
-| [`CLAUDE.md`](CLAUDE.md), `.claude/` | The team charter (roles, conventions), and Claude Code's skills and settings |
+| [`src/`](../src/) | The app. `src/core/` is the platform, `src/subjects/<id>/` holds one subject each (ADR 0003, contract in ADR 0019; start a new one from `src/subjects/example/`) |
+| [`content/`](../content/) | Learning content as data (letters, words, Morse characters, lessons) |
+| [`supabase/`](../supabase/) | Database migrations and their tests |
+| [`docs/process/`](../docs/process/) | Current status ([`STATUS.md`](../docs/process/STATUS.md)), the plan ([`PLAN.md`](../docs/process/PLAN.md)) and the version map ([`VERSIONS.md`](../docs/process/VERSIONS.md)), how we work ([`WORKFLOW.md`](../docs/process/WORKFLOW.md)), deploying ([`DEPLOY.md`](../docs/process/DEPLOY.md)), release notes ([`releases/`](../docs/process/releases/)), the history and retros |
+| [`docs/vision.md`](../docs/vision.md) | North star: what we are building |
+| [`docs/game/`](../docs/game/) | Game rules and numbers: [economy](../docs/game/economy.md), [the Road](../docs/game/the-road.md) (both stories, step by step) and [the tale](../docs/game/the-tale.md) |
+| [`docs/decisions/`](../docs/decisions/) | Architecture and product decision records (ADRs) |
+| [`docs/design/`](../docs/design/) | Visual concepts and the city generator |
+| [`docs/discovery/`](../docs/discovery/), [`docs/research/`](../docs/research/) | Brainstorms, research on methods, apps and sources, and the spikes that answered one question each |
+| [`sources/`](../sources/) | Raw learning material. Upload new files to `sources/_inbox/` |
+| [`.claude/`](../.claude/CLAUDE.md) | The team charter (roles, conventions), and Claude Code's skills and settings |
 
 </details>
 

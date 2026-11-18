@@ -8,7 +8,7 @@ How to add a third guild to Waymark, written from the subject contract ([ADR 001
 
 - **The subject, and what "learned" means for it.** One learner goal in plain words, like "send and receive without thinking". The capstone at the end of the road will test exactly that (task 4.3).
 - **Its place and guild:** the building's name on the sign, the guild's name, its color (no blue backgrounds: the night is warm), and its first chapter's story. Write it in `docs/game/` like `morse-lessons.md` and `arabic-script-lessons.md`.
-- **Its sources and their licenses**, checked before anything is proposed ([CLAUDE.md](../../CLAUDE.md): research first). Free sources only. Licensed material stays private (ADR 0008, ADR 0023).
+- **Its sources and their licenses**, checked before anything is proposed ([CLAUDE.md](../../.claude/CLAUDE.md): research first). Free sources only. Licensed material stays private (ADR 0008, ADR 0023).
 - **An ADR** for anything new in kind: a new service, a new kind of content, a new way of judging.
 
 ## 2. The folder and the registry
