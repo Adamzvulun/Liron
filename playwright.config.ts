@@ -6,6 +6,9 @@ export default defineConfig({
   testDir: './tests/e2e',
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
+  // CI's runner has 2 CPUs: two workers took about 40% less time than one; three starved the
+  // tests that wait in real time (2026-11-18). The @timing tests run alone (ci.yml).
+  workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? 'github' : 'list',
   use: { baseURL: `http://localhost:${PORT}` },
   // Phone and desktop count equally (ADR 0005). Both run on Chromium: the cloud session has a

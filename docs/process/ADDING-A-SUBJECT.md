@@ -73,7 +73,7 @@ Its tests walk from the first step to the last, with one open next step at every
 
 ## 9. Before the PR
 
-The usual checks (WORKFLOW.md): `tsc -b`, eslint, prettier, vitest (also with `TZ=UTC`), the whole Playwright suite with `--trace off`, and the load budget with `--workers 1`. Each hall gets an e2e spec for its first chapter, using `signedIn(page, …, state)` from `tests/e2e/fake-supabase.ts`.
+The usual checks (WORKFLOW.md): `tsc -b`, eslint, prettier, vitest (also with `TZ=UTC`), and `npm run e2e` (the whole Playwright suite, then the `@timing` tests alone). Each hall gets an e2e spec for its first chapter, using `signedIn(page, …, state)` from `tests/e2e/fake-supabase.ts`.
 
 ## Known gaps: where `src/core/` still names the two halls
 

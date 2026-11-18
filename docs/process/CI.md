@@ -41,9 +41,9 @@ What a player feels when the site loads, each with a ceiling that CI enforces in
 - **Why the time ceilings are not "plus 15%":** the same code still reads 1.9× and 2.2× in runs minutes apart. A 15% ceiling would fail at random, and a test that fails at random gets ignored. The ceilings sit about a third above the slowest reading, which still catches the square becoming half as slow again as usual.
 - **Drawn and clickable are one moment today:** places are links, usable as soon as they are on screen. The test still measures both.
 - **Frames while the square is open** have their own budget in `tests/e2e/city-speed.spec.ts` (#123).
-- **Only on one worker.** Run beside other tests, the same code read 17× (2026-11-17), so the timing test skips itself when Playwright runs more than one worker. CI runs one. Locally: `npx playwright test tests/e2e/load-budget.spec.ts --workers 1`.
+- **Only on one worker.** Run beside other tests, the same code read 17× (2026-11-17), so the timing test skips itself when Playwright runs more than one worker. It and the square's frame budget are tagged `@timing`, and `npm run e2e` runs them alone on one worker after the rest.
 - **If it fails:** the log line `load budget: …` has every round's raw times. If one number rose and the yardstick didn't, something got slower: find what the PR added to the square or to the startup script. Don't raise a ceiling to get green without writing the reason here.
-- **CI stays on one Playwright worker.** Two would halve the run, but the timed tests need a quiet machine; the job has 25 minutes and takes 15 to 17 on a slow runner.
+- **CI runs two Playwright workers (2026-11-18).** The runner has 2 CPUs. On one worker the browser tests took 18 to 20 minutes of a 20 to 23 minute job. On two CPUs locally, two workers took about 40% less, and three starved the tests that wait in real time (Forty Winters, the walk to a door). The `@timing` tests run alone: the two speed budgets, and Forty Winters, which keys Morse at 20 wpm and failed once in two runs beside another worker. The job has 20 minutes.
 
 ## Locally
 The same steps are `npm run lint`, `npm run typecheck`, `npm test`, `npm run build` and `npm run e2e` (see the README).
