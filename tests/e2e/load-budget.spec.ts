@@ -71,78 +71,80 @@ test('the first visit downloads no more script than the budget', () => {
   expect(kb).toBeLessThanOrEqual(STARTUP_KB);
 });
 
-test('the square is drawn, clickable and back from a hall within the budget', async ({
-  page,
-}, info) => {
-  test.skip(info.project.name !== 'phone', 'the budget is for a phone; one viewport is enough');
-  // Tests running beside it slow the page far more than the yardstick (17× against 9× alone,
-  // 2026-11-17), so the timings are taken only on one worker, as CI runs.
-  test.skip(
-    info.config.workers > 1,
-    'timings need a quiet machine: run with --workers 1 (CI does)',
-  );
-  test.setTimeout(180_000);
-  await watchSquare(page);
-  // Five friends stand in the square (task 3.3: the budget holds "with five friends"). They are
-  // read after the square's first paint, so each round waits for them before going on.
-  const friends = [1, 2, 3, 4, 5].map((n) =>
-    friendCard(`00000000-0000-0000-0000-00000000000${n}`, `Friend ${n}`, {
-      look: { hair: n % 2 ? 'long' : 'curly', gear: { torso: 'tunic', pet: 'sand-cat' } },
-    }),
-  );
-  await signedIn(page, [], [], undefined, [], { fellowship: { friends } });
-  const cdp = await page.context().newCDPSession(page);
-  await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+test(
+  'the square is drawn, clickable and back from a hall within the budget',
+  { tag: '@timing' },
+  async ({ page }, info) => {
+    test.skip(info.project.name !== 'phone', 'the budget is for a phone; one viewport is enough');
+    // Tests running beside it slow the page far more than the yardstick (17× against 9× alone,
+    // 2026-11-17), so the timings are taken only on one worker: CI runs the @timing tests alone.
+    test.skip(
+      info.config.workers > 1,
+      'timings need a quiet machine: run with --workers 1 (CI does)',
+    );
+    test.setTimeout(180_000);
+    await watchSquare(page);
+    // Five friends stand in the square (task 3.3: the budget holds "with five friends"). They are
+    // read after the square's first paint, so each round waits for them before going on.
+    const friends = [1, 2, 3, 4, 5].map((n) =>
+      friendCard(`00000000-0000-0000-0000-00000000000${n}`, `Friend ${n}`, {
+        look: { hair: n % 2 ? 'long' : 'curly', gear: { torso: 'tunic', pet: 'sand-cat' } },
+      }),
+    );
+    await signedIn(page, [], [], undefined, [], { fellowship: { friends } });
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
-  // Noise only ever adds time, so each figure is the best of four rounds, and so is the
-  // yardstick: the fastest each could go on this machine in these minutes.
-  const best = { drawn: Infinity, clickable: Infinity, back: Infinity, unit: Infinity };
-  const raw: string[] = [];
-  for (let round = 0; round < 4; round++) {
-    await page.goto('/');
-    await page.locator('a.city__place').first().waitFor();
-    await expect(page.locator('.city__friend')).toHaveCount(5);
-    const unit = await yardstick(page);
-    const marks = await page.evaluate(
-      () => (window as unknown as { square: { drawn: number; clickable: number } }).square,
-    );
+    // Noise only ever adds time, so each figure is the best of four rounds, and so is the
+    // yardstick: the fastest each could go on this machine in these minutes.
+    const best = { drawn: Infinity, clickable: Infinity, back: Infinity, unit: Infinity };
+    const raw: string[] = [];
+    for (let round = 0; round < 4; round++) {
+      await page.goto('/');
+      await page.locator('a.city__place').first().waitFor();
+      await expect(page.locator('.city__friend')).toHaveCount(5);
+      const unit = await yardstick(page);
+      const marks = await page.evaluate(
+        () => (window as unknown as { square: { drawn: number; clickable: number } }).square,
+      );
 
-    await page.goto('/signal-tower');
-    const back = page.getByRole('link', { name: 'Back to the square' });
-    await back.waitFor();
-    await page.waitForLoadState('networkidle');
-    const returned = await page.evaluate(
-      () =>
-        new Promise<number>((resolve) => {
-          const link = [...document.querySelectorAll('a')].find((a) =>
-            a.textContent.includes('Back to the square'),
-          );
-          if (!link) throw new Error('no way back');
-          const start = performance.now();
-          new MutationObserver((_, o) => {
-            if (!document.querySelector('a.city__place')) return;
-            o.disconnect();
-            // Counted when the square has been painted, not only built.
-            requestAnimationFrame(() => setTimeout(() => resolve(performance.now() - start)));
-          }).observe(document, { childList: true, subtree: true });
-          link.click();
-        }),
+      await page.goto('/signal-tower');
+      const back = page.getByRole('link', { name: 'Back to the square' });
+      await back.waitFor();
+      await page.waitForLoadState('networkidle');
+      const returned = await page.evaluate(
+        () =>
+          new Promise<number>((resolve) => {
+            const link = [...document.querySelectorAll('a')].find((a) =>
+              a.textContent.includes('Back to the square'),
+            );
+            if (!link) throw new Error('no way back');
+            const start = performance.now();
+            new MutationObserver((_, o) => {
+              if (!document.querySelector('a.city__place')) return;
+              o.disconnect();
+              // Counted when the square has been painted, not only built.
+              requestAnimationFrame(() => setTimeout(() => resolve(performance.now() - start)));
+            }).observe(document, { childList: true, subtree: true });
+            link.click();
+          }),
+      );
+      raw.push(
+        `drawn ${Math.round(marks.drawn)} ms, clickable ${Math.round(marks.clickable)} ms, back ${Math.round(returned)} ms, yardstick ${unit.toFixed(1)} ms`,
+      );
+      best.drawn = Math.min(best.drawn, marks.drawn);
+      best.clickable = Math.min(best.clickable, marks.clickable);
+      best.back = Math.min(best.back, returned);
+      best.unit = Math.min(best.unit, unit);
+    }
+    const drawn = best.drawn / best.unit;
+    const clickable = best.clickable / best.unit;
+    const back = best.back / best.unit;
+    console.log(
+      `load budget: ${raw.join(' | ')} => drawn ${drawn.toFixed(1)}×, clickable ${clickable.toFixed(1)}×, back ${back.toFixed(1)}×`,
     );
-    raw.push(
-      `drawn ${Math.round(marks.drawn)} ms, clickable ${Math.round(marks.clickable)} ms, back ${Math.round(returned)} ms, yardstick ${unit.toFixed(1)} ms`,
-    );
-    best.drawn = Math.min(best.drawn, marks.drawn);
-    best.clickable = Math.min(best.clickable, marks.clickable);
-    best.back = Math.min(best.back, returned);
-    best.unit = Math.min(best.unit, unit);
-  }
-  const drawn = best.drawn / best.unit;
-  const clickable = best.clickable / best.unit;
-  const back = best.back / best.unit;
-  console.log(
-    `load budget: ${raw.join(' | ')} => drawn ${drawn.toFixed(1)}×, clickable ${clickable.toFixed(1)}×, back ${back.toFixed(1)}×`,
-  );
-  expect(drawn).toBeLessThanOrEqual(DRAWN);
-  expect(clickable).toBeLessThanOrEqual(CLICKABLE);
-  expect(back).toBeLessThanOrEqual(RETURN);
-});
+    expect(drawn).toBeLessThanOrEqual(DRAWN);
+    expect(clickable).toBeLessThanOrEqual(CLICKABLE);
+    expect(back).toBeLessThanOrEqual(RETURN);
+  },
+);
