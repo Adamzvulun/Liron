@@ -27,7 +27,7 @@ GitHub's plan page lists **protected branches for private repositories as a GitH
 
 ## The speed budget (#137, #315; set 2026-11-16)
 
-What a player feels when the site loads, each with a ceiling that CI enforces in `e2e/load-budget.spec.ts`. Times are taken on the production build, in a phone-sized window with the CPU slowed 4×.
+What a player feels when the site loads, each with a ceiling that CI enforces in `tests/e2e/load-budget.spec.ts`. Times are taken on the production build, in a phone-sized window with the CPU slowed 4×.
 
 | What | Measured | Ceiling |
 |---|---|---|
@@ -40,8 +40,8 @@ What a player feels when the site loads, each with a ceiling that CI enforces in
 - **Why the yardstick is long:** Chrome slows the CPU in time slices. The first yardstick (sorting 60,000 numbers, about 80 ms) caught them unevenly and swung by a third between rounds, so the same code read anywhere from 7× to 13×.
 - **Why the time ceilings are not "plus 15%":** the same code still reads 1.9× and 2.2× in runs minutes apart. A 15% ceiling would fail at random, and a test that fails at random gets ignored. The ceilings sit about a third above the slowest reading, which still catches the square becoming half as slow again as usual.
 - **Drawn and clickable are one moment today:** places are links, usable as soon as they are on screen. The test still measures both.
-- **Frames while the square is open** have their own budget in `e2e/city-speed.spec.ts` (#123).
-- **Only on one worker.** Run beside other tests, the same code read 17× (2026-11-17), so the timing test skips itself when Playwright runs more than one worker. CI runs one. Locally: `npx playwright test e2e/load-budget.spec.ts --workers 1`.
+- **Frames while the square is open** have their own budget in `tests/e2e/city-speed.spec.ts` (#123).
+- **Only on one worker.** Run beside other tests, the same code read 17× (2026-11-17), so the timing test skips itself when Playwright runs more than one worker. CI runs one. Locally: `npx playwright test tests/e2e/load-budget.spec.ts --workers 1`.
 - **If it fails:** the log line `load budget: …` has every round's raw times. If one number rose and the yardstick didn't, something got slower: find what the PR added to the square or to the startup script. Don't raise a ceiling to get green without writing the reason here.
 - **CI stays on one Playwright worker.** Two would halve the run, but the timed tests need a quiet machine; the job has 25 minutes and takes 15 to 17 on a slow runner.
 

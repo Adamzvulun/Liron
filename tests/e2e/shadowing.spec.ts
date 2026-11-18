@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { deckWord, signedIn, type SubjectCall } from './fake-supabase.ts';
-import pack from '../content/arabic/core-words.json' with { type: 'json' };
+import pack from '../../content/arabic/core-words.json' with { type: 'json' };
 
 // Shadowing at the echo well (#194), with Chromium's fake microphone (a beep) allowed without a
 // prompt. Made-up deck-like rows under the ids of the first chapter's words and their sentences

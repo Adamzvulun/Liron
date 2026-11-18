@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
-import { lettersOf } from '../src/subjects/arabic/letters.ts';
-import { inHebrewVowelled } from '../src/subjects/arabic/marks.ts';
+import { lettersOf } from '../../src/subjects/arabic/letters.ts';
+import { inHebrewVowelled } from '../../src/subjects/arabic/marks.ts';
 import { lessonWord, listenForAudio, played, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // Review item 7: earlier flows clicked the first choice and accepted any outcome. These answer

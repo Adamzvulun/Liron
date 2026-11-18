@@ -96,4 +96,4 @@ Create `.env.local` (git-ignored) from [`.env.example`](../../.env.example) with
 ## Tests
 `supabase/tests/schema.test.ts` runs the migrations in PGlite (Postgres in WebAssembly, inside Vitest) and checks row-level security as a signed-in user, another user and a logged-out visitor.
 
-The tests never touch a real project. The e2e build points at a fake address, and `e2e/fake-supabase.ts` answers the auth calls (login, logout, reset, set password). So CI needs no Supabase secrets.
+The tests never touch a real project. The e2e build points at a fake address, and `tests/e2e/fake-supabase.ts` answers the auth calls (login, logout, reset, set password). So CI needs no Supabase secrets.

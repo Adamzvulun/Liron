@@ -61,7 +61,7 @@ At our size (Adam and a few friends), two keyers use 2 connections and at most a
 - **Adam's step (free, a dashboard setting):** in the Supabase dashboard, Realtime → Settings, switch **"Allow public access"** off, for the dev project and the live one. Our app always asks for a private channel, so this doesn't change how it works. It stops a modified client from opening a public channel with the same name. Written in [RUNNING.md](../process/RUNNING.md#friends) and in [VERSIONS.md](../process/VERSIONS.md) 2.4.
 - **What the tests prove:**
   - The policy is tested in the database (`fellowship.test.ts`, "the wire"), against a stand-in `realtime.messages` in the test shim. Friends may hear and key; strangers, a third player, a bad name and an ended friendship may not.
-  - The app is tested against a fake Realtime socket (`e2e/fake-realtime.ts`), shaped by what supabase-js 2.118 was seen to send. Two pages key K to each other and read it. A dropped line recovers, a refused line can be tried again, and the phone's brass key keys too.
+  - The app is tested against a fake Realtime socket (`tests/e2e/fake-realtime.ts`), shaped by what supabase-js 2.118 was seen to send. Two pages key K to each other and read it. A dropped line recovers, a refused line can be tried again, and the phone's brass key keys too.
   - Neither test reaches real Realtime. **Adam's try with a friend on two devices is the real test** (VERSIONS.md 2.4).
 - **Policies are kept for the connection's life,** so a friendship ended mid-call ends the line only when it reconnects. That is acceptable for a game between friends.
 - If we ever outgrow the free plan's 200 connections, that is a question for Adam (money), not a quiet change.

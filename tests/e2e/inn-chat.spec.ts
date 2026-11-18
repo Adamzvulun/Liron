@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { deckWord, pathWord, signedIn, type SubjectCall } from './fake-supabase.ts';
-import { ECHO_POOL } from '../src/subjects/arabic/words.ts';
-import pack from '../content/arabic/core-words.json' with { type: 'json' };
-import { tipId } from '../src/subjects/arabic/chat/innChat.ts';
+import { ECHO_POOL } from '../../src/subjects/arabic/words.ts';
+import pack from '../../content/arabic/core-words.json' with { type: 'json' };
+import { tipId } from '../../src/subjects/arabic/chat/innChat.ts';
 
 // Sit and talk at the innkeeper's table (E17, ADR 0038). The partner function is mocked: the
 // regular's lines here are ours, not a model's.

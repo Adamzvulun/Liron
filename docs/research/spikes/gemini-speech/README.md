@@ -38,7 +38,7 @@ node choice.mjs --model gemini-3.5-flash-lite --no-audio
 - **Transcription:** sentence CER 9% / WER 25%. By hand, 24/30 sentences are right or differ only in spelling, and 27/30 keep the meaning. Single words: 15/20. It drifts towards MSA spellings now and then (تلات→ثلاث, هادي→هذي).
 - **Pronunciation (minimal pairs):** the yes/no judge accepts the one-letter-wrong text 98% of the time, so it's useless. Forced choice scores 92% with audio but 96% *without* audio, so it reflects language knowledge, not hearing.
 - **Follow-up (v2.mjs, no human voice):** a dialect-aware prompt brings sentence CER to 7.5%. In a synthetic-mistake test (free Gemini TTS says a one-consonant-wrong copy), 11 of 15 came back as the correct word and only 2 were caught. Pronunciation scoring is off the table on the free tier.
-- **Decision:** [ADR 0013](../../docs/decisions/0013-speech-on-free-gemini.md): free Gemini only, check *understanding* of sentences, pronunciation via record-and-compare and ear training. Adam's voice is not sent (his call, 2026-11-01), so phase 2 is dropped.
+- **Decision:** [ADR 0013](../../../decisions/0013-speech-on-free-gemini.md): free Gemini only, check *understanding* of sentences, pronunciation via record-and-compare and ear training. Adam's voice is not sent (his call, 2026-11-01), so phase 2 is dropped.
 
 ```bash
 node v2.mjs --part deck
@@ -49,7 +49,7 @@ node v2.mjs --part synth
 (`synth` uses the TTS models, about 10 calls/day each on the free tier. Its audio goes to `synth-clips/`, which is git-ignored.)
 
 ## Non-Gemini candidate: Groq Whisper (2026-11-02)
-Research: [`docs/research/speech-apis.md`](../../docs/research/speech-apis.md). The same deck clips plus the synthetic pairs in `synth-clips/` (Gemini TTS, no human voice; committed so the test needs no TTS quota) go through Groq's hosted `whisper-large-v3`. Free tier: 20 requests/min, 2,000/day.
+Research: [`docs/research/speech-apis.md`](../../../research/speech-apis.md). The same deck clips plus the synthetic pairs in `synth-clips/` (Gemini TTS, no human voice; committed so the test needs no TTS quota) go through Groq's hosted `whisper-large-v3`. Free tier: 20 requests/min, 2,000/day.
 ```bash
 python3 -I prep.py
 ```
@@ -65,4 +65,4 @@ The key is read from `GROQ_API_KEY`, or `GROQ_KEY` (the name the environment sec
 - **Pronunciation:** by hand, 3/15 synthetic mistakes were caught (Gemini: 2/15). Every ح/ه swap was fixed back to the real word, and Whisper even wrote a native ح as ه (حلو→هلو). There's no signal to build per-sound scoring on.
 - **Quota:** 80 calls, no 429s. This account's headers show 2,000 requests/day and 7,200 audio-s/hour.
 - **Caveat:** most synthetic clips start with the TTS reading its instruction aloud. Whisper transcribes that too and sometimes drops the sentence after it. Trim the preamble before reusing them.
-- **Decision:** [ADR 0014](../../docs/decisions/0014-groq-whisper-for-speech.md) (amends 0013).
+- **Decision:** [ADR 0014](../../../decisions/0014-groq-whisper-for-speech.md) (amends 0013).
