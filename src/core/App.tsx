@@ -243,13 +243,15 @@ function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
   const path = usePath();
   const [facts, setFacts] = useState<RoadFacts>(ASSUMED_FACTS);
+  // Again on each move: a kept answer comes back at once, and one the site couldn't give is
+  // asked once more (road/facts.ts).
   useEffect(() => {
     let live = true;
     void roadFacts?.().then((f) => live && setFacts(f));
     return () => {
       live = false;
     };
-  }, []);
+  }, [path]);
   // Both at once (#137): the player keeps the contracts' purse, which is never older. Again when
   // you come back to the tab on a new day, so the top bar doesn't show yesterday's goal and
   // contracts after midnight (review, 2026-11-15).

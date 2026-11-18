@@ -21,14 +21,24 @@ export interface FactSources {
   talk(): Promise<boolean | null>;
 }
 
-/** Asks both at once; whatever fails falls back to the assumed answer. */
+/**
+ * Asks both at once; whatever fails falls back to the assumed answer. A full answer is kept for
+ * the page. One that failed, or a site that couldn't say, is asked again next time, so a moment
+ * offline doesn't fix the wrong road for the rest of the visit (review, 2026-11-18).
+ */
 export function readFacts(sources: FactSources): () => Promise<RoadFacts> {
   let asked: Promise<RoadFacts> | null = null;
   return () =>
     (asked ??= Promise.all([
-      sources.licensee().catch(() => ASSUMED_FACTS.licensee),
+      sources.licensee().then(
+        (yes) => ({ yes, sure: true }),
+        () => ({ yes: ASSUMED_FACTS.licensee, sure: false }),
+      ),
       sources.talk().catch(() => null),
-    ]).then(([licensee, talk]) => ({ licensee, partner: talk === false ? 'off' : 'ready' })));
+    ]).then(([licensee, talk]) => {
+      if (!licensee.sure || talk === null) asked = null;
+      return { licensee: licensee.yes, partner: talk === false ? 'off' : 'ready' };
+    }));
 }
 
 export const RoadFactsContext = createContext<RoadFacts>(ASSUMED_FACTS);
