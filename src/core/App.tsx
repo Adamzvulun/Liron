@@ -34,6 +34,7 @@ import { giftProblem, supabaseTogether } from './fellowship/together.ts';
 import { supabaseWire } from './fellowship/wire.ts';
 import type { Giving } from './fellowship/GiftOffer.tsx';
 import { functionServices } from './services.ts';
+import { ASSUMED_FACTS, readFacts, RoadFactsContext, type RoadFacts } from './road/facts.ts';
 import { functionSpeech } from './speech.ts';
 import { armSound, cue, setAmbient } from './sound/sound.ts';
 import './App.css';
@@ -82,6 +83,20 @@ const partnerOf = (client: NonNullable<typeof supabase>) => functionPartner(acce
 
 /** What's switched on (#316), asked as the current learner, once per page. */
 const services = supabase ? functionServices(accessToken(supabase)) : undefined;
+/**
+ * What a road depends on (road/facts.ts): the database says whether this account may read the
+ * deck (ADR 0050), and the site whether Sit and talk is switched on (#316). Asked once a page.
+ */
+const factsOf = (client: NonNullable<typeof supabase>) =>
+  readFacts({
+    licensee: async () => {
+      const { data, error } = await client.rpc('is_content_licensee');
+      if (error) throw error;
+      return data === true;
+    },
+    talk: async () => (await services?.())?.talk ?? null,
+  });
+const roadFacts = supabase ? factsOf(supabase) : undefined;
 /** Friends (task 3.1): through the database's Fellowship functions only. */
 const fellowship = supabase ? supabaseFellowship(supabase) : null;
 /** Settings' sharing switch (task 3.3). */
@@ -180,6 +195,7 @@ const compassSources: CompassSources = {
   loadState: (id) => apis.get(id)?.loadState() ?? Promise.resolve(null),
   due: async (id) => (await apis.get(id)?.dueItems())?.length ?? 0,
   practiced: () => store?.practiced() ?? Promise.resolve([]),
+  ...(roadFacts && { facts: roadFacts }),
 };
 
 export function App() {
@@ -226,6 +242,14 @@ function AuthGate() {
 function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
   const path = usePath();
+  const [facts, setFacts] = useState<RoadFacts>(ASSUMED_FACTS);
+  useEffect(() => {
+    let live = true;
+    void roadFacts?.().then((f) => live && setFacts(f));
+    return () => {
+      live = false;
+    };
+  }, []);
   // Both at once (#137): the player keeps the contracts' purse, which is never older. Again when
   // you come back to the tab on a new day, so the top bar doesn't show yesterday's goal and
   // contracts after midnight (review, 2026-11-15).
@@ -427,7 +451,9 @@ function Lobby({ player }: { player: Player }) {
             )}
             {Hall && api && (
               <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
-                <Hall api={api} />
+                <RoadFactsContext.Provider value={facts}>
+                  <Hall api={api} />
+                </RoadFactsContext.Provider>
               </Suspense>
             )}
             {place === 'board' && (

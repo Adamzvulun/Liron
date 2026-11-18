@@ -10,6 +10,7 @@ import { reportSession, scoreOf, xpFor, type Answer } from './report.ts';
 import { Practice } from './ScriptLesson.tsx';
 import { useAudio } from './useAudio.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { NoDeck } from '../NoDeck.tsx';
 
 type Stage =
   | { kind: 'start' }
@@ -51,8 +52,7 @@ export function Trial({ api }: { api: SubjectApi }) {
       </p>
     );
   if (!progress || !words) return <p className="arabic__loading">Lighting the lamps…</p>;
-  if (words.length === 0)
-    return <p className="lesson__card">The deck’s words haven’t been loaded into Waymark yet.</p>;
+  if (words.length === 0) return <NoDeck what="words" />;
   // Reached by its address before every milestone is lit (code review, 2026-11-04).
   if (!progress.guest && !questStatus(progress).trialReady)
     return (

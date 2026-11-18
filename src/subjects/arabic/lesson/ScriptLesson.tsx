@@ -16,6 +16,7 @@ import {
 import { LESSON_BONUS, reportSession, scoreOf, xpFor, type Answer } from './report.ts';
 import { useAudio } from './useAudio.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { NoDeck } from '../NoDeck.tsx';
 
 type Stage =
   | { kind: 'meet'; index: number }
@@ -94,8 +95,7 @@ export function ScriptLesson({ api, only }: { api: SubjectApi; only?: Only }) {
 
   if (failed) return <p className="lesson__card">{failed}</p>;
   if (!progress || !words) return <p className="arabic__loading">Lighting the lamps…</p>;
-  if (words.length === 0)
-    return <p className="lesson__card">The deck’s words haven’t been loaded into Waymark yet.</p>;
+  if (words.length === 0) return <NoDeck what="words" />;
 
   const lesson = LESSONS[progress.lesson - 1];
   if (!lesson) return null;

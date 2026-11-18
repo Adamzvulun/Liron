@@ -46,7 +46,8 @@ export interface RoadContext {
   contractDoor?: string;
 }
 
-export type WaitReason = 'tomorrow' | 'spent' | 'off';
+/** Why a step waits: a later day, the partner's day spent or not set up, or no deck (ADR 0050). */
+export type WaitReason = 'tomorrow' | 'spent' | 'off' | 'deck';
 
 export interface RoadRules<P> {
   done(step: RoadStep, p: P): boolean;
@@ -97,7 +98,8 @@ export function walk<P>(
 export interface Meanwhile {
   door: string;
   line: string;
-  why: 'reviews' | 'regular' | 'contract' | 'station';
+  /** `closed`: nothing here can be done without what the road waits on; the line says what. */
+  why: 'reviews' | 'regular' | 'contract' | 'station' | 'closed';
 }
 
 /** A subject's answer to "where am I, and what now?". */
@@ -125,6 +127,7 @@ const WAIT_LINE: Record<WaitReason, (title: string) => string> = {
   tomorrow: (t) => `The road goes on tomorrow: ${t}.`,
   spent: (t) => `The regulars have talked enough for one day. Tomorrow: ${t}.`,
   off: () => 'Nobody is at the table on this site yet.',
+  deck: () => 'This account can’t read the deck yet: ask whoever invited you to open it.',
 };
 
 /** The player's local day, YYYY-MM-DD. */
@@ -162,7 +165,9 @@ export function answer(
   const chapter = at && chapters.find((c) => c.number === at.chapter);
   const mates = at ? steps.filter((s) => s.chapter === at.chapter) : [];
   const next = steps[w.compass];
-  const held = w.waiting && steps[w.waiting.index];
+  const instead = next ? null : meanwhile();
+  // A closed road's meanwhile line already says what it waits on: it isn't said twice.
+  const held = w.waiting && instead?.why !== 'closed' && steps[w.waiting.index];
   return {
     questline,
     steps: steps.length,
@@ -179,7 +184,7 @@ export function answer(
         : null,
     now: next
       ? { kind: 'step', index: w.compass, step: next }
-      : { kind: 'meanwhile', ...meanwhile() },
+      : { kind: 'meanwhile', ...(instead ?? meanwhile()) },
     ...(held &&
       w.waiting && {
         waiting: {
