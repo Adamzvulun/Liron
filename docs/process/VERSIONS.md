@@ -135,8 +135,8 @@ A version is **done** when everything in its list is true *and* the release step
 
 | Version | State |
 |---|---|
-| 0.1.0 | Live (the scaffold) |
-| 1.0 | Built, carrying 1.1 to 3.0 too (ADR 0049); next is Adam's checklist (1.12, now about an hour) and the release PR (1.13) |
+| 0.1.0 | Replaced by 1.0.0 |
+| 1.0 | **Live: v1.0.0** (merged 2026-11-17, #359; the database migrated 2026-11-18 through v1.0.1, #360), carrying 1.1 to 3.0 too (ADR 0049). Adam's checklist walk (1.12) was skipped at his word ("You do that") and can still be done on the live site |
 | 1.1 | Built (the ledger, the handbook); ships in 1.0.0 (ADR 0049) |
 | 1.2 | Built (sound, motion, world events); ships in 1.0.0 (ADR 0049) |
 | 2.0 | Built; ships in 1.0.0 (ADR 0049). Adam's part comes before inviting a friend: 2.1 (what friends may learn) and a first friend |
