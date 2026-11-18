@@ -139,10 +139,20 @@ A version is **done** when everything in its list is true *and* the release step
 | 1.0 | **Live: v1.0.0** (merged 2026-11-17, #359; the database migrated 2026-11-18 through v1.0.1, #360), carrying 1.1 to 3.0 too (ADR 0049). Adam's checklist walk (1.12) was skipped at his word ("You do that") and can still be done on the live site |
 | 1.1 | Built (the ledger, the handbook); ships in 1.0.0 (ADR 0049) |
 | 1.2 | Built (sound, motion, world events); ships in 1.0.0 (ADR 0049) |
-| 2.0 | Built; ships in 1.0.0 (ADR 0049). Adam's part comes before inviting a friend: 2.1 (what friends may learn) and a first friend |
+| 2.0 | Built; ships in 1.0.0 (ADR 0049). 2.1 is decided (friends get the deck, [ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)) and its build is the next release, **v1.1.0** (below). Then Adam's part: a first friend |
 | 2.1 | Built (the feed, friends in the square); ships in 1.0.0, shows once a friend is invited |
 | 2.2 | Built (challenges, the Arena); ships in 1.0.0, shows once a friend is invited |
 | 2.3 | Built (Fellowship quests, gifts); ships in 1.0.0, shows once a friend is invited |
 | 2.4 | Built (the wire); ships in 1.0.0. Waits on Adam's Realtime setting (DEPLOY step 7) and a try on two devices |
 | 3.0 | Built (both finales and capstones, the long evenings, the prepared account); ships in 1.0.0. Adam looks at one ending in the checklist (§6) |
-| 4.0 | Partly built: the guide (4.5's first half), LATER.md (5.2) and the last sweep (5.1). The third hall waits on Adam's choice of subject |
+| 4.0 | Partly built: the guide (4.5's first half), LATER.md (5.2) and the last sweep (5.1). **The third hall is parked** (Adam, 2026-11-18: "third subject won't come soon"); it is in LATER.md |
+
+### Next: v1.1.0 — Open to Friends
+
+The next release, per ADR 0049 §5 (a 1.Y after 1.0.0). It carries:
+
+1. **Friends read the deck** (task 2.1, [ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)): every account is a licensee, with tests; FRIENDS.md and SUPABASE.md updated; no dead end for an account without a licence.
+2. **Everything for 3.7 (Release the Fellowship) that Claude can do:** the two lows from the [v1 review](reviews/2026-11-17-v1-review.md) left for 2.1, FRIENDS.md walked against the code, Adam's steps for the first friend written as one short list.
+3. **Whatever Adam reports from the live site** (1.0.x fixes).
+
+**Done when:** the above is merged into `dev` with green CI; the release PR `release/v1.1.0` → `main` is open with its notes; Adam merges it and makes a first friend's account.

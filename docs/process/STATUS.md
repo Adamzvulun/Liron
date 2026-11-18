@@ -27,12 +27,13 @@
 
 ## What comes next
 
-All of it is Adam's, in the order of [VERSIONS.md](VERSIONS.md):
+**Claude's next:** build **v1.1.0, Open to Friends** ([VERSIONS](VERSIONS.md#next-v110--open-to-friends)). Adam decided on 2026-11-18 that his friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)). So every account becomes a licensee with no step from him, the non-licensee path stays honest as a safety net, and everything for 3.7 that doesn't need him is prepared. Then open the release PR; Adam merges it.
 
-1. **Play v1.0.0** (live since 2026-11-17, #359; database migrated 2026-11-18, #360; every release step done by 2026-11-18). What you find becomes 1.0.x fixes. The checklist walk (1.12) can still be done on the live site.
-2. **Before inviting a friend:** 2.1 (what friends without the deck may learn), a first friend's account ([FRIENDS.md](FRIENDS.md)), the Realtime "Allow public access" switch on both projects ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 opens the Fellowship to friends.
-3. **v4.0:** pick the third subject (4.5). Its build starts with the "Known gaps" in [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), and ends with the sweep repeated over the new hall.
-4. **Parked, each waiting on him:** the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All listed in [LATER.md](LATER.md).
+**Adam's, in the order of [VERSIONS.md](VERSIONS.md):**
+
+1. **Play v1.0.0** (live since 2026-11-17, #359; database migrated 2026-11-18, #360). What you find becomes 1.0.x fixes, folded into v1.1.0. The checklist walk (1.12) can still be done on the live site.
+2. **After v1.1.0, the first friend:** their account ([FRIENDS.md](FRIENDS.md)), the Realtime "Allow public access" switch on both projects ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 opens the Fellowship.
+3. **Parked:** the third subject (4.5; Adam, 2026-11-18: "won't come soon"), the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All in [LATER.md](LATER.md).
 
 **The repo itself (2026-11-18):** its front page opens on a banner of the square ([README](../../.github/README.md)), and its root lists 23 entries (the charter is now `.claude/CLAUDE.md`). CI costs about 40% less a run: arm64 runners, two Playwright workers, and no second run when a release lands on `main` ([CI.md](CI.md)). The live site was checked from outside the same day: it loads in 1–2 s on desktop and phone, with no console errors and every security header in place.
 
