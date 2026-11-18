@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 import { signedIn, type SaveSessionArgs } from './fake-supabase.ts';
-import { watchWords } from '../src/subjects/morse/words/nightWatch.ts';
+import { watchWords } from '../../src/subjects/morse/words/nightWatch.ts';
 
 // The Night Watch (#179): the Telegraphist's trial. Twenty common words at 20 wpm, no AGN,
 // 18 right. With ?run=short it is 3 words, and a fixed Math.random makes them known here.

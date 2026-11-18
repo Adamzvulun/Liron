@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
-import { WORD_CHAPTERS } from '../src/subjects/arabic/core/coreWords.ts';
-import { REVIEWS } from '../src/subjects/arabic/words.ts';
-import { ACHIEVEMENTS } from '../src/core/achievements/achievements.ts';
+import { WORD_CHAPTERS } from '../../src/subjects/arabic/core/coreWords.ts';
+import { REVIEWS } from '../../src/subjects/arabic/words.ts';
+import { ACHIEVEMENTS } from '../../src/core/achievements/achievements.ts';
 
 // The e2e build points at this address (playwright.config.ts). Nothing listens there:
 // every request is answered by page.route below, so tests never touch a real project.

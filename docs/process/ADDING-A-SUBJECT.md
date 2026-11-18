@@ -73,7 +73,7 @@ Its tests walk from the first step to the last, with one open next step at every
 
 ## 9. Before the PR
 
-The usual checks (WORKFLOW.md): `tsc -b`, eslint, prettier, vitest (also with `TZ=UTC`), the whole Playwright suite with `--trace off`, and the load budget with `--workers 1`. Each hall gets an e2e spec for its first chapter, using `signedIn(page, …, state)` from `e2e/fake-supabase.ts`.
+The usual checks (WORKFLOW.md): `tsc -b`, eslint, prettier, vitest (also with `TZ=UTC`), the whole Playwright suite with `--trace off`, and the load budget with `--workers 1`. Each hall gets an e2e spec for its first chapter, using `signedIn(page, …, state)` from `tests/e2e/fake-supabase.ts`.
 
 ## Known gaps: where `src/core/` still names the two halls
 
@@ -87,4 +87,4 @@ A third hall can't be added without touching the platform yet. These are the pla
 | `src/core/city/City.tsx` | A special case for `caravanserai` | Move it into the subject's building painting |
 | `src/core/App.tsx` | `place === 'tower' \|\| place === 'caravanserai'` (no sound bed in halls) | Ask whether the place has a resident subject |
 
-The painted halls are new city art, so the fix has its own screenshots at every width, and stays inside the square's speed budget (`e2e/city-speed.spec.ts`).
+The painted halls are new city art, so the fix has its own screenshots at every width, and stays inside the square's speed budget (`tests/e2e/city-speed.spec.ts`).

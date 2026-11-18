@@ -116,7 +116,7 @@ Then open the address it prints (usually http://localhost:5173). For the login t
 | `npm test` | Unit tests (Vitest): `*.test.ts(x)` files in `src/`, `tests/` and `supabase/tests/` |
 | `npm run test:watch` | The unit tests, rerun on every change |
 | `npm run coverage` | The unit tests with a coverage report (to read, not a gate; ADR 0030) |
-| `npm run e2e` | Browser tests (Playwright, `e2e/`) at desktop and phone sizes, against a production build with a fake Supabase (`e2e/fake-supabase.ts`) |
+| `npm run e2e` | Browser tests (Playwright, `tests/e2e/`) at desktop and phone sizes, against a production build with a fake Supabase (`tests/e2e/fake-supabase.ts`) |
 
 `npm run e2e` needs a Chromium for Playwright. On your own machine, run `npx playwright install chromium` once. In the Claude cloud session it's already installed, so don't run that there.
 
@@ -134,6 +134,8 @@ Dependencies are pinned to exact versions (`.npmrc` has `save-exact=true`). `@pl
 | [`src/`](../src/) | The app. `src/core/` is the platform, `src/subjects/<id>/` holds one subject each (ADR 0003, contract in ADR 0019; start a new one from `src/subjects/example/`) |
 | [`content/`](../content/) | Learning content as data (letters, words, Morse characters, lessons) |
 | [`supabase/`](../supabase/) | Database migrations and their tests |
+| [`tests/`](../tests/) | Checks on content, docs and the API; the browser tests are in `tests/e2e/` |
+| [`scripts/`](../scripts/) | Content builders and evals. Its `tsconfig.json` covers everything that runs in Node, and `src/tsconfig.json` covers the app |
 | [`docs/process/`](../docs/process/) | Current status ([`STATUS.md`](../docs/process/STATUS.md)), the plan ([`PLAN.md`](../docs/process/PLAN.md)) and the version map ([`VERSIONS.md`](../docs/process/VERSIONS.md)), how we work ([`WORKFLOW.md`](../docs/process/WORKFLOW.md)), deploying ([`DEPLOY.md`](../docs/process/DEPLOY.md)), release notes ([`releases/`](../docs/process/releases/)), the history and retros |
 | [`docs/vision.md`](../docs/vision.md) | North star: what we are building |
 | [`docs/game/`](../docs/game/) | Game rules and numbers: [economy](../docs/game/economy.md), [the Road](../docs/game/the-road.md) (both stories, step by step) and [the tale](../docs/game/the-tale.md) |

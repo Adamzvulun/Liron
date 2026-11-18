@@ -67,7 +67,7 @@ These are not decided yet.
 - **Bundle:** each hall (the Caravanserai and the Signal Tower) is its own chunk, loaded when you go in. The first load is now 642 KB (188 KB gzipped), down from 815 KB (239 KB). The halls are 87 KB and 90 KB. The rest of the main chunk is mostly framework code (React, the Supabase client, zod). Splitting that further would not make the first load smaller, so we left it.
 - **Audio:** a session's recordings (each word, plus the choices of the listening questions) are signed in one `createSignedUrls` request as soon as the session starts. After that, each question needs only the `GET`. The recording itself is not preloaded: the browser fetches it when it plays.
 - **Deck:** the pack is kept in this browser's IndexedDB under its version, which is the row count and latest change of its items and lessons. A visit checks the version in two small requests and downloads the deck only when it changed. Signing out wipes the copy (ADR 0023 amendment).
-- **Guard:** `e2e/loading.spec.ts` checks that the square loads no hall chunk, that a session makes one signing request, and that the deck loads once, even after a reload.
+- **Guard:** `tests/e2e/loading.spec.ts` checks that the square loads no hall chunk, that a session makes one signing request, and that the deck loads once, even after a reload.
 - **Not done:** the profile, wallet, today and time zone are still fetched on every page load. They are small and change often, so caching them isn't worth the risk of stale coins.
 
 **Guard:**

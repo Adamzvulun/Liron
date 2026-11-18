@@ -54,7 +54,7 @@ Both end up as the same ~5,300 SVG elements in the page, so rendering costs the 
 - **Two fixes on the way:**
   - The tower's halo had two `class` attributes, so it was never screen-blended. Its look is unchanged.
   - The inn sign rotated about a point far off its box (`transform-origin: 290px 520px` in its fill-box), so it slid about 30 px. It now swings from its bar.
-- **Guard:** `e2e/city-speed.spec.ts` checks that only sprites animate, only `transform`/`opacity`, with no blend modes and no hover filter. It also holds a frame budget at 4× CPU throttle (frame p95 ≤ 34 ms idle and hovering, idle compositor < 650 ms/s, hover raster < 90 ms/s). The old square fails it.
+- **Guard:** `tests/e2e/city-speed.spec.ts` checks that only sprites animate, only `transform`/`opacity`, with no blend modes and no hover filter. It also holds a frame budget at 4× CPU throttle (frame p95 ≤ 34 ms idle and hovering, idle compositor < 650 ms/s, hover raster < 90 ms/s). The old square fails it.
 
 **Consequences:**
 - **When adding motion to the scene:** wrap it in `anim()`, never a class inside the markup. Never put a blend mode or a CSS filter on anything in the stage.
