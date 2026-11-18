@@ -55,6 +55,8 @@ export function Rush({
     void p
       .play(current.call, { charWpm: current.wpm })
       .then((pb) => pb.done)
+      // No sound (the browser refused it) mustn't leave the call unanswerable.
+      .catch(() => {})
       .then(() => live && setListening(false));
     return () => {
       live = false;

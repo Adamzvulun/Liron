@@ -33,6 +33,7 @@ E10 adds contract events to every session. Adding them as one more call in each 
 ## Consequences
 - **Requests:** a session's save drops from about 20–60 requests to 3–5: the reads, plus one write.
 - **Failures:** a failed save leaves nothing half-written. The app shows "couldn't save" as before, and saving again is safe.
+  - **Amendment (2026-11-19):** the platform now does the saving again itself. A save that fails is kept while the page is open and sent again, under its own session id, just before the subject's next save (at most five kept; one refused three times is dropped). Its state isn't sent again, since the next save carries newer state. Before this, a failed save's XP and one-time events were lost.
 - **For E10:** contract events will ride the same call (their ADR adds them to the report). This ADR doesn't decide their shape.
 - **Not covered:** the functions still trust what the app reports, as before (ADR 0029). A player who writes their own requests can still report practice they didn't do, up to the daily XP cap.
 - **Tests:**
