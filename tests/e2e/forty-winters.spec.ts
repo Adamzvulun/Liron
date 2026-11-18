@@ -61,7 +61,10 @@ async function hearAndAnswer(page: Page, answers: readonly string[]) {
   await answer.click();
 }
 
-test.describe('Forty Winters, the Silent Beacon’s finale', () => {
+// @timing: these key Morse at 20 wpm in real time (60 ms dots). With another test sharing the
+// CPU, the key presses arrive late and the reply reads wrong (2026-11-18, 1 run in 2 on two
+// workers), so `npm run e2e` runs them alone, after the rest.
+test.describe('Forty Winters, the Silent Beacon’s finale', { tag: '@timing' }, () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
       Math.random = () => 0;

@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="../docs/assets/readme/square.webp" alt="The Waymark city square: a painted lighthouse tower, a domed caravanserai, a house, a notice board and a market around a compass rose, with the player's character standing in the middle and today's quests in the corner" width="100%">
-
-# Waymark
+<img src="../docs/assets/readme/banner.webp" alt="Waymark: a wooden sign over a painted city square, with the name spelled in Morse code underneath. Below it, the Signal Tower, the Caravanserai, a house, a notice board and a market stand around a compass rose with the player on it" width="100%">
 
 **Learn Morse code and spoken Palestinian Arabic by walking a painted city.**<br>
 One road per subject, and the next step is always on screen.
@@ -47,6 +45,10 @@ Waymark is a game for one learner and a few friends. Each subject is a guild hal
 </table>
 
 ## Around the square
+
+<img src="../docs/assets/readme/square.webp" alt="The Waymark city square: a painted lighthouse tower, a domed caravanserai, a house, a notice board and a market around a compass rose, with the player's character standing in the middle and today's quests in the corner" width="100%">
+
+The square is home. The top bar holds your level, gold, gems, streak and today’s minutes, and the quest list always shows the next step on each road.
 
 <table>
 <tr>
