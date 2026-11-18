@@ -126,11 +126,15 @@ describe('the party feed in words (task 3.3)', () => {
     expect(readMilestone({ ...m('rank', 'x'), kind: 'gold' })).toBeNull();
     expect(readMilestone({ ...m('rank', 'x'), day: '2026-11-17T10:00' })).toBeNull();
     expect(readMilestone(m('rank', 'morse:rank-keyer'))).toEqual(m('rank', 'morse:rank-keyer'));
+    // Ids past any count's cap stay apart: the feed's lines are keyed by them.
+    expect(readMilestone({ ...m('rank', 'x'), id: 250_001 })?.id).toBe(250_001);
+    expect(readMilestone({ ...m('rank', 'x'), id: '7' })).toBeNull();
   });
 
   it('dates read as today, yesterday, or the day', () => {
     expect(dayLabel('2026-11-17', '2026-11-17')).toBe('Today');
     expect(dayLabel('2026-11-16', '2026-11-17')).toBe('Yesterday');
     expect(dayLabel('2026-11-03', '2026-11-17')).toBe('Nov 3');
+    expect(dayLabel('', '2026-11-17')).toBe('');
   });
 });
