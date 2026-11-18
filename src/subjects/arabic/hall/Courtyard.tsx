@@ -230,7 +230,6 @@ function Scene({
 
   // The road (docs/game/the-road.md): where this player stands, and the one thing to do now,
   // with what the site knows: the deck (ADR 0050) and whether the regulars are in (#316).
-  const steps = ARABIC_ROAD;
   const way = arabicRoad(progress, { today: localDay(), ...facts, due: 0 });
   const nowDoor = way.now.kind === 'step' ? way.now.step.door : way.now.door;
   const compassAt = HOME[nowDoor];
@@ -283,7 +282,7 @@ function Scene({
 
   // The innkeeper's table, while it's locked, says which step opens it, in the road's own count.
   const stations = written.map((s) => {
-    const note = !s.open && s.id === 'innkeeper' ? opensAt(way, steps, 'words') : null;
+    const note = !s.open && s.id === 'innkeeper' ? opensAt(way, ARABIC_ROAD, 'words') : null;
     return note ? { ...s, text: note } : s;
   });
 
@@ -338,7 +337,7 @@ function Scene({
       </blockquote>
       <RoadLine
         answer={way}
-        steps={steps}
+        steps={ARABIC_ROAD}
         done={(step) => arabicDone(step, progress)}
         onOpen={(door) => onOpen(door as CourtyardDoor)}
         text={(words) => <ArabicText text={words} />}
