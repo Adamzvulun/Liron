@@ -38,8 +38,11 @@ export function Fellowship({
   source,
   gifts,
   today,
+  named = true,
 }: {
   source: FellowshipSource;
+  /** Has the player given themselves a name? Friends see "A traveler" until they do. */
+  named?: boolean;
   /** Gifts friends sent you (task 3.5); absent without a database. */
   gifts?: () => Promise<Gift[]>;
   today?: string;
@@ -135,6 +138,12 @@ export function Fellowship({
             friends={state.cards.filter((c) => !c.me)}
             onRemove={(f) => act(() => source.remove(f.id), `${f.name} has left your Fellowship.`)}
           />
+          {!named && (
+            <p className="fellowship__note fellowship__unnamed">
+              Friends see you as “A traveler” until you give yourself a name: Settings, the gear at
+              the top, then Your name.
+            </p>
+          )}
           <Codes
             code={state.code}
             onAsk={(code) =>
