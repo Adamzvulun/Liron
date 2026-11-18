@@ -18,6 +18,8 @@
 
 **Measured (#370, the first run, 2026-11-18, every cache cold):** 6 minutes from start to the last job, against 16 before. `check` 2.2 min; `browser (1 of 2)` 6.0 (its tests 4.7, 160 passed); `browser (2 of 2)` 4.7 (tests 3.4); `browser (timing)` 3.4 (tests 2.0). Nothing retried. Billed: about 16 runner minutes, about $0.08 at $0.005, the same as the one long job. With warm caches each job saves about a minute of `npm ci` and the browser download. The split is uneven (the first half has the slow Morse specs): a third browser job would bring the wait to about 4.5 minutes for about a cent more a run, not done without Adam's say.
 
+The release PR for v1.1.0 (#371), which runs every spec on the phone too, took 7.7 minutes, all green.
+
 ## Cost (checked 2026-11-02 on docs.github.com)
 - The repo is **private**. GitHub Free for personal accounts includes **$12/month of Actions compute**. On the standard Linux runner ($0.006/min) that's about **2,000 minutes/month**.
 - One CI run bills about 16 runner minutes on arm64 (four jobs, measured above), about $0.08. The 2,400 arm64 minutes a month cover about 150 runs.
