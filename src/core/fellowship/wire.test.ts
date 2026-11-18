@@ -1,5 +1,13 @@
-import { describe, expect, it } from 'vitest';
-import { GONE_AFTER_MS, LineWatch, LOST_AFTER_MS, wireTopic, type WireState } from './wire.ts';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { describe, expect, it, vi } from 'vitest';
+import {
+  GONE_AFTER_MS,
+  LineWatch,
+  LOST_AFTER_MS,
+  supabaseWire,
+  wireTopic,
+  type WireState,
+} from './wire.ts';
 
 const watch = () => {
   const seen: WireState[] = [];
@@ -55,5 +63,47 @@ describe('watching the line (task 3.6)', () => {
     const { w, seen } = watch();
     w.status('CHANNEL_ERROR', 0);
     expect(seen).toEqual(['failed']);
+  });
+});
+
+describe('closing the line (review, 2026-11-19)', () => {
+  it('tells the screen nothing more once it has closed it', async () => {
+    const handlers = new Map<string, (m: { payload: unknown }) => void>();
+    let onStatus: (s: string) => void = () => {};
+    const channel = {
+      on: (_t: string, { event }: { event: string }, f: (m: { payload: unknown }) => void) => {
+        handlers.set(event, f);
+        return channel;
+      },
+      subscribe: (f: (s: string) => void) => {
+        onStatus = f;
+        return channel;
+      },
+      send: async () => 'ok',
+    };
+    const client = {
+      auth: { getSession: async () => ({ data: { session: { user: { id: 'a' } } } }) },
+      realtime: { setAuth: async () => {} },
+      channel: () => channel,
+      // Supabase reports CLOSED to the channel as it's removed.
+      removeChannel: async () => onStatus('CLOSED'),
+    };
+    const states: string[] = [];
+    const edges: unknown[] = [];
+    const link = supabaseWire(client as unknown as SupabaseClient, async () => []).open('b', {
+      onState: (s) => states.push(s),
+      onEdge: (e) => edges.push(e),
+    });
+    await vi.waitFor(() => expect(handlers.has('key')).toBe(true));
+    onStatus('SUBSCRIBED');
+    handlers.get('key')?.({ payload: { d: 1, t: 5 } });
+    expect(edges).toHaveLength(1);
+    const before = [...states];
+    link.close();
+    await Promise.resolve();
+    handlers.get('key')?.({ payload: { d: 0, t: 9 } });
+    onStatus('CLOSED');
+    expect(edges).toHaveLength(1);
+    expect(states).toEqual(before);
   });
 });

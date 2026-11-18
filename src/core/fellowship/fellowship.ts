@@ -180,8 +180,11 @@ export function readMilestone(raw: unknown): Milestone | null {
   const kind = KINDS.find((k) => k === r.kind);
   if (!kind || typeof r.who !== 'string' || typeof r.detail !== 'string') return null;
   if (typeof r.day !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(r.day)) return null;
+  // The feed's ids count every milestone of every player: not capped like a count, since the
+  // feed's lines are keyed by them (review, 2026-11-19).
+  if (typeof r.id !== 'number' || !Number.isSafeInteger(r.id) || r.id < 1) return null;
   return {
-    id: count(r.id),
+    id: r.id,
     who: r.who,
     name: text(r.name).trim() || 'A traveler',
     me: r.me === true,
@@ -218,6 +221,8 @@ export function milestoneLine(m: Milestone, places: ReadonlyMap<string, string>)
 /** "Today", "Yesterday", or the date, e.g. "Nov 14". */
 export function dayLabel(day: string, today: string): string {
   if (day === today) return 'Today';
+  // A day that isn't one says nothing, rather than "Invalid Date" (review, 2026-11-19).
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return '';
   const d = new Date(`${day}T12:00:00Z`);
   const t = new Date(`${today}T12:00:00Z`);
   if (Math.round((t.getTime() - d.getTime()) / 86_400_000) === 1) return 'Yesterday';

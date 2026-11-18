@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { giftProblem } from './together.ts';
 import './together.css';
 
 /** What the Market needs to offer gifts (task 3.5): your friends, and a way to give. */
@@ -30,14 +31,21 @@ export function GiftOffer({
   const give = (f: { id: string; name: string }) => {
     setBusy(true);
     setSaid(null);
-    giving.give(f, item).then((problem) => {
-      setBusy(false);
-      if (problem) setSaid(problem);
-      else {
-        setGiven((g) => [...g, f.id]);
-        setSaid(`${name} is on its way to ${f.name}.`);
-      }
-    });
+    giving.give(f, item).then(
+      (problem) => {
+        setBusy(false);
+        if (problem) setSaid(problem);
+        else {
+          setGiven((g) => [...g, f.id]);
+          setSaid(`${name} is on its way to ${f.name}.`);
+        }
+      },
+      // Not meant to happen (give says its problems), but a button must never stay dead.
+      (e: unknown) => {
+        setBusy(false);
+        setSaid(giftProblem(e, f.name));
+      },
+    );
   };
 
   return (
