@@ -35,7 +35,7 @@
 | 7 | The free database pauses after 7 idle days. | 1.9 |
 | 8 | STATUS's "Last updated" line is one paragraph of about 10,000 characters. There are no retros for M2 or M4. `package.json` says version 0.0.0. | 1.10 |
 | 9 | Tests run on Chromium only. iPhone Safari, real sound, the real microphone and real keying have only been tried by Adam in passing. Issues #9, #38, #39 still wait for his try. | 1.12 |
-| 10 | **Friends can't learn Arabic words.** Only licensees may read the Lingualism deck (ADR 0011, 0029). A friend who opens the Caravanserai today sees "The deck's words haven't been loaded into Waymark yet." | 2.1 🚧 |
+| 10 | **Friends can't learn Arabic words.** Only licensees may read the Lingualism deck (ADR 0011, 0029). A friend who opens the Caravanserai today sees "The deck's words haven't been loaded into Waymark yet." Decided 2026-11-18: friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)) | 2.1 (to build) |
 | 11 | The AI allowances were set for one player. With friends, everyone shares the same free quotas. | 2.2 |
 | 12 | "Email me a link" on the login screen can't reach a friend (Supabase's built-in email only reaches Adam). | 2.3 |
 | 13 | Supabase Realtime (live Morse) is a new technology with no ADR. | 3.6 |
@@ -177,7 +177,8 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 
 **Goal:** a second person can use Waymark safely and fairly before any social feature exists.
 
-### ☐ 2.1 (#322) · v2.0 · What a friend may learn 🚧
+### ☐ 2.1 (#322) · v2.0 · What a friend may learn
+- **Decided (Adam, 2026-11-18): every friend reads the deck** ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)). Options (a) and (b) below are the record of the question. **To build:** every account becomes a licensee without a step from Adam (a migration, with tests), FRIENDS.md and SUPABASE.md updated, and the non-licensee path kept honest as a safety net (the "Done when" below).
 - **Why:** gap 10. This is a license question, so it's Adam's.
 - **Do:** read the Lingualism deck's license terms as recorded in `sources/README.md` and on the seller's page, and write down exactly what they allow. Then put the options to Adam with a recommendation:
   - (a) A friend who buys their own deck is added as a licensee by Adam. Cost: the friend's, $25.
