@@ -35,7 +35,7 @@
 | 7 | The free database pauses after 7 idle days. | 1.9 |
 | 8 | STATUS's "Last updated" line is one paragraph of about 10,000 characters. There are no retros for M2 or M4. `package.json` says version 0.0.0. | 1.10 |
 | 9 | Tests run on Chromium only. iPhone Safari, real sound, the real microphone and real keying have only been tried by Adam in passing. Issues #9, #38, #39 still wait for his try. | 1.12 |
-| 10 | **Friends can't learn Arabic words.** Only licensees may read the Lingualism deck (ADR 0011, 0029). A friend who opens the Caravanserai today sees "The deck's words haven't been loaded into Waymark yet." Decided 2026-11-18: friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)) | 2.1 (to build) |
+| 10 | **Friends can't learn Arabic words.** Only licensees may read the Lingualism deck (ADR 0011, 0029). A friend who opens the Caravanserai today sees "The deck's words haven't been loaded into Waymark yet." Decided 2026-11-18: friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)); built in v1.1.0 | 2.1 |
 | 11 | The AI allowances were set for one player. With friends, everyone shares the same free quotas. | 2.2 |
 | 12 | "Email me a link" on the login screen can't reach a friend (Supabase's built-in email only reaches Adam). | 2.3 |
 | 13 | Supabase Realtime (live Morse) is a new technology with no ADR. | 3.6 |
@@ -177,8 +177,9 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 
 **Goal:** a second person can use Waymark safely and fairly before any social feature exists.
 
-### ☐ 2.1 (#322) · v2.0 · What a friend may learn
+### ☑ 2.1 (#322) · v2.0 · What a friend may learn
 - **Decided (Adam, 2026-11-18): every friend reads the deck** ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)). Options (a) and (b) below are the record of the question. **To build:** every account becomes a licensee without a step from Adam (a migration, with tests), FRIENDS.md and SUPABASE.md updated, and the non-licensee path kept honest as a safety net (the "Done when" below).
+- **Built (2026-11-18, v1.1.0):** migration `20270107000000_every_account_reads_the_deck.sql` (a trigger for new accounts and a backfill, tested in `supabase/tests/schema.test.ts`). The client asks the database `is_content_licensee()` once a page (`core/road/facts.ts`). **One change from the plan below:** a non-licensee keeps the whole road instead of losing the deck's steps. Leaving them out left 28 steps, every one of them at a door that reads the deck (the script lessons too), so it was itself a dead end. Now each such step *waits*, with "This account can't read the deck yet: ask whoever invited you.", the count stays true ("Step 1 of 275"), the slate and the inn's chats stay open when reached, and every deck door says the same instead of "haven't been loaded" (`NoDeck.tsx`). `tests/e2e/no-deck.spec.ts` follows the compass as such an account.
 - **Why:** gap 10. This is a license question, so it's Adam's.
 - **Do:** read the Lingualism deck's license terms as recorded in `sources/README.md` and on the seller's page, and write down exactly what they allow. Then put the options to Adam with a recommendation:
   - (a) A friend who buys their own deck is added as a licensee by Adam. Cost: the friend's, $25.

@@ -75,7 +75,7 @@ The site shows its login screen but can't sign in, or the keep-alive fails. In S
 
 Waymark is invite-only: sign-ups are switched off in Supabase.
 
-- **To add a friend, or reset their password:** [FRIENDS.md](FRIENDS.md). Supabase's own email doesn't reach friends, so you make the account with a password and hand it over; they change it in **Settings → Change your password**. Friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)): until v1.1.0 does it by itself, add each one to `content_licensees` (FRIENDS.md has the line). *Untested.*
+- **To add a friend, or reset their password:** [FRIENDS.md](FRIENDS.md). Supabase's own email doesn't reach friends, so you make the account with a password and hand it over; they change it in **Settings → Change your password**. Friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)): since v1.1.0 every new account is a licensee by itself. *Untested.*
 - **Before friends key to each other on the wire (v2.4):** in the Supabase dashboard, for each project (dev and live), open **Realtime → Settings** and switch **Allow public access** off. It's free. Waymark always asks for a private channel, which only the two friends may join ([ADR 0046](../decisions/0046-the-wire.md)); this setting stops anyone from opening a public channel instead. *Untested.*
 - **To remove a friend:** the same page → their row → **Delete user**. Everything of theirs goes with the account: progress, wallet and reviews are deleted with it (`on delete cascade`). *Untested.*
 
