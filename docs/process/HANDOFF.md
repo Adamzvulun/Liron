@@ -343,3 +343,8 @@
     - **e2e:** `Extras.licensee` in the fake (rpc `is_content_licensee`; no deck rows when false). `tests/e2e/no-deck.spec.ts`.
     - **Adam (2026-11-18): update `next-session-prompt.md` only when he says we're moving to a new session.**
     - **Docs:** FRIENDS.md (checked against the code, with Adam's five steps for the first friend), SUPABASE.md, RUNNING.md, ADR 0050 "Built", PLAN 2.1 ticked (with why the road keeps deck steps instead of dropping them), the v1 review's lows closed, `releases/v1.1.0.md`.
+115. **Faster CI, and a nudge to choose a name (2026-11-18, report §4dc).** Adam: "figure out how to cut CI time, 16 mins is WAY too long."
+    - **CI ([CI.md](CI.md)):** four jobs side by side: `check` (lint, types, unit and database tests), `browser (1 of 2)` and `(2 of 2)` (`--shard`, with `fullyParallel: true` in `playwright.config.ts`) and `browser (timing)`. `node_modules` and the Playwright browser are cached by the lockfile's hash. On a PR into `dev` the phone runs only `PHONE_SPECS` (the specs with phone-only steps; `tests/phone-specs.test.ts` guards the list); a PR into `main` sets `PHONE_ALL=1` and runs every spec on both. Local `npm run e2e` is unchanged (everything on both).
+    - **The Koch lesson's `?run=short`** is 4 seconds instead of 8 (its specs played 3 or 4 runs each in real time).
+    - **Fellowship:** a player with no name is told friends see them as "A traveler" until they choose one (`Fellowship` takes `named`; `Extras.name` in the fake; a test in `fellowship.spec.ts`).
+    - **Docs:** the-road.md's "not for this account" row and the README follow ADR 0050.
