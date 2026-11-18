@@ -35,10 +35,10 @@ type Stage =
   | { kind: 'run'; warmup: boolean }
   | { kind: 'result'; score: RunScore; passed: boolean; warmup: boolean };
 
-/** `?run=short` makes a run 8 seconds instead of 2 minutes (for tests). */
+/** `?run=short` makes a run 4 seconds instead of 2 minutes (for tests: enough for a few letters). */
 const runSeconds = () =>
   typeof location !== 'undefined' && new URLSearchParams(location.search).get('run') === 'short'
-    ? 8
+    ? 4
     : RUN_SECONDS;
 
 export function KochLesson({ api }: { api: SubjectApi }) {

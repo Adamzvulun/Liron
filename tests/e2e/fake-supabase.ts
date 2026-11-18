@@ -66,6 +66,8 @@ export interface Extras {
   progress?: Record<string, number>;
   /** The title worn at the start ('' for none). */
   title?: string;
+  /** The player's name, if not PROFILE's ('' for a player who hasn't chosen one). */
+  name?: string;
   /**
    * Whether the account holds the deck's licence (ADR 0050). Every account does; false plays
    * the safety net: the database then reads no deck rows, as row-level security would.
@@ -603,6 +605,7 @@ export async function fakeSupabase(
       }
       const profile = {
         ...PROFILE,
+        ...(extras.name !== undefined && { display_name: extras.name }),
         title,
         share_milestones: extras.fellowship?.sharing ?? true,
       };

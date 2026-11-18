@@ -368,14 +368,14 @@ compass(guild)   = the first step with done == false,
 ```
 
 - **open** is the game's own rule for that door today (`wordsOpen`, `farOpen` and the rest). The road never opens or closes anything itself.
-- **waiting** is a reason and, when known, a time. There are exactly four reasons:
+- **waiting** is a reason and, when known, a time. There are exactly four reasons (`tomorrow`, `spent`, `off`, `deck`):
 
 | Reason | True when | The compass says |
 |---|---|---|
 | Tomorrow | a lesson or word chapter has one good session today and needs its second on a later day (`streak ≥ 1` and `passDay` is today) | “The road goes on tomorrow: ⟨step⟩.” |
 | Spent | the step needs `partner` and today's allowance is used up | “The regulars have talked enough for one day. Tomorrow: ⟨step⟩.” |
 | Not on this site | the step needs a service the site has no key for (task 1.8's answer) | “Nobody is at the table on this site yet.” The road goes on past it. |
-| Not for this player | the step needs `deck` and the player is not a licensee (task 2.1) | The step is left out of this player's road and its count. |
+| Not for this account | the step is at a door that reads the deck (or says `needs: deck`) and the account isn't a licensee. Every account is one since v1.1.0 ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)); this is the safety net for a licence removed by hand | “This account can’t read the deck yet: ask whoever invited you.” The step stays in the road and its count. When nothing in the guild is open, that is the compass's whole line (meanwhile `closed`), pointing at the hall, and no contract is offered. |
 
 - If a step is waiting, the compass moves to the next step that is open and not waiting, **looking no further than the next chapter**. So on a script lesson's waiting day it offers the next station of chapter 1, and past a chat that can't be had it offers the chapter's words. It never jumps to a step far down the road ("have 20 chats") only because that door happens to be open. The waiting step stays visible above the compass as a quiet line, so the player knows the road hasn't forgotten it.
 - **If no step qualifies** (the road is waiting, or finished), the compass shows the **meanwhile**. It is the first of these that exists:
