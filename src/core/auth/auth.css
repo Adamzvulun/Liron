@@ -105,10 +105,6 @@
   cursor: pointer;
 }
 
-.auth__link-action {
-  display: block;
-}
-
 .auth__hint {
   margin: -6px 0 0;
   font-weight: 400;
@@ -127,4 +123,14 @@
 
 .auth__text {
   margin: 0 0 12px;
+}
+
+/* A line inside a form, where the form's gap already spaces it. */
+.auth__text--tight {
+  margin: 0;
+}
+
+/* An address can be long and unbroken: it wraps rather than widening the panel. */
+.auth__email {
+  overflow-wrap: anywhere;
 }

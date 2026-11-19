@@ -1,7 +1,8 @@
 import { useId, useState, type FormEvent, type ReactNode } from 'react';
 import { supabase } from './supabase.ts';
 import { GateScene } from './Scenes.tsx';
-import { MIN_PASSWORD, passwordRefused } from './password.ts';
+import { MIN_PASSWORD, passwordProblem, passwordRefused } from './password.ts';
+import { PasswordField } from './PasswordField.tsx';
 import { signInRefused } from './signIn.ts';
 import './auth.css';
 
@@ -25,44 +26,41 @@ export function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
-  // Where the message came from: it shows under the control that was used.
-  const [message, setMessage] = useState<{
-    kind: 'error' | 'info';
-    text: string;
-    from: 'signin' | 'link';
-  } | null>(null);
+  // Signing in, or asking for a reset link: two views of one panel, sharing the email typed.
+  const [view, setView] = useState<'signin' | 'reset'>('signin');
+  const [message, setMessage] = useState<{ kind: 'error' | 'info'; text: string } | null>(null);
+  const show = (next: 'signin' | 'reset') => {
+    setView(next);
+    setMessage(null);
+  };
 
   async function signIn(e: FormEvent) {
     e.preventDefault();
     if (!supabase) return;
     setBusy(true);
     setMessage(null);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
     setBusy(false);
     if (!error) return;
     // Only a refused login means a wrong password; offline or a busy server isn't the player's
     // fault, and shouldn't send them to reset it (review, 2026-11-15).
-    setMessage({ kind: 'error', from: 'signin', text: signInRefused(error) });
+    setMessage({ kind: 'error', text: signInRefused(error) });
   }
 
-  async function sendLink() {
+  async function sendLink(e: FormEvent) {
+    e.preventDefault();
     if (!supabase) return;
-    if (!email) {
-      setMessage({ kind: 'error', from: 'link', text: 'Type your email first.' });
-      return;
-    }
     setBusy(true);
     setMessage(null);
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
       redirectTo: window.location.origin,
     });
     setBusy(false);
     setMessage(
       error
-        ? { kind: 'error', from: 'link', text: 'Couldn’t send the email. Try again in a while.' }
+        ? { kind: 'error', text: 'Couldn’t send the email. Try again in a while.' }
         : {
             kind: 'info',
-            from: 'link',
             // Supabase's own mail reaches only the projects' owner (SUPABASE.md), so friends are
             // told who can help instead of waiting for nothing (#324).
             text: 'If that email has an account, a link is on its way. Nothing after a few minutes? Ask whoever invited you to set a new password.',
@@ -70,42 +68,63 @@ export function LoginScreen() {
     );
   }
 
+  const emailField = (
+    <label className="auth__label">
+      Email
+      <input
+        className="auth__input"
+        type="email"
+        autoComplete="email"
+        inputMode="email"
+        autoCapitalize="off"
+        spellCheck={false}
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+    </label>
+  );
+
+  if (view === 'reset') {
+    return (
+      <Panel title="Reset your password">
+        <form className="auth__form" onSubmit={sendLink}>
+          <p className="auth__text auth__text--tight">
+            Type the email you sign in with. We’ll send a link to choose a new password.
+          </p>
+          {emailField}
+          <button className="auth__button" type="submit" disabled={busy}>
+            Email me a link
+          </button>
+          {message && <Said message={message} />}
+          <button className="auth__link" type="button" onClick={() => show('signin')}>
+            Back to sign in
+          </button>
+        </form>
+      </Panel>
+    );
+  }
+
   return (
     <Panel title="Sign in">
       <form className="auth__form" onSubmit={signIn}>
-        <label className="auth__label">
-          Email
-          <input
-            className="auth__input"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label className="auth__label">
-          Password
-          <input
-            className="auth__input"
-            type="password"
-            autoComplete="current-password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
+        {emailField}
+        <PasswordField
+          label="Password"
+          autoComplete="current-password"
+          value={password}
+          onChange={setPassword}
+        />
         <button className="auth__button" type="submit" disabled={busy}>
           Enter Waymark
         </button>
-        {message?.from === 'signin' && <Said message={message} />}
-        <button className="auth__link" type="button" onClick={sendLink} disabled={busy}>
+        {message && <Said message={message} />}
+        <button className="auth__link" type="button" onClick={() => show('reset')}>
           Forgot your password?
-          <span className="auth__link-action">Email me a link.</span>
         </button>
-        {message?.from === 'link' && <Said message={message} />}
         <p className="auth__hint">
-          New here? Sign in with the password you were given, then change it in Settings.
+          New here? Sign in with the password you were given, then change it in Settings. Waymark is
+          by invitation: there’s no sign-up.
         </p>
       </form>
     </Panel>
@@ -122,17 +141,20 @@ function Said({ message }: { message: { kind: 'error' | 'info'; text: string } }
 }
 
 /** Shown after following an invite or reset link. */
-export function SetPasswordScreen({ onDone }: { onDone: () => void }) {
+export function SetPasswordScreen({ email, onDone }: { email?: string; onDone: () => void }) {
   const hintId = useId();
   const [password, setPassword] = useState('');
+  const [again, setAgain] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function save(e: FormEvent) {
     e.preventDefault();
     if (!supabase) return;
-    if (password.length < MIN_PASSWORD) {
-      setError(`Use at least ${MIN_PASSWORD} characters.`);
+    // The same rules, and the same words, as Settings' "Change your password".
+    const problem = passwordProblem(password, again);
+    if (problem) {
+      setError(problem);
       return;
     }
     setBusy(true);
@@ -150,22 +172,32 @@ export function SetPasswordScreen({ onDone }: { onDone: () => void }) {
   return (
     <Panel title="Choose a password">
       <form className="auth__form" onSubmit={save}>
-        <label className="auth__label">
-          New password
-          <input
-            className="auth__input"
-            type="password"
-            autoComplete="new-password"
-            required
-            minLength={MIN_PASSWORD}
-            aria-describedby={hintId}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
+        {email && (
+          <>
+            <p className="auth__text auth__text--tight">
+              For <strong className="auth__email">{email}</strong>
+            </p>
+            {/* For password managers: the account the new password belongs to. */}
+            <input type="email" autoComplete="username" value={email} readOnly hidden />
+          </>
+        )}
+        <PasswordField
+          label="New password"
+          autoComplete="new-password"
+          minLength={MIN_PASSWORD}
+          describedBy={hintId}
+          value={password}
+          onChange={setPassword}
+        />
         <p id={hintId} className="auth__hint">
           At least {MIN_PASSWORD} characters.
         </p>
+        <PasswordField
+          label="The same again"
+          autoComplete="new-password"
+          value={again}
+          onChange={setAgain}
+        />
         <button className="auth__button" type="submit" disabled={busy}>
           Save and enter
         </button>
