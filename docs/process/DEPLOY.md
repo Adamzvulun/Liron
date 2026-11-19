@@ -30,6 +30,7 @@ Set them in **Settings → Environment Variables**, never in git (`.env*` is git
 |---|---|---|---|
 | `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` | `waymark-prod` project | `waymark-dev` project | #16, steps in [SUPABASE](SUPABASE.md). `VITE_` variables end up in the browser bundle. That's fine for the publishable key, which is designed to be public; Row Level Security guards the data. **Set them before merging the code that uses them**, or that deploy shows "Not set up yet". |
 | `GROQ_API_KEY` | ✓ | ✓ | The "understood" check (ADR 0014), in `api/understood.ts`. **No `VITE_` prefix**: server-only, never sent to the browser. Use separate keys for Production and Preview if you can. The function also reads the two Supabase variables above, at run time. |
+| `SUPABASE_SECRET_KEY` | `waymark-prod`'s | `waymark-dev`'s | Invite links ([ADR 0052](../decisions/0052-invite-links.md)), in `api/join.ts`: makes a friend's account. **Server-only, never `VITE_`.** It can do anything in its project, so it goes nowhere else. Supabase → Project Settings → API Keys. Without it, the join page says invites aren't set up. |
 | `GEMINI_API_KEY` | ✓ | ✓ | The AI partner (E15, ADR 0036), in `api/partner.ts`: the Radio Room operators' news. Server-only, like the Groq key. A free AI Studio key; **don't attach a billing account** to its Cloud project (ADR 0036 keeps it on the free tier). The partner also uses `GROQ_API_KEY` as its backup and works with either key alone. Without both, operators keep their scripted lines. |
 
 **The functions in `api/`** (each needs the two Supabase variables at run time, to check who is asking):
@@ -38,6 +39,7 @@ Set them in **Settings → Environment Variables**, never in git (`.env*` is git
 |---|---|---|---|
 | `api/understood.ts` | "Say it": writes down what it hears in a recording | `GROQ_API_KEY` | One of the player's 100 checks a day |
 | `api/partner.ts` | The Radio Room operators' lines, Sit and talk, the Coach | `GEMINI_API_KEY` and `GROQ_API_KEY` (operators work with either; the inn needs Groq) | One of the player's lines for the day |
+| `api/join.ts` | Makes a friend's account from an invite link, and makes them the inviter's friend | `SUPABASE_SECRET_KEY` | Nothing: one link, one account |
 | `api/services.ts` | Tells a signed-in player which of the above are switched on (#316): three true-or-false answers, never a key or anything about one | Reads whether the two keys exist | Nothing: no AI call. It asks Supabase whose token it was sent, and the browser keeps the answer for five minutes |
 
 After adding or removing a key, open **Settings → Services** on the site: it should say "ready" or "not set up on this site" for each line.
