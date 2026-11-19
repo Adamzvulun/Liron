@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import {
   emailLinkFragment,
   FAKE_SUPABASE_URL,
