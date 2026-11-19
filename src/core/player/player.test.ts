@@ -152,6 +152,28 @@ describe('a purse read before a purchase (review, 2026-11-19)', () => {
   });
 });
 
+describe('a purchase answered after a save’s award (third review, 2026-11-19)', () => {
+  it('shows the purchase’s purse, which the database reached last', async () => {
+    let answerBuy = () => {};
+    const base = memoryStore();
+    const store = {
+      ...base,
+      buyItem: () =>
+        new Promise<{ gold: number; gems: number; shields: number }>((res) => {
+          answerBuy = () => res({ gold: 440, gems: 0, shields: 0 });
+        }),
+    };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    const morse = subjectApi({ id: 'morse' }, base, player.applyAward);
+    const buying = player.buy('cloak');
+    await morse.awardXP(10);
+    answerBuy();
+    await buying;
+    expect(player.getSnapshot().wallet?.gold).toBe(440);
+  });
+});
+
 describe('the player’s chests (ADR 0033)', () => {
   it('loads chests with the contracts, and opening one pays it and takes it off the shelf', async () => {
     const chest = { id: 'c1', kind: 'brass', source: 'trial' as const, sourceKey: 'morse:1' };
