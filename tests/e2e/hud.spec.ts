@@ -67,7 +67,7 @@ test('reaching the daily goal opens the chest and grows the streak', async ({ pa
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('+20 gold')).toBeVisible();
   await expect(page.getByLabel('Gold: 51')).toBeAttached();
-  await dialog.getByRole('button', { name: 'Onward' }).click();
+  await dialog.getByRole('button', { name: 'Continue' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.getByLabel('Streak: 3 days')).toBeVisible();
   await expect(
@@ -279,7 +279,7 @@ test('closing a celebration from the keyboard puts focus back where it was (revi
   await page.keyboard.press('Enter'); // 6 minutes done: goal reached
   const onward = page
     .getByRole('dialog', { name: '3 days' })
-    .getByRole('button', { name: 'Onward' });
+    .getByRole('button', { name: 'Continue' });
   await expect(onward).toBeFocused();
   // Tab stays inside the dialog: the page behind it can't take focus while it's open.
   await page.keyboard.press('Tab');
