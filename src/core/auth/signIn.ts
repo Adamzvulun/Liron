@@ -12,6 +12,6 @@ export function signInRefused(error: { code?: string; status?: number }): string
     return 'Too many tries. Wait a minute, then try again.';
   if (error.code === 'validation_failed') return 'Check the email address.';
   if (error.code === 'invalid_credentials' || error.status === 400)
-    return 'That email and password don’t match.';
+    return 'Incorrect email or password.';
   return 'Couldn’t reach Waymark just now. Check your connection and try again.';
 }

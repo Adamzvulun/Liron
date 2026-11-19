@@ -3,8 +3,10 @@ import { MIN_PASSWORD, passwordProblem, passwordRefused } from './password.ts';
 
 describe('changing a password (#324)', () => {
   it('asks for at least the minimum length, typed the same twice', () => {
-    expect(passwordProblem('short', 'short')).toBe(`Use at least ${MIN_PASSWORD} characters.`);
-    expect(passwordProblem('long enough', 'long enougj')).toBe('The two passwords don’t match.');
+    expect(passwordProblem('short', 'short')).toBe(
+      `Password must be at least ${MIN_PASSWORD} characters.`,
+    );
+    expect(passwordProblem('long enough', 'long enougj')).toBe('Passwords do not match.');
     expect(passwordProblem('long enough', 'long enough')).toBeNull();
   });
 

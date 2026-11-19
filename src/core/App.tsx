@@ -145,7 +145,7 @@ const VISIT = /^\/house\/visit\/([0-9a-f-]{36})\/?$/i;
 /** The Arena beyond the square (task 3.4): challenges between friends. */
 const ARENA = /^\/arena\/?$/;
 
-/** Settings' "Change your password" (#324): null when saved, else what to tell the player. */
+/** Settings' "Change password" (#324): null when saved, else what to tell the player. */
 const changePassword = async (password: string): Promise<string | null> => {
   if (!supabase) return passwordRefused(undefined);
   try {
@@ -232,7 +232,7 @@ function AuthGate() {
     case 'signedOut':
       return <LoginScreen />;
     case 'setPassword':
-      return <SetPasswordScreen onDone={passwordChosen} />;
+      return <SetPasswordScreen email={auth.session.user.email} onDone={passwordChosen} />;
     case 'signedIn':
       return player && <Lobby player={player} />;
   }
