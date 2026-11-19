@@ -34,7 +34,7 @@ export function GoalReached({ day, onDone }: { day: DayResult; onDone: () => voi
           )}
         </ul>
         <button ref={button} type="button" className="levelup__go" onClick={onDone}>
-          Onward
+          Continue
         </button>
       </div>
     </div>
