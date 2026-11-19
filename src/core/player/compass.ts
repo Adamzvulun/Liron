@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import { PLACE_PATHS } from '../city/layout.ts';
 import { HALL_DOOR, type RoadAnswer, type RoadContext } from '../road/road.ts';
-import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
+import { DEFAULT_LOOK, lookKey, type Look } from '../avatar/looks.ts';
 import { ASSUMED_FACTS, type RoadFacts } from '../road/facts.ts';
 import type { SubjectInfo } from '../subject.ts';
 
@@ -194,7 +194,7 @@ export function cityErrands(player: {
     quiet: false,
     started: true,
   });
-  const untouched = JSON.stringify(player.avatar) === JSON.stringify(DEFAULT_LOOK);
+  const untouched = lookKey(player.avatar) === lookKey(DEFAULT_LOOK);
   return [
     ...(player.chests > 0
       ? [

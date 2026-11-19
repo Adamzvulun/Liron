@@ -31,6 +31,16 @@ describe('what’s switched on (#316)', () => {
     expect(await services()).toEqual({ say: true, talk: true, radio: true });
   });
 
+  it('asks again after a token that couldn’t be read (review, 2026-11-19)', async () => {
+    const token = vi.fn().mockRejectedValueOnce(new Error('storage')).mockResolvedValue('t');
+    const services = functionServices(
+      token as unknown as () => Promise<string | null>,
+      answering({ say: true, talk: false, radio: true }),
+    );
+    expect(await services()).toBeNull();
+    expect(await services()).toEqual({ say: true, talk: false, radio: true });
+  });
+
   it('names each service the way its station does', () => {
     expect(serviceLines({ say: false, talk: true, radio: false })).toEqual([
       { name: 'Sit and talk', ready: true },

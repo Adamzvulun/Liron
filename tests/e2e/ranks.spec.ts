@@ -1,4 +1,5 @@
-import { expect, type Page, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn, type SaveSessionArgs } from './fake-supabase.ts';
 
 // The rank-up card (#174, ADR 0035): a rank you've earned but not taken shows over the hall;

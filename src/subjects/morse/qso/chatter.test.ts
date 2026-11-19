@@ -82,6 +82,10 @@ describe('an operator’s news, written live (E15)', () => {
     );
     expect(cleanNews('A'.repeat(30) + ' ' + 'B'.repeat(30))).toBeNull();
     expect(cleanNews('73')).toBeNull();
+    expect(cleanNews('MY SON TURNS 12 TODAY, BUILT 25 RADIOS')).toBe(
+      'MY SON TURNS 12 TODAY, BUILT 25 RADIOS',
+    );
+    expect(cleanNews('UR 579 RST 44 5NN 59 SIG QRM HR')).toBe('SIG QRM HR');
     expect(cleanNews('I AM AN AI MODEL')).toBeNull();
   });
 

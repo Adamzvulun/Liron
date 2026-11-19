@@ -163,7 +163,8 @@ export function applySession(
 ): { next: ArabicProgress; passed: boolean; sameDay: boolean } {
   const good = score >= PASS_SCORE;
   const sameDay = good && p.streak > 0 && p.passDay === day;
-  const streak = !good ? 0 : sameDay ? p.streak : p.streak + 1;
+  // Kept at most PASSES_NEEDED, as the saved state holds it: more is reset to 0 on loading.
+  const streak = !good ? 0 : sameDay ? p.streak : Math.min(PASSES_NEEDED, p.streak + 1);
   // After the last lesson, sessions are practice: no second pass (or bonus) for it.
   const passed = !p.done && streak >= PASSES_NEEDED;
   const last = p.lesson >= LESSON_COUNT;
@@ -236,7 +237,7 @@ export function applyWordSession(
   const w = p.words;
   const good = score >= PASS_SCORE;
   const sameDay = good && w.streak > 0 && w.passDay === day;
-  const streak = !good ? 0 : sameDay ? w.streak : w.streak + 1;
+  const streak = !good ? 0 : sameDay ? w.streak : Math.min(PASSES_NEEDED, w.streak + 1);
   const passed = !w.done && allMet && streak >= PASSES_NEEDED;
   const last = w.chapter >= chapters;
   return {

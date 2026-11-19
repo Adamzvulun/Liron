@@ -1911,21 +1911,20 @@ export function paintCity() {
     )}"></rect>` +
     `<rect width="1920" height="1080" filter="url(#fx-grain)" opacity=".18"></rect>`;
 
+  // Made before the defs are joined below: its gradient was added too late and the band never
+  // showed (review, 2026-11-19).
+  const groundHaze = `<rect x="0" y="380" width="1920" height="200" fill="${lin([
+    [0, HAZE, 0],
+    [0.6, HAZE, 0.3],
+    [1, HAZE, 0],
+  ])}"></rect>`;
   const box = (x, y, w, h) => ({ x, y, w, h });
   const part = (b, svg) => ({ box: b, segments: segments(svg) });
   const city = {
     defs: defs.join(''),
     layers: {
       sky: segments(`${sky}${arena}${hazeBand}`),
-      ground: segments(
-        `${ground}${bt}${back.shadow}${back.body}<rect x="0" y="380" width="1920" height="200" fill="${lin(
-          [
-            [0, HAZE, 0],
-            [0.6, HAZE, 0.3],
-            [1, HAZE, 0],
-          ],
-        )}"></rect>`,
-      ),
+      ground: segments(`${ground}${bt}${back.shadow}${back.body}${groundHaze}`),
       mid: segments(`${tufts}${side.shadow}${side.body}${towerShadow}${caraShadow}`),
       front: segments(`${fg}${grade}`),
     },

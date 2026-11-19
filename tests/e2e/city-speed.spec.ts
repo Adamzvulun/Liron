@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn } from './fake-supabase.ts';
 
 // The square's frame budget (#123, ADR 0025 amended). The square was slow because small

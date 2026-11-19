@@ -1,4 +1,5 @@
-import { expect, type Page, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn, type SaveSessionArgs } from './fake-supabase.ts';
 
 // The Far Station (#178): the Operator's trial, a whole contact. Keying it right in a test is

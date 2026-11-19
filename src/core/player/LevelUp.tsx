@@ -43,7 +43,7 @@ export function LevelUp({ award, onDone }: { award: LevelUpInfo; onDone: () => v
           )}
         </ul>
         <button ref={button} type="button" className="levelup__go" onClick={onDone}>
-          Onward
+          Continue
         </button>
       </div>
     </div>

@@ -20,6 +20,11 @@ export interface RoadHere {
   read(state: unknown): RoadReading;
   /** Opens a door of the hall, afresh even if it is this one; 'hall' goes back to the hall. */
   go(door: string): void;
+  /**
+   * Tells the hall which steps a result screen has now shown as done, so the next round behind
+   * the same door doesn't announce them again.
+   */
+  seen?(ids: ReadonlySet<string>): void;
   /** Shows a beat; a subject with its own script marks it up here. */
   text?: (words: string) => ReactNode;
 }

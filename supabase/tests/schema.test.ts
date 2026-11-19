@@ -489,7 +489,8 @@ const fakeClient = {
         return q;
       },
       order(col: string) {
-        tail += ` order by ${col}`;
+        // A second order() adds a tiebreaker, as PostgREST's does.
+        tail += tail.includes(' order by ') ? `, ${col}` : ` order by ${col}`;
         return q;
       },
       limit(n: number) {
@@ -1177,6 +1178,13 @@ describe('daily contracts (ADR 0032)', () => {
     expect((await board(ADAM)).contracts.map((c) => c.id)).toEqual(
       first.contracts.map((c) => c.id),
     );
+  });
+
+  it('fills a board picked before any subject was started, once one is (review, 2026-11-19)', async () => {
+    await rows(`delete from subject_progress where user_id = $1`, [ADAM]);
+    expect((await board(ADAM)).contracts.map((c) => c.subject)).toEqual([null]);
+    await rows(`insert into subject_progress (user_id, subject_id) values ($1, 'morse')`, [ADAM]);
+    expect((await board(ADAM)).contracts.map((c) => c.subject)).toEqual([null, 'morse', 'morse']);
   });
 
   it('offers a drill’s contracts only once the drill was played on an earlier day', async () => {
@@ -1965,6 +1973,18 @@ describe('the Market (ADR 0033, #49)', () => {
     for (const { id } of rank) expect(sold.map((s) => s.id)).not.toContain(id);
   });
 
+  it('never sells, rolls or gives the finales’ gear, but still sells the breeches (review, 2026-11-19)', async () => {
+    const earned = (await rows(
+      `select id, is_rank_gear(milestone) as kept from items
+         where id in ('beacon-lens', 'guest-book-pen', 'breeches') order by id`,
+    )) as { id: string; kept: boolean }[];
+    expect(earned).toEqual([
+      { id: 'beacon-lens', kept: true },
+      { id: 'breeches', kept: false },
+      { id: 'guest-book-pen', kept: true },
+    ]);
+  });
+
   it('marks what you own and what you can afford', async () => {
     await gold(100, 2);
     const m = await stall();
@@ -2443,6 +2463,41 @@ describe('the rewards, hardened before friends join (2026-11-15, report §4au)',
     // In one save, out of order: taken in number order, so all three count.
     await save('arabic', [{ kind: 'trial-4' }, { kind: 'trial-2' }, { kind: 'trial-3' }]);
     expect(await had('arabic')).toEqual(['trial-1', 'trial-2', 'trial-3', 'trial-4']);
+  });
+
+  it('counts a finale only after the rank that opens it (review, 2026-11-19)', async () => {
+    await save('morse', [{ kind: 'trial-forty-winters' }]);
+    await save('arabic', [{ kind: 'trial-stranger-at-the-gate' }]);
+    expect([...(await had('morse')), ...(await had('arabic'))]).toEqual([]);
+    for (const [subject, rank] of [
+      ['morse', 'rank-ghost'],
+      ['arabic', 'rank-storyteller'],
+    ])
+      await rows(
+        `insert into subject_events (user_id, day, subject_id, kind, count)
+           values ($1, current_date - 1, $2, $3, 1)`,
+        [ADAM, subject, rank],
+      );
+    await save('morse', [{ kind: 'trial-forty-winters' }]);
+    await save('arabic', [{ kind: 'trial-stranger-at-the-gate' }]);
+    expect(await had('morse')).toEqual(['rank-ghost', 'trial-forty-winters']);
+    expect(await had('arabic')).toEqual(['rank-storyteller', 'trial-stranger-at-the-gate']);
+  });
+
+  it('fills in a rank the saved progress holds, so its finale counts (third review)', async () => {
+    await rows(
+      `insert into subject_progress (user_id, subject_id, state) values ($1, 'morse', $2)
+         on conflict (user_id, subject_id) do update set state = excluded.state`,
+      [
+        ADAM,
+        JSON.stringify({
+          ranks: ['listener', 'keyer', 'operator', 'telegraphist', 'signal-master', 'ghost'],
+        }),
+      ],
+    );
+    await rows(`select backfill_ordered_events()`);
+    await save('morse', [{ kind: 'trial-forty-winters' }]);
+    expect(await had('morse')).toContain('trial-forty-winters');
   });
 
   it('counts a rank only after the rank below it, in either guild', async () => {

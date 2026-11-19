@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { friendCard, signedIn, type Extras } from './fake-supabase.ts';
 
 // The Fellowship in Your House (task 3.1, #326) and a friend's house (task 3.2, #327).
@@ -117,7 +117,7 @@ test.describe('the Fellowship in Your House', () => {
     await expect(friend).toContainText('12 days in a row · 1 achievement');
     await expect(friend.getByRole('list', { name: 'Basma’s ranks' })).toHaveText('Listener');
     await friend.getByRole('button', { name: 'Remove' }).click();
-    await friend.getByRole('button', { name: 'Keep' }).click();
+    await friend.getByRole('button', { name: 'Cancel' }).click();
     await friend.getByRole('button', { name: 'Remove' }).click();
     await friend.getByRole('button', { name: 'Yes, remove Basma' }).click();
     await expect(page.getByText('Basma has left your Fellowship.')).toBeVisible();

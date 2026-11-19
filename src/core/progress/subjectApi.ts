@@ -4,6 +4,7 @@ import {
   type SessionReport,
   type SubjectApi,
   type SubjectInfo,
+  MAX_DUE_ONLY,
 } from '../subject.ts';
 import type { StoredRating } from '../rating/ratings.ts';
 import type { Item, Lesson } from '../content/schema.ts';
@@ -134,6 +135,64 @@ export function subjectApi<State extends object>(
     saving = Promise.allSettled([saving, p]);
     return p;
   };
+  /** A report that passed its checks, with its id and time fixed, so it can be sent again. */
+  type Checked = Required<Omit<SessionReport<State>, 'state'>> & { state?: State };
+  // The rest of a save that didn't get through: its XP, events, reviews and results. It goes again,
+  // under its own session id, before the next save, so being offline for one run costs nothing:
+  // the database applies a session once however often it's sent (ADR 0031). Without this, a run's
+  // one-time moments (a passed trial's XP, the Signal Master's contact) were lost for good (review,
+  // 2026-11-19). Kept only while the page is open. The rules (second review, 2026-11-19):
+  // - Its state isn't sent again: `unsaved` and the next save carry newer state.
+  // - Once a newer save has gone through, its reviews and ratings are dropped: rebuilt on newer
+  //   cards with its older time, they would wind those cards back. Its XP and events still go.
+  // - Only a refusal counts against it: a resend that fails while the new save then gets through.
+  //   Being offline for many runs never drops it. Refused TRIES times, it's let go.
+  // - The oldest are kept when there are too many: they hold the rewards that were lost first.
+  // - Saves that start together share one resend, and a resend that hangs is given up on.
+  let held: { report: Checked; refused: number }[] = [];
+  const HOLD_AT_MOST = 20;
+  const TRIES = 3;
+  const RESEND_WAIT_MS = 15_000;
+  const TIMED_OUT = new Error('resend timed out');
+  // What a resend ended on: the session refused (or slow), if one was. One object per resend,
+  // so saves that shared it count its refusal once (third review, 2026-11-19).
+  type Stuck = { sessionId: string; timedOut: boolean } | null;
+  let resending: Promise<Stuck> | null = null;
+  let counted: Stuck = null;
+  /** Sends what's held, oldest first; answers the one that didn't go through, if one didn't. */
+  const sendHeld = () =>
+    (resending ??= (async (): Promise<Stuck> => {
+      for (const h of [...held]) {
+        const { sessionId } = h.report;
+        let award: Award | null;
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        try {
+          award = await Promise.race([
+            deliver(h.report),
+            new Promise<never>((_, no) => {
+              timer = setTimeout(() => no(TIMED_OUT), RESEND_WAIT_MS);
+            }),
+          ]).finally(() => clearTimeout(timer));
+        } catch (e) {
+          return { sessionId, timedOut: e === TIMED_OUT };
+        }
+        // By session id: a save that got through meanwhile rebuilt the list.
+        held = held.filter((x) => x.report.sessionId !== sessionId);
+        pay(award);
+      }
+      return null;
+    })().finally(() => (resending = null)));
+  const paid = (award: Award | null) => {
+    if (award) onAward(award);
+  };
+  /** Pays an applied save's award; a failure showing it doesn't make the save count as failed. */
+  const pay = (award: Award | null) => {
+    try {
+      paid(award);
+    } catch (e) {
+      console.error('Waymark: showing an award failed', e);
+    }
+  };
   const saveSessionNow = async ({
     state,
     reviews = [],
@@ -177,6 +236,38 @@ export function subjectApi<State extends object>(
       throw new RangeError(`saveSession: expected 0 or more minutes, got ${minutes}`);
     }
 
+    const report: Checked = { state, reviews, results, events, xp, minutes, at, sessionId };
+    const stuck = await sendHeld();
+    let award: Award | null;
+    try {
+      award = await sending(state, () => deliver(report));
+    } catch (e) {
+      if (held.length < HOLD_AT_MOST)
+        held = [...held, { report: { ...report, state: undefined }, refused: 0 }];
+      throw e;
+    }
+    // This one got through. A held one that failed just before it was refused, not offline (a
+    // resend that was only slow isn't counted); and what's still held is older than the cards it
+    // just wrote.
+    const refused = stuck && !stuck.timedOut && stuck !== counted ? stuck.sessionId : null;
+    if (refused) counted = stuck;
+    held = held
+      .map((h) => (h.report.sessionId === refused ? { ...h, refused: h.refused + 1 } : h))
+      .filter((h) => h.refused < TRIES)
+      .map((h) => ({ ...h, report: { ...h.report, reviews: [], results: [] } }));
+    pay(award);
+  };
+  /** Builds a checked report's write from what the database holds now, and sends it. */
+  const deliver = async ({
+    state,
+    reviews,
+    results,
+    events,
+    xp,
+    minutes,
+    at,
+    sessionId,
+  }: Checked): Promise<Award | null> => {
     // One read per kind, then each answer builds on the one before it, in memory.
     const skillsUsed = [...new Set(results.map((r) => r.skill))];
     const [cards, learners, ...itemsBySkill] = await Promise.all([
@@ -226,8 +317,9 @@ export function subjectApi<State extends object>(
       skillItems.set(itemId, rated.item);
       write.results.push({ skill, itemId, score, learner: rated.learner, item: rated.item });
     }
-    const { award } = await sending(state, () => store.saveSession(id, write));
-    if (award) onAward(award);
+    // The award is paid by the caller, outside the save: a HUD that fails to update mustn't make
+    // a save the database applied count as failed.
+    return (await store.saveSession(id, write)).award;
   };
 
   return {
@@ -276,15 +368,20 @@ export function subjectApi<State extends object>(
       await store.saveReview(id, itemId, review, at);
       return statusOf(review.card);
     },
-    async dueItems({ limit = 50, now = new Date() } = {}) {
+    async dueItems({ limit = 50, now = new Date(), only } = {}) {
       if (!Number.isInteger(limit) || limit < 1 || limit > MAX_DUE) {
         throw new RangeError(`dueItems: limit is 1 to ${MAX_DUE}, got ${limit}`);
       }
+      // The ids go in the request's address: 200 keeps it well inside what servers accept.
+      if (only && only.length > MAX_DUE_ONLY) {
+        throw new RangeError(`dueItems: at most ${MAX_DUE_ONLY} items in only, got ${only.length}`);
+      }
+      only?.forEach(checkItemId);
       // A card in long-term review that falls due later today is due now: a word answered at
       // 21:00 with a day to wait comes back the next morning, not at 21:00 (review, 2026-11-15).
       const dayEnd = new Date(now);
       dayEnd.setHours(23, 59, 59, 999);
-      return store.dueCards(id, now, limit, dayEnd);
+      return store.dueCards(id, now, limit, dayEnd, only);
     },
     async reviewStatus(itemIds) {
       itemIds.forEach(checkItemId);

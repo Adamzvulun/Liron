@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import {
   emailLinkFragment,
   FAKE_SUPABASE_URL,
@@ -19,9 +19,9 @@ test('a wrong password shows an error', async ({ page }) => {
   await fakeSupabase(page);
   await page.goto('/');
   await page.getByLabel('Email').fill('adam@example.com');
-  await page.getByLabel('Password').fill('wrong');
-  await page.getByRole('button', { name: 'Enter Waymark' }).click();
-  await expect(page.getByRole('status')).toHaveText('That email and password don’t match.');
+  await page.getByLabel('Password', { exact: true }).fill('wrong');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await expect(page.getByRole('status')).toHaveText('Incorrect email or password.');
 });
 
 test("a sign-in that can't reach the server doesn't blame the password (review, 2026-11-15)", async ({
@@ -31,8 +31,8 @@ test("a sign-in that can't reach the server doesn't blame the password (review, 
   await page.route('**/auth/v1/token**', (route) => route.abort());
   await page.goto('/');
   await page.getByLabel('Email').fill('adam@example.com');
-  await page.getByLabel('Password').fill(PASSWORD);
-  await page.getByRole('button', { name: 'Enter Waymark' }).click();
+  await page.getByLabel('Password', { exact: true }).fill(PASSWORD);
+  await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page.getByRole('status')).toHaveText(/Couldn’t reach Waymark just now/);
 });
 
@@ -40,24 +40,72 @@ test('the right password opens the lobby, and the session survives a reload', as
   await fakeSupabase(page);
   await page.goto('/');
   await page.getByLabel('Email').fill('adam@example.com');
-  await page.getByLabel('Password').fill(PASSWORD);
-  await page.getByRole('button', { name: 'Enter Waymark' }).click();
+  await page.getByLabel('Password', { exact: true }).fill(PASSWORD);
+  await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page.getByRole('heading', { name: 'Signal Tower' })).toBeVisible();
   await page.reload();
   await expect(page.getByRole('heading', { name: 'Signal Tower' })).toBeVisible();
 });
 
-test('"email me a link" confirms without saying whether the account exists', async ({ page }) => {
+test('"forgot your password?" opens its own step, which confirms without saying whether the account exists', async ({
+  page,
+}) => {
   await fakeSupabase(page);
   await page.goto('/');
+  await expect(page.getByText('New here? Sign in with the password you were given')).toBeVisible();
+  await expect(page.getByText('Waymark is by invitation: there’s no sign-up.')).toBeVisible();
+  // The email already typed comes along (Adam, 2026-11-19: the reset was easy to miss).
   await page.getByLabel('Email').fill('someone@example.com');
-  await page.getByRole('button', { name: /Email me a link/ }).click();
+  await page.getByRole('button', { name: 'Forgot your password?' }).click();
+  await expect(page.getByRole('heading', { name: 'Reset your password' })).toBeVisible();
+  await expect(page.getByLabel('Email')).toHaveValue('someone@example.com');
+  await page.getByRole('button', { name: 'Send reset email' }).click();
   // Supabase's own mail reaches only the projects' owner, so friends are told who can help (#324).
   await expect(page.getByRole('status')).toHaveText(
-    'If that email has an account, a link is on its way. Nothing after a few minutes? Ask whoever invited you to set a new password.',
+    'If an account exists for that email, we’ve sent a password reset link. Didn’t get it within a few minutes? Ask whoever invited you to reset your password.',
   );
-  await expect(page.getByText('First time')).toHaveCount(0);
-  await expect(page.getByText('New here? Sign in with the password you were given')).toBeVisible();
+  await page.getByRole('button', { name: 'Back to sign in' }).click();
+  await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
+  await expect(page.getByLabel('Email')).toHaveValue('someone@example.com');
+  await expect(page.getByRole('status')).toHaveCount(0);
+});
+
+test('the reset step asks for an email before sending (2026-11-19)', async ({ page }) => {
+  const asked: string[] = [];
+  await fakeSupabase(page);
+  page.on('request', (r) => {
+    if (r.url().includes('/auth/v1/recover')) asked.push(r.url());
+  });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Forgot your password?' }).click();
+  await page.getByRole('button', { name: 'Send reset email' }).click();
+  await expect(page.getByLabel('Email')).toBeFocused();
+  expect(asked).toEqual([]);
+});
+
+test('a password can be shown while typed, and Caps Lock is pointed out (2026-11-19)', async ({
+  page,
+}) => {
+  await fakeSupabase(page);
+  await page.goto('/');
+  const password = page.getByLabel('Password', { exact: true });
+  await password.fill('secret words');
+  await expect(password).toHaveAttribute('type', 'password');
+  await page.getByRole('button', { name: 'Show password' }).click();
+  await expect(password).toHaveAttribute('type', 'text');
+  await expect(page.getByRole('button', { name: 'Hide password' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await page.getByRole('button', { name: 'Hide password' }).click();
+  await expect(password).toHaveAttribute('type', 'password');
+  // Headless Chromium doesn't lock Caps from a key press: the key events carry the state.
+  await password.focus();
+  await password.dispatchEvent('keydown', { key: 'A', modifierCapsLock: true });
+  await expect(page.getByText('Caps Lock is on.')).toBeVisible();
+  await expect(password).toHaveAccessibleDescription('Caps Lock is on.');
+  await password.dispatchEvent('keydown', { key: 'b', modifierCapsLock: false });
+  await expect(page.getByText('Caps Lock is on.')).toHaveCount(0);
 });
 
 test('a player changes their password in Settings (#324)', async ({ page }) => {
@@ -66,22 +114,22 @@ test('a player changes their password in Settings (#324)', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('waymark:first-page-closed', '1'));
   await page.goto('/');
   await page.getByLabel('Email').fill('friend@example.com');
-  await page.getByLabel('Password').fill(PASSWORD);
-  await page.getByRole('button', { name: 'Enter Waymark' }).click();
+  await page.getByLabel('Password', { exact: true }).fill(PASSWORD);
+  await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('button', { name: 'Settings' }).click();
-  await page.getByRole('button', { name: 'Change your password' }).click();
-  const fresh = page.getByLabel('New password');
+  await page.getByRole('button', { name: 'Change password' }).click();
+  const fresh = page.getByLabel('New password', { exact: true });
   await expect(fresh).toHaveAccessibleDescription('At least 8 characters.');
   await fresh.fill('a long new password');
-  await page.getByLabel('The same again').fill('a long new passwort');
-  await page.getByRole('button', { name: 'Save the new password' }).click();
-  await expect(page.getByText('The two passwords don’t match.')).toBeVisible();
+  await page.getByLabel('Confirm password', { exact: true }).fill('a long new passwort');
+  await page.getByRole('button', { name: 'Save new password' }).click();
+  await expect(page.getByText('Passwords do not match.')).toBeVisible();
   expect(updates).toEqual([]);
-  await page.getByLabel('The same again').fill('a long new password');
-  await page.getByRole('button', { name: 'Save the new password' }).click();
+  await page.getByLabel('Confirm password', { exact: true }).fill('a long new password');
+  await page.getByRole('button', { name: 'Save new password' }).click();
   await expect(page.getByText('Password changed. Use it next time you sign in.')).toBeVisible();
   expect(updates).toEqual([expect.objectContaining({ password: 'a long new password' })]);
-  await expect(page.getByLabel('New password')).toHaveCount(0);
+  await expect(page.getByLabel('New password', { exact: true })).toHaveCount(0);
 });
 
 test('signing out returns to the login screen and stays there after a reload', async ({ page }) => {
@@ -99,22 +147,32 @@ test('signing out returns to the login screen and stays there after a reload', a
 });
 
 for (const type of ['invite', 'recovery'] as const) {
-  test(`a ${type} email link asks for a new password, then opens the lobby`, async ({ page }) => {
+  test(`a ${type} email link asks for a new password twice, then opens the lobby`, async ({
+    page,
+  }) => {
     const updates: unknown[] = [];
     await fakeSupabase(page, updates);
     await page.goto(`/${emailLinkFragment(type)}`);
-    await expect(page.getByRole('heading', { name: 'Choose a password' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Set your password' })).toBeVisible();
+    // Which account it's for, also for the browser's password manager.
+    await expect(page.getByText('Enter a new password for adam@example.com.')).toBeVisible();
+    await expect(page.locator('input[autocomplete="username"]')).toHaveValue('adam@example.com');
     // The rule is said up front, not only by the browser after a try.
-    await expect(page.getByRole('textbox', { name: 'New password', exact: true })).toBeVisible();
-    await expect(page.getByLabel('New password')).toHaveAccessibleDescription(
-      'At least 8 characters.',
-    );
-    await page.getByLabel('New password').fill('short');
-    await page.getByRole('button', { name: 'Save and enter' }).click();
-    await expect(page.getByRole('heading', { name: 'Choose a password' })).toBeVisible();
+    const fresh = page.getByLabel('New password', { exact: true });
+    const again = page.getByLabel('Confirm password', { exact: true });
+    await expect(fresh).toHaveAccessibleDescription('At least 8 characters.');
+    await fresh.fill('short');
+    await page.getByRole('button', { name: 'Save new password' }).click();
+    await expect(page.getByRole('heading', { name: 'Set your password' })).toBeVisible();
     expect(updates).toEqual([]);
-    await page.getByLabel('New password').fill('a long new password');
-    await page.getByRole('button', { name: 'Save and enter' }).click();
+    // Two that differ are caught before anything is saved (Adam, 2026-11-19).
+    await fresh.fill('a long new password');
+    await again.fill('a long new passwort');
+    await page.getByRole('button', { name: 'Save new password' }).click();
+    await expect(page.getByText('Passwords do not match.')).toBeVisible();
+    expect(updates).toEqual([]);
+    await again.fill('a long new password');
+    await page.getByRole('button', { name: 'Save new password' }).click();
     await expect(page.getByRole('heading', { name: 'Signal Tower' })).toBeVisible();
     expect(updates).toEqual([expect.objectContaining({ password: 'a long new password' })]);
   });

@@ -145,7 +145,7 @@ const VISIT = /^\/house\/visit\/([0-9a-f-]{36})\/?$/i;
 /** The Arena beyond the square (task 3.4): challenges between friends. */
 const ARENA = /^\/arena\/?$/;
 
-/** Settings' "Change your password" (#324): null when saved, else what to tell the player. */
+/** Settings' "Change password" (#324): null when saved, else what to tell the player. */
 const changePassword = async (password: string): Promise<string | null> => {
   if (!supabase) return passwordRefused(undefined);
   try {
@@ -232,7 +232,7 @@ function AuthGate() {
     case 'signedOut':
       return <LoginScreen />;
     case 'setPassword':
-      return <SetPasswordScreen onDone={passwordChosen} />;
+      return <SetPasswordScreen email={auth.session.user.email} onDone={passwordChosen} />;
     case 'signedIn':
       return player && <Lobby player={player} />;
   }
@@ -243,13 +243,15 @@ function Lobby({ player }: { player: Player }) {
   const state = usePlayer(player);
   const path = usePath();
   const [facts, setFacts] = useState<RoadFacts>(ASSUMED_FACTS);
+  // Again on each move: a kept answer comes back at once, and one the site couldn't give is
+  // asked once more (road/facts.ts).
   useEffect(() => {
     let live = true;
     void roadFacts?.().then((f) => live && setFacts(f));
     return () => {
       live = false;
     };
-  }, []);
+  }, [path]);
   // Both at once (#137): the player keeps the contracts' purse, which is never older. Again when
   // you come back to the tab on a new day, so the top bar doesn't show yesterday's goal and
   // contracts after midnight (review, 2026-11-15).
@@ -399,14 +401,12 @@ function Lobby({ player }: { player: Player }) {
   if (visiting && fellowship) {
     return (
       <>
-        <Suspense fallback={<p className="place__loading">Knocking at the door…</p>}>
-          <FriendHouse
-            key={visiting}
-            id={visiting}
-            source={fellowship}
-            backdrop={<HouseBackdrop />}
-          />
-        </Suspense>
+        {/* A friend's house and the Arena load their code too (review, 2026-11-19). */}
+        <PlaceBoundary key={visiting}>
+          <Suspense fallback={<p className="place__loading">Knocking at the door…</p>}>
+            <FriendHouse id={visiting} source={fellowship} backdrop={<HouseBackdrop />} />
+          </Suspense>
+        </PlaceBoundary>
         {celebrations}
       </>
     );
@@ -415,10 +415,12 @@ function Lobby({ player }: { player: Player }) {
     return (
       <>
         <PlaceScreen place="arena" wide>
-          <Suspense fallback={<p className="place__loading">Opening the gates…</p>}>
-            <ArenaBackdrop />
-            <Arena source={challenges} today={today ?? localDay()} />
-          </Suspense>
+          <PlaceBoundary key="arena">
+            <Suspense fallback={<p className="place__loading">Opening the gates…</p>}>
+              <ArenaBackdrop />
+              <Arena source={challenges} today={today ?? localDay()} />
+            </Suspense>
+          </PlaceBoundary>
         </PlaceScreen>
         {celebrations}
       </>

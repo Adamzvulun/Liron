@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { fakeSupabase, signedIn } from './fake-supabase.ts';
 
 // No blue backgrounds (#313, docs/design/grounds.md): every screen stands on wood, stone, earth

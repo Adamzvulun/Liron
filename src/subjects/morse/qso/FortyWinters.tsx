@@ -199,14 +199,18 @@ function Hear({
   useEffect(() => {
     let live = true;
     void (async () => {
-      const pb = await audio()?.player.play(
-        SHORT ? (message.text.split(' ')[0] ?? '') : message.text,
-        {
-          charWpm: FINALE_WPM,
-          effWpm: FINALE_WPM,
-        },
-      );
-      await pb?.done;
+      try {
+        const pb = await audio()?.player.play(
+          SHORT ? (message.text.split(' ')[0] ?? '') : message.text,
+          {
+            charWpm: FINALE_WPM,
+            effWpm: FINALE_WPM,
+          },
+        );
+        await pb?.done;
+      } catch {
+        // No sound (the browser refused it): the questions still open.
+      }
       if (live) setPlaying(false);
     })();
     return () => {

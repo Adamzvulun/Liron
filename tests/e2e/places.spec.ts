@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, expectCrash, test } from './fixtures.ts';
 import { signedIn } from './fake-supabase.ts';
 
 test.describe('places in the city (#25)', () => {
@@ -128,6 +128,7 @@ test("a place that can't load says so, can try again, and the top bar stays (rev
 test("a place whose code won't download says so inside the place (review, 2026-11-15)", async ({
   page,
 }) => {
+  expectCrash();
   await signedIn(page);
   await page.route('**/assets/placeViews-*.js', (route) => route.abort());
   await page.goto('/market');

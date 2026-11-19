@@ -1,0 +1,49 @@
+# Fills CI's caches where every PR can read them (2026-11-19).
+# A PR's run can restore caches from its own merge ref, its base branch and the default branch
+# (`dev`), but never from another PR (docs.github.com, "Dependency caching"). CI runs only on PRs,
+# so nothing ever saved node_modules or Chromium at `dev`'s scope, and every new PR paid `npm ci`
+# (40 s) and the browser download (25 s) in each of its four jobs. This job saves both on `dev`.
+# When both are already there it only looks them up (about 20 s); it does the work only when
+# package-lock.json changed. Numbers in docs/process/CI.md.
+name: Warm cache
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+concurrency:
+  group: warm-cache
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  warm:
+    # The same runner as CI: the cache keys carry its OS and architecture.
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      # Keys exactly as in ci.yml.
+      - id: modules
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: node_modules
+          key: modules-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
+          lookup-only: true
+      - id: browser
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
+          lookup-only: true
+      # Playwright itself is needed to download its browser, so a missing browser needs npm ci too.
+      - if: steps.modules.outputs.cache-hit != 'true' || steps.browser.outputs.cache-hit != 'true'
+        run: npm ci
+      - if: steps.browser.outputs.cache-hit != 'true'
+        run: npx playwright install chromium
