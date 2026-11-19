@@ -3,7 +3,7 @@
 // steps and checks; this only shows them.
 import { useId, useState, type ReactNode } from 'react';
 import { useDialogFocus } from '../player/useDialogFocus.ts';
-import { standingLine, type RoadAnswer, type RoadStep } from './road.ts';
+import { HALL_DOOR, standingLine, type RoadAnswer, type RoadStep } from './road.ts';
 import './road.css';
 
 export interface RoadLineProps {
@@ -30,7 +30,7 @@ export function RoadLine({ answer, steps, done, onOpen, text = (w) => w }: RoadL
         {standingLine(answer)} <span className="road__sofar">· the road so far</span>
       </button>
       {answer.waiting && <p className="road__wait">{answer.waiting.line}</p>}
-      {door === 'hall' ? (
+      {door === HALL_DOOR ? (
         <p className="road__next">
           <strong>Next:</strong> {words}
         </p>

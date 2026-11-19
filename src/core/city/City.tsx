@@ -1,4 +1,4 @@
-import { useState, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import { AVATAR_BOX } from '../avatar/paint.ts';
 import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
@@ -227,8 +227,15 @@ export function City({
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
     e.preventDefault();
     setWalk(stepToward(city.places[id].box));
-    setTimeout(() => navigate(href), WALK_MS);
+    // Only if the player is still in the square: Back or another link during the walk wins
+    // (review, 2026-11-19).
+    const from = window.location.href;
+    walking.current = setTimeout(() => {
+      if (window.location.href === from) navigate(href);
+    }, WALK_MS);
   };
+  const walking = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(walking.current), []);
   const [ref, { scale, x, y, pan }] = useStage(START_X);
   const residents = residentsOf(subjects);
   return (
