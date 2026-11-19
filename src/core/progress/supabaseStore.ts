@@ -362,11 +362,14 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       }
       return found;
     },
-    async dueCards(subjectId, now, limit, dayEnd = now) {
+    async dueCards(subjectId, now, limit, dayEnd = now, only) {
       const at = now.toISOString();
       const end = dayEnd.toISOString();
-      const query = () =>
-        client.from('review_cards').select('item_id, due').eq('subject_id', subjectId);
+      if (only?.length === 0) return [];
+      const query = () => {
+        const q = client.from('review_cards').select('item_id, due').eq('subject_id', subjectId);
+        return only ? q.in('item_id', [...only]) : q;
+      };
       let { data, error } = await query()
         .or(`due.lte."${at}",and(state.eq.${REVIEW_STATE},due.lte."${end}")`)
         .order('due')

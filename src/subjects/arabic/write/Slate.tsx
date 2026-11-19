@@ -145,10 +145,17 @@ export function Slate({ api }: { api: SubjectApi }) {
             {step === 'trace' ? 'Trace the letter' : 'Now write it without the guide'}
           </h2>
           <p className="arabic__bridge">
-            <bdi lang="ar" dir="rtl" className="arabic__slate-model">
-              {letter.letter}
-            </bdi>{' '}
-            · {letter.nameLatin} · like <bdi lang="he">{letter.hebrew}</bdi>
+            {/* From memory means without the letter to copy: only its name and its Hebrew
+                cousin (review, 2026-11-19). */}
+            {step === 'trace' && (
+              <>
+                <bdi lang="ar" dir="rtl" className="arabic__slate-model">
+                  {letter.letter}
+                </bdi>{' '}
+                ·{' '}
+              </>
+            )}
+            {letter.nameLatin} · like <bdi lang="he">{letter.hebrew}</bdi>
           </p>
           <Pad
             key={`${letter.id}-${step}`}

@@ -143,6 +143,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           gateDone={trailingPasses(progress.recent)}
           warmup={isWarmup(progress, new Date())}
           trial={pendingTrial(progress)?.trial.name}
+          allLit={progress.unlocked >= MORSE_CHARS.length}
           onBegin={begin}
         />
       )}
@@ -198,6 +199,7 @@ function StartCard({
   gateDone,
   warmup,
   trial,
+  allLit,
   onBegin,
 }: {
   lessonNo: number;
@@ -206,6 +208,8 @@ function StartCard({
   warmup: boolean;
   /** The trial that holds the next lamp, if one does: runs then light nothing. */
   trial?: string;
+  /** Every character learned and no trial left: runs keep the ear, and light nothing. */
+  allLit: boolean;
   onBegin: () => void;
 }) {
   // While a trial holds the gate, runs are practice; promising a lamp misled (review, 2026-11-15).
@@ -216,6 +220,20 @@ function StartCard({
         <p>
           The next lamp waits behind the trial, <strong>{trial}</strong>, in the tower hall. Runs
           here keep your ear sharp for it.
+        </p>
+        <button type="button" className="lesson__go" onClick={onBegin}>
+          Begin
+        </button>
+      </div>
+    );
+  }
+  if (allLit) {
+    return (
+      <div className="lesson__card lesson__start">
+        <h2 className="lesson__title">Keep your ear sharp</h2>
+        <p>
+          Every lamp in the tower is lit. Runs here keep all {MORSE_CHARS.length} characters fresh,
+          at full speed.
         </p>
         <button type="button" className="lesson__go" onClick={onBegin}>
           Begin

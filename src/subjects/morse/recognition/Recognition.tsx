@@ -216,14 +216,24 @@ function Round({
       pause = window.setTimeout(
         () => {
           setFeedback(null);
-          void next();
+          go();
         },
         attempt.right ? 450 : 1300,
       );
     };
 
+    // If the sound can't start (the browser refused), the round ends with what was answered,
+    // as the Koch Run does, instead of waiting for a letter that never plays.
+    const go = () => {
+      next().catch(() => {
+        if (over) return;
+        over = true;
+        window.clearTimeout(fuse);
+        onDone(attempts);
+      });
+    };
     press.current = answer;
-    void player.unlock().then(next);
+    void player.unlock().then(go, go);
     const timer = window.setInterval(
       () => setLeft(Math.max(0, Math.ceil(seconds - (performance.now() - startedAt) / 1000))),
       250,
