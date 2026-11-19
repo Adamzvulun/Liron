@@ -63,8 +63,10 @@ export function usePlayer(api: SubjectApi, upcoming: readonly string[] = []) {
     try {
       await Promise.all(audios.map((a) => a.play()));
     } catch {
-      // No sound (the browser refused): the sentence is still on screen.
+      // No sound (the browser refused): the sentence is still on screen. A paused element that
+      // never played fires no 'pause', so this doesn't wait for one (review, 2026-11-19).
       for (const a of audios) a.pause();
+      return;
     }
     await done;
   }, []);

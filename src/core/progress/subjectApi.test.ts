@@ -375,4 +375,17 @@ describe('what is due today (review, 2026-11-15)', () => {
     expect((await api.dueItems({ now: soon })).map((d) => d.itemId)).not.toContain('char:M');
     expect((await api.dueItems({ now: step.due })).map((d) => d.itemId)).toContain('char:M');
   });
+
+  it('can ask about some items only, so others due can’t crowd them out (review, 2026-11-19)', async () => {
+    const api = subjectApi({ id: 'arabic' }, memoryStore());
+    const then = new Date(2026, 10, 2, 9, 0);
+    for (const id of ['w1', 'w2', 'w3', 'p1']) await api.recordReview(id, 'again', then);
+    const later = new Date(2026, 10, 9, 9, 0);
+    expect((await api.dueItems({ now: later, limit: 2 })).map((d) => d.itemId)).not.toContain('p1');
+    expect(
+      (await api.dueItems({ now: later, limit: 2, only: ['p1', 'p9'] })).map((d) => d.itemId),
+    ).toEqual(['p1']);
+    expect(await api.dueItems({ now: later, only: [] })).toEqual([]);
+    await expect(api.dueItems({ only: [''] })).rejects.toThrow(RangeError);
+  });
 });

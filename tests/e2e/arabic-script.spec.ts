@@ -247,6 +247,10 @@ test.describe('the slate (#41)', () => {
     await page.goto('/caravanserai');
     await page.getByRole('button', { name: /The slate/ }).click();
     for (let i = 0; i < 10; i++) {
+      // Traced over the letter, then written from memory: without the letter to copy.
+      const heading = i % 2 ? 'Now write it without the guide' : 'Trace the letter';
+      await expect(page.getByRole('heading', { name: heading })).toBeVisible();
+      await expect(page.locator('.arabic__slate-model')).toHaveCount(i % 2 ? 0 : 1);
       const pad = page.getByLabel(/(Trace|Write) the letter here/);
       const box = await pad.boundingBox();
       if (!box) throw new Error('no pad');

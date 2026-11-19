@@ -96,13 +96,17 @@ export function InnChat({ api }: { api: SubjectApi }) {
         const p = parseProgress(s);
         setProgress(p);
         setName(p.chat.name);
+        // The Coach's phrases only add a button: if they can't be read, it doesn't show. Only
+        // the kept tips are asked about, so other due cards can't crowd them out (review,
+        // 2026-11-19).
+        const only = p.chat.tips.map((t) => t.id);
+        if (!only.length) return;
+        api.dueItems({ limit: only.length, only }).then(
+          (d) => live.current && setDue(d),
+          () => undefined,
+        );
       },
       () => live.current && setFailed(true),
-    );
-    // The Coach's phrases only add a button: if they can't be read, it doesn't show.
-    api.dueItems({ limit: 200 }).then(
-      (d) => live.current && setDue(d),
-      () => undefined,
     );
     // The glosses only add a line under the Hebrew letters: without the deck, there are none.
     api.privateContent(DECK).then(
