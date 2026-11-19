@@ -161,7 +161,7 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
   recordReview(itemId: string, grade: ReviewGrade, at?: Date): Promise<ReviewStatus>;
   /**
    * Items due for review now (or at `now`), most overdue first. `only` asks about those items
-   * alone, so a station's reviews aren't crowded out by the subject's other due cards.
+   * alone (at most 200), so a station's reviews aren't crowded out by the subject's other due cards.
    */
   dueItems(options?: {
     limit?: number;
