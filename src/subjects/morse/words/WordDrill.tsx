@@ -352,8 +352,12 @@ function Copy({
     async (w: MorseWord) => {
       const p = (player.current ??= new MorsePlayer());
       const id = ++plays.current;
-      const pb = await p.play(written(w), { charWpm: CHAR_WPM, effWpm });
-      await pb.done;
+      try {
+        const pb = await p.play(written(w), { charWpm: CHAR_WPM, effWpm });
+        await pb.done;
+      } catch {
+        // No sound (the browser refused it): the word can still be typed, or heard again.
+      }
       if (id === plays.current) setStep((s) => (s === 'listening' ? 'typing' : s));
     },
     [effWpm],

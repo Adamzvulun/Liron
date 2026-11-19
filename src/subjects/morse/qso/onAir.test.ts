@@ -190,7 +190,9 @@ describe('a contact', () => {
   it('slows down 5 wpm a time, to no slower than 10', () => {
     expect(slower(18)).toBe(13);
     expect(slower(15)).toBe(10);
-    expect(slower(12)).toBeNull();
+    expect(slower(12)).toBe(10);
+    expect(slower(13)).toBe(10);
+    expect(slower(10)).toBeNull();
   });
 
   it('dates the log in local time', () => {

@@ -216,7 +216,12 @@ describe('the word path’s gate', () => {
     const b = applyWordSession(a.next, 0.95, ['pcav:4753'], 10, '2026-11-11', false);
     expect(b).toMatchObject({ passed: false, next: { words: { chapter: 1, streak: 2 } } });
     // The session that meets the last of them passes, the good days already behind it.
-    const c = applyWordSession(b.next, 0.95, ['pcav:4755'], 10, '2026-11-12', true);
+    // A third good day, still not all met: the streak stays at 2, which a reload keeps
+    // (more would read back as 0) (review, 2026-11-19).
+    const more = applyWordSession(b.next, 0.95, [], 10, '2026-11-12', false);
+    expect(more.next.words.streak).toBe(2);
+    expect(parseProgress(JSON.parse(JSON.stringify(more.next))).words.streak).toBe(2);
+    const c = applyWordSession(more.next, 0.95, ['pcav:4755'], 10, '2026-11-13', true);
     expect(c).toMatchObject({ passed: true, next: { words: { chapter: 2 } } });
   });
 

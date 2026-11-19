@@ -17,6 +17,7 @@ import { Run } from './Lesson.tsx';
 import type { RunScore } from './score.ts';
 import './lesson.css';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { CHAPTERS } from '../questline.ts';
 
 // A chapter's trial (#34): with every lamp lit, copy the trial's characters (50) at its accuracy
 // (90%) to open the gate. Passing unlocks the next chapter's first character and pays the
@@ -134,7 +135,10 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
               <h2 className="lesson__title">The gate opens</h2>
               <p>{chapter.outro}</p>
               <p className="lesson__note">
-                <Xp>{trial.xp}</Xp> · a new chapter begins
+                <Xp>{trial.xp}</Xp> ·{' '}
+                {chapter === CHAPTERS[CHAPTERS.length - 1]
+                  ? 'every lamp in the tower is lit'
+                  : 'a new chapter begins'}
               </p>
               <NextStep />
               <button type="button" className="lesson__go" onClick={onLeave}>

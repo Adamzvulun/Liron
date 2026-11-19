@@ -416,7 +416,7 @@
 .hud__fieldhint {
   font-size: 13px;
   font-weight: 600;
-  color: #a8936f;
+  color: #b8a37d;
 }
 
 .hud__fieldstatus {
@@ -996,7 +996,7 @@
   color: var(--lamplight);
 }
 
-/* "Change your password" (#324): a quiet text button until asked for, then a small form. */
+/* "Change password" (#324): a quiet text button until asked for, then a small form. */
 .hud__password {
   align-self: flex-start;
   margin-bottom: 10px;

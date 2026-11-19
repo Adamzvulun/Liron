@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { CONTRACTS, signedIn } from './fake-supabase.ts';
 import { MORSE_ROAD } from '../../src/subjects/morse/road.ts';
 
@@ -6,7 +7,7 @@ import { MORSE_ROAD } from '../../src/subjects/morse/road.ts';
 const onPhone = () => test.info().project.name === 'phone';
 const goal = (page: Page, done: number, of: number) =>
   onPhone()
-    ? page.getByLabel(`Daily goal: ${done} of ${of} minutes`)
+    ? page.getByLabel(`Daily goal: ${done}/${of} min`)
     : page.getByText(`${done} / ${of} min`);
 
 test('the lobby shows your level, XP bar, gold and gems', async ({ page }) => {
@@ -30,7 +31,7 @@ test('the HUD shows the streak and today’s goal, and the goal can change', asy
   await expect(page.getByLabel('Streak: 2 days')).toBeVisible();
   await expect(goal(page, 6, 15)).toBeVisible();
   // The goal chip opens its own panel, on the goal you have now.
-  await page.getByRole('button', { name: 'Daily goal: 6 of 15 minutes' }).click();
+  await page.getByRole('button', { name: 'Daily goal: 6/15 min' }).click();
   const panel = page.getByRole('group', { name: 'Daily goal' });
   await expect(panel.getByText('6 of 15 min today')).toBeVisible();
   await expect(panel.getByText('9 more minutes to open the daily chest.')).toBeVisible();
@@ -54,19 +55,19 @@ test('the HUD shows the streak and today’s goal, and the goal can change', asy
   await expect(panel.getByRole('button', { name: '20 minutes a day', exact: true })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(panel).toHaveCount(0);
-  await expect(page.getByRole('button', { name: /^Daily goal:/ })).toBeFocused();
+  await expect(page.getByRole('button', { name: /^Daily goal/ })).toBeFocused();
 });
 
 test('reaching the daily goal opens the chest and grows the streak', async ({ page }) => {
   await signedIn(page);
   await page.goto('/');
-  await page.getByRole('button', { name: /^Daily goal:/ }).click();
+  await page.getByRole('button', { name: /^Daily goal/ }).click();
   await page.getByRole('button', { name: '5 minutes a day', exact: true }).click(); // 6 minutes done: reached
   const dialog = page.getByRole('dialog', { name: '3 days' });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('+20 gold')).toBeVisible();
   await expect(page.getByLabel('Gold: 51')).toBeAttached();
-  await dialog.getByRole('button', { name: 'Onward' }).click();
+  await dialog.getByRole('button', { name: 'Continue' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.getByLabel('Streak: 3 days')).toBeVisible();
   await expect(
@@ -107,7 +108,7 @@ test('the compass says the next step of your road, and leads to its door', async
     const compass = page.getByRole('navigation', { name: 'Next on your road' });
     await expect(compass.getByRole('link')).toHaveCount(1);
     await expect(compass.getByRole('link')).toContainText('Signal Tower: ');
-    await compass.getByRole('button', { name: 'Show the other lines' }).click();
+    await compass.getByRole('button', { name: /^Show the other \d+ lines$/ }).click();
     await expect(compass.getByRole('link')).toHaveCount(2);
     await expect(compass.getByRole('link').nth(1)).toContainText('Caravanserai: ');
     await compass.getByRole('link').first().click();
@@ -188,7 +189,7 @@ test('chests wait on the Notice Board and open once, paying what they held (ADR 
   // The city's errand (the-road.md §7): a line after the guilds', on both sizes.
   if (onPhone()) {
     const compass = page.getByRole('navigation', { name: 'Next on your road' });
-    await compass.getByRole('button', { name: 'Show the other lines' }).click();
+    await compass.getByRole('button', { name: /^Show the other \d+ lines$/ }).click();
     await expect(compass.getByRole('link').last()).toContainText('A chest is waiting');
   } else {
     await expect(
@@ -272,13 +273,13 @@ test('closing a celebration from the keyboard puts focus back where it was (revi
 }) => {
   await signedIn(page);
   await page.goto('/');
-  await page.getByRole('button', { name: /^Daily goal:/ }).click();
+  await page.getByRole('button', { name: /^Daily goal/ }).click();
   const minutes = page.getByRole('button', { name: '5 minutes a day', exact: true });
   await minutes.focus(); // as a keyboard player would be
   await page.keyboard.press('Enter'); // 6 minutes done: goal reached
   const onward = page
     .getByRole('dialog', { name: '3 days' })
-    .getByRole('button', { name: 'Onward' });
+    .getByRole('button', { name: 'Continue' });
   await expect(onward).toBeFocused();
   // Tab stays inside the dialog: the page behind it can't take focus while it's open.
   await page.keyboard.press('Tab');
@@ -298,7 +299,7 @@ test("a goal that can't be saved says so and keeps the old one (review, 2026-11-
     route.fulfill({ status: 500, json: { message: 'down' } }),
   );
   await page.goto('/');
-  await page.getByRole('button', { name: /^Daily goal:/ }).click();
+  await page.getByRole('button', { name: /^Daily goal/ }).click();
   await page.getByRole('button', { name: '20 minutes a day', exact: true }).click();
   await expect(page.getByText('Couldn’t save your goal. Try again.')).toBeVisible();
   await expect(page.getByRole('button', { name: '15 minutes a day', exact: true })).toHaveAttribute(

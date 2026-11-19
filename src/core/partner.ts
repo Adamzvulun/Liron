@@ -134,7 +134,11 @@ export function functionPartner(
 ): PartnerSource {
   return {
     async reply(ask) {
-      const access = await token();
+      // A token that can't be read is a failed reply, like a dropped connection (review,
+      // 2026-11-19): callers tell PartnerErrors apart, and this one wasn't one.
+      const access = await token().catch(() => {
+        throw new PartnerError('failed');
+      });
       if (!access) throw new PartnerError('signed-out');
       let res: Response;
       try {
@@ -154,7 +158,8 @@ export function functionPartner(
       if (!res.ok || typeof json?.text !== 'string') {
         throw new PartnerError(KNOWN.find((p) => p === json?.error) ?? 'failed');
       }
-      return { text: json.text, left: Number(json.left ?? 0) };
+      const left = Number(json.left ?? 0);
+      return { text: json.text, left: Number.isFinite(left) ? left : 0 };
     },
   };
 }

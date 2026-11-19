@@ -11,6 +11,7 @@ Every step below is **untested**: nobody has done it on the real projects yet. E
 1. **v1.1.0 is live:** you merged its release PR and the **DB migrate** run on `main` is green. That run makes every account a licensee.
 2. **Realtime:** on both projects, **Realtime → Settings → Allow public access** is off ([RUNNING](RUNNING.md#friends)). Check it once; it stays off.
 3. **Their account:** "Make a friend's account" below. That's all: the deck opens for them by itself.
+   - **To check, if you like:** Supabase → `waymark-prod` → **SQL Editor**, run `select email from auth.users where id not in (select user_id from public.content_licensees);`. No rows means every account reads the deck. It only reads; it changes nothing.
 4. **Become friends in the game:** you both open **Your House → Fellowship**. One of you types the other's friend code; the other accepts the request.
 5. **Try the wire, on two devices:** both open the Signal Tower's **Sending** and press **Key to a friend**, pick each other, and key a few letters. Then tell Claude what you heard and saw (release checklist §6).
 
@@ -42,7 +43,7 @@ Then they change it again in Settings.
 
 ## You forgot yours
 
-Your own "Email me a link" works, because you own the project. If it doesn't arrive, do the same as for a friend.
+Your own "Forgot your password?" → "Send reset email" works, because you own the project. If it doesn't arrive, do the same as for a friend.
 
 ## A friend says the Arabic lessons are closed to them
 

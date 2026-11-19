@@ -57,7 +57,10 @@ export function standing(
   let i = 1;
   for (; i < ranks.length; i++) {
     const r = ranks[i];
-    if (!r || r.later || !(taken.includes(r.id) || met(r).every(Boolean))) break;
+    // Every condition the rank names, not only those the subject answered: a condition added to
+    // the content without its check stays unmet (review, 2026-11-19).
+    const allMet = (done: boolean[]) => r?.conditions.every((_, j) => done[j] === true) ?? false;
+    if (!r || r.later || !(taken.includes(r.id) || allMet(met(r)))) break;
     held = r;
   }
   const next = ranks[i];

@@ -21,11 +21,13 @@ import {
 import { heldRanks } from '../../core/ranks/ranks.ts';
 import { charLabel, MORSE_CHARS } from './code.ts';
 import {
+  fastestDit,
   parseProgress,
   pendingTrial,
   unlockedChars,
   type MorseProgress,
 } from './lesson/progress.ts';
+import { wpmFor } from './send/decoder.ts';
 import { stationOf } from './qso/onAir.ts';
 import { farOpen, farPassed } from './qso/farStation.ts';
 import { finaleOpen, finalePassed } from './qso/fortyWinters.ts';
@@ -73,7 +75,7 @@ const ChapterData = z.object({
 });
 
 const slug = (id: string) => id.replace(/^road:/, '');
-const fastest = (p: MorseProgress) => p.sending.fastest ?? p.sending.ditMs ?? Infinity;
+const fastest = (p: MorseProgress) => fastestDit(p) ?? Infinity;
 const drills = (n: number) => (p: MorseProgress) => p.sending.drills >= n;
 const contacts = (n: number) => (p: MorseProgress) => p.radio.contacts >= n;
 const rank = (id: string) => (p: MorseProgress) => p.ranks.includes(id);
@@ -234,11 +236,11 @@ function meanwhile(p: MorseProgress, ctx: RoadContext): Meanwhile {
  * player keeps coming back for after the road ends.
  */
 function bestLine(door: string, p: MorseProgress): string | null {
-  const dit = p.sending.fastest ?? p.sending.ditMs;
+  const dit = fastestDit(p);
   if (door === 'recognition' && p.recognition.best > 0)
     return `Tonight: Instant Recognition. Your best is ${p.recognition.best}: beat it.`;
   if (door === 'sending' && dit)
-    return `Tonight: the brass key. Your fastest drill is ${Math.round(1200 / dit)} wpm: beat it.`;
+    return `Tonight: the brass key. Your fastest drill is ${Math.round(wpmFor(dit))} wpm: beat it.`;
   if (door === 'words' && p.words.best > 0)
     return `Tonight: the Codebook. Your best round is ${p.words.best} words: beat it.`;
   return null;

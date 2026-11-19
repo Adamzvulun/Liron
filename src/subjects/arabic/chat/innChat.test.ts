@@ -90,6 +90,8 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(he).not.toMatch(/\p{Script=Arabic}/u);
     expect(he).toMatch(/,/);
     expect(he).toMatch(/\?$/);
+    // Every mark, not just the first (review, 2026-11-19).
+    expect(lineInHebrew('ليش؟؟')).toMatch(/\?\?$/);
   });
 
   it('reads what you type in Hebrew letters as Arabic', () => {

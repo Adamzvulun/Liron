@@ -149,15 +149,19 @@ function startBed(name: Ambient) {
   const now = c.currentTime;
   amp.gain.setValueAtTime(0, now);
   amp.gain.linearRampToValueAtTime(b.gain, now + FADE_IN);
-  // A slow swell, so the bed breathes instead of hissing.
+  // A slow swell, so the bed breathes instead of hissing. It sways its own stage, before the
+  // fade, so the fades start and end at silence (review, 2026-11-19).
+  const swell = c.createGain();
+  swell.gain.value = 1;
   const lfo = c.createOscillator();
   const depth = c.createGain();
   lfo.frequency.value = b.swell;
-  depth.gain.value = b.gain * 0.35;
+  depth.gain.value = 0.35;
   lfo.connect(depth);
-  depth.connect(amp.gain);
+  depth.connect(swell.gain);
   src.connect(filter);
-  filter.connect(amp);
+  filter.connect(swell);
+  swell.connect(amp);
   amp.connect(out);
   src.start(now);
   lfo.start(now);

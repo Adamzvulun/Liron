@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-18 (v1.1.0 built).
+- **Last updated:** 2026-11-19 (every part of the code has now had a high review; the fixes are merged into `dev`; v1.1.0's release PR waits on Adam).
 - **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are
@@ -17,7 +17,7 @@
 | **After the end** | The long evenings: master contracts, a station of the day, personal bests to beat ([ADR 0048](../decisions/0048-the-long-evenings.md)) |
 | **Never lost** | One compass line says the next step everywhere: the square, both halls, every result screen. A first page greets a new player ([the Road](../game/the-road.md)) |
 | **The look** | Painted in the browser; no screen stands on a blue background ([Grounds](../design/grounds.md)) |
-| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 49 ADRs; unit and browser tests on every PR |
+| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 51 ADRs; unit and browser tests on every PR |
 
 ### What lives where, and how to run it
 - **The code:** `src/core/` is the platform, `src/subjects/<id>/` one subject each; content is data in `content/`; the database is `supabase/migrations/`. The [README](../../.github/README.md) has the map and every script (`npm run dev`, `npm test`, `npm run e2e`).
@@ -27,7 +27,7 @@
 
 ## What comes next
 
-**v1.1.0, Open to Friends, is built** (2026-11-18, HANDOFF item 114): every account reads the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)), an account without it is told so plainly, the compass knows whether Sit and talk is on, and [FRIENDS.md](FRIENDS.md) opens with Adam's five steps for a first friend. Release notes: [releases/v1.1.0.md](releases/v1.1.0.md). **Claude's next:** land it in `dev`, open the release PR into `main` (Adam merges), then look for gaps, bugs and test holes in what's built.
+**v1.1.0, Open to Friends, is built** (2026-11-18, HANDOFF item 114): every account reads the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)), an account without it is told so plainly, the compass knows whether Sit and talk is on, and [FRIENDS.md](FRIENDS.md) opens with Adam's five steps for a first friend. Release notes: [releases/v1.1.0.md](releases/v1.1.0.md). It's all in `dev`, and [the release PR](https://github.com/Adamzvulun/Liron/pull/371) into `main` is open for Adam to merge. **Overnight (report §4df–4di, #376 and #377, merged into `dev`):** a high code review of both towers, the Fellowship and the platform, with about 40 real bugs fixed. The biggest: a run that couldn't be saved no longer loses its XP or its one-time rewards (ADR 0031 amendment). **Then on 2026-11-19 (report §4dj–4do, #378–#383):** the server functions, the database (one migration, applied to dev), the player and Market, the avatar and content, the city, its sound, the workflows and the content scripts. The biggest: the finales' gear could be bought and a finale claimed without its rank; a friend code could be tested; opening Settings early could wipe your name; a late answer could undo a purchase; one odd look could break every friend's list; "Say it" failed in Firefox. A last review of the day's own fixes found and fixed a few mistakes in them (§4do). Then the browser tests' fake database got closer to the real one (§4dp), a crash now fails its browser test (§4dq), the kept deck can no longer hang the app (§4dr), and an accessibility sweep fixed faint text and the paintings a keyboard couldn't pan (§4ds). Then, from Adam's play: the sign-in screens use the standard wording (Sign in, Forgot your password?, Send reset email, Confirm password), with Show/Hide and a Caps Lock warning on every password box; and axe now checks every screen on each release PR into `main` (report §4dt, [ADR 0051](../decisions/0051-accessibility-checks-on-release.md)). All of this is in `dev`, not in the v1.1.0 release PR: it ships with the next release. **The next release, v1.1.1** (fixes from the reviews, the sign-in screens), is drafted in [releases/v1.1.1.md](releases/v1.1.1.md); its PR opens after Adam merges v1.1.0. **Claude's next:** test holes (coverage) and anything Adam finds playing.
 
 **Adam's, in the order of [VERSIONS.md](VERSIONS.md):**
 
@@ -35,7 +35,7 @@
 2. **Merge the v1.1.0 release PR, then the first friend:** the five steps at the top of [FRIENDS.md](FRIENDS.md); then 3.7 opens the Fellowship.
 3. **Parked:** the third subject (4.5; Adam, 2026-11-18: "won't come soon"), the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All in [LATER.md](LATER.md).
 
-**The repo itself (2026-11-18):** its front page opens on a banner of the square ([README](../../.github/README.md)), and its root lists 23 entries (the charter is now `.claude/CLAUDE.md`). CI costs about 40% less a run: arm64 runners, two Playwright workers, and no second run when a release lands on `main` ([CI.md](CI.md)). The live site was checked from outside the same day: it loads in 1–2 s on desktop and phone, with no console errors and every security header in place.
+**The repo itself (2026-11-18):** its front page opens on a banner of the square ([README](../../.github/README.md)), and its root lists 23 entries (the charter is now `.claude/CLAUDE.md`). CI costs about 40% less a run (arm64 runners, two Playwright workers, no second run when a release lands on `main`), and since #370 and #373 it takes about 5.5 minutes instead of 16: four jobs side by side, with caches every PR can read ([CI.md](CI.md)). The live site was checked from outside the same day: it loads in 1–2 s on desktop and phone, with no console errors and every security header in place.
 
 **Keep alive** ran green on 2026-11-18 (Adam, by hand) and now runs on Mondays and Thursdays. Before that nothing had ever used `waymark-prod`, so it had paused ([SUPABASE](SUPABASE.md#keep-alive)).
 

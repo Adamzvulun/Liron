@@ -101,7 +101,6 @@ const CALLABLE: Record<string, string> = {
   'set_daily_goal(p_minutes integer)': 'the caller’s own goal, from a fixed list',
   'set_time_zone(p_zone text)': 'the caller’s own profile',
   'set_title(p_title text)': 'the caller’s own title, from what they earned',
-  'site_ceiling(what text)': 'a constant',
   'speech_checks_per_day()': 'a constant',
   'today_status()': 'the caller’s own day',
   'todays_contracts()': 'the caller’s own contracts',
@@ -341,12 +340,28 @@ describe('two players, one database (task 2.4, #325)', () => {
       'chat_lines_per_day()',
       'level_for_xp(p_xp bigint)',
       'partner_replies_per_day()',
-      'site_ceiling(what text)',
       'speech_checks_per_day()',
       'touch_updated_at()',
       'xp_for_level(p_level integer)',
     ];
     expect((await callable('anon')).filter((f) => !pure.includes(f))).toEqual([]);
+  });
+
+  it('every function that runs with its owner’s rights fixes its search path', async () => {
+    // A security definer function that looked names up through the caller's search_path could be
+    // handed a look-alike table or function of the caller's own making.
+    const loose = await rows(
+      `select p.proname as name from pg_proc p
+       where p.pronamespace = 'public'::regnamespace and p.prosecdef
+         and not exists (select 1 from unnest(coalesce(p.proconfig, '{}')) c where c like 'search_path=%')
+       order by 1`,
+    );
+    expect(loose).toEqual([]);
+    const [{ n }] = (await rows(
+      `select count(*)::int as n from pg_proc
+       where pronamespace = 'public'::regnamespace and prosecdef`,
+    )) as { n: number }[];
+    expect(n, 'there are such functions to check').toBeGreaterThan(20);
   });
 
   it('a chest of the other player’s can’t be opened', async () => {

@@ -35,7 +35,7 @@ The lamplight is the same in all four: `radial-gradient(ellipse at 50% -10%, rgb
 
 | Screen or state | Ground |
 |---|---|
-| Sign-in, "Choose a password", "Opening the gates…", "Not set up yet" | **The city gate at dusk**, painted like the halls (a painter module, drawn once): a stone arch with two lit lanterns, the doors ajar with warm light in the gap, and behind it a sunset sky that runs from ember (`#d9784f`) at the horizon through plum (`#4a2a3a`) to a dark warm brown at the top. No navy. The form is a parchment notice nailed to the left door. "Opening the gates…" is the same scene with the gap a little wider. On a phone the arch crops to the notice and one lantern. |
+| Sign-in, "Set your password", "Opening the gates…", "Not set up yet" | **The city gate at dusk**, painted like the halls (a painter module, drawn once): a stone arch with two lit lanterns, the doors ajar with warm light in the gap, and behind it a sunset sky that runs from ember (`#d9784f`) at the horizon through plum (`#4a2a3a`) to a dark warm brown at the top. No navy. The form is a parchment notice nailed to the left door. "Opening the gates…" is the same scene with the gap a little wider. On a phone the arch crops to the notice and one lantern. |
 | "Lost?" (unknown address) | `ground--cobble`, with one painted thing: **a waymark post** (the city's namesake) with a lit lantern and a single arm pointing back. The button is the arm's text: "To the square". |
 | Error boundary and save-failure screens | The same post with its lantern out. The words explain; the picture only sets the place. |
 | The square, where the window is wider or taller than the painting | The painting's own lowest and outermost colors continue: `ground--cobble` below and at the sides. Never the page. |

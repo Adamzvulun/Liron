@@ -165,9 +165,12 @@ export function answer(
   const chapter = at && chapters.find((c) => c.number === at.chapter);
   const mates = at ? steps.filter((s) => s.chapter === at.chapter) : [];
   const next = steps[w.compass];
-  const instead = next ? null : meanwhile();
+  const now: RoadAnswer['now'] = next
+    ? { kind: 'step', index: w.compass, step: next }
+    : { kind: 'meanwhile', ...meanwhile() };
   // A closed road's meanwhile line already says what it waits on: it isn't said twice.
-  const held = w.waiting && instead?.why !== 'closed' && steps[w.waiting.index];
+  const closed = now.kind === 'meanwhile' && now.why === 'closed';
+  const held = w.waiting && !closed && steps[w.waiting.index];
   return {
     questline,
     steps: steps.length,
@@ -182,9 +185,7 @@ export function answer(
             ofChapter: mates.length,
           }
         : null,
-    now: next
-      ? { kind: 'step', index: w.compass, step: next }
-      : { kind: 'meanwhile', ...(instead ?? meanwhile()) },
+    now,
     ...(held &&
       w.waiting && {
         waiting: {

@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import { watchForCrashes } from './fixtures.ts';
 import { WORD_CHAPTERS } from '../../src/subjects/arabic/core/coreWords.ts';
 import { REVIEWS } from '../../src/subjects/arabic/words.ts';
 import { ACHIEVEMENTS } from '../../src/core/achievements/achievements.ts';
@@ -176,10 +177,13 @@ export async function fakeSupabase(
 ) {
   // Like the database, a saved state is what the next read of that subject returns, so a test
   // can play a session, reload and see where it left off.
+  watchForCrashes(page);
   const saved = new Map<string, object>();
   // Events from saved sessions, by kind, for today's contracts (ADR 0032).
   const events = new Map<string, number>();
   const opened = new Set<string>();
+  // Session ids already saved: the database applies a session once (ADR 0031).
+  const sessions = new Set<string>();
   // The title worn (#177), changed by set_title.
   let title = extras.title ?? '';
   // The Market's purchases (#49): what was bought, and the gold spent.
@@ -224,6 +228,22 @@ export async function fakeSupabase(
       const { p_chest } = route.request().postDataJSON() as { p_chest: string };
       const chest = extras.chests?.find((c) => c.id === p_chest);
       if (!chest) return route.fulfill({ status: 400, json: { message: 'no such chest' } });
+      // Opened before: what it held, and no purse, as the database answers.
+      if (opened.has(p_chest)) {
+        return route.fulfill({
+          json: {
+            id: chest.id,
+            kind: chest.kind,
+            gold: 30,
+            gems: 1,
+            item: 'boots',
+            item_gold: 0,
+            shield: true,
+            shield_gold: 0,
+            already_open: true,
+          },
+        });
+      }
       opened.add(p_chest);
       const shields = (extras.today?.streak_shields ?? TODAY.streak_shields) + 1;
       return route.fulfill({
@@ -391,6 +411,14 @@ export async function fakeSupabase(
       const { p_item } = route.request().postDataJSON() as { p_item: string };
       const ware = STALL.find((w) => w.id === p_item);
       if (!ware) return route.fulfill({ status: 400, json: { message: 'not for sale today' } });
+      const held =
+        (extras.today?.streak_shields ?? TODAY.streak_shields) +
+        bought.filter((b) => b === 'streak-shield').length;
+      const owned =
+        ware.kind === 'functional'
+          ? held >= 2
+          : [...(extras.owned ?? []), ...bought].includes(ware.id);
+      if (owned) return route.fulfill({ status: 400, json: { message: 'already owned' } });
       if (board().gold < ware.price) {
         return route.fulfill({ status: 400, json: { message: 'too little gold' } });
       }
@@ -543,6 +571,14 @@ export async function fakeSupabase(
     if (rpc === 'save_session') {
       const a = route.request().postDataJSON() as SaveSessionArgs;
       const p_subject = a.p_subject;
+      // As the database does: no id is refused, and an id seen before changes nothing.
+      if (!a.p_session) {
+        return route.fulfill({ status: 400, json: { message: 'a session id is required' } });
+      }
+      if (sessions.has(a.p_session)) {
+        return route.fulfill({ json: { duplicate: true, award: null } });
+      }
+      sessions.add(a.p_session);
       events.set('session', (events.get('session') ?? 0) + 1);
       for (const e of a.p_events ?? []) events.set(e.kind, (events.get(e.kind) ?? 0) + e.count);
       if (a.p_state) {
@@ -792,6 +828,7 @@ export function emailLinkFragment(type: 'invite' | 'recovery') {
 /** What save_session receives (supabaseStore's saveSession). */
 export interface SaveSessionArgs {
   p_subject: string;
+  p_session: string;
   p_state: object | null;
   p_reviews: Record<string, unknown>[] | null;
   p_results: Record<string, unknown>[] | null;
