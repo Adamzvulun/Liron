@@ -66,7 +66,7 @@ test.describe('accessibility (ADR 0051)', () => {
   test('choosing a password from an email link', async ({ page }) => {
     await fakeSupabase(page);
     await page.goto(`/${emailLinkFragment('invite')}`);
-    await expect(page.getByRole('heading', { name: 'Choose a password' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Set your password' })).toBeVisible();
     expect(await problems(page)).toEqual([]);
   });
 
@@ -74,7 +74,7 @@ test.describe('accessibility (ADR 0051)', () => {
     await signedIn(page, [], [], MORSE);
     await page.goto('/');
     await page.getByRole('button', { name: 'Settings' }).click();
-    await page.getByRole('button', { name: 'Change your password' }).click();
+    await page.getByRole('button', { name: 'Change password' }).click();
     expect(await problems(page)).toEqual([]);
   });
 

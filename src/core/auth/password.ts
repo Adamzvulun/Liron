@@ -1,12 +1,13 @@
 // Choosing and changing a password (ADR 0016; task 2.3, #324). The rules live here so the
-// "Choose a password" screen and Settings say the same thing.
+// "Set your password" screen and Settings say the same thing.
 
 export const MIN_PASSWORD = 8;
 
 /** What's wrong with a new password before it's sent, or null if nothing is. */
 export function passwordProblem(password: string, again: string): string | null {
-  if (password.length < MIN_PASSWORD) return `Use at least ${MIN_PASSWORD} characters.`;
-  if (password !== again) return 'The two passwords don’t match.';
+  if (password.length < MIN_PASSWORD)
+    return `Password must be at least ${MIN_PASSWORD} characters.`;
+  if (password !== again) return 'Passwords do not match.';
   return null;
 }
 
