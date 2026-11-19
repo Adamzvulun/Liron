@@ -286,7 +286,7 @@ function Friends({
                   className="fellowship__button fellowship__button--quiet"
                   onClick={() => setRemoving(null)}
                 >
-                  Keep
+                  Cancel
                 </button>
               </>
             ) : (
@@ -348,7 +348,7 @@ function Codes({
               className="fellowship__button fellowship__button--quiet"
               onClick={() => setRenewing(false)}
             >
-              Keep this one
+              Cancel
             </button>
           </div>
         ) : (

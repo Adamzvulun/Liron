@@ -104,8 +104,15 @@ test.describe('The Night Watch (#179)', () => {
     await page.getByRole('button', { name: 'Keep it again' }).click();
     await keepWatch(page, (i) => words[i] ?? '');
     await expect(page.getByRole('heading', { name: 'Dawn, and nothing missed' })).toBeVisible();
-    await expect.poll(() => sent.length).toBe(2);
-    expect(sent[1]?.p_events).toEqual([{ kind: 'trial-night-watch', count: 1 }]);
+    // Three saves: the one that failed, the same session sent again before the next save (report
+    // §4df), and the new run's. Waiting for exactly two passed only when the poll happened to run
+    // between the last two (2026-11-19).
+    await expect.poll(() => sent.length).toBe(3);
+    const trial = [{ kind: 'trial-night-watch', count: 1 }];
+    expect(sent[1]?.p_session).toBe(sent[0]?.p_session);
+    expect(sent[1]?.p_events).toEqual(trial);
+    expect(sent[2]?.p_session).not.toBe(sent[0]?.p_session);
+    expect(sent[2]?.p_events).toEqual(trial);
   });
 
   test('a watch with misses fails, and is saved with no trial event', async ({ page }) => {
