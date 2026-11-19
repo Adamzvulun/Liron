@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn } from './fake-supabase.ts';
 
 test.describe('the avatar in Your House (#28, #29)', () => {

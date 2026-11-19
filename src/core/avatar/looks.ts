@@ -453,6 +453,18 @@ export const DEFAULT_LOOK: Look = {
   gear: { torso: 'tunic', back: 'satchel' },
 };
 
+/** A look's identity, whatever order its keys were written in: for "has it changed?". */
+export function lookKey(look: Look): string {
+  const gear = Object.entries(look.gear)
+    .filter(([, v]) => v !== undefined)
+    .sort(([a], [b]) => a.localeCompare(b));
+  return JSON.stringify(
+    Object.entries({ ...look, gear })
+      .filter(([, v]) => v !== undefined)
+      .sort(([a], [b]) => a.localeCompare(b)),
+  );
+}
+
 /** Gear the player may wear: starters, and what they own (ADR 0033). */
 export const canWear = (item: GearItem, owned: ReadonlySet<string>) =>
   item.starter || owned.has(item.id);
@@ -462,8 +474,14 @@ export const canWear = (item: GearItem, owned: ReadonlySet<string>) =>
  * (not a starter, not owned) is taken off.
  */
 export function parseLook(raw: unknown, owned: ReadonlySet<string> = new Set()): Look {
-  if (!raw || typeof raw !== 'object' || Object.keys(raw).length === 0) return DEFAULT_LOOK;
-  const look = lookSchema.parse(raw);
+  // A look is someone's own input: an array or a malformed one is the default, never a throw
+  // that would break a friend's whole list (review, 2026-11-19).
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw) || Object.keys(raw).length === 0) {
+    return DEFAULT_LOOK;
+  }
+  const parsed = lookSchema.safeParse(raw);
+  if (!parsed.success) return DEFAULT_LOOK;
+  const look = parsed.data;
   const gear: Look['gear'] = {};
   for (const [slot, item] of Object.entries(look.gear) as [SlotId, string | undefined][]) {
     const found = GEAR.find((g) => g.id === item);

@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { GREETINGS, lessonWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // Everyday words made of lesson 1's letters (ا ب ت ن ي), shaped like the deck's rows.
@@ -247,6 +248,10 @@ test.describe('the slate (#41)', () => {
     await page.goto('/caravanserai');
     await page.getByRole('button', { name: /The slate/ }).click();
     for (let i = 0; i < 10; i++) {
+      // Traced over the letter, then written from memory: without the letter to copy.
+      const heading = i % 2 ? 'Now write it without the guide' : 'Trace the letter';
+      await expect(page.getByRole('heading', { name: heading })).toBeVisible();
+      await expect(page.locator('.arabic__slate-model')).toHaveCount(i % 2 ? 0 : 1);
       const pad = page.getByLabel(/(Trace|Write) the letter here/);
       const box = await pad.boundingBox();
       if (!box) throw new Error('no pad');
@@ -278,7 +283,17 @@ test.describe('the slate (#41)', () => {
     await page.getByRole('button', { name: /The slate/ }).click();
     const pad = page.getByLabel('Trace the letter here');
     await expect(pad).toBeVisible();
-    await page.waitForTimeout(500); // the guide is painted once the font has loaded
+    // The guide is painted once the font has loaded: wait for its ink, not for a guessed time.
+    await expect
+      .poll(() =>
+        pad.evaluate((c: HTMLCanvasElement) => {
+          const d = c.getContext('2d')?.getImageData(0, 0, c.width, c.height).data ?? [];
+          let ink = 0;
+          for (let i = 3; i < d.length; i += 4) if ((d[i] ?? 0) > 0) ink++;
+          return ink;
+        }),
+      )
+      .toBeGreaterThan(0);
     // Read the faint guide off the pad: its cells on a 32-cell grid, split into the body (the
     // largest part) and the rest (the dot).
     const shape = await pad.evaluate((c: HTMLCanvasElement) => {

@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { lessonWord, signedIn } from './fake-supabase.ts';
 
 // Every account reads the deck (ADR 0050). This is the safety net for one that doesn't, say
@@ -60,7 +61,7 @@ async function caravanseraiLine(page: Page) {
     const compass = page.getByRole('navigation', { name: 'Next on your road' });
     // A guild that can offer a step leads; the Caravanserai waits behind the count.
     await expect(compass.getByRole('link').first()).toContainText('Signal Tower');
-    await compass.getByRole('button', { name: 'Show the other lines' }).click();
+    await compass.getByRole('button', { name: /^Show the other \d+ lines$/ }).click();
     return compass.getByRole('link', { name: /Caravanserai/ });
   }
   const quests = page.getByRole('region', { name: 'Quests' });

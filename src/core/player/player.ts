@@ -70,11 +70,15 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
   const fail = (e: unknown) => set({ error: (e as Error).message });
   // Purchases and chests can overlap. Each takes a ticket, and an older one's purse that
   // answers late doesn't overwrite a newer one's (the database's purse is always right).
+  // Loading the wallet and the contracts take tickets too: a purse read before a purchase must
+  // not undo it (review, 2026-11-19). `newestGold` is the purse last shown.
   let purseTicket = 0;
   let purseShown = 0;
-  const newerPurse = (ticket: number) => {
+  let newestGold: number | null = null;
+  const newerPurse = (ticket: number, gold: number) => {
     if (ticket < purseShown) return false;
     purseShown = ticket;
+    newestGold = gold;
     return true;
   };
   return {
@@ -84,6 +88,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     },
     getSnapshot: () => state,
     async load() {
+      const ticket = ++purseTicket;
       try {
         // The day follows the browser's time zone, so today waits for it (if saving it fails,
         // the last one still works). The wallet and profile don't: they load meanwhile (#137).
@@ -95,8 +100,8 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
             .then(() => store.today()),
           store.profile(),
         ]);
-        // Contracts may have paid gold while this loaded; their purse is the newer one.
-        if (state.contracts) wallet.gold = state.contracts.gold;
+        // Contracts, a purchase or a chest may have moved the purse while this loaded.
+        if (!newerPurse(ticket, wallet.gold) && newestGold !== null) wallet.gold = newestGold;
         set({ wallet, today, profile, error: null });
       } catch (e) {
         fail(e);
@@ -107,11 +112,13 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
      * failure leaves the board as it was: contracts never block the rest of the game.
      */
     async loadContracts() {
+      const ticket = ++purseTicket;
       try {
         const contracts = await store.todaysContracts();
+        const newer = newerPurse(ticket, contracts.gold);
         set({
           contracts,
-          wallet: state.wallet ? { ...state.wallet, gold: contracts.gold } : state.wallet,
+          wallet: state.wallet && newer ? { ...state.wallet, gold: contracts.gold } : state.wallet,
         });
         // Claiming contracts also grants any chests now earned (ADR 0033).
         set({ chests: await store.chests() });
@@ -128,7 +135,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       try {
         const c = await store.openChest(id);
         const next: Partial<PlayerState> = { chests: state.chests.filter((x) => x.id !== id) };
-        if (c.wallet && newerPurse(ticket)) {
+        if (c.wallet && newerPurse(ticket, c.wallet.gold)) {
           if (state.wallet) {
             next.wallet = { ...state.wallet, gold: c.wallet.gold, gems: c.wallet.gems };
           }
@@ -166,7 +173,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       try {
         const w = await store.buyItem(id);
         const next: Partial<PlayerState> = {};
-        const newer = newerPurse(ticket);
+        const newer = newerPurse(ticket, w.gold);
         if (state.wallet && newer) next.wallet = { ...state.wallet, gold: w.gold, gems: w.gems };
         if (state.today && newer) next.today = { ...state.today, shields: w.shields };
         if (ware?.kind !== 'functional' && state.profile && !state.profile.owned.includes(id)) {
@@ -194,6 +201,10 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       }
     },
     applyAward(award: Award) {
+      // A save's purse is shown as it comes, but takes no ticket: a purchase or chest already on
+      // its way most likely reached the database after the save, so its purse still wins when it
+      // answers (third review, 2026-11-19).
+      newestGold = award.gold;
       const wallet = { xp: award.xp, gold: award.gold, gems: award.gems };
       // An uncelebrated level-up stays until it's dismissed; a second one merges into it.
       const prev = state.levelUp;
@@ -301,7 +312,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
     purse() {
       const ticket = ++purseTicket;
       return (gold: number) => {
-        if (!newerPurse(ticket) || !state.wallet) return;
+        if (!newerPurse(ticket, gold) || !state.wallet) return;
         set({
           wallet: { ...state.wallet, gold },
           market: state.market && {

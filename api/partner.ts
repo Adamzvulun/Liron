@@ -250,17 +250,25 @@ export interface InnSheet {
   milestones: string[];
 }
 
-/** Who speaks for a regular: the first person named ("Fares and the band" → Fares). */
-const speakerOf = (who: string) => who.split(/ and |, /)[0] ?? who;
+/**
+ * Who speaks for a regular, and whether they sit with others: "Fares and the band" → Fares, in a
+ * group; "Abu Fadi, with his son" → Abu Fadi, in a group; "Salim, back again" → Salim, alone. A
+ * comma alone only describes (review, 2026-11-19): splitting on it told 40-odd lone regulars
+ * they shared the table.
+ */
+export function speakerOf(who: string): { speaker: string; group: boolean } {
+  const [name = who, ...rest] = who.split(', ');
+  const [speaker = name, ...others] = name.split(' and ');
+  return { speaker, group: others.length > 0 || /^with /.test(rest.join(', ')) };
+}
 
 /** A regular's sheet, as the browser's innChat.ts built it before (its tests check they match). */
 export function sheetOf(r: RegularData, chapter?: { theme: string; words: { gloss: string }[] }) {
   const gender = r.she ? 'You are a woman.' : 'You are a man.';
-  const speaker = speakerOf(r.who);
-  const group =
-    speaker === r.who
-      ? ''
-      : `You are ${speaker}, at the table with ${r.who}; speak only for yourself.`;
+  const { speaker, group: many } = speakerOf(r.who);
+  const group = many
+    ? `You are ${speaker}, at the table with ${r.who}; speak only for yourself.`
+    : '';
   return {
     persona: {
       who: r.who.slice(0, 80),
@@ -466,14 +474,23 @@ const recallNow = (ask: InnAsk) =>
 
 const LATIN = /[A-Za-z]/;
 const NOT_ARABIC_LINE = /[^\u0600-\u06FF\u0750-\u077F\s0-9.,!?:"«»()\-–—…]/u;
-const SAYS_MACHINE = /ذكاء\s*(ال)?اصطناعي|نموذج\s*لغ|روبوت|بوت\b/u;
+// \b is ASCII-only, so بوت is bounded by hand: the word alone (or with ال), not the end
+// of كبوت or عنكبوت (third review, 2026-11-19).
+const SAYS_MACHINE = /ذكاء\s*(ال)?اصطناعي|نموذج\s*لغ|روبوت|(^|[\s،.!?؟:])(ال)?بوت(?=$|[\s،.!?؟:])/u;
 /**
  * Words that give a line away as another variety, never Palestinian: Modern Standard (ماذا,
  * لماذا, سوف, أريد), Egyptian (عايز, دلوقتي, كده), Gulf (شلون, وايد, شنو) and Lebanese (هيدا).
  * The rules already forbid them; a reply that uses one anyway is asked for again.
  */
+// A word may carry و, ف, ب or ل in front: وأريد gives a line away as much as أريد.
+// وايد takes no prefix: فوايد (benefits) is everyday Palestinian (third review, 2026-11-19).
 const GIVEAWAY =
-  /(^|[\s،.!?؟])(ماذا|لماذا|سوف|أريد|عايز|عايزة|دلوقتي|كده|شلون|شلونك|وايد|شنو|هيدا|هيدي)(?=$|[\s،.!?؟])/u;
+  /(^|[\s،.!?؟])([وفبل]?(ماذا|لماذا|سوف|أريد|عايز|عايزة|دلوقتي|كده|شلون|شلونك|شنو|هيدا|هيدي)|وايد)(?=$|[\s،.!?؟])/u;
+/**
+ * A model's thinking, closed or cut off by the token limit: an unclosed <think> runs to the end,
+ * and nothing after it is an answer (review, 2026-11-19).
+ */
+const THINKING = /<think>[\s\S]*?(<\/think>|$)/g;
 /** The longest line a regular says. */
 export const MAX_ARABIC = 160;
 
@@ -483,7 +500,7 @@ export const MAX_ARABIC = 160;
  */
 export function cleanArabic(said: string): string | null {
   const line = said
-    .replace(/<think>[\s\S]*?<\/think>/g, '')
+    .replace(THINKING, '')
     .replace(/[*_#`]/g, '')
     .replace(/\s+/g, ' ')
     .trim()
@@ -708,7 +725,7 @@ export interface Verdict {
 
 /** The judge's answer, checked: three yes-or-noes and a short reason, or null. */
 export function cleanVerdict(said: string): Verdict | null {
-  const json = said.replace(/<think>[\s\S]*?<\/think>/g, '').replace(/^```(json)?|```$/gm, '');
+  const json = said.replace(THINKING, '').replace(/^```(json)?|```$/gm, '');
   let body: unknown;
   try {
     body = JSON.parse(json.trim());
@@ -763,7 +780,7 @@ export interface Tip {
  * the answer isn't the JSON asked for.
  */
 export function cleanTips(said: string, ask: CoachAsk): Tip[] | null {
-  const json = said.replace(/<think>[\s\S]*?<\/think>/g, '').replace(/^```(json)?|```$/gm, '');
+  const json = said.replace(THINKING, '').replace(/^```(json)?|```$/gm, '');
   let body: unknown;
   try {
     body = JSON.parse(json.trim());
@@ -802,15 +819,26 @@ function spelledAlike(a: string, b: string): boolean {
 
 /** The first line of a reply, without thinking tags or quotes, cut short. */
 export const firstLine = (said: string) =>
-  (
-    said
-      .replace(/<think>[\s\S]*?<\/think>/g, '')
-      .trim()
-      .split('\n')[0] ?? ''
-  )
+  (said.replace(THINKING, '').trim().split('\n')[0] ?? '')
     .replace(/^["'“”]+|["'“”]+$/g, '')
     .trim()
     .slice(0, MAX_TEXT);
+
+/**
+ * The first line of a reply that an operator could key: at least two words of letters or
+ * figures, and not a preamble ("Sure! Here's a line:"). Characters Morse lacks are left for the
+ * browser to drop, as it always has: "NAME: JIM" is a line (third review, 2026-11-19). Null when
+ * there is none, so the next provider is asked instead of the browser dropping it.
+ */
+export function radioLine(said: string): string | null {
+  for (const raw of said.replace(THINKING, '').split('\n')) {
+    const line = firstLine(raw.replace(/[*_#`]/g, ''));
+    if (!line || /:\s*$/.test(line)) continue;
+    const words = line.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w));
+    if (words.length >= 2) return line;
+  }
+  return null;
+}
 
 /** The handler, with its environment and `fetch` passed in so tests can fake both. */
 export async function handle(
@@ -946,7 +974,7 @@ export async function handle(
     const said = await provider();
     if (said === 'busy') busy = true;
     else if (said) {
-      const line = firstLine(said);
+      const line = radioLine(said);
       if (line) return answer({ text: line, left });
     }
   }

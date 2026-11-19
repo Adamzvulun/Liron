@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { lettersOf } from '../../src/subjects/arabic/letters.ts';
 import { inHebrewVowelled } from '../../src/subjects/arabic/marks.ts';
 import { lessonWord, listenForAudio, played, signedIn, type SubjectCall } from './fake-supabase.ts';

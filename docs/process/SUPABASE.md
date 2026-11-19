@@ -30,7 +30,7 @@ Facts checked on supabase.com on 2026-11-02:
 6. After Claude's #16 PR is merged into `dev`, the dev site shows the login screen.
 7. In **`waymark-dev`**: **Authentication → Users → Add user → Send invitation**, with your email. Open the link in the email and choose a password on the screen it opens.
    - If the invite refuses because sign-ups are off (Supabase's official docs don't say; third-party guides say an admin invite still works), switch sign-ups on, send the invite, and switch them off again. Since v1.1.0 an account made that way reads the deck like any other ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)).
-   - If the link lands on the login screen instead, type your email there and use **"Email me a link"**.
+   - If the link lands on the login screen instead, type your email there and use **"Forgot your password?"** → **"Send reset email"**.
 8. At the next release, do step 7 in **`waymark-prod`** too.
 
 ### Adding a licensee

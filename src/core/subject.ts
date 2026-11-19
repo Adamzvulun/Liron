@@ -20,6 +20,9 @@ export type { ReviewGrade, ReviewPhase, SkillRating };
 export const SUBJECT_ID = /^[a-z][a-z0-9-]{1,31}$/;
 
 /** The square's buildings that can hold a subject's hall (the city's art has two so far). */
+/** The most items `dueItems({ only })` asks about at once. */
+export const MAX_DUE_ONLY = 200;
+
 export const HALL_BUILDINGS = ['tower', 'caravanserai'] as const;
 export type HallBuilding = (typeof HALL_BUILDINGS)[number];
 
@@ -159,8 +162,15 @@ export interface SubjectApi<State extends object = Record<string, unknown>> {
    * subject chooses, up to 128 characters) and returns when it's due again.
    */
   recordReview(itemId: string, grade: ReviewGrade, at?: Date): Promise<ReviewStatus>;
-  /** Items due for review now (or at `now`), most overdue first. */
-  dueItems(options?: { limit?: number; now?: Date }): Promise<{ itemId: string; due: Date }[]>;
+  /**
+   * Items due for review now (or at `now`), most overdue first. `only` asks about those items
+   * alone (at most 200), so a station's reviews aren't crowded out by the subject's other due cards.
+   */
+  dueItems(options?: {
+    limit?: number;
+    now?: Date;
+    only?: readonly string[];
+  }): Promise<{ itemId: string; due: Date }[]>;
   /** Review status of the given items. Items missing from the map have never been reviewed. */
   reviewStatus(itemIds: readonly string[]): Promise<Map<string, ReviewStatus>>;
   /**

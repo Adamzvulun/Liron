@@ -125,6 +125,55 @@ describe('loading at once (#137)', () => {
   });
 });
 
+describe('a purse read before a purchase (review, 2026-11-19)', () => {
+  it('doesn’t undo the purchase when it answers after it', async () => {
+    let answerContracts = () => {};
+    const base = memoryStore();
+    const store = {
+      ...base,
+      // Read before the purchase, answered after it: 100 gold, not yet spent.
+      todaysContracts: () =>
+        new Promise<Awaited<ReturnType<typeof base.todaysContracts>>>((res) => {
+          answerContracts = () => res({ day: 'd', contracts: [], paidNow: [], gold: 100 });
+        }),
+      buyItem: async () => ({ gold: 40, gems: 0, shields: 0 }),
+    };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    const contracts = player.loadContracts();
+    expect(await player.buy('cloak')).toBeNull();
+    answerContracts();
+    await contracts;
+    expect(player.getSnapshot().wallet?.gold).toBe(40);
+    // A wallet read later is the newest purse: shown as it is, not the contracts’ old 100.
+    expect(player.getSnapshot().contracts?.gold).toBe(100);
+    await player.load();
+    expect(player.getSnapshot().wallet?.gold).toBe(0);
+  });
+});
+
+describe('a purchase answered after a save’s award (third review, 2026-11-19)', () => {
+  it('shows the purchase’s purse, which the database reached last', async () => {
+    let answerBuy = () => {};
+    const base = memoryStore();
+    const store = {
+      ...base,
+      buyItem: () =>
+        new Promise<{ gold: number; gems: number; shields: number }>((res) => {
+          answerBuy = () => res({ gold: 440, gems: 0, shields: 0 });
+        }),
+    };
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    const morse = subjectApi({ id: 'morse' }, base, player.applyAward);
+    const buying = player.buy('cloak');
+    await morse.awardXP(10);
+    answerBuy();
+    await buying;
+    expect(player.getSnapshot().wallet?.gold).toBe(440);
+  });
+});
+
 describe('the player’s chests (ADR 0033)', () => {
   it('loads chests with the contracts, and opening one pays it and takes it off the shelf', async () => {
     const chest = { id: 'c1', kind: 'brass', source: 'trial' as const, sourceKey: 'morse:1' };

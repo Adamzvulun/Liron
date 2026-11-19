@@ -187,7 +187,7 @@ function Done({ c, today }: { c: Challenge; today: string }) {
     return (
       <li className="arena__bout arena__bout--closed">
         <p className="arena__line">
-          {sender === 'You' ? 'Your' : `${sender}’s`} {SHORT[c.kind]} challenge to {other}:{' '}
+          {c.mine ? 'Your' : `${sender}’s`} {SHORT[c.kind]} challenge to {other}:{' '}
           {c.state === 'declined'
             ? c.mine
               ? `${c.to.name} let it go.`

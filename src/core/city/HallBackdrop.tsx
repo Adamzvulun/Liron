@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
-
-/** Each hall's painting as an image URL, made once per page load. */
-const urls = new Map<string, string>();
+import { pictureUrl } from './picture.ts';
 
 /**
  * The hall's own painting behind a station's screen (roadmap A1): blurred and darkened, with the
@@ -21,18 +19,12 @@ export function HallBackdrop({
   height: number;
   paint: () => string;
 }) {
-  const url = useMemo(() => {
-    let made = urls.get(id);
-    if (!made) {
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">${paint()}</svg>`;
-      made =
-        typeof URL.createObjectURL === 'function'
-          ? URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }))
-          : `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-      urls.set(id, made);
-    }
-    return made;
-  }, [id, width, height, paint]);
+  // Made once per page load, by the same maker as the finales' pictures (`hall:` keeps the two
+  // sets of ids apart).
+  const url = useMemo(
+    () => pictureUrl(`hall:${id}`, { width, height }, paint),
+    [id, width, height, paint],
+  );
   return (
     <div className="hall-backdrop" aria-hidden="true" data-hall={id}>
       <img src={url} alt="" />

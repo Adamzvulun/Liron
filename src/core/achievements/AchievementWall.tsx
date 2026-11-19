@@ -23,7 +23,15 @@ export function AchievementWall({
   onWear: (title: string) => Promise<boolean>;
 }) {
   const [failed, setFailed] = useState(false);
-  const load = useCallback(() => void onLoad().then((ok) => setFailed(!ok)), [onLoad]);
+  // A rejection is a failure too: the wall mustn't wait forever (review, 2026-11-19).
+  const load = useCallback(
+    () =>
+      void onLoad().then(
+        (ok) => setFailed(!ok),
+        () => setFailed(true),
+      ),
+    [onLoad],
+  );
   const retry = () => {
     setFailed(false);
     load();
@@ -39,7 +47,7 @@ export function AchievementWall({
   const titles = earnedTitles(mine);
   const wear = async (t: string) => {
     setStatus('saving');
-    setStatus((await onWear(t)) ? 'idle' : 'failed');
+    setStatus((await onWear(t).catch(() => false)) ? 'idle' : 'failed');
   };
   return (
     <section className="trophies" aria-labelledby="trophies-title">

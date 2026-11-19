@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { friendCard, signedIn, type Extras } from './fake-supabase.ts';
 import { wireRelay } from './fake-realtime.ts';
 
@@ -65,6 +66,26 @@ test.describe('the wire', () => {
     await b.context().close();
   });
 
+  test('hanging up tells the friend at once (review, 2026-11-19)', async ({ browser }) => {
+    test.setTimeout(60_000);
+    const relay = wireRelay();
+    const a = await (await browser.newContext()).newPage();
+    const b = await (await browser.newContext()).newPage();
+    await openLine(a, relay);
+    await openLine(b, relay);
+    for (const p of [a, b]) {
+      await expect(p.getByText('Basma is on the line.')).toBeVisible({ timeout: 10_000 });
+    }
+    await a.getByRole('button', { name: 'Hang up' }).click();
+    // Well inside the 16 seconds of silence that would tell b otherwise.
+    await expect(b.getByRole('status').filter({ hasText: 'Waiting for Basma' })).toBeVisible({
+      timeout: 4_000,
+    });
+    expect(relay.sent.filter((m) => m.event === 'bye')).toHaveLength(1);
+    await a.context().close();
+    await b.context().close();
+  });
+
   test('a line refused says so, and can be tried again', async ({ page }) => {
     const relay = wireRelay();
     relay.refuseJoins();
@@ -75,6 +96,23 @@ test.describe('the wire', () => {
     relay.refuseJoins(false);
     await page.getByRole('button', { name: 'Try again' }).click();
     await expect(page.getByRole('status').filter({ hasText: 'Waiting for Basma' })).toBeVisible();
+  });
+
+  test('a refused line hangs up without a goodbye to no one (review, 2026-11-19)', async ({
+    page,
+  }) => {
+    const relay = wireRelay();
+    relay.refuseJoins();
+    await openLine(page, relay);
+    await expect(page.getByRole('alert')).toBeVisible();
+    // Off the socket, the client would post the goodbye over HTTP.
+    const posted: string[] = [];
+    page.on('request', (r) => {
+      if (r.url().includes('/realtime/v1/api/broadcast')) posted.push(r.postData() ?? '');
+    });
+    await page.getByRole('button', { name: 'Hang up' }).click();
+    await expect(page.getByRole('button', { name: 'Open a line to Basma' })).toBeVisible();
+    expect(posted).toEqual([]);
   });
 
   test('the brass key on a phone keys the wire too', async ({ browser }) => {

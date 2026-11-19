@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn, type SubjectCall } from './fake-supabase.ts';
 
 /** Keys a code ("-.-") on the space bar at 10 wpm. */

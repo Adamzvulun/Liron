@@ -29,7 +29,8 @@ export function FriendHouse({
   useEffect(() => {
     let live = true;
     source.cards().then(
-      (cards) => live && setCard(cards.find((c) => c.id === id && !c.me) ?? null),
+      // The route takes an id in any case; the database's ids are lowercase.
+      (cards) => live && setCard(cards.find((c) => c.id === id.toLowerCase() && !c.me) ?? null),
       () => live && setCard('failed'),
     );
     return () => {

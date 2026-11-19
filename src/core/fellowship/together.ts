@@ -125,11 +125,16 @@ export function supabaseTogether(client: SupabaseClient): TogetherSource {
     }
     return data as unknown;
   };
+  /** The purse a call left: an odd answer is a failure, not a purse of 0 (review, 2026-11-19). */
+  const purse = (v: unknown) => {
+    if (typeof v !== 'number' || !Number.isFinite(v) || v < 0) throw new TogetherError('failed');
+    return v;
+  };
   return {
     quest: async () => readQuest(await call('fellowship_quest')),
-    collect: async () => num(await call('collect_fellowship_quest')),
+    collect: async () => purse(await call('collect_fellowship_quest')),
     give: async (friendId, item) =>
-      num(await call('give_item', { p_friend: friendId, p_item: item })),
+      purse(await call('give_item', { p_friend: friendId, p_item: item })),
     gifts: async () => {
       const raw = await call('my_gifts');
       return Array.isArray(raw) ? raw.map(readGift).filter((g): g is Gift => g !== null) : [];

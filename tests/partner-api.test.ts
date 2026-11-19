@@ -19,8 +19,10 @@ import {
   MAX_TURNS,
   OLD_FRIENDS,
   parseAsk,
+  radioLine,
   radioPrompt,
   REPLY_GEMINI_MS,
+  speakerOf,
   REPLY_RULES,
   type Env,
 } from '../api/partner.ts';
@@ -498,6 +500,20 @@ describe('cleanArabic (ADR 0038)', () => {
     expect(cleanArabic('هيدا بيتي')).toBeNull();
     expect(cleanArabic('شلونك اليوم؟')).toBeNull();
     expect(cleanArabic('عايز إيه؟')).toBeNull();
+    // Review, 2026-11-19: بوت before a space or a mark, and a giveaway word with a prefix.
+    expect(cleanArabic('أنا بوت، مش إنسان')).toBeNull();
+    expect(cleanArabic('أنا بوت')).toBeNull();
+    expect(cleanArabic('وأريد أروح عالسوق')).toBeNull();
+    // Third review: words that only end in بوت, and فوايد, are everyday speech.
+    expect(cleanArabic('افتح الكبوت يا ابني')).toBe('افتح الكبوت يا ابني');
+    expect(cleanArabic('في عنكبوت كبير بالزاوية')).toBe('في عنكبوت كبير بالزاوية');
+    expect(cleanArabic('للرياضة فوايد كتير')).toBe('للرياضة فوايد كتير');
+    expect(cleanArabic('هاد البوت ما بيفهم')).toBeNull();
+    expect(cleanArabic('وايد حلو')).toBeNull();
+    expect(cleanArabic('بدلوقتي بروح')).toBeNull();
+    // A thought cut off by the token limit leaves nothing to show.
+    expect(cleanArabic('<think>the user wants')).toBeNull();
+    expect(cleanArabic('<think>x</think>أهلا يا آدم')).toBe('أهلا يا آدم');
     // …but not a word that merely contains one.
     expect(cleanArabic('بدّي قهوة، وانت شو بدك؟')).toBe('بدّي قهوة، وانت شو بدك؟');
     expect(cleanArabic('...')).toBeNull();
@@ -616,5 +632,34 @@ describe('"Your Story", the Long Road In’s finale (task 4.2, ADR 0047)', () =>
     ).toBeNull();
     expect(cleanVerdict('{"understood":true,"answered":true,"kept_going":true}')).toBeNull();
     expect(cleanVerdict('Well done!')).toBeNull();
+  });
+});
+
+describe('who speaks for a regular (review, 2026-11-19)', () => {
+  it('reads a comma as a description, and only "and" or "with" as company', () => {
+    expect(speakerOf('Salim, back again')).toEqual({ speaker: 'Salim', group: false });
+    expect(speakerOf('Dr. Salwa, the surgeon')).toEqual({ speaker: 'Dr. Salwa', group: false });
+    expect(speakerOf('Fares and the band')).toEqual({ speaker: 'Fares', group: true });
+    expect(speakerOf('Mariam and Um Khaled, the neighbors')).toEqual({
+      speaker: 'Mariam',
+      group: true,
+    });
+    expect(speakerOf('Abu Fadi, with his son')).toEqual({ speaker: 'Abu Fadi', group: true });
+    expect(speakerOf('Basma')).toEqual({ speaker: 'Basma', group: false });
+  });
+});
+
+describe('a radio line an operator can key (review, 2026-11-19)', () => {
+  it('skips preambles and thinking, and finds none in a line Morse can’t send', () => {
+    expect(radioLine('DOG ATE MY KEY')).toBe('DOG ATE MY KEY');
+    expect(radioLine('Here is my line:\nDog ate my key')).toBe('Dog ate my key');
+    expect(radioLine('<think>\nOkay, the user wants')).toBeNull();
+    expect(radioLine('<think>x</think>\nNEW ANTENNA UP')).toBe('NEW ANTENNA UP');
+    expect(radioLine('**WX** RAIN HR')).toBe('WX RAIN HR');
+    expect(radioLine('OK')).toBeNull();
+    expect(radioLine('مرحبا يا صديقي')).toBeNull();
+    // Characters Morse lacks are the browser's to drop, not a reason to refuse the line.
+    expect(radioLine('NAME: JIM, QTH BOSTON')).toBe('NAME: JIM, QTH BOSTON');
+    expect(radioLine('BUILT A NEW RIG (IC-7300)')).toBe('BUILT A NEW RIG (IC-7300)');
   });
 });

@@ -113,9 +113,15 @@ export function cleanNews(said: string, yourName = '', shape: Shape = NEWS_SHAPE
     .filter((w) => /[A-Z0-9]/.test(w))
     .filter((w, i, all) => {
       const core = (x = '') => x.replace(/[^A-Z0-9]/g, '');
-      const report = (x = '') => /^[1-5][1-9N]{1,2}$/.test(core(x));
+      // Reports as they're sent on the air (599, 579, 5NN, 449, 59), not any number in the news:
+      // "MY SON TURNS 12" keeps its 12 (review, 2026-11-19). After UR or RST it's a report.
+      const sent = (x: string) => /^([1-5][1-9N]?N|[3-5][3-9]9|5[5-9])$/.test(x);
+      const report = (x = '', after = '') =>
+        sent(core(x)) || (/^(UR|RST)$/.test(core(after)) && /^[1-5][1-9][1-9N]?$/.test(core(x)));
       // A signal report, and the UR or RST that leads into one, belong to the exchange turn.
-      if (report(w) || (/^(UR|RST)$/.test(core(w)) && report(all[i + 1]))) return false;
+      if (report(w, all[i - 1]) || (/^(UR|RST)$/.test(core(w)) && report(all[i + 1], w))) {
+        return false;
+      }
       const signOff = NOT_NEWS.has(core(w)) && !shape.keep?.includes(core(w));
       return !signOff && (shape.name || core(w) !== yourName.toUpperCase());
     });

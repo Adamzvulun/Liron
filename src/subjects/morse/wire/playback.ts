@@ -8,6 +8,13 @@ import type { KeyEdge } from '../../../core/fellowship/wire.ts';
 
 /** How far behind the friend's key you hear it. */
 export const WIRE_DELAY_MS = 250;
+/**
+ * The marks kept for the strip and the reading: the screen decodes them on every frame, so a long
+ * evening on the wire mustn't make that slower and slower (review, 2026-11-19). Older ones go
+ * from a pause, so no letter is cut in half; a pause is a gap this long.
+ */
+export const KEEP_MARKS = 300;
+const PAUSE_MS = 1_500;
 
 export class Playback {
   private offset: number | null = null;
@@ -35,8 +42,24 @@ export class Playback {
     } else if (this.downAt !== null) {
       this.marks.push({ down: this.downAt, up: Math.max(at, this.downAt + 1) });
       this.downAt = null;
+      if (this.marks.length > KEEP_MARKS) this.forget();
     }
     return this.marks;
+  }
+
+  /** Lets the oldest marks go, from the first pause that leaves at most KEEP_MARKS. */
+  private forget() {
+    const m = this.marks;
+    let from = m.length - KEEP_MARKS;
+    while (from < m.length - 1) {
+      const before = m[from - 1];
+      const at = m[from];
+      if (!before || !at || at.down - before.up >= PAUSE_MS) break;
+      from += 1;
+    }
+    // No pause at all (keying without a break): cut anyway, a letter at most is lost.
+    if (from >= m.length - 1) from = m.length - KEEP_MARKS;
+    m.splice(0, from);
   }
 
   /** When the key went down, if it's down now. */

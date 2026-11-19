@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn, type SubjectCall } from './fake-supabase.ts';
 
 test.describe('Instant Recognition in the Signal Tower (#32)', () => {
@@ -45,5 +45,28 @@ test.describe('Instant Recognition in the Signal Tower (#32)', () => {
     await expect(page.getByText('Before the Lamp Fades')).toBeVisible();
     await page.getByRole('button', { name: 'Next: Hear your first two sounds, K and M' }).click();
     await expect(page.getByRole('heading', { name: 'Hear K and M' })).toBeVisible();
+  });
+
+  test('a step is announced once: the next round behind the same door doesn’t repeat it (review, 2026-11-19)', async ({
+    page,
+  }) => {
+    test.setTimeout(90_000);
+    await signedIn(page, []);
+    await page.goto('/signal-tower?run=short');
+    await page.getByRole('button', { name: /Instant Recognition/ }).click();
+    const keys = page
+      .getByRole('group', { name: 'Letter keys' })
+      .or(page.getByLabel('Letter keys'));
+    const round = async (start: string) => {
+      await page.getByRole('button', { name: start }).click();
+      await expect(page.getByText('Which letter?')).toBeVisible({ timeout: 8000 });
+      await keys.getByRole('button', { name: 'K', exact: true }).click();
+      await expect(page.getByText('points', { exact: true })).toBeVisible({ timeout: 20_000 });
+    };
+    await round('Start round');
+    await expect(page.getByText('Before the Lamp Fades')).toBeVisible();
+    await round('Play again');
+    await expect(page.getByRole('button', { name: /^Next: / })).toBeVisible();
+    await expect(page.getByText('Before the Lamp Fades')).toHaveCount(0);
   });
 });

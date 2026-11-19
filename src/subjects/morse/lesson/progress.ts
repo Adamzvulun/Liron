@@ -79,6 +79,9 @@ export type MorseProgress = z.infer<typeof progressSchema>;
 export const NEW_PROGRESS: MorseProgress = progressSchema.parse({});
 
 /** Reads saved state forgivingly: anything missing or broken falls back to a fresh start. */
+/** The shortest dit of any sending drill (the last one's, in older progress); null before one. */
+export const fastestDit = (p: MorseProgress): number | null => p.sending.fastest ?? p.sending.ditMs;
+
 export function parseProgress(raw: unknown): MorseProgress {
   const parsed = progressSchema.safeParse(raw ?? {});
   return parsed.success ? parsed.data : NEW_PROGRESS;

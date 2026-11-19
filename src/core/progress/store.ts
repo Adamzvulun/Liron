@@ -152,7 +152,6 @@ export const MAX_NAME_LENGTH = 40;
 /** FSRS's state number for a card in long-term review (0 new, 1 learning, 2 review, 3 relearning). */
 export const REVIEW_STATE = 2;
 
-/** Where progress is kept. Supabase in the app, memory in tests. Not used by subjects directly. */
 /** A card as the ledger reads it: FSRS's interval in days, and how many reviews it has had. */
 export interface CardSummary {
   itemId: string;
@@ -160,6 +159,7 @@ export interface CardSummary {
   reps: number;
 }
 
+/** Where progress is kept. Supabase in the app, memory in tests. Not used by subjects directly. */
 export interface ProgressStore {
   /** Adds XP and minutes to a subject, to today and to the wallet; pays gold, gems, chests. */
   record(subjectId: string, xp: number, minutes: number): Promise<Award>;
@@ -202,6 +202,8 @@ export interface ProgressStore {
     now: Date,
     limit: number,
     dayEnd?: Date,
+    /** Only these items; all of the subject's when left out. */
+    only?: readonly string[],
   ): Promise<{ itemId: string; due: Date }[]>;
   /** Every card of a subject, with its interval and review count (docs/game/ledger.md). */
   cardSummary(subjectId: string): Promise<CardSummary[]>;
@@ -371,11 +373,14 @@ export function memoryStore(
       }
       return found;
     },
-    async dueCards(subjectId, now, limit, dayEnd = now) {
+    async dueCards(subjectId, now, limit, dayEnd = now, only) {
       const isDue = (c: { due: Date; card: StoredCard }) =>
         c.due <= now || (Number(c.card.state) === REVIEW_STATE && c.due <= dayEnd);
+      const asked = only && new Set(only.map((i) => `${subjectId}/${i}`));
       return [...cards]
-        .filter(([key, c]) => key.startsWith(`${subjectId}/`) && isDue(c))
+        .filter(
+          ([key, c]) => key.startsWith(`${subjectId}/`) && (!asked || asked.has(key)) && isDue(c),
+        )
         .sort(([, a], [, b]) => a.due.getTime() - b.due.getTime())
         .slice(0, limit)
         .map(([key, c]) => ({ itemId: key.slice(subjectId.length + 1), due: c.due }));
@@ -438,13 +443,14 @@ export function memoryStore(
       return { ...wallet };
     },
     async profile() {
-      return { ...profile };
+      // Fresh copies, as the database gives: a caller changing one changes nothing kept.
+      return structuredClone(profile);
     },
     async setDisplayName(name) {
       profile.displayName = name;
     },
     async setAvatar(look) {
-      profile.avatar = look;
+      profile.avatar = structuredClone(look);
     },
     async achievements() {
       return {
@@ -459,7 +465,10 @@ export function memoryStore(
       };
     },
     earnAchievement(id) {
+      // Paid once, as the database pays an achievement's gems when it is given.
+      if (achieved.has(id)) return;
       achieved.set(id, new Date().toISOString());
+      wallet.gems += ACHIEVEMENTS.find((a) => a.id === id)?.gems ?? 0;
     },
     async setTitle(title) {
       if (title && !ACHIEVEMENTS.some((a) => a.title === title && achieved.has(a.id)))
