@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { friendCard, signedIn, type Extras } from './fake-supabase.ts';
 
 // The Fellowship in Your House (task 3.1, #326) and a friend's house (task 3.2, #327).

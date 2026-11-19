@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { CONTRACTS, signedIn } from './fake-supabase.ts';
 import { MORSE_ROAD } from '../../src/subjects/morse/road.ts';
 

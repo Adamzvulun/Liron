@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { GREETINGS, lessonWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // Everyday words made of lesson 1's letters (ا ب ت ن ي), shaped like the deck's rows.

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn, type SubjectCall } from './fake-supabase.ts';
 
 test.describe('Instant Recognition in the Signal Tower (#32)', () => {

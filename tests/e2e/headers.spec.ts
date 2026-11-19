@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { FAKE_SUPABASE_URL, lessonWord, signedIn } from './fake-supabase.ts';
 
 // The live site's security headers (vercel.json, security review M3). `vite preview` doesn't
