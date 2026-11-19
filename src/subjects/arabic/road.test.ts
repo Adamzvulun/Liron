@@ -242,6 +242,14 @@ describe('The Long Road In as a road', () => {
     });
   });
 
+  it('counts the first letters as met only at the scribe’s table, not after any session', () => {
+    const coffeeFirst = { ...NEW_PROGRESS, sessions: 1, phrasesMet: ['x'] };
+    expect(ARABIC_CHECKS['a-few-letters']?.done(coffeeFirst)).toBe(false);
+    expect(ARABIC_CHECKS['a-few-letters']?.done({ ...coffeeFirst, met: ['letter:alif'] })).toBe(
+      true,
+    );
+  });
+
   describe('an account without the deck (ADR 0050 §3, the safety net)', () => {
     const closed = { ...ctx, licensee: false };
 

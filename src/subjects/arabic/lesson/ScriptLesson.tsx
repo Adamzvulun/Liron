@@ -354,11 +354,13 @@ function Start({
           </Ar>
         ))}
       </p>
-      <p>
-        Listen for each word’s first letter, then read short words. Score 90% in {PASSES_NEEDED}{' '}
-        sessions in a row, on different days, to learn these letters
-        {progress.streak > 0 ? ` (you have ${progress.streak} of ${PASSES_NEEDED})` : ''}.
-      </p>
+      {!progress.done && (
+        <p>
+          Listen for each word’s first letter, then read short words. Score 90% in {PASSES_NEEDED}{' '}
+          sessions in a row, on different days, to learn these letters
+          {progress.streak > 0 ? ` (you have ${progress.streak} of ${PASSES_NEEDED})` : ''}.
+        </p>
+      )}
       {progress.done && (
         <p className="arabic__note">You’ve learned every letter. Keep them sharp.</p>
       )}
@@ -784,7 +786,9 @@ function Result({
       <p className="lesson__kicker">Session done</p>
       <p className="arabic__pct">{pct}%</p>
       <p>
-        {only
+        {/* After the last lesson every session is practice: no pass is left to promise
+            (review, 2026-11-19). */}
+        {only || (next.done && !passed)
           ? score >= 0.9
             ? 'Sharp. Those letters are settling in.'
             : 'Good practice. The letters you missed are below.'
