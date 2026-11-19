@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_LOOK, DYES, GEAR, parseLook, SCARVES, SLOTS } from './looks.ts';
+import {
+  DEFAULT_LOOK,
+  DYES,
+  GEAR,
+  lookKey,
+  parseLook,
+  parseOthersLook,
+  SCARVES,
+  SLOTS,
+} from './looks.ts';
 import { paintAvatar, PAINTED_GEAR } from './paint.ts';
 import catalogue from '../../../content/core/items.json' with { type: 'json' };
 
@@ -32,6 +41,20 @@ describe('avatar looks', () => {
       expect(svg).not.toMatch(/NaN|undefined/);
       expect(svg).not.toBe(bare);
     }
+  });
+
+  it('reads a malformed look, own or a friend’s, as the default instead of throwing (review, 2026-11-19)', () => {
+    expect(parseOthersLook([0])).toEqual(DEFAULT_LOOK);
+    // An unknown value becomes the default for that part (the schema's own rule).
+    expect(parseOthersLook({ build: 5 }).build).toBe(DEFAULT_LOOK.build);
+    expect(parseLook('look')).toEqual(DEFAULT_LOOK);
+  });
+
+  it('knows a look is unchanged whatever order its gear was written in', () => {
+    const a = { ...DEFAULT_LOOK, gear: { torso: 'tunic', back: 'satchel' } };
+    const b = { ...DEFAULT_LOOK, gear: { back: 'satchel', torso: 'tunic' } };
+    expect(lookKey(a)).toBe(lookKey(b));
+    expect(lookKey(a)).not.toBe(lookKey({ ...a, gear: { torso: 'tunic' } }));
   });
 
   it('takes off locked gear and gear worn in the wrong slot', () => {

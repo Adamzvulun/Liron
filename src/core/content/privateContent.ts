@@ -36,23 +36,32 @@ export async function loadPrivatePack(
     }
     if (!data || data.length < PAGE) break;
   }
-  const { data, error } = await client
-    .from('content_lessons')
-    .select('lesson_id, title, position, items, tags')
-    .eq('subject_id', subject)
-    .eq('source', source)
-    .order('position');
-  if (error) throw new Error(`Couldn't load ${source} lessons: ${error.message}`);
-  const lessons = (data ?? []).map((r) =>
-    Lesson.parse({
-      id: r.lesson_id,
-      subject,
-      title: r.title,
-      order: r.position,
-      items: r.items,
-      tags: r.tags,
-    }),
-  );
+  // Lessons page too: PostgREST stops at 1,000 rows (review, 2026-11-19).
+  const lessons: Lesson[] = [];
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await client
+      .from('content_lessons')
+      .select('lesson_id, title, position, items, tags')
+      .eq('subject_id', subject)
+      .eq('source', source)
+      .order('position')
+      .order('lesson_id')
+      .range(from, from + PAGE - 1);
+    if (error) throw new Error(`Couldn't load ${source} lessons: ${error.message}`);
+    for (const r of data ?? []) {
+      lessons.push(
+        Lesson.parse({
+          id: r.lesson_id,
+          subject,
+          title: r.title,
+          order: r.position,
+          items: r.items,
+          tags: r.tags,
+        }),
+      );
+    }
+    if (!data || data.length < PAGE) break;
+  }
   return { items, lessons };
 }
 

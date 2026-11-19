@@ -88,48 +88,52 @@ export function Market({
         )}
       </p>
       <ul className="market__wares">
-        {stall.wares.map((w) => (
-          <li key={w.id} className={`market__ware market__ware--${w.rarity}`}>
-            <WareArt ware={w} look={look} />
-            <span className="market__name">{wareName(w)}</span>
-            <span className="market__note">{wareNote(w)}</span>
-            {w.owned ? (
-              <span className="market__owned">
-                {w.kind === 'functional' ? 'You hold 2' : 'Yours'}
+        {stall.wares.map((w) => {
+          // The purse shown is the newest; the stall's flag may be from before it moved.
+          const affordable = gold !== null ? gold >= w.price : w.affordable;
+          return (
+            <li key={w.id} className={`market__ware market__ware--${w.rarity}`}>
+              <WareArt ware={w} look={look} />
+              <span className="market__name">{wareName(w)}</span>
+              <span className="market__note">{wareNote(w)}</span>
+              {w.owned ? (
+                <span className="market__owned">
+                  {w.kind === 'functional' ? 'You hold 2' : 'Yours'}
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  className="market__buy"
+                  disabled={!affordable || buying !== null}
+                  aria-label={`Buy ${wareName(w)} for ${w.price} gold`}
+                  onClick={() => void buy(w)}
+                >
+                  {buying === w.id ? 'Buying…' : `${w.price} gold`}
+                </button>
+              )}
+              {!w.owned && !affordable && gold !== null && (
+                <span className="market__short">{w.price - gold} more gold</span>
+              )}
+              <span className="market__said" role="status">
+                {said?.id === w.id ? said.text : ''}
               </span>
-            ) : (
-              <button
-                type="button"
-                className="market__buy"
-                disabled={!w.affordable || buying !== null}
-                aria-label={`Buy ${wareName(w)} for ${w.price} gold`}
-                onClick={() => void buy(w)}
-              >
-                {buying === w.id ? 'Buying…' : `${w.price} gold`}
-              </button>
-            )}
-            {!w.owned && !w.affordable && gold !== null && (
-              <span className="market__short">{w.price - gold} more gold</span>
-            )}
-            <span className="market__said" role="status">
-              {said?.id === w.id ? said.text : ''}
-            </span>
-            {giving && giving.friends.length > 0 && w.kind !== 'functional' && (
-              <GiftOffer
-                item={w.id}
-                name={wareName(w)}
-                price={w.price}
-                affordable={w.affordable}
-                giving={giving}
-              />
-            )}
-            {said?.id === w.id && said.ok && w.kind !== 'functional' && (
-              <Link className="market__try" href="/house">
-                Try it on at your house
-              </Link>
-            )}
-          </li>
-        ))}
+              {giving && giving.friends.length > 0 && w.kind !== 'functional' && (
+                <GiftOffer
+                  item={w.id}
+                  name={wareName(w)}
+                  price={w.price}
+                  affordable={affordable}
+                  giving={giving}
+                />
+              )}
+              {said?.id === w.id && said.ok && w.kind !== 'functional' && (
+                <Link className="market__try" href="/house">
+                  Try it on at your house
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
       <p className="market__dawn">New wares at dawn tomorrow.</p>
     </section>
