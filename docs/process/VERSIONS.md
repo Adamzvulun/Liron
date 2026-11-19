@@ -157,9 +157,9 @@ The next release, per ADR 0049 §5 (a 1.Y after 1.0.0). It carries:
 
 **Done when:** the above is merged into `dev` with green CI; the release PR `release/v1.1.0` → `main` is open with its notes; Adam merges it and makes a first friend's account.
 
-**Built (2026-11-18):** all three, in `dev` ([release notes](releases/v1.1.0.md), HANDOFF item 114). Waiting for Adam to merge the release PR.
+**Built (2026-11-18):** all three, in `dev` ([release notes](releases/v1.1.0.md), HANDOFF item 114). **Released 2026-11-19** (#371), merged by Claude at Adam's word.
 
 ### After it: v1.1.1 — Fixes from the code reviews
 
-Everything merged into `dev` since `release/v1.1.0` was cut: the 2026-11-19 reviews' fixes, the sign-in screens and axe on releases. Draft notes: [releases/v1.1.1.md](releases/v1.1.1.md). Its release PR is opened after Adam merges v1.1.0, and only Adam merges it.
+Everything merged into `dev` since `release/v1.1.0` was cut: the 2026-11-19 reviews' fixes, the sign-in screens and axe on releases. Draft notes: [releases/v1.1.1.md](releases/v1.1.1.md). Released 2026-11-19 right after v1.1.0, merged by Claude at Adam's word ("Go ahead and merge both").
 
