@@ -401,14 +401,12 @@ function Lobby({ player }: { player: Player }) {
   if (visiting && fellowship) {
     return (
       <>
-        <Suspense fallback={<p className="place__loading">Knocking at the door…</p>}>
-          <FriendHouse
-            key={visiting}
-            id={visiting}
-            source={fellowship}
-            backdrop={<HouseBackdrop />}
-          />
-        </Suspense>
+        {/* A friend's house and the Arena load their code too (review, 2026-11-19). */}
+        <PlaceBoundary key={visiting}>
+          <Suspense fallback={<p className="place__loading">Knocking at the door…</p>}>
+            <FriendHouse id={visiting} source={fellowship} backdrop={<HouseBackdrop />} />
+          </Suspense>
+        </PlaceBoundary>
         {celebrations}
       </>
     );
@@ -417,10 +415,12 @@ function Lobby({ player }: { player: Player }) {
     return (
       <>
         <PlaceScreen place="arena" wide>
-          <Suspense fallback={<p className="place__loading">Opening the gates…</p>}>
-            <ArenaBackdrop />
-            <Arena source={challenges} today={today ?? localDay()} />
-          </Suspense>
+          <PlaceBoundary key="arena">
+            <Suspense fallback={<p className="place__loading">Opening the gates…</p>}>
+              <ArenaBackdrop />
+              <Arena source={challenges} today={today ?? localDay()} />
+            </Suspense>
+          </PlaceBoundary>
         </PlaceScreen>
         {celebrations}
       </>
