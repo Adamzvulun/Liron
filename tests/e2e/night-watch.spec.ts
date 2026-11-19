@@ -1,4 +1,5 @@
-import { expect, type Page, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn, type SaveSessionArgs } from './fake-supabase.ts';
 import { watchWords } from '../../src/subjects/morse/words/nightWatch.ts';
 

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { friendCard, signedIn, TODAY, type Extras } from './fake-supabase.ts';
 
 // Fellowship quests and gifts (task 3.5, #330; ADR 0045).

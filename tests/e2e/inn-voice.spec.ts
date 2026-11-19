@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn } from './fake-supabase.ts';
 
 // Say your line at the inn (E17, ADR 0014, 0038), with Chromium's fake microphone (a beep)

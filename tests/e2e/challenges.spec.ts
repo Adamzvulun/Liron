@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { friendCard, signedIn, TODAY as FAKE_TODAY, type Extras } from './fake-supabase.ts';
 
 // Challenges between friends and the Arena (task 3.4, #329; docs/game/challenges.md).
