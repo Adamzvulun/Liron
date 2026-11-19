@@ -66,18 +66,25 @@ let tapped = false;
 
 /** Starts the synthesizer the first time a sound is wanted, after the first tap. */
 function wake(): Promise<Synth> {
-  synth ??= import('./citySound.ts').then((s) => {
-    s.start();
-    s.apply(settings, place);
-    return s;
-  });
+  // A load that fails (a stale chunk after a deploy, no Web Audio) is forgotten, so the next
+  // tap tries again instead of every later sound failing (review, 2026-11-19).
+  synth ??= import('./citySound.ts')
+    .then((s) => {
+      s.start();
+      s.apply(settings, place);
+      return s;
+    })
+    .catch((e: unknown) => {
+      synth = null;
+      throw e;
+    });
   return synth;
 }
 
 /** Starts, swaps or stops the bed of sound to match the switches and the place. */
 function follow() {
-  if (synth) void synth.then((s) => s.apply(settings, place));
-  else if (tapped && settings.ambient && place) void wake();
+  if (synth) synth.then((s) => s.apply(settings, place)).catch(() => {});
+  else if (tapped && settings.ambient && place) wake().catch(() => {});
 }
 
 /** True once a sound has been wanted on this page (and the synthesizer made). */
@@ -86,7 +93,9 @@ export const awake = () => synth !== null;
 /** Plays a cue, if sounds are on and the player has tapped since the page opened. */
 export function cue(kind: Cue) {
   if (!settings.effects || !tapped) return;
-  void wake().then((s) => s.cue(kind));
+  wake()
+    .then((s) => s.cue(kind))
+    .catch(() => {});
 }
 
 /** The bed of sound for where the player is now (null for none). */

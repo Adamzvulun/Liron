@@ -160,7 +160,7 @@ const STRINGS = [
   { from: [1360, 420], to: [1640, 690], sag: 30 },
 ] as const;
 
-/** One string: the curve, and a pennant every 64 pixels along it, in turn of the colors. */
+/** One string: the curve, and a pennant every 44 pixels along it, in turn of the colors. */
 function bunting(s: (typeof STRINGS)[number], colors: readonly string[]) {
   const [x0, y0] = s.from;
   const [x1, y1] = s.to;
@@ -229,9 +229,12 @@ export function City({
     setWalk(stepToward(city.places[id].box));
     // Only if the player is still in the square: Back or another link during the walk wins
     // (review, 2026-11-19).
-    const from = window.location.href;
+    // The path only: sign-in tidying the hash or query isn't leaving. A walk that doesn't
+    // arrive ends, so the avatar stands back in place and the next click walks again.
+    const from = window.location.pathname;
     walking.current = setTimeout(() => {
-      if (window.location.href === from) navigate(href);
+      if (window.location.pathname === from) navigate(href);
+      else setWalk(null);
     }, WALK_MS);
   };
   const walking = useRef<ReturnType<typeof setTimeout>>(undefined);
