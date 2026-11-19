@@ -130,8 +130,8 @@ export function LoginScreen() {
           Forgot your password?
         </button>
         <p className="auth__hint">
-          New here? Waymark is invite-only: open the invite link you were sent to create your
-          account.
+          New here? Waymark is invite-only. Open the invite link you were sent, or sign in with the
+          email and password you were given.
         </p>
       </form>
     </Panel>
