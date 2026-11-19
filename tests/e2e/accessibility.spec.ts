@@ -70,11 +70,22 @@ test.describe('accessibility (ADR 0051)', () => {
     expect(await problems(page)).toEqual([]);
   });
 
+  test('creating an account from an invite link', async ({ page }) => {
+    await fakeSupabase(page);
+    await page.route('**/api/join', (route) => route.fulfill({ json: { open: true } }));
+    await page.goto(`/join#${'ab'.repeat(32)}`);
+    await expect(page.getByRole('heading', { name: 'Create your account' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Create account' })).toBeVisible();
+    expect(await problems(page)).toEqual([]);
+  });
+
   test('Settings', async ({ page }) => {
-    await signedIn(page, [], [], MORSE);
+    await signedIn(page, [], [], MORSE, [], { invites: { inviter: true } });
     await page.goto('/');
     await page.getByRole('button', { name: 'Settings' }).click();
     await page.getByRole('button', { name: 'Change password' }).click();
+    await page.getByRole('button', { name: 'Create invite link' }).click();
+    await expect(page.getByLabel('Invite link')).toBeVisible();
     expect(await problems(page)).toEqual([]);
   });
 
