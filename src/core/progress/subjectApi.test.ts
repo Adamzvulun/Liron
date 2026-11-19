@@ -100,7 +100,8 @@ describe('a save that failed goes again (review, 2026-11-19)', () => {
   const flaky = () => {
     const base = memoryStore();
     const line = { online: false, broken: false };
-    const sent: { id: string; xp: number; events: string[]; state: unknown }[] = [];
+    const sent: { id: string; xp: number; events: string[]; state: unknown; reviews: number }[] =
+      [];
     const store = {
       ...base,
       saveSession: async (...args: Parameters<typeof base.saveSession>) => {
@@ -112,6 +113,7 @@ describe('a save that failed goes again (review, 2026-11-19)', () => {
           xp: w.xp,
           events: w.events.map((e) => e.kind),
           state: w.state,
+          reviews: w.reviews.length,
         });
         return base.saveSession(...args);
       },
@@ -149,6 +151,34 @@ describe('a save that failed goes again (review, 2026-11-19)', () => {
     line.online = true;
     await api.saveSession({ xp: 1 });
     expect(sent.map((s) => s.xp)).toEqual([9, 1]);
+  });
+
+  it('being offline for many runs never lets one go, and the oldest are kept', async () => {
+    const { line, sent, api } = flaky();
+    await expect(api.saveSession({ xp: 40, events: [{ kind: 'trial-1' }] })).rejects.toThrow();
+    for (let i = 0; i < 25; i++) await expect(api.saveSession({ xp: 1 })).rejects.toThrow();
+    line.online = true;
+    await api.saveSession({ xp: 2 });
+    expect(sent[0]).toMatchObject({ xp: 40, events: ['trial-1'] });
+    // 20 held at most: the trial and the first 19 short runs, then the new one.
+    expect(sent.map((s) => s.xp)).toEqual([40, ...Array<number>(19).fill(1), 2]);
+  });
+
+  it('once a newer save has gone through, an older one goes without its reviews', async () => {
+    const { line, sent, api } = flaky();
+    line.online = true;
+    line.broken = true;
+    const reviews = [{ itemId: 'a', grade: 'good' as const }];
+    // Refused, then a newer review of the same card gets through.
+    await expect(api.saveSession({ xp: 13, reviews })).rejects.toThrow('refused');
+    await api.saveSession({ xp: 1, reviews });
+    line.broken = false;
+    await api.saveSession({ xp: 2 });
+    expect(sent.map((s) => [s.xp, s.reviews])).toEqual([
+      [1, 1],
+      [13, 0],
+      [2, 0],
+    ]);
   });
 
   it('lets go of one the database keeps refusing, and never blocks a new save', async () => {
