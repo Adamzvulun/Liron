@@ -98,6 +98,17 @@ async function claim(
   return left < 0 ? 'daily-limit' : left;
 }
 
+/** The recording's file name, by its type, in a format Groq reads. */
+export function fileNameFor(type: string): string {
+  const t = type.toLowerCase();
+  if (t.includes('ogg')) return 'phrase.ogg';
+  if (t.includes('mp4') || t.includes('m4a') || t.includes('aac')) return 'phrase.mp4';
+  if (t.includes('wav')) return 'phrase.wav';
+  if (t.includes('mpeg') || t.includes('mp3')) return 'phrase.mp3';
+  if (t.includes('flac')) return 'phrase.flac';
+  return 'phrase.webm';
+}
+
 /** The handler, with its environment and `fetch` passed in so tests can fake both. */
 export async function handle(
   request: Request,
@@ -132,8 +143,9 @@ export async function handle(
   if (typeof left !== 'number') return fail(left);
 
   const form = new FormData();
-  // Groq reads the format from the file name; MediaRecorder records WebM (Chrome) or MP4 (Safari).
-  form.append('file', audio, audio.type.includes('mp4') ? 'phrase.mp4' : 'phrase.webm');
+  // Groq reads the format from the file name: MediaRecorder records WebM (Chrome), MP4
+  // (Safari) or Ogg (Firefox, review 2026-11-19).
+  form.append('file', audio, fileNameFor(audio.type));
   for (const [key, value] of Object.entries(GROQ)) form.append(key, value);
   let res: Response;
   try {

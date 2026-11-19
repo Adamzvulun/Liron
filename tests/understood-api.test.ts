@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { handle, MAX_AUDIO_BYTES, type Env } from '../api/understood.ts';
+import { fileNameFor, handle, MAX_AUDIO_BYTES, type Env } from '../api/understood.ts';
 
 const ENV: Env = {
   GROQ_API_KEY: 'gsk_test',
@@ -135,5 +135,17 @@ describe('POST /api/understood (ADR 0014)', () => {
     const res = await handle(request(), ENV, fetchFn);
     expect(res.headers.get('Cache-Control')).toBe('no-store');
     expect(await res.text()).not.toContain('gsk_test');
+  });
+});
+
+describe('fileNameFor', () => {
+  it('names each browser recording in a format Groq reads', () => {
+    expect(fileNameFor('audio/webm;codecs=opus')).toBe('phrase.webm');
+    expect(fileNameFor('audio/mp4')).toBe('phrase.mp4');
+    expect(fileNameFor('audio/ogg;codecs=opus')).toBe('phrase.ogg');
+    expect(fileNameFor('audio/wav')).toBe('phrase.wav');
+    expect(fileNameFor('audio/mpeg')).toBe('phrase.mp3');
+    expect(fileNameFor('audio/x-m4a')).toBe('phrase.mp4');
+    expect(fileNameFor('')).toBe('phrase.webm');
   });
 });

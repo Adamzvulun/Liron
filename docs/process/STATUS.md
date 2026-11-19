@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-19 (overnight; v1.1.0's release PR waits on Adam).
+- **Last updated:** 2026-11-19 morning (four code reviews merged into `dev` overnight; v1.1.0's release PR waits on Adam).
 - **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are
@@ -27,7 +27,7 @@
 
 ## What comes next
 
-**v1.1.0, Open to Friends, is built** (2026-11-18, HANDOFF item 114): every account reads the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)), an account without it is told so plainly, the compass knows whether Sit and talk is on, and [FRIENDS.md](FRIENDS.md) opens with Adam's five steps for a first friend. Release notes: [releases/v1.1.0.md](releases/v1.1.0.md). It's all in `dev`, and [the release PR](https://github.com/Adamzvulun/Liron/pull/371) into `main` is open for Adam to merge. **Claude's next:** look for gaps, bugs and test holes in what's built.
+**v1.1.0, Open to Friends, is built** (2026-11-18, HANDOFF item 114): every account reads the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)), an account without it is told so plainly, the compass knows whether Sit and talk is on, and [FRIENDS.md](FRIENDS.md) opens with Adam's five steps for a first friend. Release notes: [releases/v1.1.0.md](releases/v1.1.0.md). It's all in `dev`, and [the release PR](https://github.com/Adamzvulun/Liron/pull/371) into `main` is open for Adam to merge. **Overnight (report §4df–4di, #376 and #377, merged into `dev`):** a high code review of both towers, the Fellowship and the platform, with about 40 real bugs fixed. The biggest: a run that couldn't be saved no longer loses its XP or its one-time rewards (ADR 0031 amendment). These are in `dev`, not in the v1.1.0 release PR: they ship with the next release. **Claude's next:** a review of `api/` (the server functions) and `supabase/migrations/`, the parts not reviewed since v1.
 
 **Adam's, in the order of [VERSIONS.md](VERSIONS.md):**
 
