@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { pathWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // The echo well (#193): "Hear the difference", ear training on sound pairs. Made-up deck-like

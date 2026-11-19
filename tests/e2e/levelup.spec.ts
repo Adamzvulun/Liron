@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { FAKE_SUPABASE_URL, signedIn, TODAY, WALLET } from './fake-supabase.ts';
 
 // The level-up celebration (#19, ADR 0020) had unit tests but no browser test until 2026-11-15:
