@@ -41,10 +41,10 @@ test('a round that crosses a level shows the celebration, its new title and what
   await expect(dialog.getByText('You are now an Adventurer')).toBeVisible();
   await expect(dialog.getByRole('list', { name: 'Rewards' })).toContainText('+26 gold');
   await expect(dialog.getByRole('list', { name: 'Rewards' })).toContainText('+1 gem');
-  await expect(dialog.getByRole('button', { name: 'Onward' })).toBeFocused();
+  await expect(dialog.getByRole('button', { name: 'Continue' })).toBeFocused();
   // It fits a phone: nothing runs off the side.
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   expect(overflow).toBe(0);
-  await dialog.getByRole('button', { name: 'Onward' }).click();
+  await dialog.getByRole('button', { name: 'Continue' }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
