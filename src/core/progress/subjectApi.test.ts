@@ -96,6 +96,103 @@ describe('saving, then loading (review, 2026-11-15)', () => {
   });
 });
 
+describe('a save that failed goes again (review, 2026-11-19)', () => {
+  const flaky = () => {
+    const base = memoryStore();
+    const line = { online: false, broken: false };
+    const sent: { id: string; xp: number; events: string[]; state: unknown; reviews: number }[] =
+      [];
+    const store = {
+      ...base,
+      saveSession: async (...args: Parameters<typeof base.saveSession>) => {
+        const [, w] = args;
+        if (line.broken && w.xp === 13) throw new Error('refused');
+        if (!line.online) throw new Error('offline');
+        sent.push({
+          id: w.sessionId,
+          xp: w.xp,
+          events: w.events.map((e) => e.kind),
+          state: w.state,
+          reviews: w.reviews.length,
+        });
+        return base.saveSession(...args);
+      },
+      reviewCards: async (...args: Parameters<typeof base.reviewCards>) => {
+        if (!line.online) throw new Error('offline');
+        return base.reviewCards(...args);
+      },
+    };
+    return { base, line, sent, api: subjectApi<{ n: number }>({ id: 'morse' }, store) };
+  };
+
+  it('with its XP and events, before the next save, and without its old state', async () => {
+    const { base, line, sent, api } = flaky();
+    const id = 'b5d3c7a0-0000-4000-8000-00000000000a';
+    await expect(
+      api.saveSession({ state: { n: 1 }, xp: 40, events: [{ kind: 'trial-1' }], sessionId: id }),
+    ).rejects.toThrow('offline');
+    line.online = true;
+    await api.saveSession({ state: { n: 2 }, xp: 5 });
+    expect(sent.map((s) => [s.id === id, s.xp, s.events, s.state])).toEqual([
+      [true, 40, ['trial-1'], null],
+      [false, 5, [], { n: 2 }],
+    ]);
+    expect(await base.summary('morse')).toMatchObject({ xp: 45 });
+    // Sent again by now; the database would ignore it if it came a third time (ADR 0031).
+    await api.saveSession({ xp: 1 });
+    expect(sent.filter((s) => s.id === id)).toHaveLength(1);
+  });
+
+  it('even when it failed reading what it builds on, and keeps that state', async () => {
+    const { line, sent, api } = flaky();
+    const reviews = [{ itemId: 'a', grade: 'good' as const }];
+    await expect(api.saveSession({ state: { n: 7 }, xp: 9, reviews })).rejects.toThrow('offline');
+    expect(await api.loadState()).toEqual({ n: 7 });
+    line.online = true;
+    await api.saveSession({ xp: 1 });
+    expect(sent.map((s) => s.xp)).toEqual([9, 1]);
+  });
+
+  it('being offline for many runs never lets one go, and the oldest are kept', async () => {
+    const { line, sent, api } = flaky();
+    await expect(api.saveSession({ xp: 40, events: [{ kind: 'trial-1' }] })).rejects.toThrow();
+    for (let i = 0; i < 25; i++) await expect(api.saveSession({ xp: 1 })).rejects.toThrow();
+    line.online = true;
+    await api.saveSession({ xp: 2 });
+    expect(sent[0]).toMatchObject({ xp: 40, events: ['trial-1'] });
+    // 20 held at most: the trial and the first 19 short runs, then the new one.
+    expect(sent.map((s) => s.xp)).toEqual([40, ...Array<number>(19).fill(1), 2]);
+  });
+
+  it('once a newer save has gone through, an older one goes without its reviews', async () => {
+    const { line, sent, api } = flaky();
+    line.online = true;
+    line.broken = true;
+    const reviews = [{ itemId: 'a', grade: 'good' as const }];
+    // Refused, then a newer review of the same card gets through.
+    await expect(api.saveSession({ xp: 13, reviews })).rejects.toThrow('refused');
+    await api.saveSession({ xp: 1, reviews });
+    line.broken = false;
+    await api.saveSession({ xp: 2 });
+    expect(sent.map((s) => [s.xp, s.reviews])).toEqual([
+      [1, 1],
+      [13, 0],
+      [2, 0],
+    ]);
+  });
+
+  it('lets go of one the database keeps refusing, and never blocks a new save', async () => {
+    const { line, sent, api } = flaky();
+    line.online = true;
+    line.broken = true;
+    await expect(api.saveSession({ xp: 13 })).rejects.toThrow('refused');
+    for (let i = 0; i < 4; i++) await api.saveSession({ xp: 1 });
+    line.broken = false;
+    await api.saveSession({ xp: 2 });
+    expect(sent.map((s) => s.xp)).toEqual([1, 1, 1, 1, 2]);
+  });
+});
+
 describe('awards', () => {
   it('tell the platform about every award, including level-ups and what they paid', async () => {
     const awards: unknown[] = [];
@@ -307,5 +404,18 @@ describe('what is due today (review, 2026-11-15)', () => {
     const soon = new Date(evening.getTime() + 10_000);
     expect((await api.dueItems({ now: soon })).map((d) => d.itemId)).not.toContain('char:M');
     expect((await api.dueItems({ now: step.due })).map((d) => d.itemId)).toContain('char:M');
+  });
+
+  it('can ask about some items only, so others due can’t crowd them out (review, 2026-11-19)', async () => {
+    const api = subjectApi({ id: 'arabic' }, memoryStore());
+    const then = new Date(2026, 10, 2, 9, 0);
+    for (const id of ['w1', 'w2', 'w3', 'p1']) await api.recordReview(id, 'again', then);
+    const later = new Date(2026, 10, 9, 9, 0);
+    expect((await api.dueItems({ now: later, limit: 2 })).map((d) => d.itemId)).not.toContain('p1');
+    expect(
+      (await api.dueItems({ now: later, limit: 2, only: ['p1', 'p9'] })).map((d) => d.itemId),
+    ).toEqual(['p1']);
+    expect(await api.dueItems({ now: later, only: [] })).toEqual([]);
+    await expect(api.dueItems({ only: [''] })).rejects.toThrow(RangeError);
   });
 });

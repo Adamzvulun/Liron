@@ -83,4 +83,13 @@ describe('supabaseTogether', () => {
     const rpc = vi.fn(async () => ({ data: 1039, error: null }));
     expect(await supabaseTogether({ rpc } as unknown as SupabaseClient).collect()).toBe(1039);
   });
+
+  it('calls an odd answer a failure, never a purse of 0 (review, 2026-11-19)', async () => {
+    for (const data of [null, '1039', -5]) {
+      const rpc = vi.fn(async () => ({ data, error: null }));
+      const source = supabaseTogether({ rpc } as unknown as SupabaseClient);
+      await expect(source.collect()).rejects.toMatchObject({ problem: 'failed' });
+      await expect(source.give('b', 'cloak')).rejects.toMatchObject({ problem: 'failed' });
+    }
+  });
 });

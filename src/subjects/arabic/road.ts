@@ -98,7 +98,9 @@ const metLetters = (p: P) => p.met.length > 0;
 
 /** The written steps' checks, by id. Every check only ever goes from false to true. */
 export const ARABIC_CHECKS: Record<string, Check> = {
-  'a-few-letters': { done: (p) => p.sessions >= 1, open: always },
+  // The first letters met, not any first session: the coffee corner counts sessions too
+  // (review, 2026-11-19).
+  'a-few-letters': { done: metLetters, open: always },
   'at-the-door': phrases(1),
   'the-slate': slate(1),
   'the-fountain': { done: (p) => p.only.listen >= 1, open: metLetters },

@@ -147,3 +147,19 @@ test('the hall shows where the road stands, what is next, and the road so far', 
   await expect(page.getByText(/straight key|brass key/i).first()).toBeVisible();
   await expect(page.getByRole('region', { name: 'Main questline' })).toHaveCount(0);
 });
+
+test('with every lamp lit, the Koch Run keeps the ear and promises no lamp (review, 2026-11-19)', async ({
+  page,
+}) => {
+  const koch = 'KMURESNAPTLWI.JZ=FOY,VG5/Q92H38B?47C1D60X';
+  await signedIn(page, [], [], {
+    unlocked: 41,
+    met: [...koch],
+    trials: [1, 2, 3, 4, 5],
+    recent: [0.95, 0.95, 0.95],
+  });
+  await page.goto('/signal-tower?open=koch');
+  await expect(page.getByRole('heading', { name: 'Keep your ear sharp' })).toBeVisible();
+  await expect(page.getByText(/Every lamp in the tower is lit/)).toBeVisible();
+  await expect(page.getByText(/light the next lamp|runs done/)).toHaveCount(0);
+});

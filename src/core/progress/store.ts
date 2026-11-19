@@ -202,6 +202,8 @@ export interface ProgressStore {
     now: Date,
     limit: number,
     dayEnd?: Date,
+    /** Only these items; all of the subject's when left out. */
+    only?: readonly string[],
   ): Promise<{ itemId: string; due: Date }[]>;
   /** Every card of a subject, with its interval and review count (docs/game/ledger.md). */
   cardSummary(subjectId: string): Promise<CardSummary[]>;
@@ -371,11 +373,14 @@ export function memoryStore(
       }
       return found;
     },
-    async dueCards(subjectId, now, limit, dayEnd = now) {
+    async dueCards(subjectId, now, limit, dayEnd = now, only) {
       const isDue = (c: { due: Date; card: StoredCard }) =>
         c.due <= now || (Number(c.card.state) === REVIEW_STATE && c.due <= dayEnd);
+      const asked = only && new Set(only.map((i) => `${subjectId}/${i}`));
       return [...cards]
-        .filter(([key, c]) => key.startsWith(`${subjectId}/`) && isDue(c))
+        .filter(
+          ([key, c]) => key.startsWith(`${subjectId}/`) && (!asked || asked.has(key)) && isDue(c),
+        )
         .sort(([, a], [, b]) => a.due.getTime() - b.due.getTime())
         .slice(0, limit)
         .map(([key, c]) => ({ itemId: key.slice(subjectId.length + 1), due: c.due }));

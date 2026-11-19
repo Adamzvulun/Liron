@@ -88,7 +88,9 @@ export function WordLessons({
     Promise.all([
       api.loadState(),
       api.privateContent(DECK),
-      api.dueItems({ limit: 200 }),
+      // As many as the platform gives: letters, phrases and shadowing share the subject's
+      // due cards, and mustn't crowd the words out (review, 2026-11-19).
+      api.dueItems({ limit: 500 }),
       loadOwnSentences(),
       loadGrammarCards(),
     ]).then(
@@ -273,12 +275,14 @@ export function WordLessons({
               <ArabicText text={road.beat ?? road.regular.intro} />
             </blockquote>
           )}
-          <p className="arabic__note">
-            {chapter.words.filter((x) => met.has(x.deck)).length} of {chapter.words.length} words
-            met. Score {Math.round(PASS_SCORE * 100)}% in two sessions, on different days, to pass
-            the chapter.
-            {w.streak > 0 && ` ${w.streak}/${PASSES_NEEDED} so far.`}
-          </p>
+          {!w.done && (
+            <p className="arabic__note">
+              {chapter.words.filter((x) => met.has(x.deck)).length} of {chapter.words.length} words
+              met. Score {Math.round(PASS_SCORE * 100)}% in two sessions, on different days, to pass
+              the chapter.
+              {w.streak > 0 && ` ${w.streak}/${PASSES_NEEDED} so far.`}
+            </p>
+          )}
           <div className="lesson__actions">
             <button type="button" className="lesson__go" onClick={() => begin(Date.now())}>
               Start a session
@@ -438,11 +442,13 @@ export function WordLessons({
               ? progress.words.done
                 ? `Chapter passed! That’s all ${WORD_CHAPTERS.length * 30} words.`
                 : `Chapter passed! Next: ${WORD_CHAPTERS[progress.words.chapter - 1]?.title ?? ''}.`
-              : stage.sameDay
-                ? 'Another good session. Come back tomorrow for the second pass.'
-                : scoreOfWords(stage.answers) >= PASS_SCORE
-                  ? `A good session: ${progress.words.streak}/${PASSES_NEEDED} toward the chapter.`
-                  : `Reach ${Math.round(PASS_SCORE * 100)}% to count toward the chapter.`}
+              : progress.words.done
+                ? 'Your words are fresher for it.'
+                : stage.sameDay
+                  ? 'Another good session. Come back tomorrow for the second pass.'
+                  : scoreOfWords(stage.answers) >= PASS_SCORE
+                    ? `A good session: ${progress.words.streak}/${PASSES_NEEDED} toward the chapter.`
+                    : `Reach ${Math.round(PASS_SCORE * 100)}% to count toward the chapter.`}
           </p>
           <p className="arabic__xp">
             +{wordXp(stage.answers.filter((a) => a.right).length, stage.passed)} XP
