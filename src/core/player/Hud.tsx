@@ -12,6 +12,7 @@ import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
 import { serviceLines, type ServicesSource } from '../services.ts';
 import { MIN_PASSWORD, passwordProblem } from '../auth/password.ts';
 import { PasswordField } from '../auth/PasswordField.tsx';
+import { InviteError, inviteLink, type InviteSource } from '../auth/invites.ts';
 import { setSound, useSoundSettings } from '../sound/sound.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
@@ -36,6 +37,8 @@ export interface HudActions {
   sharing?: SharingSource;
   /** Which AI services this site has switched on (#316); absent where there is no server. */
   services?: ServicesSource;
+  /** Invite links (ADR 0052); shown only to a player who may make them. */
+  invites?: InviteSource;
 }
 
 /**
@@ -451,6 +454,7 @@ function SettingsPanel({
   services,
   onPasswordChange,
   sharing,
+  invites,
 }: { state: PlayerState; onEditGoal: () => void } & HudActions) {
   return (
     <>
@@ -468,6 +472,7 @@ function SettingsPanel({
       )}
       <SoundRows />
       {sharing && <SharingRow source={sharing} />}
+      {invites && <InviteRows source={invites} />}
       {services && <ServicesRows source={services} />}
       <section className="hud__section" aria-label="Account">
         {onPasswordChange && <PasswordRows onPasswordChange={onPasswordChange} />}
@@ -583,6 +588,121 @@ function ServicesRows({ source }: { source: ServicesSource }) {
             </li>
           ))}
         </ul>
+      )}
+    </section>
+  );
+}
+
+/**
+ * "Invite a friend" (ADR 0052): a link that makes one account, shown only to an inviter. Share
+ * opens the phone's own share sheet (WhatsApp, Messages…); Copy link works everywhere.
+ */
+function InviteRows({ source }: { source: InviteSource }) {
+  const [allowed, setAllowed] = useState(false);
+  const [ready, setReady] = useState(true);
+  const [link, setLink] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [status, setStatus] = useState('');
+  useEffect(() => {
+    let live = true;
+    void source
+      .canInvite()
+      .then((yes) => live && setAllowed(yes))
+      .catch(() => {});
+    void source
+      .ready()
+      .then((yes) => live && setReady(yes))
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [source]);
+  if (!allowed) return null;
+  const create = async () => {
+    setBusy(true);
+    setStatus('');
+    try {
+      setLink(inviteLink(window.location.origin, await source.make()));
+    } catch (e) {
+      setStatus(
+        e instanceof InviteError && e.reason === 'full'
+          ? 'You have 20 open invite links. Wait for some to be used or to expire.'
+          : 'Couldn’t create a link. Try again.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const copy = async () => {
+    if (!link) return;
+    try {
+      await navigator.clipboard.writeText(link);
+      setStatus('Link copied.');
+    } catch {
+      setStatus('Couldn’t copy. Select the link and copy it.');
+    }
+  };
+  const share = async () => {
+    if (!link) return;
+    try {
+      await navigator.share({ title: 'Join me on Waymark', url: link });
+    } catch {
+      // Closing the share sheet is not a problem.
+    }
+  };
+  return (
+    <section className="hud__section" aria-labelledby="hud-invite">
+      <h3 id="hud-invite" className="hud__rowlabel">
+        Invite a friend
+      </h3>
+      {!ready && (
+        <p className="hud__fieldhint">
+          Invite links aren’t set up on this site yet: its server needs the Supabase secret key
+          (docs/process/FRIENDS.md).
+        </p>
+      )}
+      {ready && (
+        <p className="hud__fieldhint">
+          Each link creates one account and works for 7 days. Whoever joins with it becomes your
+          friend.
+        </p>
+      )}
+      {link && (
+        <input
+          className="hud__invitelink"
+          type="text"
+          readOnly
+          aria-label="Invite link"
+          value={link}
+          onFocus={(e) => e.target.select()}
+        />
+      )}
+      <div className="hud__passwordbuttons">
+        {link && typeof navigator.share === 'function' && (
+          <button type="button" className="hud__textbutton" onClick={() => void share()}>
+            Share
+          </button>
+        )}
+        {link && (
+          <button type="button" className="hud__textbutton" onClick={() => void copy()}>
+            Copy link
+          </button>
+        )}
+        {ready && (
+          <button
+            type="button"
+            className="hud__textbutton"
+            disabled={busy}
+            onClick={() => void create()}
+          >
+            {busy ? 'Creating…' : link ? 'Create another link' : 'Create invite link'}
+          </button>
+        )}
+      </div>
+      {status && (
+        <p className="hud__fieldstatus" role="status">
+          {status}
+        </p>
       )}
     </section>
   );

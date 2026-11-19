@@ -52,8 +52,12 @@ test('"forgot your password?" opens its own step, which confirms without saying 
 }) => {
   await fakeSupabase(page);
   await page.goto('/');
-  await expect(page.getByText('New here? Sign in with the password you were given')).toBeVisible();
-  await expect(page.getByText('Waymark is by invitation: there’s no sign-up.')).toBeVisible();
+  // Invite-only (ADR 0016, 0052): no sign-up, and the hint says how a friend gets in.
+  await expect(
+    page.getByText(
+      'New here? Waymark is invite-only. Open the invite link you were sent, or sign in with the email and password you were given.',
+    ),
+  ).toBeVisible();
   // The email already typed comes along (Adam, 2026-11-19: the reset was easy to miss).
   await page.getByLabel('Email').fill('someone@example.com');
   await page.getByRole('button', { name: 'Forgot your password?' }).click();
