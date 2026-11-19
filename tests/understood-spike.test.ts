@@ -10,7 +10,7 @@ const spike = JSON.parse(
     join(
       import.meta.dirname,
       '..',
-      'spikes/gemini-speech/results/2026-11-02-groq-whisper-large-v3.json',
+      'docs/research/spikes/gemini-speech/results/2026-11-02-groq-whisper-large-v3.json',
     ),
     'utf8',
   ),

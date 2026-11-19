@@ -1,7 +1,7 @@
 import { expect, type Page, test } from '@playwright/test';
-import { codeFor } from '../src/subjects/morse/code.ts';
+import { codeFor } from '../../src/subjects/morse/code.ts';
 import { signedIn, type SaveSessionArgs } from './fake-supabase.ts';
-import { MORSE_ROAD } from '../src/subjects/morse/road.ts';
+import { MORSE_ROAD } from '../../src/subjects/morse/road.ts';
 
 // Forty Winters (tasks 4.2 and 4.3, #334, #335; ADR 0047): the Silent Beacon's finale. With
 // Math.random at 0 the far voice sends its first message; ?run=short plays only its first word.
@@ -61,7 +61,10 @@ async function hearAndAnswer(page: Page, answers: readonly string[]) {
   await answer.click();
 }
 
-test.describe('Forty Winters, the Silent Beacon’s finale', () => {
+// @timing: these key Morse at 20 wpm in real time (60 ms dots). With another test sharing the
+// CPU, the key presses arrive late and the reply reads wrong (2026-11-18, 1 run in 2 on two
+// workers), so `npm run e2e` runs them alone, after the rest.
+test.describe('Forty Winters, the Silent Beacon’s finale', { tag: '@timing' }, () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
       Math.random = () => 0;

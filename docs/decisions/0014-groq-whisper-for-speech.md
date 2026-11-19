@@ -8,7 +8,7 @@
 ## Context
 ADR 0013 put "did it understand you?" on `gemini-3.5-flash-lite`, because Gemini's stronger free models allow only 20 requests/day. Adam wants **one** hosted, free speech model we can stick with, without hopping between models. His rules: nothing runs locally (no in-browser or on-machine models), no paid tiers, no Azure, and his voice is never sent for testing.
 
-We ran Groq-hosted Whisper on the same 50 native deck clips and 15 synthetic right/wrong pairs as Gemini ([analysis](../../spikes/gemini-speech/results/2026-11-02-groq-analysis.md)):
+We ran Groq-hosted Whisper on the same 50 native deck clips and 15 synthetic right/wrong pairs as Gemini ([analysis](../research/spikes/gemini-speech/results/2026-11-02-groq-analysis.md)):
 
 | | Groq `whisper-large-v3` | Gemini `3.5-flash-lite` |
 |---|---|---|

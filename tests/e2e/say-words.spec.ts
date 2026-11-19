@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { deckWord, signedIn } from './fake-supabase.ts';
-import pack from '../content/arabic/core-words.json' with { type: 'json' };
+import pack from '../../content/arabic/core-words.json' with { type: 'json' };
 
 // Say it yourself on the word path (#195), with Chromium's fake microphone (a beep) allowed
 // without a prompt. Deck-like rows under the first chapter's ids, not the deck's own.

@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
-import { WORD_CHAPTERS } from '../src/subjects/arabic/core/coreWords.ts';
-import { REVIEWS } from '../src/subjects/arabic/words.ts';
-import { ACHIEVEMENTS } from '../src/core/achievements/achievements.ts';
+import { WORD_CHAPTERS } from '../../src/subjects/arabic/core/coreWords.ts';
+import { REVIEWS } from '../../src/subjects/arabic/words.ts';
+import { ACHIEVEMENTS } from '../../src/core/achievements/achievements.ts';
 
 // The e2e build points at this address (playwright.config.ts). Nothing listens there:
 // every request is answered by page.route below, so tests never touch a real project.
@@ -66,6 +66,13 @@ export interface Extras {
   progress?: Record<string, number>;
   /** The title worn at the start ('' for none). */
   title?: string;
+  /** The player's name, if not PROFILE's ('' for a player who hasn't chosen one). */
+  name?: string;
+  /**
+   * Whether the account holds the deck's licence (ADR 0050). Every account does; false plays
+   * the safety net: the database then reads no deck rows, as row-level security would.
+   */
+  licensee?: boolean;
   /** What the ledger reads (docs/game/ledger.md): cards, this week's reviews and the days. */
   ledger?: {
     cards?: Record<string, { item_id: string; interval: number; reps: number }[]>;
@@ -204,6 +211,9 @@ export async function fakeSupabase(
     if (url.pathname === '/auth/v1/logout') return route.fulfill({ status: 204 });
     if (url.pathname === '/auth/v1/recover') return route.fulfill({ json: {} });
     if (url.pathname === '/rest/v1/rpc/set_time_zone') return route.fulfill({ json: null });
+    if (url.pathname === '/rest/v1/rpc/is_content_licensee') {
+      return route.fulfill({ json: extras.licensee ?? true });
+    }
     if (url.pathname === '/rest/v1/rpc/today_status') {
       return route.fulfill({ json: { ...TODAY, ...extras.today } });
     }
@@ -423,17 +433,18 @@ export async function fakeSupabase(
     // Private content (ADR 0023): the rows the test gave, and a short silent recording for
     // every media link.
     if (url.pathname === '/rest/v1/content_items') {
+      const rows = extras.licensee === false ? [] : content;
       // The deck's version check (#124): the row count and the latest change.
       if (url.searchParams.get('select') === 'updated_at') {
         return route.fulfill({
-          json: content.length ? [{ updated_at: '2026-11-01T00:00:00Z' }] : [],
+          json: rows.length ? [{ updated_at: '2026-11-01T00:00:00Z' }] : [],
           headers: {
-            'Content-Range': `0-0/${content.length}`,
+            'Content-Range': `0-0/${rows.length}`,
             'Access-Control-Expose-Headers': 'Content-Range',
           },
         });
       }
-      return route.fulfill({ json: content });
+      return route.fulfill({ json: rows });
     }
     if (url.pathname === '/rest/v1/content_lessons') return route.fulfill({ json: [] });
     if (url.pathname.startsWith('/storage/v1/object/sign/')) {
@@ -594,6 +605,7 @@ export async function fakeSupabase(
       }
       const profile = {
         ...PROFILE,
+        ...(extras.name !== undefined && { display_name: extras.name }),
         title,
         share_milestones: extras.fellowship?.sharing ?? true,
       };

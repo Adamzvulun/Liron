@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import characters from '../content/morse/characters.json' with { type: 'json' };
+import characters from '../../content/morse/characters.json' with { type: 'json' };
 import { listenForMorse, morseRuns, signedIn, type SubjectCall } from './fake-supabase.ts';
 
 // Review item 7, Morse half: copy each run right or wrong on purpose, reading what played from

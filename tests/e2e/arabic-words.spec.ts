@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { deckWord, signedIn, type SubjectCall } from './fake-supabase.ts';
-import pack from '../content/arabic/core-words.json' with { type: 'json' };
+import pack from '../../content/arabic/core-words.json' with { type: 'json' };
 
 // The innkeeper's table (#160): the word path's first chapter, with deck-like rows under the
 // ids of content/arabic/core-words.json (everyday words, not the deck's own).
