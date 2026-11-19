@@ -74,6 +74,8 @@ export interface Extras {
    * the safety net: the database then reads no deck rows, as row-level security would.
    */
   licensee?: boolean;
+  /** Whether the player may make invite links (ADR 0052); each link made is pushed to `made`. */
+  invites?: { inviter: boolean; made?: string[] };
   /** What the ledger reads (docs/game/ledger.md): cards, this week's reviews and the days. */
   ledger?: {
     cards?: Record<string, { item_id: string; interval: number; reps: number }[]>;
@@ -215,6 +217,18 @@ export async function fakeSupabase(
     if (url.pathname === '/auth/v1/logout') return route.fulfill({ status: 204 });
     if (url.pathname === '/auth/v1/recover') return route.fulfill({ json: {} });
     if (url.pathname === '/rest/v1/rpc/set_time_zone') return route.fulfill({ json: null });
+    if (url.pathname === '/rest/v1/rpc/can_invite') {
+      return route.fulfill({ json: extras.invites?.inviter ?? false });
+    }
+    if (url.pathname === '/rest/v1/rpc/make_invite') {
+      if (!extras.invites?.inviter) {
+        return route.fulfill({ status: 403, json: { code: '42501', message: 'not an inviter' } });
+      }
+      const made = extras.invites.made ?? [];
+      const code = (made.length + 1).toString(16).padStart(64, 'c');
+      made.push(code);
+      return route.fulfill({ json: code });
+    }
     if (url.pathname === '/rest/v1/rpc/is_content_licensee') {
       return route.fulfill({ json: extras.licensee ?? true });
     }

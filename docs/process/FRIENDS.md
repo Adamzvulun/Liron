@@ -2,17 +2,25 @@
 
 For Adam. Waymark is invite-only (sign-ups are off in Supabase, [ADR 0016](../decisions/0016-invite-only-password-login.md)), so every friend's account is made by you, by hand, in the Supabase dashboard of **`waymark-prod`**. Do the same in `waymark-dev` if a friend should try the dev site.
 
-**Why not an email invite?** Supabase's built-in email only reaches members of the project's team (you), at most 2 an hour ([SUPABASE](SUPABASE.md)). An invite or a "forgot your password" email to a friend never arrives. Sending to anyone would need our own mail server (custom SMTP), which is a decision for you: it may cost money and it shares your friends' addresses with a mail provider. Until then, you give friends a password yourself. The login screen says so: "Nothing after a few minutes? Ask whoever invited you to set a new password."
+**Why not an email invite?** Supabase's built-in email only reaches members of the project's team (you), at most 2 an hour ([SUPABASE](SUPABASE.md)). An invite or a "forgot your password" email to a friend never arrives. Sending to anyone would need our own mail server (custom SMTP), which is a decision for you: it may cost money and it shares your friends' addresses with a mail provider. Until then, you give friends a password yourself. The reset screen says so: "Didn't get it within a few minutes? Ask whoever invited you to reset your password."
 
 Every step below is **untested**: nobody has done it on the real projects yet. Each is on Adam's checklist in STATUS.md. Fix this page if a button has moved. Checked against the code on 2026-11-18 (v1.1.0): the login screen's line, Settings' password change, the friend code, the licence trigger and the cascade on every table that names a player.
+
+## Inviting a friend: send a link (ADR 0052)
+
+1. **Once:** in Vercel → Settings → Environment Variables, add `SUPABASE_SECRET_KEY`: `waymark-prod`'s secret key (Supabase → Project Settings → API Keys) for **Production**, `waymark-dev`'s for **Preview**. Redeploy, or wait for the next release.
+2. **Each friend:** on the site, **Settings → Invite a friend → Create invite link**, then **Share** (or **Copy link**) and send it.
+3. They open it, choose their own email and password, and they're in: signed in, reading the deck, and already your friend in the Fellowship.
+
+A link works once, for 7 days. If one expires, make another. The way below, by hand in the dashboard, still works, and is the fallback.
 
 ## Your first friend, in order (task 3.7)
 
 1. **v1.1.0 is live:** you merged its release PR and the **DB migrate** run on `main` is green. That run makes every account a licensee.
 2. **Realtime:** on both projects, **Realtime → Settings → Allow public access** is off ([RUNNING](RUNNING.md#friends)). Check it once; it stays off.
-3. **Their account:** "Make a friend's account" below. That's all: the deck opens for them by itself.
+3. **Their account:** send them an invite link (above). Without the secret key in Vercel, "Make a friend's account" below. Either way the deck opens for them by itself.
    - **To check, if you like:** Supabase → `waymark-prod` → **SQL Editor**, run `select email from auth.users where id not in (select user_id from public.content_licensees);`. No rows means every account reads the deck. It only reads; it changes nothing.
-4. **Become friends in the game:** you both open **Your House → Fellowship**. One of you types the other's friend code; the other accepts the request.
+4. **Become friends in the game:** with an invite link, you already are. Otherwise you both open **Your House → Fellowship**; one of you types the other's friend code, and the other accepts.
 5. **Try the wire, on two devices:** both open the Signal Tower's **Sending** and press **Key to a friend**, pick each other, and key a few letters. Then tell Claude what you heard and saw (release checklist §6).
 
 ## Make a friend's account

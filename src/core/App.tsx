@@ -1,6 +1,12 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { subjects } from '../subjects/index.ts';
-import { LoginScreen, NotConfiguredScreen, SetPasswordScreen } from './auth/AuthScreens.tsx';
+import {
+  JoinScreen,
+  LoginScreen,
+  NotConfiguredScreen,
+  SetPasswordScreen,
+} from './auth/AuthScreens.tsx';
+import { inviteCode, supabaseInvites } from './auth/invites.ts';
 import { GateScene, WaymarkPost } from './auth/Scenes.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
@@ -83,6 +89,8 @@ const partnerOf = (client: NonNullable<typeof supabase>) => functionPartner(acce
 
 /** What's switched on (#316), asked as the current learner, once per page. */
 const services = supabase ? functionServices(accessToken(supabase)) : undefined;
+/** Invite links, for an inviter's Settings (ADR 0052). */
+const invites = supabase ? supabaseInvites(supabase) : undefined;
 /**
  * What a road depends on (road/facts.ts): the database says whether this account may read the
  * deck (ADR 0050), and the site whether Sit and talk is switched on (#316). Asked once a page.
@@ -203,6 +211,13 @@ export function App() {
   return <AuthGate />;
 }
 
+/** An invite link's code, read once as the page opens (ADR 0052). */
+const invite = inviteCode(window.location.pathname, window.location.hash);
+// Signed in already, the link leads to the square.
+const leaveJoin = () => {
+  if (/^\/join\/?$/.test(window.location.pathname)) window.history.replaceState(null, '', '/');
+};
+
 function AuthGate() {
   const [auth, passwordChosen] = useAuth();
   // Leaving an account, however it happens (the button, an expired login, another tab), starts
@@ -230,10 +245,15 @@ function AuthGate() {
         </div>
       );
     case 'signedOut':
-      return <LoginScreen />;
+      return invite && window.location.pathname !== '/' ? (
+        <JoinScreen code={invite} />
+      ) : (
+        <LoginScreen />
+      );
     case 'setPassword':
       return <SetPasswordScreen email={auth.session.user.email} onDone={passwordChosen} />;
     case 'signedIn':
+      leaveJoin();
       return player && <Lobby player={player} />;
   }
 }
@@ -561,6 +581,7 @@ function Lobby({ player }: { player: Player }) {
           services={services}
           onPasswordChange={changePassword}
           sharing={sharing}
+          invites={invites}
           onSignOut={() => {
             // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });

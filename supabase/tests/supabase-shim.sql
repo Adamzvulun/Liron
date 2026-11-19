@@ -3,8 +3,12 @@
 -- the tests set it with set_config('request.jwt.claim.sub', ...). Never applied to a real project.
 create role anon nologin;
 create role authenticated nologin;
+-- The secret key's role: server functions (api/join.ts) call what only it may.
+create role service_role nologin;
 create schema auth;
-create table auth.users (id uuid primary key, email text);
+create table auth.users (
+  id uuid primary key, email text, created_at timestamptz not null default clock_timestamp()
+);
 create function auth.uid() returns uuid language sql stable as $$
   select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid
 $$;
