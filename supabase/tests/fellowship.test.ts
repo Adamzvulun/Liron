@@ -181,7 +181,9 @@ describe('what a friend sees (fellowship-build.md §3, §4)', () => {
     await befriend(A, B);
     expect((await cards(C)).map((c) => c.id)).toEqual([C]);
     expect((await cards(A)).map((c) => c.id)).toEqual([A, B]);
-    expect(await as(C, 'select count(*) from friendships')).toBe(0);
+    // Nobody reads the table itself: a waiting row would say whether a code was real (trap 5).
+    await expect(as(C, 'select count(*) from friendships')).rejects.toThrow(/permission denied/);
+    await expect(as(A, 'select count(*) from friendships')).rejects.toThrow(/permission denied/);
   });
 
   it('a removed friend reads nothing more', async () => {
@@ -228,7 +230,7 @@ describe('the limits (fellowship-build.md §6, test 6)', () => {
 
 describe('names others will read (fellowship-build.md §1 trap 4)', () => {
   it('refuses control and direction characters in a new name', async () => {
-    for (const bad of ['Ad‮am', 'Ad\u0007am', 'A⁦dam']) {
+    for (const bad of ['Ad‮am', 'Ad\u0007am', 'A⁦dam', 'Ad\u061cam', 'Ad\u0085am']) {
       await expect(
         as(A, `update profiles set display_name = $1 where id = '${A}'`, [bad]),
       ).rejects.toThrow(/profiles_display_name_plain/);

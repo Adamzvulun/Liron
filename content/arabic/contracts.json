@@ -163,7 +163,7 @@
         "kind": "inn-chat",
         "target": 2,
         "gold": 35,
-        "text": "Sit and talk with two regulars at the inn",
+        "text": "Have 2 chats at the inn",
         "requires": "trial-stranger-at-the-gate",
         "tier": 1
       }
