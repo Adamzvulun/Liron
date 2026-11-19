@@ -42,7 +42,8 @@ export function cachedContent(
       ]);
       if (current && kept?.version === current) return kept.pack;
       const pack = await source.pack(subject, name);
-      if (current) await store.put(key, { version: current, pack }).catch(() => {});
+      // Kept in the background: the deck is on screen while the browser writes it away.
+      if (current) void store.put(key, { version: current, pack }).catch(() => {});
       return pack;
     },
   };
@@ -50,6 +51,12 @@ export function cachedContent(
 
 const DB = 'waymark-content';
 const STORE = 'packs';
+/**
+ * IndexedDB has been known to hang without an answer (WebKit bug 226547): the deck would never
+ * load, and signing out, which wipes the kept copy first, would never finish. A store call that
+ * takes longer than this fails, and the cache falls back to loading (review, 2026-11-19).
+ */
+export const STORE_TIMEOUT_MS = 5_000;
 
 function open(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -60,7 +67,20 @@ function open(): Promise<IDBDatabase> {
   });
 }
 
+/** `work`, or a failure once `ms` have passed without an answer. */
+export function within<T>(work: Promise<T>, ms = STORE_TIMEOUT_MS): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const late = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error('IndexedDB did not answer')), ms);
+  });
+  return Promise.race([work, late]).finally(() => clearTimeout(timer));
+}
+
 function run<T>(mode: IDBTransactionMode, act: (s: IDBObjectStore) => IDBRequest): Promise<T> {
+  return within(runNow<T>(mode, act));
+}
+
+function runNow<T>(mode: IDBTransactionMode, act: (s: IDBObjectStore) => IDBRequest): Promise<T> {
   return open().then(
     (db) =>
       new Promise<T>((resolve, reject) => {
