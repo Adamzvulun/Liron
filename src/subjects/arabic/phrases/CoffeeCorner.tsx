@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { ReviewGrade, SubjectApi } from '../../../core/subject.ts';
+import { MAX_DUE_ONLY, type ReviewGrade, type SubjectApi } from '../../../core/subject.ts';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import { endsSentence, longChoices, seeded } from '../lesson/questions.ts';
 import { useAudio } from '../lesson/useAudio.ts';
@@ -59,12 +59,16 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
     let live = true;
     // Only the phrases' own cards: the first 50 due of the whole subject were often all words
     // and letters, and the phrases never came back for review (review, 2026-11-19).
+    // Asked 200 at a time, the most dueItems takes (third review, 2026-11-19): there are 91
+    // phrases today, and more sets mustn't stop the corner from opening.
     const only = PHRASE_SETS.flatMap((s) => s.items);
-    Promise.all([
-      api.loadState(),
-      api.privateContent(DECK),
-      api.dueItems({ limit: Math.max(1, only.length), only }),
-    ]).then(
+    const chunks = Array.from({ length: Math.ceil(only.length / MAX_DUE_ONLY) }, (_, i) =>
+      only.slice(i * MAX_DUE_ONLY, (i + 1) * MAX_DUE_ONLY),
+    );
+    const dueAll = Promise.all(
+      chunks.map((ids) => api.dueItems({ limit: ids.length, only: ids })),
+    ).then((parts) => parts.flat());
+    Promise.all([api.loadState(), api.privateContent(DECK), dueAll]).then(
       ([state, pack, dueItems]) => {
         if (!live) return;
         setProgress(parseProgress(state));

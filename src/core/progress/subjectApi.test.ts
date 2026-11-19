@@ -181,6 +181,62 @@ describe('a save that failed goes again (review, 2026-11-19)', () => {
     ]);
   });
 
+  it('a resend that gets through while another save rebuilt the list is let go (third review)', async () => {
+    const base = memoryStore();
+    let tries13 = 0;
+    let openB = () => {};
+    let openC = () => {};
+    const gateB = new Promise<void>((r) => (openB = r));
+    const gateC = new Promise<void>((r) => (openC = r));
+    const store = {
+      ...base,
+      saveSession: async (...args: Parameters<typeof base.saveSession>) => {
+        const [, w] = args;
+        if (w.xp === 13) {
+          tries13 += 1;
+          if (tries13 === 1) throw new Error('offline');
+          if (tries13 === 2) throw new Error('refused');
+          if (tries13 === 3) await gateC;
+        }
+        if (w.xp === 7) await gateB;
+        return base.saveSession(...args);
+      },
+    };
+    const api = subjectApi<{ n: number }>({ id: 'morse' }, store);
+    const ticks = async () => {
+      for (let i = 0; i < 20; i++) await new Promise((r) => setTimeout(r, 0));
+    };
+    await expect(api.saveSession({ xp: 13 })).rejects.toThrow('offline');
+    // B: its resend of 13 is refused, then B's own save waits.
+    const b = api.saveSession({ xp: 7 });
+    await ticks();
+    // C: resends 13, which waits; meanwhile B gets through and rebuilds what's held.
+    const c = api.saveSession({ xp: 1 });
+    await ticks();
+    openB();
+    await b;
+    openC();
+    await c;
+    expect(tries13).toBe(3);
+    // Delivered by C's resend: not sent again before the next save.
+    await api.saveSession({ xp: 2 });
+    expect(tries13).toBe(3);
+    expect(await base.summary('morse')).toMatchObject({ xp: 23 });
+  });
+
+  it('two saves that share one refused resend count it once; a slow one isn’t counted', async () => {
+    const { line, sent, api } = flaky();
+    line.online = true;
+    line.broken = true;
+    await expect(api.saveSession({ xp: 13 })).rejects.toThrow('refused');
+    // Two pairs of saves at once: two refusals, not four, so it's still held (3 let it go).
+    for (let i = 0; i < 2; i++)
+      await Promise.all([api.saveSession({ xp: 1 }), api.saveSession({ xp: 1 })]);
+    line.broken = false;
+    await api.saveSession({ xp: 2 });
+    expect(sent.map((s) => s.xp)).toEqual([1, 1, 1, 1, 13, 2]);
+  });
+
   it('lets go of one the database keeps refusing, and never blocks a new save', async () => {
     const { line, sent, api } = flaky();
     line.online = true;

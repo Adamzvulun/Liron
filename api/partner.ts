@@ -474,16 +474,18 @@ const recallNow = (ask: InnAsk) =>
 
 const LATIN = /[A-Za-z]/;
 const NOT_ARABIC_LINE = /[^\u0600-\u06FF\u0750-\u077F\s0-9.,!?:"«»()\-–—…]/u;
-// \b is ASCII-only: بوت ends at a space, a mark or the line's end (review, 2026-11-19).
-const SAYS_MACHINE = /ذكاء\s*(ال)?اصطناعي|نموذج\s*لغ|روبوت|بوت(?=$|[\s،.!?؟:])/u;
+// \b is ASCII-only, so بوت is bounded by hand: the word alone (or with ال), not the end
+// of كبوت or عنكبوت (third review, 2026-11-19).
+const SAYS_MACHINE = /ذكاء\s*(ال)?اصطناعي|نموذج\s*لغ|روبوت|(^|[\s،.!?؟:])(ال)?بوت(?=$|[\s،.!?؟:])/u;
 /**
  * Words that give a line away as another variety, never Palestinian: Modern Standard (ماذا,
  * لماذا, سوف, أريد), Egyptian (عايز, دلوقتي, كده), Gulf (شلون, وايد, شنو) and Lebanese (هيدا).
  * The rules already forbid them; a reply that uses one anyway is asked for again.
  */
 // A word may carry و, ف, ب or ل in front: وأريد gives a line away as much as أريد.
+// وايد takes no prefix: فوايد (benefits) is everyday Palestinian (third review, 2026-11-19).
 const GIVEAWAY =
-  /(^|[\s،.!?؟])[وفبل]?(ماذا|لماذا|سوف|أريد|عايز|عايزة|دلوقتي|كده|شلون|شلونك|وايد|شنو|هيدا|هيدي)(?=$|[\s،.!?؟])/u;
+  /(^|[\s،.!?؟])([وفبل]?(ماذا|لماذا|سوف|أريد|عايز|عايزة|دلوقتي|كده|شلون|شلونك|شنو|هيدا|هيدي)|وايد)(?=$|[\s،.!?؟])/u;
 /**
  * A model's thinking, closed or cut off by the token limit: an unclosed <think> runs to the end,
  * and nothing after it is an answer (review, 2026-11-19).
@@ -823,19 +825,17 @@ export const firstLine = (said: string) =>
     .slice(0, MAX_TEXT);
 
 /**
- * The first line of a reply that an operator could key: at least two words, Morse's letters and
- * figures once in capitals, and not a preamble ("Sure! Here's a line:"). Null when there is
- * none, so the next provider is asked instead of the browser dropping it (review, 2026-11-19).
+ * The first line of a reply that an operator could key: at least two words of letters or
+ * figures, and not a preamble ("Sure! Here's a line:"). Characters Morse lacks are left for the
+ * browser to drop, as it always has: "NAME: JIM" is a line (third review, 2026-11-19). Null when
+ * there is none, so the next provider is asked instead of the browser dropping it.
  */
 export function radioLine(said: string): string | null {
   for (const raw of said.replace(THINKING, '').split('\n')) {
     const line = firstLine(raw.replace(/[*_#`]/g, ''));
     if (!line || /:\s*$/.test(line)) continue;
-    const words = line
-      .toUpperCase()
-      .split(/\s+/)
-      .filter((w) => /[A-Z0-9]/.test(w));
-    if (words.length >= 2 && /^[A-Z0-9 .,?/=!'’-]+$/.test(line.toUpperCase())) return line;
+    const words = line.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w));
+    if (words.length >= 2) return line;
   }
   return null;
 }

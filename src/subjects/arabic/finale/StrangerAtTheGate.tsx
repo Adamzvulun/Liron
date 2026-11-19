@@ -54,7 +54,15 @@ type Stage =
   | { kind: 'intro' }
   | { kind: 'book'; page: PageLine[]; started: number }
   | { kind: 'slate'; stranger: Stranger; tries: number; started: number }
-  | { kind: 'story'; turns: InnTurn[]; waiting: boolean; ended?: string; started: number }
+  | {
+      kind: 'story';
+      turns: InnTurn[];
+      waiting: boolean;
+      ended?: string;
+      /** Ended by today's partner limit: judging would be refused too. */
+      limited?: boolean;
+      started: number;
+    }
   | { kind: 'judging'; turns: InnTurn[]; started: number }
   | { kind: 'missed'; why: string; verdict?: Verdict; xp: number }
   | { kind: 'passed'; xp: number };
@@ -145,6 +153,9 @@ export function StrangerAtTheGate({
               e,
               'The innkeeper is called to the kitchen. Tell your story another evening.',
             ),
+            limited:
+              e instanceof PartnerError &&
+              (e.problem === 'daily-limit' || e.problem === 'site-limit'),
           });
         },
       );
@@ -260,6 +271,7 @@ export function StrangerAtTheGate({
           waiting={stage.kind === 'judging' || stage.waiting}
           judging={stage.kind === 'judging'}
           ended={stage.kind === 'story' ? stage.ended : undefined}
+          limited={stage.kind === 'story' && stage.limited === true}
           onSay={(line) => {
             if (stage.kind !== 'story') return;
             const turns: InnTurn[] = [...stage.turns, { who: 'you', text: line }];
@@ -404,6 +416,7 @@ function Story({
   waiting,
   judging,
   ended,
+  limited = false,
   onSay,
   onFinish,
   onLeave,
@@ -415,6 +428,7 @@ function Story({
   waiting: boolean;
   judging: boolean;
   ended?: string;
+  limited?: boolean;
   onSay: (line: string) => void;
   onFinish: () => void;
   onLeave: () => void;
@@ -478,14 +492,16 @@ function Story({
           <div className="lesson__actions">
             {/* Enough lines told already: the story can still be judged, so the whole evening
                 isn't lost to one reply that didn't come (review, 2026-11-19). */}
-            {mine >= STORY_LINES && (
+            {/* Not after today's limit: the table's verdict would be refused the same way
+                (third review, 2026-11-19). */}
+            {mine >= STORY_LINES && !limited && (
               <button type="button" className="lesson__go" onClick={onFinish}>
                 That’s my story
               </button>
             )}
             <button
               type="button"
-              className={mine >= STORY_LINES ? 'lesson__plain' : 'lesson__go'}
+              className={mine >= STORY_LINES && !limited ? 'lesson__plain' : 'lesson__go'}
               onClick={onLeave}
             >
               Back to the gate
