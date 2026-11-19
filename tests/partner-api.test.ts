@@ -504,6 +504,12 @@ describe('cleanArabic (ADR 0038)', () => {
     expect(cleanArabic('أنا بوت، مش إنسان')).toBeNull();
     expect(cleanArabic('أنا بوت')).toBeNull();
     expect(cleanArabic('وأريد أروح عالسوق')).toBeNull();
+    // Third review: words that only end in بوت, and فوايد, are everyday speech.
+    expect(cleanArabic('افتح الكبوت يا ابني')).toBe('افتح الكبوت يا ابني');
+    expect(cleanArabic('في عنكبوت كبير بالزاوية')).toBe('في عنكبوت كبير بالزاوية');
+    expect(cleanArabic('للرياضة فوايد كتير')).toBe('للرياضة فوايد كتير');
+    expect(cleanArabic('هاد البوت ما بيفهم')).toBeNull();
+    expect(cleanArabic('وايد حلو')).toBeNull();
     expect(cleanArabic('بدلوقتي بروح')).toBeNull();
     // A thought cut off by the token limit leaves nothing to show.
     expect(cleanArabic('<think>the user wants')).toBeNull();
@@ -652,5 +658,8 @@ describe('a radio line an operator can key (review, 2026-11-19)', () => {
     expect(radioLine('**WX** RAIN HR')).toBe('WX RAIN HR');
     expect(radioLine('OK')).toBeNull();
     expect(radioLine('مرحبا يا صديقي')).toBeNull();
+    // Characters Morse lacks are the browser's to drop, not a reason to refuse the line.
+    expect(radioLine('NAME: JIM, QTH BOSTON')).toBe('NAME: JIM, QTH BOSTON');
+    expect(radioLine('BUILT A NEW RIG (IC-7300)')).toBe('BUILT A NEW RIG (IC-7300)');
   });
 });
