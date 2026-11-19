@@ -588,7 +588,7 @@ function ServicesRows({ source }: { source: ServicesSource }) {
   );
 }
 
-/** "Change your password" (#324): closed until asked for, so the panel stays short. */
+/** "Change password" (#324): closed until asked for, so the panel stays short. */
 function PasswordRows({
   onPasswordChange,
 }: {
@@ -608,7 +608,7 @@ function PasswordRows({
           className="hud__textbutton hud__password"
           onClick={() => setOpen(true)}
         >
-          Change your password
+          Change password
         </button>
         {status && (
           <p className="hud__fieldstatus" role="status">
@@ -659,7 +659,7 @@ function PasswordRows({
         At least {MIN_PASSWORD} characters.
       </span>
       <PasswordField
-        label="The same again"
+        label="Confirm password"
         autoComplete="new-password"
         value={again}
         onChange={setAgain}
@@ -668,7 +668,7 @@ function PasswordRows({
       />
       <div className="hud__passwordbuttons">
         <button type="submit" className="hud__textbutton" disabled={busy}>
-          Save the new password
+          {busy ? 'Saving…' : 'Save new password'}
         </button>
         <button
           type="button"
