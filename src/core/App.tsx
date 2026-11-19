@@ -232,7 +232,7 @@ function AuthGate() {
     case 'signedOut':
       return <LoginScreen />;
     case 'setPassword':
-      return <SetPasswordScreen onDone={passwordChosen} />;
+      return <SetPasswordScreen email={auth.session.user.email} onDone={passwordChosen} />;
     case 'signedIn':
       return player && <Lobby player={player} />;
   }
