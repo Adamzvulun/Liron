@@ -108,9 +108,11 @@ export async function readApkg(path: string): Promise<AnkiPackage> {
   const { DatabaseSync } = await import('node:sqlite');
   const dir = mkdtempSync(join(tmpdir(), 'apkg-'));
   const file = join(dir, 'collection.sqlite');
-  writeFileSync(file, zstdDecompressSync(collection));
-  const db = new DatabaseSync(file, { readOnly: true });
+  // The try starts here: a deck that won't decompress or open leaves no copy behind.
+  let db: InstanceType<typeof DatabaseSync> | undefined;
   try {
+    writeFileSync(file, zstdDecompressSync(collection));
+    db = new DatabaseSync(file, { readOnly: true });
     const rows = db.prepare('select flds, tags from notes order by id').all() as {
       flds: string;
       tags: string;
@@ -126,7 +128,7 @@ export async function readApkg(path: string): Promise<AnkiPackage> {
     });
     return { notes, media };
   } finally {
-    db.close();
+    db?.close();
     rmSync(dir, { recursive: true, force: true });
   }
 }
