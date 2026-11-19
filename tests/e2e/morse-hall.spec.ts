@@ -163,3 +163,21 @@ test('with every lamp lit, the Koch Run keeps the ear and promises no lamp (revi
   await expect(page.getByText(/Every lamp in the tower is lit/)).toBeVisible();
   await expect(page.getByText(/light the next lamp|runs done/)).toHaveCount(0);
 });
+
+test('on a phone, a keyboard can pan the halls’ paintings (review, 2026-11-19)', async ({
+  page,
+}) => {
+  test.skip(test.info().project.name !== 'phone', 'the painting pans only on a narrow screen');
+  await signedIn(page);
+  for (const [path, name] of [
+    ['/signal-tower', 'The signal tower, scroll sideways'],
+    ['/caravanserai', 'The caravanserai, scroll sideways'],
+  ] as const) {
+    await page.goto(path);
+    const view = page.getByRole('region', { name });
+    await view.focus();
+    const before = await view.evaluate((v) => v.scrollLeft);
+    await page.keyboard.press('ArrowRight');
+    await expect.poll(() => view.evaluate((v) => v.scrollLeft)).toBeGreaterThan(before);
+  }
+});
