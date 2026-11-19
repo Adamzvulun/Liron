@@ -39,7 +39,7 @@ export type SpeechFailure =
 export const MAX_AUDIO_BYTES = 500_000;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/audio/transcriptions';
-/** The settings from spikes/gemini-speech/groq.mjs (ADR 0014). */
+/** The settings from docs/research/spikes/gemini-speech/groq.mjs (ADR 0014). */
 const GROQ = {
   model: 'whisper-large-v3',
   language: 'ar',

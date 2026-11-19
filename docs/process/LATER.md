@@ -1,6 +1,6 @@
 # Later: what stays open on purpose
 
-Everything Waymark's docs promise but haven't built yet, in one place (task 5.2, #341). Per [CLAUDE.md](../../CLAUDE.md), this is **ordering, not cutting**: nothing here is dropped. Each item says why it waits and what would un-park it. When one un-parks, it becomes the next free version of the current chapter ([VERSIONS.md](VERSIONS.md)).
+Everything Waymark's docs promise but haven't built yet, in one place (task 5.2, #341). Per [CLAUDE.md](../../.claude/CLAUDE.md), this is **ordering, not cutting**: nothing here is dropped. Each item says why it waits and what would un-park it. When one un-parks, it becomes the next free version of the current chapter ([VERSIONS.md](VERSIONS.md)).
 
 Checked against the code on 2026-11-17.
 
@@ -12,8 +12,8 @@ Checked against the code on 2026-11-17.
 | **Pronunciation scoring** | No free service does it ([ADR 0013](../decisions/0013-speech-on-free-gemini.md)). Azure's does. Both finales say plainly that they can't judge it. | The same Azure answer. |
 | **More Arabic word chapters** | The deck is used up at 3,390 words. Maknuune is CC BY-SA, so anything built from it must be shared alike. Adult and toilet words were skipped on purpose (Adam, 2026-11-15). | Adam's call on Maknuune or another source. |
 | **Recordings for the phrases the deck lacks** | No free, licensed source could be verified ([research](../research/phrase-audio-sources.md)). | A verified source, or the voice above. |
-| **The third guild hall** (task 4.5) | The subject is Adam's choice. The guide is written: [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md). | His pick. The build starts with that guide's "Known gaps". |
-| **What friends without the deck may learn** (task 2.1) | The deck's license covers Adam only. | Adam's decision. |
+| **The third guild hall** (task 4.5) | Parked by Adam on 2026-11-18: "third subject won't come soon". The subject is his choice. The guide is written: [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md). | His pick. The build starts with that guide's "Known gaps". Don't start it before then. |
+| **What friends without the deck may learn** (task 2.1) | Decided 2026-11-18: friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)). The build is v1.1.0, so this row is no longer parked. | Nothing. |
 | **A domain and email invites** | A yearly cost. | Adam, if handing out passwords proves annoying ([ADR 0039](../decisions/0039-fellowship-answers.md)). |
 | **Backups** | Adam chose the keep-alive only. | Adam. |
 | **Pre-rendered scenery** (#137) | Prototyped on 2026-11-09. It made the slowed phone slower, and Adam's yes depended on it helping (HANDOFF, item 4). | Adam's report from his phone on how the square feels now. |

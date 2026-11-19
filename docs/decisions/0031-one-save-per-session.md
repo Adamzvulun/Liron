@@ -38,4 +38,4 @@ E10 adds contract events to every session. Adding them as one more call in each 
 - **Tests:**
   - `supabase/tests/schema.test.ts` checks that a session is applied whole, that a bad review rolls the whole session back, and that a repeated session id changes nothing.
   - The unit tests check that ratings and cards chain within one report.
-  - `e2e/fake-supabase.ts` answers `save_session` the way the database does: it applies each part and records it as the matching call.
+  - `tests/e2e/fake-supabase.ts` answers `save_session` the way the database does: it applies each part and records it as the matching call.

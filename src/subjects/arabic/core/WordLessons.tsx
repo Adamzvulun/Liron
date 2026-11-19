@@ -36,6 +36,7 @@ import {
 } from './grammar.ts';
 import { reportWords, reportWordTrial, scoreOfWords, type WordAnswer } from './report.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { NoDeck } from '../NoDeck.tsx';
 
 type Stage =
   | { kind: 'start' }
@@ -130,8 +131,7 @@ export function WordLessons({
       </p>
     );
   const chapter = WORD_CHAPTERS[chapterNo - 1];
-  if (!chapter || !chapters.some((c) => c.length))
-    return <p className="lesson__card">The deck’s words haven’t been loaded into Waymark yet.</p>;
+  if (!chapter || !chapters.some((c) => c.length)) return <NoDeck what="words" />;
 
   const met = new Set(progress.words.met);
   const pool = chapters.flat();
