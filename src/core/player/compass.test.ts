@@ -203,6 +203,14 @@ describe('city errands (the-road.md §7)', () => {
   it('points at Your House from the first gear until the avatar is changed', () => {
     expect(errands({ owned: ['boots'] })).toEqual([['/house', 'Your House has a wardrobe.']]);
     expect(errands({ owned: ['boots'], avatar: { ...DEFAULT_LOOK, hair: 'long' } })).toEqual([]);
+    // The default look with its keys in another order (as the database may keep them) is
+    // still untouched (review, 2026-11-19).
+    const reordered = Object.fromEntries(
+      Object.entries({ ...DEFAULT_LOOK, gear: { back: 'satchel', torso: 'tunic' } }).reverse(),
+    ) as typeof DEFAULT_LOOK;
+    expect(errands({ owned: ['boots'], avatar: reordered })).toEqual([
+      ['/house', 'Your House has a wardrobe.'],
+    ]);
   });
 
   it('knows the price of the cheapest ware', () => {
