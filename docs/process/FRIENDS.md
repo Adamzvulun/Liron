@@ -20,7 +20,7 @@ Every step below is **untested**: nobody has done it on the real projects yet. E
 1. Supabase → `waymark-prod` → **Authentication → Users → Add user → Create new user**.
 2. Their email, and a password you make up (at least 8 characters; a password manager's generator is fine). Tick **Auto Confirm User**, so no email is needed.
 3. Send them the address of the site, their email and the password, in a private message or in person, never in a group.
-4. Tell them: sign in, then **Settings → Change your password**. From then on only they know it.
+4. Tell them: sign in, then **Settings → Change password**. From then on only they know it.
 
 **Friends get the deck** ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)). Since v1.1.0, every account becomes a licensee the moment it's made (`20270107000000_every_account_reads_the_deck.sql`), so there's nothing more to do.
 
