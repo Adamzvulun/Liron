@@ -44,6 +44,11 @@ describe('ranks', () => {
     expect(heldRanks(ranks, s).map((r) => r.id)).toEqual(['b']);
   });
 
+  it('holds a rank only when every condition it names has its check (review, 2026-11-19)', () => {
+    // B names two conditions; a subject that answers only the first never gives it away.
+    expect(standing(ranks, () => [true]).rank.id).toBe('a');
+  });
+
   it('counts a rank you have taken as met, but never one that comes later', () => {
     const none = (r: { conditions: string[] }) => r.conditions.map(() => false);
     expect(standing(ranks, none, ['b']).rank.id).toBe('b');

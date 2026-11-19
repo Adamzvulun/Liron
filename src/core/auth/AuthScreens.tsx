@@ -1,7 +1,8 @@
 import { useId, useState, type FormEvent, type ReactNode } from 'react';
 import { supabase } from './supabase.ts';
 import { GateScene } from './Scenes.tsx';
-import { MIN_PASSWORD } from './password.ts';
+import { MIN_PASSWORD, passwordRefused } from './password.ts';
+import { signInRefused } from './signIn.ts';
 import './auth.css';
 
 function Panel({ title, children }: { title: string; children: ReactNode }) {
@@ -41,14 +42,7 @@ export function LoginScreen() {
     if (!error) return;
     // Only a refused login means a wrong password; offline or a busy server isn't the player's
     // fault, and shouldn't send them to reset it (review, 2026-11-15).
-    const wrong = error.code === 'invalid_credentials' || error.status === 400;
-    setMessage({
-      kind: 'error',
-      from: 'signin',
-      text: wrong
-        ? 'That email and password don’t match.'
-        : 'Couldn’t reach Waymark just now. Check your connection and try again.',
-    });
+    setMessage({ kind: 'error', from: 'signin', text: signInRefused(error) });
   }
 
   async function sendLink() {
@@ -145,8 +139,12 @@ export function SetPasswordScreen({ onDone }: { onDone: () => void }) {
     setError(null);
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
-    if (error) setError('Couldn’t save the password. Try again.');
-    else onDone();
+    // A password Supabase refuses says why, as Settings does (review, 2026-11-19). Other
+    // refusals keep this screen's own words: "sign out and in" means nothing on an invite link.
+    if (!error) onDone();
+    else if (error.code === 'weak_password' || error.code === 'same_password')
+      setError(passwordRefused(error.code));
+    else setError('Couldn’t save the password. Try again.');
   }
 
   return (
