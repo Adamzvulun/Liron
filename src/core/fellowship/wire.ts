@@ -202,7 +202,9 @@ export function supabaseWire(
         close: () => {
           closed = true;
           clearInterval(timer);
-          say('bye');
+          // Only over a line that is up: on a refused or half-open channel the client would
+          // post it over HTTP instead, a request with no one to hear it (review, 2026-11-19).
+          if (channel?.state === 'joined') say('bye');
           const c = channel;
           channel = null;
           if (c) void client.removeChannel(c);

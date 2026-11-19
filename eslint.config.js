@@ -20,4 +20,23 @@ export default defineConfig([
     ],
     languageOptions: { ecmaVersion: 2023, globals: globals.browser },
   },
+  {
+    // A browser test takes `test` from its fixtures, which fail it when the page crashes.
+    files: ['tests/e2e/**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: '@playwright/test',
+              importNames: ['test', 'expect'],
+              allowTypeImports: true,
+              message: 'Import test and expect from ./fixtures.ts (tests/e2e/fixtures.ts).',
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]);

@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { lessonWord, signedIn } from './fake-supabase.ts';
 
 // Every account reads the deck (ADR 0050). This is the safety net for one that doesn't, say

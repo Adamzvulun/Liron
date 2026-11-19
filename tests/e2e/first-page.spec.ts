@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn } from './fake-supabase.ts';
 
 test.describe('the first page (the-road.md §8)', () => {

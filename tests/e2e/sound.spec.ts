@@ -1,4 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { signedIn } from './fake-supabase.ts';
 
 // The city's sounds (task 4.6, docs/design/sound.md): nothing before the first tap, the switches

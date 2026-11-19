@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { friendCard, signedIn } from './fake-supabase.ts';
 
 // The speed budget (#137, #315; the numbers and how to read them are in docs/process/CI.md).

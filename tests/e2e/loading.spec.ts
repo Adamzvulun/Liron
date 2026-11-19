@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { deckWord, signedIn } from './fake-supabase.ts';
 
 // Faster loading (#124): a hall's code loads when you enter it, a session's recordings are

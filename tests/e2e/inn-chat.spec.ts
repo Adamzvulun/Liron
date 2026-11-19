@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { deckWord, pathWord, signedIn, type SubjectCall } from './fake-supabase.ts';
 import { ECHO_POOL } from '../../src/subjects/arabic/words.ts';
 import pack from '../../content/arabic/core-words.json' with { type: 'json' };
