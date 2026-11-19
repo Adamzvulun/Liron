@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-17.
+- **Last updated:** 2026-11-18 (v1.1.0 built).
 - **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are
@@ -20,21 +20,24 @@
 | **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 49 ADRs; unit and browser tests on every PR |
 
 ### What lives where, and how to run it
-- **The code:** `src/core/` is the platform, `src/subjects/<id>/` one subject each; content is data in `content/`; the database is `supabase/migrations/`. The [README](../../README.md) has the map and every script (`npm run dev`, `npm test`, `npm run e2e`).
+- **The code:** `src/core/` is the platform, `src/subjects/<id>/` one subject each; content is data in `content/`; the database is `supabase/migrations/`. The [README](../../.github/README.md) has the map and every script (`npm run dev`, `npm test`, `npm run e2e`).
 - **Running the game day to day:** [RUNNING.md](RUNNING.md), the keeper's handbook (keys, allowances, friends, the keep-alive). Hosting: [DEPLOY.md](DEPLOY.md) and [SUPABASE.md](SUPABASE.md).
 - **Releasing:** [release-checklist.md](release-checklist.md), then a PR from `dev` into `main` that only Adam merges.
 - **Adding a subject:** [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md). **What stays open on purpose:** [LATER.md](LATER.md).
 
 ## What comes next
 
-All of it is Adam's, in the order of [VERSIONS.md](VERSIONS.md):
+**v1.1.0, Open to Friends, is built** (2026-11-18, HANDOFF item 114): every account reads the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)), an account without it is told so plainly, the compass knows whether Sit and talk is on, and [FRIENDS.md](FRIENDS.md) opens with Adam's five steps for a first friend. Release notes: [releases/v1.1.0.md](releases/v1.1.0.md). **Claude's next:** land it in `dev`, open the release PR into `main` (Adam merges), then look for gaps, bugs and test holes in what's built.
 
-1. **Release v1.0.0, which now carries everything on `dev`** ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md); Adam can overturn it before merging): walk the [release checklist](release-checklist.md) (1.12, about an hour, one ending included), then the release PR into `main` (1.13). The live site starts fresh (Adam, 2026-11-16).
-2. **Before inviting a friend:** 2.1 (what friends without the deck may learn), a first friend's account ([FRIENDS.md](FRIENDS.md)), the Realtime "Allow public access" switch on both projects ([RUNNING](RUNNING.md#friends)) and a try of the wire on two devices; then 3.7 opens the Fellowship to friends.
-3. **v4.0:** pick the third subject (4.5). Its build starts with the "Known gaps" in [ADDING-A-SUBJECT.md](ADDING-A-SUBJECT.md), and ends with the sweep repeated over the new hall.
-4. **Parked, each waiting on him:** the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All listed in [LATER.md](LATER.md).
+**Adam's, in the order of [VERSIONS.md](VERSIONS.md):**
 
-**After the release, once:** run the "Keep alive" workflow by hand and see it green ([SUPABASE](SUPABASE.md#keep-alive)).
+1. **Play v1.0.0** (live since 2026-11-17, #359; database migrated 2026-11-18, #360). What you find becomes 1.0.x fixes, folded into v1.1.0. The checklist walk (1.12) can still be done on the live site.
+2. **Merge the v1.1.0 release PR, then the first friend:** the five steps at the top of [FRIENDS.md](FRIENDS.md); then 3.7 opens the Fellowship.
+3. **Parked:** the third subject (4.5; Adam, 2026-11-18: "won't come soon"), the regulars' voices (Azure, #342), more word chapters (a source), and #137 (how the square feels on his phone). All in [LATER.md](LATER.md).
+
+**The repo itself (2026-11-18):** its front page opens on a banner of the square ([README](../../.github/README.md)), and its root lists 23 entries (the charter is now `.claude/CLAUDE.md`). CI costs about 40% less a run: arm64 runners, two Playwright workers, and no second run when a release lands on `main` ([CI.md](CI.md)). The live site was checked from outside the same day: it loads in 1–2 s on desktop and phone, with no console errors and every security header in place.
+
+**Keep alive** ran green on 2026-11-18 (Adam, by hand) and now runs on Mondays and Thursdays. Before that nothing had ever used `waymark-prod`, so it had paused ([SUPABASE](SUPABASE.md#keep-alive)).
 
 
 ## Backlog map
@@ -65,7 +68,7 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 - **Other labels:** `type:feature|chore|content|design|research|bug`, `track:core|morse|arabic`, `prio:p0|p1|p2`, and `needs:adam` (blocked on something only Adam can do, like creating an account).
 - **Gotcha:** creating an issue *with a parent* fails if one of its labels doesn't exist yet. Create the issue first, then attach it with the sub-issue tool. Issues without a parent create missing labels automatically.
 
-## How to work (short version of [WORKFLOW](WORKFLOW.md) and [CLAUDE.md](../../CLAUDE.md))
+## How to work (short version of [WORKFLOW](WORKFLOW.md) and [CLAUDE.md](../../.claude/CLAUDE.md))
 - **Branches ([ADR 0015](../decisions/0015-branches-and-environments.md)):** `main` is the live site, and `dev` is the live dev site and the default branch.
   - Feature branches come from `dev`; PRs go into `dev` (`Closes #N`). Several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks.
   - Releases are PRs from `dev` into `main`; only Adam merges them.
@@ -93,7 +96,7 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 - **npm gotcha:** npm 10 (Node 22's npm) crashes (`reading 'edgesOut'`) when it resolves vitest's optional peers from scratch. Installing from the lockfile works. To add or upgrade dependencies, run `npx -y npm@12.2.1 install …`, which updates the lockfile.
 - **Pinning:** exact versions, using releases at least two weeks old. `@playwright/test` stays at the pre-installed Playwright version (1.63.0) so it finds `/opt/pw-browsers`.
 - **Tools present:** Node 22, Python 3, `ffmpeg`, Playwright with a pre-installed Chromium (don't run `playwright install`). The `zstd` CLI is **not always present** (missing on 2026-11-01, and `apt` failed). `prep.py` falls back to Node 22's built-in `zlib.zstdDecompressSync`, so it works either way.
-- **Deck format:** `.apkg` is a zip. `collection.anki21b` and `media` are zstd-compressed (SQLite plus the media map), and SQLite needs a `unicase` collation registered. **Each media file is also zstd-compressed**, and the media map is protobuf with a font entry in it, so parse it; don't regex the mp3 names. See `spikes/gemini-speech/prep.py`.
+- **Deck format:** `.apkg` is a zip. `collection.anki21b` and `media` are zstd-compressed (SQLite plus the media map), and SQLite needs a `unicase` collation registered. **Each media file is also zstd-compressed**, and the media map is protobuf with a font entry in it, so parse it; don't regex the mp3 names. See `docs/research/spikes/gemini-speech/prep.py`.
 - **Groq free tier (seen 2026-11-02):** response headers show 2,000 requests/day and 7,200 audio-s/hour. `whisper-large-v3` handled 80 calls at ~17/min with no 429s. Audio models listed: `whisper-large-v3`, `whisper-large-v3-turbo`, `canopylabs/orpheus-arabic-saudi` (TTS, untested).
 - **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 

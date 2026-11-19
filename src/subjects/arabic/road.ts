@@ -236,10 +236,32 @@ export const ARABIC_ROAD: readonly RoadStep[] = built.steps;
 export const ARABIC_ROAD_CHAPTERS: readonly RoadChapter[] = built.chapters;
 export const QUESTLINE = CHAPTER.questline;
 
+/**
+ * The courtyard's doors that read the Lingualism deck (ADR 0011): the script lessons and their
+ * rounds, the Painted Sign, the coffee corner, the echo well, the word path and its trials. The
+ * slate, the inn's chats (the deck only adds glosses there), the ranks and the gate don't.
+ */
+export const DECK_DOORS: ReadonlySet<string> = new Set([
+  'lesson',
+  'listen',
+  'read',
+  'trial',
+  'phrases',
+  'echo',
+  'words',
+  'regular',
+]);
+
+/** Does this step need the deck? */
+export const needsDeck = (s: RoadStep) => s.needs === 'deck' || DECK_DOORS.has(s.door);
+
 const rules: RoadRules<P> = {
   done: (s, p) => (s as Built).done(p),
   open: (s, p) => (s as Built).open(p),
   waiting(s, p, ctx): WaitReason | null {
+    // An account without the deck keeps its whole road, and its place on it: the steps that read
+    // the deck wait, and say why (ADR 0050 §3).
+    if (!ctx.licensee && needsDeck(s)) return 'deck';
     if (s.needs === 'partner' && ctx.partner !== 'ready') return ctx.partner;
     return (s as Built).tomorrow?.(p, ctx.today) ? 'tomorrow' : null;
   },
@@ -248,9 +270,8 @@ const rules: RoadRules<P> = {
 /** Is this step done? For tests and "the road so far". */
 export const arabicDone = (step: RoadStep, p: P) => rules.done(step, p);
 
-/** A player's own road: without the deck, the steps that need it are left out (ADR 0011). */
-export const roadFor = (licensee: boolean): readonly RoadStep[] =>
-  licensee ? ARABIC_ROAD : ARABIC_ROAD.filter((s) => s.needs !== 'deck');
+/** What the compass says when nothing in the courtyard can be done without the deck. */
+export const CLOSED_LINE = 'This account can’t read the deck yet: ask whoever invited you.';
 
 const STATION_LINE: Record<string, string> = {
   listen: 'Tonight: the fountain. Which letter did you hear?',
@@ -281,9 +302,9 @@ function meanwhile(
   steps: readonly RoadStep[],
   position: number,
 ): Meanwhile {
-  if (ctx.due > 0) {
+  if (ctx.due > 0 && ctx.licensee) {
     const n = ctx.due === 1 ? '1 review is' : `${ctx.due} reviews are`;
-    const door = wordsOpen(p) && ctx.licensee ? 'words' : 'lesson';
+    const door = wordsOpen(p) ? 'words' : 'lesson';
     return { door, line: `Tonight: ${n} due. Keep what you’ve learned.`, why: 'reviews' };
   }
   // The road waits a day on a word chapter: its regular is at the table.
@@ -296,7 +317,9 @@ function meanwhile(
       why: 'regular',
     };
   }
-  if (ctx.contractDoor) {
+  // Most of the Caravanserai's contracts are done at doors that read the deck, and the board
+  // doesn't say which one waits: without the deck, none is offered.
+  if (ctx.contractDoor && ctx.licensee) {
     return {
       door: ctx.contractDoor,
       line: 'Tonight: a contract is waiting at the inn.',
@@ -305,11 +328,14 @@ function meanwhile(
   }
   const open = [
     ...(metLetters(p) ? ['listen', 'read', 'write'] : []),
-    ...(ctx.licensee ? ['echo', 'phrases'] : []),
-    ...(ctx.licensee && wordsOpen(p) ? ['words'] : []),
+    'echo',
+    'phrases',
+    ...(wordsOpen(p) ? ['words'] : []),
     ...(p.guest && ctx.partner === 'ready' ? ['chat'] : []),
-  ];
-  const door = stationOfDay(open, ctx.today) ?? 'lesson';
+  ].filter((door) => ctx.licensee || !DECK_DOORS.has(door));
+  const door = stationOfDay(open, ctx.today);
+  // Only without the deck is nothing open: the courtyard itself says why (ADR 0050 §3).
+  if (!door) return { door: HALL_DOOR, line: CLOSED_LINE, why: 'closed' };
   return {
     door,
     line:
@@ -323,9 +349,8 @@ function meanwhile(
 /** Where a player stands on The Long Road In, and the one thing to do now. */
 export function arabicRoad(state: unknown, ctx: RoadContext): RoadAnswer {
   const p = parseProgress(state);
-  const steps = roadFor(ctx.licensee);
-  const w = walk(steps, p, rules, ctx);
-  return answer(QUESTLINE, steps, ARABIC_ROAD_CHAPTERS, w, () =>
-    meanwhile(p, ctx, steps, w.position),
+  const w = walk(ARABIC_ROAD, p, rules, ctx);
+  return answer(QUESTLINE, ARABIC_ROAD, ARABIC_ROAD_CHAPTERS, w, () =>
+    meanwhile(p, ctx, ARABIC_ROAD, w.position),
   );
 }

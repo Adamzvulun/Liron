@@ -7,8 +7,8 @@ import prettier from 'eslint-config-prettier';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  // Only the app is linted; docs/, spikes/ and sources/ are throwaway or reference material.
-  globalIgnores(['dist', 'docs', 'spikes', 'sources', '.claude']),
+  // Only the app is linted; docs/ (with its spikes) and sources/ are throwaway or reference material.
+  globalIgnores(['dist', 'docs', 'sources', '.claude']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

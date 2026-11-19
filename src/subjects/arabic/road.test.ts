@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import pack from '../../../content/arabic/road.json' with { type: 'json' };
-import type { RoadContext } from '../../core/road/road.ts';
+import { HALL_DOOR, type RoadContext } from '../../core/road/road.ts';
 import { PAIRS } from './echo/pairs.ts';
 import { LETTERS } from './letters.ts';
 import { NEW_PROGRESS, type ArabicProgress } from './progress.ts';
@@ -13,7 +13,8 @@ import {
   ARABIC_ROAD_CHAPTERS,
   arabicDone,
   arabicRoad,
-  roadFor,
+  DECK_DOORS,
+  needsDeck,
 } from './road.ts';
 
 const TODAY = '2026-11-16';
@@ -241,18 +242,51 @@ describe('The Long Road In as a road', () => {
     });
   });
 
-  it('leaves the deck’s steps out of the road of a player without the deck', () => {
-    const own = roadFor(false);
-    expect(own.some((s) => s.needs === 'deck')).toBe(false);
-    expect(own.map((s) => s.id).slice(0, 4)).toEqual([
-      'a-few-letters',
-      'the-slate',
-      'lesson:1',
-      'the-fountain',
-    ]);
-    const here = arabicRoad(null, { ...ctx, licensee: false });
-    expect(here.steps).toBe(own.length);
-    expect(here.now).toMatchObject({ step: { id: 'a-few-letters' } });
+  describe('an account without the deck (ADR 0050 §3, the safety net)', () => {
+    const closed = { ...ctx, licensee: false };
+
+    it('keeps the whole road and says plainly why it waits, never a dead end', () => {
+      const here = arabicRoad(null, closed);
+      expect(here.steps).toBe(ARABIC_ROAD.length);
+      expect(here.position?.step.id).toBe('a-few-letters');
+      // Nothing in the courtyard opens without the deck: the line says why and points at the
+      // courtyard itself, never at a door that would find no words. It isn't said twice.
+      expect(here.now).toMatchObject({ kind: 'meanwhile', door: HALL_DOOR, why: 'closed' });
+      expect(here.now.kind === 'meanwhile' && here.now.line).toMatch(/can’t read the deck/);
+      expect(here.waiting).toBeUndefined();
+      // Not even a contract: most of them are done at doors that read the deck.
+      expect(arabicRoad(null, { ...closed, contractDoor: HALL_DOOR }).now).toMatchObject({
+        why: 'closed',
+      });
+    });
+
+    it('still offers the steps that don’t read the deck', () => {
+      const p = finish(upTo('a-few-letters'), 'a-few-letters');
+      // The coffee corner's first set reads the deck; the slate doesn't.
+      expect(arabicRoad(p, ctx).now).toMatchObject({ step: { id: 'at-the-door' } });
+      const slate = arabicRoad(p, closed);
+      expect(slate.now).toMatchObject({ step: { id: 'the-slate' } });
+      expect(slate.waiting).toMatchObject({ reason: 'deck', step: { id: 'at-the-door' } });
+      expect(slate.waiting?.line).toMatch(/can’t read the deck/);
+    });
+
+    it('never names a door that reads the deck, on any day after the end', () => {
+      const p = upTo();
+      for (let d = 1; d <= 20; d++) {
+        const now = arabicRoad(p, {
+          ...closed,
+          today: `2026-12-${String(d).padStart(2, '0')}`,
+        }).now;
+        expect(now.kind).toBe('meanwhile');
+        expect(DECK_DOORS.has(now.kind === 'meanwhile' ? now.door : '')).toBe(false);
+      }
+    });
+
+    it('marks every step the road data says needs the deck as one at a deck door', () => {
+      for (const s of ARABIC_ROAD.filter((x) => x.needs === 'deck'))
+        expect(DECK_DOORS.has(s.door), s.id).toBe(true);
+      for (const s of ARABIC_ROAD) expect(needsDeck(s), s.id).toBe(DECK_DOORS.has(s.door));
+    });
   });
 
   it('after the last step, names something for every day, never the same two days running', () => {

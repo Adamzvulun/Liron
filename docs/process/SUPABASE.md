@@ -29,19 +29,17 @@ Facts checked on supabase.com on 2026-11-02:
    - The same two names with the **`waymark-dev`** values, environment **Preview** only.
 6. After Claude's #16 PR is merged into `dev`, the dev site shows the login screen.
 7. In **`waymark-dev`**: **Authentication → Users → Add user → Send invitation**, with your email. Open the link in the email and choose a password on the screen it opens.
-   - If the invite refuses because sign-ups are off (Supabase's official docs don't say; third-party guides say an admin invite still works), switch sign-ups on, send the invite, and switch them off again. Since [ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md), an account made in that window still can't read the deck: only licensees can.
+   - If the invite refuses because sign-ups are off (Supabase's official docs don't say; third-party guides say an admin invite still works), switch sign-ups on, send the invite, and switch them off again. Since v1.1.0 an account made that way reads the deck like any other ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)).
    - If the link lands on the login screen instead, type your email there and use **"Email me a link"**.
 8. At the next release, do step 7 in **`waymark-prod`** too.
 
 ### Adding a licensee
-Only accounts listed in `content_licensees` can read the Lingualism deck ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)). Every account that existed when that migration ran was added, and so is the first account a fresh project ever gets. Since `20261221000000_harden_licensee_and_allowances.sql`, that applies only while no other account exists: if the licensee's row is ever deleted, add it back by hand, because nobody who signs up later gets it. To add someone else, in that project's **SQL editor** (this is data, not a schema change, so it's fine to run by hand):
+Only accounts listed in `content_licensees` can read the Lingualism deck ([ADR 0029](../decisions/0029-database-is-the-only-writer-of-rewards.md)). **Since v1.1.0 every account is one** ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)): `20270107000000_every_account_reads_the_deck.sql` added every account that existed, and a trigger adds each new one as it's made. You only need this by hand if a row was deleted (the game then tells that player to ask you). In that project's **SQL editor** (this is data, not a schema change, so it's fine to run by hand):
 
 ```sql
 insert into public.content_licensees (user_id)
 select id from auth.users where email = 'their@email';
 ```
-
-Only add people the deck's licence covers (ADR 0011).
 
 ## Migrations
 Database changes are SQL files in [`supabase/migrations/`](../../supabase/migrations/), applied in name order. Never edit one that's already applied; add a new file instead. Schema: [ADR 0017](../decisions/0017-player-data-schema.md). (The first migration's header still says "Apply with the Supabase SQL editor": that predates ADR 0018 and is wrong, but the file stays as it was applied.)
@@ -74,11 +72,11 @@ A free project is paused when it has had too little database activity for about 
   1. Open supabase.com → the project. If it says **Paused**, press **Restore project** and wait a few minutes. The data is kept (a paused project can be restored for a long time; Supabase says a year).
   2. If it isn't paused, look at the log: "No database URL secret" means the secret was removed or renamed (see Migrations above); otherwise the database password may have changed, so update the secret.
   3. Start the workflow again by hand and check it's green.
-- **It runs only from `main`.** GitHub runs a scheduled workflow only from the default branch, so Keep alive never ran until v1.0.0 put it on `main` (2026-11-17), and `waymark-prod` had paused by then. The first DB migrate run on `main` failed with "tenant/user … not found", the pooler's answer for a paused project (or a wrong connection string); the fix is Restore project, then a new run.
+- **`waymark-prod` had paused before v1.0.0.** Nothing had used it since it was made, and Keep alive (added 2026-11-17, Tuesday) wasn't due to run until the Thursday. GitHub runs a scheduled workflow from the default branch, which is `dev`. The first DB migrate run on `main` failed with "tenant/user … not found", the pooler's answer for a paused project (or a wrong connection string); the fix is Restore project, then a new run.
 - **No promise:** Supabase doesn't publish how much activity is "sufficient". One real query twice a week is what their staff describe as enough. If a project is ever paused while this workflow is green, that is the first thing to tell Claude.
 
 ## Private content
-Copyrighted content (the Lingualism deck) is uploaded to each project automatically, right after migrations ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)). Only the licensee can read it (see above). The workflow needs each project's **secret key**.
+Copyrighted content (the Lingualism deck) is uploaded to each project automatically, right after migrations ([ADR 0023](../decisions/0023-content-format-and-private-pipeline.md)). Only licensees can read it, and since v1.1.0 every account is one (see above). The workflow needs each project's **secret key**.
 
 **One-time setup (Adam), for each project:**
 1. Supabase → the project → **Project Settings → API Keys** → **Secret keys** → copy the default secret key (`sb_secret_…`), or create one named `github-actions`.
@@ -96,4 +94,4 @@ Create `.env.local` (git-ignored) from [`.env.example`](../../.env.example) with
 ## Tests
 `supabase/tests/schema.test.ts` runs the migrations in PGlite (Postgres in WebAssembly, inside Vitest) and checks row-level security as a signed-in user, another user and a logged-out visitor.
 
-The tests never touch a real project. The e2e build points at a fake address, and `e2e/fake-supabase.ts` answers the auth calls (login, logout, reset, set password). So CI needs no Supabase secrets.
+The tests never touch a real project. The e2e build points at a fake address, and `tests/e2e/fake-supabase.ts` answers the auth calls (login, logout, reset, set password). So CI needs no Supabase secrets.

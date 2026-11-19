@@ -20,6 +20,7 @@ import {
 } from './shadow.ts';
 import { usePlayer } from './usePlayer.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { NoDeck } from '../NoDeck.tsx';
 
 type Judged = { line: ShadowLine; judgement: Judgement };
 type Player = ReturnType<typeof usePlayer>;
@@ -78,12 +79,7 @@ export function Shadowing({
   }, [api, items]);
 
   if (!lines) return <p className="arabic__loading">Drawing water…</p>;
-  if (lines.length === 0)
-    return (
-      <p className="lesson__card">
-        No short sentences yet: the deck’s sentences haven’t been loaded into Waymark.
-      </p>
-    );
+  if (lines.length === 0) return <NoDeck what="sentences" />;
 
   const line = lines[index];
   if (!line) {

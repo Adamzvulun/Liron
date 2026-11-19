@@ -21,6 +21,7 @@ import { reportRound, xpOfRound, type PairAnswer } from './report.ts';
 import { Shadowing } from './Shadowing.tsx';
 import './echo.css';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { NoDeck } from '../NoDeck.tsx';
 
 type Stage =
   | { kind: 'start' }
@@ -73,6 +74,8 @@ export function EchoWell({ api }: { api: SubjectApi }) {
       </p>
     );
   if (!progress || !deck) return <p className="arabic__loading">Lowering the bucket…</p>;
+  // Every round and every sentence here is the deck's: without it, say so before the rope.
+  if (deck.items.length === 0) return <NoDeck what="words" />;
 
   const start = () =>
     setStage({
@@ -119,9 +122,7 @@ export function EchoWell({ api }: { api: SubjectApi }) {
           onLeave={() => setStage({ kind: 'start' })}
         />
       )}
-      {stage.kind === 'round' && stage.questions.length === 0 && (
-        <p className="lesson__card">The deck’s words haven’t been loaded into Waymark yet.</p>
-      )}
+      {stage.kind === 'round' && stage.questions.length === 0 && <NoDeck what="words" />}
       {stage.kind === 'round' && current && (
         <Ask
           key={stage.index}
