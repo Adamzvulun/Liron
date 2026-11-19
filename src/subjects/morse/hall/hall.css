@@ -3,13 +3,15 @@
    and the doors follow below it as cards (.hall__*). */
 
 .tower {
+  /* The painting's height, read by the view and its focus ring. */
+  --view-h: 100svh;
   position: relative;
   background: #1f1711;
 }
 
 .tower__view {
   position: relative;
-  height: 100svh;
+  height: var(--view-h);
   overflow: hidden;
 }
 
@@ -276,15 +278,15 @@ button.tower__station:focus-visible .tower__plaque,
 
 /* Too small to read on the painting (a phone held sideways, a zoomed-in window): the writing
    moves below it, so the painting stops short of the bottom and the first card shows there. */
-.tower.is-compact .tower__view {
-  height: 80svh;
+.tower.is-compact {
+  --view-h: 80svh;
 }
 
 /* An upright phone: the room pans sideways, and the writing follows below it. */
 @media (max-width: 899px) and (orientation: portrait) {
-  .tower__view,
-  .tower.is-compact .tower__view {
-    height: 62svh;
+  .tower,
+  .tower.is-compact {
+    --view-h: 62svh;
   }
 }
 
@@ -541,4 +543,22 @@ button.hall__door:active {
 
 .hall__quest .road__next strong {
   color: var(--lamplight);
+}
+
+/* The panned painting takes keyboard focus, to scroll it. Its own outline would be drawn under
+   the scrolling layer, so the scene draws the ring over the painting instead. */
+.tower--pan .tower__view:focus-visible {
+  outline: none;
+}
+
+.tower--pan:has(> .tower__view:focus-visible)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  height: var(--view-h);
+  border: 4px solid var(--lamplight);
+  pointer-events: none;
 }

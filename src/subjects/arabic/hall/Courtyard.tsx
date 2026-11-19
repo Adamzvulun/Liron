@@ -347,7 +347,17 @@ function Scene({
 
   return (
     <div className={`place-scene khan${pan ? ' khan--pan' : ''}${compact ? ' is-compact' : ''}`}>
-      <div className="khan__view" ref={ref}>
+      <div
+        className="khan__view"
+        ref={ref}
+        // Panned on a narrow screen, the painting scrolls sideways: a keyboard can scroll it too
+        // (review, 2026-11-19).
+        {...(pan && {
+          tabIndex: 0,
+          role: 'region',
+          'aria-label': 'The caravanserai, scroll sideways',
+        })}
+      >
         {pan && (
           <div
             className="khan__sizer"
