@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cachedContent, type PackStore } from './packCache.ts';
+import { cachedContent, PACK_FORMAT, type PackStore } from './packCache.ts';
 import type { ContentSource } from './privateContent.ts';
 import type { Item, Lesson } from './schema.ts';
 
@@ -37,6 +37,14 @@ describe('the deck kept in the browser (#124)', () => {
     v = '4824@b;0';
     await content.pack('arabic', 'deck');
     expect(loads).toEqual(['arabic/deck', 'arabic/deck']);
+  });
+
+  it('loads again a copy kept in an older format (review, 2026-11-19)', async () => {
+    const { content, loads, kept } = setup(async () => '4823@a;0');
+    kept.set('arabic/deck', { version: '4823@a;0', pack: { items: [], lessons: [] } });
+    await content.pack('arabic', 'deck');
+    expect(loads).toEqual(['arabic/deck']);
+    expect(kept.get('arabic/deck')?.version).toBe(`${PACK_FORMAT}:4823@a;0`);
   });
 
   it('loads every time when the version or the store fails, and forgets on clear', async () => {

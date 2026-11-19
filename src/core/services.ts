@@ -25,9 +25,10 @@ export function functionServices(
 ): ServicesSource {
   let asked: Promise<Services | null> | null = null;
   const ask = async (): Promise<Services | null> => {
-    const access = await token();
-    if (!access) return null;
     try {
+      // A token that can't be read is a failed ask too, tried again later (review, 2026-11-19).
+      const access = await token();
+      if (!access) return null;
       const res = await fetchFn('/api/services', {
         headers: { Authorization: `Bearer ${access}` },
       });
