@@ -60,7 +60,9 @@ export function chestShelf(
   }));
   const list = contracts?.contracts ?? [];
   const done = list.filter((c) => c.paid).length;
-  if (list.length && done < list.length) {
+  // The database gives the chest for a full board of three (grant_chests); a board picked
+  // before any subject was started holds one, and is filled once one is (review, 2026-11-19).
+  if (list.length === 3 && done < list.length) {
     const kind = eventChest ?? CONTRACTS_CHEST;
     shelf.push({
       id: null,

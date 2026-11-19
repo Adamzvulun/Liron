@@ -160,7 +160,7 @@ function Compass({ lines }: { lines: readonly CompassLine[] }) {
             aria-label={all ? 'Hide the other lines' : 'Show the other lines'}
             onClick={() => setAll((a) => !a)}
           >
-            {lines.length}
+            {others.length}
           </button>
         )}
       </div>
@@ -694,8 +694,16 @@ function NameField({
 }) {
   const [draft, setDraft] = useState(name);
   const [status, setStatus] = useState('');
+  // Settings can open before the profile loads: until the player types, the field follows the
+  // name, and leaving it untouched saves nothing (it saved '' over the name, review 2026-11-19).
+  const [typed, setTyped] = useState(false);
+  const [shown, setShown] = useState(name);
+  if (name !== shown) {
+    setShown(name);
+    if (!typed) setDraft(name);
+  }
   const save = async () => {
-    if (draft.trim() === name) return;
+    if (!typed || draft.trim() === name) return;
     setStatus((await onNameChange(draft)) ? 'Saved' : 'Couldn’t save your name. Try again.');
   };
   return (
@@ -715,6 +723,7 @@ function NameField({
           data-autofocus
           onChange={(e) => {
             setDraft(e.target.value);
+            setTyped(true);
             setStatus('');
           }}
           onBlur={() => void save()}
