@@ -20,6 +20,9 @@ export type { ReviewGrade, ReviewPhase, SkillRating };
 export const SUBJECT_ID = /^[a-z][a-z0-9-]{1,31}$/;
 
 /** The square's buildings that can hold a subject's hall (the city's art has two so far). */
+/** The most items `dueItems({ only })` asks about at once. */
+export const MAX_DUE_ONLY = 200;
+
 export const HALL_BUILDINGS = ['tower', 'caravanserai'] as const;
 export type HallBuilding = (typeof HALL_BUILDINGS)[number];
 

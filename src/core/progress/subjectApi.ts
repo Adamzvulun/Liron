@@ -4,6 +4,7 @@ import {
   type SessionReport,
   type SubjectApi,
   type SubjectInfo,
+  MAX_DUE_ONLY,
 } from '../subject.ts';
 import type { StoredRating } from '../rating/ratings.ts';
 import type { Item, Lesson } from '../content/schema.ts';
@@ -33,7 +34,6 @@ import { ContentPack, Media } from '../content/schema.ts';
 const MAX_XP = 10_000; // per call; the same limits are enforced again in the database
 const MAX_MINUTES = 240;
 const MAX_DUE = 500;
-const MAX_DUE_ONLY = 200;
 
 const checkItemId = (itemId: string) => {
   if (typeof itemId !== 'string' || itemId.length < 1 || itemId.length > 128) {
@@ -153,28 +153,45 @@ export function subjectApi<State extends object>(
   const HOLD_AT_MOST = 20;
   const TRIES = 3;
   const RESEND_WAIT_MS = 15_000;
-  let resending: Promise<(typeof held)[number] | null> | null = null;
-  /** Sends what's held, oldest first; answers the one that failed, if one did. */
+  const TIMED_OUT = new Error('resend timed out');
+  // What a resend ended on: the session refused (or slow), if one was. One object per resend,
+  // so saves that shared it count its refusal once (third review, 2026-11-19).
+  type Stuck = { sessionId: string; timedOut: boolean } | null;
+  let resending: Promise<Stuck> | null = null;
+  let counted: Stuck = null;
+  /** Sends what's held, oldest first; answers the one that didn't go through, if one didn't. */
   const sendHeld = () =>
-    (resending ??= (async () => {
+    (resending ??= (async (): Promise<Stuck> => {
       for (const h of [...held]) {
+        const { sessionId } = h.report;
+        let award: Award | null;
+        let timer: ReturnType<typeof setTimeout> | undefined;
         try {
-          let timer: ReturnType<typeof setTimeout> | undefined;
-          await Promise.race([
-            deliver(h.report).then(paid),
-            new Promise((_, no) => {
-              timer = setTimeout(() => no(new Error('resend timed out')), RESEND_WAIT_MS);
+          award = await Promise.race([
+            deliver(h.report),
+            new Promise<never>((_, no) => {
+              timer = setTimeout(() => no(TIMED_OUT), RESEND_WAIT_MS);
             }),
           ]).finally(() => clearTimeout(timer));
-          held = held.filter((x) => x !== h);
-        } catch {
-          return h;
+        } catch (e) {
+          return { sessionId, timedOut: e === TIMED_OUT };
         }
+        // By session id: a save that got through meanwhile rebuilt the list.
+        held = held.filter((x) => x.report.sessionId !== sessionId);
+        pay(award);
       }
       return null;
     })().finally(() => (resending = null)));
   const paid = (award: Award | null) => {
     if (award) onAward(award);
+  };
+  /** Pays an applied save's award; a failure showing it doesn't make the save count as failed. */
+  const pay = (award: Award | null) => {
+    try {
+      paid(award);
+    } catch (e) {
+      console.error('Waymark: showing an award failed', e);
+    }
   };
   const saveSessionNow = async ({
     state,
@@ -229,13 +246,16 @@ export function subjectApi<State extends object>(
         held = [...held, { report: { ...report, state: undefined }, refused: 0 }];
       throw e;
     }
-    // This one got through. A held one that failed just before it was refused, not offline; and
-    // what's still held is older than the cards it just wrote.
-    if (stuck) stuck.refused += 1;
+    // This one got through. A held one that failed just before it was refused, not offline (a
+    // resend that was only slow isn't counted); and what's still held is older than the cards it
+    // just wrote.
+    const refused = stuck && !stuck.timedOut && stuck !== counted ? stuck.sessionId : null;
+    if (refused) counted = stuck;
     held = held
+      .map((h) => (h.report.sessionId === refused ? { ...h, refused: h.refused + 1 } : h))
       .filter((h) => h.refused < TRIES)
       .map((h) => ({ ...h, report: { ...h.report, reviews: [], results: [] } }));
-    paid(award);
+    pay(award);
   };
   /** Builds a checked report's write from what the database holds now, and sends it. */
   const deliver = async ({
