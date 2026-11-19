@@ -7,6 +7,12 @@ import type { ContentSource } from './privateContent.ts';
 
 type Pack = { items: Item[]; lessons: Lesson[] };
 
+/**
+ * The shape a kept pack was parsed into. Raise it when Item or Lesson change, so copies kept in
+ * the old shape are loaded again instead of served (review, 2026-11-19).
+ */
+export const PACK_FORMAT = 1;
+
 /** Where kept packs live: IndexedDB in the app, a map in tests. */
 export interface PackStore {
   get(key: string): Promise<{ version: string; pack: Pack } | undefined>;
@@ -29,7 +35,9 @@ export function cachedContent(
     async pack(subject, name) {
       const key = `${subject}/${name}`;
       const [current, kept] = await Promise.all([
-        version(subject, name).catch(() => null),
+        version(subject, name)
+          .then((v) => `${PACK_FORMAT}:${v}`)
+          .catch(() => null),
         store.get(key).catch(() => undefined),
       ]);
       if (current && kept?.version === current) return kept.pack;
