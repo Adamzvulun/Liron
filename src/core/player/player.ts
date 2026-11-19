@@ -201,8 +201,10 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       }
     },
     applyAward(award: Award) {
-      // A save's purse is read after its own payout: the newest there is.
-      newerPurse(++purseTicket, award.gold);
+      // A save's purse is shown as it comes, but takes no ticket: a purchase or chest already on
+      // its way most likely reached the database after the save, so its purse still wins when it
+      // answers (third review, 2026-11-19).
+      newestGold = award.gold;
       const wallet = { xp: award.xp, gold: award.gold, gems: award.gems };
       // An uncelebrated level-up stays until it's dismissed; a second one merges into it.
       const prev = state.levelUp;
