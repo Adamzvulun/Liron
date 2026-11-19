@@ -2484,6 +2484,22 @@ describe('the rewards, hardened before friends join (2026-11-15, report §4au)',
     expect(await had('arabic')).toEqual(['rank-storyteller', 'trial-stranger-at-the-gate']);
   });
 
+  it('fills in a rank the saved progress holds, so its finale counts (third review)', async () => {
+    await rows(
+      `insert into subject_progress (user_id, subject_id, state) values ($1, 'morse', $2)
+         on conflict (user_id, subject_id) do update set state = excluded.state`,
+      [
+        ADAM,
+        JSON.stringify({
+          ranks: ['listener', 'keyer', 'operator', 'telegraphist', 'signal-master', 'ghost'],
+        }),
+      ],
+    );
+    await rows(`select backfill_ordered_events()`);
+    await save('morse', [{ kind: 'trial-forty-winters' }]);
+    expect(await had('morse')).toContain('trial-forty-winters');
+  });
+
   it('counts a rank only after the rank below it, in either guild', async () => {
     await save('morse', [{ kind: 'rank-keyer' }]);
     await save('arabic', [{ kind: 'rank-traveler' }]);
