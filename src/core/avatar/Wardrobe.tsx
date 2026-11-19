@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { Avatar } from './Avatar.tsx';
 import {
   BEARDS,
@@ -12,6 +12,7 @@ import {
   SKINS,
   SLOTS,
   canWear,
+  lookKey,
   type DyeId,
   type Look,
   type SlotId,
@@ -40,8 +41,12 @@ export function Wardrobe({
   const [look, setLook] = useState(saved);
   const owned = new Set(ownedIds);
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'failed'>('idle');
-  const changed = JSON.stringify(look) !== JSON.stringify(saved);
+  // Compared by content: a reloaded look lists its gear in another order (review, 2026-11-19).
+  const changed = lookKey(look) !== lookKey(saved);
+  // The look being worn now: a save that answers after another change doesn't say "Saved".
+  const current = useRef(look);
   const choose = (next: Look) => {
+    current.current = next;
     setLook(next);
     setStatus('idle');
   };
@@ -52,8 +57,10 @@ export function Wardrobe({
   const wear = (slot: SlotId, item?: string) =>
     choose({ ...look, gear: { ...look.gear, [slot]: item } });
   const save = async () => {
+    const sent = look;
     setStatus('saving');
-    setStatus((await onSave(look)) ? 'saved' : 'failed');
+    const ok = await onSave(sent);
+    if (current.current === sent) setStatus(ok ? 'saved' : 'failed');
   };
 
   return (

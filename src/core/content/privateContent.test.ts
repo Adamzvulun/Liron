@@ -41,10 +41,16 @@ describe('the private deck', () => {
     const all = Array.from({ length: 2345 }, (_, i) => itemRow(i));
     const { client, asked } = fakeClient((table, q) => {
       if (table === 'content_lessons') {
-        return {
-          data: [{ lesson_id: 'l1', title: 'One', position: 1, items: ['w00000'], tags: [] }],
-          error: null,
-        };
+        // Lessons page as well (review, 2026-11-19): 1,001 of them take two pages.
+        const lessons = Array.from({ length: 1001 }, (_, i) => ({
+          lesson_id: `l${i + 1}`,
+          title: `L${i + 1}`,
+          position: i + 1,
+          items: ['w00000'],
+          tags: [],
+        }));
+        const [a, b] = q.range as [number, number];
+        return { data: lessons.slice(a, b + 1), error: null };
       }
       const [a, b] = q.range as [number, number];
       return { data: all.slice(a, b + 1), error: null };
@@ -52,7 +58,8 @@ describe('the private deck', () => {
     const pack = await loadPrivatePack(client, 'arabic', 'deck');
     expect(pack.items).toHaveLength(2345);
     expect(pack.items[2344]?.id).toBe('w02344');
-    expect(pack.lessons.map((l) => [l.id, l.order])).toEqual([['l1', 1]]);
+    expect(pack.lessons).toHaveLength(1001);
+    expect(pack.lessons.map((l) => [l.id, l.order])[1000]).toEqual(['l1001', 1001]);
     expect(asked.filter((a) => a.table === 'content_items').map((a) => a.q.range)).toEqual([
       [0, 999],
       [1000, 1999],

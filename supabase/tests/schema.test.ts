@@ -489,7 +489,8 @@ const fakeClient = {
         return q;
       },
       order(col: string) {
-        tail += ` order by ${col}`;
+        // A second order() adds a tiebreaker, as PostgREST's does.
+        tail += tail.includes(' order by ') ? `, ${col}` : ` order by ${col}`;
         return q;
       },
       limit(n: number) {
