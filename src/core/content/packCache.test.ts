@@ -1,5 +1,11 @@
-import { describe, expect, it } from 'vitest';
-import { cachedContent, PACK_FORMAT, type PackStore } from './packCache.ts';
+import { describe, expect, it, vi } from 'vitest';
+import {
+  cachedContent,
+  PACK_FORMAT,
+  STORE_TIMEOUT_MS,
+  within,
+  type PackStore,
+} from './packCache.ts';
 import type { ContentSource } from './privateContent.ts';
 import type { Item, Lesson } from './schema.ts';
 
@@ -64,5 +70,24 @@ describe('the deck kept in the browser (#124)', () => {
     await ok.store.clear();
     await ok.content.pack('arabic', 'deck');
     expect(ok.loads).toHaveLength(2);
+  });
+
+  it('hands over the deck without waiting for the browser to keep it (review, 2026-11-19)', async () => {
+    const { content, store } = setup(async () => '1@a;0');
+    store.put = () => new Promise(() => {});
+    await expect(content.pack('arabic', 'deck')).resolves.toEqual({ items: [], lessons: [] });
+  });
+
+  it('gives up on a store that never answers (review, 2026-11-19)', async () => {
+    vi.useFakeTimers();
+    try {
+      const hung = within(new Promise(() => {}));
+      const settled = expect(hung).rejects.toThrow('IndexedDB did not answer');
+      await vi.advanceTimersByTimeAsync(STORE_TIMEOUT_MS);
+      await settled;
+      await expect(within(Promise.resolve(7))).resolves.toBe(7);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
