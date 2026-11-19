@@ -319,15 +319,19 @@ export function subjectApi<State extends object>(
       await store.saveReview(id, itemId, review, at);
       return statusOf(review.card);
     },
-    async dueItems({ limit = 50, now = new Date() } = {}) {
+    async dueItems({ limit = 50, now = new Date(), only } = {}) {
       if (!Number.isInteger(limit) || limit < 1 || limit > MAX_DUE) {
         throw new RangeError(`dueItems: limit is 1 to ${MAX_DUE}, got ${limit}`);
       }
+      if (only && only.length > MAX_DUE) {
+        throw new RangeError(`dueItems: at most ${MAX_DUE} items in only, got ${only.length}`);
+      }
+      only?.forEach(checkItemId);
       // A card in long-term review that falls due later today is due now: a word answered at
       // 21:00 with a day to wait comes back the next morning, not at 21:00 (review, 2026-11-15).
       const dayEnd = new Date(now);
       dayEnd.setHours(23, 59, 59, 999);
-      return store.dueCards(id, now, limit, dayEnd);
+      return store.dueCards(id, now, limit, dayEnd, only);
     },
     async reviewStatus(itemIds) {
       itemIds.forEach(checkItemId);

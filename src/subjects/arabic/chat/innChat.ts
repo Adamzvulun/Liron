@@ -61,8 +61,8 @@ export function lineInHebrew(line: string): string {
         .filter((c) => /\p{Script=Arabic}/u.test(c) && !'؟،؛'.includes(c))
         .join('');
       const tail = word
-        .replace('؟', '?')
-        .replace('،', ',')
+        .replace(/؟/g, '?')
+        .replace(/،/g, ',')
         .replace(/\p{Script=Arabic}/gu, '');
       if (!bare) return word;
       return (inHebrewVowelled(bare) ?? bare) + tail.replace(/[^?!.,]/g, '');
