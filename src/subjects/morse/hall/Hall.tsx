@@ -396,7 +396,17 @@ function Room({
 
   return (
     <div className={`place-scene tower${pan ? ' tower--pan' : ''}${compact ? ' is-compact' : ''}`}>
-      <div className="tower__view" ref={ref}>
+      <div
+        className="tower__view"
+        ref={ref}
+        // Panned on a narrow screen, the painting scrolls sideways: a keyboard can scroll it too
+        // (review, 2026-11-19).
+        {...(pan && {
+          tabIndex: 0,
+          role: 'region',
+          'aria-label': 'The signal tower, scroll sideways',
+        })}
+      >
         {pan && (
           <div
             className="tower__sizer"

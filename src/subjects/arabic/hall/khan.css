@@ -4,12 +4,14 @@
    Repeats the Signal Tower's patterns under its own names, so subjects stay independent. */
 
 .khan {
+  /* The painting's height, read by the view and its focus ring. */
+  --view-h: 100svh;
   position: relative;
 }
 
 .khan__view {
   position: relative;
-  height: 100svh;
+  height: var(--view-h);
   overflow: hidden;
 }
 
@@ -277,15 +279,15 @@ button.khan__station:focus-visible .khan__plaque,
 
 /* Too small to read on the painting (a phone held sideways, a zoomed-in window): the writing
    moves below it, so the painting stops short of the bottom and the first card shows there. */
-.khan.is-compact .khan__view {
-  height: 80svh;
+.khan.is-compact {
+  --view-h: 80svh;
 }
 
 /* An upright phone: the courtyard pans sideways, and the writing follows below it. */
 @media (max-width: 899px) and (orientation: portrait) {
-  .khan__view,
-  .khan.is-compact .khan__view {
-    height: 62svh;
+  .khan,
+  .khan.is-compact {
+    --view-h: 62svh;
   }
 }
 
@@ -459,4 +461,22 @@ button.khan__door:active {
 
 .khan__quest .road {
   font-size: 16px;
+}
+
+/* The panned painting takes keyboard focus, to scroll it. Its own outline would be drawn under
+   the scrolling layer, so the scene draws the ring over the painting instead. */
+.khan--pan .khan__view:focus-visible {
+  outline: none;
+}
+
+.khan--pan:has(> .khan__view:focus-visible)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  height: var(--view-h);
+  border: 4px solid var(--lamplight);
+  pointer-events: none;
 }
