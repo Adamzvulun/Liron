@@ -57,7 +57,14 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
 
   useEffect(() => {
     let live = true;
-    Promise.all([api.loadState(), api.privateContent(DECK), api.dueItems({ limit: 50 })]).then(
+    // Only the phrases' own cards: the first 50 due of the whole subject were often all words
+    // and letters, and the phrases never came back for review (review, 2026-11-19).
+    const only = PHRASE_SETS.flatMap((s) => s.items);
+    Promise.all([
+      api.loadState(),
+      api.privateContent(DECK),
+      api.dueItems({ limit: Math.max(1, only.length), only }),
+    ]).then(
       ([state, pack, dueItems]) => {
         if (!live) return;
         setProgress(parseProgress(state));
@@ -117,6 +124,8 @@ export function CoffeeCorner({ api }: { api: SubjectApi }) {
       sessions: progress.sessions + 1,
     };
     setProgress(next);
+    // Just reviewed: not due again for "Another round" (review, 2026-11-19).
+    setDue((d) => d.filter((id) => !reviews.some((p) => p.id === id)));
     // Read the next set's title now: after setProgress, setNo already points past this set.
     const nextTitle = PHRASE_SETS[progress.phraseSet]?.title ?? null;
     setStage({ kind: 'result', right, said, asked, passed, nextTitle });

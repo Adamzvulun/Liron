@@ -25,7 +25,8 @@ export function ChallengeOffer({ rounds, round }: { rounds: RoundsApi; round: Sc
   const [friends, setFriends] = useState<{ id: string; name: string }[] | null>(null);
   const [picking, setPicking] = useState(false);
   const [sending, setSending] = useState<string | null>(null);
-  const [sent, setSent] = useState<string[]>([]);
+  // By id: two friends without a name are both "A traveler" (review, 2026-11-19).
+  const [sent, setSent] = useState<{ id: string; name: string }[]>([]);
   const [problem, setProblem] = useState<string | null>(null);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export function ChallengeOffer({ rounds, round }: { rounds: RoundsApi; round: Sc
     rounds.send(f.id, round.sessionId).then(
       () => {
         setSending(null);
-        setSent((s) => [...s, f.name]);
+        setSent((s) => [...s, f]);
       },
       (e: unknown) => {
         setSending(null);
@@ -70,7 +71,7 @@ export function ChallengeOffer({ rounds, round }: { rounds: RoundsApi; round: Sc
         <>
           {sent.length > 0 && (
             <p className="challenge-offer__sent" role="status">
-              Sent to {sent.join(' and ')}.
+              Sent to {sent.map((s) => s.name).join(' and ')}.
             </p>
           )}
           {problem && (
@@ -88,7 +89,7 @@ export function ChallengeOffer({ rounds, round }: { rounds: RoundsApi; round: Sc
                   key={f.id}
                   type="button"
                   className="lesson__plain"
-                  disabled={sending !== null || sent.includes(f.name)}
+                  disabled={sending !== null || sent.some((s) => s.id === f.id)}
                   onClick={() => send(f)}
                 >
                   {sending === f.id ? 'Sending…' : f.name}

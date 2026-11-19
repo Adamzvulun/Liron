@@ -131,10 +131,20 @@ export function supabaseWire(
 ): WireApi {
   return {
     friends,
-    open(friendId, h) {
+    open(friendId, given) {
+      let closed = false;
+      // Nothing reaches the screen once it has closed the line: removing the channel reports
+      // CLOSED, and edges already on their way still arrive (review, 2026-11-19).
+      const h: WireHandlers = {
+        onState: (s) => {
+          if (!closed) given.onState(s);
+        },
+        onEdge: (e) => {
+          if (!closed) given.onEdge(e);
+        },
+      };
       const watch = new LineWatch(h.onState);
       let channel: RealtimeChannel | null = null;
-      let closed = false;
       const now = () => performance.now();
       const say = (event: string, payload: Record<string, unknown> = {}) =>
         void channel?.send({ type: 'broadcast', event, payload });

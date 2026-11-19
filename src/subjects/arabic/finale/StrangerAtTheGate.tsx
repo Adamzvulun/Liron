@@ -476,7 +476,18 @@ function Story({
         <>
           <p className="arabic__note">{ended}</p>
           <div className="lesson__actions">
-            <button type="button" className="lesson__go" onClick={onLeave}>
+            {/* Enough lines told already: the story can still be judged, so the whole evening
+                isn't lost to one reply that didn't come (review, 2026-11-19). */}
+            {mine >= STORY_LINES && (
+              <button type="button" className="lesson__go" onClick={onFinish}>
+                That’s my story
+              </button>
+            )}
+            <button
+              type="button"
+              className={mine >= STORY_LINES ? 'lesson__plain' : 'lesson__go'}
+              onClick={onLeave}
+            >
               Back to the gate
             </button>
           </div>
