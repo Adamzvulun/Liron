@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import { watchForCrashes } from './fixtures.ts';
 import { WORD_CHAPTERS } from '../../src/subjects/arabic/core/coreWords.ts';
 import { REVIEWS } from '../../src/subjects/arabic/words.ts';
 import { ACHIEVEMENTS } from '../../src/core/achievements/achievements.ts';
@@ -176,6 +177,7 @@ export async function fakeSupabase(
 ) {
   // Like the database, a saved state is what the next read of that subject returns, so a test
   // can play a session, reload and see where it left off.
+  watchForCrashes(page);
   const saved = new Map<string, object>();
   // Events from saved sessions, by kind, for today's contracts (ADR 0032).
   const events = new Map<string, number>();

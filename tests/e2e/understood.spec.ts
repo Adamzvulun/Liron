@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.ts';
 import { GREETINGS, signedIn } from './fake-supabase.ts';
 
 // "Would they understand me?" (ADR 0014) in the coffee corner, with Chromium's fake microphone
