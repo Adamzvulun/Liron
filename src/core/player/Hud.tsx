@@ -11,6 +11,7 @@ import type { CompassLine } from './compass.ts';
 import { contractQuests, shieldNote, todaysQuests } from './quests.ts';
 import { serviceLines, type ServicesSource } from '../services.ts';
 import { MIN_PASSWORD, passwordProblem } from '../auth/password.ts';
+import { PasswordField } from '../auth/PasswordField.tsx';
 import { setSound, useSoundSettings } from '../sound/sound.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
@@ -157,7 +158,8 @@ function Compass({ lines }: { lines: readonly CompassLine[] }) {
             className="hud__compassmore"
             aria-expanded={all}
             aria-controls={listId}
-            aria-label={all ? 'Hide the other lines' : 'Show the other lines'}
+            // The count it shows is part of its name (WCAG 2.5.3, label in name).
+            aria-label={`${all ? 'Hide' : 'Show'} the other ${others.length} lines`}
             onClick={() => setAll((a) => !a)}
           >
             {others.length}
@@ -238,7 +240,12 @@ function Purse({ state, ...actions }: { state: PlayerState } & HudActions) {
           ref={goalButton}
           type="button"
           className="hud__chip hud__chip--goal"
-          aria-label={`Daily goal: ${today.minutes} of ${today.goalMinutes} minutes`}
+          // What it shows is part of its name (WCAG 2.5.3, label in name).
+          aria-label={
+            today.goalReached
+              ? `Daily goal done: ${today.minutes} of ${today.goalMinutes} minutes`
+              : `Daily goal: ${today.minutes}/${today.goalMinutes} min`
+          }
           aria-expanded={open === 'goal'}
           aria-controls={goalId}
           onClick={() => toggle('goal')}
@@ -638,31 +645,27 @@ function PasswordRows({
         void save();
       }}
     >
-      <label>
-        New password
-        <input
-          type="password"
-          autoComplete="new-password"
-          minLength={MIN_PASSWORD}
-          required
-          aria-describedby={hintId}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
+      <PasswordField
+        label="New password"
+        autoComplete="new-password"
+        minLength={MIN_PASSWORD}
+        describedBy={hintId}
+        value={password}
+        onChange={setPassword}
+        className=""
+        inputClassName=""
+      />
       <span id={hintId} className="hud__fieldhint">
         At least {MIN_PASSWORD} characters.
       </span>
-      <label>
-        The same again
-        <input
-          type="password"
-          autoComplete="new-password"
-          required
-          value={again}
-          onChange={(e) => setAgain(e.target.value)}
-        />
-      </label>
+      <PasswordField
+        label="The same again"
+        autoComplete="new-password"
+        value={again}
+        onChange={setAgain}
+        className=""
+        inputClassName=""
+      />
       <div className="hud__passwordbuttons">
         <button type="submit" className="hud__textbutton" disabled={busy}>
           Save the new password

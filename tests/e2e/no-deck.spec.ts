@@ -61,7 +61,7 @@ async function caravanseraiLine(page: Page) {
     const compass = page.getByRole('navigation', { name: 'Next on your road' });
     // A guild that can offer a step leads; the Caravanserai waits behind the count.
     await expect(compass.getByRole('link').first()).toContainText('Signal Tower');
-    await compass.getByRole('button', { name: 'Show the other lines' }).click();
+    await compass.getByRole('button', { name: /^Show the other \d+ lines$/ }).click();
     return compass.getByRole('link', { name: /Caravanserai/ });
   }
   const quests = page.getByRole('region', { name: 'Quests' });
