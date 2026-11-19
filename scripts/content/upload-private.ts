@@ -74,6 +74,8 @@ async function upload(builds: PrivateBuild[], url: string, key: string) {
         .select('item_id')
         .eq('subject_id', pack.subject)
         .eq('source', pack.source)
+        // A fixed order, so the pages neither overlap nor skip a row.
+        .order('item_id')
         .range(from, from + 999);
       fail('Listing items', error);
       for (const r of data ?? []) if (!keep.has(r.item_id as string)) stale.push(r.item_id);
