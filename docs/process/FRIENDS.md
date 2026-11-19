@@ -43,7 +43,7 @@ Then they change it again in Settings.
 
 ## You forgot yours
 
-Your own "Email me a link" works, because you own the project. If it doesn't arrive, do the same as for a friend.
+Your own "Forgot your password?" → "Send reset email" works, because you own the project. If it doesn't arrive, do the same as for a friend.
 
 ## A friend says the Arabic lessons are closed to them
 

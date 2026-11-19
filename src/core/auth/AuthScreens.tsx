@@ -63,7 +63,7 @@ export function LoginScreen() {
             kind: 'info',
             // Supabase's own mail reaches only the projects' owner (SUPABASE.md), so friends are
             // told who can help instead of waiting for nothing (#324).
-            text: 'If that email has an account, a link is on its way. Nothing after a few minutes? Ask whoever invited you to set a new password.',
+            text: 'If an account exists for that email, we’ve sent a password reset link. Didn’t get it within a few minutes? Ask whoever invited you to reset your password.',
           },
     );
   }
@@ -90,11 +90,11 @@ export function LoginScreen() {
       <Panel title="Reset your password">
         <form className="auth__form" onSubmit={sendLink}>
           <p className="auth__text auth__text--tight">
-            Type the email you sign in with. We’ll send a link to choose a new password.
+            Enter your email and we’ll send you a link to reset your password.
           </p>
           {emailField}
           <button className="auth__button" type="submit" disabled={busy}>
-            Email me a link
+            {busy ? 'Sending…' : 'Send reset email'}
           </button>
           {message && <Said message={message} />}
           <button className="auth__link" type="button" onClick={() => show('signin')}>
@@ -116,7 +116,7 @@ export function LoginScreen() {
           onChange={setPassword}
         />
         <button className="auth__button" type="submit" disabled={busy}>
-          Enter Waymark
+          {busy ? 'Signing in…' : 'Sign in'}
         </button>
         {message && <Said message={message} />}
         <button className="auth__link" type="button" onClick={() => show('reset')}>
@@ -151,7 +151,7 @@ export function SetPasswordScreen({ email, onDone }: { email?: string; onDone: (
   async function save(e: FormEvent) {
     e.preventDefault();
     if (!supabase) return;
-    // The same rules, and the same words, as Settings' "Change your password".
+    // The same rules, and the same words, as Settings' "Change password".
     const problem = passwordProblem(password, again);
     if (problem) {
       setError(problem);
@@ -170,12 +170,12 @@ export function SetPasswordScreen({ email, onDone }: { email?: string; onDone: (
   }
 
   return (
-    <Panel title="Choose a password">
+    <Panel title="Set your password">
       <form className="auth__form" onSubmit={save}>
         {email && (
           <>
             <p className="auth__text auth__text--tight">
-              For <strong className="auth__email">{email}</strong>
+              Enter a new password for <strong className="auth__email">{email}</strong>.
             </p>
             {/* For password managers: the account the new password belongs to. */}
             <input type="email" autoComplete="username" value={email} readOnly hidden />
@@ -193,13 +193,13 @@ export function SetPasswordScreen({ email, onDone }: { email?: string; onDone: (
           At least {MIN_PASSWORD} characters.
         </p>
         <PasswordField
-          label="The same again"
+          label="Confirm password"
           autoComplete="new-password"
           value={again}
           onChange={setAgain}
         />
         <button className="auth__button" type="submit" disabled={busy}>
-          Save and enter
+          {busy ? 'Saving…' : 'Save new password'}
         </button>
         {error && (
           <p className="auth__message auth__message--error" role="status">
