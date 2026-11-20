@@ -133,11 +133,29 @@ describe('POST /api/join (ADR 0052)', () => {
     expect(calls).toEqual([]);
   });
 
-  it('check answers whether the link is open, and nothing else', async () => {
-    const { calls, fetchFn } = supabase({ '/rest/v1/rpc/invite_open': ok(true) });
-    const res = await handle(post({ action: 'check', code: CODE.toUpperCase() }), ENV, fetchFn);
-    expect(await res.json()).toEqual({ open: true });
-    expect(calls[0]?.body).toEqual({ p_code: CODE });
+  it('check answers whether the link is open, and who sent it', async () => {
+    const check = () => post({ action: 'check', code: CODE.toUpperCase() });
+    const named = supabase({
+      '/rest/v1/rpc/invite_open': ok(true),
+      '/rest/v1/rpc/invite_from': ok('Adam'),
+    });
+    expect(await (await handle(check(), ENV, named.fetchFn)).json()).toEqual({
+      open: true,
+      from: 'Adam',
+    });
+    expect(named.calls.map((c) => c.body)).toEqual([{ p_code: CODE }, { p_code: CODE }]);
+    // No name chosen, or the name can't be read: the link still works.
+    for (const from of [ok(null), () => new Response('', { status: 500 })]) {
+      const { fetchFn } = supabase({
+        '/rest/v1/rpc/invite_open': ok(true),
+        '/rest/v1/rpc/invite_from': from,
+      });
+      expect(await (await handle(check(), ENV, fetchFn)).json()).toEqual({ open: true });
+    }
+    // A closed link names nobody.
+    const closed = supabase({ '/rest/v1/rpc/invite_open': ok(false) });
+    expect(await (await handle(check(), ENV, closed.fetchFn)).json()).toEqual({ open: false });
+    expect(closed.calls).toHaveLength(1);
   });
 
   it('without the secret key, it says it isn’t set up', async () => {

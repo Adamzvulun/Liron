@@ -17,6 +17,11 @@ Until now Adam made each friend's account in the Supabase dashboard, made up a p
 5. **Who may invite:** the project's first account, Adam's (`public.inviters`). Another inviter can be added by hand: `insert into public.inviters (user_id) select id from auth.users where email = '…';`.
 6. **Only the server uses a link.** A visitor who isn't signed in calls no database function (the isolation test); the join page asks `api/join.ts`, which alone may call `invite_open`, `claim_invite`, `release_invite` and `finish_invite` (granted to `service_role` only).
 
+## Amended 2026-11-20: a link that looks like it's from a friend
+
+- The join page says who sent it: "Adam invited you to Waymark." The check in `api/join.ts` also calls `invite_from` (`service_role` only), which gives the inviter's chosen name while the link can still be used, and nothing for a used or expired one. Only whoever holds the link sees it, and the inviter chose to send it.
+- The link shows a preview card in chat apps: `public/og-image.png` (the sign-in gate, drawn by `scripts/og-image.ts`) and Open Graph tags in `index.html`. Apps want the card's whole address, so Vite fills it from Vercel's `VERCEL_PROJECT_PRODUCTION_URL`, which follows the live site's own domain once there is one.
+
 ## What it needs, once
 
 **`SUPABASE_SECRET_KEY` in Vercel** (Settings → Environment Variables, no `VITE_` prefix): `waymark-prod`'s secret key for **Production**, `waymark-dev`'s for **Preview**. Until it's there, the join page says "Invites aren't set up on this site yet." and nothing else changes.
