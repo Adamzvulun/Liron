@@ -104,7 +104,12 @@ export function LoginScreen() {
             {busy ? 'Sending…' : 'Send reset email'}
           </button>
           {message && <Said message={message} />}
-          <button className="auth__link" type="button" onClick={() => show('signin')}>
+          <button
+            className="auth__link"
+            type="button"
+            disabled={busy}
+            onClick={() => show('signin')}
+          >
             Back to sign in
           </button>
         </form>
@@ -126,7 +131,7 @@ export function LoginScreen() {
           {busy ? 'Signing in…' : 'Sign in'}
         </button>
         {message && <Said message={message} />}
-        <button className="auth__link" type="button" onClick={() => show('reset')}>
+        <button className="auth__link" type="button" disabled={busy} onClick={() => show('reset')}>
           Forgot your password?
         </button>
         <p className="auth__hint">
