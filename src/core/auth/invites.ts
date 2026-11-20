@@ -50,7 +50,8 @@ export interface InviteCheck {
   state: InviteState;
   from: string | null;
 }
-export type JoinProblem = 'used' | 'email-taken' | 'weak-password' | 'not-set-up' | 'failed';
+export type JoinProblem =
+  'used' | 'email-taken' | 'weak-password' | 'too-long' | 'unsure' | 'not-set-up' | 'failed';
 
 const post = async (body: object, fetchFn: typeof fetch) => {
   const res = await fetchFn('/api/join', {
@@ -85,7 +86,14 @@ export async function checkInvite(
   }
 }
 
-const PROBLEMS: readonly JoinProblem[] = ['used', 'email-taken', 'weak-password', 'not-set-up'];
+const PROBLEMS: readonly JoinProblem[] = [
+  'used',
+  'email-taken',
+  'weak-password',
+  'too-long',
+  'unsure',
+  'not-set-up',
+];
 
 /** Makes the account; null when it's made, else what went wrong. */
 export async function joinWithInvite(
@@ -106,6 +114,9 @@ export const JOIN_PROBLEM: Record<JoinProblem, string> = {
   used: 'This invite link has expired or has already been used. Ask for a new one.',
   'email-taken': 'An account with this email already exists. Sign in instead.',
   'weak-password': 'That password is too easy to guess. Try a longer one.',
+  'too-long': 'Password is too long. Use a shorter one.',
+  unsure:
+    'Something went wrong, and your account may have been created. Try signing in with this email and password. If that doesn’t work, ask for a new link.',
   'not-set-up': 'Invites aren’t set up on this site yet.',
   failed: 'Couldn’t create your account. Try again.',
 };

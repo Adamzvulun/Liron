@@ -647,8 +647,10 @@ function InviteRows({ source }: { source: InviteSource }) {
     try {
       // Many apps (WhatsApp among them) drop the title, so the words go in the text too.
       await navigator.share({ title: 'Join me on Waymark', text: 'Join me on Waymark', url: link });
-    } catch {
-      // Closing the share sheet is not a problem.
+    } catch (e) {
+      // Closing the share sheet is not a problem; anything else is worth a word.
+      if (!(e instanceof DOMException && e.name === 'AbortError'))
+        setStatus('Couldn’t share. Use Copy link.');
     }
   };
   return (

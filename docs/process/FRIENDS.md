@@ -1,10 +1,10 @@
 # Friends: giving someone an account (task 2.3, #324)
 
-For Adam. Waymark is invite-only (sign-ups are off in Supabase, [ADR 0016](../decisions/0016-invite-only-password-login.md)), so every friend's account is made by you, by hand, in the Supabase dashboard of **`waymark-prod`**. Do the same in `waymark-dev` if a friend should try the dev site.
+For Adam. Waymark is invite-only (sign-ups are off in Supabase, [ADR 0016](../decisions/0016-invite-only-password-login.md)), so a friend gets in only through you: send them an invite link from the live site (below, [ADR 0052](../decisions/0052-invite-links.md)), and they make their own account. Making the account by hand in the Supabase dashboard of **`waymark-prod`** is the fallback.
 
-**Why not an email invite?** Supabase's built-in email only reaches members of the project's team (you), at most 2 an hour ([SUPABASE](SUPABASE.md)). An invite or a "forgot your password" email to a friend never arrives. Sending to anyone would need our own mail server (custom SMTP), which is a decision for you: it may cost money and it shares your friends' addresses with a mail provider. Until then, you give friends a password yourself. The reset screen says so: "Didn't get it within a few minutes? Ask whoever invited you to reset your password."
+**Why not an email invite?** Supabase's built-in email only reaches members of the project's team (you), at most 2 an hour ([SUPABASE](SUPABASE.md)). An invite or a "forgot your password" email to a friend never arrives. Sending to anyone would need our own mail server (custom SMTP), which is a decision for you: it may cost money and it shares your friends' addresses with a mail provider. Invite links need no email; a forgotten password still does, so until then you reset a friend's password by hand. The reset screen says so: "Didn't get it within a few minutes? Ask whoever invited you to reset your password."
 
-Every step below is **untested**: nobody has done it on the real projects yet. Each is on Adam's checklist in STATUS.md. Fix this page if a button has moved. Checked against the code on 2026-11-18 (v1.1.0): the login screen's line, Settings' password change, the friend code, the licence trigger and the cascade on every table that names a player.
+Every step below is **untested**: nobody has done it on the real projects yet. Each is on Adam's checklist in STATUS.md. Fix this page if a button has moved. Checked against the code on 2026-11-18 (v1.1.0): the login screen's line, Settings' password change, the friend code, the license trigger and the cascade on every table that names a player.
 
 ## Inviting a friend: send a link (ADR 0052)
 
