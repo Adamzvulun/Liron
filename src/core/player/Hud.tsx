@@ -645,7 +645,8 @@ function InviteRows({ source }: { source: InviteSource }) {
   const share = async () => {
     if (!link) return;
     try {
-      await navigator.share({ title: 'Join me on Waymark', url: link });
+      // Many apps (WhatsApp among them) drop the title, so the words go in the text too.
+      await navigator.share({ title: 'Join me on Waymark', text: 'Join me on Waymark', url: link });
     } catch {
       // Closing the share sheet is not a problem.
     }
