@@ -162,7 +162,7 @@ function Compass({ lines }: { lines: readonly CompassLine[] }) {
             aria-expanded={all}
             aria-controls={listId}
             // The count it shows is part of its name (WCAG 2.5.3, label in name).
-            aria-label={`${all ? 'Hide' : 'Show'} the other ${others.length} lines`}
+            aria-label={`${all ? 'Hide' : 'Show'} the other ${others.length} ${others.length === 1 ? 'line' : 'lines'}`}
             onClick={() => setAll((a) => !a)}
           >
             {others.length}
