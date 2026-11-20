@@ -173,6 +173,33 @@ describe('POST /api/join (ADR 0052)', () => {
     expect((await handle(post({ action: 'other', code: CODE }), ENV, fetchFn)).status).toBe(400);
   });
 
+  it('an account that can’t be reached for gives the link back', async () => {
+    const { calls, fetchFn } = supabase({
+      ...happy,
+      '/auth/v1/admin/users': () => {
+        throw new Error('offline');
+      },
+    });
+    const res = await handle(join(), ENV, fetchFn);
+    expect(await res.json()).toEqual({ error: 'failed' });
+    expect(calls.map((c) => c.path)).toEqual([
+      '/rest/v1/rpc/claim_invite',
+      '/auth/v1/admin/users',
+      '/rest/v1/rpc/release_invite',
+    ]);
+  });
+
+  it('a password over 72 bytes is refused before the link is touched', async () => {
+    const { calls, fetchFn } = supabase(happy);
+    // 25 letters, 75 bytes: under 72 letters, over Supabase's 72 bytes.
+    const res = await handle(join({ password: '€'.repeat(25) }), ENV, fetchFn);
+    expect(await res.json()).toEqual({ error: 'weak-password' });
+    expect(calls).toEqual([]);
+    expect(
+      (await handle(join({ password: 'א'.repeat(30) }), ENV, supabase(happy).fetchFn)).ok,
+    ).toBe(true);
+  });
+
   it('a Supabase that can’t be reached fails plainly', async () => {
     const fetchFn = vi.fn(async () => {
       throw new Error('offline');
