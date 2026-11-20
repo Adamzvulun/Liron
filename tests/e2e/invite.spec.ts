@@ -8,12 +8,12 @@ import { fakeSupabase, PASSWORD, signedIn } from './fake-supabase.ts';
 const CODE = 'ab'.repeat(32);
 
 /** Fakes /api/join: `check` answers `open`, `join` answers `joined`; every body is recorded. */
-async function joinApi(page: Page, open: boolean, joined: object = { ok: true }) {
+async function joinApi(page: Page, open: boolean, joined: object = { ok: true }, from?: string) {
   const sent: Record<string, unknown>[] = [];
   await page.route('**/api/join', async (route) => {
     const body = route.request().postDataJSON() as Record<string, unknown>;
     sent.push(body);
-    if (body.action === 'check') return route.fulfill({ json: { open } });
+    if (body.action === 'check') return route.fulfill({ json: { open, ...(from && { from }) } });
     const failed = 'error' in joined;
     return route.fulfill({ status: failed ? 409 : 200, json: joined });
   });
@@ -81,6 +81,13 @@ test.describe('invite links (ADR 0052)', () => {
       { action: 'check', code: CODE },
       { action: 'join', code: CODE, email: 'friend@example.com', password: PASSWORD },
     ]);
+  });
+
+  test('the page says who sent the link', async ({ page }) => {
+    await fakeSupabase(page);
+    await joinApi(page, true, { ok: true }, 'Adam');
+    await page.goto(`/join#${CODE}`);
+    await expect(page.getByText('Adam invited you to Waymark.')).toBeVisible();
   });
 
   test('passwords that don’t match are caught before anything is sent', async ({ page }) => {

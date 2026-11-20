@@ -228,6 +228,7 @@ const toSignIn = () => window.location.assign('/');
 export function JoinScreen({ code }: { code: string }) {
   const hintId = useId();
   const [state, setState] = useState<InviteState | 'checking'>('checking');
+  const [from, setFrom] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [again, setAgain] = useState('');
@@ -237,7 +238,11 @@ export function JoinScreen({ code }: { code: string }) {
 
   useEffect(() => {
     let live = true;
-    void checkInvite(code).then((s) => live && setState(s));
+    void checkInvite(code).then((check) => {
+      if (!live) return;
+      setState(check.state);
+      setFrom(check.from);
+    });
     return () => {
       live = false;
     };
@@ -306,7 +311,15 @@ export function JoinScreen({ code }: { code: string }) {
   return (
     <Panel title="Create your account">
       <form className="auth__form" onSubmit={create}>
-        <p className="auth__text auth__text--tight">You’ve been invited to Waymark.</p>
+        <p className="auth__text auth__text--tight">
+          {from ? (
+            <>
+              <strong className="auth__email">{from}</strong> invited you to Waymark.
+            </>
+          ) : (
+            'You’ve been invited to Waymark.'
+          )}
+        </p>
         <label className="auth__label">
           Email
           <input

@@ -35,7 +35,7 @@ export const supabaseInvites = (client: SupabaseClient): InviteSource => ({
     return !error && data === true;
   },
   // A code that can't be real: the answer says only whether the server is set up.
-  ready: async () => (await checkInvite('0'.repeat(64))) !== 'not-set-up',
+  ready: async () => (await checkInvite('0'.repeat(64))).state !== 'not-set-up',
   make: async () => {
     const { data, error } = await client.rpc('make_invite');
     if (error || typeof data !== 'string')
@@ -45,6 +45,11 @@ export const supabaseInvites = (client: SupabaseClient): InviteSource => ({
 });
 
 export type InviteState = 'open' | 'closed' | 'not-set-up' | 'failed';
+/** A link's state, and the name of whoever sent it (null if they have none, or it's closed). */
+export interface InviteCheck {
+  state: InviteState;
+  from: string | null;
+}
 export type JoinProblem = 'used' | 'email-taken' | 'weak-password' | 'not-set-up' | 'failed';
 
 const post = async (body: object, fetchFn: typeof fetch) => {
@@ -55,24 +60,28 @@ const post = async (body: object, fetchFn: typeof fetch) => {
   });
   const answer = (await res.json().catch(() => ({}))) as {
     open?: unknown;
+    from?: unknown;
     ok?: unknown;
     error?: unknown;
   };
   return { res, answer };
 };
 
-/** Whether a link can still be used. */
+/** Whether a link can still be used, and who sent it. */
 export async function checkInvite(
   code: string,
   fetchFn: typeof fetch = fetch,
-): Promise<InviteState> {
+): Promise<InviteCheck> {
+  const only = (state: InviteState): InviteCheck => ({ state, from: null });
   try {
     const { res, answer } = await post({ action: 'check', code }, fetchFn);
-    if (answer.error === 'not-set-up') return 'not-set-up';
-    if (!res.ok) return 'failed';
-    return answer.open === true ? 'open' : 'closed';
+    if (answer.error === 'not-set-up') return only('not-set-up');
+    if (!res.ok) return only('failed');
+    if (answer.open !== true) return only('closed');
+    const from = typeof answer.from === 'string' ? answer.from.trim().slice(0, 40) : '';
+    return { state: 'open', from: from || null };
   } catch {
-    return 'failed';
+    return only('failed');
   }
 }
 

@@ -4,7 +4,8 @@
  * and it opens only with a link an inviter made in Settings.
  *
  * POST /api/join, JSON:
- * - `{ action: 'check', code }` answers `{ open }`: whether the link can still be used.
+ * - `{ action: 'check', code }` answers `{ open, from? }`: whether the link can still be used,
+ *   and the inviter's chosen name, if they have one.
  * - `{ action: 'join', code, email, password }` makes the account with Supabase's admin API
  *   (email confirmed, so no email is sent), uses up the link, and makes the new player and the
  *   inviter friends. Answers `{ ok: true }`; the page then signs in with that email and password.
@@ -92,7 +93,10 @@ export async function handle(
 
   try {
     if (body.action === 'check') {
-      return json({ open: (await rpc('invite_open', { p_code: code })) === true });
+      if ((await rpc('invite_open', { p_code: code })) !== true) return json({ open: false });
+      // Who sent it, for the page's first line; the link still works without it.
+      const from = await rpc('invite_from', { p_code: code }).catch(() => null);
+      return json(typeof from === 'string' ? { open: true, from } : { open: true });
     }
     if (body.action !== 'join') return fail('bad-request');
 
