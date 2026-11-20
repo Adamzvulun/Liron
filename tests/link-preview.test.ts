@@ -10,7 +10,7 @@ const meta = (key: string) =>
 describe('link preview', () => {
   it('names the page, says what it is and points at the card', () => {
     expect(meta('og:title')).toBe('Waymark');
-    expect(meta('og:description')).toMatch(/Arabic and Morse code/);
+    expect(meta('og:description')).toMatch(/^A learning hub/);
     expect(meta('og:image')).toBe('%SITE%/og-image.png');
     expect(meta('twitter:card')).toBe('summary_large_image');
   });
