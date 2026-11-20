@@ -163,3 +163,7 @@ The next release, per ADR 0049 §5 (a 1.Y after 1.0.0). It carries:
 
 Everything merged into `dev` since `release/v1.1.0` was cut: the 2026-11-19 reviews' fixes, the sign-in screens and axe on releases. Draft notes: [releases/v1.1.1.md](releases/v1.1.1.md). Released 2026-11-19 right after v1.1.0, merged by Claude at Adam's word ("Go ahead and merge both").
 
+### Next: v1.2.0 — Invite links
+
+Adam sends a link from Settings; the friend makes their own account and is his friend at once ([ADR 0052](../decisions/0052-invite-links.md)). With the join page naming who sent it and a preview card for chat apps. Notes: [releases/v1.2.0.md](releases/v1.2.0.md). The release PR is open for Adam to merge.
+
