@@ -165,5 +165,5 @@ Everything merged into `dev` since `release/v1.1.0` was cut: the 2026-11-19 revi
 
 ### Next: v1.2.0 — Invite links
 
-Adam sends a link from Settings; the friend makes their own account and is his friend at once ([ADR 0052](../decisions/0052-invite-links.md)). With the join page naming who sent it and a preview card for chat apps. Notes: [releases/v1.2.0.md](releases/v1.2.0.md). The release PR is open for Adam to merge.
+Adam sends a link from Settings; the friend makes their own account and is his friend at once ([ADR 0052](../decisions/0052-invite-links.md)). With the join page naming who sent it and a preview card for chat apps. Notes: [releases/v1.2.0.md](releases/v1.2.0.md). The release PR ([#395](https://github.com/Adamzvulun/Liron/pull/395)) is green and open for Adam to merge.
 
