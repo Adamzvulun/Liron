@@ -27,7 +27,15 @@ export interface Env {
 }
 
 export type JoinFailure =
-  'method' | 'bad-request' | 'not-set-up' | 'used' | 'email-taken' | 'weak-password' | 'failed';
+  | 'method'
+  | 'bad-request'
+  | 'not-set-up'
+  | 'used'
+  | 'email-taken'
+  | 'weak-password'
+  | 'too-long'
+  | 'unsure'
+  | 'failed';
 
 const STATUS: Record<JoinFailure, number> = {
   method: 405,
@@ -36,6 +44,8 @@ const STATUS: Record<JoinFailure, number> = {
   used: 410,
   'email-taken': 409,
   'weak-password': 422,
+  'too-long': 422,
+  unsure: 502,
   failed: 502,
 };
 
@@ -105,7 +115,8 @@ export async function handle(
     if (!EMAIL.test(email) || email.length > 254) return fail('bad-request');
     // Supabase keeps at most 72 bytes of a password (bcrypt), so count bytes, not letters.
     const bytes = new TextEncoder().encode(password).length;
-    if (password.length < MIN_PASSWORD || bytes > 72) return fail('weak-password');
+    if (password.length < MIN_PASSWORD) return fail('weak-password');
+    if (bytes > 72) return fail('too-long');
 
     const inviter = await rpc('claim_invite', { p_code: code });
     if (typeof inviter !== 'string') return fail('used');
@@ -119,11 +130,13 @@ export async function handle(
         body: JSON.stringify({ email, password, email_confirm: true }),
       });
     } catch {
-      // Supabase couldn't be reached: the link mustn't stay used up by an account never made.
-      await giveBack();
-      return fail('failed');
+      // No answer: the account may or may not have been made. Keep the link used, so it can't
+      // make a second account, and tell them to try signing in.
+      return fail('unsure');
     }
+    if (made.status >= 500) return fail('unsure');
     if (!made.ok) {
+      // A refusal: no account was made, so the link goes back.
       await giveBack();
       const why = (await made.json().catch(() => ({}))) as { error_code?: string; msg?: string };
       if (why.error_code === 'email_exists' || /already been registered/i.test(why.msg ?? ''))
@@ -131,11 +144,11 @@ export async function handle(
       if (why.error_code === 'weak_password') return fail('weak-password');
       return fail('failed');
     }
-    const user = (await made.json()) as { id?: unknown };
-    if (typeof user.id !== 'string') return fail('failed');
-    // The account exists now: even if this last step fails, they can sign in. Only the
-    // friendship would be missing, and they can still ask each other.
-    await rpc('finish_invite', { p_code: code, p_user: user.id }).catch(() => {});
+    // The account exists now, whatever else happens: they can sign in. Only the friendship
+    // would be missing if this last step fails, and they can still ask each other.
+    const user = (await made.json().catch(() => ({}))) as { id?: unknown };
+    if (typeof user.id === 'string')
+      await rpc('finish_invite', { p_code: code, p_user: user.id }).catch(() => {});
     return json({ ok: true });
   } catch {
     return fail('failed');

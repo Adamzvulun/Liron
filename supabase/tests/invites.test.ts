@@ -80,6 +80,20 @@ describe('invite links (ADR 0052)', () => {
     await expect(as(BASMA, 'select invite_from($1)', [code])).rejects.toThrow(/permission/);
   });
 
+  it('a link’s name is cleaned of hidden direction marks, as the Fellowship cleans names', async () => {
+    const code = await makeInvite();
+    // A name saved before the names check: the check is `not valid`, so old rows can hold these.
+    await run(`alter table profiles drop constraint profiles_display_name_plain`);
+    await run(`update profiles set display_name = $1 where id = $2`, ['\u202eAdam\u202c', ADAM]);
+    expect(await server('select invite_from($1)', [code])).toBe('Adam');
+  });
+
+  it('an empty inviters list doesn’t make the next account an inviter', async () => {
+    await run('delete from inviters');
+    await newUser(NEW, 'new@x.com');
+    expect(await as(NEW, 'select can_invite()')).toBe(false);
+  });
+
   it('the first account may invite, and nobody else', async () => {
     expect(await as(ADAM, 'select can_invite()')).toBe(true);
     expect(await as(BASMA, 'select can_invite()')).toBe(false);

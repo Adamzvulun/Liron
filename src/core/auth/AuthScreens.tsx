@@ -235,6 +235,7 @@ export function JoinScreen({ code }: { code: string }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [taken, setTaken] = useState(false);
+  const [made, setMade] = useState(false);
 
   useEffect(() => {
     let live = true;
@@ -270,7 +271,7 @@ export function JoinScreen({ code }: { code: string }) {
       else if (refused === 'not-set-up') setState('not-set-up');
       else {
         setError(JOIN_PROBLEM[refused]);
-        setTaken(refused === 'email-taken');
+        setTaken(refused === 'email-taken' || refused === 'unsure');
       }
       return;
     }
@@ -280,7 +281,26 @@ export function JoinScreen({ code }: { code: string }) {
       email: email.trim(),
       password,
     });
-    if (signInError) toSignIn();
+    if (signInError) {
+      // The account is made; only signing in failed (a blip, say). Say so, rather than drop
+      // them on an empty sign-in screen thinking the invite failed.
+      setBusy(false);
+      setMade(true);
+    }
+  }
+
+  if (made) {
+    return (
+      <Panel title="Your account is ready">
+        <p className="auth__text">
+          Sign in with <strong className="auth__email">{email.trim()}</strong> and the password you
+          just chose.
+        </p>
+        <button className="auth__button" type="button" onClick={toSignIn}>
+          Sign in
+        </button>
+      </Panel>
+    );
   }
 
   if (state === 'checking') {

@@ -52,7 +52,14 @@ describe('invite links (ADR 0052)', () => {
       action: 'join',
       ...join,
     });
-    for (const error of ['used', 'email-taken', 'weak-password', 'not-set-up'])
+    for (const error of [
+      'used',
+      'email-taken',
+      'weak-password',
+      'too-long',
+      'unsure',
+      'not-set-up',
+    ])
       expect(await joinWithInvite(join, answering({ error }, 409))).toBe(error);
     expect(await joinWithInvite(join, answering({ error: 'odd' }, 500))).toBe('failed');
   });
