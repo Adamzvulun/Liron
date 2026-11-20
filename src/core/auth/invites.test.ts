@@ -22,14 +22,25 @@ describe('invite links (ADR 0052)', () => {
   });
 
   it('a check says open, closed, not set up or failed', async () => {
-    expect(await checkInvite(CODE, answering({ open: true }))).toBe('open');
-    expect(await checkInvite(CODE, answering({ open: false }))).toBe('closed');
-    expect(await checkInvite(CODE, answering({ error: 'not-set-up' }, 503))).toBe('not-set-up');
-    expect(await checkInvite(CODE, answering({ error: 'failed' }, 502))).toBe('failed');
+    const state = async (fetchFn: typeof fetch) => (await checkInvite(CODE, fetchFn)).state;
+    expect(await state(answering({ open: true }))).toBe('open');
+    expect(await state(answering({ open: false }))).toBe('closed');
+    expect(await state(answering({ error: 'not-set-up' }, 503))).toBe('not-set-up');
+    expect(await state(answering({ error: 'failed' }, 502))).toBe('failed');
     const offline = vi.fn(async () => {
       throw new Error('offline');
     }) as unknown as typeof fetch;
-    expect(await checkInvite(CODE, offline)).toBe('failed');
+    expect(await state(offline)).toBe('failed');
+  });
+
+  it('an open link says who sent it, if they chose a name', async () => {
+    expect(await checkInvite(CODE, answering({ open: true, from: ' Adam ' }))).toEqual({
+      state: 'open',
+      from: 'Adam',
+    });
+    expect((await checkInvite(CODE, answering({ open: true }))).from).toBeNull();
+    expect((await checkInvite(CODE, answering({ open: true, from: 7 }))).from).toBeNull();
+    expect((await checkInvite(CODE, answering({ open: false, from: 'Adam' }))).from).toBeNull();
   });
 
   it('joining answers null when the account is made, else what went wrong', async () => {
