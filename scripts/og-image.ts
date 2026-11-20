@@ -11,7 +11,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { chromium } from 'playwright';
 import { createServer } from 'vite';
 
-export const OG_LINE = 'Learn something new, together';
+export const OG_LINE = 'Master real skills, one trial at a time';
 const OUT = new URL('../public/og-image.png', import.meta.url);
 
 const font = (path: string) =>
