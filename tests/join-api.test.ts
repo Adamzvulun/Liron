@@ -173,31 +173,42 @@ describe('POST /api/join (ADR 0052)', () => {
     expect((await handle(post({ action: 'other', code: CODE }), ENV, fetchFn)).status).toBe(400);
   });
 
-  it('an account that can’t be reached for gives the link back', async () => {
-    const { calls, fetchFn } = supabase({
-      ...happy,
-      '/auth/v1/admin/users': () => {
-        throw new Error('offline');
+  it('no answer while making the account: the link stays used, and they’re told to try signing in', async () => {
+    for (const admin of [
+      () => {
+        throw new Error('timed out');
       },
-    });
-    const res = await handle(join(), ENV, fetchFn);
-    expect(await res.json()).toEqual({ error: 'failed' });
-    expect(calls.map((c) => c.path)).toEqual([
-      '/rest/v1/rpc/claim_invite',
-      '/auth/v1/admin/users',
-      '/rest/v1/rpc/release_invite',
-    ]);
+      () => new Response('', { status: 504 }),
+    ]) {
+      const { calls, fetchFn } = supabase({ ...happy, '/auth/v1/admin/users': admin });
+      const res = await handle(join(), ENV, fetchFn);
+      expect(await res.json()).toEqual({ error: 'unsure' });
+      // The account may exist: giving the link back could let it make a second one.
+      expect(calls.map((c) => c.path)).toEqual([
+        '/rest/v1/rpc/claim_invite',
+        '/auth/v1/admin/users',
+      ]);
+    }
   });
 
-  it('a password over 72 bytes is refused before the link is touched', async () => {
+  it('an account made is a success, even if its answer can’t be read', async () => {
+    const { calls, fetchFn } = supabase({
+      ...happy,
+      '/auth/v1/admin/users': () => new Response('not json', { status: 200 }),
+    });
+    const res = await handle(join(), ENV, fetchFn);
+    expect(await res.json()).toEqual({ ok: true });
+    expect(calls.map((c) => c.path)).not.toContain('/rest/v1/rpc/release_invite');
+  });
+
+  it('a password over 72 bytes is too long, and is refused before the link is touched', async () => {
     const { calls, fetchFn } = supabase(happy);
     // 25 letters, 75 bytes: under 72 letters, over Supabase's 72 bytes.
     const res = await handle(join({ password: '€'.repeat(25) }), ENV, fetchFn);
-    expect(await res.json()).toEqual({ error: 'weak-password' });
+    expect(await res.json()).toEqual({ error: 'too-long' });
     expect(calls).toEqual([]);
-    expect(
-      (await handle(join({ password: 'א'.repeat(30) }), ENV, supabase(happy).fetchFn)).ok,
-    ).toBe(true);
+    const ok = await handle(join({ password: 'א'.repeat(30) }), ENV, supabase(happy).fetchFn);
+    expect(ok.ok).toBe(true);
   });
 
   it('a Supabase that can’t be reached fails plainly', async () => {

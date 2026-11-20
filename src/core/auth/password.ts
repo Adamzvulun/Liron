@@ -10,7 +10,7 @@ export function passwordProblem(password: string, again: string): string | null 
   if (password.length < MIN_PASSWORD)
     return `Password must be at least ${MIN_PASSWORD} characters.`;
   if (new TextEncoder().encode(password).length > MAX_PASSWORD_BYTES)
-    return 'Password is too long. Use at most 72 characters.';
+    return 'Password is too long. Use a shorter one.';
   if (password !== again) return 'Passwords do not match.';
   return null;
 }
