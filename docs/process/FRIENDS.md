@@ -14,6 +14,16 @@ Every step below is **untested**: nobody has done it on the real projects yet. E
 
 The page they open says who sent it (your name in the game, if you chose one), and the link shows a preview card in WhatsApp and Messages. Send links from the live site: the dev site is private to your Vercel account, so a friend can't open its links.
 
+Only an **inviter** sees "Invite a friend". The release's migration makes the project's oldest account the inviter, which on `waymark-prod` should be yours. If Settings doesn't show it, make yourself one in Supabase → `waymark-prod` → **SQL Editor** (with your email):
+
+```sql
+insert into public.inviters (user_id)
+select id from auth.users where email = 'you@example.com'
+on conflict do nothing;
+```
+
+The same line, with a friend's email, lets that friend invite people too ([ADR 0052](../decisions/0052-invite-links.md) §5).
+
 A link works once, for 7 days. If one expires, make another. The way below, by hand in the dashboard, still works, and is the fallback.
 
 ## Your first friend, in order (task 3.7)
