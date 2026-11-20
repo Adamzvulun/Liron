@@ -68,6 +68,18 @@ beforeEach(() => db.exec('begin'));
 afterEach(() => db.exec('rollback'));
 
 describe('invite links (ADR 0052)', () => {
+  it('a link says who sent it, while it can be used', async () => {
+    const code = await makeInvite();
+    const from = () => server('select invite_from($1)', [code]);
+    expect(await from()).toBeNull(); // no name chosen yet
+    await run(`update profiles set display_name = ' Adam ' where id = $1`, [ADAM]);
+    expect(await from()).toBe('Adam');
+    expect(await server('select invite_from($1)', ['0'.repeat(64)])).toBeNull();
+    await claim(code);
+    expect(await from()).toBeNull();
+    await expect(as(BASMA, 'select invite_from($1)', [code])).rejects.toThrow(/permission/);
+  });
+
   it('the first account may invite, and nobody else', async () => {
     expect(await as(ADAM, 'select can_invite()')).toBe(true);
     expect(await as(BASMA, 'select can_invite()')).toBe(false);

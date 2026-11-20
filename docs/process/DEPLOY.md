@@ -76,3 +76,7 @@ See [ADR 0015](../decisions/0015-branches-and-environments.md) and [WORKFLOW](WO
 - **Painted SVG markup** must use classes, not `style="…"` attributes: the CSP blocks inline styles.
 - `tests/e2e/headers.spec.ts` loads the app with these exact headers and fails on any violation, so CI catches a break.
 - The Vercel toolbar on preview deployments (comments) isn't allowed by the CSP, so it may not load there. The site itself is unaffected.
+
+## The link preview card
+
+`index.html` carries Open Graph tags, so a link shows a card in WhatsApp, Messages and the like. The card is `public/og-image.png`, drawn from the sign-in gate by `node scripts/og-image.ts`. Apps want the card's whole address: at build time Vite fills `%SITE%` from `VERCEL_PROJECT_PRODUCTION_URL`, a variable Vercel sets by itself (the live site's shortest address, its own domain once it has one). Nothing to add in Vercel. Previews are behind Vercel Authentication, so only the live site's links show the card.

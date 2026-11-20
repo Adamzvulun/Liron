@@ -12,6 +12,8 @@ Every step below is **untested**: nobody has done it on the real projects yet. E
 2. **Each friend:** on the site, **Settings → Invite a friend → Create invite link**, then **Share** (or **Copy link**) and send it.
 3. They open it, choose their own email and password, and they're in: signed in, reading the deck, and already your friend in the Fellowship.
 
+The page they open says who sent it (your name in the game, if you chose one), and the link shows a preview card in WhatsApp and Messages. Send links from the live site: the dev site is private to your Vercel account, so a friend can't open its links.
+
 A link works once, for 7 days. If one expires, make another. The way below, by hand in the dashboard, still works, and is the fallback.
 
 ## Your first friend, in order (task 3.7)
