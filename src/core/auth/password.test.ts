@@ -10,6 +10,14 @@ describe('changing a password (#324)', () => {
     expect(passwordProblem('long enough', 'long enough')).toBeNull();
   });
 
+  it('refuses a password Supabase couldn’t keep whole: over 72 bytes', () => {
+    const too = (p: string) => passwordProblem(p, p);
+    expect(too('a'.repeat(72))).toBeNull();
+    expect(too('a'.repeat(73))).toBe('Password is too long. Use at most 72 characters.');
+    // 25 letters but 75 bytes.
+    expect(too('€'.repeat(25))).toMatch(/too long/);
+  });
+
   it('says what to do for each refusal, and something useful for the rest', () => {
     expect(passwordRefused('same_password')).toMatch(/already/);
     expect(passwordRefused('weak_password')).toMatch(/longer/);

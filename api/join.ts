@@ -103,18 +103,28 @@ export async function handle(
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
     const password = typeof body.password === 'string' ? body.password : '';
     if (!EMAIL.test(email) || email.length > 254) return fail('bad-request');
-    if (password.length < MIN_PASSWORD || password.length > 72) return fail('weak-password');
+    // Supabase keeps at most 72 bytes of a password (bcrypt), so count bytes, not letters.
+    const bytes = new TextEncoder().encode(password).length;
+    if (password.length < MIN_PASSWORD || bytes > 72) return fail('weak-password');
 
     const inviter = await rpc('claim_invite', { p_code: code });
     if (typeof inviter !== 'string') return fail('used');
 
-    const made = await fetchFn(`${url}/auth/v1/admin/users`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ email, password, email_confirm: true }),
-    });
+    const giveBack = () => rpc('release_invite', { p_code: code }).catch(() => {});
+    let made: Response;
+    try {
+      made = await fetchFn(`${url}/auth/v1/admin/users`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ email, password, email_confirm: true }),
+      });
+    } catch {
+      // Supabase couldn't be reached: the link mustn't stay used up by an account never made.
+      await giveBack();
+      return fail('failed');
+    }
     if (!made.ok) {
-      await rpc('release_invite', { p_code: code }).catch(() => {});
+      await giveBack();
       const why = (await made.json().catch(() => ({}))) as { error_code?: string; msg?: string };
       if (why.error_code === 'email_exists' || /already been registered/i.test(why.msg ?? ''))
         return fail('email-taken');

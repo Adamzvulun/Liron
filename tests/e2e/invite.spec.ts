@@ -46,6 +46,31 @@ test.describe('invite links (ADR 0052)', () => {
     expect(made[1]).not.toBe(made[0]);
   });
 
+  test('Share hands the phone’s share sheet the words and the link', async ({ page }) => {
+    await page.addInitScript(() => {
+      const w = window as unknown as { shared: unknown[] };
+      w.shared = [];
+      navigator.share = async (data) => {
+        w.shared.push(data);
+      };
+    });
+    const made: string[] = [];
+    await signedIn(page, [], [], null, [], { invites: { inviter: true, made } });
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Settings' }).click();
+    await page.getByRole('button', { name: 'Create invite link' }).click();
+    await page.getByRole('button', { name: 'Share' }).click();
+    const shared = await page.evaluate(() => (window as unknown as { shared: unknown[] }).shared);
+    expect(shared).toEqual([
+      {
+        title: 'Join me on Waymark',
+        text: 'Join me on Waymark',
+        url: await page.getByLabel('Invite link').inputValue(),
+      },
+    ]);
+    expect(made).toHaveLength(1);
+  });
+
   test('on a site without the secret key, Settings says so and makes no link', async ({ page }) => {
     await signedIn(page, [], [], null, [], { invites: { inviter: true } });
     await page.route('**/api/join', (route) =>
