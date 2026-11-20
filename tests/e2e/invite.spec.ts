@@ -71,6 +71,26 @@ test.describe('invite links (ADR 0052)', () => {
     expect(made).toHaveLength(1);
   });
 
+  test('a Share that fails says to copy the link; closing the sheet says nothing', async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      let calls = 0;
+      navigator.share = async () => {
+        calls += 1;
+        throw new DOMException('closed', calls === 1 ? 'AbortError' : 'NotAllowedError');
+      };
+    });
+    await signedIn(page, [], [], null, [], { invites: { inviter: true } });
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Settings' }).click();
+    await page.getByRole('button', { name: 'Create invite link' }).click();
+    await page.getByRole('button', { name: 'Share' }).click();
+    await expect(page.getByText('Couldn’t share. Use Copy link.')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Share' }).click();
+    await expect(page.getByText('Couldn’t share. Use Copy link.')).toBeVisible();
+  });
+
   test('on a site without the secret key, Settings says so and makes no link', async ({ page }) => {
     await signedIn(page, [], [], null, [], { invites: { inviter: true } });
     await page.route('**/api/join', (route) =>
@@ -136,6 +156,33 @@ test.describe('invite links (ADR 0052)', () => {
     ).toBeVisible();
     await page.getByRole('button', { name: 'Sign in', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
+  });
+
+  test('an account made whose sign-in fails says it’s ready, and offers Sign in', async ({
+    page,
+  }) => {
+    await fakeSupabase(page);
+    await joinApi(page, true);
+    await page.goto(`/join#${CODE}`);
+    // The fake only signs in with PASSWORD: another one makes the sign-in after joining fail.
+    await page.getByLabel('Email').fill('friend@example.com');
+    await page.getByLabel('Password', { exact: true }).fill('another good one');
+    await page.getByLabel('Confirm password', { exact: true }).fill('another good one');
+    await page.getByRole('button', { name: 'Create account' }).click();
+    await expect(page.getByRole('heading', { name: 'Your account is ready' })).toBeVisible();
+    await expect(page.getByText('friend@example.com')).toBeVisible();
+    await page.getByRole('button', { name: 'Sign in' }).click();
+    await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
+  });
+
+  test('no answer while joining says to try signing in', async ({ page }) => {
+    await fakeSupabase(page);
+    await joinApi(page, true, { error: 'unsure' });
+    await page.goto(`/join#${CODE}`);
+    await fill(page);
+    await page.getByRole('button', { name: 'Create account' }).click();
+    await expect(page.getByText('your account may have been created')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Sign in', exact: true })).toBeVisible();
   });
 
   test('a used or expired link says so', async ({ page }) => {
