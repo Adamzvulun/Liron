@@ -108,7 +108,7 @@ test('the compass says the next step of your road, and leads to its door', async
     const compass = page.getByRole('navigation', { name: 'Next on your road' });
     await expect(compass.getByRole('link')).toHaveCount(1);
     await expect(compass.getByRole('link')).toContainText('Signal Tower: ');
-    await compass.getByRole('button', { name: /^Show the other \d+ lines$/ }).click();
+    await compass.getByRole('button', { name: /^Show the other (1 line|\d+ lines)$/ }).click();
     await expect(compass.getByRole('link')).toHaveCount(2);
     await expect(compass.getByRole('link').nth(1)).toContainText('Caravanserai: ');
     await compass.getByRole('link').first().click();
@@ -189,7 +189,7 @@ test('chests wait on the Notice Board and open once, paying what they held (ADR 
   // The city's errand (the-road.md §7): a line after the guilds', on both sizes.
   if (onPhone()) {
     const compass = page.getByRole('navigation', { name: 'Next on your road' });
-    await compass.getByRole('button', { name: /^Show the other \d+ lines$/ }).click();
+    await compass.getByRole('button', { name: /^Show the other (1 line|\d+ lines)$/ }).click();
     await expect(compass.getByRole('link').last()).toContainText('A chest is waiting');
   } else {
     await expect(

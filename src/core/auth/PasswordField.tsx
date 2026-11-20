@@ -61,18 +61,20 @@ export function PasswordField({
           type="button"
           className="pwfield__show"
           aria-controls={id}
-          aria-pressed={shown}
+          // Its name says what it will do (Show / Hide), so no aria-pressed as well: a toggle
+          // either keeps one name and says pressed, or changes its name, never both.
           aria-label={shown ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`}
           onClick={() => setShown((s) => !s)}
         >
           {shown ? 'Hide' : 'Show'}
         </button>
       </span>
-      {caps && (
-        <span id={capsId} className="pwfield__caps" role="status">
-          Caps Lock is on.
-        </span>
-      )}
+      {/* Always there, so a screen reader hears the warning arrive: many announce only changes
+          inside a live region that already exists. A polite live region rather than
+          role="status", so it isn't a second status message beside the form's own. */}
+      <span id={capsId} className="pwfield__caps" aria-live="polite">
+        {caps ? 'Caps Lock is on.' : ''}
+      </span>
     </div>
   );
 }
