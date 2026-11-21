@@ -34,13 +34,18 @@ test.describe('the city square (#24)', () => {
     }
   });
 
-  test('ambient animations stop when the system asks for reduced motion', async ({ page }) => {
+  test('ambient animations stop when the system asks for reduced motion', async ({
+    page,
+  }, info) => {
+    test.skip(info.project.name === 'phone', 'a touch screen keeps the square still anyway');
     await signedIn(page);
     await page.goto('/');
     const smoke = page.locator('.city .wm-smoke').first();
     expect(await smoke.evaluate((el) => getComputedStyle(el).animationName)).toBe('wm-smoke');
     await page.emulateMedia({ reducedMotion: 'reduce' });
     expect(await smoke.evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+    // Still, a piece needs no layer of its own.
+    expect(await smoke.evaluate((el) => getComputedStyle(el).willChange)).toBe('auto');
   });
 
   test('an upright phone fills the height, pans from the compass, and has a dock', async ({

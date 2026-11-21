@@ -31,7 +31,7 @@ Idea ──► Discovery doc ──► ADR(s) ──► Epic issue ──► Fea
   - Branch per issue or feature, from `dev`. A PR into `dev` says `Closes #N`.
   - **Release:** when Adam is happy with the dev site, a PR from `dev` into `main` (`Release vX.Y.Z`, merge commit, then tag `main`).
   - **Hotfix:** branch from `main`, PR into `main`, then merge `main` back into `dev`.
-  - Never merge a red PR. Only Adam merges into `main`. Nobody pushes directly to `dev` or `main`.
+  - Never merge a red PR. Release PRs into `main` too: Claude merges them (merge commit) once every check passes and the work checks out (Adam, 2026-11-21: "if all checks pass and everything is working - merge yourself"). Nobody pushes directly to `dev` or `main`.
 - **Definition of Done:**
   - Acceptance criteria are met.
   - Tests pass, with a new test where logic changed.
