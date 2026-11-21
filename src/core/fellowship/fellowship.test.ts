@@ -3,12 +3,14 @@ import { paintAvatar } from '../avatar/paint.ts';
 import { DEFAULT_LOOK } from '../avatar/looks.ts';
 import {
   dayLabel,
+  FellowshipError,
   milestoneLine,
   rankName,
   readCard,
   readMilestone,
   readRequest,
   showCode,
+  supabaseFellowship,
   tidyCode,
   type Milestone,
 } from './fellowship.ts';
@@ -136,5 +138,81 @@ describe('the party feed in words (task 3.3)', () => {
     expect(dayLabel('2026-11-16', '2026-11-17')).toBe('Yesterday');
     expect(dayLabel('2026-11-03', '2026-11-17')).toBe('Nov 3');
     expect(dayLabel('', '2026-11-17')).toBe('');
+  });
+});
+
+describe('the Fellowship through Supabase (supabaseFellowship)', () => {
+  type Rpc = { data?: unknown; error?: { message: string; hint?: string } | null };
+  /** A client whose `rpc` answers from `answers` by function name and records each call. */
+  const fake = (answers: Record<string, Rpc>, userId: string | null = 'u1') => {
+    const calls: [string, unknown][] = [];
+    const updates: unknown[] = [];
+    const client = {
+      rpc: async (fn: string, args?: unknown) => {
+        calls.push([fn, args]);
+        const a = answers[fn] ?? {};
+        return { data: a.data ?? null, error: a.error ?? null };
+      },
+      auth: {
+        getSession: async () => ({
+          data: { session: userId ? { user: { id: userId } } : null },
+        }),
+      },
+      from: () => ({
+        update: (row: unknown) => ({
+          eq: async () => {
+            updates.push(row);
+            return { error: null };
+          },
+        }),
+      }),
+    };
+    return {
+      source: supabaseFellowship(client as unknown as Parameters<typeof supabaseFellowship>[0]),
+      calls,
+      updates,
+    };
+  };
+
+  it('sends a code the way the server keeps it', async () => {
+    const { source, calls } = fake({});
+    await source.ask(' abcd-efgh ');
+    expect(calls).toEqual([['ask_friend', { p_code: 'ABCDEFGH' }]]);
+  });
+
+  it('turns the server’s hints into problems the page can explain', async () => {
+    for (const hint of ['daily-limit', 'waiting', 'full'] as const) {
+      const { source } = fake({ ask_friend: { error: { message: 'no', hint } } });
+      await expect(source.ask('ABCDEFGH')).rejects.toMatchObject({ problem: hint });
+    }
+    // Any other refusal, or none named, is a plain failure: never the server's own words.
+    for (const hint of ['owned', undefined]) {
+      const { source } = fake({ remove_friend: { error: { message: 'secret detail', hint } } });
+      const error = await source.remove('x').catch((e: unknown) => e);
+      expect(error).toBeInstanceOf(FellowshipError);
+      expect(error).toMatchObject({ problem: 'failed' });
+      expect(String(error)).not.toContain('secret detail');
+    }
+  });
+
+  it('keeps only real cards and requests, and a code of at most 8 letters', async () => {
+    const id = '00000000-0000-4000-8000-000000000001';
+    const { source } = fake({
+      fellowship: { data: [{ id, name: 'Dana' }, { id: 'not-a-uuid' }, null] },
+      fellowship_requests: { data: 'not a list' },
+      my_friend_code: { data: 'ABCDEFGHIJKL' },
+    });
+    expect((await source.cards()).map((c) => c.name)).toEqual(['Dana']);
+    expect(await source.requests()).toEqual([]);
+    expect(await source.code()).toBe('ABCDEFGH');
+  });
+
+  it('changes sharing only when signed in', async () => {
+    const signedIn = fake({});
+    await signedIn.source.setSharing(false);
+    expect(signedIn.updates).toEqual([{ share_milestones: false }]);
+    const signedOut = fake({}, null);
+    await expect(signedOut.source.setSharing(true)).rejects.toMatchObject({ problem: 'failed' });
+    expect(signedOut.updates).toEqual([]);
   });
 });

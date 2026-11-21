@@ -56,7 +56,11 @@ const PLAYER_TABLES: Record<string, string> = {
   gifts: 'from_id',
 };
 
-/** Tables with no player in them: game data and counters, read only by the functions or by licensees. */
+/**
+ * Tables with no player in them: game data and counters, read only by the functions or by
+ * licensees. Also the invite links and who may make them (ADR 0052): nobody but the functions
+ * reads them, and the server alone uses a link.
+ */
 const SHARED_TABLES = [
   'achievements',
   'chest_drops',
@@ -65,6 +69,8 @@ const SHARED_TABLES = [
   'content_lessons',
   'contract_templates',
   'fellowship_quests',
+  'invites',
+  'inviters',
   'items',
   'round_kinds',
   'site_usage',
@@ -80,6 +86,7 @@ const SHARED_TABLES = [
  */
 const CALLABLE: Record<string, string> = {
   'buy_item(p_item text)': 'spends the caller’s own gold; one of each item',
+  'can_invite()': 'whether the caller may make invite links (ADR 0052)',
   'chat_lines_per_day()': 'a constant',
   'check_daily_goal()': 'the caller’s own day',
   'claim_chat_line()': 'the caller’s allowance (60 a day) and the site’s ceiling (ADR 0041)',
@@ -88,6 +95,7 @@ const CALLABLE: Record<string, string> = {
   'current_streak()': 'the caller’s own streak',
   'is_content_licensee()': 'whether the caller is a licensee',
   'level_for_xp(p_xp bigint)': 'pure arithmetic',
+  'make_invite()': 'only an inviter; 20 open links at most (ADR 0052)',
   'market_today()': 'the day’s wares and the caller’s purchases',
   'my_achievements()': 'the caller’s own achievements',
   'open_chest(p_chest uuid)': 'only a chest the caller owns',

@@ -9,7 +9,7 @@ export type AuthState =
   | { status: 'setPassword'; session: Session }
   | { status: 'signedIn'; session: Session };
 
-/** Tracks the login state. Links from invite or reset emails lead to the "choose a password" step. */
+/** Tracks the login state. Links from invite or reset emails lead to the "Set your password" step. */
 export function useAuth(): [AuthState, () => void] {
   const [state, setState] = useState<AuthState>({ status: 'loading' });
   // Read once at start-up, before supabase-js clears the token fragment from the URL.
