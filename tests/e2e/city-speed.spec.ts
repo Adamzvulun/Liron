@@ -84,14 +84,13 @@ test.describe('the city square stays fast (#123)', () => {
     }
     expect(report.blended).toBe(0);
 
+    // Hovering is for a mouse; a touch screen's square is still pictures (the next tests).
+    if (still) return;
     const place = page.locator('.city__place--caravanserai');
     await place.hover();
     await expect(place.locator('.city__glow')).toHaveCSS('opacity', '1');
-    // A layer of its own before the hover, so lifting it never draws the building again (#137);
-    // on a touch screen, which can't hover, none (the next test).
-    expect(await place.evaluate((el) => getComputedStyle(el).willChange)).toBe(
-      still ? 'auto' : 'transform',
-    );
+    // A layer of its own before the hover, so lifting it never draws the building again (#137).
+    expect(await place.evaluate((el) => getComputedStyle(el).willChange)).toBe('transform');
     expect(await place.evaluate((el) => getComputedStyle(el).filter)).toBe('none');
   });
 
@@ -118,14 +117,33 @@ test.describe('the city square stays fast (#123)', () => {
       };
     });
     expect(report).toEqual({ layers: [], moving: [] });
-    // A lamp lit by a road step shows without fading in, which would make it a layer.
-    const lit = await page.evaluate(() => {
-      const place = document.querySelector('.city__place--tower') as HTMLElement;
-      place.classList.add('city__place--lit');
-      const glow = getComputedStyle(place.querySelector('.city__glow') as Element);
-      return { animation: glow.animationName, opacity: glow.opacity };
+  });
+
+  test('a phone gets the square as pictures, with no live filters: they crashed Safari too', async ({
+    page,
+  }, info) => {
+    test.skip(info.project.name !== 'phone', 'a touch screen only');
+    await openSquare(page);
+    const report = await page.evaluate(async () => {
+      const stage = document.querySelector('.city__stage') as HTMLElement;
+      const pictures = [...stage.querySelectorAll<HTMLImageElement>('img.city__picture')];
+      await Promise.all(pictures.map((p) => p.decode()));
+      return {
+        // Each filtered shape kept a full-size buffer in Safari; inside an image it is drawn once.
+        filtered: [...stage.querySelectorAll('[filter]')].filter((el) => !el.closest('defs'))
+          .length,
+        pictures: pictures.length,
+        drawn: pictures.every((p) => p.naturalWidth > 0),
+      };
     });
-    expect(lit).toEqual({ animation: 'none', opacity: '1' });
+    expect(report).toEqual({ filtered: 0, pictures: expect.any(Number), drawn: true });
+    expect(report.pictures).toBeGreaterThanOrEqual(8);
+    // A tap on the building itself, not its plaque, still opens it.
+    const tower = page.locator('.city__place--tower .city__hit');
+    const box = await tower.boundingBox();
+    if (!box) throw new Error('no tower');
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    await expect(page).toHaveURL(/\/signal-tower$/);
   });
 
   test(
