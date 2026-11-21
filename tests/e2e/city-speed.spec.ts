@@ -73,7 +73,10 @@ test.describe('the city square stays fast (#123)', () => {
       ).length;
       return { animations, blended };
     });
-    expect(report.animations.length).toBeGreaterThan(5);
+    // A touch screen keeps the square still (the next test); a mouse sees it move.
+    const still = await page.evaluate(() => matchMedia('(hover: none)').matches);
+    if (still) expect(report.animations).toEqual([]);
+    else expect(report.animations.length).toBeGreaterThan(5);
     for (const a of report.animations) {
       expect(a.sprite).toBe(true);
       expect(a.insideSvg).toBe(false);
@@ -86,35 +89,43 @@ test.describe('the city square stays fast (#123)', () => {
     await expect(place.locator('.city__glow')).toHaveCSS('opacity', '1');
     // A layer of its own before the hover, so lifting it never draws the building again (#137);
     // on a touch screen, which can't hover, none (the next test).
-    const touch = await page.evaluate(() => matchMedia('(hover: none)').matches);
     expect(await place.evaluate((el) => getComputedStyle(el).willChange)).toBe(
-      touch ? 'auto' : 'transform',
+      still ? 'auto' : 'transform',
     );
     expect(await place.evaluate((el) => getComputedStyle(el).filter)).toBe('none');
   });
 
-  test('a phone keeps no stage-sized layers, which crashed Safari on an iPhone', async ({
+  test('a phone keeps the square still, as one picture: layers crashed Safari on an iPhone', async ({
     page,
   }, info) => {
     test.skip(info.project.name !== 'phone', 'a touch screen only');
     await openSquare(page);
     // The phone project is a touch screen that can't hover, as an iPhone is.
     expect(await page.evaluate(() => matchMedia('(hover: none)').matches)).toBe(true);
-    // Only the animated sprites ask for a layer of their own, the largest the band of drifting
-    // clouds (a third of the stage): nothing half the stage or more, as each place's whole-stage
-    // layer was (in stage pixels, before the stage is scaled to the screen).
-    const big = await page.evaluate(() => {
+    const report = await page.evaluate(() => {
       const stage = document.querySelector('.city__stage') as HTMLElement;
-      const scale = stage.getBoundingClientRect().width / stage.offsetWidth;
-      return [...stage.querySelectorAll('*')]
-        .filter((el) => getComputedStyle(el).willChange !== 'auto')
-        .map((el) => {
-          const b = el.getBoundingClientRect();
-          return { cls: el.getAttribute('class'), area: (b.width / scale) * (b.height / scale) };
-        })
-        .filter((l) => l.area >= (1920 * 1080) / 2);
+      return {
+        // Nothing asks for a layer of its own…
+        layers: [...stage.querySelectorAll('*')]
+          .filter((el) => getComputedStyle(el).willChange !== 'auto')
+          .map((el) => el.getAttribute('class')),
+        // …and nothing moves, so nothing is drawn over a moving piece, which in Safari makes a
+        // layer of everything above it, each the size of the stage.
+        moving: stage
+          .getAnimations({ subtree: true })
+          .filter((a) => a instanceof CSSAnimation)
+          .map((a) => (a as CSSAnimation).animationName),
+      };
     });
-    expect(big).toEqual([]);
+    expect(report).toEqual({ layers: [], moving: [] });
+    // A lamp lit by a road step shows without fading in, which would make it a layer.
+    const lit = await page.evaluate(() => {
+      const place = document.querySelector('.city__place--tower') as HTMLElement;
+      place.classList.add('city__place--lit');
+      const glow = getComputedStyle(place.querySelector('.city__glow') as Element);
+      return { animation: glow.animationName, opacity: glow.opacity };
+    });
+    expect(lit).toEqual({ animation: 'none', opacity: '1' });
   });
 
   test(
