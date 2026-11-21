@@ -167,7 +167,7 @@ Everything merged into `dev` since `release/v1.1.0` was cut: the 2026-11-19 revi
 
 Adam sends a link from Settings; the friend makes their own account and is his friend at once ([ADR 0052](../decisions/0052-invite-links.md)). With the join page naming who sent it and a preview card for chat apps. Notes: [releases/v1.2.0.md](releases/v1.2.0.md). Released 2026-11-21 ([#395](https://github.com/Adamzvulun/Liron/pull/395)), merged by Claude at Adam's word.
 
-### Next: v1.2.1 — The square on an iPhone
+### v1.2.1 — The square on an iPhone
 
-Right after v1.2.0, Adam signed in on his iPhone and Safari crashed as the square opened ("A problem repeatedly occurred"); the Signal Tower opened fine. The fix drops the square's hover layers on touch screens. Notes: [releases/v1.2.1.md](releases/v1.2.1.md).
+Right after v1.2.0, Adam signed in on his iPhone and Safari crashed as the square opened ("A problem repeatedly occurred"); the Signal Tower opened fine. The fix drops the square's hover layers on touch screens. Notes: [releases/v1.2.1.md](releases/v1.2.1.md). Released 2026-11-21 ([#400](https://github.com/Adamzvulun/Liron/pull/400)).
 
