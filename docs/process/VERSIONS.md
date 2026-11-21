@@ -169,5 +169,9 @@ Adam sends a link from Settings; the friend makes their own account and is his f
 
 ### v1.2.1 — The square on an iPhone
 
-Right after v1.2.0, Adam signed in on his iPhone and Safari crashed as the square opened ("A problem repeatedly occurred"); the Signal Tower opened fine. The fix drops the square's hover layers on touch screens. Notes: [releases/v1.2.1.md](releases/v1.2.1.md). Released 2026-11-21 ([#400](https://github.com/Adamzvulun/Liron/pull/400)).
+Right after v1.2.0, Adam signed in on his iPhone and Safari crashed as the square opened ("A problem repeatedly occurred"); the Signal Tower opened fine. The fix drops the square's hover layers on touch screens. Notes: [releases/v1.2.1.md](releases/v1.2.1.md). Released 2026-11-21 ([#400](https://github.com/Adamzvulun/Liron/pull/400)). It only got halfway: the square then crashed a second after it showed.
+
+### v1.2.2 — The square holds still on a touch screen
+
+On a touch screen the square's pieces don't move, so Safari draws it as one picture. Notes: [releases/v1.2.2.md](releases/v1.2.2.md).
 
