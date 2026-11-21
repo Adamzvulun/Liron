@@ -121,15 +121,34 @@
   opacity: 1;
 }
 
-/* A touch screen can't hover, so it gets none of the hover layers above. Each place's layer is
-   the whole 1920 × 1080 stage, and the glows and plaques add more: on an iPhone they took more
-   memory than Safari allows, and the page crashed as soon as the square opened (2026-11-21).
-   The Signal Tower, which has none of these, opened fine on the same phone. */
+/* A touch screen keeps the square still, so Safari draws it as one picture (2026-11-21).
+   Each moving piece (smoke, clouds, flames) is a layer of its own, and in Safari everything drawn
+   over one becomes a layer too: the square's 8 stage-sized paintings and its 5 stage-sized places
+   each turned into a full-size layer. On an iPhone that was more memory than Safari gives a page,
+   and the page crashed and reloaded over and over. Without the hover layers (a touch screen can't
+   hover anyway) it still crashed a second after the square appeared, once the pieces moved.
+   The Signal Tower, which has far fewer, opened fine on the same phone. */
 @media (hover: none) {
   .city__place,
   .city__glow,
-  .city__plaque::after {
+  .city__plaque::after,
+  .city .city__sprite {
     will-change: auto;
+  }
+  .city .city__sprite {
+    animation: none !important;
+  }
+  /* A lamp lit by a road step (task 4.6) shows for its two seconds without fading, which
+     would make it a layer too. */
+  .city .city__place--lit .city__glow {
+    animation: none;
+    opacity: 1;
+  }
+  /* Nor does anything fade or lift: a transition is a layer while it runs. */
+  .city .city__place,
+  .city .city__glow,
+  .city .city__plaque::after {
+    transition: none;
   }
 }
 
@@ -421,6 +440,10 @@
 @media (prefers-reduced-motion: reduce) {
   .city * {
     animation: none !important;
+  }
+  /* Still, a sprite needs no layer of its own. */
+  .city .city__sprite {
+    will-change: auto;
   }
   .city__place,
   .city__glow,
