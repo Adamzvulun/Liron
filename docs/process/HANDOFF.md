@@ -8,7 +8,7 @@
 - **Adam's instruction (2026-11-04):**
   - Keep working without stopping.
   - One branch per major feature, each with its own PR into `dev`.
-  - **Merge into `dev` yourself once CI is green and the work checks out.** Only Adam merges into `main`.
+  - **Merge into `dev` yourself once CI is green and the work checks out.** Release PRs into `main` too: Claude merges them (merge commit) once every check passes and the work checks out (Adam, 2026-11-21: "if all checks pass and everything is working - merge yourself").
   - Keep a report ready for him: [reports/2026-11-05.md](reports/2026-11-05.md) covers everything since 2026-11-03 night, his three findings and his open questions.
 - **Merged into `dev` (2026-11-04):**
   - #73: the Morse sprint (E6, E7), merged by Adam.
