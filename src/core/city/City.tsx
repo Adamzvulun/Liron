@@ -84,6 +84,39 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 const PICTURE_PAD = 40;
 const pictures = new Map<string, string>();
 
+/** The square's gradients, filters and patterns by id, read once per page. */
+let defsById: { source: string; byId: Map<string, string> } | undefined;
+const REFERENCE = /#([\w-]+)/g;
+
+/**
+ * Only the definitions `body` uses (and those they use in turn). Every picture is its own
+ * document, and the browser reads all it is given each time it draws one: the whole set is
+ * 292 definitions, and a building uses a handful.
+ */
+function defsFor(body: string, defs: string): string {
+  if (defsById?.source !== defs) {
+    const doc = new DOMParser().parseFromString(
+      `<svg xmlns="${SVG_NS}"><defs>${defs}</defs></svg>`,
+      'image/svg+xml',
+    );
+    const byId = new Map<string, string>();
+    for (const el of doc.querySelectorAll('defs > [id]')) byId.set(el.id, el.outerHTML);
+    defsById = { source: defs, byId };
+  }
+  const { byId } = defsById;
+  const used = new Set<string>();
+  const look = (markup: string) => {
+    for (const [, id = ''] of markup.matchAll(REFERENCE)) {
+      const def = byId.get(id);
+      if (def === undefined || used.has(id)) continue;
+      used.add(id);
+      look(def);
+    }
+  };
+  look(body);
+  return [...used].map((id) => byId.get(id)).join('');
+}
+
 /**
  * A picture of `segments` over `box`, as an image address made once per page. Sprites are drawn
  * where they stand still; a touch screen keeps the square still anyway.
@@ -99,7 +132,7 @@ function pictureOf(key: string, segments: readonly Segment[], box: Box, defs: st
         : `<svg x="${s.box.x}" y="${s.box.y}" width="${s.box.w}" height="${s.box.h}" viewBox="${s.box.x} ${s.box.y} ${s.box.w} ${s.box.h}" overflow="visible">${s.svg}</svg>`,
     )
     .join('');
-  const xml = `<svg xmlns="${SVG_NS}" width="${w}" height="${h}" viewBox="${x} ${y} ${w} ${h}"><defs>${defs}</defs>${body}</svg>`;
+  const xml = `<svg xmlns="${SVG_NS}" width="${w}" height="${h}" viewBox="${x} ${y} ${w} ${h}"><defs>${defsFor(body, defs)}</defs>${body}</svg>`;
   const url = URL.createObjectURL(new Blob([xml], { type: 'image/svg+xml' }));
   pictures.set(key, url);
   return url;
