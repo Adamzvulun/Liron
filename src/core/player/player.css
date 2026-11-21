@@ -1011,3 +1011,28 @@
   flex-wrap: wrap;
   gap: 8px;
 }
+
+/* "Invite a friend" (ADR 0052): the link, ready to copy. */
+.hud__invitelink {
+  width: 100%;
+  min-height: 44px;
+  margin: 8px 0;
+  padding: 0 10px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+
+.hud__invitelink:focus-visible {
+  outline: 3px solid var(--brass);
+  outline-offset: 2px;
+}
+
+#hud-invite + .hud__fieldhint {
+  margin: 4px 0 8px;
+}

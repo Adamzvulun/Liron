@@ -52,8 +52,12 @@ test('"forgot your password?" opens its own step, which confirms without saying 
 }) => {
   await fakeSupabase(page);
   await page.goto('/');
-  await expect(page.getByText('New here? Sign in with the password you were given')).toBeVisible();
-  await expect(page.getByText('Waymark is by invitation: there’s no sign-up.')).toBeVisible();
+  // Invite-only (ADR 0016, 0052): no sign-up, and the hint says how a friend gets in.
+  await expect(
+    page.getByText(
+      'New here? Waymark is invite-only. Open the invite link you were sent, or sign in with the email and password you were given.',
+    ),
+  ).toBeVisible();
   // The email already typed comes along (Adam, 2026-11-19: the reset was easy to miss).
   await page.getByLabel('Email').fill('someone@example.com');
   await page.getByRole('button', { name: 'Forgot your password?' }).click();
@@ -93,9 +97,8 @@ test('a password can be shown while typed, and Caps Lock is pointed out (2026-11
   await expect(password).toHaveAttribute('type', 'password');
   await page.getByRole('button', { name: 'Show password' }).click();
   await expect(password).toHaveAttribute('type', 'text');
-  await expect(page.getByRole('button', { name: 'Hide password' })).toHaveAttribute(
+  await expect(page.getByRole('button', { name: 'Hide password' })).not.toHaveAttribute(
     'aria-pressed',
-    'true',
   );
   await page.getByRole('button', { name: 'Hide password' }).click();
   await expect(password).toHaveAttribute('type', 'password');
@@ -121,6 +124,10 @@ test('a player changes their password in Settings (#324)', async ({ page }) => {
   const fresh = page.getByLabel('New password', { exact: true });
   await expect(fresh).toHaveAccessibleDescription('At least 8 characters.');
   await fresh.fill('a long new password');
+  // Typing stops short of the Show button: Settings' own padding doesn't undo its room.
+  const room = await fresh.evaluate((e) => parseFloat(getComputedStyle(e).paddingRight));
+  const button = await page.getByRole('button', { name: 'Show new password' }).boundingBox();
+  expect(room).toBeGreaterThanOrEqual(button?.width ?? Infinity);
   await page.getByLabel('Confirm password', { exact: true }).fill('a long new passwort');
   await page.getByRole('button', { name: 'Save new password' }).click();
   await expect(page.getByText('Passwords do not match.')).toBeVisible();
