@@ -1,9 +1,16 @@
-import { useId, useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useId, useState, type FormEvent, type ReactNode } from 'react';
 import { supabase } from './supabase.ts';
 import { GateScene } from './Scenes.tsx';
 import { MIN_PASSWORD, passwordProblem, passwordRefused } from './password.ts';
 import { PasswordField } from './PasswordField.tsx';
 import { signInRefused } from './signIn.ts';
+import {
+  checkInvite,
+  JOIN_PROBLEM,
+  joinWithInvite,
+  type InviteState,
+  type JoinProblem,
+} from './invites.ts';
 import './auth.css';
 
 function Panel({ title, children }: { title: string; children: ReactNode }) {
@@ -97,7 +104,12 @@ export function LoginScreen() {
             {busy ? 'Sending…' : 'Send reset email'}
           </button>
           {message && <Said message={message} />}
-          <button className="auth__link" type="button" onClick={() => show('signin')}>
+          <button
+            className="auth__link"
+            type="button"
+            disabled={busy}
+            onClick={() => show('signin')}
+          >
             Back to sign in
           </button>
         </form>
@@ -119,12 +131,12 @@ export function LoginScreen() {
           {busy ? 'Signing in…' : 'Sign in'}
         </button>
         {message && <Said message={message} />}
-        <button className="auth__link" type="button" onClick={() => show('reset')}>
+        <button className="auth__link" type="button" disabled={busy} onClick={() => show('reset')}>
           Forgot your password?
         </button>
         <p className="auth__hint">
-          New here? Sign in with the password you were given, then change it in Settings. Waymark is
-          by invitation: there’s no sign-up.
+          New here? Waymark is invite-only. Open the invite link you were sent, or sign in with the
+          email and password you were given.
         </p>
       </form>
     </Panel>
@@ -206,6 +218,175 @@ export function SetPasswordScreen({ email, onDone }: { email?: string; onDone: (
             {error}
           </p>
         )}
+      </form>
+    </Panel>
+  );
+}
+
+/** Leaves the join page for the sign-in screen. */
+const toSignIn = () => window.location.assign('/');
+
+/**
+ * The page an invite link opens (ADR 0052): the friend chooses their own email and password,
+ * the server makes the account, and they're signed in.
+ */
+export function JoinScreen({ code }: { code: string }) {
+  const hintId = useId();
+  const [state, setState] = useState<InviteState | 'checking'>('checking');
+  const [from, setFrom] = useState<string | null>(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [again, setAgain] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [taken, setTaken] = useState(false);
+  const [made, setMade] = useState(false);
+
+  useEffect(() => {
+    let live = true;
+    void checkInvite(code).then((check) => {
+      if (!live) return;
+      setState(check.state);
+      setFrom(check.from);
+    });
+    return () => {
+      live = false;
+    };
+  }, [code]);
+
+  async function create(e: FormEvent) {
+    e.preventDefault();
+    if (!supabase) return;
+    const problem = passwordProblem(password, again);
+    if (problem) {
+      setError(problem);
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    setTaken(false);
+    const refused: JoinProblem | null = await joinWithInvite({
+      code,
+      email: email.trim(),
+      password,
+    });
+    if (refused) {
+      setBusy(false);
+      if (refused === 'used') setState('closed');
+      else if (refused === 'not-set-up') setState('not-set-up');
+      else {
+        setError(JOIN_PROBLEM[refused]);
+        setTaken(refused === 'email-taken' || refused === 'unsure');
+      }
+      return;
+    }
+    // The account is made: sign in with it, on the square's own address.
+    window.history.replaceState(null, '', '/');
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
+    if (signInError) {
+      // The account is made; only signing in failed (a blip, say). Say so, rather than drop
+      // them on an empty sign-in screen thinking the invite failed.
+      setBusy(false);
+      setMade(true);
+    }
+  }
+
+  if (made) {
+    return (
+      <Panel title="Your account is ready">
+        <p className="auth__text">
+          Sign in with <strong className="auth__email">{email.trim()}</strong> and the password you
+          just chose.
+        </p>
+        <button className="auth__button" type="button" onClick={toSignIn}>
+          Sign in
+        </button>
+      </Panel>
+    );
+  }
+
+  if (state === 'checking') {
+    return (
+      <Panel title="Create your account">
+        <p className="auth__text" role="status">
+          Checking your invite…
+        </p>
+      </Panel>
+    );
+  }
+  if (state !== 'open') {
+    const text =
+      state === 'closed'
+        ? JOIN_PROBLEM.used
+        : state === 'not-set-up'
+          ? JOIN_PROBLEM['not-set-up']
+          : 'Couldn’t check your invite. Check your connection and try again.';
+    return (
+      <Panel title={state === 'closed' ? 'Invite link expired' : 'Create your account'}>
+        <p className="auth__text">{text}</p>
+        <button className="auth__link" type="button" onClick={toSignIn}>
+          Go to sign in
+        </button>
+      </Panel>
+    );
+  }
+  return (
+    <Panel title="Create your account">
+      <form className="auth__form" onSubmit={create}>
+        <p className="auth__text auth__text--tight">
+          {from ? (
+            <>
+              <strong className="auth__email">{from}</strong> invited you to Waymark.
+            </>
+          ) : (
+            'You’ve been invited to Waymark.'
+          )}
+        </p>
+        <label className="auth__label">
+          Email
+          <input
+            className="auth__input"
+            type="email"
+            autoComplete="username"
+            inputMode="email"
+            autoCapitalize="off"
+            spellCheck={false}
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
+        <PasswordField
+          label="Password"
+          autoComplete="new-password"
+          minLength={MIN_PASSWORD}
+          describedBy={hintId}
+          value={password}
+          onChange={setPassword}
+        />
+        <p id={hintId} className="auth__hint">
+          At least {MIN_PASSWORD} characters.
+        </p>
+        <PasswordField
+          label="Confirm password"
+          autoComplete="new-password"
+          value={again}
+          onChange={setAgain}
+        />
+        <button className="auth__button" type="submit" disabled={busy}>
+          {busy ? 'Creating account…' : 'Create account'}
+        </button>
+        {error && (
+          <p className="auth__message auth__message--error" role="status">
+            {error}
+          </p>
+        )}
+        <button className="auth__link" type="button" onClick={toSignIn}>
+          {taken ? 'Sign in' : 'Already have an account? Sign in'}
+        </button>
       </form>
     </Panel>
   );
