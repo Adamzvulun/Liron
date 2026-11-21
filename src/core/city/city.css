@@ -121,6 +121,18 @@
   opacity: 1;
 }
 
+/* A touch screen can't hover, so it gets none of the hover layers above. Each place's layer is
+   the whole 1920 × 1080 stage, and the glows and plaques add more: on an iPhone they took more
+   memory than Safari allows, and the page crashed as soon as the square opened (2026-11-21).
+   The Signal Tower, which has none of these, opened fine on the same phone. */
+@media (hover: none) {
+  .city__place,
+  .city__glow,
+  .city__plaque::after {
+    will-change: auto;
+  }
+}
+
 .city__place:focus-visible .city__plaque {
   outline: 4px solid #ffd36b;
   outline-offset: 4px;

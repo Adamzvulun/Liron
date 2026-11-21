@@ -84,9 +84,37 @@ test.describe('the city square stays fast (#123)', () => {
     const place = page.locator('.city__place--caravanserai');
     await place.hover();
     await expect(place.locator('.city__glow')).toHaveCSS('opacity', '1');
-    // A layer of its own before the hover, so lifting it never draws the building again (#137).
-    expect(await place.evaluate((el) => getComputedStyle(el).willChange)).toBe('transform');
+    // A layer of its own before the hover, so lifting it never draws the building again (#137);
+    // on a touch screen, which can't hover, none (the next test).
+    const touch = await page.evaluate(() => matchMedia('(hover: none)').matches);
+    expect(await place.evaluate((el) => getComputedStyle(el).willChange)).toBe(
+      touch ? 'auto' : 'transform',
+    );
     expect(await place.evaluate((el) => getComputedStyle(el).filter)).toBe('none');
+  });
+
+  test('a phone keeps no stage-sized layers, which crashed Safari on an iPhone', async ({
+    page,
+  }, info) => {
+    test.skip(info.project.name !== 'phone', 'a touch screen only');
+    await openSquare(page);
+    // The phone project is a touch screen that can't hover, as an iPhone is.
+    expect(await page.evaluate(() => matchMedia('(hover: none)').matches)).toBe(true);
+    // Only the animated sprites ask for a layer of their own, the largest the band of drifting
+    // clouds (a third of the stage): nothing half the stage or more, as each place's whole-stage
+    // layer was (in stage pixels, before the stage is scaled to the screen).
+    const big = await page.evaluate(() => {
+      const stage = document.querySelector('.city__stage') as HTMLElement;
+      const scale = stage.getBoundingClientRect().width / stage.offsetWidth;
+      return [...stage.querySelectorAll('*')]
+        .filter((el) => getComputedStyle(el).willChange !== 'auto')
+        .map((el) => {
+          const b = el.getBoundingClientRect();
+          return { cls: el.getAttribute('class'), area: (b.width / scale) * (b.height / scale) };
+        })
+        .filter((l) => l.area >= (1920 * 1080) / 2);
+    });
+    expect(big).toEqual([]);
   });
 
   test(
