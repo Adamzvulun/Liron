@@ -149,7 +149,7 @@ test.describe('the city square stays fast (#123)', () => {
         const doc = new DOMParser().parseFromString(xml, 'image/svg+xml');
         const ids = new Set([...doc.querySelectorAll('[id]')].map((el) => el.id));
         for (const [, id] of xml.matchAll(/(?:url\(|href=")#([\w-]+)/g))
-          if (!ids.has(id ?? '')) out.push(`${img.parentElement?.className ?? "?"}: #${id}`);
+          if (!ids.has(id ?? '')) out.push(`${img.parentElement?.className ?? '?'}: #${id}`);
       }
       return [...new Set(out)];
     });
