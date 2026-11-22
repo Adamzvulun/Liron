@@ -21,10 +21,11 @@ import {
   type Does,
   type Layout,
   type PieceDef,
+  type Placed,
 } from './layout.ts';
 import { homeLayers } from './paintHome.ts';
 import { cellKey, findPath, type Cell } from './path.ts';
-import { avatarScale, cellAt, cellFeet } from './projection.ts';
+import { avatarScale, cellAt, cellFeet, floorPoint, type Pt } from './projection.ts';
 import './room.css';
 
 const STAGE = { width: 1920, height: 1080 } as const;
@@ -74,8 +75,12 @@ const standingZ = (row: number) => 2 * (row + 1) + 1;
 
 /** Where a figure stands: its feet on the middle of a cell, scaled by the row (§3). */
 function placeAt([c, r]: Cell, nudge = 0) {
-  const [x, y] = cellFeet(c, r);
-  const s = avatarScale(r);
+  return placeOn(cellFeet(c, r), r, nudge);
+}
+
+/** The same, with the feet on any point of the floor, at the size of a row. */
+function placeOn([x, y]: Pt, row: number, nudge = 0) {
+  const s = avatarScale(row);
   return `translate(${x - AVATAR_BOX.width / 2 + nudge * s}px, ${y - AVATAR_BOX.feetY}px) scale(${s})`;
 }
 
@@ -123,6 +128,7 @@ export function Room({
   const [walking, setWalking] = useState(false);
   const [say, setSay] = useState('');
   const [lit, setLit] = useState(true);
+  const [seated, setSeated] = useState<{ point: Pt; row: number } | null>(null);
   const route = useRef<Cell[]>([]);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const hush = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -130,7 +136,7 @@ export function Room({
   // The way you last stepped, so Enter uses what you face (§4).
   const facing = useRef<Cell>([0, -1]);
   // A piece to use when the walk ends.
-  const pending = useRef<PieceDef | null>(null);
+  const pending = useRef<{ p: Placed; def: PieceDef } | null>(null);
   // The way to face once a walk to a piece ends.
   const faceEnd = useRef<Cell | null>(null);
   useEffect(
@@ -147,8 +153,15 @@ export function Room({
     hush.current = setTimeout(() => setSay(''), 2500);
   };
 
-  const act = (def: PieceDef) => {
+  const act = ({ p, def }: { p: Placed; def: PieceDef }) => {
     pending.current = null;
+    // A seat: sit on its front edge, in front of it (§5). Any step stands you up.
+    if (def.does === 'sit' && isFloor(p)) {
+      const [w, d] = def.size;
+      const row = p.at[1] + d - 1;
+      setSeated({ point: floorPoint(p.at[0] + w / 2, p.at[1] + d - 0.3), row });
+      return;
+    }
     // A lantern turns its glow on and off, for you only (§5).
     if (def.does === 'light') {
       setLit((on) => !on);
@@ -178,6 +191,7 @@ export function Room({
   const walk = (to: Cell): boolean => {
     const path = findPath(open, here.current, to);
     if (!path) return false;
+    setSeated(null);
     clearTimeout(timer.current);
     const last = path.at(-1);
     const before = path.at(-2) ?? here.current;
@@ -210,10 +224,10 @@ export function Room({
       .sort((a, b) => (a.path?.length ?? 0) - (b.path?.length ?? 0))[0];
     if (!best?.path) return false;
     const far = best.path.length > OPEN_AFTER_STEPS;
-    pending.current = far ? null : def;
+    pending.current = far ? null : { p, def };
     if (!walk(best.c)) return false;
     // Already there, there at once (reduced motion), or too far to wait for.
-    if (far || best.path.length === 0 || reducedMotion()) act(def);
+    if (far || best.path.length === 0 || reducedMotion()) act({ p, def });
     // Face the piece: its cell, or the wall above.
     const cells = isFloor(p) ? cellsOf(p, def) : [];
     const toward = cells.find((c) => Math.abs(c[0] - best.c[0]) + Math.abs(c[1] - best.c[1]) === 1);
@@ -282,6 +296,7 @@ export function Room({
     // Mid-step, the press is the next step, so a quick player loses no key presses.
     pending.current = null;
     faceEnd.current = null;
+    setSeated(null);
     if (walking) route.current = [to];
     else walk(to);
   };
@@ -303,8 +318,7 @@ export function Room({
 
   const things = layout.pieces.flatMap((p) => {
     const def = DEFS.get(p.id);
-    // Sitting comes with its pose; until then a seat only says its line.
-    return def && def.does !== 'look' && def.does !== 'sit' ? [{ id: p.id, def }] : [];
+    return def && def.does !== 'look' ? [{ id: p.id, def }] : [];
   });
 
   return (
@@ -322,6 +336,7 @@ export function Room({
           className="room__stage"
           data-walking={walking || undefined}
           data-at={cellKey(at)}
+          data-seated={seated ? 'true' : undefined}
           onClick={tap}
           style={{
             width: STAGE.width,
@@ -358,7 +373,12 @@ export function Room({
             className={`room__figure room__avatar${moving ? ' room__figure--moving' : ''}`}
             width={AVATAR_BOX.width}
             height={AVATAR_BOX.height + 10}
-            style={{ transform: placeAt(at), zIndex: standingZ(zRow) }}
+            sit={!!seated}
+            style={
+              seated
+                ? { transform: placeOn(seated.point, seated.row), zIndex: standingZ(seated.row) }
+                : { transform: placeAt(at), zIndex: standingZ(zRow) }
+            }
           />
           <img
             className="room__layer room__light"

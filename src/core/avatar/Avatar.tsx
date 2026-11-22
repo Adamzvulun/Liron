@@ -22,6 +22,7 @@ export function Avatar({
   style,
   pole = false,
   pet = true,
+  sit = false,
 }: {
   look: Look;
   view?: keyof typeof VIEWS;
@@ -34,12 +35,14 @@ export function Avatar({
   pole?: boolean;
   /** The companion at the avatar's feet; the home draws it on its own (task 7.5). */
   pet?: boolean;
+  /** Sitting down (the home, task 7.6). */
+  sit?: boolean;
 }) {
   const idPrefix = useId();
   // The markup comes from our own painter and validated look values, never from free text.
   const svg = useMemo(
-    () => paintAvatar(look, { idPrefix, shadow, pole, pet }),
-    [look, idPrefix, shadow, pole, pet],
+    () => paintAvatar(look, { idPrefix, shadow, pole, pet, sit }),
+    [look, idPrefix, shadow, pole, pet, sit],
   );
   return (
     <svg
