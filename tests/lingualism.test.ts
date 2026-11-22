@@ -1,7 +1,8 @@
+import { existsSync } from 'node:fs';
 import { deflateRawSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
 import { readMediaMap, readZip } from '../scripts/content/apkg.ts';
-import { buildLingualism, cleanField } from '../scripts/content/lingualism.ts';
+import { buildLingualism, cleanField, LINGUALISM_APKG } from '../scripts/content/lingualism.ts';
 import { checkPack } from '../src/core/content/schema.ts';
 
 describe('zip and media-map readers', () => {
@@ -61,34 +62,39 @@ describe('cleanField', () => {
   });
 });
 
+// The deck is never in git (ADR 0054), so this runs only where someone has put their copy in
+// sources/: on Adam's machine, or a session he sent it to. CI skips it.
 describe('the Lingualism deck', () => {
-  it('becomes a valid private pack: 4,823 items in 57 sections, each with its audio', async () => {
-    const { pack, media } = await buildLingualism();
-    expect(checkPack(pack, { public: false })).toEqual([]);
-    expect(pack.items).toHaveLength(4823);
-    expect(pack.lessons).toHaveLength(57);
-    expect(media.size).toBe(4823);
-    expect(pack.items[2]).toEqual({
-      id: 'pcav:0003',
-      subject: 'arabic',
-      type: 'vocab',
-      data: {
-        order: 3,
-        arabic: 'أنا عايِش في غزّة.',
-        pronunciation: 'ána 3āyiš fi ɣázza.',
-        english: 'I live in Gaza.',
-        section: 1,
-      },
-      media: [{ kind: 'audio', store: 'private', path: 'lingualism-pcav/pcav01-3.mp3' }],
-      tags: ['A1', 'section:01'],
-    });
-    expect(pack.lessons[0]).toMatchObject({ id: 'pcav-section:01', title: 'Life and Death' });
-    expect(pack.lessons[4]?.title).toBe('The Human Body & Describing People');
-    // Every audio file is a real MP3 (ID3 tag or MPEG frame sync).
-    for (const file of media.values()) {
-      expect(file[0] === 0x49 || file[0] === 0xff).toBe(true);
-    }
-    const levels = pack.items.map((i) => i.tags[0]);
-    expect(levels.filter((l) => l === 'A1')).toHaveLength(1394);
-  });
+  it.skipIf(!existsSync(LINGUALISM_APKG))(
+    'becomes a valid private pack: 4,823 items in 57 sections, each with its audio',
+    async () => {
+      const { pack, media } = await buildLingualism();
+      expect(checkPack(pack, { public: false })).toEqual([]);
+      expect(pack.items).toHaveLength(4823);
+      expect(pack.lessons).toHaveLength(57);
+      expect(media.size).toBe(4823);
+      expect(pack.items[2]).toEqual({
+        id: 'pcav:0003',
+        subject: 'arabic',
+        type: 'vocab',
+        data: {
+          order: 3,
+          arabic: 'أنا عايِش في غزّة.',
+          pronunciation: 'ána 3āyiš fi ɣázza.',
+          english: 'I live in Gaza.',
+          section: 1,
+        },
+        media: [{ kind: 'audio', store: 'private', path: 'lingualism-pcav/pcav01-3.mp3' }],
+        tags: ['A1', 'section:01'],
+      });
+      expect(pack.lessons[0]).toMatchObject({ id: 'pcav-section:01', title: 'Life and Death' });
+      expect(pack.lessons[4]?.title).toBe('The Human Body & Describing People');
+      // Every audio file is a real MP3 (ID3 tag or MPEG frame sync).
+      for (const file of media.values()) {
+        expect(file[0] === 0x49 || file[0] === 0xff).toBe(true);
+      }
+      const levels = pack.items.map((i) => i.tags[0]);
+      expect(levels.filter((l) => l === 'A1')).toHaveLength(1394);
+    },
+  );
 });

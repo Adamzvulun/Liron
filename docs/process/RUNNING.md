@@ -17,7 +17,7 @@ Open an issue from the **Monthly check** template (GitHub → Issues → New iss
 2. **The usage pages.** Look at each, and note anything near its limit in the issue:
    - **Supabase:** each project → **Usage** (database size, storage, egress).
    - **Vercel:** the team → **Usage**. Going over doesn't bill on Hobby; the feature stops until the 30 days are up ([DEPLOY](DEPLOY.md#free-plan-limits-checked-2026-11-02-on-vercelcomdocs)).
-   - **GitHub Actions:** your account → **Settings → Billing**. $12 of minutes a month are free; with no payment method, runs stop instead of billing ([CI](CI.md#cost-checked-2026-11-02-on-docsgithubcom)).
+   - **GitHub Actions:** nothing to check. The repo is public, so its runs are free ([CI](CI.md#cost)).
    - **Groq:** console.groq.com → **Usage**. **Google AI Studio:** aistudio.google.com → your key's project → usage.
 
    *Untested: Claude can't reach these dashboards. The page names were current on 2026-11-17; they move.*

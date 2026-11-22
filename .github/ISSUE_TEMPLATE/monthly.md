@@ -10,7 +10,6 @@ The steps and what "good" looks like are in [RUNNING.md](https://github.com/Adam
 - [ ] Keep alive: the last runs are green
 - [ ] Supabase usage (both projects): nothing near its limit
 - [ ] Vercel usage: nothing near its limit
-- [ ] GitHub Actions minutes: inside the free $12
 - [ ] Groq and Google AI Studio usage looked at
 - [ ] Settings → Services on the live site says what I expect
 - [ ] Ten minutes of play on the live site; bugs filed

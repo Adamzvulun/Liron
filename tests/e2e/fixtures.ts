@@ -9,7 +9,7 @@ import { test as base, expect, type Page } from '@playwright/test';
  * `fakeSupabase` watches each page it sets up, the extra pages of two-player tests included.
  * A test that breaks something on purpose says so with `expectCrash()`.
  */
-const CAUGHT = /^Waymark (screen failed|place failed|: showing an award failed)/;
+const CAUGHT = /^Waymark (screen failed|place failed|extra failed|: showing an award failed)/;
 
 let crashes: string[] = [];
 let expected = false;

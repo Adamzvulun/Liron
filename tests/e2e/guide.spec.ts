@@ -1,5 +1,12 @@
-import { expect, test } from './fixtures.ts';
-import { friendCard, GUIDE_SAID, signedIn } from './fake-supabase.ts';
+import { expect, expectCrash, test } from './fixtures.ts';
+import {
+  FAKE_SUPABASE_URL,
+  friendCard,
+  GUIDE_SAID,
+  signedIn,
+  TODAY,
+  WALLET,
+} from './fake-supabase.ts';
 import { cardId, GUIDE_IDS } from '../../src/core/guide/seen.ts';
 import { PLACE_CARDS } from '../../src/core/guide/words.ts';
 import { CARD_KEYS as MORSE_CARDS } from '../../src/subjects/morse/guide.ts';
@@ -99,6 +106,8 @@ test.describe('Nour’s introductions', () => {
             .getByRole('link', { name: /Quests|Notice Board/ })
         : page.locator('a.city__place').filter({ hasText: 'Notice Board' });
     await expect(board.locator('.city__new')).toHaveText(', New');
+    // A screen reader hears it too: on a wide screen the place's own label says so.
+    await expect(board).toHaveAccessibleName(/, new\b/i);
     // Got it quiets Nour for this visit; the mark stays until the player goes in.
     await card.getByRole('button', { name: 'Got it' }).click();
     await expect(card).toHaveCount(0);
@@ -111,6 +120,13 @@ test.describe('Nour’s introductions', () => {
     // Nothing else is due for this player, so no mark and no word.
     await expect(page.locator('.city__new')).toHaveCount(0);
     await expect(nour(page)).toHaveCount(0);
+  });
+
+  test('opening an introduced place straight from a link counts as going in', async ({ page }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], { unlocked: 3, runs: 2 }, [], { guideSeen: ['welcome'] });
+    await page.goto('/notice-board');
+    await expect.poll(() => updates).toContainEqual({ guide_seen: ['intro:board', 'welcome'] });
   });
 
   test('the Market is Nour’s to introduce now, not the compass’s', async ({ page }) => {
@@ -178,6 +194,20 @@ test.describe('first-visit cards', () => {
     await expect(about(page, 'The Market')).toHaveCount(0);
   });
 
+  test('a card whose code won’t download is left out, and the place works', async ({ page }) => {
+    expectCrash();
+    const seen = GUIDE_SAID.filter((id) => id !== 'card:market');
+    await signedIn(page, [], [], null, [], { guideSeen: seen });
+    await page.route('**/assets/Welcome-*.js', (route) => route.abort());
+    await page.goto('/market');
+    await expect(page.getByRole('heading', { name: /Market/ }).first()).toBeVisible();
+    await expect(page.getByText('Four wares are set out each day', { exact: false })).toHaveCount(
+      0,
+    );
+    await expect(page.getByText('This place couldn’t open')).toHaveCount(0);
+    await expect(page.getByText('Something went wrong')).toHaveCount(0);
+  });
+
   test('in a hall the first action closes its card, and a station has its own', async ({
     page,
   }) => {
@@ -199,7 +229,7 @@ test.describe('first-visit cards', () => {
 test.describe('the Guidebook', () => {
   test('opens from Settings, a page at a time, and Take me there goes to the place', async ({
     page,
-  }) => {
+  }, info) => {
     await signedIn(page, [], [], { unlocked: 3, runs: 2 });
     await page.goto('/');
     await page.getByRole('button', { name: 'Settings' }).click();
@@ -209,6 +239,10 @@ test.describe('the Guidebook', () => {
       .click();
     await expect(page).toHaveURL(/\/guidebook$/);
     const pages = page.getByRole('navigation', { name: 'Pages' });
+    // On a phone the list comes first, and no page is current until one is chosen.
+    if (info.project.name === 'phone') {
+      await expect(pages.locator('[aria-current]')).toHaveCount(0);
+    }
     // Each guild has its own chapter, with its stations.
     await pages.getByRole('button', { name: 'The Signal Tower' }).click();
     const shown = page.getByRole('article');
@@ -292,4 +326,94 @@ test('an invited friend finds their way on a phone, start to finish', async ({ p
     .toContainEqual({
       guide_seen: expect.arrayContaining(['card:board', 'intro:board', 'welcome']) as unknown,
     });
+});
+
+// One voice at a time (the-guide.md R5, R9; #408): a level-up and Nour never show together, and
+// once a celebration has had the square, Nour waits for the next visit.
+test('a level-up has the square to itself, and Nour waits for the next visit', async ({
+  page,
+}, info) => {
+  test.skip(info.project.name !== 'phone', 'the phone is where they would stack');
+  test.setTimeout(60_000);
+  await signedIn(page, [], [], null, [], { guideSeen: ['welcome'] });
+  await page.route(`${FAKE_SUPABASE_URL}/rest/v1/rpc/save_session`, (route) =>
+    route.fulfill({
+      json: {
+        duplicate: false,
+        award: {
+          ...WALLET,
+          xp: 140,
+          xp_earned: 12,
+          gold_earned: 0,
+          gems_earned: 0,
+          level_before: 4,
+          level: 5,
+          today: { ...TODAY, minutes: TODAY.minutes + 1 },
+        },
+      },
+    }),
+  );
+  // From the square into the tower, the way a player goes, so Back returns there.
+  await page.goto('/');
+  await page.evaluate(() => {
+    history.pushState(null, '', '/signal-tower?run=short');
+    dispatchEvent(new Event('wm:navigate'));
+  });
+  await page.getByRole('button', { name: /Instant Recognition/ }).click();
+  await page.getByRole('button', { name: 'Start round' }).click();
+  await expect(page.getByText('Which letter?')).toBeVisible({ timeout: 8000 });
+  await page
+    .getByRole('group', { name: 'Letter keys' })
+    .or(page.getByLabel('Letter keys'))
+    .getByRole('button', { name: 'K', exact: true })
+    .click();
+  const levelUp = page.getByRole('dialog', { name: 'Level 5' });
+  await expect(levelUp).toBeVisible({ timeout: 20_000 });
+  // Back to the square with the celebration still open: it keeps the square, and Nour is quiet.
+  for (let i = 0; i < 3 && new URL(page.url()).pathname !== '/'; i++) await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(levelUp).toBeVisible();
+  await expect(nour(page)).toHaveCount(0);
+  await levelUp.getByRole('button', { name: 'Continue' }).click();
+  await expect(levelUp).toHaveCount(0);
+  await expect(nour(page)).toHaveCount(0);
+  // The next visit to the square is Nour's.
+  await page.getByRole('navigation', { name: 'Places' }).getByRole('link').first().click();
+  await page.getByRole('link', { name: /Back to the square/ }).click();
+  await expect(nour(page).getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
+});
+
+// The card never covers the place it talks about (the-guide.md §3.2): on a phone it sits under
+// the HUD, over the sky; on a wide screen it moves away from the House's corner.
+test.describe('Nour’s card leaves the place in view', () => {
+  const overlap = (a: { x: number; y: number; width: number; height: number }, b: typeof a) =>
+    a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+
+  test('the Notice Board, on a small phone', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop', 'sets its own small screen');
+    await page.setViewportSize({ width: 375, height: 667 });
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 }, [], { guideSeen: ['welcome'] });
+    await page.goto('/');
+    const card = nour(page);
+    await expect(card.getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
+    const sign = page.locator('.city__plaque', { hasText: 'Notice Board' });
+    await expect(sign).toBeVisible();
+    const [a, b] = [await card.boundingBox(), await sign.boundingBox()];
+    expect(a && b && !overlap(a, b)).toBe(true);
+  });
+
+  test('the House, on a wide screen', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop', 'the wide screen');
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 }, [], {
+      guideSeen: ['welcome', 'intro:board'],
+      gold: 0,
+      fellowship: { friends: [friendCard('00000000-0000-0000-0000-0000000000a1', 'Adam')] },
+    });
+    await page.goto('/');
+    const card = nour(page);
+    await expect(card.getByRole('status')).toHaveText(/Fellowship/);
+    const sign = page.locator('.city__plaque', { hasText: /Your House|House/ });
+    const [a, b] = [await card.boundingBox(), await sign.boundingBox()];
+    expect(a && b && !overlap(a, b)).toBe(true);
+  });
 });

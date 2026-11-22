@@ -1,13 +1,14 @@
 # CI for Waymark (issue #14): lint, typecheck, unit tests, build, Playwright.
 # Runs on every PR. Pushes don't run it: every PR already ran the full check on the same code
 # before it merged (dev since 2026-11-10; main since 2026-11-18, when a release PR and the push
-# of its merge each ran the same 20 minutes). Actions minutes cost money.
+# of its merge each ran the same 20 minutes).
 # A PR that changes only docs/ or Markdown files skips the build and Playwright.
-# Private repo on GitHub Free: $12 of compute a month is included (2,000 minutes on x64 Linux at
-# $0.006, 2,400 on arm64 Linux at $0.005). Without a payment method, runs stop when it's used up.
+# While the repo was private (GitHub Free): $12 of compute a month included (2,000 minutes on x64
+# Linux at $0.006, 2,400 on arm64 at $0.005). Public (ADR 0054), standard runners, this arm64 one
+# included, are free.
 #
-# Fast (2026-11-18, Adam: "16 minutes is way too long"): four jobs side by side instead of one
-# after another. `check` (lint, types, unit tests), two halves of the browser tests, and the
+# Fast (2026-11-18, Adam: "16 minutes is way too long"): jobs side by side instead of one
+# after another. `check` (lint, types, unit tests), the browser tests in three parts, and the
 # `@timing` tests alone. Each job pays its own set-up, so the minutes billed stay about what one
 # long job cost, while the wait is the longest job's. On a PR into `dev` the phone runs only the
 # specs that check the phone (PHONE_SPECS in playwright.config.ts); a release PR into `main`
@@ -26,8 +27,8 @@ permissions:
 
 jobs:
   check:
-    # Same 2 CPUs and 8 GB as ubuntu-latest for a private repo, at $0.005 a minute instead of
-    # $0.006. Playwright ships Chromium for arm64 Ubuntu 24.04.
+    # A standard runner: 2 CPUs and 8 GB, free on a public repo (and $0.005 a minute on a private
+    # one, against $0.006 for x64). Playwright ships Chromium for arm64 Ubuntu 24.04.
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
     steps:
@@ -54,10 +55,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - part: 1 of 2
-            args: --grep-invert @timing --shard 1/2
-          - part: 2 of 2
-            args: --grep-invert @timing --shard 2/2
+          # Three parts since the repo went public (ADR 0054): another job costs nothing now, and
+          # the wait is the longest part's.
+          - part: 1 of 3
+            args: --grep-invert @timing --shard 1/3
+          - part: 2 of 3
+            args: --grep-invert @timing --shard 2/3
+          - part: 3 of 3
+            args: --grep-invert @timing --shard 3/3
           # They measure speed, and tests running beside them would slow the page they time.
           - part: timing
             args: --grep @timing --workers 1
