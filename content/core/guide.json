@@ -1,0 +1,31 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "guide-welcome",
+      "subject": "core",
+      "type": "guide-welcome",
+      "data": {
+        "lines": [
+          {
+            "point": "compass",
+            "text": "Welcome to Waymark. I’m Nour; I light the lamps here. This line always says what to do next."
+          },
+          {
+            "point": "top-bar",
+            "text": "Up top: your level, your gold and gems, and your streak, the days in a row you’ve met your daily goal."
+          },
+          {
+            "point": "places",
+            "text": "Every building is a place you can go into. I’ll show you each one when it’s useful."
+          }
+        ],
+        "next": "Next",
+        "done": "Got it",
+        "skip": "Skip"
+      }
+    }
+  ]
+}

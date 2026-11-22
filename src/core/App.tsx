@@ -26,6 +26,7 @@ import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { cityErrands, useCompass, type CompassSources } from './player/compass.ts';
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
+import { GUIDE_IDS, guideSeen } from './guide/seen.ts';
 import { useSpokenThisVisit, whoSpeaks } from './guide/voice.ts';
 import { localDay } from './road/road.ts';
 import { eventOn } from './events.ts';
@@ -48,6 +49,7 @@ import './App.css';
 
 // The house, the market and the board load when you go there, not with the square (#137).
 const views = () => import('./placeViews.tsx');
+const Welcome = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.Welcome })));
 const FirstPage = lazy(() =>
   import('./player/FirstPage.tsx').then((m) => ({ default: m.FirstPage })),
 );
@@ -413,13 +415,25 @@ function Lobby({ player }: { player: Player }) {
   // The first page (§8): for a player with no step done anywhere, until closed on this device.
   const [closed, setClosed] = useState(firstPageClosed);
   const welcome = !closed && roads.length > 0 && roads.every((r) => !r.started);
+  // Nour's welcome (the-guide.md §3.2, #409): after the first step, or after "Look around the
+  // square first", once, on any device (guide_seen on the account).
+  const seen =
+    state.profile &&
+    guideSeen({
+      saved: state.profile.guideSeen,
+      owned: state.profile.owned,
+      avatar: state.profile.avatar,
+    });
+  const welcomeDue = Boolean(
+    seen && !seen.has(GUIDE_IDS.welcome) && (closed || roads.some((r) => r.started)),
+  );
   // One voice at a time (the-guide.md R9, #408): a celebration, then the first page, then the
   // guide, which speaks only on the square and waits a visit once something else has spoken.
   const onSquare = path === '/';
   const wanting = {
     celebration: Boolean(state.levelUp ?? state.goalReached),
     firstPage: welcome,
-    guide: false, // the guide's lines arrive with the welcome (#409)
+    guide: welcomeDue,
     onSquare,
   };
   const spokenThisVisit = useSpokenThisVisit(
@@ -605,6 +619,11 @@ function Lobby({ player }: { player: Player }) {
       </div>
       {/* One celebration at a time: the level-up first, then the daily goal. */}
       {voice === 'celebration' && celebrations}
+      {voice === 'guide' && (
+        <Suspense fallback={null}>
+          <Welcome onDone={() => void player.markGuideSeen([GUIDE_IDS.welcome])} />
+        </Suspense>
+      )}
       {voice === 'first-page' && (
         <Suspense fallback={null}>
           <FirstPage guilds={roads} onClose={() => setClosed(true)} />
