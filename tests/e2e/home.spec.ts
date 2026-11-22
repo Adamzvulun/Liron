@@ -337,6 +337,21 @@ test.describe('decorating your room (#442)', () => {
     expect(saves).toBe(0);
   });
 
+  test('a wallpaper and floor you own can be chosen, and are saved (#443)', async ({ page }) => {
+    await decorate(page, ['wallpaper-zellige', 'floor-dark-oak']);
+    await page.getByLabel('Wallpaper').selectOption({ label: 'Zellige tiles' });
+    await page.getByLabel('Floor').selectOption({ label: 'Dark oak floor' });
+    const req = page.waitForRequest('**/rpc/save_home');
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    const { p_layout } = (await req).postDataJSON() as { p_layout: object };
+    expect(p_layout).toMatchObject({ wallpaper: 'zellige', floor: 'dark-oak' });
+  });
+
+  test('without a style of your own, there is nothing to choose', async ({ page }) => {
+    await decorate(page);
+    await expect(page.getByLabel('Wallpaper')).toHaveCount(0);
+  });
+
   test('a piece can be dragged too', async ({ page }, info) => {
     test.skip(info.project.name === 'phone', 'the mouse');
     await decorate(page);

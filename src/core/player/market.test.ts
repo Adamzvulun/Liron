@@ -29,6 +29,10 @@ describe('the Market’s labels', () => {
   it('names furniture, and says whether it stands in the room or hangs on the wall (#443)', () => {
     expect(wareName({ id: 'home-chair' })).toBe('Chair');
     expect(wareName({ id: 'home-desert' })).toBe('Desert picture');
+    expect(wareName({ id: 'wallpaper-zellige' })).toBe('Zellige tiles');
+    expect(
+      wareNote(ware({ id: 'floor-dark-oak', kind: 'style', slot: null, rarity: 'rare' })),
+    ).toBe('Rare · for your room');
     expect(wareNote(ware({ id: 'home-chair', kind: 'furniture', slot: null }))).toBe(
       'Common · for your room',
     );

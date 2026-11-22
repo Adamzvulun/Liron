@@ -10,9 +10,11 @@ import {
   cellsOf,
   checkLayout,
   isFloor,
+  ownedStyles,
   PANELS,
   refusalText,
   ROOM,
+  STYLES,
   type Layout,
   type PieceDef,
   type Placed,
@@ -22,6 +24,12 @@ import { Room, type Decor } from './Room.tsx';
 
 const the = (def: PieceDef) => `the ${def.name}`;
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+/** A style's name for its picker: the plain room's own, or the one it is sold under. */
+const styleName = (part: 'wallpaper' | 'floor', style: string) =>
+  cap(
+    STYLES.find((s) => s.part === part && s.style === style)?.name ??
+      (part === 'wallpaper' ? 'plain plaster' : 'plain planks'),
+  );
 
 const MOVES: Record<string, Cell> = {
   ArrowUp: [0, -1],
@@ -55,6 +63,7 @@ export function Decorate({
   onCancel: () => void;
 }) {
   const mine = useMemo(() => ownedPieces(owned), [owned]);
+  const styles = useMemo(() => ownedStyles(owned), [owned]);
   const [draft, setDraft] = useState(layout);
   const [held, setHeld] = useState<Held | null>(null);
   const [say, setSay] = useState('');
@@ -64,7 +73,7 @@ export function Decorate({
   const [grab, setGrab] = useState<Placed | null>(null);
 
   const with_ = (at: Placed) => ({ ...draft, pieces: [...draft.pieces, at] });
-  const refusal = (at: Placed) => checkLayout(with_(at), mine);
+  const refusal = (at: Placed) => checkLayout(with_(at), mine, ROOM, styles);
   const tray = [...mine.values()].filter(
     (d) => d.id !== held?.def.id && !draft.pieces.some((p) => p.id === d.id),
   );
@@ -186,7 +195,7 @@ export function Decorate({
   const done = async () => {
     let room = draft;
     if (held?.was) room = { ...draft, pieces: [...draft.pieces, held.was] };
-    const no = checkLayout(room, mine);
+    const no = checkLayout(room, mine, ROOM, styles);
     if (no) {
       setSay(refusalText(no, ALL));
       return;
@@ -233,6 +242,32 @@ export function Decorate({
             Cancel
           </button>
         </div>
+        {(styles.wallpapers.length > 1 || styles.floors.length > 1) && (
+          <div className="decorate__styles">
+            {(['wallpaper', 'floor'] as const).map((part) => {
+              const list = part === 'wallpaper' ? styles.wallpapers : styles.floors;
+              if (list.length < 2) return null;
+              return (
+                <label key={part} className="decorate__style">
+                  {part === 'wallpaper' ? 'Wallpaper' : 'Floor'}
+                  <select
+                    value={draft[part]}
+                    onChange={(e) => {
+                      setDraft((l) => ({ ...l, [part]: e.target.value }));
+                      setSay('');
+                    }}
+                  >
+                    {list.map((style) => (
+                      <option key={style} value={style}>
+                        {styleName(part, style)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              );
+            })}
+          </div>
+        )}
         <h2 className="decorate__title">In the tray</h2>
         {tray.length === 0 ? (
           <p className="decorate__empty">Everything you own is in the room.</p>

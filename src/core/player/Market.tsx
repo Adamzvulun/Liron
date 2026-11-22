@@ -11,7 +11,8 @@ import './market.css';
 
 /** The ware, drawn: your traveler wearing the gear, a dyed tunic, the shield, or the furniture in a room. */
 function WareArt({ ware, look }: { ware: Ware; look: Look }) {
-  if (ware.kind === 'furniture') return <FurniturePicture id={ware.id} className="market__room" />;
+  if (ware.kind === 'furniture' || ware.kind === 'style')
+    return <FurniturePicture id={ware.id} className="market__room" />;
   if (ware.kind === 'functional') {
     return (
       <span className="market__shield">
@@ -128,7 +129,7 @@ export function Market({
                   giving={giving}
                 />
               )}
-              {said?.id === w.id && said.ok && w.kind === 'furniture' && (
+              {said?.id === w.id && said.ok && (w.kind === 'furniture' || w.kind === 'style') && (
                 <Link className="market__try" href="/house">
                   Place it in your room
                 </Link>

@@ -73,12 +73,12 @@ Separate from the daily-goal chest above, which pays at once. These wait on the 
 | Reaching a 7-day streak | Brass | 40–80 | 25%: 1 | 40% | 15% |
 | Reaching a 30- or 100-day streak | Jeweled | 80–150 | always: 1–2 | 60% | 40% |
 
-- **The item** is gear or furniture you don't own yet, from every piece the Market sells and the milestone items (#49; six more gear and four companions on 2026-11-11; the 8 pieces of furniture on 2026-11-22 and 4 more the same day, #443). Rank gear, the guild banners and the finales' gear never come from a chest. If you own them all, you get one's price in gold instead.
+- **The item** is gear, furniture, a wallpaper or a floor you don't own yet, from every piece the Market sells and the milestone items (#49; six more gear and four companions on 2026-11-11; the 8 pieces of furniture on 2026-11-22 and 4 more the same day, #443). Rank gear, the guild banners and the finales' gear never come from a chest. If you own them all, you get one's price in gold instead.
 - **A shield** when you already hold 2 becomes its price, 120 gold.
 - A shielded day doesn't count toward a streak chest (ADR 0034).
 
 ## Market
-The Market building sells 5 wares a day: 2 gear, 1 tunic dye, the streak shield and 1 piece of furniture for your room (#443), the same for everyone on that date ([ADR 0033](../decisions/0033-inventory-chests-and-market.md), #49). Gold only, never real money.
+The Market building sells 5 wares a day: 2 gear, 1 tunic dye, the streak shield and 1 thing for your room, a piece of furniture, a wallpaper or a floor (#443), the same for everyone on that date ([ADR 0033](../decisions/0033-inventory-chests-and-market.md), #49). Gold only, never real money.
 
 | Ware | Gold |
 |---|---|

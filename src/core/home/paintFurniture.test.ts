@@ -1,6 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import * as house from '../city/paintHouse.ts';
-import { FURNITURE_PIECES, STARTER, STARTER_PIECES, type Layout, type PieceDef } from './layout.ts';
+import items from '../../../content/core/items.json' with { type: 'json' };
+import {
+  FURNITURE_PIECES,
+  ownedStyles,
+  ROOM,
+  STARTER,
+  STARTER_PIECES,
+  STYLES,
+  type Layout,
+  type PieceDef,
+} from './layout.ts';
 import { FURNITURE } from './paintFurniture.ts';
 import { paintHome } from './paintHome.ts';
 
@@ -61,6 +71,26 @@ describe('the furniture', () => {
 });
 
 describe('the wallpapers and floors', () => {
+  it('sells every painted style but the plain ones, each an item of kind style (#443)', () => {
+    expect(STYLES.filter((s) => s.part === 'wallpaper').map((s) => s.style)).toEqual(
+      house.WALLPAPERS.filter((w) => !ROOM.wallpapers.includes(w)),
+    );
+    expect(STYLES.filter((s) => s.part === 'floor').map((s) => s.style)).toEqual(
+      house.FLOORS.filter((w) => !ROOM.floors.includes(w)),
+    );
+    const sold = items.items.filter((i) => i.data.kind === 'style').map((i) => i.id);
+    expect(sold.sort()).toEqual(STYLES.map((s) => s.id).sort());
+    for (const s of STYLES) expect(s.id).toBe(`${s.part}-${s.style}`);
+  });
+
+  it('lets a player use the plain room and the styles they own', () => {
+    expect(ownedStyles([])).toEqual({ wallpapers: ['plaster'], floors: ['planks'] });
+    expect(ownedStyles(['wallpaper-zellige', 'floor-dark-oak', 'home-chair'])).toEqual({
+      wallpapers: ['plaster', 'zellige'],
+      floors: ['planks', 'dark-oak'],
+    });
+  });
+
   it('leaves the plain room as it was painted', () => {
     expect(house.room({ wallpaper: 'plaster', floor: 'planks' })).toBe(house.room());
   });

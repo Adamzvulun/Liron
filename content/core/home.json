@@ -10,7 +10,10 @@
       "data": {
         "cols": 12,
         "rows": 5,
-        "door": [0, 4],
+        "door": [
+          0,
+          4
+        ],
         "caps": {
           "floor": 20,
           "wall": 6
@@ -20,41 +23,58 @@
             "slot": 0,
             "zone": "left",
             "x": 530,
-            "cols": [0]
+            "cols": [
+              0
+            ]
           },
           {
             "slot": 1,
             "zone": "left",
             "x": 640,
-            "cols": [1]
+            "cols": [
+              1
+            ]
           },
           {
             "slot": 2,
             "zone": "left",
             "x": 710,
-            "cols": [2, 3]
+            "cols": [
+              2,
+              3
+            ]
           },
           {
             "slot": 3,
             "zone": "right",
             "x": 1235,
-            "cols": [9]
+            "cols": [
+              9
+            ]
           },
           {
             "slot": 4,
             "zone": "right",
             "x": 1335,
-            "cols": [10]
+            "cols": [
+              10
+            ]
           },
           {
             "slot": 5,
             "zone": "right",
             "x": 1435,
-            "cols": [11]
+            "cols": [
+              11
+            ]
           }
         ],
-        "wallpapers": ["plaster"],
-        "floors": ["planks"],
+        "wallpapers": [
+          "plaster"
+        ],
+        "floors": [
+          "planks"
+        ],
         "starter": {
           "v": 1,
           "wallpaper": "plaster",
@@ -62,27 +82,42 @@
           "pieces": [
             {
               "id": "home:bed",
-              "at": [0, 0],
+              "at": [
+                0,
+                0
+              ],
               "facing": "right"
             },
             {
               "id": "home:rug",
-              "at": [4, 2],
+              "at": [
+                4,
+                2
+              ],
               "facing": "right"
             },
             {
               "id": "home:desk",
-              "at": [8, 0],
+              "at": [
+                8,
+                0
+              ],
               "facing": "right"
             },
             {
               "id": "home:cupboard",
-              "at": [11, 0],
+              "at": [
+                11,
+                0
+              ],
               "facing": "left"
             },
             {
               "id": "home:chest",
-              "at": [9, 3],
+              "at": [
+                9,
+                3
+              ],
               "facing": "left"
             },
             {
@@ -112,7 +147,10 @@
       "data": {
         "name": "bed",
         "place": "floor",
-        "size": [3, 4],
+        "size": [
+          3,
+          4
+        ],
         "does": "sit",
         "line": "Your bed, under the lantern."
       }
@@ -124,7 +162,10 @@
       "data": {
         "name": "rug",
         "place": "rug",
-        "size": [4, 3],
+        "size": [
+          4,
+          3
+        ],
         "does": "look",
         "line": "A woven rug, warm underfoot."
       }
@@ -136,7 +177,10 @@
       "data": {
         "name": "desk",
         "place": "floor",
-        "size": [2, 1],
+        "size": [
+          2,
+          1
+        ],
         "does": "ledger",
         "line": "Your ledger lies open on it."
       }
@@ -148,7 +192,10 @@
       "data": {
         "name": "cupboard",
         "place": "floor",
-        "size": [1, 2],
+        "size": [
+          1,
+          2
+        ],
         "does": "wardrobe",
         "line": "Your clothes, and the mirror."
       }
@@ -160,7 +207,10 @@
       "data": {
         "name": "travel chest",
         "place": "floor",
-        "size": [2, 2],
+        "size": [
+          2,
+          2
+        ],
         "does": "look",
         "line": "Packed for the road, as always."
       }
@@ -172,7 +222,10 @@
       "data": {
         "name": "picture",
         "place": "wall",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "look",
         "line": "The harbor at dawn."
       }
@@ -184,7 +237,10 @@
       "data": {
         "name": "lantern",
         "place": "wall",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "light",
         "line": "It keeps the room warm."
       }
@@ -196,7 +252,10 @@
       "data": {
         "name": "shelf",
         "place": "wall",
-        "size": [3, 1],
+        "size": [
+          3,
+          1
+        ],
         "does": "trophies",
         "line": "Your ranks and achievements."
       }
@@ -208,7 +267,10 @@
       "data": {
         "name": "letterbox",
         "place": "wall",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "fellowship",
         "line": "Letters from your friends."
       }
@@ -220,7 +282,10 @@
       "data": {
         "name": "chair",
         "place": "floor",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "sit",
         "line": "A plain wooden chair."
       }
@@ -232,7 +297,10 @@
       "data": {
         "name": "bench",
         "place": "floor",
-        "size": [3, 1],
+        "size": [
+          3,
+          1
+        ],
         "does": "sit",
         "line": "Room for three, or one stretched out."
       }
@@ -244,7 +312,10 @@
       "data": {
         "name": "table",
         "place": "floor",
-        "size": [2, 2],
+        "size": [
+          2,
+          2
+        ],
         "does": "look",
         "line": "Fruit from the market, always fresh."
       }
@@ -256,7 +327,10 @@
       "data": {
         "name": "plant",
         "place": "floor",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "look",
         "line": "It leans toward the window."
       }
@@ -268,7 +342,10 @@
       "data": {
         "name": "bookcase",
         "place": "floor",
-        "size": [2, 1],
+        "size": [
+          2,
+          1
+        ],
         "does": "look",
         "line": "Every book you’ve finished, and a few you haven’t."
       }
@@ -280,7 +357,10 @@
       "data": {
         "name": "cushion",
         "place": "floor",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "sit",
         "line": "Soft enough for a long evening."
       }
@@ -292,7 +372,10 @@
       "data": {
         "name": "clock",
         "place": "wall",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "look",
         "line": "It ticks a little slow."
       }
@@ -304,7 +387,10 @@
       "data": {
         "name": "desert picture",
         "place": "wall",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "look",
         "line": "The desert at night, under a new moon."
       }
@@ -316,7 +402,10 @@
       "data": {
         "name": "stove",
         "place": "floor",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "look",
         "line": "Warm through the long evenings."
       }
@@ -328,7 +417,10 @@
       "data": {
         "name": "kilim",
         "place": "rug",
-        "size": [3, 2],
+        "size": [
+          3,
+          2
+        ],
         "does": "look",
         "line": "Woven by hand, in the colors of the road."
       }
@@ -340,7 +432,10 @@
       "data": {
         "name": "window seat",
         "place": "floor",
-        "size": [3, 1],
+        "size": [
+          3,
+          1
+        ],
         "does": "sit",
         "line": "Cushions enough for a whole afternoon."
       }
@@ -352,7 +447,10 @@
       "data": {
         "name": "harbor picture",
         "place": "wall",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "look",
         "line": "The harbor at dawn, a sail heading out."
       }
@@ -364,7 +462,10 @@
       "data": {
         "name": "Signalers’ banner",
         "place": "wall",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "look",
         "line": "The Guild of Signalers knows you now."
       }
@@ -376,9 +477,72 @@
       "data": {
         "name": "Crossing banner",
         "place": "wall",
-        "size": [1, 1],
+        "size": [
+          1,
+          1
+        ],
         "does": "look",
         "line": "The House of the Crossing keeps a place for you."
+      }
+    },
+    {
+      "id": "wallpaper-sea-wash",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "sea-wash wallpaper",
+        "part": "wallpaper",
+        "style": "sea-wash"
+      }
+    },
+    {
+      "id": "wallpaper-rose-stripe",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "rose-stripe wallpaper",
+        "part": "wallpaper",
+        "style": "rose-stripe"
+      }
+    },
+    {
+      "id": "wallpaper-zellige",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "zellige tiles",
+        "part": "wallpaper",
+        "style": "zellige"
+      }
+    },
+    {
+      "id": "floor-terracotta",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "terracotta floor",
+        "part": "floor",
+        "style": "terracotta"
+      }
+    },
+    {
+      "id": "floor-flagstone",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "flagstone floor",
+        "part": "floor",
+        "style": "flagstone"
+      }
+    },
+    {
+      "id": "floor-dark-oak",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "dark oak floor",
+        "part": "floor",
+        "style": "dark-oak"
       }
     }
   ]

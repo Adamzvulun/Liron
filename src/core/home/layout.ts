@@ -77,6 +77,29 @@ export const STARTER_PIECES: PieceDef[] = piecesOf('home-piece');
 /** The furniture to buy or find (§7, task 7.4); placed only by players who own it. */
 export const FURNITURE_PIECES: PieceDef[] = piecesOf('home-furniture');
 
+/** A wallpaper or floor to own (§7, #443): its item id, its name, and the style it paints. */
+export interface StyleDef {
+  id: string;
+  name: string;
+  part: 'wallpaper' | 'floor';
+  style: string;
+}
+export const STYLES: StyleDef[] = home.items
+  .filter((i) => i.type === 'home-style')
+  .map((i) => ({ id: i.id, ...(i.data as unknown as Omit<StyleDef, 'id'>) }));
+
+/** The wallpapers and floors a player may use: the room's own, and those they own. */
+export function ownedStyles(owned: readonly string[]): { wallpapers: string[]; floors: string[] } {
+  const mine = STYLES.filter((s) => owned.includes(s.id));
+  return {
+    wallpapers: [
+      ...ROOM.wallpapers,
+      ...mine.filter((s) => s.part === 'wallpaper').map((s) => s.style),
+    ],
+    floors: [...ROOM.floors, ...mine.filter((s) => s.part === 'floor').map((s) => s.style)],
+  };
+}
+
 /** Why a layout is refused, and the piece it is about. */
 export type Refusal =
   | { why: 'unknown'; id: string }
