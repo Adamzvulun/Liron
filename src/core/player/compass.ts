@@ -4,7 +4,6 @@
 import { useEffect, useState } from 'react';
 import { PLACE_PATHS } from '../city/layout.ts';
 import { HALL_DOOR, type RoadAnswer, type RoadContext } from '../road/road.ts';
-import { DEFAULT_LOOK, lookKey, type Look } from '../avatar/looks.ts';
 import { ASSUMED_FACTS, type RoadFacts } from '../road/facts.ts';
 import type { SubjectInfo } from '../subject.ts';
 
@@ -25,6 +24,8 @@ export interface CompassLine {
   quiet: boolean;
   /** Has the player done any step of this road? */
   started: boolean;
+  /** How many of the road's steps are done (an errand has none). */
+  done?: number;
   /** What the guild's button on the first page says. */
   welcome?: string;
 }
@@ -123,6 +124,7 @@ function line(f: Found, first: boolean): CompassLine {
     ...(road.waiting && { waiting: road.waiting.line }),
     quiet: !first && !f.started,
     started: f.started,
+    done: road.position ? road.position.index : road.steps,
     ...(subject.welcome && { welcome: subject.welcome }),
   };
 }
@@ -176,45 +178,24 @@ export const CHEAPEST_WARE = 60;
 const BOARD_COLOR = '#e8a93a';
 
 /**
- * The city's own errands (the-road.md §7): one line each for the Notice Board, the Market and
- * Your House, shown after the guilds' lines while its reason holds and never once it's done.
+ * The city's own errand (the-road.md §7): a chest waiting at the Notice Board, shown after the
+ * guilds' lines until it's opened. The Market and the wardrobe are Nour's introductions now
+ * (the-guide.md §3.3), so the player never hears the same thing twice.
  */
-export function cityErrands(player: {
-  chests: number;
-  gold: number;
-  owned: readonly string[];
-  avatar: Look;
-}): CompassLine[] {
-  const errand = (id: string, giver: string, href: string, text: string): CompassLine => ({
-    subject: `errand:${id}`,
-    giver,
-    color: BOARD_COLOR,
-    href,
-    text,
-    quiet: false,
-    started: true,
-  });
-  const untouched = lookKey(player.avatar) === lookKey(DEFAULT_LOOK);
+export function cityErrands(player: { chests: number }): CompassLine[] {
+  if (player.chests === 0) return [];
   return [
-    ...(player.chests > 0
-      ? [
-          errand(
-            'chest',
-            'Notice Board',
-            '/notice-board',
-            player.chests === 1
-              ? 'A chest is waiting at the Notice Board.'
-              : `${player.chests} chests are waiting at the Notice Board.`,
-          ),
-        ]
-      : []),
-    // "Never bought anything" is read as owning nothing: gear from a rank or a chest has
-    // already shown the player what gear is.
-    ...(player.gold >= CHEAPEST_WARE && player.owned.length === 0
-      ? [errand('market', 'Market', '/market', 'You have gold. The Market is open.')]
-      : []),
-    ...(player.owned.length > 0 && untouched
-      ? [errand('house', 'Your House', '/house', 'Your House has a wardrobe.')]
-      : []),
+    {
+      subject: 'errand:chest',
+      giver: 'Notice Board',
+      color: BOARD_COLOR,
+      href: '/notice-board',
+      text:
+        player.chests === 1
+          ? 'A chest is waiting at the Notice Board.'
+          : `${player.chests} chests are waiting at the Notice Board.`,
+      quiet: false,
+      started: true,
+    },
   ];
 }
