@@ -14,4 +14,10 @@ describe('raw sources', () => {
   it('no Anki deck is tracked anywhere', () => {
     expect(tracked.filter((f) => f.endsWith('.apkg'))).toEqual([]);
   });
+
+  // The speech spike's 31 clips, made from deck sentences, sat in docs/research/ until
+  // 2026-11-22. The game's sounds are made in the browser, so no recording belongs in git.
+  it('no recording is tracked anywhere', () => {
+    expect(tracked.filter((f) => /\.(mp3|ogg|wav|m4a|aac|flac|opus)$/i.test(f))).toEqual([]);
+  });
 });
