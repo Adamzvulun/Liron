@@ -1,4 +1,4 @@
-import { expect, test } from './fixtures.ts';
+import { expect, expectCrash, test } from './fixtures.ts';
 import {
   FAKE_SUPABASE_URL,
   friendCard,
@@ -106,6 +106,8 @@ test.describe('Nour’s introductions', () => {
             .getByRole('link', { name: /Quests|Notice Board/ })
         : page.locator('a.city__place').filter({ hasText: 'Notice Board' });
     await expect(board.locator('.city__new')).toHaveText(', New');
+    // A screen reader hears it too: on a wide screen the place's own label says so.
+    await expect(board).toHaveAccessibleName(/, new\b/i);
     // Got it quiets Nour for this visit; the mark stays until the player goes in.
     await card.getByRole('button', { name: 'Got it' }).click();
     await expect(card).toHaveCount(0);
@@ -118,6 +120,13 @@ test.describe('Nour’s introductions', () => {
     // Nothing else is due for this player, so no mark and no word.
     await expect(page.locator('.city__new')).toHaveCount(0);
     await expect(nour(page)).toHaveCount(0);
+  });
+
+  test('opening an introduced place straight from a link counts as going in', async ({ page }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], { unlocked: 3, runs: 2 }, [], { guideSeen: ['welcome'] });
+    await page.goto('/notice-board');
+    await expect.poll(() => updates).toContainEqual({ guide_seen: ['intro:board', 'welcome'] });
   });
 
   test('the Market is Nour’s to introduce now, not the compass’s', async ({ page }) => {
@@ -185,6 +194,20 @@ test.describe('first-visit cards', () => {
     await expect(about(page, 'The Market')).toHaveCount(0);
   });
 
+  test('a card whose code won’t download is left out, and the place works', async ({ page }) => {
+    expectCrash();
+    const seen = GUIDE_SAID.filter((id) => id !== 'card:market');
+    await signedIn(page, [], [], null, [], { guideSeen: seen });
+    await page.route('**/assets/Welcome-*.js', (route) => route.abort());
+    await page.goto('/market');
+    await expect(page.getByRole('heading', { name: /Market/ }).first()).toBeVisible();
+    await expect(page.getByText('Four wares are set out each day', { exact: false })).toHaveCount(
+      0,
+    );
+    await expect(page.getByText('This place couldn’t open')).toHaveCount(0);
+    await expect(page.getByText('Something went wrong')).toHaveCount(0);
+  });
+
   test('in a hall the first action closes its card, and a station has its own', async ({
     page,
   }) => {
@@ -206,7 +229,7 @@ test.describe('first-visit cards', () => {
 test.describe('the Guidebook', () => {
   test('opens from Settings, a page at a time, and Take me there goes to the place', async ({
     page,
-  }) => {
+  }, info) => {
     await signedIn(page, [], [], { unlocked: 3, runs: 2 });
     await page.goto('/');
     await page.getByRole('button', { name: 'Settings' }).click();
@@ -216,6 +239,10 @@ test.describe('the Guidebook', () => {
       .click();
     await expect(page).toHaveURL(/\/guidebook$/);
     const pages = page.getByRole('navigation', { name: 'Pages' });
+    // On a phone the list comes first, and no page is current until one is chosen.
+    if (info.project.name === 'phone') {
+      await expect(pages.locator('[aria-current]')).toHaveCount(0);
+    }
     // Each guild has its own chapter, with its stations.
     await pages.getByRole('button', { name: 'The Signal Tower' }).click();
     const shown = page.getByRole('article');

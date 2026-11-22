@@ -16,7 +16,7 @@ import { warmSquare } from './city/square.ts';
 import { placeAt, residentsOf } from './city/layout.ts';
 import type { PlaceId } from './city/painter.js';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
-import { PlaceBoundary } from './ErrorBoundary.tsx';
+import { ErrorBoundary, PlaceBoundary, QuietBoundary } from './ErrorBoundary.tsx';
 import { Link } from './Link.tsx';
 import { navigate, usePath } from './router.ts';
 import { chestShelf } from './player/chests.ts';
@@ -476,8 +476,10 @@ function Lobby({ player }: { player: Player }) {
   }
   // Going in introduces the place (R8): the one pending as the player arrived, so a place isn't
   // counted for the next introduction that comes due while they're inside.
-  const [arrival, setArrival] = useState({ path, intro });
-  if (arrival.path !== path) setArrival({ path, intro });
+  // A page opened straight into a place counts once the player's records have loaded.
+  const known = Boolean(seen && state.wallet && state.profile);
+  const [arrival, setArrival] = useState({ path, intro, known });
+  if (arrival.path !== path || (known && !arrival.known)) setArrival({ path, intro, known });
   const entered = arrival.intro && isInside(arrival.intro, path) ? arrival.intro.id : null;
   useEffect(() => {
     if (entered) void player.markGuideSeen([entered]);
@@ -518,9 +520,11 @@ function Lobby({ player }: { player: Player }) {
       <>
         <PlaceScreen place="arena" wide>
           <GuideContext.Provider value={memory}>
-            <Suspense fallback={null}>
-              <PlaceCard place="arena" />
-            </Suspense>
+            <QuietBoundary>
+              <Suspense fallback={null}>
+                <PlaceCard place="arena" />
+              </Suspense>
+            </QuietBoundary>
           </GuideContext.Provider>
           <PlaceBoundary key="arena">
             <Suspense fallback={<p className="place__loading">Opening the gates…</p>}>
@@ -545,9 +549,11 @@ function Lobby({ player }: { player: Player }) {
         >
           <GuideContext.Provider value={memory}>
             {(place === 'board' || place === 'market' || place === 'house') && (
-              <Suspense fallback={null}>
-                <PlaceCard place={place} />
-              </Suspense>
+              <QuietBoundary key={`card-${place}`}>
+                <Suspense fallback={null}>
+                  <PlaceCard place={place} />
+                </Suspense>
+              </QuietBoundary>
             )}
             <PlaceBoundary key={place}>
               {/* The house, market and board stand on the player's own records: if those couldn't
@@ -659,15 +665,17 @@ function Lobby({ player }: { player: Player }) {
   if (path === GUIDEBOOK_PATH) {
     return (
       <>
-        <Suspense fallback={null}>
-          <Guidebook
-            subjects={subjects}
-            onTour={() => {
-              navigate('/');
-              setAsked('welcome');
-            }}
-          />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <Guidebook
+              subjects={subjects}
+              onTour={() => {
+                navigate('/');
+                setAsked('welcome');
+              }}
+            />
+          </Suspense>
+        </ErrorBoundary>
         {celebrations}
       </>
     );
@@ -712,27 +720,29 @@ function Lobby({ player }: { player: Player }) {
       {/* One celebration at a time: the level-up first, then the daily goal. */}
       {voice === 'celebration' && celebrations}
       {voice === 'guide' && (
-        <Suspense fallback={null}>
-          {welcomeDue || asked === 'welcome' ? (
-            <Welcome
-              onDone={() => {
-                setHushed(true);
-                setAsked(null);
-                void player.markGuideSeen([GUIDE_IDS.welcome]);
-              }}
-            />
-          ) : (
-            intro && (
-              <Introduce
-                id={intro.id}
+        <QuietBoundary>
+          <Suspense fallback={null}>
+            {welcomeDue || asked === 'welcome' ? (
+              <Welcome
                 onDone={() => {
                   setHushed(true);
                   setAsked(null);
+                  void player.markGuideSeen([GUIDE_IDS.welcome]);
                 }}
               />
-            )
-          )}
-        </Suspense>
+            ) : (
+              intro && (
+                <Introduce
+                  id={intro.id}
+                  onDone={() => {
+                    setHushed(true);
+                    setAsked(null);
+                  }}
+                />
+              )
+            )}
+          </Suspense>
+        </QuietBoundary>
       )}
       {voice === 'first-page' && (
         <Suspense fallback={null}>
