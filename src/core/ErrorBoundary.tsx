@@ -62,3 +62,23 @@ export class PlaceBoundary extends Component<{ children: ReactNode }, { failed: 
     );
   }
 }
+
+/**
+ * Something extra on a screen, like the guide's cards and lines (the-guide.md, #411): if its code
+ * can't load or it can't draw, it simply isn't shown, and the screen around it carries on.
+ */
+export class QuietBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('Waymark extra failed', error, info.componentStack);
+  }
+
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
