@@ -1,3 +1,5 @@
+import { cardFor } from './guide.ts';
+import { FirstVisit } from '../../core/guide/FirstVisit.tsx';
 import { Fragment, useCallback, useMemo, useState, type ReactNode } from 'react';
 import type { SubjectApi } from '../../core/subject.ts';
 import { HallBackdrop } from '../../core/city/HallBackdrop.tsx';
@@ -71,9 +73,18 @@ export function Caravanserai({ api }: { api: SubjectApi }) {
   }, []);
   const facts = useRoadFacts();
   const readRoad = useMemo(() => roadReader(facts), [facts]);
-  if (view === 'hall') return <Courtyard api={api} onOpen={setView} />;
+  const card = cardFor(view);
+  const firstVisit = card && <FirstVisit key={card.id} {...card} />;
+  if (view === 'hall')
+    return (
+      <>
+        {firstVisit}
+        <Courtyard api={api} onOpen={setView} />
+      </>
+    );
   return (
     <RoadGuide view={view} loadState={loadState} read={readRoad} go={go} text={beat}>
+      {firstVisit}
       {/* The word lessons and the regulars' trials sit at the innkeeper's table (roadmap A6). */}
       {view === 'words' || view === 'regular' || view === 'chat' || view === 'gate' ? (
         <HallBackdrop id="inn" {...INN_TABLE_STAGE} paint={paintInnTable} />

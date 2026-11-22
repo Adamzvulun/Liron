@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { subjects } from '../subjects/index.ts';
 import {
   JoinScreen,
@@ -27,6 +27,7 @@ import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { cityErrands, useCompass, type CompassSources } from './player/compass.ts';
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
+import { GuideContext } from './guide/context.ts';
 import { isInside, nextIntroduction } from './guide/introductions.ts';
 import { GUIDE_IDS, guideSeen } from './guide/seen.ts';
 import { useSpokenThisVisit, whoSpeaks } from './guide/voice.ts';
@@ -52,6 +53,7 @@ import './App.css';
 // The house, the market and the board load when you go there, not with the square (#137).
 const views = () => import('./placeViews.tsx');
 const Welcome = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.Welcome })));
+const PlaceCard = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.PlaceCard })));
 const Introduce = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.Introduce })));
 const FirstPage = lazy(() =>
   import('./player/FirstPage.tsx').then((m) => ({ default: m.FirstPage })),
@@ -425,13 +427,18 @@ function Lobby({ player }: { player: Player }) {
   const welcome = !closed && roads.length > 0 && roads.every((r) => !r.started);
   // Nour's welcome (the-guide.md §3.2, #409): after the first step, or after "Look around the
   // square first", once, on any device (guide_seen on the account).
-  const seen =
-    state.profile &&
-    guideSeen({
-      saved: state.profile.guideSeen,
-      owned: state.profile.owned,
-      avatar: state.profile.avatar,
-    });
+  const profile = state.profile;
+  const seen = useMemo(
+    () =>
+      profile &&
+      guideSeen({ saved: profile.guideSeen, owned: profile.owned, avatar: profile.avatar }),
+    [profile],
+  );
+  // First-visit cards in places and halls read it from here (§3.4, #411).
+  const memory = useMemo(
+    () => seen && { seen, mark: (id: string) => void player.markGuideSeen([id]) },
+    [seen, player],
+  );
   const welcomeDue = Boolean(
     seen && !seen.has(GUIDE_IDS.welcome) && (closed || roads.some((r) => r.started)),
   );
@@ -457,7 +464,13 @@ function Lobby({ player }: { player: Player }) {
         )
       : null;
   const [hushed, setHushed] = useState(false);
-  if (hushed && !onSquare) setHushed(false);
+  // Tapping Nour (#406): their line again, or, with nothing new to say, the welcome again
+  // (the Guidebook's "Show me around again" until the Guidebook comes, #412).
+  const [asked, setAsked] = useState<'line' | 'welcome' | null>(null);
+  if (!onSquare && (hushed || asked)) {
+    setHushed(false);
+    setAsked(null);
+  }
   // Going in introduces the place (R8): the one pending as the player arrived, so a place isn't
   // counted for the next introduction that comes due while they're inside.
   const [arrival, setArrival] = useState({ path, intro });
@@ -469,8 +482,9 @@ function Lobby({ player }: { player: Player }) {
   const wanting = {
     celebration: Boolean(state.levelUp ?? state.goalReached),
     firstPage: welcome,
-    guide: welcomeDue || (intro !== null && !hushed),
+    guide: welcomeDue || asked !== null || (intro !== null && !hushed),
     onSquare,
+    asked: asked !== null,
   };
   const spokenThisVisit = useSpokenThisVisit(
     onSquare,
@@ -500,6 +514,11 @@ function Lobby({ player }: { player: Player }) {
     return (
       <>
         <PlaceScreen place="arena" wide>
+          <GuideContext.Provider value={memory}>
+            <Suspense fallback={null}>
+              <PlaceCard place="arena" />
+            </Suspense>
+          </GuideContext.Provider>
           <PlaceBoundary key="arena">
             <Suspense fallback={<p className="place__loading">Opening the gates…</p>}>
               <ArenaBackdrop />
@@ -521,107 +540,114 @@ function Lobby({ player }: { player: Player }) {
           resident={resident}
           wide={place === 'house' || place === 'market' || !!Hall}
         >
-          <PlaceBoundary key={place}>
-            {/* The house, market and board stand on the player's own records: if those couldn't
-                load, say so, rather than leave an empty room (review, 2026-11-17). */}
-            {(place === 'house' || place === 'market' || place === 'board') && state.error && (
-              <p className="place__loading" role="alert">
-                Your records couldn’t be read. Check your connection.{' '}
-                <button
-                  type="button"
-                  className="place__retry"
-                  onClick={() => window.location.reload()}
-                >
-                  Reload
-                </button>
-              </p>
-            )}
-            {Hall && api && (
-              <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
-                <RoadFactsContext.Provider value={facts}>
-                  <Hall api={api} />
-                </RoadFactsContext.Provider>
-              </Suspense>
-            )}
-            {place === 'board' && (
+          <GuideContext.Provider value={memory}>
+            {(place === 'board' || place === 'market' || place === 'house') && (
               <Suspense fallback={null}>
-                <BoardBackdrop />
+                <PlaceCard place={place} />
               </Suspense>
             )}
-            {place === 'board' && state.today && (
-              <div className="hud notice-board">
-                {event && (
-                  <p className="notice-board__event" role="note">
-                    {event.line}
-                  </p>
-                )}
-                <QuestTracker
-                  today={state.today}
-                  subjects={subjects}
-                  compass={compass}
-                  contracts={state.contracts}
-                  full
-                />
+            <PlaceBoundary key={place}>
+              {/* The house, market and board stand on the player's own records: if those couldn't
+                load, say so, rather than leave an empty room (review, 2026-11-17). */}
+              {(place === 'house' || place === 'market' || place === 'board') && state.error && (
+                <p className="place__loading" role="alert">
+                  Your records couldn’t be read. Check your connection.{' '}
+                  <button
+                    type="button"
+                    className="place__retry"
+                    onClick={() => window.location.reload()}
+                  >
+                    Reload
+                  </button>
+                </p>
+              )}
+              {Hall && api && (
+                <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
+                  <RoadFactsContext.Provider value={facts}>
+                    <Hall api={api} />
+                  </RoadFactsContext.Provider>
+                </Suspense>
+              )}
+              {place === 'board' && (
                 <Suspense fallback={null}>
-                  <ChestShelf
-                    shelf={chestShelf(state.chests, state.contracts, subjects, event?.chest)}
-                    onOpen={openChest}
+                  <BoardBackdrop />
+                </Suspense>
+              )}
+              {place === 'board' && state.today && (
+                <div className="hud notice-board">
+                  {event && (
+                    <p className="notice-board__event" role="note">
+                      {event.line}
+                    </p>
+                  )}
+                  <QuestTracker
+                    today={state.today}
+                    subjects={subjects}
+                    compass={compass}
+                    contracts={state.contracts}
+                    full
                   />
-                  {together && <TogetherQuest source={together} onPurse={player.purse} />}
+                  <Suspense fallback={null}>
+                    <ChestShelf
+                      shelf={chestShelf(state.chests, state.contracts, subjects, event?.chest)}
+                      onOpen={openChest}
+                    />
+                    {together && <TogetherQuest source={together} onPurse={player.purse} />}
+                    {fellowship && (
+                      <PartyFeed source={fellowship} places={PLACES} today={state.today.day} />
+                    )}
+                  </Suspense>
+                </div>
+              )}
+              {place === 'market' && (
+                <Suspense fallback={null}>
+                  <MarketBackdrop />
+                </Suspense>
+              )}
+              {place === 'market' && state.profile && (
+                <Suspense fallback={<p className="place__loading">Setting out the wares…</p>}>
+                  <Market
+                    stall={state.market}
+                    look={state.profile.avatar}
+                    gold={state.wallet?.gold ?? null}
+                    onLoad={player.loadMarket}
+                    onBuy={buy}
+                    giving={giving}
+                  />
+                </Suspense>
+              )}
+              {place === 'house' && (
+                <Suspense fallback={null}>
+                  <HouseBackdrop />
+                </Suspense>
+              )}
+              {place === 'house' && state.profile && (
+                <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
+                  <Wardrobe
+                    look={state.profile.avatar}
+                    owned={state.profile.owned}
+                    name={state.profile.displayName}
+                    onSave={player.setAvatar}
+                  />
+                  {today && <Ledger onLoad={readLedger} roads={roads} />}
+                  <AchievementWall
+                    mine={state.achievements}
+                    title={state.profile.title}
+                    onLoad={player.loadAchievements}
+                    onWear={player.setTitle}
+                  />
                   {fellowship && (
-                    <PartyFeed source={fellowship} places={PLACES} today={state.today.day} />
+                    <Fellowship
+                      source={fellowship}
+                      gifts={readGifts}
+                      today={today}
+                      named={state.profile.displayName.trim() !== ''}
+                    />
                   )}
                 </Suspense>
-              </div>
-            )}
-            {place === 'market' && (
-              <Suspense fallback={null}>
-                <MarketBackdrop />
-              </Suspense>
-            )}
-            {place === 'market' && state.profile && (
-              <Suspense fallback={<p className="place__loading">Setting out the wares…</p>}>
-                <Market
-                  stall={state.market}
-                  look={state.profile.avatar}
-                  gold={state.wallet?.gold ?? null}
-                  onLoad={player.loadMarket}
-                  onBuy={buy}
-                  giving={giving}
-                />
-              </Suspense>
-            )}
-            {place === 'house' && (
-              <Suspense fallback={null}>
-                <HouseBackdrop />
-              </Suspense>
-            )}
-            {place === 'house' && state.profile && (
-              <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
-                <Wardrobe
-                  look={state.profile.avatar}
-                  owned={state.profile.owned}
-                  name={state.profile.displayName}
-                  onSave={player.setAvatar}
-                />
-                {today && <Ledger onLoad={readLedger} roads={roads} />}
-                <AchievementWall
-                  mine={state.achievements}
-                  title={state.profile.title}
-                  onLoad={player.loadAchievements}
-                  onWear={player.setTitle}
-                />
-                {fellowship && (
-                  <Fellowship
-                    source={fellowship}
-                    gifts={readGifts}
-                    today={today}
-                    named={state.profile.displayName.trim() !== ''}
-                  />
-                )}
-              </Suspense>
-            )}
-          </PlaceBoundary>
+              )}
+            </PlaceBoundary>
+          </GuideContext.Provider>
         </PlaceScreen>
         {celebrations}
       </>
@@ -636,6 +662,14 @@ function Lobby({ player }: { player: Player }) {
       event={event}
       friends={friends}
       fresh={intro?.spot}
+      onNour={
+        seen
+          ? () => {
+              setHushed(false);
+              setAsked(intro && !welcomeDue ? 'line' : 'welcome');
+            }
+          : undefined
+      }
     >
       <div className="lobby__top">
         <Hud
@@ -658,15 +692,24 @@ function Lobby({ player }: { player: Player }) {
       {voice === 'celebration' && celebrations}
       {voice === 'guide' && (
         <Suspense fallback={null}>
-          {welcomeDue ? (
+          {welcomeDue || asked === 'welcome' ? (
             <Welcome
               onDone={() => {
                 setHushed(true);
+                setAsked(null);
                 void player.markGuideSeen([GUIDE_IDS.welcome]);
               }}
             />
           ) : (
-            intro && <Introduce id={intro.id} onDone={() => setHushed(true)} />
+            intro && (
+              <Introduce
+                id={intro.id}
+                onDone={() => {
+                  setHushed(true);
+                  setAsked(null);
+                }}
+              />
+            )
           )}
         </Suspense>
       )}

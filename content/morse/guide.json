@@ -1,0 +1,61 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "guide-card-hall",
+      "subject": "morse",
+      "type": "guide-card",
+      "data": {
+        "title": "The Signal Tower",
+        "text": "Here you learn Morse code by ear, one letter at a time. Each lamp on the tower is a letter: light them all."
+      }
+    },
+    {
+      "id": "guide-card-lessons",
+      "subject": "morse",
+      "type": "guide-card",
+      "data": {
+        "title": "Lessons",
+        "text": "Letters play at full speed, with time between them; tap what you hear on the pad. Two runs in a row at 90% bring in the next letter."
+      }
+    },
+    {
+      "id": "guide-card-recognition",
+      "subject": "morse",
+      "type": "guide-card",
+      "data": {
+        "title": "Instant Recognition",
+        "text": "Name each letter before its lamp fades. The quicker you know a sound, the less you count dots and dashes."
+      }
+    },
+    {
+      "id": "guide-card-sending",
+      "subject": "morse",
+      "type": "guide-card",
+      "data": {
+        "title": "Sending",
+        "text": "Key letters with the straight key: a short press is a dot, a long one a dash. The tower times your keying and shows your speed."
+      }
+    },
+    {
+      "id": "guide-card-codebook",
+      "subject": "morse",
+      "type": "guide-card",
+      "data": {
+        "title": "The Codebook",
+        "text": "Copy whole words as they’re sent, ten at a time. Your best score stays on the door."
+      }
+    },
+    {
+      "id": "guide-card-radio",
+      "subject": "morse",
+      "type": "guide-card",
+      "data": {
+        "title": "The Radio Room",
+        "text": "Stations come on the air here every day. Answer one and hold a short contact, the way operators do."
+      }
+    }
+  ]
+}
