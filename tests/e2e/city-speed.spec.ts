@@ -138,6 +138,22 @@ test.describe('the city square stays fast (#123)', () => {
     });
     expect(report).toEqual({ filtered: 0, pictures: expect.any(Number), drawn: true });
     expect(report.pictures).toBeGreaterThanOrEqual(8);
+    // Each picture carries only the gradients, filters and patterns it uses (defsFor in
+    // square.ts). One left out still draws, but with a plain fill, so look for any `#id` a
+    // picture points at that it doesn't define.
+    const missing = await page.evaluate(async () => {
+      const out: string[] = [];
+      const imgs = [...document.querySelectorAll<HTMLImageElement>('img.city__picture')];
+      for (const img of imgs) {
+        const xml = await (await fetch(img.src)).text();
+        const doc = new DOMParser().parseFromString(xml, 'image/svg+xml');
+        const ids = new Set([...doc.querySelectorAll('[id]')].map((el) => el.id));
+        for (const [, id] of xml.matchAll(/(?:url\(|href=")#([\w-]+)/g))
+          if (!ids.has(id ?? '')) out.push(`${img.parentElement?.className ?? "?"}: #${id}`);
+      }
+      return [...new Set(out)];
+    });
+    expect(missing).toEqual([]);
     // A tap on the building itself, not its plaque, still opens it.
     const tower = page.locator('.city__place--tower .city__hit');
     const box = await tower.boundingBox();
