@@ -186,4 +186,4 @@ Phase 6 (epic #405, [ADR 0053](../decisions/0053-a-guide-for-new-players.md)): N
 
 ### v1.3.1 — Nour, out of the way
 
-A fix release for v1.3.0's guide: Nour's card no longer hides the place Nour talks about (on a phone it sits under the top bar), and the eight fixes from a review of the guide's code. Notes: [releases/v1.3.1.md](releases/v1.3.1.md). Claude merges the release PR once its checks pass.
+A fix release for v1.3.0's guide: Nour's card no longer hides the place Nour talks about (on a phone it sits under the top bar), and the eight fixes from a review of the guide's code. Notes: [releases/v1.3.1.md](releases/v1.3.1.md). Released 2026-11-22 ([#426](https://github.com/Adamzvulun/Liron/pull/426)), merged by Claude once its checks passed; the live bundle has the new card.
