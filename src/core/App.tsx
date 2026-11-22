@@ -635,28 +635,37 @@ function Lobby({ player }: { player: Player }) {
               )}
               {place === 'house' && state.profile && (
                 <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
-                  <HouseRoom onLoad={readHome} look={state.profile.avatar} />
-                  <Wardrobe
+                  <HouseRoom
+                    onLoad={readHome}
                     look={state.profile.avatar}
-                    owned={state.profile.owned}
-                    name={state.profile.displayName}
-                    onSave={player.setAvatar}
+                    panels={{
+                      wardrobe: (
+                        <Wardrobe
+                          look={state.profile.avatar}
+                          owned={state.profile.owned}
+                          name={state.profile.displayName}
+                          onSave={player.setAvatar}
+                        />
+                      ),
+                      ledger: today && <Ledger onLoad={readLedger} roads={roads} />,
+                      trophies: (
+                        <AchievementWall
+                          mine={state.achievements}
+                          title={state.profile.title}
+                          onLoad={player.loadAchievements}
+                          onWear={player.setTitle}
+                        />
+                      ),
+                      fellowship: fellowship && (
+                        <Fellowship
+                          source={fellowship}
+                          gifts={readGifts}
+                          today={today}
+                          named={state.profile.displayName.trim() !== ''}
+                        />
+                      ),
+                    }}
                   />
-                  {today && <Ledger onLoad={readLedger} roads={roads} />}
-                  <AchievementWall
-                    mine={state.achievements}
-                    title={state.profile.title}
-                    onLoad={player.loadAchievements}
-                    onWear={player.setTitle}
-                  />
-                  {fellowship && (
-                    <Fellowship
-                      source={fellowship}
-                      gifts={readGifts}
-                      today={today}
-                      named={state.profile.displayName.trim() !== ''}
-                    />
-                  )}
                 </Suspense>
               )}
             </PlaceBoundary>

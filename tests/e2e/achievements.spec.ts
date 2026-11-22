@@ -7,7 +7,7 @@ test.describe('achievements and titles in Your House (#177)', () => {
       earned: ['first-light', 'overspeed'],
       progress: { 'chest-hunter': 4 },
     });
-    await page.goto('/house');
+    await page.goto('/house#trophies');
     const wall = page.getByRole('region', { name: 'Achievements' });
     await expect(wall.getByText('2 of 24 earned')).toBeVisible();
     const overspeed = wall.getByRole('listitem').filter({ hasText: 'Overspeed' });
@@ -27,7 +27,7 @@ test.describe('achievements and titles in Your House (#177)', () => {
     await signedIn(page, updates, [], null, [], { earned: ['overspeed'] });
     await page.goto('/');
     await expect(page.locator('.hud__title')).toHaveText('Wanderer');
-    await page.goto('/house');
+    await page.goto('/house#trophies');
     const wall = page.getByRole('region', { name: 'Achievements' });
     await expect(wall.getByRole('radio', { name: 'Your level’s title' })).toBeChecked();
     await wall.locator('label', { hasText: 'the Quick-Eared' }).click();
@@ -39,7 +39,7 @@ test.describe('achievements and titles in Your House (#177)', () => {
 
   test('with nothing earned yet, the picker says where titles come from', async ({ page }) => {
     await signedIn(page);
-    await page.goto('/house');
+    await page.goto('/house#trophies');
     const wall = page.getByRole('region', { name: 'Achievements' });
     await expect(wall.getByText('0 of 24 earned')).toBeVisible();
     await expect(wall.getByText('Some achievements give a title')).toBeVisible();

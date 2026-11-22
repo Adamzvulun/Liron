@@ -6,7 +6,7 @@ import { signedIn } from './fake-supabase.ts';
 test.describe('the ledger in Your House (#314)', () => {
   test('a new player sees honest zeros, nothing blank', async ({ page }) => {
     await signedIn(page);
-    await page.goto('/house');
+    await page.goto('/house#ledger');
     const ledger = page.getByRole('region', { name: 'Ledger' });
     const tower = ledger.getByRole('region', { name: 'Signal Tower' });
     await expect(tower).toContainText('Step 1 of');
@@ -47,7 +47,7 @@ test.describe('the ledger in Your House (#314)', () => {
         ],
       },
     });
-    await page.goto('/house');
+    await page.goto('/house#ledger');
     const tower = page.getByRole('region', { name: 'Signal Tower' });
     await expect(tower).toContainText('Characters learned12 of');
     await expect(tower).toContainText('Copy speed14 wpm');
@@ -63,7 +63,7 @@ test.describe('the ledger in Your House (#314)', () => {
   test('fits a 320-pixel screen', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 640 });
     await signedIn(page);
-    await page.goto('/house');
+    await page.goto('/house#ledger');
     const ledger = page.getByRole('region', { name: 'Ledger' });
     await expect(ledger.getByRole('region', { name: 'Your habit' })).toBeVisible();
     const box = await ledger.boundingBox();

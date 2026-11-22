@@ -65,8 +65,8 @@ export function Arena({ source, today }: { source: ChallengeSource; today: strin
       <div className="arena">
         <p className="arena__plaque">
           The Arena is for friends. Add one with your friend code in{' '}
-          <Link href="/house">Your House</Link>, then challenge them from the result of a callsign
-          rush or a Codebook round.
+          <Link href="/house#fellowship">Your House</Link>, then challenge them from the result of a
+          callsign rush or a Codebook round.
         </p>
       </div>
     );

@@ -13,12 +13,12 @@ Buttons: Next · Got it · Skip
 ## Introductions, one at a time (§3.3)
 
 - **intro:board:** The Notice Board has today’s quests. Finish them for gold, and a chest now and then.
-- **intro:fellowship:** Your friend is in town. Your House has a door to the Fellowship: see what they’re up to.
+- **intro:fellowship:** Your friend is in town. The letterbox in Your House opens the Fellowship: see what they’re up to.
 - **intro:market:** You’ve earned enough for something at the Market. Have a look.
-- **intro:wardrobe:** New gear goes on in Your House, at the wardrobe.
+- **intro:wardrobe:** New gear goes on in Your House: open the cupboard.
 - **intro:other-hall:** The other hall’s door is open too, whenever you’re curious.
 - **intro:arena:** Up at the Arena, friends challenge each other. Yours might be waiting.
-- **intro:ledger:** Your House keeps a ledger of how far you’ve come, and your trophies.
+- **intro:ledger:** The desk in Your House keeps a ledger of how far you’ve come, and the shelf your trophies.
 
 Button: Got it
 
@@ -26,7 +26,7 @@ Button: Got it
 
 - **The Notice Board:** Today’s quests and daily goal are posted here, with the contracts that pay gold. Chests you’ve earned wait on the shelf.
 - **The Market:** Four wares are set out each day, the same for everyone. Gold buys gear for your traveler, or a gift for a friend.
-- **Your House:** The wardrobe changes how your traveler looks, and the ledger shows how far you’ve come. Your trophies are here too, and the door to the Fellowship.
+- **Your House:** This room is yours: tap the floor to walk. The cupboard holds your wardrobe, the shelf your trophies, the desk your ledger, and the letterbox the Fellowship.
 - **The Arena:** Challenge a friend to beat your score, or take on one they’ve sent you. A challenge waits a week for its answer.
 
 ## First-visit cards and Guidebook chapter: The Signal Tower
@@ -69,7 +69,7 @@ Four wares are set out each day, the same for everyone. Gear for your traveler c
 
 ### Your House
 
-The wardrobe dresses your traveler in the gear you own. The ledger shows what you’ve learned, guild by guild, and the trophy wall shows the achievements you’ve earned.
+Your own room: tap the floor or use the arrow keys to walk, and tap a piece to use it. The cupboard dresses your traveler in the gear you own. The desk holds the ledger of what you’ve learned, guild by guild, and the shelf shows the achievements you’ve earned. The list “In this room” opens any of them without walking.
 
 ### The Fellowship
 
