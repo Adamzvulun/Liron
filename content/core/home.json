@@ -114,7 +114,8 @@
         "place": "floor",
         "size": [3, 4],
         "does": "sit",
-        "line": "Your bed, under the lantern."
+        "line": "Your bed, under the lantern.",
+        "visit": "Their bed, under the lantern."
       }
     },
     {
@@ -138,7 +139,8 @@
         "place": "floor",
         "size": [2, 1],
         "does": "ledger",
-        "line": "Your ledger lies open on it."
+        "line": "Your ledger lies open on it.",
+        "visit": "Their ledger lies open. It’s theirs to read."
       }
     },
     {
@@ -150,7 +152,8 @@
         "place": "floor",
         "size": [1, 2],
         "does": "wardrobe",
-        "line": "Your clothes, and the mirror."
+        "line": "Your clothes, and the mirror.",
+        "visit": "Their clothes, and the mirror. Not yours to open."
       }
     },
     {
@@ -210,7 +213,8 @@
         "place": "wall",
         "size": [1, 1],
         "does": "fellowship",
-        "line": "Letters from your friends."
+        "line": "Letters from your friends.",
+        "visit": "Letters for them, from their friends."
       }
     },
     {
@@ -270,7 +274,8 @@
         "place": "floor",
         "size": [2, 1],
         "does": "look",
-        "line": "Every book you’ve finished, and a few you haven’t."
+        "line": "Every book you’ve finished, and a few you haven’t.",
+        "visit": "Every book they’ve finished, and a few they haven’t."
       }
     },
     {
@@ -366,7 +371,8 @@
         "place": "wall",
         "size": [1, 1],
         "does": "look",
-        "line": "The Guild of Signalers knows you now."
+        "line": "The Guild of Signalers knows you now.",
+        "visit": "The Guild of Signalers knows them."
       }
     },
     {
@@ -378,7 +384,8 @@
         "place": "wall",
         "size": [1, 1],
         "does": "look",
-        "line": "The House of the Crossing keeps a place for you."
+        "line": "The House of the Crossing keeps a place for you.",
+        "visit": "The House of the Crossing keeps a place for them."
       }
     },
     {

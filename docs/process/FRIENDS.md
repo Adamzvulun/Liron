@@ -33,6 +33,7 @@ A link works once, for 7 days. If one expires, make another. The way below, by h
 3. **Their account:** send them an invite link (above). Without the secret key in Vercel, "Make a friend's account" below. Either way the deck opens for them by itself.
    - **To check, if you like:** Supabase → `waymark-prod` → **SQL Editor**, run `select email from auth.users where id not in (select user_id from public.content_licensees);`. No rows means every account reads the deck. It only reads; it changes nothing.
 4. **Become friends in the game:** with an invite link, you already are. Otherwise you both open **Your House → Fellowship**; one of you types the other's friend code, and the other accepts.
+   - **What a friend sees of you:** your card (name, look, level, title, streak, ranks and achievements) and, since v1.4, how your room is arranged: which pieces stand where, the wallpaper and the floor. Not what you own but haven't placed, and a visit sends nothing to you. Tell a friend this before they join.
 5. **Try the wire, on two devices:** both open the Signal Tower's **Sending** and press **Key to a friend**, pick each other, and key a few letters. Then tell Claude what you heard and saw (release checklist §6).
 
 ## Make a friend's account

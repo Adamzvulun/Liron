@@ -514,7 +514,12 @@ function Lobby({ player }: { player: Player }) {
         {/* A friend's house and the Arena load their code too (review, 2026-11-19). */}
         <PlaceBoundary key={visiting}>
           <Suspense fallback={<p className="place__loading">Knocking at the door…</p>}>
-            <FriendHouse id={visiting} source={fellowship} backdrop={<HouseBackdrop />} />
+            <FriendHouse
+              id={visiting}
+              source={fellowship}
+              look={state.profile?.avatar}
+              backdrop={<HouseBackdrop />}
+            />
           </Suspense>
         </PlaceBoundary>
         {celebrations}

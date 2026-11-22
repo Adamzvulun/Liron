@@ -97,6 +97,7 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
   - the room layout: which pieces, where, which way they face, the wallpaper and the floor;
   - the card it already gives.
   - Nothing about what they own but haven't placed.
+- *Built in 7.9 ([#444](https://github.com/Adamzvulun/Liron/issues/444)):* `FriendHouse` draws the friend's room from `home_of` (the starter room if they never decorated) with the same `Room` as your own, given a `host`: they stand still on the free cell nearest the window (`byTheWindow`), which you can't walk through; tapping them says they're glad you came by. The list "In this room" says "see their trophies" for the shelf, which opens their card as a panel; the cupboard, desk and letterbox only "look", with a line written for a visitor (`visit` in `home.json`, also on the bed, the bookcase and the banners, whose lines say "your"). No Decorate button, nothing saved. FRIENDS.md says what a friend sees.
 
 ## 9. Later, in order, not cut
 

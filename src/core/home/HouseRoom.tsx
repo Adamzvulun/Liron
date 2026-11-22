@@ -106,7 +106,7 @@ export function HouseRoom({
 }
 
 /** A panel over the room, its focus kept inside and given back when it closes. */
-function PanelDialog({
+export function PanelDialog({
   title,
   onClose,
   children,
