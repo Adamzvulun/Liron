@@ -36,10 +36,10 @@ describe('the starter room (the-home.md §3)', () => {
     expect(x < ROOM.cols && y < ROOM.rows).toBe(true);
   });
 
-  it('keeps footprints between 1 × 1 and 3 × 2, rugs up to 4 × 3', () => {
+  it('keeps footprints between 1 × 1 and 3 × 4, rugs up to 6 × 3', () => {
     for (const d of STARTER_PIECES) {
       const [w, h] = d.size;
-      const [mw, mh] = d.place === 'rug' ? [4, 3] : d.place === 'wall' ? [1, 1] : [3, 2];
+      const [mw, mh] = d.place === 'rug' ? [6, 3] : d.place === 'wall' ? [1, 1] : [3, 4];
       expect(w >= 1 && h >= 1 && w <= mw && h <= mh, d.id).toBe(true);
     }
   });

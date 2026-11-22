@@ -11,7 +11,10 @@
         "cols": 12,
         "rows": 5,
         "door": [0, 4],
-        "caps": { "floor": 20, "wall": 6 },
+        "caps": {
+          "floor": 20,
+          "wall": 6
+        },
         "slots": [
           {
             "slot": 0,
@@ -53,8 +56,8 @@
             "slot": 4,
             "wall": "left",
             "below": [
-              [0, 2],
-              [0, 3]
+              [0, 4],
+              [1, 4]
             ]
           },
           {
@@ -73,15 +76,47 @@
           "wallpaper": "plaster",
           "floor": "planks",
           "pieces": [
-            { "id": "home:bed", "at": [0, 0], "facing": "right" },
-            { "id": "home:rug", "at": [4, 1], "facing": "right" },
-            { "id": "home:desk", "at": [7, 0], "facing": "left" },
-            { "id": "home:cupboard", "at": [11, 0], "facing": "left" },
-            { "id": "home:chest", "at": [9, 3], "facing": "left" },
-            { "id": "home:picture", "slot": 0 },
-            { "id": "home:lantern", "slot": 1 },
-            { "id": "home:shelf", "slot": 4 },
-            { "id": "home:letterbox", "slot": 5 }
+            {
+              "id": "home:bed",
+              "at": [0, 0],
+              "facing": "right"
+            },
+            {
+              "id": "home:rug",
+              "at": [3, 2],
+              "facing": "right"
+            },
+            {
+              "id": "home:desk",
+              "at": [7, 0],
+              "facing": "left"
+            },
+            {
+              "id": "home:cupboard",
+              "at": [11, 0],
+              "facing": "left"
+            },
+            {
+              "id": "home:chest",
+              "at": [9, 2],
+              "facing": "left"
+            },
+            {
+              "id": "home:picture",
+              "slot": 0
+            },
+            {
+              "id": "home:lantern",
+              "slot": 1
+            },
+            {
+              "id": "home:shelf",
+              "slot": 3
+            },
+            {
+              "id": "home:letterbox",
+              "slot": 4
+            }
           ]
         }
       }
@@ -93,7 +128,7 @@
       "data": {
         "name": "bed",
         "place": "floor",
-        "size": [3, 2],
+        "size": [3, 4],
         "does": "sit",
         "line": "Your bed, under the lantern."
       }
@@ -105,7 +140,7 @@
       "data": {
         "name": "rug",
         "place": "rug",
-        "size": [4, 3],
+        "size": [6, 3],
         "does": "look",
         "line": "A woven rug, warm underfoot."
       }
@@ -141,7 +176,7 @@
       "data": {
         "name": "travel chest",
         "place": "floor",
-        "size": [2, 1],
+        "size": [3, 2],
         "does": "look",
         "line": "Packed for the road, as always."
       }

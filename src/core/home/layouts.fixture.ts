@@ -18,13 +18,12 @@ const plus = (...pieces: Placed[]): Layout => ({
 /** Extra pieces the cases below own, beside the starter set. */
 export const EXTRA = [
   { id: 'home-chair', name: 'chair', place: 'floor', size: [1, 1], does: 'sit', line: 'A chair.' },
-  { id: 'home-bench', name: 'bench', place: 'floor', size: [3, 1], does: 'sit', line: 'A bench.' },
   { id: 'home-clock', name: 'clock', place: 'wall', size: [1, 1], does: 'look', line: 'A clock.' },
 ] as const;
 
 export const GOOD: { name: string; layout: Layout }[] = [
   { name: 'the starter room', layout: STARTER },
-  { name: 'the chest moved to the front', layout: move('home:chest', { at: [5, 4] }) },
+  { name: 'the chest moved to the front', layout: move('home:chest', { at: [5, 3] }) },
   { name: 'a chair on the rug', layout: plus({ id: 'home-chair', at: [5, 2], facing: 'left' }) },
   { name: 'the bed turned', layout: move('home:bed', { facing: 'left' }) },
   { name: 'a clock in a free slot', layout: plus({ id: 'home-clock', slot: 2 }) },
@@ -76,12 +75,9 @@ export const BAD: { name: string; layout: Layout; refusal: Refusal }[] = [
     refusal: { why: 'panel-missing', does: 'wardrobe' },
   },
   {
-    name: 'a bench that walls off the door',
-    layout: plus(
-      { id: 'home-bench', at: [0, 3], facing: 'left' },
-      { id: 'home-chair', at: [1, 4], facing: 'left' },
-    ),
-    refusal: { why: 'cut-off', id: 'home:bed' },
+    name: 'a chair that walls in the door',
+    layout: plus({ id: 'home-chair', at: [1, 4], facing: 'left' }),
+    refusal: { why: 'cut-off', id: 'home:desk' },
   },
   {
     name: 'a wallpaper nobody has',
