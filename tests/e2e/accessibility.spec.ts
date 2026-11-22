@@ -91,7 +91,7 @@ test.describe('accessibility (ADR 0051)', () => {
   });
 
   test('Nour’s welcome, and a first-visit card', async ({ page }) => {
-    await signedIn(page, [], [], MORSE, [], { firstPage: true, guideSeen: [] });
+    await signedIn(page, [], [], null, [], { firstPage: true, guideSeen: [] });
     await page.goto('/');
     await page.getByRole('button', { name: 'Look around the square first' }).click();
     await expect(page.getByRole('region', { name: 'Nour, the lamplighter' })).toBeVisible();
