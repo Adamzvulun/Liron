@@ -28,6 +28,11 @@ describe('one voice at a time (#408)', () => {
   it('the guide waits for the next visit once something else has spoken', () => {
     expect(whoSpeaks({ ...none, guide: true, spokenThisVisit: true })).toBeNull();
   });
+
+  it('answers a tap on Nour even then, but never over a celebration', () => {
+    expect(whoSpeaks({ ...none, guide: true, spokenThisVisit: true, asked: true })).toBe('guide');
+    expect(whoSpeaks({ ...none, guide: true, celebration: true, asked: true })).toBe('celebration');
+  });
 });
 
 describe('a visit to the square', () => {

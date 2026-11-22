@@ -120,6 +120,30 @@ test.describe('Nour’s introductions', () => {
     await expect(page.getByText('You have gold. The Market is open.')).toHaveCount(0);
   });
 
+  test('tapping Nour by the compass brings back the line they were quieted on', async ({
+    page,
+  }) => {
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 }, [], { guideSeen: ['welcome'] });
+    await page.goto('/');
+    const card = nour(page);
+    await card.getByRole('button', { name: 'Got it' }).click();
+    await expect(card).toHaveCount(0);
+    await page.getByRole('button', { name: /^Nour, the lamplighter/ }).click();
+    await expect(card.getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
+  });
+
+  test('with nothing new, tapping Nour shows the player around again', async ({ page }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], { unlocked: 3, runs: 2 });
+    await page.goto('/');
+    await expect(nour(page)).toHaveCount(0);
+    await page.getByRole('button', { name: /^Nour, the lamplighter/ }).click();
+    const card = nour(page);
+    await expect(card.getByRole('status')).toHaveText(/I’m Nour; I light the lamps here/);
+    await card.getByRole('button', { name: 'Skip' }).click();
+    await expect(card).toHaveCount(0);
+  });
+
   test('the fake’s old hand has heard every line Nour has', () => {
     expect([...GUIDE_SAID].sort()).toEqual(Object.values(GUIDE_IDS).sort());
   });
