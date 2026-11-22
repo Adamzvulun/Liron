@@ -382,3 +382,38 @@ test('a level-up has the square to itself, and Nour waits for the next visit', a
   await page.getByRole('link', { name: /Back to the square/ }).click();
   await expect(nour(page).getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
 });
+
+// The card never covers the place it talks about (the-guide.md §3.2): on a phone it sits under
+// the HUD, over the sky; on a wide screen it moves away from the House's corner.
+test.describe('Nour’s card leaves the place in view', () => {
+  const overlap = (a: { x: number; y: number; width: number; height: number }, b: typeof a) =>
+    a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+
+  test('the Notice Board, on a small phone', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop', 'sets its own small screen');
+    await page.setViewportSize({ width: 375, height: 667 });
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 }, [], { guideSeen: ['welcome'] });
+    await page.goto('/');
+    const card = nour(page);
+    await expect(card.getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
+    const sign = page.locator('.city__plaque', { hasText: 'Notice Board' });
+    await expect(sign).toBeVisible();
+    const [a, b] = [await card.boundingBox(), await sign.boundingBox()];
+    expect(a && b && !overlap(a, b)).toBe(true);
+  });
+
+  test('the House, on a wide screen', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop', 'the wide screen');
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 }, [], {
+      guideSeen: ['welcome', 'intro:board'],
+      gold: 0,
+      fellowship: { friends: [friendCard('00000000-0000-0000-0000-0000000000a1', 'Adam')] },
+    });
+    await page.goto('/');
+    const card = nour(page);
+    await expect(card.getByRole('status')).toHaveText(/Fellowship/);
+    const sign = page.locator('.city__plaque', { hasText: /Your House|House/ });
+    const [a, b] = [await card.boundingBox(), await sign.boundingBox()];
+    expect(a && b && !overlap(a, b)).toBe(true);
+  });
+});

@@ -21,7 +21,15 @@ export function Welcome({ onDone }: { onDone: () => void }) {
  * One introduction (the-guide.md §3.3, #410): Nour's line about the place wearing the new mark.
  * Got it closes it for this visit; going into the place is what introduces it.
  */
-export function Introduce({ id, onDone }: { id: string; onDone: () => void }) {
+export function Introduce({
+  id,
+  side,
+  onDone,
+}: {
+  id: string;
+  side?: 'left' | 'right';
+  onDone: () => void;
+}) {
   const text = INTRODUCTIONS.lines[id];
   if (!text) return null;
   return (
@@ -30,6 +38,7 @@ export function Introduce({ id, onDone }: { id: string; onDone: () => void }) {
       lines={[{ text }]}
       next={INTRODUCTIONS.done}
       done={INTRODUCTIONS.done}
+      side={side}
       onDone={onDone}
     />
   );
