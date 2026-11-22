@@ -326,7 +326,12 @@ test('a level-up has the square to itself, and Nour waits for the next visit', a
       },
     }),
   );
-  await page.goto('/signal-tower?run=short');
+  // From the square into the tower, the way a player goes, so Back returns there.
+  await page.goto('/');
+  await page.evaluate(() => {
+    history.pushState(null, '', '/signal-tower?run=short');
+    dispatchEvent(new Event('wm:navigate'));
+  });
   await page.getByRole('button', { name: /Instant Recognition/ }).click();
   await page.getByRole('button', { name: 'Start round' }).click();
   await expect(page.getByText('Which letter?')).toBeVisible({ timeout: 8000 });
@@ -338,8 +343,7 @@ test('a level-up has the square to itself, and Nour waits for the next visit', a
   const levelUp = page.getByRole('dialog', { name: 'Level 5' });
   await expect(levelUp).toBeVisible({ timeout: 20_000 });
   // Back to the square with the celebration still open: it keeps the square, and Nour is quiet.
-  await page.goBack();
-  await page.goBack();
+  for (let i = 0; i < 3 && new URL(page.url()).pathname !== '/'; i++) await page.goBack();
   await expect(page).toHaveURL(/\/$/);
   await expect(levelUp).toBeVisible();
   await expect(nour(page)).toHaveCount(0);
