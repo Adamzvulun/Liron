@@ -179,3 +179,7 @@ On a touch screen the square's pieces don't move, so Safari draws it as one pict
 
 The painting's ~100 filtered shapes become a few SVG images on a touch screen, filtered once each. Notes: [releases/v1.2.3.md](releases/v1.2.3.md).
 
+### v1.3.0 — Nour, the guide for new players
+
+Phase 6 (epic #405, [ADR 0053](../decisions/0053-a-guide-for-new-players.md)): Nour the lamplighter welcomes a newcomer in three lines, introduces one place at a time, each place and station says what it's for on a first visit, and the Guidebook explains every place and number. Draft notes: [releases/v1.3.0.md](releases/v1.3.0.md). Waits for Adam's read of the words (#413).
+

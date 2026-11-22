@@ -13,3 +13,6 @@ export interface GuideMemory {
 export const GuideContext = createContext<GuideMemory | null>(null);
 
 export const useGuide = () => useContext(GuideContext);
+
+/** Where the Guidebook opens (#412), from Settings or by tapping Nour. */
+export const GUIDEBOOK_PATH = '/guidebook';
