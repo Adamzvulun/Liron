@@ -55,7 +55,7 @@
         },
         "market": {
           "title": "The Market",
-          "text": "Four wares are set out each day, the same for everyone. Gold buys gear for your traveler, or a gift for a friend."
+          "text": "Five wares are set out each day, the same for everyone. Gold buys gear for your traveler, furniture for your room, or a gift for a friend."
         },
         "house": {
           "title": "Your House",
@@ -90,7 +90,7 @@
           {
             "id": "market",
             "title": "The Market",
-            "text": "Four wares are set out each day, the same for everyone. Gear for your traveler costs from {cheapestWare} gold up. You can also buy a ware as a gift for a friend.",
+            "text": "Five wares are set out each day, the same for everyone: gear for your traveler from {cheapestWare} gold up, a dye, a streak shield, and a piece of furniture for your room. You can also buy a ware as a gift for a friend.",
             "place": "market"
           },
           {
@@ -119,7 +119,7 @@
           {
             "id": "gold",
             "title": "Gold and gems",
-            "text": "Gold buys gear and streak shields at the Market. Gems are rarer: one every {gemEveryLevels}th level, one in the daily chest on every {streakGemEvery}th day of a streak, and some for achievements. Nothing costs gems yet."
+            "text": "Gold buys gear, furniture and streak shields at the Market. Gems are rarer: one every {gemEveryLevels}th level, one in the daily chest on every {streakGemEvery}th day of a streak, and some for achievements. Nothing costs gems yet."
           },
           {
             "id": "streak",

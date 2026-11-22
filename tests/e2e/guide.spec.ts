@@ -181,7 +181,7 @@ test.describe('first-visit cards', () => {
     await signedIn(page, updates, [], null, [], { guideSeen: seen });
     await page.goto('/market');
     const card = about(page, 'The Market');
-    await expect(card).toContainText('Four wares are set out each day');
+    await expect(card).toContainText('Five wares are set out each day');
     // Not a dialog: the Market works around it.
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await card.getByRole('button', { name: 'Got it' }).click();
@@ -201,7 +201,7 @@ test.describe('first-visit cards', () => {
     await page.route('**/assets/Welcome-*.js', (route) => route.abort());
     await page.goto('/market');
     await expect(page.getByRole('heading', { name: /Market/ }).first()).toBeVisible();
-    await expect(page.getByText('Four wares are set out each day', { exact: false })).toHaveCount(
+    await expect(page.getByText('Five wares are set out each day', { exact: false })).toHaveCount(
       0,
     );
     await expect(page.getByText('This place couldn’t open')).toHaveCount(0);

@@ -25,4 +25,15 @@ describe('the Market’s labels', () => {
     expect(wareNote(ware({}))).toBe('Common · head');
     expect(wareNote(ware({ id: 'fennec', slot: 'pet', rarity: 'rare' }))).toBe('Rare · companion');
   });
+
+  it('names furniture, and says whether it stands in the room or hangs on the wall (#443)', () => {
+    expect(wareName({ id: 'home-chair' })).toBe('Chair');
+    expect(wareName({ id: 'home-desert' })).toBe('Desert picture');
+    expect(wareNote(ware({ id: 'home-chair', kind: 'furniture', slot: null }))).toBe(
+      'Common · for your room',
+    );
+    expect(
+      wareNote(ware({ id: 'home-clock', kind: 'furniture', slot: null, rarity: 'rare' })),
+    ).toBe('Rare · for your wall');
+  });
 });

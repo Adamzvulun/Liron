@@ -25,7 +25,7 @@ Button: Got it
 ## First-visit cards: places (§3.4)
 
 - **The Notice Board:** Today’s quests and daily goal are posted here, with the contracts that pay gold. Chests you’ve earned wait on the shelf.
-- **The Market:** Four wares are set out each day, the same for everyone. Gold buys gear for your traveler, or a gift for a friend.
+- **The Market:** Five wares are set out each day, the same for everyone. Gold buys gear for your traveler, furniture for your room, or a gift for a friend.
 - **Your House:** This room is yours: tap the floor to walk. The cupboard holds your wardrobe, the shelf your trophies, the desk your ledger, and the letterbox the Fellowship.
 - **The Arena:** Challenge a friend to beat your score, or take on one they’ve sent you. A challenge waits a week for its answer.
 
@@ -65,7 +65,7 @@ Today’s quests and your daily goal are posted here. Each day brings three cont
 
 ### The Market
 
-Four wares are set out each day, the same for everyone. Gear for your traveler costs from 60 gold up. You can also buy a ware as a gift for a friend.
+Five wares are set out each day, the same for everyone: gear for your traveler from 60 gold up, a dye, a streak shield, and a piece of furniture for your room. You can also buy a ware as a gift for a friend.
 
 ### Your House
 
@@ -85,7 +85,7 @@ Every lesson and drill earns XP, and XP raises your level. Reaching a level pays
 
 ### Gold and gems
 
-Gold buys gear and streak shields at the Market. Gems are rarer: one every 5th level, one in the daily chest on every 7th day of a streak, and some for achievements. Nothing costs gems yet.
+Gold buys gear, furniture and streak shields at the Market. Gems are rarer: one every 5th level, one in the daily chest on every 7th day of a streak, and some for achievements. Nothing costs gems yet.
 
 ### Your streak
 
