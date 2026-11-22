@@ -38,5 +38,6 @@ export function Introduce({ id, onDone }: { id: string; onDone: () => void }) {
 /** A platform place's first-visit card (the-guide.md §3.4, #411). */
 export function PlaceCard({ place }: { place: keyof typeof PLACE_CARDS }) {
   const { title, text } = PLACE_CARDS[place];
-  return <FirstVisit id={cardId(place)} title={title} text={text} />;
+  // Keyed, so a new place gets a fresh card even when the screen around it stays.
+  return <FirstVisit key={place} id={cardId(place)} title={title} text={text} />;
 }
