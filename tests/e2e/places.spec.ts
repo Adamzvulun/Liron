@@ -68,13 +68,20 @@ test.describe('places in the city (#25)', () => {
     const arena = page.getByRole('link', { name: 'The Arena' });
     // On a phone the sign is small on the scaled square; its tap area reaches past the drawn
     // sign, so a thumb just above or below it still finds it (WCAG 2.5.8, review 2026-11-15).
-    await arena.scrollIntoViewIfNeeded(); // the phone's square pans; the Arena starts off-screen
-    const hit = await arena.evaluate((el) => {
-      const r = el.getBoundingClientRect();
-      const x = r.left + r.width / 2;
-      return [r.top - 3, r.bottom + 3].every((y) => el.contains(document.elementFromPoint(x, y)));
-    });
-    expect(hit).toBe(true);
+    // The phone's square pans, and the Arena starts off-screen. The square can rescale as the
+    // top bar fills in, so scroll again on each try until the layout has settled.
+    await expect
+      .poll(async () => {
+        await arena.scrollIntoViewIfNeeded();
+        return arena.evaluate((el) => {
+          const r = el.getBoundingClientRect();
+          const x = r.left + r.width / 2;
+          return [r.top - 3, r.bottom + 3].every((y) =>
+            el.contains(document.elementFromPoint(x, y)),
+          );
+        });
+      })
+      .toBe(true);
     await expect(page.getByRole('img', { name: /empty plot/ })).toHaveCount(2);
     await arena.click({ force: true });
     await expect(page).toHaveURL(/\/arena$/);
