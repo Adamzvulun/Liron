@@ -80,8 +80,8 @@ The first time the player opens a place (the Notice Board, the Market, Your Hous
 
 ## 4. Saving what has been seen
 
-- **On the account, not the device** (Adam's friends use a phone and a laptop; a guide that greets them twice looks broken): a new `guide_seen text[]` on the player's profile, listing the ids of what the guide has said (`welcome`, `intro:board`, `card:market`, `card:tower:listen`, …). The player can only change their own row (the profile's existing policies).
-- **Derived where possible:** an introduction whose place the player has already used counts as seen without being saved (an owned item means the Market has been visited; a done road step means the welcome isn't needed for an *existing* player). So **Adam and every current player** don't get a welcome at level 3. Only what can't be known otherwise is saved.
+- **On the account, not the device** (Adam's friends use a phone and a laptop; a guide that greets them twice looks broken): a new `guide_seen text[]` on the player's profile (at most 300 ids), added to only through `guide_mark(ids)`, which appends without losing what another device added, listing the ids of what the guide has said (`welcome`, `intro:board`, `card:market`, `card:tower:listen`, …). The player can only change their own row (the profile's existing policies).
+- **Derived where possible:** an introduction whose place the player has already used counts as seen without being saved (an owned item means the Market has been visited; a changed look means the wardrobe has been found). The release's migration saves `welcome` for every player who already has XP, so an *existing* player isn't welcomed; a new player's list starts empty. So **Adam and every current player** don't get a welcome at level 3. Only what can't be known otherwise is saved.
 - **If saving fails** (offline, a hiccup), nothing breaks: the line may show once more next visit. Saving never blocks the screen.
 - **Reset:** "Show me around again" in the Guidebook replays the welcome and nothing else. Clearing `guide_seen` is a dev-only tool, not a button.
 
