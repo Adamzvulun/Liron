@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { PLACE_PATHS } from '../city/layout.ts';
 import { visitPath } from '../fellowship/fellowship.ts';
 import { CHEAPEST_WARE } from '../player/compass.ts';
-import { isInside, nextIntroduction, type IntroFacts } from './introductions.ts';
+import { cardSide, isInside, nextIntroduction, type IntroFacts } from './introductions.ts';
 import { GUIDE_IDS } from './seen.ts';
 import { INTRODUCTIONS, PLACE_CARDS } from './words.ts';
 
@@ -150,5 +150,13 @@ describe('the platform’s first-visit cards (#411)', () => {
     for (const { text } of Object.values(PLACE_CARDS)) {
       expect(text.split(/(?<=[.!?])\s+/).length).toBeLessThanOrEqual(2);
     }
+  });
+});
+
+describe('where Nour’s card goes on a wide screen', () => {
+  it('moves right only for the House, whose sign the card would cover', () => {
+    expect(cardSide('house')).toBe('right');
+    for (const spot of ['tower', 'caravanserai', 'board', 'market', 'arena'] as const)
+      expect(cardSide(spot)).toBe('left');
   });
 });
