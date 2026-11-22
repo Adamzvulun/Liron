@@ -109,6 +109,7 @@ const CALLABLE: Record<string, string> = {
   'set_daily_goal(p_minutes integer)': 'the caller’s own goal, from a fixed list',
   'set_time_zone(p_zone text)': 'the caller’s own profile',
   'set_title(p_title text)': 'the caller’s own title, from what they earned',
+  'guide_mark(p_ids text[])': 'appends ids to the caller’s own guide_seen (#407)',
   'speech_checks_per_day()': 'a constant',
   'today_status()': 'the caller’s own day',
   'todays_contracts()': 'the caller’s own contracts',

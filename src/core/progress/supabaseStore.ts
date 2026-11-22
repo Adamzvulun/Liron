@@ -241,10 +241,12 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
     },
     async profile() {
       const [{ data, error }, items] = await Promise.all([
-        client
-          .from('profiles')
-          .select('display_name, avatar, title')
-          .maybeSingle<{ display_name: string; avatar: unknown; title: string | null }>(),
+        client.from('profiles').select('display_name, avatar, title, guide_seen').maybeSingle<{
+          display_name: string;
+          avatar: unknown;
+          title: string | null;
+          guide_seen: string[] | null;
+        }>(),
         client.from('owned_items').select('item_id').returns<{ item_id: string }[]>(),
       ]);
       if (error) throw new Error(`Couldn't read your profile: ${error.message}`);
@@ -255,6 +257,7 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
         avatar: parseLook(data?.avatar, new Set(owned)),
         owned,
         title: data?.title ?? '',
+        guideSeen: data?.guide_seen ?? [],
       };
     },
     async achievements() {
@@ -283,6 +286,10 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       if (!id) throw new Error("Couldn't save your look: not signed in");
       const { error } = await client.from('profiles').update({ avatar: look }).eq('id', id);
       if (error) throw new Error(`Couldn't save your look: ${error.message}`);
+    },
+    async markGuideSeen(ids) {
+      if (ids.length === 0) return;
+      await call('guide_mark', { p_ids: [...ids] }, 'remember what the guide showed');
     },
     async setDisplayName(name) {
       // Row-level security limits the update to the signed-in player's own profile.
