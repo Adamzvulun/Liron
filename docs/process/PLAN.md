@@ -329,6 +329,39 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 ---
 
+## Phase 6 — The guide for new players (epic #405)
+
+**Goal:** a friend who arrives by invite link, on a phone, finds their way around without anyone explaining it. Spec: [the-guide.md](../game/the-guide.md). Decision: [ADR 0053](../decisions/0053-a-guide-for-new-players.md). Research: [new-player-guides.md](../research/new-player-guides.md). Adam chose (2026-11-22) a guide character with tips at the moment of need and a Guidebook, everything open but introduced in order, friends first, and a new city character.
+
+### ☐ 6.1 (#406) · v1.3 · Design the Lamplighter: name, look, where they stand 🚧
+- **Gate:** Adam picks the name (from three) and approves the look. Drawn into the touch-screen pictures, no new filtered layers.
+
+### ☐ 6.2 (#407) · v1.3 · Save what the guide has shown, on the account
+- `guide_seen` on the profile; derived from state where possible, so existing players aren't greeted as strangers.
+
+### ☐ 6.3 (#408) · v1.3 · One voice at a time
+- The first page, celebrations and the guide take turns; the guide speaks only on the square.
+
+### ☐ 6.4 (#409) · v1.3 · The speech card and the three-line welcome
+- After the first step: the compass line, the top bar, the places. Skippable, replayable.
+
+### ☐ 6.5 (#410) · v1.3 · Introductions in order, and the one "new" mark
+- Seven introductions, one per visit, one mark at a time; the city errands fold into them.
+
+### ☐ 6.6 (#411) · v1.3 · First-visit cards for every place and station
+- Core places from `content/core/guide.json`; halls through the subject contract.
+
+### ☐ 6.7 (#412) · v1.3 · The Guidebook
+- A page for every place, number and system; numbers from code; a completeness test.
+
+### ☐ 6.8 (#413) · v1.3 · The guide's words, reviewed by Adam 🚧
+- **Gate:** Adam reads every line once.
+
+### ☐ 6.9 (#414) · v1.3 · Try it on a newcomer, and release v1.3.0
+- A newcomer walk-through on the phone, then the release.
+
+**Order:** 6.1 and 6.2 first (6.1 waits on Adam, so 6.2–6.3 go ahead meanwhile), then 6.4, 6.5, 6.6, 6.7 in that order, with 6.8's words written alongside each and reviewed in one sitting before 6.9.
+
 ## Parked: ordered after everything above, each waiting on Adam
 
 | Item | Why it waits | What un-parks it |
@@ -351,4 +384,6 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 | 2.3 | Try [FRIENDS.md](FRIENDS.md) once on `waymark-dev`: make an account, reset its password by SQL, delete it | Trusting the steps before the first real friend |
 | 3.7 | Merge the Fellowship release and add a first friend | Friends on the live site |
 | 4.5 | Pick the subject for the first empty plot | The third hall (the guide is written either way) |
+| 6.1 | Pick the Lamplighter's name from three, and approve the look | The guide's figure and portrait (6.2–6.3 go ahead meanwhile) |
+| 6.8 | Read the guide's words once | The v1.3.0 release |
 | Parked | Look at Azure and say yes or no | The regulars' voices, and pronunciation scoring |
