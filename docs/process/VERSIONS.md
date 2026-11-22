@@ -183,3 +183,7 @@ The painting's ~100 filtered shapes become a few SVG images on a touch screen, f
 
 Phase 6 (epic #405, [ADR 0053](../decisions/0053-a-guide-for-new-players.md)): Nour the lamplighter welcomes a newcomer in three lines, introduces one place at a time, each place and station says what it's for on a first visit, and the Guidebook explains every place and number. Notes: [releases/v1.3.0.md](releases/v1.3.0.md). Released 2026-11-22 ([#421](https://github.com/Adamzvulun/Liron/pull/421)), merged by Claude at Adam's word ("Continue to your next tasks. Same as weve worked before"). His read of the words (#413) follows; changes go in a later release.
 
+
+### v1.3.1 — Nour, out of the way
+
+A fix release for v1.3.0's guide: Nour's card no longer hides the place Nour talks about (on a phone it sits under the top bar), and the eight fixes from a review of the guide's code. Notes: [releases/v1.3.1.md](releases/v1.3.1.md). Claude merges the release PR once its checks pass.
