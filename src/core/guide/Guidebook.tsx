@@ -70,7 +70,10 @@ export function Guidebook({
     };
   }, [subjects]);
   const pages = pagesOf(guilds);
-  const [open, setOpen] = useState<string | null>(null);
+  // Wide, the first page shows beside the list; on a phone, the list comes first.
+  const [open, setOpen] = useState<string | null>(() =>
+    window.matchMedia('(min-width: 720px)').matches ? (GUIDEBOOK.chapters[0]?.id ?? null) : null,
+  );
   const page = pages.find((p) => p.id === open) ?? null;
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
@@ -79,10 +82,11 @@ export function Guidebook({
       document.title = 'Waymark';
     };
   }, []);
+  // A page the player chose takes the focus; the one open on arrival doesn't.
+  const chosen = useRef(false);
   useEffect(() => {
-    if (open) heading.current?.focus();
+    if (open && chosen.current) heading.current?.focus();
   }, [open]);
-  const shown = page ?? pages[0];
   return (
     <main className="place-screen place-screen--wide guidebook" data-ground="wood">
       <Link className="place-screen__back" href="/">
@@ -97,8 +101,11 @@ export function Guidebook({
                 <button
                   type="button"
                   className="guidebook__entry"
-                  aria-current={shown?.id === p.id ? 'page' : undefined}
-                  onClick={() => setOpen(p.id)}
+                  aria-current={page?.id === p.id ? 'page' : undefined}
+                  onClick={() => {
+                    chosen.current = true;
+                    setOpen(p.id);
+                  }}
                 >
                   {p.title}
                 </button>
@@ -109,18 +116,18 @@ export function Guidebook({
             {GUIDEBOOK.tour}
           </button>
         </nav>
-        {shown && (
+        {page && (
           <article className="guidebook__page" aria-labelledby="guidebook-page-title">
             <button type="button" className="guidebook__all" onClick={() => setOpen(null)}>
               ← All pages
             </button>
             <h2 id="guidebook-page-title" tabIndex={-1} ref={heading}>
-              {shown.title}
+              {page.title}
             </h2>
-            <p>{shown.text}</p>
-            {shown.stations && shown.stations.length > 0 && (
+            <p>{page.text}</p>
+            {page.stations && page.stations.length > 0 && (
               <dl className="guidebook__stations">
-                {shown.stations.map((s) => (
+                {page.stations.map((s) => (
                   <div key={s.title}>
                     <dt>{s.title}</dt>
                     <dd>{s.text}</dd>
@@ -128,8 +135,8 @@ export function Guidebook({
                 ))}
               </dl>
             )}
-            {shown.href && (
-              <Link className="guidebook__go" href={shown.href}>
+            {page.href && (
+              <Link className="guidebook__go" href={page.href}>
                 {GUIDEBOOK.go}
               </Link>
             )}

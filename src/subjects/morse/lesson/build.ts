@@ -61,17 +61,24 @@ export function buildRun(
   // Every unlocked character is heard at least once, however short the run: each pick is
   // random, and a short run of K and M could otherwise be all K (it was, now and then, in the
   // tests' 4-second run). One that's missing takes the place of a character heard twice.
+  // The new character keeps its share: another repeat gives way first, and the new one's own
+  // repeats only when nothing else is heard twice.
+  const twice = (x: string) => chars.indexOf(x) !== chars.lastIndexOf(x);
   for (const c of unlocked) {
     if (chars.includes(c)) continue;
     const start = Math.floor(random() * chars.length);
+    let spare = -1;
     for (let k = 0; k < chars.length; k++) {
       const i = (start + k) % chars.length;
       const there = chars[i] ?? '';
-      if (chars.indexOf(there) !== chars.lastIndexOf(there)) {
-        chars[i] = c;
+      if (!twice(there)) continue;
+      if (there !== newChar) {
+        spare = i;
         break;
       }
+      if (spare < 0) spare = i;
     }
+    if (spare >= 0) chars[spare] = c;
   }
   const regrouped = Array.from({ length: groups.length }, (_, g) =>
     chars.slice(g * GROUP_SIZE, (g + 1) * GROUP_SIZE).join(''),

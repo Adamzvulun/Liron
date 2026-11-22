@@ -33,6 +33,10 @@ describe('one voice at a time (#408)', () => {
     expect(whoSpeaks({ ...none, guide: true, spokenThisVisit: true, asked: true })).toBe('guide');
     expect(whoSpeaks({ ...none, guide: true, celebration: true, asked: true })).toBe('celebration');
   });
+
+  it('answers "Show me around again" before the first page', () => {
+    expect(whoSpeaks({ ...none, guide: true, firstPage: true, asked: true })).toBe('guide');
+  });
 });
 
 describe('a visit to the square', () => {
