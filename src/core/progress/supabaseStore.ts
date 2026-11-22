@@ -291,6 +291,10 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       if (ids.length === 0) return;
       await call('guide_mark', { p_ids: [...ids] }, 'remember what the guide showed');
     },
+    home: () => call<unknown>('my_home', {}, 'read your home'),
+    async saveHome(layout) {
+      await call('save_home', { p_layout: layout }, 'save your home');
+    },
     async setDisplayName(name) {
       // Row-level security limits the update to the signed-in player's own profile.
       const { data } = await client.auth.getSession();
