@@ -1,6 +1,9 @@
 import { expect, test } from './fixtures.ts';
 import { GUIDE_SAID, signedIn } from './fake-supabase.ts';
-import { GUIDE_IDS } from '../../src/core/guide/seen.ts';
+import { cardId, GUIDE_IDS } from '../../src/core/guide/seen.ts';
+import { PLACE_CARDS } from '../../src/core/guide/words.ts';
+import { CARD_KEYS as MORSE_CARDS } from '../../src/subjects/morse/guide.ts';
+import { CARD_KEYS as ARABIC_CARDS } from '../../src/subjects/arabic/guide.ts';
 
 // Nour's welcome (docs/game/the-guide.md §3.2, R1–R5; #409).
 const nour = (page: import('@playwright/test').Page) =>
@@ -144,7 +147,53 @@ test.describe('Nour’s introductions', () => {
     await expect(card).toHaveCount(0);
   });
 
-  test('the fake’s old hand has heard every line Nour has', () => {
-    expect([...GUIDE_SAID].sort()).toEqual(Object.values(GUIDE_IDS).sort());
+  test('the fake’s old hand has heard every line Nour has, and seen every card', () => {
+    const cards = [
+      ...Object.keys(PLACE_CARDS).map((p) => cardId(p)),
+      ...MORSE_CARDS.map((k) => cardId('morse', k)),
+      ...ARABIC_CARDS.map((k) => cardId('arabic', k)),
+    ];
+    expect([...GUIDE_SAID].sort()).toEqual([...Object.values(GUIDE_IDS), ...cards].sort());
+  });
+});
+
+// First-visit cards (the-guide.md §3.4, R11–R13; #411).
+test.describe('first-visit cards', () => {
+  const about = (page: import('@playwright/test').Page, title: string) =>
+    page.getByRole('region', { name: `About ${title}` });
+
+  test('a place says what it is for once, and Got it saves it', async ({ page }) => {
+    const updates: unknown[] = [];
+    const seen = GUIDE_SAID.filter((id) => id !== 'card:market');
+    await signedIn(page, updates, [], null, [], { guideSeen: seen });
+    await page.goto('/market');
+    const card = about(page, 'The Market');
+    await expect(card).toContainText('Four wares are set out each day');
+    // Not a dialog: the Market works around it.
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await card.getByRole('button', { name: 'Got it' }).click();
+    await expect(card).toHaveCount(0);
+    await expect
+      .poll(() => updates)
+      .toContainEqual({ guide_seen: expect.arrayContaining(['card:market']) as unknown });
+    await page.reload();
+    await expect(page.getByRole('heading', { name: /Market/ }).first()).toBeVisible();
+    await expect(about(page, 'The Market')).toHaveCount(0);
+  });
+
+  test('in a hall the first action closes its card, and a station has its own', async ({
+    page,
+  }) => {
+    const updates: unknown[] = [];
+    const seen = GUIDE_SAID.filter((id) => !id.startsWith('card:morse:'));
+    await signedIn(page, updates, [], { unlocked: 3, runs: 2 }, [], { guideSeen: seen });
+    await page.goto('/signal-tower');
+    await expect(about(page, 'The Signal Tower')).toContainText('Morse code by ear');
+    await page.getByRole('button', { name: /Instant Recognition/ }).click();
+    await expect(about(page, 'The Signal Tower')).toHaveCount(0);
+    await expect(about(page, 'Instant Recognition')).toContainText('before its lamp fades');
+    await expect
+      .poll(() => updates)
+      .toContainEqual({ guide_seen: expect.arrayContaining(['card:morse:hall']) as unknown });
   });
 });

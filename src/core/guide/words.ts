@@ -25,3 +25,10 @@ const Introductions = z.object({
 export const INTRODUCTIONS = Introductions.parse(
   pack.items.find((i) => i.id === 'guide-introductions')?.data,
 );
+
+const Card = z.object({ title: z.string().min(1), text: z.string().min(1) });
+
+/** The platform's places' first-visit cards (the-guide.md §3.4), by place. */
+export const PLACE_CARDS = z
+  .object({ board: Card, market: Card, house: Card, arena: Card })
+  .parse(pack.items.find((i) => i.id === 'guide-cards')?.data);

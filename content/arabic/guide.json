@@ -1,0 +1,87 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "guide-card-hall",
+      "subject": "arabic",
+      "type": "guide-card",
+      "data": {
+        "title": "The Caravanserai",
+        "text": "Spoken Palestinian Arabic is learned here, the letters first and then the words. Each corner of the courtyard teaches one thing.",
+        "speaker": "The innkeeper"
+      }
+    },
+    {
+      "id": "guide-card-scribe",
+      "subject": "arabic",
+      "type": "guide-card",
+      "data": {
+        "title": "The scribe’s table",
+        "text": "Each lesson brings a few new letters, their shapes and their sounds. Pass a lesson a few times in a row to move on.",
+        "speaker": "The innkeeper"
+      }
+    },
+    {
+      "id": "guide-card-slate",
+      "subject": "arabic",
+      "type": "guide-card",
+      "data": {
+        "title": "The slate",
+        "text": "Write the letters you’ve learned. Writing them yourself helps them stick.",
+        "speaker": "The innkeeper"
+      }
+    },
+    {
+      "id": "guide-card-innkeeper",
+      "subject": "arabic",
+      "type": "guide-card",
+      "data": {
+        "title": "The innkeeper’s table",
+        "text": "Everyday words, a chapter at a time. Then the regulars who use them sit down to talk.",
+        "speaker": "The innkeeper"
+      }
+    },
+    {
+      "id": "guide-card-fountain",
+      "subject": "arabic",
+      "type": "guide-card",
+      "data": {
+        "title": "The fountain",
+        "text": "Hear a sound and pick the letter that makes it. Your ears learn the letters as your eyes do.",
+        "speaker": "The innkeeper"
+      }
+    },
+    {
+      "id": "guide-card-well",
+      "subject": "arabic",
+      "type": "guide-card",
+      "data": {
+        "title": "The echo well",
+        "text": "Two sounds that are easy to mix up, one after the other. Listen until you can tell them apart.",
+        "speaker": "The innkeeper"
+      }
+    },
+    {
+      "id": "guide-card-storyteller",
+      "subject": "arabic",
+      "type": "guide-card",
+      "data": {
+        "title": "The storyteller",
+        "text": "Read short words made of the letters you know.",
+        "speaker": "The innkeeper"
+      }
+    },
+    {
+      "id": "guide-card-coffee",
+      "subject": "arabic",
+      "type": "guide-card",
+      "data": {
+        "title": "Coffee corner",
+        "text": "Everyday phrases, a few at a time, for greeting people and getting by.",
+        "speaker": "The innkeeper"
+      }
+    }
+  ]
+}

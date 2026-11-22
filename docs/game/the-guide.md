@@ -70,6 +70,7 @@ The first time the player opens a place (the Notice Board, the Market, Your Hous
 
 - **The platform's places:** the words are core content (`content/core/guide.json`).
 - **The guild halls and their stations:** the words belong to each subject (`content/<subject>/guide.json`), handed to the platform through the subject contract, so `src/core/` names no subject. The hall's own first card is said by the guild's character (the innkeeper, the tower's keeper), not by the Lamplighter: inside a hall, the hall speaks.
+- **As built (#411, 2026-11-22):** the card sits low on the screen, not at the top, so it never covers the way back. Its first action is any click outside it. The platform's cards are the Notice Board, the Market, Your House (which names the Fellowship's door) and the Arena. The Signal Tower has a card for the hall and for Lessons, Instant Recognition, Sending, the Codebook and the Radio Room; the Caravanserai for the courtyard and its seven stations. Trials, the regulars' chats and the finales explain themselves. A subject passes its words (`content/<subject>/guide.json`, type `guide-card`) to the platform's `FirstVisit`, which remembers through `GuideContext`. The Caravanserai's cards are signed by the innkeeper; the tower has no keeper character yet, so its cards are unsigned (Adam's call, #413).
 - **Top-bar items:** the first time the player taps the gold, gems, streak or minutes, the popover they open carries the explanation (most already do: the goal popover, the streak's shields). The Guidebook has the rest.
 
 ### 3.5 The Guidebook

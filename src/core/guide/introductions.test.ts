@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { CHEAPEST_WARE } from '../player/compass.ts';
 import { isInside, nextIntroduction, type IntroFacts } from './introductions.ts';
 import { GUIDE_IDS } from './seen.ts';
-import { INTRODUCTIONS } from './words.ts';
+import { INTRODUCTIONS, PLACE_CARDS } from './words.ts';
 
 // Introductions, one at a time (the-guide.md §3.3, R6–R10; #410).
 const newcomer: IntroFacts = {
@@ -125,5 +125,13 @@ describe('Nour’s words for the introductions', () => {
   it('has a line for every introduction, and no other', () => {
     const intros = all.filter((id) => id.startsWith('intro:')).sort();
     expect(Object.keys(INTRODUCTIONS.lines).sort()).toEqual(intros);
+  });
+});
+
+describe('the platform’s first-visit cards (#411)', () => {
+  it('say what each place is for in two sentences or less', () => {
+    for (const { text } of Object.values(PLACE_CARDS)) {
+      expect(text.split(/(?<=[.!?])\s+/).length).toBeLessThanOrEqual(2);
+    }
   });
 });

@@ -47,7 +47,7 @@ export const TODAY = {
   shielded_days: 0,
 };
 
-/** Every line Nour has (src/core/guide/seen.ts): what an old hand has heard. */
+/** Every line Nour has and every first-visit card (src/core/guide/): what an old hand has seen. */
 export const GUIDE_SAID = [
   'welcome',
   'intro:board',
@@ -57,7 +57,15 @@ export const GUIDE_SAID = [
   'intro:other-hall',
   'intro:arena',
   'intro:ledger',
-] as const;
+  // First-visit cards (#411): the platform's places, then each hall's.
+  ...['board', 'market', 'house', 'arena'].map((p) => `card:${p}`),
+  ...['hall', 'lessons', 'recognition', 'sending', 'codebook', 'radio'].map(
+    (k) => `card:morse:${k}`,
+  ),
+  ...['hall', 'scribe', 'slate', 'innkeeper', 'fountain', 'well', 'storyteller', 'coffee'].map(
+    (k) => `card:arabic:${k}`,
+  ),
+];
 
 /** What a test can change about the player beyond the defaults (ADR 0033, 0034). */
 export interface Extras {
