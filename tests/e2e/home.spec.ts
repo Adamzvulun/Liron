@@ -94,20 +94,22 @@ test.describe('walking in your room (#440)', () => {
   }) => {
     await openRoom(page);
     await room(page).focus();
+    const still = () => expect(at(page)).not.toHaveAttribute('data-walking');
     await page.keyboard.press('ArrowRight');
     await expect(at(page)).toHaveAttribute('data-at', '1,4');
-    await page.waitForTimeout(300);
+    await still();
     await page.keyboard.press('d');
     await expect(at(page)).toHaveAttribute('data-at', '2,4');
-    await page.waitForTimeout(300);
-    // The bed is right behind.
+    await still();
+    // The bed is right behind: the press does nothing.
     await page.keyboard.press('ArrowUp');
-    await page.waitForTimeout(300);
+    await still();
     await expect(at(page)).toHaveAttribute('data-at', '2,4');
+    // Pressed quickly, mid-step, both presses count.
     await page.keyboard.press('d');
-    await page.waitForTimeout(300);
     await page.keyboard.press('w');
     await expect(at(page)).toHaveAttribute('data-at', '3,3');
+    await still();
   });
 
   test('with reduced motion, goes straight to the cell, without stepping', async ({ page }) => {

@@ -181,9 +181,11 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
     const d = STEPS[e.key.length === 1 ? e.key.toLowerCase() : e.key];
     if (!d) return;
     e.preventDefault();
-    if (walking) return;
     const to: Cell = [here.current[0] + d[0], here.current[1] + d[1]];
-    if (open(...to)) walk(to);
+    if (!open(...to)) return;
+    // Mid-step, the press is the next step, so a quick player loses no key presses.
+    if (walking) route.current = [to];
+    else walk(to);
   };
 
   // On a phone the room pans: keep the avatar in the middle of the view (§4).
