@@ -28,7 +28,7 @@ import { cityErrands, useCompass, type CompassSources } from './player/compass.t
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
 import { GUIDEBOOK_PATH, GuideContext } from './guide/context.ts';
-import { isInside, nextIntroduction } from './guide/introductions.ts';
+import { cardSide, isInside, nextIntroduction } from './guide/introductions.ts';
 import { GUIDE_IDS, guideSeen } from './guide/seen.ts';
 import { useSpokenThisVisit, whoSpeaks } from './guide/voice.ts';
 import { localDay } from './road/road.ts';
@@ -734,6 +734,7 @@ function Lobby({ player }: { player: Player }) {
               intro && (
                 <Introduce
                   id={intro.id}
+                  side={cardSide(intro.spot)}
                   onDone={() => {
                     setHushed(true);
                     setAsked(null);

@@ -11,7 +11,7 @@ export interface Line {
 }
 
 /**
- * Nour speaking (the-guide.md §3.2, #409): a card above the dock, never a dialog, so it traps no
+ * Nour speaking (the-guide.md §3.2, #409): a card at the bottom of the square (under the HUD on a phone), never a dialog, so it traps no
  * focus and the square stays usable. While a line shows, the thing it names glows: the page's
  * root carries `data-guide-point`, and guide.css rings the matching part of the screen.
  */
@@ -20,12 +20,15 @@ export function SpeechCard({
   next,
   done,
   skip,
+  side = 'left',
   onDone,
 }: {
   lines: readonly Line[];
   next: string;
   done: string;
   skip?: string;
+  /** Which bottom corner on a wide screen (introductions.ts, cardSide); a phone ignores it. */
+  side?: 'left' | 'right';
   /** Called once, when the last line is closed or the player skips. */
   onDone: () => void;
 }) {
@@ -43,7 +46,10 @@ export function SpeechCard({
   if (!line) return null;
   const last = at === lines.length - 1;
   return (
-    <section className="guide" aria-label={`${NOUR}, the lamplighter`}>
+    <section
+      className={side === 'right' ? 'guide guide--right' : 'guide'}
+      aria-label={`${NOUR}, the lamplighter`}
+    >
       <Avatar look={NOUR_LOOK} view="portrait" className="guide__face" />
       <div className="guide__body">
         <p className="guide__name">{NOUR}</p>
