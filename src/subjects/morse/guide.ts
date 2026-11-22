@@ -3,6 +3,7 @@
 import pack from '../../../content/morse/guide.json' with { type: 'json' };
 import { cardsFrom } from '../../core/guide/cards.ts';
 import { cardId } from '../../core/guide/seen.ts';
+import type { GuideChapter } from '../../core/subject.ts';
 
 const CARDS = cardsFrom(pack);
 
@@ -20,6 +21,19 @@ export function cardFor(view: string) {
   const key = KEY[view];
   const words = key ? CARDS.get(key) : undefined;
   return key && words ? { id: cardId('morse', key), ...words } : null;
+}
+
+/** The guild's Guidebook chapter: the hall's card, then a line per station. */
+export function chapter(): GuideChapter {
+  const hall = CARDS.get('hall');
+  if (!hall) throw new Error('No card for the hall');
+  return {
+    title: hall.title,
+    text: hall.text,
+    stations: [...CARDS]
+      .filter(([key]) => key !== 'hall')
+      .map(([, c]) => ({ title: c.title, text: c.text })),
+  };
 }
 
 /** Every card key, for the test that each has words. */
