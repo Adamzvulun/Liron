@@ -129,11 +129,13 @@ export interface PaintOptions {
    * wooden staff with a brass crook, and a lit lantern hanging from it. Only the guide carries it; it is not gear.
    */
   pole?: boolean;
+  /** The companion at your feet; off where the scene draws it on its own (the home, task 7.5). */
+  pet?: boolean;
 }
 
 export function paintAvatar(
   look: Look,
-  { idPrefix, shadow = true, pole = false }: PaintOptions,
+  { idPrefix, shadow = true, pole = false, pet: withPet = true }: PaintOptions,
 ): string {
   const g = gradients(idPrefix.replace(/[^a-zA-Z0-9_-]/g, ''));
   const skinT = SKINS.find((s) => s.id === look.skin) ?? SKINS[1];
@@ -852,9 +854,22 @@ export function paintAvatar(
   const pet = wear('pet');
   // It stays inside the 200-wide box: the camel calf, the widest, sits a little further in.
   const petX = cx + (pet === 'camel-calf' ? 54 : 60);
-  if (pet) front += `<g transform="translate(${petX} ${fy}) scale(.95)">${companion(pet, g)}</g>`;
+  if (pet && withPet)
+    front += `<g transform="translate(${petX} ${fy}) scale(.95)">${companion(pet, g)}</g>`;
 
   return `<defs>${g.defs.join('')}</defs>${back}${body}${front}`;
+}
+
+/**
+ * The companion alone, in the avatar's box, standing where the avatar would (its feet at the
+ * box's feet line, in the middle), or '' when none is worn. The home walks it a cell behind.
+ */
+export function paintCompanion(look: Look, idPrefix: string): string {
+  const pet = look.gear.pet;
+  if (!pet) return '';
+  const g = gradients(idPrefix.replace(/[^a-zA-Z0-9_-]/g, ''));
+  const art = `<g transform="translate(100 ${AVATAR_BOX.feetY}) scale(.95)">${companion(pet, g)}</g>`;
+  return `<defs>${g.defs.join('')}</defs>${art}`;
 }
 
 /** A companion, drawn with its feet on (0, 0); it fits in about 60 by 64. */

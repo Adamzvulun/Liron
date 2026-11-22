@@ -1,0 +1,91 @@
+/* The room you walk in (task 7.5). A box on the house's page: the whole room on a wide screen,
+   and on a phone held upright the room's height, panning sideways (useStage). */
+.room {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 20px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #2a1a10;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
+  outline-offset: 3px;
+}
+
+@media (max-width: 899px) and (orientation: portrait) {
+  .room {
+    aspect-ratio: auto;
+    height: min(68svh, 620px);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+}
+
+.room__stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: top left;
+  cursor: pointer;
+  touch-action: pan-x;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.room__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.room__light {
+  z-index: 100;
+}
+
+.room__figure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 100px 300px;
+  pointer-events: none;
+}
+
+.room__figure--moving {
+  transition: transform 250ms linear;
+}
+
+.room__say {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: 110;
+  margin: 0;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgb(36 22 14 / 82%);
+  color: #ffe7a8;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.room__say:empty {
+  display: none;
+}
+
+.room--pan .room__say {
+  position: sticky;
+  left: auto;
+  bottom: auto;
+  top: calc(100% - 48px);
+  display: block;
+  width: max-content;
+  margin: 0 auto;
+  transform: none;
+}
+
+.room--pan .room__say:empty {
+  display: none;
+}
