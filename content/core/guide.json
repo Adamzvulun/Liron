@@ -26,6 +26,23 @@
         "done": "Got it",
         "skip": "Skip"
       }
+    },
+    {
+      "id": "guide-introductions",
+      "subject": "core",
+      "type": "guide-introductions",
+      "data": {
+        "lines": {
+          "intro:board": "The Notice Board has today’s quests. Finish them for gold, and a chest now and then.",
+          "intro:fellowship": "Your friend is in town. Your House has a door to the Fellowship: see what they’re up to.",
+          "intro:market": "You’ve earned enough for something at the Market. Have a look.",
+          "intro:wardrobe": "New gear goes on in Your House, at the wardrobe.",
+          "intro:other-hall": "The other hall’s door is open too, whenever you’re curious.",
+          "intro:arena": "Up at the Arena, friends challenge each other. Yours might be waiting.",
+          "intro:ledger": "Your House keeps a ledger of how far you’ve come, and your trophies."
+        },
+        "done": "Got it"
+      }
     }
   ]
 }
