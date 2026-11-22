@@ -1,5 +1,12 @@
 import { expect, test } from './fixtures.ts';
-import { friendCard, GUIDE_SAID, signedIn } from './fake-supabase.ts';
+import {
+  FAKE_SUPABASE_URL,
+  friendCard,
+  GUIDE_SAID,
+  signedIn,
+  TODAY,
+  WALLET,
+} from './fake-supabase.ts';
 import { cardId, GUIDE_IDS } from '../../src/core/guide/seen.ts';
 import { PLACE_CARDS } from '../../src/core/guide/words.ts';
 import { CARD_KEYS as MORSE_CARDS } from '../../src/subjects/morse/guide.ts';
@@ -292,4 +299,59 @@ test('an invited friend finds their way on a phone, start to finish', async ({ p
     .toContainEqual({
       guide_seen: expect.arrayContaining(['card:board', 'intro:board', 'welcome']) as unknown,
     });
+});
+
+// One voice at a time (the-guide.md R5, R9; #408): a level-up and Nour never show together, and
+// once a celebration has had the square, Nour waits for the next visit.
+test('a level-up has the square to itself, and Nour waits for the next visit', async ({
+  page,
+}, info) => {
+  test.skip(info.project.name !== 'phone', 'the phone is where they would stack');
+  test.setTimeout(60_000);
+  await signedIn(page, [], [], null, [], { guideSeen: ['welcome'] });
+  await page.route(`${FAKE_SUPABASE_URL}/rest/v1/rpc/save_session`, (route) =>
+    route.fulfill({
+      json: {
+        duplicate: false,
+        award: {
+          ...WALLET,
+          xp: 140,
+          xp_earned: 12,
+          gold_earned: 0,
+          gems_earned: 0,
+          level_before: 4,
+          level: 5,
+          today: { ...TODAY, minutes: TODAY.minutes + 1 },
+        },
+      },
+    }),
+  );
+  // From the square into the tower, the way a player goes, so Back returns there.
+  await page.goto('/');
+  await page.evaluate(() => {
+    history.pushState(null, '', '/signal-tower?run=short');
+    dispatchEvent(new Event('wm:navigate'));
+  });
+  await page.getByRole('button', { name: /Instant Recognition/ }).click();
+  await page.getByRole('button', { name: 'Start round' }).click();
+  await expect(page.getByText('Which letter?')).toBeVisible({ timeout: 8000 });
+  await page
+    .getByRole('group', { name: 'Letter keys' })
+    .or(page.getByLabel('Letter keys'))
+    .getByRole('button', { name: 'K', exact: true })
+    .click();
+  const levelUp = page.getByRole('dialog', { name: 'Level 5' });
+  await expect(levelUp).toBeVisible({ timeout: 20_000 });
+  // Back to the square with the celebration still open: it keeps the square, and Nour is quiet.
+  for (let i = 0; i < 3 && new URL(page.url()).pathname !== '/'; i++) await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(levelUp).toBeVisible();
+  await expect(nour(page)).toHaveCount(0);
+  await levelUp.getByRole('button', { name: 'Continue' }).click();
+  await expect(levelUp).toHaveCount(0);
+  await expect(nour(page)).toHaveCount(0);
+  // The next visit to the square is Nour's.
+  await page.getByRole('navigation', { name: 'Places' }).getByRole('link').first().click();
+  await page.getByRole('link', { name: /Back to the square/ }).click();
+  await expect(nour(page).getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
 });
