@@ -25,7 +25,7 @@ Waymark has grown into a big world: five places and the Arena on the square, two
 
 - **Who:** the Lamplighter. Every evening they walk the square with a long pole and light the lamps, and they've seen every traveler arrive. They keep the compass in the middle of the square polished. That is why they know where everything is, and why they're always near the compass.
 - **Why a lamplighter:** lamps already mean progress in Waymark (the Signal Tower's lamps, a lamp lighting when a step is done). It belongs to both guilds and to neither, and it gives the guide something to do in the painting: the guide is a figure with a pole by the compass, not a floating mascot.
-- **Name:** to be chosen with Adam. It should work in both cultures of the city and be easy to say. Claude will offer three with their meanings in the design issue.
+- **Name: Nour** (نور, Arabic for "light"; used for girls and boys). Adam chose it on 2026-11-22 from three Claude offered (Siraj, "lamp"; Nour; Hesper, Greek for "evening star"). Players meet them as "Nour, the lamplighter". The look is still Adam's to approve (#406).
 - **Voice:** warm, brief, a little dry. One or two sentences at a time. Never system words ("unlock", "feature", "tap here to"). Says what a place is *for*, in the world's terms: "The Market sells gear for your traveler. Gold buys it; you've earned some." American English (CLAUDE.md).
 - **Where they appear:** painted standing by the compass on the square (on touch screens, part of the square's pictures, with no new filtered layers). Their lines appear in a speech card anchored to the bottom of the screen, above the dock, with their small portrait. The card never covers the compass line or the thing it talks about.
 
