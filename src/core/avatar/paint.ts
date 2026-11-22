@@ -124,9 +124,17 @@ export interface PaintOptions {
   idPrefix: string;
   /** The soft shadow on the ground; off where the scene paints its own. */
   shadow?: boolean;
+  /**
+   * Nour's lamplighter's pole (the-guide.md §2), held in the right hand in place of hand gear: a
+   * tall brass pole with a hook and a lit wick. Only the guide carries it; it is not gear.
+   */
+  pole?: boolean;
 }
 
-export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOptions): string {
+export function paintAvatar(
+  look: Look,
+  { idPrefix, shadow = true, pole = false }: PaintOptions,
+): string {
   const g = gradients(idPrefix.replace(/[^a-zA-Z0-9_-]/g, ''));
   const skinT = SKINS.find((s) => s.id === look.skin) ?? SKINS[1];
   const hairT = HAIR_COLOURS.find((h) => h.id === look.hairColour) ?? HAIR_COLOURS[1];
@@ -487,6 +495,33 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       1,
       0,
     )}" stroke-width="6" stroke-linecap="round"/><path d="M${handL[0] - 10} 104 Q${handL[0] - 4} 88 ${handL[0] + 4} 100" stroke="${INK}" stroke-width="3" fill="none"/>`;
+  }
+
+  if (pole) {
+    // Brass, taller than the figure, leaning a little out; the wick's flame is drawn as warm
+    // rings with no filter (the square's pictures on a phone, v1.2.x).
+    const [x0, y0] = [handL[0] + 4, fy - 4];
+    const [x1, y1] = [handL[0] - 14, 34];
+    const brass = g.lin(
+      [
+        [0, '#F2D28A'],
+        [0.5, '#C9973E'],
+        [1, '#7A5418'],
+      ],
+      1,
+      0,
+    );
+    body += `<path d="M${x0} ${y0} L${x1} ${y1}" stroke="${INK}" stroke-width="9" stroke-linecap="round"/><path d="M${x0} ${y0} L${x1} ${y1}" stroke="${brass}" stroke-width="4.5" stroke-linecap="round"/>`;
+    // The hook that opens a lamp's door, and the wick holder.
+    body += `<path d="M${x1} ${y1 + 6} q-14 -2 -12 12" stroke="${INK}" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M${x1} ${y1 + 6} q-14 -2 -12 12" stroke="#C9973E" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+    body += `<rect x="${x1 - 4}" y="${y1 - 4}" width="8" height="10" rx="2" fill="#8A5A1E" stroke="${INK}" stroke-width="2.4"/>`;
+    const flame = g.rad([
+      [0, '#FFF6D0'],
+      [0.45, '#FFD36B'],
+      [1, '#F08A2A'],
+    ]);
+    body += `<circle cx="${x1}" cy="${y1 - 8}" r="14" fill="#FFD36B" opacity=".18"/><circle cx="${x1}" cy="${y1 - 8}" r="8" fill="#FFD36B" opacity=".3"/>`;
+    body += `<path d="M${x1} ${y1 - 18} C${x1 + 6} ${y1 - 10} ${x1 + 5} ${y1 - 3} ${x1} ${y1 - 3} C${x1 - 5} ${y1 - 3} ${x1 - 6} ${y1 - 10} ${x1} ${y1 - 18} Z" fill="${flame}" stroke="${INK}" stroke-width="1.8"/>`;
   }
 
   if (wear('hand') === 'flags') {
