@@ -1,0 +1,198 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "home:room",
+      "subject": "core",
+      "type": "home-room",
+      "data": {
+        "cols": 12,
+        "rows": 5,
+        "door": [0, 4],
+        "caps": { "floor": 20, "wall": 6 },
+        "slots": [
+          {
+            "slot": 0,
+            "wall": "back",
+            "below": [
+              [0, 0],
+              [1, 0],
+              [2, 0]
+            ]
+          },
+          {
+            "slot": 1,
+            "wall": "back",
+            "below": [
+              [3, 0],
+              [4, 0],
+              [5, 0]
+            ]
+          },
+          {
+            "slot": 2,
+            "wall": "back",
+            "below": [
+              [6, 0],
+              [7, 0],
+              [8, 0]
+            ]
+          },
+          {
+            "slot": 3,
+            "wall": "back",
+            "below": [
+              [9, 0],
+              [10, 0],
+              [11, 0]
+            ]
+          },
+          {
+            "slot": 4,
+            "wall": "left",
+            "below": [
+              [0, 2],
+              [0, 3]
+            ]
+          },
+          {
+            "slot": 5,
+            "wall": "right",
+            "below": [
+              [11, 2],
+              [11, 3]
+            ]
+          }
+        ],
+        "wallpapers": ["plaster"],
+        "floors": ["planks"],
+        "starter": {
+          "v": 1,
+          "wallpaper": "plaster",
+          "floor": "planks",
+          "pieces": [
+            { "id": "home:bed", "at": [0, 0], "facing": "right" },
+            { "id": "home:rug", "at": [4, 1], "facing": "right" },
+            { "id": "home:desk", "at": [7, 0], "facing": "left" },
+            { "id": "home:cupboard", "at": [11, 0], "facing": "left" },
+            { "id": "home:chest", "at": [9, 3], "facing": "left" },
+            { "id": "home:picture", "slot": 0 },
+            { "id": "home:lantern", "slot": 1 },
+            { "id": "home:shelf", "slot": 4 },
+            { "id": "home:letterbox", "slot": 5 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "home:bed",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "bed",
+        "place": "floor",
+        "size": [3, 2],
+        "does": "sit",
+        "line": "Your bed, under the lantern."
+      }
+    },
+    {
+      "id": "home:rug",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "rug",
+        "place": "rug",
+        "size": [4, 3],
+        "does": "look",
+        "line": "A woven rug, warm underfoot."
+      }
+    },
+    {
+      "id": "home:desk",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "desk",
+        "place": "floor",
+        "size": [2, 1],
+        "does": "ledger",
+        "line": "Your ledger lies open on it."
+      }
+    },
+    {
+      "id": "home:cupboard",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "cupboard",
+        "place": "floor",
+        "size": [1, 2],
+        "does": "wardrobe",
+        "line": "Your clothes, and the mirror."
+      }
+    },
+    {
+      "id": "home:chest",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "travel chest",
+        "place": "floor",
+        "size": [2, 1],
+        "does": "look",
+        "line": "Packed for the road, as always."
+      }
+    },
+    {
+      "id": "home:picture",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "picture",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "look",
+        "line": "The harbor at dawn."
+      }
+    },
+    {
+      "id": "home:lantern",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "lantern",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "light",
+        "line": "It keeps the room warm."
+      }
+    },
+    {
+      "id": "home:shelf",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "shelf",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "trophies",
+        "line": "Your ranks and achievements."
+      }
+    },
+    {
+      "id": "home:letterbox",
+      "subject": "core",
+      "type": "home-piece",
+      "data": {
+        "name": "letterbox",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "fellowship",
+        "line": "Letters from your friends."
+      }
+    }
+  ]
+}
