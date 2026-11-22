@@ -12,7 +12,7 @@ describe('choice and answer wording (review, 2026-11-15)', () => {
   });
 
   it('knows an answer that already ends a sentence', () => {
-    expect(endsSentence('You can just drop me off on the corner.')).toBe(true);
+    expect(endsSentence('Let me out at the corner.')).toBe(true);
     expect(endsSentence('How are you?')).toBe(true);
     expect(endsSentence('Praise God!')).toBe(true);
     expect(endsSentence('God give his family patience. (said when someone has died)')).toBe(false);

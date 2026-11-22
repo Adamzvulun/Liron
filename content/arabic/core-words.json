@@ -12615,7 +12615,7 @@
           },
           {
             "deck": "pcav:3026",
-            "gloss": "What are you thinking about?"
+            "gloss": "What’s on your mind?"
           },
           {
             "deck": "pcav:4718",
@@ -12639,11 +12639,11 @@
           },
           {
             "deck": "pcav:2657",
-            "gloss": "Do you know how to swim?"
+            "gloss": "Can you swim?"
           },
           {
             "deck": "pcav:4251",
-            "gloss": "What time do you get up?"
+            "gloss": "When do you wake up?"
           },
           {
             "deck": "pcav:1600",
@@ -12779,7 +12779,7 @@
           },
           {
             "deck": "pcav:2767",
-            "gloss": "How much is it per night?"
+            "gloss": "What does a night cost?"
           },
           {
             "deck": "pcav:2217",
@@ -12863,7 +12863,7 @@
           },
           {
             "deck": "pcav:0308",
-            "gloss": "Do you hear that noise?"
+            "gloss": "Can you hear that sound?"
           },
           {
             "deck": "pcav:3025",
@@ -12883,7 +12883,7 @@
           },
           {
             "deck": "pcav:0624",
-            "gloss": "I took off my jacket."
+            "gloss": "I’ve taken my jacket off."
           },
           {
             "deck": "pcav:0637",
@@ -13350,7 +13350,7 @@
         "words": [
           {
             "deck": "pcav:0245",
-            "gloss": "He has a round face."
+            "gloss": "His face is round."
           },
           {
             "deck": "pcav:0355",
@@ -13516,7 +13516,7 @@
           },
           {
             "deck": "pcav:1572",
-            "gloss": "What are you majoring in?"
+            "gloss": "What’s your field of study?"
           },
           {
             "deck": "pcav:1575",
@@ -13911,7 +13911,7 @@
           },
           {
             "deck": "pcav:3172",
-            "gloss": "I’m looking forward to seeing you."
+            "gloss": "I can’t wait to see you."
           },
           {
             "deck": "pcav:4721",
@@ -14193,7 +14193,7 @@
           },
           {
             "deck": "pcav:0226",
-            "gloss": "I don’t have a nickname."
+            "gloss": "I have no nickname."
           },
           {
             "deck": "pcav:1284",
@@ -14621,7 +14621,7 @@
           },
           {
             "deck": "pcav:3722",
-            "gloss": "Do you think it’s going to rain?"
+            "gloss": "Will it rain, do you think?"
           },
           {
             "deck": "pcav:3714",
@@ -14649,7 +14649,7 @@
           },
           {
             "deck": "pcav:3808",
-            "gloss": "The child has head lice."
+            "gloss": "The kid has lice."
           },
           {
             "deck": "pcav:4813",
@@ -14677,23 +14677,23 @@
         "words": [
           {
             "deck": "pcav:0611",
-            "gloss": "Your shoelaces have come undone."
+            "gloss": "Your shoelace is untied."
           },
           {
             "deck": "pcav:0734",
-            "gloss": "I love that painting hanging over the sofa."
+            "gloss": "I like the painting that hangs above the couch."
           },
           {
             "deck": "pcav:0802",
-            "gloss": "I heated up the soup in the microwave."
+            "gloss": "I warmed the soup in the microwave."
           },
           {
             "deck": "pcav:0852",
-            "gloss": "I only got four or five hours' sleep last night."
+            "gloss": "Yesterday I slept only about four or five hours."
           },
           {
             "deck": "pcav:0872",
-            "gloss": "You don’t look like you slept well."
+            "gloss": "You don’t seem to have slept well."
           },
           {
             "deck": "pcav:0871",
@@ -14705,19 +14705,19 @@
           },
           {
             "deck": "pcav:0986",
-            "gloss": "The milk has gone bad."
+            "gloss": "The milk has spoiled."
           },
           {
             "deck": "pcav:1090",
-            "gloss": "Dark chocolate is better for you than milk chocolate."
+            "gloss": "Dark chocolate is healthier for you than milk chocolate."
           },
           {
             "deck": "pcav:0303",
-            "gloss": "I think I smell smoke."
+            "gloss": "It seems there’s a smell of smoke."
           },
           {
             "deck": "pcav:0361",
-            "gloss": "She dyes her hair blond."
+            "gloss": "She colors her hair blond."
           },
           {
             "deck": "pcav:0362",
@@ -14725,7 +14725,7 @@
           },
           {
             "deck": "pcav:0246",
-            "gloss": "She has an oblong face."
+            "gloss": "Her face is long."
           },
           {
             "deck": "pcav:0269",
@@ -14733,15 +14733,15 @@
           },
           {
             "deck": "pcav:0383",
-            "gloss": "You can tell he wears a toupee."
+            "gloss": "It looks like he’s wearing a wig."
           },
           {
             "deck": "pcav:0398",
-            "gloss": "As a teenager, he had a lot of acne."
+            "gloss": "He had acne when he was a teenager."
           },
           {
             "deck": "pcav:0512",
-            "gloss": "Don’t overeat, so you don’t get fat."
+            "gloss": "Don’t eat too much, or you’ll put on weight."
           },
           {
             "deck": "pcav:0402",
@@ -14809,19 +14809,19 @@
         "words": [
           {
             "deck": "pcav:1877",
-            "gloss": "Let’s not go downtown right now. It’s rush hour."
+            "gloss": "Let’s not go into town now; it’s crowded."
           },
           {
             "deck": "pcav:1909",
-            "gloss": "You can just drop me off on the corner."
+            "gloss": "Let me out at the corner."
           },
           {
             "deck": "pcav:1965",
-            "gloss": "The police pulled me over for speeding."
+            "gloss": "The police stopped me for speeding."
           },
           {
             "deck": "pcav:1986",
-            "gloss": "Turn on your headlights when it starts to get dark."
+            "gloss": "Put your lights on when it starts getting dark."
           },
           {
             "deck": "pcav:1898",
@@ -14829,11 +14829,11 @@
           },
           {
             "deck": "pcav:2175",
-            "gloss": "I’m not very good at haggling."
+            "gloss": "I’m not much good at bargaining."
           },
           {
             "deck": "pcav:2198",
-            "gloss": "Can I exchange this for another color?"
+            "gloss": "Could I swap it for a different color?"
           },
           {
             "deck": "pcav:2234",
@@ -14845,7 +14845,7 @@
           },
           {
             "deck": "pcav:2272",
-            "gloss": "Have you ever been on TV?"
+            "gloss": "Have you ever appeared on TV?"
           },
           {
             "deck": "pcav:2280",
@@ -14857,11 +14857,11 @@
           },
           {
             "deck": "pcav:2360",
-            "gloss": "I don’t like to sit too close to the screen."
+            "gloss": "I don’t like sitting near the screen."
           },
           {
             "deck": "pcav:2549",
-            "gloss": "I had a really good workout at the gym this morning."
+            "gloss": "I had a great workout at the gym this morning."
           },
           {
             "deck": "pcav:2566",
@@ -14869,7 +14869,7 @@
           },
           {
             "deck": "pcav:2567",
-            "gloss": "My goal is to gain muscle."
+            "gloss": "My aim is to build muscle."
           },
           {
             "deck": "pcav:2569",
@@ -14877,11 +14877,11 @@
           },
           {
             "deck": "pcav:2602",
-            "gloss": "How many sit-ups can you do?"
+            "gloss": "How many sit-ups can you manage?"
           },
           {
             "deck": "pcav:2645",
-            "gloss": "I’m so sunburned! It hurts!"
+            "gloss": "I got burned by the sun, and it hurts."
           },
           {
             "deck": "pcav:2714",
@@ -14889,7 +14889,7 @@
           },
           {
             "deck": "pcav:2723",
-            "gloss": "Your flight has been delayed by two hours."
+            "gloss": "Your flight was pushed back two hours."
           },
           {
             "deck": "pcav:2729",
@@ -14941,11 +14941,11 @@
         "words": [
           {
             "deck": "pcav:1577",
-            "gloss": "Do you live on campus?"
+            "gloss": "Do you live in student housing?"
           },
           {
             "deck": "pcav:1579",
-            "gloss": "When did you graduate from university?"
+            "gloss": "When did you finish university?"
           },
           {
             "deck": "pcav:1587",
@@ -14953,7 +14953,7 @@
           },
           {
             "deck": "pcav:1589",
-            "gloss": "He got a certificate for completing the course."
+            "gloss": "He received a certificate after finishing the course."
           },
           {
             "deck": "pcav:3317",
@@ -14965,7 +14965,7 @@
           },
           {
             "deck": "pcav:3332",
-            "gloss": "I can get by in Arabic."
+            "gloss": "I manage in Arabic."
           },
           {
             "deck": "pcav:4431",
@@ -14973,47 +14973,47 @@
           },
           {
             "deck": "pcav:3030",
-            "gloss": "Remind me to set my alarm."
+            "gloss": "Remind me to put the alarm on."
           },
           {
             "deck": "pcav:3076",
-            "gloss": "I’m really annoyed at myself for that."
+            "gloss": "I’m really upset with myself over this."
           },
           {
             "deck": "pcav:3167",
-            "gloss": "I hope nothing happens to him."
+            "gloss": "I hope nothing bad happens to him."
           },
           {
             "deck": "pcav:3185",
-            "gloss": "She prayed to God that her son would be all right."
+            "gloss": "She asked God to keep her son well."
           },
           {
             "deck": "pcav:4619",
-            "gloss": "I intend to succeed at my job."
+            "gloss": "I mean to do well at my job."
           },
           {
             "deck": "pcav:4432",
-            "gloss": "We had to leave home early to get there on time."
+            "gloss": "We had to leave the house early so we’d arrive on time."
           },
           {
             "deck": "pcav:4447",
-            "gloss": "It was nine o'clock by the time he got up."
+            "gloss": "By the time he woke up, it was nine."
           },
           {
             "deck": "pcav:4450",
-            "gloss": "I did my homework while I was watching TV."
+            "gloss": "I did the homework while watching TV."
           },
           {
             "deck": "pcav:3617",
-            "gloss": "The sun rises in the east."
+            "gloss": "The sun comes up in the east."
           },
           {
             "deck": "pcav:3619",
-            "gloss": "The sun sets in the west."
+            "gloss": "The sun goes down in the west."
           },
           {
             "deck": "pcav:3680",
-            "gloss": "The sun has come out."
+            "gloss": "The sun’s out."
           },
           {
             "deck": "pcav:3709",
@@ -15025,15 +15025,15 @@
           },
           {
             "deck": "pcav:3671",
-            "gloss": "How hot does it get where you’re from?"
+            "gloss": "How hot is it where you live?"
           },
           {
             "deck": "pcav:0045",
-            "gloss": "Happy birthday, and may you have many more!"
+            "gloss": "Happy birthday, and may you reach a hundred!"
           },
           {
             "deck": "pcav:0079",
-            "gloss": "I’m not related to him."
+            "gloss": "He’s no relative of mine."
           },
           {
             "deck": "pcav:0092",
@@ -15041,7 +15041,7 @@
           },
           {
             "deck": "pcav:0225",
-            "gloss": "There’s no need for titles."
+            "gloss": "Titles aren’t needed."
           },
           {
             "deck": "pcav:0072",
@@ -15057,7 +15057,7 @@
           },
           {
             "deck": "pcav:1733",
-            "gloss": "She’s due in early July."
+            "gloss": "She’ll give birth at the start of July."
           }
         ]
       }
@@ -15129,7 +15129,7 @@
           },
           {
             "deck": "pcav:0202",
-            "gloss": "My father remarried last year."
+            "gloss": "My dad got married again last year."
           },
           {
             "deck": "pcav:0133",
@@ -15153,7 +15153,7 @@
           },
           {
             "deck": "pcav:0101",
-            "gloss": "I’m the youngest in my family."
+            "gloss": "I’m the youngest one in the family."
           },
           {
             "deck": "pcav:0102",
