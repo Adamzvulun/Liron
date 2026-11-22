@@ -20,6 +20,7 @@ export function Avatar({
   width,
   height,
   style,
+  pole = false,
 }: {
   look: Look;
   view?: keyof typeof VIEWS;
@@ -28,10 +29,15 @@ export function Avatar({
   width?: number | string;
   height?: number | string;
   style?: CSSProperties;
+  /** Nour's staff and lantern (paint.ts); only the guide carries it. */
+  pole?: boolean;
 }) {
   const idPrefix = useId();
   // The markup comes from our own painter and validated look values, never from free text.
-  const svg = useMemo(() => paintAvatar(look, { idPrefix, shadow }), [look, idPrefix, shadow]);
+  const svg = useMemo(
+    () => paintAvatar(look, { idPrefix, shadow, pole }),
+    [look, idPrefix, shadow, pole],
+  );
   return (
     <svg
       className={className}

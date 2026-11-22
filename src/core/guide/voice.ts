@@ -17,13 +17,15 @@ export interface Wanting {
   onSquare: boolean;
   /** Something else already spoke during this visit to the square. */
   spokenThisVisit: boolean;
+  /** The player tapped Nour: the guide answers even in a visit something else spoke in. */
+  asked?: boolean;
 }
 
 /** Who has the screen now. A celebration first, then the first page, then the guide. */
 export function whoSpeaks(w: Wanting): Voice {
   if (w.celebration) return 'celebration';
   if (w.firstPage && w.onSquare) return 'first-page';
-  if (w.guide && w.onSquare && !w.spokenThisVisit) return 'guide';
+  if (w.guide && w.onSquare && (w.asked || !w.spokenThisVisit)) return 'guide';
   return null;
 }
 
