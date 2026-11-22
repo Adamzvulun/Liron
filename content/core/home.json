@@ -380,6 +380,66 @@
         "does": "look",
         "line": "The House of the Crossing keeps a place for you."
       }
+    },
+    {
+      "id": "wallpaper-sea-wash",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "sea-wash wallpaper",
+        "part": "wallpaper",
+        "style": "sea-wash"
+      }
+    },
+    {
+      "id": "wallpaper-rose-stripe",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "rose-stripe wallpaper",
+        "part": "wallpaper",
+        "style": "rose-stripe"
+      }
+    },
+    {
+      "id": "wallpaper-zellige",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "zellige tiles",
+        "part": "wallpaper",
+        "style": "zellige"
+      }
+    },
+    {
+      "id": "floor-terracotta",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "terracotta floor",
+        "part": "floor",
+        "style": "terracotta"
+      }
+    },
+    {
+      "id": "floor-flagstone",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "flagstone floor",
+        "part": "floor",
+        "style": "flagstone"
+      }
+    },
+    {
+      "id": "floor-dark-oak",
+      "subject": "core",
+      "type": "home-style",
+      "data": {
+        "name": "dark oak floor",
+        "part": "floor",
+        "style": "dark-oak"
+      }
     }
   ]
 }

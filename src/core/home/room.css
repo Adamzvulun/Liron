@@ -226,3 +226,28 @@
   margin: 1rem 0 0.5rem;
   font-size: 1rem;
 }
+
+.decorate__styles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.decorate__style {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-weight: 700;
+}
+
+.decorate__style select {
+  min-height: 44px;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid var(--ink);
+  border-radius: 0.5rem;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+}

@@ -1,14 +1,46 @@
 // A piece of furniture in a small picture of the room (task 7.8, the-home.md §7): the Market's
 // stall shows furniture this way, not on the traveler. A still picture, made once a page load.
 import { pictureUrl } from '../city/picture.ts';
-import { room } from '../city/paintHouse.ts';
+import home from '../../../content/core/home.json' with { type: 'json' };
+import { room, type RoomStyle } from '../city/paintHouse.ts';
 import { FURNITURE } from './paintFurniture.ts';
 
 const STAGE = { width: 1920, height: 1080 } as const;
 /** Wall pieces are painted on the window; the picture hangs them on the wall left of it. */
 const WALL_SHIFT = -300;
 
+/** The room's styles to buy (`home-style` in home.json): each paints its part of the room. */
+const STYLES = new Map(
+  home.items
+    .filter((i) => i.type === 'home-style')
+    .map((i) => {
+      const { part, style } = i.data as { part: 'wallpaper' | 'floor'; style: string };
+      return [i.id, { [part]: style } as Partial<RoomStyle>];
+    }),
+);
+const PLAIN: RoomStyle = { wallpaper: 'plaster', floor: 'planks' };
+
+/** A wallpaper or floor: the empty room in that style, where the back wall meets the floor. */
+function StylePicture({
+  id,
+  style,
+  className,
+}: {
+  id: string;
+  style: Partial<RoomStyle>;
+  className?: string;
+}) {
+  const url = pictureUrl(`style:${id}`, STAGE, () => room({ ...PLAIN, ...style }));
+  return (
+    <svg className={className} viewBox="660 470 600 450" aria-hidden="true">
+      <image href={url} width={STAGE.width} height={STAGE.height} />
+    </svg>
+  );
+}
+
 export function FurniturePicture({ id, className }: { id: string; className?: string }) {
+  const style = STYLES.get(id);
+  if (style) return <StylePicture id={id} style={style} className={className} />;
   const piece = FURNITURE[id as keyof typeof FURNITURE];
   if (!piece) return null;
   const art = piece.paint();

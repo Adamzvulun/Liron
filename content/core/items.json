@@ -791,6 +791,66 @@
           "rank": "guest"
         }
       }
+    },
+    {
+      "id": "wallpaper-sea-wash",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "wallpaper-rose-stripe",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "wallpaper-zellige",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "floor-terracotta",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "floor-flagstone",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "floor-dark-oak",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "rare",
+        "price": 180
+      }
     }
   ]
 }

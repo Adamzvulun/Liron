@@ -119,7 +119,7 @@ export interface ChestContents {
 /** One of the Market's wares today (ADR 0033, #49). */
 export interface Ware {
   id: string;
-  kind: 'gear' | 'color' | 'functional' | 'furniture';
+  kind: 'gear' | 'color' | 'functional' | 'furniture' | 'style';
   /** The gear slot; null for colors, functional items and furniture. */
   slot: string | null;
   rarity: string;
