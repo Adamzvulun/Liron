@@ -144,6 +144,8 @@ export interface Profile {
   owned: string[];
   /** The title worn under the name (#177); '' for none, when the level's title shows. */
   title: string;
+  /** Ids of the guide's lines the player has been shown (the-guide.md §4, #407). */
+  guideSeen: string[];
 }
 
 /** Names are 1-40 characters after trimming (the database checks the length too). */
@@ -177,6 +179,8 @@ export interface ProgressStore {
   profile(): Promise<Profile>;
   setDisplayName(name: string): Promise<void>;
   setAvatar(look: Look): Promise<void>;
+  /** Adds ids to what the guide has shown the player; ids already there stay once (#407). */
+  markGuideSeen(ids: readonly string[]): Promise<void>;
   /** The player's achievements (#177): any now met are given first, and their gems paid. */
   achievements(): Promise<MyAchievements>;
   /** Wears an earned title, or none with ''; the database refuses one not earned. */
@@ -264,7 +268,13 @@ export function memoryStore(
     return s;
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
-  const profile: Profile = { displayName: '', avatar: DEFAULT_LOOK, owned: [], title: '' };
+  const profile: Profile = {
+    displayName: '',
+    avatar: DEFAULT_LOOK,
+    owned: [],
+    title: '',
+    guideSeen: [],
+  };
   /** Achievement ids earned, with when; tests give them through `earnAchievement`. */
   const achieved = new Map<string, string>();
   const days = new Map<string, { minutes: number; reached: boolean }>();
@@ -451,6 +461,9 @@ export function memoryStore(
     },
     async setAvatar(look) {
       profile.avatar = structuredClone(look);
+    },
+    async markGuideSeen(ids) {
+      profile.guideSeen = [...new Set([...profile.guideSeen, ...ids])].sort();
     },
     async achievements() {
       return {
