@@ -68,10 +68,14 @@ const roomData = home.items.find((i) => i.type === 'home-room')?.data as unknown
 };
 export const ROOM: Room = roomData;
 export const STARTER: Layout = Layout.parse(roomData.starter);
+const piecesOf = (type: string): PieceDef[] =>
+  home.items
+    .filter((i) => i.type === type)
+    .map((i) => ({ id: i.id, ...(i.data as unknown as Omit<PieceDef, 'id'>) }));
 /** The pieces every player has without owning them (§3). */
-export const STARTER_PIECES: PieceDef[] = home.items
-  .filter((i) => i.type === 'home-piece')
-  .map((i) => ({ id: i.id, ...(i.data as unknown as Omit<PieceDef, 'id'>) }));
+export const STARTER_PIECES: PieceDef[] = piecesOf('home-piece');
+/** The furniture to buy or find (§7, task 7.4); placed only by players who own it. */
+export const FURNITURE_PIECES: PieceDef[] = piecesOf('home-furniture');
 
 /** Why a layout is refused, and the piece it is about. */
 export type Refusal =

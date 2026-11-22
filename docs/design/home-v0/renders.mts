@@ -3,7 +3,7 @@
 // then screenshot each HTML file at 1920 × 1080 (docs/design/concept-v0/tools/render.js).
 import { writeFileSync } from 'node:fs';
 import { paintHome } from '../../../src/core/home/paintHome.ts';
-import { STARTER, STARTER_PIECES, cellsOf, type Layout } from '../../../src/core/home/layout.ts';
+import { FURNITURE_PIECES, STARTER, STARTER_PIECES, cellsOf, type Layout } from '../../../src/core/home/layout.ts';
 import { avatarScale, cellFeet } from '../../../src/core/home/projection.ts';
 import { paintAvatar } from '../../../src/core/avatar/paint.ts';
 import { DEFAULT_LOOK } from '../../../src/core/avatar/looks.ts';
@@ -24,3 +24,26 @@ const chest = { id: 'home:chest', at: [6, 1] as [number, number], facing: 'left'
 writeFileSync(`${out}/2-decorate.html`, page(paintHome(moved, defs, { grid: true, marks: [{ cells: cellsOf(chest, chestDef), tone: 'held' }] })));
 // 3. The scale check: the avatar at the back row and at the front row.
 writeFileSync(`${out}/3-scale.html`, page(paintHome(STARTER, defs, { standing: [avatar(6, 0), avatar(3, 4)] })));
+
+// 4. Furnished (task 7.4): new pieces, sea-wash walls and terracotta tiles.
+const furnished: Layout = {
+  v: 1,
+  wallpaper: 'sea-wash',
+  floor: 'terracotta',
+  pieces: [
+    ...STARTER.pieces.filter((p) => p.id !== 'home:picture'),
+    { id: 'home-clock', slot: 0 },
+    { id: 'home-table', at: [5, 1], facing: 'left' },
+    { id: 'home-chair', at: [4, 1], facing: 'right' },
+    { id: 'home-plant', at: [10, 2], facing: 'left' },
+    { id: 'home-cushion', at: [4, 4], facing: 'left' },
+  ],
+};
+const all = new Map([...STARTER_PIECES, ...FURNITURE_PIECES].map((d) => [d.id, d]));
+writeFileSync(`${out}/4-furnished.html`, page(paintHome(furnished, all, { standing: [avatar(2, 4)] })));
+// 5. The other styles: rose stripes on flagstone, a zellige dado over dark oak.
+for (const [n, wallpaper, floor] of [
+  ['5-rose-flagstone', 'rose-stripe', 'flagstone'],
+  ['6-zellige-oak', 'zellige', 'dark-oak'],
+] as const)
+  writeFileSync(`${out}/${n}.html`, page(paintHome({ ...STARTER, wallpaper, floor }, all)));

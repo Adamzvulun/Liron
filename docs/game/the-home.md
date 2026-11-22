@@ -83,6 +83,7 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
   - 4 for the panels (the cupboard, the shelf, a desk and a letterbox);
   - about 16 more to buy or find: chairs, a bench, a table, plants, a bookcase, a clock, two pictures, a banner per guild, a stove, a cushion, a second rug, a window seat;
   - 4 wallpapers and 4 floors.
+  - *Painted in 7.4 ([#439](https://github.com/Adamzvulun/Liron/issues/439)):* a chair, a bench, a table, a plant, a bookcase, a cushion, a clock and a desert picture, with all 4 wallpapers (plaster, sea-wash, rose stripe, zellige) and 4 floors (planks, terracotta, flagstone, dark oak). The other pieces and the guild banners follow in v1.4.x.
 - **Trophies:** a rank won can be hung as a guild banner. It is a wall piece, given by the rank like rank gear, and never sold.
 
 ## 8. Visiting

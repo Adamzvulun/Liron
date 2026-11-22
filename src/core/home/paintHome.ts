@@ -6,14 +6,16 @@
 import * as house from '../city/paintHouse.ts';
 import { isFloor, ROOM, STARTER, slotsOf, type Layout, type PieceDef } from './layout.ts';
 import { cellsQuad, moveFloor, moveWall, type Pt } from './projection.ts';
+import { FURNITURE } from './paintFurniture.ts';
 import { poly } from '../city/paintKit.ts';
 
 /**
  * The painting of each starter piece, and for a floor piece the point it was painted standing
  * on: the middle of its front edge, on the floor (projection.ts, moveFloor). Bought furniture
- * adds its own here (task 7.6).
+ * is painted in paintFurniture.ts.
  */
-const PAINT: Record<string, { paint: () => string; origin?: Pt }> = {
+type Painted = { paint: () => string; origin?: Pt; wallX?: number };
+const PAINT: Record<string, Painted> = {
   'home:bed': { paint: house.bed, origin: [374, 930] },
   'home:rug': { paint: house.rug, origin: [960, 1040] },
   'home:desk': { paint: house.desk, origin: [1198, 737] },
@@ -55,20 +57,25 @@ export function paintHome(
   const floor: { row: number; x: number; svg: string }[] = [];
   for (const p of layout.pieces) {
     const def = defs.get(p.id);
-    const piece = PAINT[p.id];
+    const piece: Painted | undefined = PAINT[p.id] ?? FURNITURE[p.id as keyof typeof FURNITURE];
+    if (!def || !piece) continue;
+    // A starter piece left where the starter room has it is drawn exactly as painted.
     const home = anchor.get(p.id);
-    if (!def || !piece || !home) continue;
     const art = piece.paint();
     if (!isFloor(p)) {
-      if (isFloor(home)) continue;
-      const from = wallX(home.slot, def);
+      const from =
+        'wallX' in piece && piece.wallX !== undefined
+          ? piece.wallX
+          : home && !isFloor(home)
+            ? wallX(home.slot, def)
+            : null;
       const to = wallX(p.slot, def);
       if (from === null || to === null) continue;
       wall.push(wrap(art, moveWall(from, to)));
       continue;
     }
-    if (!isFloor(home) || !piece.origin) continue;
-    const still = home.at[0] === p.at[0] && home.at[1] === p.at[1];
+    if (!('origin' in piece) || !piece.origin) continue;
+    const still = !!home && isFloor(home) && home.at[0] === p.at[0] && home.at[1] === p.at[1];
     const svg = wrap(art, still ? '' : moveFloor(piece.origin, p.at, def.size));
     if (def.place === 'rug') rugs.push(svg);
     else floor.push({ row: p.at[1] + def.size[1], x: p.at[0], svg });
@@ -79,7 +86,7 @@ export function paintHome(
 
   return (
     house.defs() +
-    house.room() +
+    house.room(styleOf(layout)) +
     house.windowToTheSquare() +
     wall.join('') +
     rugs.join('') +
@@ -89,6 +96,16 @@ export function paintHome(
     (view.marks ?? []).map(outline).join('') +
     house.houseLight()
   );
+}
+
+/** The layout's wallpaper and floor, or the plain room's for any this build doesn't paint. */
+function styleOf(layout: Layout): house.RoomStyle {
+  const known = <T extends string>(list: readonly T[], id: string, or: T): T =>
+    list.includes(id as T) ? (id as T) : or;
+  return {
+    wallpaper: known(house.WALLPAPERS, layout.wallpaper, 'plaster'),
+    floor: known(house.FLOORS, layout.floor, 'planks'),
+  };
 }
 
 const wrap = (art: string, transform: string) =>
