@@ -8,7 +8,7 @@
 ## Context
 ADR 0013 put "did it understand you?" on `gemini-3.5-flash-lite`, because Gemini's stronger free models allow only 20 requests/day. Adam wants **one** hosted, free speech model we can stick with, without hopping between models. His rules: nothing runs locally (no in-browser or on-machine models), no paid tiers, no Azure, and his voice is never sent for testing.
 
-We ran Groq-hosted Whisper on the same 50 native deck clips and 15 synthetic right/wrong pairs as Gemini ([analysis](../research/spikes/gemini-speech/results/2026-11-02-groq-analysis.md)):
+We ran Groq-hosted Whisper on the same 50 native deck clips and 15 synthetic right/wrong pairs as Gemini (the analysis held deck text and left the repo with ADR 0054):
 
 | | Groq `whisper-large-v3` | Gemini `3.5-flash-lite` |
 |---|---|---|
@@ -26,7 +26,7 @@ We ran Groq-hosted Whisper on the same 50 native deck clips and 15 synthetic rig
 5. **Azure Pronunciation Assessment.** Rejected by Adam.
 
 ## Decision
-- **Groq `whisper-large-v3` is the speech-to-text model** for every "did it understand you?" check: #45 (survival phrases), E14 (mic practice), E17 (voice in café conversations). Settings as in `spikes/gemini-speech/groq.mjs`: `language=ar`, `temperature=0`, a short Palestinian-dialect prompt.
+- **Groq `whisper-large-v3` is the speech-to-text model** for every "did it understand you?" check: #45 (survival phrases), E14 (mic practice), E17 (voice in café conversations). Settings as in `sources/research/gemini-speech/groq.mjs`: `language=ar`, `temperature=0`, a short Palestinian-dialect prompt.
 - **One model, not a pool.** It sits behind the AI adapter (ADR 0004, E15) so it can be swapped by config if Groq retires it. Swapping is a deliberate decision, not automatic hopping.
 - **Compare generously.** Before comparing the transcript with the target, normalise the way the spike does (diacritics, hamza and alef, ة/ه, ى/ي). Also accept ق written as ج/غ (this dialect says /g/) and digits for numbers.
 - **Still no per-sound scoring.** Whisper fixed ح/ه mistakes away 6 out of 6 times and even wrote native ح as ه. Pronunciation feedback stays non-AI, as in ADR 0013: record-and-compare plus ear training.
