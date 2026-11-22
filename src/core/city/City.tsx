@@ -11,6 +11,7 @@ import {
   AVATAR_SPOT,
   FRIEND_SCALE,
   FRIEND_SPOTS,
+  NOUR_SPOT,
   stepToward,
   WALK_MS,
   PLACE_LABELS,
@@ -22,6 +23,7 @@ import {
 import { useStage } from './useStage.ts';
 import { FULL_STAGE, GLOW_FILTER, padded, pictureOf, scene, touchScreen } from './square.ts';
 import type { Spot } from '../guide/introductions.ts';
+import { NOUR, NOUR_LOOK } from '../guide/nour.ts';
 import { type Box, type PaintedPart, type PlaceId, type Segment, type Sprite } from './painter.js';
 import './city.css';
 
@@ -221,6 +223,7 @@ export function City({
   event = null,
   friends = [],
   fresh,
+  onNour,
 }: {
   subjects: readonly SubjectInfo[];
   /** The player's avatar; the default traveller until the profile loads. */
@@ -234,6 +237,8 @@ export function City({
   friends?: readonly { id: string; name: string; look: Look }[];
   /** The place Nour is introducing, which wears the new mark (the-guide.md §3.3, #410). */
   fresh?: Spot | undefined;
+  /** Tapping Nour, who stands by the compass (the-guide.md §2, #406); no Nour without it. */
+  onNour?: (() => void) | undefined;
 }) {
   const city = scene();
   // The avatar walks a few steps toward the door before the place opens (task 4.6).
@@ -408,6 +413,26 @@ export function City({
               </Link>
             );
           })}
+          {onNour && (
+            <button
+              type="button"
+              className="city__nour"
+              aria-label={`${NOUR}, the lamplighter: hear what ${NOUR} has to say`}
+              onClick={onNour}
+              style={{
+                left: NOUR_SPOT.x - (AVATAR_BOX.width / 2) * NOUR_SPOT.scale,
+                top: NOUR_SPOT.feetY - AVATAR_BOX.feetY * NOUR_SPOT.scale,
+              }}
+            >
+              <Avatar
+                look={NOUR_LOOK}
+                pole
+                shadow
+                width={AVATAR_BOX.width * NOUR_SPOT.scale}
+                height={(AVATAR_BOX.height + 10) * NOUR_SPOT.scale}
+              />
+            </button>
+          )}
           <div className="city__avatar" role="img" aria-label="Your character">
             {flat ? (
               <Picture

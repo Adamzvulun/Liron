@@ -1,3 +1,5 @@
+import { cardFor } from './guide.ts';
+import { FirstVisit } from '../../core/guide/FirstVisit.tsx';
 import { Fragment, useCallback, useState } from 'react';
 import type { SubjectApi } from '../../core/subject.ts';
 import { HallBackdrop } from '../../core/city/HallBackdrop.tsx';
@@ -67,9 +69,18 @@ export function TowerHall({ api }: { api: SubjectApi }) {
     setView(DOORS.find((d) => d === door) ?? 'hall');
     setRound((n) => n + 1);
   }, []);
-  if (view === 'hall') return <Hall api={api} onOpen={setView} />;
+  const card = cardFor(view);
+  const firstVisit = card && <FirstVisit key={card.id} {...card} />;
+  if (view === 'hall')
+    return (
+      <>
+        {firstVisit}
+        <Hall api={api} onOpen={setView} />
+      </>
+    );
   return (
     <RoadGuide view={view} loadState={loadState} read={readRoad} go={go}>
+      {firstVisit}
       {/* The Radio Room and the Far Station have a room of their own (roadmap A5); the lessons
           and drills sit at the listening desk (A6); the trials face the whole tower hall. */}
       {view === 'radio' || view === 'far' || view === 'beacon' ? (

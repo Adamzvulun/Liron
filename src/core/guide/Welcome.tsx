@@ -1,7 +1,9 @@
 // The welcome (the-guide.md §3.2, #409): three lines from Nour, the first time a player is on the
 // square after their first step. Loaded only when it is due, like the first page.
 import { SpeechCard } from './SpeechCard.tsx';
-import { INTRODUCTIONS, WELCOME } from './words.ts';
+import { FirstVisit } from './FirstVisit.tsx';
+import { cardId } from './seen.ts';
+import { INTRODUCTIONS, PLACE_CARDS, WELCOME } from './words.ts';
 
 export function Welcome({ onDone }: { onDone: () => void }) {
   return (
@@ -31,4 +33,10 @@ export function Introduce({ id, onDone }: { id: string; onDone: () => void }) {
       onDone={onDone}
     />
   );
+}
+
+/** A platform place's first-visit card (the-guide.md §3.4, #411). */
+export function PlaceCard({ place }: { place: keyof typeof PLACE_CARDS }) {
+  const { title, text } = PLACE_CARDS[place];
+  return <FirstVisit id={cardId(place)} title={title} text={text} />;
 }
