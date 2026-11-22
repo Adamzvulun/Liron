@@ -26,6 +26,7 @@ import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { cityErrands, useCompass, type CompassSources } from './player/compass.ts';
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
+import { useSpokenThisVisit, whoSpeaks } from './guide/voice.ts';
 import { localDay } from './road/road.ts';
 import { eventOn } from './events.ts';
 import { stepWatcher } from './player/stepsDone.ts';
@@ -412,6 +413,20 @@ function Lobby({ player }: { player: Player }) {
   // The first page (§8): for a player with no step done anywhere, until closed on this device.
   const [closed, setClosed] = useState(firstPageClosed);
   const welcome = !closed && roads.length > 0 && roads.every((r) => !r.started);
+  // One voice at a time (the-guide.md R9, #408): a celebration, then the first page, then the
+  // guide, which speaks only on the square and waits a visit once something else has spoken.
+  const onSquare = path === '/';
+  const wanting = {
+    celebration: Boolean(state.levelUp ?? state.goalReached),
+    firstPage: welcome,
+    guide: false, // the guide's lines arrive with the welcome (#409)
+    onSquare,
+  };
+  const spokenThisVisit = useSpokenThisVisit(
+    onSquare,
+    whoSpeaks({ ...wanting, spokenThisVisit: false }),
+  );
+  const voice = whoSpeaks({ ...wanting, spokenThisVisit });
   const celebrations = state.levelUp ? (
     <LevelUp award={state.levelUp} onDone={player.dismissLevelUp} />
   ) : (
@@ -589,12 +604,12 @@ function Lobby({ player }: { player: Player }) {
         />
       </div>
       {/* One celebration at a time: the level-up first, then the daily goal. */}
-      {celebrations ||
-        (welcome && (
-          <Suspense fallback={null}>
-            <FirstPage guilds={roads} onClose={() => setClosed(true)} />
-          </Suspense>
-        ))}
+      {voice === 'celebration' && celebrations}
+      {voice === 'first-page' && (
+        <Suspense fallback={null}>
+          <FirstPage guilds={roads} onClose={() => setClosed(true)} />
+        </Suspense>
+      )}
     </City>
   );
 }
