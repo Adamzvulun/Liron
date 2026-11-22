@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Look } from '../avatar/looks.ts';
 import { useDialogFocus } from '../player/useDialogFocus.ts';
 import { PANELS, parseLayout, STARTER, type Layout } from './layout.ts';
+import { Decorate } from './Decorate.tsx';
 import { Room } from './Room.tsx';
 
 export type Panel = (typeof PANELS)[number];
@@ -26,12 +27,19 @@ export function HouseRoom({
   onLoad,
   look,
   panels,
+  owned = [],
+  onSave,
 }: {
   onLoad: () => Promise<unknown>;
   look: Look;
   panels: Partial<Record<Panel, ReactNode>>;
+  /** The item ids the player owns, for the furniture they may place. */
+  owned?: readonly string[];
+  /** Saves a decorated room (§6); without it there is no Decorate button. */
+  onSave?: (layout: Layout) => Promise<void>;
 }) {
   const [layout, setLayout] = useState<Layout | null>(null);
+  const [decorating, setDecorating] = useState(false);
   const [open, setOpen] = useState<Panel | null>(() => {
     const hash = window.location.hash.slice(1);
     return isPanel(hash) && panels[hash] ? hash : null;
@@ -56,7 +64,19 @@ export function HouseRoom({
   }, [onLoad]);
   return (
     <>
-      {layout ? (
+      {layout && decorating && onSave ? (
+        <Decorate
+          layout={layout}
+          look={look}
+          owned={owned}
+          onSave={onSave}
+          onDone={(l) => {
+            setLayout(l);
+            setDecorating(false);
+          }}
+          onCancel={() => setDecorating(false)}
+        />
+      ) : layout ? (
         <Room
           layout={layout}
           look={look}
@@ -70,6 +90,11 @@ export function HouseRoom({
         />
       ) : (
         <div className="room room--loading" aria-busy="true" />
+      )}
+      {layout && onSave && !decorating && (
+        <button type="button" className="decorate__start" onClick={() => setDecorating(true)}>
+          Decorate
+        </button>
       )}
       {open && (
         <PanelDialog title={TITLES[open]} onClose={() => setOpen(null)}>

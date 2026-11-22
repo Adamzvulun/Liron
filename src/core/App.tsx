@@ -44,6 +44,7 @@ import { supabaseChallenges } from './fellowship/challenges.ts';
 import { giftProblem, supabaseTogether } from './fellowship/together.ts';
 import { supabaseWire } from './fellowship/wire.ts';
 import type { Giving } from './fellowship/GiftOffer.tsx';
+import type { Layout } from './home/layout.ts';
 import { functionServices } from './services.ts';
 import { ASSUMED_FACTS, readFacts, RoadFactsContext, type RoadFacts } from './road/facts.ts';
 import { functionSpeech } from './speech.ts';
@@ -145,6 +146,8 @@ const together = supabase && fellowship ? supabaseTogether(supabase) : null;
 const readGifts = together ? () => together.gifts() : undefined;
 /** Your House's saved room; null, as for a player who never decorated, without a store. */
 const readHome = () => store?.home() ?? Promise.resolve(null);
+const saveHome = (layout: Layout) =>
+  store ? store.saveHome(layout) : Promise.reject(new Error('not signed in'));
 
 const sharing = fellowship
   ? {
@@ -637,6 +640,8 @@ function Lobby({ player }: { player: Player }) {
                 <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
                   <HouseRoom
                     onLoad={readHome}
+                    onSave={saveHome}
+                    owned={state.profile.owned}
                     look={state.profile.avatar}
                     panels={{
                       wardrobe: (

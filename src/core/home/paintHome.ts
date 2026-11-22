@@ -148,6 +148,14 @@ function styleOf(layout: Layout): house.RoomStyle {
 const wrap = (art: string, transform: string) =>
   transform ? `<g transform="${transform}">${art}</g>` : art;
 
+/**
+ * What Decorate draws over the room (§6): the grid and the wall slots, and the cells a held
+ * piece would cover, tinted, with their edges again on top.
+ */
+export function decorOverlay(marks: NonNullable<HomeView['marks']>): string {
+  return grid() + marks.map(mark).join('') + marks.map(outline).join('');
+}
+
 function grid(): string {
   const cells: string[] = [];
   for (let r = 0; r < ROOM.rows; r++)
