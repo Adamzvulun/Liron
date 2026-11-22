@@ -336,7 +336,7 @@ export function Room({
           className="room__stage"
           data-walking={walking || undefined}
           data-at={cellKey(at)}
-        data-seated={seated ? 'true' : undefined}
+          data-seated={seated ? 'true' : undefined}
           onClick={tap}
           style={{
             width: STAGE.width,
