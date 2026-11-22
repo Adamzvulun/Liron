@@ -12,6 +12,7 @@ import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
 import { passwordRefused } from './auth/password.ts';
 import { City } from './city/City.tsx';
+import { warmSquare } from './city/square.ts';
 import { placeAt, residentsOf } from './city/layout.ts';
 import type { PlaceId } from './city/painter.js';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
@@ -26,6 +27,7 @@ import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { cityErrands, useCompass, type CompassSources } from './player/compass.ts';
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
+import { isInside, nextIntroduction } from './guide/introductions.ts';
 import { GUIDE_IDS, guideSeen } from './guide/seen.ts';
 import { useSpokenThisVisit, whoSpeaks } from './guide/voice.ts';
 import { localDay } from './road/road.ts';
@@ -50,6 +52,7 @@ import './App.css';
 // The house, the market and the board load when you go there, not with the square (#137).
 const views = () => import('./placeViews.tsx');
 const Welcome = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.Welcome })));
+const Introduce = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.Introduce })));
 const FirstPage = lazy(() =>
   import('./player/FirstPage.tsx').then((m) => ({ default: m.FirstPage })),
 );
@@ -337,14 +340,7 @@ function Lobby({ player }: { player: Player }) {
   // The guilds' lines, then the city's own errands (the-road.md §7).
   const compass = [
     ...roads,
-    ...(state.wallet && state.profile
-      ? cityErrands({
-          chests: state.chests.length,
-          gold: state.wallet.gold,
-          owned: state.profile.owned,
-          avatar: state.profile.avatar,
-        })
-      : []),
+    ...(state.wallet && state.profile ? cityErrands({ chests: state.chests.length }) : []),
   ];
   // Back on the square after a step: that guild's building lights up, with a bell (task 4.6).
   const [lit, setLit] = useState<PlaceId[]>([]);
@@ -368,6 +364,18 @@ function Lobby({ player }: { player: Player }) {
       clearTimeout(off);
     };
   }, [path, roads]);
+  // Away from the square, it is made ready once the page is idle, so the way back is quick
+  // (warmSquare; the speed budget's "back from a hall").
+  const away = path !== '/';
+  useEffect(() => {
+    if (!away) return;
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(warmSquare, { timeout: 3000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(warmSquare, 1500);
+    return () => clearTimeout(id);
+  }, [away]);
   // Friends in the square (task 3.3): read once the square is up, so they never slow its first
   // paint (task 1.7's budget), and again on each return to the square.
   const [friends, setFriends] = useState<FriendCard[]>([]);
@@ -430,10 +438,38 @@ function Lobby({ player }: { player: Player }) {
   // One voice at a time (the-guide.md R9, #408): a celebration, then the first page, then the
   // guide, which speaks only on the square and waits a visit once something else has spoken.
   const onSquare = path === '/';
+  // Then one place at a time (§3.3, #410): the first whose moment has come wears the new mark,
+  // and Nour says one line about it, at most once a visit (Got it, or the welcome, hushes Nour
+  // until the player leaves the square).
+  const intro =
+    seen && state.wallet && state.profile
+      ? nextIntroduction(
+          {
+            gold: state.wallet.gold,
+            owned: state.profile.owned.length,
+            friends: friends.length,
+            roads: roads.map((r) => ({
+              hall: placeAt(r.href.split('?')[0] ?? ''),
+              done: r.done ?? 0,
+            })),
+          },
+          seen,
+        )
+      : null;
+  const [hushed, setHushed] = useState(false);
+  if (hushed && !onSquare) setHushed(false);
+  // Going in introduces the place (R8): the one pending as the player arrived, so a place isn't
+  // counted for the next introduction that comes due while they're inside.
+  const [arrival, setArrival] = useState({ path, intro });
+  if (arrival.path !== path) setArrival({ path, intro });
+  const entered = arrival.intro && isInside(arrival.intro, path) ? arrival.intro.id : null;
+  useEffect(() => {
+    if (entered) void player.markGuideSeen([entered]);
+  }, [entered, player]);
   const wanting = {
     celebration: Boolean(state.levelUp ?? state.goalReached),
     firstPage: welcome,
-    guide: welcomeDue,
+    guide: welcomeDue || (intro !== null && !hushed),
     onSquare,
   };
   const spokenThisVisit = useSpokenThisVisit(
@@ -599,6 +635,7 @@ function Lobby({ player }: { player: Player }) {
       lit={lit}
       event={event}
       friends={friends}
+      fresh={intro?.spot}
     >
       <div className="lobby__top">
         <Hud
@@ -621,7 +658,16 @@ function Lobby({ player }: { player: Player }) {
       {voice === 'celebration' && celebrations}
       {voice === 'guide' && (
         <Suspense fallback={null}>
-          <Welcome onDone={() => void player.markGuideSeen([GUIDE_IDS.welcome])} />
+          {welcomeDue ? (
+            <Welcome
+              onDone={() => {
+                setHushed(true);
+                void player.markGuideSeen([GUIDE_IDS.welcome]);
+              }}
+            />
+          ) : (
+            intro && <Introduce id={intro.id} onDone={() => setHushed(true)} />
+          )}
         </Suspense>
       )}
       {voice === 'first-page' && (

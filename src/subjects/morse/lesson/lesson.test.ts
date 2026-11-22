@@ -99,6 +99,14 @@ describe('buildRun', () => {
     expect(share).toBeLessThan(0.3);
   });
 
+  it('plays every unlocked character at least once, even in a short run', () => {
+    for (let seed = 1; seed <= 200; seed++) {
+      const run = buildRun(['K', 'M', 'U'], speed, { random: seededRandom(seed), seconds: 4 });
+      expect(new Set(run.chars)).toEqual(new Set(['K', 'M', 'U']));
+      expect(run.groups.join('')).toBe(run.chars.join(''));
+    }
+  });
+
   it('repeats exactly with the same seed', () => {
     const a = buildRun(['K', 'M'], speed, { random: seededRandom(3) });
     const b = buildRun(['K', 'M'], speed, { random: seededRandom(3) });

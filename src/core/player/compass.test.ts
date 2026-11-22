@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import type { RoadAnswer, RoadContext, RoadStep } from '../road/road.ts';
 import type { SubjectInfo } from '../subject.ts';
 import catalogue from '../../../content/core/items.json' with { type: 'json' };
-import { DEFAULT_LOOK } from '../avatar/looks.ts';
 import { CHEAPEST_WARE, cityErrands, loadCompass, type CompassSources } from './compass.ts';
 
 const step = (n: number, door = 'koch'): RoadStep => ({
@@ -81,6 +80,7 @@ describe('the compass in the square (the-road.md §6)', () => {
         progress: 'Step 1 of 10',
         quiet: false,
         started: false,
+        done: 0,
       },
       expect.objectContaining({ subject: 'arabic', href: '/caravanserai?open=koch', quiet: true }),
     ]);
@@ -89,9 +89,9 @@ describe('the compass in the square (the-road.md §6)', () => {
   it('leads with the guild practiced last', async () => {
     const states = { morse: { at: 3 }, arabic: { at: 2 } };
     const lines = await loadCompass(guilds, sources(states, ['arabic', 'morse']), day);
-    expect(lines.map((l) => [l.subject, l.progress, l.quiet])).toEqual([
-      ['arabic', 'Step 3 of 10', false],
-      ['morse', 'Step 4 of 10', false],
+    expect(lines.map((l) => [l.subject, l.progress, l.quiet, l.done])).toEqual([
+      ['arabic', 'Step 3 of 10', false, 2],
+      ['morse', 'Step 4 of 10', false, 3],
     ]);
   });
 
@@ -174,43 +174,16 @@ describe('the compass in the square (the-road.md §6)', () => {
   });
 });
 
-describe('city errands (the-road.md §7)', () => {
-  const player = { chests: 0, gold: 0, owned: [] as string[], avatar: DEFAULT_LOOK };
-  const errands = (p: Partial<typeof player>) =>
-    cityErrands({ ...player, ...p }).map((e) => [e.href, e.text]);
+describe('the city errand (the-road.md §7)', () => {
+  const errands = (chests: number) => cityErrands({ chests }).map((e) => [e.href, e.text]);
 
-  it('has nothing to say to a player with nothing', () => {
-    expect(errands({})).toEqual([]);
+  it('has nothing to say without a chest', () => {
+    expect(errands(0)).toEqual([]);
   });
 
   it('points at a waiting chest until it is opened', () => {
-    expect(errands({ chests: 1 })).toEqual([
-      ['/notice-board', 'A chest is waiting at the Notice Board.'],
-    ]);
-    expect(errands({ chests: 3 })[0]?.[1]).toBe('3 chests are waiting at the Notice Board.');
-  });
-
-  it('points at the Market once the cheapest ware is affordable, until something is owned', () => {
-    expect(errands({ gold: CHEAPEST_WARE - 1 })).toEqual([]);
-    expect(errands({ gold: CHEAPEST_WARE })).toEqual([
-      ['/market', 'You have gold. The Market is open.'],
-    ]);
-    expect(
-      errands({ gold: 500, owned: ['boots'], avatar: { ...DEFAULT_LOOK, hair: 'long' } }),
-    ).toEqual([]);
-  });
-
-  it('points at Your House from the first gear until the avatar is changed', () => {
-    expect(errands({ owned: ['boots'] })).toEqual([['/house', 'Your House has a wardrobe.']]);
-    expect(errands({ owned: ['boots'], avatar: { ...DEFAULT_LOOK, hair: 'long' } })).toEqual([]);
-    // The default look with its keys in another order (as the database may keep them) is
-    // still untouched (review, 2026-11-19).
-    const reordered = Object.fromEntries(
-      Object.entries({ ...DEFAULT_LOOK, gear: { back: 'satchel', torso: 'tunic' } }).reverse(),
-    ) as typeof DEFAULT_LOOK;
-    expect(errands({ owned: ['boots'], avatar: reordered })).toEqual([
-      ['/house', 'Your House has a wardrobe.'],
-    ]);
+    expect(errands(1)).toEqual([['/notice-board', 'A chest is waiting at the Notice Board.']]);
+    expect(errands(3)[0]?.[1]).toBe('3 chests are waiting at the Notice Board.');
   });
 
   it('knows the price of the cheapest ware', () => {
