@@ -1,5 +1,6 @@
 import { expect, test } from './fixtures.ts';
-import { signedIn } from './fake-supabase.ts';
+import { GUIDE_SAID, signedIn } from './fake-supabase.ts';
+import { GUIDE_IDS } from '../../src/core/guide/seen.ts';
 
 // Nour's welcome (docs/game/the-guide.md §3.2, R1–R5; #409).
 const nour = (page: import('@playwright/test').Page) =>
@@ -33,10 +34,10 @@ test.describe('Nour’s welcome', () => {
     await expect(card).toHaveCount(0);
     expect(await point(page)).toBeNull();
     await expect.poll(() => updates).toContainEqual({ guide_seen: ['welcome'] });
-    // Saved on the account: the next visit has no welcome.
+    // Nothing more in this visit; saved on the account, so the next visit has no welcome, only
+    // Nour's first introduction.
     await page.reload();
-    await expect(page.getByText('Adam', { exact: true })).toBeVisible();
-    await expect(nour(page)).toHaveCount(0);
+    await expect(nour(page).getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
   });
 
   test('a player back from their first step meets Nour, and Skip ends it for good', async ({
@@ -68,5 +69,58 @@ test.describe('Nour’s welcome', () => {
     await page.goto('/');
     await expect(page.getByText('Adam', { exact: true })).toBeVisible();
     await expect(nour(page)).toHaveCount(0);
+  });
+});
+
+// Introductions, one at a time (the-guide.md §3.3, R6–R8; #410).
+test.describe('Nour’s introductions', () => {
+  /** Where the new mark is: the places whose link wears it (a phone has a plaque and a dock). */
+  const marked = (page: import('@playwright/test').Page) =>
+    page
+      .locator('a:has(.city__new)')
+      .evaluateAll((links) => [...new Set(links.map((a) => a.getAttribute('href')))]);
+
+  test('one place at a time wears the new mark, and going in introduces it', async ({
+    page,
+  }, info) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], { unlocked: 3, runs: 2 }, [], { guideSeen: ['welcome'] });
+    await page.goto('/');
+    const card = nour(page);
+    await expect(card.getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
+    expect(await marked(page)).toEqual(['/notice-board']);
+    const board =
+      info.project.name === 'phone'
+        ? page
+            .getByRole('navigation', { name: 'Places' })
+            .getByRole('link', { name: /Quests|Notice Board/ })
+        : page.locator('a.city__place').filter({ hasText: 'Notice Board' });
+    await expect(board.locator('.city__new')).toHaveText(', New');
+    // Got it quiets Nour for this visit; the mark stays until the player goes in.
+    await card.getByRole('button', { name: 'Got it' }).click();
+    await expect(card).toHaveCount(0);
+    expect(await marked(page)).toEqual(['/notice-board']);
+    await (info.project.name === 'phone' ? board : board.locator('.city__plaque')).click();
+    await expect(page).toHaveURL(/\/notice-board$/);
+    await expect.poll(() => updates).toContainEqual({ guide_seen: ['intro:board', 'welcome'] });
+    await page.getByRole('link', { name: 'Back to the square' }).click();
+    await expect(page.locator('a.city__place').first()).toBeVisible();
+    // Nothing else is due for this player, so no mark and no word.
+    await expect(page.locator('.city__new')).toHaveCount(0);
+    await expect(nour(page)).toHaveCount(0);
+  });
+
+  test('the Market is Nour’s to introduce now, not the compass’s', async ({ page }) => {
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 }, [], {
+      guideSeen: ['welcome', 'intro:board'],
+      gold: 120,
+    });
+    await page.goto('/');
+    await expect(nour(page).getByRole('status')).toHaveText(/enough for something at the Market/);
+    await expect(page.getByText('You have gold. The Market is open.')).toHaveCount(0);
+  });
+
+  test('the fake’s old hand has heard every line Nour has', () => {
+    expect([...GUIDE_SAID].sort()).toEqual(Object.values(GUIDE_IDS).sort());
   });
 });

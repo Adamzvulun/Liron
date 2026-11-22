@@ -57,7 +57,26 @@ export function buildRun(
       ? groups.length * GROUP_SIZE < count
       : schedule(groups.join(' '), speed).duration < seconds;
   while (more()) groups.push(Array.from({ length: GROUP_SIZE }, pick).join(''));
-  return { groups, chars: groups.join('').split('') };
+  const chars = groups.join('').split('');
+  // Every unlocked character is heard at least once, however short the run: each pick is
+  // random, and a short run of K and M could otherwise be all K (it was, now and then, in the
+  // tests' 4-second run). One that's missing takes the place of a character heard twice.
+  for (const c of unlocked) {
+    if (chars.includes(c)) continue;
+    const start = Math.floor(random() * chars.length);
+    for (let k = 0; k < chars.length; k++) {
+      const i = (start + k) % chars.length;
+      const there = chars[i] ?? '';
+      if (chars.indexOf(there) !== chars.lastIndexOf(there)) {
+        chars[i] = c;
+        break;
+      }
+    }
+  }
+  const regrouped = Array.from({ length: groups.length }, (_, g) =>
+    chars.slice(g * GROUP_SIZE, (g + 1) * GROUP_SIZE).join(''),
+  );
+  return { groups: regrouped, chars };
 }
 
 /** A small seeded random, so tests and screenshots repeat exactly. */

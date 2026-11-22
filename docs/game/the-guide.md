@@ -58,9 +58,10 @@ After the welcome, the guide introduces one thing at a time, the first in this l
 | 4 | Your House: the wardrobe | the first gear is owned | "New gear goes on in Your House, at the wardrobe." |
 | 5 | The other guild hall | one road has 3 steps done and the other none | "The other hall's door is open too, whenever you're curious." |
 | 6 | The Arena | the player has a friend and has done 5 steps | "Up at the Arena, friends challenge each other. Yours might be waiting." |
-| 7 | The Ledger and trophies (Your House) | the first rank or achievement is earned | "Your House keeps a ledger of how far you've come, and your trophies." |
+| 7 | The Ledger and trophies (Your House) | ten steps done across the roads (built #410: the square doesn't read ranks, and reading every guild's ranks there would slow it. A first rank can come at the very first step, too early for a ledger worth showing; ten steps is a chosen stand-in, for Adam to change in #413) | "Your House keeps a ledger of how far you've come, and your trophies." |
 
 - The three city errands of the-road.md §7 (chest waiting, gold for the Market, a wardrobe) **become introductions 1, 3 and 4.** The errand lines stop being separate, so the player never hears the same thing twice. A chest waiting after the Notice Board has been introduced is a compass line, as today.
+- **As built (#410, 2026-11-22):** the line has one button, **Got it**, which quiets Nour until the player leaves the square; the mark stays until they go in. The welcome counts as Nour's word for its visit, so the first introduction comes on the next one. Going in counts for the introduction that was pending as the player arrived, so walking into Your House for the Fellowship doesn't also count the wardrobe. On a phone the mark is on the place's plaque and its dock button; the Arena's is on its sign.
 - The guide waits for a calm moment: an introduction is shown only on the square, never in the same visit as a level-up, a goal-reached card or the first page, and at most one introduction per visit to the square.
 
 ### 3.4 First-visit cards, inside each place and station
