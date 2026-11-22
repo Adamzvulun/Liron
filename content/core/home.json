@@ -18,55 +18,39 @@
         "slots": [
           {
             "slot": 0,
-            "wall": "back",
-            "below": [
-              [0, 0],
-              [1, 0],
-              [2, 0]
-            ]
+            "zone": "left",
+            "x": 530,
+            "cols": [0]
           },
           {
             "slot": 1,
-            "wall": "back",
-            "below": [
-              [3, 0],
-              [4, 0],
-              [5, 0]
-            ]
+            "zone": "left",
+            "x": 640,
+            "cols": [1]
           },
           {
             "slot": 2,
-            "wall": "back",
-            "below": [
-              [6, 0],
-              [7, 0],
-              [8, 0]
-            ]
+            "zone": "left",
+            "x": 710,
+            "cols": [2, 3]
           },
           {
             "slot": 3,
-            "wall": "back",
-            "below": [
-              [9, 0],
-              [10, 0],
-              [11, 0]
-            ]
+            "zone": "right",
+            "x": 1235,
+            "cols": [9]
           },
           {
             "slot": 4,
-            "wall": "left",
-            "below": [
-              [0, 4],
-              [1, 4]
-            ]
+            "zone": "right",
+            "x": 1335,
+            "cols": [10]
           },
           {
             "slot": 5,
-            "wall": "right",
-            "below": [
-              [11, 2],
-              [11, 3]
-            ]
+            "zone": "right",
+            "x": 1435,
+            "cols": [11]
           }
         ],
         "wallpapers": ["plaster"],
@@ -83,13 +67,13 @@
             },
             {
               "id": "home:rug",
-              "at": [3, 2],
+              "at": [4, 2],
               "facing": "right"
             },
             {
               "id": "home:desk",
-              "at": [7, 0],
-              "facing": "left"
+              "at": [8, 0],
+              "facing": "right"
             },
             {
               "id": "home:cupboard",
@@ -98,7 +82,7 @@
             },
             {
               "id": "home:chest",
-              "at": [9, 2],
+              "at": [9, 3],
               "facing": "left"
             },
             {
@@ -110,12 +94,12 @@
               "slot": 1
             },
             {
-              "id": "home:shelf",
-              "slot": 3
+              "id": "home:letterbox",
+              "slot": 2
             },
             {
-              "id": "home:letterbox",
-              "slot": 4
+              "id": "home:shelf",
+              "slot": 3
             }
           ]
         }
@@ -140,7 +124,7 @@
       "data": {
         "name": "rug",
         "place": "rug",
-        "size": [6, 3],
+        "size": [4, 3],
         "does": "look",
         "line": "A woven rug, warm underfoot."
       }
@@ -176,7 +160,7 @@
       "data": {
         "name": "travel chest",
         "place": "floor",
-        "size": [3, 2],
+        "size": [2, 2],
         "does": "look",
         "line": "Packed for the road, as always."
       }
@@ -212,7 +196,7 @@
       "data": {
         "name": "shelf",
         "place": "wall",
-        "size": [1, 1],
+        "size": [3, 1],
         "does": "trophies",
         "line": "Your ranks and achievements."
       }

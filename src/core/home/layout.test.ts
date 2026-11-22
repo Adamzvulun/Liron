@@ -36,10 +36,10 @@ describe('the starter room (the-home.md §3)', () => {
     expect(x < ROOM.cols && y < ROOM.rows).toBe(true);
   });
 
-  it('keeps footprints between 1 × 1 and 3 × 4, rugs up to 6 × 3', () => {
+  it('keeps footprints between 1 × 1 and 3 × 4, rugs up to 6 × 3, wall pieces up to 3 slots', () => {
     for (const d of STARTER_PIECES) {
       const [w, h] = d.size;
-      const [mw, mh] = d.place === 'rug' ? [6, 3] : d.place === 'wall' ? [1, 1] : [3, 4];
+      const [mw, mh] = d.place === 'rug' ? [6, 3] : d.place === 'wall' ? [3, 1] : [3, 4];
       expect(w >= 1 && h >= 1 && w <= mw && h <= mh, d.id).toBe(true);
     }
   });
@@ -71,7 +71,7 @@ describe('checkLayout (the-home.md §6, R6)', () => {
       ...ROOM,
       slots: [
         ...ROOM.slots,
-        ...many.map((_, i) => ({ slot: 10 + i, wall: 'back' as const, below: [] })),
+        ...many.map((_, i) => ({ slot: 10 + i, zone: 'left' as const, x: 0, cols: [] })),
       ],
     };
     const layout = {
@@ -111,7 +111,8 @@ describe('walking (the-home.md §4, path.ts)', () => {
 
   it('finds the shortest way around the pieces', () => {
     const path = findPath(open, ROOM.door, [11, 4]);
-    expect(path).toHaveLength(11);
+    // Along the front, then up and round the chest in the corner.
+    expect(path).toHaveLength(15);
     expect(path?.at(-1)).toEqual([11, 4]);
     for (const [x, y] of path ?? []) expect(open(x, y)).toBe(true);
   });
@@ -135,12 +136,23 @@ describe('walking (the-home.md §4, path.ts)', () => {
   });
 
   it('stands in front of a piece first', () => {
-    const chest = must(
-      STARTER.pieces.find((p) => p.id === 'home:chest'),
-      'chest',
+    const desk = must(
+      STARTER.pieces.find((p) => p.id === 'home:desk'),
+      'desk',
     );
-    const [first] = standCells(chest, must(owned.get('home:chest'), 'chest'), ROOM, blocked);
-    expect(first?.[1]).toBe(4);
+    const [first] = standCells(desk, must(owned.get('home:desk'), 'desk'), ROOM, blocked);
+    expect(first).toEqual([8, 1]);
+  });
+
+  it('reaches what hangs on the wall from the first free cell below it', () => {
+    const lantern = must(
+      STARTER.pieces.find((p) => p.id === 'home:lantern'),
+      'lantern',
+    );
+    // The bed stands under the lantern, so you reach up from the foot of the bed.
+    expect(standCells(lantern, must(owned.get('home:lantern'), 'lantern'), ROOM, blocked)).toEqual([
+      [1, 4],
+    ]);
   });
 
   it('reaches every piece that does something from the door, in the starter room', () => {

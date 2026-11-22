@@ -23,10 +23,29 @@ export const EXTRA = [
 
 export const GOOD: { name: string; layout: Layout }[] = [
   { name: 'the starter room', layout: STARTER },
-  { name: 'the chest moved to the front', layout: move('home:chest', { at: [5, 3] }) },
+  { name: 'the chest moved to the middle', layout: move('home:chest', { at: [6, 1] }) },
   { name: 'a chair on the rug', layout: plus({ id: 'home-chair', at: [5, 2], facing: 'left' }) },
   { name: 'the bed turned', layout: move('home:bed', { facing: 'left' }) },
-  { name: 'a clock in a free slot', layout: plus({ id: 'home-clock', slot: 2 }) },
+  {
+    name: 'a clock where the picture was',
+    layout: {
+      ...STARTER,
+      pieces: [...without('home:picture').pieces, { id: 'home-clock', slot: 0 }],
+    },
+  },
+  {
+    name: 'the picture and the letterbox swapped',
+    layout: {
+      ...STARTER,
+      pieces: STARTER.pieces.map((p) =>
+        p.id === 'home:picture'
+          ? { ...p, slot: 2 }
+          : p.id === 'home:letterbox'
+            ? { ...p, slot: 0 }
+            : p,
+      ),
+    },
+  },
   { name: 'the picture stored', layout: without('home:picture') },
 ];
 
@@ -68,6 +87,16 @@ export const BAD: { name: string; layout: Layout; refusal: Refusal }[] = [
     name: 'on a wall slot that is taken',
     layout: plus({ id: 'home-clock', slot: 1 }),
     refusal: { why: 'slot-taken', id: 'home-clock', with: 'home:lantern' },
+  },
+  {
+    name: 'under the shelf, which takes three slots',
+    layout: plus({ id: 'home-clock', slot: 5 }),
+    refusal: { why: 'slot-taken', id: 'home-clock', with: 'home:shelf' },
+  },
+  {
+    name: 'a shelf hung across the window',
+    layout: move('home:shelf', { slot: 2 }),
+    refusal: { why: 'slot', id: 'home:shelf' },
   },
   {
     name: 'the cupboard stored',

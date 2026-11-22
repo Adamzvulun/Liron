@@ -23,7 +23,7 @@ const toward = ([x, y]: Pt, t: number): Pt => [VP[0] + (x - VP[0]) * t, VP[1] + 
 /** Where the floor line through a point on the back wall's foot meets the height y. */
 const floorAt = (x0: number, y: number): Pt => toward([x0, B], (y - VP[1]) / (B - VP[1]));
 
-function defs(): string {
+export function defs(): string {
   return `<defs>
 <linearGradient id="hs-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B98F68"/><stop offset=".55" stop-color="${PLASTER}"/><stop offset="1" stop-color="#C79C70"/></linearGradient>
 <linearGradient id="hs-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A6446"/><stop offset="1" stop-color="#B58A62"/></linearGradient>
@@ -41,7 +41,7 @@ function defs(): string {
 </defs>`;
 }
 
-function room(): string {
+export function room(): string {
   const leftFoot = floorAt(L, 1080);
   const rightFoot = floorAt(R, 1080);
   const out: string[] = [];
@@ -111,7 +111,7 @@ function room(): string {
   return out.join('');
 }
 
-function windowToTheSquare(): string {
+export function windowToTheSquare(): string {
   const out: string[] = [];
   const pane = 'M800 600 L800 340 A160 160 0 0 1 1120 340 L1120 600 Z';
   out.push(`<path d="${pane}" fill="url(#hs-sky)"/>`);
@@ -159,7 +159,7 @@ function windowToTheSquare(): string {
   return out.join('');
 }
 
-function bed(): string {
+export function bed(): string {
   const back: Pt[] = [
     [470, B],
     [770, B],
@@ -221,7 +221,7 @@ function bed(): string {
   return out.join('');
 }
 
-function lantern(): string {
+export function lantern(): string {
   return (
     `<path d="M640 ${T + 34} L640 268" stroke="${INK}" stroke-width="3"/>` +
     `<path d="M612 268 L668 268 L660 286 L620 286 Z" fill="#3E2516" ${OUT(2.5)}/>` +
@@ -232,7 +232,7 @@ function lantern(): string {
   );
 }
 
-function pictureOverTheBed(): string {
+export function pictureOverTheBed(): string {
   // A small framed map of the city's roads, the traveler's first keepsake.
   return (
     `<rect x="470" y="300" width="120" height="96" rx="4" fill="#5E3820" ${OUT()}/>` +
@@ -242,7 +242,7 @@ function pictureOverTheBed(): string {
   );
 }
 
-function shelf(): string {
+export function shelf(): string {
   const out: string[] = [];
   // Two planks on brackets: trophies above, books and a jar below.
   for (const y of [360, 500]) {
@@ -286,7 +286,7 @@ function shelf(): string {
   return out.join('');
 }
 
-function cupboard(): string {
+export function cupboard(): string {
   // A tall clothes cupboard against the right wall: its front follows the wall, its side faces you.
   const wallFoot = (x: number): number => B + ((x - R) * (1080 - B)) / (floorAt(R, 1080)[0] - R);
   const top = (x: number, share: number): number => {
@@ -336,7 +336,7 @@ function cupboard(): string {
   return out.join('');
 }
 
-function chest(): string {
+export function chest(): string {
   // A traveler's chest at the foot of the room, its side toward the middle.
   const fl: Pt = [1330, 830];
   const fr: Pt = [1620, 830];
@@ -366,7 +366,7 @@ function chest(): string {
   return out.join('');
 }
 
-function rug(): string {
+export function rug(): string {
   const a = floorAt(800, 790);
   const b = floorAt(1120, 790);
   const c = floorAt(1120, 1040);
@@ -388,6 +388,64 @@ function rug(): string {
   );
 }
 
+export function desk(): string {
+  // A writing desk under the shelf, the ledger open on it, an inkpot and a quill (the-home.md §3).
+  const lift = (p: Pt, h: number): Pt => [p[0], p[1] - h];
+  const bl = floorAt(1110, B);
+  const br = floorAt(1260, B);
+  const fl = toward(bl, 1.06);
+  const fr = toward(br, 1.06);
+  const h = 150;
+  const out: string[] = [];
+  // Back legs, the top, the apron and the front legs.
+  out.push(
+    `<rect x="${f(bl[0] + 6)}" y="${f(bl[1] - h)}" width="12" height="${h}" fill="#4B2D1A" ${OUT(2)}/>` +
+      `<rect x="${f(br[0] - 18)}" y="${f(br[1] - h)}" width="12" height="${h}" fill="#4B2D1A" ${OUT(2)}/>`,
+  );
+  out.push(
+    `<path d="${poly([lift(bl, h), lift(br, h), lift(fr, h), lift(fl, h)])}" fill="#9A6238" ${OUT()}/>` +
+      `<path d="${poly([lift(fl, h), lift(fr, h), lift(fr, h - 30), lift(fl, h - 30)])}" fill="#7A4A2A" ${OUT()}/>` +
+      `<rect x="${f(fl[0] + 22)}" y="${f(fl[1] - h + 10)}" width="34" height="14" rx="3" fill="url(#hs-gold)" ${OUT(1.5)}/>`,
+  );
+  out.push(
+    `<rect x="${f(fl[0])}" y="${f(fl[1] - h + 30)}" width="16" height="${h - 30}" fill="#5E3820" ${OUT(2.5)}/>` +
+      `<rect x="${f(fr[0] - 16)}" y="${f(fr[1] - h + 30)}" width="16" height="${h - 30}" fill="#5E3820" ${OUT(2.5)}/>`,
+  );
+  // The ledger, open, with ruled lines; the inkpot and its quill.
+  const top = lift(fl, h)[1] - 4;
+  const mx = (fl[0] + fr[0]) / 2 - 12;
+  out.push(
+    `<path d="M${f(mx - 52)} ${f(top)} L${f(mx - 46)} ${f(top - 16)} L${f(mx)} ${f(top - 12)} L${f(mx + 46)} ${f(top - 16)} L${f(mx + 52)} ${f(top)} L${f(mx)} ${f(top + 3)} Z" fill="#F3E3C0" ${OUT(2)}/>` +
+      `<path d="M${f(mx)} ${f(top - 12)} L${f(mx)} ${f(top + 3)} M${f(mx - 40)} ${f(top - 9)} L${f(mx - 8)} ${f(top - 7)} M${f(mx - 42)} ${f(top - 4)} L${f(mx - 8)} ${f(top - 2)} M${f(mx + 8)} ${f(top - 7)} L${f(mx + 40)} ${f(top - 9)}" stroke="${INK}" stroke-width="1.5" fill="none"/>`,
+  );
+  const ink: Pt = [fr[0] - 30, top - 2];
+  out.push(
+    `<path d="M${f(ink[0] - 9)} ${f(ink[1])} L${f(ink[0] + 9)} ${f(ink[1])} L${f(ink[0] + 7)} ${f(ink[1] - 16)} L${f(ink[0] - 7)} ${f(ink[1] - 16)} Z" fill="#1F2456" ${OUT(2)}/>` +
+      `<path d="M${f(ink[0])} ${f(ink[1] - 14)} Q${f(ink[0] + 6)} ${f(ink[1] - 44)} ${f(ink[0] + 22)} ${f(ink[1] - 58)}" stroke="#F6EEDC" stroke-width="5" fill="none" stroke-linecap="round"/>`,
+  );
+  return out.join('');
+}
+
+export function letterbox(): string {
+  // A small wooden box for letters from friends, with a brass slot and a red flag (§5).
+  return (
+    `<path d="M684 372 L736 372 L736 440 L684 440 Z" fill="#7A4A2A" ${OUT()}/>` +
+    `<path d="M678 376 Q710 348 742 376 Z" fill="#5E3820" ${OUT(2.5)}/>` +
+    `<rect x="694" y="390" width="32" height="7" rx="3" fill="url(#hs-gold)" ${OUT(1.5)}/>` +
+    `<path d="M742 392 L742 360 L758 366 L742 372" fill="#A83A3E" ${OUT(2)}/>` +
+    `<path d="M694 412 L726 412 M694 424 L726 424" stroke="#5E3820" stroke-width="2"/>`
+  );
+}
+
+/** The evening light laid over the whole room, last. */
+export function houseLight(): string {
+  return (
+    `<rect width="1920" height="1080" fill="url(#hs-dusk)"/>` +
+    `<rect width="1920" height="1080" fill="url(#hs-glow)"/>` +
+    `<rect width="1920" height="1080" fill="url(#hs-shade)"/>`
+  );
+}
+
 /** The whole room, as SVG markup for a 1920×1080 stage. */
 export function paintHouse(): string {
   return (
@@ -401,8 +459,6 @@ export function paintHouse(): string {
     cupboard() +
     chest() +
     lantern() +
-    `<rect width="1920" height="1080" fill="url(#hs-dusk)"/>` +
-    `<rect width="1920" height="1080" fill="url(#hs-glow)"/>` +
-    `<rect width="1920" height="1080" fill="url(#hs-shade)"/>`
+    houseLight()
   );
 }
