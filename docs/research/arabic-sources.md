@@ -110,7 +110,7 @@ We use these as **structure and ordering references**. We don't copy their conte
 - **Audio is included** in the `.apkg` package (~35 MB).
 - **57 topic subdecks**, matching the book's sections (food, travel, family…).
 - **Each item has exactly one level tag: A1, A2, B1, or B2.** These are Lingualism's *suggested* CEFR levels, based on usefulness, not an official CEFR list. This gives us a ready-made learning order, with no frequency mining needed.
-- **Stored in** `sources/arabic/lingualism-palestinian-vocabulary/` in this private repo, along with the full 285-page book PDF. The full inspection is in that folder's README.
+- **Kept in** `sources/arabic/lingualism-palestinian-vocabulary/` on the importing machine, along with the full 285-page book PDF, never committed (ADR 0054). The full inspection is in that folder's README.
 
 ---
 

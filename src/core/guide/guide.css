@@ -1,5 +1,5 @@
-/* Nour speaking (the-guide.md §3.2): a parchment card at the bottom of the square, above the
-   dock on a phone. Never a dialog: the square stays usable around it. */
+/* Nour speaking (the-guide.md §3.2): a parchment card at the bottom of the square; on a phone,
+   just under the HUD. Never a dialog: the square stays usable around it. */
 .guide {
   position: fixed;
   z-index: 8;
@@ -21,11 +21,23 @@
   color: var(--ink);
 }
 
+/* Away from the sign Nour talks about (introductions.ts, cardSide). */
+.guide--right {
+  left: auto;
+  right: 16px;
+}
+
+/* A phone puts the card just under the HUD, over the sky. Above the dock it hid the ground,
+   where every place Nour introduces stands: on a 375×667 screen it covered the Notice Board
+   whole while Nour talked about it. The HUD's box (the overlay, relative on a phone) is its
+   anchor, so it follows the HUD's height. */
 .city--pan .guide {
+  position: absolute;
+  top: calc(100% + 8px);
+  bottom: auto;
   left: 8px;
   right: 8px;
   width: auto;
-  bottom: calc(84px + env(safe-area-inset-bottom));
 }
 
 .guide__face {

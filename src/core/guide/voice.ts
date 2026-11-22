@@ -24,6 +24,8 @@ export interface Wanting {
 /** Who has the screen now. A celebration first, then the first page, then the guide. */
 export function whoSpeaks(w: Wanting): Voice {
   if (w.celebration) return 'celebration';
+  // Asked for ("Show me around again", a tap on Nour), the guide comes before the first page.
+  if (w.asked && w.guide && w.onSquare) return 'guide';
   if (w.firstPage && w.onSquare) return 'first-page';
   if (w.guide && w.onSquare && (w.asked || !w.spokenThisVisit)) return 'guide';
   return null;

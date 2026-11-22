@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
+import { PLACE_PATHS } from '../city/layout.ts';
+import { visitPath } from '../fellowship/fellowship.ts';
 import { CHEAPEST_WARE } from '../player/compass.ts';
-import { isInside, nextIntroduction, type IntroFacts } from './introductions.ts';
+import { cardSide, isInside, nextIntroduction, type IntroFacts } from './introductions.ts';
 import { GUIDE_IDS } from './seen.ts';
 import { INTRODUCTIONS, PLACE_CARDS } from './words.ts';
 
@@ -119,6 +121,21 @@ describe('going in', () => {
     expect(isInside(house, '/houses')).toBe(false);
     expect(isInside(house, '/')).toBe(false);
   });
+
+  it('doesn’t count a friend’s house as going into your own', () => {
+    const friend = nextIntroduction(
+      { ...newcomer, friends: 1 },
+      new Set(['welcome', 'intro:board']),
+    );
+    if (!friend) throw new Error('expected the Fellowship');
+    expect(friend.href).toBe(PLACE_PATHS.house);
+    expect(isInside(friend, visitPath('00000000-0000-0000-0000-0000000000a1'))).toBe(false);
+  });
+
+  it('points at each place by its own path', () => {
+    const board = nextIntroduction(newcomer, new Set(['welcome']));
+    expect(board?.href).toBe(PLACE_PATHS.board);
+  });
 });
 
 describe('Nour’s words for the introductions', () => {
@@ -133,5 +150,13 @@ describe('the platform’s first-visit cards (#411)', () => {
     for (const { text } of Object.values(PLACE_CARDS)) {
       expect(text.split(/(?<=[.!?])\s+/).length).toBeLessThanOrEqual(2);
     }
+  });
+});
+
+describe('where Nour’s card goes on a wide screen', () => {
+  it('moves right only for the House, whose sign the card would cover', () => {
+    expect(cardSide('house')).toBe('right');
+    for (const spot of ['tower', 'caravanserai', 'board', 'market', 'arena'] as const)
+      expect(cardSide(spot)).toBe('left');
   });
 });

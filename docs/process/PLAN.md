@@ -61,7 +61,7 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 | 6 | **A Fellowship view or policy quietly shows one player's data to another.** With one test player it looks fine. | Fellowship build §1 and §6. No slice of Phase 3 merges without the three-player test. |
 | 7 | **Things that can't be tested here get called done:** Supabase Realtime, real keys, iPhone Safari, a real microphone, two real devices. | Say so in the task, mark it "untested", and put it on Adam's checklist (1.12, 3.7). A fake channel in the test backend proves our code, not Supabase's. |
 | 8 | **The free AI quota is spent by tests or by the capstone judge's eval set.** | Evals run by hand from `scripts/`, never in CI, and record their results in the repo. |
-| 9 | **The Actions budget runs out** (a job that fails in seconds with no runner). About 35 PRs remain in this plan. | Bundle small tasks. Never push during a run. If it happens, stop pushing and tell Adam the same hour. |
+| 9 | ~~**The Actions budget runs out**~~ It did, on 2026-11-22; the repo went public and runs are free since (ADR 0054). | If a job fails in seconds with no runner again, read its annotation and tell Adam the same hour. |
 | 10 | **A session ends mid-task and the next one starts over or skips it.** | Rule 9 above: this file always says where the work stands. |
 | 11 | **A gate is treated as a wall** and the run stops at 1.12, or a gate is treated as optional and something reaches `main` or costs money. | Rule 2: ask once, carry on with the next task that doesn't depend on it, and never act for Adam. |
 | 12 | **The long middle of the Arabic road (chapters 13–114) feels like a treadmill** even with a compass. | It is honest about its length ("Chapter 40 of 115"), each chapter's waiting day offers a talk with its regular, and ranks mark chapters 35, 68 and 100. If Adam still finds it flat when he plays, world events (4.4) are the tool; don't invent filler steps. |
@@ -147,10 +147,10 @@ A pre-mortem, written before the work starts. Each line is a way the run fails a
 - **Done when:** on a site with no keys the line says so, with a browser test; unit tests prove the function leaks nothing and refuses anonymous callers.
 - **Done (2026-11-16):** `api/services.ts`, shown under Settings → Services. **One deviation:** it has no daily counter of its own. It makes no AI call and spends nothing; a caller without a token Supabase knows is refused, and the browser keeps the answer for five minutes. A counter would need a new table for something that costs nothing.
 
-### ☐ 1.9 (#317) · v1.0 · The weekly keep-alive (approved by Adam)
+### ☑ 1.9 (#317) · v1.0 · The weekly keep-alive (approved by Adam)
 - **Do:** a scheduled GitHub Actions workflow, once a week, that runs one trivial read against `waymark-prod` and `waymark-dev` using the secrets that already exist. It must take seconds, print nothing secret, and fail loudly if a project is paused. Document it in SUPABASE.md, with what to do when it fails.
 - **Done when:** the workflow exists, has run once by hand with a green log, and the doc explains it.
-- **Built (2026-11-16), one line open:** the workflow and its section in SUPABASE.md exist. It runs Mondays and Thursdays, not once a week, so a late run never leaves a full week's gap. **Still to do:** the run by hand with a green log. GitHub can only start a workflow that is on `main`, so that happens right after the v1.0.0 release (it is on the release checklist, task 1.12).
+- **Built (2026-11-16), one line open:** the workflow and its section in SUPABASE.md exist. It runs Mondays and Thursdays, not once a week, so a late run never leaves a full week's gap. **Still to do:** the run by hand with a green log. GitHub can only start a workflow that is on `main`, so that happens right after the v1.0.0 release (it is on the release checklist, task 1.12). **Done:** Adam ran it by hand on 2026-11-18 and it was green (STATUS).
 
 ### ☑ 1.10 (#318) · v1.0 · Docs fit for a release
 - **Do:** rewrite `STATUS.md` so its top is a short current state; move the history paragraph into `docs/process/HISTORY.md` unchanged. Write `retros/M2.md` and `retros/M4.md`. Set `package.json` to `1.0.0`. Draft `docs/process/releases/v1.0.0.md`: what a player gets, in plain words, grouped by place. Bring README, ROADMAP and the next-session prompt in line with this plan.
@@ -336,22 +336,22 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☐ 6.1 (#406) · v1.3 · Design the Lamplighter: name, look, where they stand 🚧
 - **Gate:** Adam picks the name (from three) and approves the look. Drawn into the touch-screen pictures, no new filtered layers.
 
-### ☐ 6.2 (#407) · v1.3 · Save what the guide has shown, on the account
+### ☑ 6.2 (#407) · v1.3 · Save what the guide has shown, on the account
 - `guide_seen` on the profile; derived from state where possible, so existing players aren't greeted as strangers.
 
-### ☐ 6.3 (#408) · v1.3 · One voice at a time
+### ☑ 6.3 (#408) · v1.3 · One voice at a time
 - The first page, celebrations and the guide take turns; the guide speaks only on the square.
 
-### ☐ 6.4 (#409) · v1.3 · The speech card and the three-line welcome
+### ☑ 6.4 (#409) · v1.3 · The speech card and the three-line welcome
 - After the first step: the compass line, the top bar, the places. Skippable, replayable.
 
-### ☐ 6.5 (#410) · v1.3 · Introductions in order, and the one "new" mark
+### ☑ 6.5 (#410) · v1.3 · Introductions in order, and the one "new" mark
 - Seven introductions, one per visit, one mark at a time; the city errands fold into them.
 
-### ☐ 6.6 (#411) · v1.3 · First-visit cards for every place and station
+### ☑ 6.6 (#411) · v1.3 · First-visit cards for every place and station
 - Core places from `content/core/guide.json`; halls through the subject contract.
 
-### ☐ 6.7 (#412) · v1.3 · The Guidebook
+### ☑ 6.7 (#412) · v1.3 · The Guidebook
 - A page for every place, number and system; numbers from code; a completeness test.
 
 ### ☐ 6.8 (#413) · v1.3 · The guide's words, reviewed by Adam 🚧

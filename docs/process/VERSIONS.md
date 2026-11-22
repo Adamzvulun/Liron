@@ -123,7 +123,7 @@ A version is **done** when everything in its list is true *and* the release step
 
 1. Every task of the version is merged into `dev`, with its issue closed and its box ticked in PLAN.md.
 2. The full local checks pass on `dev` (HANDOFF lists them), and CI on `dev` is green with a job log that checks out.
-3. `package.json` carries the version. `docs/process/releases/vX.Y.0.md` says what a player gets, in plain words.
+3. `package.json` carries the version. `docs/process/releases/vX.Y.0.md` says what a player gets, in plain words. `tests/version.test.ts` fails until the version matches the newest notes.
 4. **A release branch, `release/vX.Y.0`, is cut from `dev` at that commit**, and the release PR goes from it into `main`. This is new (ADR 0040). It lets work on the next version go on in `dev` while Adam takes his time, without that work slipping into the release.
 5. **Adam's part:** for an X.0, the release checklist (about 45 minutes; extended for what's new). For an X.Y, a short list of the new things only (about 10 minutes). Then he merges the release PR, watches the DB migrate run on `main` go green, signs in on the live site, and creates the tag and its GitHub Release.
 6. Problems he finds before merging are fixed on `dev` and brought to the release branch. Problems found after are X.Y.Z fixes: into `main` through a small PR, then merged back into `dev`.
@@ -181,5 +181,9 @@ The painting's ~100 filtered shapes become a few SVG images on a touch screen, f
 
 ### v1.3.0 — Nour, the guide for new players
 
-Phase 6 (epic #405, [ADR 0053](../decisions/0053-a-guide-for-new-players.md)): Nour the lamplighter welcomes a newcomer in three lines, introduces one place at a time, each place and station says what it's for on a first visit, and the Guidebook explains every place and number. Draft notes: [releases/v1.3.0.md](releases/v1.3.0.md). Waits for Adam's read of the words (#413).
+Phase 6 (epic #405, [ADR 0053](../decisions/0053-a-guide-for-new-players.md)): Nour the lamplighter welcomes a newcomer in three lines, introduces one place at a time, each place and station says what it's for on a first visit, and the Guidebook explains every place and number. Notes: [releases/v1.3.0.md](releases/v1.3.0.md). Released 2026-11-22 ([#421](https://github.com/Adamzvulun/Liron/pull/421)), merged by Claude at Adam's word ("Continue to your next tasks. Same as weve worked before"). His read of the words (#413) follows; changes go in a later release.
 
+
+### v1.3.1 — Nour, out of the way
+
+A fix release for v1.3.0's guide: Nour's card no longer hides the place Nour talks about (on a phone it sits under the top bar), and the eight fixes from a review of the guide's code. Notes: [releases/v1.3.1.md](releases/v1.3.1.md). Claude merges the release PR once its checks pass.

@@ -21,7 +21,15 @@ export function Welcome({ onDone }: { onDone: () => void }) {
  * One introduction (the-guide.md §3.3, #410): Nour's line about the place wearing the new mark.
  * Got it closes it for this visit; going into the place is what introduces it.
  */
-export function Introduce({ id, onDone }: { id: string; onDone: () => void }) {
+export function Introduce({
+  id,
+  side,
+  onDone,
+}: {
+  id: string;
+  side?: 'left' | 'right';
+  onDone: () => void;
+}) {
   const text = INTRODUCTIONS.lines[id];
   if (!text) return null;
   return (
@@ -30,6 +38,7 @@ export function Introduce({ id, onDone }: { id: string; onDone: () => void }) {
       lines={[{ text }]}
       next={INTRODUCTIONS.done}
       done={INTRODUCTIONS.done}
+      side={side}
       onDone={onDone}
     />
   );
@@ -38,5 +47,6 @@ export function Introduce({ id, onDone }: { id: string; onDone: () => void }) {
 /** A platform place's first-visit card (the-guide.md §3.4, #411). */
 export function PlaceCard({ place }: { place: keyof typeof PLACE_CARDS }) {
   const { title, text } = PLACE_CARDS[place];
-  return <FirstVisit id={cardId(place)} title={title} text={text} />;
+  // Keyed, so a new place gets a fresh card even when the screen around it stays.
+  return <FirstVisit key={place} id={cardId(place)} title={title} text={text} />;
 }
