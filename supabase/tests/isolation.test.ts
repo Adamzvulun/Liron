@@ -72,6 +72,7 @@ const SHARED_TABLES = [
   'contract_templates',
   'fellowship_quests',
   'home_pieces',
+  'starter_names',
   'invites',
   'inviters',
   'items',

@@ -37,6 +37,7 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 - **Research before suggesting.** Verify facts, sources, licenses, prices, and feasibility *before* proposing something to Adam. Don't propose something and leave "to be verified" for later. If something truly can't be verified, say so clearly and up front.
 - **Be transparent.** Anything that costs money, shares data, or locks us in comes to Adam as an explicit question, never as a line buried in a doc.
 - **Ordering is not cutting.** Use the roadmap to decide *when* things are built. Never quietly drop features from the vision.
+- **Planning means planning.** When Adam asks to plan something (research, plan, make issues), do that and stop: research, use the skills, write the docs and issues, then wait for his go before building (Adam, 2026-11-22).
 - **Don't over-engineer.** Check each choice against what's actually needed (e.g. a regular website, not a PWA).
 
 ## Conventions
