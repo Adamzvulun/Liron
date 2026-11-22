@@ -20,6 +20,7 @@ import {
   STAGE,
 } from './layout.ts';
 import { useStage } from './useStage.ts';
+import type { Spot } from '../guide/introductions.ts';
 import {
   paintCity,
   type Box,
@@ -136,6 +137,15 @@ function pictureOf(key: string, segments: readonly Segment[], box: Box, defs: st
   const url = URL.createObjectURL(new Blob([xml], { type: 'image/svg+xml' }));
   pictures.set(key, url);
   return url;
+}
+
+/** The new mark: a small lit lamp with "New", on the place Nour is introducing. */
+function NewMark() {
+  return (
+    <span className="city__new">
+      <span className="visually-hidden">, </span>New
+    </span>
+  );
 }
 
 /** Markup without its filters, for shapes that are only there to be tapped. */
@@ -310,6 +320,7 @@ export function City({
   lit = [],
   event = null,
   friends = [],
+  fresh,
 }: {
   subjects: readonly SubjectInfo[];
   /** The player's avatar; the default traveller until the profile loads. */
@@ -321,6 +332,8 @@ export function City({
   event?: { name: string; colors: readonly string[] } | null;
   /** Friends standing in the square (task 3.3); each is a way to their house. */
   friends?: readonly { id: string; name: string; look: Look }[];
+  /** The place Nour is introducing, which wears the new mark (the-guide.md §3.3, #410). */
+  fresh?: Spot | undefined;
 }) {
   const city = scene();
   // The avatar walks a few steps toward the door before the place opens (task 4.6).
@@ -388,6 +401,7 @@ export function City({
             style={{ left: ARENA_SIGN.x, top: ARENA_SIGN.y }}
           >
             {ARENA_SIGN.text}
+            {fresh === 'arena' && <NewMark />}
           </Link>
           {city.plots.map((plot, i) => (
             <div
@@ -465,6 +479,7 @@ export function City({
                       الخان
                     </span>
                   )}
+                  {fresh === id && <NewMark />}
                 </h2>
               </Link>
             );
@@ -540,9 +555,12 @@ export function City({
               href={PLACE_PATHS[id]}
               className="city__dockitem"
               style={{ borderTopColor: residents.get(id)?.guildColor }}
-              aria-label={DOCK_BREAKS[id] ? PLAQUES[id].title : undefined}
+              aria-label={
+                DOCK_BREAKS[id] ? `${PLAQUES[id].title}${fresh === id ? ', new' : ''}` : undefined
+              }
             >
               {DOCK_BREAKS[id] ?? DOCK_LABELS[id] ?? residents.get(id)?.place ?? PLAQUES[id].title}
+              {fresh === id && <NewMark />}
             </Link>
           ))}
         </nav>

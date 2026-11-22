@@ -14,3 +14,14 @@ const Welcome = z.object({
 
 /** The guide's words (content/core/guide.json): content, not code. */
 export const WELCOME = Welcome.parse(pack.items.find((i) => i.id === 'guide-welcome')?.data);
+
+const Introductions = z.object({
+  /** One line per introduction, by its id in `guide_seen` (seen.ts). */
+  lines: z.record(z.string().regex(/^intro:[a-z-]+$/), z.string().min(1)),
+  done: z.string().min(1),
+});
+
+/** Nour's line for each introduction (the-guide.md §3.3). */
+export const INTRODUCTIONS = Introductions.parse(
+  pack.items.find((i) => i.id === 'guide-introductions')?.data,
+);
