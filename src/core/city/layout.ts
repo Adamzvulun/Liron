@@ -96,6 +96,12 @@ export const FRIEND_SPOTS = [
 ] as const;
 export const FRIEND_SCALE = 0.56;
 
+/**
+ * Where Nour, the lamplighter, stands (the-guide.md §2, #406): at the compass's edge, a little
+ * behind and beside the player, in the middle of a phone's first view.
+ */
+export const NOUR_SPOT = { x: 1130, feetY: 912, scale: 0.6 } as const;
+
 /** Which subject lives in which building. */
 export function residentsOf(subjects: readonly SubjectInfo[]): Map<PlaceId, SubjectInfo> {
   const residents = new Map<PlaceId, SubjectInfo>();
