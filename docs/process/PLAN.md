@@ -336,22 +336,22 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☐ 6.1 (#406) · v1.3 · Design the Lamplighter: name, look, where they stand 🚧
 - **Gate:** Adam picks the name (from three) and approves the look. Drawn into the touch-screen pictures, no new filtered layers.
 
-### ☐ 6.2 (#407) · v1.3 · Save what the guide has shown, on the account
+### ☑ 6.2 (#407) · v1.3 · Save what the guide has shown, on the account
 - `guide_seen` on the profile; derived from state where possible, so existing players aren't greeted as strangers.
 
-### ☐ 6.3 (#408) · v1.3 · One voice at a time
+### ☑ 6.3 (#408) · v1.3 · One voice at a time
 - The first page, celebrations and the guide take turns; the guide speaks only on the square.
 
-### ☐ 6.4 (#409) · v1.3 · The speech card and the three-line welcome
+### ☑ 6.4 (#409) · v1.3 · The speech card and the three-line welcome
 - After the first step: the compass line, the top bar, the places. Skippable, replayable.
 
-### ☐ 6.5 (#410) · v1.3 · Introductions in order, and the one "new" mark
+### ☑ 6.5 (#410) · v1.3 · Introductions in order, and the one "new" mark
 - Seven introductions, one per visit, one mark at a time; the city errands fold into them.
 
-### ☐ 6.6 (#411) · v1.3 · First-visit cards for every place and station
+### ☑ 6.6 (#411) · v1.3 · First-visit cards for every place and station
 - Core places from `content/core/guide.json`; halls through the subject contract.
 
-### ☐ 6.7 (#412) · v1.3 · The Guidebook
+### ☑ 6.7 (#412) · v1.3 · The Guidebook
 - A page for every place, number and system; numbers from code; a completeness test.
 
 ### ☐ 6.8 (#413) · v1.3 · The guide's words, reviewed by Adam 🚧
