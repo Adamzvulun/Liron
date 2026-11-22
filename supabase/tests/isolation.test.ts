@@ -54,6 +54,8 @@ const PLAYER_TABLES: Record<string, string> = {
   fellowship_quest_rewards: 'user_id',
   // A gift has two players; the receiver reads theirs through my_gifts() only.
   gifts: 'from_id',
+  // One room per player (task 7.3); a friend reads it through home_of() only.
+  homes: 'user_id',
 };
 
 /**
@@ -69,6 +71,7 @@ const SHARED_TABLES = [
   'content_lessons',
   'contract_templates',
   'fellowship_quests',
+  'home_pieces',
   'invites',
   'inviters',
   'items',
@@ -110,6 +113,10 @@ const CALLABLE: Record<string, string> = {
   'set_time_zone(p_zone text)': 'the caller’s own profile',
   'set_title(p_title text)': 'the caller’s own title, from what they earned',
   'guide_mark(p_ids text[])': 'appends ids to the caller’s own guide_seen (#407)',
+  // The home (task 7.3, homes.test.ts).
+  'my_home()': 'the caller’s own room, or the starter room',
+  'save_home(p_layout jsonb)': 'the caller’s own room, whole, only if every rule holds',
+  'home_of(p_friend uuid)': 'an accepted friend’s placed pieces; null for anyone else',
   'speech_checks_per_day()': 'a constant',
   'today_status()': 'the caller’s own day',
   'todays_contracts()': 'the caller’s own contracts',
@@ -226,6 +233,7 @@ async function seed(id: string) {
     `insert into fellowship_quest_rewards (user_id, week, quest_id, gold)
        values ($1, '2026-11-02', 'inn-talk', 40)`,
     `insert into gifts (from_id, to_id, item_id, price) values ($1, '${T}', 'cloak', 180)`,
+    `insert into homes (user_id, layout) values ($1, home_starter())`,
   ];
   for (const sql of statements) await db.query(sql, [id]);
 }
