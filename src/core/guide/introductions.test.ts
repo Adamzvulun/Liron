@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { PLACE_PATHS } from '../city/layout.ts';
+import { visitPath } from '../fellowship/fellowship.ts';
 import { CHEAPEST_WARE } from '../player/compass.ts';
 import { isInside, nextIntroduction, type IntroFacts } from './introductions.ts';
 import { GUIDE_IDS } from './seen.ts';
@@ -118,6 +120,21 @@ describe('going in', () => {
     expect(isInside(house, '/house/fellowship')).toBe(true);
     expect(isInside(house, '/houses')).toBe(false);
     expect(isInside(house, '/')).toBe(false);
+  });
+
+  it('doesn’t count a friend’s house as going into your own', () => {
+    const friend = nextIntroduction(
+      { ...newcomer, friends: 1 },
+      new Set(['welcome', 'intro:board']),
+    );
+    if (!friend) throw new Error('expected the Fellowship');
+    expect(friend.href).toBe(PLACE_PATHS.house);
+    expect(isInside(friend, visitPath('00000000-0000-0000-0000-0000000000a1'))).toBe(false);
+  });
+
+  it('points at each place by its own path', () => {
+    const board = nextIntroduction(newcomer, new Set(['welcome']));
+    expect(board?.href).toBe(PLACE_PATHS.board);
   });
 });
 

@@ -332,7 +332,7 @@ export function City({
                 href={PLACE_PATHS[id]}
                 onClick={walkTo(id, PLACE_PATHS[id])}
                 className={`city__place city__place--${id}${lit.includes(id) ? ' city__place--lit' : ''}`}
-                aria-label={`${resident?.place ?? plaque.title}: ${resident?.tagline ?? PLACE_LABELS[id]}`}
+                aria-label={`${resident?.place ?? plaque.title}: ${resident?.tagline ?? PLACE_LABELS[id]}${fresh === id ? ', new' : ''}`}
               >
                 {flat ? (
                   <>
