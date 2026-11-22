@@ -11,6 +11,7 @@ import {
   AVATAR_SPOT,
   FRIEND_SCALE,
   FRIEND_SPOTS,
+  NOUR_SPOT,
   stepToward,
   WALK_MS,
   PLACE_LABELS,
@@ -20,14 +21,10 @@ import {
   STAGE,
 } from './layout.ts';
 import { useStage } from './useStage.ts';
-import {
-  paintCity,
-  type Box,
-  type PaintedPart,
-  type PlaceId,
-  type Segment,
-  type Sprite,
-} from './painter.js';
+import { FULL_STAGE, GLOW_FILTER, padded, pictureOf, scene, touchScreen } from './square.ts';
+import type { Spot } from '../guide/introductions.ts';
+import { NOUR, NOUR_LOOK } from '../guide/nour.ts';
+import { type Box, type PaintedPart, type PlaceId, type Segment, type Sprite } from './painter.js';
 import './city.css';
 
 /** Short names for the phone's dock, where space is tight. */
@@ -45,97 +42,16 @@ const DOCK_BREAKS: Partial<Record<PlaceId, ReactNode>> = {
   ),
 };
 
-// The painted scene never changes, so it is painted once per page load.
-let painted: ReturnType<typeof paintCity> | undefined;
-function scene() {
-  if (!painted) {
-    performance.mark('city:paint-start');
-    painted = paintCity();
-    performance.measure('city:paint', 'city:paint-start');
-  }
-  return painted;
-}
-
 /** Where the view starts when it pans on a phone: the compass in the middle of the square. */
 const START_X = 1010;
 
-/**
- * The hover glow (#123): the same gold as the old `drop-shadow(0 0 18px …)`, drawn once from a
- * place's silhouette and faded in with opacity, so hovering never re-filters the building.
- */
-const GLOW_FILTER =
-  '<filter id="wm-glow" x="-30%" y="-30%" width="160%" height="160%">' +
-  '<feGaussianBlur in="SourceAlpha" stdDeviation="9" result="b"></feGaussianBlur>' +
-  '<feFlood flood-color="#FFD36B" flood-opacity=".85"></feFlood>' +
-  '<feComposite operator="in" in2="b"></feComposite></filter>';
-
-/**
- * A touch screen gets the square as pictures (2026-11-21). Live, the painting is ~100 filtered
- * shapes (blurred shadows, plaster, grain), and Safari keeps a full-size buffer for each at the
- * screen's resolution: on an iPhone that was more memory than it gives a page, and the page
- * crashed and reloaded over and over. An SVG drawn as an image is filtered once into one bitmap.
- * A mouse keeps the live painting, whose pieces move and whose places glow on hover.
- */
-const touchScreen = () =>
-  typeof window.matchMedia === 'function' && window.matchMedia('(hover: none)').matches;
-
-const SVG_NS = 'http://www.w3.org/2000/svg';
-/** How far a part's picture reaches past its box, in stage pixels. */
-const PICTURE_PAD = 40;
-const pictures = new Map<string, string>();
-
-/** The square's gradients, filters and patterns by id, read once per page. */
-let defsById: { source: string; byId: Map<string, string> } | undefined;
-const REFERENCE = /#([\w-]+)/g;
-
-/**
- * Only the definitions `body` uses (and those they use in turn). Every picture is its own
- * document, and the browser reads all it is given each time it draws one: the whole set is
- * 292 definitions, and a building uses a handful.
- */
-function defsFor(body: string, defs: string): string {
-  if (defsById?.source !== defs) {
-    const doc = new DOMParser().parseFromString(
-      `<svg xmlns="${SVG_NS}"><defs>${defs}</defs></svg>`,
-      'image/svg+xml',
-    );
-    const byId = new Map<string, string>();
-    for (const el of doc.querySelectorAll('defs > [id]')) byId.set(el.id, el.outerHTML);
-    defsById = { source: defs, byId };
-  }
-  const { byId } = defsById;
-  const used = new Set<string>();
-  const look = (markup: string) => {
-    for (const [, id = ''] of markup.matchAll(REFERENCE)) {
-      const def = byId.get(id);
-      if (def === undefined || used.has(id)) continue;
-      used.add(id);
-      look(def);
-    }
-  };
-  look(body);
-  return [...used].map((id) => byId.get(id)).join('');
-}
-
-/**
- * A picture of `segments` over `box`, as an image address made once per page. Sprites are drawn
- * where they stand still; a touch screen keeps the square still anyway.
- */
-function pictureOf(key: string, segments: readonly Segment[], box: Box, defs: string): string {
-  const made = pictures.get(key);
-  if (made) return made;
-  const { x, y, w, h } = box;
-  const body = segments
-    .map((s) =>
-      typeof s === 'string'
-        ? s
-        : `<svg x="${s.box.x}" y="${s.box.y}" width="${s.box.w}" height="${s.box.h}" viewBox="${s.box.x} ${s.box.y} ${s.box.w} ${s.box.h}" overflow="visible">${s.svg}</svg>`,
-    )
-    .join('');
-  const xml = `<svg xmlns="${SVG_NS}" width="${w}" height="${h}" viewBox="${x} ${y} ${w} ${h}"><defs>${defsFor(body, defs)}</defs>${body}</svg>`;
-  const url = URL.createObjectURL(new Blob([xml], { type: 'image/svg+xml' }));
-  pictures.set(key, url);
-  return url;
+/** The new mark: a small lit lamp with "New", on the place Nour is introducing. */
+function NewMark() {
+  return (
+    <span className="city__new">
+      <span className="visually-hidden">, </span>New
+    </span>
+  );
 }
 
 /** Markup without its filters, for shapes that are only there to be tapped. */
@@ -154,9 +70,7 @@ function Picture({
   defs: string;
   className?: string;
 }) {
-  // A part's shapes may reach past its box (the live drawing shows them, an image can't).
-  const pad = box.w === STAGE.width ? 0 : PICTURE_PAD;
-  const drawn = { x: box.x - pad, y: box.y - pad, w: box.w + 2 * pad, h: box.h + 2 * pad };
+  const drawn = padded(box);
   const { x, y, w, h } = drawn;
   return (
     <img
@@ -241,8 +155,6 @@ function Segments({
   );
 }
 
-const FULL_STAGE: Box = { x: 0, y: 0, w: STAGE.width, h: STAGE.height };
-
 function Part({ part }: { part: PaintedPart }) {
   return <Segments segments={part.segments} box={part.box} />;
 }
@@ -310,6 +222,8 @@ export function City({
   lit = [],
   event = null,
   friends = [],
+  fresh,
+  onNour,
 }: {
   subjects: readonly SubjectInfo[];
   /** The player's avatar; the default traveller until the profile loads. */
@@ -321,6 +235,10 @@ export function City({
   event?: { name: string; colors: readonly string[] } | null;
   /** Friends standing in the square (task 3.3); each is a way to their house. */
   friends?: readonly { id: string; name: string; look: Look }[];
+  /** The place Nour is introducing, which wears the new mark (the-guide.md §3.3, #410). */
+  fresh?: Spot | undefined;
+  /** Tapping Nour, who stands by the compass (the-guide.md §2, #406); no Nour without it. */
+  onNour?: (() => void) | undefined;
 }) {
   const city = scene();
   // The avatar walks a few steps toward the door before the place opens (task 4.6).
@@ -388,6 +306,7 @@ export function City({
             style={{ left: ARENA_SIGN.x, top: ARENA_SIGN.y }}
           >
             {ARENA_SIGN.text}
+            {fresh === 'arena' && <NewMark />}
           </Link>
           {city.plots.map((plot, i) => (
             <div
@@ -465,6 +384,7 @@ export function City({
                       الخان
                     </span>
                   )}
+                  {fresh === id && <NewMark />}
                 </h2>
               </Link>
             );
@@ -493,6 +413,26 @@ export function City({
               </Link>
             );
           })}
+          {onNour && (
+            <button
+              type="button"
+              className="city__nour"
+              aria-label={`${NOUR}, the lamplighter: hear what ${NOUR} has to say`}
+              onClick={onNour}
+              style={{
+                left: NOUR_SPOT.x - (AVATAR_BOX.width / 2) * NOUR_SPOT.scale,
+                top: NOUR_SPOT.feetY - AVATAR_BOX.feetY * NOUR_SPOT.scale,
+              }}
+            >
+              <Avatar
+                look={NOUR_LOOK}
+                pole
+                shadow
+                width={AVATAR_BOX.width * NOUR_SPOT.scale}
+                height={(AVATAR_BOX.height + 10) * NOUR_SPOT.scale}
+              />
+            </button>
+          )}
           <div className="city__avatar" role="img" aria-label="Your character">
             {flat ? (
               <Picture
@@ -540,9 +480,12 @@ export function City({
               href={PLACE_PATHS[id]}
               className="city__dockitem"
               style={{ borderTopColor: residents.get(id)?.guildColor }}
-              aria-label={DOCK_BREAKS[id] ? PLAQUES[id].title : undefined}
+              aria-label={
+                DOCK_BREAKS[id] ? `${PLAQUES[id].title}${fresh === id ? ', new' : ''}` : undefined
+              }
             >
               {DOCK_BREAKS[id] ?? DOCK_LABELS[id] ?? residents.get(id)?.place ?? PLAQUES[id].title}
+              {fresh === id && <NewMark />}
             </Link>
           ))}
         </nav>

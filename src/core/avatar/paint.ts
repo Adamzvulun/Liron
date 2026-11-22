@@ -124,9 +124,17 @@ export interface PaintOptions {
   idPrefix: string;
   /** The soft shadow on the ground; off where the scene paints its own. */
   shadow?: boolean;
+  /**
+   * Nour's lamplighter's pole (the-guide.md §2), held in the right hand in place of hand gear: a
+   * wooden staff with a brass crook, and a lit lantern hanging from it. Only the guide carries it; it is not gear.
+   */
+  pole?: boolean;
 }
 
-export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOptions): string {
+export function paintAvatar(
+  look: Look,
+  { idPrefix, shadow = true, pole = false }: PaintOptions,
+): string {
   const g = gradients(idPrefix.replace(/[^a-zA-Z0-9_-]/g, ''));
   const skinT = SKINS.find((s) => s.id === look.skin) ?? SKINS[1];
   const hairT = HAIR_COLOURS.find((h) => h.id === look.hairColour) ?? HAIR_COLOURS[1];
@@ -487,6 +495,39 @@ export function paintAvatar(look: Look, { idPrefix, shadow = true }: PaintOption
       1,
       0,
     )}" stroke-width="6" stroke-linecap="round"/><path d="M${handL[0] - 10} 104 Q${handL[0] - 4} 88 ${handL[0] + 4} 100" stroke="${INK}" stroke-width="3" fill="none"/>`;
+  }
+
+  if (pole) {
+    // A wooden staff with a brass crook at the top, and a small lantern hanging from it: the
+    // lamplighter's tool, not a candle. The glow is plain shapes with no filter (the square's
+    // pictures on a phone, v1.2.x).
+    const [x0, y0] = [handL[0] + 4, fy - 4];
+    const [x1, y1] = [handL[0] - 8, 70];
+    const wood = g.lin(
+      [
+        [0, '#B07A48'],
+        [1, '#5E3A1C'],
+      ],
+      1,
+      0,
+    );
+    body += `<path d="M${x0} ${y0} L${x1} ${y1}" stroke="${INK}" stroke-width="10" stroke-linecap="round"/><path d="M${x0} ${y0} L${x1} ${y1}" stroke="${wood}" stroke-width="5" stroke-linecap="round"/>`;
+    // The crook: brass, curling out over the lantern.
+    const crook = `M${x1} ${y1} C${x1 - 2} ${y1 - 24} ${x1 - 26} ${y1 - 28} ${x1 - 28} ${y1 - 8}`;
+    body += `<path d="${crook}" stroke="${INK}" stroke-width="8" fill="none" stroke-linecap="round"/><path d="${crook}" stroke="#D9A84A" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
+    // The lantern on its short chain.
+    const [lx, ly] = [x1 - 28, y1 + 4];
+    body += `<path d="M${lx} ${y1 - 8} V${ly}" stroke="${INK}" stroke-width="2"/>`;
+    body += `<circle cx="${lx}" cy="${ly + 16}" r="18" fill="#FFD36B" opacity=".16"/><circle cx="${lx}" cy="${ly + 16}" r="12" fill="#FFD36B" opacity=".24"/>`;
+    const glass = g.rad([
+      [0, '#FFF6D0'],
+      [0.5, '#FFD36B'],
+      [1, '#E89A3A'],
+    ]);
+    body += `<path d="M${lx - 6} ${ly} H${lx + 6} L${lx + 4} ${ly + 4} H${lx - 4} Z" fill="#B07A2A" stroke="${INK}" stroke-width="2"/>`;
+    body += `<rect x="${lx - 8}" y="${ly + 4}" width="16" height="20" rx="3" fill="${glass}" stroke="${INK}" stroke-width="2.4"/>`;
+    body += `<path d="M${lx} ${ly + 4} V${ly + 24}" stroke="#8A5A1E" stroke-width="1.6"/>`;
+    body += `<path d="M${lx - 9} ${ly + 24} H${lx + 9} L${lx + 6} ${ly + 28} H${lx - 6} Z" fill="#B07A2A" stroke="${INK}" stroke-width="2"/>`;
   }
 
   if (wear('hand') === 'flags') {

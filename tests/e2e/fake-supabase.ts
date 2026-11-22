@@ -47,8 +47,33 @@ export const TODAY = {
   shielded_days: 0,
 };
 
+/** Every line Nour has and every first-visit card (src/core/guide/): what an old hand has seen. */
+export const GUIDE_SAID = [
+  'welcome',
+  'intro:board',
+  'intro:fellowship',
+  'intro:market',
+  'intro:wardrobe',
+  'intro:other-hall',
+  'intro:arena',
+  'intro:ledger',
+  // First-visit cards (#411): the platform's places, then each hall's.
+  ...['board', 'market', 'house', 'arena'].map((p) => `card:${p}`),
+  ...['hall', 'lessons', 'recognition', 'sending', 'codebook', 'radio'].map(
+    (k) => `card:morse:${k}`,
+  ),
+  ...['hall', 'scribe', 'slate', 'innkeeper', 'fountain', 'well', 'storyteller', 'coffee'].map(
+    (k) => `card:arabic:${k}`,
+  ),
+];
+
 /** What a test can change about the player beyond the defaults (ADR 0033, 0034). */
 export interface Extras {
+  /**
+   * Ids the guide has already shown (the-guide.md §4). Most tests are about something else, so
+   * Nour has said everything unless a test gives its own list ([] for a brand-new player).
+   */
+  guideSeen?: string[];
   /** Leave the first page showing for a new player (the-road.md §8). */
   firstPage?: boolean;
   /** Item ids the player owns. */
@@ -188,6 +213,7 @@ export async function fakeSupabase(
   const sessions = new Set<string>();
   // The title worn (#177), changed by set_title.
   let title = extras.title ?? '';
+  let guideSeen = extras.guideSeen ?? [...GUIDE_SAID];
   // The Market's purchases (#49): what was bought, and the gold spent.
   const bought: string[] = [];
   let spent = 0;
@@ -391,6 +417,12 @@ export async function fakeSupabase(
           })),
         },
       });
+    }
+    if (url.pathname === '/rest/v1/rpc/guide_mark') {
+      const { p_ids } = route.request().postDataJSON() as { p_ids: string[] };
+      guideSeen = [...new Set([...guideSeen, ...p_ids])].sort();
+      profileUpdates.push({ guide_seen: guideSeen });
+      return route.fulfill({ json: null });
     }
     if (url.pathname === '/rest/v1/rpc/set_title') {
       const { p_title } = route.request().postDataJSON() as { p_title: string };
@@ -658,6 +690,7 @@ export async function fakeSupabase(
         ...(extras.name !== undefined && { display_name: extras.name }),
         title,
         share_milestones: extras.fellowship?.sharing ?? true,
+        guide_seen: guideSeen,
       };
       return route.fulfill({ json: single ? profile : [profile] });
     }

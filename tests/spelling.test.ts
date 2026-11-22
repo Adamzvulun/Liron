@@ -21,7 +21,7 @@ function visible(source: string): string {
   return source
     .replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ''))
     .replace(/(^|[^:'"`])\/\/.*$/gm, '$1')
-    .replace(/\bid: '[^']*'/g, '')
+    .replace(/\b(id|hairColour): '[^']*'/g, '')
     .replace(/\baria-labelledby\b/g, '')
     .replace(/\b[a-z]+[A-Z]\w*|\b[A-Z][A-Z_]{2,}\b/g, ''); // camelCase and CONSTANT names
 }

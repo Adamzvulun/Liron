@@ -59,6 +59,8 @@ export const DEFAULT_DAILY_GOAL = 15;
 export const DAILY_GOAL_CHOICES = [5, 10, 15, 20, 30, 45, 60] as const;
 export const DAILY_CHEST_GOLD = 20;
 export const STREAK_GEM_EVERY = 7; // the chest holds a gem on every 7th day of a streak
+/** Streak shields a player can hold (wallets.streak_shields is 0–2, ADR 0033). */
+export const MAX_SHIELDS = 2;
 
 /** What reaching the daily goal pays, given the streak including today. */
 export function dailyChest(streak: number): { gold: number; gems: number } {
