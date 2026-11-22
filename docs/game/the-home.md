@@ -49,7 +49,7 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
 | Desk, or the book on it | Opens your ledger | Nothing (the ledger is private) |
 | Door | Back to the square | Back to your own house |
 | Letterbox by the door | Opens the Fellowship: friends, gifts, codes | Nothing |
-| Chair, bench, bed | Your avatar sits or lies there | Your avatar sits there |
+| Chair, bench, bed | Your avatar sits there (lying on the bed is for later, #447) | Your avatar sits there |
 | Lantern, lamp | Turns its light on and off | The same, for you only |
 | Anything else | A one-line description | The same |
 

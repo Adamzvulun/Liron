@@ -240,4 +240,14 @@ test.describe('the pieces that open something (#441)', () => {
     await lantern.click();
     await expect(glow).toHaveAttribute('data-glow', 'on');
   });
+
+  test('the bed seats you, and a step stands you up', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await openRoom(page);
+    await page.getByRole('button', { name: 'Bed: sit down' }).click();
+    await expect(at(page)).toHaveAttribute('data-seated', 'true');
+    await room(page).focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(at(page)).not.toHaveAttribute('data-seated');
+  });
 });
