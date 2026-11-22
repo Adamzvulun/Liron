@@ -191,3 +191,7 @@ A fix release for v1.3.0's guide: Nour's card no longer hides the place Nour tal
 ### v1.3.2 — In our own words
 
 A fix release: the 60 English meanings that were the deck's own sentences are our own translations of their Arabic now (report §4el). Notes: [releases/v1.3.2.md](releases/v1.3.2.md). Ready on 2026-11-22, held until Vercel's daily deploy limit passes (HANDOFF 157).
+
+### Next: v1.4.0 — A home of your own
+
+Your House becomes a room you walk in, decorate and invite friends into (Phase 7, epic [#435](https://github.com/Adamzvulun/Liron/issues/435), [the-home.md](../game/the-home.md)). **Waits on Adam for:** the room's look (7.1), and a visit both ways with a friend (7.11).

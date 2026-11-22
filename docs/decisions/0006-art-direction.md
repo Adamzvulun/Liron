@@ -26,10 +26,10 @@ The tone moves from "cute" to **heroic-stylized MMO**: bold and colorful, but no
 - **Design resolution: 1920×1080** (standard desktop). The phone layout is derived from it.
 - **Depth, after Adam's reference** (a classic browser-RPG town screen; principles only, nothing copied):
   1. **Low eye level, standing in the square.** Little sky; buildings fill the frame.
-  2. **Buildings in a ring around a dirt plaza, turned toward the centre**, packed and overlapping.
+  2. **Buildings in a ring around a dirt plaza, turned toward the center**, packed and overlapping.
   3. **Three depth bands:** large near buildings at the frame edges; mid buildings; small, hazy back rooftops (atmospheric perspective). A distant landmark (our locked Arena) fades in the haze.
   4. **Volume:** front faces light, side faces dark, roof planes shaded, plaster and stone texture, contact shadows.
-  5. **Varied roof colours and chimneys** on each building. (Hanging icon banners were dropped at Adam's request, 2026-11-03.)
+  5. **Varied roof colors and chimneys** on each building. (Hanging icon banners were dropped at Adam's request, 2026-11-03.)
   6. **Dark foreground framing** at the bottom edge, plus a warm edge vignette.
 
 ## Amendment 3 (2026-11-01): painted rendering
@@ -45,3 +45,7 @@ Adam: v2 was "too simple, not enough blending, too blocky; lean into the artwork
 ## Consequences
 - We need a style guide doc and a small set of reference illustrations before building screens (M1).
 - SVG keeps everything crisp on phone and desktop, themeable, and versionable in git.
+
+## Amendment 4 (2026-11-22): the walkable home stays in the page
+
+The home is the first walkable scene, the case this ADR said would bring in PixiJS. Measured, PixiJS v8 costs 178 kB gzipped for a bare stage, and the room needs about 25 pieces. So the home is drawn as painted SVG pieces in HTML layers instead, as the square is. See [ADR 0055](0055-a-walkable-home-drawn-in-the-page.md).

@@ -35,6 +35,8 @@
 4. **Turn on the ruleset** that makes GitHub refuse a red PR (open questions, below).
 5. **Parked:** the third subject (#337), the regulars' voices (Azure, #342), the release of the Fellowship (#332), and how the square feels on his phone (#137). All are in [LATER.md](LATER.md).
 
+**Next to build: v1.4.0, a home of your own** (Phase 7, epic [#435](https://github.com/Adamzvulun/Liron/issues/435), [the-home.md](../game/the-home.md)). Your House becomes a room you walk in, decorate and invite friends into. It starts with 7.1, the room's look, for Adam to approve, while 7.2 (the rules) goes ahead.
+
 **Claude's:** fixes for whatever Adam or a friend finds, gap hunts between them ([report §4ek](reports/2026-11-09.md)), and keeping these docs true.
 
 **Releasing** is the same every time ([VERSIONS.md](VERSIONS.md#the-release-steps-the-same-every-time)): a `release/vX` branch from `dev`, a PR into `main` with notes, and a merge commit once CI and axe are green. Claude merges green release PRs at Adam's word (2026-11-19). Vercel Hobby allows 100 deploys a day, so never push many branches at once (HANDOFF 157).

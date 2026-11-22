@@ -399,3 +399,15 @@
 
 156. **A second copy of the speech spike, with deck text, was in the public tree (2026-11-22, report §4ej, ADR 0054 amendment 2).** `docs/research/spikes/gemini-speech/` is out. This container keeps it in the ignored `sources/research/gemini-speech/`, and `tests/understood-spike.test.ts` skips without it. `tests/sources.test.ts` refuses any tracked recording. History was rewritten again to drop `docs/research/spikes/` and all 151 branches force-pushed; verified from a fresh mirror (report §4ej). The `v1.0.0` tag still holds old history: Adam to delete it (Tags → v1.0.0 → Delete tag). **Open for Adam:** glosses in `content/arabic/core-words.json` that are the deck's English sentences word for word.
 157. **Vercel's daily deploy limit was hit (2026-11-22).** Force-pushing 151 branches one by one started more than 100 deploys, Vercel Hobby's daily cap, so deploys failed with `api-deployments-free-per-day` until the window passes (Vercel says "try again in 24 hours"; one deploy got through 25 minutes later, the next failed again). The live site stays on v1.3.1. Don't push many branches in one go; if a rewrite is needed again, push only `main`, `dev` and live branches, one at a time over days. Previews stay on for every branch, as ADR 0015 has it (Claude's call, 2026-11-22, Adam: "Do whatever you think I would do").
+158. **The deck's English sentences rewritten, and v1.3.2 ready (2026-11-22, report §4el).** Adam: "Do whatever you think I would do." The 60 glosses that were full deck sentences (five words or more) are our own translations of their Arabic now (#432). Short glosses and stock phrases stay. The scan scripts are in this session's scratchpad (`scan/gloss.mts`, `scan/ar.mts`); they read the deck from the ignored `sources/` and write nothing to the repo. The release PR [#434](https://github.com/Adamzvulun/Liron/pull/434) (`release/v1.3.2` → `main`) is open. A scheduled check-in merges it at 15:00 UTC on 2026-11-23, after Vercel's daily limit (item 157).
+159. **Phase 7 planned: a home of your own (2026-11-22, epic #435, issues #436–#447).** Adam: "I want to add an actual home that you can design and walk and interact in." Spec [the-home.md](../game/the-home.md), [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-page.md) (proposed until Adam approves the look in 7.1), research [walkable-home.md](../research/walkable-home.md). Choices Claude made at Adam's word, each open to change:
+    - today's one-point room, with a 12 × 5 floor grid and 6 wall slots;
+    - painted SVG in the page, no engine (PixiJS v8 measured 178 kB gzipped here);
+    - tap to walk, and to place a piece tap it, then tap where it goes;
+    - the four panels open from the cupboard, shelf, desk and letterbox;
+    - 20 floor and 6 wall pieces at most, and a path rule;
+    - furniture as an item kind;
+    - read-only visits where you walk in as yourself;
+    - visiting together live later (#447).
+    Start with 7.1 and 7.2.
+

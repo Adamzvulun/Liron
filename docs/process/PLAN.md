@@ -362,6 +362,45 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Order:** 6.1 and 6.2 first (6.1 waits on Adam, so 6.2–6.3 go ahead meanwhile), then 6.4, 6.5, 6.6, 6.7 in that order, with 6.8's words written alongside each and reviewed in one sitting before 6.9.
 
+## Phase 7 — A home of your own (epic #435)
+
+**Goal:** Your House becomes a room you walk in, decorate and invite friends into. A friend who visits walks into your room as themselves and finds you standing in it (Adam, 2026-11-22). Spec: [the-home.md](../game/the-home.md). Decision: [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-page.md) (proposed). Research: [walkable-home.md](../research/walkable-home.md).
+
+### ☐ 7.1 (#436) · v1.4 · Design the room: the floor grid and the starter pieces 🚧
+- **Gate:** Adam approves the look. Today's painting split into a fixed room and seven movable pieces, with a 12 × 5 floor grid in its perspective.
+
+### ☐ 7.2 (#437) · v1.4 · The room's rules: grid, footprints, caps and the path from the door
+- Pure TypeScript with unit tests, and a fixture of good and bad layouts shared with 7.3.
+
+### ☐ 7.3 (#438) · v1.4 · Homes in the database: `save_home` and `home_of`
+- One layout per player, checked whole. Friends read placed pieces only.
+
+### ☐ 7.4 (#439) · v1.4 · Paint the furniture: the panel pieces, 8 more, the wallpapers and floors
+- Pictures on touch screens, with no live filters.
+
+### ☐ 7.5 (#440) · v1.4 · Walk in the room
+- Tap to walk, arrow keys, depth by row, the phone pan, and the frame budget.
+
+### ☐ 7.6 (#441) · v1.4 · Pieces that do things, and the list "In this room"
+- The cupboard, shelf, desk and letterbox open today's four panels. Old addresses keep working.
+
+### ☐ 7.7 (#442) · v1.4 · Decorate: place, move, flip and store
+- Tap, then tap. Dragging is never the only way. Done saves whole; Cancel puts it back.
+
+### ☐ 7.8 (#443) · v1.4 · Furniture in the economy
+- A new item kind, one Market slot a day, chest drops, and rank banners.
+
+### ☐ 7.9 (#444) · v1.4 · Visit a friend's room
+- You walk in as yourself, and can't touch anything. FRIENDS.md gets its line.
+
+### ☐ 7.10 (#445) · v1.4 · The guide for the home
+- The first-visit card, Nour's line about Decorate, and a Guidebook page. The words go in Adam's read (#413).
+
+### ☐ 7.11 (#446) · v1.4 · Try it with a friend on a phone, and release v1.4.0
+- **Adam's part:** a visit both ways with a friend.
+
+**Order:** 7.1 and 7.2 together (7.2 needs no art), then 7.3. 7.5 can start on 7.1's pieces before Adam's yes, since the look can change under it. Then 7.6, 7.4, 7.7, 7.8, 7.9 and 7.10, then 7.11. After v1.4: #447 (stopped-by notes, visiting together live, more facings, a second room), ordered, not cut.
+
 ## Parked: ordered after everything above, each waiting on Adam
 
 | Item | Why it waits | What un-parks it |
