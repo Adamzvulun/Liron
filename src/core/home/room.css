@@ -167,3 +167,62 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+/* Decorate (§6): the grid over the light, and no panning under a held piece. */
+.room__grid {
+  z-index: 101;
+}
+
+.room__stage[data-holding] {
+  touch-action: none;
+}
+
+.decorate__start,
+.decorate__button,
+.decorate__piece {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.decorate__start {
+  margin-top: 0.75rem;
+}
+
+.decorate__button--main {
+  font-weight: 700;
+}
+
+.decorate__button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.decorate__say {
+  min-height: 1.5em;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.decorate__actions,
+.decorate__tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.decorate__tray {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.decorate__title {
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+}

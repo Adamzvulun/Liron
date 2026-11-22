@@ -3,7 +3,15 @@
 // the floor behind everything, then one layer per row line of the floor pieces, then the light.
 // The avatar and its companion are live drawings set between those layers by the row they stand
 // on, and they move by `transform` only (ADR 0025). Pieces that do things come in task 7.6.
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type MouseEvent,
+  type PointerEvent,
+} from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import type { Look } from '../avatar/looks.ts';
 import { AVATAR_BOX, paintCompanion } from '../avatar/paint.ts';
@@ -23,7 +31,7 @@ import {
   type PieceDef,
   type Placed,
 } from './layout.ts';
-import { homeLayers } from './paintHome.ts';
+import { decorOverlay, homeLayers, type HomeView } from './paintHome.ts';
 import { cellKey, findPath, type Cell } from './path.ts';
 import { avatarScale, cellAt, cellFeet, floorPoint, type Pt } from './projection.ts';
 import './room.css';
@@ -87,13 +95,31 @@ function placeOn([x, y]: Pt, row: number, nudge = 0) {
 /** The longest walk before a piece opens: farther than this, it opens as you set off (§12). */
 const OPEN_AFTER_STEPS = Math.floor(2000 / STEP_MS);
 
+/** A place pressed in the room while decorating: a floor cell, or a slot on the back wall. */
+export type Spot = { cell: Cell } | { slot: number };
+
+/** The room while decorating (§6): it draws the grid and the marks, and hands over the input. */
+export interface Decor {
+  marks: NonNullable<HomeView['marks']>;
+  /** A press, where it moves while held down, and where it is let go. */
+  onPress: (at: Spot, phase: 'down' | 'move' | 'up') => void;
+  /** A key pressed in the room; true when it was used. */
+  onKey: (key: string) => boolean;
+  /** Something is held: the room stops panning under a finger, so it can be dragged. */
+  holding: boolean;
+  /** Changes when the room should take the keyboard focus (a piece taken from the tray). */
+  focus: number;
+}
+
 export function Room({
   layout,
   look,
   onUse,
+  decor,
 }: {
   layout: Layout;
   look: Look;
+  decor?: Decor;
   /**
    * Uses a piece (§5) once you are by it: opens its panel, or gives a line to say. Without it,
    * pieces only say their line.
@@ -252,22 +278,57 @@ export function Room({
     return (dy < 0 && hanging ? hanging.id : by[0]?.id) ?? null;
   };
 
+  /** The wall slot at a stage point, if any. */
+  const slotAt = (x: number, y: number): number | null => {
+    if (y < 250 || y > 600) return null;
+    return ROOM.slots.find((s) => Math.abs(s.x - x) < 56)?.slot ?? null;
+  };
+
   /** What hangs on the wall at a stage point, if anything. */
   const hangingAt = (x: number, y: number): string | null => {
-    if (y < 250 || y > 600) return null;
+    const slot = slotAt(x, y);
+    if (slot === null) return null;
     for (const p of layout.pieces) {
       const def = DEFS.get(p.id);
       if (!def || isFloor(p)) continue;
-      if ((slotsOf(p, def, ROOM) ?? []).some((s) => Math.abs(s.x - x) < 56)) return p.id;
+      if ((slotsOf(p, def, ROOM) ?? []).some((s) => s.slot === slot)) return p.id;
     }
     return null;
   };
 
-  const tap = (e: MouseEvent<HTMLDivElement>) => {
+  /** A point of the page on the stage. */
+  const onStage = (e: { clientX: number; clientY: number }): [number, number] | null => {
     const box = stage.current?.getBoundingClientRect();
-    if (!box) return;
-    const x = (e.clientX - box.left) / view.scale;
-    const y = (e.clientY - box.top) / view.scale;
+    if (!box) return null;
+    return [(e.clientX - box.left) / view.scale, (e.clientY - box.top) / view.scale];
+  };
+
+  /** The floor cell or wall slot under a pointer, for Decorate. */
+  const spotAt = (e: PointerEvent<HTMLDivElement>): Spot | null => {
+    const pt = onStage(e);
+    if (!pt) return null;
+    const cell = cellAt(...pt);
+    if (cell) return { cell };
+    const slot = slotAt(...pt);
+    return slot === null ? null : { slot };
+  };
+  const pressed = useRef(false);
+  const press = (phase: 'down' | 'move' | 'up', e: PointerEvent<HTMLDivElement>) => {
+    if (!decor) return;
+    if (phase === 'down') {
+      pressed.current = true;
+      e.currentTarget.setPointerCapture?.(e.pointerId);
+    } else if (!pressed.current) return;
+    if (phase === 'up') pressed.current = false;
+    const spot = spotAt(e);
+    if (spot) decor.onPress(spot, phase);
+  };
+
+  const tap = (e: MouseEvent<HTMLDivElement>) => {
+    if (decor) return;
+    const pt = onStage(e);
+    if (!pt) return;
+    const [x, y] = pt;
     const cell = cellAt(x, y);
     const piece = cell ? blocked.get(cellKey(cell)) : hangingAt(x, y);
     if (!piece) {
@@ -280,6 +341,10 @@ export function Room({
 
   const key = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (decor) {
+      if (e.target === e.currentTarget && decor.onKey(e.key)) e.preventDefault();
+      return;
+    }
     if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget) {
       e.preventDefault();
       const id = !walking && faced();
@@ -309,6 +374,27 @@ export function Room({
     el.scrollTo?.({ left, behavior: reducedMotion() ? 'auto' : 'smooth' });
   }, [at, view.pan, view.scale, ref]);
 
+  // A piece set down where you stood (Decorate) sends you back to the door.
+  useEffect(() => {
+    if (open(...here.current)) return;
+    clearTimeout(timer.current);
+    route.current = [];
+    here.current = ROOM.door;
+    setAt(ROOM.door);
+    setFrom(ROOM.door);
+    setWalking(false);
+    setSeated(null);
+  }, [open]);
+
+  // Decorate hands the keyboard to the room when a piece is taken from the tray.
+  const focusAsked = decor?.focus ?? 0;
+  useEffect(() => {
+    if (focusAsked) ref.current?.focus();
+  }, [focusAsked, ref]);
+
+  const marks = decor?.marks;
+  const overlay = useMemo(() => (marks ? decorOverlay(marks) : ''), [marks]);
+
   const companion = useMemo(() => paintCompanion(look, 'home-pet'), [look]);
   const zRow = walking ? Math.max(at[1], from[1]) : at[1];
   // The companion sits at your feet when you stand still where it is, and trails a cell behind.
@@ -325,9 +411,13 @@ export function Room({
     <>
       <div
         ref={ref}
-        className={`room${view.pan ? ' room--pan' : ''}`}
+        className={`room${view.pan ? ' room--pan' : ''}${decor ? ' room--decor' : ''}`}
         role="group"
-        aria-label="Your room. Tap the floor, or use the arrow keys, to walk."
+        aria-label={
+          decor
+            ? 'Your room, decorating. Tap a piece, then a cell. The arrow keys move a held piece, and Enter sets it down.'
+            : 'Your room. Tap the floor, or use the arrow keys, to walk.'
+        }
         tabIndex={0}
         onKeyDown={key}
       >
@@ -338,6 +428,13 @@ export function Room({
           data-at={cellKey(at)}
           data-seated={seated ? 'true' : undefined}
           onClick={tap}
+          onPointerDown={(e) => press('down', e)}
+          onPointerMove={(e) => press('move', e)}
+          onPointerUp={(e) => press('up', e)}
+          onPointerCancel={() => {
+            pressed.current = false;
+          }}
+          data-holding={decor?.holding || undefined}
           style={{
             width: STAGE.width,
             height: STAGE.height,
@@ -355,7 +452,7 @@ export function Room({
               style={{ zIndex: 2 * b.row }}
             />
           ))}
-          {companion && (
+          {!decor && companion && (
             <svg
               className={`room__figure room__pet${moving ? ' room__figure--moving' : ''}`}
               aria-hidden="true"
@@ -367,19 +464,21 @@ export function Room({
               dangerouslySetInnerHTML={{ __html: companion }}
             />
           )}
-          <Avatar
-            look={look}
-            pet={false}
-            className={`room__figure room__avatar${moving ? ' room__figure--moving' : ''}`}
-            width={AVATAR_BOX.width}
-            height={AVATAR_BOX.height + 10}
-            sit={!!seated}
-            style={
-              seated
-                ? { transform: placeOn(seated.point, seated.row), zIndex: standingZ(seated.row) }
-                : { transform: placeAt(at), zIndex: standingZ(zRow) }
-            }
-          />
+          {!decor && (
+            <Avatar
+              look={look}
+              pet={false}
+              className={`room__figure room__avatar${moving ? ' room__figure--moving' : ''}`}
+              width={AVATAR_BOX.width}
+              height={AVATAR_BOX.height + 10}
+              sit={!!seated}
+              style={
+                seated
+                  ? { transform: placeOn(seated.point, seated.row), zIndex: standingZ(seated.row) }
+                  : { transform: placeAt(at), zIndex: standingZ(zRow) }
+              }
+            />
+          )}
           <img
             className="room__layer room__light"
             src={layers.glow}
@@ -389,12 +488,20 @@ export function Room({
             style={{ opacity: lit ? 1 : 0 }}
           />
           <img className="room__layer room__light" src={layers.light} alt="" draggable={false} />
+          {decor && (
+            <svg
+              className="room__layer room__grid"
+              aria-hidden="true"
+              viewBox={`0 0 ${STAGE.width} ${STAGE.height}`}
+              dangerouslySetInnerHTML={{ __html: overlay }}
+            />
+          )}
         </div>
         <p className="room__say" role="status">
           {say}
         </p>
       </div>
-      {things.length > 0 && (
+      {!decor && things.length > 0 && (
         <nav className="room__list" aria-label="In this room">
           <h2 className="room__list-title">In this room</h2>
           <ul>

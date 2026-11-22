@@ -251,3 +251,108 @@ test.describe('the pieces that open something (#441)', () => {
     await expect(at(page)).not.toHaveAttribute('data-seated');
   });
 });
+
+test.describe('decorating your room (#442)', () => {
+  const decorate = async (page: Page, owned: string[] = []) => {
+    await signedIn(page, [], [], null, [], { owned });
+    await page.goto('/house');
+    await page.getByRole('button', { name: 'Decorate' }).click();
+    await expect(room(page)).toHaveAttribute('aria-label', /decorating/);
+  };
+  const say = (page: Page) => page.getByRole('region', { name: 'Decorate' }).getByRole('status');
+  const saved = async (page: Page) => {
+    const req = page.waitForRequest('**/rpc/save_home');
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    const body = (await req).postDataJSON() as { p_layout: { pieces: unknown[] } };
+    await expect(page.getByRole('button', { name: 'Decorate' })).toBeVisible();
+    return body.p_layout.pieces;
+  };
+
+  test('tap a piece, then a cell, to move it; Done saves the room, kept after a reload', async ({
+    page,
+  }) => {
+    await decorate(page);
+    // The travel chest stands at columns 9 and 10 of rows 3 and 4.
+    await tapCell(page, 9, 4);
+    await expect(say(page)).toHaveText(/Holding the travel chest/);
+    await tapCell(page, 6, 4);
+    await expect(say(page)).toHaveText('Set down the travel chest.');
+    expect(await saved(page)).toContainEqual({ id: 'home:chest', at: [6, 3], facing: 'left' });
+    await page.reload();
+    await tapCell(page, 6, 4);
+    await expect(page.getByRole('status').filter({ hasText: 'Packed for the road' })).toBeVisible();
+  });
+
+  test('refuses a cell that is taken, with a reason, and keeps the piece held', async ({
+    page,
+  }) => {
+    await decorate(page);
+    await tapCell(page, 9, 4);
+    await tapCell(page, 1, 3);
+    await expect(say(page)).toHaveText('The travel chest would stand on the bed.');
+    await expect(page.getByRole('button', { name: 'Store the travel chest' })).toBeVisible();
+    // The cells it would cover light red.
+    await expect(room(page).locator('.room__grid')).toBeAttached();
+  });
+
+  test('a piece from the tray, with the arrow keys and Enter', async ({ page }, info) => {
+    test.skip(info.project.name === 'phone', 'no keyboard on the phone');
+    await decorate(page, ['home-chair']);
+    await page.getByRole('button', { name: 'Pick up the chair' }).click();
+    await expect(room(page)).toBeFocused();
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('Enter');
+    await expect(say(page)).toHaveText('Set down the chair.');
+    expect(await saved(page)).toContainEqual({ id: 'home-chair', at: [7, 2], facing: 'left' });
+  });
+
+  test('Store puts a piece in the tray, but never one with a panel', async ({ page }) => {
+    await decorate(page);
+    await tapCell(page, 9, 4);
+    await page.getByRole('button', { name: 'Store the travel chest' }).click();
+    await expect(page.getByRole('button', { name: 'Pick up the travel chest' })).toBeVisible();
+    // The cupboard keeps the wardrobe: it moves, but stays in the room.
+    await tapCell(page, 11, 1);
+    await expect(say(page)).toHaveText(/Holding the cupboard/);
+    await expect(page.getByRole('button', { name: /^Store/ })).toHaveCount(0);
+    const pieces = await saved(page);
+    expect(pieces).not.toContainEqual(expect.objectContaining({ id: 'home:chest' }));
+    expect(pieces).toContainEqual(expect.objectContaining({ id: 'home:cupboard' }));
+  });
+
+  test('Cancel leaves the room as it was, and saves nothing', async ({ page }) => {
+    await decorate(page);
+    let saves = 0;
+    page.on('request', (r) => {
+      if (r.url().includes('/rpc/save_home')) saves++;
+    });
+    await tapCell(page, 9, 4);
+    await tapCell(page, 6, 4);
+    await page.getByRole('button', { name: 'Cancel' }).click();
+    await expect(room(page)).toHaveAttribute('aria-label', /walk/);
+    // The chest is where it was: tapping its old place walks to it.
+    await tapCell(page, 9, 4);
+    await expect(page.getByRole('status').filter({ hasText: 'Packed for the road' })).toBeVisible();
+    expect(saves).toBe(0);
+  });
+
+  test('a piece can be dragged too', async ({ page }, info) => {
+    test.skip(info.project.name === 'phone', 'the mouse');
+    await decorate(page);
+    const box = await at(page).boundingBox();
+    if (!box) throw new Error('no room');
+    const s = box.width / 1920;
+    const point = (c: number, r: number) => {
+      const [x, y] = cellFeet(c, r);
+      return [box.x + x * s, box.y + y * s] as const;
+    };
+    await page.mouse.move(...point(9, 4));
+    await page.mouse.down();
+    await page.mouse.move(...point(7, 4), { steps: 5 });
+    await page.mouse.move(...point(6, 4), { steps: 5 });
+    await page.mouse.up();
+    await expect(say(page)).toHaveText('Set down the travel chest.');
+    expect(await saved(page)).toContainEqual({ id: 'home:chest', at: [6, 3], facing: 'left' });
+  });
+});
