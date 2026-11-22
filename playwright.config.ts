@@ -15,6 +15,7 @@ export const PHONE_SPECS = [
   'city',
   'fellowship',
   'grounds',
+  'guide',
   'hud',
   'inn-chat',
   'ledger',
