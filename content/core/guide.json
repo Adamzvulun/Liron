@@ -43,6 +43,29 @@
         },
         "done": "Got it"
       }
+    },
+    {
+      "id": "guide-cards",
+      "subject": "core",
+      "type": "guide-cards",
+      "data": {
+        "board": {
+          "title": "The Notice Board",
+          "text": "Today’s quests and daily goal are posted here, with the contracts that pay gold. Chests you’ve earned wait on the shelf."
+        },
+        "market": {
+          "title": "The Market",
+          "text": "Four wares are set out each day, the same for everyone. Gold buys gear for your traveler, or a gift for a friend."
+        },
+        "house": {
+          "title": "Your House",
+          "text": "The wardrobe changes how your traveler looks, and the ledger shows how far you’ve come. Your trophies are here too, and the door to the Fellowship."
+        },
+        "arena": {
+          "title": "The Arena",
+          "text": "Challenge a friend to beat your score, or take on one they’ve sent you. A challenge waits a week for its answer."
+        }
+      }
     }
   ]
 }
