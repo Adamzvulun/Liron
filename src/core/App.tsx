@@ -457,7 +457,13 @@ function Lobby({ player }: { player: Player }) {
         )
       : null;
   const [hushed, setHushed] = useState(false);
-  if (hushed && !onSquare) setHushed(false);
+  // Tapping Nour (#406): their line again, or, with nothing new to say, the welcome again
+  // (the Guidebook's "Show me around again" until the Guidebook comes, #412).
+  const [asked, setAsked] = useState<'line' | 'welcome' | null>(null);
+  if (!onSquare && (hushed || asked)) {
+    setHushed(false);
+    setAsked(null);
+  }
   // Going in introduces the place (R8): the one pending as the player arrived, so a place isn't
   // counted for the next introduction that comes due while they're inside.
   const [arrival, setArrival] = useState({ path, intro });
@@ -469,8 +475,9 @@ function Lobby({ player }: { player: Player }) {
   const wanting = {
     celebration: Boolean(state.levelUp ?? state.goalReached),
     firstPage: welcome,
-    guide: welcomeDue || (intro !== null && !hushed),
+    guide: welcomeDue || asked !== null || (intro !== null && !hushed),
     onSquare,
+    asked: asked !== null,
   };
   const spokenThisVisit = useSpokenThisVisit(
     onSquare,
@@ -636,6 +643,14 @@ function Lobby({ player }: { player: Player }) {
       event={event}
       friends={friends}
       fresh={intro?.spot}
+      onNour={
+        seen
+          ? () => {
+              setHushed(false);
+              setAsked(intro && !welcomeDue ? 'line' : 'welcome');
+            }
+          : undefined
+      }
     >
       <div className="lobby__top">
         <Hud
@@ -658,15 +673,24 @@ function Lobby({ player }: { player: Player }) {
       {voice === 'celebration' && celebrations}
       {voice === 'guide' && (
         <Suspense fallback={null}>
-          {welcomeDue ? (
+          {welcomeDue || asked === 'welcome' ? (
             <Welcome
               onDone={() => {
                 setHushed(true);
+                setAsked(null);
                 void player.markGuideSeen([GUIDE_IDS.welcome]);
               }}
             />
           ) : (
-            intro && <Introduce id={intro.id} onDone={() => setHushed(true)} />
+            intro && (
+              <Introduce
+                id={intro.id}
+                onDone={() => {
+                  setHushed(true);
+                  setAsked(null);
+                }}
+              />
+            )
           )}
         </Suspense>
       )}
