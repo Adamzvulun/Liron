@@ -3,6 +3,7 @@
 - **Status:** Accepted
 - **Date:** 2026-11-01
 - **Supersedes:** the policy in `docs/research/arabic-sources.md` §5
+- **Amended by [0054](0054-the-repo-goes-public.md):** the repo is public; raw sources are never committed, and stay on the importing machine. Everything else here holds: copyrighted content reaches players only from the database, behind login.
 
 ## Context
 The best spoken-Palestinian material (Lingualism decks, the Elihay deck/book, native audio) is copyrighted. Adam's position: the project is non-commercial and private among friends, so we use the best material.

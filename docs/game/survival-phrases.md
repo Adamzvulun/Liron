@@ -28,7 +28,7 @@ Religious set phrases (prayers, hajj, condolences) and the long congratulations 
 Adam approved these on 2026-11-04 (full review, decisions 7 and 8). They're **scheduled, not built**: the deck has no recording of them, and a phrase you can't hear can't be taught by ear. Each one needs a sourced spelling and a recording before it goes into a set.
 
 - **Phrases the deck lacks:** السلام عليكم and its answer وعليكم السلام, صباح النور (the answer to صباح الخير), إن شاء الله. Searched on 2026-11-04: none is in the deck. The deck does have ما شاء الله (pcav:4821), but only as "said about a child".
-- **"I don't understand":** the deck has *mā fhímtiš íši min ílli gúltu* ("I didn't understand a word you said", pcav:4558), with a recording. It's now in set 6, so this one is done.
+- **"I don't understand":** the deck has a full sentence for it (pcav:4558), with a recording. It's now in set 6, so this one is done.
 - **Forms for a woman:** the phrases that speak *to* someone ("how are you?", "what's your name?", "here you are", "see you later", "excuse me", "would you like a bag?", "where are you from?" and others) are in the masculine form in the deck. "I'm sorry" (آسف) is in the form a man says it. The deck has no feminine forms of any of them. Its only one is إنْتي, "you" said to a woman (pcav:4270). Until there's a recording, the session shows nothing for these.
 
 **Where the audio could come from.** No purchases (ADR 0012) and no native-speaker helpers (vision). The free sources were searched and fact-checked on 2026-11-04 ([research](../research/phrase-audio-sources.md)):

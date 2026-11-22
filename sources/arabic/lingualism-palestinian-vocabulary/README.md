@@ -4,7 +4,7 @@
 |---|---|
 | **Publisher** | Lingualism (Matthew Aldrich, Ahmed Younis), lingualism.com |
 | **Obtained** | Bought by Adam, 2026-11-01, **$25** (Anki deck; the book PDF came in the same download) |
-| **Terms** | Copyrighted. Personal use. Must stay in this **private** repo, behind login (ADR 0008). |
+| **Terms** | Copyrighted. Personal use. **Never committed** (the repo is public, ADR 0054): the files stay on the importing machine, and their content reaches players only from the database, behind login (ADR 0008). |
 | **Dialect** | Palestinian, **Gaza** speakers |
 
 ## Files
@@ -20,12 +20,12 @@
 - **4,823 MP3 files**, one per note, named `pcav<section>-<n>.mp3` (e.g. `pcav01-1.mp3`).
 - **Note fields** (note type `Lingualism PCAV`):
 
-  | Field | Example |
+  | Field | What it holds |
   |---|---|
   | Order | `0003` (the book's order) |
-  | Arabic | `أنا عايِش في غزّة.` (Arabic script; **4,361 of 4,823 have vowel marks**) |
-  | Pronunciation | `ána 3āyiš fi ɣázza.` (Latin transcription with stress marks) |
-  | English | `I live in Gaza.` |
+  | Arabic | a word or sentence in Arabic script (**4,361 of 4,823 have vowel marks**) |
+  | Pronunciation | its Latin transcription, with stress marks |
+  | English | its English translation |
   | Audio | `[sound:pcav01-3.mp3]` |
   | Section | `01 Life and Death` |
 
