@@ -244,7 +244,7 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
       const before = state.profile;
       set({
         profile: {
-          ...(before ?? { avatar: DEFAULT_LOOK, owned: [], title: '' }),
+          ...(before ?? { avatar: DEFAULT_LOOK, owned: [], title: '', guideSeen: [] }),
           displayName: clean,
         },
       });
@@ -286,10 +286,31 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
         return false;
       }
     },
+    /**
+     * Remembers that the guide has shown these lines (the-guide.md §4, #407). Shown at once and
+     * kept for this visit even if saving fails: at worst a line shows once more next time, and
+     * the screen never waits for it.
+     */
+    async markGuideSeen(ids: readonly string[]): Promise<void> {
+      const before = state.profile;
+      const fresh = ids.filter((id) => !before?.guideSeen.includes(id));
+      if (!before || fresh.length === 0) return;
+      set({ profile: { ...before, guideSeen: [...before.guideSeen, ...fresh] } });
+      try {
+        await store.markGuideSeen(fresh);
+      } catch {
+        // Kept in memory; the next visit may show it again.
+      }
+    },
     /** Saves the avatar's look (#29). Returns false, keeping the old look, if it couldn't. */
     async setAvatar(look: Look): Promise<boolean> {
       const before = state.profile;
-      set({ profile: { ...(before ?? { displayName: '', owned: [], title: '' }), avatar: look } });
+      set({
+        profile: {
+          ...(before ?? { displayName: '', owned: [], title: '', guideSeen: [] }),
+          avatar: look,
+        },
+      });
       try {
         await store.setAvatar(look);
         return true;

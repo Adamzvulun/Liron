@@ -336,6 +336,7 @@ describe('the player’s name', () => {
       avatar: DEFAULT_LOOK,
       owned: [],
       title: '',
+      guideSeen: [],
     });
     expect(await player.setDisplayName('  Adam   Zvulun ')).toBe(true);
     expect(player.getSnapshot().profile).toEqual({
@@ -343,12 +344,14 @@ describe('the player’s name', () => {
       avatar: DEFAULT_LOOK,
       owned: [],
       title: '',
+      guideSeen: [],
     });
     expect(await store.profile()).toEqual({
       displayName: 'Adam Zvulun',
       avatar: DEFAULT_LOOK,
       owned: [],
       title: '',
+      guideSeen: [],
     });
     expect(await player.setDisplayName('x'.repeat(41))).toBe(false);
     expect(player.getSnapshot().profile).toEqual({
@@ -356,6 +359,7 @@ describe('the player’s name', () => {
       avatar: DEFAULT_LOOK,
       owned: [],
       title: '',
+      guideSeen: [],
     });
   });
 
@@ -372,6 +376,7 @@ describe('the player’s name', () => {
       avatar: DEFAULT_LOOK,
       owned: [],
       title: '',
+      guideSeen: [],
     });
   });
 });
@@ -392,6 +397,42 @@ describe('the player’s look', () => {
     await offline.load();
     expect(await offline.setAvatar(DEFAULT_LOOK)).toBe(false);
     expect(offline.getSnapshot().profile?.avatar).toEqual(look);
+  });
+});
+
+describe('what the guide has shown (#407)', () => {
+  it('saves new ids once, and keeps them for this visit even if saving fails', async () => {
+    const store = memoryStore();
+    const player = createPlayer(store, () => 'UTC');
+    await player.load();
+    await player.markGuideSeen(['welcome']);
+    await player.markGuideSeen(['welcome', 'intro:board']);
+    expect((await store.profile()).guideSeen).toEqual(['intro:board', 'welcome']);
+    expect(player.getSnapshot().profile?.guideSeen).toEqual(['welcome', 'intro:board']);
+
+    const calls: (readonly string[])[] = [];
+    const offline = createPlayer(
+      {
+        ...store,
+        markGuideSeen: (ids) => {
+          calls.push(ids);
+          return Promise.reject(new Error('offline'));
+        },
+      },
+      () => 'UTC',
+    );
+    await offline.load();
+    // Only what's new is sent, and a failure doesn't throw or take the line back.
+    await offline.markGuideSeen(['welcome', 'card:market']);
+    expect(calls).toEqual([['card:market']]);
+    expect(offline.getSnapshot().profile?.guideSeen).toContain('card:market');
+  });
+
+  it('does nothing before the profile has loaded', async () => {
+    const store = memoryStore();
+    const player = createPlayer(store, () => 'UTC');
+    await player.markGuideSeen(['welcome']);
+    expect((await store.profile()).guideSeen).toEqual([]);
   });
 });
 

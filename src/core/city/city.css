@@ -256,6 +256,58 @@
   outline-offset: 3px;
 }
 
+/* The new mark (the-guide.md §3.3, #410): a small lit lamp-gold tag on the plaque, the dock
+   button or the Arena's sign of the one place Nour is introducing. */
+.city__new {
+  position: absolute;
+  top: -18px;
+  right: -14px;
+  padding: 3px 10px 4px;
+  border: 2px solid var(--ink, #24160e);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #fff3c4, #ffd36b 45%, #e8a93a);
+  box-shadow: 0 0 10px rgb(255 211 107 / 85%);
+  color: #3a210c;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  text-shadow: none;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.city__dockitem {
+  position: relative;
+}
+
+.city__dockitem .city__new {
+  top: -10px;
+  right: -4px;
+  padding: 1px 5px 2px;
+  font-size: 9px;
+}
+
+.city__sign--arena .city__new {
+  top: -16px;
+  right: -16px;
+  font-size: 13px;
+}
+
+/* It breathes only with a mouse: a touch screen's square holds still (HANDOFF item 143). */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .city__new {
+    animation: city-new-glow 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes city-new-glow {
+  50% {
+    box-shadow: 0 0 3px rgb(255 211 107 / 40%);
+  }
+}
+
 /* The HUD and other screen-space UI, unscaled, above the stage. */
 .city__overlay {
   position: absolute;
@@ -530,6 +582,27 @@
   position: absolute;
   display: block;
   text-decoration: none;
+}
+
+/* Nour by the compass (#406): a button, so a keyboard reaches them too. */
+.city__nour {
+  position: absolute;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.city__nour svg {
+  display: block;
+  overflow: visible;
+}
+
+.city__nour:focus-visible {
+  outline: 3px solid var(--lamplight);
+  outline-offset: 4px;
+  border-radius: 12px;
 }
 
 .city__friend svg {
