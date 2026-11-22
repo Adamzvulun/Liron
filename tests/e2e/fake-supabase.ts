@@ -49,6 +49,8 @@ export const TODAY = {
 
 /** What a test can change about the player beyond the defaults (ADR 0033, 0034). */
 export interface Extras {
+  /** Ids the guide has already shown (the-guide.md §4); none for a new player. */
+  guideSeen?: string[];
   /** Leave the first page showing for a new player (the-road.md §8). */
   firstPage?: boolean;
   /** Item ids the player owns. */
@@ -188,6 +190,7 @@ export async function fakeSupabase(
   const sessions = new Set<string>();
   // The title worn (#177), changed by set_title.
   let title = extras.title ?? '';
+  let guideSeen = extras.guideSeen ?? [];
   // The Market's purchases (#49): what was bought, and the gold spent.
   const bought: string[] = [];
   let spent = 0;
@@ -391,6 +394,12 @@ export async function fakeSupabase(
           })),
         },
       });
+    }
+    if (url.pathname === '/rest/v1/rpc/guide_mark') {
+      const { p_ids } = route.request().postDataJSON() as { p_ids: string[] };
+      guideSeen = [...new Set([...guideSeen, ...p_ids])].sort();
+      profileUpdates.push({ guide_seen: guideSeen });
+      return route.fulfill({ json: null });
     }
     if (url.pathname === '/rest/v1/rpc/set_title') {
       const { p_title } = route.request().postDataJSON() as { p_title: string };
@@ -658,6 +667,7 @@ export async function fakeSupabase(
         ...(extras.name !== undefined && { display_name: extras.name }),
         title,
         share_milestones: extras.fellowship?.sharing ?? true,
+        guide_seen: guideSeen,
       };
       return route.fulfill({ json: single ? profile : [profile] });
     }
