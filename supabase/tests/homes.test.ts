@@ -2,7 +2,13 @@ import { PGlite } from '@electric-sql/pglite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { ROOM, STARTER, STARTER_PIECES } from '../../src/core/home/layout.ts';
+import {
+  FURNITURE_PIECES,
+  ROOM,
+  STARTER,
+  STARTER_PIECES,
+  type PieceDef,
+} from '../../src/core/home/layout.ts';
 import { BAD, EXTRA, GOOD } from '../../src/core/home/layouts.fixture.ts';
 
 // Homes in the database (task 7.3, #438; docs/game/the-home.md R7 and R9, ADR 0055). save_home
@@ -68,17 +74,6 @@ beforeAll(async () => {
   }
   // A owns the fixture's extra furniture; B and C own none of it.
   for (const p of EXTRA) {
-    await db.query(
-      `insert into items (id, kind, rarity, price) values ($1, 'functional', 'functional', 1)`,
-      [p.id],
-    );
-    await db.query('insert into home_pieces (id, place, w, d, does) values ($1, $2, $3, $4, $5)', [
-      p.id,
-      p.place,
-      p.size[0],
-      p.size[1],
-      p.does,
-    ]);
     await db.query(`insert into owned_items (user_id, item_id, source) values ($1, $2, 'market')`, [
       A,
       p.id,
@@ -101,19 +96,34 @@ describe('the room in the database', () => {
     expect(await one('select home_room()')).toEqual(room);
     expect(await one('select home_starter()')).toEqual(STARTER);
     const pieces = (
-      await db.query<{ id: string; place: string; w: number; d: number; does: string }>(
-        `select id, place, w, d, does from home_pieces where starter order by id`,
-      )
+      await db.query<{
+        id: string;
+        place: string;
+        w: number;
+        d: number;
+        does: string;
+        starter: boolean;
+      }>(`select id, place, w, d, does, starter from home_pieces order by id`)
     ).rows;
+    const row = (p: PieceDef, starter: boolean) => ({
+      id: p.id,
+      place: p.place,
+      w: p.size[0],
+      d: p.size[1],
+      does: p.does,
+      starter,
+    });
     expect(pieces).toEqual(
-      STARTER_PIECES.map((p) => ({
-        id: p.id,
-        place: p.place,
-        w: p.size[0],
-        d: p.size[1],
-        does: p.does,
-      })).sort((a, b) => a.id.localeCompare(b.id)),
+      [
+        ...STARTER_PIECES.map((p) => row(p, true)),
+        ...FURNITURE_PIECES.map((p) => row(p, false)),
+      ].sort((a, b) => a.id.localeCompare(b.id)),
     );
+    // Every piece of furniture is an item to buy or find (§7).
+    const items = (
+      await db.query<{ id: string }>(`select id from items where kind = 'furniture' order by id`)
+    ).rows.map((r) => r.id);
+    expect(items).toEqual(FURNITURE_PIECES.map((p) => p.id).sort());
   });
 });
 

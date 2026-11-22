@@ -641,6 +641,86 @@
           "chapter": "stranger-at-the-gate"
         }
       }
+    },
+    {
+      "id": "home-chair",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "home-cushion",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "home-plant",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "home-desert",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-clock",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-bench",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-table",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-bookcase",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "epic",
+        "price": 450
+      }
     }
   ]
 }

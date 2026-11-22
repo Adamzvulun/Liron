@@ -1845,10 +1845,10 @@ describe('reward chests (ADR 0033, #48)', () => {
     expect(await chests()).toContainEqual(expect.objectContaining({ opened: true }));
   });
 
-  it('gives gear not owned yet, or its price when all is owned; a 3rd shield is gold', async () => {
+  it('gives gear or furniture not owned yet, or its price when all is owned; a 3rd shield is gold', async () => {
     await rows(`update wallets set gold = 0, streak_shields = 2 where user_id = $1`, [ADAM]);
     const allGear = (
-      (await rows(`select id from items where kind = 'gear'`)) as { id: string }[]
+      (await rows(`select id from items where kind in ('gear', 'furniture')`)) as { id: string }[]
     ).map((r) => r.id);
     const gear = await chestWith('jeweled', 4, true, 0.6);
     const opened = await open(gear);
@@ -1878,10 +1878,24 @@ describe('reward chests (ADR 0033, #48)', () => {
     expect((await wallet()).streak_shields).toBe(2);
   });
 
+  it('gives a piece of furniture you don’t own, once all the gear is yours (#443)', async () => {
+    await rows(
+      `insert into owned_items (user_id, item_id, source)
+       select $1, id, 'market' from items where kind = 'gear' on conflict do nothing`,
+      [ADAM],
+    );
+    const id = await chestWith('jeweled', 4, true, 0.6);
+    const opened = await open(id);
+    expect(opened.item_gold).toBe(0);
+    expect(await rows(`select kind from items where id = $1`, [opened.item])).toEqual([
+      { kind: 'furniture' },
+    ]);
+  });
+
   it('never gives rank gear: with every other piece owned, gear turns to gold (#176)', async () => {
     const others = (
       (await rows(
-        `select id from items where kind = 'gear' and coalesce(milestone ->> 'kind', '') <> 'rank'`,
+        `select id from items where kind in ('gear', 'furniture') and coalesce(milestone ->> 'kind', '') <> 'rank'`,
       )) as { id: string }[]
     ).map((r) => r.id);
     for (const item of others)
@@ -1949,10 +1963,16 @@ describe('the Market (ADR 0033, #49)', () => {
       shields,
     ]);
 
-  it('sells 4 wares a day, the same for everyone: 2 gear, 1 color, 1 functional', async () => {
+  it('sells 5 wares a day, the same for everyone: 2 gear, 1 color, 1 functional, 1 furniture', async () => {
     const m = await stall();
-    expect(m.wares.map((w) => w.kind)).toEqual(['gear', 'gear', 'color', 'functional']);
-    expect(new Set(m.wares.map((w) => w.id)).size).toBe(4);
+    expect(m.wares.map((w) => w.kind)).toEqual([
+      'gear',
+      'gear',
+      'color',
+      'functional',
+      'furniture',
+    ]);
+    expect(new Set(m.wares.map((w) => w.id)).size).toBe(5);
     expect((await stall(OTHER)).wares.map((w) => w.id)).toEqual(m.wares.map((w) => w.id));
     // Another day, other wares (over a fortnight, the gear changes).
     const days = (await rows(
@@ -2021,6 +2041,38 @@ describe('the Market (ADR 0033, #49)', () => {
     expect(
       (await rows(`select gold from wallets where user_id = $1`, [ADAM]))[0] as { gold: number },
     ).toEqual({ gold: 1000 - gear.price - color.price - 2 * shield.price });
+  });
+
+  it('sells a piece of furniture like gear, which can then stand in your room (#443)', async () => {
+    const piece = (await stall()).wares[4];
+    expect(piece.kind).toBe('furniture');
+    await gold(piece.price - 1);
+    await expect(buy(piece.id)).rejects.toThrow(/too little gold/);
+    await gold(piece.price);
+    expect((await buy(piece.id)).wallet.gold).toBe(0);
+    await expect(buy(piece.id)).rejects.toThrow(/already owned/);
+    const { place } = (
+      (await rows(`select place from home_pieces where id = $1`, [piece.id])) as {
+        place: string;
+      }[]
+    )[0];
+    const starter = (
+      (await rows(`select home_starter() as s`)) as {
+        s: { pieces: { id: string }[] } & Record<string, unknown>;
+      }[]
+    )[0].s;
+    const pieces =
+      place === 'wall'
+        ? [...starter.pieces.filter((p) => p.id !== 'home:picture'), { id: piece.id, slot: 0 }]
+        : [...starter.pieces, { id: piece.id, at: [5, 0], facing: 'right' }];
+    await as(ADAM, () => rows(`select save_home($1)`, [{ ...starter, pieces }]));
+    expect(
+      (
+        (await rows(`select layout from homes where user_id = $1`, [ADAM])) as {
+          layout: { pieces: { id: string }[] };
+        }[]
+      )[0].layout.pieces.map((p) => p.id),
+    ).toContain(piece.id);
   });
 
   it('refuses too little gold and wares not on sale today', async () => {

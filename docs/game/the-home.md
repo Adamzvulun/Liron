@@ -84,6 +84,7 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
   - about 16 more to buy or find: chairs, a bench, a table, plants, a bookcase, a clock, two pictures, a banner per guild, a stove, a cushion, a second rug, a window seat;
   - 4 wallpapers and 4 floors.
   - *Painted in 7.4 ([#439](https://github.com/Adamzvulun/Liron/issues/439)):* a chair, a bench, a table, a plant, a bookcase, a cushion, a clock and a desert picture, with all 4 wallpapers (plaster, sea-wash, rose stripe, zellige) and 4 floors (planks, terracotta, flagstone, dark oak). The other pieces and the guild banners follow in v1.4.x.
+- *Built in 7.8, first part ([#443](https://github.com/Adamzvulun/Liron/issues/443)):* the 8 painted pieces are items (`kind: "furniture"` in `items.json`; their shape stays in `home.json` and the `home_pieces` table, so it is written once). Common 60: the chair, the cushion and the plant. Rare 180: the bench, the table, the clock and the desert picture. Epic 450: the bookcase. The Market sets out one a day as a fifth ware, shown in a small picture of the room, and a chest's item roll can give one. Still to come in 7.8: the stove, a second rug, a window seat, a second picture, the guild banners, and the wallpapers and floors to buy.
 - **Trophies:** a rank won can be hung as a guild banner. It is a wall piece, given by the rank like rank gear, and never sold.
 
 ## 8. Visiting

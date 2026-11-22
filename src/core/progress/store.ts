@@ -119,8 +119,8 @@ export interface ChestContents {
 /** One of the Market's wares today (ADR 0033, #49). */
 export interface Ware {
   id: string;
-  kind: 'gear' | 'color' | 'functional';
-  /** The gear slot; null for colors and functional items. */
+  kind: 'gear' | 'color' | 'functional' | 'furniture';
+  /** The gear slot; null for colors, functional items and furniture. */
   slot: string | null;
   rarity: string;
   price: number;
@@ -129,7 +129,7 @@ export interface Ware {
   affordable: boolean;
 }
 
-/** The Market's stall today: 4 wares, the same for everyone. */
+/** The Market's stall today: 5 wares, the same for everyone. */
 export interface MarketStall {
   day: string;
   wares: Ware[];

@@ -655,9 +655,10 @@ describe('gifts (task 3.5, fellowship-build.md §5)', () => {
     await befriend(A, B);
     await befriend(A, C);
     const stall = await wares();
-    expect(stall.length).toBe(3);
-    for (const w of stall) await give(A, B, w.id);
-    await expect(give(A, C, stall[0].id)).rejects.toThrow(/enough for today/);
+    // Two gear, a dye and a piece of furniture: all can be given, three a day.
+    expect(stall.length).toBe(4);
+    for (const w of stall.slice(0, 3)) await give(A, B, w.id);
+    await expect(give(A, C, stall[3].id)).rejects.toThrow(/enough for today/);
   });
 
   it('a removed friend’s gifts vanish from the list, and nobody writes gifts directly', async () => {

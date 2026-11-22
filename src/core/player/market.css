@@ -172,3 +172,12 @@
   color: #c9b48e;
   text-align: center;
 }
+
+/* Furniture, in a small picture of the room (#443). */
+.market__room {
+  display: block;
+  width: 128px;
+  height: 96px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}

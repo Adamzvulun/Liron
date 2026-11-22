@@ -158,6 +158,7 @@ export const STALL = [
   { id: 'robe', kind: 'gear', slot: 'torso', rarity: 'rare', price: 180 },
   { id: 'indigo-dye', kind: 'color', slot: null, rarity: 'common', price: 60 },
   { id: 'streak-shield', kind: 'functional', slot: null, rarity: 'functional', price: 120 },
+  { id: 'home-chair', kind: 'furniture', slot: null, rarity: 'common', price: 60 },
 ] as const;
 
 /**
