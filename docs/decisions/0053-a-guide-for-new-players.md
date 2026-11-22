@@ -17,7 +17,7 @@ Waymark has grown to five places and an arena on the square, two halls with a do
 
 ## Decision
 
-1. **A new character, the Lamplighter** (working title; the name and look are Adam's to approve), who belongs to the square and to neither guild. They stand by the compass.
+1. **A new character, Nour the lamplighter** (the name chosen by Adam on 2026-11-22; the look is Adam's to approve), who belongs to the square and to neither guild. They stand by the compass.
 2. **Nothing before the first lesson.** The first page and the first lesson stay as they are.
 3. **A three-line welcome** on the square after the first step: the compass line, the top bar, the places. It can be skipped, and replayed from the Guidebook.
 4. **Introductions, one at a time,** when each place becomes useful (the order and conditions are in the spec, §3.3). Only one place wears a "new" mark at a time. The three city errands become introductions.
