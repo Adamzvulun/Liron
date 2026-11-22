@@ -187,6 +187,121 @@ export function desertPicture(): string {
   );
 }
 
+export function stove(): string {
+  // A small iron stove on short legs, its door aglow, and a coffee pot warming on top.
+  const [c, r] = [3, 3];
+  const IRON = { top: '#4A4744', front: '#34312F', side: '#262422' };
+  const door = (u: number, h: number) => above(c + 0.2 + u, r + 0.8, h);
+  const [px, py] = above(c + 0.5, r + 0.45, 125);
+  return (
+    legs(c + 0.15, r + 0.15, 0.7, 0.6, 22, 0.1) +
+    box(c + 0.15, r + 0.15, 0.7, 0.65, 22, 115, IRON) +
+    box(c + 0.1, r + 0.1, 0.8, 0.75, 115, 125, IRON, 2) +
+    `<path d="${poly([door(0.12, 95), door(0.48, 95), door(0.48, 40), door(0.12, 40)])}" fill="#E0855A" ${OUT(2)}/>` +
+    `<path d="${poly([door(0.18, 82), door(0.42, 82), door(0.42, 50), door(0.18, 50)])}" fill="#FFD27A"/>` +
+    // The pot: a body, a lid and a spout.
+    `<path d="M${f(px - 26)} ${f(py)} Q${f(px - 30)} ${f(py - 40)} ${f(px - 12)} ${f(py - 52)} L${f(px + 12)} ${f(py - 52)} Q${f(px + 30)} ${f(py - 40)} ${f(px + 26)} ${f(py)} Z" fill="#C9A23A" ${OUT(2.5)}/>` +
+    `<path d="M${f(px + 22)} ${f(py - 30)} L${f(px + 50)} ${f(py - 54)}" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>` +
+    `<path d="M${f(px + 22)} ${f(py - 30)} L${f(px + 50)} ${f(py - 54)}" stroke="#C9A23A" stroke-width="3.5" stroke-linecap="round"/>` +
+    `<circle cx="${f(px)}" cy="${f(py - 58)}" r="7" fill="#C9A23A" ${OUT(2)}/>`
+  );
+}
+
+export function kilim(): string {
+  // A long kilim, three by two: bands of red, indigo and gold, with a zigzag down the middle.
+  const [c, r] = [3, 2];
+  const at = (u: number, v: number) => floorPoint(c + u, r + v);
+  const band = (v0: number, v1: number, fill: string) =>
+    `<path d="${poly([at(0.1, v0), at(2.9, v0), at(2.9, v1), at(0.1, v1)])}" fill="${fill}"/>`;
+  const zig: Pt[] = [];
+  for (let i = 0; i <= 12; i++) zig.push(at(0.3 + (i * 2.4) / 12, i % 2 ? 0.85 : 1.15));
+  return (
+    `<path d="${poly([at(0.1, 0.1), at(2.9, 0.1), at(2.9, 1.9), at(0.1, 1.9)])}" fill="#A83A3E" ${OUT()}/>` +
+    band(0.3, 0.5, '#265965') +
+    band(1.5, 1.7, '#265965') +
+    band(0.6, 1.4, '#E0B05A') +
+    `<path d="M${zig.map((p) => `${f(p[0])} ${f(p[1])}`).join(' L')}" fill="none" stroke="#A83A3E" stroke-width="7" stroke-linejoin="round"/>`
+  );
+}
+
+export function windowSeat(): string {
+  // A long low seat, three cells wide, with a mattress and cushions against the wall.
+  const [c, r] = [2, 3];
+  const cushion = (u: number, fill: string) => {
+    const [x, y] = above(c + u, r + 0.35, 72);
+    return (
+      `<path d="M${f(x - 46)} ${f(y)} Q${f(x - 52)} ${f(y - 62)} ${f(x - 30)} ${f(y - 70)} L${f(x + 30)} ${f(y - 70)} Q${f(x + 52)} ${f(y - 62)} ${f(x + 46)} ${f(y)} Z" fill="${fill}" ${OUT(2.5)}/>` +
+      `<circle cx="${f(x)}" cy="${f(y - 36)}" r="6" fill="#E0B05A" ${OUT(1.5)}/>`
+    );
+  };
+  return (
+    box(c, r + 0.1, 3, 0.8, 0, 45, DARK) +
+    box(c + 0.03, r + 0.12, 2.94, 0.76, 45, 72, {
+      top: '#C9A23A',
+      front: '#A88330',
+      side: '#8A6A26',
+    }) +
+    cushion(0.6, '#265965') +
+    cushion(1.5, '#A83A3E') +
+    cushion(2.4, '#265965')
+  );
+}
+
+export function harborPicture(): string {
+  // A third picture: the harbor at dawn, a sail on the water.
+  const [x, y] = [960, 350];
+  return (
+    `<rect x="${x - 56}" y="${y - 44}" width="112" height="88" rx="4" fill="#7A4A2A" ${OUT()}/>` +
+    `<rect x="${x - 45}" y="${y - 33}" width="90" height="66" fill="#F2B98A"/>` +
+    `<circle cx="${x - 14}" cy="${y + 4}" r="14" fill="#FFF3C8"/>` +
+    `<rect x="${x - 45}" y="${y + 6}" width="90" height="27" fill="#3F7F8C"/>` +
+    `<path d="M${x - 45} ${y + 18} Q${x - 22} ${y + 12} ${x} ${y + 18} Q${x + 22} ${y + 24} ${x + 45} ${y + 18}" fill="none" stroke="#265965" stroke-width="3"/>` +
+    `<path d="M${x + 14} ${y + 10} L${x + 40} ${y + 10} L${x + 36} ${y + 17} L${x + 18} ${y + 17} Z" fill="#5E3820"/>` +
+    `<path d="M${x + 27} ${y + 9} L${x + 27} ${y - 24} L${x + 42} ${y + 6} Z" fill="#FBF3E2" stroke="${INK}" stroke-width="1.5"/>`
+  );
+}
+
+/** A guild's banner on a rod: a cloth with a pointed foot, in the guild's color, and its sign. */
+function banner(cloth: string, sign: string): string {
+  const [x, y] = [960, 300];
+  return (
+    `<path d="M${x - 48} ${y} L${x + 48} ${y}" stroke="${INK}" stroke-width="8" stroke-linecap="round"/>` +
+    `<path d="M${x - 48} ${y} L${x + 48} ${y}" stroke="#C9A23A" stroke-width="4" stroke-linecap="round"/>` +
+    `<path d="M${x - 38} ${y + 2} L${x + 38} ${y + 2} L${x + 38} ${y + 150} L${x} ${y + 176} L${x - 38} ${y + 150} Z" fill="${cloth}" ${OUT()}/>` +
+    `<path d="M${x - 30} ${y + 12} L${x + 30} ${y + 12} L${x + 30} ${y + 144} L${x} ${y + 166} L${x - 30} ${y + 144} Z" fill="none" stroke="#E0B05A" stroke-width="3"/>` +
+    sign
+  );
+}
+
+export function signalBanner(): string {
+  // The Guild of Signalers: the beacon tower, its light going out over the waves.
+  const [x, y] = [960, 380];
+  return banner(
+    '#265965',
+    `<path d="M${x - 12} ${y + 40} L${x - 7} ${y - 14} L${x + 7} ${y - 14} L${x + 12} ${y + 40} Z" fill="#E0B05A" ${OUT(2)}/>` +
+      `<circle cx="${x}" cy="${y - 24}" r="9" fill="#FFF3C8" ${OUT(2)}/>` +
+      `<path d="M${x - 22} ${y - 40} Q${x - 30} ${y - 24} ${x - 22} ${y - 8} M${x + 22} ${y - 40} Q${x + 30} ${y - 24} ${x + 22} ${y - 8}" fill="none" stroke="#FFF3C8" stroke-width="3" stroke-linecap="round"/>` +
+      `<path d="M${x - 26} ${y + 52} Q${x - 13} ${y + 45} ${x} ${y + 52} Q${x + 13} ${y + 59} ${x + 26} ${y + 52}" fill="none" stroke="#FFF3C8" stroke-width="3"/>`,
+  );
+}
+
+export function crossingBanner(): string {
+  // The House of the Crossing: an eight-pointed star over the coffee pot of the inn.
+  const [x, y] = [960, 370];
+  const star: Pt[] = [];
+  for (let i = 0; i < 16; i++) {
+    const a = (i * Math.PI) / 8 - Math.PI / 2;
+    const rr = i % 2 ? 12 : 24;
+    star.push([x + rr * Math.cos(a), y - 10 + rr * Math.sin(a)]);
+  }
+  return banner(
+    '#8E2E35',
+    `<path d="${poly(star)}" fill="#E0B05A" ${OUT(2)}/>` +
+      `<path d="M${x - 16} ${y + 62} Q${x - 20} ${y + 34} ${x - 8} ${y + 26} L${x + 8} ${y + 26} Q${x + 20} ${y + 34} ${x + 16} ${y + 62} Z" fill="#E0B05A" ${OUT(2)}/>` +
+      `<path d="M${x + 14} ${y + 40} L${x + 30} ${y + 26}" stroke="#E0B05A" stroke-width="4" stroke-linecap="round"/>`,
+  );
+}
+
 /** The furniture's paintings, where each floor piece was painted standing, and its footprint. */
 export const FURNITURE = {
   'home-chair': { paint: chair, origin: floorPoint(3.5, 4), size: [1, 1] },
@@ -197,4 +312,10 @@ export const FURNITURE = {
   'home-cushion': { paint: cushion, origin: floorPoint(3.5, 4), size: [1, 1] },
   'home-clock': { paint: clock, wallX: 960, size: [1, 1] },
   'home-desert': { paint: desertPicture, wallX: 960, size: [1, 1] },
+  'home-stove': { paint: stove, origin: floorPoint(3.5, 4), size: [1, 1] },
+  'home-kilim': { paint: kilim, origin: floorPoint(4.5, 4), size: [3, 2] },
+  'home-window-seat': { paint: windowSeat, origin: floorPoint(3.5, 4), size: [3, 1] },
+  'home-harbor': { paint: harborPicture, wallX: 960, size: [1, 1] },
+  'home-banner-signal': { paint: signalBanner, wallX: 960, size: [1, 1] },
+  'home-banner-crossing': { paint: crossingBanner, wallX: 960, size: [1, 1] },
 } as const;

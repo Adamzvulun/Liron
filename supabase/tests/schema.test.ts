@@ -1621,7 +1621,7 @@ describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', 
     ).toEqual([{ count: 1 }]);
   });
 
-  it('gives rank gear when the rank is taken, in either guild (#176)', async () => {
+  it('gives rank gear, and the first rank the guild’s banner, in either guild (#176, #443)', async () => {
     const take = (subject: string, kind: string, n: number) =>
       as(ADAM, () =>
         rows(`select save_session($1, $2, null, '[]', '[]', 0, 0, $3::jsonb)`, [
@@ -1631,9 +1631,14 @@ describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', 
         ]),
       );
     await take('morse', 'rank-listener', 1);
-    expect(await owned()).toEqual(['ear-cups']);
+    expect(await owned()).toEqual(['ear-cups', 'home-banner-signal']);
     await take('arabic', 'rank-guest', 2);
-    expect(await owned()).toEqual(['ear-cups', 'house-sash']);
+    expect(await owned()).toEqual([
+      'ear-cups',
+      'home-banner-crossing',
+      'home-banner-signal',
+      'house-sash',
+    ]);
     // The other guild's rank of the same name would not count: each piece names its subject.
     expect(
       await rows(`select item_id, source from owned_items where user_id = $1 order by item_id`, [
@@ -1641,6 +1646,8 @@ describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', 
       ]),
     ).toEqual([
       { item_id: 'ear-cups', source: 'milestone' },
+      { item_id: 'home-banner-crossing', source: 'milestone' },
+      { item_id: 'home-banner-signal', source: 'milestone' },
       { item_id: 'house-sash', source: 'milestone' },
     ]);
   });
@@ -1989,7 +1996,8 @@ describe('the Market (ADR 0033, #49)', () => {
     const rank = (await rows(`select id from items where milestone ->> 'kind' = 'rank'`)) as {
       id: string;
     }[];
-    expect(rank).toHaveLength(12);
+    // 12 pieces of rank gear and the 2 guild banners (#443).
+    expect(rank).toHaveLength(14);
     for (const { id } of rank) expect(sold.map((s) => s.id)).not.toContain(id);
   });
 
