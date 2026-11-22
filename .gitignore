@@ -10,3 +10,10 @@ dist/
 test-results/
 coverage/
 playwright-report/
+
+# Raw sources stay on the machine, never in git: the repo is public (ADR 0054). Only each
+# source's README.md and the folders' .gitkeep are tracked.
+sources/**
+!sources/**/
+!sources/**/README.md
+!sources/**/.gitkeep

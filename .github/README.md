@@ -91,7 +91,7 @@ The same city, sized for a thumb. The top bar always names the next step, and th
 | **Tests** | 1,119 unit tests (Vitest), 226 database tests on real migrations (PGlite), and 400+ browser tests at desktop and phone sizes (Playwright). |
 | **Decisions** | 49 [decision records](../docs/decisions/), one per choice. |
 
-Content is data, not code. Letters, Morse characters, lessons and the road itself live in [`content/`](../content/). The licensed Arabic word deck stays in `sources/` in this private repo and never enters `content/` or the site's bundle: it's uploaded to the database, readable only behind login, by the accounts Adam makes ([ADR 0050](../docs/decisions/0050-friends-learn-from-the-deck.md)).
+Content is data, not code. Letters, Morse characters, lessons and the road itself live in [`content/`](../content/). The licensed Arabic word deck is never committed (the repo is public, [ADR 0054](../docs/decisions/0054-the-repo-goes-public.md)) and never enters `content/` or the site's bundle: it's uploaded to the database, readable only behind login, by the accounts Adam makes ([ADR 0050](../docs/decisions/0050-friends-learn-from-the-deck.md)).
 
 <details>
 <summary><b>Run it locally</b></summary>
@@ -144,7 +144,7 @@ Dependencies are pinned to exact versions (`.npmrc` has `save-exact=true`). `@pl
 | [`docs/decisions/`](../docs/decisions/) | Architecture and product decision records (ADRs) |
 | [`docs/design/`](../docs/design/) | Visual concepts and the city generator |
 | [`docs/discovery/`](../docs/discovery/), [`docs/research/`](../docs/research/) | Brainstorms, research on methods, apps and sources, and the spikes that answered one question each |
-| [`sources/`](../sources/) | Raw learning material. Upload new files to `sources/_inbox/` |
+| [`sources/`](../sources/) | What each raw source is (READMEs only): the files themselves are never committed |
 | [`.claude/`](../.claude/CLAUDE.md) | The team charter (roles, conventions), and Claude Code's skills and settings |
 
 </details>

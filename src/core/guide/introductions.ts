@@ -2,7 +2,9 @@
 // Nour introduces the first place in this list whose moment has come and which hasn't been
 // introduced, and that place wears the "new" mark until the player goes in. Every place stays
 // open the whole time: this only decides what Nour points at next.
+import { PLACE_PATHS } from '../city/layout.ts';
 import type { PlaceId } from '../city/painter';
+import { visitPath } from '../fellowship/fellowship.ts';
 import { CHEAPEST_WARE } from '../player/compass.ts';
 import { GUIDE_IDS } from './seen.ts';
 
@@ -29,14 +31,7 @@ export interface Introduction {
   href: string;
 }
 
-const HREF: Record<Spot, string> = {
-  tower: '/signal-tower',
-  caravanserai: '/caravanserai',
-  board: '/notice-board',
-  house: '/house',
-  market: '/market',
-  arena: '/arena',
-};
+const HREF: Record<Spot, string> = { ...PLACE_PATHS, arena: '/arena' };
 
 const at = (id: string, spot: Spot): Introduction => ({ id, spot, href: HREF[spot] });
 const stepsDone = (f: IntroFacts) => f.roads.reduce((n, r) => n + r.done, 0);
@@ -77,6 +72,9 @@ export function nextIntroduction(
   return null;
 }
 
+/** A friend's house sits under Your House's path, but visiting it isn't going into your own. */
+const VISITING = visitPath('');
+
 /** Whether the player is inside the introduced place (R8): its path, or a page under it. */
 export const isInside = (intro: Introduction, path: string) =>
-  path === intro.href || path.startsWith(`${intro.href}/`);
+  !path.startsWith(VISITING) && (path === intro.href || path.startsWith(`${intro.href}/`));
