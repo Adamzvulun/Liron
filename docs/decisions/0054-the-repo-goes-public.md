@@ -26,3 +26,7 @@ Claude recommended a fresh public repo, because old commits stay reachable on Gi
 - **Harder:** a fresh checkout has no deck. The tests that read it (`tests/lesson-words.test.ts`) skip in CI and run where the file is present; re-importing needs Adam's own download from lingualism.com put back in its folder.
 - **Every commit id changes** with the rewrite. Any other clone (Adam's, a cloud session's) must be cloned again, not pulled.
 - **No licence file** means others may read the code but not reuse it. A licence is Adam's call.
+
+## Amendment (2026-11-22)
+
+Steps 1 and 2 are done. Adam chose to make the repo public without steps 3 and 4: the `v1.0.0` tag still points at the old history, and GitHub Support was not asked to dereference the old pull-request refs. Both still reach the deck. Deleting the tag, or asking Support later, would close that.
