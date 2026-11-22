@@ -66,6 +66,78 @@
           "text": "Challenge a friend to beat your score, or take on one they’ve sent you. A challenge waits a week for its answer."
         }
       }
+    },
+    {
+      "id": "guidebook",
+      "subject": "core",
+      "type": "guidebook",
+      "data": {
+        "title": "Guidebook",
+        "tour": "Show me around again",
+        "go": "Take me there",
+        "chapters": [
+          {
+            "id": "way",
+            "title": "Finding your way",
+            "text": "The line at the top of the square always says the one thing to do next. Each guild has a road, a story walked one step at a time, and the line follows the guild you practiced last. Every building is open: go in whenever you like."
+          },
+          {
+            "id": "board",
+            "title": "The Notice Board",
+            "text": "Today’s quests and your daily goal are posted here. Each day brings three contracts, small tasks in the guilds that pay gold; finish all three for a chest. Chests wait on the shelf until you open them.",
+            "place": "board"
+          },
+          {
+            "id": "market",
+            "title": "The Market",
+            "text": "Four wares are set out each day, the same for everyone. Gear for your traveler costs from {cheapestWare} gold up. You can also buy a ware as a gift for a friend.",
+            "place": "market"
+          },
+          {
+            "id": "house",
+            "title": "Your House",
+            "text": "The wardrobe dresses your traveler in the gear you own. The ledger shows what you’ve learned, guild by guild, and the trophy wall shows the achievements you’ve earned.",
+            "place": "house"
+          },
+          {
+            "id": "fellowship",
+            "title": "The Fellowship",
+            "text": "Friends you invite are here, with what they’ve been up to. Invite someone from Settings: they make their own account and are your friend at once. Friends stand in the square, and tapping one visits their house.",
+            "place": "house"
+          },
+          {
+            "id": "arena",
+            "title": "The Arena",
+            "text": "Challenge a friend to beat your score, or take on one they’ve sent you. A challenge waits a week for its answer.",
+            "place": "arena"
+          },
+          {
+            "id": "xp",
+            "title": "XP and levels",
+            "text": "Every lesson and drill earns XP, and XP raises your level. Reaching a level pays {goldPerLevel} gold times the level, every {xpPerGold} XP earns a gold coin, and every {gemEveryLevels}th level brings a gem."
+          },
+          {
+            "id": "gold",
+            "title": "Gold and gems",
+            "text": "Gold buys gear and streak shields at the Market. Gems are rarer: one every {gemEveryLevels}th level, one in the daily chest on every {streakGemEvery}th day of a streak, and some for achievements. Nothing costs gems yet."
+          },
+          {
+            "id": "streak",
+            "title": "Your streak",
+            "text": "The streak counts the days in a row you’ve met your daily goal. A streak shield saves it on a day you miss: it costs {shieldPrice} gold at the Market, and you can hold {maxShields}. Days 7, 30 and 100 of a streak each bring a chest."
+          },
+          {
+            "id": "goal",
+            "title": "The daily goal",
+            "text": "Choose how many minutes to practice each day, from {goalMin} to {goalMax}: tap the goal in the top bar to change it. Reaching it pays the daily chest, {dailyChestGold} gold, with a gem on every {streakGemEvery}th day of a streak."
+          },
+          {
+            "id": "ranks",
+            "title": "Ranks and achievements",
+            "text": "Each guild has ranks, earned as you walk its road and pass its trials. Achievements are milestones across Waymark: they pay gems, and some give a title to wear under your name."
+          }
+        ]
+      }
     }
   ]
 }
