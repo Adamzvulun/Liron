@@ -61,7 +61,7 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
 - **Cells light green or red** under the piece as it moves, for the cells it would cover.
 - **A piece may face left or right** (Flip). Four facings would need four drawings of every piece, so they wait.
 - **Rules,** checked in the browser as you place and again by the database when you save:
-  - A piece covers its footprint, 1×1 to 3×2 cells, and every cell must be free floor.
+  - A piece covers its footprint, 1×1 to 3×4 cells (a rug up to 6×3), and every cell must be free floor.
   - **Every piece that does something must stay reachable from the door,** and so must the door itself. A placement that would block the way is refused with a reason ("That would block the way to the cupboard.").
   - At most **20 floor pieces** and **6 wall pieces**. Rugs lie under everything and don't block, but they count. The wallpaper and the floor are styles, not pieces, and don't count.
   - The cupboard, the shelf, the desk and the letterbox can be moved but not stored, so the four panels always have a home.
