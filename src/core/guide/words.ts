@@ -32,3 +32,21 @@ const Card = z.object({ title: z.string().min(1), text: z.string().min(1) });
 export const PLACE_CARDS = z
   .object({ board: Card, market: Card, house: Card, arena: Card })
   .parse(pack.items.find((i) => i.id === 'guide-cards')?.data);
+
+const Chapter = z.object({
+  id: z.string().regex(/^[a-z-]+$/),
+  title: z.string().min(1),
+  text: z.string().min(1),
+  /** A place to go: Take me there. */
+  place: z.enum(['board', 'market', 'house', 'arena']).optional(),
+});
+
+/** The Guidebook's own pages (the-guide.md §3.5); each guild adds its own. */
+export const GUIDEBOOK = z
+  .object({
+    title: z.string().min(1),
+    tour: z.string().min(1),
+    go: z.string().min(1),
+    chapters: z.array(Chapter).min(1),
+  })
+  .parse(pack.items.find((i) => i.id === 'guidebook')?.data);

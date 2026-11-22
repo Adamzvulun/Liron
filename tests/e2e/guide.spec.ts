@@ -1,5 +1,5 @@
 import { expect, test } from './fixtures.ts';
-import { GUIDE_SAID, signedIn } from './fake-supabase.ts';
+import { friendCard, GUIDE_SAID, signedIn } from './fake-supabase.ts';
 import { cardId, GUIDE_IDS } from '../../src/core/guide/seen.ts';
 import { PLACE_CARDS } from '../../src/core/guide/words.ts';
 import { CARD_KEYS as MORSE_CARDS } from '../../src/subjects/morse/guide.ts';
@@ -135,16 +135,13 @@ test.describe('Nour’s introductions', () => {
     await expect(card.getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
   });
 
-  test('with nothing new, tapping Nour shows the player around again', async ({ page }) => {
-    const updates: unknown[] = [];
-    await signedIn(page, updates, [], { unlocked: 3, runs: 2 });
+  test('with nothing new, tapping Nour opens the Guidebook', async ({ page }) => {
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 });
     await page.goto('/');
     await expect(nour(page)).toHaveCount(0);
     await page.getByRole('button', { name: /^Nour, the lamplighter/ }).click();
-    const card = nour(page);
-    await expect(card.getByRole('status')).toHaveText(/I’m Nour; I light the lamps here/);
-    await card.getByRole('button', { name: 'Skip' }).click();
-    await expect(card).toHaveCount(0);
+    await expect(page).toHaveURL(/\/guidebook$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Guidebook' })).toBeVisible();
   });
 
   test('the fake’s old hand has heard every line Nour has, and seen every card', () => {
@@ -196,4 +193,103 @@ test.describe('first-visit cards', () => {
       .poll(() => updates)
       .toContainEqual({ guide_seen: expect.arrayContaining(['card:morse:hall']) as unknown });
   });
+});
+
+// The Guidebook (the-guide.md §3.5, R14–R17; #412).
+test.describe('the Guidebook', () => {
+  test('opens from Settings, a page at a time, and Take me there goes to the place', async ({
+    page,
+  }) => {
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 });
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Settings' }).click();
+    await page
+      .getByRole('region', { name: 'Guidebook' })
+      .getByRole('link', { name: 'Open' })
+      .click();
+    await expect(page).toHaveURL(/\/guidebook$/);
+    const pages = page.getByRole('navigation', { name: 'Pages' });
+    // Each guild has its own chapter, with its stations.
+    await pages.getByRole('button', { name: 'The Signal Tower' }).click();
+    const shown = page.getByRole('article');
+    await expect(shown.getByRole('heading', { name: 'The Signal Tower' })).toBeFocused();
+    await expect(shown.getByRole('term').first()).toBeVisible();
+    if (await page.getByRole('button', { name: '← All pages' }).isVisible()) {
+      await page.getByRole('button', { name: '← All pages' }).click();
+    }
+    // Numbers are filled in from the code.
+    await pages.getByRole('button', { name: 'Your streak' }).click();
+    await expect(shown).toContainText(/costs \d+ gold/);
+    await expect(shown).not.toContainText('{');
+    if (await page.getByRole('button', { name: '← All pages' }).isVisible()) {
+      await page.getByRole('button', { name: '← All pages' }).click();
+    }
+    await pages.getByRole('button', { name: 'The Market' }).click();
+    await shown.getByRole('link', { name: 'Take me there' }).click();
+    await expect(page).toHaveURL(/\/market$/);
+  });
+
+  test('Show me around again brings Nour’s welcome back on the square', async ({ page }) => {
+    await signedIn(page, [], [], { unlocked: 3, runs: 2 });
+    await page.goto('/guidebook');
+    await page.getByRole('button', { name: 'Show me around again' }).click();
+    await expect(page).toHaveURL(/\/$/);
+    const card = nour(page);
+    await expect(card.getByRole('status')).toHaveText(/I’m Nour; I light the lamps here/);
+    await card.getByRole('button', { name: 'Skip' }).click();
+    await expect(card).toHaveCount(0);
+  });
+});
+
+// A newcomer's first day, end to end, on a phone (the-guide.md §9; #414): an invited friend
+// with nothing seen meets the first page, the welcome, an introduction, a place's card, the
+// next introduction and the Guidebook.
+test('an invited friend finds their way on a phone, start to finish', async ({ page }, info) => {
+  test.skip(info.project.name !== 'phone', 'the newcomer arrives on a phone');
+  const updates: unknown[] = [];
+  await signedIn(page, updates, [], null, [], {
+    firstPage: true,
+    guideSeen: [],
+    gold: 0,
+    fellowship: { friends: [friendCard('00000000-0000-0000-0000-0000000000a1', 'Adam')] },
+  });
+  await page.goto('/');
+  // The first page, as before the guide: nothing from Nour over it.
+  const first = page.getByRole('dialog', { name: 'Waymark' });
+  await expect(nour(page)).toHaveCount(0);
+  await first.getByRole('button', { name: 'Look around the square first' }).click();
+  // The welcome, three lines.
+  const card = nour(page);
+  for (const line of [/I’m Nour/, /Up top/, /Every building/]) {
+    await expect(card.getByRole('status')).toHaveText(line);
+    await card.getByRole('button', { name: /Next|Got it/ }).click();
+  }
+  await expect(card).toHaveCount(0);
+  // The next visit: the Notice Board's introduction, then its card inside.
+  await page.reload();
+  await expect(card.getByRole('status')).toHaveText(/The Notice Board has today’s quests/);
+  await card.getByRole('button', { name: 'Got it' }).click();
+  await page
+    .getByRole('navigation', { name: 'Places' })
+    .getByRole('link', { name: /Quests|Notice Board/ })
+    .click();
+  await expect(page).toHaveURL(/\/notice-board$/);
+  const about = page.getByRole('region', { name: 'About The Notice Board' });
+  await expect(about).toContainText('Today’s quests');
+  await about.getByRole('button', { name: 'Got it' }).click();
+  await page.getByRole('link', { name: 'Back to the square' }).click();
+  // Then the friend who invited them.
+  await page.reload();
+  await expect(card.getByRole('status')).toHaveText(/Your friend is in town/);
+  // And the Guidebook, from Settings, says what each place is for.
+  await page.getByRole('button', { name: 'Settings' }).click();
+  await page.getByRole('region', { name: 'Guidebook' }).getByRole('link', { name: 'Open' }).click();
+  await page.getByRole('button', { name: 'Your House' }).click();
+  await expect(page.getByRole('article')).toContainText('The wardrobe dresses your traveler');
+  // All of it is kept on the account.
+  await expect
+    .poll(() => updates)
+    .toContainEqual({
+      guide_seen: expect.arrayContaining(['card:board', 'intro:board', 'welcome']) as unknown,
+    });
 });

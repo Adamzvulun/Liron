@@ -70,6 +70,12 @@ export interface SubjectInfo {
    */
   ledger?: (state: unknown, look: LedgerLook) => Promise<LedgerAnswer>;
   /**
+   * Its chapter of the Guidebook (docs/game/the-guide.md §3.5): what the hall is for and a line
+   * for each station, in its own words. Async so it loads only when the Guidebook opens. A
+   * subject with a hall must have one (a test checks).
+   */
+  guidebook?: () => Promise<GuideChapter>;
+  /**
    * The skills this subject rates separately (ADR 0010), e.g. Morse: receive, send, head-copy.
    * Same format as subject ids. If listed, ratings for any other skill are refused.
    */
@@ -80,6 +86,13 @@ export interface SubjectInfo {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- each subject has its own state
   Hall?: ComponentType<{ api: SubjectApi<any> }>;
+}
+
+/** A guild's chapter of the Guidebook. */
+export interface GuideChapter {
+  title: string;
+  text: string;
+  stations: readonly { title: string; text: string }[];
 }
 
 /** Where one item stands in spaced repetition. */
