@@ -8,11 +8,12 @@ import {
   STARTER_PIECES,
   standCells,
   blockedCells,
+  byTheWindow,
   PANELS,
   type PieceDef,
 } from './layout.ts';
 import { BAD, EXTRA, GOOD } from './layouts.fixture.ts';
-import { findPath, reachable } from './path.ts';
+import { cellKey, findPath, reachable } from './path.ts';
 
 function must<T>(v: T | null | undefined, what: string): T {
   if (v === null || v === undefined) throw new Error(`missing ${what}`);
@@ -179,5 +180,17 @@ describe('the home in the progress store (task 7.3)', () => {
     ).layout;
     await store.saveHome(moved);
     expect(parseLayout(await store.home())).toEqual(moved);
+  });
+});
+
+describe('byTheWindow (the-home.md §8)', () => {
+  it('stands a host under the window, in the starter room', () => {
+    const blocked = blockedCells(STARTER, owned);
+    expect(byTheWindow((x, y) => !blocked.has(cellKey([x, y])))).toEqual([5, 0]);
+  });
+
+  it('steps aside, then forward, when the cells under the window are taken', () => {
+    expect(byTheWindow((x, y) => y > 0 || (x !== 5 && x !== 6))).toEqual([4, 0]);
+    expect(byTheWindow((_, y) => y > 1)).toEqual([5, 2]);
   });
 });

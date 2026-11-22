@@ -19,6 +19,7 @@ import { pictureUrl } from '../city/picture.ts';
 import { useStage } from '../city/useStage.ts';
 import {
   blockedCells,
+  byTheWindow,
   cellsOf,
   FURNITURE_PIECES,
   isFloor,
@@ -64,6 +65,15 @@ const USES: Record<Does, string> = {
   look: 'look',
 };
 
+/** The same in a friend's room, where only their shelf opens (§8). */
+const VISITING: Record<Does, string> = {
+  ...USES,
+  wardrobe: 'look',
+  trophies: 'see their trophies',
+  ledger: 'look',
+  fellowship: 'look',
+};
+
 const STEPS: Record<string, Cell> = {
   ArrowUp: [0, -1],
   ArrowDown: [0, 1],
@@ -92,6 +102,12 @@ function placeOn([x, y]: Pt, row: number, nudge = 0) {
   return `translate(${x - AVATAR_BOX.width / 2 + nudge * s}px, ${y - AVATAR_BOX.feetY}px) scale(${s})`;
 }
 
+/** Whom you visit (§8): they stand still by the window, in their saved look. */
+export interface Host {
+  name: string;
+  look: Look;
+}
+
 /** The longest walk before a piece opens: farther than this, it opens as you set off (§12). */
 const OPEN_AFTER_STEPS = Math.floor(2000 / STEP_MS);
 
@@ -116,10 +132,13 @@ export function Room({
   look,
   onUse,
   decor,
+  host,
 }: {
   layout: Layout;
   look: Look;
   decor?: Decor;
+  /** A friend's room (§8): they stand by the window, and the room is called theirs. */
+  host?: Host;
   /**
    * Uses a piece (§5) once you are by it: opens its panel, or gives a line to say. Without it,
    * pieces only say their line.
@@ -140,10 +159,15 @@ export function Room({
     };
   }, [layout]);
   const blocked = useMemo(() => blockedCells(layout, DEFS), [layout]);
-  const open = useMemo(
+  const free = useMemo(
     () => (x: number, y: number) =>
       x >= 0 && y >= 0 && x < ROOM.cols && y < ROOM.rows && !blocked.has(cellKey([x, y])),
     [blocked],
+  );
+  const hostAt = useMemo(() => (host ? byTheWindow(free) : null), [host, free]);
+  const open = useMemo(
+    () => (x: number, y: number) => free(x, y) && !(hostAt && same(hostAt, [x, y])),
+    [free, hostAt],
   );
 
   const [ref, view] = useStage(cellFeet(...ROOM.door)[0], contain);
@@ -330,6 +354,10 @@ export function Room({
     if (!pt) return;
     const [x, y] = pt;
     const cell = cellAt(x, y);
+    if (host && cell && hostAt && same(cell, hostAt)) {
+      tell(`${host.name} is glad you came by.`);
+      return;
+    }
     const piece = cell ? blocked.get(cellKey(cell)) : hangingAt(x, y);
     if (!piece) {
       pending.current = null;
@@ -414,9 +442,11 @@ export function Room({
         className={`room${view.pan ? ' room--pan' : ''}${decor ? ' room--decor' : ''}`}
         role="group"
         aria-label={
-          decor
-            ? 'Your room, decorating. Tap a piece, then a cell. The arrow keys move a held piece, and Enter sets it down.'
-            : 'Your room. Tap the floor, or use the arrow keys, to walk.'
+          host
+            ? `${host.name}’s room. Tap the floor, or use the arrow keys, to walk.`
+            : decor
+              ? 'Your room, decorating. Tap a piece, then a cell. The arrow keys move a held piece, and Enter sets it down.'
+              : 'Your room. Tap the floor, or use the arrow keys, to walk.'
         }
         tabIndex={0}
         onKeyDown={key}
@@ -462,6 +492,16 @@ export function Room({
               overflow="visible"
               style={{ transform: placeAt(petCell, petNudge), zIndex: standingZ(petCell[1]) }}
               dangerouslySetInnerHTML={{ __html: companion }}
+            />
+          )}
+          {host && hostAt && (
+            <Avatar
+              look={host.look}
+              pet={false}
+              className="room__figure room__host"
+              width={AVATAR_BOX.width}
+              height={AVATAR_BOX.height + 10}
+              style={{ transform: placeAt(hostAt), zIndex: standingZ(hostAt[1]) }}
             />
           )}
           {!decor && (
@@ -514,7 +554,8 @@ export function Room({
                     if (!walkToPiece(id)) tell('Can’t get there.');
                   }}
                 >
-                  {def.name.charAt(0).toUpperCase() + def.name.slice(1)}: {USES[def.does]}
+                  {def.name.charAt(0).toUpperCase() + def.name.slice(1)}:{' '}
+                  {host ? VISITING[def.does] : USES[def.does]}
                 </button>
               </li>
             ))}

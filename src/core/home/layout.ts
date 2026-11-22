@@ -19,6 +19,8 @@ export interface PieceDef {
   size: readonly [number, number];
   does: Does;
   line: string;
+  /** The line in a friend's room (§8), where "your" would be wrong; else `line`. */
+  visit?: string;
 }
 
 export interface Room {
@@ -294,3 +296,16 @@ export function refusalText(r: Refusal, defs: ReadonlyMap<string, PieceDef>): st
 }
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/** The free cell nearest the window, nearest the back wall first, where a host stands. */
+export function byTheWindow(free: (x: number, y: number) => boolean, room: Room = ROOM): Cell {
+  const middle = (room.cols - 1) / 2;
+  for (let y = 0; y < room.rows; y++) {
+    const xs = [...Array(room.cols).keys()].sort(
+      (a, b) => Math.abs(a - middle) - Math.abs(b - middle) || a - b,
+    );
+    const x = xs.find((c) => free(c, y));
+    if (x !== undefined) return [x, y];
+  }
+  return room.door;
+}
