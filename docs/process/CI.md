@@ -7,7 +7,7 @@
 | Job | What | Docs-only PR |
 |---|---|---|
 | `check` | lint, typecheck, unit and database tests | runs |
-| `browser (1 of 2)`, `browser (2 of 2)` | the browser tests except `@timing`, split in two (`--shard`, with `fullyParallel` so each half gets an even share) | skipped |
+| `browser (1 of 3)` to `browser (3 of 3)` | the browser tests except `@timing`, split in three (`--shard`, with `fullyParallel` so each part gets an even share; two parts until 2026-11-22) | skipped |
 | `browser (timing)` | the `@timing` tests alone on one worker | skipped |
 
 `node_modules` and Playwright's Chromium are cached by the lockfile's hash, so a job doesn't spend 40 s on `npm ci` or download the browser again.
@@ -22,18 +22,18 @@
 
 **Why this costs about the same:** each job pays its own set-up (about a minute with the caches), but the browser tests are the same work split three ways, and the phone half of a dev PR is about a third smaller. The wait is the longest job's, not the sum.
 
-**Measured (#370, the first run, 2026-11-18, every cache cold):** 6 minutes from start to the last job, against 16 before. `check` 2.2 min; `browser (1 of 2)` 6.0 (its tests 4.7, 160 passed); `browser (2 of 2)` 4.7 (tests 3.4); `browser (timing)` 3.4 (tests 2.0). Nothing retried. Billed: about 16 runner minutes, about $0.08 at $0.005, the same as the one long job. With warm caches each job saves about a minute of `npm ci` and the browser download. The split is uneven (the first half has the slow Morse specs): a third browser job would bring the wait to about 4.5 minutes for about a cent more a run, not done without Adam's say.
+**Measured (#370, the first run, 2026-11-18, every cache cold):** 6 minutes from start to the last job, against 16 before. `check` 2.2 min; `browser (1 of 2)` 6.0 (its tests 4.7, 160 passed); `browser (2 of 2)` 4.7 (tests 3.4); `browser (timing)` 3.4 (tests 2.0). Nothing retried. Billed: about 16 runner minutes, about $0.08 at $0.005, the same as the one long job. With warm caches each job saves about a minute of `npm ci` and the browser download. The split is uneven (the first half has the slow Morse specs): a third browser job would bring the wait to about 4.5 minutes for about a cent more a run. It was added once the repo went public and runs became free (2026-11-22).
 
 The release PR for v1.1.0 (#371), which runs every spec on the phone too, took 7.7 minutes, all green.
 
-## Cost (checked 2026-11-02 on docs.github.com)
-- The repo is **private**. GitHub Free for personal accounts includes **$12/month of Actions compute**. On the standard Linux runner ($0.006/min) that's about **2,000 minutes/month**.
-- One CI run bills about 16 runner minutes on arm64 (four jobs, measured above), about $0.08. The 2,400 arm64 minutes a month cover about 150 runs.
-- To keep it cheap: Chromium only, the phone suite in full only on release PRs, docs-only PRs skip the browser, and a newer push to the same branch cancels the older run.
-- **If the allowance runs out:** with no payment method on the GitHub account, runs are **blocked, not billed**, until the next month. With a payment method on file, spending is limited by the account's budgets. Check *Settings → Billing → Budgets* and set the Actions budget to $0 if you never want to pay.
+## Cost
+- **Free since 2026-11-22: the repo is public** ([ADR 0054](../decisions/0054-the-repo-goes-public.md)). GitHub's standard hosted runners, the 2-core arm64 Linux one CI uses among them, cost nothing on a public repo.
+- So the browser tests run in three parts instead of two (a shorter wait, no cost), and the old rule to push as rarely as possible is gone. Small PRs are fine.
+- Still kept, because they make CI faster: Chromium only, the phone suite in full only on release PRs, docs-only PRs skip the browser, and a newer push to the same branch cancels the older run.
+- *Before (2026-11-02 to 2026-11-22, private):* GitHub Free gave $12 of Actions compute a month, about 2,400 arm64 minutes; a run cost about $0.08. On 2026-11-22 runs were refused ("recent account payments have failed or your spending limit needs to be increased"), which is why the repo went public.
 
-## "A red check blocks merging": not available on our plan
-GitHub's plan page lists **protected branches for private repositories as a GitHub Pro feature** (paid). Rulesets are described for Team and Enterprise. GitHub Free for personal accounts doesn't list either for private repos. So on Free, GitHub itself **can't** block merging on a red check in this repo.
+## "A red check blocks merging"
+**Now possible for free (2026-11-22):** on a public repo, GitHub Free can protect branches and run rulesets, so `dev` and `main` could require a green CI before merging. That's Adam's choice (STATUS, open questions); until then the process rule below stands. *While the repo was private:* GitHub's plan page lists **protected branches for private repositories as a GitHub Pro feature** (paid). Rulesets are described for Team and Enterprise. GitHub Free for personal accounts doesn't list either for private repos. So on Free, GitHub itself **can't** block merging on a red check in this repo.
 
 **Decided (Adam, 2026-11-02): option 1, the process rule.**
 

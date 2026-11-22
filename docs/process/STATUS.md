@@ -103,7 +103,8 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 ## Open questions for Adam
 Emptied on 2026-11-17 (task 5.1): each is answered, or marked as his to settle. Answered ones are kept, struck, for the record.
 - ~~**The live site's progress**~~: Adam chose a fresh start (2026-11-16). Your dev-site progress stays on the dev site ([DEPLOY](DEPLOY.md#the-first-real-release-v100)).
-- **Adam's, standing:** check *Settings → Billing → Budgets*, so Actions can never bill you.
+- **Adam's, new (2026-11-22): require a green CI to merge?** Now that the repo is public, GitHub Free can protect `dev` and `main` for free (Settings → Rules → Rulesets, requiring the CI checks), so GitHub itself blocks a red PR. Until then the process rule stands: nothing red gets merged ([CI](CI.md#a-red-check-blocks-merging)). Every CI job reports on every PR, docs-only ones too, so all four can be required.
+- **Adam's, standing:** check *Settings → Billing → Budgets*, so Actions can never bill you. Public repos' runs are free, so this matters only if the repo goes private again.
 - **Adam's, standing:** more words need a new source. Maknuune is free but CC BY-SA 4.0. Listed in [LATER.md](LATER.md).
 - **Adam's, standing:** `GROQ_API_KEY` on the dev site (Claude can't reach the dev site to check). Settings → Services says whether it's on (task 1.8); the key must be ticked for **Preview** in Vercel. Also: try the Morse sound on an iPhone after a phone call or a locked screen (`resumeOnGesture`, §4ax).
 - ~~**The words left out on purpose**~~ (report §4bc): Adam answered on 2026-11-15. The stepfamily and the national days are in (chapter 113); the adult, toilet and grim words are skipped for now.
