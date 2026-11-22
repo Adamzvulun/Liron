@@ -49,7 +49,10 @@ export const TODAY = {
 
 /** What a test can change about the player beyond the defaults (ADR 0033, 0034). */
 export interface Extras {
-  /** Ids the guide has already shown (the-guide.md §4); none for a new player. */
+  /**
+   * Ids the guide has already shown (the-guide.md §4). Most tests are about something else, so
+   * the welcome counts as seen unless a test gives its own list ([] for a brand-new player).
+   */
   guideSeen?: string[];
   /** Leave the first page showing for a new player (the-road.md §8). */
   firstPage?: boolean;
@@ -190,7 +193,7 @@ export async function fakeSupabase(
   const sessions = new Set<string>();
   // The title worn (#177), changed by set_title.
   let title = extras.title ?? '';
-  let guideSeen = extras.guideSeen ?? [];
+  let guideSeen = extras.guideSeen ?? ['welcome'];
   // The Market's purchases (#49): what was bought, and the gold spent.
   const bought: string[] = [];
   let spent = 0;
