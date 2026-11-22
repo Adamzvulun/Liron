@@ -42,6 +42,9 @@ describe('the furniture', () => {
       'home-plant': { id: 'home-plant', at: [3, 0], facing: 'left' },
       'home-bookcase': { id: 'home-bookcase', at: [6, 0], facing: 'left' },
       'home-cushion': { id: 'home-cushion', at: [2, 4], facing: 'left' },
+      'home-stove': { id: 'home-stove', at: [6, 1], facing: 'left' },
+      'home-kilim': { id: 'home-kilim', at: [4, 0], facing: 'left' },
+      'home-window-seat': { id: 'home-window-seat', at: [4, 4], facing: 'left' },
     };
     for (const d of FURNITURE_PIECES) {
       const placed =

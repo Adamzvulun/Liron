@@ -62,6 +62,8 @@ One piece for each rank you can reach now, painted like the other gear (`src/cor
 
 **A rank you've taken stays yours** (review, 2026-11-15): the ladder counts a taken rank as met, so a condition that later reads lower can't take it away. Keyer and Ghost read your fastest drill, not your last one.
 
+The first rank of each guild (Listener, Guest) also gives the guild's banner, a wall piece for your room (`banner` in `ranks.json`, [#443](https://github.com/Adamzvulun/Liron/issues/443); the-home.md §7). Like rank gear it is never sold, rolled or given.
+
 There is no waist slot, so the key is carried in the hand and the sash is worn on the torso (my call: a new slot would mean a new avatar layer for two pieces). The headset that Morse level 5 already gives stays as it is. Rank gear is a new kind of milestone (`rank`), so the database gives it the same way it gives the milestone items (ADR 0033).
 
 ## 5. Achievements and titles

@@ -308,6 +308,78 @@
         "does": "look",
         "line": "The desert at night, under a new moon."
       }
+    },
+    {
+      "id": "home-stove",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "stove",
+        "place": "floor",
+        "size": [1, 1],
+        "does": "look",
+        "line": "Warm through the long evenings."
+      }
+    },
+    {
+      "id": "home-kilim",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "kilim",
+        "place": "rug",
+        "size": [3, 2],
+        "does": "look",
+        "line": "Woven by hand, in the colors of the road."
+      }
+    },
+    {
+      "id": "home-window-seat",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "window seat",
+        "place": "floor",
+        "size": [3, 1],
+        "does": "sit",
+        "line": "Cushions enough for a whole afternoon."
+      }
+    },
+    {
+      "id": "home-harbor",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "harbor picture",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "look",
+        "line": "The harbor at dawn, a sail heading out."
+      }
+    },
+    {
+      "id": "home-banner-signal",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "Signalers’ banner",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "look",
+        "line": "The Guild of Signalers knows you now."
+      }
+    },
+    {
+      "id": "home-banner-crossing",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "Crossing banner",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "look",
+        "line": "The House of the Crossing keeps a place for you."
+      }
     }
   ]
 }

@@ -21,7 +21,8 @@
         "gear": "ear-cups",
         "name": "Listener",
         "conditions": ["Learn all 41 Koch characters", "Pass the Beacon’s Answer"],
-        "order": 2
+        "order": 2,
+        "banner": "home-banner-signal"
       }
     },
     {
