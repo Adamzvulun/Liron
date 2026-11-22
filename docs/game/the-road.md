@@ -413,13 +413,9 @@ The two roads stay independent ([ADR 0003](../decisions/0003-hub-of-independent-
 
 ## 7. City errands
 
-Three prompts introduce the city's own places. They are not road steps and never take the main line; each appears as the compass's last line while its condition holds, and never again once done.
+One prompt is the city's own: **“A chest is waiting at the Notice Board.”** It shows as the compass's last line while a chest is unopened, and is gone once none is waiting. It is not a road step and never takes the main line.
 
-| Errand | Shown when | Gone when |
-|---|---|---|
-| “A chest is waiting at the Notice Board.” | a chest is unopened (the HUD already knows) | no chest is waiting |
-| “You have gold. The Market is open.” | gold ≥ the cheapest ware, and nothing is owned (built 2026-11-16: the app doesn't record purchases apart from other gear, and a player with gear from a rank or a chest already knows what gear is) | the first gear owned |
-| “Your House has a wardrobe.” | the first gear is owned (a rank's gear or a purchase) and the avatar was never changed | the avatar is saved once |
+There were two more, for the Market (“You have gold. The Market is open.”) and Your House (“Your House has a wardrobe.”). Since #410 (2026-11-22) they are Nour's introductions 3 and 4 ([the-guide.md](the-guide.md) §3.3), so the player never hears the same thing twice.
 
 ## 8. The first page
 

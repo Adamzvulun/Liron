@@ -60,7 +60,7 @@ const ORDER: readonly ((f: IntroFacts) => Introduction | null)[] = [
   // 6. The Arena: a friend to challenge, and five steps done.
   (f) => (f.friends > 0 && stepsDone(f) >= 5 ? at(GUIDE_IDS.arena, 'arena') : null),
   // 7. The ledger and trophies, in Your House: once there's a road behind the player (ten
-  //    steps). The spec's "first rank" would mean reading every guild's ranks on the square.
+  //    steps, a stand-in: the square doesn't read ranks, and a first rank can come at once).
   (f) => (stepsDone(f) >= 10 ? at(GUIDE_IDS.ledger, 'house') : null),
 ];
 
