@@ -430,4 +430,10 @@
     - **The companion** is drawn on its own (`paintCompanion`, `Avatar pet={false}`) and stands on the cell you came from.
     - **Phone:** an upright phone gives the room 68svh and it pans (`useStage`), scrolling to keep the avatar in the middle.
     - **Tests:** `tests/e2e/home.spec.ts` (on the phone list); the frame budget while walking is in `city-speed.spec.ts` (`measure` and `reference` are now shared there).
-    - **Still to come in 7.6:** the panels are still the cards under the room; tapping the cupboard should open the wardrobe, and so on, with the list "In this room".
+165. **7.6, first part: the pieces open their panels (2026-11-22).** The cards under the room are gone.
+    - **Panels.** `HouseRoom.tsx` takes the four panels from `App.tsx` and opens one in a dialog (`room-panel`, "Back to the room", Escape) when its piece is used. Focus goes back to what opened it (kept in `opener`: the panels move focus as they mount, so `useDialogFocus` alone can't).
+    - **Using a piece.** Tap it, press Enter facing it (a press toward a piece turns you to face it), or use the list "In this room". It walks to the cell in front and opens there; a walk of more than 8 cells (2 s) opens as it starts. Pieces that open nothing say their line.
+    - **The lantern** fades the room's glow, a still picture of its own (`homeLayers().glow`), by opacity.
+    - **Links:** `/house#wardrobe`, `#trophies`, `#ledger` and `#fellowship` open the room with that panel open. The Market's "Try it on" and the Arena's and the Wire's "Your House" use them; the e2e specs for the panels open them that way, and the accessibility spec checks each.
+    - **Words:** the house's card, its Guidebook page and the three house introductions say where things are now (`content/core/guide.json`, `guide-words.md`).
+    - **Still to come in 7.6:** sitting needs a sitting pose in the avatar painter; until then the bed, chairs, bench and cushion say their line and stay off the list.

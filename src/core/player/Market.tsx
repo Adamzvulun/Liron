@@ -127,7 +127,7 @@ export function Market({
                 />
               )}
               {said?.id === w.id && said.ok && w.kind !== 'functional' && (
-                <Link className="market__try" href="/house">
+                <Link className="market__try" href="/house#wardrobe">
                   Try it on at your house
                 </Link>
               )}

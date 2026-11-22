@@ -164,3 +164,80 @@ test.describe('walking in your room (#440)', () => {
     await expect.poll(async () => (await view()).left).toBeGreaterThan(50);
   });
 });
+
+test.describe('the pieces that open something (#441)', () => {
+  const PANELS = [
+    ['Cupboard: open the wardrobe', 'Wardrobe', 'Save my look'],
+    ['Shelf: see your trophies', 'Trophies', 'Achievements'],
+    ['Desk: read your ledger', 'Ledger', 'Ledger'],
+    ['Letterbox: open the Fellowship', 'Fellowship', 'Fellowship'],
+  ] as const;
+
+  test('the list "In this room" opens each, and closing gives focus back', async ({ page }) => {
+    await openRoom(page);
+    const list = page.getByRole('navigation', { name: 'In this room' });
+    for (const [button, dialog, inside] of PANELS) {
+      await list.getByRole('button', { name: button }).click();
+      const panel = page.getByRole('dialog', { name: dialog });
+      await expect(panel.getByText(inside, { exact: true }).first()).toBeVisible();
+      await expect(panel.getByRole('button', { name: 'Back to the room' })).toBeFocused();
+      await panel.getByRole('button', { name: 'Back to the room' }).click();
+      await expect(panel).toHaveCount(0);
+      await expect(list.getByRole('button', { name: button })).toBeFocused();
+    }
+  });
+
+  test('tapping the cupboard walks there, then opens the wardrobe; Escape closes it', async ({
+    page,
+  }) => {
+    await openRoom(page);
+    await tapCell(page, 11, 1);
+    const panel = page.getByRole('dialog', { name: 'Wardrobe' });
+    await expect(panel).toBeVisible();
+    // By the cupboard: the cell in front of it.
+    await expect(at(page)).toHaveAttribute('data-at', '11,2');
+    await page.keyboard.press('Escape');
+    await expect(panel).toHaveCount(0);
+    await expect(room(page)).toBeFocused();
+  });
+
+  test('Enter uses the piece you face', async ({ page }, info) => {
+    test.skip(info.project.name === 'phone', 'no keyboard on the phone');
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await openRoom(page);
+    await room(page).focus();
+    for (const k of ['d', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'd', 'w'])
+      await page.keyboard.press(k);
+    // At the front of the desk, facing it.
+    await expect(at(page)).toHaveAttribute('data-at', '8,1');
+    await page.keyboard.press('Enter');
+    const panel = page.getByRole('dialog', { name: 'Ledger' });
+    await expect(panel).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(room(page)).toBeFocused();
+  });
+
+  test('a piece that opens nothing says its line', async ({ page }) => {
+    await openRoom(page);
+    await tapCell(page, 9, 4);
+    await expect(page.getByRole('status').filter({ hasText: 'Packed for the road' })).toBeVisible();
+  });
+
+  test('/house#fellowship opens the room with the Fellowship open', async ({ page }) => {
+    await signedIn(page);
+    await page.goto('/house#fellowship');
+    await expect(page.getByRole('dialog', { name: 'Fellowship' })).toBeVisible();
+  });
+
+  test('the lantern puts its glow out, and lights it again', async ({ page }) => {
+    await openRoom(page);
+    const glow = page.locator('img[data-glow]');
+    await expect(glow).toHaveAttribute('data-glow', 'on');
+    const lantern = page.getByRole('button', { name: 'Lantern: light or put out' });
+    await lantern.click();
+    await expect(glow).toHaveAttribute('data-glow', 'off');
+    await expect(glow).toHaveCSS('opacity', '0');
+    await lantern.click();
+    await expect(glow).toHaveAttribute('data-glow', 'on');
+  });
+});

@@ -319,7 +319,7 @@ test('an invited friend finds their way on a phone, start to finish', async ({ p
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('region', { name: 'Guidebook' }).getByRole('link', { name: 'Open' }).click();
   await page.getByRole('button', { name: 'Your House' }).click();
-  await expect(page.getByRole('article')).toContainText('The wardrobe dresses your traveler');
+  await expect(page.getByRole('article')).toContainText('The cupboard dresses your traveler');
   // All of it is kept on the account.
   await expect
     .poll(() => updates)

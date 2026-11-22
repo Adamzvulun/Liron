@@ -15,7 +15,7 @@ test.describe('the Fellowship in Your House', () => {
     page,
   }) => {
     await signedIn(page);
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel).toContainText('No friends here yet. Give a friend your code below');
     await expect(panel.getByLabel('Your friend code: K 7 Q M 4 R X A')).toHaveText('K7QM-4RXA');
@@ -30,12 +30,12 @@ test.describe('the Fellowship in Your House', () => {
     page,
   }) => {
     await signedIn(page, [], [], null, [], { name: '' });
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel).toContainText('Friends see you as “A traveler”');
     // Named, it says nothing of it.
     await signedIn(page);
-    await page.goto('/house');
+    await page.reload();
     await expect(panel.getByLabel(/Your friend code/)).toBeVisible();
     await expect(panel).not.toContainText('A traveler');
   });
@@ -43,7 +43,7 @@ test.describe('the Fellowship in Your House', () => {
   test('a request can be accepted, and the friend joins the list', async ({ page }) => {
     const extras = withFellowship({ requests: [{ id: BASMA, name: 'Basma', look: {} }] });
     await signedIn(page, [], [], undefined, [], extras);
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel).toContainText('Basma would like to join your Fellowship.');
     await panel.getByRole('button', { name: 'Accept' }).click();
@@ -61,7 +61,7 @@ test.describe('the Fellowship in Your House', () => {
   }) => {
     const extras = withFellowship({});
     await signedIn(page, [], [], undefined, [], extras);
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     const send = panel.getByRole('button', { name: 'Send a request' });
     await panel.getByLabel('Add a friend').fill('abcd');
@@ -87,7 +87,7 @@ test.describe('the Fellowship in Your House', () => {
       [],
       withFellowship({ refuse: { ask_friend: 'daily-limit' } }),
     );
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await panel.getByLabel('Add a friend').fill('ABCDEFGH');
     await panel.getByRole('button', { name: 'Send a request' }).click();
@@ -111,7 +111,7 @@ test.describe('the Fellowship in Your House', () => {
       ],
     });
     await signedIn(page, [], [], undefined, [], extras);
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const friend = page.getByRole('list', { name: 'Your friends' }).getByRole('listitem').first();
     await expect(friend).toContainText('Level 5 · Keyer');
     await expect(friend).toContainText('12 days in a row · 1 achievement');
@@ -134,7 +134,7 @@ test.describe('the Fellowship in Your House', () => {
       [],
       withFellowship({ friends: [friendCard(BASMA, evil)] }),
     );
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel.getByRole('heading', { name: evil })).toBeVisible();
     await expect(panel.locator('img')).toHaveCount(0);
@@ -153,7 +153,7 @@ test.describe('the Fellowship in Your House', () => {
         requests: [{ id: CHEN, name: 'Chen', look: {} }],
       }),
     );
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel.getByRole('heading', { name: 'Basma' })).toBeVisible();
     const box = await panel.boundingBox();
@@ -185,7 +185,7 @@ test.describe('a friend’s house (task 3.2)', () => {
         ],
       }),
     );
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     await page.getByRole('link', { name: 'Visit Basma’s house' }).click();
     await expect(page).toHaveURL(new RegExp(`/house/visit/${BASMA}$`));
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Basma’s house');
@@ -199,7 +199,7 @@ test.describe('a friend’s house (task 3.2)', () => {
     if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, fullPage: true });
     await page.getByRole('link', { name: '← Back to your house' }).click();
     await expect(page).toHaveURL(/\/house$/);
-    await expect(page.getByRole('region', { name: 'Fellowship' })).toBeVisible();
+    await expect(page.getByRole('group', { name: /^Your room/ })).toBeVisible();
   });
 
   test('someone who isn’t a friend finds the door closed', async ({ page }) => {

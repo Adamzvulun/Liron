@@ -39,7 +39,7 @@ test.describe('places in the city (#25)', () => {
     await signedIn(page);
     // Each place's view loads on its own (#137): wait for it before walking out.
     for (const [path, ready] of [
-      ['/house', 'Achievements'],
+      ['/house', 'In this room'],
       ['/market', 'Market'],
       ['/notice-board', 'Chests'],
     ] as const) {
@@ -116,12 +116,14 @@ test("a place that can't load says so, can try again, and the top bar stays (rev
       'The stall couldn’t be set out.',
       page.getByRole('heading', { name: 'Today’s wares' }),
     ],
-    ['/house', 'The wall couldn’t be read.', page.getByText(/\d+ of \d+ earned/)],
+    ['/house#trophies', 'The wall couldn’t be read.', page.getByText(/\d+ of \d+ earned/)],
   ] as const) {
     down = true;
     await page.goto(path);
     await expect(page.getByText(failed)).toBeVisible();
-    // Back on the square, without a reload, the top bar is still there.
+    // Back on the square, without a reload, the top bar is still there. (Your House's wall is
+    // a panel over the room: close it first.)
+    if (path.includes('#')) await page.keyboard.press('Escape');
     await back.click();
     await expect(settings).toBeVisible();
     await page.goBack();

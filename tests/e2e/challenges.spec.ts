@@ -99,7 +99,7 @@ test.describe('the Arena', () => {
     await expect(page.getByRole('heading', { name: 'The Arena', level: 1 })).toBeVisible();
     await expect(page.getByText(/The Arena is for friends\./)).toBeVisible();
     await page.getByRole('link', { name: 'Your House' }).click();
-    await expect(page).toHaveURL(/\/house$/);
+    await expect(page).toHaveURL(/\/house#fellowship$/);
   });
 
   test('a challenge for you can be taken on: it opens the rush', async ({ page }) => {

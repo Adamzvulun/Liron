@@ -11,12 +11,14 @@ import { pictureUrl } from '../city/picture.ts';
 import { useStage } from '../city/useStage.ts';
 import {
   blockedCells,
+  cellsOf,
   FURNITURE_PIECES,
   isFloor,
   ROOM,
   slotsOf,
   STARTER_PIECES,
   standCells,
+  type Does,
   type Layout,
   type PieceDef,
 } from './layout.ts';
@@ -40,6 +42,17 @@ const contain = (width: number, height: number) => {
     x: (width - STAGE.width * scale) / 2,
     y: (height - STAGE.height * scale) / 2,
   };
+};
+
+/** What using a piece does, for the list "In this room" (§5). */
+const USES: Record<Does, string> = {
+  wardrobe: 'open the wardrobe',
+  trophies: 'see your trophies',
+  ledger: 'read your ledger',
+  fellowship: 'open the Fellowship',
+  sit: 'sit down',
+  light: 'light or put out',
+  look: 'look',
 };
 
 const STEPS: Record<string, Cell> = {
@@ -66,10 +79,25 @@ function placeAt([c, r]: Cell, nudge = 0) {
   return `translate(${x - AVATAR_BOX.width / 2 + nudge * s}px, ${y - AVATAR_BOX.feetY}px) scale(${s})`;
 }
 
-export function Room({ layout, look }: { layout: Layout; look: Look }) {
+/** The longest walk before a piece opens: farther than this, it opens as you set off (§12). */
+const OPEN_AFTER_STEPS = Math.floor(2000 / STEP_MS);
+
+export function Room({
+  layout,
+  look,
+  onUse,
+}: {
+  layout: Layout;
+  look: Look;
+  /**
+   * Uses a piece (§5) once you are by it: opens its panel, or gives a line to say. Without it,
+   * pieces only say their line.
+   */
+  onUse?: (def: PieceDef) => string | undefined;
+}) {
   const layers = useMemo(() => {
     const id = JSON.stringify(layout);
-    const { back, bands, light } = homeLayers(layout, DEFS);
+    const { back, bands, light, glow } = homeLayers(layout, DEFS);
     return {
       back: pictureUrl(`home:back:${id}`, STAGE, () => back),
       bands: bands.map((b) => ({
@@ -77,6 +105,7 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
         url: pictureUrl(`home:band:${b.row}:${id}`, STAGE, () => b.svg),
       })),
       light: pictureUrl('home:light', STAGE, () => light),
+      glow: pictureUrl('home:glow', STAGE, () => glow),
     };
   }, [layout]);
   const blocked = useMemo(() => blockedCells(layout, DEFS), [layout]);
@@ -93,10 +122,17 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
   const [from, setFrom] = useState<Cell>(ROOM.door);
   const [walking, setWalking] = useState(false);
   const [say, setSay] = useState('');
+  const [lit, setLit] = useState(true);
   const route = useRef<Cell[]>([]);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const hush = useRef<ReturnType<typeof setTimeout>>(undefined);
   const here = useRef<Cell>(ROOM.door);
+  // The way you last stepped, so Enter uses what you face (§4).
+  const facing = useRef<Cell>([0, -1]);
+  // A piece to use when the walk ends.
+  const pending = useRef<PieceDef | null>(null);
+  // The way to face once a walk to a piece ends.
+  const faceEnd = useRef<Cell | null>(null);
   useEffect(
     () => () => {
       clearTimeout(timer.current);
@@ -111,12 +147,27 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
     hush.current = setTimeout(() => setSay(''), 2500);
   };
 
+  const act = (def: PieceDef) => {
+    pending.current = null;
+    // A lantern turns its glow on and off, for you only (§5).
+    if (def.does === 'light') {
+      setLit((on) => !on);
+      return;
+    }
+    const line = onUse ? onUse(def) : def.line;
+    if (line) tell(line);
+  };
+
   const step = () => {
     const next = route.current.shift();
     if (!next) {
       setWalking(false);
+      if (faceEnd.current) facing.current = faceEnd.current;
+      faceEnd.current = null;
+      if (pending.current) act(pending.current);
       return;
     }
+    facing.current = [next[0] - here.current[0], next[1] - here.current[1]];
     setFrom(here.current);
     here.current = next;
     setAt(next);
@@ -128,6 +179,9 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
     const path = findPath(open, here.current, to);
     if (!path) return false;
     clearTimeout(timer.current);
+    const last = path.at(-1);
+    const before = path.at(-2) ?? here.current;
+    if (last) facing.current = [last[0] - before[0], last[1] - before[1]];
     if (path.length === 0) return true;
     if (reducedMotion()) {
       setFrom(path.length > 1 ? (path[path.length - 2] as Cell) : here.current);
@@ -142,7 +196,10 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
     return true;
   };
 
-  /** Walks to the nearest cell from which a piece can be used. */
+  /**
+   * Walks to the nearest cell from which a piece can be used, and uses it there, or as the walk
+   * starts when it is a long one.
+   */
   const walkToPiece = (id: string): boolean => {
     const p = layout.pieces.find((q) => q.id === id);
     const def = p && DEFS.get(p.id);
@@ -151,7 +208,34 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
       .map((c) => ({ c, path: findPath(open, here.current, c) }))
       .filter((o) => o.path)
       .sort((a, b) => (a.path?.length ?? 0) - (b.path?.length ?? 0))[0];
-    return !!best && walk(best.c);
+    if (!best?.path) return false;
+    const far = best.path.length > OPEN_AFTER_STEPS;
+    pending.current = far ? null : def;
+    if (!walk(best.c)) return false;
+    // Already there, there at once (reduced motion), or too far to wait for.
+    if (far || best.path.length === 0 || reducedMotion()) act(def);
+    // Face the piece: its cell, or the wall above.
+    const cells = isFloor(p) ? cellsOf(p, def) : [];
+    const toward = cells.find((c) => Math.abs(c[0] - best.c[0]) + Math.abs(c[1] - best.c[1]) === 1);
+    facing.current = toward ? [toward[0] - best.c[0], toward[1] - best.c[1]] : [0, -1];
+    faceEnd.current = facing.current;
+    return true;
+  };
+
+  /** The piece you face, or failing that one you stand by, to use with Enter (§4). */
+  const faced = (): string | null => {
+    const [x, y] = here.current;
+    const [dx, dy] = facing.current;
+    const ahead = blocked.get(cellKey([x + dx, y + dy]));
+    if (ahead) return ahead;
+    const by = layout.pieces.filter((p) => {
+      const def = DEFS.get(p.id);
+      return (
+        def && def.place !== 'rug' && standCells(p, def, ROOM, blocked).some((c) => same(c, [x, y]))
+      );
+    });
+    const hanging = by.find((p) => !isFloor(p));
+    return (dy < 0 && hanging ? hanging.id : by[0]?.id) ?? null;
   };
 
   /** What hangs on the wall at a stage point, if anything. */
@@ -172,18 +256,32 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
     const y = (e.clientY - box.top) / view.scale;
     const cell = cellAt(x, y);
     const piece = cell ? blocked.get(cellKey(cell)) : hangingAt(x, y);
+    if (!piece) {
+      pending.current = null;
+      faceEnd.current = null;
+    }
     const went = piece ? walkToPiece(piece) : cell ? walk(cell) : true;
     if (!went) tell('Can’t get there.');
   };
 
   const key = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget) {
+      e.preventDefault();
+      const id = !walking && faced();
+      if (id) walkToPiece(id);
+      return;
+    }
     const d = STEPS[e.key.length === 1 ? e.key.toLowerCase() : e.key];
     if (!d) return;
     e.preventDefault();
     const to: Cell = [here.current[0] + d[0], here.current[1] + d[1]];
+    // A press toward a piece turns you to face it, for Enter.
+    if (!walking) facing.current = d;
     if (!open(...to)) return;
     // Mid-step, the press is the next step, so a quick player loses no key presses.
+    pending.current = null;
+    faceEnd.current = null;
     if (walking) route.current = [to];
     else walk(to);
   };
@@ -203,63 +301,99 @@ export function Room({ layout, look }: { layout: Layout; look: Look }) {
   const petNudge = same(petCell, at) ? 60 : 0;
   const moving = !reducedMotion();
 
+  const things = layout.pieces.flatMap((p) => {
+    const def = DEFS.get(p.id);
+    // Sitting comes with its pose; until then a seat only says its line.
+    return def && def.does !== 'look' && def.does !== 'sit' ? [{ id: p.id, def }] : [];
+  });
+
   return (
-    <div
-      ref={ref}
-      className={`room${view.pan ? ' room--pan' : ''}`}
-      role="group"
-      aria-label="Your room. Tap the floor, or use the arrow keys, to walk."
-      tabIndex={0}
-      onKeyDown={key}
-    >
+    <>
       <div
-        ref={stage}
-        className="room__stage"
-        data-walking={walking || undefined}
-        data-at={cellKey(at)}
-        onClick={tap}
-        style={{
-          width: STAGE.width,
-          height: STAGE.height,
-          transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})`,
-        }}
+        ref={ref}
+        className={`room${view.pan ? ' room--pan' : ''}`}
+        role="group"
+        aria-label="Your room. Tap the floor, or use the arrow keys, to walk."
+        tabIndex={0}
+        onKeyDown={key}
       >
-        <img className="room__layer" src={layers.back} alt="" draggable={false} />
-        {layers.bands.map((b) => (
-          <img
-            key={b.row}
-            className="room__layer"
-            src={b.url}
-            alt=""
-            draggable={false}
-            style={{ zIndex: 2 * b.row }}
-          />
-        ))}
-        {companion && (
-          <svg
-            className={`room__figure room__pet${moving ? ' room__figure--moving' : ''}`}
-            aria-hidden="true"
+        <div
+          ref={stage}
+          className="room__stage"
+          data-walking={walking || undefined}
+          data-at={cellKey(at)}
+          onClick={tap}
+          style={{
+            width: STAGE.width,
+            height: STAGE.height,
+            transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})`,
+          }}
+        >
+          <img className="room__layer" src={layers.back} alt="" draggable={false} />
+          {layers.bands.map((b) => (
+            <img
+              key={b.row}
+              className="room__layer"
+              src={b.url}
+              alt=""
+              draggable={false}
+              style={{ zIndex: 2 * b.row }}
+            />
+          ))}
+          {companion && (
+            <svg
+              className={`room__figure room__pet${moving ? ' room__figure--moving' : ''}`}
+              aria-hidden="true"
+              width={AVATAR_BOX.width}
+              height={AVATAR_BOX.height + 10}
+              viewBox={`0 0 ${AVATAR_BOX.width} ${AVATAR_BOX.height + 10}`}
+              overflow="visible"
+              style={{ transform: placeAt(petCell, petNudge), zIndex: standingZ(petCell[1]) }}
+              dangerouslySetInnerHTML={{ __html: companion }}
+            />
+          )}
+          <Avatar
+            look={look}
+            pet={false}
+            className={`room__figure room__avatar${moving ? ' room__figure--moving' : ''}`}
             width={AVATAR_BOX.width}
             height={AVATAR_BOX.height + 10}
-            viewBox={`0 0 ${AVATAR_BOX.width} ${AVATAR_BOX.height + 10}`}
-            overflow="visible"
-            style={{ transform: placeAt(petCell, petNudge), zIndex: standingZ(petCell[1]) }}
-            dangerouslySetInnerHTML={{ __html: companion }}
+            style={{ transform: placeAt(at), zIndex: standingZ(zRow) }}
           />
-        )}
-        <Avatar
-          look={look}
-          pet={false}
-          className={`room__figure room__avatar${moving ? ' room__figure--moving' : ''}`}
-          width={AVATAR_BOX.width}
-          height={AVATAR_BOX.height + 10}
-          style={{ transform: placeAt(at), zIndex: standingZ(zRow) }}
-        />
-        <img className="room__layer room__light" src={layers.light} alt="" draggable={false} />
+          <img
+            className="room__layer room__light"
+            src={layers.glow}
+            alt=""
+            draggable={false}
+            data-glow={lit ? 'on' : 'off'}
+            style={{ opacity: lit ? 1 : 0 }}
+          />
+          <img className="room__layer room__light" src={layers.light} alt="" draggable={false} />
+        </div>
+        <p className="room__say" role="status">
+          {say}
+        </p>
       </div>
-      <p className="room__say" role="status">
-        {say}
-      </p>
-    </div>
+      {things.length > 0 && (
+        <nav className="room__list" aria-label="In this room">
+          <h2 className="room__list-title">In this room</h2>
+          <ul>
+            {things.map(({ id, def }) => (
+              <li key={id}>
+                <button
+                  type="button"
+                  className="room__thing"
+                  onClick={() => {
+                    if (!walkToPiece(id)) tell('Can’t get there.');
+                  }}
+                >
+                  {def.name.charAt(0).toUpperCase() + def.name.slice(1)}: {USES[def.does]}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </>
   );
 }

@@ -26,7 +26,7 @@ test.describe('the Market (#49)', () => {
 
     // The shop points you to the wardrobe to try it on.
     await page.getByRole('link', { name: 'Try it on at your house' }).click();
-    await expect(page).toHaveURL(/\/house$/);
+    await expect(page).toHaveURL(/\/house#wardrobe$/);
     await page.locator('label', { hasText: 'Red tarboosh' }).click();
     await expect(page.getByRole('radio', { name: 'Red tarboosh' })).toBeChecked();
   });

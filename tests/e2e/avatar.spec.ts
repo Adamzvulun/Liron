@@ -5,7 +5,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
   test('choosing a look previews it, and saving stores it in the profile', async ({ page }) => {
     const updates: unknown[] = [];
     await signedIn(page, updates);
-    await page.goto('/house');
+    await page.goto('/house#wardrobe');
     const save = page.getByRole('button', { name: 'Save my look' });
     await expect(save).toBeDisabled();
 
@@ -31,7 +31,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
   test('a headscarf can be chosen and saved, and taken off again', async ({ page }) => {
     const updates: unknown[] = [];
     await signedIn(page, updates);
-    await page.goto('/house');
+    await page.goto('/house#wardrobe');
     await page.locator('label', { hasText: 'Rose' }).click();
     await expect(page.getByRole('radio', { name: 'Rose' })).toBeChecked();
     await page.getByRole('button', { name: 'Save my look' }).click();
@@ -51,12 +51,12 @@ test.describe('the avatar in Your House (#28, #29)', () => {
     const room = page.locator('.hall-backdrop[data-hall="house"]');
     await expect(room).toHaveAttribute('aria-hidden', 'true');
     await expect(room.locator('img')).toHaveJSProperty('complete', true);
-    await expect(page.getByRole('button', { name: 'Save my look' })).toBeVisible();
+    await expect(page.getByRole('group', { name: /^Your room/ })).toBeVisible();
   });
 
   test('locked gear says how to earn it and cannot be worn', async ({ page }) => {
     await signedIn(page);
-    await page.goto('/house');
+    await page.goto('/house#wardrobe');
     // Locked pieces are folded under each slot, one line saying how many (report §4bk).
     const head = page.getByRole('group', { name: 'Head' });
     await expect(page.getByText('Signaler’s headset (locked)')).toBeHidden();
@@ -69,7 +69,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
   test('gear you own can be worn and saved (ADR 0033)', async ({ page }) => {
     const updates: unknown[] = [];
     await signedIn(page, updates, [], null, [], { owned: ['cloak'] });
-    await page.goto('/house');
+    await page.goto('/house#wardrobe');
     await page.locator('label', { hasText: 'Merchant cloak' }).click();
     await expect(page.getByRole('radio', { name: 'Merchant cloak' })).toBeChecked();
     await expect(page.getByText('Signaler’s headset (locked)')).toBeAttached();
@@ -87,7 +87,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
   }) => {
     const updates: unknown[] = [];
     await signedIn(page, updates, [], null, [], { owned: ['sand-cat'] });
-    await page.goto('/house');
+    await page.goto('/house#wardrobe');
     const row = page.getByRole('group', { name: 'Companion' });
     await expect(row.getByRole('radio', { name: 'None' })).toBeChecked();
     await row.getByText(/still to find$/).click();
@@ -105,7 +105,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
   test('a dye you own colors the tunic; others are locked (#49)', async ({ page }) => {
     const updates: unknown[] = [];
     await signedIn(page, updates, [], null, [], { owned: ['indigo-dye', 'coat'] });
-    await page.goto('/house');
+    await page.goto('/house#wardrobe');
     await expect(page.getByText('Crimson dye (locked)')).toBeAttached();
     await page.locator('label[title="Indigo dye"]').click();
     await expect(page.getByRole('radio', { name: 'Indigo dye' })).toBeChecked();
@@ -119,7 +119,7 @@ test.describe('the avatar in Your House (#28, #29)', () => {
 
   test('undo puts the saved look back', async ({ page }) => {
     await signedIn(page);
-    await page.goto('/house');
+    await page.goto('/house#wardrobe');
     await page.locator('label', { hasText: 'Long' }).click();
     await page.getByRole('button', { name: 'Undo changes' }).click();
     await expect(page.getByRole('radio', { name: 'Crop' })).toBeChecked();

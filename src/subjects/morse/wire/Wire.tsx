@@ -61,7 +61,7 @@ export function Wire({ api }: { api: SubjectApi }) {
         {friends.length === 0 ? (
           <p>
             The wire is for friends. Add one with your friend code in{' '}
-            <Link href="/house">Your House</Link>, and you can key to each other here.
+            <Link href="/house#fellowship">Your House</Link>, and you can key to each other here.
           </p>
         ) : (
           <>

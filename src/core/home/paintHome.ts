@@ -113,7 +113,7 @@ export function paintHome(
 export function homeLayers(
   layout: Layout,
   defs: ReadonlyMap<string, PieceDef>,
-): { back: string; bands: { row: number; svg: string }[]; light: string } {
+): { back: string; bands: { row: number; svg: string }[]; light: string; glow: string } {
   const { wall, rugs, floor } = placed(layout, defs);
   floor.sort((a, b) => a.row - b.row || a.x - b.x);
   const bands = new Map<number, string>();
@@ -126,7 +126,12 @@ export function homeLayers(
       wall.join('') +
       rugs.join(''),
     bands: [...bands].map(([row, svg]) => ({ row, svg: house.defs() + svg })),
-    light: house.defs() + house.houseLight(),
+    // The lantern's glow on its own, so the lantern can put it out (§5); the rest of the light stays.
+    light:
+      house.defs() +
+      `<rect width="1920" height="1080" fill="url(#hs-dusk)"/>` +
+      `<rect width="1920" height="1080" fill="url(#hs-shade)"/>`,
+    glow: house.defs() + `<rect width="1920" height="1080" fill="url(#hs-glow)"/>`,
   };
 }
 
