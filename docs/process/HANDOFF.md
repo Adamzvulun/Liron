@@ -411,3 +411,10 @@
     - visiting together live later (#447).
     Start with 7.1 and 7.2.
 
+160. **7.2 merged, 7.1 drawn and waiting on Adam (2026-11-22).** [#449](https://github.com/Adamzvulun/Liron/pull/449) holds the room's rules: `src/core/home/layout.ts`, `path.ts` and the cases in `layouts.fixture.ts`, which `save_home` (7.3) must be tested on too. The 7.1 PR draws the home from pieces:
+    - **The pieces.** `paintHouse.ts` exports its pieces and gains a desk and a letterbox. `paintHouse()`, the live Your House, is unchanged byte for byte.
+    - **Placing them.** `projection.ts` puts the grid on the stage (X ±450, depth factor 1 to 2), and `paintHome.ts` draws a layout back to front.
+    - **Moving a piece.** A moved piece is scaled about the vanishing point from the point it was painted standing on (`PAINT[...].origin`), and mirrored when it crosses the middle.
+    - **Wall slots.** All six slots are on the back wall now (530, 640, 710 | 1235, 1335, 1435). A wall piece takes 1 to 3 of them, and is used from the first free cell below.
+    - **The renders.** They are in `docs/design/home-v0/`. **Adam approves the look** before #436 closes and ADR 0055 becomes Accepted.
+    - **Before Decorate ships (7.4)**, the cupboard needs a drawing that stands free of the right wall.

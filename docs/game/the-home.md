@@ -21,12 +21,15 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
 - **The floor grid.** The floor is **12 cells across and 5 deep**. The cells are drawn in perspective from the existing vanishing point (`floorAt` in `paintHouse.ts`), so they shrink toward the back wall.
   - A cell is walkable, holds a piece, or is the door.
   - The door is at the front, at the bottom edge. You come in through it.
-- **The back wall** has **6 wall slots**: pictures, the trophy shelf, a clock, a banner.
+- **The back wall** has **6 wall slots**, three on each side of the window: pictures, the trophy shelf, a clock, a banner.
+  - A wall piece hangs in 1 to 3 neighboring slots on one side (the shelf takes 3).
+  - You use what hangs there from the first free cell below it, walking out from the wall: the lantern hangs over the bed, so you reach it from the foot of the bed.
 - **Depth.**
   - Pieces and avatars are drawn back to front, by the row they stand on.
   - An avatar in row 4 is drawn behind a cupboard in row 5.
   - An avatar is scaled by its row, at 70% at the back wall and 100% at the front.
-- **The starter room.** Every player starts with the pieces the house already has: the bed, the cupboard, the chest, the lantern, the rug, the shelf and the picture over the bed. They are arranged as in today's painting, so the house looks the same the first time it opens.
+- **The starter room.** Every player starts with the pieces the house already has: the bed, the cupboard, the chest, the lantern, the rug, the shelf and the picture over the bed. They are arranged as in today's painting, so the house looks the same the first time it opens. Two new pieces join them, in the same style: a **writing desk** under the shelf (the ledger) and a **letterbox** by the window (the fellowship). See [the concept renders](../design/home-v0/README.md).
+- **How a piece moves.** Each piece is painted once, where it stands in the starter room. Moved, it is scaled toward the vanishing point by its new depth and set down on its new cells (`projection.ts`). It shows its side toward the middle of the room, and turns itself when moved across the middle.
 
 ## 4. Walking
 
@@ -59,7 +62,7 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
 - **Decorate** (a button in the room, yours only) shows the grid and a tray of the pieces you own but haven't placed.
 - **To place a piece,** tap it in the tray (or in the room), then tap a cell. Dragging works too, but is never needed ([XAG 107](https://learn.microsoft.com/en-us/gaming/accessibility/xbox-accessibility-guidelines/107)). On a keyboard, the arrows move the held piece and Enter sets it down.
 - **Cells light green or red** under the piece as it moves, for the cells it would cover.
-- **A piece may face left or right** (Flip). Four facings would need four drawings of every piece, so they wait.
+- **A piece faces the middle of the room** and turns itself as it crosses it. A Flip button, and four facings, would need more drawings of every piece, so they wait.
 - **Rules,** checked in the browser as you place and again by the database when you save:
   - A piece covers its footprint, 1×1 to 3×4 cells (a rug up to 6×3), and every cell must be free floor.
   - **Every piece that does something must stay reachable from the door,** and so must the door itself. A placement that would block the way is refused with a reason ("That would block the way to the cupboard.").

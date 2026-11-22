@@ -35,7 +35,7 @@
 4. **Turn on the ruleset** that makes GitHub refuse a red PR (open questions, below).
 5. **Parked:** the third subject (#337), the regulars' voices (Azure, #342), the release of the Fellowship (#332), and how the square feels on his phone (#137). All are in [LATER.md](LATER.md).
 
-**Next to build: v1.4.0, a home of your own** (Phase 7, epic [#435](https://github.com/Adamzvulun/Liron/issues/435), [the-home.md](../game/the-home.md)). Your House becomes a room you walk in, decorate and invite friends into. It starts with 7.1, the room's look, for Adam to approve, while 7.2 (the rules) goes ahead.
+**Next to build: v1.4.0, a home of your own** (Phase 7, epic [#435](https://github.com/Adamzvulun/Liron/issues/435), [the-home.md](../game/the-home.md)). Your House becomes a room you walk in, decorate and invite friends into. 7.2, the room's rules, is merged ([#449](https://github.com/Adamzvulun/Liron/pull/449): grid, footprints, caps, paths, and the starter layout fitted to the painting). 7.1, the room drawn as pieces on the grid, is built: its concept renders ([home-v0](../design/home-v0/README.md)) wait on Adam's approval. 7.3 (`save_home` and `home_of`) can go ahead meanwhile.
 
 **Claude's:** fixes for whatever Adam or a friend finds, gap hunts between them ([report §4ek](reports/2026-11-09.md)), and keeping these docs true.
 

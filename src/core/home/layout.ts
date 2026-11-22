@@ -15,7 +15,7 @@ export interface PieceDef {
   id: string;
   name: string;
   place: Place;
-  /** Width across and depth into the room, in cells. Wall pieces are 1 × 1. */
+  /** Width across and depth into the room, in cells. Wall pieces are 1 deep and 1 to 3 slots wide. */
   size: readonly [number, number];
   does: Does;
   line: string;
@@ -26,8 +26,12 @@ export interface Room {
   rows: number;
   door: Cell;
   caps: { floor: number; wall: number };
-  /** The wall slots, and the floor cells you stand on to use what hangs there. */
-  slots: { slot: number; wall: 'back' | 'left' | 'right'; below: Cell[] }[];
+  /**
+   * The back wall's slots, either side of the window (`zone`), where they hang (`x`, on the
+   * 1920 × 1080 stage), and the floor columns below them: you use what hangs there from the
+   * first free cell of a column, walking out from the wall.
+   */
+  slots: { slot: number; zone: 'left' | 'right'; x: number; cols: number[] }[];
   wallpapers: string[];
   floors: string[];
 }
@@ -93,6 +97,22 @@ export function cellsOf(p: PlacedFloor, def: PieceDef): Cell[] {
   return out;
 }
 
+/**
+ * The slots a wall piece covers, from its slot along the wall, or null when it would run off
+ * the end or across the window.
+ */
+export function slotsOf(p: { slot: number }, def: PieceDef, room: Room): Room['slots'] | null {
+  const first = room.slots.find((s) => s.slot === p.slot);
+  if (!first) return null;
+  const out: Room['slots'] = [];
+  for (let i = 0; i < def.size[0]; i++) {
+    const s = room.slots.find((t) => t.slot === p.slot + i);
+    if (!s || s.zone !== first.zone) return null;
+    out.push(s);
+  }
+  return out;
+}
+
 /** Which cells are taken by something you can't walk through (rugs don't count). */
 export function blockedCells(
   layout: Layout,
@@ -108,8 +128,8 @@ export function blockedCells(
 }
 
 /**
- * The cells you can stand on to use a piece: the free cells beside a floor piece, or the cells
- * below a wall slot. In order of preference: in front first (toward the viewer), then the sides,
+ * The cells you can stand on to use a piece: the free cells beside a floor piece, or the first
+ * free cell of each column below what hangs on the wall. In order of preference: in front first (toward the viewer), then the sides,
  * then behind.
  */
 export function standCells(
@@ -121,8 +141,16 @@ export function standCells(
   const free = ([x, y]: Cell) =>
     x >= 0 && y >= 0 && x < room.cols && y < room.rows && !blocked.has(cellKey([x, y]));
   if (!isFloor(p)) {
-    const slot = room.slots.find((s) => s.slot === p.slot);
-    return (slot?.below ?? []).filter(free);
+    const out: Cell[] = [];
+    for (const slot of slotsOf(p, def, room) ?? [])
+      for (const x of slot.cols) {
+        for (let y = 0; y < room.rows; y++)
+          if (free([x, y])) {
+            out.push([x, y]);
+            break;
+          }
+      }
+    return out;
   }
   const own = new Set(cellsOf(p, def).map(cellKey));
   const front: Cell[] = [];
@@ -165,10 +193,13 @@ export function checkLayout(
     if (isFloor(p) !== (def.place !== 'wall')) return { why: 'wrong-place', id: p.id };
     if (!isFloor(p)) {
       wall++;
-      if (!room.slots.some((s) => s.slot === p.slot)) return { why: 'slot', id: p.id };
-      const other = slots.get(p.slot);
-      if (other) return { why: 'slot-taken', id: p.id, with: other };
-      slots.set(p.slot, p.id);
+      const hung = slotsOf(p, def, room);
+      if (!hung) return { why: 'slot', id: p.id };
+      for (const { slot } of hung) {
+        const other = slots.get(slot);
+        if (other) return { why: 'slot-taken', id: p.id, with: other };
+        slots.set(slot, p.id);
+      }
       continue;
     }
     floor++;
@@ -219,7 +250,7 @@ export function refusalText(r: Refusal, defs: ReadonlyMap<string, PieceDef>): st
     case 'on-door':
       return 'That would block the door.';
     case 'slot':
-      return `${cap(name(r.id))} needs a place on the wall.`;
+      return `${cap(name(r.id))} doesn’t fit on the wall there.`;
     case 'slot-taken':
       return `${cap(name(r.with))} already hangs there.`;
     case 'too-many':
