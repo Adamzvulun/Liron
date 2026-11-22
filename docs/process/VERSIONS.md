@@ -173,5 +173,9 @@ Right after v1.2.0, Adam signed in on his iPhone and Safari crashed as the squar
 
 ### v1.2.2 — The square holds still on a touch screen
 
-On a touch screen the square's pieces don't move, so Safari draws it as one picture. Notes: [releases/v1.2.2.md](releases/v1.2.2.md).
+On a touch screen the square's pieces don't move, so Safari draws it as one picture. Notes: [releases/v1.2.2.md](releases/v1.2.2.md). Released 2026-11-21 ([#402](https://github.com/Adamzvulun/Liron/pull/402)). It still reloaded on the iPhone.
+
+### v1.2.3 — The square as pictures on a touch screen
+
+The painting's ~100 filtered shapes become a few SVG images on a touch screen, filtered once each. Notes: [releases/v1.2.3.md](releases/v1.2.3.md).
 

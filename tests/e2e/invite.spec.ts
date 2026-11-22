@@ -36,12 +36,16 @@ test.describe('invite links (ADR 0052)', () => {
     await expect(page.getByRole('heading', { name: 'Invite a friend' })).toBeVisible();
     await page.getByRole('button', { name: 'Create invite link' }).click();
     const link = page.getByLabel('Invite link');
+    // The fake records the code when the request arrives: wait for it before reading it, or a
+    // slow run compares the link with "undefined" (seen on the phone, 2026-11-21).
+    await expect.poll(() => made.length).toBe(1);
     await expect(link).toHaveValue(new RegExp(`/join#${made[0]}$`));
     await page.getByRole('button', { name: 'Copy link' }).click();
     await expect(page.getByText('Link copied.')).toBeVisible();
     expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await link.inputValue());
     // Another link is another code.
     await page.getByRole('button', { name: 'Create another link' }).click();
+    await expect.poll(() => made.length).toBe(2);
     await expect(link).toHaveValue(new RegExp(`/join#${made[1]}$`));
     expect(made[1]).not.toBe(made[0]);
   });
