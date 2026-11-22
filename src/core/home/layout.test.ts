@@ -167,3 +167,17 @@ describe('walking (the-home.md §4, path.ts)', () => {
     }
   });
 });
+
+describe('the home in the progress store (task 7.3)', () => {
+  it('starts as the starter room, and keeps what is saved', async () => {
+    const { memoryStore } = await import('../progress/store.ts');
+    const store = memoryStore();
+    expect(parseLayout(await store.home()) ?? STARTER).toEqual(STARTER);
+    const moved = must(
+      GOOD.find((g) => g.name === 'the chest moved to the middle'),
+      'case',
+    ).layout;
+    await store.saveHome(moved);
+    expect(parseLayout(await store.home())).toEqual(moved);
+  });
+});

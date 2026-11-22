@@ -58,6 +58,8 @@ export interface FellowshipSource {
   /** Whether your own milestones go to the feed. */
   sharing(): Promise<boolean>;
   setSharing(on: boolean): Promise<void>;
+  /** A friend's room as saved (task 7.3), raw: read it with `parseLayout`. Null for a stranger. */
+  home(id: string): Promise<unknown>;
 }
 
 /** One line of the party feed, as codes; the words are made by `milestoneLine`. */
@@ -146,6 +148,7 @@ export function supabaseFellowship(client: SupabaseClient): FellowshipSource {
     remove: async (id) => void (await call('remove_friend', { p_other: id })),
     cards: async () => list(await call('fellowship'), readCard),
     requests: async () => list(await call('fellowship_requests'), readRequest),
+    home: (id) => call('home_of', { p_friend: id }),
     feed: async () => list(await call('fellowship_feed'), readMilestone),
     sharing: async () => {
       const { data, error } = await client
