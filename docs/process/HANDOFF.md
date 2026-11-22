@@ -418,3 +418,7 @@
     - **Wall slots.** All six slots are on the back wall now (530, 640, 710 | 1235, 1335, 1435). A wall piece takes 1 to 3 of them, and is used from the first free cell below.
     - **The renders.** They are in `docs/design/home-v0/`. **Adam approves the look** before #436 closes and ADR 0055 becomes Accepted.
     - **Before Decorate ships (7.4)**, the cupboard needs a drawing that stands free of the right wall.
+161. **7.3 merged: homes in the database (2026-11-22, [#451](https://github.com/Adamzvulun/Liron/pull/451)).** Migration `20270114000000_homes.sql`.
+    - **What it adds:** `home_pieces` holds the starter pieces; bought furniture is added in 7.6. `homes` holds one layout per player. `home_room()` and `home_starter()` are constants kept equal to `content/core/home.json` by `homes.test.ts`.
+    - **Same rules both sides.** `home_refusal` mirrors `checkLayout` step for step. Change the rules in both places, and add the case to `layouts.fixture.ts`, which both sides are tested on.
+    - **Client:** `ProgressStore.home()` and `saveHome()`, and `FellowshipSource.home(id)`. They return raw layouts; read them with `parseLayout`, and treat null as the starter room.

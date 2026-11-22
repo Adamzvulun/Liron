@@ -1,6 +1,6 @@
 # 0055 — A walkable home, drawn in the page, saved as one layout
 
-- **Status:** Proposed (Adam asked for the home on 2026-11-22 and left the choices to Claude: "Do whatever you think I would do"). It becomes Accepted when Adam approves the room's look (task 7.1).
+- **Status:** Accepted. Adam asked for the home on 2026-11-22 and left the choices to Claude ("Do whatever you think I would do"). He approved the room's look (task 7.1, [concept renders](../design/home-v0/README.md)) the same day: "Looks good."
 - **Date:** 2026-11-22
 - **Spec:** [the-home.md](../game/the-home.md). **Research:** [walkable-home.md](../research/walkable-home.md).
 - **Amends:** [0006](0006-art-direction.md) ("Move to PixiJS only if the lobby becomes a walkable scene"). **Builds on:** [0025](0025-city-painted-in-the-browser.md), [0029](0029-database-is-the-only-writer-of-rewards.md), [0033](0033-inventory-chests-and-market.md), [0042](0042-the-fellowship-first-slice.md).

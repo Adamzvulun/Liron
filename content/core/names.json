@@ -1,0 +1,423 @@
+{
+  "subject": "core",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "name:abir",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Abir"
+      }
+    },
+    {
+      "id": "name:adil",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Adil"
+      }
+    },
+    {
+      "id": "name:aisha",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Aisha"
+      }
+    },
+    {
+      "id": "name:amir",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Amir"
+      }
+    },
+    {
+      "id": "name:anwar",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Anwar"
+      }
+    },
+    {
+      "id": "name:asma",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Asma"
+      }
+    },
+    {
+      "id": "name:ayman",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Ayman"
+      }
+    },
+    {
+      "id": "name:basil",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Basil"
+      }
+    },
+    {
+      "id": "name:dawood",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Dawood"
+      }
+    },
+    {
+      "id": "name:dina",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Dina"
+      }
+    },
+    {
+      "id": "name:faris",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Faris"
+      }
+    },
+    {
+      "id": "name:fatin",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Fatin"
+      }
+    },
+    {
+      "id": "name:ghada",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Ghada"
+      }
+    },
+    {
+      "id": "name:ghalia",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Ghalia"
+      }
+    },
+    {
+      "id": "name:hamza",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Hamza"
+      }
+    },
+    {
+      "id": "name:hisham",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Hisham"
+      }
+    },
+    {
+      "id": "name:idris",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Idris"
+      }
+    },
+    {
+      "id": "name:imad",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Imad"
+      }
+    },
+    {
+      "id": "name:iman",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Iman"
+      }
+    },
+    {
+      "id": "name:inas",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Inas"
+      }
+    },
+    {
+      "id": "name:jabir",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Jabir"
+      }
+    },
+    {
+      "id": "name:jumana",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Jumana"
+      }
+    },
+    {
+      "id": "name:lamia",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Lamia"
+      }
+    },
+    {
+      "id": "name:lubna",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Lubna"
+      }
+    },
+    {
+      "id": "name:maha",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Maha"
+      }
+    },
+    {
+      "id": "name:malik",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Malik"
+      }
+    },
+    {
+      "id": "name:manal",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Manal"
+      }
+    },
+    {
+      "id": "name:mansur",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Mansur"
+      }
+    },
+    {
+      "id": "name:mazin",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Mazin"
+      }
+    },
+    {
+      "id": "name:munir",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Munir"
+      }
+    },
+    {
+      "id": "name:najwa",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Najwa"
+      }
+    },
+    {
+      "id": "name:nasir",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Nasir"
+      }
+    },
+    {
+      "id": "name:nisrin",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Nisrin"
+      }
+    },
+    {
+      "id": "name:nizar",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Nizar"
+      }
+    },
+    {
+      "id": "name:qasim",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Qasim"
+      }
+    },
+    {
+      "id": "name:rashid",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Rashid"
+      }
+    },
+    {
+      "id": "name:reem",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Reem"
+      }
+    },
+    {
+      "id": "name:rima",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Rima"
+      }
+    },
+    {
+      "id": "name:salma",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Salma"
+      }
+    },
+    {
+      "id": "name:sana",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Sana"
+      }
+    },
+    {
+      "id": "name:sawsan",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Sawsan"
+      }
+    },
+    {
+      "id": "name:sharif",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Sharif"
+      }
+    },
+    {
+      "id": "name:suha",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Suha"
+      }
+    },
+    {
+      "id": "name:tawfiq",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Tawfiq"
+      }
+    },
+    {
+      "id": "name:walid",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Walid"
+      }
+    },
+    {
+      "id": "name:wasim",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Wasim"
+      }
+    },
+    {
+      "id": "name:yara",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Yara"
+      }
+    },
+    {
+      "id": "name:yasin",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Yasin"
+      }
+    },
+    {
+      "id": "name:zahra",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Zahra"
+      }
+    },
+    {
+      "id": "name:zaki",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Zaki"
+      }
+    },
+    {
+      "id": "name:zaynab",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Zaynab"
+      }
+    },
+    {
+      "id": "name:ziyad",
+      "subject": "core",
+      "type": "starter-name",
+      "data": {
+        "name": "Ziyad"
+      }
+    }
+  ]
+}
