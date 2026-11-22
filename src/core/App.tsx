@@ -12,6 +12,7 @@ import { missingConfig, supabase } from './auth/supabase.ts';
 import { useAuth } from './auth/useAuth.ts';
 import { passwordRefused } from './auth/password.ts';
 import { City } from './city/City.tsx';
+import { warmSquare } from './city/square.ts';
 import { placeAt, residentsOf } from './city/layout.ts';
 import type { PlaceId } from './city/painter.js';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
@@ -363,6 +364,18 @@ function Lobby({ player }: { player: Player }) {
       clearTimeout(off);
     };
   }, [path, roads]);
+  // Away from the square, it is made ready once the page is idle, so the way back is quick
+  // (warmSquare; the speed budget's "back from a hall").
+  const away = path !== '/';
+  useEffect(() => {
+    if (!away) return;
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(warmSquare, { timeout: 3000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(warmSquare, 1500);
+    return () => clearTimeout(id);
+  }, [away]);
   // Friends in the square (task 3.3): read once the square is up, so they never slow its first
   // paint (task 1.7's budget), and again on each return to the square.
   const [friends, setFriends] = useState<FriendCard[]>([]);
