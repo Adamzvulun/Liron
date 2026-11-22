@@ -74,3 +74,16 @@ export const avatarScale = (row: number): number => 1.22 + (0.5 * row) / (ROOM.r
 export const cellFeet = (col: number, row: number): Pt => floorPoint(col + 0.5, row + 0.5);
 
 const r = (n: number) => Math.round(n * 100) / 100;
+
+/**
+ * The floor cell under a point of the stage, or null off the floor: floorPoint read backward.
+ * The inverse of the depth factor: t = 1 / (1 − (1 − 1/FRONT_T) · row / rows).
+ */
+export function cellAt(x: number, y: number): readonly [col: number, row: number] | null {
+  const t = (y - VP[1]) / (FOOT - VP[1]);
+  if (t < 1 || t > FRONT_T) return null;
+  const row = Math.floor(((1 - 1 / t) / (1 - 1 / FRONT_T)) * ROOM.rows);
+  const col = Math.floor((((x - VP[0]) / t + HALF_WIDTH) * ROOM.cols) / (2 * HALF_WIDTH));
+  if (col < 0 || col >= ROOM.cols) return null;
+  return [col, Math.min(row, ROOM.rows - 1)];
+}

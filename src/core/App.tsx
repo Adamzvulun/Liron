@@ -70,6 +70,7 @@ const FriendHouse = lazy(() => views().then((m) => ({ default: m.FriendHouse }))
 const PartyFeed = lazy(() => views().then((m) => ({ default: m.PartyFeed })));
 const ChestShelf = lazy(() => views().then((m) => ({ default: m.ChestShelf })));
 const HouseBackdrop = lazy(() => views().then((m) => ({ default: m.HouseBackdrop })));
+const HouseRoom = lazy(() => views().then((m) => ({ default: m.HouseRoom })));
 const MarketBackdrop = lazy(() => views().then((m) => ({ default: m.MarketBackdrop })));
 const BoardBackdrop = lazy(() => views().then((m) => ({ default: m.BoardBackdrop })));
 const TogetherQuest = lazy(() => views().then((m) => ({ default: m.TogetherQuest })));
@@ -142,6 +143,8 @@ const wire =
 /** Fellowship quests and gifts (task 3.5): counted, paid and given by the database. */
 const together = supabase && fellowship ? supabaseTogether(supabase) : null;
 const readGifts = together ? () => together.gifts() : undefined;
+/** Your House's saved room; null, as for a player who never decorated, without a store. */
+const readHome = () => store?.home() ?? Promise.resolve(null);
 
 const sharing = fellowship
   ? {
@@ -632,6 +635,7 @@ function Lobby({ player }: { player: Player }) {
               )}
               {place === 'house' && state.profile && (
                 <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
+                  <HouseRoom onLoad={readHome} look={state.profile.avatar} />
                   <Wardrobe
                     look={state.profile.avatar}
                     owned={state.profile.owned}

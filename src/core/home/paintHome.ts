@@ -45,12 +45,8 @@ export interface HomeView {
 
 const TONE = { ok: '#7FD89A', no: '#E0655A', held: '#FFE7A8' } as const;
 
-/** The room laid out as `layout`, as SVG markup for the 1920 × 1080 stage. */
-export function paintHome(
-  layout: Layout,
-  defs: ReadonlyMap<string, PieceDef>,
-  view: HomeView = {},
-): string {
+/** Each placed piece's markup, carried to its place: what hangs, the rugs, and the rest by row. */
+function placed(layout: Layout, defs: ReadonlyMap<string, PieceDef>) {
   const anchor = new Map(STARTER.pieces.map((p) => [p.id, p]));
   const wall: string[] = [];
   const rugs: string[] = [];
@@ -80,6 +76,16 @@ export function paintHome(
     if (def.place === 'rug') rugs.push(svg);
     else floor.push({ row: p.at[1] + def.size[1], x: p.at[0], svg });
   }
+  return { wall, rugs, floor };
+}
+
+/** The room laid out as `layout`, as SVG markup for the 1920 × 1080 stage. */
+export function paintHome(
+  layout: Layout,
+  defs: ReadonlyMap<string, PieceDef>,
+  view: HomeView = {},
+): string {
+  const { wall, rugs, floor } = placed(layout, defs);
   for (const s of view.standing ?? []) floor.push({ row: s.row + 1, x: 99, svg: s.svg });
   // Nearer pieces last; on the same row, the one standing there (x 99) last.
   floor.sort((a, b) => a.row - b.row || a.x - b.x);
@@ -96,6 +102,32 @@ export function paintHome(
     (view.marks ?? []).map(outline).join('') +
     house.houseLight()
   );
+}
+
+/**
+ * The room in layers, for the walkable room (Room.tsx, task 7.5): the walls, the window, what
+ * hangs and the rugs behind everything; then one layer per row line, holding the pieces whose
+ * front edge is on it; then the lamplight over all. Someone standing in row r goes between the
+ * layer at line r + 1 and the next, as paintHome's `standing` does.
+ */
+export function homeLayers(
+  layout: Layout,
+  defs: ReadonlyMap<string, PieceDef>,
+): { back: string; bands: { row: number; svg: string }[]; light: string } {
+  const { wall, rugs, floor } = placed(layout, defs);
+  floor.sort((a, b) => a.row - b.row || a.x - b.x);
+  const bands = new Map<number, string>();
+  for (const f of floor) bands.set(f.row, (bands.get(f.row) ?? '') + f.svg);
+  return {
+    back:
+      house.defs() +
+      house.room(styleOf(layout)) +
+      house.windowToTheSquare() +
+      wall.join('') +
+      rugs.join(''),
+    bands: [...bands].map(([row, svg]) => ({ row, svg: house.defs() + svg })),
+    light: house.defs() + house.houseLight(),
+  };
 }
 
 /** The layout's wallpaper and floor, or the plain room's for any this build doesn't paint. */
