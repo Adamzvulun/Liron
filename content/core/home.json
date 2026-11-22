@@ -212,6 +212,102 @@
         "does": "fellowship",
         "line": "Letters from your friends."
       }
+    },
+    {
+      "id": "home-chair",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "chair",
+        "place": "floor",
+        "size": [1, 1],
+        "does": "sit",
+        "line": "A plain wooden chair."
+      }
+    },
+    {
+      "id": "home-bench",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "bench",
+        "place": "floor",
+        "size": [3, 1],
+        "does": "sit",
+        "line": "Room for three, or one stretched out."
+      }
+    },
+    {
+      "id": "home-table",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "table",
+        "place": "floor",
+        "size": [2, 2],
+        "does": "look",
+        "line": "Fruit from the market, always fresh."
+      }
+    },
+    {
+      "id": "home-plant",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "plant",
+        "place": "floor",
+        "size": [1, 1],
+        "does": "look",
+        "line": "It leans toward the window."
+      }
+    },
+    {
+      "id": "home-bookcase",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "bookcase",
+        "place": "floor",
+        "size": [2, 1],
+        "does": "look",
+        "line": "Every book you’ve finished, and a few you haven’t."
+      }
+    },
+    {
+      "id": "home-cushion",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "cushion",
+        "place": "floor",
+        "size": [1, 1],
+        "does": "sit",
+        "line": "Soft enough for a long evening."
+      }
+    },
+    {
+      "id": "home-clock",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "clock",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "look",
+        "line": "It ticks a little slow."
+      }
+    },
+    {
+      "id": "home-desert",
+      "subject": "core",
+      "type": "home-furniture",
+      "data": {
+        "name": "desert picture",
+        "place": "wall",
+        "size": [1, 1],
+        "does": "look",
+        "line": "The desert at night, under a new moon."
+      }
     }
   ]
 }

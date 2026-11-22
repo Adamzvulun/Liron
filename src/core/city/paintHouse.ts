@@ -41,10 +41,74 @@ export function defs(): string {
 </defs>`;
 }
 
-export function room(): string {
+/** The room's styles (the-home.md §7): the wallpaper and the floor are styles, not pieces. */
+export const WALLPAPERS = ['plaster', 'sea-wash', 'rose-stripe', 'zellige'] as const;
+export const FLOORS = ['planks', 'terracotta', 'flagstone', 'dark-oak'] as const;
+export interface RoomStyle {
+  wallpaper: (typeof WALLPAPERS)[number];
+  floor: (typeof FLOORS)[number];
+}
+const PLAIN: RoomStyle = { wallpaper: 'plaster', floor: 'planks' };
+
+/** Each wallpaper's back wall (top, middle, foot) and side walls (far, near). */
+const WALL_COLORS = {
+  plaster: null,
+  'sea-wash': {
+    back: ['#7FA39E', '#A9CBC4', '#8DB2AB'],
+    left: ['#5E7F7A', '#86A8A1'],
+    right: ['#56766F', '#7FA19A'],
+  },
+  'rose-stripe': {
+    back: ['#B98A78', '#E3B9A6', '#C99A86'],
+    left: ['#8E6456', '#B98C7A'],
+    right: ['#855C4F', '#B08372'],
+  },
+  zellige: null,
+} as const;
+
+/** Each floor's colors, back to front, and its joints. */
+const FLOOR_COLORS = {
+  planks: null,
+  terracotta: { from: '#8A3F24', to: '#C0663E', joint: '#5E2A16' },
+  flagstone: { from: '#5E5A52', to: '#9A948A', joint: '#3E3A34' },
+  'dark-oak': { from: '#2E1A0E', to: '#5E3820', joint: '#1E1008' },
+} as const;
+
+/** The gradients and patterns a style adds to the house's own. */
+function styleDefs({ wallpaper, floor }: RoomStyle): string {
+  const grad = (id: string, [a, b, c]: readonly string[], x = false) =>
+    `<linearGradient id="${id}" x1="0" y1="0" x2="${x ? 1 : 0}" y2="${x ? 0 : 1}"><stop offset="0" stop-color="${a}"/>` +
+    (c
+      ? `<stop offset=".55" stop-color="${b}"/><stop offset="1" stop-color="${c}"/>`
+      : `<stop offset="1" stop-color="${b}"/>`) +
+    `</linearGradient>`;
+  const out: string[] = [];
+  const w = WALL_COLORS[wallpaper];
+  if (w)
+    out.push(
+      grad(`hs-wall-${wallpaper}`, w.back),
+      grad(`hs-side-${wallpaper}`, w.left, true),
+      grad(`hs-side-r-${wallpaper}`, [...w.right].reverse(), true),
+    );
+  if (wallpaper === 'rose-stripe')
+    out.push(
+      `<pattern id="hs-stripe" width="36" height="40" patternUnits="userSpaceOnUse"><rect width="12" height="40" fill="#FFF3E8" opacity=".22"/><rect x="18" width="3" height="40" fill="#8E2E35" opacity=".18"/></pattern>`,
+    );
+  if (wallpaper === 'zellige')
+    out.push(
+      `<pattern id="hs-zellige" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#F3E3C0"/><path d="M20 2 L38 20 L20 38 L2 20 Z" fill="#265965"/><path d="M20 10 L30 20 L20 30 L10 20 Z" fill="#3F7F8C"/><circle cx="20" cy="20" r="3.5" fill="#E0B05A"/><path d="M0 0 L6 0 L0 6 Z M40 0 L34 0 L40 6 Z M0 40 L6 40 L0 34 Z M40 40 L34 40 L40 34 Z" fill="#4E8A4A"/></pattern>`,
+    );
+  const fl = FLOOR_COLORS[floor];
+  if (fl) out.push(grad(`hs-floor-${floor}`, [fl.from, fl.to]));
+  return out.length ? `<defs>${out.join('')}</defs>` : '';
+}
+
+export function room(style: RoomStyle = PLAIN): string {
   const leftFoot = floorAt(L, 1080);
   const rightFoot = floorAt(R, 1080);
-  const out: string[] = [];
+  const out: string[] = [styleDefs(style)];
+  const wallFill = (id: string) =>
+    WALL_COLORS[style.wallpaper] ? `url(#${id}-${style.wallpaper})` : `url(#${id})`;
   // Ceiling, side walls, back wall, floor.
   out.push(
     `<path d="${poly([
@@ -55,29 +119,64 @@ export function room(): string {
     ])}" fill="url(#hs-ceil)"/>`,
   );
   out.push(
-    `<path d="${poly([[0, 0], [L, T], [L, B], leftFoot, [0, 1080]])}" fill="url(#hs-side)"/>`,
+    `<path d="${poly([[0, 0], [L, T], [L, B], leftFoot, [0, 1080]])}" fill="${wallFill('hs-side')}"/>`,
   );
   out.push(
-    `<path d="${poly([[1920, 0], [R, T], [R, B], rightFoot, [1920, 1080]])}" fill="url(#hs-side-r)"/>`,
+    `<path d="${poly([[1920, 0], [R, T], [R, B], rightFoot, [1920, 1080]])}" fill="${wallFill('hs-side-r')}"/>`,
   );
-  out.push(`<rect x="${L}" y="${T}" width="${R - L}" height="${B - T}" fill="url(#hs-wall)"/>`);
   out.push(
-    `<path d="${poly([[L, B], [R, B], rightFoot, [1920, 1080], [0, 1080], leftFoot])}" fill="url(#hs-floor)"/>`,
+    `<rect x="${L}" y="${T}" width="${R - L}" height="${B - T}" fill="${wallFill('hs-wall')}"/>`,
+  );
+  if (style.wallpaper === 'rose-stripe')
+    out.push(`<rect x="${L}" y="${T}" width="${R - L}" height="${B - T}" fill="url(#hs-stripe)"/>`);
+  if (style.wallpaper === 'zellige')
+    // A tiled dado along the foot of the back wall, under a wooden rail.
+    out.push(
+      `<rect x="${L}" y="560" width="${R - L}" height="${B - 560}" fill="url(#hs-zellige)" opacity=".9"/>` +
+        `<rect x="${L}" y="550" width="${R - L}" height="14" fill="${WOOD}" ${OUT(2.5)}/>`,
+    );
+  out.push(
+    `<path d="${poly([[L, B], [R, B], rightFoot, [1920, 1080], [0, 1080], leftFoot])}" fill="${FLOOR_COLORS[style.floor] ? `url(#hs-floor-${style.floor})` : 'url(#hs-floor)'}"/>`,
   );
   // Floor planks toward the vanishing point, and their joints, kept on the floor.
   const floor = poly([[L, B], [R, B], rightFoot, [1920, 1080], [0, 1080], leftFoot]);
   const planks: string[] = [];
-  for (let x = L - 1260; x <= R + 1260; x += 90) planks.push(line([VP, floorAt(x, 1080)]));
-  for (const y of [760, 820, 905, 1010])
-    planks.push(
-      line([
-        [0, y],
-        [1920, y],
-      ]),
-    );
+  const across = (y: number) =>
+    line([
+      [0, y],
+      [1920, y],
+    ]);
+  if (style.floor === 'planks') {
+    for (let x = L - 1260; x <= R + 1260; x += 90) planks.push(line([VP, floorAt(x, 1080)]));
+    for (const y of [760, 820, 905, 1010]) planks.push(across(y));
+  } else if (style.floor === 'dark-oak') {
+    for (let x = L - 1260; x <= R + 1260; x += 60) planks.push(line([VP, floorAt(x, 1080)]));
+    for (const y of [745, 790, 850, 930, 1040]) planks.push(across(y));
+  } else {
+    // Square tiles in perspective: rows equal in depth, so they shrink toward the back.
+    const size = style.floor === 'terracotta' ? 135 : 180;
+    const rows: number[] = [];
+    const step = style.floor === 'terracotta' ? 0.075 : 0.1;
+    for (let k = 1; ; k++) {
+      const y = VP[1] + (B - VP[1]) / (1 - k * step);
+      if (y > 1080 || k * step >= 0.6) break;
+      rows.push(y);
+    }
+    for (const y of rows) planks.push(across(y));
+    if (style.floor === 'terracotta')
+      for (let x = L - 1260; x <= R + 1260; x += size) planks.push(line([VP, floorAt(x, 1080)]));
+    else
+      // Flagstones: each row's joints offset by half a stone.
+      rows.slice(0, -1).forEach((y0, i) => {
+        const y1 = rows[i + 1] ?? 1080;
+        for (let x = L - 1260 + (i % 2) * (size / 2); x <= R + 1260; x += size)
+          planks.push(line([floorAt(x, y0), floorAt(x, y1)]));
+      });
+  }
+  const joint = FLOOR_COLORS[style.floor]?.joint ?? '#4A2A16';
   out.push(
     `<clipPath id="hs-floorclip"><path d="${floor}"/></clipPath>` +
-      `<path d="${planks.join(' ')}" clip-path="url(#hs-floorclip)" stroke="#4A2A16" stroke-width="2.5" opacity=".55" fill="none"/>`,
+      `<path d="${planks.join(' ')}" clip-path="url(#hs-floorclip)" stroke="${joint}" stroke-width="2.5" opacity=".55" fill="none"/>`,
   );
   // Ceiling beams, running back to the far wall.
   for (const x of [L, 690, 960, 1230, R]) {
