@@ -55,13 +55,13 @@ describe('a visit to the square', () => {
     ).toBe(false);
   });
 
-  it('the first page quiets the visit too', () => {
+  it('the first page does not: "Look around the square first" leads into the welcome (R2)', () => {
     expect(
       walk([
         [true, 'first-page'],
         [true, null],
       ]).spoken,
-    ).toBe(true);
+    ).toBe(false);
   });
 
   it('a celebration in a hall does not quiet the next visit to the square', () => {
