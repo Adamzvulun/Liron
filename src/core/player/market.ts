@@ -1,4 +1,5 @@
 import { DYES, GEAR, SLOTS } from '../avatar/looks.ts';
+import { MAX_SHIELDS } from '../progress/economy.ts';
 import type { Ware } from '../progress/store.ts';
 
 /** A ware's name: the gear's or the dye's, or the streak shield. */
@@ -12,7 +13,8 @@ export function wareName(w: Pick<Ware, 'id'>): string {
 
 /** What the ware is, in a few words. */
 export function wareNote(w: Ware): string {
-  if (w.kind === 'functional') return 'Saves your streak on a missed day. Hold up to 2.';
+  if (w.kind === 'functional')
+    return `Saves your streak on a missed day. Hold up to ${MAX_SHIELDS}.`;
   if (w.kind === 'color') return 'Dyes your traveler’s tunic.';
   const rarity = w.rarity.charAt(0).toUpperCase() + w.rarity.slice(1);
   if (!w.slot) return rarity;

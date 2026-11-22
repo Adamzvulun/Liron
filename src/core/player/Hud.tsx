@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
 import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import { Link } from '../Link.tsx';
+import { GUIDEBOOK_PATH } from '../guide/context.ts';
 import { DAILY_GOAL_CHOICES, levelProgress, titleForLevel } from '../progress/economy.ts';
 import { MAX_NAME_LENGTH } from '../progress/store.ts';
 import { CoinIcon, FlameIcon, GearIcon, GemIcon, HourglassIcon, ShieldIcon } from './icons.tsx';
@@ -470,6 +471,13 @@ function SettingsPanel({
           </button>
         </section>
       )}
+      <section className="hud__section hud__goalrow" aria-label="Guidebook">
+        <span className="hud__rowlabel">Guidebook</span>
+        <span className="hud__rowvalue">What everything in the city is for</span>
+        <Link className="hud__textbutton hud__guidebook" href={GUIDEBOOK_PATH}>
+          Open
+        </Link>
+      </section>
       <SoundRows />
       {sharing && <SharingRow source={sharing} />}
       {invites && <InviteRows source={invites} />}

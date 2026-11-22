@@ -387,6 +387,15 @@
   cursor: pointer;
 }
 
+/* The Guidebook's row opens a page, so its button is a link drawn as one. */
+.hud__guidebook {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
 .hud__textbutton:hover {
   background: rgb(243 226 188 / 22%);
 }

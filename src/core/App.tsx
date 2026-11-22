@@ -18,7 +18,7 @@ import type { PlaceId } from './city/painter.js';
 import { PlaceScreen } from './city/PlaceScreen.tsx';
 import { PlaceBoundary } from './ErrorBoundary.tsx';
 import { Link } from './Link.tsx';
-import { usePath } from './router.ts';
+import { navigate, usePath } from './router.ts';
 import { chestShelf } from './player/chests.ts';
 import { GoalReached } from './player/GoalReached.tsx';
 import { Hud, QuestTracker } from './player/Hud.tsx';
@@ -27,7 +27,7 @@ import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { cityErrands, useCompass, type CompassSources } from './player/compass.ts';
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
-import { GuideContext } from './guide/context.ts';
+import { GUIDEBOOK_PATH, GuideContext } from './guide/context.ts';
 import { isInside, nextIntroduction } from './guide/introductions.ts';
 import { GUIDE_IDS, guideSeen } from './guide/seen.ts';
 import { useSpokenThisVisit, whoSpeaks } from './guide/voice.ts';
@@ -54,6 +54,9 @@ import './App.css';
 const views = () => import('./placeViews.tsx');
 const Welcome = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.Welcome })));
 const PlaceCard = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.PlaceCard })));
+const Guidebook = lazy(() =>
+  import('./guide/Guidebook.tsx').then((m) => ({ default: m.Guidebook })),
+);
 const Introduce = lazy(() => import('./guide/Welcome.tsx').then((m) => ({ default: m.Introduce })));
 const FirstPage = lazy(() =>
   import('./player/FirstPage.tsx').then((m) => ({ default: m.FirstPage })),
@@ -464,8 +467,8 @@ function Lobby({ player }: { player: Player }) {
         )
       : null;
   const [hushed, setHushed] = useState(false);
-  // Tapping Nour (#406): their line again, or, with nothing new to say, the welcome again
-  // (the Guidebook's "Show me around again" until the Guidebook comes, #412).
+  // Tapping Nour (#406): their line again, or, with nothing new to say, the Guidebook (#412),
+  // whose "Show me around again" brings the welcome back.
   const [asked, setAsked] = useState<'line' | 'welcome' | null>(null);
   if (!onSquare && (hushed || asked)) {
     setHushed(false);
@@ -653,6 +656,22 @@ function Lobby({ player }: { player: Player }) {
       </>
     );
   }
+  if (path === GUIDEBOOK_PATH) {
+    return (
+      <>
+        <Suspense fallback={null}>
+          <Guidebook
+            subjects={subjects}
+            onTour={() => {
+              navigate('/');
+              setAsked('welcome');
+            }}
+          />
+        </Suspense>
+        {celebrations}
+      </>
+    );
+  }
   if (path !== '/') return <Lost />;
   return (
     <City
@@ -666,7 +685,9 @@ function Lobby({ player }: { player: Player }) {
         seen
           ? () => {
               setHushed(false);
-              setAsked(intro && !welcomeDue ? 'line' : 'welcome');
+              if (welcomeDue) setAsked('welcome');
+              else if (intro) setAsked('line');
+              else navigate(GUIDEBOOK_PATH);
             }
           : undefined
       }
