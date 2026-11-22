@@ -57,6 +57,7 @@ export const GUIDE_SAID = [
   'intro:other-hall',
   'intro:arena',
   'intro:ledger',
+  'intro:decorate',
   // First-visit cards (#411): the platform's places, then each hall's.
   ...['board', 'market', 'house', 'arena'].map((p) => `card:${p}`),
   ...['hall', 'lessons', 'recognition', 'sending', 'codebook', 'radio'].map(

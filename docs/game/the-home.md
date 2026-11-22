@@ -97,6 +97,7 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
   - the room layout: which pieces, where, which way they face, the wallpaper and the floor;
   - the card it already gives.
   - Nothing about what they own but haven't placed.
+- *Built in 7.10 ([#445](https://github.com/Adamzvulun/Liron/issues/445)), the guide:* Nour's eighth introduction points at Your House once the player owns something for the room ("You have something new for your room. In Your House, tap Decorate and set it wherever you like."). The Guidebook's "Your House" page covers walking, the four pieces, Decorate, the caps (`{floorPieces}` and `{wallPieces}`, read from `home.json`) and visits; the Market and Fellowship pages mention the room. All in `guide-words.md` for Adam's read (#413).
 - *Built in 7.9 ([#444](https://github.com/Adamzvulun/Liron/issues/444)):* `FriendHouse` draws the friend's room from `home_of` (the starter room if they never decorated) with the same `Room` as your own, given a `host`: they stand still on the free cell nearest the window (`byTheWindow`), which you can't walk through; tapping them says they're glad you came by. The list "In this room" says "see their trophies" for the shelf, which opens their card as a panel; the cupboard, desk and letterbox only "look", with a line written for a visitor (`visit` in `home.json`, also on the bed, the bookcase and the banners, whose lines say "your"). No Decorate button, nothing saved. FRIENDS.md says what a friend sees.
 
 ## 9. Later, in order, not cut

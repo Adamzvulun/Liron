@@ -19,6 +19,7 @@ Buttons: Next · Got it · Skip
 - **intro:other-hall:** The other hall’s door is open too, whenever you’re curious.
 - **intro:arena:** Up at the Arena, friends challenge each other. Yours might be waiting.
 - **intro:ledger:** The desk in Your House keeps a ledger of how far you’ve come, and the shelf your trophies.
+- **intro:decorate:** You have something new for your room. In Your House, tap Decorate and set it wherever you like.
 
 Button: Got it
 
@@ -65,15 +66,15 @@ Today’s quests and your daily goal are posted here. Each day brings three cont
 
 ### The Market
 
-Five wares are set out each day, the same for everyone: gear for your traveler from 60 gold up, a dye, a streak shield, and a piece of furniture for your room. You can also buy a ware as a gift for a friend.
+Five wares are set out each day, the same for everyone: gear for your traveler from 60 gold up, a dye, a streak shield, and something for your room: furniture, a wallpaper or a floor. You can also buy a ware as a gift for a friend.
 
 ### Your House
 
-Your own room: tap the floor or use the arrow keys to walk, and tap a piece to use it. The cupboard dresses your traveler in the gear you own. The desk holds the ledger of what you’ve learned, guild by guild, and the shelf shows the achievements you’ve earned. The list “In this room” opens any of them without walking.
+Your own room: tap the floor or use the arrow keys to walk, and tap a piece to use it. The cupboard dresses your traveler, the desk keeps your ledger, the shelf your trophies, and the letterbox the Fellowship. Decorate moves anything in the room and sets out the furniture, wallpapers and floors you own; Done keeps it, Cancel puts it all back. A room holds up to 20 pieces on the floor and 6 on the wall, and the way from the door must stay open. Friends can visit and walk around your room, but only you can change it.
 
 ### The Fellowship
 
-Friends you invite are here, with what they’ve been up to. Invite someone from Settings: they make their own account and are your friend at once. Friends stand in the square, and tapping one visits their house.
+Friends you invite are here, with what they’ve been up to. Invite someone from Settings: they make their own account and are your friend at once. Friends stand in the square, and tapping one visits their house: their room as they arranged it.
 
 ### The Arena
 

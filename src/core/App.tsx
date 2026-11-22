@@ -28,7 +28,7 @@ import { cityErrands, useCompass, type CompassSources } from './player/compass.t
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
 import { GUIDEBOOK_PATH, GuideContext } from './guide/context.ts';
-import { cardSide, isInside, nextIntroduction } from './guide/introductions.ts';
+import { cardSide, isForRoom, isInside, nextIntroduction } from './guide/introductions.ts';
 import { GUIDE_IDS, guideSeen } from './guide/seen.ts';
 import { useSpokenThisVisit, whoSpeaks } from './guide/voice.ts';
 import { localDay } from './road/road.ts';
@@ -463,6 +463,7 @@ function Lobby({ player }: { player: Player }) {
           {
             gold: state.wallet.gold,
             owned: state.profile.owned.length,
+            forRoom: state.profile.owned.filter(isForRoom).length,
             friends: friends.length,
             roads: roads.map((r) => ({
               hall: placeAt(r.href.split('?')[0] ?? ''),

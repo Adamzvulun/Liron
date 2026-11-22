@@ -16,6 +16,8 @@ export interface IntroFacts {
   gold: number;
   /** How many items the player owns. */
   owned: number;
+  /** How many of them are for their room: furniture, a banner, a wallpaper or a floor. */
+  forRoom: number;
   /** How many friends stand in the player's Fellowship. */
   friends: number;
   /** Each guild's road: the hall it is walked in, and how many of its steps are done. */
@@ -57,7 +59,14 @@ const ORDER: readonly ((f: IntroFacts) => Introduction | null)[] = [
   // 7. The ledger and trophies, in Your House: once there's a road behind the player (ten
   //    steps, a stand-in: the square doesn't read ranks, and a first rank can come at once).
   (f) => (stepsDone(f) >= 10 ? at(GUIDE_IDS.ledger, 'house') : null),
+  // 8. Decorate, in Your House (the-home.md, #445): once something for the room is owned. A
+  //    stand-in for "owned but not placed": the square doesn't read the room's layout, and
+  //    anything bought, found or given for the room starts in the tray.
+  (f) => (f.forRoom > 0 ? at(GUIDE_IDS.decorate, 'house') : null),
 ];
+
+/** Whether an item is for the room (the ids of `home-furniture` and `home-style` in home.json). */
+export const isForRoom = (id: string) => /^(home-|wallpaper-|floor-)/.test(id);
 
 /** The introduction due now, or null: the first whose moment has come and isn't seen (R6). */
 export function nextIntroduction(
