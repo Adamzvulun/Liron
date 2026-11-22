@@ -5,7 +5,7 @@
 - **Amends:** [0004](0004-free-llm-provider-agnostic.md) (which model), [0011](0011-technical-corrections.md) #2 (speech input)
 
 ## Context
-The Gemini speech spike (issue #1, [results](../research/spikes/gemini-speech/README.md#results-phase-1-2026-11-01)) tested 50 native deck clips on the free tier:
+The Gemini speech spike (issue #1; its files held deck text and left the repo with ADR 0054) tested 50 native deck clips on the free tier:
 - **Transcription works:** 80% of sentences right or spelling-only, 75% of single words.
 - **Pronunciation judgment doesn't.** A yes/no judge accepts wrong text 98% of the time. Forced choice does as well without audio as with it. With synthetic mistakes (free Gemini TTS saying a one-consonant-wrong copy), 13 of 15 still came back as the correct word.
 - **Free quota is per model per day.** The stronger Flash models allow 20/day. `gemini-3.5-flash-lite` handled ~270 calls in under 1 s each. TTS models allow about 10/day each.
@@ -31,4 +31,4 @@ Adam's call (2026-11-01): **stay on free Gemini**, no paid tier, and no sending 
 - **E14** becomes shadowing + record-and-compare + ear training + an optional "understood" check.
 - **E17 voice** works on flash-lite. The partner reads the transcript generously and asks back when unsure.
 - **Open (Adam):** every in-app mic check sends the learner's audio to Google's free tier, under the same terms as the spike. The default is record-and-compare, which uploads nothing. The "understood" check is opt-in until Adam decides.
-- **Revisit** if a new free model does well on `docs/research/spikes/gemini-speech/v2.mjs --part synth`. That test needs no human voice.
+- **Revisit** if a new free model does well on the spike's `v2.mjs --part synth` (kept outside git since ADR 0054). That test needs no human voice.

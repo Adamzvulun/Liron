@@ -30,3 +30,9 @@ Claude recommended a fresh public repo, because old commits stay reachable on Gi
 ## Amendment (2026-11-22)
 
 Steps 1 and 2 are done. Adam chose to make the repo public without steps 3 and 4: the `v1.0.0` tag still points at the old history, and GitHub Support was not asked to dereference the old pull-request refs. Both still reach the deck. Deleting the tag, or asking Support later, would close that.
+
+## Amendment 2 (2026-11-22, after going public): a second copy of the speech spike
+
+The rewrite removed `spikes/`, but #364 had already moved the speech spike to `docs/research/spikes/gemini-speech/`, and that copy was still in the tree. It held deck text: 50 deck items' Arabic, transliteration and English (`manifest.json`), the scores against them, and 31 clips made from deck sentences. Found by checking every tracked file against the deck, locally. It now lives in the ignored `sources/research/gemini-speech/` (where someone has it), `tests/understood-spike.test.ts` skips without it, and history is rewritten again to drop `docs/research/spikes/` from every commit.
+
+The same check also found that some English glosses in `content/arabic/core-words.json` match the deck's English word for word, and that the deck's multi-word entries appear in our own sentences. That has been in the live site's bundle since v1.0, by earlier decisions (ADR 0011, `docs/game/arabic-core-words.md`), so going public didn't change it. It is Adam's to decide whether to rewrite those glosses (STATUS, open questions).
