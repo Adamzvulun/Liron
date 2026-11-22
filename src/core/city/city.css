@@ -93,6 +93,17 @@
   pointer-events: visiblePainted;
 }
 
+/* A touch screen's square is pictures (City.tsx); these shapes are only there to be tapped. */
+.city__hit {
+  opacity: 0;
+}
+
+.city__picture {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .city__place .city__plaque {
   pointer-events: auto;
   cursor: pointer;
