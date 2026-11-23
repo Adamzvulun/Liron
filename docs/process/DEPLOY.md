@@ -6,7 +6,7 @@ Waymark is hosted on **Vercel's free Hobby plan**, connected to this GitHub repo
 |---|---|---|
 | `main` | **Production**: the live site, **https://waymark-phi.vercel.app** | Anyone with the link; the app requires login (#16) |
 | `dev` | **Preview**, at the stable branch URL **https://waymark-git-dev-adamzvuluns-projects.vercel.app**: the live dev site | Only people logged into the Vercel account (Deployment Protection) |
-| feature branches / PRs | **Preview**, one URL per push, plus a stable per-branch URL | Same as `dev` |
+| other branches | **Preview**, one URL per push, plus a stable per-branch URL. **None** for Claude's `claude/…` branches and `release/…` branches ([ADR 0057](../decisions/0057-fewer-deploys.md)) | Same as `dev` |
 
 `vercel.json` pins the build: framework Vite, `npm ci`, `npm run build`, and **only `dist/` is published**, plus the functions in `api/` (Vercel builds each on its own, so they import nothing from `src/`). Every path except `/api/` falls back to `index.html`. That matters because the repo also holds `docs/` (with its spikes) and the copyrighted `sources/` (ADR 0011). Without a build, Vercel would serve the repo's files as they are. `package.json` pins Node `22.x`, the same as CI. Without that, Vercel would pick its newest Node.
 
@@ -21,7 +21,7 @@ Do this only **after `main` contains the app** (the first release, `v0.1.0`). Im
    - **Where to find the dev URL:** it only exists after `dev` has deployed once, so after the first merge into `dev` following the import. Then go to the project → **Deployments**, filter **Branch: `dev`**, open the newest one, and under **Domains** copy the address that looks like `waymark-git-dev-<your-scope>.vercel.app`. That one never changes. The address with a random hash only shows that single deploy.
    - Vercel's bot also posts preview links on each PR.
 
-After that, every push deploys automatically: `dev` updates the dev site, PRs get previews, and merging a release into `main` updates the live site.
+After that, every push deploys automatically: `dev` updates the dev site, and merging a release into `main` updates the live site. Claude's branches and release branches don't deploy at all ([ADR 0057](../decisions/0057-fewer-deploys.md)): Vercel Hobby allows 100 deploys a day.
 
 ## Environment variables
 Set them in **Settings → Environment Variables**, never in git (`.env*` is git-ignored). Use the right environment for each:
