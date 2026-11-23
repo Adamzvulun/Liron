@@ -120,6 +120,7 @@ const CALLABLE: Record<string, string> = {
   'my_home()': 'the caller’s own room, or the starter room',
   'save_home(p_layout jsonb)': 'the caller’s own room, whole, only if every rule holds',
   'home_of(p_friend uuid)': 'an accepted friend’s placed pieces; null for anyone else',
+  'my_home_held()': 'what the caller’s own room has ever held (task 8.2)',
   // Notes at the letterbox (task 8.1, notes.test.ts).
   'leave_note(p_friend uuid, p_note text)': 'a note from the set, to an accepted friend only',
   'my_notes()': 'notes to the caller from current friends: who, which note, the day',

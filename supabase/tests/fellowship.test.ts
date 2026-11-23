@@ -16,7 +16,18 @@ const B = '00000000-0000-0000-0000-0000000000b2';
 const C = '00000000-0000-0000-0000-0000000000c3';
 
 /** The card's fields: fellowship.md §3, and nothing else. Adding one means changing this on purpose. */
-const CARD_KEYS = ['achievements', 'id', 'level', 'look', 'me', 'name', 'ranks', 'streak', 'title'];
+const CARD_KEYS = [
+  'achievements',
+  'cozy',
+  'id',
+  'level',
+  'look',
+  'me',
+  'name',
+  'ranks',
+  'streak',
+  'title',
+];
 
 let db: PGlite;
 

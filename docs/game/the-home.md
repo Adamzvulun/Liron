@@ -159,3 +159,14 @@ The first of §9's later items: "stopped by" and a guestbook, built as notes.
 - **The Notice Board** says "Basma stopped by your room and left a note: …". Only you see that line.
 - **Privacy:** only the host and the writer read a note. A note from someone who is no longer a friend is hidden, and notes are deleted after 60 days, like the feed. A visit that leaves no note records nothing. FRIENDS.md says so.
 - **Tests:** `supabase/tests/notes.test.ts` (strangers, yourself, outside the set, one a day, who can read, the feed, unfriending, 60 days); `src/core/home/notes.test.ts`; `tests/e2e/fellowship.spec.ts` (leave, replace, remember, read, the feed line).
+
+## 14. Coziness (task 8.2, #470)
+
+§9's coziness rating, which only ever rises.
+
+- **What counts:** each different piece of furniture a room has ever held, and each wallpaper and floor that isn't the room's own. The starter pieces don't count, so a new room is at 0, and moving things around adds nothing.
+- **It never falls.** The database keeps the list (`homes.held`). A trigger adds what each save holds, so storing a piece or going back to plaster and planks loses nothing. An empty room is never punished.
+- **Its names** are in `content/core/home.json` (`home:coziness`): Just moved in (0), Settling in (1), Lived in (3), Snug (6), Cozy (10), Warm as fresh bread (15). There are 20 things to own, so the top can be reached.
+- **Where it shows:** under your room, beside Decorate, with how many more new things the next name needs. After a Done that sets out something new, the line says "Your room is cozier: …", or "a little cozier" between names. A friend's shelf says "Their room: Snug". A friend sees the count's name, never the list. fellowship.md §3 and FRIENDS.md say so.
+- **Tests:** `src/core/home/cozy.test.ts`; `supabase/tests/homes.test.ts`, where the database counts every fixture layout as `heldOf` does, the count only grows, and a friend's card carries the count; `tests/e2e/home.spec.ts` and `fellowship.spec.ts`.
+

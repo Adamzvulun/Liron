@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import type { Look } from '../avatar/looks.ts';
 import { PlaceScreen } from '../city/PlaceScreen.tsx';
+import { coziness } from '../home/cozy.ts';
 import { PanelDialog } from '../home/HouseRoom.tsx';
 import { parseLayout, STARTER, type Layout } from '../home/layout.ts';
 import { Room } from '../home/Room.tsx';
@@ -116,6 +117,7 @@ function Shelf({ card }: { card: FriendCard }) {
           Level {card.level}
           {card.title && <> · {card.title}</>}
         </span>
+        <span className="friend-house__line">Their room: {coziness(card.cozy).tier.name}</span>
       </p>
       <section className="friend-house__shelf" aria-label="Trophies">
         <p className="friend-house__line">

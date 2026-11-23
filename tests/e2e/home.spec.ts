@@ -62,6 +62,10 @@ test.describe('walking in your room (#440)', () => {
       ).toBeGreaterThan(0);
     await tapCell(page, 6, 3);
     await expect(at(page)).toHaveAttribute('data-at', '6,3');
+    // A new room has nothing of its own yet (#470).
+    await expect(page.locator('.room-cozy__line')).toHaveText(
+      'Coziness: Just moved in · 1 more new thing to set out for Settling in',
+    );
   });
 
   test('walks around a piece, never through it', async ({ page }) => {
@@ -345,6 +349,24 @@ test.describe('decorating your room (#442)', () => {
     await page.getByRole('button', { name: 'Done', exact: true }).click();
     const { p_layout } = (await req).postDataJSON() as { p_layout: object };
     expect(p_layout).toMatchObject({ wallpaper: 'zellige', floor: 'dark-oak' });
+  });
+
+  test('setting out something new makes the room cozier, for good (#470)', async ({ page }) => {
+    await decorate(page, ['wallpaper-zellige', 'floor-dark-oak']);
+    await page.getByLabel('Wallpaper').selectOption({ label: 'Zellige tiles' });
+    await page.getByLabel('Floor').selectOption({ label: 'Dark oak floor' });
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    await expect(page.locator('.room-cozy__said')).toHaveText('Your room is cozier: Settling in.');
+    await expect(page.locator('.room-cozy__line')).toHaveText(
+      'Coziness: Settling in · 1 more new thing to set out for Lived in',
+    );
+    // Back to the room's own walls and floor: the coziness stays.
+    await page.getByRole('button', { name: 'Decorate' }).click();
+    await page.getByLabel('Wallpaper').selectOption({ index: 0 });
+    await page.getByLabel('Floor').selectOption({ index: 0 });
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    await page.reload();
+    await expect(page.locator('.room-cozy__line')).toHaveText(/^Coziness: Settling in/);
   });
 
   test('without a style of your own, there is nothing to choose', async ({ page }) => {
