@@ -1,6 +1,7 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; last updated 2026-11-15 at the end of a session (items 54–59) and in the next session (items 60–64); updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46; that night E12 and E11). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
+- **Latest:** 2026-11-23, end of session: items 193–200 (Phases 10–15 planned, on PR #512; v1.7.0 waits on Adam's go in #485). Start at item 200.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-15 at the end of a session (items 54–59) and in the next session (items 60–64); updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46; that night E12 and E11). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 - **Starting prompt:** [next-session-prompt.md](next-session-prompt.md) is what Adam pastes to start the next session.
 
@@ -467,3 +468,56 @@
 190. **9.5, the regulars' tales (#491), folded into v1.7.0.** From LATER's "no decision needed" list (micro-stories). `content/arabic/tales.json` holds the tales (all 113 chapters, one per regular, `regular: road:N`), our own Arabic with Latin and English; `tales.ts` adds the Hebrew letters (`latinToHebrew`) and `talesEarned(trials)`. WordLessons.tsx: a **Tales · N** button at the table (stage `tales`), `TaleView` (English behind a toggle), and a "Salim’s tale" button on a passed trial's result. **Check words before adding a batch:** `npx vitest run tests/tales-deck.test.ts` with the deck in `sources/` (CI skips it); it strips il-, ha-l, w-, the person prefixes and the endings, and allows the regulars' names (`NAMES`). Adam spot-checks the Arabic (the v1.7.0 notes ask him). Next batch: chapters 31–40. The checker also allows the "I did" -t (with a hollow verb's ā put back: رحت from راح), -a written t before an ending, -āt plurals, the negative -š and a taught form without its ending (عند from كان عندو); a planted late word still fails it (checked 2026-11-23).
 191. **The release's timing check failed once on the same code that passed (2026-11-23).** `load-budget.spec.ts`, "back from a hall", read 2.7× and 3.0× (limit 2.6×) on release PR #485 at `01021948`, while #490's run of the same tree read 1.8×, with the same runner image and the same yardstick (about 380 ms). Locally, before and after #490: 1.6–2.3×. Only the walk back was slow: it is mostly layout and paint, which the CPU yardstick doesn't scale with. No code cause was found; the next push re-ran it. If it happens again on a release, look at the runner's paint speed before the code.
 192. **Tales for chapters 31–113 (#491), folded into v1.7.0.** The other 83 tales (Abu Fadi's house to Lama's two families): every regular has one, and LATER's "More of the regulars' tales" row is done; `tales-deck.test.ts` passes locally. Mind the checker's vocabulary: "this" is only taught as the prefix هالـ (no هاد), "back" is ضهر, and إشي and خلص aren't taught by chapter 40 (إشي comes in 45); مبارح isn't taught by 50. Words a tale needs but the checker can't yet see: a feminine of a taught masculine (صاحبة), two endings at once (سخّنْتها), and one-letter words (عَ). A planted late word still fails it (checked again for chapters 52 and 71). يا and a bare مسا (outside اليوم المسا) aren't taught either.
+193. **Phases 10–12 planned (2026-11-23), planning only.** Adam asked for research and a plan, no code. A gap audit compared the vision and the ADRs with the code ([next-work-2026-11-23.md](../research/next-work-2026-11-23.md)). It found four gaps: no error reporting at all; no way for a friend to take their data or leave; listening stops at single words (the deck has 536 recorded sentences, the path uses 241); and Morse fixed at 20 wpm, though ADR 0009 promises 25+ and an override. Planned as Phase 10 (#495: #499–#502, #498), Phase 11 (#496: #503–#506) and Phase 12 (#497: #507–#511). Specs: [arabic-listening.md](../game/arabic-listening.md), [morse-speed.md](../game/morse-speed.md). Adam answered the same day: our own log (ADR 0058, Accepted), a friend may delete their own account with the proper conventions, and the order 10 → 11 → 12. Version labels like `v1.8` don't exist in GitHub; recent phases use `plan:N` only.
+194. **Phases 13–14 planned (2026-11-23), planning only.** Adam answered Phase 10's questions (our own log; friends may delete their own account, with the proper conventions; order 10 → 11 → 12) and asked what's still unplanned. Part 2 of [next-work-2026-11-23.md](../research/next-work-2026-11-23.md) is a Socratic pass (the-fool) on "after Phase 12 it's complete". It found four unplanned gaps:
+   - no check that our Arabic and its Latin agree (two real errors, tales 33 and 41, fixed in Phase 10's PR);
+   - tables that grow forever against the 500 MB;
+   - no measure of learning against the vision's goals;
+   - no writing of words.
+
+   Phase 13 (#513: #515–#518) and Phase 14 (#514: #519–#521), with specs [milestone-check.md](../game/milestone-check.md) and [arabic-spelling.md](../game/arabic-spelling.md). Offline saving was checked and already holds (`subjectApi.ts`).
+195. **Phase 15 planned (2026-11-23), planning only: songs from YouTube (#522: #523–#528).** Adam asked for a way to paste a YouTube link and get a transcribed, translated and transliterated karaoke walkthrough. Research: [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Spec: [song-karaoke.md](../game/song-karaoke.md). [ADR 0059](../decisions/0059-songs-from-youtube.md) is Proposed.
+   - YouTube's developer policies forbid separating a video's audio, and its captions API serves only videos you can edit. So the song plays in YouTube's IFrame player, and the words come from LRCLIB or are pasted.
+   - LRCLIB was tested on 11 Arabic artists: mostly line-synced, word sync rare. It has no key and open CORS, and wants `Lrclib-Client` from browsers.
+   - Groq's free tier gives `gpt-oss-120b` 8K tokens a minute and 200K a day, shared with the inn. A song is about 10K, hence 2 new songs per player a day and a game-wide cap.
+   - The IFrame API loads its script from `www.youtube.com` only (checked). The CSP widening applies site-wide, because the app is one page.
+   - Never put real lyrics in `content/`, git or tests.
+   - Adam's four questions are in research §7: Groq or Gemini for lyrics, sharing explanations, "found, not extracted", and the order.
+196. **Phase 15 re-planned (2026-11-23): Gemini listens to the YouTube link.** Adam rejected "lyrics found or pasted": the player pastes the link and nothing else. He also said yes to sharing songs, put Phase 15 after Phase 14, and "figure out what's best" for the AI. Research Part 2 in [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md); ADR 0059 rewritten and Accepted; spec and issues #522–#527 updated.
+   - **The feature.** Gemini takes a public YouTube URL as `file_data.file_uri` and listens to it on Google's side. It's free in preview, with 8 hours of video a day.
+   - **Tested on Fairuz, *Habaytak bel sayf*.** About 4 lines in 5 exact alone. Near word-perfect with LRCLIB's plain lyrics as a hint (`gemini-3.6-flash`).
+   - **Ask for times as `MM:SS.s` text.** Asked in seconds, it writes 1:07 as `107`.
+   - **The free tier is often busy (503).** A 26-minute probe found at least one of `gemini-3.6-flash`, `gemini-3.5-flash-lite` and `gemini-flash-lite-latest` answering in every round. `gemini-3.8-flash` and `gemini-flash-latest` never did. Hence the model fallback, the *listening* state with automatic retries, and the shared `songs` table.
+   - **Download tools (yt-dlp) and transcript scrapers** are blocked from cloud servers, and yt-dlp would separate the audio against YouTube's policies.
+   - **Still to do in 15.3:** check the times by ear against the audio.
+   - **The test scripts** were scratch only; nothing is in the repo.
+197. **Phase 15: songs no one has written down, and Claude (2026-11-23).** Research Part 3.
+   - **Claude can't hear.** Its API takes text, images and PDFs. It becomes the song's *explainer*, and the *judge* between two listens.
+     - The model is `claude-opus-5-5` at low effort. It costs about $0.10–0.15 a song, once, since songs are shared; that's an estimate, measured in 15.3.
+     - Adam puts `ANTHROPIC_API_KEY` in Vercel and sets a monthly spend limit in the Claude Console.
+   - **With no lyrics,** `gemini-3.6-flash` got 36 of 39 Fairuz lines exact. Two listens settled by a text model got that to about 37 of 39.
+   - **Self-checks don't work.** "Correct your draft" and "list unsure words" did nothing on either model.
+   - **Players can fix a word** for everyone, with history and undo (`song_fixes`).
+   - **Niche tests:** يا ريتك مباركة (traditional) and a live wedding zajal were both heard coherently.
+198. **Phase 15 plan optimized and tested (2026-11-23).** Research Part 4 in [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Skills used: test-master, prompt-engineer, the-fool (red team) and claude-api.
+   - **Timing passes.** On *Kalamantina*, Gemini's 61 line starts were a median 0.16 s from LRCLIB's hand timing, with 96% within 1 s. Words: 11% lenient error (28% strict, mostly spelling variants).
+   - **`gemini-3.6-flash`'s free tier is 20 requests a day per project.** The benchmark stopped after 1 of 24 listens. The free-tier model order is now flash-lite first. Paid Gemini is recommended (about $0.03 a listen, with no training on our data), in the songs' own Google Cloud project, so the Radio Room's quota is safe.
+     - **Careful:** this environment's `GEMINI_API_KEY` may share a project with production. The tests made about 60 flash-lite and 25 3.6-flash requests on 2026-11-23.
+   - **Red-team fixes, now in the spec:**
+     - fixed lines are never sent to Gemini;
+     - the 10-minute clip (`video_metadata.end_offset` tested);
+     - the lease;
+     - one attempt per call;
+     - word-fix limits;
+     - a monthly Claude budget with an 80% stop;
+     - the Latin converter plus checker (13 bad strings fell to 2, out of 105).
+   - **Repeated lines:** 28–75% of a song's lines repeat, so each distinct line is explained once.
+   - **The full 8-song eval gates 15.3.** Pass marks are in research §L.
+199. **Paid Gemini for songs (Adam, 2026-11-23).** About $0.03 a listen on `gemini-3.6-flash`, in a Google Cloud project of the songs' own, with billing and a budget alert. The key goes in Vercel as `GEMINI_SONGS_API_KEY`. ADR 0059, the spec and #525 are updated. The free-tier model order stays only as a fallback if billing lapses. Adam sets up the project, both keys (`ANTHROPIC_API_KEY` too) and the spend limits when 15.3 starts.
+200. **End of session (2026-11-23): where things stand.**
+   - **v1.7.0** (release PR #485, `release/v1.7.0` into `main`) is clean and green and waits on Adam's go. After he says go: merge with a merge commit, check that the migrations ran on production, and curl the live site.
+   - **Phases 10–15** are planned in PLAN.md and the issues (#495–#497, #513, #514, #522 and their children), with the docs on PR #512 into `dev`. Nothing is built; each waits on Adam's go.
+   - **Phase 10's order:** 10.3 first, then 10.1 and 10.2 together with the two tale fixes (tale 33's btúgbuʂ should end in ɖ; tale 41 has a doubled ب in بْبْنيه), then 10.4 and 10.5.
+   - **Phase 15 needs Adam before 15.3:** a Google Cloud project for songs with billing and a budget alert, `GEMINI_SONGS_API_KEY` and `ANTHROPIC_API_KEY` in Vercel, and a monthly spend limit in the Claude Console. Then run the full 8-song eval (research §J, pass marks in §L) before building on it.
+   - **Docs audited at the end of this session:** STATUS (ADR count, phases, PR rules, the paid songs exception, Gemini facts), ADR 0059 (no "free" claims left for Gemini), PLAN's Phase 15 goal, and this file.
+
