@@ -194,7 +194,7 @@ A fix release: the 60 English meanings that were the deck's own sentences are ou
 
 ### v1.4.0 — A home of your own
 
-Phase 7 (epic #435, [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-page.md)): Your House becomes a room you walk in, sit in and decorate, with furniture, wallpapers and floors from the Market and chests, a banner for each guild's first rank, and visits to friends' rooms as they arranged them. New players start with an Arabic name. Notes: [releases/v1.4.0.md](releases/v1.4.0.md). Drafted 2026-11-23; it follows v1.3.2.
+Phase 7 (epic #435, [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-page.md)): Your House becomes a room you walk in, sit in and decorate, with furniture, wallpapers and floors from the Market and chests, a banner for each guild's first rank, and visits to friends' rooms as they arranged them. New players start with an Arabic name. Notes: [releases/v1.4.0.md](releases/v1.4.0.md). Released 2026-11-23 ([#466](https://github.com/Adamzvulun/Liron/pull/466)); its five migrations applied to `waymark-prod`.
 
 ### Next: v1.4.0 — A home of your own
 
