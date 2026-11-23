@@ -440,6 +440,9 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☑ 9.3 (#487) · v1.7 · The last fade in reading Arabic: read it aloud
 - From LATER ("no decision needed"). Long-known words have no choices: read it aloud, hear the speaker, say how it went. Spec: [arabic-script-lessons.md](../game/arabic-script-lessons.md) §5.
 
+### ☑ 9.4 (#489) · v1.7 · Pattern badges: verbs shaped like a binyan
+- From LATER ("no decision needed"). A taught verb whose shape matches a binyan says so, and opens to how and to its fellow verbs. Research: [verb-shapes.md](../research/verb-shapes.md).
+
 ## Parked: ordered after everything above, each waiting on Adam
 
 | Item | Why it waits | What un-parks it |
