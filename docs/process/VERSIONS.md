@@ -219,3 +219,11 @@ Phase 11 (#496): **Hear it** in the echo well, sentence listening with a word ba
 ### v1.10.0 — Faster than thought *(planned)*
 
 Phase 12 (#497): Morse past 20 wpm. A speed dial, a ladder to 35 wpm, and The Long Copy ([morse-speed.md](../game/morse-speed.md)).
+
+### v1.11.0 — True and lasting *(planned)*
+
+Phase 13 (#513): our Arabic checked against its Latin in CI, the data budget, and the milestone check ([milestone-check.md](../game/milestone-check.md)).
+
+### v1.12.0 — Writing words *(planned)*
+
+Phase 14 (#514): *Spell it* at the slate, and the inn on the Arabic keyboard ([arabic-spelling.md](../game/arabic-spelling.md)).
