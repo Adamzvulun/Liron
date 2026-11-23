@@ -18,7 +18,9 @@ import {
   heardAsAnother,
   listenQuestions,
   readQuestions,
+  SAY_AFTER,
   seeded,
+  sessionAudio,
 } from './lesson/questions.ts';
 import { reportSession, scoreOf, xpFor, type Answer } from './lesson/report.ts';
 
@@ -343,6 +345,40 @@ describe('a session’s questions', () => {
     }
     // دار has a lesson-3 letter: still in Hebrew letters.
     expect(later.find((q) => q.word.arabic === 'دار')?.script).toBe('he');
+  });
+
+  it('reads a long-known word aloud, with no choices, four lessons on, but never in a trial', () => {
+    const said = (id: string, arabic: string, sound: string): Item => ({
+      ...vocab(id, arabic),
+      data: { arabic, pronunciation: sound, english: '' },
+    });
+    const ws = wordsFrom(
+      [
+        said('a:1', 'بيت', 'bēt'),
+        said('a:2', 'تين', 'tīn'),
+        said('a:3', 'بنت', 'bint'),
+        said('a:4', 'نبي', 'nabi'),
+        said('a:5', 'يابا', 'yāba'),
+        said('a:6', 'دار', 'dār'),
+      ],
+      NO_REVIEW,
+    );
+    expect(readQuestions(ws, 4, seeded(1)).some((q) => q.script === 'say')).toBe(false);
+    const qs = readQuestions(ws, 5, seeded(1));
+    const aloud = qs.filter((q) => q.script === 'say');
+    expect(aloud.length).toBeGreaterThan(0);
+    expect(aloud.length).toBeLessThan(qs.length);
+    for (const q of aloud) {
+      expect(q.word.letters.every((l) => l.lesson <= 5 - SAY_AFTER)).toBe(true);
+      expect(q.choices).toEqual([]);
+      expect(q.answer).toBe(q.word.audio);
+    }
+    // دار has a lesson-3 letter: not yet.
+    expect(qs.find((q) => q.word.arabic === 'دار')?.script).not.toBe('say');
+    expect(sessionAudio(aloud)).toEqual([...new Set(aloud.map((q) => q.word.audio))]);
+    // A trial checks every answer itself.
+    const trial = readQuestions(ws, 8, seeded(1), undefined, 'sound', false);
+    expect(trial.some((q) => q.script === 'say')).toBe(false);
   });
 
   it('doesn’t ask Listen about a word whose first letter is said as another (ث as s)', () => {
