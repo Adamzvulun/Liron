@@ -3,6 +3,7 @@ import { Avatar } from '../avatar/Avatar.tsx';
 import { Link } from '../Link.tsx';
 import { FlameIcon } from '../player/icons.tsx';
 import { wareName } from '../player/market.ts';
+import { LetterNotes } from './Notes.tsx';
 import type { Gift } from './together.ts';
 import {
   dayLabel,
@@ -15,6 +16,7 @@ import {
   type FellowshipSource,
   type FriendCard,
   type FriendRequest,
+  type LetterNote,
 } from './fellowship.ts';
 import './fellowship.css';
 import './together.css';
@@ -59,6 +61,18 @@ export function Fellowship({
       live = false;
     };
   }, [gifts]);
+  // Notes friends left at your letterbox (task 8.1); none shown if they can't be read.
+  const [notes, setNotes] = useState<LetterNote[]>([]);
+  useEffect(() => {
+    let live = true;
+    source.notes().then(
+      (n) => live && setNotes(n),
+      () => undefined,
+    );
+    return () => {
+      live = false;
+    };
+  }, [source]);
   const [state, setState] = useState<Loaded | 'loading' | 'failed'>('loading');
   const [said, setSaid] = useState('');
 
@@ -127,6 +141,7 @@ export function Fellowship({
               )
             }
           />
+          <LetterNotes notes={notes} today={today} />
           {received.length > 0 && (
             <>
               <h3 className="fellowship__subheading">Gifts for you</h3>

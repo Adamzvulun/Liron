@@ -346,3 +346,78 @@
   font-weight: 600;
   color: #6a4a2a;
 }
+
+/* Notes at the letterbox (task 8.1): the set to pick from in a friend's room, and the notes left
+   in yours. */
+.notes {
+  display: grid;
+  gap: 12px;
+  max-width: 560px;
+  padding: 16px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--parchment);
+  color: var(--ink);
+}
+.notes__intro,
+.notes__said {
+  margin: 0;
+}
+.notes__said:empty {
+  display: none;
+}
+.notes__said {
+  font-weight: 700;
+}
+.notes__list,
+.notes__received {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.notes__received {
+  margin: 0 0 14px;
+}
+.notes__pick,
+.notes__slip {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--vellum);
+  color: var(--ink);
+  font: inherit;
+  text-align: start;
+}
+.notes__pick {
+  cursor: pointer;
+}
+.notes__pick[aria-pressed='true'] {
+  outline: 3px solid var(--brass);
+  outline-offset: 2px;
+}
+.notes__pick:disabled {
+  cursor: default;
+}
+.notes__arabic {
+  justify-self: start;
+  line-height: 1.4;
+}
+.notes__morse {
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+.notes__latin {
+  font-style: italic;
+}
+.notes__english {
+  font-weight: 700;
+}
+.notes__from {
+  font-weight: 900;
+}

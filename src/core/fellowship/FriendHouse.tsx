@@ -5,6 +5,7 @@ import { PanelDialog } from '../home/HouseRoom.tsx';
 import { parseLayout, STARTER, type Layout } from '../home/layout.ts';
 import { Room } from '../home/Room.tsx';
 import { Link } from '../Link.tsx';
+import { LeaveNote } from './Notes.tsx';
 import { FlameIcon } from '../player/icons.tsx';
 import {
   achievementNames,
@@ -20,8 +21,8 @@ type Visit = { card: FriendCard; layout: Layout };
  * A friend's house (task 7.9, the-home.md §8; first built in task 3.2, #327): their room as they
  * arranged it, from `home_of`, with them standing by the window in their saved look. You walk in
  * through their door as yourself. You can walk, sit and light their lamps for yourself; their
- * shelf shows their card, and their cupboard, desk and letterbox only say a line. Nothing here
- * changes their room: there is no Decorate, and nothing is sent.
+ * shelf shows their card, their letterbox takes a note from the set (task 8.1), and their cupboard
+ * and desk only say a line. Nothing here changes their room: there is no Decorate.
  */
 export function FriendHouse({
   id,
@@ -37,7 +38,7 @@ export function FriendHouse({
   backdrop?: ReactNode;
 }) {
   const [visit, setVisit] = useState<Visit | null | 'loading' | 'failed'>('loading');
-  const [shelf, setShelf] = useState(false);
+  const [panel, setPanel] = useState<'shelf' | 'letterbox' | null>(null);
   useEffect(() => {
     let live = true;
     // The route takes an id in any case; the database's ids are lowercase.
@@ -83,15 +84,22 @@ export function FriendHouse({
           look={look}
           host={{ name: visit.card.name, look: visit.card.look }}
           onUse={(def) => {
-            if (def.does !== 'trophies') return def.visit ?? def.line;
-            setShelf(true);
+            // The shelf shows their card; the letterbox takes a note (task 8.1).
+            if (def.does === 'trophies') setPanel('shelf');
+            else if (def.does === 'fellowship') setPanel('letterbox');
+            else return def.visit ?? def.line;
             return undefined;
           }}
         />
       )}
-      {shelf && card && (
-        <PanelDialog title={`${card.name}’s trophies`} onClose={() => setShelf(false)}>
+      {panel === 'shelf' && card && (
+        <PanelDialog title={`${card.name}’s trophies`} onClose={() => setPanel(null)}>
           <Shelf card={card} />
+        </PanelDialog>
+      )}
+      {panel === 'letterbox' && card && (
+        <PanelDialog title={`${card.name}’s letterbox`} onClose={() => setPanel(null)}>
+          <LeaveNote friend={card.id} name={card.name} source={source} />
         </PanelDialog>
       )}
     </PlaceScreen>

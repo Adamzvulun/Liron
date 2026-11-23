@@ -71,7 +71,7 @@ const VISITING: Record<Does, string> = {
   wardrobe: 'look',
   trophies: 'see their trophies',
   ledger: 'look',
-  fellowship: 'look',
+  fellowship: 'leave a note',
 };
 
 const STEPS: Record<string, Cell> = {

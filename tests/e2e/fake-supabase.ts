@@ -132,6 +132,10 @@ export interface Extras {
     gifts?: Record<string, unknown>[];
     /** Friends' rooms by id (task 7.3), as `home_of` returns them; null for anyone else. */
     homes?: Record<string, unknown>;
+    /** Notes at the player's letterbox (task 8.1), as `my_notes` returns them. */
+    notes?: Record<string, unknown>[];
+    /** The note the player left each friend today, by id; `leave_note` sets it. */
+    left?: Record<string, string>;
   };
   /** The player's saved room (task 7.3), as `my_home` returns it; `save_home` replaces it. */
   home?: unknown;
@@ -313,7 +317,7 @@ export async function fakeSupabase(
     }
     // The Fellowship's functions (task 3.1): a list that changes as the player acts.
     const fellowshipFn =
-      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests|fellowship_feed|record_round_score|send_challenge|answer_challenge|decline_challenge|my_challenges|fellowship_quest|collect_fellowship_quest|give_item|my_gifts|home_of)$/.exec(
+      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests|fellowship_feed|record_round_score|send_challenge|answer_challenge|decline_challenge|my_challenges|fellowship_quest|collect_fellowship_quest|give_item|my_gifts|home_of|leave_note|my_note_for|my_notes)$/.exec(
         url.pathname,
       )?.[1];
     if (fellowshipFn) {
@@ -344,6 +348,13 @@ export async function fakeSupabase(
           return route.fulfill({ json: f.feed ?? [] });
         case 'home_of':
           return route.fulfill({ json: f.homes?.[String(args?.p_friend)] ?? null });
+        case 'leave_note':
+          (f.left ??= {})[String(args?.p_friend)] = String(args?.p_note);
+          return route.fulfill({ json: null });
+        case 'my_note_for':
+          return route.fulfill({ json: f.left?.[String(args?.p_friend)] ?? null });
+        case 'my_notes':
+          return route.fulfill({ json: f.notes ?? [] });
         case 'answer_friend': {
           const i = waiting.findIndex((r) => r.id === args?.p_other);
           if (i >= 0) {
