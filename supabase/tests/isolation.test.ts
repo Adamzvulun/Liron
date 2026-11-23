@@ -117,10 +117,14 @@ const CALLABLE: Record<string, string> = {
   'set_title(p_title text)': 'the caller’s own title, from what they earned',
   'guide_mark(p_ids text[])': 'appends ids to the caller’s own guide_seen (#407)',
   // The home (task 7.3, homes.test.ts).
-  'my_home()': 'the caller’s own room, or the starter room',
-  'save_home(p_layout jsonb)': 'the caller’s own room, whole, only if every rule holds',
-  'home_of(p_friend uuid)': 'an accepted friend’s placed pieces; null for anyone else',
-  'my_home_held()': 'what the caller’s own room has ever held (task 8.2)',
+  'my_home(p_room text)':
+    'the caller’s own room (or the starter room), or their roof once open (task 8.4)',
+  'save_home(p_layout jsonb, p_room text)':
+    'the caller’s own room or open roof, whole, only if every rule holds',
+  'home_of(p_friend uuid, p_room text)':
+    'an accepted friend’s placed pieces, room or roof; null for anyone else',
+  'my_home_held()': 'what the caller’s own rooms have ever held (task 8.2)',
+  'open_roof()': 'takes the roof’s price from the caller’s own gems, once (task 8.4)',
   // Notes at the letterbox (task 8.1, notes.test.ts).
   'leave_note(p_friend uuid, p_note text)': 'a note from the set, to an accepted friend only',
   'my_notes()': 'notes to the caller from current friends: who, which note, the day',

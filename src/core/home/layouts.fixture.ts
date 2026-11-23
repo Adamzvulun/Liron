@@ -1,6 +1,6 @@
 // Layouts the room must accept and refuse (task 7.2), shared with the database's tests (7.3) so
 // the browser and save_home are held to the same cases. Each starts from the starter room.
-import { STARTER, type Layout, type Placed, type Refusal } from './layout.ts';
+import { ROOF_STARTER, STARTER, type Layout, type Placed, type Refusal } from './layout.ts';
 
 const move = (id: string, change: Partial<Placed>): Layout => ({
   ...STARTER,
@@ -113,6 +113,35 @@ export const BAD: { name: string; layout: Layout; refusal: Refusal }[] = [
   {
     name: 'a wallpaper nobody has',
     layout: { ...STARTER, wallpaper: 'gold-leaf' },
+    refusal: { why: 'style' },
+  },
+];
+
+/** The roof (task 8.4, §16): furniture only, its own style, no panels; the hatch is the door. */
+const onRoof = (...pieces: Placed[]): Layout => ({ ...ROOF_STARTER, pieces });
+
+export const ROOF_GOOD: { name: string; layout: Layout }[] = [
+  { name: 'the empty roof', layout: ROOF_STARTER },
+  {
+    name: 'a chair and a clock on the roof',
+    layout: onRoof({ id: 'home-chair', at: [6, 2], facing: 'away' }, { id: 'home-clock', slot: 4 }),
+  },
+];
+
+export const ROOF_BAD: { name: string; layout: Layout; refusal: Refusal }[] = [
+  {
+    name: 'the travel chest carried up to the roof',
+    layout: onRoof({ id: 'home:chest', at: [6, 2], facing: 'left' }),
+    refusal: { why: 'unknown', id: 'home:chest' },
+  },
+  {
+    name: 'a chair on the hatch',
+    layout: onRoof({ id: 'home-chair', at: [0, 4], facing: 'right' }),
+    refusal: { why: 'on-door', id: 'home-chair' },
+  },
+  {
+    name: 'the house’s plaster on the roof',
+    layout: { ...ROOF_STARTER, wallpaper: 'plaster' },
     refusal: { why: 'style' },
   },
 ];

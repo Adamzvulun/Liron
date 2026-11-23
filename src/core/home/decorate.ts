@@ -13,6 +13,7 @@ import {
   type PieceDef,
   type Placed,
   type PlacedFloor,
+  type RoomId,
 } from './layout.ts';
 import type { Cell } from './path.ts';
 import type { Spot } from './Room.tsx';
@@ -21,11 +22,18 @@ export const ALL: ReadonlyMap<string, PieceDef> = new Map(
   [...STARTER_PIECES, ...FURNITURE_PIECES].map((d) => [d.id, d]),
 );
 
-/** The starter pieces, and the furniture the player owns: what they may place. */
-export function ownedPieces(owned: readonly string[]): ReadonlyMap<string, PieceDef> {
+/** The starter pieces, and the furniture the player owns: what they may place in a room. */
+export function ownedPieces(
+  owned: readonly string[],
+  where: RoomId = 'home',
+): ReadonlyMap<string, PieceDef> {
   const mine = new Set(owned);
+  // The starter pieces stay in the house; the roof takes furniture only (§16).
   return new Map(
-    [...STARTER_PIECES, ...FURNITURE_PIECES.filter((d) => mine.has(d.id))].map((d) => [d.id, d]),
+    [
+      ...(where === 'home' ? STARTER_PIECES : []),
+      ...FURNITURE_PIECES.filter((d) => mine.has(d.id)),
+    ].map((d) => [d.id, d]),
   );
 }
 

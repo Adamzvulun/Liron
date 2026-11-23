@@ -7,13 +7,16 @@ import * as house from '../city/paintHouse.ts';
 import {
   isFloor,
   isTurn,
+  ROOF,
   ROOM,
   STARTER,
   slotsOf,
   type Facing,
   type Layout,
   type PieceDef,
+  type RoomId,
 } from './layout.ts';
+import { roof, roofLight } from './paintRoof.ts';
 import { cellsQuad, floorPoint, moveFloor, moveWall, VP, type Pt } from './projection.ts';
 import { FURNITURE } from './paintFurniture.ts';
 import { poly } from '../city/paintKit.ts';
@@ -107,6 +110,7 @@ export function paintHome(
   layout: Layout,
   defs: ReadonlyMap<string, PieceDef>,
   view: HomeView = {},
+  where: RoomId = 'home',
 ): string {
   const { wall, rugs, floor } = placed(layout, defs);
   for (const s of view.standing ?? []) floor.push({ row: s.row + 1, x: 99, svg: s.svg });
@@ -115,15 +119,14 @@ export function paintHome(
 
   return (
     house.defs() +
-    house.room(styleOf(layout)) +
-    house.windowToTheSquare() +
+    behind(layout, where) +
     wall.join('') +
     rugs.join('') +
     (view.grid ? grid() : '') +
     (view.marks ?? []).map(mark).join('') +
     floor.map((f) => f.svg).join('') +
     (view.marks ?? []).map(outline).join('') +
-    house.houseLight()
+    (where === 'roof' ? roofLight() : house.houseLight())
   );
 }
 
@@ -136,26 +139,35 @@ export function paintHome(
 export function homeLayers(
   layout: Layout,
   defs: ReadonlyMap<string, PieceDef>,
+  where: RoomId = 'home',
 ): { back: string; bands: { row: number; svg: string }[]; light: string; glow: string } {
   const { wall, rugs, floor } = placed(layout, defs);
   floor.sort((a, b) => a.row - b.row || a.x - b.x);
   const bands = new Map<number, string>();
   for (const f of floor) bands.set(f.row, (bands.get(f.row) ?? '') + f.svg);
   return {
-    back:
-      house.defs() +
-      house.room(styleOf(layout)) +
-      house.windowToTheSquare() +
-      wall.join('') +
-      rugs.join(''),
+    back: house.defs() + behind(layout, where) + wall.join('') + rugs.join(''),
     bands: [...bands].map(([row, svg]) => ({ row, svg: house.defs() + svg })),
-    // The lantern's glow on its own, so the lantern can put it out (§5); the rest of the light stays.
+    // The lantern's glow on its own, so the lantern can put it out (§5); the rest of the light
+    // stays. The roof has no lantern: its light is the evening's.
     light:
-      house.defs() +
-      `<rect width="1920" height="1080" fill="url(#hs-dusk)"/>` +
-      `<rect width="1920" height="1080" fill="url(#hs-shade)"/>`,
-    glow: house.defs() + `<rect width="1920" height="1080" fill="url(#hs-glow)"/>`,
+      where === 'roof'
+        ? roofLight()
+        : house.defs() +
+          `<rect width="1920" height="1080" fill="url(#hs-dusk)"/>` +
+          `<rect width="1920" height="1080" fill="url(#hs-shade)"/>`,
+    glow:
+      where === 'roof'
+        ? ''
+        : house.defs() + `<rect width="1920" height="1080" fill="url(#hs-glow)"/>`,
   };
+}
+
+/** What stands behind everything placed: the house's walls and window, or the roof (§16). */
+function behind(layout: Layout, where: RoomId): string {
+  return where === 'roof'
+    ? roof(ROOF.door)
+    : house.room(styleOf(layout)) + house.windowToTheSquare();
 }
 
 /** The layout's wallpaper and floor, or the plain room's for any this build doesn't paint. */

@@ -25,11 +25,12 @@ import {
   ownedStyles,
   PANELS,
   refusalText,
-  ROOM,
+  ROOMS,
   STYLES,
   type Layout,
   type PieceDef,
   type Placed,
+  type RoomId,
 } from './layout.ts';
 import type { Cell } from './path.ts';
 import { Room, type Decor } from './Room.tsx';
@@ -42,6 +43,8 @@ const styleName = (part: 'wallpaper' | 'floor', style: string) =>
     STYLES.find((s) => s.part === part && s.style === style)?.name ??
       (part === 'wallpaper' ? 'plain plaster' : 'plain planks'),
   );
+
+const NONE: readonly string[] = [];
 
 const MOVES: Record<string, Cell> = {
   ArrowUp: [0, -1],
@@ -65,17 +68,25 @@ export function Decorate({
   onSave,
   onDone,
   onCancel,
+  where = 'home',
+  elsewhere = NONE,
 }: {
   layout: Layout;
   look: Look;
   /** The item ids the player owns: the furniture among them can be placed. */
   owned: readonly string[];
+  /** Which room is being decorated: the house, or the roof (task 8.4, §16). */
+  where?: RoomId;
+  /** The pieces standing in the player's other room, which stay out of the tray. */
+  elsewhere?: readonly string[];
   onSave: (layout: Layout) => Promise<void>;
   onDone: (layout: Layout) => void;
   onCancel: () => void;
 }) {
-  const mine = useMemo(() => ownedPieces(owned), [owned]);
-  const styles = useMemo(() => ownedStyles(owned), [owned]);
+  const ROOM = ROOMS[where];
+  const mine = useMemo(() => ownedPieces(owned, where), [owned, where]);
+  const styles = useMemo(() => ownedStyles(owned, ROOMS[where]), [owned, where]);
+  const away = useMemo(() => new Set(elsewhere), [elsewhere]);
   const [draft, setDraft] = useState(layout);
   const [held, setHeld] = useState<Held | null>(null);
   const [say, setSay] = useState('');
@@ -85,9 +96,9 @@ export function Decorate({
   const [grab, setGrab] = useState<Placed | null>(null);
 
   const with_ = (at: Placed) => ({ ...draft, pieces: [...draft.pieces, at] });
-  const refusal = (at: Placed) => checkLayout(with_(at), mine, ROOM, styles);
+  const refusal = (at: Placed) => checkLayout(with_(at), mine, ROOM, styles, away);
   const tray = [...mine.values()].filter(
-    (d) => d.id !== held?.def.id && !draft.pieces.some((p) => p.id === d.id),
+    (d) => d.id !== held?.def.id && !away.has(d.id) && !draft.pieces.some((p) => p.id === d.id),
   );
 
   const pickUp = (p: Placed) => {
@@ -115,7 +126,7 @@ export function Decorate({
     const no = refusal(at);
     if (no) {
       setHeld({ ...held, at });
-      setSay(refusalText(no, ALL));
+      setSay(refusalText(no, ALL, where));
       return;
     }
     setDraft(with_(at));
@@ -221,9 +232,9 @@ export function Decorate({
   const done = async () => {
     let room = draft;
     if (held?.was) room = { ...draft, pieces: [...draft.pieces, held.was] };
-    const no = checkLayout(room, mine, ROOM, styles);
+    const no = checkLayout(room, mine, ROOM, styles, away);
     if (no) {
-      setSay(refusalText(no, ALL));
+      setSay(refusalText(no, ALL, where));
       return;
     }
     setSaving(true);
@@ -232,7 +243,7 @@ export function Decorate({
       onDone(room);
     } catch {
       setSaving(false);
-      setSay('Couldn’t save your room. Try again in a moment.');
+      setSay(`Couldn’t save your ${where === 'roof' ? 'roof' : 'room'}. Try again in a moment.`);
     }
   };
 
@@ -240,7 +251,12 @@ export function Decorate({
 
   return (
     <>
-      <Room layout={shown} look={look} decor={{ marks, onPress, onKey, holding: !!held, focus }} />
+      <Room
+        layout={shown}
+        look={look}
+        where={where}
+        decor={{ marks, onPress, onKey, holding: !!held, focus }}
+      />
       <section className="decorate" aria-label="Decorate">
         <p className="decorate__say" role="status">
           {say}
@@ -301,7 +317,13 @@ export function Decorate({
         )}
         <h2 className="decorate__title">In the tray</h2>
         {tray.length === 0 ? (
-          <p className="decorate__empty">Everything you own is in the room.</p>
+          <p className="decorate__empty">
+            {mine.size === 0
+              ? 'No furniture yet. The Market sells it, and chests hold some.'
+              : away.size > 0
+                ? `Everything else you own is ${where === 'roof' ? 'downstairs' : 'up on the roof'}.`
+                : `Everything you own is ${where === 'roof' ? 'on the roof' : 'in the room'}.`}
+          </p>
         ) : (
           <ul className="decorate__tray">
             {tray.map((d) => (

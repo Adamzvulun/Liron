@@ -10,9 +10,12 @@ import {
   blockedCells,
   byTheWindow,
   PANELS,
+  ROOF,
+  ROOF_PRICE,
+  ROOF_STARTER,
   type PieceDef,
 } from './layout.ts';
-import { BAD, EXTRA, GOOD } from './layouts.fixture.ts';
+import { BAD, EXTRA, GOOD, ROOF_BAD, ROOF_GOOD } from './layouts.fixture.ts';
 import { cellKey, findPath, reachable } from './path.ts';
 
 function must<T>(v: T | null | undefined, what: string): T {
@@ -192,5 +195,67 @@ describe('byTheWindow (the-home.md §8)', () => {
   it('steps aside, then forward, when the cells under the window are taken', () => {
     expect(byTheWindow((x, y) => y > 0 || (x !== 5 && x !== 6))).toEqual([4, 0]);
     expect(byTheWindow((_, y) => y > 1)).toEqual([5, 2]);
+  });
+});
+
+describe('the roof (task 8.4, §16)', () => {
+  // On the roof, only furniture: the starter pieces stay in the house.
+  const furniture = new Map<string, PieceDef>(
+    (EXTRA as unknown as PieceDef[]).map((d) => [d.id, d]),
+  );
+
+  it('is the house’s grid, caps and slots, with its own style and nothing on it', () => {
+    expect([ROOF.cols, ROOF.rows, ROOF.door, ROOF.caps, ROOF.slots]).toEqual([
+      ROOM.cols,
+      ROOM.rows,
+      ROOM.door,
+      ROOM.caps,
+      ROOM.slots,
+    ]);
+    expect(ROOF_STARTER.pieces).toEqual([]);
+    expect([ROOF_STARTER.wallpaper, ROOF_STARTER.floor]).toEqual([
+      ROOF.wallpapers[0],
+      ROOF.floors[0],
+    ]);
+    expect(ROOF_PRICE).toBe(15);
+  });
+
+  for (const { name, layout } of ROOF_GOOD)
+    it(`accepts ${name}`, () => {
+      expect(checkLayout(layout, furniture, ROOF)).toBeNull();
+    });
+
+  for (const { name, layout, refusal } of ROOF_BAD)
+    it(`refuses ${name}`, () => {
+      expect(checkLayout(layout, furniture, ROOF)).toEqual(refusal);
+    });
+
+  it('needs no panels on the roof, but still in the house', () => {
+    expect(checkLayout(ROOF_STARTER, furniture, ROOF)).toBeNull();
+    expect(checkLayout({ ...ROOF_STARTER, wallpaper: 'plaster', floor: 'planks' }, owned)).toEqual({
+      why: 'panel-missing',
+      does: 'wardrobe',
+    });
+  });
+
+  it('keeps a piece in one room at a time', () => {
+    const chair = must(ROOF_GOOD[1], 'case').layout;
+    expect(checkLayout(chair, furniture, ROOF, ROOF, new Set(['home-chair']))).toEqual({
+      why: 'elsewhere',
+      id: 'home-chair',
+    });
+    const r = { why: 'elsewhere', id: 'home-chair' } as const;
+    expect(refusalText(r, owned, 'roof')).toBe(
+      'The chair is in your room downstairs. Store it there first.',
+    );
+    expect(refusalText(r, owned)).toBe('The chair is up on the roof. Store it there first.');
+  });
+
+  it('is kept by the progress store once opened, for its gems', async () => {
+    const { memoryStore } = await import('../progress/store.ts');
+    const store = memoryStore();
+    expect(await store.home('roof')).toBeNull();
+    await expect(store.saveHome(ROOF_STARTER, 'roof')).rejects.toThrow(/roof closed/);
+    await expect(store.openRoof()).rejects.toThrow(/too few gems/);
   });
 });
