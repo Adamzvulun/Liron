@@ -498,3 +498,17 @@
    - **Self-checks don't work.** "Correct your draft" and "list unsure words" did nothing on either model.
    - **Players can fix a word** for everyone, with history and undo (`song_fixes`).
    - **Niche tests:** يا ريتك مباركة (traditional) and a live wedding zajal were both heard coherently.
+198. **Phase 15 plan optimized and tested (2026-11-23).** Research Part 4 in [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Skills used: test-master, prompt-engineer, the-fool (red team) and claude-api.
+   - **Timing passes.** On *Kalamantina*, Gemini's 61 line starts were a median 0.16 s from LRCLIB's hand timing, with 96% within 1 s. Words: 11% lenient error (28% strict, mostly spelling variants).
+   - **`gemini-3.6-flash`'s free tier is 20 requests a day per project.** The benchmark stopped after 1 of 24 listens. The free-tier model order is now flash-lite first. Paid Gemini is recommended (about $0.03 a listen, with no training on our data), in the songs' own Google Cloud project, so the Radio Room's quota is safe.
+     - **Careful:** this environment's `GEMINI_API_KEY` may share a project with production. The tests made about 60 flash-lite and 25 3.6-flash requests on 2026-11-23.
+   - **Red-team fixes, now in the spec:**
+     - fixed lines are never sent to Gemini;
+     - the 10-minute clip (`video_metadata.end_offset` tested);
+     - the lease;
+     - one attempt per call;
+     - word-fix limits;
+     - a monthly Claude budget with an 80% stop;
+     - the Latin converter plus checker (13 bad strings fell to 2, out of 105).
+   - **Repeated lines:** 28–75% of a song's lines repeat, so each distinct line is explained once.
+   - **The full 8-song eval gates 15.3.** Pass marks are in research §L.

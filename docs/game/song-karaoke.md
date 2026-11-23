@@ -49,7 +49,7 @@ No picking a match, no pasting words, no setting the timing.
    - **met:** taught, but not yet reviewed;
    - **new.**
 
-   Words from another dialect say so ("Egyptian: *ʕayez*; ours is *biddi*").
+   Words from another dialect say so ("Egyptian: *3āyez*; ours is *bíddi*").
 
    **Fix this word.** Anyone who hears it differently can correct it. Songs are shared, so the fix is for everyone. It's kept in the song's history, can be undone, and the line is explained again.
 8. **Keep this line.** Up to 10 lines per song become review cards (FSRS item `song:<videoId>:<line>`). A card:
@@ -63,7 +63,12 @@ No picking a match, no pasting words, no setting the timing.
 
 Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of the research measured how often. The player still does nothing:
 
-- **The server tries the next model.** The order is `gemini-3.6-flash` (the most accurate in the tests), then `gemini-3.5-flash-lite`, then `gemini-flash-lite-latest`, with a short wait between. The order is a setting, not code, because Google renames models often (`gemini-2.5-flash` was already gone for new keys on 2026-11-23).
+- **The server tries the next model.** The order is a setting, not code, because Google renames models often (`gemini-2.5-flash` was already gone for new keys on 2026-11-23).
+  - **On Gemini's paid tier** (recommended; about $0.03 a listen): `gemini-3.6-flash` first, then `gemini-3.5-flash-lite`.
+  - **On the free tier:** `gemini-3.5-flash-lite` first, then `gemini-flash-lite-latest`. `gemini-3.6-flash` allows only 20 requests a day per project, so it's kept for the second listen on songs without lyrics, with our own count stopping at 15 a day.
+- **One attempt per server call.** The corner's retries drive the next attempt, so no call outlives Vercel's time limit.
+- **One listen at a time, game-wide** (a lease in `claim_song()`), so two friends pasting the same new song don't pay for it twice, and bursts don't hit the per-minute limits.
+- **The songs' calls use their own Google Cloud project** (limits are per project), so a busy evening of songs never uses up the Radio Room's Gemini quota.
 - **If all are busy,** the song is saved as *listening* in the shared songbook. The corner says "The singer is learning this one…" with a small animation.
   - It retries on its own: at 30 s, 1, 2, 4 and 8 minutes while the page is open.
   - Then whenever anyone opens the corner.
@@ -74,7 +79,7 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 1. When a player pastes a text, the system shall accept any YouTube video link and read the 11-character id from it. Anything else gets "That isn't a YouTube video link".
 2. When a link is accepted, the system shall need nothing more from the player to play the song with timed, explained lines.
 3. When a video id is already in the shared songbook and ready, the system shall show it without calling Gemini or LRCLIB.
-4. When a video id is new, the system shall first look the song up on LRCLIB by title and length (±3 s; plain or synced). Then it shall send the YouTube link to Gemini at the lowest video resolution (or the audio layer alone, where the API offers it), with LRCLIB's words as a hint when found. It shall ask for every sung line, repeats included, with its start and end as `MM:SS.s` text, under a response schema.
+4. When a video id is new, the system shall first look the song up on LRCLIB by title and length (±3 s; plain or synced). Then it shall send the YouTube link to Gemini, clipped to the first 10 minutes (`video_metadata.end_offset: 600s`), at the lowest video resolution (or the audio layer alone, where the API offers it), with LRCLIB's words as a hint when found. It shall ask for every sung line, repeats included, with its start and end as `MM:SS.s` text, under a response schema.
 5. The system shall parse each time from `MM:SS.s`, and shall reject an answer whose times don't run in order or run past the video's length (from `getDuration()`), retrying once. Where LRCLIB had no lyrics, the lines shall be marked *heard by ear*.
 6. When Gemini answers 503 or 429, the system shall try the next model in the list. When every model is busy, it shall save the song as *listening* and retry by itself as above, with no action from the player.
 7. The video shall play only through the YouTube IFrame Player (`youtube-nocookie.com`), at least 200 × 200 px, with nothing drawn over any part of it. The system shall never download, extract or record its audio itself. Listening is done by Gemini from the public link.
@@ -88,7 +93,11 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 15. The events shall be `song-open`, `song-line-kept` and `song-review`, with one daily contract ("Sing along: keep 2 lines", 15 gold).
 16. The LRCLIB requests shall name the game (`User-Agent: Waymark (…)`), go one at a time, and honor `Retry-After`.
 17. Where LRCLIB had no lyrics, the system shall listen with two different Gemini models and shall send both transcripts to Claude to settle each differing word. Words Claude marks as doubtful shall be shown with a dotted underline.
-18. When a player fixes a word, the system shall save the fix to the shared song, with the player and the time, keep the earlier text in the song's history, let any player undo it, and explain that line again.
+18. When a player fixes a word (one word, at most 30 Arabic letters, 20 fixes a day per player), the system shall save the fix to the shared song, with the player and the time, keep the earlier text in the song's history, let any player undo it, and explain that line again.
+19. The system shall explain each distinct line once; repeated lines (75% of one test song, 28% of another) reuse the first explanation.
+20. Every Latin string shall pass through the scheme converter (ħ→ɧ, ʕ→3, ṣ→ʂ, ḍ→ɖ, ṭ→ʈ, ẓ→ʐ, ġ→ɣ, θ→ŧ, ð→đ, ʃ→š, ə→e and the like), and then the checker (the scheme's letters, spaces, hyphens and punctuation only). A line that still fails shall be asked again on its own, once, and then shown without Latin. Lines in another language (English, French) get no Latin.
+21. A line that holds a player's fix shall be explained by Claude or Groq only, never Gemini (ADR 0038).
+22. Claude's spend shall be counted in `songs_budget` each month. At 80% of the month's budget, explaining shall fall back to Gemini text, then Groq.
 
 ## Non-functional
 

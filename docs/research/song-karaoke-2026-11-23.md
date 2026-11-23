@@ -294,3 +294,72 @@ Adam: "Optimize and test the plan using relevant skills." Skills used: `test-mas
 | Database | `songs` readable by signed-in players, writable only through the server's functions; `song_fixes` history and undo; `songbook` RLS; the lease (a second claim waits); both daily limits; the monthly Claude budget | `supabase/tests/` |
 | Browser (Playwright, phone size) | Paste, then *listening*, then ready by itself; lines light up with a mocked player clock; a word tap; a fix and its undo; nothing over the player (bounding boxes); player errors 101/150 | `e2e/song.spec.ts`, YouTube, Gemini, Claude and LRCLIB all mocked |
 | **Eval (manual, real APIs, never in CI)** | The §K benchmark: word error rate and timing against LRCLIB's synced lyrics for 8 songs; the Latin-scheme pass rate. Run before 15.3 merges and whenever a model or prompt changes. Commits only video and LRCLIB ids; lyrics are fetched at run time. | `scripts/song-eval.ts` |
+
+## K. Test results (the benchmark and the prompts)
+
+**The benchmark set.**
+- **What's in it.** 30 YouTube videos whose length matches an LRCLIB record with synced lyrics (±1.5 s), found by script; 8 were picked for the set:
+  - Fairuz ×2, Mohammed Assaf ×2;
+  - Saint Levant and Elyanna;
+  - Nancy Ajram;
+  - Wegz (fast Egyptian rap).
+- **What it measures.**
+  - Words: the word error rate against LRCLIB's text.
+  - Timing: each line's start against LRCLIB's hand-timed start.
+- **The conditions.**
+  - A: `gemini-3.6-flash`, no lyrics.
+  - B: `gemini-3.5-flash-lite`, no lyrics.
+  - C: `gemini-3.6-flash` with the LRCLIB hint.
+
+**What finished.** Only one song. The run stopped on a finding (below) after 1 of 24 listens. The scripts (`bench/find.py`, `run.py` and `score.py`) were scratch only; their logic becomes `scripts/song-eval.ts` in 15.3.
+
+| Song | Condition | Words wrong (strict) | Words wrong (lenient: near-identical spellings count as right) | Median timing error | Lines within 1 s |
+|---|---|---|---|---|---|
+| Saint Levant & Marwan Moussa, *Kalamantina* (61 lines, Levantine and English) | A | 28% | **11%** | **0.16 s** | **96%** |
+
+- **Why strict and lenient differ.** The strict figure is mostly spelling: the reference is crowd-written, and the two sides spell the same sung word differently (وحدة/واحدة, حتعذبني/هتعذبني, القاطو/الجاتوة). Read by hand, the first 10 lines had no real mishearings.
+- **Timing passes.** Line starts landed within a fifth of a second of the hand-timed ones. The by-ear check asked for in Part 2 is answered for this song. The full set will confirm it.
+
+**Finding 1: `gemini-3.6-flash`'s free tier is 20 requests a day per project.**
+- **What happened.** The 429 said: `GenerateRequestsPerDayPerProjectPerModel-FreeTier`, `quotaValue: 20`.
+- **Why it matters.** The binding limit isn't "8 hours of video a day"; it's this. Fallback from 3.6 to flash-lite works, but 20 a day can't be the main path.
+- **Limits are per Google Cloud project, not per key.** So the songs' calls should live in their own project, where they can never use up the live Radio Room's Gemini quota.
+- **Paid prices**, from [Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing), read today:
+  - `gemini-3.6-flash`: $0.75 in and $3.75 out per million tokens, rising to $1.50 and $7.50 on 2027-01-01.
+  - `gemini-3.5-flash-lite`: $0.30 in and $2.50 out.
+  - On the paid tier, what we send is **not** used to improve Google's products.
+- **What a listen costs.** About 22K tokens in and 2.5K out, so about **$0.03** on 3.6 Flash (about $0.05 from 2027), or about **$0.01** on flash-lite.
+
+**Finding 2: repeated lines.** 75% of *Kalamantina*'s lines repeat an earlier line, and 28% of *Habaytak bel sayf*'s. Explaining each distinct line once saves that share of Claude's cost (§I.1).
+
+**Finding 3: the Latin scheme** (the explain prompt, 15 lines, 105 Latin strings, `gemini-3.5-flash-lite` as a stand-in for Claude):
+
+| Version | Strings outside the scheme | Cause |
+|---|---|---|
+| v1 (the scheme listed, one example) | 13 | IPA ħ for ɧ (10), ə for e (3) |
+| v2 (letters named explicitly, plus a converter) | 2 real ones (an Arabic ة inside the Latin) | The rest were commas, brackets and English lines, which the checker should allow or skip |
+
+So the converter plus the checker gets about 98% right first time. A line that still fails is asked again on its own.
+
+**Finding 4: clipping works.** `video_metadata.end_offset: 60s` cut a song to 5,461 video tokens. The 10-minute cap (H2) is real.
+
+## L. What changed in the plan
+
+1. **Models, free tier.**
+   - `gemini-3.5-flash-lite` is the one listen when LRCLIB has the song.
+   - `gemini-3.6-flash` (20 a day) is kept for the second listen on songs without lyrics, with our own daily count stopping at 15, so busy days still have some left.
+2. **Paid Gemini, recommended.** It costs about $0.03 a listen, and the data isn't used for Google's training. With it, 3.6 Flash becomes the one listen for every song. Together with Claude's explaining (§F, less the repeats), **a new song costs about $0.05–0.15, once**. The corner works without it, at the free tier's quality and limits.
+3. **The songs' own Google Cloud project,** so songs never touch the Radio Room's quota.
+4. **The red-team fixes (H1–H9):**
+   - one attempt per server call;
+   - the 10-minute clip;
+   - the lease;
+   - fixed lines explained by Claude or Groq only;
+   - word-fix limits;
+   - the monthly Claude budget;
+   - the scheme converter and checker.
+5. **The eval gates 15.3.** The 8-song benchmark runs in full, on the songs project, before 15.3 merges. Pass marks:
+   - median timing error ≤ 0.5 s;
+   - ≥ 90% of lines within 1 s;
+   - lenient word error ≤ 15%;
+   - ≥ 97% of Latin strings in the scheme after conversion.

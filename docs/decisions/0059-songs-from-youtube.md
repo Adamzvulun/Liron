@@ -37,7 +37,11 @@ Option A, with C as the hint and the stand-in.
   - The server sends the YouTube link to Gemini, at the lowest video resolution, under a response schema.
   - LRCLIB's lyrics, when found, go with it as a hint.
   - Times are asked as `MM:SS.s` text and parsed by us. The tests showed Gemini writes 1:07 as "107" when asked for seconds.
-- **Models.** A setting, not code: `gemini-3.6-flash`, then `gemini-3.5-flash-lite`, then `gemini-flash-lite-latest`, tried in turn on 503 or 429.
+- **Models.** A setting, not code, tried in turn on 503 or 429.
+  - **Paid tier:** `gemini-3.6-flash`, then `gemini-3.5-flash-lite`.
+  - **Free tier:** `gemini-3.5-flash-lite`, then `gemini-flash-lite-latest`. `gemini-3.6-flash` is kept for second listens, because its free tier is 20 requests a day per project (found in testing; research §K).
+- **A Google Cloud project of the songs' own,** so they never share the Radio Room's quota (limits are per project).
+- **Every listen is clipped to the first 10 minutes,** and each server call makes one attempt; the corner drives retries.
 - **When everything is busy.** The song waits as *listening* in the shared songbook and is retried by itself; the player does nothing. If LRCLIB's synced lyrics match the video's length, they're shown meanwhile, marked as approximate.
 - **Explaining: Claude.** Adam offered a Claude API key on 2026-11-23. Claude can't hear (the API takes text, images and PDFs), but it explains best.
   - `claude-opus-5-5`, at low effort, with structured output, gives the meaning, the Latin in our scheme and a gloss per word.
@@ -58,7 +62,8 @@ Option A, with C as the hint and the stand-in.
 ## Consequences
 
 - **New outside dependencies.** Four: Gemini's YouTube feature (preview), YouTube's embedded player, LRCLIB and the Claude API. All but Claude are free, and all four are on the privacy page.
-- **Money.** The Claude API is paid: about $0.10–0.15 a song, once, since songs are shared (an estimate; 15.3 measures it). Adam puts the key in Vercel (`ANTHROPIC_API_KEY`), never in chat, and sets a monthly spend limit in the Claude Console. Without the key, the corner still works on Gemini and Groq.
+- **Money, Gemini.** The paid tier is recommended: about $0.03 a listen on 3.6 Flash ($0.05 from 2027), and what we send isn't used for Google's training. It needs billing on the songs' Google Cloud project, with a budget alert. Without it, the free tier works at lower quality and capacity.
+- **Money, Claude.** The Claude API is paid: about $0.10–0.15 a song, once, since songs are shared (an estimate; 15.3 measures it). Adam puts the key in Vercel (`ANTHROPIC_API_KEY`), never in chat, and sets a monthly spend limit in the Claude Console. Without the key, the corner still works on Gemini and Groq.
 - **The preview.** Google says pricing and limits "are likely to change". If it becomes paid, that comes to Adam as a question first, and LRCLIB-only (Option C) keeps the corner working meanwhile.
 - **Third-party script.** The CSP allows it for the first time, site-wide, since Waymark is one page. The script is loaded only when the corner opens.
 - **Copyright.** Lyrics are someone else's text. They live in our private database for the game's signed-in players, never in git or `content/`.
