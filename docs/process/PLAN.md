@@ -432,8 +432,8 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** the last of #447. Friends in one house see each other walk, on the wire's Realtime ([ADR 0056](../decisions/0056-visiting-together-live.md)). Adam's Realtime setting was done on 2026-11-18 (HANDOFF 112).
 
-### ☐ 9.1 (#482) · v1.7 · Visiting together, live
-- A guest sees their host walk when the host is home. A host sees whoever comes by. Spec: [the-home.md](../game/the-home.md) §17.
+### ☑ 9.1 (#482) · v1.7 · Visiting together, live
+- A guest sees their host walk when the host is home. A host sees whoever comes by. Spec: [the-home.md](../game/the-home.md) §17. Merged ([#483](https://github.com/Adamzvulun/Liron/pull/483)).
 
 ### ☐ 9.2 · v1.7 · Release v1.7.0
 
