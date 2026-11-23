@@ -12,7 +12,7 @@ The home's later list ([the-home.md](../game/the-home.md) §9) asks for friends 
 
 1. **The wire's kind of channel, with its own name:** `visit:<low id>:<high id>`, private and broadcast only. `may_use_wire` accepts `wire:` and `visit:`, so the same two policies on `realtime.messages` let in the same two friends and nobody else. There is no new service, key or bill.
 2. **Pairs, not a channel per house.** A house channel would let two guests who aren't friends see each other. Per friendship, you only ever see friends. A guest opens one line, to the host. A host at home opens one per friend, at most 40 (Realtime allows 100 channels a connection).
-3. **What is said:** `{h, r, c, s?}`, meaning whose house, which room, the cell and the seat. It goes every 5 s on every line, at once to a newcomer, on each step to a friend in the same house, and as "bye" on leaving. Nothing else: no names, no text. Each side draws the friend from their card.
+3. **What is said:** `{h, r, c, s?}`, meaning whose house, which room, the cell and the seat. It goes on each line as you join it (and once more 3 s later, in case the friend joined at the same moment), at once in answer to a newcomer, and every 5 s and on each step only to a friend in the same house. "bye" goes on leaving. An empty house sends nothing after joining: with Realtime's 2 million messages a month, a house left open with friends who aren't there must cost nothing (review, 2026-11-23). Nothing else: no names, no text. Each side draws the friend from their card.
 4. **Live presence only replaces the still host.** A host who isn't home stands by the window as before. One who is home walks, and doesn't block the way.
 
 ## Consequences
