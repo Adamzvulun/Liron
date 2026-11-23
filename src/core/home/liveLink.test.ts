@@ -4,8 +4,10 @@ import {
   Gathering,
   GONE_AFTER_MS,
   heardSpot,
+  HERE_EVERY_MS,
   MOST_LINES,
   said,
+  SAY_AGAIN_MS,
   supabaseLive,
   visitTopic,
   type Mate,
@@ -165,6 +167,38 @@ describe('the lines of a house', () => {
     const before = seen.length;
     b.handlers.get('at')?.({ payload: said('a', AT) });
     expect(seen).toHaveLength(before);
+  });
+
+  it('an empty house costs nothing: beats go only to friends in it (review, 2026-11-23)', async () => {
+    vi.useFakeTimers();
+    try {
+      const { client, channels } = fakeClient();
+      const link = supabaseLive(client).join('a', ['b', 'c'], () => {});
+      await vi.waitFor(() => expect(channels.size).toBe(2));
+      const b = channels.get('visit:a:b');
+      const c = channels.get('visit:a:c');
+      if (!b || !c) throw new Error('no lines');
+      link.move(AT);
+      b.onStatus('SUBSCRIBED');
+      c.onStatus('SUBSCRIBED');
+      // Joining says "here" once, and once more in case the friend joined at the same moment.
+      expect(b.sent).toHaveLength(1);
+      vi.advanceTimersByTime(SAY_AGAIN_MS);
+      expect(b.sent).toHaveLength(2);
+      // Then nothing, however long nobody comes.
+      vi.advanceTimersByTime(HERE_EVERY_MS * 10);
+      expect(b.sent).toHaveLength(2);
+      expect(c.sent).toHaveLength(2);
+      // b comes in: answered, then kept up to date every beat; c still hears nothing.
+      b.handlers.get('here')?.({ payload: said('a', AT) });
+      expect(b.sent).toHaveLength(3);
+      vi.advanceTimersByTime(HERE_EVERY_MS);
+      expect(b.sent).toHaveLength(4);
+      expect(c.sent).toHaveLength(2);
+      link.close();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('listens for at most MOST_LINES friends', async () => {
