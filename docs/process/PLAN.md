@@ -333,7 +333,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** a friend who arrives by invite link, on a phone, finds their way around without anyone explaining it. Spec: [the-guide.md](../game/the-guide.md). Decision: [ADR 0053](../decisions/0053-a-guide-for-new-players.md). Research: [new-player-guides.md](../research/new-player-guides.md). Adam chose (2026-11-22) a guide character with tips at the moment of need and a Guidebook, everything open but introduced in order, friends first, and a new city character.
 
-### ☐ 6.1 (#406) · v1.3 · Design the Lamplighter: name, look, where they stand 🚧
+### ☑ 6.1 (#406) · v1.3 · Design the Lamplighter: name, look, where they stand 🚧
 - **Gate:** Adam picks the name (from three) and approves the look. Drawn into the touch-screen pictures, no new filtered layers.
 
 ### ☑ 6.2 (#407) · v1.3 · Save what the guide has shown, on the account
@@ -354,11 +354,13 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☑ 6.7 (#412) · v1.3 · The Guidebook
 - A page for every place, number and system; numbers from code; a completeness test.
 
-### ☐ 6.8 (#413) · v1.3 · The guide's words, reviewed by Adam 🚧
+### ☑ 6.8 (#413) · v1.3 · The guide's words, reviewed by Adam 🚧
 - **Gate:** Adam reads every line once.
 
-### ☐ 6.9 (#414) · v1.3 · Try it on a newcomer, and release v1.3.0
+### ☑ 6.9 (#414) · v1.3 · Try it on a newcomer, and release v1.3.0
 - A newcomer walk-through on the phone, then the release.
+
+**Done (2026-11-23):** Adam approved Nour's look and the guide's words, and found the newcomer walk-through fine. v1.3.0 went live on 2026-11-22.
 
 **Order:** 6.1 and 6.2 first (6.1 waits on Adam, so 6.2–6.3 go ahead meanwhile), then 6.4, 6.5, 6.6, 6.7 in that order, with 6.8's words written alongside each and reviewed in one sitting before 6.9.
 
@@ -366,40 +368,59 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** Your House becomes a room you walk in, decorate and invite friends into. A friend who visits walks into your room as themselves and finds you standing in it (Adam, 2026-11-22). Spec: [the-home.md](../game/the-home.md). Decision: [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-page.md) (proposed). Research: [walkable-home.md](../research/walkable-home.md).
 
-### ☐ 7.1 (#436) · v1.4 · Design the room: the floor grid and the starter pieces 🚧
+### ☑ 7.1 (#436) · v1.4 · Design the room: the floor grid and the starter pieces 🚧
 - **Gate:** Adam approves the look. Today's painting split into a fixed room and seven movable pieces, with a 12 × 5 floor grid in its perspective.
 
-### ☐ 7.2 (#437) · v1.4 · The room's rules: grid, footprints, caps and the path from the door
+### ☑ 7.2 (#437) · v1.4 · The room's rules: grid, footprints, caps and the path from the door
 - Pure TypeScript with unit tests, and a fixture of good and bad layouts shared with 7.3.
 
-### ☐ 7.3 (#438) · v1.4 · Homes in the database: `save_home` and `home_of`
+### ☑ 7.3 (#438) · v1.4 · Homes in the database: `save_home` and `home_of`
 - One layout per player, checked whole. Friends read placed pieces only.
 
-### ☐ 7.4 (#439) · v1.4 · Paint the furniture: the panel pieces, 8 more, the wallpapers and floors
+### ☑ 7.4 (#439) · v1.4 · Paint the furniture: the panel pieces, 8 more, the wallpapers and floors
 - Pictures on touch screens, with no live filters.
 
-### ☐ 7.5 (#440) · v1.4 · Walk in the room
+### ☑ 7.5 (#440) · v1.4 · Walk in the room
 - Tap to walk, arrow keys, depth by row, the phone pan, and the frame budget.
 
-### ☐ 7.6 (#441) · v1.4 · Pieces that do things, and the list "In this room"
+### ☑ 7.6 (#441) · v1.4 · Pieces that do things, and the list "In this room"
 - The cupboard, shelf, desk and letterbox open today's four panels. Old addresses keep working.
 
-### ☐ 7.7 (#442) · v1.4 · Decorate: place, move, flip and store
+### ☑ 7.7 (#442) · v1.4 · Decorate: place, move, flip and store
 - Tap, then tap. Dragging is never the only way. Done saves whole; Cancel puts it back.
 
-### ☐ 7.8 (#443) · v1.4 · Furniture in the economy
+### ☑ 7.8 (#443) · v1.4 · Furniture in the economy
 - A new item kind, one Market slot a day, chest drops, and rank banners.
 
-### ☐ 7.9 (#444) · v1.4 · Visit a friend's room
+### ☑ 7.9 (#444) · v1.4 · Visit a friend's room
 - You walk in as yourself, and can't touch anything. FRIENDS.md gets its line.
 
-### ☐ 7.10 (#445) · v1.4 · The guide for the home
+### ☑ 7.10 (#445) · v1.4 · The guide for the home
 - The first-visit card, Nour's line about Decorate, and a Guidebook page. The words go in Adam's read (#413).
 
-### ☐ 7.11 (#446) · v1.4 · Try it with a friend on a phone, and release v1.4.0
+### ☑ 7.11 (#446) · v1.4 · Try it with a friend on a phone, and release v1.4.0
 - **Adam's part:** a visit both ways with a friend.
 
 **Order:** 7.1 and 7.2 together (7.2 needs no art), then 7.3. 7.5 can start on 7.1's pieces before Adam's yes, since the look can change under it. Then 7.6, 7.4, 7.7, 7.8, 7.9 and 7.10, then 7.11. After v1.4: #447 (stopped-by notes, visiting together live, more facings, a second room), ordered, not cut.
+
+**Done (2026-11-23):** v1.4.0 went live (#466), and Adam visited a friend's room and had them visit his: "It works, everything's good."
+
+## Phase 8 — The home lived in (epic #468)
+
+**Goal:** the home keeps giving friends a reason to drop by. From #447 and [the-home.md](../game/the-home.md) §9, in its order. Visiting together live stays in #447: it waits on the same Realtime setting as the wire (VERSIONS 2.4).
+
+### ☐ 8.1 (#469) · v1.5 · Notes at the letterbox
+- A visiting friend leaves one note a day from a fixed set (our own Arabic sentences, Morse sign-offs, two plain lines). The host reads them at the letterbox, and the feed says who stopped by. Only the two of them see a note. Spec: [the-home.md](../game/the-home.md) §13.
+
+### ☐ 8.2 (#470) · v1.5 · Coziness, a rating that only rises
+
+### ☐ 8.3 (#471) · v1.5 · Four facings for the pieces that need them
+
+### ☐ 8.4 (#472) · v1.5 · A second room, bought with gems
+
+### ☐ 8.5 (#473) · v1.5 · Release v1.5.0
+
+**Order:** 8.1, 8.2, then 8.3 and 8.4 (both need painting), then 8.5.
 
 ## Parked: ordered after everything above, each waiting on Adam
 

@@ -147,3 +147,15 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
   - *Guard:* the path rule, checked twice (R6, R7).
 - **A friend's room leaks something.**
   - *Guard:* the database gives the layout only through a friends-only function, with the same three-player test as the cards (ADR 0042).
+
+## 13. Notes at the letterbox (task 8.1, #469)
+
+The first of §9's later items: "stopped by" and a guestbook, built as notes.
+
+- **In a friend's room,** the letterbox says "leave a note". It opens the set: five of our own Arabic sentences (the tea is very hot, the house is clean, the weather's nice, see you tonight, okay bye), three Morse sign-offs the Codebook teaches (73, CUL, TNX) and two plain lines. Each Arabic note shows its script, its reading and its meaning, so a note is a little practice too.
+- **One a day per friend.** Picking again the same day replaces the note. The letterbox says which note you left today.
+- **No free text.** A note is a code from `content/core/home.json`, like the feed's rows (ADR 0043), so nothing anyone writes reaches a friend's screen. `home_note_ids()` in the database keeps the same list, and a test holds them equal. The Arabic notes are tested word for word against `own-sentences.json`, and the Morse ones against the Codebook.
+- **Your letterbox** opens the Fellowship as before, with "Notes in your letterbox" at the top: who, which note, and the day.
+- **The Notice Board** says "Basma stopped by your room and left a note: …". Only you see that line.
+- **Privacy:** only the host and the writer read a note. A note from someone who is no longer a friend is hidden, and notes are deleted after 60 days, like the feed. A visit that leaves no note records nothing. FRIENDS.md says so.
+- **Tests:** `supabase/tests/notes.test.ts` (strangers, yourself, outside the set, one a day, who can read, the feed, unfriending, 60 days); `src/core/home/notes.test.ts`; `tests/e2e/fellowship.spec.ts` (leave, replace, remember, read, the feed line).
