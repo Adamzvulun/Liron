@@ -179,3 +179,15 @@ The first of §9's later items: "stopped by" and a guestbook, built as notes.
 - **Known:** someone sitting on a chair turned away is still drawn facing you.
 - **Tests:** `decorate.test.ts` (the order, keeping a turn, what turns); `paintHome.test.ts` (four paintings, the mirror swap); the fixture's turned chair, which `save_home` takes (homes.test.ts); `home.spec.ts` (Turn, saved, no Turn for the chest).
 
+
+## 16. The roof, a second room (task 8.4, #472)
+
+- **What it is:** a flat roof above the house at dusk, opened once for **15 gems**. Two neighbors' walls stand at the back, with a string of little lights between them and the city's rooftops and the Signal Tower beyond a low wall. Low parapets run along both sides. You come up through a hatch at the door's cell, front left. Painted in `paintRoof.ts` on the same grid and projection as the house, so every piece stands and hangs there as it does indoors.
+- **Why 15 gems:** gems are scarce. The 24 achievements pay 60 in all, and chests give one now and then. Nothing spent them before. 15 is a real goal that most players reach within a few weeks of play, not a wall.
+- **Opening it:** under your room, **The roof…** says what it is, its price and how many gems you have. **Open the roof for 15 gems** is greyed out until you have enough, with how many more you need. Once it's open, **Up to the roof** and **Down to your room** take the stairs. `/house#roof` opens on the roof.
+- **Its rules:** the same 12 × 5 grid, caps and wall slots as the house (the slots fall on the two walls). Only furniture goes up: the starter pieces stay in the house, so the roof needs none of the four panels. It keeps its own lime wash and slabs; bought wallpapers and floors are for indoors. **A piece stands in one room at a time:** the tray leaves out what's in the other room, and a save that would put a piece in both is refused ("The chair is up on the roof. Store it there first.").
+- **Coziness** counts both rooms together, the roof's own lime and slabs as nothing new.
+- **Friends** see your roof once it's open: **Up to their roof** in their house. You stand by the low wall, as you stand by the window indoors.
+- **In the database** (migration `20270122000000_roof.sql`): a row of `homes` per room (`room` is `home` or `roof`). `open_roof()` takes the gems and gives the empty roof in one transaction, once. `save_home`, `my_home` and `home_of` take the room (the house by default, so an old tab still works). `home_refusal` checks either room, and save_home takes a per-player lock so two rooms saved at once can't both hold a piece. The roof's shape, starter and price are constants, kept equal to `content/core/home.json` by `homes.test.ts`.
+- **Tests:** `layout.test.ts` and `layouts.fixture.ts` (the roof's cases, checked by both the browser and `save_home`); `homes.test.ts` (opening, the price, one room per piece, coziness, friends); `home.spec.ts` (the offer, the stairs, decorating the roof, a friend's roof); the axe suite.
+- **Known:** the stairs are buttons, not a painted stair in the room.

@@ -200,6 +200,24 @@ export function createPlayer(store: ProgressStore, timeZone: () => string = brow
         return m;
       }
     },
+    /**
+     * Opens the roof (task 8.4): the database takes the gems and gives an empty roof. The purse
+     * follows. Returns null, or why it couldn't be opened.
+     */
+    async openRoof(): Promise<string | null> {
+      const ticket = ++purseTicket;
+      try {
+        const w = await store.openRoof();
+        if (state.wallet && newerPurse(ticket, w.gold))
+          set({ wallet: { ...state.wallet, gold: w.gold, gems: w.gems } });
+        return null;
+      } catch (e) {
+        const m = (e as Error).message;
+        if (/too few gems/.test(m)) return 'Not enough gems yet.';
+        if (/already open/.test(m)) return null;
+        return m;
+      }
+    },
     applyAward(award: Award) {
       // A save's purse is shown as it comes, but takes no ticket: a purchase or chest already on
       // its way most likely reached the database after the save, so its purse still wins when it

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { coziness, heldOf, TIERS, withHeld } from './cozy.ts';
-import { FURNITURE_PIECES, STARTER, STYLES } from './layout.ts';
+import { FURNITURE_PIECES, ROOF_STARTER, STARTER, STYLES } from './layout.ts';
 
 describe('coziness (task 8.2)', () => {
   it('counts nothing in the starter room', () => {
@@ -21,6 +21,15 @@ describe('coziness (task 8.2)', () => {
       ],
     };
     expect(heldOf(l)).toEqual([chair.id, `wallpaper:${wall.style}`].sort());
+  });
+
+  it('counts the roof the same way, its own lime and slabs as nothing new (task 8.4)', () => {
+    expect(heldOf(ROOF_STARTER)).toEqual([]);
+    const roof = {
+      ...ROOF_STARTER,
+      pieces: [{ id: 'home-chair', at: [6, 2] as [number, number], facing: 'away' as const }],
+    };
+    expect(withHeld(['home-plant'], roof)).toEqual(['home-chair', 'home-plant']);
   });
 
   it('never loses what was held, even when the room is emptied', () => {

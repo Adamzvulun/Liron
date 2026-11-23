@@ -23,7 +23,7 @@ import {
   cellsOf,
   FURNITURE_PIECES,
   isFloor,
-  ROOM,
+  ROOMS,
   slotsOf,
   STARTER_PIECES,
   standCells,
@@ -31,6 +31,7 @@ import {
   type Layout,
   type PieceDef,
   type Placed,
+  type RoomId,
 } from './layout.ts';
 import { decorOverlay, homeLayers, type HomeView } from './paintHome.ts';
 import { cellKey, findPath, type Cell } from './path.ts';
@@ -133,9 +134,12 @@ export function Room({
   onUse,
   decor,
   host,
+  where = 'home',
 }: {
   layout: Layout;
   look: Look;
+  /** Which room this is: the house, or the roof (task 8.4, §16). */
+  where?: RoomId;
   decor?: Decor;
   /** A friend's room (§8): they stand by the window, and the room is called theirs. */
   host?: Host;
@@ -147,22 +151,24 @@ export function Room({
 }) {
   const layers = useMemo(() => {
     const id = JSON.stringify(layout);
-    const { back, bands, light, glow } = homeLayers(layout, DEFS);
+    const { back, bands, light, glow } = homeLayers(layout, DEFS, where);
     return {
-      back: pictureUrl(`home:back:${id}`, STAGE, () => back),
+      back: pictureUrl(`home:back:${where}:${id}`, STAGE, () => back),
       bands: bands.map((b) => ({
         row: b.row,
         url: pictureUrl(`home:band:${b.row}:${id}`, STAGE, () => b.svg),
       })),
-      light: pictureUrl('home:light', STAGE, () => light),
-      glow: pictureUrl('home:glow', STAGE, () => glow),
+      light: pictureUrl(`home:light:${where}`, STAGE, () => light),
+      glow: glow ? pictureUrl('home:glow', STAGE, () => glow) : null,
     };
-  }, [layout]);
+  }, [layout, where]);
+  // The room's grid, door and slots: the same in both rooms today, but read from the one shown.
+  const ROOM = ROOMS[where];
   const blocked = useMemo(() => blockedCells(layout, DEFS), [layout]);
   const free = useMemo(
     () => (x: number, y: number) =>
       x >= 0 && y >= 0 && x < ROOM.cols && y < ROOM.rows && !blocked.has(cellKey([x, y])),
-    [blocked],
+    [blocked, ROOM],
   );
   const hostAt = useMemo(() => (host ? byTheWindow(free) : null), [host, free]);
   const open = useMemo(
@@ -412,7 +418,7 @@ export function Room({
     setFrom(ROOM.door);
     setWalking(false);
     setSeated(null);
-  }, [open]);
+  }, [open, ROOM]);
 
   // Decorate hands the keyboard to the room when a piece is taken from the tray.
   const focusAsked = decor?.focus ?? 0;
@@ -430,6 +436,7 @@ export function Room({
   const petNudge = same(petCell, at) ? 60 : 0;
   const moving = !reducedMotion();
 
+  const place = where === 'roof' ? 'roof' : 'room';
   const things = layout.pieces.flatMap((p) => {
     const def = DEFS.get(p.id);
     return def && def.does !== 'look' ? [{ id: p.id, def }] : [];
@@ -443,10 +450,10 @@ export function Room({
         role="group"
         aria-label={
           host
-            ? `${host.name}’s room. Tap the floor, or use the arrow keys, to walk.`
+            ? `${host.name}’s ${place}. Tap the floor, or use the arrow keys, to walk.`
             : decor
-              ? 'Your room, decorating. Tap a piece, then a cell. The arrow keys move a held piece, and Enter sets it down.'
-              : 'Your room. Tap the floor, or use the arrow keys, to walk.'
+              ? `Your ${place}, decorating. Tap a piece, then a cell. The arrow keys move a held piece, and Enter sets it down.`
+              : `Your ${place}. Tap the floor, or use the arrow keys, to walk.`
         }
         tabIndex={0}
         onKeyDown={key}
@@ -519,14 +526,16 @@ export function Room({
               }
             />
           )}
-          <img
-            className="room__layer room__light"
-            src={layers.glow}
-            alt=""
-            draggable={false}
-            data-glow={lit ? 'on' : 'off'}
-            style={{ opacity: lit ? 1 : 0 }}
-          />
+          {layers.glow && (
+            <img
+              className="room__layer room__light"
+              src={layers.glow}
+              alt=""
+              draggable={false}
+              data-glow={lit ? 'on' : 'off'}
+              style={{ opacity: lit ? 1 : 0 }}
+            />
+          )}
           <img className="room__layer room__light" src={layers.light} alt="" draggable={false} />
           {decor && (
             <svg

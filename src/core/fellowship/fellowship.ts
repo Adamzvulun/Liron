@@ -61,8 +61,11 @@ export interface FellowshipSource {
   /** Whether your own milestones go to the feed. */
   sharing(): Promise<boolean>;
   setSharing(on: boolean): Promise<void>;
-  /** A friend's room as saved (task 7.3), raw: read it with `parseLayout`. Null for a stranger. */
-  home(id: string): Promise<unknown>;
+  /**
+   * A friend's room as saved (task 7.3), raw: read it with `parseLayout`. Null for a stranger,
+   * and for a roof they haven't opened (task 8.4).
+   */
+  home(id: string, where?: 'home' | 'roof'): Promise<unknown>;
   /** Leaves today's note at a friend's letterbox (task 8.1), replacing one from earlier today. */
   leaveNote(id: string, note: string): Promise<void>;
   /** The note you left a friend today, if any. */
@@ -168,7 +171,7 @@ export function supabaseFellowship(client: SupabaseClient): FellowshipSource {
     remove: async (id) => void (await call('remove_friend', { p_other: id })),
     cards: async () => list(await call('fellowship'), readCard),
     requests: async () => list(await call('fellowship_requests'), readRequest),
-    home: (id) => call('home_of', { p_friend: id }),
+    home: (id, where = 'home') => call('home_of', { p_friend: id, p_room: where }),
     leaveNote: async (id, note) => void (await call('leave_note', { p_friend: id, p_note: note })),
     noteFor: async (id) => {
       const raw = await call('my_note_for', { p_friend: id });

@@ -3,7 +3,7 @@ import type { Look } from '../avatar/looks.ts';
 import { PlaceScreen } from '../city/PlaceScreen.tsx';
 import { coziness } from '../home/cozy.ts';
 import { PanelDialog } from '../home/HouseRoom.tsx';
-import { parseLayout, STARTER, type Layout } from '../home/layout.ts';
+import { parseLayout, STARTER, type Layout, type RoomId } from '../home/layout.ts';
 import { Room } from '../home/Room.tsx';
 import { Link } from '../Link.tsx';
 import { LeaveNote } from './Notes.tsx';
@@ -16,14 +16,15 @@ import {
 } from './fellowship.ts';
 import './fellowship.css';
 
-type Visit = { card: FriendCard; layout: Layout };
+type Visit = { card: FriendCard; layout: Layout; roof: Layout | null };
 
 /**
  * A friend's house (task 7.9, the-home.md §8; first built in task 3.2, #327): their room as they
  * arranged it, from `home_of`, with them standing by the window in their saved look. You walk in
  * through their door as yourself. You can walk, sit and light their lamps for yourself; their
  * shelf shows their card, their letterbox takes a note from the set (task 8.1), and their cupboard
- * and desk only say a line. Nothing here changes their room: there is no Decorate.
+ * and desk only say a line. If they opened their roof, the stairs go up to it (task 8.4). Nothing
+ * here changes their rooms: there is no Decorate.
  */
 export function FriendHouse({
   id,
@@ -40,16 +41,30 @@ export function FriendHouse({
 }) {
   const [visit, setVisit] = useState<Visit | null | 'loading' | 'failed'>('loading');
   const [panel, setPanel] = useState<'shelf' | 'letterbox' | null>(null);
+  const [where, setWhere] = useState<RoomId>('home');
   useEffect(() => {
     let live = true;
     // The route takes an id in any case; the database's ids are lowercase.
     const friend = id.toLowerCase();
-    Promise.all([source.cards(), source.home(friend)]).then(
-      ([cards, raw]) => {
+    Promise.all([
+      source.cards(),
+      source.home(friend),
+      // Their roof, if they opened one (task 8.4); a roof that won't load just isn't shown.
+      source.home(friend, 'roof').catch(() => null),
+    ]).then(
+      ([cards, raw, roof]) => {
         if (!live) return;
         const card = cards.find((c) => c.id === friend && !c.me);
         // A friend who never decorated has the starter room (`home_of` gives it too).
-        setVisit(card ? { card, layout: parseLayout(raw) ?? STARTER } : null);
+        setVisit(
+          card
+            ? {
+                card,
+                layout: parseLayout(raw) ?? STARTER,
+                roof: roof === null ? null : parseLayout(roof),
+              }
+            : null,
+        );
       },
       () => live && setVisit('failed'),
     );
@@ -81,7 +96,9 @@ export function FriendHouse({
       )}
       {typeof visit === 'object' && visit && look && (
         <Room
-          layout={visit.layout}
+          key={where}
+          where={where}
+          layout={where === 'roof' && visit.roof ? visit.roof : visit.layout}
           look={look}
           host={{ name: visit.card.name, look: visit.card.look }}
           onUse={(def) => {
@@ -92,6 +109,15 @@ export function FriendHouse({
             return undefined;
           }}
         />
+      )}
+      {typeof visit === 'object' && visit?.roof && look && (
+        <button
+          type="button"
+          className="decorate__start"
+          onClick={() => setWhere(where === 'roof' ? 'home' : 'roof')}
+        >
+          {where === 'roof' ? 'Down to their room' : 'Up to their roof'}
+        </button>
       )}
       {panel === 'shelf' && card && (
         <PanelDialog title={`${card.name}’s trophies`} onClose={() => setPanel(null)}>

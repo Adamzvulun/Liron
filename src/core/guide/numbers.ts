@@ -19,6 +19,7 @@ const shield = items.items.find((i) => i.id === 'streak-shield')?.data as
 
 const room = home.items.find((i) => i.type === 'home-room')?.data as
   { caps: { floor: number; wall: number } } | undefined;
+const roof = home.items.find((i) => i.type === 'home-roof')?.data as { price: number } | undefined;
 
 export const NUMBERS: Readonly<Record<string, number>> = {
   cheapestWare: CHEAPEST_WARE,
@@ -33,6 +34,7 @@ export const NUMBERS: Readonly<Record<string, number>> = {
   maxShields: MAX_SHIELDS,
   floorPieces: room?.caps.floor ?? NaN,
   wallPieces: room?.caps.wall ?? NaN,
+  roofPrice: roof?.price ?? NaN,
 };
 
 /** A page's text with its numbers in. Throws on a name that isn't a number here. */

@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { withHeld } from '../../src/core/home/cozy.ts';
-import type { Layout } from '../../src/core/home/layout.ts';
+import { ROOF_PRICE, ROOF_STARTER, type Layout } from '../../src/core/home/layout.ts';
 import { watchForCrashes } from './fixtures.ts';
 import { WORD_CHAPTERS } from '../../src/subjects/arabic/core/coreWords.ts';
 import { REVIEWS } from '../../src/subjects/arabic/words.ts';
@@ -87,6 +87,10 @@ export interface Extras {
   chests?: { id: string; kind: string; source: string; source_key: string }[];
   /** Gold in the wallet at the start, instead of WALLET's. */
   gold?: number;
+  /** Gems in the wallet at the start, instead of WALLET's; `open_roof` spends them. */
+  gems?: number;
+  /** The player's roof (task 8.4), as `my_home` returns it for the roof; absent while closed. */
+  roof?: unknown;
   /** Skill ratings by subject, e.g. { arabic: { read: 1240 } }, each on 40 results. */
   ratings?: Record<string, Record<string, number>>;
   /** Achievement ids earned (#177); the rest have no progress unless `progress` says. */
@@ -134,6 +138,8 @@ export interface Extras {
     gifts?: Record<string, unknown>[];
     /** Friends' rooms by id (task 7.3), as `home_of` returns them; null for anyone else. */
     homes?: Record<string, unknown>;
+    /** Friends' roofs by id (task 8.4), for `home_of` with the roof; null for no roof. */
+    roofs?: Record<string, unknown>;
     /** Notes at the player's letterbox (task 8.1), as `my_notes` returns them. */
     notes?: Record<string, unknown>[];
     /** The note the player left each friend today, by id; `leave_note` sets it. */
@@ -351,7 +357,9 @@ export async function fakeSupabase(
         case 'fellowship_feed':
           return route.fulfill({ json: f.feed ?? [] });
         case 'home_of':
-          return route.fulfill({ json: f.homes?.[String(args?.p_friend)] ?? null });
+          return route.fulfill({
+            json: (args?.p_room === 'roof' ? f.roofs : f.homes)?.[String(args?.p_friend)] ?? null,
+          });
         case 'leave_note':
           (f.left ??= {})[String(args?.p_friend)] = String(args?.p_note);
           return route.fulfill({ json: null });
@@ -442,11 +450,27 @@ export async function fakeSupabase(
       });
     }
     if (url.pathname === '/rest/v1/rpc/my_home') {
-      return route.fulfill({ json: extras.home ?? null });
+      const { p_room } = route.request().postDataJSON() as { p_room?: string };
+      return route.fulfill({ json: (p_room === 'roof' ? extras.roof : extras.home) ?? null });
+    }
+    if (url.pathname === '/rest/v1/rpc/open_roof') {
+      const gems = extras.gems ?? WALLET.gems;
+      if (extras.roof) return route.fulfill({ status: 400, json: { message: 'already open' } });
+      if (gems < ROOF_PRICE)
+        return route.fulfill({ status: 400, json: { message: 'too few gems' } });
+      extras.gems = gems - ROOF_PRICE;
+      extras.roof = structuredClone(ROOF_STARTER);
+      return route.fulfill({
+        json: { gold: (extras.gold ?? WALLET.gold) - spent, gems: extras.gems },
+      });
     }
     if (url.pathname === '/rest/v1/rpc/save_home') {
-      const { p_layout } = route.request().postDataJSON() as { p_layout: unknown };
-      extras.home = p_layout;
+      const { p_layout, p_room } = route.request().postDataJSON() as {
+        p_layout: unknown;
+        p_room?: string;
+      };
+      if (p_room === 'roof') extras.roof = p_layout;
+      else extras.home = p_layout;
       // Like the database's trigger, the room's held list only grows (task 8.2).
       extras.held = withHeld(extras.held ?? [], p_layout as Layout);
       return route.fulfill({ json: null });
@@ -732,7 +756,11 @@ export async function fakeSupabase(
     }
     if (url.pathname === '/rest/v1/wallets') {
       // supabase-js asks for a single object with this Accept header (maybeSingle).
-      const wallet = { ...WALLET, gold: (extras.gold ?? WALLET.gold) - spent };
+      const wallet = {
+        ...WALLET,
+        gold: (extras.gold ?? WALLET.gold) - spent,
+        gems: extras.gems ?? WALLET.gems,
+      };
       return route.fulfill({ json: single ? wallet : [wallet] });
     }
     return route.fulfill({ status: 404, json: {} });

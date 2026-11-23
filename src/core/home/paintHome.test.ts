@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import * as house from '../city/paintHouse.ts';
 import {
   FURNITURE_PIECES,
+  ROOF,
+  ROOF_STARTER,
   STARTER,
   STARTER_PIECES,
   type Facing,
@@ -9,7 +11,8 @@ import {
   type PieceDef,
 } from './layout.ts';
 import { chair } from './paintFurniture.ts';
-import { paintHome } from './paintHome.ts';
+import { homeLayers, paintHome } from './paintHome.ts';
+import { roof, roofLight } from './paintRoof.ts';
 import { avatarScale, cellsQuad, depthAt, floorPoint, moveFloor, moveWall } from './projection.ts';
 
 const defs = new Map<string, PieceDef>(STARTER_PIECES.map((d) => [d.id, d]));
@@ -133,5 +136,27 @@ describe('a turned chair (task 8.3)', () => {
     expect(paintHome(at(9, 'to-left'), all)).toContain(chair('to-right'));
     expect(paintHome(at(9, 'away'), all)).toContain(chair('away'));
     expect(paintHome(at(9, 'left'), all)).toContain(chair());
+  });
+});
+
+describe('the roof (task 8.4)', () => {
+  const all = new Map<string, PieceDef>(
+    [...STARTER_PIECES, ...FURNITURE_PIECES].map((d) => [d.id, d]),
+  );
+
+  it('is painted behind what stands on it, under the evening light, with no lantern glow', () => {
+    const layout: Layout = {
+      ...ROOF_STARTER,
+      pieces: [{ id: 'home-chair', at: [6, 2], facing: 'away' }],
+    };
+    const svg = paintHome(layout, all, {}, 'roof');
+    expect(svg).toContain(roof(ROOF.door));
+    expect(svg).toContain(chair('away'));
+    expect(svg).toContain(roofLight());
+    expect(svg).not.toContain(house.windowToTheSquare());
+    expect(svg).not.toMatch(/NaN|undefined|Infinity/);
+    const layers = homeLayers(layout, all, 'roof');
+    expect(layers.back).toContain(roof(ROOF.door));
+    expect(layers.glow).toBe('');
   });
 });

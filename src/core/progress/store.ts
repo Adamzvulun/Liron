@@ -2,7 +2,7 @@ import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import type { SubjectProgress } from '../subject.ts';
 import type { ScheduledReview, StoredCard } from '../srs/scheduler.ts';
 import type { StoredRating } from '../rating/ratings.ts';
-import type { Layout } from '../home/layout.ts';
+import type { Layout, RoomId } from '../home/layout.ts';
 import { ACHIEVEMENTS, type MyAchievements } from '../achievements/achievements.ts';
 import {
   addDays,
@@ -186,11 +186,16 @@ export interface ProgressStore {
    * The player's room as saved (task 7.3): read it with `parseLayout`, and show the starter
    * room when it is null or unreadable. Kept raw so the store doesn't load the home's rules.
    */
-  home(): Promise<unknown>;
+  home(where?: RoomId): Promise<unknown>;
   /** Saves the whole room; the database refuses it, saving nothing, if any rule fails. */
-  saveHome(layout: Layout): Promise<void>;
-  /** What the room has ever held beyond the starter room (task 8.2): only ever grows. */
+  saveHome(layout: Layout, where?: RoomId): Promise<void>;
+  /** What both rooms have ever held beyond the starter room (task 8.2): only ever grows. */
   homeHeld(): Promise<string[]>;
+  /**
+   * Opens the roof (task 8.4): the database takes its price in gems and gives an empty roof,
+   * once. Returns the purse after. Until then `home('roof')` is null.
+   */
+  openRoof(): Promise<{ gold: number; gems: number }>;
   /** The player's achievements (#177): any now met are given first, and their gems paid. */
   achievements(): Promise<MyAchievements>;
   /** Wears an earned title, or none with ''; the database refuses one not earned. */
@@ -278,7 +283,7 @@ export function memoryStore(
     return s;
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
-  let home: Layout | null = null;
+  const homes = new Map<RoomId, Layout>();
   // Every room saved, for what it has ever held (task 8.2).
   const saved: Layout[] = [];
   const profile: Profile = {
@@ -478,12 +483,23 @@ export function memoryStore(
     async markGuideSeen(ids) {
       profile.guideSeen = [...new Set([...profile.guideSeen, ...ids])].sort();
     },
-    async home() {
-      return home === null ? null : structuredClone(home);
+    async home(where = 'home') {
+      const room = homes.get(where);
+      return room ? structuredClone(room) : null;
     },
-    async saveHome(layout) {
-      home = structuredClone(layout);
+    async saveHome(layout, where = 'home') {
+      if (where === 'roof' && !homes.has('roof')) throw new Error('roof closed');
+      homes.set(where, structuredClone(layout));
       saved.push(structuredClone(layout));
+    },
+    async openRoof() {
+      // Loaded here, so the store doesn't load the home's rules (as above).
+      const { ROOF_PRICE, ROOF_STARTER } = await import('../home/layout.ts');
+      if (homes.has('roof')) throw new Error('already open');
+      if (wallet.gems < ROOF_PRICE) throw new Error('too few gems');
+      wallet.gems -= ROOF_PRICE;
+      homes.set('roof', structuredClone(ROOF_STARTER));
+      return { gold: wallet.gold, gems: wallet.gems };
     },
     async homeHeld() {
       // Loaded here, so the store doesn't load the home's rules (as above).
