@@ -444,7 +444,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 - From LATER ("no decision needed"). A taught verb whose shape matches a binyan says so, and opens to how and to its fellow verbs. Research: [verb-shapes.md](../research/verb-shapes.md).
 
 ### ☑ 9.5 (#491) · v1.7 · The regulars' tales
-- From LATER ("no decision needed"): micro-stories made only of words you know. Passing a regular's trial earns their tale. Built for chapters 1–30. Spec: [arabic-core-words.md](../game/arabic-core-words.md).
+- From LATER ("no decision needed"): micro-stories made only of words you know. Passing a regular's trial earns their tale. Built for all 113 chapters. Spec: [arabic-core-words.md](../game/arabic-core-words.md).
 
 ## Parked: ordered after everything above, each waiting on Adam
 
