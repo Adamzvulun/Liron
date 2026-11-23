@@ -25,6 +25,8 @@ export const GOOD: { name: string; layout: Layout }[] = [
   { name: 'the starter room', layout: STARTER },
   { name: 'the chest moved to the middle', layout: move('home:chest', { at: [6, 1] }) },
   { name: 'a chair on the rug', layout: plus({ id: 'home-chair', at: [5, 2], facing: 'left' }) },
+  // Turned (task 8.3): a chair facing the wall is the same chair on the same cell.
+  { name: 'a chair turned away', layout: plus({ id: 'home-chair', at: [5, 2], facing: 'away' }) },
   { name: 'the bed turned', layout: move('home:bed', { facing: 'left' }) },
   {
     name: 'a clock where the picture was',

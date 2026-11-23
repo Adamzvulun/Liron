@@ -4,12 +4,15 @@ import {
   cellsOf,
   FURNITURE_PIECES,
   isFloor,
+  isTurn,
   ROOM,
   slotsOf,
   STARTER_PIECES,
+  type Facing,
   type Layout,
   type PieceDef,
   type Placed,
+  type PlacedFloor,
 } from './layout.ts';
 import type { Cell } from './path.ts';
 import type { Spot } from './Room.tsx';
@@ -28,16 +31,40 @@ export function ownedPieces(owned: readonly string[]): ReadonlyMap<string, Piece
 
 export const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 
+/** Facing the room, from where a piece of width `w` stands at column `x`: toward the middle. */
+export const towardMiddle = (x: number, w: number): Facing =>
+  x + w / 2 <= ROOM.cols / 2 ? 'right' : 'left';
+
 /**
  * A floor piece put down around a cell: centered on its column, its front row on the cell's row,
- * kept on the floor, and facing the middle of the room (§6).
+ * kept on the floor, and facing the middle of the room (§6), or keeping the turn it had (§15).
  */
-export function floorAt(def: PieceDef, [c, r]: Cell): Placed {
+export function floorAt(def: PieceDef, [c, r]: Cell, keep?: Facing): PlacedFloor {
   const [w, d] = def.size;
   const x = clamp(c - Math.floor((w - 1) / 2), 0, ROOM.cols - w);
   const y = clamp(r - (d - 1), 0, ROOM.rows - d);
-  return { id: def.id, at: [x, y], facing: x + w / 2 <= ROOM.cols / 2 ? 'right' : 'left' };
+  return { id: def.id, at: [x, y], facing: keep && isTurn(keep) ? keep : towardMiddle(x, w) };
 }
+
+/**
+ * The next way a floor piece faces, for Turn (task 8.3, §15): from facing the room through its
+ * turns, then back. Null for a piece that doesn't turn.
+ */
+export function turn(def: PieceDef, p: PlacedFloor): PlacedFloor | null {
+  if (!def.turns?.length) return null;
+  const order: Facing[] = [towardMiddle(p.at[0], def.size[0]), ...def.turns];
+  const now = isTurn(p.facing) ? order.indexOf(p.facing) : 0;
+  return { ...p, facing: order[(now + 1) % order.length] ?? order[0] ?? p.facing };
+}
+
+/** How a facing reads aloud (§15). */
+export const FACING_WORDS: Record<Facing, string> = {
+  left: 'facing the room',
+  right: 'facing the room',
+  away: 'facing the wall',
+  'to-left': 'facing left',
+  'to-right': 'facing right',
+};
 
 /** A wall piece hung from a slot, moved along so it stays on its side of the window. */
 export function wallAt(def: PieceDef, slot: number): Placed {
@@ -49,14 +76,14 @@ export function wallAt(def: PieceDef, slot: number): Placed {
 }
 
 /** Where a held piece goes for a press in the room, or null when it can't go there at all. */
-export function placeFor(def: PieceDef, spot: Spot): Placed | null {
+export function placeFor(def: PieceDef, spot: Spot, keep?: Facing): Placed | null {
   if (def.place === 'wall') {
     if ('slot' in spot) return wallAt(def, spot.slot);
     // A cell under the wall: the slot above its column.
     const above = ROOM.slots.find((s) => s.cols.includes(spot.cell[0]));
     return above ? wallAt(def, above.slot) : null;
   }
-  return 'cell' in spot ? floorAt(def, spot.cell) : null;
+  return 'cell' in spot ? floorAt(def, spot.cell, keep) : null;
 }
 
 /** The piece at a press: a floor piece before a rug under it, or what hangs in a slot. */

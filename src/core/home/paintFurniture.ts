@@ -4,6 +4,7 @@
 // `anchor`, left of the middle so its right side shows; moved elsewhere, paintHome carries it
 // there and mirrors it across the middle. Wall pieces are painted centered on x 960.
 import { f, INK, OUT, poly, type Pt } from '../city/paintKit.ts';
+import type { Facing } from './layout.ts';
 import { depthAt, floorPoint } from './projection.ts';
 
 /** A point `h` px above the floor at a (fractional) column and row, on the stage. */
@@ -63,14 +64,46 @@ function legs(c: number, r: number, w: number, d: number, h: number, t = 0.1): s
 
 // --- The pieces -----------------------------------------------------------------------------
 
-export function chair(): string {
+/**
+ * The chair, facing the room, or turned (task 8.3): `away` puts its back toward you, `to-right`
+ * puts its back on its left so whoever sits looks right, and `to-left` the other way. Painted
+ * as standing left of the middle; paintHome swaps the two side turns for a mirrored chair.
+ */
+export function chair(facing: Facing = 'right'): string {
   const [c, r] = [3, 3];
-  return (
-    legs(c + 0.15, r + 0.15, 0.7, 0.7, 100) +
-    box(c + 0.15, r + 0.1, 0.7, 0.1, 100, 250, WOOD) +
-    box(c + 0.12, r + 0.12, 0.76, 0.76, 100, 118, WOOD) +
-    `<path d="${poly([above(c + 0.25, r + 0.11, 220), above(c + 0.75, r + 0.11, 220), above(c + 0.75, r + 0.11, 150), above(c + 0.25, r + 0.11, 150)])}" fill="#A83A3E" opacity=".85"/>`
-  );
+  const base = legs(c + 0.15, r + 0.15, 0.7, 0.7, 100);
+  const seat = box(c + 0.12, r + 0.12, 0.76, 0.76, 100, 118, WOOD);
+  const red = (pts: Pt[]) => `<path d="${poly(pts)}" fill="#A83A3E" opacity=".85"/>`;
+  switch (facing) {
+    case 'away':
+      return base + seat + box(c + 0.15, r + 0.8, 0.7, 0.1, 100, 250, WOOD);
+    case 'to-right':
+      return (
+        base +
+        box(c + 0.1, r + 0.15, 0.1, 0.7, 100, 250, WOOD) +
+        seat +
+        red([
+          above(c + 0.21, r + 0.25, 220),
+          above(c + 0.21, r + 0.75, 220),
+          above(c + 0.21, r + 0.75, 150),
+          above(c + 0.21, r + 0.25, 150),
+        ])
+      );
+    case 'to-left':
+      return base + seat + box(c + 0.8, r + 0.15, 0.1, 0.7, 100, 250, WOOD);
+    default:
+      return (
+        base +
+        box(c + 0.15, r + 0.1, 0.7, 0.1, 100, 250, WOOD) +
+        seat +
+        red([
+          above(c + 0.25, r + 0.11, 220),
+          above(c + 0.75, r + 0.11, 220),
+          above(c + 0.75, r + 0.11, 150),
+          above(c + 0.25, r + 0.11, 150),
+        ])
+      );
+  }
 }
 
 export function bench(): string {
@@ -224,14 +257,16 @@ export function kilim(): string {
   );
 }
 
-export function windowSeat(): string {
-  // A long low seat, three cells wide, with a mattress and cushions against the wall.
+export function windowSeat(facing: Facing = 'right'): string {
+  // A long low seat, three cells wide, with a mattress and cushions against the wall; turned
+  // `away` (task 8.3), the cushions line its front edge, seen from behind, buttons hidden.
   const [c, r] = [2, 3];
+  const away = facing === 'away';
   const cushion = (u: number, fill: string) => {
-    const [x, y] = above(c + u, r + 0.35, 72);
+    const [x, y] = above(c + u, r + (away ? 0.78 : 0.35), 72);
     return (
       `<path d="M${f(x - 46)} ${f(y)} Q${f(x - 52)} ${f(y - 62)} ${f(x - 30)} ${f(y - 70)} L${f(x + 30)} ${f(y - 70)} Q${f(x + 52)} ${f(y - 62)} ${f(x + 46)} ${f(y)} Z" fill="${fill}" ${OUT(2.5)}/>` +
-      `<circle cx="${f(x)}" cy="${f(y - 36)}" r="6" fill="#E0B05A" ${OUT(1.5)}/>`
+      (away ? '' : `<circle cx="${f(x)}" cy="${f(y - 36)}" r="6" fill="#E0B05A" ${OUT(1.5)}/>`)
     );
   };
   return (

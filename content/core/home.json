@@ -226,7 +226,8 @@
         "place": "floor",
         "size": [1, 1],
         "does": "sit",
-        "line": "A plain wooden chair."
+        "line": "A plain wooden chair.",
+        "turns": ["to-right", "away", "to-left"]
       }
     },
     {
@@ -347,7 +348,8 @@
         "place": "floor",
         "size": [3, 1],
         "does": "sit",
-        "line": "Cushions enough for a whole afternoon."
+        "line": "Cushions enough for a whole afternoon.",
+        "turns": ["away"]
       }
     },
     {

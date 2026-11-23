@@ -415,7 +415,8 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☑ 8.2 (#470) · v1.5 · Coziness, a rating that only rises
 - Each different piece of furniture, wallpaper and floor a room has ever held counts once; the list only grows. Six names, from Just moved in to Warm as fresh bread. Shown under your room and on a friend's shelf. Spec: [the-home.md](../game/the-home.md) §14.
 
-### ☐ 8.3 (#471) · v1.5 · Four facings for the pieces that need them
+### ☑ 8.3 (#471) · v1.5 · Four facings for the pieces that need them
+- The chair turns four ways and the window seat two, with Turn (or R) in Decorate. `left` and `right` still mean facing the room, so no saved room changes. Spec: [the-home.md](../game/the-home.md) §15.
 
 ### ☐ 8.4 (#472) · v1.5 · A second room, bought with gems
 

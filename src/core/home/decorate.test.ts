@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ALL, floorAt, ownedPieces, pieceAt, placeFor, wallAt } from './decorate.ts';
+import { ALL, floorAt, ownedPieces, pieceAt, placeFor, turn, wallAt } from './decorate.ts';
 import { STARTER, type PieceDef } from './layout.ts';
 
 // Where a held piece goes, and what a press picks up (task 7.7, the-home.md §6).
@@ -59,5 +59,39 @@ describe('picking a piece up', () => {
     expect(mine.has('home-chair')).toBe(true);
     expect(mine.has('home-plant')).toBe(false);
     expect(mine.has('gear-hat')).toBe(false);
+  });
+});
+
+describe('turning a piece (task 8.3)', () => {
+  const chair = ALL.get('home-chair');
+  it('takes a chair from facing the room through its three turns, and back', () => {
+    if (!chair) throw new Error('no chair');
+    let p = floorAt(chair, [2, 2]);
+    expect(p.facing).toBe('right');
+    const seen = [];
+    for (let i = 0; i < 4; i++) {
+      const next = turn(chair, p);
+      if (!next) throw new Error('did not turn');
+      p = next;
+      seen.push(p.facing);
+    }
+    expect(seen).toEqual(['to-right', 'away', 'to-left', 'right']);
+  });
+
+  it('keeps a turn as the piece moves, and faces the room again otherwise', () => {
+    if (!chair) throw new Error('no chair');
+    expect(floorAt(chair, [9, 2], 'away').facing).toBe('away');
+    expect(floorAt(chair, [9, 2], 'right').facing).toBe('left');
+    expect(placeFor(chair, { cell: [9, 2] }, 'to-left')).toMatchObject({ facing: 'to-left' });
+  });
+
+  it('turns only what can: the window seat two ways, the bench and the bed not at all', () => {
+    const seat = ALL.get('home-window-seat');
+    if (!seat) throw new Error('no seat');
+    const p = floorAt(seat, [2, 2]);
+    expect(turn(seat, p)?.facing).toBe('away');
+    expect(turn(seat, { ...p, facing: 'away' })?.facing).toBe('right');
+    expect(turn(def('home-bench'), floorAt(def('home-bench'), [2, 2]))).toBeNull();
+    expect(turn(def('home:bed'), floorAt(def('home:bed'), [0, 0]))).toBeNull();
   });
 });

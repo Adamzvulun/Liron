@@ -5,11 +5,23 @@
 // go; Done saves the whole room at once and Cancel leaves it as it was.
 import type { Look } from '../avatar/looks.ts';
 import { useMemo, useState } from 'react';
-import { ALL, clamp, floorAt, ownedPieces, pieceAt, placeFor, wallAt } from './decorate.ts';
+import {
+  ALL,
+  clamp,
+  FACING_WORDS,
+  floorAt,
+  ownedPieces,
+  pieceAt,
+  placeFor,
+  towardMiddle,
+  turn,
+  wallAt,
+} from './decorate.ts';
 import {
   cellsOf,
   checkLayout,
   isFloor,
+  isTurn,
   ownedStyles,
   PANELS,
   refusalText,
@@ -119,6 +131,16 @@ export function Decorate({
     setSay(held.was ? `Put ${the(held.def)} back.` : `${cap(the(held.def))} is back in the tray.`);
   };
 
+  // Turn the held piece (task 8.3, §15): only one that turns, and only once it is on the floor.
+  const turnable = held?.at && isFloor(held.at) && held.def.turns?.length ? held.at : null;
+  const spin = () => {
+    if (!held || !turnable) return;
+    const next = turn(held.def, turnable);
+    if (!next) return;
+    setHeld({ ...held, at: next });
+    setSay(`${cap(the(held.def))}, ${FACING_WORDS[next.facing]}.`);
+  };
+
   const store = () => {
     if (!held) return;
     setHeld(null);
@@ -135,7 +157,7 @@ export function Decorate({
       }
       return;
     }
-    const at = placeFor(held.def, spot);
+    const at = placeFor(held.def, spot, held.at && isFloor(held.at) ? held.at.facing : undefined);
     if (phase !== 'up') {
       if (at) setHeld({ ...held, at });
       return;
@@ -159,6 +181,10 @@ export function Decorate({
       setDown();
       return true;
     }
+    if (key === 'r' || key === 'R') {
+      spin();
+      return true;
+    }
     const d = MOVES[key];
     if (!d) return false;
     const def = held.def;
@@ -171,7 +197,7 @@ export function Decorate({
       const [w, dd] = def.size;
       const x = clamp(now.at[0] + d[0], 0, ROOM.cols - w);
       const y = clamp(now.at[1] + d[1], 0, ROOM.rows - dd);
-      next = { ...now, at: [x, y], facing: x + w / 2 <= ROOM.cols / 2 ? 'right' : 'left' };
+      next = { ...now, at: [x, y], facing: isTurn(now.facing) ? now.facing : towardMiddle(x, w) };
     } else {
       next = floorAt(def, [Math.floor(ROOM.cols / 2), Math.floor(ROOM.rows / 2)]);
     }
@@ -220,6 +246,11 @@ export function Decorate({
           {say}
         </p>
         <div className="decorate__actions">
+          {turnable && held && (
+            <button type="button" className="decorate__button" onClick={spin}>
+              Turn {the(held.def)}
+            </button>
+          )}
           {held && !panel && (
             <button type="button" className="decorate__button" onClick={store}>
               Store {the(held.def)}
