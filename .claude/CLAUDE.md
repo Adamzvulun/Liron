@@ -42,6 +42,17 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 
 ## Conventions
 
+- **Work to professional, industry-standard conventions, whatever the task** (Adam, 2026-11-23). Hold each piece of work to what's accepted and widely used in the field, and look it up when unsure; don't invent ad hoc patterns. If you deviate on purpose, say why in the PR or an ADR. For example:
+  - **Code:** idiomatic TypeScript and React per their docs, clear names, explicit error handling, input validated at the edges, the codebase's existing patterns first.
+  - **Tests:** the testing pyramid; deterministic tests of behavior; a failing test with every bug fix.
+  - **Security:** OWASP Top 10, least privilege, row-level security, a strict CSP, audited dependencies.
+  - **Data and APIs:** backward-compatible migrations, REST conventions and status codes, timeouts and rate limits, privacy by design.
+  - **Git:** small atomic commits, descriptive PRs, review before merge, semantic versioning.
+  - **Design:** a consistent design system, mobile first, WCAG 2.2 AA.
+  - **Game and learning design:** proven practice and evidence-based methods.
+  - **Docs:** ADRs in Context, Options, Decision, Consequences form; specs with testable acceptance criteria.
+  - **Performance and ops:** measure before optimizing; reproducible CI; rollback plans.
+
 - Docs are Markdown in git. If code and docs disagree, fix whichever one is wrong in the same PR.
 - **American English** in everything a player sees: practice (not practise), traveler, color, gray, center. `tests/spelling.test.ts` checks the app and `content/`. Stored ids and keys (`hairColour`, the `grey` hair id) stay as saved profiles use them. Fix docs to American as you touch them (#126).
 - Content (letters, words, Morse characters, lessons) is **data**, not code. It lives in `content/` once that exists.
