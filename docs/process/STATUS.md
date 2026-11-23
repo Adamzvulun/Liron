@@ -2,12 +2,12 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-23 (v1.6.0 live; v1.7.0 waits on Adam's go; Phases 10–15 planned, #495–#497, #513, #514, #522).
+- **Last updated:** 2026-11-23, end of session (v1.6.0 live; v1.7.0 in #485 waits on Adam's go; Phases 10–15 planned and waiting on his go; the plans are in #512).
 - **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are
 
-**Waymark is live at v1.6.0, the roof** (v1.4.0 made a home of your own) ([waymark-phi.vercel.app](https://waymark-phi.vercel.app), 2026-11-23). Everything in [PLAN.md](PLAN.md) that Claude can do alone is built. What is left is Adam's: his reads and approvals, the first friends, and the parked items in [LATER.md](LATER.md). Since v1.0.0: friends read the deck (v1.1), invite links (v1.2), the square on an iPhone (v1.2.x), and Nour the lamplighter's guide for new players (v1.3). Each release's notes are in [releases/](releases/) and the map in [VERSIONS.md](VERSIONS.md). The repo is public since 2026-11-22, with the deck's text out of its tree and its history ([ADR 0054](../decisions/0054-the-repo-goes-public.md)), so CI costs nothing.
+**Waymark is live at v1.6.0, the roof** (v1.4.0 made a home of your own) ([waymark-phi.vercel.app](https://waymark-phi.vercel.app), 2026-11-23). Phases 1–9 of [PLAN.md](PLAN.md) are built. Phases 10–15 are planned (2026-11-23) and wait on Adam's go to build. Adam's own items are the first friends and the parked items in [LATER.md](LATER.md). Since v1.0.0: friends read the deck (v1.1), invite links (v1.2), the square on an iPhone (v1.2.x), and Nour the lamplighter's guide for new players (v1.3). Each release's notes are in [releases/](releases/) and the map in [VERSIONS.md](VERSIONS.md). The repo is public since 2026-11-22, with the deck's text out of its tree and its history ([ADR 0054](../decisions/0054-the-repo-goes-public.md)), so CI costs nothing.
 
 | | State |
 |---|---|
@@ -17,7 +17,7 @@
 | **After the end** | The long evenings: master contracts, a station of the day, personal bests to beat ([ADR 0048](../decisions/0048-the-long-evenings.md)) |
 | **Never lost** | One compass line says the next step everywhere: the square, both halls, every result screen. A first page greets a new player ([the Road](../game/the-road.md)) |
 | **The look** | Painted in the browser; no screen stands on a blue background ([Grounds](../design/grounds.md)) |
-| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 55 ADRs; unit and browser tests on every PR |
+| **Under it** | Login, saved progress, XP, levels, gold, gems, streaks, spaced repetition, ranks, achievements, friends, challenges, quests and gifts, the wire, two finales. 59 ADRs; unit and browser tests on every PR |
 
 ### What lives where, and how to run it
 - **The code:** `src/core/` is the platform, `src/subjects/<id>/` one subject each; content is data in `content/`; the database is `supabase/migrations/`. The [README](../../.github/README.md) has the map and every script (`npm run dev`, `npm test`, `npm run e2e`).
@@ -33,15 +33,25 @@
 
 **Built: v1.4.0, a home of your own** (Phase 7, epic [#435](https://github.com/Adamzvulun/Liron/issues/435), [the-home.md](../game/the-home.md)). Your House becomes a room you walk in, decorate and invite friends into. 7.2, the room's rules, is merged ([#449](https://github.com/Adamzvulun/Liron/pull/449): grid, footprints, caps, paths, and the starter layout fitted to the painting). 7.1, the room drawn as pieces on the grid, is merged and Adam approved the look ([home-v0](../design/home-v0/README.md)). 7.3 is merged ([#451](https://github.com/Adamzvulun/Liron/pull/451): `homes`, `save_home`, `my_home`, `home_of`). 7.4, the furniture and the wallpapers and floors, is painted. 7.5, the room you walk in, is built at the top of Your House: tap or use the arrow keys to walk, and your pet follows. In 7.6 the cupboard, the shelf, the desk and the letterbox open the wardrobe, the trophies, the ledger and the Fellowship over the room, the lantern puts its light out, and you can sit on the bed, a chair or the bench. 7.7, Decorate, is built: tap a piece, then a cell (or drag, or the arrows and Enter), with a tray of what you own, Store, Done and Cancel. 7.8's first part puts the 8 painted pieces in the economy: one a day at the Market (shown in a small room picture) and in chests. Its second part paints a stove, a kilim, a window seat, a harbor picture and a banner per guild (given by the first rank). Its third part sells the wallpapers and floors, chosen in Decorate. 7.9: a friend's house is their real room, as they arranged it, with them standing by the window; you walk, sit, light their lamp for yourself and see their shelf, and change nothing. 7.10: Nour points at Decorate once you own something for your room, and the Guidebook's house page covers walking, decorating, the caps and visits. 7.11: Claude walked the home on a phone and a laptop and fixed the friend's shelf panel; the v1.4.0 notes are written ([releases/v1.4.0.md](releases/v1.4.0.md)). v1.4.0 is live (2026-11-23, [#466](https://github.com/Adamzvulun/Liron/pull/466)). Adam visited a friend both ways and Phase 7 is closed. **Now: Phase 8, the home lived in** (epic [#468](https://github.com/Adamzvulun/Liron/issues/468)): 8.1 notes at the letterbox, 8.2 coziness and 8.3 four facings went out as v1.5.0 (2026-11-23, [#478](https://github.com/Adamzvulun/Liron/pull/478), [releases/v1.5.0.md](releases/v1.5.0.md)). 8.4, the roof, a second room for 15 gems, went out as v1.6.0 (2026-11-23, [#480](https://github.com/Adamzvulun/Liron/pull/480), [releases/v1.6.0.md](releases/v1.6.0.md)). Phase 8 is done. **Phase 9, visiting together live** ([#482](https://github.com/Adamzvulun/Liron/issues/482), the-home.md §17, ADR 0056): friends in one house see each other walk, on the wire's Realtime; merged ([#483](https://github.com/Adamzvulun/Liron/pull/483)) and going out as v1.7.0 with 9.3, words read aloud ([#487](https://github.com/Adamzvulun/Liron/issues/487)), 9.4, pattern badges ([#489](https://github.com/Adamzvulun/Liron/issues/489)), and 9.5, the regulars' tales ([#491](https://github.com/Adamzvulun/Liron/issues/491)) ([releases/v1.7.0.md](releases/v1.7.0.md)). New players now start with a random Arabic name ([#453](https://github.com/Adamzvulun/Liron/pull/453)).
 
-**Planned next (2026-11-23, not started; waits on Adam's go):** from a gap audit ([next-work-2026-11-23.md](../research/next-work-2026-11-23.md)), three phases in [PLAN.md](PLAN.md):
+**Planned next (2026-11-23, not started; waits on Adam's go):** six phases in [PLAN.md](PLAN.md). Phases 10–14 come from a gap audit ([next-work-2026-11-23.md](../research/next-work-2026-11-23.md)), and Phase 15 from Adam's songs idea ([song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md)). The planning docs are on PR [#512](https://github.com/Adamzvulun/Liron/pull/512), into `dev`:
 - **Phase 10, safe for friends** (#495, v1.8.0): our own error log (ADR 0058), take your data and leave, a dependency refresh, a tidy backlog.
 - **Phase 11, hearing the street** (#496, v1.9.0): sentence listening in the echo well.
 - **Phase 12, faster than thought** (#497, v1.10.0): Morse past 20 wpm, as ADR 0009 promised.
 - **Phase 13, true and lasting** (#513, v1.11.0): our Arabic checked against its Latin, the data budget, the milestone check.
 - **Phase 14, writing words** (#514, v1.12.0): *Spell it* at the slate.
-- **Phase 15, songs** (#522, v1.13.0): paste a YouTube link and learn the song, karaoke style. Gemini listens to the link; nothing else is asked of the player. ADR 0059 is Accepted; it's ordered after Phase 14.
+- **Phase 15, songs** (#522, v1.13.0): paste a YouTube link and learn the song, karaoke style.
+  - Gemini (paid, about $0.03 a listen) hears the public link and writes the timed lyrics, with LRCLIB's lyrics as a hint.
+  - Claude (paid, about $0.10 a song) explains each line.
+  - Songs are shared between friends, so each is paid for once.
+  - Nothing is asked of the player but the link.
+  - ADR 0059 is Accepted. The plan was tested: line timing is a median 0.16 s off. It's ordered after Phase 14.
+  - When 15.3 starts, Adam sets up a Google Cloud project for songs with billing (`GEMINI_SONGS_API_KEY`) and a Claude key (`ANTHROPIC_API_KEY`), both in Vercel, with spend limits.
 
-Adam answered on 2026-11-23: our own log, friends may delete their own account (with the proper conventions), and the order 10, 11, 12.
+Adam answered on 2026-11-23:
+- our own log;
+- friends may delete their own account, with the proper conventions;
+- the order 10 → 11 → 12 → 13 → 14 → 15;
+- songs: the link only, songs shared between friends, paid Gemini and Claude.
 
 **Claude's:** fixes for whatever Adam or a friend finds, gap hunts between them ([report §4ek](reports/2026-11-09.md)), and keeping these docs true.
 
@@ -77,8 +87,8 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 
 ## How to work (short version of [WORKFLOW](WORKFLOW.md) and [CLAUDE.md](../../.claude/CLAUDE.md))
 - **Branches ([ADR 0015](../decisions/0015-branches-and-environments.md)):** `main` is the live site, and `dev` is the live dev site and the default branch.
-  - Feature branches come from `dev`; PRs go into `dev` (`Closes #N`). Several small issues may share one PR when Adam says so (E1 did). Only open PRs when Adam asks.
-  - Releases are PRs from `dev` into `main`; only Adam merges them.
+  - Feature branches come from `dev`; PRs go into `dev` (`Closes #N`). Since [ADR 0057](../decisions/0057-fewer-deploys.md), Claude makes fewer, larger PRs: a phase's PR may close several issues.
+  - Releases are PRs from `release/vX` into `main`, merged with a merge commit at Adam's go.
   - **When to release (Adam, 2026-11-03):** only when the game has a real base, meaning something the user can learn. Decor and styling alone are not a release. The first candidate is once M2 has lessons (e.g. E6 hearing Morse, E8 Arabic letters); Adam decides.
   - **Version numbers ([ADR 0027](../decisions/0027-release-versioning.md)):** each release to `main` is a new X in X.Y.Z. **The first playable release is v1.0.0.** Y is a rare small addition between releases, and Z is a hotfix. 0.y.z means nothing is playable yet. The release PR sets `package.json`'s version, and Adam creates the tag.
   - **Never merge a PR with a red CI check** (process rule, [CI](CI.md)).
@@ -89,7 +99,9 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
   - Disclose anything that costs money, shares data, or locks us in, as an explicit question.
   - Never quietly drop features.
   - Don't over-engineer.
-  - No more purchases.
+  - No more purchases. The one exception: Adam approved paid Gemini (about $0.03 a song) and the Claude API (about $0.10 a song) for Phase 15's songs, on 2026-11-23.
+  - **Planning means planning:** when Adam asks for research or a plan, write the docs and issues, then wait for his go before building.
+  - **Decide the in-game and creative details yourself** (Adam, 2026-11-23: "stop asking me silly questions"). If you don't know, research it, find workarounds and alternatives, and test them. Only money, data sharing and lock-in come to him.
 - **Copyright:** the repo is **public** (ADR 0054). The deck must never be committed again. Copyrighted material (the Lingualism deck and book) lives only in `sources/` and later in Supabase behind login. It never goes into the public site bundle (ADR 0011).
 - **Visual work:** screenshot everything you draw with `docs/design/concept-v0/tools/render.js` and look at it before showing Adam.
 
@@ -105,6 +117,14 @@ M3 is in GitHub (2026-11-09). M4–M6 (E15–E20) stay in the [roadmap](ROADMAP.
 - **Tools present:** Node 22, Python 3, `ffmpeg`, Playwright with a pre-installed Chromium (don't run `playwright install`). The `zstd` CLI is **not always present** (missing on 2026-11-01, and `apt` failed). `prep.py` falls back to Node 22's built-in `zlib.zstdDecompressSync`, so it works either way.
 - **Deck format:** `.apkg` is a zip. `collection.anki21b` and `media` are zstd-compressed (SQLite plus the media map), and SQLite needs a `unicase` collation registered. **Each media file is also zstd-compressed**, and the media map is protobuf with a font entry in it, so parse it; don't regex the mp3 names. See `sources/research/gemini-speech/prep.py`.
 - **Groq free tier (seen 2026-11-02):** response headers show 2,000 requests/day and 7,200 audio-s/hour. `whisper-large-v3` handled 80 calls at ~17/min with no 429s. Audio models listed: `whisper-large-v3`, `whisper-large-v3-turbo`, `canopylabs/orpheus-arabic-saudi` (TTS, untested).
+- **Gemini, seen 2026-11-23:**
+  - Limits are **per Google Cloud project**, not per key.
+  - The free tier of `gemini-3.6-flash` is 20 requests a day, and `gemini-3.5-flash-lite` took about 60 video requests in a day.
+  - The free tier answers 503 "high demand" often, more for long requests.
+  - A public YouTube URL works as `file_data.file_uri`, and `video_metadata.end_offset` clips it.
+  - Paid prices: 3.6 Flash is $0.75 in and $3.75 out per million tokens (doubling on 2027-01-01).
+  - `gemini-2.5-flash` is gone for new users.
+  - There's no Claude API key in this environment (only `ANTHROPIC_BASE_URL`), so Claude calls can't be tested here.
 - **Gemini free tier (seen 2026-11-01):** quota is per model per day. `gemini-3.5-flash` (served as 3.6) and `gemini-3-flash-preview` allow 20/day. `gemini-3.5-flash-lite` took about 270 calls with no cap hit and answers in under 1 s. `gemini-3.8-flash` was overloaded (~130 s per call). `gemini-2.5-*` is closed to new users. Gemma 4 takes no audio. TTS models (`gemini-3.8-flash-lite-tts`, `3.8-flash-tts`, `3.1-flash-tts-preview`) work but allow about 10 calls/day each.
 
 ## Open questions for Adam
@@ -120,5 +140,5 @@ Emptied on 2026-11-17 (task 5.1): each is answered, or marked as his to settle. 
 - ~~**E15 (the Radio Room operators' free text)**~~: Adam said yes to all six questions (2026-11-10, ADR 0036).
 - ~~**The review's decisions**~~ (end of [the full review](reviews/2026-11-04-full-review.md)): all decided 2026-11-04.
 - ~~In-app mic and data~~: decided 2026-11-04, the Groq check is approved, opt-in, through a server-side function.
-- Decided 2026-11-01/02: free tiers only, no paid tier; his voice is not sent for testing; no Azure (he will look again himself, 2026-11-16); nothing runs locally; hosted free APIs only. He wants one stable model rather than hopping between models.
+- Decided 2026-11-01/02: free tiers only, no paid tier (since 2026-11-23, except paid Gemini and Claude for the songs, Phase 15); his voice is not sent for testing; no Azure (he will look again himself, 2026-11-16); nothing runs locally; hosted free APIs only. He wants one stable model rather than hopping between models.
 - Decided 2026-11-02: git flow feature → dev → main with two live sites (ADR 0015). Vercel and Supabase accounts created.

@@ -15,7 +15,7 @@ Adam wants to paste a YouTube link and get the song transcribed, translated, tra
 
 - **What we can't do.** Our app can't download or separate a video's audio: YouTube's developer policies forbid it, and download tools are blocked from cloud servers anyway (research Part 2, §B).
 - **Captions.** YouTube's captions API serves only videos you can edit.
-- **What Google offers.** The Gemini API takes a public YouTube link directly and listens to it on Google's side. It's a preview feature, free, with up to 8 hours of video a day on the free tier.
+- **What Google offers.** The Gemini API takes a public YouTube link directly and listens to it on Google's side. It's a preview feature. The free tier allows up to 8 hours of video a day; on the paid tier it costs tokens like any other video.
 
 ## Options
 
@@ -26,7 +26,7 @@ Adam wants to paste a YouTube link and get the song transcribed, translated, tra
 | **Allowed** | Yes: Google's own documented feature | No: separates audio against YouTube's policies | Yes | Their terms |
 | **Quality (tested)** | Near word-perfect with the hint; about 4 lines in 5 without | — | Varies; some Arabic records are merged lines, spelled by ear | — |
 | **Timing to this video** | Yes | Yes | Only when the versions match | Varies |
-| **Cost** | Free (preview) | Proxies | Free | Money |
+| **Cost** | About $0.03 a listen (paid tier); a free tier exists | Proxies | Free | Money |
 | **Risk** | Free tier is often busy (503); the preview may change | Breaks often | Gaps | Lock-in |
 
 ## Decision
@@ -55,16 +55,16 @@ Option A, with C as the hint and the stand-in.
 - **Sharing.** One `songs` row per video, readable by every signed-in player, written only by the server. A song is listened to once, ever.
 - **Limits.**
   - 5 new songs per player a day.
-  - Game-wide, new listening stops at 7 hours of video a day, under the free tier's 8.
+  - Game-wide, new listening stops at 7 hours of video a day. That keeps the bill bounded, and fits under the free tier's 8 if billing ever lapses.
 - **Playback.** The YouTube IFrame Player on `youtube-nocookie.com`, at least 200 × 200 px, with nothing over it.
 - **The CSP** gains `frame-src https://www.youtube-nocookie.com`, `script-src https://www.youtube.com` and `img-src https://i.ytimg.com`. Nothing else.
 
 ## Consequences
 
-- **New outside dependencies.** Four: Gemini's YouTube feature (preview), YouTube's embedded player, LRCLIB and the Claude API. All but Claude are free, and all four are on the privacy page.
+- **New outside dependencies.** Four: Gemini's YouTube feature (preview), YouTube's embedded player, LRCLIB and the Claude API. Gemini and Claude are paid, YouTube's player and LRCLIB are free, and all four are on the privacy page.
 - **Money, Gemini: the paid tier** (Adam, 2026-11-23: "if Gemini costs 3 cents per song then that's ok, let's use the paid plan"). That's about $0.03 a listen on 3.6 Flash ($0.05 from 2027), and what we send isn't used for Google's training. Billing goes on the songs' own Google Cloud project, with a budget alert. If billing ever lapses, the free-tier model order takes over by itself, at lower quality and capacity.
 - **Money, Claude.** The Claude API is paid: about $0.10–0.15 a song, once, since songs are shared (an estimate; 15.3 measures it). Adam puts the key in Vercel (`ANTHROPIC_API_KEY`), never in chat, and sets a monthly spend limit in the Claude Console. Without the key, the corner still works on Gemini and Groq.
-- **The preview.** Google says pricing and limits "are likely to change". If it becomes paid, that comes to Adam as a question first, and LRCLIB-only (Option C) keeps the corner working meanwhile.
+- **The preview.** Google says pricing and limits "are likely to change". If the price rises well above the estimate, that comes to Adam as a question first, and LRCLIB-only (Option C) keeps the corner working meanwhile.
 - **Third-party script.** The CSP allows it for the first time, site-wide, since Waymark is one page. The script is loaded only when the corner opens.
 - **Copyright.** Lyrics are someone else's text. They live in our private database for the game's signed-in players, never in git or `content/`.
 - **Supersedes** this ADR's Proposed draft of the same day (YouTube player plus LRCLIB, with the player pasting words when missing). Adam ruled that out.

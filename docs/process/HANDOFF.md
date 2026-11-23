@@ -1,6 +1,7 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; last updated 2026-11-15 at the end of a session (items 54–59) and in the next session (items 60–64); updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46; that night E12 and E11). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
+- **Latest:** 2026-11-23, end of session: items 193–200 (Phases 10–15 planned, on PR #512; v1.7.0 waits on Adam's go in #485). Start at item 200.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-15 at the end of a session (items 54–59) and in the next session (items 60–64); updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46; that night E12 and E11). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 - **Starting prompt:** [next-session-prompt.md](next-session-prompt.md) is what Adam pastes to start the next session.
 
@@ -513,3 +514,10 @@
    - **Repeated lines:** 28–75% of a song's lines repeat, so each distinct line is explained once.
    - **The full 8-song eval gates 15.3.** Pass marks are in research §L.
 199. **Paid Gemini for songs (Adam, 2026-11-23).** About $0.03 a listen on `gemini-3.6-flash`, in a Google Cloud project of the songs' own, with billing and a budget alert. The key goes in Vercel as `GEMINI_SONGS_API_KEY`. ADR 0059, the spec and #525 are updated. The free-tier model order stays only as a fallback if billing lapses. Adam sets up the project, both keys (`ANTHROPIC_API_KEY` too) and the spend limits when 15.3 starts.
+200. **End of session (2026-11-23): where things stand.**
+   - **v1.7.0** (release PR #485, `release/v1.7.0` into `main`) is clean and green and waits on Adam's go. After he says go: merge with a merge commit, check that the migrations ran on production, and curl the live site.
+   - **Phases 10–15** are planned in PLAN.md and the issues (#495–#497, #513, #514, #522 and their children), with the docs on PR #512 into `dev`. Nothing is built; each waits on Adam's go.
+   - **Phase 10's order:** 10.3 first, then 10.1 and 10.2 together with the two tale fixes (tale 33's btúgbuʂ should end in ɖ; tale 41 has a doubled ب in بْبْنيه), then 10.4 and 10.5.
+   - **Phase 15 needs Adam before 15.3:** a Google Cloud project for songs with billing and a budget alert, `GEMINI_SONGS_API_KEY` and `ANTHROPIC_API_KEY` in Vercel, and a monthly spend limit in the Claude Console. Then run the full 8-song eval (research §J, pass marks in §L) before building on it.
+   - **Docs audited at the end of this session:** STATUS (ADR count, phases, PR rules, the paid songs exception, Gemini facts), ADR 0059 (no "free" claims left for Gemini), PLAN's Phase 15 goal, and this file.
+
