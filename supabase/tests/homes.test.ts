@@ -9,6 +9,7 @@ import {
   STARTER_PIECES,
   type PieceDef,
 } from '../../src/core/home/layout.ts';
+import { heldOf, withHeld } from '../../src/core/home/cozy.ts';
 import { BAD, EXTRA, GOOD } from '../../src/core/home/layouts.fixture.ts';
 
 // Homes in the database (task 7.3, #438; docs/game/the-home.md R7 and R9, ADR 0055). save_home
@@ -195,5 +196,39 @@ describe('reading homes (R9)', () => {
     await expect(as(A, `select home_refusal($1, $2::jsonb)`, [A, '{}'])).rejects.toThrow(
       /permission denied/,
     );
+  });
+});
+
+describe('coziness (task 8.2): what a room has ever held', () => {
+  const held = () => as(A, 'select my_home_held()');
+  const cozyOf = async (who: string, friend: string) =>
+    ((await as(who, 'select fellowship()')) as { id: string; cozy: number }[]).find(
+      (c) => c.id === friend,
+    )?.cozy;
+
+  it('counts each layout as heldOf does', async () => {
+    expect(GOOD.some((g) => heldOf(g.layout).length > 0)).toBe(true);
+    for (const { layout } of GOOD) {
+      await db.exec('savepoint each');
+      await save(A, layout);
+      expect(await held()).toEqual(heldOf(layout));
+      await db.exec('rollback to savepoint each');
+    }
+  });
+
+  it('only grows: what was set out stays counted after the room is emptied', async () => {
+    expect(await held()).toEqual([]);
+    let all: string[] = [];
+    for (const { layout } of GOOD) {
+      await save(A, layout);
+      all = withHeld(all, layout);
+    }
+    await save(A, STARTER);
+    expect(await held()).toEqual(all);
+    expect(await cozyOf(B, A)).toBe(all.length);
+    expect(await cozyOf(A, A)).toBe(all.length);
+    // A friend sees a count, never the list; a player who never decorated has none.
+    expect(await cozyOf(A, B)).toBe(0);
+    await expect(as(B, `select home_held_of('{}'::jsonb)`)).rejects.toThrow(/permission denied/);
   });
 });

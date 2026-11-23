@@ -147,3 +147,35 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
   - *Guard:* the path rule, checked twice (R6, R7).
 - **A friend's room leaks something.**
   - *Guard:* the database gives the layout only through a friends-only function, with the same three-player test as the cards (ADR 0042).
+
+## 13. Notes at the letterbox (task 8.1, #469)
+
+The first of §9's later items: "stopped by" and a guestbook, built as notes.
+
+- **In a friend's room,** the letterbox says "leave a note". It opens the set: five of our own Arabic sentences (the tea is very hot, the house is clean, the weather's nice, see you tonight, okay bye), three Morse sign-offs the Codebook teaches (73, CUL, TNX) and two plain lines. Each Arabic note shows its script, its reading and its meaning, so a note is a little practice too.
+- **One a day per friend.** Picking again the same day replaces the note. The letterbox says which note you left today.
+- **No free text.** A note is a code from `content/core/home.json`, like the feed's rows (ADR 0043), so nothing anyone writes reaches a friend's screen. `home_note_ids()` in the database keeps the same list, and a test holds them equal. The Arabic notes are tested word for word against `own-sentences.json`, and the Morse ones against the Codebook.
+- **Your letterbox** opens the Fellowship as before, with "Notes in your letterbox" at the top: who, which note, and the day.
+- **The Notice Board** says "Basma stopped by your room and left a note: …". Only you see that line.
+- **Privacy:** only the host and the writer read a note. A note from someone who is no longer a friend is hidden, and notes are deleted after 60 days, like the feed. A visit that leaves no note records nothing. FRIENDS.md says so.
+- **Tests:** `supabase/tests/notes.test.ts` (strangers, yourself, outside the set, one a day, who can read, the feed, unfriending, 60 days); `src/core/home/notes.test.ts`; `tests/e2e/fellowship.spec.ts` (leave, replace, remember, read, the feed line).
+
+## 14. Coziness (task 8.2, #470)
+
+§9's coziness rating, which only ever rises.
+
+- **What counts:** each different piece of furniture a room has ever held, and each wallpaper and floor that isn't the room's own. The starter pieces don't count, so a new room is at 0, and moving things around adds nothing.
+- **It never falls.** The database keeps the list (`homes.held`). A trigger adds what each save holds, so storing a piece or going back to plaster and planks loses nothing. An empty room is never punished.
+- **Its names** are in `content/core/home.json` (`home:coziness`): Just moved in (0), Settling in (1), Lived in (3), Snug (6), Cozy (10), Warm as fresh bread (15). There are 20 things to own, so the top can be reached.
+- **Where it shows:** under your room, beside Decorate, with how many more new things the next name needs. After a Done that sets out something new, the line says "Your room is cozier: …", or "a little cozier" between names. A friend's shelf says "Their room: Snug". A friend sees the count's name, never the list. fellowship.md §3 and FRIENDS.md say so.
+- **Tests:** `src/core/home/cozy.test.ts`; `supabase/tests/homes.test.ts`, where the database counts every fixture layout as `heldOf` does, the count only grows, and a friend's card carries the count; `tests/e2e/home.spec.ts` and `fellowship.spec.ts`.
+
+## 15. Four facings (task 8.3, #471)
+
+- **What turns:** the chair four ways (facing the room, right, the wall, left) and the window seat two (facing the room or the wall). The rest look the same from any side (the bench, the cushion, the stove) or stand against a wall (the bed, the desk, the bookcase), so they don't turn. Each piece's turns are data: `turns` in `content/core/home.json`.
+- **In Decorate:** holding a piece that turns shows **Turn the chair**, and R does the same. The line says which way it now faces ("The chair, facing the wall."). A turned piece keeps its turn as it moves. Facing the room again, it faces the middle as before.
+- **In a layout:** `facing` was `left` or `right`, set by where a piece stands, and both mean "facing the room". They keep that meaning, so no saved room changes and nothing is rewritten. The new values are `away`, `to-left` and `to-right` (migration `20270121000000_facings.sql`; `save_home` accepts the five).
+- **Painted:** each turn is its own painting in `paintFurniture.ts`. A piece right of the middle is mirrored (projection.ts, moveFloor), so paintHome swaps the two side turns first and the chair still looks the way it was turned. The look was checked on both sides of the room.
+- **Known:** someone sitting on a chair turned away is still drawn facing you.
+- **Tests:** `decorate.test.ts` (the order, keeping a turn, what turns); `paintHome.test.ts` (four paintings, the mirror swap); the fixture's turned chair, which `save_home` takes (homes.test.ts); `home.spec.ts` (Turn, saved, no Turn for the chest).
+

@@ -8,6 +8,7 @@ import {
   rankName,
   readCard,
   readMilestone,
+  readNote,
   readRequest,
   showCode,
   supabaseFellowship,
@@ -30,6 +31,7 @@ describe('reading a friend’s card (fellowship-build.md §1 traps 3 and 4)', ()
         streak: 3,
         ranks: ['morse:rank-listener'],
         achievements: ['first-light'],
+        cozy: 7,
         gold: 999,
       }),
     ).toEqual({
@@ -42,7 +44,11 @@ describe('reading a friend’s card (fellowship-build.md §1 traps 3 and 4)', ()
       streak: 3,
       ranks: ['morse:rank-listener'],
       achievements: ['first-light'],
+      cozy: 7,
     });
+    // An older database's card has no coziness: none, not a guess.
+    expect(readCard({ id: ID, name: 'Basma' })?.cozy).toBe(0);
+    expect(readCard({ id: ID, name: 'Basma', cozy: -3 })?.cozy).toBe(0);
   });
 
   it('turns away what isn’t a card, and fills a missing name kindly', () => {
@@ -122,6 +128,27 @@ describe('the party feed in words (task 3.3)', () => {
       'Basma earned First Light.',
     );
     expect(milestoneLine(m('streak', '30', true), places)).toBe('You kept a 30-day streak.');
+  });
+
+  it('says who stopped by your room, and their note (task 8.1)', () => {
+    expect(milestoneLine({ ...m('visit', 'tnx'), id: -3 }, places)).toBe(
+      'Basma stopped by your room and left a note: TNX (Thanks)',
+    );
+    expect(milestoneLine({ ...m('visit', 'gone'), id: -3 }, places)).toBe(
+      'Basma stopped by your room.',
+    );
+    expect(readMilestone({ ...m('visit', 'tnx'), id: -3 })?.id).toBe(-3);
+    // A note's row is negative and a milestone's positive, so a key never repeats.
+    expect(readMilestone({ ...m('visit', 'tnx'), id: 3 })).toBeNull();
+    expect(readMilestone({ ...m('rank', 'x'), id: -3 })).toBeNull();
+  });
+
+  it('reads only notes from the set (task 8.1)', () => {
+    const n = { id: 4, from: ID, name: 'Basma', note: '73', day: '2026-11-17' };
+    expect(readNote(n)).toEqual(n);
+    expect(readNote({ ...n, note: 'hello there' })).toBeNull();
+    expect(readNote({ ...n, from: 'x' })).toBeNull();
+    expect(readNote({ ...n, name: '' })?.name).toBe('A traveler');
   });
 
   it('turns away rows that aren’t milestones', () => {

@@ -6,6 +6,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { ACHIEVEMENTS } from '../achievements/achievements.ts';
 import { parseOthersLook, type Look } from '../avatar/looks.ts';
+import { noteById, noteLine } from '../home/notes.ts';
 
 /** What a friend sees of you, and you of them (fellowship.md §3). */
 export interface FriendCard {
@@ -21,6 +22,8 @@ export interface FriendCard {
   ranks: string[];
   /** Achievement ids. */
   achievements: string[];
+  /** How many different things their room has ever held (task 8.2); 0 for an older database. */
+  cozy: number;
 }
 
 export interface FriendRequest {
@@ -60,6 +63,21 @@ export interface FellowshipSource {
   setSharing(on: boolean): Promise<void>;
   /** A friend's room as saved (task 7.3), raw: read it with `parseLayout`. Null for a stranger. */
   home(id: string): Promise<unknown>;
+  /** Leaves today's note at a friend's letterbox (task 8.1), replacing one from earlier today. */
+  leaveNote(id: string, note: string): Promise<void>;
+  /** The note you left a friend today, if any. */
+  noteFor(id: string): Promise<string | null>;
+  /** The notes at your letterbox from friends, newest first. */
+  notes(): Promise<LetterNote[]>;
+}
+
+/** A note a friend left at your letterbox (task 8.1): who, which note from the set, the day. */
+export interface LetterNote {
+  id: number;
+  from: string;
+  name: string;
+  note: string;
+  day: string;
 }
 
 /** One line of the party feed, as codes; the words are made by `milestoneLine`. */
@@ -68,7 +86,8 @@ export interface Milestone {
   who: string;
   name: string;
   me: boolean;
-  kind: 'rank' | 'trial' | 'achievement' | 'streak';
+  /** `visit` is a friend who left a note at your letterbox; only you see it (task 8.1). */
+  kind: 'rank' | 'trial' | 'achievement' | 'streak' | 'visit';
   detail: string;
   /** The day only, never the time (fellowship-build.md §4). */
   day: string;
@@ -96,6 +115,7 @@ export function readCard(raw: unknown): FriendCard | null {
     streak: count(r.streak),
     ranks: ids(r.ranks),
     achievements: ids(r.achievements),
+    cozy: count(r.cozy),
   };
 }
 
@@ -149,6 +169,12 @@ export function supabaseFellowship(client: SupabaseClient): FellowshipSource {
     cards: async () => list(await call('fellowship'), readCard),
     requests: async () => list(await call('fellowship_requests'), readRequest),
     home: (id) => call('home_of', { p_friend: id }),
+    leaveNote: async (id, note) => void (await call('leave_note', { p_friend: id, p_note: note })),
+    noteFor: async (id) => {
+      const raw = await call('my_note_for', { p_friend: id });
+      return typeof raw === 'string' && noteById(raw) ? raw : null;
+    },
+    notes: async () => list(await call('my_notes'), readNote),
     feed: async () => list(await call('fellowship_feed'), readMilestone),
     sharing: async () => {
       const { data, error } = await client
@@ -168,6 +194,23 @@ export function supabaseFellowship(client: SupabaseClient): FellowshipSource {
   };
 }
 
+/** A note at your letterbox from the database, or null if it isn't one we know. */
+export function readNote(raw: unknown): LetterNote | null {
+  if (!raw || typeof raw !== 'object') return null;
+  const r = raw as Record<string, unknown>;
+  if (typeof r.id !== 'number' || !Number.isSafeInteger(r.id) || r.id < 1) return null;
+  if (typeof r.from !== 'string' || !UUID.test(r.from)) return null;
+  if (typeof r.note !== 'string' || !noteById(r.note)) return null;
+  if (typeof r.day !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(r.day)) return null;
+  return {
+    id: r.id,
+    from: r.from,
+    name: text(r.name).trim() || 'A traveler',
+    note: r.note,
+    day: r.day,
+  };
+}
+
 /** Where to visit a friend's house (task 3.2). */
 export const visitPath = (id: string) => `/house/visit/${id}`;
 
@@ -175,7 +218,7 @@ export const visitPath = (id: string) => `/house/visit/${id}`;
 export const achievementNames = (ids: readonly string[]) =>
   ACHIEVEMENTS.filter((a) => ids.includes(a.id)).map((a) => a.name);
 
-const KINDS = ['rank', 'trial', 'achievement', 'streak'] as const;
+const KINDS = ['rank', 'trial', 'achievement', 'streak', 'visit'] as const;
 
 export function readMilestone(raw: unknown): Milestone | null {
   if (!raw || typeof raw !== 'object') return null;
@@ -184,8 +227,10 @@ export function readMilestone(raw: unknown): Milestone | null {
   if (!kind || typeof r.who !== 'string' || typeof r.detail !== 'string') return null;
   if (typeof r.day !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(r.day)) return null;
   // The feed's ids count every milestone of every player: not capped like a count, since the
-  // feed's lines are keyed by them (review, 2026-11-19).
-  if (typeof r.id !== 'number' || !Number.isSafeInteger(r.id) || r.id < 1) return null;
+  // feed's lines are keyed by them (review, 2026-11-19). A note's row has a negative id (task
+  // 8.1), so the two never meet.
+  if (typeof r.id !== 'number' || !Number.isSafeInteger(r.id)) return null;
+  if (kind === 'visit' ? r.id > -1 : r.id < 1) return null;
   return {
     id: r.id,
     who: r.who,
@@ -218,6 +263,12 @@ export function milestoneLine(m: Milestone, places: ReadonlyMap<string, string>)
     }
     case 'streak':
       return `${who} kept a ${Number(m.detail) || ''}-day streak.`;
+    case 'visit': {
+      const note = noteById(m.detail);
+      return note
+        ? `${m.name} stopped by your room and left a note: ${noteLine(note)}`
+        : `${m.name} stopped by your room.`;
+    }
   }
 }
 

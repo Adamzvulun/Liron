@@ -146,6 +146,7 @@ const together = supabase && fellowship ? supabaseTogether(supabase) : null;
 const readGifts = together ? () => together.gifts() : undefined;
 /** Your House's saved room; null, as for a player who never decorated, without a store. */
 const readHome = () => store?.home() ?? Promise.resolve(null);
+const readHeld = () => store?.homeHeld() ?? Promise.resolve([]);
 const saveHome = (layout: Layout) =>
   store ? store.saveHome(layout) : Promise.reject(new Error('not signed in'));
 
@@ -647,6 +648,7 @@ function Lobby({ player }: { player: Player }) {
                   <HouseRoom
                     onLoad={readHome}
                     onSave={saveHome}
+                    onHeld={readHeld}
                     owned={state.profile.owned}
                     look={state.profile.avatar}
                     panels={{

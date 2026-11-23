@@ -226,7 +226,8 @@
         "place": "floor",
         "size": [1, 1],
         "does": "sit",
-        "line": "A plain wooden chair."
+        "line": "A plain wooden chair.",
+        "turns": ["to-right", "away", "to-left"]
       }
     },
     {
@@ -347,7 +348,8 @@
         "place": "floor",
         "size": [3, 1],
         "does": "sit",
-        "line": "Cushions enough for a whole afternoon."
+        "line": "Cushions enough for a whole afternoon.",
+        "turns": ["away"]
       }
     },
     {
@@ -446,6 +448,150 @@
         "name": "dark oak floor",
         "part": "floor",
         "style": "dark-oak"
+      }
+    },
+    {
+      "id": "note:tea",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "arabic",
+        "text": "الشّاي سُخُن كْتير.",
+        "latin": "iššāy súxun ktīr.",
+        "english": "The tea is very hot.",
+        "from": "own-sentence:pcav:4710"
+      }
+    },
+    {
+      "id": "note:clean",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "arabic",
+        "text": "الدّار نْضيفة.",
+        "latin": "iddār nɖīfa.",
+        "english": "The house is clean.",
+        "from": "own-sentence:pcav:4697"
+      }
+    },
+    {
+      "id": "note:weather",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "arabic",
+        "text": "الجّوّ حِلو اليوْم.",
+        "latin": "ijjáww ɧílu ilyōm.",
+        "english": "The weather’s nice today.",
+        "from": "own-sentence:pcav:3644"
+      }
+    },
+    {
+      "id": "note:tonight",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "arabic",
+        "text": "بشوفك الليْلة!",
+        "latin": "bašūfak illēla!",
+        "english": "See you tonight!",
+        "from": "own-sentence:pcav:4099"
+      }
+    },
+    {
+      "id": "note:bye",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "arabic",
+        "text": "طيِّب، باي!",
+        "latin": "ʈáyyib, bāy!",
+        "english": "Okay, bye!",
+        "from": "own-sentence:pcav:4771"
+      }
+    },
+    {
+      "id": "note:73",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "morse",
+        "text": "73",
+        "english": "Best regards",
+        "from": "abbr:73"
+      }
+    },
+    {
+      "id": "note:cul",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "morse",
+        "text": "CUL",
+        "english": "See you later",
+        "from": "abbr:cul"
+      }
+    },
+    {
+      "id": "note:tnx",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "morse",
+        "text": "TNX",
+        "english": "Thanks",
+        "from": "abbr:tnx"
+      }
+    },
+    {
+      "id": "note:window",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "plain",
+        "english": "I sat a while by your window."
+      }
+    },
+    {
+      "id": "note:liked",
+      "subject": "core",
+      "type": "home-note",
+      "data": {
+        "kind": "plain",
+        "english": "I liked your room."
+      }
+    },
+    {
+      "id": "home:coziness",
+      "subject": "core",
+      "type": "home-coziness",
+      "data": {
+        "tiers": [
+          {
+            "at": 0,
+            "name": "Just moved in"
+          },
+          {
+            "at": 1,
+            "name": "Settling in"
+          },
+          {
+            "at": 3,
+            "name": "Lived in"
+          },
+          {
+            "at": 6,
+            "name": "Snug"
+          },
+          {
+            "at": 10,
+            "name": "Cozy"
+          },
+          {
+            "at": 15,
+            "name": "Warm as fresh bread"
+          }
+        ]
       }
     }
   ]

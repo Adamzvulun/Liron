@@ -190,6 +190,7 @@ test.describe('a friend’s house (task 3.2)', () => {
             ranks: ['morse:rank-listener'],
             achievements: ['first-light'],
             look: { gear: { pet: 'sand-cat' } },
+            cozy: 7,
           }),
         ],
         homes: {
@@ -212,11 +213,10 @@ test.describe('a friend’s house (task 3.2)', () => {
     await expect(page.locator('.room__host')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Decorate' })).toHaveCount(0);
     const say = page.locator('.room__say');
-    // Her cupboard, desk and letterbox say a line and open nothing.
+    // Her cupboard and desk say a line and open nothing.
     for (const [piece, line] of [
       ['Cupboard', 'Their clothes, and the mirror. Not yours to open.'],
       ['Desk', 'Their ledger lies open. It’s theirs to read.'],
-      ['Letterbox', 'Letters for them, from their friends.'],
     ]) {
       await page.getByRole('button', { name: `${piece}: look` }).click();
       await expect(say).toHaveText(line);
@@ -226,11 +226,27 @@ test.describe('a friend’s house (task 3.2)', () => {
     await page.getByRole('button', { name: 'Shelf: see their trophies' }).click();
     const shelf = page.getByRole('dialog', { name: 'Basma’s trophies' });
     await expect(shelf).toContainText('Level 5 · Keyer');
+    await expect(shelf).toContainText('Their room: Snug');
     await expect(shelf.getByRole('region', { name: 'Trophies' })).toContainText('Listener');
     await expect(shelf).toContainText('First Light');
     await expect(shelf.getByRole('heading', { name: 'Gear' })).toHaveCount(0);
     if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, fullPage: true });
     await shelf.getByRole('button', { name: 'Back to the room' }).click();
+    // Her letterbox takes a note from the set (task 8.1): one a day, and a new one replaces it.
+    await page.getByRole('button', { name: 'Letterbox: leave a note' }).click();
+    const letterbox = page.getByRole('dialog', { name: 'Basma’s letterbox' });
+    await letterbox.getByRole('button', { name: /The tea is very hot/ }).click();
+    await expect(letterbox.getByRole('status')).toHaveText('Your note is in Basma’s letterbox.');
+    await letterbox.getByRole('button', { name: /73.*Best regards/ }).click();
+    await expect(letterbox.getByRole('button', { name: /73/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    await expect(letterbox.getByRole('button', { name: /The tea/ })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    );
+    await letterbox.getByRole('button', { name: 'Back to the room' }).click();
     // Sit in her chair, put her lantern out (for you only), and greet her.
     await page.getByRole('button', { name: 'Chair: sit down' }).click();
     await expect(stage).toHaveAttribute('data-seated', 'true');
@@ -247,11 +263,76 @@ test.describe('a friend’s house (task 3.2)', () => {
     if (!box) throw new Error('no room');
     await page.mouse.click(box.x + (x * box.width) / 1920, box.y + (y * box.width) / 1920);
     await expect(say).toHaveText('Basma is glad you came by.');
-    // Nothing of hers was saved or sent.
+    // Nothing of hers was saved; only the notes were sent, to her letterbox.
     expect(rpcs.filter((r) => r === 'save_home')).toEqual([]);
+    expect(rpcs.filter((r) => r === 'leave_note')).toEqual(['leave_note', 'leave_note']);
     await page.getByRole('link', { name: '← Back to your house' }).click();
     await expect(page).toHaveURL(/\/house$/);
     await expect(page.getByRole('group', { name: /^Your room/ })).toBeVisible();
+  });
+
+  test('a note you left today is remembered, and her letterbox says so', async ({ page }) => {
+    await signedIn(
+      page,
+      [],
+      [],
+      undefined,
+      [],
+      withFellowship({ friends: [friendCard(BASMA, 'Basma')], left: { [BASMA]: 'cul' } }),
+    );
+    await page.goto(`/house/visit/${BASMA}`);
+    await page.getByRole('button', { name: 'Letterbox: leave a note' }).click();
+    const letterbox = page.getByRole('dialog', { name: 'Basma’s letterbox' });
+    await expect(letterbox.getByRole('status')).toHaveText(
+      'Today you left Basma a note: See you later',
+    );
+    await expect(letterbox.getByRole('button', { name: /CUL/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+  });
+
+  test('notes friends left are in your letterbox, and the feed says who stopped by', async ({
+    page,
+  }) => {
+    await signedIn(
+      page,
+      [],
+      [],
+      undefined,
+      [],
+      withFellowship({
+        friends: [friendCard(BASMA, 'Basma')],
+        notes: [
+          { id: 2, from: BASMA, name: 'Basma', note: 'tea', day: '2026-11-02' },
+          // A note this build doesn't know is left out, not shown as a code.
+          { id: 1, from: BASMA, name: 'Basma', note: 'retired', day: '2026-11-01' },
+        ],
+        feed: [
+          {
+            id: -2,
+            who: BASMA,
+            name: 'Basma',
+            me: false,
+            kind: 'visit',
+            detail: 'tea',
+            day: '2026-11-02',
+          },
+        ],
+      }),
+    );
+    await page.goto('/house#fellowship');
+    const panel = page.getByRole('region', { name: 'Fellowship' });
+    await expect(panel.getByRole('heading', { name: 'Notes in your letterbox' })).toBeVisible();
+    const slips = panel.locator('.notes__slip');
+    await expect(slips).toHaveCount(1);
+    await expect(slips.first()).toContainText('Basma');
+    await expect(slips.first().locator('bdi[lang="ar"]')).toHaveText('الشّاي سُخُن كْتير.');
+    await expect(slips.first()).toContainText('The tea is very hot.');
+    await page.goto('/notice-board');
+    await expect(page.locator('.party-feed__line')).toHaveText(
+      'Basma stopped by your room and left a note: الشّاي سُخُن كْتير. (The tea is very hot.)',
+    );
   });
 
   test('someone who isn’t a friend finds the door closed', async ({ page }) => {

@@ -21,7 +21,18 @@ export interface PieceDef {
   line: string;
   /** The line in a friend's room (§8), where "your" would be wrong; else `line`. */
   visit?: string;
+  /** The ways it can turn besides facing the room (task 8.3, §15), in the order Turn goes. */
+  turns?: readonly Turn[];
 }
+
+/** A turned floor piece: facing the back wall, or across the room (task 8.3). */
+export type Turn = 'away' | 'to-left' | 'to-right';
+/**
+ * Which way a floor piece faces. `left` and `right` both face the room: they are set by where
+ * it stands, toward the middle, and drawn the same (§6). The turns are set by Turn (§15).
+ */
+export type Facing = 'left' | 'right' | Turn;
+export const isTurn = (f: Facing): f is Turn => f !== 'left' && f !== 'right';
 
 export interface Room {
   cols: number;
@@ -43,7 +54,7 @@ const Coord = z.int().check(z.nonnegative(), z.lte(63));
 const FloorPiece = z.strictObject({
   id: Id,
   at: z.tuple([Coord, Coord]),
-  facing: z.enum(['left', 'right']),
+  facing: z.enum(['left', 'right', 'away', 'to-left', 'to-right']),
 });
 const WallPiece = z.strictObject({ id: Id, slot: Coord });
 

@@ -251,3 +251,32 @@
   font: inherit;
   font-weight: 400;
 }
+
+/* Decorate and the room's coziness, under the room (task 8.2). */
+.room-cozy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-top: 0.75rem;
+}
+.room-cozy .decorate__start {
+  margin-top: 0;
+}
+.room-cozy__line,
+.room-cozy__said {
+  margin: 0;
+  padding: 0.35rem 0.8rem;
+  border-radius: 12px;
+  background: rgb(20 14 10 / 70%);
+  color: var(--vellum);
+}
+.room-cozy__said:empty {
+  display: none;
+}
+.room-cozy__said {
+  flex-basis: 100%;
+  width: fit-content;
+  font-weight: 700;
+  color: var(--lamplight);
+}

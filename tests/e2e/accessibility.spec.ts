@@ -2,6 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures.ts';
 import { emailLinkFragment, fakeSupabase, friendCard, signedIn } from './fake-supabase.ts';
+import { STARTER } from '../../src/core/home/layout.ts';
 
 // Every screen against WCAG 2.1 A and AA, with axe-core (ADR 0051). Adam, 2026-11-19: "not
 // automatically every CI, once we push a major release". So it runs on a release PR into `main`
@@ -122,6 +123,36 @@ test.describe('accessibility (ADR 0051)', () => {
     expect(await problems(page)).toEqual([]);
     await page.getByRole('button', { name: 'Shelf: see their trophies' }).click();
     await expect(page.getByRole('dialog', { name: 'Basma’s trophies' })).toBeVisible();
+    expect(await problems(page)).toEqual([]);
+  });
+
+  test('the home lived in: notes, coziness and Turn (v1.5)', async ({ page }) => {
+    await signedIn(page, [], [], MORSE, [], {
+      owned: ['home-chair'],
+      held: ['home-chair'],
+      home: {
+        ...STARTER,
+        pieces: [...STARTER.pieces, { id: 'home-chair', at: [6, 2], facing: 'away' }],
+      },
+      fellowship: {
+        friends: [friendCard(BASMA, 'Basma', { cozy: 7 })],
+        notes: [{ id: 1, from: BASMA, name: 'Basma', note: 'tea', day: '2026-11-02' }],
+        left: { [BASMA]: '73' },
+      },
+    });
+    await page.goto('/house');
+    await expect(page.locator('.room-cozy__line')).toBeVisible();
+    await page.getByRole('button', { name: 'Decorate' }).click();
+    await page.getByRole('group', { name: /decorating/ }).waitFor();
+    expect(await problems(page)).toEqual([]);
+    // Away and back, so the room opens afresh with the Fellowship open.
+    await page.goto('/notice-board');
+    await page.goto('/house#fellowship');
+    await expect(page.getByRole('heading', { name: 'Notes in your letterbox' })).toBeVisible();
+    expect(await problems(page)).toEqual([]);
+    await page.goto(`/house/visit/${BASMA}`);
+    await page.getByRole('button', { name: 'Letterbox: leave a note' }).click();
+    await expect(page.getByRole('dialog', { name: 'Basma’s letterbox' })).toBeVisible();
     expect(await problems(page)).toEqual([]);
   });
 

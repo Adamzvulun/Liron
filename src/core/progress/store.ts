@@ -189,6 +189,8 @@ export interface ProgressStore {
   home(): Promise<unknown>;
   /** Saves the whole room; the database refuses it, saving nothing, if any rule fails. */
   saveHome(layout: Layout): Promise<void>;
+  /** What the room has ever held beyond the starter room (task 8.2): only ever grows. */
+  homeHeld(): Promise<string[]>;
   /** The player's achievements (#177): any now met are given first, and their gems paid. */
   achievements(): Promise<MyAchievements>;
   /** Wears an earned title, or none with ''; the database refuses one not earned. */
@@ -277,6 +279,8 @@ export function memoryStore(
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
   let home: Layout | null = null;
+  // Every room saved, for what it has ever held (task 8.2).
+  const saved: Layout[] = [];
   const profile: Profile = {
     displayName: '',
     avatar: DEFAULT_LOOK,
@@ -479,6 +483,12 @@ export function memoryStore(
     },
     async saveHome(layout) {
       home = structuredClone(layout);
+      saved.push(structuredClone(layout));
+    },
+    async homeHeld() {
+      // Loaded here, so the store doesn't load the home's rules (as above).
+      const { withHeld } = await import('../home/cozy.ts');
+      return saved.reduce<string[]>((held, l) => withHeld(held, l), []);
     },
     async achievements() {
       return {

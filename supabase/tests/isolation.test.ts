@@ -56,6 +56,8 @@ const PLAYER_TABLES: Record<string, string> = {
   gifts: 'from_id',
   // One room per player (task 7.3); a friend reads it through home_of() only.
   homes: 'user_id',
+  // A note has two players (task 8.1); the host reads theirs through my_notes() only.
+  home_notes: 'visitor_id',
 };
 
 /**
@@ -118,6 +120,11 @@ const CALLABLE: Record<string, string> = {
   'my_home()': 'the caller’s own room, or the starter room',
   'save_home(p_layout jsonb)': 'the caller’s own room, whole, only if every rule holds',
   'home_of(p_friend uuid)': 'an accepted friend’s placed pieces; null for anyone else',
+  'my_home_held()': 'what the caller’s own room has ever held (task 8.2)',
+  // Notes at the letterbox (task 8.1, notes.test.ts).
+  'leave_note(p_friend uuid, p_note text)': 'a note from the set, to an accepted friend only',
+  'my_notes()': 'notes to the caller from current friends: who, which note, the day',
+  'my_note_for(p_friend uuid)': 'the note the caller left that friend today',
   'speech_checks_per_day()': 'a constant',
   'today_status()': 'the caller’s own day',
   'todays_contracts()': 'the caller’s own contracts',
@@ -235,6 +242,7 @@ async function seed(id: string) {
        values ($1, '2026-11-02', 'inn-talk', 40)`,
     `insert into gifts (from_id, to_id, item_id, price) values ($1, '${T}', 'cloak', 180)`,
     `insert into homes (user_id, layout) values ($1, home_starter())`,
+    `insert into home_notes (visitor_id, host_id, note) values ($1, '${T}', 'tea')`,
   ];
   for (const sql of statements) await db.query(sql, [id]);
 }
