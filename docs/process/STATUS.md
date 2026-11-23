@@ -7,7 +7,7 @@
 
 ## Where we are
 
-**Waymark is live at v1.3.1** ([waymark-phi.vercel.app](https://waymark-phi.vercel.app), 2026-11-22). Everything in [PLAN.md](PLAN.md) that Claude can do alone is built. What is left is Adam's: his reads and approvals, the first friends, and the parked items in [LATER.md](LATER.md). Since v1.0.0: friends read the deck (v1.1), invite links (v1.2), the square on an iPhone (v1.2.x), and Nour the lamplighter's guide for new players (v1.3). Each release's notes are in [releases/](releases/) and the map in [VERSIONS.md](VERSIONS.md). The repo is public since 2026-11-22, with the deck's text out of its tree and its history ([ADR 0054](../decisions/0054-the-repo-goes-public.md)), so CI costs nothing.
+**Waymark is live at v1.3.2** ([waymark-phi.vercel.app](https://waymark-phi.vercel.app), 2026-11-23). Everything in [PLAN.md](PLAN.md) that Claude can do alone is built. What is left is Adam's: his reads and approvals, the first friends, and the parked items in [LATER.md](LATER.md). Since v1.0.0: friends read the deck (v1.1), invite links (v1.2), the square on an iPhone (v1.2.x), and Nour the lamplighter's guide for new players (v1.3). Each release's notes are in [releases/](releases/) and the map in [VERSIONS.md](VERSIONS.md). The repo is public since 2026-11-22, with the deck's text out of its tree and its history ([ADR 0054](../decisions/0054-the-repo-goes-public.md)), so CI costs nothing.
 
 | | State |
 |---|---|
