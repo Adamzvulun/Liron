@@ -88,6 +88,8 @@ Copyrighted content (the Lingualism deck) is uploaded to each project automatica
 
 If the content job fails because a key is missing, add it, then **Actions → DB migrate → Run workflow** on the right branch, or ask Claude to start it.
 
+**Since the repo went public ([ADR 0054](../decisions/0054-the-repo-goes-public.md)), CI has no deck to upload.** The deck is licensed, so its files stay out of git, and the content job finds no deck and says so in a notice instead of failing (it failed on every release from v1.3.1 until this was found, 2026-11-23). What is already in `waymark-dev` and `waymark-prod` stays. The deck's content only changes if the deck file or `scripts/content/` changes. If that ever happens, upload it from a machine that holds the deck: `SUPABASE_URL=… SUPABASE_SECRET_KEY=… node scripts/content/upload-private.ts`, with the project's URL and secret key typed into your own terminal (never into chat).
+
 ## Running it locally
 Create `.env.local` (git-ignored) from [`.env.example`](../../.env.example) with the `waymark-dev` values. Without it, the app shows a "Not set up yet" screen that names what's missing.
 
