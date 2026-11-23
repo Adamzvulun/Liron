@@ -97,7 +97,7 @@
           {
             "id": "house",
             "title": "Your House",
-            "text": "Your own room: tap the floor or use the arrow keys to walk, and tap a piece to use it. The cupboard dresses your traveler, the desk keeps your ledger, the shelf your trophies, and the letterbox the Fellowship. Decorate moves anything in the room, turns a chair, and sets out the furniture, wallpapers and floors you own; Done keeps it, Cancel puts it all back, and each new thing you set out makes the room cozier for good. A room holds up to {floorPieces} pieces on the floor and {wallPieces} on the wall, and the way from the door must stay open. Friends can visit, walk around your room and leave a note in your letterbox (a few words of Arabic or Morse, one a day), but only you can change it.",
+            "text": "Your own room: tap the floor or use the arrow keys to walk, and tap a piece to use it. The cupboard dresses your traveler, the desk keeps your ledger, the shelf your trophies, and the letterbox the Fellowship. Decorate moves anything in the room, turns a chair, and sets out the furniture, wallpapers and floors you own; Done keeps it, Cancel puts it all back, and each new thing you set out makes the room cozier for good. A room holds up to {floorPieces} pieces on the floor and {wallPieces} on the wall, and the way from the door must stay open; for {roofPrice} gems, stairs open a roof above it, a second room for your furniture. Friends can visit, walk around your room and leave a note in your letterbox (a few words of Arabic or Morse, one a day), but only you can change it.",
             "place": "house"
           },
           {

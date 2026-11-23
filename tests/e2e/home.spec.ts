@@ -1,8 +1,8 @@
 import type { Page } from '@playwright/test';
-import { STARTER } from '../../src/core/home/layout.ts';
+import { ROOF_STARTER, STARTER } from '../../src/core/home/layout.ts';
 import { cellFeet } from '../../src/core/home/projection.ts';
 import { expect, test } from './fixtures.ts';
-import { signedIn } from './fake-supabase.ts';
+import { friendCard, signedIn } from './fake-supabase.ts';
 
 // Walking in your room (task 7.5, #440; docs/game/the-home.md §4, R1, R2, R4, R5, R10).
 
@@ -18,8 +18,10 @@ async function openRoom(page: Page, home?: unknown) {
 /** Taps the middle of a floor cell, panning the room to it first if it is out of view. */
 async function tapCell(page: Page, col: number, row: number) {
   const [x, y] = cellFeet(col, row);
-  await room(page).scrollIntoViewIfNeeded();
-  await room(page).evaluate(
+  // The room or the roof: whichever is shown.
+  const shown = page.locator('.room');
+  await shown.scrollIntoViewIfNeeded();
+  await shown.evaluate(
     (el, [x]) => {
       const stage = el.querySelector('.room__stage') as HTMLElement;
       const scale = stage.getBoundingClientRect().width / 1920;
@@ -413,5 +415,89 @@ test.describe('decorating your room (#442)', () => {
     await page.mouse.up();
     await expect(say(page)).toHaveText('Set down the travel chest.');
     expect(await saved(page)).toContainEqual({ id: 'home:chest', at: [6, 3], facing: 'left' });
+  });
+});
+
+test.describe('the roof (#472)', () => {
+  const roof = (page: Page) => page.getByRole('group', { name: /^Your roof/ });
+  const BASMA = '00000000-0000-0000-0000-0000000000b2';
+
+  test('opens once for 15 gems; then the stairs go up and down', async ({ page }) => {
+    await signedIn(page, [], [], null, [], { gems: 20 });
+    await page.goto('/house');
+    await page.getByRole('button', { name: 'The roof…' }).click();
+    const ask = page.getByRole('group', { name: 'Open the roof' });
+    await expect(ask).toContainText('It opens for 15 gems, once; you have 20.');
+    const req = page.waitForRequest('**/rpc/open_roof');
+    await ask.getByRole('button', { name: 'Open the roof for 15 gems' }).click();
+    await req;
+    await expect(roof(page)).toBeVisible();
+    await expect(page.locator('.room-cozy__said')).toHaveText(
+      'The roof is yours. Decorate it with anything you own.',
+    );
+    await page.getByRole('button', { name: 'Down to your room' }).click();
+    await expect(room(page)).toBeVisible();
+    await page.getByRole('button', { name: 'Up to the roof' }).click();
+    await expect(roof(page)).toBeVisible();
+    // Opened for good: after a reload the stairs are there, and nothing is offered again.
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'Up to the roof' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'The roof…' })).toHaveCount(0);
+  });
+
+  test('waits, with how many gems are missing, and Not now closes the offer', async ({ page }) => {
+    await signedIn(page, [], [], null, [], { gems: 2 });
+    await page.goto('/house');
+    await page.getByRole('button', { name: 'The roof…' }).click();
+    await expect(page.getByRole('button', { name: 'Open the roof for 15 gems' })).toBeDisabled();
+    await expect(page.getByText('13 more gems to go.')).toBeVisible();
+    await page.getByRole('button', { name: 'Not now' }).click();
+    await expect(page.getByRole('group', { name: 'Open the roof' })).toHaveCount(0);
+  });
+
+  test('takes furniture only, each piece in one room; saved as the roof', async ({ page }) => {
+    await signedIn(page, [], [], null, [], {
+      owned: ['home-chair', 'home-plant'],
+      home: {
+        ...STARTER,
+        pieces: [...STARTER.pieces, { id: 'home-chair', at: [6, 2], facing: 'left' }],
+      },
+      roof: ROOF_STARTER,
+    });
+    await page.goto('/house#roof');
+    await expect(roof(page)).toBeVisible();
+    await page.getByRole('button', { name: 'Decorate' }).click();
+    const tray = page.getByRole('region', { name: 'Decorate' });
+    await expect(tray.getByRole('button', { name: 'Pick up the plant' })).toBeVisible();
+    // The chair is downstairs, and the starter pieces never come up.
+    await expect(
+      tray.getByRole('button', { name: /^Pick up the (chair|travel chest)$/ }),
+    ).toHaveCount(0);
+    await tray.getByRole('button', { name: 'Pick up the plant' }).click();
+    await tapCell(page, 6, 2);
+    await expect(tray.getByRole('status')).toHaveText('Set down the plant.');
+    const req = page.waitForRequest('**/rpc/save_home');
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    const body = (await req).postDataJSON() as { p_layout: { pieces: unknown[] }; p_room: string };
+    expect(body.p_room).toBe('roof');
+    expect(body.p_layout.pieces).toEqual([{ id: 'home-plant', at: [6, 2], facing: 'left' }]);
+    await expect(roof(page)).toBeVisible();
+  });
+
+  test('a friend’s roof can be visited, when they have one', async ({ page }) => {
+    await signedIn(page, [], [], null, [], {
+      fellowship: {
+        friends: [friendCard(BASMA, 'Basma')],
+        roofs: {
+          [BASMA]: { ...ROOF_STARTER, pieces: [{ id: 'home-chair', at: [6, 2], facing: 'away' }] },
+        },
+      },
+    });
+    await page.goto(`/house/visit/${BASMA}`);
+    await expect(page.getByRole('group', { name: /^Basma’s room/ })).toBeVisible();
+    await page.getByRole('button', { name: 'Up to their roof' }).click();
+    await expect(page.getByRole('group', { name: /^Basma’s roof/ })).toBeVisible();
+    await page.getByRole('button', { name: 'Down to their room' }).click();
+    await expect(page.getByRole('group', { name: /^Basma’s room/ })).toBeVisible();
   });
 });

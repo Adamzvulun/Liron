@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures.ts';
 import { emailLinkFragment, fakeSupabase, friendCard, signedIn } from './fake-supabase.ts';
-import { STARTER } from '../../src/core/home/layout.ts';
+import { ROOF_STARTER, STARTER } from '../../src/core/home/layout.ts';
 
 // Every screen against WCAG 2.1 A and AA, with axe-core (ADR 0051). Adam, 2026-11-19: "not
 // automatically every CI, once we push a major release". So it runs on a release PR into `main`
@@ -153,6 +153,29 @@ test.describe('accessibility (ADR 0051)', () => {
     await page.goto(`/house/visit/${BASMA}`);
     await page.getByRole('button', { name: 'Letterbox: leave a note' }).click();
     await expect(page.getByRole('dialog', { name: 'Basma’s letterbox' })).toBeVisible();
+    expect(await problems(page)).toEqual([]);
+  });
+
+  test('the roof: the offer, your roof decorating, a friend’s roof (v1.6)', async ({ page }) => {
+    await signedIn(page, [], [], MORSE, [], { gems: 4 });
+    await page.goto('/house');
+    await page.getByRole('button', { name: 'The roof…' }).click();
+    await expect(page.getByRole('group', { name: 'Open the roof' })).toBeVisible();
+    expect(await problems(page)).toEqual([]);
+    const roof = { ...ROOF_STARTER, pieces: [{ id: 'home-chair', at: [6, 2], facing: 'away' }] };
+    await signedIn(page, [], [], MORSE, [], {
+      owned: ['home-chair', 'home-plant'],
+      roof,
+      fellowship: { friends: [friendCard(BASMA, 'Basma')], roofs: { [BASMA]: roof } },
+    });
+    await page.goto('/notice-board');
+    await page.goto('/house#roof');
+    await page.getByRole('button', { name: 'Decorate' }).click();
+    await page.getByRole('group', { name: /^Your roof, decorating/ }).waitFor();
+    expect(await problems(page)).toEqual([]);
+    await page.goto(`/house/visit/${BASMA}`);
+    await page.getByRole('button', { name: 'Up to their roof' }).click();
+    await expect(page.getByRole('group', { name: /^Basma’s roof/ })).toBeVisible();
     expect(await problems(page)).toEqual([]);
   });
 

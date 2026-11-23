@@ -291,15 +291,19 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       if (ids.length === 0) return;
       await call('guide_mark', { p_ids: [...ids] }, 'remember what the guide showed');
     },
-    home: () => call<unknown>('my_home', {}, 'read your home'),
+    home: (where = 'home') => call<unknown>('my_home', { p_room: where }, 'read your home'),
     async homeHeld() {
       const raw = await call<unknown>('my_home_held', {}, 'read your home');
       return Array.isArray(raw)
         ? raw.filter((x): x is string => typeof x === 'string').slice(0, 200)
         : [];
     },
-    async saveHome(layout) {
-      await call('save_home', { p_layout: layout }, 'save your home');
+    async saveHome(layout, where = 'home') {
+      await call('save_home', { p_layout: layout, p_room: where }, 'save your home');
+    },
+    async openRoof() {
+      const r = await call<{ gold: number; gems: number }>('open_roof', {}, 'open your roof');
+      return { gold: r.gold, gems: r.gems };
     },
     async setDisplayName(name) {
       // Row-level security limits the update to the signed-in player's own profile.

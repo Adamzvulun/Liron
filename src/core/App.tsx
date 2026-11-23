@@ -44,7 +44,7 @@ import { supabaseChallenges } from './fellowship/challenges.ts';
 import { giftProblem, supabaseTogether } from './fellowship/together.ts';
 import { supabaseWire } from './fellowship/wire.ts';
 import type { Giving } from './fellowship/GiftOffer.tsx';
-import type { Layout } from './home/layout.ts';
+import type { Layout, RoomId } from './home/layout.ts';
 import { functionServices } from './services.ts';
 import { ASSUMED_FACTS, readFacts, RoadFactsContext, type RoadFacts } from './road/facts.ts';
 import { functionSpeech } from './speech.ts';
@@ -144,11 +144,14 @@ const wire =
 /** Fellowship quests and gifts (task 3.5): counted, paid and given by the database. */
 const together = supabase && fellowship ? supabaseTogether(supabase) : null;
 const readGifts = together ? () => together.gifts() : undefined;
-/** Your House's saved room; null, as for a player who never decorated, without a store. */
-const readHome = () => store?.home() ?? Promise.resolve(null);
+/**
+ * Your House's saved rooms; null, as for a player who never decorated (and a roof never opened),
+ * without a store.
+ */
+const readHome = (where: RoomId) => store?.home(where) ?? Promise.resolve(null);
 const readHeld = () => store?.homeHeld() ?? Promise.resolve([]);
-const saveHome = (layout: Layout) =>
-  store ? store.saveHome(layout) : Promise.reject(new Error('not signed in'));
+const saveHome = (layout: Layout, where: RoomId) =>
+  store ? store.saveHome(layout, where) : Promise.reject(new Error('not signed in'));
 
 const sharing = fellowship
   ? {
@@ -346,6 +349,11 @@ function Lobby({ player }: { player: Player }) {
     },
     [player],
   );
+  const openRoof = useCallback(async () => {
+    const why = await player.openRoof();
+    if (why === null) cue('reward');
+    return why;
+  }, [player]);
   // Read again on every move, so coming back from a hall shows the step just done.
   const unpaid = state.contracts?.contracts.flatMap((c) => (c.paid || !c.subject ? [] : c.subject));
   const roads = useCompass(subjects, compassSources, state.today?.day, unpaid ?? [], path);
@@ -649,6 +657,8 @@ function Lobby({ player }: { player: Player }) {
                     onLoad={readHome}
                     onSave={saveHome}
                     onHeld={readHeld}
+                    gems={state.wallet?.gems ?? null}
+                    onOpenRoof={store ? openRoof : undefined}
                     owned={state.profile.owned}
                     look={state.profile.avatar}
                     panels={{

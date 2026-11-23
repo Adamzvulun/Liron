@@ -1,5 +1,5 @@
 import home from '../../../content/core/home.json' with { type: 'json' };
-import { ROOM, STARTER_PIECES, type Layout, type Room } from './layout.ts';
+import { ROOF, ROOM, STARTER_PIECES, type Layout } from './layout.ts';
 
 /**
  * Coziness (task 8.2, #470; the-home.md §14): how many different things a room has ever held
@@ -8,11 +8,16 @@ import { ROOM, STARTER_PIECES, type Layout, type Room } from './layout.ts';
  */
 const STARTER_IDS = new Set(STARTER_PIECES.map((p) => p.id));
 
-/** What a layout holds beyond the starter room: furniture ids, `wallpaper:…` and `floor:…`. */
-export function heldOf(l: Layout, room: Room = ROOM): string[] {
+/**
+ * What a layout holds beyond the starter room: furniture ids, `wallpaper:…` and `floor:…`. The
+ * house's and the roof's own styles aren't new (task 8.4), so either room is counted the same way.
+ */
+export function heldOf(l: Layout): string[] {
   const held = new Set(l.pieces.map((p) => p.id).filter((id) => !STARTER_IDS.has(id)));
-  if (!room.wallpapers.includes(l.wallpaper)) held.add(`wallpaper:${l.wallpaper}`);
-  if (!room.floors.includes(l.floor)) held.add(`floor:${l.floor}`);
+  const own = (part: 'wallpapers' | 'floors', id: string) =>
+    ROOM[part].includes(id) || ROOF[part].includes(id);
+  if (!own('wallpapers', l.wallpaper)) held.add(`wallpaper:${l.wallpaper}`);
+  if (!own('floors', l.floor)) held.add(`floor:${l.floor}`);
   return [...held].sort();
 }
 

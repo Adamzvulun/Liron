@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Look } from '../avatar/looks.ts';
 import { useDialogFocus } from '../player/useDialogFocus.ts';
-import { PANELS, parseLayout, STARTER, type Layout } from './layout.ts';
+import { PANELS, parseLayout, ROOF_PRICE, STARTER, type Layout, type RoomId } from './layout.ts';
 import { coziness, withHeld } from './cozy.ts';
 import { Decorate } from './Decorate.tsx';
 import { Room } from './Room.tsx';
@@ -23,6 +23,9 @@ const isPanel = (s: string): s is Panel => (PANELS as readonly string[]).include
  * the shelf, the desk and the letterbox open their panels over the room (§5); a panel that isn't
  * there (the Fellowship without an account) leaves the piece saying its line. `/house#wardrobe`
  * and the like open the room with that panel open.
+ *
+ * Above it is the roof (task 8.4, §16): opened once with gems, then reached by the stairs, its
+ * own layout to decorate. `/house#roof` opens on the roof.
  */
 export function HouseRoom({
   onLoad,
@@ -31,17 +34,44 @@ export function HouseRoom({
   owned = [],
   onSave,
   onHeld,
+  gems = null,
+  onOpenRoof,
 }: {
-  onLoad: () => Promise<unknown>;
+  /** Reads a room as saved: the house (the starter room if none), or the roof (null if closed). */
+  onLoad: (where: RoomId) => Promise<unknown>;
   look: Look;
   panels: Partial<Record<Panel, ReactNode>>;
   /** The item ids the player owns, for the furniture they may place. */
   owned?: readonly string[];
   /** Saves a decorated room (§6); without it there is no Decorate button. */
-  onSave?: (layout: Layout) => Promise<void>;
-  /** What the room has ever held (task 8.2), for its coziness; without it, none is shown. */
+  onSave?: (layout: Layout, where: RoomId) => Promise<void>;
+  /** What the rooms have ever held (task 8.2), for their coziness; without it, none is shown. */
   onHeld?: () => Promise<string[]>;
+  /** The player's gems, for the roof's price. */
+  gems?: number | null;
+  /** Opens the roof for its gems: null, or why not. Without it the roof isn't offered. */
+  onOpenRoof?: () => Promise<string | null>;
 }) {
+  const [where, setWhere] = useState<RoomId>('home');
+  const [roof, setRoof] = useState<Layout | 'closed' | null>(null);
+  const [roofSaid, setRoofSaid] = useState('');
+  const [asking, setAsking] = useState(false);
+  const [opening, setOpening] = useState(false);
+  useEffect(() => {
+    let live = true;
+    onLoad('roof').then(
+      (raw) => {
+        if (!live) return;
+        const l = raw === null ? null : parseLayout(raw);
+        setRoof(l ?? 'closed');
+        if (l && window.location.hash === '#roof') setWhere('roof');
+      },
+      () => live && setRoof('closed'),
+    );
+    return () => {
+      live = false;
+    };
+  }, [onLoad]);
   const [held, setHeld] = useState<string[] | null>(null);
   const [cozier, setCozier] = useState('');
   useEffect(() => {
@@ -71,7 +101,7 @@ export function HouseRoom({
   }, [open]);
   useEffect(() => {
     let live = true;
-    onLoad().then(
+    onLoad('home').then(
       (raw) => live && setLayout(parseLayout(raw) ?? STARTER),
       () => live && setLayout(STARTER),
     );
@@ -79,16 +109,52 @@ export function HouseRoom({
       live = false;
     };
   }, [onLoad]);
+  const roofOpen = roof !== null && roof !== 'closed';
+  // The room shown, and the one below or above it, whose pieces can't stand here too.
+  const shown = where === 'roof' && roofOpen ? roof : layout;
+  const other = where === 'roof' ? layout : roofOpen ? roof : null;
+
+  const openRoof = async () => {
+    if (!onOpenRoof) return;
+    setOpening(true);
+    const why = await onOpenRoof();
+    setOpening(false);
+    setAsking(false);
+    if (why) {
+      setRoofSaid(why);
+      return;
+    }
+    const raw = await onLoad('roof').catch(() => null);
+    const l = raw === null ? null : parseLayout(raw);
+    if (!l) {
+      setRoofSaid('Couldn’t open the roof. Try again in a moment.');
+      return;
+    }
+    setRoof(l);
+    setWhere('roof');
+    setRoofSaid('The roof is yours. Decorate it with anything you own.');
+  };
+
+  const climb = (to: RoomId) => {
+    setWhere(to);
+    setRoofSaid('');
+    setCozier('');
+  };
+
   return (
     <>
-      {layout && decorating && onSave ? (
+      {shown && decorating && onSave ? (
         <Decorate
-          layout={layout}
+          key={where}
+          layout={shown}
           look={look}
           owned={owned}
-          onSave={onSave}
+          where={where}
+          elsewhere={other?.pieces.map((p) => p.id)}
+          onSave={(l) => onSave(l, where)}
           onDone={(l) => {
-            setLayout(l);
+            if (where === 'roof') setRoof(l);
+            else setLayout(l);
             setDecorating(false);
             // Saved: the database added what the room now holds, so count it here too.
             if (held) {
@@ -107,10 +173,12 @@ export function HouseRoom({
           }}
           onCancel={() => setDecorating(false)}
         />
-      ) : layout ? (
+      ) : shown ? (
         <Room
-          layout={layout}
+          key={where}
+          layout={shown}
           look={look}
+          where={where}
           onUse={(def) => {
             if (!isPanel(def.does) || !panels[def.does]) return def.line;
             opener.current =
@@ -122,14 +190,59 @@ export function HouseRoom({
       ) : (
         <div className="room room--loading" aria-busy="true" />
       )}
-      {layout && onSave && !decorating && (
+      {shown && onSave && !decorating && (
         <div className="room-cozy">
-          <button type="button" className="decorate__start" onClick={() => setDecorating(true)}>
-            Decorate
-          </button>
+          <div className="room-cozy__buttons">
+            <button type="button" className="decorate__start" onClick={() => setDecorating(true)}>
+              Decorate
+            </button>
+            {where === 'roof' ? (
+              <button type="button" className="decorate__start" onClick={() => climb('home')}>
+                Down to your room
+              </button>
+            ) : roofOpen ? (
+              <button type="button" className="decorate__start" onClick={() => climb('roof')}>
+                Up to the roof
+              </button>
+            ) : (
+              roof === 'closed' &&
+              onOpenRoof &&
+              !asking && (
+                <button type="button" className="decorate__start" onClick={() => setAsking(true)}>
+                  The roof…
+                </button>
+              )
+            )}
+          </div>
+          {asking && (
+            <div className="room-cozy__ask" role="group" aria-label="Open the roof">
+              <p>
+                Stairs lead up to a flat roof over the city, a second room to set out what you own.
+                It opens for {ROOF_PRICE} gems, once
+                {gems === null ? '' : `; you have ${gems}`}.
+              </p>
+              <button
+                type="button"
+                className="decorate__start"
+                onClick={() => void openRoof()}
+                disabled={opening || (gems !== null && gems < ROOF_PRICE)}
+              >
+                {opening ? 'Opening…' : `Open the roof for ${ROOF_PRICE} gems`}
+              </button>
+              <button type="button" className="decorate__start" onClick={() => setAsking(false)}>
+                Not now
+              </button>
+              {gems !== null && gems < ROOF_PRICE && (
+                <p className="room-cozy__more">
+                  {ROOF_PRICE - gems} more {ROOF_PRICE - gems === 1 ? 'gem' : 'gems'} to go.
+                  Achievements and chests give gems.
+                </p>
+              )}
+            </div>
+          )}
           {held && <Cozy n={held.length} />}
           <p className="room-cozy__said" role="status">
-            {cozier}
+            {roofSaid || cozier}
           </p>
         </div>
       )}

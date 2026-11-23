@@ -4,13 +4,16 @@ import { join } from 'node:path';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import {
   FURNITURE_PIECES,
+  ROOF,
+  ROOF_PRICE,
+  ROOF_STARTER,
   ROOM,
   STARTER,
   STARTER_PIECES,
   type PieceDef,
 } from '../../src/core/home/layout.ts';
 import { heldOf, withHeld } from '../../src/core/home/cozy.ts';
-import { BAD, EXTRA, GOOD } from '../../src/core/home/layouts.fixture.ts';
+import { BAD, EXTRA, GOOD, ROOF_BAD, ROOF_GOOD } from '../../src/core/home/layouts.fixture.ts';
 
 // Homes in the database (task 7.3, #438; docs/game/the-home.md R7 and R9, ADR 0055). save_home
 // must accept and refuse exactly what the browser's checkLayout does, on the same cases.
@@ -193,7 +196,7 @@ describe('reading homes (R9)', () => {
     await expect(as(A, `update homes set layout = '{}'::jsonb`)).rejects.toThrow(
       /permission denied/,
     );
-    await expect(as(A, `select home_refusal($1, $2::jsonb)`, [A, '{}'])).rejects.toThrow(
+    await expect(as(A, `select home_refusal($1, $2::jsonb, 'home')`, [A, '{}'])).rejects.toThrow(
       /permission denied/,
     );
   });
@@ -230,5 +233,109 @@ describe('coziness (task 8.2): what a room has ever held', () => {
     // A friend sees a count, never the list; a player who never decorated has none.
     expect(await cozyOf(A, B)).toBe(0);
     await expect(as(B, `select home_held_of('{}'::jsonb)`)).rejects.toThrow(/permission denied/);
+  });
+});
+
+describe('the roof (task 8.4, §16)', () => {
+  const saveRoof = (who: string, layout: unknown) =>
+    as(who, `select save_home($1::jsonb, 'roof')`, [JSON.stringify(layout)]);
+  const roofOf = (who: string) => as(who, `select my_home('roof')`);
+  const gems = (who: string) =>
+    as(who, 'select gems from wallets where user_id = auth.uid()') as Promise<number>;
+  const give = (who: string, n: number) =>
+    db.query('update wallets set gems = $2 where user_id = $1', [who, n]);
+  /** Why saving the roof was refused, as layout.ts's Refusal. */
+  async function roofRefusal(who: string, layout: unknown): Promise<unknown> {
+    try {
+      await saveRoof(who, layout);
+    } catch (e) {
+      const err = e as { message: string; detail?: string };
+      expect(err.message).toBe('home refused');
+      return JSON.parse(err.detail ?? 'null');
+    }
+    throw new Error('saved');
+  }
+
+  it('is the roof and its price in content/core/home.json', async () => {
+    const one = async (sql: string) => Object.values((await db.query(sql)).rows[0] as object)[0];
+    const room = Object.fromEntries(
+      Object.entries(ROOF).filter(([k]) => k !== 'starter' && k !== 'price'),
+    );
+    expect(await one('select home_roof()')).toEqual(room);
+    expect(await one('select home_roof_starter()')).toEqual(ROOF_STARTER);
+    expect(await one('select home_roof_price()')).toBe(ROOF_PRICE);
+  });
+
+  it('opens once, for its gems, and is closed until then', async () => {
+    // First, while nobody is signed in in this transaction.
+    await expect(run('select open_roof()')).rejects.toThrow(/not signed in/);
+    expect(await roofOf(A)).toBeNull();
+    await expect(saveRoof(A, ROOF_STARTER)).rejects.toThrow(/roof closed/);
+    await give(A, ROOF_PRICE - 1);
+    await expect(as(A, 'select open_roof()')).rejects.toThrow(/too few gems/);
+    expect(await roofOf(A)).toBeNull();
+    await give(A, ROOF_PRICE + 4);
+    expect(await as(A, 'select open_roof()')).toMatchObject({ gems: 4 });
+    expect(await gems(A)).toBe(4);
+    expect(await roofOf(A)).toEqual(ROOF_STARTER);
+    await give(A, 100);
+    await expect(as(A, 'select open_roof()')).rejects.toThrow(/already open/);
+    expect(await gems(A)).toBe(100);
+  });
+
+  describe('once open', () => {
+    beforeEach(async () => {
+      await give(A, ROOF_PRICE);
+      await as(A, 'select open_roof()');
+    });
+
+    for (const { name, layout } of ROOF_GOOD)
+      it(`saves ${name}`, async () => {
+        await saveRoof(A, layout);
+        expect(await roofOf(A)).toEqual(layout);
+        // The house is untouched.
+        expect(await as(A, 'select my_home()')).toEqual(STARTER);
+      });
+
+    for (const { name, layout, refusal: why } of ROOF_BAD)
+      it(`refuses ${name}, and saves nothing`, async () => {
+        expect(await roofRefusal(A, layout)).toEqual(why);
+        expect(await roofOf(A)).toEqual(ROOF_STARTER);
+      });
+
+    it('refuses a room that isn’t one', async () => {
+      await expect(
+        as(A, `select save_home($1::jsonb, 'cellar')`, [JSON.stringify(STARTER)]),
+      ).rejects.toThrow(/no such room/);
+    });
+
+    it('keeps a piece in one room at a time, either way', async () => {
+      const chairInHouse = GOOD.find((g) => g.name === 'a chair on the rug')?.layout;
+      const chairOnRoof = ROOF_GOOD.find((g) => g.name.startsWith('a chair'))?.layout;
+      await save(A, chairInHouse);
+      expect(await roofRefusal(A, chairOnRoof)).toEqual({ why: 'elsewhere', id: 'home-chair' });
+      await save(A, STARTER);
+      await saveRoof(A, chairOnRoof);
+      expect(await refusal(A, chairInHouse)).toEqual({ why: 'elsewhere', id: 'home-chair' });
+    });
+
+    it('counts both rooms for coziness', async () => {
+      const chairOnRoof = ROOF_GOOD.find((g) => g.name.startsWith('a chair'))?.layout;
+      await saveRoof(A, chairOnRoof);
+      expect(await as(A, 'select my_home_held()')).toEqual(['home-chair', 'home-clock']);
+      const card = ((await as(B, 'select fellowship()')) as { id: string; cozy: number }[]).find(
+        (c) => c.id === A,
+      );
+      expect(card?.cozy).toBe(2);
+    });
+
+    it('shows a friend your roof, and a stranger nothing', async () => {
+      const chairOnRoof = ROOF_GOOD.find((g) => g.name.startsWith('a chair'))?.layout;
+      await saveRoof(A, chairOnRoof);
+      expect(await as(B, `select home_of($1, 'roof')`, [A])).toEqual(chairOnRoof);
+      expect(await as(C, `select home_of($1, 'roof')`, [A])).toBeNull();
+      // A friend who never opened theirs has no roof to show.
+      expect(await as(A, `select home_of($1, 'roof')`, [B])).toBeNull();
+    });
   });
 });

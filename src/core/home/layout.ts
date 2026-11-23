@@ -81,6 +81,22 @@ const roomData = home.items.find((i) => i.type === 'home-room')?.data as unknown
 };
 export const ROOM: Room = roomData;
 export const STARTER: Layout = Layout.parse(roomData.starter);
+
+/**
+ * The second room (task 8.4, §16): the roof, opened once for `ROOF_PRICE` gems. The same grid,
+ * caps and wall slots as the house, its own lime wash and slabs, and nothing on it at first.
+ */
+const roofData = home.items.find((i) => i.type === 'home-roof')?.data as unknown as Room & {
+  price: number;
+  starter: unknown;
+};
+export const ROOF: Room = roofData;
+export const ROOF_STARTER: Layout = Layout.parse(roofData.starter);
+export const ROOF_PRICE: number = roofData.price;
+
+/** Which of a player's rooms: the house, or the roof above it. */
+export type RoomId = 'home' | 'roof';
+export const ROOMS: Record<RoomId, Room> = { home: ROOM, roof: ROOF };
 const piecesOf = (type: string): PieceDef[] =>
   home.items
     .filter((i) => i.type === type)
@@ -101,8 +117,15 @@ export const STYLES: StyleDef[] = home.items
   .filter((i) => i.type === 'home-style')
   .map((i) => ({ id: i.id, ...(i.data as unknown as Omit<StyleDef, 'id'>) }));
 
-/** The wallpapers and floors a player may use: the room's own, and those they own. */
-export function ownedStyles(owned: readonly string[]): { wallpapers: string[]; floors: string[] } {
+/**
+ * The wallpapers and floors a player may use: the room's own, and those they own. The roof
+ * keeps its own (§16).
+ */
+export function ownedStyles(
+  owned: readonly string[],
+  room: Room = ROOM,
+): { wallpapers: string[]; floors: string[] } {
+  if (room === ROOF) return { wallpapers: [...ROOF.wallpapers], floors: [...ROOF.floors] };
   const mine = STYLES.filter((s) => owned.includes(s.id));
   return {
     wallpapers: [
@@ -117,6 +140,7 @@ export function ownedStyles(owned: readonly string[]): { wallpapers: string[]; f
 export type Refusal =
   | { why: 'unknown'; id: string }
   | { why: 'twice'; id: string }
+  | { why: 'elsewhere'; id: string }
   | { why: 'wrong-place'; id: string }
   | { why: 'off-floor'; id: string }
   | { why: 'overlap'; id: string; with: string }
@@ -207,14 +231,17 @@ export function standCells(
 }
 
 /**
- * Checks a layout against the room's rules. `owned` is every piece the player may place: the
- * starter pieces and the furniture they own. Returns the first problem found, or null.
+ * Checks a layout against the room's rules. `owned` is every piece the player may place there:
+ * the starter pieces (in the house only) and the furniture they own. `elsewhere` holds the
+ * pieces standing in their other room, which can't stand here too (§16). The four panels must
+ * stay in the house, not on the roof. Returns the first problem found, or null.
  */
 export function checkLayout(
   layout: Layout,
   owned: ReadonlyMap<string, PieceDef>,
   room: Room = ROOM,
   styles: { wallpapers: readonly string[]; floors: readonly string[] } = room,
+  elsewhere: ReadonlySet<string> = new Set(),
 ): Refusal | null {
   if (!styles.wallpapers.includes(layout.wallpaper) || !styles.floors.includes(layout.floor))
     return { why: 'style' };
@@ -230,6 +257,7 @@ export function checkLayout(
     if (!def) return { why: 'unknown', id: p.id };
     if (seen.has(p.id)) return { why: 'twice', id: p.id };
     seen.add(p.id);
+    if (elsewhere.has(p.id)) return { why: 'elsewhere', id: p.id };
     if (isFloor(p) !== (def.place !== 'wall')) return { why: 'wrong-place', id: p.id };
     if (!isFloor(p)) {
       wall++;
@@ -256,7 +284,7 @@ export function checkLayout(
   }
   if (floor > room.caps.floor) return { why: 'too-many', place: 'floor' };
   if (wall > room.caps.wall) return { why: 'too-many', place: 'wall' };
-  for (const does of PANELS)
+  for (const does of room === ROOF ? [] : PANELS)
     if (!layout.pieces.some((p) => owned.get(p.id)?.does === does))
       return { why: 'panel-missing', does };
 
@@ -274,13 +302,21 @@ export function checkLayout(
 }
 
 /** What the room says when it refuses a layout, in the guide's plain voice. */
-export function refusalText(r: Refusal, defs: ReadonlyMap<string, PieceDef>): string {
+export function refusalText(
+  r: Refusal,
+  defs: ReadonlyMap<string, PieceDef>,
+  where: RoomId = 'home',
+): string {
   const name = (id: string) => `the ${defs.get(id)?.name ?? 'piece'}`;
   switch (r.why) {
     case 'unknown':
       return 'That piece isn’t yours to place.';
     case 'twice':
       return `${cap(name(r.id))} is already in the room.`;
+    case 'elsewhere':
+      return where === 'roof'
+        ? `${cap(name(r.id))} is in your room downstairs. Store it there first.`
+        : `${cap(name(r.id))} is up on the roof. Store it there first.`;
     case 'wrong-place':
       return `${cap(name(r.id))} doesn’t go there.`;
     case 'off-floor':

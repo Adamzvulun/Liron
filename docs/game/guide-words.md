@@ -70,7 +70,7 @@ Five wares are set out each day, the same for everyone: gear for your traveler f
 
 ### Your House
 
-Your own room: tap the floor or use the arrow keys to walk, and tap a piece to use it. The cupboard dresses your traveler, the desk keeps your ledger, the shelf your trophies, and the letterbox the Fellowship. Decorate moves anything in the room, turns a chair, and sets out the furniture, wallpapers and floors you own; Done keeps it, Cancel puts it all back, and each new thing you set out makes the room cozier for good. A room holds up to 20 pieces on the floor and 6 on the wall, and the way from the door must stay open. Friends can visit, walk around your room and leave a note in your letterbox (a few words of Arabic or Morse, one a day), but only you can change it.
+Your own room: tap the floor or use the arrow keys to walk, and tap a piece to use it. The cupboard dresses your traveler, the desk keeps your ledger, the shelf your trophies, and the letterbox the Fellowship. Decorate moves anything in the room, turns a chair, and sets out the furniture, wallpapers and floors you own; Done keeps it, Cancel puts it all back, and each new thing you set out makes the room cozier for good. A room holds up to 20 pieces on the floor and 6 on the wall, and the way from the door must stay open; for 15 gems, stairs open a roof above it, a second room for your furniture. Friends can visit, walk around your room and leave a note in your letterbox (a few words of Arabic or Morse, one a day), but only you can change it.
 
 ### The Fellowship
 

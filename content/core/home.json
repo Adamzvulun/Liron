@@ -106,6 +106,67 @@
       }
     },
     {
+      "id": "home:roof",
+      "subject": "core",
+      "type": "home-roof",
+      "data": {
+        "cols": 12,
+        "rows": 5,
+        "door": [0, 4],
+        "caps": {
+          "floor": 20,
+          "wall": 6
+        },
+        "slots": [
+          {
+            "slot": 0,
+            "zone": "left",
+            "x": 530,
+            "cols": [0]
+          },
+          {
+            "slot": 1,
+            "zone": "left",
+            "x": 640,
+            "cols": [1]
+          },
+          {
+            "slot": 2,
+            "zone": "left",
+            "x": 710,
+            "cols": [2, 3]
+          },
+          {
+            "slot": 3,
+            "zone": "right",
+            "x": 1235,
+            "cols": [9]
+          },
+          {
+            "slot": 4,
+            "zone": "right",
+            "x": 1335,
+            "cols": [10]
+          },
+          {
+            "slot": 5,
+            "zone": "right",
+            "x": 1435,
+            "cols": [11]
+          }
+        ],
+        "wallpapers": ["lime"],
+        "floors": ["slabs"],
+        "price": 15,
+        "starter": {
+          "v": 1,
+          "wallpaper": "lime",
+          "floor": "slabs",
+          "pieces": []
+        }
+      }
+    },
+    {
       "id": "home:bed",
       "subject": "core",
       "type": "home-piece",
