@@ -207,3 +207,15 @@ A second room, the roof, opened with 15 gems (8.4, #472): its own layout, and fr
 ### v1.7.0 — Visiting together
 
 Phase 9 (#482, [ADR 0056](../decisions/0056-visiting-together-live.md)): friends in one house see each other walk, sit and climb, live; and the last fade in reading Arabic, words read aloud with no choices (#487); pattern badges, verbs shaped like a binyan (#489); and the regulars' tales (#491). Notes: [releases/v1.7.0.md](releases/v1.7.0.md). One migration.
+
+### v1.8.0 — Safe for friends *(planned)*
+
+Phase 10 (#495): our own error log, take your data and leave, a dependency refresh and a tidy backlog.
+
+### v1.9.0 — Hearing the street *(planned)*
+
+Phase 11 (#496): **Hear it** in the echo well, sentence listening with a word bank ([arabic-listening.md](../game/arabic-listening.md)).
+
+### v1.10.0 — Faster than thought *(planned)*
+
+Phase 12 (#497): Morse past 20 wpm. A speed dial, a ladder to 35 wpm, and The Long Copy ([morse-speed.md](../game/morse-speed.md)).

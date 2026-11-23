@@ -446,6 +446,49 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☑ 9.5 (#491) · v1.7 · The regulars' tales
 - From LATER ("no decision needed"): micro-stories made only of words you know. Passing a regular's trial earns their tale. Built for all 113 chapters. Spec: [arabic-core-words.md](../game/arabic-core-words.md).
 
+## Phase 10 — Safe for friends (#495)
+
+**Goal:** before friends arrive (#332), we hear when the game breaks, a friend can take their data and leave, and the dependencies and backlog are current. Planned 2026-11-23 from a gap audit ([next-work-2026-11-23.md](../research/next-work-2026-11-23.md)). Not started: planning only, at Adam's word.
+
+### ☐ 10.1 (#499) · v1.8 · Our own error log
+- The page's errors go to a capped table in our own database. They never hold what the player typed, and only Adam reads them, in the dashboard. [ADR 0058](../decisions/0058-our-own-error-log.md) (Proposed). **Needs Adam:** our own log or Sentry.
+
+### ☐ 10.2 (#500) · v1.8 · Take your data, and leave
+- Download my data (one JSON file, read under RLS). Leave Waymark, through an RPC, with the existing cascades removing the rest. **Needs Adam:** may friends delete their own account?
+
+### ☐ 10.3 (#501) · v1.8 · Dependency refresh (minor versions)
+- Vite, Vitest, Playwright, supabase-js and the lint tools. Not TypeScript 7 or `@types/node` 26.
+
+### ☐ 10.4 (#498) · Tidy the backlog (Adam closes)
+- #9, #38, #39, #447, #304–#308 and #320 are open, but their work is built.
+
+### ☐ 10.5 (#502) · v1.8 · Release v1.8.0
+
+**Order:** 10.3, then 10.1 and 10.2 in one PR (ADR 0057), then 10.4 and 10.5.
+
+## Phase 11 — Hearing the street: sentence listening (#496)
+
+**Goal:** understand spoken Arabic, the vision's first goal. **Hear it** in the echo well: a native deck sentence with no text, then its meaning, then its words in order from a word bank. Spec: [arabic-listening.md](../game/arabic-listening.md). The deck has 536 recorded sentences of four words or more.
+
+### ☐ 11.1 (#503) · v1.9 · The sentence pool and its reviews
+### ☐ 11.2 (#504) · v1.9 · *Hear it* in the echo well
+### ☐ 11.3 (#505) · v1.9 · Contract, events, the road and the Guidebook
+### ☐ 11.4 (#506) · v1.9 · Release v1.9.0
+
+**Order:** 11.1–11.3 in one PR, then 11.4.
+
+## Phase 12 — Faster than thought: Morse past 20 wpm (#497)
+
+**Goal:** keep ADR 0009's promise of 25+ wpm and a manual override. Today everything plays at a fixed 20 wpm. Spec: [morse-speed.md](../game/morse-speed.md), after CW Academy's Intermediate and Advanced curricula.
+
+### ☐ 12.1 (#507) · v1.10 · Your speed: the model and the tower's speed dial
+### ☐ 12.2 (#508) · v1.10 · The speed ladder (22 → 35 wpm)
+### ☐ 12.3 (#509) · v1.10 · The Long Copy: head copy, then copy behind
+### ☐ 12.4 (#510) · v1.10 · The operators follow your speed
+### ☐ 12.5 (#511) · v1.10 · Release v1.10.0
+
+**Order:** 12.1 first, then 12.2–12.4 in one PR, then 12.5. Ordered last on purpose: the faster speeds open only after 90% at 20 wpm with standard spacing (pre-mortem, research note).
+
 ## Parked: ordered after everything above, each waiting on Adam
 
 | Item | Why it waits | What un-parks it |
