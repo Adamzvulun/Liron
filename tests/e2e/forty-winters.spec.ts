@@ -33,21 +33,41 @@ const saves = (page: Page) => {
   return sent;
 };
 
-/** Keys `text` on the space bar at 20 wpm: a dot of 60 ms. */
+/**
+ * Keys `text` on the space bar at 20 wpm: a dot of 60 ms. Each press and release is stamped with
+ * its time on an exact schedule (the keyer reads `event.timeStamp`), and sent once that time has
+ * come. Playwright's own keyboard waits for the page to take each key, so a busy moment on the
+ * page stretched a dot into a dash and the reply read wrong (2026-11-22, twice at 22.8 s).
+ */
 async function keyText(page: Page, text: string) {
   const dit = 60;
+  const cdp = await page.context().newCDPSession(page);
+  const send = async (type: 'keyDown' | 'keyUp', at: number) => {
+    const wait = at - Date.now();
+    if (wait > 0) await page.waitForTimeout(wait);
+    await cdp.send('Input.dispatchKeyEvent', {
+      type,
+      key: ' ',
+      code: 'Space',
+      windowsVirtualKeyCode: 32,
+      ...(type === 'keyDown' ? { text: ' ' } : {}),
+      timestamp: at / 1000,
+    });
+  };
+  let at = Date.now() + dit;
   for (const word of text.split(' ')) {
     for (const ch of word) {
       for (const el of codeFor(ch) ?? '') {
-        await page.keyboard.down(' ');
-        await page.waitForTimeout(el === '.' ? dit : dit * 3);
-        await page.keyboard.up(' ');
-        await page.waitForTimeout(dit);
+        await send('keyDown', at);
+        at += el === '.' ? dit : dit * 3;
+        await send('keyUp', at);
+        at += dit;
       }
-      await page.waitForTimeout(dit * 2);
+      at += dit * 2;
     }
-    await page.waitForTimeout(dit * 4);
+    at += dit * 4;
   }
+  await cdp.detach();
 }
 
 async function hearAndAnswer(page: Page, answers: readonly string[]) {
@@ -63,8 +83,9 @@ async function hearAndAnswer(page: Page, answers: readonly string[]) {
 }
 
 // @timing: these key Morse at 20 wpm in real time (60 ms dots). With another test sharing the
-// CPU, the key presses arrive late and the reply reads wrong (2026-11-18, 1 run in 2 on two
-// workers), so `npm run e2e` runs them alone, after the rest.
+// CPU, the key presses arrived late and the reply read wrong (2026-11-18, 1 run in 2 on two
+// workers), so `npm run e2e` runs them alone, after the rest. keyText now stamps each press
+// with its scheduled time, so a late arrival no longer changes what the tower reads.
 test.describe('Forty Winters, the Silent Beacon’s finale', { tag: '@timing' }, () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {

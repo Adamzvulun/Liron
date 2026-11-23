@@ -2,7 +2,15 @@ import { describe, expect, it } from 'vitest';
 import { PLACE_PATHS } from '../city/layout.ts';
 import { visitPath } from '../fellowship/fellowship.ts';
 import { CHEAPEST_WARE } from '../player/compass.ts';
-import { cardSide, isInside, nextIntroduction, type IntroFacts } from './introductions.ts';
+import home from '../../../content/core/home.json' with { type: 'json' };
+import items from '../../../content/core/items.json' with { type: 'json' };
+import {
+  cardSide,
+  isForRoom,
+  isInside,
+  nextIntroduction,
+  type IntroFacts,
+} from './introductions.ts';
 import { GUIDE_IDS } from './seen.ts';
 import { INTRODUCTIONS, PLACE_CARDS } from './words.ts';
 
@@ -10,6 +18,7 @@ import { INTRODUCTIONS, PLACE_CARDS } from './words.ts';
 const newcomer: IntroFacts = {
   gold: 0,
   owned: 0,
+  forRoom: 0,
   friends: 0,
   roads: [
     { hall: 'tower', done: 1 },
@@ -105,9 +114,35 @@ describe('the next introduction', () => {
     expect(next({ ...steps(5, 5) }, seen)).toEqual(['intro:ledger', 'house', '/house']);
   });
 
+  it('introduces Decorate once something for the room is owned (#445)', () => {
+    const seen = Object.values(GUIDE_IDS).filter((id) => id !== GUIDE_IDS.decorate);
+    expect(next({ owned: 2 }, seen)).toBeNull();
+    expect(next({ owned: 2, forRoom: 1 }, seen)).toEqual(['intro:decorate', 'house', '/house']);
+    // In the guide's order: a piece bought with the first gold waits behind the wardrobe.
+    expect(next({ owned: 1, forRoom: 1 }, [GUIDE_IDS.welcome, GUIDE_IDS.board])?.[0]).toBe(
+      'intro:wardrobe',
+    );
+  });
+
+  it('knows which items are for the room', () => {
+    const forRoom = home.items
+      .filter((i) => i.type === 'home-furniture' || i.type === 'home-style')
+      .map((i) => i.id)
+      .sort();
+    expect(
+      items.items
+        .map((i) => i.id)
+        .filter(isForRoom)
+        .sort(),
+    ).toEqual(forRoom);
+  });
+
   it('has nothing left once everything is introduced', () => {
     expect(
-      next({ friends: 2, gold: 900, owned: 3, roads: [{ hall: 'tower', done: 40 }] }, all),
+      next(
+        { friends: 2, gold: 900, owned: 3, forRoom: 1, roads: [{ hall: 'tower', done: 40 }] },
+        all,
+      ),
     ).toBeNull();
   });
 });

@@ -139,6 +139,26 @@ test.describe('Nour’s introductions', () => {
     await expect(page.getByText('You have gold. The Market is open.')).toHaveCount(0);
   });
 
+  test('a piece for the room bought, Nour points at Decorate in Your House (#445)', async ({
+    page,
+  }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], { unlocked: 3, runs: 2 }, [], {
+      guideSeen: GUIDE_SAID.filter((id) => id !== 'intro:decorate'),
+      owned: ['home-chair'],
+    });
+    await page.goto('/');
+    await expect(nour(page).getByRole('status')).toHaveText(
+      'You have something new for your room. In Your House, tap Decorate and set it wherever you like.',
+    );
+    expect(await marked(page)).toEqual(['/house']);
+    await page.goto('/house');
+    await expect(page.getByRole('button', { name: 'Decorate' })).toBeVisible();
+    await expect
+      .poll(() => updates)
+      .toContainEqual({ guide_seen: expect.arrayContaining(['intro:decorate']) as unknown });
+  });
+
   test('tapping Nour by the compass brings back the line they were quieted on', async ({
     page,
   }) => {
