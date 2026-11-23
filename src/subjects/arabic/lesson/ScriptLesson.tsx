@@ -599,10 +599,15 @@ export function Practice({
   const word = question.word;
   const listen = question.kind === 'listen';
   const sound = question.kind === 'read' && question.script === 'sound';
+  // The last fade: no choices. Read it aloud, hear it, and say whether you had it (index 0).
+  const aloud = question.kind === 'read' && question.script === 'say';
+  const [heardIt, setHeardIt] = useState(false);
   const spoken = spokenHebrew(word);
-  const right = listen
-    ? question.choices.findIndex((c) => c.id === question.answer.id)
-    : question.choices.indexOf(question.answer);
+  const right = aloud
+    ? 0
+    : listen
+      ? question.choices.findIndex((c) => c.id === question.answer.id)
+      : question.choices.indexOf(question.answer);
   const played = useRef(false);
   useEffect(() => {
     if (listen && !played.current) {
@@ -645,7 +650,7 @@ export function Practice({
       ) : (
         <>
           <h2 className="lesson__subtitle">
-            {sound ? 'Which recording says it?' : 'How does it sound?'}
+            {aloud ? 'Read it aloud' : sound ? 'Which recording says it?' : 'How does it sound?'}
           </h2>
           <Ar className="arabic__word">{question.shown}</Ar>
           {question.shown === stripMarks(question.shown) && word.arabic !== question.shown && (
@@ -653,7 +658,47 @@ export function Practice({
           )}
         </>
       )}
-      {sound ? (
+      {aloud ? (
+        picked === null && (
+          <div className="arabic__aloud">
+            {!heardIt ? (
+              <>
+                <p className="arabic__note">
+                  No choices this time: say it out loud, then hear how it’s said.
+                </p>
+                <button
+                  type="button"
+                  className="lesson__go"
+                  onClick={() => {
+                    play(word.audio);
+                    setHeardIt(true);
+                  }}
+                >
+                  ▶ Hear it
+                </button>
+              </>
+            ) : (
+              <>
+                <button type="button" className="arabic__listen" onClick={() => play(word.audio)}>
+                  ▶ Hear it again
+                </button>
+                <p className="arabic__note">
+                  <bdi lang="he">{word.hebrew}</bdi> · {word.sound}
+                  {word.meaning ? ` · ${word.meaning}` : ''}
+                </p>
+                <div className="lesson__actions" role="group" aria-label="Did you read it right?">
+                  <button type="button" className="lesson__plain" onClick={() => setPicked(1)}>
+                    Not yet
+                  </button>
+                  <button type="button" className="lesson__go" onClick={() => setPicked(0)}>
+                    I read it right
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        )
+      ) : sound ? (
         <>
           <div className="arabic__choices is-sounds" role="group" aria-label="Recordings">
             {question.choices.map((c, i) => {
@@ -728,7 +773,13 @@ export function Practice({
       {picked !== null && (
         <div className="arabic__feedback" aria-live="polite">
           <p className={picked === right ? 'arabic__good' : 'arabic__bad'}>
-            {picked === right ? (
+            {aloud ? (
+              picked === right ? (
+                'Well read!'
+              ) : (
+                'It comes back soon. Read it again as you hear it.'
+              )
+            ) : picked === right ? (
               'Right!'
             ) : sound ? (
               `Not quite: it was ${right + 1}.`
@@ -747,7 +798,8 @@ export function Practice({
           </p>
           <p>
             <Ar className="arabic__example">{word.arabic}</Ar> ·{' '}
-            <bdi lang="he">{listen || sound ? word.hebrew : question.answer}</bdi> · {word.sound}
+            <bdi lang="he">{listen || sound || aloud ? word.hebrew : question.answer}</bdi> ·{' '}
+            {word.sound}
             {word.meaning ? ` · ${word.meaning}` : ''}
           </p>
           {spoken && (

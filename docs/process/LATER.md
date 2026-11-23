@@ -21,7 +21,6 @@ Checked against the code on 2026-11-17.
 
 | Item | Where it was promised | Why it waits | What un-parks it |
 |---|---|---|---|
-| **The last fade in reading Arabic:** typing or saying the word, with no choices | [arabic-script-lessons.md](../game/arabic-script-lessons.md) | Saying it needs speech judged against a written word, which the free speech service doesn't give reliably. Typing it is possible today. | A design pass on the scribe's table. Typing can come first. |
 | **Micro-stories made only of words you know** | [arabic-core-words.md](../game/arabic-core-words.md), the vision's Arabic track | The guest book (the Arabic finale) reads our own sentences, which is a start. Whole stories need writing and checking like the own sentences (#164). | A content batch, written and checked the same way. |
 | **Pattern badges and a root explorer** (the Hebrew bridge's binyanim ↔ Arabic verb forms) | [arabic-core-words.md](../game/arabic-core-words.md) §7 | Shared-root badges were built first (311 words). Patterns need a careful list of which forms truly match. | A research note on the pattern pairs, then the badges. |
 | **A combo bonus inside activities** | [economy.md](../game/economy.md) | Planned since E6. The end-of-activity screens came first, and the contracts and chests now carry the daily rhythm. | Adam wanting it after playing v3.0. |

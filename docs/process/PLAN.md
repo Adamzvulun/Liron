@@ -437,6 +437,9 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 ### ☐ 9.2 · v1.7 · Release v1.7.0
 
+### ☑ 9.3 (#487) · v1.7 · The last fade in reading Arabic: read it aloud
+- From LATER ("no decision needed"). Long-known words have no choices: read it aloud, hear the speaker, say how it went. Spec: [arabic-script-lessons.md](../game/arabic-script-lessons.md) §5.
+
 ## Parked: ordered after everything above, each waiting on Adam
 
 | Item | Why it waits | What un-parks it |
