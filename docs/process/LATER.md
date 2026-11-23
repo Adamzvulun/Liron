@@ -22,7 +22,7 @@ Checked against the code on 2026-11-17.
 | Item | Where it was promised | Why it waits | What un-parks it |
 |---|---|---|---|
 | **Micro-stories made only of words you know** | [arabic-core-words.md](../game/arabic-core-words.md), the vision's Arabic track | The guest book (the Arabic finale) reads our own sentences, which is a start. Whole stories need writing and checking like the own sentences (#164). | A content batch, written and checked the same way. |
-| **Pattern badges and a root explorer** (the Hebrew bridge's binyanim ↔ Arabic verb forms) | [arabic-core-words.md](../game/arabic-core-words.md) §7 | Shared-root badges were built first (311 words). Patterns need a careful list of which forms truly match. | A research note on the pattern pairs, then the badges. |
+| **A root explorer** | [arabic-core-words.md](../game/arabic-core-words.md) §7 | Shared-root badges (311 words) and pattern badges (124 verbs, #489) came first. An explorer needs every taught word's root, which the deck doesn't give. | A root for each taught word, written and checked like the own sentences. |
 | **A combo bonus inside activities** | [economy.md](../game/economy.md) | Planned since E6. The end-of-activity screens came first, and the contracts and chests now carry the daily rhythm. | Adam wanting it after playing v3.0. |
 | **A weekly league** | [economy.md](../game/economy.md) | It needs friends on the live site (task 3.7), and Waymark is for a few friends, not strangers. | The Fellowship released, and Adam wanting competition beyond the Arena. |
 

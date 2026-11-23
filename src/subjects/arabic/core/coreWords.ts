@@ -6,6 +6,7 @@ import type { ReviewGrade } from '../../../core/subject.ts';
 import { dropGroups, latinToHebrew } from '../phrases/hebrew.ts';
 import type { OwnSentence } from './ownSentences.ts';
 import { SHARED_ROOTS, type Kin } from './sharedRoots.ts';
+import { VERB_SHAPES, type Binyan } from './verbShapes.ts';
 import { WORD_CHAPTERS } from './wordChapters.ts';
 
 export { WORD_CHAPTERS, type WordChapter } from './wordChapters.ts';
@@ -43,9 +44,26 @@ export interface CoreWord {
   written?: { arabic: string; latin: string; hebrew: string; english: string };
   /** The Hebrew word that shares its root, if one does (ADR 0002). */
   kin?: Kin;
+  /** The Hebrew binyan its shape matches, for a verb that has one (ADR 0002). */
+  shape?: Binyan;
 }
 
 export const itemIdOf = (deck: string) => `word:${deck}`;
+
+/** How many verbs of the same shape a card lists. */
+export const MATES = 6;
+
+/**
+ * Other verbs of a word's shape from its chapter and the ones before it, latest first: what the
+ * pattern badge opens to.
+ */
+export function shapeMates(word: CoreWord, pool: readonly CoreWord[], n = MATES): CoreWord[] {
+  if (!word.shape) return [];
+  return pool
+    .filter((w) => w.shape === word.shape && w.chapter <= word.chapter && w.deck !== word.deck)
+    .sort((a, b) => b.chapter - a.chapter)
+    .slice(0, n);
+}
 
 /** Deck notes that don't belong on a card: blanks ("__ واحد"), "[pl.]" tags, construct forms. */
 const tidy = (s: string) =>
@@ -84,6 +102,7 @@ export function coreWordsFrom(
       const sentence = said && w.sentence ? { ...said, deck: w.sentence } : undefined;
       const mine = sentence ? undefined : ownSentences.get(w.deck);
       const kin = SHARED_ROOTS.get(w.deck);
+      const shape = VERB_SHAPES.get(w.deck);
       const written = mine && {
         arabic: mine.arabic,
         latin: mine.latin,
@@ -103,6 +122,7 @@ export function coreWordsFrom(
           ...(sentence ? { sentence } : {}),
           ...(written ? { written } : {}),
           ...(kin ? { kin } : {}),
+          ...(shape ? { shape } : {}),
         },
       ];
     }),
