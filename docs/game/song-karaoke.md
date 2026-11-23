@@ -1,7 +1,7 @@
 # Songs: learn the words through music (Phase 15)
 
 - **Status:** Planned (2026-11-23), not built.
-- **Research:** [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Part 2 has the tests on real songs.
+- **Research:** [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Part 2 has the tests on real songs. Part 3 covers songs no one has written down, and Claude.
 - **Decision:** [ADR 0059](../decisions/0059-songs-from-youtube.md), Accepted.
 - **Epic:** Phase 15 in [PLAN.md](../process/PLAN.md), after Phase 14.
 
@@ -37,24 +37,27 @@ No picking a match, no pasting words, no setting the timing.
    - **With the hint,** a Fairuz song came back near word-perfect.
    - **Without it,** about four lines in five were exact, and the rest were near-sounding words.
    - **Songs LRCLIB doesn't have** are marked *heard by ear* in small letters, since a machine can mishear a word.
-4. **They're explained.** Per line: the meaning in English, the Latin in the deck's scheme, a gloss for each word, and the song's dialect. Words found in the deck or lesson words take the deck's own spelling and meaning.
-5. **Watch it, line by line.** YouTube's own player sits on top, at full width. The lyrics run underneath, never over it. Each line shows:
+4. **Songs no one has written down.** When LRCLIB has nothing, the song is heard twice, by two different models. Claude settles every word where the two differ, from the meaning and the dialect. Words it still doubts get a faint dotted underline. In the tests this left about 2 small mistakes in 39 lines (research, Part 3). Two listens cost two of Gemini's tries, so this runs only when there's no LRCLIB hint.
+5. **They're explained.** By Claude, per line: the meaning in English, the Latin in the deck's scheme, a gloss for each word, and the song's dialect. Words found in the deck or lesson words take the deck's own spelling and meaning.
+6. **Watch it, line by line.** YouTube's own player sits on top, at full width. The lyrics run underneath, never over it. Each line shows:
    - the Arabic, large, with the current line lit;
    - its Latin (or Hebrew letters, by the player's script setting);
    - its meaning in English, which can be hidden with one tap, to test yourself.
    - Inside the lit line, the current word is lit by estimate (the line's time spread over its words by length).
-6. **Tap a word.** You see its gloss, its Latin, and whether you know it:
+7. **Tap a word.** You see its gloss, its Latin, and whether you know it:
    - **known:** in your deck or lesson words, and in your reviews;
    - **met:** taught, but not yet reviewed;
    - **new.**
 
    Words from another dialect say so ("Egyptian: *ʕayez*; ours is *biddi*").
-7. **Keep this line.** Up to 10 lines per song become review cards (FSRS item `song:<videoId>:<line>`). A card:
+
+   **Fix this word.** Anyone who hears it differently can correct it. Songs are shared, so the fix is for everyone. It's kept in the song's history, can be undone, and the line is explained again.
+8. **Keep this line.** Up to 10 lines per song become review cards (FSRS item `song:<videoId>:<line>`). A card:
    - plays that line from the video (`seekTo` and play, stopping at the next line's time, inside YouTube's player);
    - shows the line with one word missing, and 4 choices;
    - later, two words missing.
-8. **Your songbook.** Every song you've opened, with how many of its words you know, as a share (*"You know 34% of Habaytak bel sayf"*). It grows as you learn, which is the point.
-9. **If it's a little off.** A timing nudge (−/+ 0.5 s) is there for anyone who wants it. It's never needed to start.
+9. **Your songbook.** Every song you've opened, with how many of its words you know, as a share (*"You know 34% of Habaytak bel sayf"*). It grows as you learn, which is the point.
+10. **If it's a little off.** A timing nudge (−/+ 0.5 s) is there for anyone who wants it. It's never needed to start.
 
 ## While the singer is busy
 
@@ -75,7 +78,7 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 5. The system shall parse each time from `MM:SS.s`, and shall reject an answer whose times don't run in order or run past the video's length (from `getDuration()`), retrying once. Where LRCLIB had no lyrics, the lines shall be marked *heard by ear*.
 6. When Gemini answers 503 or 429, the system shall try the next model in the list. When every model is busy, it shall save the song as *listening* and retry by itself as above, with no action from the player.
 7. The video shall play only through the YouTube IFrame Player (`youtube-nocookie.com`), at least 200 × 200 px, with nothing drawn over any part of it. The system shall never download, extract or record its audio itself. Listening is done by Gemini from the public link.
-8. The system shall explain the lines with Gemini (`gemini-3.5-flash-lite`, text), falling back to Groq (`openai/gpt-oss-120b`), in batches of at most 20 lines. Per line: the meaning, the Latin in the deck's scheme and a gloss per word. Per song: the dialect. The answer shall be checked against a schema.
+8. The system shall explain the lines with Claude (`claude-opus-5-5`, low effort, structured output), falling back to Gemini (`gemini-3.5-flash-lite`, text) and then Groq (`openai/gpt-oss-120b`), in batches of at most 20 lines. Per line: the meaning, the Latin in the deck's scheme and a gloss per word. Per song: the dialect. The answer shall be checked against a schema.
 9. While the video plays, the system shall light the line whose time has come (with any nudge), and within it the word by estimate. It shall check the time at least 4 times a second.
 10. The shared songbook (`songs`) shall hold, per video: the title, the lines, their times, the source (LRCLIB or heard), the explanations and the state (*listening*, *ready*, *failed*). Every signed-in player can read it (Adam, 2026-11-23), and only the server function writes it. Each player's own `songbook` rows hold which songs they've opened, their nudge and their kept lines.
 11. Song lyrics shall never be put in `content/`, in git or in tests.
@@ -84,6 +87,8 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 14. When the player's script setting is Hebrew letters, the Latin shall be shown through `latinToHebrew`.
 15. The events shall be `song-open`, `song-line-kept` and `song-review`, with one daily contract ("Sing along: keep 2 lines", 15 gold).
 16. The LRCLIB requests shall name the game (`User-Agent: Waymark (…)`), go one at a time, and honor `Retry-After`.
+17. Where LRCLIB had no lyrics, the system shall listen with two different Gemini models and shall send both transcripts to Claude to settle each differing word. Words Claude marks as doubtful shall be shown with a dotted underline.
+18. When a player fixes a word, the system shall save the fix to the shared song, with the player and the time, keep the earlier text in the song's history, let any player undo it, and explain that line again.
 
 ## Non-functional
 
@@ -93,7 +98,7 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
   - The video id is checked against `^[A-Za-z0-9_-]{11}$` before it's used anywhere.
   - Every AI answer is checked against a schema and shown as text, never as HTML.
 - **Privacy.**
-  - Only the video's link, its lyrics and its title go to Gemini (and Groq as backup), never anything the player typed.
+  - Only the video's link, its lyrics and its title go to Gemini, Claude (and Groq as backup), never anything the player typed, except a word a player fixes, which is part of the song.
   - YouTube sees the video play, as on YouTube itself.
   - Both facts go on the privacy page.
 - **Speed.**
@@ -110,7 +115,8 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 
 - **Given** a `youtu.be` link to a song no one has opened, **when** it's pasted, **then** the player does nothing else. Within about 10 s on a good day, the song plays in YouTube's player, and the lines light up in time with the video.
 - **Given** a song LRCLIB has, **then** the heard lines use LRCLIB's spelling where it's sung that way, timed to this video's intro and edit.
-- **Given** a song LRCLIB doesn't have, **then** the heard lines are shown, marked *heard by ear*.
+- **Given** a song LRCLIB doesn't have, **then** it's heard twice and settled by Claude, the lines are marked *heard by ear*, and doubtful words are underlined.
+- **Given** a player fixes a word, **when** another player opens the song, **then** they see the fix, and either can undo it.
 - **Given** Gemini answers 503 on every model, **then** the corner shows "The singer is learning this one…", and the song appears by itself when a retry succeeds, with no tap.
 - **Given** a song another player opened yesterday, **when** a third player pastes its link, **then** it opens at once and uses none of that player's daily songs.
 - **Given** a line with بيت, **when** the player has بيت in their reviews, **then** it's marked *known*.
@@ -155,7 +161,9 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 - [ ] `api/song.ts`:
   - `lookup`: LRCLIB;
   - `listen`: Gemini with the YouTube link and LRCLIB's hint, with model fallback;
-  - `explain`: Gemini text, with Groq as backup;
+  - `settle`: Claude compares two listens (songs without lyrics);
+  - `explain`: Claude, with Gemini text and Groq as backups;
+  - `fix`: a player's word fix, saved with history;
   - the limits claimed in Supabase.
 - [ ] Migration:
   - `songs`: shared, read by signed-in players, written only through `security definer` functions the server calls;

@@ -201,3 +201,57 @@ The same short question about the Fairuz video went to five models, once a round
 | 3 | The times drift from the audio. | A check by ear on three songs before 15.4 ships; the order and length checks; the nudge. |
 | 4 | It mishears words. | The LRCLIB hint (tested: it fixed every mishearing in the test song); *heard by ear* marks songs without a hint. |
 | 5 | Friends' songs fill the database with lyrics. | Lyrics live in one `songs` table, private to signed-in players, never in git. One row per video, so about 3 KB a song: 1,000 songs is about 3 MB of the 500 MB. |
+
+---
+
+# Part 3 — Songs no one has written down, and Claude (2026-11-23)
+
+Adam: "What if a user gives a niche song… no lyrics in a mainstream database? We can do it ourselves." And: "We can also set up a Claude API key; it's not that expensive for transcribing and translating."
+
+## F. Can Claude listen?
+
+**No.** The Claude API takes text, images and PDFs, not audio or video. Anthropic's model docs (via the `claude-api` skill, model table cached 2026-11-03) list no audio input, and a search today found none ([third-party summary](https://iamtypist.dev/blog/can-claude-transcribe-audio), [feature request](https://claudeissues.com/issue/14444-feature-native-support-for-audio-as-a-modality)).
+
+**So Gemini stays the ears.** Claude is very good at what comes after hearing:
+- settling disputed words between two listens (§G);
+- explaining each line in our Latin scheme, with dialect notes.
+
+**Prices** (per million tokens, from the skill's model table):
+
+| Model | Input | Output |
+|---|---|---|
+| `claude-opus-5-5` | $4 | $20 |
+| `claude-sonnet-5-5` | $2 | $10 |
+| `claude-haiku-5-5` | $0.10 | $0.50 |
+
+**What a song costs on `claude-opus-5-5`** (estimate):
+- **Explaining:** about 4K tokens in (40 lines, the scheme's rules, the deck words found) and about 4K out at low effort, so about **$0.10**.
+- **Settling words** (songs without lyrics only): about **$0.05**.
+- **In total:** **about $0.10–0.15 per song, once**, since songs are shared. 100 new songs a month is about **$15**.
+- These are estimates; 15.3 measures the real figure on the first ten songs.
+- Claude wasn't tested here: no Claude key in this environment.
+
+## G. Songs no one has written down
+
+**Tested on the same Fairuz song with no lyrics given** (graded against the hinted transcript and my reading of the song):
+
+| Method | Result |
+|---|---|
+| `gemini-3.5-flash-lite`, one listen | About 4 lines in 5 exact |
+| `gemini-3.5-flash-lite`, second pass "correct your draft" | Copied the draft back unchanged. No use. |
+| Asking either model to list words it was unsure of | Listed none, every time. No use. |
+| `gemini-3.6-flash`, one listen | 36 of 39 lines exact. The rest were near-sounding (يحيّر for بحيرة, وتتبلبل for وتدبل, السنين for سنين) |
+| Disagreement between the two listens | Caught every real mistake, but also flagged about 23% of words that were right |
+| **Both listens given to a text model to settle** (Gemini 3.6 Flash as a stand-in for Claude) | It fixed بحيرة and chose غريق (which Fairuz sings), and improved وتدبل to وتتبلل. **About 2 small mistakes in 39 lines.** |
+
+**Truly niche songs,** neither on LRCLIB:
+- **يا ريتك مباركة**, a traditional wedding song from a small channel: 40 coherent, timed, Palestinian lines.
+- **A live wedding zajal,** sung fast over a crowd, the hardest case: 20 dense verses, mostly plausible, a few odd words (أجنحان).
+
+**The design that follows** (spec, "Hearing it ourselves"):
+1. When LRCLIB has nothing, the song is heard **twice**, by two different models.
+2. Claude settles every word where they differ, from the meaning and the dialect.
+3. Words Claude still doubts get a faint dotted underline.
+4. **Players fix words.** Tap a word, then *Fix this word*. Songs are shared, so one friend's fix helps everyone. Each fix is kept in the song's history and can be undone, and the line is explained again.
+
+This is "doing it ourselves" without a single download.

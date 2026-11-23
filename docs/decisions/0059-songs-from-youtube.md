@@ -39,7 +39,15 @@ Option A, with C as the hint and the stand-in.
   - Times are asked as `MM:SS.s` text and parsed by us. The tests showed Gemini writes 1:07 as "107" when asked for seconds.
 - **Models.** A setting, not code: `gemini-3.6-flash`, then `gemini-3.5-flash-lite`, then `gemini-flash-lite-latest`, tried in turn on 503 or 429.
 - **When everything is busy.** The song waits as *listening* in the shared songbook and is retried by itself; the player does nothing. If LRCLIB's synced lyrics match the video's length, they're shown meanwhile, marked as approximate.
-- **Explaining.** Gemini (`gemini-3.5-flash-lite`, text) gives the meaning, the Latin in our scheme and a gloss per word, with Groq (`openai/gpt-oss-120b`) as the backup. Song lyrics aren't anything a player typed, so ADR 0038's rule (the player's own Arabic never goes to Gemini's free tier) isn't touched.
+- **Explaining: Claude.** Adam offered a Claude API key on 2026-11-23. Claude can't hear (the API takes text, images and PDFs), but it explains best.
+  - `claude-opus-5-5`, at low effort, with structured output, gives the meaning, the Latin in our scheme and a gloss per word.
+  - Gemini (`gemini-3.5-flash-lite`, text) and then Groq (`openai/gpt-oss-120b`) are the backups.
+  - Song lyrics aren't anything a player typed, so ADR 0038's rule (the player's own Arabic never goes to Gemini's free tier) isn't touched.
+- **Songs no one has written down.** When LRCLIB has nothing:
+  - the song is heard twice, by two Gemini models;
+  - Claude settles each word where they differ;
+  - words it still doubts are underlined;
+  - players can fix a word for everyone, with history and undo (research Part 3).
 - **Sharing.** One `songs` row per video, readable by every signed-in player, written only by the server. A song is listened to once, ever.
 - **Limits.**
   - 5 new songs per player a day.
@@ -49,7 +57,8 @@ Option A, with C as the hint and the stand-in.
 
 ## Consequences
 
-- **New outside dependencies.** Three: Gemini's YouTube feature (preview), YouTube's embedded player and LRCLIB. All free and on the privacy page.
+- **New outside dependencies.** Four: Gemini's YouTube feature (preview), YouTube's embedded player, LRCLIB and the Claude API. All but Claude are free, and all four are on the privacy page.
+- **Money.** The Claude API is paid: about $0.10–0.15 a song, once, since songs are shared (an estimate; 15.3 measures it). Adam puts the key in Vercel (`ANTHROPIC_API_KEY`), never in chat, and sets a monthly spend limit in the Claude Console. Without the key, the corner still works on Gemini and Groq.
 - **The preview.** Google says pricing and limits "are likely to change". If it becomes paid, that comes to Adam as a question first, and LRCLIB-only (Option C) keeps the corner working meanwhile.
 - **Third-party script.** The CSP allows it for the first time, site-wide, since Waymark is one page. The script is loaded only when the corner opens.
 - **Copyright.** Lyrics are someone else's text. They live in our private database for the game's signed-in players, never in git or `content/`.

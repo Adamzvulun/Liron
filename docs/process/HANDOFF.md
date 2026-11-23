@@ -490,3 +490,11 @@
    - **Download tools (yt-dlp) and transcript scrapers** are blocked from cloud servers, and yt-dlp would separate the audio against YouTube's policies.
    - **Still to do in 15.3:** check the times by ear against the audio.
    - **The test scripts** were scratch only; nothing is in the repo.
+197. **Phase 15: songs no one has written down, and Claude (2026-11-23).** Research Part 3.
+   - **Claude can't hear.** Its API takes text, images and PDFs. It becomes the song's *explainer*, and the *judge* between two listens.
+     - The model is `claude-opus-5-5` at low effort. It costs about $0.10–0.15 a song, once, since songs are shared; that's an estimate, measured in 15.3.
+     - Adam puts `ANTHROPIC_API_KEY` in Vercel and sets a monthly spend limit in the Claude Console.
+   - **With no lyrics,** `gemini-3.6-flash` got 36 of 39 Fairuz lines exact. Two listens settled by a text model got that to about 37 of 39.
+   - **Self-checks don't work.** "Correct your draft" and "list unsure words" did nothing on either model.
+   - **Players can fix a word** for everyone, with history and undo (`song_fixes`).
+   - **Niche tests:** يا ريتك مباركة (traditional) and a live wedding zajal were both heard coherently.
