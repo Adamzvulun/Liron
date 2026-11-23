@@ -4,8 +4,17 @@
 // the starter room is drawn exactly as painted. Back to front: what hangs on the wall, the rugs,
 // then the floor pieces by their front row, so nearer pieces cover farther ones.
 import * as house from '../city/paintHouse.ts';
-import { isFloor, ROOM, STARTER, slotsOf, type Layout, type PieceDef } from './layout.ts';
-import { cellsQuad, moveFloor, moveWall, type Pt } from './projection.ts';
+import {
+  isFloor,
+  isTurn,
+  ROOM,
+  STARTER,
+  slotsOf,
+  type Facing,
+  type Layout,
+  type PieceDef,
+} from './layout.ts';
+import { cellsQuad, floorPoint, moveFloor, moveWall, VP, type Pt } from './projection.ts';
 import { FURNITURE } from './paintFurniture.ts';
 import { poly } from '../city/paintKit.ts';
 
@@ -14,7 +23,7 @@ import { poly } from '../city/paintKit.ts';
  * on: the middle of its front edge, on the floor (projection.ts, moveFloor). Bought furniture
  * is painted in paintFurniture.ts.
  */
-type Painted = { paint: () => string; origin?: Pt; wallX?: number };
+type Painted = { paint: (facing?: Facing) => string; origin?: Pt; wallX?: number };
 const PAINT: Record<string, Painted> = {
   'home:bed': { paint: house.bed, origin: [374, 930] },
   'home:rug': { paint: house.rug, origin: [960, 1040] },
@@ -45,6 +54,18 @@ export interface HomeView {
 
 const TONE = { ok: '#7FD89A', no: '#E0655A', held: '#FFE7A8' } as const;
 
+/**
+ * The facing to paint a floor piece in (task 8.3): only a turn it has, and with the two side
+ * turns swapped when moveFloor mirrors it across the middle, so it ends up facing the right way.
+ */
+function turned(p: { at: readonly [number, number]; facing: Facing }, def: PieceDef, origin?: Pt) {
+  if (!isTurn(p.facing) || !def.turns?.includes(p.facing) || !origin) return undefined;
+  const x = floorPoint(p.at[0] + def.size[0] / 2, p.at[1] + def.size[1])[0];
+  const mirrored = Math.sign(origin[0] - VP[0]) * Math.sign(x - VP[0]) < 0;
+  if (!mirrored || p.facing === 'away') return p.facing;
+  return p.facing === 'to-left' ? 'to-right' : 'to-left';
+}
+
 /** Each placed piece's markup, carried to its place: what hangs, the rugs, and the rest by row. */
 function placed(layout: Layout, defs: ReadonlyMap<string, PieceDef>) {
   const anchor = new Map(STARTER.pieces.map((p) => [p.id, p]));
@@ -57,7 +78,9 @@ function placed(layout: Layout, defs: ReadonlyMap<string, PieceDef>) {
     if (!def || !piece) continue;
     // A starter piece left where the starter room has it is drawn exactly as painted.
     const home = anchor.get(p.id);
-    const art = piece.paint();
+    const art = piece.paint(
+      isFloor(p) && 'origin' in piece ? turned(p, def, piece.origin) : undefined,
+    );
     if (!isFloor(p)) {
       const from =
         'wallX' in piece && piece.wallX !== undefined

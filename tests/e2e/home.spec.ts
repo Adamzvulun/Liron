@@ -311,6 +311,28 @@ test.describe('decorating your room (#442)', () => {
     expect(await saved(page)).toContainEqual({ id: 'home-chair', at: [7, 2], facing: 'left' });
   });
 
+  test('Turn turns a chair four ways, and the turn is saved (#471)', async ({ page }) => {
+    await decorate(page, ['home-chair']);
+    await page.getByRole('button', { name: 'Pick up the chair' }).click();
+    await tapCell(page, 7, 2);
+    await expect(say(page)).toHaveText('Set down the chair.');
+    // Tap it to hold it again, then turn it: right, away, left, and back to the room.
+    await tapCell(page, 7, 2);
+    const turnIt = page.getByRole('button', { name: 'Turn the chair' });
+    for (const way of ['facing right', 'facing the wall', 'facing left']) {
+      await turnIt.click();
+      await expect(say(page)).toHaveText(`The chair, ${way}.`);
+    }
+    // Moved, it keeps its turn.
+    await tapCell(page, 6, 2);
+    expect(await saved(page)).toContainEqual({ id: 'home-chair', at: [6, 2], facing: 'to-left' });
+    // A piece that can't turn offers no Turn.
+    await page.getByRole('button', { name: 'Decorate' }).click();
+    await tapCell(page, 9, 4);
+    await expect(say(page)).toHaveText(/Holding the travel chest/);
+    await expect(page.getByRole('button', { name: /^Turn/ })).toHaveCount(0);
+  });
+
   test('Store puts a piece in the tray, but never one with a panel', async ({ page }) => {
     await decorate(page);
     await tapCell(page, 9, 4);

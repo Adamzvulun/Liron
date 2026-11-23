@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import * as house from '../city/paintHouse.ts';
-import { STARTER, STARTER_PIECES, type Layout, type PieceDef } from './layout.ts';
+import {
+  FURNITURE_PIECES,
+  STARTER,
+  STARTER_PIECES,
+  type Facing,
+  type Layout,
+  type PieceDef,
+} from './layout.ts';
+import { chair } from './paintFurniture.ts';
 import { paintHome } from './paintHome.ts';
 import { avatarScale, cellsQuad, depthAt, floorPoint, moveFloor, moveWall } from './projection.ts';
 
@@ -99,5 +107,31 @@ describe('paintHome (task 7.1)', () => {
     const svg = paintHome(STARTER, defs, { standing: [{ row: 0, svg: '<g id="me"/>' }] });
     // Standing at the back, the avatar is drawn behind the bed.
     expect(svg.indexOf('<g id="me"/>')).toBeLessThan(svg.indexOf(house.bed()));
+  });
+});
+
+describe('a turned chair (task 8.3)', () => {
+  const all = new Map<string, PieceDef>(
+    [...STARTER_PIECES, ...FURNITURE_PIECES].map((d) => [d.id, d]),
+  );
+  const at = (x: number, facing: Facing): Layout => ({
+    ...STARTER,
+    pieces: [...STARTER.pieces, { id: 'home-chair', at: [x, 2], facing }],
+  });
+
+  it('is painted four different ways', () => {
+    const ways = (['right', 'away', 'to-left', 'to-right'] as const).map((f) => chair(f));
+    expect(new Set(ways).size).toBe(4);
+    // Facing the room is the same chair whichever side it stands.
+    expect(chair('left')).toBe(chair('right'));
+  });
+
+  it('keeps facing the way it was turned when mirrored across the middle', () => {
+    // Left of the middle the chair is painted as turned; right of it, mirrored, the side turns
+    // swap, so a chair turned to the left still looks left.
+    expect(paintHome(at(2, 'to-left'), all)).toContain(chair('to-left'));
+    expect(paintHome(at(9, 'to-left'), all)).toContain(chair('to-right'));
+    expect(paintHome(at(9, 'away'), all)).toContain(chair('away'));
+    expect(paintHome(at(9, 'left'), all)).toContain(chair());
   });
 });

@@ -170,3 +170,12 @@ The first of §9's later items: "stopped by" and a guestbook, built as notes.
 - **Where it shows:** under your room, beside Decorate, with how many more new things the next name needs. After a Done that sets out something new, the line says "Your room is cozier: …", or "a little cozier" between names. A friend's shelf says "Their room: Snug". A friend sees the count's name, never the list. fellowship.md §3 and FRIENDS.md say so.
 - **Tests:** `src/core/home/cozy.test.ts`; `supabase/tests/homes.test.ts`, where the database counts every fixture layout as `heldOf` does, the count only grows, and a friend's card carries the count; `tests/e2e/home.spec.ts` and `fellowship.spec.ts`.
 
+## 15. Four facings (task 8.3, #471)
+
+- **What turns:** the chair four ways (facing the room, right, the wall, left) and the window seat two (facing the room or the wall). The rest look the same from any side (the bench, the cushion, the stove) or stand against a wall (the bed, the desk, the bookcase), so they don't turn. Each piece's turns are data: `turns` in `content/core/home.json`.
+- **In Decorate:** holding a piece that turns shows **Turn the chair**, and R does the same. The line says which way it now faces ("The chair, facing the wall."). A turned piece keeps its turn as it moves. Facing the room again, it faces the middle as before.
+- **In a layout:** `facing` was `left` or `right`, set by where a piece stands, and both mean "facing the room". They keep that meaning, so no saved room changes and nothing is rewritten. The new values are `away`, `to-left` and `to-right` (migration `20270121000000_facings.sql`; `save_home` accepts the five).
+- **Painted:** each turn is its own painting in `paintFurniture.ts`. A piece right of the middle is mirrored (projection.ts, moveFloor), so paintHome swaps the two side turns first and the chair still looks the way it was turned. The look was checked on both sides of the room.
+- **Known:** someone sitting on a chair turned away is still drawn facing you.
+- **Tests:** `decorate.test.ts` (the order, keeping a turn, what turns); `paintHome.test.ts` (four paintings, the mirror swap); the fixture's turned chair, which `save_home` takes (homes.test.ts); `home.spec.ts` (Turn, saved, no Turn for the chest).
+
