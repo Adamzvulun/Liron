@@ -105,6 +105,26 @@ test.describe('accessibility (ADR 0051)', () => {
     expect(await problems(page)).toEqual([]);
   });
 
+  test('the home: decorating, a friend’s room and their shelf (v1.4)', async ({ page }) => {
+    await signedIn(page, [], [], MORSE, [], {
+      owned: ['home-chair', 'wallpaper-zellige'],
+      fellowship: {
+        friends: [friendCard(BASMA, 'Basma', { ranks: ['morse:rank-listener'] })],
+      },
+    });
+    await page.goto('/house');
+    await page.getByRole('button', { name: 'Decorate' }).click();
+    await page.getByRole('button', { name: 'Pick up the chair' }).click();
+    await expect(page.getByRole('region', { name: 'Decorate' })).toBeVisible();
+    expect(await problems(page)).toEqual([]);
+    await page.goto(`/house/visit/${BASMA}`);
+    await expect(page.getByRole('group', { name: /^Basma’s room/ })).toBeVisible();
+    expect(await problems(page)).toEqual([]);
+    await page.getByRole('button', { name: 'Shelf: see their trophies' }).click();
+    await expect(page.getByRole('dialog', { name: 'Basma’s trophies' })).toBeVisible();
+    expect(await problems(page)).toEqual([]);
+  });
+
   for (const path of SCREENS) {
     test(`${path}`, async ({ page }) => {
       await signedIn(page, [], [], MORSE, [], {
