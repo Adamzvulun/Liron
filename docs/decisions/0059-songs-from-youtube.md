@@ -1,6 +1,6 @@
 # 0059 — Songs from YouTube: Gemini listens to the link
 
-- **Status:** Accepted (2026-11-23).
+- **Status:** Accepted (2026-11-23). Paid Gemini chosen the same day.
   - Adam: the player pastes the link and nothing else.
   - Explained songs are shared between friends.
   - Phase 15 comes after Phase 14.
@@ -62,7 +62,7 @@ Option A, with C as the hint and the stand-in.
 ## Consequences
 
 - **New outside dependencies.** Four: Gemini's YouTube feature (preview), YouTube's embedded player, LRCLIB and the Claude API. All but Claude are free, and all four are on the privacy page.
-- **Money, Gemini.** The paid tier is recommended: about $0.03 a listen on 3.6 Flash ($0.05 from 2027), and what we send isn't used for Google's training. It needs billing on the songs' Google Cloud project, with a budget alert. Without it, the free tier works at lower quality and capacity.
+- **Money, Gemini: the paid tier** (Adam, 2026-11-23: "if Gemini costs 3 cents per song then that's ok, let's use the paid plan"). That's about $0.03 a listen on 3.6 Flash ($0.05 from 2027), and what we send isn't used for Google's training. Billing goes on the songs' own Google Cloud project, with a budget alert. If billing ever lapses, the free-tier model order takes over by itself, at lower quality and capacity.
 - **Money, Claude.** The Claude API is paid: about $0.10–0.15 a song, once, since songs are shared (an estimate; 15.3 measures it). Adam puts the key in Vercel (`ANTHROPIC_API_KEY`), never in chat, and sets a monthly spend limit in the Claude Console. Without the key, the corner still works on Gemini and Groq.
 - **The preview.** Google says pricing and limits "are likely to change". If it becomes paid, that comes to Adam as a question first, and LRCLIB-only (Option C) keeps the corner working meanwhile.
 - **Third-party script.** The CSP allows it for the first time, site-wide, since Waymark is one page. The script is loaded only when the corner opens.

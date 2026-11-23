@@ -348,7 +348,7 @@ So the converter plus the checker gets about 98% right first time. A line that s
 1. **Models, free tier.**
    - `gemini-3.5-flash-lite` is the one listen when LRCLIB has the song.
    - `gemini-3.6-flash` (20 a day) is kept for the second listen on songs without lyrics, with our own daily count stopping at 15, so busy days still have some left.
-2. **Paid Gemini, recommended.** It costs about $0.03 a listen, and the data isn't used for Google's training. With it, 3.6 Flash becomes the one listen for every song. Together with Claude's explaining (§F, less the repeats), **a new song costs about $0.05–0.15, once**. The corner works without it, at the free tier's quality and limits.
+2. **Paid Gemini: decided** (Adam, 2026-11-23: "if Gemini costs 3 cents per song then that's ok, let's use the paid plan"). It costs about $0.03 a listen, and the data isn't used for Google's training. With it, 3.6 Flash becomes the one listen for every song. Together with Claude's explaining (§F, less the repeats), **a new song costs about $0.05–0.15, once**. The corner works without it, at the free tier's quality and limits.
 3. **The songs' own Google Cloud project,** so songs never touch the Radio Room's quota.
 4. **The red-team fixes (H1–H9):**
    - one attempt per server call;

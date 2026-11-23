@@ -512,3 +512,4 @@
      - the Latin converter plus checker (13 bad strings fell to 2, out of 105).
    - **Repeated lines:** 28–75% of a song's lines repeat, so each distinct line is explained once.
    - **The full 8-song eval gates 15.3.** Pass marks are in research §L.
+199. **Paid Gemini for songs (Adam, 2026-11-23).** About $0.03 a listen on `gemini-3.6-flash`, in a Google Cloud project of the songs' own, with billing and a budget alert. The key goes in Vercel as `GEMINI_SONGS_API_KEY`. ADR 0059, the spec and #525 are updated. The free-tier model order stays only as a fallback if billing lapses. Adam sets up the project, both keys (`ANTHROPIC_API_KEY` too) and the spend limits when 15.3 starts.

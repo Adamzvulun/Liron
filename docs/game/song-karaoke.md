@@ -64,8 +64,8 @@ No picking a match, no pasting words, no setting the timing.
 Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of the research measured how often. The player still does nothing:
 
 - **The server tries the next model.** The order is a setting, not code, because Google renames models often (`gemini-2.5-flash` was already gone for new keys on 2026-11-23).
-  - **On Gemini's paid tier** (recommended; about $0.03 a listen): `gemini-3.6-flash` first, then `gemini-3.5-flash-lite`.
-  - **On the free tier:** `gemini-3.5-flash-lite` first, then `gemini-flash-lite-latest`. `gemini-3.6-flash` allows only 20 requests a day per project, so it's kept for the second listen on songs without lyrics, with our own count stopping at 15 a day.
+  - **Gemini's paid tier is the plan** (Adam, 2026-11-23; about $0.03 a listen): `gemini-3.6-flash` first, then `gemini-3.5-flash-lite`.
+  - **Only if billing lapses, the free tier:** `gemini-3.5-flash-lite` first, then `gemini-flash-lite-latest`. `gemini-3.6-flash` allows only 20 requests a day per project, so it's kept for the second listen on songs without lyrics, with our own count stopping at 15 a day.
 - **One attempt per server call.** The corner's retries drive the next attempt, so no call outlives Vercel's time limit.
 - **One listen at a time, game-wide** (a lease in `claim_song()`), so two friends pasting the same new song don't pay for it twice, and bursts don't hit the per-minute limits.
 - **The songs' calls use their own Google Cloud project** (limits are per project), so a busy evening of songs never uses up the Radio Room's Gemini quota.
@@ -164,6 +164,11 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 | Signed out, or offline | The corner says it needs a connection, like the inn. |
 
 ## Implementation checklist
+
+- [ ] **Adam's setup, when 15.3 starts** (keys only in Vercel, never in chat):
+  - a new Google Cloud project for songs, with billing on and a budget alert;
+  - its Gemini key in Vercel as `GEMINI_SONGS_API_KEY`;
+  - a Claude API key in Vercel as `ANTHROPIC_API_KEY`, with a monthly spend limit in the Claude Console.
 
 - [ ] CSP and privacy page updated; a test reads `vercel.json` and checks the CSP carries exactly the new hosts.
 - [ ] `src/subjects/arabic/song/`: link parser, LRC parser, `MM:SS.s` parser and order check, timing, word marking. All pure and unit-tested.
