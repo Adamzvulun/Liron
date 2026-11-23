@@ -22,6 +22,8 @@ export interface FriendCard {
   ranks: string[];
   /** Achievement ids. */
   achievements: string[];
+  /** How many different things their room has ever held (task 8.2); 0 for an older database. */
+  cozy: number;
 }
 
 export interface FriendRequest {
@@ -113,6 +115,7 @@ export function readCard(raw: unknown): FriendCard | null {
     streak: count(r.streak),
     ranks: ids(r.ranks),
     achievements: ids(r.achievements),
+    cozy: count(r.cozy),
   };
 }
 

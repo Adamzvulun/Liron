@@ -409,10 +409,11 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** the home keeps giving friends a reason to drop by. From #447 and [the-home.md](../game/the-home.md) §9, in its order. Visiting together live stays in #447: it waits on the same Realtime setting as the wire (VERSIONS 2.4).
 
-### ☐ 8.1 (#469) · v1.5 · Notes at the letterbox
+### ☑ 8.1 (#469) · v1.5 · Notes at the letterbox
 - A visiting friend leaves one note a day from a fixed set (our own Arabic sentences, Morse sign-offs, two plain lines). The host reads them at the letterbox, and the feed says who stopped by. Only the two of them see a note. Spec: [the-home.md](../game/the-home.md) §13.
 
-### ☐ 8.2 (#470) · v1.5 · Coziness, a rating that only rises
+### ☑ 8.2 (#470) · v1.5 · Coziness, a rating that only rises
+- Each different piece of furniture, wallpaper and floor a room has ever held counts once; the list only grows. Six names, from Just moved in to Warm as fresh bread. Shown under your room and on a friend's shelf. Spec: [the-home.md](../game/the-home.md) §14.
 
 ### ☐ 8.3 (#471) · v1.5 · Four facings for the pieces that need them
 

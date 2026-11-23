@@ -558,6 +558,39 @@
         "kind": "plain",
         "english": "I liked your room."
       }
+    },
+    {
+      "id": "home:coziness",
+      "subject": "core",
+      "type": "home-coziness",
+      "data": {
+        "tiers": [
+          {
+            "at": 0,
+            "name": "Just moved in"
+          },
+          {
+            "at": 1,
+            "name": "Settling in"
+          },
+          {
+            "at": 3,
+            "name": "Lived in"
+          },
+          {
+            "at": 6,
+            "name": "Snug"
+          },
+          {
+            "at": 10,
+            "name": "Cozy"
+          },
+          {
+            "at": 15,
+            "name": "Warm as fresh bread"
+          }
+        ]
+      }
     }
   ]
 }

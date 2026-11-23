@@ -13,7 +13,7 @@ Supabase's built-in email only reaches the project's team members, at 2 emails a
 - **(b) A mail service, so invites and resets arrive by email:** Supabase takes custom SMTP on the free plan (it then allows 30 emails an hour). The free mail services need **a domain of our own** to send from: Resend gives 3,000 a month and 100 a day, for one verified domain. Waymark has none (it lives on `vercel.app`), and a domain costs money every year. Since that's a cost and a lock-in, I'd only do this if (a) proves annoying.
 
 ## 3. What a friend can see of you, and what they never see
-- **Seen by your Fellowship:** your name in Waymark, your avatar and gear, your level, your ranks and titles, your streak, your achievements, your pet, and the party feed of your milestones.
+- **Seen by your Fellowship:** your name in Waymark, your avatar and gear, your level, your ranks and titles, your streak, your achievements, your pet, the party feed of your milestones, and (since v1.4) your room as arranged, with (since v1.5) its coziness, a count of the different things it has ever held.
 - **Never seen:** your reviews and answers, your chats at the inn (lines, what you told the regulars, the Coach's tips), your recordings, your email, anything from the Lingualism deck (ADR 0011), and your gold.
 - **How:** a `friendships` table (two players, accepted or not) and a database view of the shared fields only. Row Level Security lets you read that view for your friends and yourself, and nothing else of theirs. The tables that exist today stay "your own rows only".
 

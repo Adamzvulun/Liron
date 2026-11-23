@@ -1,4 +1,6 @@
 import type { Page } from '@playwright/test';
+import { withHeld } from '../../src/core/home/cozy.ts';
+import type { Layout } from '../../src/core/home/layout.ts';
 import { watchForCrashes } from './fixtures.ts';
 import { WORD_CHAPTERS } from '../../src/subjects/arabic/core/coreWords.ts';
 import { REVIEWS } from '../../src/subjects/arabic/words.ts';
@@ -137,6 +139,8 @@ export interface Extras {
     /** The note the player left each friend today, by id; `leave_note` sets it. */
     left?: Record<string, string>;
   };
+  /** What the player's room has ever held (task 8.2), as `my_home_held` returns it. */
+  held?: string[];
   /** The player's saved room (task 7.3), as `my_home` returns it; `save_home` replaces it. */
   home?: unknown;
 }
@@ -443,7 +447,12 @@ export async function fakeSupabase(
     if (url.pathname === '/rest/v1/rpc/save_home') {
       const { p_layout } = route.request().postDataJSON() as { p_layout: unknown };
       extras.home = p_layout;
+      // Like the database's trigger, the room's held list only grows (task 8.2).
+      extras.held = withHeld(extras.held ?? [], p_layout as Layout);
       return route.fulfill({ json: null });
+    }
+    if (url.pathname === '/rest/v1/rpc/my_home_held') {
+      return route.fulfill({ json: extras.held ?? [] });
     }
     if (url.pathname === '/rest/v1/rpc/guide_mark') {
       const { p_ids } = route.request().postDataJSON() as { p_ids: string[] };

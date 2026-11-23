@@ -190,6 +190,7 @@ test.describe('a friend’s house (task 3.2)', () => {
             ranks: ['morse:rank-listener'],
             achievements: ['first-light'],
             look: { gear: { pet: 'sand-cat' } },
+            cozy: 7,
           }),
         ],
         homes: {
@@ -225,6 +226,7 @@ test.describe('a friend’s house (task 3.2)', () => {
     await page.getByRole('button', { name: 'Shelf: see their trophies' }).click();
     const shelf = page.getByRole('dialog', { name: 'Basma’s trophies' });
     await expect(shelf).toContainText('Level 5 · Keyer');
+    await expect(shelf).toContainText('Their room: Snug');
     await expect(shelf.getByRole('region', { name: 'Trophies' })).toContainText('Listener');
     await expect(shelf).toContainText('First Light');
     await expect(shelf.getByRole('heading', { name: 'Gear' })).toHaveCount(0);

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Look } from '../avatar/looks.ts';
 import { useDialogFocus } from '../player/useDialogFocus.ts';
 import { PANELS, parseLayout, STARTER, type Layout } from './layout.ts';
+import { coziness, withHeld } from './cozy.ts';
 import { Decorate } from './Decorate.tsx';
 import { Room } from './Room.tsx';
 
@@ -29,6 +30,7 @@ export function HouseRoom({
   panels,
   owned = [],
   onSave,
+  onHeld,
 }: {
   onLoad: () => Promise<unknown>;
   look: Look;
@@ -37,7 +39,22 @@ export function HouseRoom({
   owned?: readonly string[];
   /** Saves a decorated room (§6); without it there is no Decorate button. */
   onSave?: (layout: Layout) => Promise<void>;
+  /** What the room has ever held (task 8.2), for its coziness; without it, none is shown. */
+  onHeld?: () => Promise<string[]>;
 }) {
+  const [held, setHeld] = useState<string[] | null>(null);
+  const [cozier, setCozier] = useState('');
+  useEffect(() => {
+    if (!onHeld) return;
+    let live = true;
+    onHeld().then(
+      (h) => live && setHeld(h),
+      () => undefined,
+    );
+    return () => {
+      live = false;
+    };
+  }, [onHeld]);
   const [layout, setLayout] = useState<Layout | null>(null);
   const [decorating, setDecorating] = useState(false);
   const [open, setOpen] = useState<Panel | null>(() => {
@@ -73,6 +90,20 @@ export function HouseRoom({
           onDone={(l) => {
             setLayout(l);
             setDecorating(false);
+            // Saved: the database added what the room now holds, so count it here too.
+            if (held) {
+              const now = withHeld(held, l);
+              if (now.length > held.length) {
+                const was = coziness(held.length).tier;
+                const is = coziness(now.length).tier;
+                setCozier(
+                  is.at > was.at
+                    ? `Your room is cozier: ${is.name}.`
+                    : 'Your room is a little cozier.',
+                );
+              }
+              setHeld(now);
+            }
           }}
           onCancel={() => setDecorating(false)}
         />
@@ -92,9 +123,15 @@ export function HouseRoom({
         <div className="room room--loading" aria-busy="true" />
       )}
       {layout && onSave && !decorating && (
-        <button type="button" className="decorate__start" onClick={() => setDecorating(true)}>
-          Decorate
-        </button>
+        <div className="room-cozy">
+          <button type="button" className="decorate__start" onClick={() => setDecorating(true)}>
+            Decorate
+          </button>
+          {held && <Cozy n={held.length} />}
+          <p className="room-cozy__said" role="status">
+            {cozier}
+          </p>
+        </div>
       )}
       {open && (
         <PanelDialog title={TITLES[open]} onClose={() => setOpen(null)}>
@@ -133,5 +170,18 @@ export function PanelDialog({
         {children}
       </div>
     </div>
+  );
+}
+
+/** The room's coziness (task 8.2): its name, and how far the next one is. */
+function Cozy({ n }: { n: number }) {
+  const { tier, next } = coziness(n);
+  return (
+    <p className="room-cozy__line">
+      Coziness: <strong>{tier.name}</strong>
+      {next
+        ? ` · ${next.more} more new ${next.more === 1 ? 'thing' : 'things'} to set out for ${next.tier.name}`
+        : ''}
+    </p>
   );
 }

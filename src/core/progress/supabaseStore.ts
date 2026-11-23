@@ -292,6 +292,12 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       await call('guide_mark', { p_ids: [...ids] }, 'remember what the guide showed');
     },
     home: () => call<unknown>('my_home', {}, 'read your home'),
+    async homeHeld() {
+      const raw = await call<unknown>('my_home_held', {}, 'read your home');
+      return Array.isArray(raw)
+        ? raw.filter((x): x is string => typeof x === 'string').slice(0, 200)
+        : [];
+    },
     async saveHome(layout) {
       await call('save_home', { p_layout: layout }, 'save your home');
     },
