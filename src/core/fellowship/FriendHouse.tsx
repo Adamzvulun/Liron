@@ -102,15 +102,13 @@ function Shelf({ card }: { card: FriendCard }) {
   const trophies = achievementNames(card.achievements);
   return (
     <div className="friend-house">
-      <figure className="friend-house__figure">
-        <figcaption className="friend-house__plate">
-          <span className="friend-house__name">{card.name}</span>
-          <span className="friend-house__line">
-            Level {card.level}
-            {card.title && <> · {card.title}</>}
-          </span>
-        </figcaption>
-      </figure>
+      <p className="friend-house__plate">
+        <span className="friend-house__name">{card.name}</span>
+        <span className="friend-house__line">
+          Level {card.level}
+          {card.title && <> · {card.title}</>}
+        </span>
+      </p>
       <section className="friend-house__shelf" aria-label="Trophies">
         <p className="friend-house__line">
           <span className="fellowship__flame">
