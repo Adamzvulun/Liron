@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Look } from '../avatar/looks.ts';
 import { useDialogFocus } from '../player/useDialogFocus.ts';
 import { PANELS, parseLayout, ROOF_PRICE, STARTER, type Layout, type RoomId } from './layout.ts';
 import { coziness, withHeld } from './cozy.ts';
 import { Decorate } from './Decorate.tsx';
-import { Room } from './Room.tsx';
+import { useGathering, type LiveApi } from './live.ts';
+import { Room, type Guest } from './Room.tsx';
 
 export type Panel = (typeof PANELS)[number];
 
@@ -36,6 +37,8 @@ export function HouseRoom({
   onHeld,
   gems = null,
   onOpenRoof,
+  live,
+  company,
 }: {
   /** Reads a room as saved: the house (the starter room if none), or the roof (null if closed). */
   onLoad: (where: RoomId) => Promise<unknown>;
@@ -51,7 +54,35 @@ export function HouseRoom({
   gems?: number | null;
   /** Opens the roof for its gems: null, or why not. Without it the roof isn't offered. */
   onOpenRoof?: () => Promise<string | null>;
+  /** Friends who come by, seen walking in your rooms (task 9.1, §17). */
+  live?: LiveApi;
+  /** You and your friends: your id (`me`), and each friend's name and look. */
+  company?: () => Promise<{ id: string; name: string; look: Look; me?: boolean }[]>;
 }) {
+  const [people, setPeople] = useState<{
+    me: string;
+    friends: { id: string; name: string; look: Look }[];
+  } | null>(null);
+  useEffect(() => {
+    if (!company) return;
+    let on = true;
+    company().then(
+      (all) => {
+        const me = all.find((c) => c.me)?.id;
+        if (on && me) setPeople({ me, friends: all.filter((c) => !c.me) });
+      },
+      () => undefined,
+    );
+    return () => {
+      on = false;
+    };
+  }, [company]);
+  const friendIds = useMemo(() => people?.friends.map((f) => f.id) ?? null, [people]);
+  const [mates, move] = useGathering(live, people?.me ?? null, friendIds);
+  const guests: Guest[] = mates.flatMap((m) => {
+    const f = people?.friends.find((p) => p.id === m.id);
+    return f ? [{ ...m, name: f.name, look: f.look }] : [];
+  });
   const [where, setWhere] = useState<RoomId>('home');
   const [roof, setRoof] = useState<Layout | 'closed' | null>(null);
   const [roofSaid, setRoofSaid] = useState('');
@@ -179,6 +210,8 @@ export function HouseRoom({
           layout={shown}
           look={look}
           where={where}
+          guests={guests}
+          onMove={move}
           onUse={(def) => {
             if (!isPanel(def.does) || !panels[def.does]) return def.line;
             opener.current =
@@ -241,6 +274,9 @@ export function HouseRoom({
             </div>
           )}
           {held && <Cozy n={held.length} />}
+          <p className="room-cozy__company" role="status">
+            {companyLine(guests, where)}
+          </p>
           <p className="room-cozy__said" role="status">
             {roofSaid || cozier}
           </p>
@@ -284,6 +320,26 @@ export function PanelDialog({
       </div>
     </div>
   );
+}
+
+/** Who has come by (§17): here, or in your other room. */
+function companyLine(guests: readonly Guest[], where: RoomId): string {
+  const names = (gs: readonly Guest[]) =>
+    gs.length === 1
+      ? (gs[0]?.name ?? '')
+      : `${gs
+          .slice(0, -1)
+          .map((g) => g.name)
+          .join(', ')} and ${gs.at(-1)?.name ?? ''}`;
+  const here = guests.filter((g) => g.room === where);
+  const there = guests.filter((g) => g.room !== where);
+  const lines: string[] = [];
+  if (here.length) lines.push(`${names(here)} ${here.length === 1 ? 'is' : 'are'} here.`);
+  if (there.length)
+    lines.push(
+      `${names(there)} ${there.length === 1 ? 'is' : 'are'} ${where === 'roof' ? 'down in your room' : 'up on your roof'}.`,
+    );
+  return lines.join(' ');
 }
 
 /** The room's coziness (task 8.2): its name, and how far the next one is. */

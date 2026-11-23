@@ -13,7 +13,7 @@ const STORAGE_KEY = 'sb-127-auth-token'; // supabase-js: `sb-${first part of the
 
 export const PASSWORD = 'correct horse';
 
-export function fakeSession() {
+export function fakeSession(id = '00000000-0000-0000-0000-000000000001') {
   const now = Math.floor(Date.now() / 1000);
   return {
     access_token: 'e2e-access-token',
@@ -22,7 +22,7 @@ export function fakeSession() {
     expires_in: 3600,
     expires_at: now + 3600,
     user: {
-      id: '00000000-0000-0000-0000-000000000001',
+      id,
       aud: 'authenticated',
       role: 'authenticated',
       email: 'adam@example.com',
@@ -85,6 +85,8 @@ export interface Extras {
   today?: Partial<typeof TODAY>;
   /** Unopened chests (ADR 0033). Each opens to 30 gold, a gem, the boots and a shield. */
   chests?: { id: string; kind: string; source: string; source_key: string }[];
+  /** Who is signed in, if not Adam (task 9.1: two friends, one in each page). */
+  me?: { id: string; name: string };
   /** Gold in the wallet at the start, instead of WALLET's. */
   gold?: number;
   /** Gems in the wallet at the start, instead of WALLET's; `open_roof` spends them. */
@@ -258,7 +260,7 @@ export async function fakeSupabase(
     if (url.pathname === '/auth/v1/user') {
       // GET: supabase-js checks the token from an emailed link. PUT: the new password is saved.
       if (route.request().method() === 'PUT') passwordUpdates.push(route.request().postDataJSON());
-      return route.fulfill({ json: fakeSession().user });
+      return route.fulfill({ json: fakeSession(extras.me?.id).user });
     }
     if (url.pathname === '/auth/v1/logout') return route.fulfill({ status: 204 });
     if (url.pathname === '/auth/v1/recover') return route.fulfill({ json: {} });
@@ -350,7 +352,13 @@ export async function fakeSupabase(
           return route.fulfill({ json: 'N3WCPDE5' });
         case 'fellowship':
           return route.fulfill({
-            json: [{ ...friendCard(fakeSession().user.id, 'Adam'), me: true }, ...friends],
+            json: [
+              {
+                ...friendCard(fakeSession(extras.me?.id).user.id, extras.me?.name ?? 'Adam'),
+                me: true,
+              },
+              ...friends,
+            ],
           });
         case 'fellowship_requests':
           return route.fulfill({ json: waiting });
@@ -926,7 +934,7 @@ export async function signedIn(
         sessionStorage.setItem('e2e-seeded', '1');
       }
     },
-    [STORAGE_KEY, fakeSession(), extras.firstPage ?? false] as const,
+    [STORAGE_KEY, fakeSession(extras.me?.id), extras.firstPage ?? false] as const,
   );
 }
 
