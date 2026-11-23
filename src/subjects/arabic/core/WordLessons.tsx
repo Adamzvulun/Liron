@@ -39,11 +39,13 @@ import { reportWords, reportWordTrial, scoreOfWords, type WordAnswer } from './r
 import { NextStep } from '../../../core/road/NextStep.tsx';
 import { NoDeck } from '../NoDeck.tsx';
 import { BINYAN } from './verbShapes.ts';
+import { taleOf, talesEarned, type Tale } from './tales.ts';
 
 type Stage =
   | { kind: 'start' }
   | { kind: 'card'; card: GrammarCard; fresh: CoreWord[]; words: CoreWord[] }
   | { kind: 'book'; open: GrammarCard | null }
+  | { kind: 'tales'; open: Tale | null }
   | { kind: 'meet'; fresh: CoreWord[]; words: CoreWord[]; index: number }
   | {
       kind: 'ask';
@@ -227,6 +229,7 @@ export function WordLessons({
   const current = stage.kind === 'ask' ? stage.questions[stage.index] : undefined;
   const w = progress.words;
   const book = cardsRead(grammar, progress);
+  const tales = talesEarned(progress.words.trials);
   return (
     <section className="lesson arabic" aria-label="The innkeeper’s table">
       {saveFailed && (
@@ -307,6 +310,15 @@ export function WordLessons({
                 Grammar book · {book.length}
               </button>
             )}
+            {tales.length > 0 && (
+              <button
+                type="button"
+                className="lesson__plain"
+                onClick={() => setStage({ kind: 'tales', open: null })}
+              >
+                Tales · {tales.length}
+              </button>
+            )}
             {onChat && (
               <button type="button" className="lesson__plain" onClick={onChat}>
                 Sit and talk
@@ -354,6 +366,46 @@ export function WordLessons({
                     onClick={() => setStage({ kind: 'book', open: c })}
                   >
                     <span className="arabic__book-chapter">Chapter {c.chapter}</span> {c.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="lesson__actions">
+              <button
+                type="button"
+                className="lesson__plain"
+                onClick={() => setStage({ kind: 'start' })}
+              >
+                Back to the table
+              </button>
+            </div>
+          </div>
+        ))}
+      {stage.kind === 'tales' &&
+        (stage.open ? (
+          <TaleView tale={stage.open}>
+            <button
+              type="button"
+              className="lesson__plain"
+              onClick={() => setStage({ kind: 'tales', open: null })}
+            >
+              Back to the tales
+            </button>
+          </TaleView>
+        ) : (
+          <div className="lesson__card lesson__start">
+            <p className="lesson__kicker">The innkeeper’s table · tales</p>
+            <h2 className="lesson__title">Tales at the table</h2>
+            <p>Each regular whose trial you’ve passed tells you a tale, in words you know.</p>
+            <ul className="arabic__book">
+              {tales.map((t) => (
+                <li key={t.id}>
+                  <button
+                    type="button"
+                    className="arabic__book-card"
+                    onClick={() => setStage({ kind: 'tales', open: t })}
+                  >
+                    <span className="arabic__book-chapter">Chapter {t.chapter}</span> {t.title}
                   </button>
                 </li>
               ))}
@@ -423,6 +475,17 @@ export function WordLessons({
               (stage.passed ? stage.trial.trial.xp : 0)}{' '}
             XP
           </p>
+          {stage.passed && taleOf(stage.trial.number) && (
+            <button
+              type="button"
+              className="lesson__go"
+              onClick={() =>
+                setStage({ kind: 'tales', open: taleOf(stage.trial?.number ?? 0) ?? null })
+              }
+            >
+              {stage.trial.who.split(' ')[0]}’s tale
+            </button>
+          )}
           <NextStep />
           {!stage.passed && (
             <button
@@ -627,6 +690,38 @@ function ShapeBadge({ word, pool }: { word: CoreWord; pool: readonly CoreWord[] 
         </div>
       )}
     </>
+  );
+}
+
+/** A regular's tale (#491): our own lines, the English one tap away. */
+function TaleView({ tale, children }: { tale: Tale; children: ReactNode }) {
+  const [english, setEnglish] = useState(false);
+  return (
+    <div className="lesson__card arabic__question">
+      <p className="lesson__kicker">Chapter {tale.chapter} · a tale</p>
+      <h2 className="lesson__title">{tale.title}</h2>
+      <ol className="arabic__tale">
+        {tale.lines.map((l) => (
+          <li key={l.latin} className="arabic__sentence is-written">
+            <bdi lang="ar" dir="rtl" className="arabic__sentence-ar">
+              {l.arabic}
+            </bdi>
+            <bdi lang="he" dir="rtl" className="arabic__sentence-he">
+              {l.hebrew}
+            </bdi>
+            <span className="arabic__sentence-latin">{l.latin}</span>
+            {english && <span className="arabic__sentence-en">{l.english}</span>}
+          </li>
+        ))}
+      </ol>
+      <p className="arabic__sentence-note">Our own tale · no recording</p>
+      <div className="lesson__actions">
+        <button type="button" className="lesson__go" onClick={() => setEnglish((e) => !e)}>
+          {english ? 'Hide the English' : 'Show the English'}
+        </button>
+        {children}
+      </div>
+    </div>
   );
 }
 
