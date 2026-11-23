@@ -264,7 +264,9 @@
   margin-top: 0;
 }
 .room-cozy__line,
-.room-cozy__said {
+.room-cozy__said,
+.room-cozy__company,
+.friend-house__company {
   margin: 0;
   padding: 0.35rem 0.8rem;
   border-radius: 12px;
@@ -298,8 +300,20 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
-.room-cozy__said:empty {
+.room-cozy__said:empty,
+.room-cozy__company:empty,
+.friend-house__company:empty {
   display: none;
+}
+/* Who has come by, live (task 9.1, §17). */
+.room-cozy__company,
+.friend-house__company {
+  flex-basis: 100%;
+  width: fit-content;
+  font-weight: 700;
+}
+.friend-house__company {
+  margin: 10px 0 0;
 }
 .room-cozy__said {
   flex-basis: 100%;

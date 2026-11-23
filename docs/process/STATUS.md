@@ -35,7 +35,7 @@
 
 **Claude's:** fixes for whatever Adam or a friend finds, gap hunts between them ([report §4ek](reports/2026-11-09.md)), and keeping these docs true.
 
-**Releasing** is the same every time ([VERSIONS.md](VERSIONS.md#the-release-steps-the-same-every-time)): a `release/vX` branch from `dev`, a PR into `main` with notes, and a merge commit once CI and axe are green. Claude merges green release PRs at Adam's word (2026-11-19). Vercel Hobby allows 100 deploys a day, so never push many branches at once (HANDOFF 157).
+**Releasing** is the same every time ([VERSIONS.md](VERSIONS.md#the-release-steps-the-same-every-time)): a `release/vX` branch from `dev`, a PR into `main` with notes, and a merge commit once CI and axe are green. Claude merges green release PRs at Adam's word (2026-11-19). Vercel Hobby allows 100 deploys a day, so never push many branches at once (HANDOFF 157); since [ADR 0057](../decisions/0057-fewer-deploys.md) Claude's and release branches don't deploy at all, and Claude makes fewer, larger PRs.
 
 ## Backlog map
 | Milestone | Epic | Issues |

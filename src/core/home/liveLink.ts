@@ -38,6 +38,9 @@ export const visitTopic = (a: string, b: string) => (a < b ? `visit:${a}:${b}` :
 /** A cell's coordinates are below this; the room's own grid is checked where it's drawn. */
 const MOST_CELLS = 64;
 
+/** After joining, "here" is said once more this much later, in case the friend joined at once. */
+export const SAY_AGAIN_MS = 3_000;
+
 /** The most friends a house listens for: Realtime allows 100 channels a connection. */
 export const MOST_LINES = 40;
 
@@ -190,9 +193,12 @@ export function supabaseLive(client: SupabaseClient): LiveApi {
       const timer = setInterval(() => {
         gathering.tick(now());
       }, 1_000);
+      // The beat goes only to friends in this house: an empty line costs nothing. Someone coming
+      // in says so as they join (and once more, in case both joined at once), and is answered.
       const beat = setInterval(() => {
-        for (const f of lines.keys()) say(f, 'here');
+        for (const f of lines.keys()) if (gathering.has(f)) say(f, 'here');
       }, HERE_EVERY_MS);
+      const again = new Set<ReturnType<typeof setTimeout>>();
 
       void (async () => {
         const { data } = await client.auth.getSession();
@@ -216,7 +222,13 @@ export function supabaseLive(client: SupabaseClient): LiveApi {
             .on('broadcast', { event: 'at' }, heard)
             .on('broadcast', { event: 'bye' }, () => gathering.left(friend))
             .subscribe((status) => {
-              if (status === 'SUBSCRIBED') say(friend, 'here');
+              if (status !== 'SUBSCRIBED') return;
+              say(friend, 'here');
+              const t = setTimeout(() => {
+                again.delete(t);
+                if (!gathering.has(friend)) say(friend, 'here');
+              }, SAY_AGAIN_MS);
+              again.add(t);
             });
         }
       })().catch(() => undefined);
@@ -235,6 +247,7 @@ export function supabaseLive(client: SupabaseClient): LiveApi {
           closed = true;
           clearInterval(timer);
           clearInterval(beat);
+          for (const t of again) clearTimeout(t);
           for (const [f, ch] of lines) {
             if (ch.state === 'joined' && spot) say(f, 'bye');
             void client.removeChannel(ch);
