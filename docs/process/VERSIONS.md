@@ -196,6 +196,10 @@ A fix release: the 60 English meanings that were the deck's own sentences are ou
 
 Phase 7 (epic #435, [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-page.md)): Your House becomes a room you walk in, sit in and decorate, with furniture, wallpapers and floors from the Market and chests, a banner for each guild's first rank, and visits to friends' rooms as they arranged them. New players start with an Arabic name. Notes: [releases/v1.4.0.md](releases/v1.4.0.md). Released 2026-11-23 ([#466](https://github.com/Adamzvulun/Liron/pull/466)); its five migrations applied to `waymark-prod`.
 
-### Next: v1.4.0 — A home of your own
+### v1.5.0 — The home lived in
 
-Your House becomes a room you walk in, decorate and invite friends into (Phase 7, epic [#435](https://github.com/Adamzvulun/Liron/issues/435), [the-home.md](../game/the-home.md)). **Waits on Adam for:** the room's look (7.1), and a visit both ways with a friend (7.11).
+Phase 8's first part (epic [#468](https://github.com/Adamzvulun/Liron/issues/468)): friends leave a note at your letterbox, a room's coziness only rises, and a chair turns four ways. Notes: [releases/v1.5.0.md](releases/v1.5.0.md).
+
+### Next: v1.6.0 — The roof
+
+A second room, the roof, opened with 150 gems (8.4, #472): its own layout, and friends can visit it too.
