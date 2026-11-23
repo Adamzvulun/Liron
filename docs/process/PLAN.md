@@ -508,11 +508,11 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 ## Phase 15 — Songs: learn the words through music (#522)
 
-**Goal:** paste a YouTube link and learn the song. It plays in YouTube's own player, the synced lyrics come from LRCLIB, and the AI explains each line (meaning, our Latin, a gloss per word, the dialect). Lines and words light up as they're sung; known words are marked; kept lines become review cards that play from the video. YouTube's terms forbid taking a video's audio, so the words are found or pasted, never extracted. Spec: [song-karaoke.md](../game/song-karaoke.md). Research: [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). [ADR 0059](../decisions/0059-songs-from-youtube.md) is Proposed, waiting on Adam's four questions (research §7).
+**Goal:** paste a YouTube link, and that's all. The song is heard, written down, timed, translated and transliterated by itself, and laid out as karaoke. Gemini listens to the public link (Google's own feature, no download), with LRCLIB's lyrics as a hint. It plays in YouTube's own player. Songs are shared between friends, so each is heard once. Kept lines become review cards that play from the video. Spec: [song-karaoke.md](../game/song-karaoke.md). Research: [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). [ADR 0059](../decisions/0059-songs-from-youtube.md), Accepted (Adam, 2026-11-23: link only, shared songs, after Phase 14).
 
-### ☐ 15.1 (#523) · v1.13 · CSP and privacy for YouTube's player and LRCLIB; ADR 0059 accepted
-### ☐ 15.2 (#524) · v1.13 · The song engine: link, LRC, matching, timing, word marking
-### ☐ 15.3 (#525) · v1.13 · `api/song.ts`: lyrics lookup and AI explanation, with a daily limit
+### ☐ 15.1 (#523) · v1.13 · CSP and privacy for YouTube's player, Gemini and LRCLIB
+### ☐ 15.2 (#524) · v1.13 · The song engine: link, LRC, `MM:SS` times, timing, word marking
+### ☐ 15.3 (#525) · v1.13 · `api/song.ts`: lookup, Gemini listens, explain, shared songbook, limits
 ### ☐ 15.4 (#526) · v1.13 · The singer's corner
 ### ☐ 15.5 (#527) · v1.13 · *Keep this line*: song review cards, events, contract
 ### ☐ 15.6 (#528) · v1.13 · Release v1.13.0
@@ -521,7 +521,6 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 | Item | Why it waits | What un-parks it |
 |---|---|---|
-| **Hearing a song ourselves** (Phase 15, out of scope) | Whisper on a song file the player owns. How well it hears sung Arabic over music is untested ([research](../research/song-karaoke-2026-11-23.md) §4). | A test on three songs Adam owns, scored line by line against their real lyrics. If it hears well enough: a spec section and an issue under #522. |
 | **The regulars speak aloud** 🚧 (#342) | There is no free Arabic voice that meets the rules so far. Adam will look at Azure himself (2026-11-16); he ruled it out on 2026-11-02, so the choice is his to reopen. | Adam's answer on Azure. Then: a research note comparing Azure with whatever else qualifies that day (free tier, card needed or not, dialect, what happens to the text), sample lines from our own sentences, an ADR, and the build: a play button on each regular's line, fetched on press, with a daily allowance, in the pattern of `api/partner.ts`. |
 | More Arabic word chapters | The deck is used up. Maknuune is CC BY-SA, so anything built from it must be shared alike. | Adam's call on Maknuune or another source. |
 | Recordings for the phrases the deck lacks | No free, licensed source could be verified ([research](../research/phrase-audio-sources.md)). | A verified source, or the voice above. |

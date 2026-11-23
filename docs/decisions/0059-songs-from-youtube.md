@@ -1,44 +1,56 @@
-# 0059 — Songs from YouTube: YouTube's player, LRCLIB's lyrics
+# 0059 — Songs from YouTube: Gemini listens to the link
 
-- **Status:** Proposed (2026-11-23). Waits on Adam's answers in [the research](../research/song-karaoke-2026-11-23.md) §7.
+- **Status:** Accepted (2026-11-23).
+  - Adam: the player pastes the link and nothing else.
+  - Explained songs are shared between friends.
+  - Phase 15 comes after Phase 14.
+  - "Figure out what's best" for the AI: Gemini, below.
 - **Date:** 2026-11-23
+- **Research:** [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md), Part 2 tests this on real songs.
 - **Spec:** [song-karaoke.md](../game/song-karaoke.md)
 
 ## Context
 
-Adam wants to paste a YouTube link and get a karaoke-style walkthrough of the song, transcribed, translated and transliterated.
+Adam wants to paste a YouTube link and get the song transcribed, translated, transliterated and laid out as karaoke, with nothing else to do.
 
-- **YouTube's terms.** The developer policies forbid separating or downloading a video's audio.
-- **Captions.** The captions API only serves videos you can edit.
-- **What's left.** Playing, timing and the words have to come from different places.
+- **What we can't do.** Our app can't download or separate a video's audio: YouTube's developer policies forbid it, and download tools are blocked from cloud servers anyway (research Part 2, §B).
+- **Captions.** YouTube's captions API serves only videos you can edit.
+- **What Google offers.** The Gemini API takes a public YouTube link directly and listens to it on Google's side. It's a preview feature, free, with up to 8 hours of video a day on the free tier.
 
 ## Options
 
-| | A. YouTube player + LRCLIB lyrics | B. Extract the audio and transcribe it with Whisper | C. Captions from the YouTube API |
-|---|---|---|---|
-| **Allowed?** | Yes: playback through the IFrame API, by its rules | **No**: YouTube's developer policies forbid separating audio | Only for videos we own |
-| **Quality** | Human-written lines, mostly synced; Arabic coverage tested and good | Unknown for sung Arabic over music | — |
-| **Cost** | Free, no key | Groq free tier | — |
-| **Lock-in** | None. LRCLIB is open and has public dumps, and *Paste the words* works without it | — | — |
+| | A. Gemini listens to the link (+ LRCLIB hint) | B. Download tool + Whisper | C. LRCLIB alone | D. A paid transcript service |
+|---|---|---|---|---|
+| **Player does** | Paste | Paste | Paste, and pick or paste words when it's missing | Paste |
+| **Works from Vercel** | Yes, tested | No: YouTube blocks cloud servers (residential proxies cost money) | Yes | Yes |
+| **Allowed** | Yes: Google's own documented feature | No: separates audio against YouTube's policies | Yes | Their terms |
+| **Quality (tested)** | Near word-perfect with the hint; about 4 lines in 5 without | — | Varies; some Arabic records are merged lines, spelled by ear | — |
+| **Timing to this video** | Yes | Yes | Only when the versions match | Varies |
+| **Cost** | Free (preview) | Proxies | Free | Money |
+| **Risk** | Free tier is often busy (503); the preview may change | Breaks often | Gaps | Lock-in |
 
 ## Decision
 
-Option A.
+Option A, with C as the hint and the stand-in.
 
-- **Playback.** The YouTube IFrame Player on `youtube-nocookie.com`, at least 200 × 200 px, with nothing drawn over it. Its clock (`getCurrentTime`) drives the karaoke, and `seekTo` plays a kept line in review. Its audio is never extracted.
-- **Lyrics.** Found on LRCLIB by the oEmbed title and the player's duration, with up to 3 choices when unsure. Fetched fresh each time, never stored or committed. *Paste the words* is the fallback, with tap-to-time.
-- **Explanation.** A new server function, `api/song.ts`, in `api/partner.ts`'s pattern:
-  - it asks Groq (`openai/gpt-oss-120b`) for each line's meaning, its Latin in our scheme and a gloss per word, in batches of 10 lines, checked against a schema;
-  - it holds a daily limit: 2 new songs per player, and at most half the day's tokens game-wide.
+- **Listening.**
+  - The server sends the YouTube link to Gemini, at the lowest video resolution, under a response schema.
+  - LRCLIB's lyrics, when found, go with it as a hint.
+  - Times are asked as `MM:SS.s` text and parsed by us. The tests showed Gemini writes 1:07 as "107" when asked for seconds.
+- **Models.** A setting, not code: `gemini-3.6-flash`, then `gemini-3.5-flash-lite`, then `gemini-flash-lite-latest`, tried in turn on 503 or 429.
+- **When everything is busy.** The song waits as *listening* in the shared songbook and is retried by itself; the player does nothing. If LRCLIB's synced lyrics match the video's length, they're shown meanwhile, marked as approximate.
+- **Explaining.** Gemini (`gemini-3.5-flash-lite`, text) gives the meaning, the Latin in our scheme and a gloss per word, with Groq (`openai/gpt-oss-120b`) as the backup. Song lyrics aren't anything a player typed, so ADR 0038's rule (the player's own Arabic never goes to Gemini's free tier) isn't touched.
+- **Sharing.** One `songs` row per video, readable by every signed-in player, written only by the server. A song is listened to once, ever.
+- **Limits.**
+  - 5 new songs per player a day.
+  - Game-wide, new listening stops at 7 hours of video a day, under the free tier's 8.
+- **Playback.** The YouTube IFrame Player on `youtube-nocookie.com`, at least 200 × 200 px, with nothing over it.
 - **The CSP** gains `frame-src https://www.youtube-nocookie.com`, `script-src https://www.youtube.com` and `img-src https://i.ytimg.com`. Nothing else.
-- **Data.**
-  - A player's songbook is their own rows under RLS: the ids, the nudge, the AI's notes and their kept lines.
-  - Only lyrics and titles go to the AI.
 
 ## Consequences
 
-- **New outside dependencies.** Two: YouTube's embedded player (third-party script on one page) and LRCLIB. Both free, both without a key, both on the privacy page.
-- **Third-party script.** The CSP allows it for the first time. It runs inside YouTube's iframe, but its loader runs on our page, so the CSP widening is real. It applies to the whole site: Waymark is one page, and moving between places never reloads the document, so a CSP for one route alone can't work. The script is loaded only when the corner opens.
-- **Budget.** The Groq free budget is shared with the inn, so the limits matter. `RUNNING.md` says how to read them.
-- **Copyright.** Lyrics are someone else's text. We show them to one player for study, and never store, commit or share them.
-- **Whisper.** Transcribing a player's own audio file stays parked until it's tested on sung Arabic.
+- **New outside dependencies.** Three: Gemini's YouTube feature (preview), YouTube's embedded player and LRCLIB. All free and on the privacy page.
+- **The preview.** Google says pricing and limits "are likely to change". If it becomes paid, that comes to Adam as a question first, and LRCLIB-only (Option C) keeps the corner working meanwhile.
+- **Third-party script.** The CSP allows it for the first time, site-wide, since Waymark is one page. The script is loaded only when the corner opens.
+- **Copyright.** Lyrics are someone else's text. They live in our private database for the game's signed-in players, never in git or `content/`.
+- **Supersedes** this ADR's Proposed draft of the same day (YouTube player plus LRCLIB, with the player pasting words when missing). Adam ruled that out.

@@ -1,71 +1,106 @@
 # Songs: learn the words through music (Phase 15)
 
 - **Status:** Planned (2026-11-23), not built.
-- **Research:** [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md).
-- **Decision:** [ADR 0059](../decisions/0059-songs-from-youtube.md) (Proposed).
-- **Epic:** Phase 15 in [PLAN.md](../process/PLAN.md).
+- **Research:** [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Part 2 has the tests on real songs.
+- **Decision:** [ADR 0059](../decisions/0059-songs-from-youtube.md), Accepted.
+- **Epic:** Phase 15 in [PLAN.md](../process/PLAN.md), after Phase 14.
 
 ## Why
 
 - **Songs are how most people first hear Arabic.** A song is heard twenty times by choice; a lesson sentence, twice by duty.
 - **What there is today.** The Arabic road teaches from the deck's recordings only, and nothing lets a player bring the Arabic they actually listen to.
 
+## The one rule (Adam, 2026-11-23)
+
+**The player pastes a link, and that's all.** Everything else happens on its own:
+- the song is listened to and written down;
+- it's timed, translated and transliterated;
+- it's laid out as karaoke.
+
+No picking a match, no pasting words, no setting the timing.
+
 ## What it is
 
 **The singer's corner**, a new corner of the caravanserai, next to the inn. It opens after chapter 5 of the Long Road In, so a player knows enough words for the song to light some up.
 
-1. **Paste a link.** A YouTube link (`youtube.com/watch?v=`, `youtu.be/`, `music.youtube.com`, `/shorts/`).
-   - The corner reads the title and channel (oEmbed).
-   - It finds the song's synced lyrics on LRCLIB, by the title and the video's length.
-   - When it isn't sure, it shows up to 3 matches to pick from ("Fairuz · Habaytak bel sayf · 3:41").
-2. **Watch it, line by line.** YouTube's own player sits on top, at full width. The lyrics run underneath, never over it. Each line shows:
+1. **Paste a link.** Any YouTube link (`watch?v=`, `youtu.be/`, `music.youtube.com`, `/shorts/`, `/embed/`). The corner shows the video's title and starts at once.
+2. **The singer listens.** On our server:
+   - **The shared songbook comes first.** If any player has opened this video before, the song is ready at once and costs nothing.
+   - **Otherwise LRCLIB is asked** for the song's lyrics, by the video's title and length. That takes under a second.
+   - **Then the link goes to Gemini** (Google's own YouTube-link feature, no download), with LRCLIB's words, when found, given as a hint. Gemini writes down every sung line:
+     - in Arabic script, in the singer's own dialect;
+     - repeats included;
+     - with its start and end in *this* video.
+
+     The hint is only for words that are hard to hear. Gemini writes what's actually sung, as this video sings it.
+3. **The words are settled.** In the tests (research, Part 2):
+   - **With the hint,** a Fairuz song came back near word-perfect.
+   - **Without it,** about four lines in five were exact, and the rest were near-sounding words.
+   - **Songs LRCLIB doesn't have** are marked *heard by ear* in small letters, since a machine can mishear a word.
+4. **They're explained.** Per line: the meaning in English, the Latin in the deck's scheme, a gloss for each word, and the song's dialect. Words found in the deck or lesson words take the deck's own spelling and meaning.
+5. **Watch it, line by line.** YouTube's own player sits on top, at full width. The lyrics run underneath, never over it. Each line shows:
    - the Arabic, large, with the current line lit;
    - its Latin (or Hebrew letters, by the player's script setting);
    - its meaning in English, which can be hidden with one tap, to test yourself.
-   - Inside the lit line, the current word is lit by estimate: the line's time is spread over its words by length. Where LRCLIB has word timings, those are used instead.
-3. **Tap a word.** You see its gloss, its Latin, and whether you know it:
+   - Inside the lit line, the current word is lit by estimate (the line's time spread over its words by length).
+6. **Tap a word.** You see its gloss, its Latin, and whether you know it:
    - **known:** in your deck or lesson words, and in your reviews;
    - **met:** taught, but not yet reviewed;
    - **new.**
 
-   Words the song gets from another dialect say so ("Egyptian: *ʕayez*; ours is *biddi*").
-4. **Fix the timing.** −0.5 s / +0.5 s, and **This line is now** (tap while it's being sung to line everything up). The nudge is saved with the song.
-5. **Keep this line.** Up to 10 lines per song become review cards (FSRS item `song:<songId>:<line>`). A card:
-   - plays that line from the video (`seekTo` and play, stopping at the next line's time, all inside YouTube's player);
+   Words from another dialect say so ("Egyptian: *ʕayez*; ours is *biddi*").
+7. **Keep this line.** Up to 10 lines per song become review cards (FSRS item `song:<videoId>:<line>`). A card:
+   - plays that line from the video (`seekTo` and play, stopping at the next line's time, inside YouTube's player);
    - shows the line with one word missing, and 4 choices;
    - later, two words missing.
-6. **Your songbook.** Every song you've opened, with how many of its words you know, as a share (*"You know 34% of Habaytak bel sayf"*). It grows as you learn, which is the point.
-7. **No lyrics found.** **Paste the words** instead. You then time them yourself: play the song and tap **Next line** as each line starts. Pasted lyrics are explained the same way.
+8. **Your songbook.** Every song you've opened, with how many of its words you know, as a share (*"You know 34% of Habaytak bel sayf"*). It grows as you learn, which is the point.
+9. **If it's a little off.** A timing nudge (−/+ 0.5 s) is there for anyone who wants it. It's never needed to start.
+
+## While the singer is busy
+
+Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of the research measured how often. The player still does nothing:
+
+- **The server tries the next model.** The order is `gemini-3.6-flash` (the most accurate in the tests), then `gemini-3.5-flash-lite`, then `gemini-flash-lite-latest`, with a short wait between. The order is a setting, not code, because Google renames models often (`gemini-2.5-flash` was already gone for new keys on 2026-11-23).
+- **If all are busy,** the song is saved as *listening* in the shared songbook. The corner says "The singer is learning this one…" with a small animation.
+  - It retries on its own: at 30 s, 1, 2, 4 and 8 minutes while the page is open.
+  - Then whenever anyone opens the corner.
+- **If LRCLIB has synced lyrics whose length matches the video (±3 s),** the song is shown at once with LRCLIB's own timings, marked *timing approximate*, while Gemini is busy. When Gemini answers, the lines and times are replaced without a reload.
 
 ## Requirements (EARS)
 
-1. When a player pastes a text, the system shall accept only a YouTube video link, and shall read the 11-character video id from it. Anything else gets "That isn't a YouTube video link".
-2. When a link is accepted, the system shall read the title and channel through YouTube's oEmbed, and the length from the player (`getDuration()`), and shall look the song up on LRCLIB, preferring synced lyrics within ±3 s of the length.
-3. Where more than one match is likely, the system shall show up to 3 and let the player pick. Where none is found, it shall offer *Paste the words*.
-4. The video shall play only through the YouTube IFrame Player (`youtube-nocookie.com`), at least 200 × 200 px. Nothing shall be drawn over any part of it. The system shall never download, extract or record its audio.
-5. When lyrics are chosen, the system shall ask the AI to explain them in batches of at most 10 lines: per line, the meaning, the Latin in the deck's scheme, and a gloss for each word; and per song, the dialect. Words found in the deck or lesson words shall take the deck's own spelling and meaning, not the AI's.
-6. While the video plays, the system shall light the line whose time has come (with the player's nudge), and within it the word by estimate, or by LRCLIB's word timings where it has them. It shall check the time at least 4 times a second.
-7. A player shall be able to explain **2 new songs a day**. Opening a song already in their songbook shall cost nothing. Game-wide, songs shall use at most half of the AI's daily tokens, so the inn keeps the rest. Over the limit: "The singer is resting. Two new songs tomorrow; your songbook is open."
-8. The songbook shall store, in the player's own rows under RLS: the video id, the title, the LRCLIB id (or the pasted text, for pasted songs only), the nudge, the AI's notes per line, and the kept lines. Lyrics from LRCLIB shall be fetched fresh on each opening and not stored.
-9. Song lyrics shall never be put in `content/`, in git, in tests or in a table another player can read.
-10. *Keep this line* shall add an FSRS item `song:<songId>:<line>`, at most 10 per song. Its review shall play the line through the player, and shall be graded like the other choice drills (first try Good, second Hard, otherwise Again), as a result in the `listen` skill.
-11. When the player's script setting is Hebrew letters, the Latin shall be shown through `latinToHebrew`.
-12. Where the player is on a phone, the player shall stay at the top while the lines scroll beneath it.
-13. The events shall be `song-open`, `song-line-kept` and `song-review`, with one daily contract ("Sing along: keep 2 lines", 15 gold).
-14. The LRCLIB requests shall name the game (`Lrclib-Client: Waymark`), go one at a time, and honor `Retry-After`.
+1. When a player pastes a text, the system shall accept any YouTube video link and read the 11-character id from it. Anything else gets "That isn't a YouTube video link".
+2. When a link is accepted, the system shall need nothing more from the player to play the song with timed, explained lines.
+3. When a video id is already in the shared songbook and ready, the system shall show it without calling Gemini or LRCLIB.
+4. When a video id is new, the system shall first look the song up on LRCLIB by title and length (±3 s; plain or synced). Then it shall send the YouTube link to Gemini at the lowest video resolution (or the audio layer alone, where the API offers it), with LRCLIB's words as a hint when found. It shall ask for every sung line, repeats included, with its start and end as `MM:SS.s` text, under a response schema.
+5. The system shall parse each time from `MM:SS.s`, and shall reject an answer whose times don't run in order or run past the video's length (from `getDuration()`), retrying once. Where LRCLIB had no lyrics, the lines shall be marked *heard by ear*.
+6. When Gemini answers 503 or 429, the system shall try the next model in the list. When every model is busy, it shall save the song as *listening* and retry by itself as above, with no action from the player.
+7. The video shall play only through the YouTube IFrame Player (`youtube-nocookie.com`), at least 200 × 200 px, with nothing drawn over any part of it. The system shall never download, extract or record its audio itself. Listening is done by Gemini from the public link.
+8. The system shall explain the lines with Gemini (`gemini-3.5-flash-lite`, text), falling back to Groq (`openai/gpt-oss-120b`), in batches of at most 20 lines. Per line: the meaning, the Latin in the deck's scheme and a gloss per word. Per song: the dialect. The answer shall be checked against a schema.
+9. While the video plays, the system shall light the line whose time has come (with any nudge), and within it the word by estimate. It shall check the time at least 4 times a second.
+10. The shared songbook (`songs`) shall hold, per video: the title, the lines, their times, the source (LRCLIB or heard), the explanations and the state (*listening*, *ready*, *failed*). Every signed-in player can read it (Adam, 2026-11-23), and only the server function writes it. Each player's own `songbook` rows hold which songs they've opened, their nudge and their kept lines.
+11. Song lyrics shall never be put in `content/`, in git or in tests.
+12. A player shall be able to start **5 new songs a day**. Opening a ready song costs nothing. Game-wide, the system shall stop sending new videos to Gemini at 7 hours of video in a day, below the free tier's 8. Over the limit: "The singer is resting. Your songbook is open; new songs tomorrow."
+13. *Keep this line* shall add an FSRS item `song:<videoId>:<line>`, at most 10 per song. Its review shall play the line through the player, and shall be graded like the other choice drills (first try Good, second Hard, otherwise Again), as a result in the `listen` skill.
+14. When the player's script setting is Hebrew letters, the Latin shall be shown through `latinToHebrew`.
+15. The events shall be `song-open`, `song-line-kept` and `song-review`, with one daily contract ("Sing along: keep 2 lines", 15 gold).
+16. The LRCLIB requests shall name the game (`User-Agent: Waymark (…)`), go one at a time, and honor `Retry-After`.
 
 ## Non-functional
 
 - **Security.**
   - The CSP gains only what the player needs: `frame-src https://www.youtube-nocookie.com`, `script-src https://www.youtube.com` (the IFrame API loads its script from there, checked 2026-11-23) and `img-src https://i.ytimg.com`.
-  - LRCLIB and oEmbed are called from our server function, so `connect-src` doesn't change.
+  - Gemini, LRCLIB and oEmbed are called from our server function, so `connect-src` doesn't change.
   - The video id is checked against `^[A-Za-z0-9_-]{11}$` before it's used anywhere.
-  - The AI's answer is checked against a schema before it's shown, and shown as text, never as HTML.
+  - Every AI answer is checked against a schema and shown as text, never as HTML.
 - **Privacy.**
-  - Only the song's lyrics and title go to the AI, never anything the player typed.
-  - YouTube sees the video play, as on YouTube itself; `youtube-nocookie.com` keeps its cookies off until play.
+  - Only the video's link, its lyrics and its title go to Gemini (and Groq as backup), never anything the player typed.
+  - YouTube sees the video play, as on YouTube itself.
   - Both facts go on the privacy page.
-- **Speed.** The first explained batch shows within 8 s on a phone. The rest fill in while the song plays.
+- **Speed.**
+  - A song in the shared songbook opens at once.
+  - A new song is heard in about 7 s on a good day (6.4 s for a 5-minute song in the tests).
+  - The explanation fills in while the song plays.
+- **Function time.** Vercel's limit for a function is checked when built. The work is split into short calls (listen, then explain in batches), so no single call is long.
 - **Accessibility.**
   - Lines can be read with the video paused.
   - The lit line is announced politely, and can be turned off.
@@ -73,46 +108,70 @@
 
 ## Acceptance criteria
 
-- **Given** a `youtu.be` link to a song LRCLIB has synced, **when** it's pasted, **then** the song plays in YouTube's player, and the lines light up in time with it.
-- **Given** a song whose video has a long intro, **when** the player taps *This line is now* at the second line, **then** every later line lights up on time, and the nudge is still there tomorrow.
+- **Given** a `youtu.be` link to a song no one has opened, **when** it's pasted, **then** the player does nothing else. Within about 10 s on a good day, the song plays in YouTube's player, and the lines light up in time with the video.
+- **Given** a song LRCLIB has, **then** the heard lines use LRCLIB's spelling where it's sung that way, timed to this video's intro and edit.
+- **Given** a song LRCLIB doesn't have, **then** the heard lines are shown, marked *heard by ear*.
+- **Given** Gemini answers 503 on every model, **then** the corner shows "The singer is learning this one…", and the song appears by itself when a retry succeeds, with no tap.
+- **Given** a song another player opened yesterday, **when** a third player pastes its link, **then** it opens at once and uses none of that player's daily songs.
 - **Given** a line with بيت, **when** the player has بيت in their reviews, **then** it's marked *known*.
-- **Given** an Egyptian song, **then** its dialect is shown, and its Egyptian-only words are marked as not ours and aren't kept automatically.
-- **Given** a player who has explained 2 new songs today, **when** they paste a third, **then** they get the resting message, and their songbook still opens.
-- **Given** a video whose owner has turned off embedding, **then** the player says it can't play here, with a link to YouTube.
+- **Given** an Egyptian song, **then** its dialect is shown, and its Egyptian-only words are marked as not ours.
+- **Given** a video whose owner has turned off embedding, **then** the corner says it can't play here, with a link to YouTube.
 - **Given** a kept line, **when** it's due, **then** the review plays only that line, from the video, and asks for the missing word.
 - **Tests:**
-  - unit tests for the link parser, the LRC parser, the matcher (made-up records), the word-timing estimate, the nudge, the known-word marking and the limit;
-  - a database test for the songbook rows and their RLS, and the daily limit;
-  - a browser test with the player and LRCLIB mocked: paste, pick, play, nudge, keep, review, at phone size, with no overlay on the player.
+  - unit tests (with **made-up** lyrics only) for:
+    - the link parser;
+    - the LRC parser;
+    - the `MM:SS.s` parser and the order check;
+    - the model fallback order;
+    - the retry schedule;
+    - the word-timing estimate;
+    - the known-word marking;
+    - the limits;
+  - a database test for `songs` (read by all signed-in players, written by the server only), the `songbook` RLS and the daily limits;
+  - a browser test with YouTube, Gemini and LRCLIB mocked:
+    - paste, then the *listening* state, then ready by itself;
+    - play, the lines light up, a word tap, keep a line;
+    - at phone size, with no element over the player.
 
 ## Errors
 
 | Case | What happens |
 |---|---|
 | Not a YouTube link | "That isn't a YouTube video link." |
-| The video can't be embedded (player errors 101/150) | "This video can't play outside YouTube," with a link to YouTube. The songbook doesn't keep it. |
-| The video is private or deleted (player error 100) | "This video isn't there any more." |
-| No lyrics on LRCLIB | *Paste the words* is offered. |
-| LRCLIB says 429 or 503 | Wait for `Retry-After`, then try once more. Then: "The lyrics library is busy; try in a minute." |
-| The AI fails, or answers outside the schema | The Arabic still plays and lights up. The meanings show "Not explained yet", with *Try again*, which costs nothing extra that day. |
-| Over the daily limit | The resting message (requirement 7). |
+| The video can't be embedded (player errors 101/150) | "This video can't play outside YouTube," with a link to YouTube. |
+| The video is private, unlisted or deleted | "This video isn't public, so the singer can't hear it." (Gemini reads public videos only.) |
+| Gemini busy on every model | *Listening*, with automatic retries (above). |
+| Gemini answers but hears no singing | "No singing in this one." The song is saved as *failed*, so no one pays for it again. |
+| The lyrics aren't Arabic | "This song isn't in Arabic." It's saved as *failed*, for the same reason. |
+| LRCLIB says 429 or 503 | Honor `Retry-After` once. Then go on without it (Gemini's lines). |
+| The explanation fails | The Arabic still plays and lights up. The meanings fill in on the next retry. |
+| Over a daily limit | The resting message (requirement 12). |
 | Signed out, or offline | The corner says it needs a connection, like the inn. |
-| The lyrics are another language | "This song isn't in Arabic." The song isn't explained and isn't counted. |
 
 ## Implementation checklist
 
-- [ ] ADR 0059 accepted (Adam's questions answered).
 - [ ] CSP and privacy page updated; a test reads `vercel.json` and checks the CSP carries exactly the new hosts.
-- [ ] `src/subjects/arabic/song/`: link parser, LRC parser, matcher, timing (with the nudge), word marking. All pure and unit-tested.
-- [ ] `api/song.ts`: oEmbed, LRCLIB search and fetch, and the AI batches (Groq, schema-checked, in our Latin scheme), with the daily limit claimed in Supabase.
-- [ ] Migration: `songbook` and `songbook_lines` (own rows, RLS), and `claim_song()` (per player and game-wide).
-- [ ] The corner: paste, pick, the player (IFrame API, no overlay), the lines, word taps, the nudge, *Paste the words* and tap-to-time.
-- [ ] *Keep this line*, the review card (`song:` items) and the events and contract.
-- [ ] Docs: `ARCHITECTURE.md`, `RUNNING.md` (the limits), the privacy page and the guidebook page for the corner.
+- [ ] `src/subjects/arabic/song/`: link parser, LRC parser, `MM:SS.s` parser and order check, timing, word marking. All pure and unit-tested.
+- [ ] `api/song.ts`:
+  - `lookup`: LRCLIB;
+  - `listen`: Gemini with the YouTube link and LRCLIB's hint, with model fallback;
+  - `explain`: Gemini text, with Groq as backup;
+  - the limits claimed in Supabase.
+- [ ] Migration:
+  - `songs`: shared, read by signed-in players, written only through `security definer` functions the server calls;
+  - `songbook` and `songbook_lines`: own rows, RLS;
+  - `claim_song()`: 5 a day per player, and 7 hours of video a day game-wide.
+- [ ] The corner:
+  - paste;
+  - the *listening* state, with automatic retry;
+  - the player (IFrame API, no overlay);
+  - the lines and word taps;
+  - the nudge and the songbook.
+- [ ] *Keep this line*, the review card (`song:` items), the events and the contract.
+- [ ] Docs: `ARCHITECTURE.md`, `RUNNING.md` (the limits, and how to see songs stuck in *listening*), the privacy page and the guidebook page.
 
 ## Out of scope (kept, not dropped)
 
-- **Hearing a song ourselves.** Whisper on a song file the player owns and uploads (research §4). Parked until a test on three songs shows it hears sung Arabic well enough.
-- Sharing explained songs between friends (research §7, question 2).
+- Word-level timing heard from the audio (lines are timed; words are estimated within a line).
 - Singing back and being scored on it (that's the voice work of #342).
 - Songs in the Morse track. A Morse "song" is the rhythm itself, and that's the Radio Room.

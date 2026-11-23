@@ -482,3 +482,11 @@
    - The IFrame API loads its script from `www.youtube.com` only (checked). The CSP widening applies site-wide, because the app is one page.
    - Never put real lyrics in `content/`, git or tests.
    - Adam's four questions are in research §7: Groq or Gemini for lyrics, sharing explanations, "found, not extracted", and the order.
+196. **Phase 15 re-planned (2026-11-23): Gemini listens to the YouTube link.** Adam rejected "lyrics found or pasted": the player pastes the link and nothing else. He also said yes to sharing songs, put Phase 15 after Phase 14, and "figure out what's best" for the AI. Research Part 2 in [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md); ADR 0059 rewritten and Accepted; spec and issues #522–#527 updated.
+   - **The feature.** Gemini takes a public YouTube URL as `file_data.file_uri` and listens to it on Google's side. It's free in preview, with 8 hours of video a day.
+   - **Tested on Fairuz, *Habaytak bel sayf*.** About 4 lines in 5 exact alone. Near word-perfect with LRCLIB's plain lyrics as a hint (`gemini-3.6-flash`).
+   - **Ask for times as `MM:SS.s` text.** Asked in seconds, it writes 1:07 as `107`.
+   - **The free tier is often busy (503).** A 26-minute probe found at least one of `gemini-3.6-flash`, `gemini-3.5-flash-lite` and `gemini-flash-lite-latest` answering in every round. `gemini-3.8-flash` and `gemini-flash-latest` never did. Hence the model fallback, the *listening* state with automatic retries, and the shared `songs` table.
+   - **Download tools (yt-dlp) and transcript scrapers** are blocked from cloud servers, and yt-dlp would separate the audio against YouTube's policies.
+   - **Still to do in 15.3:** check the times by ear against the audio.
+   - **The test scripts** were scratch only; nothing is in the repo.

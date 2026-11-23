@@ -39,7 +39,7 @@
 - **Phase 12, faster than thought** (#497, v1.10.0): Morse past 20 wpm, as ADR 0009 promised.
 - **Phase 13, true and lasting** (#513, v1.11.0): our Arabic checked against its Latin, the data budget, the milestone check.
 - **Phase 14, writing words** (#514, v1.12.0): *Spell it* at the slate.
-- **Phase 15, songs** (#522, v1.13.0): paste a YouTube link and learn the song in karaoke style. ADR 0059 is Proposed and waits on Adam's four questions ([research](../research/song-karaoke-2026-11-23.md) §7).
+- **Phase 15, songs** (#522, v1.13.0): paste a YouTube link and learn the song, karaoke style. Gemini listens to the link; nothing else is asked of the player. ADR 0059 is Accepted; it's ordered after Phase 14.
 
 Adam answered on 2026-11-23: our own log, friends may delete their own account (with the proper conventions), and the order 10, 11, 12.
 
