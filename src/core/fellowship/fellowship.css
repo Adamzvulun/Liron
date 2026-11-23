@@ -225,7 +225,8 @@
   display: none;
 }
 
-/* A friend's house (task 3.2): their figure on a plinth, and a shelf of what they've earned. */
+/* A friend's house (tasks 3.2 and 7.9): their shelf, a panel over their room: their name plate
+   over what they've earned. */
 .friend-house__home {
   display: inline-block;
   margin: 0 0 14px;
@@ -235,27 +236,15 @@
 
 .friend-house {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-  align-items: start;
-}
-
-.friend-house__figure {
-  display: grid;
-  justify-items: center;
-  margin: 0;
-}
-
-.friend-house__avatar {
-  max-width: 100%;
-  height: auto;
+  gap: 14px;
+  max-width: 560px;
 }
 
 .friend-house__plate {
   display: grid;
   justify-items: center;
   gap: 2px;
-  margin-top: -6px;
+  margin: 0;
   padding: 8px 20px;
   border: 3px solid var(--ink);
   border-radius: 8px;
