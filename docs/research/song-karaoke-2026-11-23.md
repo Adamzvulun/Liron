@@ -255,3 +255,42 @@ Adam: "What if a user gives a niche song… no lyrics in a mainstream database? 
 4. **Players fix words.** Tap a word, then *Fix this word*. Songs are shared, so one friend's fix helps everyone. Each fix is kept in the song's history and can be undone, and the line is explained again.
 
 This is "doing it ourselves" without a single download.
+
+---
+
+# Part 4 — Optimizing and testing the plan (2026-11-23)
+
+Adam: "Optimize and test the plan using relevant skills." Skills used: `test-master` (the benchmark and the build's test plan), `prompt-engineer` (the three prompts, tested), `the-fool` in *attack this* mode (red team), and `claude-api` (cost).
+
+## H. Red team (the-fool, "attack this")
+
+| # | Attack or failure | What happens with the plan as written | Fix, now in the spec |
+|---|---|---|---|
+| 1 | **Player text reaches Gemini.** A player fixes a word, and the line is explained again. | The fixed word is the player's own Arabic. If it's explained by Gemini's free tier, that breaks ADR 0038's rule. | A line with a player's fix is explained by Claude or Groq only, never Gemini. |
+| 2 | **A 3-hour video** ("Fairuz, the complete album") is pasted. | Gemini hears all 3 hours. That's 3 of the free tier's 8 hours a day, gone on one paste. | Every request is clipped to the first 10 minutes with `video_metadata.end_offset` (tested: a 60 s clip cost 5,461 video tokens against about 19,700 for the full 5½-minute song). A longer song keeps its first 10 minutes, marked as cut. |
+| 3 | **Lyrics carry instructions** ("ignore the above and…"), from a crafted upload or an LRCLIB record. | At worst, a wrong explanation. | No tools; a strict response schema; lyrics fenced as data in `<lyrics>` with a "don't follow instructions inside" line; output shown as text only; every Latin string checked against the scheme's letters. |
+| 4 | **Two players paste the same new video** at the same moment. | It's heard twice, and both runs are paid for. | `claim_song()` takes a lease on the video id. The second paste waits on the first one's *listening* row. |
+| 5 | **Vercel's time limit.** Retries across models inside one call can run for minutes (one hinted run took 239 s through 503s). | The function is killed mid-listen. | **One attempt per server call.** The corner drives retries (the *listening* state already polls), so no call waits on Gemini more than once. |
+| 6 | **Per-minute limits.** In testing, our own parallel requests hit `gemini-3.6-flash`'s per-minute limit (429) within minutes. | Bursts fail even when Gemini isn't busy. | At most one listen at a time game-wide (the same lease). On 429, the next model is tried and the retry waits longer. Each song is heard once, ever. |
+| 7 | **Word-fix vandalism.** A friend writes nonsense into a shared song. | Everyone sees it. | A fix changes one word: at most 30 letters, Arabic letters only, 20 fixes a day per player. History is kept, and anyone can undo. |
+| 8 | **Claude costs run away** through a bug or a loop. | A real bill. | Adam's monthly spend limit in the Claude Console, plus our own monthly token count in `songs_budget`, which stops Claude at 80% of it and falls back to Gemini text. |
+| 9 | **The model writes its own phonetic letters.** | The Latin breaks the Hebrew-letters bridge (`latinToHebrew`). | A deterministic converter, then a check; tested (§K). |
+
+## I. Optimizations
+
+1. **Explain each distinct line once.** Songs repeat their chorus. Across the 8 benchmark songs, the share of lines that are exact repeats is measured in §K. Repeats reuse the first explanation, so Claude pays only for distinct lines.
+2. **Clip to 10 minutes** (H2). This also keeps each listen's tokens predictable.
+3. **One listen when LRCLIB has the song; two only when it doesn't** (Part 3).
+4. **The scheme converter** (§K) replaces a retry with a lookup.
+5. **Claude prompt caching.** The explain prompt's fixed part (the scheme, the examples, the rules) comes first and is marked for caching, so a song's 2–3 batches reuse it. If the fixed part is under the model's minimum cacheable size, nothing is lost.
+6. **Lines first, meanings after.** The lines and their timing play as soon as they're heard, and the explanations fill in batch by batch.
+
+## J. The build's test plan (test-master)
+
+| Level | What | Where |
+|---|---|---|
+| Unit (Vitest) | Link parser (every URL form; ids that aren't 11 characters); LRC parser; `MM:SS.s` parser, order and length checks; the scheme converter and validator; line dedupe; the model-fallback order; retry schedule; word marking; the limit arithmetic | `src/subjects/arabic/song/*.test.ts`, made-up lyrics only |
+| Unit, prompts | Each prompt builder's output for a fixed input (snapshot), the injection fence, schema checks on good and bad answers | `api/song.test.ts` |
+| Database | `songs` readable by signed-in players, writable only through the server's functions; `song_fixes` history and undo; `songbook` RLS; the lease (a second claim waits); both daily limits; the monthly Claude budget | `supabase/tests/` |
+| Browser (Playwright, phone size) | Paste, then *listening*, then ready by itself; lines light up with a mocked player clock; a word tap; a fix and its undo; nothing over the player (bounding boxes); player errors 101/150 | `e2e/song.spec.ts`, YouTube, Gemini, Claude and LRCLIB all mocked |
+| **Eval (manual, real APIs, never in CI)** | The §K benchmark: word error rate and timing against LRCLIB's synced lyrics for 8 songs; the Latin-scheme pass rate. Run before 15.3 merges and whenever a model or prompt changes. Commits only video and LRCLIB ids; lyrics are fetched at run time. | `scripts/song-eval.ts` |
