@@ -419,7 +419,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 - The chair turns four ways and the window seat two, with Turn (or R) in Decorate. `left` and `right` still mean facing the room, so no saved room changes. Spec: [the-home.md](../game/the-home.md) §15.
 
 ### ☐ 8.4 (#472) · v1.6 · A second room, bought with gems
-- Claude's choice, at Adam's word (2026-11-23): the roof, opened for 150 gems, with its own layout that friends can visit too.
+- Claude's choice, at Adam's word (2026-11-23): the roof, opened for 15 gems, with its own layout that friends can visit too.
 
 ### ☐ 8.5 (#473) · v1.5 · Release v1.5.0
 - 8.1–8.3 go out first as v1.5.0; the roof follows as v1.6.0.

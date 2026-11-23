@@ -202,4 +202,4 @@ Phase 8's first part (epic [#468](https://github.com/Adamzvulun/Liron/issues/468
 
 ### Next: v1.6.0 — The roof
 
-A second room, the roof, opened with 150 gems (8.4, #472): its own layout, and friends can visit it too.
+A second room, the roof, opened with 15 gems (8.4, #472): its own layout, and friends can visit it too.
