@@ -426,6 +426,8 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Order:** 8.1, 8.2, 8.3, then 8.5 (v1.5.0), then 8.4 (v1.6.0).
 
+**Done (2026-11-23):** v1.5.0 (#478) and v1.6.0 (#480) are live; the epic #468 is closed.
+
 ## Parked: ordered after everything above, each waiting on Adam
 
 | Item | Why it waits | What un-parks it |
