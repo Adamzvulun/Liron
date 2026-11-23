@@ -227,3 +227,7 @@ Phase 13 (#513): our Arabic checked against its Latin in CI, the data budget, an
 ### v1.12.0 — Writing words *(planned)*
 
 Phase 14 (#514): *Spell it* at the slate, and the inn on the Arabic keyboard ([arabic-spelling.md](../game/arabic-spelling.md)).
+
+### v1.13.0 — Songs *(planned)*
+
+Phase 15 (#522): paste a YouTube link and learn the song, line by line, in karaoke style ([song-karaoke.md](../game/song-karaoke.md), ADR 0059 Proposed).

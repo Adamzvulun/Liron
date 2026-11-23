@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-23 (v1.6.0 live; v1.7.0 waits on Adam's go; Phases 10–14 planned, #495–#497, #513, #514).
+- **Last updated:** 2026-11-23 (v1.6.0 live; v1.7.0 waits on Adam's go; Phases 10–15 planned, #495–#497, #513, #514, #522).
 - **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are
@@ -39,6 +39,7 @@
 - **Phase 12, faster than thought** (#497, v1.10.0): Morse past 20 wpm, as ADR 0009 promised.
 - **Phase 13, true and lasting** (#513, v1.11.0): our Arabic checked against its Latin, the data budget, the milestone check.
 - **Phase 14, writing words** (#514, v1.12.0): *Spell it* at the slate.
+- **Phase 15, songs** (#522, v1.13.0): paste a YouTube link and learn the song in karaoke style. ADR 0059 is Proposed and waits on Adam's four questions ([research](../research/song-karaoke-2026-11-23.md) §7).
 
 Adam answered on 2026-11-23: our own log, friends may delete their own account (with the proper conventions), and the order 10, 11, 12.
 

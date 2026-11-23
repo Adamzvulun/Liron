@@ -475,3 +475,10 @@
    - no writing of words.
 
    Phase 13 (#513: #515–#518) and Phase 14 (#514: #519–#521), with specs [milestone-check.md](../game/milestone-check.md) and [arabic-spelling.md](../game/arabic-spelling.md). Offline saving was checked and already holds (`subjectApi.ts`).
+195. **Phase 15 planned (2026-11-23), planning only: songs from YouTube (#522: #523–#528).** Adam asked for a way to paste a YouTube link and get a transcribed, translated and transliterated karaoke walkthrough. Research: [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Spec: [song-karaoke.md](../game/song-karaoke.md). [ADR 0059](../decisions/0059-songs-from-youtube.md) is Proposed.
+   - YouTube's developer policies forbid separating a video's audio, and its captions API serves only videos you can edit. So the song plays in YouTube's IFrame player, and the words come from LRCLIB or are pasted.
+   - LRCLIB was tested on 11 Arabic artists: mostly line-synced, word sync rare. It has no key and open CORS, and wants `Lrclib-Client` from browsers.
+   - Groq's free tier gives `gpt-oss-120b` 8K tokens a minute and 200K a day, shared with the inn. A song is about 10K, hence 2 new songs per player a day and a game-wide cap.
+   - The IFrame API loads its script from `www.youtube.com` only (checked). The CSP widening applies site-wide, because the app is one page.
+   - Never put real lyrics in `content/`, git or tests.
+   - Adam's four questions are in research §7: Groq or Gemini for lyrics, sharing explanations, "found, not extracted", and the order.
