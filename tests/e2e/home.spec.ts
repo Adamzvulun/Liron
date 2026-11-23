@@ -18,8 +18,9 @@ async function openRoom(page: Page, home?: unknown) {
 /** Taps the middle of a floor cell, panning the room to it first if it is out of view. */
 async function tapCell(page: Page, col: number, row: number) {
   const [x, y] = cellFeet(col, row);
-  // The room or the roof: whichever is shown.
-  const shown = page.locator('.room');
+  // The room or the roof: whichever is shown, never the placeholder while it loads (after a
+  // reload it matched that, and was gone by the time it was scrolled).
+  const shown = page.locator('.room:not(.room--loading)');
   await shown.scrollIntoViewIfNeeded();
   await shown.evaluate(
     (el, [x]) => {
