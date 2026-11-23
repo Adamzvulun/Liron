@@ -11,8 +11,8 @@ describe('the regulars’ tales (#491)', () => {
     }
   });
 
-  it('the first ten regulars each have one', () => {
-    for (const r of REGULARS.filter((x) => x.wordChapter <= 10))
+  it('the first thirty regulars each have one', () => {
+    for (const r of REGULARS.filter((x) => x.wordChapter <= 30))
       expect(taleOf(r.number)?.title).toBeTruthy();
   });
 
