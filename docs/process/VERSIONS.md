@@ -200,6 +200,6 @@ Phase 7 (epic #435, [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-pa
 
 Phase 8's first part (epic [#468](https://github.com/Adamzvulun/Liron/issues/468)): friends leave a note at your letterbox, a room's coziness only rises, and a chair turns four ways. Notes: [releases/v1.5.0.md](releases/v1.5.0.md). Released 2026-11-23 ([#478](https://github.com/Adamzvulun/Liron/pull/478)); its three migrations applied to `waymark-prod`.
 
-### Next: v1.6.0 — The roof
+### v1.6.0 — The roof
 
-A second room, the roof, opened with 15 gems (8.4, #472): its own layout, and friends can visit it too. Built on `dev`; notes: [releases/v1.6.0.md](releases/v1.6.0.md).
+A second room, the roof, opened with 15 gems (8.4, #472): its own layout, and friends can visit it too. Notes: [releases/v1.6.0.md](releases/v1.6.0.md). Released 2026-11-23 ([#480](https://github.com/Adamzvulun/Liron/pull/480)); its migration applied to `waymark-prod`.
