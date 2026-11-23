@@ -1136,3 +1136,12 @@
 .arabic__shape-more li {
   font-size: 15px;
 }
+
+/* A regular's tale (#491): our own lines, one under another. */
+.arabic__tale {
+  display: grid;
+  gap: 10px;
+  margin: 8px 0 4px;
+  padding: 0;
+  list-style: none;
+}
