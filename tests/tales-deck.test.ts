@@ -6,7 +6,7 @@ import tales from '../content/arabic/tales.json' with { type: 'json' };
 
 // The regulars' tales (#491) are made only of words you know: every word of a tale is a word
 // taught in its chapter or before, give or take the endings the grammar cards teach (il-, ha-l,
-// w-, b- and the person prefixes; -ak, -i, -u, -ha, -na, -hum, -u for "they"). Names are allowed.
+// w-, b- and the person prefixes; -ak, -i, -u, -ha, -na, -hum, -u for "they", -t for "I did"). Names are allowed.
 // Needs the deck, which is never in git (ADR 0054): CI skips this, so run it locally, with the
 // deck in sources/, after changing tales.json.
 
@@ -26,7 +26,7 @@ const words = (s: string) =>
 
 const FRONT = ['وهال', 'وال', 'وا', 'بال', 'هال', 'ال', 'و', 'ا'];
 const PERSON = ['بت', 'بن', 'بي', 'ب', 'ت', 'ن', 'ي', ''];
-const ENDS = ['وا', 'ات', 'ها', 'نا', 'كم', 'هم', 'ني', 'ك', 'ي', 'و', 'ه', ''];
+const ENDS = ['وا', 'ات', 'ت', 'ها', 'نا', 'كم', 'هم', 'ني', 'ك', 'ي', 'و', 'ه', ''];
 
 /** The forms a word in a tale may come from. */
 function stems(token: string): Set<string> {
@@ -46,6 +46,8 @@ function stems(token: string): Set<string> {
           // The stem as said (دفع), with a he-does prefix (يدفع), or with -i (بدّي from بدّك);
           // -a written t before an ending (خالتو from خالة), and -āt for -a's plural (مجلات).
           out.add(c).add(`ي${c}`).add(`${c}ي`).add(c.replace(/ت$/, 'ه')).add(`${c}ه`);
+          // A hollow verb loses its long ā before -t, "I did" (رحت from راح, شفت from شاف).
+          if (e === 'ت' && c.length === 2) out.add(`${c[0]}ا${c[1]}`);
         }
       }
     }
