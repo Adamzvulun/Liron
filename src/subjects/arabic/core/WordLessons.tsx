@@ -19,6 +19,7 @@ import {
   coreWordsFrom,
   loadOwnSentences,
   pickSession,
+  shapeMates,
   shuffle,
   WORD_CHAPTERS,
   wordQuestions,
@@ -37,6 +38,7 @@ import {
 import { reportWords, reportWordTrial, scoreOfWords, type WordAnswer } from './report.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
 import { NoDeck } from '../NoDeck.tsx';
+import { BINYAN } from './verbShapes.ts';
 
 type Stage =
   | { kind: 'start' }
@@ -374,6 +376,7 @@ export function WordLessons({
           index={stage.index}
           count={stage.fresh.length}
           play={play}
+          pool={pool}
           onNext={(now) =>
             stage.index + 1 < stage.fresh.length
               ? setStage({ ...stage, index: stage.index + 1 })
@@ -388,6 +391,7 @@ export function WordLessons({
           index={stage.index}
           count={stage.questions.length}
           play={play}
+          pool={pool}
           onAnswered={(right, now) => {
             const answers = [...stage.answers, { question: current, right }];
             if (stage.index + 1 < stage.questions.length)
@@ -532,7 +536,15 @@ function GrammarCardView({
 }
 
 /** A word's card: the Arabic, how it sounds (Hebrew letters and the deck's Latin), its meaning. */
-function WordCard({ word, play }: { word: CoreWord; play: (path: string) => void }) {
+function WordCard({
+  word,
+  play,
+  pool,
+}: {
+  word: CoreWord;
+  play: (path: string) => void;
+  pool: readonly CoreWord[];
+}) {
   return (
     <div className="arabic__phrase">
       <button
@@ -564,7 +576,57 @@ function WordCard({ word, play }: { word: CoreWord; play: (path: string) => void
           {word.kin.note && ` (${word.kin.note})`}
         </span>
       )}
+      {word.shape && <ShapeBadge key={word.deck} word={word} pool={pool} />}
     </div>
+  );
+}
+
+/**
+ * A verb whose shape matches a binyan (ADR 0002): the badge names it, and opens to how the Arabic
+ * shows it and the other verbs of that shape met so far.
+ */
+function ShapeBadge({ word, pool }: { word: CoreWord; pool: readonly CoreWord[] }) {
+  const [open, setOpen] = useState(false);
+  if (!word.shape) return null;
+  const b = BINYAN[word.shape];
+  const mates = shapeMates(word, pool);
+  return (
+    <>
+      <button
+        type="button"
+        className="arabic__kin arabic__shape"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+      >
+        Shaped like {b.name},{' '}
+        <bdi lang="he" dir="rtl">
+          {b.example}
+        </bdi>
+        <span className="arabic__shape-arrow" aria-hidden="true">
+          {open ? '▴' : '▾'}
+        </span>
+      </button>
+      {open && (
+        <div className="arabic__shape-more">
+          <p>{b.how}</p>
+          {mates.length > 0 && (
+            <>
+              <p>More verbs of this shape, from your chapters so far:</p>
+              <ul>
+                {mates.map((m) => (
+                  <li key={m.deck}>
+                    <bdi lang="ar" dir="rtl">
+                      {m.arabic.split('،')[0]}
+                    </bdi>{' '}
+                    {m.meaning}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -624,12 +686,14 @@ function MeetWord({
   index,
   count,
   play,
+  pool,
   onNext,
 }: {
   word: CoreWord;
   index: number;
   count: number;
   play: (path: string) => void;
+  pool: readonly CoreWord[];
   onNext: (now: number) => void;
 }) {
   useEffect(() => {
@@ -640,7 +704,7 @@ function MeetWord({
       <p className="lesson__kicker">
         New word · {index + 1} of {count}
       </p>
-      <WordCard word={word} play={play} />
+      <WordCard word={word} play={play} pool={pool} />
       <Sentence word={word} play={play} />
       <div className="lesson__actions">
         <button type="button" className="lesson__go" onClick={() => onNext(Date.now())} autoFocus>
@@ -662,12 +726,14 @@ function Ask({
   index,
   count,
   play,
+  pool,
   onAnswered,
 }: {
   question: WordQuestion;
   index: number;
   count: number;
   play: (path: string) => void;
+  pool: readonly CoreWord[];
   onAnswered: (right: boolean, now: number) => void;
 }) {
   const [picked, setPicked] = useState<string | null>(null);
@@ -738,7 +804,7 @@ function Ask({
               </>
             )}
           </p>
-          <WordCard word={word} play={play} />
+          <WordCard word={word} play={play} pool={pool} />
           <SayWord key={word.deck} word={word} play={play} />
           <button
             type="button"

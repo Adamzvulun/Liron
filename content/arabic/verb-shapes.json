@@ -1,0 +1,1123 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (written for Waymark): each taught verb's deck id and the Hebrew binyan its Arabic shape matches (ADR 0002). The deck stays private (ADR 0011).",
+  "items": [
+    {
+      "id": "shape:0035",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0035",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0219",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0219",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0254",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0254",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0285",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0285",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0738",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0738",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0739",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0739",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0742",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0742",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0801",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0801",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0805",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0805",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0808",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0808",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0859",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0859",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0867",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0867",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0880",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0880",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:0989",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0989",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1316",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1316",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1369",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1369",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1546",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1546",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1553",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1553",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1640",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1640",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1780",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1780",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1908",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1908",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1960",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1960",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2054",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2054",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2067",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2067",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2077",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2077",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2136",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2136",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2138",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2138",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2158",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2158",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2195",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2195",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2197",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2197",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2299",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2299",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2300",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2300",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2301",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2301",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2302",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2302",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2311",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2311",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2319",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2319",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2329",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2329",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2378",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2378",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2386",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2386",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2419",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2419",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2430",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2430",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2463",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2463",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2688",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2688",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2690",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2690",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2692",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2692",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2804",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2804",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2809",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2809",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:2951",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2951",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3006",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3006",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3021",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3021",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3035",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3035",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3038",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3038",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3044",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3044",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3139",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3139",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3236",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3236",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3267",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3267",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3313",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3313",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3742",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3742",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3868",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3868",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3870",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3870",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:3930",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3930",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4032",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4032",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4543",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4543",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4548",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4548",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4551",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4551",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4562",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4562",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4579",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4579",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4582",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4582",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4583",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4583",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4587",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4587",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4595",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4595",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4601",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4601",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4602",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4602",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4606",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4606",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4638",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4638",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4658",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4658",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4659",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4659",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:4664",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4664",
+        "shape": "piel"
+      }
+    },
+    {
+      "id": "shape:1012",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1012",
+        "shape": "hifil"
+      }
+    },
+    {
+      "id": "shape:2070",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2070",
+        "shape": "hifil"
+      }
+    },
+    {
+      "id": "shape:2689",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2689",
+        "shape": "hifil"
+      }
+    },
+    {
+      "id": "shape:2703",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2703",
+        "shape": "hifil"
+      }
+    },
+    {
+      "id": "shape:3199",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3199",
+        "shape": "hifil"
+      }
+    },
+    {
+      "id": "shape:4592",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4592",
+        "shape": "hifil"
+      }
+    },
+    {
+      "id": "shape:4612",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4612",
+        "shape": "hifil"
+      }
+    },
+    {
+      "id": "shape:0061",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0061",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:0151",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0151",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:0189",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0189",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:0199",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0199",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:0220",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0220",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:0339",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0339",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:0346",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0346",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:0900",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0900",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:1014",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1014",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:1016",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1016",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:1315",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1315",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:1359",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1359",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:1447",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1447",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:1570",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1570",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:1691",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1691",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:2221",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2221",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:2514",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2514",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:2545",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2545",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:2619",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2619",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:2642",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2642",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:2721",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2721",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:3027",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3027",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:3042",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3042",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:3047",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3047",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:3164",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3164",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:3235",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3235",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:3327",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3327",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:3572",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3572",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:4560",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4560",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:4563",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4563",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:4575",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4575",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:4625",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4625",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:4628",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:4628",
+        "shape": "hitpael"
+      }
+    },
+    {
+      "id": "shape:0005",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0005",
+        "shape": "nifal"
+      }
+    },
+    {
+      "id": "shape:0180",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:0180",
+        "shape": "nifal"
+      }
+    },
+    {
+      "id": "shape:1370",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1370",
+        "shape": "nifal"
+      }
+    },
+    {
+      "id": "shape:1686",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:1686",
+        "shape": "nifal"
+      }
+    },
+    {
+      "id": "shape:2860",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:2860",
+        "shape": "nifal"
+      }
+    },
+    {
+      "id": "shape:3597",
+      "subject": "arabic",
+      "type": "verb-shape",
+      "data": {
+        "deck": "pcav:3597",
+        "shape": "nifal"
+      }
+    }
+  ]
+}
