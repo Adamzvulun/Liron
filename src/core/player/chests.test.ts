@@ -84,6 +84,9 @@ describe('reward chests (ADR 0033)', () => {
       lootOf({ ...base, gems: 2, item: 'cloak', shield: true, shieldGold: 0 }).map((l) => l.text),
     ).toEqual(['+50 gold', '+2 gems', 'Merchant cloak, new to wear', 'A streak shield']);
     expect(
+      lootOf({ ...base, item: 'home-plant', shield: false, shieldGold: 0 }).map((l) => l.text),
+    ).toEqual(['+50 gold', 'Plant, new for your room']);
+    expect(
       lootOf({ ...base, item: 'boots', itemGold: 60, shield: true, shieldGold: 120 }).map(
         (l) => l.text,
       ),

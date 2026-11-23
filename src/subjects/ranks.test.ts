@@ -202,12 +202,33 @@ describe('the House of the Crossing’s ranks (#174)', () => {
   });
 });
 
+describe('the guild banners (#443)', () => {
+  it('names, for the first rank of each guild, the banner the catalogue gives for it', () => {
+    const pack = catalogue as {
+      items: { id: string; data: { kind: string; milestone?: object } }[];
+    };
+    const given = [
+      ...MORSE_RANKS.map((r) => ['morse', r] as const),
+      ...ARABIC_RANKS.map((r) => ['arabic', r] as const),
+    ].filter(([, r]) => r.banner);
+    expect(given.map(([s, r]) => [s, r.id])).toEqual([
+      ['morse', 'listener'],
+      ['arabic', 'guest'],
+    ]);
+    for (const [subject, r] of given)
+      expect(pack.items.find((i) => i.id === r.banner)?.data).toMatchObject({
+        kind: 'furniture',
+        milestone: { kind: 'rank', subject, rank: r.id },
+      });
+  });
+});
+
 describe('rank gear (#176)', () => {
   it('names, for each rank that has one, a piece the catalogue gives for that rank', () => {
     const pack = catalogue as {
       items: {
         id: string;
-        data: { milestone?: { kind: string; subject?: string; rank?: string } };
+        data: { kind: string; milestone?: { kind: string; subject?: string; rank?: string } };
       }[];
     };
     const given = [
@@ -216,7 +237,8 @@ describe('rank gear (#176)', () => {
     ].filter(([, r]) => r.gear);
     expect(given.map(([, r]) => r.gear).sort()).toEqual(
       pack.items
-        .filter((i) => i.data.milestone?.kind === 'rank')
+        // The guild banners are furniture, given by a rank too (the-home.md §7).
+        .filter((i) => i.data.milestone?.kind === 'rank' && i.data.kind === 'gear')
         .map((i) => i.id)
         .sort(),
     );

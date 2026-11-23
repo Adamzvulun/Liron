@@ -2,12 +2,12 @@ import { expect, test } from './fixtures.ts';
 import { signedIn } from './fake-supabase.ts';
 
 test.describe('the Market (#49)', () => {
-  test('sells 4 wares; gold buys one, and it goes to the wardrobe', async ({ page }) => {
+  test('sells 5 wares; gold buys one, and it goes to the wardrobe', async ({ page }) => {
     await signedIn(page, [], [], null, [], { gold: 130 });
     await page.goto('/market');
     const wares = page.getByRole('region', { name: 'Today’s wares' }).getByRole('listitem');
-    await expect(wares).toHaveCount(4);
-    await expect(page.getByText('Four wares a day. Gold only, earned by learning.')).toBeVisible();
+    await expect(wares).toHaveCount(5);
+    await expect(page.getByText('Five wares a day. Gold only, earned by learning.')).toBeVisible();
     // The robe costs 180: 50 more gold, and it can't be bought.
     await expect(page.getByText('50 more gold')).toBeVisible();
     await expect(
@@ -26,7 +26,7 @@ test.describe('the Market (#49)', () => {
 
     // The shop points you to the wardrobe to try it on.
     await page.getByRole('link', { name: 'Try it on at your house' }).click();
-    await expect(page).toHaveURL(/\/house$/);
+    await expect(page).toHaveURL(/\/house#wardrobe$/);
     await page.locator('label', { hasText: 'Red tarboosh' }).click();
     await expect(page.getByRole('radio', { name: 'Red tarboosh' })).toBeChecked();
   });
@@ -38,6 +38,31 @@ test.describe('the Market (#49)', () => {
     await expect(lane).toHaveAttribute('aria-hidden', 'true');
     await expect(lane.locator('img')).toHaveJSProperty('complete', true);
     await expect(page.getByRole('region', { name: 'Today’s wares' })).toBeVisible();
+  });
+
+  test('sells a chair, shown in a room, which then goes in your room (#443)', async ({ page }) => {
+    await signedIn(page, [], [], null, [], { gold: 130 });
+    await page.goto('/market');
+    const chair = page
+      .getByRole('region', { name: 'Today’s wares' })
+      .getByRole('listitem')
+      .filter({ hasText: 'Chair' });
+    await expect(chair.getByText('Common · for your room')).toBeVisible();
+    await expect(chair.locator('.market__room image')).toHaveCount(1);
+    await chair.getByRole('button', { name: 'Buy Chair for 60 gold' }).click();
+    await expect(page.getByText('Chair is yours.')).toBeVisible();
+    await page.getByRole('link', { name: 'Place it in your room' }).click();
+    await expect(page).toHaveURL(/\/house$/);
+    await page.getByRole('button', { name: 'Decorate' }).click();
+    await page.getByRole('button', { name: 'Pick up the chair' }).click();
+    // Set down on the rug, in the middle of the room.
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('Enter');
+    await expect(page.getByText('Set down the chair.')).toBeVisible();
+    const save = page.waitForRequest('**/rpc/save_home');
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    const { p_layout } = (await save).postDataJSON() as { p_layout: { pieces: { id: string }[] } };
+    expect(p_layout.pieces.map((p) => p.id)).toContain('home-chair');
   });
 
   test('what you own says so instead of a price', async ({ page }) => {

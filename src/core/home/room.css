@@ -1,0 +1,253 @@
+/* The room you walk in (task 7.5). A box on the house's page: the whole room on a wide screen,
+   and on a phone held upright the room's height, panning sideways (useStage). */
+.room {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 20px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #2a1a10;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
+  outline-offset: 3px;
+}
+
+@media (max-width: 899px) and (orientation: portrait) {
+  .room {
+    aspect-ratio: auto;
+    height: min(68svh, 620px);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+}
+
+.room__stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: top left;
+  cursor: pointer;
+  touch-action: pan-x;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.room__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.room__light {
+  z-index: 100;
+  transition: opacity 400ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .room__light {
+    transition: none;
+  }
+}
+
+.room__figure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 100px 300px;
+  pointer-events: none;
+}
+
+.room__figure--moving {
+  transition: transform 250ms linear;
+}
+
+.room__say {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: 110;
+  margin: 0;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgb(36 22 14 / 82%);
+  color: #ffe7a8;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.room__say:empty {
+  display: none;
+}
+
+.room--pan .room__say {
+  position: sticky;
+  left: auto;
+  bottom: auto;
+  top: calc(100% - 48px);
+  display: block;
+  width: max-content;
+  margin: 0 auto;
+  transform: none;
+}
+
+.room--pan .room__say:empty {
+  display: none;
+}
+
+/* The list "In this room" (§5): every piece that does something, as a button. */
+.room__list {
+  margin: -8px 0 24px;
+}
+
+.room__list-title {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffe7a8;
+}
+
+.room__list ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.room__thing {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.room__thing:hover {
+  background: #fff3d6;
+}
+
+/* A panel opened from the room: over it, with the room dimmed behind. */
+.room-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px;
+  background: rgb(20 14 10 / 94%);
+}
+
+.room-panel__sheet {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.room-panel__close {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-height: 44px;
+  margin: 0 0 12px;
+  padding: 8px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Decorate (§6): the grid over the light, and no panning under a held piece. */
+.room__grid {
+  z-index: 101;
+}
+
+.room__stage[data-holding] {
+  touch-action: none;
+}
+
+.decorate__start,
+.decorate__button,
+.decorate__piece {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.decorate__start {
+  margin-top: 0.75rem;
+}
+
+.decorate__button--main {
+  font-weight: 700;
+}
+
+.decorate__button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.decorate__say {
+  min-height: 1.5em;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.decorate__actions,
+.decorate__tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.decorate__tray {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.decorate__title {
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+.decorate__styles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.decorate__style {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-weight: 700;
+}
+
+.decorate__style select {
+  min-height: 44px;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid var(--ink);
+  border-radius: 0.5rem;
+  background: var(--parchment);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+}

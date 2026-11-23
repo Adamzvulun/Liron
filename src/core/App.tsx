@@ -28,7 +28,7 @@ import { cityErrands, useCompass, type CompassSources } from './player/compass.t
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
 import { GUIDEBOOK_PATH, GuideContext } from './guide/context.ts';
-import { cardSide, isInside, nextIntroduction } from './guide/introductions.ts';
+import { cardSide, isForRoom, isInside, nextIntroduction } from './guide/introductions.ts';
 import { GUIDE_IDS, guideSeen } from './guide/seen.ts';
 import { useSpokenThisVisit, whoSpeaks } from './guide/voice.ts';
 import { localDay } from './road/road.ts';
@@ -44,6 +44,7 @@ import { supabaseChallenges } from './fellowship/challenges.ts';
 import { giftProblem, supabaseTogether } from './fellowship/together.ts';
 import { supabaseWire } from './fellowship/wire.ts';
 import type { Giving } from './fellowship/GiftOffer.tsx';
+import type { Layout } from './home/layout.ts';
 import { functionServices } from './services.ts';
 import { ASSUMED_FACTS, readFacts, RoadFactsContext, type RoadFacts } from './road/facts.ts';
 import { functionSpeech } from './speech.ts';
@@ -70,6 +71,7 @@ const FriendHouse = lazy(() => views().then((m) => ({ default: m.FriendHouse }))
 const PartyFeed = lazy(() => views().then((m) => ({ default: m.PartyFeed })));
 const ChestShelf = lazy(() => views().then((m) => ({ default: m.ChestShelf })));
 const HouseBackdrop = lazy(() => views().then((m) => ({ default: m.HouseBackdrop })));
+const HouseRoom = lazy(() => views().then((m) => ({ default: m.HouseRoom })));
 const MarketBackdrop = lazy(() => views().then((m) => ({ default: m.MarketBackdrop })));
 const BoardBackdrop = lazy(() => views().then((m) => ({ default: m.BoardBackdrop })));
 const TogetherQuest = lazy(() => views().then((m) => ({ default: m.TogetherQuest })));
@@ -142,6 +144,10 @@ const wire =
 /** Fellowship quests and gifts (task 3.5): counted, paid and given by the database. */
 const together = supabase && fellowship ? supabaseTogether(supabase) : null;
 const readGifts = together ? () => together.gifts() : undefined;
+/** Your House's saved room; null, as for a player who never decorated, without a store. */
+const readHome = () => store?.home() ?? Promise.resolve(null);
+const saveHome = (layout: Layout) =>
+  store ? store.saveHome(layout) : Promise.reject(new Error('not signed in'));
 
 const sharing = fellowship
   ? {
@@ -457,6 +463,7 @@ function Lobby({ player }: { player: Player }) {
           {
             gold: state.wallet.gold,
             owned: state.profile.owned.length,
+            forRoom: state.profile.owned.filter(isForRoom).length,
             friends: friends.length,
             roads: roads.map((r) => ({
               hall: placeAt(r.href.split('?')[0] ?? ''),
@@ -508,7 +515,12 @@ function Lobby({ player }: { player: Player }) {
         {/* A friend's house and the Arena load their code too (review, 2026-11-19). */}
         <PlaceBoundary key={visiting}>
           <Suspense fallback={<p className="place__loading">Knocking at the door…</p>}>
-            <FriendHouse id={visiting} source={fellowship} backdrop={<HouseBackdrop />} />
+            <FriendHouse
+              id={visiting}
+              source={fellowship}
+              look={state.profile?.avatar}
+              backdrop={<HouseBackdrop />}
+            />
           </Suspense>
         </PlaceBoundary>
         {celebrations}
@@ -632,27 +644,39 @@ function Lobby({ player }: { player: Player }) {
               )}
               {place === 'house' && state.profile && (
                 <Suspense fallback={<p className="place__loading">Opening the doors…</p>}>
-                  <Wardrobe
-                    look={state.profile.avatar}
+                  <HouseRoom
+                    onLoad={readHome}
+                    onSave={saveHome}
                     owned={state.profile.owned}
-                    name={state.profile.displayName}
-                    onSave={player.setAvatar}
+                    look={state.profile.avatar}
+                    panels={{
+                      wardrobe: (
+                        <Wardrobe
+                          look={state.profile.avatar}
+                          owned={state.profile.owned}
+                          name={state.profile.displayName}
+                          onSave={player.setAvatar}
+                        />
+                      ),
+                      ledger: today && <Ledger onLoad={readLedger} roads={roads} />,
+                      trophies: (
+                        <AchievementWall
+                          mine={state.achievements}
+                          title={state.profile.title}
+                          onLoad={player.loadAchievements}
+                          onWear={player.setTitle}
+                        />
+                      ),
+                      fellowship: fellowship && (
+                        <Fellowship
+                          source={fellowship}
+                          gifts={readGifts}
+                          today={today}
+                          named={state.profile.displayName.trim() !== ''}
+                        />
+                      ),
+                    }}
                   />
-                  {today && <Ledger onLoad={readLedger} roads={roads} />}
-                  <AchievementWall
-                    mine={state.achievements}
-                    title={state.profile.title}
-                    onLoad={player.loadAchievements}
-                    onWear={player.setTitle}
-                  />
-                  {fellowship && (
-                    <Fellowship
-                      source={fellowship}
-                      gifts={readGifts}
-                      today={today}
-                      named={state.profile.displayName.trim() !== ''}
-                    />
-                  )}
                 </Suspense>
               )}
             </PlaceBoundary>

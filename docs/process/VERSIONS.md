@@ -190,4 +190,12 @@ A fix release for v1.3.0's guide: Nour's card no longer hides the place Nour tal
 
 ### v1.3.2 — In our own words
 
-A fix release: the 60 English meanings that were the deck's own sentences are our own translations of their Arabic now (report §4el). Notes: [releases/v1.3.2.md](releases/v1.3.2.md). Ready on 2026-11-22, held until Vercel's daily deploy limit passes (HANDOFF 157).
+A fix release: the 60 English meanings that were the deck's own sentences are our own translations of their Arabic now (report §4el). Notes: [releases/v1.3.2.md](releases/v1.3.2.md). Released 2026-11-23 ([#434](https://github.com/Adamzvulun/Liron/pull/434)), once Vercel's daily deploy limit had passed (HANDOFF 157).
+
+### v1.4.0 — A home of your own
+
+Phase 7 (epic #435, [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-page.md)): Your House becomes a room you walk in, sit in and decorate, with furniture, wallpapers and floors from the Market and chests, a banner for each guild's first rank, and visits to friends' rooms as they arranged them. New players start with an Arabic name. Notes: [releases/v1.4.0.md](releases/v1.4.0.md). Drafted 2026-11-23; it follows v1.3.2.
+
+### Next: v1.4.0 — A home of your own
+
+Your House becomes a room you walk in, decorate and invite friends into (Phase 7, epic [#435](https://github.com/Adamzvulun/Liron/issues/435), [the-home.md](../game/the-home.md)). **Waits on Adam for:** the room's look (7.1), and a visit both ways with a friend (7.11).

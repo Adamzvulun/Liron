@@ -2,6 +2,7 @@ import { DEFAULT_LOOK, type Look } from '../avatar/looks.ts';
 import type { SubjectProgress } from '../subject.ts';
 import type { ScheduledReview, StoredCard } from '../srs/scheduler.ts';
 import type { StoredRating } from '../rating/ratings.ts';
+import type { Layout } from '../home/layout.ts';
 import { ACHIEVEMENTS, type MyAchievements } from '../achievements/achievements.ts';
 import {
   addDays,
@@ -118,8 +119,8 @@ export interface ChestContents {
 /** One of the Market's wares today (ADR 0033, #49). */
 export interface Ware {
   id: string;
-  kind: 'gear' | 'color' | 'functional';
-  /** The gear slot; null for colors and functional items. */
+  kind: 'gear' | 'color' | 'functional' | 'furniture' | 'style';
+  /** The gear slot; null for colors, functional items and furniture. */
   slot: string | null;
   rarity: string;
   price: number;
@@ -128,7 +129,7 @@ export interface Ware {
   affordable: boolean;
 }
 
-/** The Market's stall today: 4 wares, the same for everyone. */
+/** The Market's stall today: 5 wares, the same for everyone. */
 export interface MarketStall {
   day: string;
   wares: Ware[];
@@ -181,6 +182,13 @@ export interface ProgressStore {
   setAvatar(look: Look): Promise<void>;
   /** Adds ids to what the guide has shown the player; ids already there stay once (#407). */
   markGuideSeen(ids: readonly string[]): Promise<void>;
+  /**
+   * The player's room as saved (task 7.3): read it with `parseLayout`, and show the starter
+   * room when it is null or unreadable. Kept raw so the store doesn't load the home's rules.
+   */
+  home(): Promise<unknown>;
+  /** Saves the whole room; the database refuses it, saving nothing, if any rule fails. */
+  saveHome(layout: Layout): Promise<void>;
   /** The player's achievements (#177): any now met are given first, and their gems paid. */
   achievements(): Promise<MyAchievements>;
   /** Wears an earned title, or none with ''; the database refuses one not earned. */
@@ -268,6 +276,7 @@ export function memoryStore(
     return s;
   };
   const wallet: Wallet = { xp: 0, gold: 0, gems: 0 };
+  let home: Layout | null = null;
   const profile: Profile = {
     displayName: '',
     avatar: DEFAULT_LOOK,
@@ -464,6 +473,12 @@ export function memoryStore(
     },
     async markGuideSeen(ids) {
       profile.guideSeen = [...new Set([...profile.guideSeen, ...ids])].sort();
+    },
+    async home() {
+      return home === null ? null : structuredClone(home);
+    },
+    async saveHome(layout) {
+      home = structuredClone(layout);
     },
     async achievements() {
       return {

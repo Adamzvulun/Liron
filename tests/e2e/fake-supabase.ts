@@ -57,6 +57,7 @@ export const GUIDE_SAID = [
   'intro:other-hall',
   'intro:arena',
   'intro:ledger',
+  'intro:decorate',
   // First-visit cards (#411): the platform's places, then each hall's.
   ...['board', 'market', 'house', 'arena'].map((p) => `card:${p}`),
   ...['hall', 'lessons', 'recognition', 'sending', 'codebook', 'radio'].map(
@@ -129,7 +130,11 @@ export interface Extras {
     quest?: Record<string, unknown> | null;
     /** Gifts for the player, as `my_gifts` returns them. */
     gifts?: Record<string, unknown>[];
+    /** Friends' rooms by id (task 7.3), as `home_of` returns them; null for anyone else. */
+    homes?: Record<string, unknown>;
   };
+  /** The player's saved room (task 7.3), as `my_home` returns it; `save_home` replaces it. */
+  home?: unknown;
 }
 
 /** A friend's card as the database returns it (fellowship-build.md §3). */
@@ -154,6 +159,7 @@ export const STALL = [
   { id: 'robe', kind: 'gear', slot: 'torso', rarity: 'rare', price: 180 },
   { id: 'indigo-dye', kind: 'color', slot: null, rarity: 'common', price: 60 },
   { id: 'streak-shield', kind: 'functional', slot: null, rarity: 'functional', price: 120 },
+  { id: 'home-chair', kind: 'furniture', slot: null, rarity: 'common', price: 60 },
 ] as const;
 
 /**
@@ -307,7 +313,7 @@ export async function fakeSupabase(
     }
     // The Fellowship's functions (task 3.1): a list that changes as the player acts.
     const fellowshipFn =
-      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests|fellowship_feed|record_round_score|send_challenge|answer_challenge|decline_challenge|my_challenges|fellowship_quest|collect_fellowship_quest|give_item|my_gifts)$/.exec(
+      /^\/rest\/v1\/rpc\/(my_friend_code|new_friend_code|ask_friend|answer_friend|remove_friend|fellowship|fellowship_requests|fellowship_feed|record_round_score|send_challenge|answer_challenge|decline_challenge|my_challenges|fellowship_quest|collect_fellowship_quest|give_item|my_gifts|home_of)$/.exec(
         url.pathname,
       )?.[1];
     if (fellowshipFn) {
@@ -336,6 +342,8 @@ export async function fakeSupabase(
           return route.fulfill({ json: waiting });
         case 'fellowship_feed':
           return route.fulfill({ json: f.feed ?? [] });
+        case 'home_of':
+          return route.fulfill({ json: f.homes?.[String(args?.p_friend)] ?? null });
         case 'answer_friend': {
           const i = waiting.findIndex((r) => r.id === args?.p_other);
           if (i >= 0) {
@@ -417,6 +425,14 @@ export async function fakeSupabase(
           })),
         },
       });
+    }
+    if (url.pathname === '/rest/v1/rpc/my_home') {
+      return route.fulfill({ json: extras.home ?? null });
+    }
+    if (url.pathname === '/rest/v1/rpc/save_home') {
+      const { p_layout } = route.request().postDataJSON() as { p_layout: unknown };
+      extras.home = p_layout;
+      return route.fulfill({ json: null });
     }
     if (url.pathname === '/rest/v1/rpc/guide_mark') {
       const { p_ids } = route.request().postDataJSON() as { p_ids: string[] };

@@ -23,7 +23,8 @@
         "name": "Guest",
         "arabic": "ضيف",
         "conditions": ["Learn every letter of the script", "Pass the Painted Sign"],
-        "order": 2
+        "order": 2,
+        "banner": "home-banner-crossing"
       }
     },
     {

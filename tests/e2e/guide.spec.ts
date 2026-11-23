@@ -139,6 +139,26 @@ test.describe('Nour’s introductions', () => {
     await expect(page.getByText('You have gold. The Market is open.')).toHaveCount(0);
   });
 
+  test('a piece for the room bought, Nour points at Decorate in Your House (#445)', async ({
+    page,
+  }) => {
+    const updates: unknown[] = [];
+    await signedIn(page, updates, [], { unlocked: 3, runs: 2 }, [], {
+      guideSeen: GUIDE_SAID.filter((id) => id !== 'intro:decorate'),
+      owned: ['home-chair'],
+    });
+    await page.goto('/');
+    await expect(nour(page).getByRole('status')).toHaveText(
+      'You have something new for your room. In Your House, tap Decorate and set it wherever you like.',
+    );
+    expect(await marked(page)).toEqual(['/house']);
+    await page.goto('/house');
+    await expect(page.getByRole('button', { name: 'Decorate' })).toBeVisible();
+    await expect
+      .poll(() => updates)
+      .toContainEqual({ guide_seen: expect.arrayContaining(['intro:decorate']) as unknown });
+  });
+
   test('tapping Nour by the compass brings back the line they were quieted on', async ({
     page,
   }) => {
@@ -181,7 +201,7 @@ test.describe('first-visit cards', () => {
     await signedIn(page, updates, [], null, [], { guideSeen: seen });
     await page.goto('/market');
     const card = about(page, 'The Market');
-    await expect(card).toContainText('Four wares are set out each day');
+    await expect(card).toContainText('Five wares are set out each day');
     // Not a dialog: the Market works around it.
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await card.getByRole('button', { name: 'Got it' }).click();
@@ -201,7 +221,7 @@ test.describe('first-visit cards', () => {
     await page.route('**/assets/Welcome-*.js', (route) => route.abort());
     await page.goto('/market');
     await expect(page.getByRole('heading', { name: /Market/ }).first()).toBeVisible();
-    await expect(page.getByText('Four wares are set out each day', { exact: false })).toHaveCount(
+    await expect(page.getByText('Five wares are set out each day', { exact: false })).toHaveCount(
       0,
     );
     await expect(page.getByText('This place couldn’t open')).toHaveCount(0);
@@ -319,7 +339,7 @@ test('an invited friend finds their way on a phone, start to finish', async ({ p
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('region', { name: 'Guidebook' }).getByRole('link', { name: 'Open' }).click();
   await page.getByRole('button', { name: 'Your House' }).click();
-  await expect(page.getByRole('article')).toContainText('The wardrobe dresses your traveler');
+  await expect(page.getByRole('article')).toContainText('The cupboard dresses your traveler');
   // All of it is kept on the account.
   await expect
     .poll(() => updates)

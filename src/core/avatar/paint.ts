@@ -129,11 +129,18 @@ export interface PaintOptions {
    * wooden staff with a brass crook, and a lit lantern hanging from it. Only the guide carries it; it is not gear.
    */
   pole?: boolean;
+  /** The companion at your feet; off where the scene draws it on its own (the home, task 7.5). */
+  pet?: boolean;
+  /** Sitting down, on a chair, a bench or the bed (the home, task 7.6): hips at seat height. */
+  sit?: boolean;
 }
+
+/** How far a sitting figure's body drops: the hips go from y 212 to 256. */
+const SIT_DROP = 44;
 
 export function paintAvatar(
   look: Look,
-  { idPrefix, shadow = true, pole = false }: PaintOptions,
+  { idPrefix, shadow = true, pole = false, pet: withPet = true, sit = false }: PaintOptions,
 ): string {
   const g = gradients(idPrefix.replace(/[^a-zA-Z0-9_-]/g, ''));
   const skinT = SKINS.find((s) => s.id === look.skin) ?? SKINS[1];
@@ -159,12 +166,13 @@ export function paintAvatar(
 
   let back = '',
     body = '',
-    front = '';
+    front = '',
+    shade = '';
 
   // ---- shadow on the ground (sun upper left: falls to the lower right)
   if (shadow) {
-    back += `<ellipse cx="${cx + 34}" cy="${fy + 4}" rx="62" ry="9" fill="${INK}" opacity=".22" transform="rotate(-6 ${cx + 34} ${fy + 4})"/>`;
-    back += `<ellipse cx="${cx}" cy="${fy + 1}" rx="${sh + 6}" ry="6" fill="${INK}" opacity=".45"/>`;
+    shade += `<ellipse cx="${cx + 34}" cy="${fy + 4}" rx="62" ry="9" fill="${INK}" opacity=".22" transform="rotate(-6 ${cx + 34} ${fy + 4})"/>`;
+    shade += `<ellipse cx="${cx}" cy="${fy + 1}" rx="${sh + 6}" ry="6" fill="${INK}" opacity=".45"/>`;
   }
 
   // ---- back gear
@@ -320,6 +328,24 @@ export function paintAvatar(
     }" ${OUT(2.8)}/>`;
     if (boots)
       body += `<path d="M${l + 1} ${fy - 6} H${r - 1}" stroke="#E0965A" stroke-width="4" stroke-linecap="round"/><path d="M${l + 2} ${top + 6} H${r - 2}" stroke="#5A3418" stroke-width="3"/>`;
+  }
+
+  // Sitting, the shins and feet show below the knees, and the knees come toward you, over the
+  // lap (drawn last, in front of the tunic's hem).
+  let lower = '';
+  let knees = '';
+  if (sit) {
+    const clip = `${idPrefix.replace(/[^a-zA-Z0-9_-]/g, '')}-sit`;
+    lower = `<clipPath id="${clip}"><rect x="0" y="266" width="${AVATAR_BOX.width}" height="64"/></clipPath><g clip-path="url(#${clip})">${body}</g>`;
+    for (const side of [-1, 1]) {
+      const x0 = cx + side * 1;
+      const x1 = cx + side * (legW + 9);
+      const [l, r] = side < 0 ? [x1, x0] : [x0, x1];
+      const m = (l + r) / 2;
+      knees += `<path d="M${l} 262 Q${l} 250 ${m} 250 Q${r} 250 ${r} 262 L${r} 270 Q${m} 284 ${l} 270 Z" fill="${legFill}" ${OUT(3)}/>`;
+      knees += `<ellipse cx="${m}" cy="256" rx="${(r - l) / 2 - 5}" ry="3.5" fill="#fff" opacity=".22"/>`;
+    }
+    body = '';
   }
 
   // ---- torso: plain linen shirt, the tunic (in its dye), or a ware
@@ -852,9 +878,30 @@ export function paintAvatar(
   const pet = wear('pet');
   // It stays inside the 200-wide box: the camel calf, the widest, sits a little further in.
   const petX = cx + (pet === 'camel-calf' ? 54 : 60);
-  if (pet) front += `<g transform="translate(${petX} ${fy}) scale(.95)">${companion(pet, g)}</g>`;
+  const petArt =
+    pet && withPet
+      ? `<g transform="translate(${petX} ${fy}) scale(.95)">${companion(pet, g)}</g>`
+      : '';
 
-  return `<defs>${g.defs.join('')}</defs>${back}${body}${front}`;
+  const defs = `<defs>${g.defs.join('')}</defs>`;
+  if (!sit) return `${defs}${shade}${back}${body}${front}${petArt}`;
+  const drop = (svg: string) => `<g transform="translate(0 ${SIT_DROP})">${svg}</g>`;
+  // A cloak sits on the seat with you: none of it hangs below the knees.
+  const seat = `${idPrefix.replace(/[^a-zA-Z0-9_-]/g, '')}-seat`;
+  const seated = `<clipPath id="${seat}"><rect x="-60" y="-40" width="${AVATAR_BOX.width + 120}" height="310"/></clipPath><g clip-path="url(#${seat})">${drop(back)}</g>`;
+  return `${defs}${shade}${seated}${lower}${drop(body + front)}${knees}${petArt}`;
+}
+
+/**
+ * The companion alone, in the avatar's box, standing where the avatar would (its feet at the
+ * box's feet line, in the middle), or '' when none is worn. The home walks it a cell behind.
+ */
+export function paintCompanion(look: Look, idPrefix: string): string {
+  const pet = look.gear.pet;
+  if (!pet) return '';
+  const g = gradients(idPrefix.replace(/[^a-zA-Z0-9_-]/g, ''));
+  const art = `<g transform="translate(100 ${AVATAR_BOX.feetY}) scale(.95)">${companion(pet, g)}</g>`;
+  return `<defs>${g.defs.join('')}</defs>${art}`;
 }
 
 /** A companion, drawn with its feet on (0, 0); it fits in about 60 by 64. */

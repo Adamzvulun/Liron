@@ -1,6 +1,7 @@
-import type { Page } from '@playwright/test';
+import type { Browser, Page } from '@playwright/test';
 import { expect, test } from './fixtures.ts';
 import { signedIn } from './fake-supabase.ts';
+import { cellFeet } from '../../src/core/home/projection.ts';
 
 // The square's frame budget (#123, ADR 0025 amended). The square was slow because small
 // animations ran under full-stage blend modes and hovering re-filtered a whole building.
@@ -36,6 +37,104 @@ const HOVER_RATIO = 7;
  *   #123 read 0.72 on the sweep.)
  */
 const HOVER_RASTER_RATIO = 0.5;
+/**
+ * Walking in the room (#440), against the same reference: the compositor's work, and the
+ * rasteriser's. The room is still pictures with two small drawings moving over them. Measured
+ * locally (2026-11-22): compositor 0.38 of the reference, raster 0.15.
+ */
+const WALK_RATIO = 2;
+const WALK_RASTER_RATIO = 0.4;
+
+/**
+ * Frame gaps (rAF) and, from a Chrome trace, the compositor's and the rasteriser's work, while
+ * `act` runs again and again for `ms`.
+ */
+async function measure(
+  page: Page,
+  browser: Browser,
+  ms: number,
+  act: (i: number) => Promise<void>,
+): Promise<Measured> {
+  await page.evaluate(() => {
+    const w = window as unknown as { gaps: number[]; stop: boolean };
+    w.gaps = [];
+    w.stop = false;
+    let last = performance.now();
+    const tick = (t: number) => {
+      w.gaps.push(t - last);
+      last = t;
+      if (!w.stop) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+  await browser.startTracing(page, {
+    categories: ['disabled-by-default-devtools.timeline', 'viz'],
+  });
+  const start = Date.now();
+  for (let i = 0; Date.now() - start < ms; i++) await act(i);
+  const wall = Date.now() - start;
+  const events = JSON.parse((await browser.stopTracing()).toString()).traceEvents as {
+    name: string;
+    ph: string;
+    dur?: number;
+  }[];
+  const busy = (name: string) =>
+    events.filter((e) => e.ph === 'X' && e.name === name).reduce((t, e) => t + (e.dur ?? 0), 0) /
+    wall; // µs per ms of wall time = ms of work per second
+  const gaps = await page.evaluate(() => {
+    const w = window as unknown as { gaps: number[]; stop: boolean };
+    w.stop = true;
+    return w.gaps.slice(1).sort((a, b) => a - b);
+  });
+  const p95 = gaps[Math.floor(gaps.length * 0.95)];
+  return { p95, compositor: busy('Display::DrawAndSwap'), raster: busy('RasterTask') };
+}
+
+/**
+ * A reference scene drawn on the same machine, in the same minutes: a full-window still
+ * picture with 16 small layers moving by transform and opacity. That is what the square should
+ * cost the compositor, so it measures how fast this machine composites right now. A busy
+ * runner slows both alike; the old square's blend modes cost far more than it.
+ * (Built with the DOM and Web Animations, which the strict CSP allows.)
+ */
+const reference = (page: Page, on: boolean, scene = '.city') =>
+  page.evaluate(
+    ([on, scene]) => {
+      const city = document.querySelector<HTMLElement>(scene);
+      if (city) city.style.display = on ? 'none' : '';
+      document.getElementById('frame-reference')?.remove();
+      if (!on) return;
+      const ref = document.createElement('div');
+      ref.id = 'frame-reference';
+      Object.assign(ref.style, {
+        position: 'fixed',
+        inset: '0',
+        background: 'linear-gradient(160deg, #3b2a1a, #b98b4e 40%, #6d4c2c 70%, #1f150c)',
+      });
+      for (let i = 0; i < 16; i++) {
+        const dot = document.createElement('div');
+        Object.assign(dot.style, {
+          position: 'absolute',
+          left: `${(i * 6 + 3) % 96}%`,
+          top: `${(i * 23 + 10) % 85}%`,
+          width: '60px',
+          height: '60px',
+          borderRadius: '50%',
+          background: 'radial-gradient(#ffd98a, transparent 70%)',
+        });
+        dot.animate(
+          [
+            { transform: 'translateY(0)', opacity: 0.6 },
+            { transform: 'translateY(-12px)', opacity: 1 },
+          ],
+          { duration: 1200 + i * 90, iterations: Infinity, direction: 'alternate' },
+        );
+        ref.append(dot);
+      }
+      document.body.append(ref);
+    },
+    [on, scene] as const,
+  );
 
 test.describe('the city square stays fast (#123)', () => {
   test('only small sprite layers animate, and nothing blends or filters on hover', async ({
@@ -181,95 +280,17 @@ test.describe('the city square stays fast (#123)', () => {
       }
       expect(spots.length).toBeGreaterThan(3);
 
-      /** Frame gaps (rAF) and, from a Chrome trace, the compositor's and the rasteriser's work. */
-      async function measure(ms: number, hover: boolean): Promise<Measured> {
-        await page.evaluate(() => {
-          const w = window as unknown as { gaps: number[]; stop: boolean };
-          w.gaps = [];
-          w.stop = false;
-          let last = performance.now();
-          const tick = (t: number) => {
-            w.gaps.push(t - last);
-            last = t;
-            if (!w.stop) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        });
-        await browser.startTracing(page, {
-          categories: ['disabled-by-default-devtools.timeline', 'viz'],
-        });
-        const start = Date.now();
-        // Hovering as a person does (#137): onto a place, a pause while it lights up, off again.
-        for (let i = 0; Date.now() - start < ms; i++) {
-          const spot = spots[i % spots.length];
-          if (hover && spot) {
-            await page.mouse.move(spot.x, spot.y, { steps: 3 });
-            await page.waitForTimeout(150);
-            await page.mouse.move(spot.x, 4, { steps: 3 }); // the sky above it
-            await page.waitForTimeout(100);
-          } else await page.waitForTimeout(100);
-        }
-        const wall = Date.now() - start;
-        const events = JSON.parse((await browser.stopTracing()).toString()).traceEvents as {
-          name: string;
-          ph: string;
-          dur?: number;
-        }[];
-        const busy = (name: string) =>
-          events
-            .filter((e) => e.ph === 'X' && e.name === name)
-            .reduce((t, e) => t + (e.dur ?? 0), 0) / wall; // µs per ms of wall time = ms of work per second
-        const gaps = await page.evaluate(() => {
-          const w = window as unknown as { gaps: number[]; stop: boolean };
-          w.stop = true;
-          return w.gaps.slice(1).sort((a, b) => a - b);
-        });
-        const p95 = gaps[Math.floor(gaps.length * 0.95)];
-        return { p95, compositor: busy('Display::DrawAndSwap'), raster: busy('RasterTask') };
-      }
-
-      /**
-       * A reference scene drawn on the same machine, in the same minutes: a full-window still
-       * picture with 16 small layers moving by transform and opacity. That is what the square should
-       * cost the compositor, so it measures how fast this machine composites right now. A busy
-       * runner slows both alike; the old square's blend modes cost far more than it.
-       * (Built with the DOM and Web Animations, which the strict CSP allows.)
-       */
-      const reference = (on: boolean) =>
-        page.evaluate((on) => {
-          const city = document.querySelector<HTMLElement>('.city');
-          if (city) city.style.display = on ? 'none' : '';
-          document.getElementById('frame-reference')?.remove();
-          if (!on) return;
-          const ref = document.createElement('div');
-          ref.id = 'frame-reference';
-          Object.assign(ref.style, {
-            position: 'fixed',
-            inset: '0',
-            background: 'linear-gradient(160deg, #3b2a1a, #b98b4e 40%, #6d4c2c 70%, #1f150c)',
-          });
-          for (let i = 0; i < 16; i++) {
-            const dot = document.createElement('div');
-            Object.assign(dot.style, {
-              position: 'absolute',
-              left: `${(i * 6 + 3) % 96}%`,
-              top: `${(i * 23 + 10) % 85}%`,
-              width: '60px',
-              height: '60px',
-              borderRadius: '50%',
-              background: 'radial-gradient(#ffd98a, transparent 70%)',
-            });
-            dot.animate(
-              [
-                { transform: 'translateY(0)', opacity: 0.6 },
-                { transform: 'translateY(-12px)', opacity: 1 },
-              ],
-              { duration: 1200 + i * 90, iterations: Infinity, direction: 'alternate' },
-            );
-            ref.append(dot);
-          }
-          document.body.append(ref);
-        }, on);
+      /** The square's hover pass, as a person does (#137): onto a place, a pause while it
+       * lights up, off again. */
+      const hoverPass = (hover: boolean) => async (i: number) => {
+        const spot = spots[i % spots.length];
+        if (hover && spot) {
+          await page.mouse.move(spot.x, spot.y, { steps: 3 });
+          await page.waitForTimeout(150);
+          await page.mouse.move(spot.x, 4, { steps: 3 }); // the sky above it
+          await page.waitForTimeout(100);
+        } else await page.waitForTimeout(100);
+      };
 
       // Noise on a shared runner only ever adds time, so each figure is the best of five rounds,
       // and the reference is measured in the same rounds, right before the square. (Best of three
@@ -277,13 +298,13 @@ test.describe('the city square stays fast (#123)', () => {
       // best of five reads 0.38-0.43. The square before #123 read 0.57-0.67.)
       const runs = { ref: [] as Measured[], idle: [] as Measured[], hover: [] as Measured[] };
       for (let i = 0; i < 5; i++) {
-        await reference(true);
+        await reference(page, true);
         await page.waitForTimeout(500);
-        runs.ref.push(await measure(2000, false));
-        await reference(false);
+        runs.ref.push(await measure(page, browser, 2000, hoverPass(false)));
+        await reference(page, false);
         await page.waitForTimeout(1500); // the square repaints once when it comes back
-        runs.idle.push(await measure(2000, false));
-        runs.hover.push(await measure(2000, true));
+        runs.idle.push(await measure(page, browser, 2000, hoverPass(false)));
+        runs.hover.push(await measure(page, browser, 2000, hoverPass(true)));
       }
       const best = (rs: Measured[]) => {
         const min = (k: keyof Measured) => Math.min(...rs.map((r) => r[k] ?? Infinity));
@@ -301,6 +322,56 @@ test.describe('the city square stays fast (#123)', () => {
       expect(idle.compositor).toBeLessThan(ref.compositor * IDLE_RATIO);
       expect(hover.compositor).toBeLessThan(ref.compositor * HOVER_RATIO);
       expect(hover.raster).toBeLessThan(ref.compositor * HOVER_RASTER_RATIO);
+    },
+  );
+});
+
+test.describe('the room in Your House stays fast too (#440)', () => {
+  test(
+    'frame budget: walking, with the CPU slowed 4×',
+    { tag: '@timing' },
+    async ({ page, browser }, info) => {
+      test.skip(info.project.name !== 'desktop', 'one viewport is enough');
+      test.setTimeout(120_000);
+      await signedIn(page);
+      await page.goto('/house');
+      const stage = page.locator('.room__stage');
+      await expect(stage).toHaveAttribute('data-at', '0,4');
+      await page.locator('.room').scrollIntoViewIfNeeded();
+      await page.waitForTimeout(500);
+      const cdp = await page.context().newCDPSession(page);
+      await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+      const box = await stage.boundingBox();
+      if (!box) throw new Error('no room');
+      const scale = box.width / 1920;
+      // Back and forth along the front row and the middle of the room, never standing still.
+      const cells = [cellFeet(9, 4), cellFeet(4, 2), cellFeet(10, 2), cellFeet(3, 4)];
+      const walking = async (i: number) => {
+        const [x, y] = cells[i % cells.length] ?? [960, 900];
+        await page.mouse.click(box.x + x * scale, box.y + y * scale);
+        await page.waitForTimeout(700);
+      };
+      const still = () => page.waitForTimeout(100);
+
+      const runs = { ref: [] as Measured[], walk: [] as Measured[] };
+      for (let i = 0; i < 3; i++) {
+        await reference(page, true, '.place-screen');
+        await page.waitForTimeout(500);
+        runs.ref.push(await measure(page, browser, 2000, still));
+        await reference(page, false, '.place-screen');
+        await page.waitForTimeout(1000);
+        runs.walk.push(await measure(page, browser, 2800, walking));
+      }
+      const best = (rs: Measured[]) => {
+        const min = (k: keyof Measured) => Math.min(...rs.map((r) => r[k] ?? Infinity));
+        return { p95: min('p95'), compositor: min('compositor'), raster: min('raster') };
+      };
+      const [ref, walk] = [best(runs.ref), best(runs.walk)];
+      console.log(`reference ${JSON.stringify(ref)} room walking ${JSON.stringify(walk)}`);
+      const frame = 1000 / 60;
+      expect(walk.p95).toBeLessThanOrEqual(ref.p95 + frame + 0.5);
+      expect(walk.compositor).toBeLessThan(ref.compositor * WALK_RATIO);
+      expect(walk.raster).toBeLessThan(ref.compositor * WALK_RASTER_RATIO);
     },
   );
 });

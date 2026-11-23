@@ -13,20 +13,21 @@ Buttons: Next · Got it · Skip
 ## Introductions, one at a time (§3.3)
 
 - **intro:board:** The Notice Board has today’s quests. Finish them for gold, and a chest now and then.
-- **intro:fellowship:** Your friend is in town. Your House has a door to the Fellowship: see what they’re up to.
+- **intro:fellowship:** Your friend is in town. The letterbox in Your House opens the Fellowship: see what they’re up to.
 - **intro:market:** You’ve earned enough for something at the Market. Have a look.
-- **intro:wardrobe:** New gear goes on in Your House, at the wardrobe.
+- **intro:wardrobe:** New gear goes on in Your House: open the cupboard.
 - **intro:other-hall:** The other hall’s door is open too, whenever you’re curious.
 - **intro:arena:** Up at the Arena, friends challenge each other. Yours might be waiting.
-- **intro:ledger:** Your House keeps a ledger of how far you’ve come, and your trophies.
+- **intro:ledger:** The desk in Your House keeps a ledger of how far you’ve come, and the shelf your trophies.
+- **intro:decorate:** You have something new for your room. In Your House, tap Decorate and set it wherever you like.
 
 Button: Got it
 
 ## First-visit cards: places (§3.4)
 
 - **The Notice Board:** Today’s quests and daily goal are posted here, with the contracts that pay gold. Chests you’ve earned wait on the shelf.
-- **The Market:** Four wares are set out each day, the same for everyone. Gold buys gear for your traveler, or a gift for a friend.
-- **Your House:** The wardrobe changes how your traveler looks, and the ledger shows how far you’ve come. Your trophies are here too, and the door to the Fellowship.
+- **The Market:** Five wares are set out each day, the same for everyone. Gold buys gear for your traveler, furniture for your room, or a gift for a friend.
+- **Your House:** This room is yours: tap the floor to walk. The cupboard holds your wardrobe, the shelf your trophies, the desk your ledger, and the letterbox the Fellowship.
 - **The Arena:** Challenge a friend to beat your score, or take on one they’ve sent you. A challenge waits a week for its answer.
 
 ## First-visit cards and Guidebook chapter: The Signal Tower
@@ -65,15 +66,15 @@ Today’s quests and your daily goal are posted here. Each day brings three cont
 
 ### The Market
 
-Four wares are set out each day, the same for everyone. Gear for your traveler costs from 60 gold up. You can also buy a ware as a gift for a friend.
+Five wares are set out each day, the same for everyone: gear for your traveler from 60 gold up, a dye, a streak shield, and something for your room: furniture, a wallpaper or a floor. You can also buy a ware as a gift for a friend.
 
 ### Your House
 
-The wardrobe dresses your traveler in the gear you own. The ledger shows what you’ve learned, guild by guild, and the trophy wall shows the achievements you’ve earned.
+Your own room: tap the floor or use the arrow keys to walk, and tap a piece to use it. The cupboard dresses your traveler, the desk keeps your ledger, the shelf your trophies, and the letterbox the Fellowship. Decorate moves anything in the room and sets out the furniture, wallpapers and floors you own; Done keeps it, Cancel puts it all back. A room holds up to 20 pieces on the floor and 6 on the wall, and the way from the door must stay open. Friends can visit and walk around your room, but only you can change it.
 
 ### The Fellowship
 
-Friends you invite are here, with what they’ve been up to. Invite someone from Settings: they make their own account and are your friend at once. Friends stand in the square, and tapping one visits their house.
+Friends you invite are here, with what they’ve been up to. Invite someone from Settings: they make their own account and are your friend at once. Friends stand in the square, and tapping one visits their house: their room as they arranged it.
 
 ### The Arena
 
@@ -85,7 +86,7 @@ Every lesson and drill earns XP, and XP raises your level. Reaching a level pays
 
 ### Gold and gems
 
-Gold buys gear and streak shields at the Market. Gems are rarer: one every 5th level, one in the daily chest on every 7th day of a streak, and some for achievements. Nothing costs gems yet.
+Gold buys gear, furniture and streak shields at the Market. Gems are rarer: one every 5th level, one in the daily chest on every 7th day of a streak, and some for achievements. Nothing costs gems yet.
 
 ### Your streak
 

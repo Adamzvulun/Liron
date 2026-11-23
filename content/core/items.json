@@ -641,6 +641,216 @@
           "chapter": "stranger-at-the-gate"
         }
       }
+    },
+    {
+      "id": "home-chair",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "home-cushion",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "home-plant",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "home-desert",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-clock",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-bench",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-table",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-bookcase",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "home-harbor",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "home-stove",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-kilim",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "home-window-seat",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "home-banner-signal",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "morse",
+          "rank": "listener"
+        }
+      }
+    },
+    {
+      "id": "home-banner-crossing",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "furniture",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "rank",
+          "subject": "arabic",
+          "rank": "guest"
+        }
+      }
+    },
+    {
+      "id": "wallpaper-sea-wash",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "wallpaper-rose-stripe",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "wallpaper-zellige",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "epic",
+        "price": 450
+      }
+    },
+    {
+      "id": "floor-terracotta",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "common",
+        "price": 60
+      }
+    },
+    {
+      "id": "floor-flagstone",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "rare",
+        "price": 180
+      }
+    },
+    {
+      "id": "floor-dark-oak",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "style",
+        "rarity": "rare",
+        "price": 180
+      }
     }
   ]
 }

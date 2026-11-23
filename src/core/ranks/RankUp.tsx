@@ -52,6 +52,9 @@ export function RankUp({
             Rank gear: <strong>{gear.name}</strong>. Wear it in Your House.
           </p>
         )}
+        {rank.banner && (
+          <p className="rankup__gear">And the guild’s banner, to hang in your room.</p>
+        )}
         {after.next && (
           <p className="rankup__next">
             Next: <strong>{after.next.name}</strong>

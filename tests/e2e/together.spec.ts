@@ -103,7 +103,7 @@ test.describe('gifts', () => {
   test('gifts for you are listed in Your House', async ({ page }) => {
     const gifts = [{ id: 1, from: BASMA, name: 'Basma', item: 'tarboosh', day: TODAY.day }];
     await signedIn(page, [], [], null, [], withFriend({ gifts }));
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel.getByRole('heading', { name: 'Gifts for you' })).toBeVisible();
     await expect(panel).toContainText(

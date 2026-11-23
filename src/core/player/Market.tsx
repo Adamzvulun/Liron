@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Avatar } from '../avatar/Avatar.tsx';
+import { FurniturePicture } from '../home/FurniturePicture.tsx';
 import type { Look, SlotId } from '../avatar/looks.ts';
 import type { MarketStall, Ware } from '../progress/store.ts';
 import { Link } from '../Link.tsx';
@@ -8,8 +9,10 @@ import { wareName, wareNote } from './market.ts';
 import { GiftOffer, type Giving } from '../fellowship/GiftOffer.tsx';
 import './market.css';
 
-/** The ware, drawn: your traveler wearing the gear, a dyed tunic, or the shield. */
+/** The ware, drawn: your traveler wearing the gear, a dyed tunic, the shield, or the furniture in a room. */
 function WareArt({ ware, look }: { ware: Ware; look: Look }) {
+  if (ware.kind === 'furniture' || ware.kind === 'style')
+    return <FurniturePicture id={ware.id} className="market__room" />;
   if (ware.kind === 'functional') {
     return (
       <span className="market__shield">
@@ -25,7 +28,7 @@ function WareArt({ ware, look }: { ware: Ware; look: Look }) {
 }
 
 /**
- * The Market's stall (#49): 4 wares a day, bought with gold. The database checks the stock, the
+ * The Market's stall (#49): 5 wares a day, bought with gold. The database checks the stock, the
  * price and what you own; the stall only shows what it's told.
  */
 export function Market({
@@ -80,7 +83,7 @@ export function Market({
         Today’s wares
       </h2>
       <p className="market__lede">
-        Four wares a day. Gold only, earned by learning.
+        Five wares a day. Gold only, earned by learning.
         {gold !== null && (
           <span className="market__purse">
             <CoinIcon /> {gold.toLocaleString('en-US')} gold
@@ -126,8 +129,13 @@ export function Market({
                   giving={giving}
                 />
               )}
-              {said?.id === w.id && said.ok && w.kind !== 'functional' && (
+              {said?.id === w.id && said.ok && (w.kind === 'furniture' || w.kind === 'style') && (
                 <Link className="market__try" href="/house">
+                  Place it in your room
+                </Link>
+              )}
+              {said?.id === w.id && said.ok && (w.kind === 'gear' || w.kind === 'color') && (
+                <Link className="market__try" href="/house#wardrobe">
                   Try it on at your house
                 </Link>
               )}

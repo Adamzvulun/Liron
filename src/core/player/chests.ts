@@ -1,5 +1,5 @@
 import chestData from '../../../content/core/chests.json' with { type: 'json' };
-import { GEAR } from '../avatar/looks.ts';
+import { isFurniture, wareName } from './market.ts';
 import type { Chest, ChestContents, TodaysContracts } from '../progress/store.ts';
 import type { SubjectInfo } from '../subject.ts';
 
@@ -88,11 +88,12 @@ export function lootOf(c: ChestContents): Loot[] {
   if (c.gems)
     loot.push({ key: 'gems', icon: 'gem', text: `+${c.gems} ${c.gems === 1 ? 'gem' : 'gems'}` });
   if (c.item) {
-    const name = GEAR.find((g) => g.id === c.item)?.name ?? c.item;
+    const name = wareName({ id: c.item });
+    const home = isFurniture(c.item);
     loot.push(
       c.itemGold
         ? { key: 'item', icon: 'coin', text: `${name}, already yours: +${c.itemGold} gold` }
-        : { key: 'item', icon: 'gear', text: `${name}, new to wear` },
+        : { key: 'item', icon: 'gear', text: `${name}, new ${home ? 'for your room' : 'to wear'}` },
     );
   }
   if (c.shield) {

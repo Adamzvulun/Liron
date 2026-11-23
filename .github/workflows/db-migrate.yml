@@ -71,8 +71,21 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      # The deck is licensed, so it isn't in the public repo (ADR 0054): a checkout has no deck
+      # to upload. The rows already in the database stay; a new copy goes up from a machine that
+      # holds the deck (SUPABASE.md, "Private content").
+      - name: Find the deck
+        id: deck
+        run: |
+          if [ -f sources/arabic/lingualism-palestinian-vocabulary/lingualism-pcav.apkg ]; then
+            echo "here=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::The deck isn't in this checkout (ADR 0054), so nothing is uploaded. The private content already in $TARGET stays as it is."
+          fi
       - run: npm ci --ignore-scripts
+        if: steps.deck.outputs.here == 'true'
       - name: Check the secret key is set
+        if: steps.deck.outputs.here == 'true'
         env:
           SUPABASE_SECRET_KEY: ${{ github.ref_name == 'main' && secrets.SUPABASE_PROD_SECRET_KEY || secrets.SUPABASE_DEV_SECRET_KEY }}
         run: |
@@ -83,6 +96,7 @@ jobs:
       # The project URL isn't secret; it comes from the project ref in the pooler user name
       # (postgres.<ref>), so there's no extra setting to keep in sync.
       - name: Find the project URL
+        if: steps.deck.outputs.here == 'true'
         env:
           DB_URL: ${{ github.ref_name == 'main' && secrets.SUPABASE_PROD_DB_URL || secrets.SUPABASE_DEV_DB_URL }}
         run: |
@@ -93,6 +107,7 @@ jobs:
           fi
           echo "SUPABASE_URL=https://$REF.supabase.co" >> "$GITHUB_ENV"
       - name: Upload private content to ${{ env.TARGET }}
+        if: steps.deck.outputs.here == 'true'
         env:
           SUPABASE_SECRET_KEY: ${{ github.ref_name == 'main' && secrets.SUPABASE_PROD_SECRET_KEY || secrets.SUPABASE_DEV_SECRET_KEY }}
         run: node scripts/content/upload-private.ts

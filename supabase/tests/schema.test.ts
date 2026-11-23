@@ -1621,7 +1621,7 @@ describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', 
     ).toEqual([{ count: 1 }]);
   });
 
-  it('gives rank gear when the rank is taken, in either guild (#176)', async () => {
+  it('gives rank gear, and the first rank the guild’s banner, in either guild (#176, #443)', async () => {
     const take = (subject: string, kind: string, n: number) =>
       as(ADAM, () =>
         rows(`select save_session($1, $2, null, '[]', '[]', 0, 0, $3::jsonb)`, [
@@ -1631,9 +1631,14 @@ describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', 
         ]),
       );
     await take('morse', 'rank-listener', 1);
-    expect(await owned()).toEqual(['ear-cups']);
+    expect(await owned()).toEqual(['ear-cups', 'home-banner-signal']);
     await take('arabic', 'rank-guest', 2);
-    expect(await owned()).toEqual(['ear-cups', 'house-sash']);
+    expect(await owned()).toEqual([
+      'ear-cups',
+      'home-banner-crossing',
+      'home-banner-signal',
+      'house-sash',
+    ]);
     // The other guild's rank of the same name would not count: each piece names its subject.
     expect(
       await rows(`select item_id, source from owned_items where user_id = $1 order by item_id`, [
@@ -1641,6 +1646,8 @@ describe('owned items, milestone gear and streak shields (ADR 0033, ADR 0034)', 
       ]),
     ).toEqual([
       { item_id: 'ear-cups', source: 'milestone' },
+      { item_id: 'home-banner-crossing', source: 'milestone' },
+      { item_id: 'home-banner-signal', source: 'milestone' },
       { item_id: 'house-sash', source: 'milestone' },
     ]);
   });
@@ -1845,10 +1852,12 @@ describe('reward chests (ADR 0033, #48)', () => {
     expect(await chests()).toContainEqual(expect.objectContaining({ opened: true }));
   });
 
-  it('gives gear not owned yet, or its price when all is owned; a 3rd shield is gold', async () => {
+  it('gives gear or furniture not owned yet, or its price when all is owned; a 3rd shield is gold', async () => {
     await rows(`update wallets set gold = 0, streak_shields = 2 where user_id = $1`, [ADAM]);
     const allGear = (
-      (await rows(`select id from items where kind = 'gear'`)) as { id: string }[]
+      (await rows(`select id from items where kind in ('gear', 'furniture', 'style')`)) as {
+        id: string;
+      }[]
     ).map((r) => r.id);
     const gear = await chestWith('jeweled', 4, true, 0.6);
     const opened = await open(gear);
@@ -1878,10 +1887,25 @@ describe('reward chests (ADR 0033, #48)', () => {
     expect((await wallet()).streak_shields).toBe(2);
   });
 
+  it('gives furniture or a style you don’t own, once all the gear is yours (#443)', async () => {
+    await rows(
+      `insert into owned_items (user_id, item_id, source)
+       select $1, id, 'market' from items where kind = 'gear' on conflict do nothing`,
+      [ADAM],
+    );
+    const id = await chestWith('jeweled', 4, true, 0.6);
+    const opened = await open(id);
+    expect(opened.item_gold).toBe(0);
+    const [{ kind }] = (await rows(`select kind from items where id = $1`, [opened.item])) as {
+      kind: string;
+    }[];
+    expect(['furniture', 'style']).toContain(kind);
+  });
+
   it('never gives rank gear: with every other piece owned, gear turns to gold (#176)', async () => {
     const others = (
       (await rows(
-        `select id from items where kind = 'gear' and coalesce(milestone ->> 'kind', '') <> 'rank'`,
+        `select id from items where kind in ('gear', 'furniture', 'style') and coalesce(milestone ->> 'kind', '') <> 'rank'`,
       )) as { id: string }[]
     ).map((r) => r.id);
     for (const item of others)
@@ -1949,10 +1973,16 @@ describe('the Market (ADR 0033, #49)', () => {
       shields,
     ]);
 
-  it('sells 4 wares a day, the same for everyone: 2 gear, 1 color, 1 functional', async () => {
+  it('sells 5 wares a day, the same for everyone: 2 gear, 1 color, 1 functional, 1 for the room', async () => {
     const m = await stall();
-    expect(m.wares.map((w) => w.kind)).toEqual(['gear', 'gear', 'color', 'functional']);
-    expect(new Set(m.wares.map((w) => w.id)).size).toBe(4);
+    expect(m.wares.map((w) => w.kind)).toEqual([
+      'gear',
+      'gear',
+      'color',
+      'functional',
+      expect.stringMatching(/^(furniture|style)$/),
+    ]);
+    expect(new Set(m.wares.map((w) => w.id)).size).toBe(5);
     expect((await stall(OTHER)).wares.map((w) => w.id)).toEqual(m.wares.map((w) => w.id));
     // Another day, other wares (over a fortnight, the gear changes).
     const days = (await rows(
@@ -1969,7 +1999,8 @@ describe('the Market (ADR 0033, #49)', () => {
     const rank = (await rows(`select id from items where milestone ->> 'kind' = 'rank'`)) as {
       id: string;
     }[];
-    expect(rank).toHaveLength(12);
+    // 12 pieces of rank gear and the 2 guild banners (#443).
+    expect(rank).toHaveLength(14);
     for (const { id } of rank) expect(sold.map((s) => s.id)).not.toContain(id);
   });
 
@@ -2021,6 +2052,65 @@ describe('the Market (ADR 0033, #49)', () => {
     expect(
       (await rows(`select gold from wallets where user_id = $1`, [ADAM]))[0] as { gold: number },
     ).toEqual({ gold: 1000 - gear.price - color.price - 2 * shield.price });
+  });
+
+  it('sells furniture or a style like gear, which then goes in your room (#443)', async () => {
+    const ware = (await stall()).wares[4];
+    expect(['furniture', 'style']).toContain(ware.kind);
+    await gold(ware.price - 1);
+    await expect(buy(ware.id)).rejects.toThrow(/too little gold/);
+    await gold(ware.price);
+    expect((await buy(ware.id)).wallet.gold).toBe(0);
+    await expect(buy(ware.id)).rejects.toThrow(/already owned/);
+    const starter = (
+      (await rows(`select home_starter() as s`)) as {
+        s: { pieces: { id: string }[] } & Record<string, unknown>;
+      }[]
+    )[0].s;
+    let room: Record<string, unknown>;
+    if (ware.kind === 'style') {
+      // wallpaper-zellige is the zellige wallpaper; floor-dark-oak the dark oak floor.
+      const [part, ...style] = ware.id.split('-');
+      room = { ...starter, [part as string]: style.join('-') };
+    } else {
+      const { place } = (
+        (await rows(`select place from home_pieces where id = $1`, [ware.id])) as {
+          place: string;
+        }[]
+      )[0];
+      room = {
+        ...starter,
+        pieces:
+          place === 'wall'
+            ? [...starter.pieces.filter((p) => p.id !== 'home:picture'), { id: ware.id, slot: 0 }]
+            : [...starter.pieces, { id: ware.id, at: [5, 0], facing: 'right' }],
+      };
+    }
+    await as(ADAM, () => rows(`select save_home($1)`, [room]));
+    expect(
+      (
+        (await rows(`select layout from homes where user_id = $1`, [ADAM])) as { layout: unknown }[]
+      )[0].layout,
+    ).toEqual(room);
+  });
+
+  it('lets a room use a wallpaper or floor its player owns, and no other (#443)', async () => {
+    const starter = (
+      (await rows(`select home_starter() as s`)) as { s: Record<string, unknown> }[]
+    )[0].s;
+    const save = (style: object) =>
+      as(ADAM, () => rows(`select save_home($1)`, [{ ...starter, ...style }]));
+    await expect(save({ wallpaper: 'zellige' })).rejects.toThrow(/home refused/);
+    await rows(
+      `insert into owned_items (user_id, item_id, source) values ($1, 'wallpaper-zellige', 'chest')`,
+      [ADAM],
+    );
+    await save({ wallpaper: 'zellige' });
+    await expect(save({ wallpaper: 'zellige', floor: 'flagstone' })).rejects.toThrow(
+      /home refused/,
+    );
+    // The floor's own item, not the wallpaper's style under another name.
+    await expect(save({ floor: 'zellige' })).rejects.toThrow(/home refused/);
   });
 
   it('refuses too little gold and wares not on sale today', async () => {

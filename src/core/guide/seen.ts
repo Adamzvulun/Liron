@@ -13,6 +13,7 @@ export const GUIDE_IDS = {
   otherHall: 'intro:other-hall',
   arena: 'intro:arena',
   ledger: 'intro:ledger',
+  decorate: 'intro:decorate',
 } as const;
 
 /** The id of a place's or station's first-visit card, e.g. `card:market`, `card:morse:listen`. */

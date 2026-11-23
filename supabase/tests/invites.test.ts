@@ -71,7 +71,9 @@ describe('invite links (ADR 0052)', () => {
   it('a link says who sent it, while it can be used', async () => {
     const code = await makeInvite();
     const from = () => server('select invite_from($1)', [code]);
-    expect(await from()).toBeNull(); // no name chosen yet
+    // A new account starts with a name from content/core/names.json; with none, nothing shows.
+    await run(`update profiles set display_name = '' where id = $1`, [ADAM]);
+    expect(await from()).toBeNull();
     await run(`update profiles set display_name = ' Adam ' where id = $1`, [ADAM]);
     expect(await from()).toBe('Adam');
     expect(await server('select invite_from($1)', ['0'.repeat(64)])).toBeNull();

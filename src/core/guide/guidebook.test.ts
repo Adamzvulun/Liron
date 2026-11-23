@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { subjects } from '../../subjects/index.ts';
+import { ROOM } from '../home/layout.ts';
 import { fill, NUMBERS } from './numbers.ts';
 import { GUIDEBOOK } from './words.ts';
 
@@ -43,6 +44,14 @@ describe('the Guidebook', () => {
     expect(fill(page('streak').text)).toContain(`costs ${NUMBERS.shieldPrice} gold`);
     expect(NUMBERS.shieldPrice).toBeGreaterThan(0);
     expect(fill(page('market').text)).toContain(`from ${NUMBERS.cheapestWare} gold`);
+  });
+
+  it('covers the home: walking, its four pieces, decorating, the caps and visits (#445)', () => {
+    const text = fill(page('house').text);
+    for (const said of [/tap the floor/, /cupboard/, /desk/, /shelf/, /letterbox/, /Decorate/])
+      expect(text).toMatch(said);
+    expect(text).toContain(`up to ${ROOM.caps.floor} pieces on the floor and ${ROOM.caps.wall}`);
+    expect(text).toMatch(/Friends can visit/);
   });
 
   it('refuses a number it doesn’t know', () => {

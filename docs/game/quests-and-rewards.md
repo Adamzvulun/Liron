@@ -40,7 +40,7 @@ Drafted on 2026-11-04. **Adam approved the draft and its Notice Board concept on
 - **Opening:** chests wait on the Notice Board's shelf, each with what earned it; today's contract chest sits there locked, a seal lit per contract done. Opening one lifts the lid and the contents rise one by one (under 2 seconds, at once with reduced motion). Collect (or Escape) closes it at any time. The HUD says how many chests wait.
 
 ## 4. Market (#49)
-- **Stock:** 4 slots a day, seeded by the date: 2 gear, 1 colour or look option, 1 functional item. Prices are data:
+- **Stock:** 5 slots a day, seeded by the date: 2 gear, 1 color or look option, 1 functional item, 1 piece of furniture (#443). Prices are data:
 
   | Rarity | Gold | At ~60 gold a day |
   |---|---|---|

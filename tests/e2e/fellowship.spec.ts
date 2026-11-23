@@ -1,7 +1,9 @@
 import { expect, test } from './fixtures.ts';
 import { friendCard, signedIn, type Extras } from './fake-supabase.ts';
+import { STARTER } from '../../src/core/home/layout.ts';
+import { cellFeet } from '../../src/core/home/projection.ts';
 
-// The Fellowship in Your House (task 3.1, #326) and a friend's house (task 3.2, #327).
+// The Fellowship in Your House (task 3.1, #326) and a friend's house (tasks 3.2 and 7.9, #327, #444).
 // docs/game/fellowship.md, docs/game/fellowship-build.md §5–6.
 
 const BASMA = '00000000-0000-0000-0000-0000000000b2';
@@ -15,7 +17,7 @@ test.describe('the Fellowship in Your House', () => {
     page,
   }) => {
     await signedIn(page);
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel).toContainText('No friends here yet. Give a friend your code below');
     await expect(panel.getByLabel('Your friend code: K 7 Q M 4 R X A')).toHaveText('K7QM-4RXA');
@@ -30,12 +32,12 @@ test.describe('the Fellowship in Your House', () => {
     page,
   }) => {
     await signedIn(page, [], [], null, [], { name: '' });
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel).toContainText('Friends see you as “A traveler”');
     // Named, it says nothing of it.
     await signedIn(page);
-    await page.goto('/house');
+    await page.reload();
     await expect(panel.getByLabel(/Your friend code/)).toBeVisible();
     await expect(panel).not.toContainText('A traveler');
   });
@@ -43,7 +45,7 @@ test.describe('the Fellowship in Your House', () => {
   test('a request can be accepted, and the friend joins the list', async ({ page }) => {
     const extras = withFellowship({ requests: [{ id: BASMA, name: 'Basma', look: {} }] });
     await signedIn(page, [], [], undefined, [], extras);
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel).toContainText('Basma would like to join your Fellowship.');
     await panel.getByRole('button', { name: 'Accept' }).click();
@@ -61,7 +63,7 @@ test.describe('the Fellowship in Your House', () => {
   }) => {
     const extras = withFellowship({});
     await signedIn(page, [], [], undefined, [], extras);
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     const send = panel.getByRole('button', { name: 'Send a request' });
     await panel.getByLabel('Add a friend').fill('abcd');
@@ -87,7 +89,7 @@ test.describe('the Fellowship in Your House', () => {
       [],
       withFellowship({ refuse: { ask_friend: 'daily-limit' } }),
     );
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await panel.getByLabel('Add a friend').fill('ABCDEFGH');
     await panel.getByRole('button', { name: 'Send a request' }).click();
@@ -111,7 +113,7 @@ test.describe('the Fellowship in Your House', () => {
       ],
     });
     await signedIn(page, [], [], undefined, [], extras);
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const friend = page.getByRole('list', { name: 'Your friends' }).getByRole('listitem').first();
     await expect(friend).toContainText('Level 5 · Keyer');
     await expect(friend).toContainText('12 days in a row · 1 achievement');
@@ -134,7 +136,7 @@ test.describe('the Fellowship in Your House', () => {
       [],
       withFellowship({ friends: [friendCard(BASMA, evil)] }),
     );
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel.getByRole('heading', { name: evil })).toBeVisible();
     await expect(panel.locator('img')).toHaveCount(0);
@@ -153,7 +155,7 @@ test.describe('the Fellowship in Your House', () => {
         requests: [{ id: CHEN, name: 'Chen', look: {} }],
       }),
     );
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     const panel = page.getByRole('region', { name: 'Fellowship' });
     await expect(panel.getByRole('heading', { name: 'Basma' })).toBeVisible();
     const box = await panel.boundingBox();
@@ -166,7 +168,14 @@ test.describe('the Fellowship in Your House', () => {
 });
 
 test.describe('a friend’s house (task 3.2)', () => {
-  test('shows their card, read-only, with a clear way home', async ({ page }) => {
+  test('their room as they arranged it: walk, sit, see their shelf, change nothing, go home', async ({
+    page,
+  }) => {
+    const rpcs: string[] = [];
+    page.on('request', (r) => {
+      const name = /\/rpc\/(\w+)$/.exec(r.url())?.[1];
+      if (name) rpcs.push(name);
+    });
     await signedIn(
       page,
       [],
@@ -183,23 +192,66 @@ test.describe('a friend’s house (task 3.2)', () => {
             look: { gear: { pet: 'sand-cat' } },
           }),
         ],
+        homes: {
+          [BASMA]: {
+            ...STARTER,
+            pieces: [...STARTER.pieces, { id: 'home-chair', at: [6, 1], facing: 'left' }],
+          },
+        },
       }),
     );
-    await page.goto('/house');
+    await page.goto('/house#fellowship');
     await page.getByRole('link', { name: 'Visit Basma’s house' }).click();
     await expect(page).toHaveURL(new RegExp(`/house/visit/${BASMA}$`));
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Basma’s house');
-    const shelf = page.getByRole('region', { name: 'Trophies' });
-    await expect(shelf).toContainText('Listener');
+    // Her room as she arranged it (task 7.9): her chair is there, and she stands by the window.
+    const room = page.getByRole('group', { name: /^Basma’s room/ });
+    const stage = page.locator('.room__stage');
+    await expect(room).toBeVisible();
+    await expect(stage).toHaveAttribute('data-at', '0,4');
+    await expect(page.locator('.room__host')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Decorate' })).toHaveCount(0);
+    const say = page.locator('.room__say');
+    // Her cupboard, desk and letterbox say a line and open nothing.
+    for (const [piece, line] of [
+      ['Cupboard', 'Their clothes, and the mirror. Not yours to open.'],
+      ['Desk', 'Their ledger lies open. It’s theirs to read.'],
+      ['Letterbox', 'Letters for them, from their friends.'],
+    ]) {
+      await page.getByRole('button', { name: `${piece}: look` }).click();
+      await expect(say).toHaveText(line);
+      await expect(page.getByRole('dialog')).toHaveCount(0);
+    }
+    // Her shelf shows her card.
+    await page.getByRole('button', { name: 'Shelf: see their trophies' }).click();
+    const shelf = page.getByRole('dialog', { name: 'Basma’s trophies' });
+    await expect(shelf).toContainText('Level 5 · Keyer');
+    await expect(shelf.getByRole('region', { name: 'Trophies' })).toContainText('Listener');
     await expect(shelf).toContainText('First Light');
-    await expect(page.getByText('Level 5 · Keyer')).toBeVisible();
-    // Nothing of theirs can be changed: no wardrobe, no buttons at all in the room.
-    await expect(page.getByRole('heading', { name: 'Gear' })).toHaveCount(0);
-    await expect(page.locator('main').getByRole('button')).toHaveCount(0);
+    await expect(shelf.getByRole('heading', { name: 'Gear' })).toHaveCount(0);
     if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, fullPage: true });
+    await shelf.getByRole('button', { name: 'Back to the room' }).click();
+    // Sit in her chair, put her lantern out (for you only), and greet her.
+    await page.getByRole('button', { name: 'Chair: sit down' }).click();
+    await expect(stage).toHaveAttribute('data-seated', 'true');
+    await page.getByRole('button', { name: 'Lantern: light or put out' }).click();
+    await expect(page.locator('img[data-glow]')).toHaveAttribute('data-glow', 'off');
+    await expect(stage).not.toHaveAttribute('data-walking');
+    // Tap where she stands: the cell under the window (the room pans on a phone).
+    const [x, y] = cellFeet(5, 0);
+    await room.evaluate((el, x) => {
+      const scale = (el.querySelector('.room__stage') as HTMLElement).getBoundingClientRect().width;
+      el.scrollTo({ left: (x * scale) / 1920 - el.clientWidth / 2 });
+    }, x);
+    const box = await stage.boundingBox();
+    if (!box) throw new Error('no room');
+    await page.mouse.click(box.x + (x * box.width) / 1920, box.y + (y * box.width) / 1920);
+    await expect(say).toHaveText('Basma is glad you came by.');
+    // Nothing of hers was saved or sent.
+    expect(rpcs.filter((r) => r === 'save_home')).toEqual([]);
     await page.getByRole('link', { name: '← Back to your house' }).click();
     await expect(page).toHaveURL(/\/house$/);
-    await expect(page.getByRole('region', { name: 'Fellowship' })).toBeVisible();
+    await expect(page.getByRole('group', { name: /^Your room/ })).toBeVisible();
   });
 
   test('someone who isn’t a friend finds the door closed', async ({ page }) => {
