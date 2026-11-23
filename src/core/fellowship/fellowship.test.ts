@@ -31,6 +31,7 @@ describe('reading a friend’s card (fellowship-build.md §1 traps 3 and 4)', ()
         streak: 3,
         ranks: ['morse:rank-listener'],
         achievements: ['first-light'],
+        cozy: 7,
         gold: 999,
       }),
     ).toEqual({
@@ -43,7 +44,11 @@ describe('reading a friend’s card (fellowship-build.md §1 traps 3 and 4)', ()
       streak: 3,
       ranks: ['morse:rank-listener'],
       achievements: ['first-light'],
+      cozy: 7,
     });
+    // An older database's card has no coziness: none, not a guess.
+    expect(readCard({ id: ID, name: 'Basma' })?.cozy).toBe(0);
+    expect(readCard({ id: ID, name: 'Basma', cozy: -3 })?.cozy).toBe(0);
   });
 
   it('turns away what isn’t a card, and fills a missing name kindly', () => {
