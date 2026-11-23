@@ -1082,3 +1082,11 @@
   font-weight: 600;
   opacity: 0.85;
 }
+
+/* The last fade (arabic-script-lessons.md §5): read it aloud, hear it, say whether you had it. */
+.arabic__aloud {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  margin-top: 12px;
+}

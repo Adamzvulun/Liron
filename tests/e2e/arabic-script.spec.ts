@@ -19,7 +19,11 @@ const WORDS = [
 /** Answers a Read question with its first choice: a recording (play, then "This one") or a word. */
 async function answerFirst(page: Page) {
   const sounds = page.getByRole('group', { name: 'Recordings' });
-  if (await sounds.isVisible()) {
+  const aloud = page.getByRole('button', { name: '▶ Hear it' });
+  if (await aloud.isVisible()) {
+    await aloud.click();
+    await page.getByRole('button', { name: 'I read it right' }).click();
+  } else if (await sounds.isVisible()) {
     await sounds.getByRole('button').first().click();
     await page.getByRole('button', { name: /^This one/ }).click();
   } else {
@@ -184,6 +188,36 @@ test.describe('the Caravanserai courtyard (#42, #43)', () => {
         ),
       )
       .toBe(true);
+  });
+
+  test('a word known four lessons is read aloud: no choices, hear it, say how it went', async ({
+    page,
+  }) => {
+    const calls: SubjectCall[] = [];
+    const state = { lesson: 6, streak: 0, met: [], done: false, sessions: 6 };
+    await signedIn(page, [], calls, state, WORDS);
+    await page.goto('/caravanserai');
+    await page.getByRole('button', { name: /The storyteller/ }).click();
+    await page.getByRole('button', { name: 'Begin' }).click();
+
+    // Lesson 1's letters were taught four lessons ago: every other word has no choices.
+    await expect(page.getByRole('heading', { name: 'Read it aloud' })).toBeVisible();
+    await expect(page.getByRole('group', { name: 'Choices' })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'I read it right' })).toHaveCount(0);
+    await page.getByRole('button', { name: '▶ Hear it' }).click();
+    await expect(page.getByRole('button', { name: '▶ Hear it again' })).toBeVisible();
+    await page.getByRole('button', { name: 'Not yet' }).click();
+    await expect(page.getByText('It comes back soon. Read it again as you hear it.')).toBeVisible();
+    await page.getByRole('button', { name: 'Next' }).click();
+
+    // The rest of the session, then it's saved.
+    for (let i = 0; i < 20; i++) {
+      if (await page.getByText('Session done').isVisible()) break;
+      await answerFirst(page);
+      await page.getByRole('button', { name: 'Next' }).click();
+    }
+    await expect(page.getByText('Session done')).toBeVisible();
+    await expect.poll(() => calls.some((c) => c.rpc === 'save_subject_state')).toBe(true);
   });
 
   test('the fountain is listening practice that doesn’t pass a lesson', async ({ page }) => {

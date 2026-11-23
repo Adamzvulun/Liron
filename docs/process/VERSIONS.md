@@ -206,4 +206,4 @@ A second room, the roof, opened with 15 gems (8.4, #472): its own layout, and fr
 
 ### v1.7.0 — Visiting together
 
-Phase 9 (#482, [ADR 0056](../decisions/0056-visiting-together-live.md)): friends in one house see each other walk, sit and climb, live. Notes: [releases/v1.7.0.md](releases/v1.7.0.md). One migration.
+Phase 9 (#482, [ADR 0056](../decisions/0056-visiting-together-live.md)): friends in one house see each other walk, sit and climb, live; and the last fade in reading Arabic, words read aloud with no choices (#487). Notes: [releases/v1.7.0.md](releases/v1.7.0.md). One migration.

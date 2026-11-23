@@ -45,9 +45,10 @@ export interface ReadQuestion {
   answer: string;
   /**
    * The choices: Hebrew letters first. Once the word's letters are well known, recordings to
-   * pick from (or Latin, if you chose it).
+   * pick from (or Latin, if you chose it). Last, none at all (`say`): you read it aloud, hear the
+   * speaker and say whether you had it (the last fade, arabic-script-lessons.md §5).
    */
-  script: 'he' | 'sound' | 'latin';
+  script: 'he' | 'sound' | 'latin' | 'say';
   choices: string[];
 }
 
@@ -56,6 +57,12 @@ export type KnownChoices = 'sound' | 'latin';
 
 /** A word's choices stop being Hebrew once all its letters were taught this many lessons ago. */
 export const LATIN_AFTER = 2;
+
+/**
+ * The last fade: once all a word's letters were taught this many lessons ago, every other such
+ * word has no choices. You read it aloud, hear it, and say whether you read it right.
+ */
+export const SAY_AFTER = 4;
 
 /** The deck's romanisation without its notes ("nās [pl.]" → "nās"). */
 export const latinOf = (w: Word) => untagged(w.sound);
@@ -158,6 +165,8 @@ export function readQuestions(
   rand: Rand,
   count = READ_COUNT,
   mode: KnownChoices = 'sound',
+  /** Whether a word may be read aloud with no choices; a trial's answers are all checked. */
+  aloud = true,
 ): ReadQuestion[] {
   const known = new Set(lettersUpTo(lesson).map((l) => l.id));
   const fresh = new Set(LESSONS[lesson - 1]?.letters.map((l) => l.id));
@@ -174,6 +183,18 @@ export function readQuestions(
     const shown = withMarks(word.arabic, bare ? [] : marks);
     const latin = latinOf(word);
     const wellKnown = word.letters.every((l) => l.lesson <= lesson - LATIN_AFTER);
+    const longKnown = word.letters.every((l) => l.lesson <= lesson - SAY_AFTER);
+    if (aloud && longKnown && i % 2 === 0) {
+      return {
+        kind: 'read',
+        word,
+        shown,
+        marks: bare ? [] : marksIn(shown),
+        answer: word.audio,
+        script: 'say',
+        choices: [],
+      };
+    }
     if (wellKnown && mode === 'sound') {
       // Other readable words that sound different: similar length, so length alone doesn't tell.
       const others = [
