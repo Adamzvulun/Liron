@@ -757,6 +757,21 @@ describe('the wire (task 3.6, ADR 0046): who may join a private Realtime channel
     expect(await may(A, 'wire:not-a-uuid-at-all-not-a-uuid-at-a:x', 'send')).toBe(false);
   });
 
+  it('the same two friends may share a visit (task 9.1), and nobody else', async () => {
+    await befriend(A, B);
+    await befriend(A, C);
+    const visit = (x: string, y: string) => pair(x, y).replace(/^wire:/, 'visit:');
+    for (const who of [A, B]) {
+      expect(await may(who, visit(A, B), 'send')).toBe(true);
+      expect(await may(who, visit(A, B), 'hear')).toBe(true);
+    }
+    expect(await may(C, visit(A, B), 'hear')).toBe(false);
+    expect(await may(B, visit(B, C), 'send')).toBe(false);
+    expect(await may(A, visit(A, B), 'send', 'presence')).toBe(false);
+    await as(A, 'select remove_friend($1)', [B]);
+    expect(await may(B, visit(A, B), 'hear')).toBe(false);
+  });
+
   it('a signed-out visitor may not', async () => {
     await befriend(A, B);
     await db.exec('savepoint anon');

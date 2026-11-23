@@ -4,6 +4,7 @@ import { PlaceScreen } from '../city/PlaceScreen.tsx';
 import { coziness } from '../home/cozy.ts';
 import { PanelDialog } from '../home/HouseRoom.tsx';
 import { parseLayout, STARTER, type Layout, type RoomId } from '../home/layout.ts';
+import { useGathering, type LiveApi } from '../home/live.ts';
 import { Room } from '../home/Room.tsx';
 import { Link } from '../Link.tsx';
 import { LeaveNote } from './Notes.tsx';
@@ -31,9 +32,12 @@ export function FriendHouse({
   source,
   look,
   backdrop,
+  live,
 }: {
   id: string;
   source: FellowshipSource;
+  /** Seeing each other walk, when they're home too (task 9.1, §17). */
+  live?: LiveApi;
   /** Your own look, to walk in as; the room waits for it. */
   look?: Look;
   /** The house's painted room, behind everything. */
@@ -74,6 +78,10 @@ export function FriendHouse({
   }, [id, source]);
 
   const card = typeof visit === 'object' && visit ? visit.card : null;
+  const friend = card?.id ?? null;
+  const [mates, move] = useGathering(live, friend, friend ? [friend] : null);
+  const host = mates.find((m) => m.id === friend);
+  const elsewhere = host && host.room !== where;
   const title = card ? `${card.name}’s house` : 'A friend’s house';
   return (
     <PlaceScreen place="house" wide title={title}>
@@ -100,7 +108,8 @@ export function FriendHouse({
           where={where}
           layout={where === 'roof' && visit.roof ? visit.roof : visit.layout}
           look={look}
-          host={{ name: visit.card.name, look: visit.card.look }}
+          host={{ name: visit.card.name, look: visit.card.look, live: host }}
+          onMove={move}
           onUse={(def) => {
             // The shelf shows their card; the letterbox takes a note (task 8.1).
             if (def.does === 'trophies') setPanel('shelf');
@@ -118,6 +127,17 @@ export function FriendHouse({
         >
           {where === 'roof' ? 'Down to their room' : 'Up to their roof'}
         </button>
+      )}
+      {card && look && (
+        <p className="friend-house__company" role="status">
+          {host
+            ? elsewhere
+              ? host.room === 'roof'
+                ? `${card.name} is home, up on the roof.`
+                : `${card.name} is home, down in their room.`
+              : `${card.name} is home.`
+            : ''}
+        </p>
       )}
       {panel === 'shelf' && card && (
         <PanelDialog title={`${card.name}’s trophies`} onClose={() => setPanel(null)}>

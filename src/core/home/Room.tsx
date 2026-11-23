@@ -34,6 +34,7 @@ import {
   type RoomId,
 } from './layout.ts';
 import { decorOverlay, homeLayers, type HomeView } from './paintHome.ts';
+import type { Seat, Standing } from './live.ts';
 import { cellKey, findPath, type Cell } from './path.ts';
 import { avatarScale, cellAt, cellFeet, floorPoint, type Pt } from './projection.ts';
 import './room.css';
@@ -103,11 +104,28 @@ function placeOn([x, y]: Pt, row: number, nudge = 0) {
   return `translate(${x - AVATAR_BOX.width / 2 + nudge * s}px, ${y - AVATAR_BOX.feetY}px) scale(${s})`;
 }
 
-/** Whom you visit (§8): they stand still by the window, in their saved look. */
+/**
+ * Whom you visit (§8): they stand still by the window, in their saved look. When they're home
+ * too (§17), `live` is where they are: in this room, they walk there; elsewhere, they're not here.
+ */
 export interface Host {
   name: string;
   look: Look;
+  live?: Standing | null;
 }
+
+/** A friend in your room, live (§17). */
+export interface Guest extends Standing {
+  id: string;
+  name: string;
+  look: Look;
+}
+
+/** Where a friend is drawn: standing on a cell (half a step aside on yours), or sitting. */
+const figureAt = (at: Cell, seat: Seat | null, mine: Cell) =>
+  seat
+    ? { transform: placeOn(seat.point, seat.row), zIndex: standingZ(seat.row) }
+    : { transform: placeAt(at, same(at, mine) ? 70 : 0), zIndex: standingZ(at[1]) };
 
 /** The longest walk before a piece opens: farther than this, it opens as you set off (§12). */
 const OPEN_AFTER_STEPS = Math.floor(2000 / STEP_MS);
@@ -134,6 +152,8 @@ export function Room({
   onUse,
   decor,
   host,
+  guests = [],
+  onMove,
   where = 'home',
 }: {
   layout: Layout;
@@ -143,6 +163,10 @@ export function Room({
   decor?: Decor;
   /** A friend's room (§8): they stand by the window, and the room is called theirs. */
   host?: Host;
+  /** Friends in your room, live (§17): drawn where they are; walking through them is fine. */
+  guests?: readonly Guest[];
+  /** Hears where you are, whenever it changes, for the friends in the house (§17). */
+  onMove?: (spot: Standing) => void;
   /**
    * Uses a piece (§5) once you are by it: opens its panel, or gives a line to say. Without it,
    * pieces only say their line.
@@ -170,10 +194,17 @@ export function Room({
       x >= 0 && y >= 0 && x < ROOM.cols && y < ROOM.rows && !blocked.has(cellKey([x, y])),
     [blocked, ROOM],
   );
-  const hostAt = useMemo(() => (host ? byTheWindow(free) : null), [host, free]);
+  // A host who is home too walks where they like, and stands in nobody's way (§17).
+  const hostLive = host?.live ?? null;
+  const hostStill = useMemo(
+    () => (host && host.live === undefined ? byTheWindow(free) : null),
+    [host, free],
+  );
+  const hostAt: Cell | null = hostLive && hostLive.room === where ? hostLive.at : hostStill;
+  const hostSeat = hostLive && hostLive.room === where ? hostLive.seat : null;
   const open = useMemo(
-    () => (x: number, y: number) => free(x, y) && !(hostAt && same(hostAt, [x, y])),
-    [free, hostAt],
+    () => (x: number, y: number) => free(x, y) && !(hostStill && same(hostStill, [x, y])),
+    [free, hostStill],
   );
 
   const [ref, view] = useStage(cellFeet(...ROOM.door)[0], contain);
@@ -184,7 +215,7 @@ export function Room({
   const [walking, setWalking] = useState(false);
   const [say, setSay] = useState('');
   const [lit, setLit] = useState(true);
-  const [seated, setSeated] = useState<{ point: Pt; row: number } | null>(null);
+  const [seated, setSeated] = useState<Seat | null>(null);
   const route = useRef<Cell[]>([]);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const hush = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -361,7 +392,12 @@ export function Room({
     const [x, y] = pt;
     const cell = cellAt(x, y);
     if (host && cell && hostAt && same(cell, hostAt)) {
-      tell(`${host.name} is glad you came by.`);
+      tell(hostLive ? `${host.name} waves.` : `${host.name} is glad you came by.`);
+      return;
+    }
+    const guest = cell && guests.find((g) => g.room === where && same(g.at, cell));
+    if (guest) {
+      tell(`${guest.name} waves.`);
       return;
     }
     const piece = cell ? blocked.get(cellKey(cell)) : hangingAt(x, y);
@@ -407,6 +443,11 @@ export function Room({
     const left = cellFeet(...at)[0] * view.scale - el.clientWidth / 2;
     el.scrollTo?.({ left, behavior: reducedMotion() ? 'auto' : 'smooth' });
   }, [at, view.pan, view.scale, ref]);
+
+  // Where you are, for the friends in the house (§17).
+  useEffect(() => {
+    if (!decor) onMove?.({ room: where, at, seat: seated });
+  }, [onMove, where, at, seated, decor]);
 
   // A piece set down where you stood (Decorate) sends you back to the door.
   useEffect(() => {
@@ -464,6 +505,13 @@ export function Room({
           data-walking={walking || undefined}
           data-at={cellKey(at)}
           data-seated={seated ? 'true' : undefined}
+          data-host={hostAt ? `${hostLive ? 'live' : 'still'}:${cellKey(hostAt)}` : undefined}
+          data-guests={
+            guests
+              .filter((g) => g.room === where)
+              .map((g) => `${g.name}:${cellKey(g.at)}`)
+              .join(' ') || undefined
+          }
           onClick={tap}
           onPointerDown={(e) => press('down', e)}
           onPointerMove={(e) => press('move', e)}
@@ -505,12 +553,28 @@ export function Room({
             <Avatar
               look={host.look}
               pet={false}
-              className="room__figure room__host"
+              className={`room__figure room__host${hostLive && moving ? ' room__figure--moving' : ''}`}
               width={AVATAR_BOX.width}
               height={AVATAR_BOX.height + 10}
-              style={{ transform: placeAt(hostAt), zIndex: standingZ(hostAt[1]) }}
+              sit={!!hostSeat}
+              style={figureAt(hostAt, hostSeat, seated ? [-1, -1] : at)}
             />
           )}
+          {!decor &&
+            guests
+              .filter((g) => g.room === where)
+              .map((g) => (
+                <Avatar
+                  key={g.id}
+                  look={g.look}
+                  pet={false}
+                  className={`room__figure room__guest${moving ? ' room__figure--moving' : ''}`}
+                  width={AVATAR_BOX.width}
+                  height={AVATAR_BOX.height + 10}
+                  sit={!!g.seat}
+                  style={figureAt(g.at, g.seat, seated ? [-1, -1] : at)}
+                />
+              ))}
           {!decor && (
             <Avatar
               look={look}
