@@ -1,3 +1,5 @@
+import { nextRung } from '../lesson/ladder.ts';
+import { finalePassed } from '../qso/fortyWinters.ts';
 import { SPEEDS, charWpmOf, topSpeed, type MorseProgress } from '../lesson/progress.ts';
 
 /**
@@ -13,6 +15,7 @@ export function SpeedDial({
 }) {
   const top = topSpeed(progress);
   const now = charWpmOf(progress);
+  const rung = nextRung(progress);
   return (
     <div className="tower__dial" role="group" aria-label="Letter speed in words per minute">
       {SPEEDS.filter((s) => s <= top).map((s) => (
@@ -29,6 +32,13 @@ export function SpeedDial({
         Auto
       </button>
       <span className="tower__dial-note">Letters at {now} wpm</span>
+      <span className="tower__dial-note">
+        {rung
+          ? `Next rung: ${rung} wpm. Copy a run at 90% on two different days (${progress.ladderDays.length} of 2), with your letters and your overall speed both at ${top} wpm. A lowered speed doesn’t count.`
+          : finalePassed(progress)
+            ? 'You have opened every rung.'
+            : 'Faster speeds open after Forty Winters.'}
+      </span>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import {
   weightsFor,
   type MorseProgress,
 } from './progress.ts';
+import { climb } from './ladder.ts';
 import { GATE_RUNS, scoreCopy, SKIP, type RunScore } from './score.ts';
 import './lesson.css';
 import { NextStep } from '../../../core/road/NextStep.tsx';
@@ -33,7 +34,7 @@ type Stage =
   | { kind: 'start' }
   | { kind: 'meet'; char: string; step: 'listen' | 'drill' }
   | { kind: 'run'; warmup: boolean }
-  | { kind: 'result'; score: RunScore; passed: boolean; warmup: boolean };
+  | { kind: 'result'; score: RunScore; passed: boolean; warmup: boolean; rung: number | null };
 
 /** `?run=short` makes a run 4 seconds instead of 2 minutes (for tests: enough for a few letters). */
 const runSeconds = () =>
@@ -105,9 +106,18 @@ export function KochLesson({ api }: { api: SubjectApi }) {
 
   const finishRun = (score: RunScore, warmup: boolean) => {
     const at = new Date();
-    const { next, unlockedNow } = applyRun(progress, score, at, warmup);
+    const run = applyRun(progress, score, at, warmup);
+    const { unlockedNow } = run;
+    const { next, rung } = climb(
+      progress,
+      run.next,
+      score,
+      at,
+      warmup,
+      runSeconds() === RUN_SECONDS ? undefined : 1, // a test's short run
+    );
     setProgress(next);
-    setStage({ kind: 'result', score, passed: unlockedNow, warmup });
+    setStage({ kind: 'result', score, passed: unlockedNow, warmup, rung });
     reportRun(api, next, score, unlockedNow, seconds, at).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
@@ -175,6 +185,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           score={stage.score}
           passed={stage.passed}
           warmup={stage.warmup}
+          rung={stage.rung}
           runsAtGate={stage.passed ? GATE_RUNS : trailingPasses(progress.recent)}
           trialName={pendingTrial(progress)?.trial.name}
           nextChar={stage.passed ? unlocked[unlocked.length - 1] : nextChar(progress)}
@@ -542,6 +553,7 @@ function Result({
   score,
   passed,
   warmup,
+  rung,
   trialName,
   runsAtGate,
   nextChar,
@@ -553,6 +565,8 @@ function Result({
   score: RunScore;
   passed: boolean;
   warmup: boolean;
+  /** The speed-ladder rung this run opened. */
+  rung: number | null;
   /** The chapter's trial, if it holds the gate now. */
   trialName?: string;
   runsAtGate: number;
@@ -584,6 +598,12 @@ function Result({
             <span key={i} className={i < runsAtGate ? 'is-lit' : undefined} />
           ))}
         </div>
+        {rung && (
+          <p className="lesson__title" role="status">
+            A new rung opens: {rung} wpm! Your letters play at {rung} from now on, unless you chose
+            a speed on the dial.
+          </p>
+        )}
         {passed ? (
           <>
             <p className="lesson__title">

@@ -24,9 +24,11 @@ import {
   fastestDit,
   parseProgress,
   pendingTrial,
+  topSpeed,
   unlockedChars,
   type MorseProgress,
 } from './lesson/progress.ts';
+import { nextRung } from './lesson/ladder.ts';
 import { wpmFor } from './send/decoder.ts';
 import { stationOf } from './qso/onAir.ts';
 import { farOpen, farPassed } from './qso/farStation.ts';
@@ -237,6 +239,9 @@ function meanwhile(p: MorseProgress, ctx: RoadContext): Meanwhile {
  */
 function bestLine(door: string, p: MorseProgress): string | null {
   const dit = fastestDit(p);
+  const rung = nextRung(p);
+  if (door === 'koch' && rung)
+    return `Tonight: a run on the stair at ${topSpeed(p)} wpm. Two days at 90% open the ${rung} wpm rung.`;
   if (door === 'recognition' && p.recognition.best > 0)
     return `Tonight: Instant Recognition. Your best is ${p.recognition.best}: beat it.`;
   if (door === 'sending' && dit)

@@ -2007,12 +2007,13 @@ describe('the Market (ADR 0033, #49)', () => {
   it('never sells, rolls or gives the finales’ gear, but still sells the breeches (review, 2026-11-19)', async () => {
     const earned = (await rows(
       `select id, is_rank_gear(milestone) as kept from items
-         where id in ('beacon-lens', 'guest-book-pen', 'breeches') order by id`,
+         where id in ('beacon-lens', 'guest-book-pen', 'metronome', 'breeches') order by id`,
     )) as { id: string; kept: boolean }[];
     expect(earned).toEqual([
       { id: 'beacon-lens', kept: true },
       { id: 'breeches', kept: false },
       { id: 'guest-book-pen', kept: true },
+      { id: 'metronome', kept: true },
     ]);
   });
 
@@ -2572,6 +2573,41 @@ describe('the rewards, hardened before friends join (2026-11-15, report §4au)',
     await save('arabic', [{ kind: 'trial-stranger-at-the-gate' }]);
     expect(await had('morse')).toEqual(['rank-ghost', 'trial-forty-winters']);
     expect(await had('arabic')).toEqual(['rank-storyteller', 'trial-stranger-at-the-gate']);
+  });
+
+  it('counts the speed ladder only after Forty Winters, and its rungs in order (#508)', async () => {
+    const rung = (...kinds: string[]) =>
+      save(
+        'morse',
+        kinds.map((kind) => ({ kind })),
+      );
+    await rung('ladder-rung', 'ladder-25', 'trial-ladder-30');
+    expect(await had('morse')).toEqual([]);
+    await rows(
+      `insert into subject_events (user_id, day, subject_id, kind, count)
+         values ($1, current_date - 1, 'morse', 'trial-forty-winters', 1)`,
+      [ADAM],
+    );
+    await rung('trial-ladder-30', 'ladder-25');
+    expect(await had('morse')).toEqual(['trial-forty-winters']);
+    await rung('ladder-rung');
+    await rung('ladder-25', 'trial-ladder-30');
+    expect(await had('morse')).toEqual([
+      'ladder-25',
+      'ladder-rung',
+      'trial-forty-winters',
+      'trial-ladder-30',
+    ]);
+    // 25 gives the achievement (and its title Ghost); 30 gives the metronome.
+    const owned = async (sql: string) => (await rows(sql, [ADAM])).length;
+    expect(
+      await owned(
+        `select 1 from player_achievements where user_id = $1 and achievement_id = 'faster-than-thought'`,
+      ),
+    ).toBe(1);
+    expect(
+      await owned(`select 1 from owned_items where user_id = $1 and item_id = 'metronome'`),
+    ).toBe(1);
   });
 
   it('fills in a rank the saved progress holds, so its finale counts (third review)', async () => {

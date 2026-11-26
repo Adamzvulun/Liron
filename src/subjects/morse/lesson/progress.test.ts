@@ -37,6 +37,11 @@ describe('Morse progress', () => {
     expect(toMeet(p)).toEqual(['M']);
   });
 
+  it('keeps a 35 wpm rung through a save and reload', () => {
+    const p = parseProgress({ rungs: [22, 25, 28, 30, 35], charWpm: 35, effWpm: 33 });
+    expect([p.charWpm, p.effWpm]).toEqual([35, 33]);
+  });
+
   it('reads an old save as 20 wpm with no override and no rungs', () => {
     const p = parseProgress({ unlocked: 5, effWpm: 12 });
     expect([p.charWpm, p.override, p.rungs]).toEqual([20, null, []]);
@@ -124,6 +129,29 @@ describe('reportRun', () => {
           at,
         },
       ],
+    ]);
+  });
+
+  it('sends ladder-rung and the 25 and 30 events from the rungs held, with every report (#508)', async () => {
+    const saveSession = vi.fn<(report: { events?: { kind: string }[] }) => Promise<void>>(
+      async () => undefined,
+    );
+    const api = { saveSession } as unknown as SubjectApi;
+    const kinds = async (rungs: number[]) => {
+      saveSession.mockClear();
+      await reportRun(api, { ...NEW_PROGRESS, rungs }, run('KM', 'KM'), false, 60, at);
+      return saveSession.mock.calls[0]?.[0].events?.map((e) => e.kind);
+    };
+    expect(await kinds([])).toEqual(['run', 'run-90']);
+    expect(await kinds([22])).toEqual(['run', 'run-90', 'ladder-rung']);
+    // A report with no new rung still carries them, so a failed save never sticks the chain.
+    expect(await kinds([22, 25])).toEqual(['run', 'run-90', 'ladder-rung', 'ladder-25']);
+    expect(await kinds([22, 25, 28, 30])).toEqual([
+      'run',
+      'run-90',
+      'ladder-rung',
+      'ladder-25',
+      'trial-ladder-30',
     ]);
   });
 

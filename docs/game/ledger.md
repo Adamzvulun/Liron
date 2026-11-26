@@ -43,7 +43,8 @@ The compass's own "Step 14 of 74" for each guild (task 1.3). "Finished" when eve
 | Line | Definition |
 |---|---|
 | Characters learned | Characters unlocked in the Koch lessons, of all of them |
-| Copy speed | The lesson speed you've reached (effective words a minute, with the characters at 20) |
+| Copy speed | The lesson speed you've reached (effective words a minute, with the characters at your letter speed) |
+| Speed ladder | The letter speed you've earned and the next rung (22, 25, 28, 30, 35 wpm), "Opens after Forty Winters" before the finale, "Top rung" at the end |
 | Sending speed | Your fastest sending drill, as words a minute (1200 ÷ the dot's length in ms). "No drill yet" before the first one. |
 | Recognition best | Your best Instant Recognition score |
 | Contacts logged | Contacts in the Radio Room's logbook |

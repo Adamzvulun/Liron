@@ -15,6 +15,7 @@ describe('the Signal Tower ledger', () => {
     expect(l.rows.map((r) => r.value)).toEqual([
       `2 of ${MORSE_CHARS.length}`,
       '10 wpm',
+      'Opens after Forty Winters',
       'No drill yet',
       '0',
       '0',
@@ -67,5 +68,13 @@ describe('the Signal Tower ledger', () => {
   it('falls back to the last drill for progress saved before the fastest was kept', () => {
     const state = { ...NEW_PROGRESS, sending: { drills: 1, ditMs: 120 } };
     expect(value(morseLedger(state, empty).rows, 'Sending speed')).toBe('10 wpm');
+  });
+
+  it('reads the speed ladder in its three states (#508)', () => {
+    const line = (state: object) => value(morseLedger(state, empty).rows, 'Speed ladder');
+    const won = { ...NEW_PROGRESS, rankTrials: ['forty-winters'] };
+    expect(line(NEW_PROGRESS)).toBe('Opens after Forty Winters');
+    expect(line(won)).toBe('Letters at 20 wpm · next rung 22');
+    expect(line({ ...won, rungs: [22, 25, 28, 30, 35] })).toBe('Top rung: 35 wpm');
   });
 });
