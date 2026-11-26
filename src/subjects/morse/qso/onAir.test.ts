@@ -23,6 +23,7 @@ import {
   roomOpen,
   setUpStation,
   slower,
+  opWpm,
   stationOf,
   workedWith,
   type AirStep,
@@ -197,6 +198,22 @@ describe('a contact', () => {
 
   it('dates the log in local time', () => {
     expect(radioDay(new Date(2026, 0, 5, 23, 30))).toBe('2026-01-05');
+  });
+});
+
+describe('operators follow your speed (#510)', () => {
+  it('plays at 25 for a 25 wpm player, keeping each operator’s own offset', () => {
+    expect(opWpm(op('dex'), 25)).toBe(op('dex').wpm + 5);
+    expect(opWpm(op('dex'), 20)).toBe(op('dex').wpm);
+    expect(opWpm(op('dex'), 18)).toBe(op('dex').wpm);
+    expect(opWpm(op('dex'), 35)).toBeLessThanOrEqual(35);
+  });
+
+  it('counts a clean contact at the speed it was played', () => {
+    const res = { copied: 5, copyTotal: 5, keyed: 3, keyTotal: 3, logged: true };
+    const c = makeContact(op('ivo'), me, false, () => 0);
+    expect(isCleanFast(c, res, 0)).toBe(false);
+    expect(isCleanFast(c, res, 0, 25)).toBe(true);
   });
 });
 

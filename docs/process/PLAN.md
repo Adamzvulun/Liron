@@ -484,7 +484,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☑ 12.1 (#507) · v1.10 · Your speed: the model and the tower's speed dial
 ### ☑ 12.2 (#508) · v1.10 · The speed ladder (22 → 35 wpm)
 ### ☑ 12.3 (#509) · v1.10 · The Long Copy: head copy, then copy behind
-### ☐ 12.4 (#510) · v1.10 · The operators follow your speed
+### ☑ 12.4 (#510) · v1.10 · The operators follow your speed
 ### ☐ 12.5 (#511) · v1.10 · Release v1.10.0
 
 **Order:** 12.1 first, then 12.2–12.4 in one PR, then 12.5. Ordered last on purpose: the faster speeds open only after 90% at 20 wpm with standard spacing (pre-mortem, research note).
