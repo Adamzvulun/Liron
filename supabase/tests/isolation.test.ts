@@ -145,6 +145,7 @@ const CALLABLE: Record<string, string> = {
   'remove_friend(p_other uuid)': 'only a pair the caller is in',
   'report_error(p_message text, p_stack text, p_route text, p_version text, p_user_agent text)':
     'writes one capped row under the caller’s own id',
+  'delete_my_account()': 'deletes the caller’s own login, and with it every row of theirs (#500)',
   'fellowship()': 'the caller’s card and accepted friends’ cards, with §3’s fields only',
   'fellowship_requests()': 'requests to the caller: name and look only',
   'fellowship_feed(p_before timestamp with time zone)':

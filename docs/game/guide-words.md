@@ -99,3 +99,7 @@ Choose how many minutes to practice each day, from 5 to 60: tap the goal in the 
 ### Ranks and achievements
 
 Each guild has ranks, earned as you walk its road and pass its trials. Achievements are milestones across Waymark: they pay gems, and some give a title to wear under your name.
+
+### Your data, and leaving
+
+Settings has a danger area at the bottom. Download my data saves one file with your progress, reviews, room and notes, yours to keep. Delete my account removes all of it for good, asks for your password and the word DELETE first, and can’t be undone. Your friends keep their own and lose you from their list.

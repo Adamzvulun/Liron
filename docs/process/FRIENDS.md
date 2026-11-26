@@ -73,3 +73,7 @@ The Caravanserai says "This account can't read the deck yet: ask whoever invited
 ## Remove a friend, and everything of theirs
 
 **Authentication → Users** → their row → **Delete user**. Their progress, wallet, reviews, chats, chests and allowances go with the account (`on delete cascade` on every player table). Nothing of theirs is kept.
+
+## A friend wants to leave
+
+They don't need you. **Settings → Danger area** on the live site has **Download my data** (one JSON file of their own rows: progress, reviews, room, notes and what friends sent them) and **Delete my account**. Deleting asks for their password again and the word DELETE, then calls the `delete_my_account()` function, which removes their login; `on delete cascade` removes everything else ([task 10.2](https://github.com/), `supabase/tests/delete-account.test.ts` checks that every table follows). It is final: there is no undo. Their friends keep their own accounts and rooms and just lose the pair; the invite links they made stop working, and a link they used keeps its row. Chat lines aren't stored on the server (only a daily count), so they aren't in the file. They see a goodbye page after.

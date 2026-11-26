@@ -78,6 +78,7 @@ Waymark is invite-only: sign-ups are switched off in Supabase.
 - **To add a friend, or reset their password:** [FRIENDS.md](FRIENDS.md). Send an invite link from **Settings → Invite a friend** on the live site, and they make their own account ([ADR 0052](../decisions/0052-invite-links.md)). Making the account by hand and handing over a password is the fallback; they change it in **Settings → Change password**. Friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)): since v1.1.0 every new account is a licensee by itself. *Untested.*
 - **Before friends key to each other on the wire (v2.4):** in the Supabase dashboard, for each project (dev and live), open **Realtime → Settings** and switch **Allow public access** off. It's free. Waymark always asks for a private channel, which only the two friends may join ([ADR 0046](../decisions/0046-the-wire.md)); this setting stops anyone from opening a public channel instead. *Untested.*
 - **To remove a friend:** the same page → their row → **Delete user**. Everything of theirs goes with the account: progress, wallet and reviews are deleted with it (`on delete cascade`). *Untested.*
+- **When a friend asks to leave or to have their data:** they do it themselves in **Settings → Danger area** (**Download my data**, **Delete my account**); see [FRIENDS.md](FRIENDS.md#a-friend-wants-to-leave). Nothing to do on your side, and no way to undo it. *Untested on a live project.*
 
 ## Reading the error log
 

@@ -1,11 +1,13 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { subjects } from '../subjects/index.ts';
 import {
+  GoodbyeScreen,
   JoinScreen,
   LoginScreen,
   NotConfiguredScreen,
   SetPasswordScreen,
 } from './auth/AuthScreens.tsx';
+import { GOODBYE_KEY, supabaseAccount } from './account/account.ts';
 import { inviteCode, supabaseInvites } from './auth/invites.ts';
 import { GateScene, WaymarkPost } from './auth/Scenes.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
@@ -191,6 +193,9 @@ const changePassword = async (password: string): Promise<string | null> => {
   }
 };
 
+/** Settings' danger area (#500): your data as a file, and deleting the account. */
+const account = supabase ? supabaseAccount(supabase) : undefined;
+
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
   store && player
@@ -272,6 +277,15 @@ function AuthGate() {
         </div>
       );
     case 'signedOut':
+      if (sessionStorage.getItem(GOODBYE_KEY))
+        return (
+          <GoodbyeScreen
+            onDone={() => {
+              sessionStorage.removeItem(GOODBYE_KEY);
+              window.location.assign('/');
+            }}
+          />
+        );
       return invite && window.location.pathname !== '/' ? (
         <JoinScreen code={invite} />
       ) : (
@@ -756,6 +770,7 @@ function Lobby({ player }: { player: Player }) {
           onPasswordChange={changePassword}
           sharing={sharing}
           invites={invites}
+          account={account}
           onSignOut={() => {
             // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });
