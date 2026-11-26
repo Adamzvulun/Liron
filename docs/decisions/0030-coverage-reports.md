@@ -7,7 +7,7 @@
 The 2026-11-04 full review found code the tests never reach (e2e flows that accept any outcome, pass/fail gates never checked end to end). We had no way to see which lines the unit tests run. Adam approved adding a coverage tool (review decision 10).
 
 ## Options considered
-1. **`@vitest/coverage-v8`**: Vitest's own provider, using V8's built-in coverage. Free, MIT, same version as Vitest (5.0.5), no code changes or instrumentation step.
+1. **`@vitest/coverage-v8`**: Vitest's own provider, using V8's built-in coverage. Free, MIT, always the same version as Vitest, no code changes or instrumentation step.
 2. **`@vitest/coverage-istanbul`**: also free (MIT). Instruments the code first, so it's slower; its extra precision isn't needed here.
 3. **No tool**: keep guessing from reading the tests.
 
