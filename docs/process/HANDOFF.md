@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Latest:** 2026-11-23, end of session: items 193–200 (Phases 10–15 planned, on PR #512; v1.7.0 waits on Adam's go in #485). Start at item 200.
+- **Latest:** 2026-11-26: item 201 (the agent factory). Before it, 2026-11-23: items 193–200 (Phases 10–15 planned; v1.7.0 waits on Adam's go in #485). Start at item 200, then 201.
 - **Written:** 2026-11-03, during the overnight run; updated 2026-11-15 at the end of a session (items 54–59) and in the next session (items 60–64); updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46; that night E12 and E11). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 - **Starting prompt:** [next-session-prompt.md](next-session-prompt.md) is what Adam pastes to start the next session.
@@ -520,4 +520,8 @@
    - **Phase 10's order:** 10.3 first, then 10.1 and 10.2 together with the two tale fixes (tale 33's btúgbuʂ should end in ɖ; tale 41 has a doubled ب in بْبْنيه), then 10.4 and 10.5.
    - **Phase 15 needs Adam before 15.3:** a Google Cloud project for songs with billing and a budget alert, `GEMINI_SONGS_API_KEY` and `ANTHROPIC_API_KEY` in Vercel, and a monthly spend limit in the Claude Console. Then run the full 8-song eval (research §J, pass marks in §L) before building on it.
    - **Docs audited at the end of this session:** STATUS (ADR count, phases, PR rules, the paid songs exception, Gemini facts), ADR 0059 (no "free" claims left for Gemini), PLAN's Phase 15 goal, and this file.
+201. **The agent factory (2026-11-26).** Adam asked for a team of subagents with Claude as orchestrator. Built: 9 agents in `.claude/agents/` (`scout`, `researcher`, `builder`, `tester`, `reviewer`, `architect`, `scribe`, `cleanup`, `agent-architect`), [`ROSTER.md`](../../.claude/agents/ROSTER.md), [`BACKLOG.md`](../../.claude/BACKLOG.md), the commands `/task`, `/status`, `/plan`, `/review` and `/cleanup`, and the Orchestrator section in CLAUDE.md.
+   - **Budget:** Adam is on a small plan. Do small work inline; delegate only big, parallel or isolated work; opus agents sparingly. Each agent preloads ponytail plus at most one skill.
+   - **Ponytail** 5.3.3 is at its default, `full`. Its `SubagentStart` hook adds its rules to every subagent while the mode is on.
+   - **Not yet verified:** agent files load only in a new session, so the step 7 test run (a small non-Phase-10 task through scout, builder, tester and reviewer, with its own PR into `dev`) waits for the next session. Check there that `skills: ponytail:ponytail` loads; the docs don't say how to name a plugin skill there.
 
