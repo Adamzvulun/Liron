@@ -21,6 +21,7 @@ import {
   xpForWords,
   type WordAttempt,
 } from './drill.ts';
+import { LongCopy } from './LongCopy.tsx';
 import { Rush, RushSummaryCard } from './Rush.tsx';
 import { MORSE_CHARS } from '../code.ts';
 import {
@@ -44,6 +45,7 @@ import {
   summarizeRush,
   type RushCall,
 } from './rush.ts';
+import { COPY_BEHIND_WPM } from './longCopy.ts';
 import '../lesson/lesson.css';
 import './words.css';
 import { NextStep } from '../../../core/road/NextStep.tsx';
@@ -89,6 +91,8 @@ export function WordDrill({
   const [result, setResult] = useState<WordAttempt[] | null>(null);
   const [starting, setStarting] = useState(false);
   const [rushing, setRushing] = useState(opening === 'rush');
+  /** The Long Copy: how many lines have been started; 0 is none, and each one is built afresh. */
+  const [longLine, setLongLine] = useState(0);
   /** The last round as scored for challenges (task 3.4); null until it's recorded. */
   const [scored, setScored] = useState<ScoredRound | null>(null);
   const [rushResult, setRushResult] = useState<{ calls: RushCall[]; bestBefore: number } | null>(
@@ -243,7 +247,15 @@ export function WordDrill({
           Your last round couldn’t be saved. Your next round will try again.
         </p>
       )}
-      {round ? (
+      {longLine > 0 ? (
+        <LongCopy
+          key={longLine}
+          api={api}
+          progress={progress}
+          onAgain={() => setLongLine((n) => n + 1)}
+          onLeave={() => setLongLine(0)}
+        />
+      ) : round ? (
         <Copy round={round} onDone={round.watch ? finishWatch : finish} />
       ) : watchIntro ? (
         <WatchIntro
@@ -321,6 +333,23 @@ export function WordDrill({
               ) : (
                 <p className="lesson__note">
                   Opens with your first digit (5, in chapter 3): every callsign has one.
+                </p>
+              )}
+              <h3 className="words__subtitle">The Long Copy</h3>
+              {watchOpen(progress, MORSE_CHARS.length) ? (
+                <>
+                  <p>
+                    A line from the Radio Room, heard once at your speed. Nothing shows until it
+                    ends, then three questions. From {COPY_BEHIND_WPM} wpm you type it one word
+                    behind.
+                  </p>
+                  <button type="button" className="lesson__plain" onClick={() => setLongLine(1)}>
+                    Start a Long Copy
+                  </button>
+                </>
+              ) : (
+                <p className="lesson__note">
+                  Opens once you’ve learned all {MORSE_CHARS.length} characters.
                 </p>
               )}
             </>

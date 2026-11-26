@@ -1219,6 +1219,35 @@ describe('daily contracts (ADR 0032)', () => {
     expect(after.every((id) => id.startsWith('morse-words'))).toBe(true);
   });
 
+  it('counts a Long Copy and offers its contract only after one was played (#509)', async () => {
+    expect(
+      await rows(
+        `select t.gold, t.requires_kind, k.kind from contract_templates t
+           join subject_event_kinds k on k.subject_id = t.subject_id and k.kind = t.kind
+          where t.id = 'morse-long-copy'`,
+      ),
+    ).toEqual([{ gold: 20, requires_kind: 'long-copy-round', kind: 'long-copy-round' }]);
+  });
+
+  it('counts a Long Copy only once the Gatekeeper is passed (#509)', async () => {
+    const own = () =>
+      rows(
+        `select kind from subject_events where user_id = $1 and subject_id = 'morse'
+            and kind = 'long-copy-round'`,
+        [ADAM],
+      );
+    await save('morse', [{ kind: 'long-copy-round' }]);
+    expect(await own()).toEqual([]);
+    await save('morse', [{ kind: 'trial-1' }]);
+    await save('morse', [{ kind: 'long-copy-round' }]);
+    expect(await own()).toHaveLength(1);
+    await rows(
+      `delete from subject_events where user_id = $1 and subject_id = 'morse'
+          and kind in ('trial-1', 'long-copy-round')`,
+      [ADAM],
+    );
+  });
+
   it('gives a road’s master contracts from the day after its finale, always (task 4.1)', async () => {
     const day0 = await today(ADAM);
     const board = async (d: number) => {

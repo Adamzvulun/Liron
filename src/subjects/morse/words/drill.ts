@@ -77,7 +77,7 @@ export function pickRound(
   return shuffle(picked, random);
 }
 
-function shuffle<T>(list: readonly T[], random: () => number): T[] {
+export function shuffle<T>(list: readonly T[], random: () => number): T[] {
   const out = [...list];
   for (let i = out.length - 1; i > 0; i--) {
     const j = Math.floor(random() * (i + 1));
