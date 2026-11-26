@@ -61,7 +61,7 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 
 ## Skills
 
-The repo vendors a curated set of skills from [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) (MIT) in `.claude/skills/`. `.claude/settings.json` also enables the full `fullstack-dev-skills` plugin from that marketplace. `frontend-design` comes from [anthropics/skills](https://github.com/anthropics/skills) (Apache 2.0, see `.claude/skills/LICENSE-anthropic-skills`).
+The repo vendors a curated set of skills from [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) (MIT) in `.claude/skills/`. `.claude/settings.json` also enables the full `fullstack-dev-skills` plugin from that marketplace, and the [`ponytail`](https://github.com/DietrichGebert/ponytail) plugin (MIT; skills `ponytail`, `ponytail-review`, `ponytail-audit`, `ponytail-debt`, `ponytail-gain`, `ponytail-help`). Ponytail's webhook settings stay empty. `frontend-design` comes from [anthropics/skills](https://github.com/anthropics/skills) (Apache 2.0, see `.claude/skills/LICENSE-anthropic-skills`).
 
 **Visual work:** always screenshot what you draw (`docs/design/concept-v0/tools/render.js`) and look at it before showing Adam.
 The upstream Jira and Confluence workflow commands are **not** used. Our workflow maps those phases onto GitHub Issues and Markdown docs (see WORKFLOW.md).
