@@ -58,6 +58,8 @@ const PLAYER_TABLES: Record<string, string> = {
   homes: 'user_id',
   // A note has two players (task 8.1); the host reads theirs through my_notes() only.
   home_notes: 'visitor_id',
+  // The error log (task 10.1): written through report_error() only, read by nobody here.
+  error_log: 'player_id',
 };
 
 /**
@@ -141,6 +143,8 @@ const CALLABLE: Record<string, string> = {
     'answers nothing about the code; 10 a day, 5 waiting, 20 friends (fellowship.test.ts)',
   'answer_friend(p_other uuid, p_accept boolean)': 'only a request sent to the caller',
   'remove_friend(p_other uuid)': 'only a pair the caller is in',
+  'report_error(p_message text, p_stack text, p_route text, p_version text, p_user_agent text)':
+    'writes one capped row under the caller’s own id',
   'fellowship()': 'the caller’s card and accepted friends’ cards, with §3’s fields only',
   'fellowship_requests()': 'requests to the caller: name and look only',
   'fellowship_feed(p_before timestamp with time zone)':
@@ -247,6 +251,8 @@ async function seed(id: string) {
     `insert into gifts (from_id, to_id, item_id, price) values ($1, '${T}', 'cloak', 180)`,
     `insert into homes (user_id, layout) values ($1, home_starter())`,
     `insert into home_notes (visitor_id, host_id, note) values ($1, '${T}', 'tea')`,
+    `insert into error_log (player_id, message, stack, route, version, user_agent)
+       values ($1, 'boom', '', '/', '1', '')`,
   ];
   for (const sql of statements) await db.query(sql, [id]);
 }

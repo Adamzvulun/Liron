@@ -79,6 +79,10 @@ Waymark is invite-only: sign-ups are switched off in Supabase.
 - **Before friends key to each other on the wire (v2.4):** in the Supabase dashboard, for each project (dev and live), open **Realtime → Settings** and switch **Allow public access** off. It's free. Waymark always asks for a private channel, which only the two friends may join ([ADR 0046](../decisions/0046-the-wire.md)); this setting stops anyone from opening a public channel instead. *Untested.*
 - **To remove a friend:** the same page → their row → **Delete user**. Everything of theirs goes with the account: progress, wallet and reviews are deleted with it (`on delete cascade`). *Untested.*
 
+## Reading the error log
+
+When a friend says something crashed: in the Supabase dashboard, **Table Editor → `error_log`**, newest first. Each row has the message, the first 10 stack lines, the route, the app version, the browser and the time. Never anything a player typed. A player writes at most 20 rows a day, the same message once a day, and the newest 2,000 rows are kept; no player can read the table ([ADR 0058](../decisions/0058-our-own-error-log.md)). *Untested on a live project.*
+
 ## Releasing
 
 [DEPLOY](DEPLOY.md#releasing):
