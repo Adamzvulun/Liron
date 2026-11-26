@@ -567,4 +567,11 @@
      - *The banner's buttons* are 40 px, because seven at 44 px run off the painted cloth. That still meets WCAG 2.2 AA (24 px minimum); the phone card's buttons are 44 px. **Provisional look.**
      - *A failed save of the speed* puts the dial back and shows "Your speed couldn’t be saved."
    - **For Adam (12.2):** the spec gives the title **Ghost** at 25 wpm, but the tower's last rank is already "Ghost of the Ether", and every ladder climber has it. Keep it, or rename the title?
+   - **#536 (12.1) is merged into `dev`. 12.2, 12.3 and 12.4 go in one PR** (PLAN). More decisions while Adam was away:
+     - *12.2, the ladder:* a run counts only at the top open speed, with standard spacing, at least 30 characters, and in lesson runs only. Days are the player's local days. Every save resends the rung events, so a failed save can't stick the chain.
+     - *12.2:* `?run=short`, the e2e switch, still lets one-letter runs count. That only fools your own progress, the Koch gate has the same hole, and the server checks none of it. `shortcut:` limit to dev builds if friends ever compete on rungs.
+     - *12.3, The Long Copy:* lines of 9 or 11 words. Below 28 wpm you get three questions and one half-credit replay; from 28 you type one word behind. Grading uses the longest in-order match over the longer of the line and your copy, so extra words cost. It opens once all characters are learned, and `long-copy-round` requires `trial-1`.
+     - *12.4:* each operator keeps their personality offset and adds how far you are over 20, capped at 35 wpm, the spec's audio ceiling. Far Station and Forty Winters stay at 20 as set pieces, per the issue. Spec requirement 8 says rank trials follow your speed. **Adam: should Far Station follow your speed?**
+     - **Provisional looks:** the Long Copy screens and the metronome gear.
+   - **12.5 (release v1.10.0) and 10.5 (v1.8.0) wait for Adam,** after v1.7.0 (#485).
 
