@@ -24,7 +24,7 @@
    - then it asks 3 questions about it ("Where is he?", "His name?"), with 4 choices each;
    - from 28 wpm the line plays once only, and you type it as you go, one word behind: that's *copy behind*;
    - Head copy is graded on the answers, copy behind on the words.
-4. **The operators follow.** The Radio Room's operators, as ADR 0009 says, answer near your sending speed. The listening parts (their CQ, their news) now play at your character speed, not the fixed 20.
+4. **The operators follow.** The Radio Room's operators, as ADR 0009 says, answer near your sending speed. Every listening turn, and the reading speed of your keyed turns, now play at your character speed, not the fixed 20.
 
 ## Requirements (EARS)
 
@@ -35,7 +35,7 @@
 5. The ladder shall stay locked until Forty Winters is passed.
 6. When *The Long Copy* plays, the system shall show nothing until the line has finished. Then it shall ask 3 questions with 4 choices each.
 7. Where the player's speed is 28 wpm or more, *The Long Copy* shall play once only and take typed copy.
-8. The rank trials shall be graded as now. Only their speed follows the setting.
+8. The rank trials shall be graded as now. Only their speed follows the setting. Exception: the Far Station and Forty Winters are set pieces at 20 wpm (#510).
 9. The events `ladder-rung` and `long-copy-round` shall be sent, with one daily contract ("A Long Copy at your speed", 20 gold).
 10. Saved progress shall keep the speed and the rungs. An old save with neither shall read as 20 wpm with no rungs.
 
