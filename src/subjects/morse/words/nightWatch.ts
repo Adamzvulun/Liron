@@ -2,7 +2,7 @@
 // each heard once, with no AGN; copy at least 18. Design: docs/game/ranks-and-achievements.md §2.
 
 import type { SubjectApi } from '../../../core/subject.ts';
-import type { MorseProgress } from '../lesson/progress.ts';
+import { charWpmOf, type MorseProgress } from '../lesson/progress.ts';
 import { MORSE_WORDS, type MorseWord } from '../words.ts';
 import { isRight, type WordAttempt } from './drill.ts';
 
@@ -11,6 +11,8 @@ export const WATCH_WORDS = 20;
 export const WATCH_PASS = 18;
 /** The words play at 20 wpm with no extra spacing: real head-copy speed. */
 export const WATCH_WPM = 20;
+/** The watch is never slower than 20, and follows the player's speed above it (Phase 12). */
+export const watchWpm = (p: MorseProgress) => Math.max(WATCH_WPM, charWpmOf(p));
 /** A first pass, like the Lamp Signal; any other watch still earns a little. */
 export const WATCH_XP = { pass: 60, try: 10 };
 

@@ -38,7 +38,7 @@ The Silent Beacon teaches the 41 characters one at a time. E12 is the next step:
 - The send decoder reads `.-.-.` as `<AR>`, `...-.-` as `<SK>` and `-.--.` as `<KN>`. `-...-` stays `=`, as Koch taught it.
 
 ## The word drill (#154)
-1. A word plays at your character speed (20 wpm) with your current Farnsworth spacing (ADR 0009). Since a single word has no gaps between words, only the letter gaps stretch.
+1. A word plays at your character speed (20 wpm to start; the dial in the Signal Tower sets 18–20 now, more as the ladder opens (12.2)) with your current Farnsworth spacing (ADR 0009). Since a single word has no gaps between words, only the letter gaps stretch.
 2. Once the sound ends, type the word and press Enter (or tap the letter buttons on a phone). Nothing is marked while it plays.
 3. **AGN** replays it once. A word copied right after AGN scores 0.5.
 4. After you answer, you see what played. For Q-codes, abbreviations and prosigns, you also see the meaning.
@@ -52,7 +52,7 @@ The Silent Beacon teaches the 41 characters one at a time. E12 is the next step:
 - A run of 25 made-up callsigns, each played once. The shape is a real one, using only your unlocked characters: a 1–2 character prefix, a digit, then 1–3 letters, such as `K5AT`, `MI2RK`, `9A5WE`.
 - It starts at 20 wpm, as a standard-spacing word (no Farnsworth: the rush is about speed). Each callsign copied right makes the next 2 wpm faster, and each miss makes it 2 wpm slower, never below 15. The cap is 50 wpm.
 - **Score:** the sum of the wpm of each callsign copied right. You keep your best score and your top speed. Being fast and accurate scores most; the genre's classic is RufzXP.
-- This is the drill behind the daily contract "Copy 3 callsigns above your speed" (discovery 04). It sends `rush-round`, `rush-best` (a new best score) and `rush-fast` (one per call copied above your 20 wpm lesson speed) events. Callsigns are made up, so they aren’t rated or reviewed.
+- This is the drill behind the daily contract "Copy 3 callsigns above your speed" (discovery 04). It sends `rush-round`, `rush-best` (a new best score) and `rush-fast` (one per call copied above your lesson speed: 20 wpm to start; the dial in the Signal Tower sets 18–20 now, more as the ladder opens (12.2)) events. Callsigns are made up, so they aren’t rated or reviewed.
 - **Contracts** (my choice of targets and gold): the Codebook's two and the rush's two ("Finish a callsign rush", "Copy 3 callsigns above your speed") are offered only once you've played that drill on an earlier day, so a locked drill never gives you a contract.
 - The made-up callsigns can match real ones by chance. That's harmless: we never send anything.
 

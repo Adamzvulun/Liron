@@ -7,7 +7,7 @@ import { buildRun, GROUP_SIZE, RUN_SECONDS } from './build.ts';
 import {
   applyRun,
   pendingTrial,
-  CHAR_WPM,
+  speedOf,
   isWarmup,
   newestChar,
   nextChar,
@@ -79,7 +79,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
   const newest = newestChar(progress);
   const lessonNo = progress.unlocked - 1;
   const meeting = charsToMeet(progress);
-  const speed = { charWpm: CHAR_WPM, effWpm: progress.effWpm };
+  const speed = speedOf(progress);
 
   const save = (next: MorseProgress) => {
     setProgress(next);
@@ -127,7 +127,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           ))}
         </span>
         <span className="lesson__speed">
-          {CHAR_WPM} wpm letters · {progress.effWpm} wpm overall
+          {speed.charWpm} wpm letters · {speed.effWpm} wpm overall
         </span>
       </header>
       {saveFailed && (
@@ -154,6 +154,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           step={stage.step}
           known={unlocked.filter((c) => c !== stage.char)}
           player={player}
+          charWpm={speed.charWpm}
           onListened={() => setStage({ ...stage, step: 'drill' })}
           onDone={() => doneMeeting(stage.char)}
         />
@@ -178,6 +179,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           trialName={pendingTrial(progress)?.trial.name}
           nextChar={stage.passed ? unlocked[unlocked.length - 1] : nextChar(progress)}
           player={player}
+          charWpm={speed.charWpm}
           onAgain={startRun}
           onUnlock={() => setStage({ kind: 'start' })}
         />
@@ -275,6 +277,7 @@ function Meet({
   step,
   known,
   player,
+  charWpm,
   onListened,
   onDone,
 }: {
@@ -282,12 +285,13 @@ function Meet({
   step: 'listen' | 'drill';
   known: string[];
   player: MorsePlayer;
+  charWpm: number;
   onListened: () => void;
   onDone: () => void;
 }) {
   const hear = useCallback(
-    (text: string) => player.play(text, { charWpm: CHAR_WPM, effWpm: 8 }),
-    [player],
+    (text: string) => player.play(text, { charWpm, effWpm: 8 }),
+    [player, charWpm],
   );
   useEffect(() => {
     if (step === 'listen') void hear(`${char} ${char} ${char}`);
@@ -542,6 +546,7 @@ function Result({
   runsAtGate,
   nextChar,
   player,
+  charWpm,
   onAgain,
   onUnlock,
 }: {
@@ -553,6 +558,7 @@ function Result({
   runsAtGate: number;
   nextChar?: string;
   player: MorsePlayer;
+  charWpm: number;
   onAgain: () => void;
   onUnlock: () => void;
 }) {
@@ -560,7 +566,7 @@ function Result({
   const groups: RunScore['results'][] = [];
   for (let i = 0; i < score.results.length; i += GROUP_SIZE)
     groups.push(score.results.slice(i, i + GROUP_SIZE));
-  const hear = (c: string) => void player.play(c, { charWpm: CHAR_WPM });
+  const hear = (c: string) => void player.play(c, { charWpm });
   const letters = [...score.byChar.entries()].sort(
     (a, b) => KOCH.indexOf(a[0]) - KOCH.indexOf(b[0]),
   );

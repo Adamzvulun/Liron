@@ -560,4 +560,11 @@
        Read about 30 of the listed sentences, and commit the JSON. Or attach the deck in a session.
      - *Open question for Adam:* does "taught" mean the current chapter (spec, as built), or only chapters already passed?
    - **Git trap:** after `git checkout -B <branch> origin/dev`, the branch tracks `dev`, and a plain `git push -q` is silently refused. Set the upstream back, or push with `-u origin <branch>`.
+   - **#535 (11.1, dark) is merged into `dev`.**
+   - **12.1, the speed dial, goes in its own PR** (PLAN: "12.1 first"). More decisions while Adam was away:
+     - *No `rungs` field existed, so the dial couldn't offer anything above 20.* Added `rungs`, which 12.2 fills; until then the dial offers 18, 20 and Auto.
+     - *Night Watch:* plays at max(20, your speed), and is graded as before. Far Station and the Radio Room keep their fixed speeds until 12.4.
+     - *The banner's buttons* are 40 px, because seven at 44 px run off the painted cloth. That still meets WCAG 2.2 AA (24 px minimum); the phone card's buttons are 44 px. **Provisional look.**
+     - *A failed save of the speed* puts the dial back and shows "Your speed couldn’t be saved."
+   - **For Adam (12.2):** the spec gives the title **Ghost** at 25 wpm, but the tower's last rank is already "Ghost of the Ether", and every ladder climber has it. Keep it, or rename the title?
 

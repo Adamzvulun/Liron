@@ -1,5 +1,5 @@
 import { expect, test } from './fixtures.ts';
-import { signedIn } from './fake-supabase.ts';
+import { listenForMorse, signedIn } from './fake-supabase.ts';
 import { MORSE_ROAD } from '../../src/subjects/morse/road.ts';
 
 test.describe('the Signal Tower hall (#33, #34)', () => {
@@ -180,4 +180,80 @@ test('on a phone, a keyboard can pan the halls’ paintings (review, 2026-11-19)
     await page.keyboard.press('ArrowRight');
     await expect.poll(() => view.evaluate((v) => v.scrollLeft)).toBeGreaterThan(before);
   }
+});
+
+test.describe('your speed, the dial in the Signal Tower (Phase 12.1)', () => {
+  const dial = (page: import('@playwright/test').Page) =>
+    page.getByRole('group', { name: 'Letter speed in words per minute' });
+
+  test('an old save plays at 20, the dial offers 18 and 20 and keeps a pick', async ({ page }) => {
+    await signedIn(page, [], [], { unlocked: 5, met: [...'KMUR'] });
+    await page.goto('/signal-tower');
+    await expect(dial(page).getByRole('button')).toHaveText(['18', '20', 'Auto']);
+    await expect(page.getByText('letters at 20').first()).toBeVisible();
+    await dial(page).getByRole('button', { name: '18' }).click();
+    await expect(page.getByText('letters at 18').first()).toBeVisible();
+    await page.reload();
+    await expect(dial(page).getByRole('button', { name: '18' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    await expect(page.getByText('letters at 18').first()).toBeVisible();
+  });
+
+  test('a manual 20 holds when a rung is open; Auto takes the rung, and the round plays at it', async ({
+    page,
+  }) => {
+    test.setTimeout(60_000);
+    await listenForMorse(page);
+    await signedIn(page, [], [], {
+      unlocked: 5,
+      met: [...'KMUR'],
+      rungs: [22, 25, 28, 30],
+      charWpm: 30,
+      override: 20,
+    });
+    await page.goto('/signal-tower?run=short');
+    await expect(dial(page).getByRole('button')).toHaveText([
+      '18',
+      '20',
+      '22',
+      '25',
+      '28',
+      '30',
+      'Auto',
+    ]);
+    await expect(page.getByText('letters at 20').first()).toBeVisible();
+    await dial(page).getByRole('button', { name: 'Auto' }).click();
+    await expect(page.getByText('letters at 30').first()).toBeVisible();
+    await page.getByRole('button', { name: /Instant Recognition/ }).click();
+    await page.getByRole('button', { name: 'Start round' }).click();
+    await expect(page.getByText('Which letter?')).toBeVisible({ timeout: 8000 });
+    // A dah at 30 wpm is 0.12 s; at 20 it would be 0.18 s.
+    const tones = await page.evaluate(() =>
+      (window as unknown as { __keys: { ups: number[]; downs: number[] }[] }).__keys.flatMap((k) =>
+        k.ups.map((up, i) => (k.downs[i] ?? up) - up),
+      ),
+    );
+    expect(tones.length).toBeGreaterThan(0);
+    expect(Math.max(...tones)).toBeLessThan(0.15);
+  });
+
+  test('a pick that can’t be saved says so and the dial goes back', async ({ page }) => {
+    await signedIn(page, [], [], { unlocked: 5, met: [...'KMUR'] });
+    await page.route('**/rest/v1/rpc/save_subject_state', (route) =>
+      route.fulfill({ status: 500, json: { message: 'offline' } }),
+    );
+    await page.goto('/signal-tower');
+    await dial(page).getByRole('button', { name: '18' }).click();
+    await expect(page.getByText('Your speed couldn’t be saved.', { exact: false })).toBeVisible();
+    await expect(dial(page).getByRole('button', { name: '18' })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    );
+    await expect(dial(page).getByRole('button', { name: 'Auto' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+  });
 });

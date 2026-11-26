@@ -55,6 +55,9 @@ describe('Morse timing', () => {
   it('plays one PARIS word per minute ÷ wpm at standard spacing', () => {
     expect(parisSeconds({ charWpm: 20 })).toBeCloseTo(60 / 20);
     expect(parisSeconds({ charWpm: 25 })).toBeCloseTo(60 / 25);
+    expect(parisSeconds({ charWpm: 30 })).toBeCloseTo(60 / 30);
+    expect(parisSeconds({ charWpm: 30, effWpm: 10 })).toBeCloseTo(60 / 10);
+    expect(parisSeconds({ charWpm: 18, effWpm: 18 })).toBeCloseTo(60 / 18);
   });
 
   it('stretches only the gaps for Farnsworth, keeping 20 wpm characters', () => {
