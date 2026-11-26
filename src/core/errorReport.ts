@@ -6,7 +6,12 @@ import { supabase } from './auth/supabase.ts';
 // read, and quoted text in an error is blanked out. The server cuts each field again.
 
 /** Text in quotes may be something the player typed: keep the quotes, blank what's inside. */
-const redact = (text: string) => text.replace(/(["'`]).*?\1/g, '$1…$1');
+// Double quotes first, so an apostrophe inside a quoted name ("O'Brien") can't pair with another.
+const redact = (text: string) =>
+  ['"', '`', "'"].reduce(
+    (t, q) => t.replace(new RegExp(`${q}[^${q}]*${q}`, 'g'), `${q}…${q}`),
+    text,
+  );
 /** What this page load has sent, so one error in a loop is sent once, and 20 at most. */
 const sent = new Set<string>();
 
@@ -17,7 +22,6 @@ export function reportError(error: unknown, client: SupabaseClient | null = supa
     const e = error instanceof Error ? error : undefined;
     const message = redact(e?.message ?? String(error)).slice(0, 500);
     if (sent.has(message) || sent.size >= 20) return;
-    sent.add(message);
     const lines = redact(e?.stack ?? '')
       .split('\n')
       .slice(0, 10);
@@ -32,7 +36,12 @@ export function reportError(error: unknown, client: SupabaseClient | null = supa
     };
     void client.auth
       .getSession()
-      .then(({ data }) => (data.session ? client.rpc('report_error', args) : undefined))
+      .then(({ data }) => {
+        // Counted only once sent, so an error while signed out can still be reported later.
+        if (!data.session || sent.has(message) || sent.size >= 20) return;
+        sent.add(message);
+        return client.rpc('report_error', args);
+      })
       .catch(() => undefined);
   } catch {
     // An error while reporting is dropped: it must never loop.

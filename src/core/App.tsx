@@ -246,8 +246,15 @@ export function App() {
 /** An invite link's code, read once as the page opens (ADR 0052). */
 const invite = inviteCode(window.location.pathname, window.location.hash);
 /** Set when an account was just deleted (#500): read once, so an invite link or a reload wins. */
-const goodbye = sessionStorage.getItem(GOODBYE_KEY) !== null;
-sessionStorage.removeItem(GOODBYE_KEY);
+const goodbye = (() => {
+  try {
+    const seen = sessionStorage.getItem(GOODBYE_KEY) !== null;
+    sessionStorage.removeItem(GOODBYE_KEY);
+    return seen;
+  } catch {
+    return false; // storage blocked: no goodbye page, but the app still opens
+  }
+})();
 // Signed in already, the link leads to the square.
 const leaveJoin = () => {
   if (/^\/join\/?$/.test(window.location.pathname)) window.history.replaceState(null, '', '/');

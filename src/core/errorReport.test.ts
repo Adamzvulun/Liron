@@ -54,15 +54,28 @@ describe('reportError', () => {
 
   it('stays quiet when signed out or without a client', async () => {
     const { rpc, client } = fake(null);
-    reportError(new Error('x'), client);
-    reportError(new Error('x'), null);
+    reportError(new Error('signed out'), client);
+    reportError(new Error('no client'), null);
     await settle();
     expect(rpc).not.toHaveBeenCalled();
+    // The same error, once signed in, is still reported.
+    const signedIn = fake({});
+    reportError(new Error('signed out'), signedIn.client);
+    await settle();
+    expect(signedIn.rpc).toHaveBeenCalledOnce();
+  });
+
+  it('keeps an apostrophe inside a quoted value from pairing with another', async () => {
+    const { rpc, client } = fake({});
+    reportError(new Error(`Couldn't save your name: "O'Brien"`), client);
+    await settle();
+    const args = rpc.mock.calls[0]?.[1] as Record<string, string>;
+    expect(args.p_message).not.toContain('Brien');
   });
 
   it('swallows a failing call', async () => {
     const { client } = fake({}, vi.fn().mockRejectedValue(new Error('down')));
-    expect(() => reportError(new Error('x'), client)).not.toThrow();
+    expect(() => reportError(new Error('failing call'), client)).not.toThrow();
     await settle();
     expect(() =>
       reportError('plain string', { auth: null } as unknown as SupabaseClient),
