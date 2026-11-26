@@ -540,4 +540,12 @@
      - *Merging #532 without a second review of the `/away` text?* Adam approved that text in chat. Its code had passed the reviewer.
      - *The force push of the restarted branch was refused.* The old branch was merged with `-X ours` instead (the git rules for this case).
    - **Agents:** the real `reviewer` got its `ponytail:ponytail-review` preload as well as the SubagentStart hook, so the preload works on a coding-agent type too.
+   - **10.1 and 10.2, in one PR (ADR 0057):** built by `builder`. The reviewer asked for changes twice, and passed after the second round of fixes. The page's errors go to `report_error()`, which blanks quoted text and throttles repeats. Settings has a danger area with **Download my data** (the player's own rows, paged by the whole key) and **Delete my account** (password, DELETE, `delete_my_account()`, a goodbye page).
+   - **More decisions while Adam was away:**
+     - *Can a stolen session delete an account without the password?* Yes. It's recorded as an accepted risk in FRIENDS.md, because the issue asks for the password in the browser only. Undo: have the RPC require a fresh session (it needs `auth.sessions`).
+     - *ADR 0058 says "never anything the player typed", but an error's own text can quote input.* Quoted spans are blanked in the message and the stack, and the ADR now says exactly that. Undo: reword it.
+     - *What's left out of the download?* Chat lines (the server keeps only a daily count), the crash log, and tables players can't read. Friendships come through `fellowship()`. The Guidebook says so.
+     - *The danger area's and the delete dialog's look* is **provisional**. It follows Settings' own style, with a dashed red-brown border and a red-brown delete button. Screenshots were checked at 375 px.
+   - **Not done on a real project:** `delete_my_account()` deleting `auth.users` was tested in PGlite only. Check it once on `waymark-dev` after the merge.
+   - **10.4 and 10.5 need Adam:** 10.4 is closing issues (PLAN: "Adam closes"), and 10.5 is the v1.8.0 release into `main`.
 
