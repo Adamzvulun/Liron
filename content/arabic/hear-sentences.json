@@ -1,0 +1,15 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (the choice and the chapters only: the sentences and recordings are the Lingualism deck’s, private, ADR 0011)",
+  "items": [
+    {
+      "id": "hear-sentences:1",
+      "subject": "arabic",
+      "type": "hear-sentences",
+      "data": {
+        "sentences": []
+      }
+    }
+  ]
+}

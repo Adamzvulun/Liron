@@ -548,4 +548,16 @@
      - *The danger area's and the delete dialog's look* is **provisional**. It follows Settings' own style, with a dashed red-brown border and a red-brown delete button. Screenshots were checked at 375 px.
    - **Not done on a real project:** `delete_my_account()` deleting `auth.users` was tested in PGlite only. Check it once on `waymark-dev` after the merge.
    - **10.4 and 10.5 need Adam:** 10.4 is closing issues (PLAN: "Adam closes"), and 10.5 is the v1.8.0 release into `main`.
+   - **#534 (10.1 and 10.2) is merged into `dev`.**
+   - **Phase 11 needs the deck.** The Lingualism deck lives only on Adam's machine (`sources/` holds just READMEs), so the *Hear it* sentence list can't be built in the cloud.
+     - 11.1 (the pool, its reviews and the list builder) goes in its own PR. Its list is empty, so `hearOpen` is false and nothing changes for players.
+     - *Decision:* 11.1 ships dark, apart from 11.2 and 11.3, instead of waiting; 11.2 and 11.3 wait for the list. Undo: revert that PR.
+     - **For Adam:** put the deck back in `sources/arabic/lingualism/` on your machine, then run the script and the deck test:
+       ```
+       node scripts/content/hear-sentences.ts
+       npx vitest run tests/hear-sentences-deck.test.ts
+       ```
+       Read about 30 of the listed sentences, and commit the JSON. Or attach the deck in a session.
+     - *Open question for Adam:* does "taught" mean the current chapter (spec, as built), or only chapters already passed?
+   - **Git trap:** after `git checkout -B <branch> origin/dev`, the branch tracks `dev`, and a plain `git push -q` is silently refused. Set the upstream back, or push with `-u origin <branch>`.
 
