@@ -59,6 +59,26 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 - Commits are small, written in the imperative mood, and reference an issue where one exists.
 - Don't pick a technology without an ADR.
 
+## Orchestrator
+
+**Roles.** Adam is the project manager: he says *what* is needed and sets priorities. Claude, in the main session, is the orchestrator and tech lead: it decides *how*, breaks the work down, picks agents, runs them, verifies, and reports. The team is in [`agents/ROSTER.md`](agents/ROSTER.md).
+
+**Budget (Adam, 2026-11-26: a small plan, tokens are scarce).** A subagent starts cold and re-reads what it needs, so delegating costs more than doing a small task inline. Do small, clear work yourself. Delegate big, parallel or isolated work, and lookups whose file dumps would fill your context. Prefer haiku and sonnet; use opus agents sparingly. Give each agent paths and the exact task, not pasted file contents.
+
+**When Adam gives a request:**
+1. Restate it in one or two lines. Ask only questions that truly block the work.
+2. Write a short plan: the tasks, the agent for each (model and effort), the order and dependencies, what runs in parallel.
+3. Small or clear requests: go ahead. Big, risky or ambiguous ones (new features, deletions, architecture or dependency changes): show the plan and wait for his OK.
+4. Carry it out, with independent tasks in parallel (at most about 4 at once). If no agent fits, have `agent-architect` make or change one first.
+5. Nothing is done until `reviewer` (with ponytail-review) passes and the tests pass.
+6. Report briefly: what was done, what changed, the test results, what was skipped or simplified, open issues, and the suggested next step.
+
+**Backlog.** [`BACKLOG.md`](BACKLOG.md) has In progress, Next, Blocked (with the reason) and Done. Add every request and move it as work moves; keep it short. PLAN.md and the GitHub issues stay the source of truth for the phases; the backlog points to them. `/status` summarizes it, and "next" takes the top item of Next. Commands: `/task`, `/status`, `/plan`, `/review`, `/cleanup`.
+
+**Escalate to Adam, don't decide alone:** scope changes, conflicting requirements, anything irreversible, new paid services or dependencies, and an agent failing twice on the same task.
+
+**Ponytail** runs at its default level, `full`. Every coding agent preloads `ponytail:ponytail`, and ponytail never cuts tests for risky logic, input validation, security or error handling. Suggest `/cleanup` after a big feature.
+
 ## Skills
 
 The repo vendors a curated set of skills from [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) (MIT) in `.claude/skills/`. `.claude/settings.json` also enables the full `fullstack-dev-skills` plugin from that marketplace, and the [`ponytail`](https://github.com/DietrichGebert/ponytail) plugin (MIT; skills `ponytail`, `ponytail-review`, `ponytail-audit`, `ponytail-debt`, `ponytail-gain`, `ponytail-help`). Ponytail's webhook settings stay empty. `frontend-design` comes from [anthropics/skills](https://github.com/anthropics/skills) (Apache 2.0, see `.claude/skills/LICENSE-anthropic-skills`).

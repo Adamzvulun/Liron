@@ -17,3 +17,6 @@ sources/**
 !sources/**/
 !sources/**/README.md
 !sources/**/.gitkeep
+
+# Claude Code agent worktrees (local only)
+.claude/worktrees/
