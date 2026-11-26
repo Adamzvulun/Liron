@@ -27,8 +27,6 @@ describe('the regulars’ tales (#491)', () => {
       'irrātib mnīɧ, w btúgbuɖ kull šáhir.',
     );
     // the b- prefix is voiced with a fatha, so the first ب is بَ, not بْ
-    expect(lines.find((l) => l.latin.startsWith('issūr?'))?.arabic).toBe(
-      'السّور؟ بَبْنيه مِن خشب.',
-    );
+    expect(lines.find((l) => l.latin.startsWith('issūr?'))?.arabic).toBe('السّور؟ بَبْنيه مِن خشب.');
   });
 });
