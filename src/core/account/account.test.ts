@@ -45,6 +45,7 @@ describe('readMyData', () => {
       'my_notes',
       'my_gifts',
       'my_challenges',
+      'fellowship',
     ]);
     expect((data.review_log as unknown[]).length).toBe(1003);
     expect(calls).toContain('review_log@1000');
@@ -62,6 +63,43 @@ describe('readMyData', () => {
       return q as never;
     });
     await expect(readMyData(client)).rejects.toThrow('no');
+  });
+});
+
+describe('readMyData paging', () => {
+  it('orders by the whole key, so rows that tie on the first column are neither repeated nor lost', async () => {
+    const all = Array.from({ length: 2500 }, (_, i) => ({
+      user_id: 'me',
+      subject_id: 'morse',
+      item_id: `item ${String(i).padStart(4, '0')}`,
+    }));
+    const client = {
+      from: (table: string) => {
+        const order: string[] = [];
+        const query = {
+          select: () => query,
+          order: (c: string) => (order.push(c), query),
+          range: (from: number, to: number) => {
+            // Rows that tie on every column asked for come back in any order, as in Postgres.
+            const rows = table === 'review_cards' ? [...all].sort(() => Math.random() - 0.5) : [];
+            rows.sort((a, b) => {
+              for (const c of order) {
+                const x = a[c as keyof typeof a];
+                const y = b[c as keyof typeof b];
+                if (x !== y) return x < y ? -1 : 1;
+              }
+              return 0;
+            });
+            return Promise.resolve({ data: rows.slice(from, to + 1), error: null });
+          },
+        };
+        return query;
+      },
+      rpc: () => Promise.resolve({ data: null, error: null }),
+    } as unknown as SupabaseClient;
+    const got = (await readMyData(client)).review_cards as typeof all;
+    expect(got).toHaveLength(2500);
+    expect(new Set(got.map((r) => r.item_id)).size).toBe(2500);
   });
 });
 
@@ -85,9 +123,15 @@ describe('deleteAccount', () => {
 
   it('deletes nothing when the password is wrong', async () => {
     const { client, raw } = fake({ signIn: { error: { code: 'invalid_credentials' } } });
-    expect(await deleteAccount(client, 'nope')).toBe('Incorrect email or password.');
+    expect(await deleteAccount(client, 'nope')).toBe('That password isn’t right.');
     expect(raw.rpc).not.toHaveBeenCalled();
     expect(raw.auth.signOut).not.toHaveBeenCalled();
+  });
+
+  it('still says it is gone when only the sign-out fails afterwards', async () => {
+    const { client, raw } = fake();
+    raw.auth.signOut.mockRejectedValueOnce(new Error('offline'));
+    expect(await deleteAccount(client, 'pw')).toBeNull();
   });
 
   it('stays signed in when the database refuses', async () => {

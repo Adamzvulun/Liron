@@ -82,7 +82,7 @@ Waymark is invite-only: sign-ups are switched off in Supabase.
 
 ## Reading the error log
 
-When a friend says something crashed: in the Supabase dashboard, **Table Editor → `error_log`**, newest first. Each row has the message, the first 10 stack lines, the route, the app version, the browser and the time. Never anything a player typed. A player writes at most 20 rows a day, the same message once a day, and the newest 2,000 rows are kept; no player can read the table ([ADR 0058](../decisions/0058-our-own-error-log.md)). *Untested on a live project.*
+When a friend says something crashed: in the Supabase dashboard, **Table Editor → `error_log`**, newest first. Each row has the message, the first 10 stack lines, the route, the app version, the browser and the time. No form or page content is read, and quoted text in an error is blanked out. A player writes at most 20 rows a day, the same message once a day, and the newest 2,000 rows are kept; no player can read the table ([ADR 0058](../decisions/0058-our-own-error-log.md)). *Untested on a live project.*
 
 ## Releasing
 

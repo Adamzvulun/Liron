@@ -51,7 +51,7 @@ test('deleting needs the password and the word, says it is final, then says good
   await dialog.getByLabel('Type DELETE to confirm').fill('DELETE');
   await go.click();
   // A wrong password: the account stays, nothing is asked of the database.
-  await expect(dialog.getByRole('alert')).toHaveText('Incorrect email or password.');
+  await expect(dialog.getByRole('alert')).toHaveText('That password isn’t right.');
   expect(deleteCalls).toEqual([]);
   await dialog.getByLabel('Your password', { exact: true }).fill(PASSWORD);
   await go.click();

@@ -245,6 +245,9 @@ export function App() {
 
 /** An invite link's code, read once as the page opens (ADR 0052). */
 const invite = inviteCode(window.location.pathname, window.location.hash);
+/** Set when an account was just deleted (#500): read once, so an invite link or a reload wins. */
+const goodbye = sessionStorage.getItem(GOODBYE_KEY) !== null;
+sessionStorage.removeItem(GOODBYE_KEY);
 // Signed in already, the link leads to the square.
 const leaveJoin = () => {
   if (/^\/join\/?$/.test(window.location.pathname)) window.history.replaceState(null, '', '/');
@@ -277,17 +280,9 @@ function AuthGate() {
         </div>
       );
     case 'signedOut':
-      if (sessionStorage.getItem(GOODBYE_KEY))
-        return (
-          <GoodbyeScreen
-            onDone={() => {
-              sessionStorage.removeItem(GOODBYE_KEY);
-              window.location.assign('/');
-            }}
-          />
-        );
-      return invite && window.location.pathname !== '/' ? (
-        <JoinScreen code={invite} />
+      if (invite && window.location.pathname !== '/') return <JoinScreen code={invite} />;
+      return goodbye ? (
+        <GoodbyeScreen onDone={() => window.location.assign('/')} />
       ) : (
         <LoginScreen />
       );

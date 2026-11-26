@@ -16,11 +16,13 @@ export interface AccountSource {
 export function DangerZone({ source }: { source: AccountSource }) {
   const [asking, setAsking] = useState(false);
   const [note, setNote] = useState('');
+  const [saving, setSaving] = useState(false);
   const download = async () => {
     setNote('');
-    setNote(
-      (await source.download()) ? 'Saved to your downloads.' : 'Couldn’t save it. Try again.',
-    );
+    setSaving(true);
+    const ok = await source.download();
+    setSaving(false);
+    setNote(ok ? 'Saved to your downloads.' : 'Couldn’t save it. Try again.');
   };
   return (
     <section className="danger" aria-labelledby="danger-head">
@@ -30,9 +32,10 @@ export function DangerZone({ source }: { source: AccountSource }) {
       <button
         type="button"
         className="hud__textbutton danger__keep"
+        disabled={saving}
         onClick={() => void download()}
       >
-        Download my data
+        {saving ? 'Saving…' : 'Download my data'}
       </button>
       <p className="danger__note" role="status">
         {note || 'One file with your progress, reviews, room and notes. Yours to keep.'}
@@ -54,8 +57,11 @@ function DeleteDialog({ source, onClose }: { source: AccountSource; onClose: () 
   const [saved, setSaved] = useState(false);
   const [status, setStatus] = useState('');
   const ready = password !== '' && deleteWordOk(typed) && !busy;
+  const [saving, setSaving] = useState(false);
   const keep = async () => {
+    setSaving(true);
     const ok = await source.download();
+    setSaving(false);
     setSaved(ok);
     setStatus(ok ? '' : 'Couldn’t save your data. Try again.');
   };
@@ -90,11 +96,14 @@ function DeleteDialog({ source, onClose }: { source: AccountSource; onClose: () 
           ref={first}
           type="button"
           className="hud__textbutton danger__keep"
+          disabled={saving}
           onClick={() => void keep()}
         >
-          Download my data first
+          {saving ? 'Saving…' : 'Download my data first'}
         </button>
-        {saved && <p className="danger__note">Saved to your downloads.</p>}
+        <p className="danger__note" role="status">
+          {saved ? 'Saved to your downloads.' : ''}
+        </p>
         <form
           className="hud__field danger__form"
           onSubmit={(e) => {

@@ -68,4 +68,30 @@ describe('reportError', () => {
       reportError('plain string', { auth: null } as unknown as SupabaseClient),
     ).not.toThrow();
   });
+
+  it('blanks quoted text in the message and the stack, and caps the stack’s first line', async () => {
+    const { rpc, client } = fake({});
+    const e = new Error(`Bad value "hunter2" for 'name' and \`x\``);
+    e.stack = `Error: Bad value "hunter2"${'!'.repeat(900)}\n    at f (a.js:1:1) "secret"`;
+    reportError(e, client);
+    await settle();
+    const args = rpc.mock.calls[0]?.[1] as Record<string, string>;
+    expect(args.p_message).toBe('Bad value "…" for \'…\' and `…`');
+    expect(args.p_stack).not.toContain('hunter2');
+    expect(args.p_stack).not.toContain('secret');
+    expect(args.p_stack?.split('\n')[0]?.length).toBeLessThanOrEqual(300);
+  });
+
+  it('sends a message once a page load, and 20 messages at most', async () => {
+    vi.resetModules();
+    const { reportError: report } = await import('./errorReport.ts');
+    const { rpc, client } = fake({});
+    for (let i = 0; i < 5; i++) report(new Error('same'), client);
+    for (let i = 0; i < 40; i++) report(new Error(`other ${i}`), client);
+    await settle();
+    expect(
+      rpc.mock.calls.filter((c) => (c[1] as { p_message: string }).p_message === 'same'),
+    ).toHaveLength(1);
+    expect(rpc).toHaveBeenCalledTimes(20);
+  });
 });
