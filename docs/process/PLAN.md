@@ -456,7 +456,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 ### ☐ 10.2 (#500) · v1.8 · Take your data, and leave
 - Download my data (one JSON file, read under RLS). Leave Waymark, through an RPC, with the existing cascades removing the rest. Adam: yes, a friend may delete their own account, with the proper conventions: the password, a typed confirmation, and a download offered first (2026-11-23).
 
-### ☐ 10.3 (#501) · v1.8 · Dependency refresh (minor versions)
+### ☑ 10.3 (#501) · v1.8 · Dependency refresh (minor versions)
 - Vite, Vitest, Playwright, supabase-js and the lint tools. Not TypeScript 7 or `@types/node` 26.
 
 ### ☐ 10.4 (#498) · Tidy the backlog (Adam closes)

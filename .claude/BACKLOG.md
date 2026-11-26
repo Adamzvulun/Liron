@@ -3,12 +3,12 @@
 The orchestrator's short work list. **PLAN.md and the GitHub issues stay the source of truth** for the phases; this file points to them. "status" summarizes this file; "next" takes the top item of Next.
 
 ## In progress
-- (Nothing.)
+- **/away run (2026-11-26):** Phase 10 on `dev`. Decisions are in HANDOFF 203.
 
 ## Next
-Each waits on Adam's go.
-1. **Release v1.7.0:** merge [#485](https://github.com/Adamzvulun/Liron/pull/485) with a merge commit, check the migrations on production, curl the live site.
-2. **Phase 10, safe for friends** ([#495](https://github.com/Adamzvulun/Liron/issues/495), v1.8.0): 10.3 (#501), then 10.1 (#499) and 10.2 (#500) then 10.4 (#498) and 10.5 (#502).
+Adam's `/away` is his go for these, except releases into `main`.
+1. **Waiting for Adam: release v1.7.0:** merge [#485](https://github.com/Adamzvulun/Liron/pull/485) with a merge commit, check the migrations on production, curl the live site.
+2. **Phase 10, safe for friends** ([#495](https://github.com/Adamzvulun/Liron/issues/495), v1.8.0): 10.3 (#501, PR #533), then 10.1 (#499) and 10.2 (#500) then 10.4 (#498) and 10.5 (#502).
 3. **Phase 11, hearing the street** ([#496](https://github.com/Adamzvulun/Liron/issues/496), v1.9.0).
 4. **Phase 12, faster than thought** ([#497](https://github.com/Adamzvulun/Liron/issues/497), v1.10.0).
 5. **Phase 13, true and lasting** ([#513](https://github.com/Adamzvulun/Liron/issues/513), v1.11.0).
