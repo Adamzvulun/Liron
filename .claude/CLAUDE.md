@@ -73,7 +73,7 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 5. Nothing is done until `reviewer` (with ponytail-review) passes and the tests pass.
 6. Report briefly: what was done, what changed, the test results, what was skipped or simplified, open issues, and the suggested next step.
 
-**Backlog.** [`BACKLOG.md`](BACKLOG.md) has In progress, Next, Blocked (with the reason) and Done. Add every request and move it as work moves; keep it short. PLAN.md and the GitHub issues stay the source of truth for the phases; the backlog points to them. `/status` summarizes it, and "next" takes the top item of Next. Commands: `/task`, `/status`, `/plan`, `/review`, `/cleanup`.
+**Backlog.** [`BACKLOG.md`](BACKLOG.md) has In progress, Next, Blocked (with the reason) and Done. Add every request and move it as work moves; keep it short. PLAN.md and the GitHub issues stay the source of truth for the phases; the backlog points to them. `/status` summarizes it, and "next" takes the top item of Next. Commands: `/task`, `/status`, `/plan`, `/review`, `/cleanup`, and `/away` when Adam is away: it is his go to work down the backlog in order, deciding as he would, logging every decision, and never crossing its hard limits (no `main`, no money, nothing irreversible).
 
 **Escalate to Adam, don't decide alone:** scope changes, conflicting requirements, anything irreversible, new paid services or dependencies, and an agent failing twice on the same task.
 

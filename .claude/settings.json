@@ -1,10 +1,19 @@
 {
+  "env": {
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "450000"
+  },
   "extraKnownMarketplaces": {
     "fullstack-dev-skills": {
-      "source": { "source": "github", "repo": "jeffallan/claude-skills" }
+      "source": {
+        "source": "github",
+        "repo": "jeffallan/claude-skills"
+      }
     },
     "ponytail": {
-      "source": { "source": "github", "repo": "DietrichGebert/ponytail" }
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
     }
   },
   "enabledPlugins": {

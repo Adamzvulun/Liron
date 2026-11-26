@@ -2,7 +2,7 @@
 
 **Read this first in every new session**, then the latest [handoff](HANDOFF.md). It says where we are and what comes next. Update it before a session ends.
 
-- **Last updated:** 2026-11-26 (the agent factory: `.claude/agents/`, [ROSTER](../../.claude/agents/ROSTER.md), [BACKLOG](../../.claude/BACKLOG.md); HANDOFF 201). Before that 2026-11-23, end of session (v1.6.0 live; v1.7.0 in #485 waits on Adam's go; Phases 10–15 planned and waiting on his go; the plans are in #512).
+- **Last updated:** 2026-11-26 (the agent team merged in #531: `.claude/agents/`, [ROSTER](../../.claude/agents/ROSTER.md), [BACKLOG](../../.claude/BACKLOG.md); the two tale fixes are done; v1.7.0 still waits on Adam's go; HANDOFF 201–202). Before that 2026-11-23, end of session (v1.6.0 live; v1.7.0 in #485 waits on Adam's go; Phases 10–15 planned and waiting on his go; the plans are in #512).
 - **The work order is [PLAN.md](PLAN.md)**, in the order of [VERSIONS.md](VERSIONS.md). How we got here is in [HISTORY.md](HISTORY.md).
 
 ## Where we are

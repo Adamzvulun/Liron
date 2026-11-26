@@ -19,4 +19,16 @@ describe('the regulars’ tales (#491)', () => {
     expect(talesEarned([])).toEqual([]);
     expect(talesEarned([4, 2]).map((t) => t.road)).toEqual([2, 4]);
   });
+
+  it('keeps two corrected lines in step with their Latin', () => {
+    const lines = TALES.flatMap((t) => t.lines);
+    // قبض ends in ض, so the Latin takes ɖ, not ʂ
+    expect(lines.find((l) => l.latin.startsWith('irrātib'))?.latin).toBe(
+      'irrātib mnīɧ, w btúgbuɖ kull šáhir.',
+    );
+    // the b- prefix is voiced with a fatha, so the first ب is بَ, not بْ
+    expect(lines.find((l) => l.latin.startsWith('issūr?'))?.arabic).toBe(
+      'السّور؟ بَبْنيه مِن خشب.',
+    );
+  });
 });

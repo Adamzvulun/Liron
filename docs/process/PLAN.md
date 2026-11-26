@@ -464,7 +464,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 ### ☐ 10.5 (#502) · v1.8 · Release v1.8.0
 
-**Order:** 10.3, then 10.1 and 10.2 in one PR (ADR 0057), then 10.4 and 10.5. That PR also fixes the two tale errors the Part 2 check found (tales 33 and 41; see 13.1).
+**Order:** 10.3, then 10.1 and 10.2 in one PR (ADR 0057), then 10.4 and 10.5. The two tale errors the Part 2 check found (tales 33 and 41; see 13.1) were fixed on 2026-11-26, as the agent team’s test run.
 
 ## Phase 11 — Hearing the street: sentence listening (#496)
 
