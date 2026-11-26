@@ -450,10 +450,10 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** before friends arrive (#332), we hear when the game breaks, a friend can take their data and leave, and the dependencies and backlog are current. Planned 2026-11-23 from a gap audit ([next-work-2026-11-23.md](../research/next-work-2026-11-23.md)). Not started: planning only, at Adam's word.
 
-### ☐ 10.1 (#499) · v1.8 · Our own error log
+### ☑ 10.1 (#499) · v1.8 · Our own error log
 - The page's errors go to a capped table in our own database. They never hold what the player typed, and only Adam reads them, in the dashboard. [ADR 0058](../decisions/0058-our-own-error-log.md), accepted: Adam chose our own log (2026-11-23).
 
-### ☐ 10.2 (#500) · v1.8 · Take your data, and leave
+### ☑ 10.2 (#500) · v1.8 · Take your data, and leave
 - Download my data (one JSON file, read under RLS). Leave Waymark, through an RPC, with the existing cascades removing the rest. Adam: yes, a friend may delete their own account, with the proper conventions: the password, a typed confirmation, and a download offered first (2026-11-23).
 
 ### ☑ 10.3 (#501) · v1.8 · Dependency refresh (minor versions)

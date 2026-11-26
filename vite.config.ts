@@ -1,5 +1,8 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import { readFileSync } from 'node:fs';
+
+const { version } = JSON.parse(readFileSync('package.json', 'utf8')) as { version: string };
 
 /**
  * The address link previews load the card from: apps want it whole. Vercel names the live
@@ -11,6 +14,8 @@ export const siteUrl = (env: Record<string, string | undefined> = process.env) =
 
 // A regular responsive website: no PWA plugin, no service worker (ADR 0005).
 export default defineConfig({
+  // The error log says which release a crash came from (ADR 0058).
+  define: { __APP_VERSION__: JSON.stringify(version) },
   plugins: [
     react(),
     { name: 'site-url', transformIndexHtml: (html) => html.replaceAll('%SITE%', siteUrl()) },

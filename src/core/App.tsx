@@ -1,11 +1,13 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { subjects } from '../subjects/index.ts';
 import {
+  GoodbyeScreen,
   JoinScreen,
   LoginScreen,
   NotConfiguredScreen,
   SetPasswordScreen,
 } from './auth/AuthScreens.tsx';
+import { GOODBYE_KEY, supabaseAccount } from './account/account.ts';
 import { inviteCode, supabaseInvites } from './auth/invites.ts';
 import { GateScene, WaymarkPost } from './auth/Scenes.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
@@ -191,6 +193,9 @@ const changePassword = async (password: string): Promise<string | null> => {
   }
 };
 
+/** Settings' danger area (#500): your data as a file, and deleting the account. */
+const account = supabase ? supabaseAccount(supabase) : undefined;
+
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
   store && player
@@ -240,6 +245,16 @@ export function App() {
 
 /** An invite link's code, read once as the page opens (ADR 0052). */
 const invite = inviteCode(window.location.pathname, window.location.hash);
+/** Set when an account was just deleted (#500): read once, so an invite link or a reload wins. */
+const goodbye = (() => {
+  try {
+    const seen = sessionStorage.getItem(GOODBYE_KEY) !== null;
+    sessionStorage.removeItem(GOODBYE_KEY);
+    return seen;
+  } catch {
+    return false; // storage blocked: no goodbye page, but the app still opens
+  }
+})();
 // Signed in already, the link leads to the square.
 const leaveJoin = () => {
   if (/^\/join\/?$/.test(window.location.pathname)) window.history.replaceState(null, '', '/');
@@ -272,8 +287,9 @@ function AuthGate() {
         </div>
       );
     case 'signedOut':
-      return invite && window.location.pathname !== '/' ? (
-        <JoinScreen code={invite} />
+      if (invite && window.location.pathname !== '/') return <JoinScreen code={invite} />;
+      return goodbye ? (
+        <GoodbyeScreen onDone={() => window.location.assign('/')} />
       ) : (
         <LoginScreen />
       );
@@ -756,6 +772,7 @@ function Lobby({ player }: { player: Player }) {
           onPasswordChange={changePassword}
           sharing={sharing}
           invites={invites}
+          account={account}
           onSignOut={() => {
             // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });

@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { WaymarkPost } from './auth/Scenes.tsx';
+import { reportError } from './errorReport.ts';
 
 /**
  * If a screen throws while drawing, show a way back instead of a blank page (2026-11-04 QA
@@ -15,6 +16,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, { failed: 
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error('Waymark screen failed', error, info.componentStack);
+    reportError(error);
   }
 
   render() {
@@ -48,6 +50,7 @@ export class PlaceBoundary extends Component<{ children: ReactNode }, { failed: 
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error('Waymark place failed', error, info.componentStack);
+    reportError(error);
   }
 
   render() {
@@ -76,6 +79,7 @@ export class QuietBoundary extends Component<{ children: ReactNode }, { failed: 
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error('Waymark extra failed', error, info.componentStack);
+    reportError(error);
   }
 
   render() {

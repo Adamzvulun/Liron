@@ -22,7 +22,7 @@ Waymark reports no errors. A crash on a friend's phone is seen only if they tell
 Our own log.
 
 - **Writing.** A `window.onerror` and `unhandledrejection` handler, plus React's error boundary, send one row to `report_error()`. That's a `security definer` RPC, allowed to signed-in players only.
-- **What a row holds.** The message, the first 10 lines of the stack, the route, the app version, the browser's user agent, and the time. **Never** anything the player typed or said.
+- **What a row holds.** The message, the first 10 lines of the stack, the route, the app version, the browser's user agent, and the time. No form or page content is read, and quoted text in an error is blanked out before it is sent. The page also sends each message once per page load, 20 at most.
 - **Caps.** Each player can write 20 rows a day, and the same message is written once a day. The table keeps the newest 2,000 rows.
 - **Reading.** No player can read the table (row-level security with no select policy). Adam reads it in the Supabase dashboard's Table Editor, which uses the service role. There's no in-game page: that would need a keeper role Waymark doesn't have.
 - **If we ever switch.** Moving to Sentry would take a new ADR replacing this one; the handler would then send there instead.
