@@ -5,6 +5,9 @@ import { buildRun } from './build.ts';
 import {
   applyRun,
   applyTrial,
+  charWpmOf,
+  speedOf,
+  topSpeed,
   pendingTrial,
   isWarmup,
   NEW_PROGRESS,
@@ -32,6 +35,34 @@ describe('Morse progress', () => {
     expect(p.unlocked).toBe(2);
     expect(p.effWpm).toBe(12);
     expect(toMeet(p)).toEqual(['M']);
+  });
+
+  it('reads an old save as 20 wpm with no override and no rungs', () => {
+    const p = parseProgress({ unlocked: 5, effWpm: 12 });
+    expect([p.charWpm, p.override, p.rungs]).toEqual([20, null, []]);
+    expect(speedOf(p)).toEqual({ charWpm: 20, effWpm: 12 });
+  });
+
+  it('plays at the override, else the automatic speed, never past the ladder', () => {
+    const rung = { rungs: [22, 25], charWpm: 25 };
+    expect(topSpeed(parseProgress(rung))).toBe(25);
+    expect(charWpmOf(parseProgress(rung))).toBe(25);
+    expect(charWpmOf(parseProgress({ ...rung, override: 20 }))).toBe(20);
+    expect(charWpmOf(parseProgress({ ...rung, override: 18 }))).toBe(18);
+    // a speed the ladder hasn't opened (a hand-edited save) is not played
+    expect(charWpmOf(parseProgress({ override: 30 }))).toBe(20);
+    expect(charWpmOf(parseProgress({ charWpm: 99, override: 7 }))).toBe(20);
+  });
+
+  it('keeps Farnsworth spacing automatic and below the character speed', () => {
+    expect(speedOf(parseProgress({ override: 18, effWpm: 20 }))).toEqual({
+      charWpm: 18,
+      effWpm: 18,
+    });
+    expect(speedOf(parseProgress({ rungs: [22], charWpm: 22, effWpm: 21 }))).toEqual({
+      charWpm: 22,
+      effWpm: 21,
+    });
   });
 
   it('unlocks the next character after two runs in a row at 90%', () => {

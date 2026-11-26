@@ -5,7 +5,7 @@ import { MorsePlayer } from '../player.ts';
 import { schedule } from '../timing.ts';
 import {
   applyTrial,
-  CHAR_WPM,
+  speedOf,
   parseProgress,
   pendingTrial,
   reportRun,
@@ -65,7 +65,7 @@ export function Trial({ api, onLeave }: { api: SubjectApi; onLeave: () => void }
   }
   const { trial } = chapter;
   const unlocked = unlockedChars(progress);
-  const speed = { charWpm: CHAR_WPM, effWpm: progress.effWpm };
+  const speed = speedOf(progress);
 
   const finish = (score: RunScore) => {
     const at = new Date();

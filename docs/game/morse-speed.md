@@ -1,6 +1,6 @@
 # Faster than thought: Morse past 20 wpm (Phase 12)
 
-- **Status:** Planned (2026-11-23), not built. Keeps [ADR 0009](../decisions/0009-morse-speed-policy.md)'s promise ("user can raise it to 25+", "manual override ... for all of the above"). Research: [next-work-2026-11-23.md](../research/next-work-2026-11-23.md) §1.
+- **Status:** Planned (2026-11-23). 12.1 built: the speed model and the tower's dial; 12.2–12.4 not built. Keeps [ADR 0009](../decisions/0009-morse-speed-policy.md)'s promise ("user can raise it to 25+", "manual override ... for all of the above"). Research: [next-work-2026-11-23.md](../research/next-work-2026-11-23.md) §1.
 - **Epic:** Phase 12 in [PLAN.md](../process/PLAN.md).
 
 ## Why

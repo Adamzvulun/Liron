@@ -2,7 +2,13 @@ import { Xp } from '../../../core/player/Xp.tsx';
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
-import { CHAR_WPM, parseProgress, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
+import {
+  charWpmOf,
+  speedOf,
+  parseProgress,
+  unlockedChars,
+  type MorseProgress,
+} from '../lesson/progress.ts';
 import { openWords, written, type MorseWord } from '../words.ts';
 import {
   applyWords,
@@ -22,7 +28,7 @@ import {
   reportWatch,
   WATCH_PASS,
   WATCH_WORDS,
-  WATCH_WPM,
+  watchWpm,
   WATCH_XP,
   watchOpen,
   watchPassed,
@@ -208,7 +214,7 @@ export function WordDrill({
       setRushing(false);
       setRushResult({ calls, bestBefore: before.rush.best });
       setScored(null);
-      reportRush(api, next, calls, before.rush.best, CHAR_WPM, seconds).then(
+      reportRush(api, next, calls, before.rush.best, charWpmOf(before), seconds).then(
         (round) => {
           setSaveFailed(false);
           setScored(round);
@@ -243,12 +249,14 @@ export function WordDrill({
         <WatchIntro
           ready={watchOpen(progress, MORSE_CHARS.length)}
           passed={watchPassed(progress)}
+          wpm={watchWpm(progress)}
           onBegin={beginWatch}
           onPractice={() => setWatchIntro(false)}
         />
       ) : watchDone ? (
         <WatchResultCard
           {...watchDone}
+          wpm={watchWpm(progress)}
           onAgain={beginWatch}
           onPractice={() => setWatchDone(null)}
         />
@@ -258,6 +266,7 @@ export function WordDrill({
         <RushSummaryCard
           calls={rushResult.calls}
           best={progress.rush.best}
+          charWpm={charWpmOf(progress)}
           isBest={summarizeRush(rushResult.calls).score > rushResult.bestBefore}
           onAgain={startRush}
         >
@@ -334,7 +343,9 @@ function Copy({
   onDone: (attempts: WordAttempt[], seconds: number) => void;
 }) {
   const { words, progress, watch } = round;
-  const effWpm = watch ? WATCH_WPM : progress.effWpm;
+  const { charWpm, effWpm } = watch
+    ? { charWpm: watchWpm(progress), effWpm: watchWpm(progress) }
+    : speedOf(progress);
   const keys = unlockedChars(progress).filter((c) => /^[A-Z0-9]$/.test(c));
   const [n, setN] = useState(0);
   const [step, setStep] = useState<Step>('listening');
@@ -361,14 +372,14 @@ function Copy({
       const p = (player.current ??= new MorsePlayer());
       const id = ++plays.current;
       try {
-        const pb = await p.play(written(w), { charWpm: CHAR_WPM, effWpm });
+        const pb = await p.play(written(w), { charWpm, effWpm });
         await pb.done;
       } catch {
         // No sound (the browser refused it): the word can still be typed, or heard again.
       }
       if (id === plays.current) setStep((s) => (s === 'listening' ? 'typing' : s));
     },
-    [effWpm],
+    [charWpm, effWpm],
   );
 
   useEffect(() => {
@@ -581,11 +592,13 @@ function Summary({
 function WatchIntro({
   ready,
   passed,
+  wpm,
   onBegin,
   onPractice,
 }: {
   ready: boolean;
   passed: boolean;
+  wpm: number;
   onBegin: () => void;
   onPractice: () => void;
 }) {
@@ -595,8 +608,8 @@ function WatchIntro({
       <h2 className="lesson__title">The Night Watch</h2>
       <p>
         All night the wire talks, and the watch copies it in their head. {WATCH_WORDS} common words
-        at a full {WATCH_WPM} wpm, each heard once. There is no AGN on the night wire. Copy{' '}
-        {WATCH_PASS} of them.
+        at a full {wpm} wpm, each heard once. There is no AGN on the night wire. Copy {WATCH_PASS}{' '}
+        of them.
       </p>
       {passed && <p className="lesson__note">Passed. You can keep the watch again for practice.</p>}
       {ready ? (
@@ -619,12 +632,14 @@ function WatchIntro({
 
 function WatchResultCard({
   attempts,
+  wpm,
   result,
   xp,
   onAgain,
   onPractice,
 }: {
   attempts: WordAttempt[];
+  wpm: number;
   result: WatchResult;
   xp: number;
   onAgain: () => void;
@@ -635,7 +650,7 @@ function WatchResultCard({
       <p className={`lesson__pct${result.passed ? ' is-good' : ''}`}>
         {result.right} / {result.total}
       </p>
-      <p className="lesson__kicker">words copied · {WATCH_WPM} wpm</p>
+      <p className="lesson__kicker">words copied · {wpm} wpm</p>
       <h2 className="lesson__title">
         {result.passed
           ? 'Dawn, and nothing missed'

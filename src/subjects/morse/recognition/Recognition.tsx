@@ -2,7 +2,7 @@ import { Xp } from '../../../core/player/Xp.tsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
 import { MorsePlayer } from '../player.ts';
-import { CHAR_WPM, parseProgress, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
+import { charWpmOf, parseProgress, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
 import { applyRound, reportRound, xpForRound } from './report.ts';
 import {
   FUSE_MS,
@@ -114,6 +114,7 @@ export function Recognition({ api }: { api: SubjectApi }) {
       {phase === 'playing' && (
         <Round
           chars={chars}
+          charWpm={charWpmOf(progress)}
           seconds={seconds}
           startAvg={progress.recognition.avgMs}
           onDone={finish}
@@ -143,11 +144,13 @@ interface Current {
 
 function Round({
   chars,
+  charWpm,
   seconds,
   startAvg,
   onDone,
 }: {
   chars: string[];
+  charWpm: number;
   seconds: number;
   /** Each letter's saved reaction time, so slow letters come up more from the start. */
   startAvg: Readonly<Record<string, number>>;
@@ -184,7 +187,7 @@ function Round({
       }
       const char = pickNext(chars, avg, recent);
       recent.push(char);
-      const pb = await player.play(char, { charWpm: CHAR_WPM });
+      const pb = await player.play(char, { charWpm });
       const endsAt = pb.startsAt + (pb.chars[0]?.end ?? 0);
       const soundMs = Math.max(0, (endsAt - player.now()) * 1000);
       now = { char, endsAt, soundMs, n: ++n };
@@ -212,7 +215,7 @@ function Round({
       setScore((s) => s + pointsFor(attempt));
       setFeedback({ right: attempt.right, char, ms });
       setCurrent(null);
-      if (!attempt.right) void player.play(char, { charWpm: CHAR_WPM });
+      if (!attempt.right) void player.play(char, { charWpm });
       pause = window.setTimeout(
         () => {
           setFeedback(null);

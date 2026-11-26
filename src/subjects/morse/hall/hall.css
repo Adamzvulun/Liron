@@ -562,3 +562,61 @@ button.hall__door:active {
   border: 4px solid var(--lamplight);
   pointer-events: none;
 }
+
+/* The speed dial: one button per speed the ladder has opened, and Auto. */
+.tower__dial {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.tower__dial button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  border: var(--outline-ui);
+  border-radius: var(--radius-card);
+  background: var(--parchment);
+  color: var(--ink);
+  font: 800 16px var(--font-ui);
+  cursor: pointer;
+}
+
+.tower__dial button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--vellum);
+}
+
+.tower__dial button:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--vellum);
+}
+
+.tower__dial-note {
+  flex-basis: 100%;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* The painted banner holds two rows of 40 px buttons, not 44 (a third row runs off the cloth). The note is read, not shown. */
+.tower__banner .tower__dial {
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.tower__banner .tower__dial button {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+}
+
+.tower__banner .tower__dial-note {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
