@@ -574,4 +574,17 @@
      - *12.4:* each operator keeps their personality offset and adds how far you are over 20, capped at 35 wpm, the spec's audio ceiling. Far Station and Forty Winters stay at 20 as set pieces, per the issue. Spec requirement 8 says rank trials follow your speed. **Adam: should Far Station follow your speed?**
      - **Provisional looks:** the Long Copy screens and the metronome gear.
    - **12.5 (release v1.10.0) and 10.5 (v1.8.0) wait for Adam,** after v1.7.0 (#485).
+   - **#537 (12.2–12.4) is merged into `dev`.**
+   - **13.1, our Arabic agrees with its Latin:** `npx vitest run tests/latin-agree.test.ts` compares the consonants of every own line (3,601) with its Latin, by sound class. The rules are in `tests/support/latinAgree.ts`, and the exceptions, each with a reason, in `content/arabic/latin-exceptions.json`. A listed line that starts agreeing fails, so the list can't go stale.
+     - **17 content typos fixed:**
+       - in own sentences: pcav:4118, 0255, 1132, 3790, 0507, 2127, 0232, 0561, 1916, 1932, 0290, 3520, 3888, 3075, 3076, 3730;
+       - in tales: road:17#4 and road:51#0;
+       - the frog in the chapter 50 grammar card.
+       Each is listed in the PR, before and after.
+     - **For Adam:**
+       - pcav:0189 and 0202: اتجوّز/idjáwwaz or اتزوّج/idzáwwaj? Answer once for these and the chapter 69 card.
+       - pcav:2370: the Arabic says الخَيال but the Latin says ilfantāzya.
+       - pcav:3888: the Arabic is now برتقالي, to match its Latin and the grammar card. If the deck says برتقاني, change it back.
+       - Run the deck tests on your machine once: `tales-deck` and `own-sentences-deck`.
+     - *Decision:* the check accepts q for ق (about 210 lines) and loan sounds in every word. Each loose rule has a `shortcut:` comment saying when to tighten it.
 
