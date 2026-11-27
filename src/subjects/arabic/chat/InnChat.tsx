@@ -18,6 +18,7 @@ import {
   MAX_LINES,
   regularsToTalkTo,
   standingWith,
+  typesHebrew,
   glossaryFrom,
   type Glossary,
   tipsFrom,
@@ -271,7 +272,7 @@ export function InnChat({ api }: { api: SubjectApi }) {
 
   const s = stage;
   const mine = linesOf(s.turns);
-  const hebrew = progress.chat.hebrew;
+  const hebrew = typesHebrew(progress);
   const setHebrew = (on: boolean) =>
     setProgress({ ...progress, chat: { ...progress.chat, hebrew: on } });
   const send = (text: string, now: number) => {

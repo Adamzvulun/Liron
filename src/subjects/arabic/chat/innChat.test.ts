@@ -17,6 +17,7 @@ import {
   dueTips,
   MAX_TIPS,
   tipId,
+  typesHebrew,
   withTips,
 } from './innChat.ts';
 
@@ -64,6 +65,22 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
     expect(parseProgress(next).chat).toEqual(next.chat);
   });
 
+  it('opens on the Arabic keyboard after 3 spelled rounds, unless Hebrew letters were chosen', () => {
+    const p = (hebrew: boolean | null, spelled: number) => ({
+      ...NEW_PROGRESS,
+      spelled,
+      chat: { ...NEW_PROGRESS.chat, hebrew },
+    });
+    expect(typesHebrew(p(null, 0))).toBe(true);
+    expect(typesHebrew(p(null, 2))).toBe(true);
+    expect(typesHebrew(p(null, 3))).toBe(false);
+    expect(typesHebrew(p(true, 9))).toBe(true);
+    expect(typesHebrew(p(false, 0))).toBe(false);
+    // Saved before the choice could be unset: false stays Arabic, a missing one is unchosen.
+    expect(parseProgress({ chat: { hebrew: false } }).chat.hebrew).toBe(false);
+    expect(parseProgress({ chat: { name: 'A' } }).chat.hebrew).toBeNull();
+  });
+
   it('reads old progress without a chat as a fresh one', () => {
     // A chat saved before the longest-chat count (2026-11-15) reads with 0.
     const before = { name: 'Adam', told: {}, chats: 3, met: { '2': 3 }, hebrew: false, tips: [] };
@@ -75,7 +92,7 @@ describe('sit and talk at the inn (E17, ADR 0038)', () => {
       chats: 0,
       best: 0,
       met: {},
-      hebrew: false,
+      hebrew: null,
       tips: [],
     });
   });
