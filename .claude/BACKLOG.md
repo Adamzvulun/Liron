@@ -10,8 +10,8 @@ Adam's `/away` is his go for these, except releases into `main`.
 1. **Waiting for Adam: release v1.7.0:** merge [#485](https://github.com/Adamzvulun/Liron/pull/485) with a merge commit, check the migrations on production, curl the live site.
 2. **Phase 10, safe for friends** ([#495](https://github.com/Adamzvulun/Liron/issues/495), v1.8.0): 10.3 (#501, PR #533, merged), then 10.1 (#499) and 10.2 (#500) (PR #534, merged) then 10.4 (#498) and 10.5 (#502).
 3. **Phase 11, hearing the street** ([#496](https://github.com/Adamzvulun/Liron/issues/496), v1.9.0): 11.1 built dark. 11.2 and 11.3 wait for the sentence list (Blocked).
-4. **Phase 12, faster than thought** ([#497](https://github.com/Adamzvulun/Liron/issues/497), v1.10.0): 12.1 merged (#536); 12.2–12.4 built, one PR. 12.5 (release) waits for Adam.
-5. **Phase 13, true and lasting** ([#513](https://github.com/Adamzvulun/Liron/issues/513), v1.11.0).
+4. **Phase 12, faster than thought** ([#497](https://github.com/Adamzvulun/Liron/issues/497), v1.10.0): 12.1 (#536) and 12.2–12.4 (#537) merged. 12.5 (release) waits for Adam.
+5. **Phase 13, true and lasting** ([#513](https://github.com/Adamzvulun/Liron/issues/513), v1.11.0): 13.1 built (the Arabic–Latin check); 13.2, then 13.3.
 6. **Phase 14, writing words** ([#514](https://github.com/Adamzvulun/Liron/issues/514), v1.12.0).
 7. **Phase 15, songs** ([#522](https://github.com/Adamzvulun/Liron/issues/522), v1.13.0).
 
