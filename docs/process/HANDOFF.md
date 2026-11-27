@@ -588,3 +588,7 @@
        - Run the deck tests on your machine once: `tales-deck` and `own-sentences-deck`.
      - *Decision:* the check accepts q for ق (about 210 lines) and loan sounds in every word. Each loose rule has a `shortcut:` comment saying when to tighten it.
 
+   - **#538 (13.1) is merged into `dev`.** One e2e test was flaky once in the full run: `arabic-words.spec.ts:201`, "sentence-long choices stack on a phone…". It passed 8 of 8 on its own and in CI. Watch it.
+   - **13.2, the data budget (measure part):** `supabase/reports/size-report.sql` is a read-only query. It gives each table's size, its rows, and rows per player per active day for the five tables that only grow, and the whole database's size. `supabase/tests/size-report.test.ts` keeps it running as the schema changes. RUNNING.md's monthly check and the Monthly check issue template now include it.
+     - **For Adam:** run it once on `waymark-prod` (SQL Editor → paste → Run) and paste the result into #516. The forecast and the retention ADR come from those numbers; pruning deletes data, so that ADR is his.
+     - *Decision:* a 300 MB threshold to tell Claude, which is 60% of the free 500 MB. It's a line in RUNNING.md and easy to change.

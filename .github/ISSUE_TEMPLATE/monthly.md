@@ -9,6 +9,7 @@ The steps and what "good" looks like are in [RUNNING.md](https://github.com/Adam
 
 - [ ] Keep alive: the last runs are green
 - [ ] Supabase usage (both projects): nothing near its limit
+- [ ] Data budget: ran `supabase/reports/size-report.sql` on `waymark-prod`, pasted the numbers below
 - [ ] Vercel usage: nothing near its limit
 - [ ] Groq and Google AI Studio usage looked at
 - [ ] Settings → Services on the live site says what I expect
