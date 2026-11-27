@@ -1,5 +1,5 @@
 import { expect, test } from './fixtures.ts';
-import { lessonWord, signedIn, type SaveSessionArgs } from './fake-supabase.ts';
+import { lessonWord, signedIn, type SaveSessionArgs, type SubjectCall } from './fake-supabase.ts';
 import { SLATE_IDS } from '../../src/subjects/arabic/ranks.ts';
 import { REVIEWS } from '../../src/subjects/arabic/words.ts';
 
@@ -39,7 +39,8 @@ test.describe('Spell it (#519)', () => {
     page.on('request', (r) => {
       if (r.url().endsWith('/rpc/save_session')) sent.push(r.postDataJSON() as SaveSessionArgs);
     });
-    await signedIn(page, [], [], ALL_MET, ROWS);
+    const calls: SubjectCall[] = [];
+    await signedIn(page, [], calls, ALL_MET, ROWS);
     await page.goto('/caravanserai?open=write');
     await page.getByRole('button', { name: 'Spell it' }).click();
     const box = page.getByRole('textbox', { name: 'Your spelling, in Arabic' });
@@ -107,6 +108,10 @@ test.describe('Spell it (#519)', () => {
 
     await expect.poll(() => sent.length).toBe(1);
     expect(sent[0]?.p_events).toEqual([{ kind: 'spell-round', count: 1 }]);
+    // 7 of 8 passes at 80%: it counts toward the inn's Arabic keyboard.
+    await expect
+      .poll(() => calls.find((c) => c.rpc === 'save_subject_state')?.args)
+      .toMatchObject({ p_state: { spelled: 1 } });
     const reviews = sent[0]?.p_reviews ?? [];
     expect(reviews.map((r) => r.rating).sort()).toEqual([1, 2, 3, 3, 3, 3, 3, 3]);
     expect(reviews.every((r) => /^spell:pcav:/.test(String(r.item)))).toBe(true);

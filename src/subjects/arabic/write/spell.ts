@@ -9,6 +9,8 @@ import { readableWith, type Word } from '../words.ts';
 export const SPELL_WORDS = 8;
 /** The share of a round you can't miss for `spell-90`. */
 export const SPELL_90 = 0.9;
+/** The share of a round that counts as passed, for the inn's keyboard (EARS 6). */
+export const SPELL_PASS = 0.8;
 /** XP for each word spelled, on either try. */
 export const XP_PER_WORD = 4;
 

@@ -1,6 +1,6 @@
 # Writing words: *Spell it* at the slate (Phase 14)
 
-- **Status:** *Spell it* at the slate built (14.1, #519); the inn keyboard (EARS 6) is 14.2, not yet built. Planned 2026-11-23. Research: [next-work-2026-11-23.md](../research/next-work-2026-11-23.md), Part 2, A4.
+- **Status:** *Spell it* at the slate built (14.1, #519); the inn keyboard (EARS 6) built (14.2, #520). Planned 2026-11-23. Research: [next-work-2026-11-23.md](../research/next-work-2026-11-23.md), Part 2, A4.
 - **Epic:** Phase 14 in [PLAN.md](../process/PLAN.md).
 
 ## Why
@@ -37,6 +37,10 @@
 - **Given** مدرسة typed as مدرسه, **then** it's right. **Given** مدرصة, **then** it's wrong, and ص is marked.
 - **Given** 3 rounds passed at 80%, **when** the player next opens Sit and talk, **then** the Arabic keyboard is up.
 - **Tests:** unit tests for the normalizing and the marking; a browser test of a round on a phone-sized screen.
+
+## Built in 14.2
+
+- Until 3 rounds are passed at 80%, a player who never chose types in Hebrew letters at the inn; `chat.hebrew` is now `null` until chosen. Players who already chatted have a saved `false`, so they stay on Arabic and never get the Hebrew default. The passed rounds are counted in the saved progress (`spelled`), not as an event.
 
 ## Out of scope (kept, not dropped)
 

@@ -15,6 +15,7 @@ import {
   spellItemId,
   spellScore,
   SPELL_90,
+  SPELL_PASS,
   XP_PER_WORD,
   type Cluster,
 } from './spell.ts';
@@ -118,6 +119,12 @@ export function Spell({ api }: { api: SubjectApi }) {
         events: [{ kind: 'spell-round' }, ...(share >= SPELL_90 ? [{ kind: 'spell-90' }] : [])],
         at: new Date(),
       });
+      // Three passed rounds open the inn on the Arabic keyboard (EARS 6). If only this write
+      // fails, the round is saved but not counted; the player sees the save message.
+      if (share >= SPELL_PASS) {
+        const p = parseProgress(await api.loadState());
+        await api.saveState({ ...p, spelled: p.spelled + 1 });
+      }
     })().then(
       () => setSaved('yes'),
       () => setSaved('failed'),

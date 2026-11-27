@@ -7,7 +7,7 @@ import { NextStep } from '../../../core/road/NextStep.tsx';
 import { parseProgress, type ArabicProgress } from '../progress.ts';
 import { loadOwnSentences } from '../core/coreWords.ts';
 import { LineInput } from '../chat/LineInput.tsx';
-import { lineInHebrew, MAX_LINES } from '../chat/innChat.ts';
+import { lineInHebrew, MAX_LINES, typesHebrew } from '../chat/innChat.ts';
 import { Pad } from '../write/Slate.tsx';
 import { glyphGrid } from '../write/glyph.ts';
 import { dilate, FREE_PASS, scoreTrace, type TraceScore } from '../write/trace.ts';
@@ -512,7 +512,7 @@ function Story({
         <>
           <LineInput
             api={api}
-            hebrew={progress.chat.hebrew}
+            hebrew={typesHebrew(progress)}
             onHebrew={onHebrew}
             disabled={waiting}
             onSay={onSay}
