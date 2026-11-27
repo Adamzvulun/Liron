@@ -623,3 +623,14 @@
    - **#542 (14.2) is merged into `dev`.** Phase 14's build is done. 14.3 (release v1.12.0) waits for Adam.
    - **15.1, the CSP for YouTube's player:** `vercel.json` adds `script-src https://www.youtube.com`, `frame-src https://www.youtube-nocookie.com` and `img-src https://i.ytimg.com`, and nothing else. `tests/csp.test.ts` pins each directive's outside hosts.
      - *Decision:* there is no privacy page in the app or the docs. The nearest is the guidebook's "Your data, and leaving". Its songs lines (YouTube sees what you play; links, titles and lyrics go to Gemini, Groq and LRCLIB; songs are shared) move to 15.4 as a guidebook page, so they appear when songs do. Saying so before songs exist would be untrue.
+   - **#543 (15.1) is merged into `dev`.**
+   - **15.2, the song engine:** pure modules in `src/subjects/arabic/song/`. All are unit-tested with made-up text only:
+     - `videoId`: the YouTube link forms, an exact host allowlist, the 11-character id;
+     - `parseTime`: `MM:SS.s` and `H:MM:SS.s`, refusing a bare "107";
+     - `parseLrc`;
+     - `parseSung`: refuses times that run backwards or past the video's length, and refuses a length that can't be read;
+     - `currentLine` and `currentWord`: the nudge is added to the player's clock;
+     - `markWords`: known, met or new, using `normalizeArabic`.
+     - *Decision:* `markWords` takes the known and met word sets as inputs. Deciding which words count as known or met is left to 15.4.
+     - The load-budget @timing test failed once in a full local run and passed 3 of 3 on rerun. The engine isn't imported by the app yet, so it was noise.
+   - **The /away run stops here.** Everything left needs Adam: the releases (v1.7.0 to v1.13.0), 13.2's production numbers, Phase 11's sentence list, and 15.3's keys. 15.4 and 15.5 need 15.3.
