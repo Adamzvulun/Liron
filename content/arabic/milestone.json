@@ -1,0 +1,22 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "milestone:can-do",
+      "subject": "arabic",
+      "type": "can-do",
+      "data": {
+        "statements": [
+          "I can greet someone and ask how they are.",
+          "I can follow a slow, simple sentence about someone’s family.",
+          "I can order food and pay.",
+          "I can say where I’m from and what I do.",
+          "I can read a shop sign.",
+          "I can write my name in Arabic letters."
+        ]
+      }
+    }
+  ]
+}

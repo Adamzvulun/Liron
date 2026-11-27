@@ -369,6 +369,34 @@ export function supabaseStore(client: SupabaseClient): ProgressStore {
       );
       return rows.map((r) => ({ day: r.day, minutes: r.minutes }));
     },
+    async milestoneChecks() {
+      const rows = await everyRow<{
+        subject_id: string;
+        day: string;
+        answers: number[];
+        probe: number | null;
+      }>((from, to) =>
+        client
+          .from('milestone_checks')
+          .select('subject_id, day, answers, probe')
+          .order('day')
+          .order('subject_id')
+          .range(from, to),
+      );
+      return rows.map((r) => ({
+        subject: r.subject_id,
+        day: r.day,
+        answers: r.answers,
+        probe: r.probe,
+      }));
+    },
+    async saveMilestoneCheck(subject, answers, probe) {
+      await call(
+        'save_milestone_check',
+        { p_subject: subject, p_answers: answers, p_probe: probe },
+        'save the milestone check',
+      );
+    },
     async reviewCards(subjectId, itemIds) {
       const found = new Map<string, Record<string, unknown>>();
       if (itemIds.length === 0) return found;

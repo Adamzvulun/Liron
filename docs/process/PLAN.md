@@ -495,7 +495,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 ### ☑ 13.1 (#515) · v1.11 · Our Arabic agrees with its Latin (a CI check)
 ### ☐ 13.2 (#516) · v1.11 · The data budget: measure, then a retention ADR (the size report is built; the numbers, forecast and ADR wait for Adam)
-### ☐ 13.3 (#517) · v1.11 · The milestone check ([milestone-check.md](../game/milestone-check.md))
+### ☑ 13.3 (#517) · v1.11 · The milestone check ([milestone-check.md](../game/milestone-check.md))
 ### ☐ 13.4 (#518) · v1.11 · Release v1.11.0
 
 ## Phase 14 — Writing words (#514)

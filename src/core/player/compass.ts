@@ -175,7 +175,7 @@ export function useCompass(
 /** The price of the Market's cheapest ware (content/core/items.json; a test keeps it true). */
 export const CHEAPEST_WARE = 60;
 
-const BOARD_COLOR = '#e8a93a';
+export const BOARD_COLOR = '#e8a93a';
 
 /**
  * The city's own errand (the-road.md §7): a chest waiting at the Notice Board, shown after the

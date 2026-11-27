@@ -91,12 +91,23 @@ export interface TodaysContracts {
   gold: number;
 }
 
+/** One subject's saved milestone check (docs/game/milestone-check.md). */
+export interface MilestoneRow {
+  subject: string;
+  /** The player's day, YYYY-MM-DD. */
+  day: string;
+  /** Six can-do answers: 0 not yet, 1 with help, 2 yes. */
+  answers: number[];
+  /** The probe's score in percent, or null when there was none to take. */
+  probe: number | null;
+}
+
 /** An unopened reward chest (ADR 0033): what kind, and what earned it. */
 export interface Chest {
   id: string;
   /** wooden, brass or jeweled (content/core/chests.json). */
   kind: string;
-  source: 'contracts' | 'trial' | 'streak';
+  source: 'contracts' | 'trial' | 'streak' | 'milestone';
   /** contracts: the day; trial: "subject:chapter"; streak: "day:days". */
   sourceKey: string;
 }
@@ -230,6 +241,14 @@ export interface ProgressStore {
   reviewsSince(subjectId: string, since: Date): Promise<string[]>;
   /** The minutes practiced on each day that has any, every subject together. */
   activity(): Promise<{ day: string; minutes: number }[]>;
+  /** Every milestone check saved, oldest first. */
+  milestoneChecks(): Promise<MilestoneRow[]>;
+  /** Saves a subject's check for today; the first ever also gives one small chest. */
+  saveMilestoneCheck(
+    subject: string,
+    answers: readonly number[],
+    probe: number | null,
+  ): Promise<void>;
   /** Saves a review: the card's new state and the log entry, together. */
   saveReview(
     subjectId: string,
@@ -296,6 +315,7 @@ export function memoryStore(
   /** Achievement ids earned, with when; tests give them through `earnAchievement`. */
   const achieved = new Map<string, string>();
   const days = new Map<string, { minutes: number; reached: boolean }>();
+  const checks: MilestoneRow[] = [];
   const cards = new Map<string, { due: Date; card: StoredCard }>(); // key: subject/item
   const reviewLog: { subjectId: string; itemId: string; rating: number; at: Date }[] = [];
   const skillRatings = new Map<string, StoredRating>(); // key: subject/skill
@@ -431,6 +451,14 @@ export function memoryStore(
       return [...days]
         .filter(([, d]) => d.minutes > 0)
         .map(([day, d]) => ({ day, minutes: d.minutes }));
+    },
+    async milestoneChecks() {
+      return structuredClone(checks);
+    },
+    async saveMilestoneCheck(subject, answers, probe) {
+      const day = todayIs();
+      if (!checks.some((c) => c.subject === subject && c.day === day))
+        checks.push({ subject, day, answers: [...answers], probe });
     },
     async saveReview(subjectId, itemId, review, reviewedAt) {
       cards.set(`${subjectId}/${itemId}`, { due: review.due, card: structuredClone(review.card) });

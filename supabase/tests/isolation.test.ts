@@ -38,6 +38,7 @@ const PLAYER_TABLES: Record<string, string> = {
   daily_chests: 'user_id',
   daily_contracts: 'user_id',
   chests: 'user_id',
+  milestone_checks: 'user_id',
   owned_items: 'user_id',
   player_achievements: 'user_id',
   speech_checks: 'user_id',
@@ -107,6 +108,8 @@ const CALLABLE: Record<string, string> = {
   'make_invite()': 'only an inviter; 20 open links at most (ADR 0052)',
   'market_today()': 'the day’s wares and the caller’s purchases',
   'my_achievements()': 'the caller’s own achievements',
+  'save_milestone_check(p_subject text, p_answers integer[], p_probe integer)':
+    'the caller’s own check, one row a subject a day; one small chest, once (#517)',
   'open_chest(p_chest uuid)': 'only a chest the caller owns',
   'partner_replies_per_day()': 'a constant',
   'player_today()': 'the caller’s own day',
@@ -231,6 +234,8 @@ async function seed(id: string) {
        values ($1, '2026-11-02', ${one('contract_templates', 'id')}, 1)`,
     `insert into chests (user_id, kind, source, source_key)
        values ($1, ${one('chest_drops', 'kind')}, 'trial', 'morse:1')`,
+    `insert into milestone_checks (user_id, subject_id, day, answers, probe)
+       values ($1, 'morse', '2026-11-02', '{2,1,0,2,1,0}', 60)`,
     `insert into owned_items (user_id, item_id, source) values ($1, ${one('items', 'id')}, 'market')`,
     `insert into player_achievements (user_id, achievement_id)
        values ($1, ${one('achievements', 'id')})`,
