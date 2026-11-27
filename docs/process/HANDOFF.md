@@ -592,3 +592,15 @@
    - **13.2, the data budget (measure part):** `supabase/reports/size-report.sql` is a read-only query. It gives each table's size, its rows, and rows per player per active day for the five tables that only grow, and the whole database's size. `supabase/tests/size-report.test.ts` keeps it running as the schema changes. RUNNING.md's monthly check and the Monthly check issue template now include it.
      - **For Adam:** run it once on `waymark-prod` (SQL Editor → paste → Run) and paste the result into #516. The forecast and the retention ADR come from those numbers; pruning deletes data, so that ADR is his.
      - *Decision:* a 300 MB threshold to tell Claude, which is 60% of the free 500 MB. It's a line in RUNNING.md and easy to change.
+   - **#539 (13.2, the size report) is merged into `dev`.**
+   - **13.3, the milestone check:** a can-do form, with six statements per guild, and a short probe that saves nothing to your progress. Each check is a point on the ledger. The chest comes with your first check.
+     - Migration `20270128000000_milestone_check.sql` adds the table `milestone_checks` (RLS, own rows only), the RPC `save_milestone_check` and a `milestone` chest source.
+     - Morse's probe is a Long Copy line; Arabic's is Read words.
+     - **Decisions while Adam was away:**
+       - *When it's offered:* the compass offers the check once, then waits 7 days, even if you skip it. The skip is stored on the device only. The page is always open in the ledger.
+       - *Spec wording:* the spec says "since the first finished chapter", but chapter dates aren't stored. "Since your first day of practice" stands in.
+       - *Which guilds:* only those the compass counts as started, fixed when the check begins.
+       - *The chest:* granted inside `save_milestone_check`, once per player, rather than through a `milestone-check` event.
+       - *Saving:* each guild saves as its probe ends. Leaving a probe, or a load error, saves nothing for that guild. Failed and left guilds are named at the end. One check a guild a day is kept, and the page says so.
+       - *Arabic Hear it:* there's no Hear it probe yet. It joins when the Hear sentences exist (Phase 11).
+       - **Provisional look:** the check page and the ledger's points (circle for the can-do answers, square for the probe).

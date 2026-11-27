@@ -69,6 +69,8 @@ export interface SubjectInfo {
    * from its saved state and the cards the platform hands it. Async so it loads lazily.
    */
   ledger?: (state: unknown, look: LedgerLook) => Promise<LedgerAnswer>;
+  /** Its part of the milestone check, loaded when the check opens (docs/game/milestone-check.md). */
+  milestone?: () => Promise<MilestoneKit>;
   /**
    * Its chapter of the Guidebook (docs/game/the-guide.md §3.5): what the hall is for and a line
    * for each station, in its own words. Async so it loads only when the Guidebook opens. A
@@ -86,6 +88,23 @@ export interface SubjectInfo {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- each subject has its own state
   Hall?: ComponentType<{ api: SubjectApi<any> }>;
+}
+
+/** What the milestone check asks of a subject (docs/game/milestone-check.md). */
+export interface MilestoneKit {
+  /** Six can-do statements in our own words (content/<subject>/milestone.json). */
+  statements: readonly string[];
+  /**
+   * A short probe of where the learner is now. It must change no review or rating. It calls
+   * `onDone` with the score in percent, or null when there was nothing to ask to begin with.
+   */
+  Probe: ComponentType<{
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- each subject has its own state
+    api: SubjectApi<any>;
+    onDone: (percent: number | null) => void;
+    /** The learner left, or the probe couldn't load: nothing is saved for this guild. */
+    onSkip: () => void;
+  }>;
 }
 
 /** A guild's chapter of the Guidebook. */

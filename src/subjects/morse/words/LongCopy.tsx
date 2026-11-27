@@ -24,11 +24,14 @@ export function LongCopy({
   progress,
   onAgain,
   onLeave,
+  onScore,
 }: {
   api: SubjectApi;
   progress: MorseProgress;
   onAgain: () => void;
   onLeave: () => void;
+  /** The milestone check's probe: hands over the score and saves nothing, rates nothing. */
+  onScore?: (score: number) => void;
 }) {
   const speed = speedOf(progress);
   const behind = copyBehind(speed.charWpm);
@@ -64,6 +67,7 @@ export function LongCopy({
 
   const finish = (raw: number) => {
     const s = again ? raw / 2 : raw;
+    if (onScore) return onScore(s);
     setScore(s);
     reportLong(api, s, speed.charWpm, (performance.now() - started.current) / 1000).then(
       () => setSaveFailed(false),

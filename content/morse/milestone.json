@@ -1,0 +1,22 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "milestone:can-do",
+      "subject": "morse",
+      "type": "can-do",
+      "data": {
+        "statements": [
+          "I can hear a letter or a number and name it without thinking.",
+          "I can copy a callsign at 20 wpm.",
+          "I can follow a QSO’s name and town by ear.",
+          "I can hear a short word as one sound, not letter by letter.",
+          "I can send a short message with a steady rhythm.",
+          "I can tell CQ, QTH and 73 the moment I hear them."
+        ]
+      }
+    }
+  ]
+}

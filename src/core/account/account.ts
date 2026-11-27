@@ -22,6 +22,7 @@ export const MY_TABLES: readonly (readonly [table: string, ...order: string[]])[
   ['daily_chests', 'user_id', 'day'],
   ['daily_contracts', 'user_id', 'day', 'template_id'],
   ['chests', 'id'],
+  ['milestone_checks', 'id'],
   ['owned_items', 'user_id', 'item_id'],
   ['player_achievements', 'user_id', 'achievement_id'],
   ['friend_codes', 'user_id'],

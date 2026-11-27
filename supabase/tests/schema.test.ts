@@ -2766,3 +2766,61 @@ describe('the rewards, hardened before friends join (2026-11-15, report §4au)',
     expect(await zone()).toBe('Pacific/Kiritimati');
   });
 });
+
+describe('the milestone check (#517)', () => {
+  const save = (userId: string | null, subject: string, answers: number[], probe: number | null) =>
+    as(userId, () =>
+      rows(`select save_milestone_check($1, $2::integer[], $3)`, [subject, answers, probe]),
+    );
+  const mine = (userId: string) =>
+    as(userId, () => rows(`select subject_id, answers, probe from milestone_checks`));
+  const milestoneChests = () =>
+    rows(`select kind from chests where user_id = $1 and source = 'milestone'`, [ADAM]);
+
+  it('saves one row a subject, the player’s own, and nobody else’s', async () => {
+    await save(ADAM, 'morse', [2, 1, 0, 2, 1, 0], 60);
+    await save(ADAM, 'arabic', [0, 0, 0, 0, 0, 0], null);
+    expect(await mine(ADAM)).toEqual([
+      { subject_id: 'morse', answers: [2, 1, 0, 2, 1, 0], probe: 60 },
+      { subject_id: 'arabic', answers: [0, 0, 0, 0, 0, 0], probe: null },
+    ]);
+    expect(await mine(OTHER)).toEqual([]);
+  });
+
+  it('saving the same subject twice in a day changes nothing', async () => {
+    await save(ADAM, 'morse', [2, 2, 2, 2, 2, 2], 90);
+    await save(ADAM, 'morse', [0, 0, 0, 0, 0, 0], 10);
+    expect(await mine(ADAM)).toEqual([
+      { subject_id: 'morse', answers: [2, 2, 2, 2, 2, 2], probe: 90 },
+    ]);
+  });
+
+  it('gives one small chest, once, however many checks follow', async () => {
+    await save(ADAM, 'morse', [1, 1, 1, 1, 1, 1], 50);
+    await save(ADAM, 'arabic', [1, 1, 1, 1, 1, 1], 50);
+    expect(await milestoneChests()).toEqual([{ kind: 'wooden' }]);
+    await rows(`update milestone_checks set day = day - 30 where user_id = $1`, [ADAM]);
+    await save(ADAM, 'morse', [2, 2, 2, 2, 2, 2], 80);
+    expect(await milestoneChests()).toHaveLength(1);
+  });
+
+  it('refuses answers out of range, a probe over 100, an unknown subject and a visitor', async () => {
+    await expect(save(ADAM, 'morse', [3, 0, 0, 0, 0, 0], 50)).rejects.toThrow();
+    await expect(save(ADAM, 'morse', [0, 0, 0, 0, 0], 50)).rejects.toThrow();
+    await expect(save(ADAM, 'morse', [0, 0, 0, 0, 0, 0], 101)).rejects.toThrow();
+    await expect(save(ADAM, 'nope', [0, 0, 0, 0, 0, 0], 50)).rejects.toThrow(/unknown subject/);
+    await expect(save(null, 'morse', [0, 0, 0, 0, 0, 0], 50)).rejects.toThrow();
+    expect(await mine(ADAM)).toEqual([]);
+  });
+
+  it('can’t be written to directly', async () => {
+    await expect(
+      as(ADAM, () =>
+        rows(
+          `insert into milestone_checks (user_id, subject_id, day, answers) values ($1, 'morse', '2026-11-02', '{0,0,0,0,0,0}')`,
+          [ADAM],
+        ),
+      ),
+    ).rejects.toThrow(/permission denied/);
+  });
+});
