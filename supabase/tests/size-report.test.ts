@@ -38,7 +38,13 @@ describe('size report', () => {
               ($1, '2027-01-02', 'arabic', 'a', 1)`,
       [A],
     );
-    const { rows } = await db.query<{ table_name: string; rows_per_player_day: string }>(report);
-    expect(rows.find((r) => r.table_name === 'subject_events')?.rows_per_player_day).toBe('1.5');
+    const { rows } = await db.query<{
+      table_name: string;
+      rows: string;
+      rows_per_player_day: string;
+    }>(report);
+    const events = rows.find((r) => r.table_name === 'subject_events');
+    expect(events?.rows_per_player_day).toBe('1.5');
+    expect(String(events?.rows)).toBe('3');
   });
 });

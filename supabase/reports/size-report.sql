@@ -2,7 +2,8 @@
 -- SQL editor and run it. The free database holds 500 MB. RUNNING.md's monthly check uses it.
 --
 -- One row per table: its size on disk (with indexes and TOAST), its rows, and, for the
--- tables that only ever grow, rows per player per active day.
+-- tables that only ever grow, rows per player per active day. Other tables' rows are
+-- Postgres's estimate (empty until it first analyzes the table).
 with growth as (
   select 'review_log' as tbl, count(*) as n, count(distinct (user_id, reviewed_at::date)) as player_days
     from public.review_log
@@ -18,7 +19,7 @@ with growth as (
 select c.relname as table_name,
        pg_size_pretty(pg_total_relation_size(c.oid)) as size,
        pg_total_relation_size(c.oid) as bytes,
-       c.reltuples::bigint as rows_estimate,
+       coalesce(g.n, nullif(c.reltuples, -1))::bigint as rows,
        round(g.n::numeric / nullif(g.player_days, 0), 1) as rows_per_player_day
   from pg_catalog.pg_class c
   join pg_catalog.pg_namespace s on s.oid = c.relnamespace
