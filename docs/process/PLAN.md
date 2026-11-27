@@ -502,7 +502,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** the vision's "basic writing". *Spell it* at the slate, checked on the letters only, then the inn opens on the Arabic keyboard. Spec: [arabic-spelling.md](../game/arabic-spelling.md).
 
-### ☐ 14.1 (#519) · v1.12 · *Spell it* at the slate
+### ☑ 14.1 (#519) · v1.12 · *Spell it* at the slate
 ### ☐ 14.2 (#520) · v1.12 · The inn opens on the Arabic keyboard once you can spell
 ### ☐ 14.3 (#521) · v1.12 · Release v1.12.0
 

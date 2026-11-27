@@ -1145,3 +1145,48 @@
   padding: 0;
   list-style: none;
 }
+
+/* Spell it (#519): the right spelling letter by letter, your wrong letters marked. */
+.arabic__spell-form {
+  width: 100%;
+}
+
+.arabic__spell-letters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 2em;
+}
+
+/* A wrong letter is boxed with a dashed edge as well as red, so the mark isn't color alone. */
+.arabic__spell-wrong {
+  padding: 0 6px;
+  border: 2px dashed #8a2a18;
+  border-radius: 6px;
+  background: #f3d3cb;
+  color: #8a2a18;
+}
+
+/* The slate centers its children, which shrank the keyboard to one column. */
+.arabic__slate .arabic__keys {
+  width: 100%;
+}
+
+.arabic__spell-full {
+  margin: 8px 0;
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 2.2em;
+}
+
+.arabic__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

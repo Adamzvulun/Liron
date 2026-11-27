@@ -10,6 +10,7 @@ const PORT = 4173;
  */
 export const PHONE_SPECS = [
   'arabic-script',
+  'arabic-spell',
   'arabic-words',
   'city-speed',
   'city',
