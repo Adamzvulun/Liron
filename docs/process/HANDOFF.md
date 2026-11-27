@@ -615,3 +615,8 @@
        - *`spell-90`:* counts a word right on either try.
        - *The contract:* it requires a `spell-round` on an earlier day, like the Long Copy's.
        - **Provisional look:** the Spell it screen and the letter marking (dashed box, with a hidden "(wrong)" for screen readers).
+   - **#541 (14.1) is merged into `dev`.**
+   - **14.2, the inn opens on the Arabic keyboard once you can spell:** `chat.hebrew` is now `null` until you choose, and a new `spelled` count lives in the saved Arabic progress. A *Spell it* round at 80% or better adds one. `typesHebrew(p) = p.chat.hebrew ?? p.spelled < 3`, used by Sit and talk and the Stranger at the Gate.
+     - **Decisions while Adam was away:**
+       - *Hebrew letters for new players:* the inn already opened on the Arabic keyboard (`hebrew: false`), so the spec's rule would have changed nothing. Now a player who never chose starts on Hebrew letters, and switches to the Arabic keyboard after 3 passed rounds. Existing players have a saved `false`, so they stay on Arabic. **Provisional:** this is the spec's intent, but it changes what a new player first sees. Undo: make `typesHebrew` return `p.chat.hebrew ?? false`.
+       - *Counting rounds:* in the saved progress, not with a new event, because the client can't read events back. There's no migration. If only the count's save fails, the round is saved but not counted.
