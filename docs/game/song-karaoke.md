@@ -1,6 +1,6 @@
 # Songs: learn the words through music (Phase 15)
 
-- **Status:** Planned (2026-11-23), not built.
+- **Status:** Planned (2026-11-23). The engine (15.2: link, LRC, times, timing, word marking) is built in `src/subjects/arabic/song/`; the rest is not.
 - **Research:** [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Part 2 has the tests on real songs. Part 3 covers songs no one has written down, and Claude.
 - **Decision:** [ADR 0059](../decisions/0059-songs-from-youtube.md), Accepted.
 - **Epic:** Phase 15 in [PLAN.md](../process/PLAN.md), after Phase 14.
@@ -172,7 +172,7 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 
 - [x] CSP updated; a test reads `vercel.json` and checks the CSP carries exactly the new hosts (15.1).
 - [ ] The privacy lines, as the guidebook’s songs page (15.4).
-- [ ] `src/subjects/arabic/song/`: link parser, LRC parser, `MM:SS.s` parser and order check, timing, word marking. All pure and unit-tested.
+- [x] `src/subjects/arabic/song/`: link parser, LRC parser, `MM:SS.s` parser and order check, timing, word marking. All pure and unit-tested.
 - [ ] `api/song.ts`:
   - `lookup`: LRCLIB;
   - `listen`: Gemini with the YouTube link and LRCLIB's hint, with model fallback;

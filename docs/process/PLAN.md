@@ -511,7 +511,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 **Goal:** paste a YouTube link, and that's all. The song is heard, written down, timed, translated and transliterated by itself, and laid out as karaoke. Gemini (paid, about $0.03 a listen) hears the public link (Google's own feature, no download), with LRCLIB's lyrics as a hint, and Claude (paid) explains each line. It plays in YouTube's own player. Songs are shared between friends, so each is heard once. Kept lines become review cards that play from the video. Spec: [song-karaoke.md](../game/song-karaoke.md). Research: [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). [ADR 0059](../decisions/0059-songs-from-youtube.md), Accepted (Adam, 2026-11-23: link only, shared songs, after Phase 14, paid Gemini and Claude). Before 15.3, Adam sets up the songs' Google Cloud project with billing and the two keys in Vercel.
 
 ### ☑ 15.1 (#523) · v1.13 · CSP and privacy for YouTube's player, Gemini and LRCLIB (the CSP; the privacy lines move to 15.4)
-### ☐ 15.2 (#524) · v1.13 · The song engine: link, LRC, `MM:SS` times, timing, word marking
+### ☑ 15.2 (#524) · v1.13 · The song engine: link, LRC, `MM:SS` times, timing, word marking
 ### ☐ 15.3 (#525) · v1.13 · `api/song.ts`: lookup, Gemini listens, explain, shared songbook, limits
 ### ☐ 15.4 (#526) · v1.13 · The singer's corner (and 15.1's privacy lines, as a guidebook page)
 ### ☐ 15.5 (#527) · v1.13 · *Keep this line*: song review cards, events, contract
