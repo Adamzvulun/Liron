@@ -11,8 +11,8 @@ Adam's `/away` is his go for these, except releases into `main`.
 2. **Phase 10, safe for friends** ([#495](https://github.com/Adamzvulun/Liron/issues/495), v1.8.0): 10.3 (#501, PR #533, merged), then 10.1 (#499) and 10.2 (#500) (PR #534, merged) then 10.4 (#498) and 10.5 (#502).
 3. **Phase 11, hearing the street** ([#496](https://github.com/Adamzvulun/Liron/issues/496), v1.9.0): 11.1 built dark. 11.2 and 11.3 wait for the sentence list (Blocked).
 4. **Phase 12, faster than thought** ([#497](https://github.com/Adamzvulun/Liron/issues/497), v1.10.0): 12.1 (#536) and 12.2–12.4 (#537) merged. 12.5 (release) waits for Adam.
-5. **Phase 13, true and lasting** ([#513](https://github.com/Adamzvulun/Liron/issues/513), v1.11.0): 13.1 merged (#538). 13.2: the size report is built, and the production numbers wait for Adam. 13.3 built (the milestone check). 13.4 (release v1.11.0) waits for Adam.
-6. **Phase 14, writing words** ([#514](https://github.com/Adamzvulun/Liron/issues/514), v1.12.0).
+5. **Phase 13, true and lasting** ([#513](https://github.com/Adamzvulun/Liron/issues/513), v1.11.0): 13.1 merged (#538). 13.2: the size report is built, and the production numbers wait for Adam. 13.3 merged (#540). 13.4 (release v1.11.0) waits for Adam.
+6. **Phase 14, writing words** ([#514](https://github.com/Adamzvulun/Liron/issues/514), v1.12.0): 14.1 built (*Spell it*); 14.2 is in progress.
 7. **Phase 15, songs** ([#522](https://github.com/Adamzvulun/Liron/issues/522), v1.13.0).
 
 ## Blocked

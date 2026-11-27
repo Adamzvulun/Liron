@@ -604,3 +604,14 @@
        - *Saving:* each guild saves as its probe ends. Leaving a probe, or a load error, saves nothing for that guild. Failed and left guilds are named at the end. One check a guild a day is kept, and the page says so.
        - *Arabic Hear it:* there's no Hear it probe yet. It joins when the Hear sentences exist (Phase 11).
        - **Provisional look:** the check page and the ledger's points (circle for the can-do answers, square for the probe).
+   - **#540 (13.3) is merged into `dev`.** Phase 13's build is done. 13.4 (release v1.11.0) waits for Adam.
+   - **14.1, *Spell it* at the slate:** once every letter is met, the slate offers it beside the tracing. A round is 8 deck words you can read. You hear a word, see its meaning, and type it. After a wrong try, the letters are shown with yours marked; a second wrong try shows the whole word. Grading: right first time is Good (1), right on the second try is Hard (0.5), otherwise Again (0), in the `write` skill.
+     - Migration `20270129000000_spell_it.sql` adds the events `spell-round` and `spell-90` and the contract "Spell 2 rounds at the slate" (15 gold).
+     - The inn's on-screen keyboard is now a shared `ArabicKeys`. The reviewer caught a delete-key bug from that move; it's fixed, and inn-chat e2e now covers it.
+     - **Decisions while Adam was away:**
+       - *Normalizing:* reuses `normalizeArabic` (marks dropped, ة = ه, alef forms joined, ى = ي, and also ؤ and ئ = ء). Shadda is a mark, so the keyboard has no shadda key.
+       - *Friends without the deck get no words:* lesson words carry no Arabic text, so the slate shows the no-deck note. This differs from the spec's EARS 7. **Adam:** is that OK, or should the lesson words get Arabic?
+       - *Picking "new" words:* only the first 200 candidates are checked for a card, a `shortcut:`.
+       - *`spell-90`:* counts a word right on either try.
+       - *The contract:* it requires a `spell-round` on an earlier day, like the Long Copy's.
+       - **Provisional look:** the Spell it screen and the letter marking (dashed box, with a hidden "(wrong)" for screen readers).

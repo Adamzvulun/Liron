@@ -1229,6 +1229,28 @@ describe('daily contracts (ADR 0032)', () => {
     ).toEqual([{ gold: 20, requires_kind: 'long-copy-round', kind: 'long-copy-round' }]);
   });
 
+  it('counts Spell it rounds and offers its contract only after one was played (#519)', async () => {
+    expect(
+      await rows(
+        `select t.gold, t.target, t.requires_kind, k.kind from contract_templates t
+           join subject_event_kinds k on k.subject_id = t.subject_id and k.kind = t.kind
+          where t.id = 'arabic-spell'`,
+      ),
+    ).toEqual([{ gold: 15, target: 2, requires_kind: 'spell-round', kind: 'spell-round' }]);
+    await save('arabic', [{ kind: 'spell-round' }, { kind: 'spell-90' }]);
+    const own = (await rows(
+      `select kind from subject_events where user_id = $1 and subject_id = 'arabic'
+          and kind like 'spell-%' order by kind`,
+      [ADAM],
+    )) as { kind: string }[];
+    expect(own.map((r) => r.kind)).toEqual(['spell-90', 'spell-round']);
+    await rows(
+      `delete from subject_events where user_id = $1 and subject_id = 'arabic'
+          and kind like 'spell-%'`,
+      [ADAM],
+    );
+  });
+
   it('counts a Long Copy only once the Gatekeeper is passed (#509)', async () => {
     const own = () =>
       rows(

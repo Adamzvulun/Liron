@@ -86,35 +86,52 @@ export function LineInput({
           </p>
         </>
       ) : (
-        <div className="arabic__keys" role="group" aria-label="Arabic keyboard" dir="rtl">
-          {LETTERS.map((l) => (
-            <button key={l} type="button" onClick={() => setTyped((t) => t + l)}>
-              {l}
-            </button>
-          ))}
-          <button type="button" onClick={() => setTyped((t) => t + '؟')}>
-            ؟
-          </button>
-          <button type="button" onClick={() => setTyped((t) => t + '،')}>
-            ،
-          </button>
-          <button
-            type="button"
-            className="arabic__key-wide"
-            aria-label="Space"
-            onClick={() => setTyped((t) => t + ' ')}
-          >
-            ␣
-          </button>
-          <button
-            type="button"
-            aria-label="Delete"
-            onClick={() => setTyped((t) => [...t].slice(0, -1).join(''))}
-          >
-            ⌫
-          </button>
-        </div>
+        <ArabicKeys
+          onType={(c) => setTyped((t) => t + c)}
+          onDelete={() => setTyped((t) => [...t].slice(0, -1).join(''))}
+        />
       )}
     </>
+  );
+}
+
+/** The on-screen Arabic keyboard, shared with *Spell it* at the slate. */
+export function ArabicKeys({
+  onType,
+  onDelete,
+  punctuation = true,
+}: {
+  onType: (c: string) => void;
+  onDelete: () => void;
+  /** Space, the question mark and the comma, for a line; a single word has no use for them. */
+  punctuation?: boolean;
+}) {
+  return (
+    <div className="arabic__keys" role="group" aria-label="Arabic keyboard" dir="rtl">
+      {LETTERS.map((l) => (
+        <button key={l} type="button" onClick={() => onType(l)}>
+          {l}
+        </button>
+      ))}
+      {punctuation &&
+        ['؟', '،'].map((c) => (
+          <button key={c} type="button" onClick={() => onType(c)}>
+            {c}
+          </button>
+        ))}
+      {punctuation && (
+        <button
+          type="button"
+          className="arabic__key-wide"
+          aria-label="Space"
+          onClick={() => onType(' ')}
+        >
+          ␣
+        </button>
+      )}
+      <button type="button" aria-label="Delete" onClick={onDelete}>
+        ⌫
+      </button>
+    </div>
   );
 }

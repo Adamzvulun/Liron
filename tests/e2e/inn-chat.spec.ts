@@ -73,6 +73,11 @@ test.describe('Sit and talk at the inn (E17)', () => {
     for (const k of ['ط', 'ا', 'ل', 'ب'])
       await keys.getByRole('button', { name: k, exact: true }).click();
     await expect(line).toHaveValue('طالب');
+    // Delete takes one letter off, nothing else (review, 14.1).
+    await keys.getByRole('button', { name: 'Delete' }).click();
+    await expect(line).toHaveValue('طال');
+    await keys.getByRole('button', { name: 'ب', exact: true }).click();
+    await expect(line).toHaveValue('طالب');
     await page.getByRole('button', { name: 'Say it' }).click();
     await expect.poll(() => asked.length).toBe(3);
     await line.fill('شكرا');

@@ -40,6 +40,19 @@
       }
     },
     {
+      "id": "arabic-spell",
+      "subject": "arabic",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "spell-round",
+        "target": 2,
+        "gold": 15,
+        "text": "Spell 2 rounds at the slate",
+        "requires": "spell-round"
+      }
+    },
+    {
       "id": "arabic-coffee",
       "subject": "arabic",
       "type": "contract",
