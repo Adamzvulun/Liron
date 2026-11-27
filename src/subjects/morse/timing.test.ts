@@ -56,6 +56,7 @@ describe('Morse timing', () => {
     expect(parisSeconds({ charWpm: 20 })).toBeCloseTo(60 / 20);
     expect(parisSeconds({ charWpm: 25 })).toBeCloseTo(60 / 25);
     expect(parisSeconds({ charWpm: 30 })).toBeCloseTo(60 / 30);
+    expect(parisSeconds({ charWpm: 35 })).toBeCloseTo(60 / 35);
     expect(parisSeconds({ charWpm: 30, effWpm: 10 })).toBeCloseTo(60 / 10);
     expect(parisSeconds({ charWpm: 18, effWpm: 18 })).toBeCloseTo(60 / 18);
   });

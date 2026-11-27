@@ -20,7 +20,7 @@ Ranks are a ladder: you take them in order. A rank's conditions are shown before
 | Keyer | 20 sending drills, and a dit of 80 ms or shorter (15 wpm or faster) | **New trial: "The Lamp Signal"**. Send 10 common words with the straight key. The decoder must read at least 9 of them, at 15 wpm or faster | ✅ |
 | Operator | Listener and Keyer, the prosigns, and a first QSO | **New trial: "The Far Station"**, a scripted QSO with the tower's distant station | Later in E13 (it needs the QSO trial) |
 | Telegraphist | Head copy of common words at 20 wpm | **New trial: "The Night Watch"**: copy 20 common words at 20 wpm, at least 18 right | After Operator |
-| Signal Master | A QSO at 25 wpm with no repeats | Log a Radio Room contact at 25 wpm (Dex) with no AGN, no QRS and no resend ([radio QSO](radio-qso.md) §5) | ✅ (E16, 2026-11-10) |
+| Signal Master | A QSO at 25 wpm with no repeats | Log a Radio Room contact at 25 wpm or more (Dex always; others once your speed lifts them) with no AGN, no QRS and no resend ([radio QSO](radio-qso.md) §5) | ✅ (E16, 2026-11-10) |
 | Ghost of the Ether | 30+ wpm head copy (a call copied right at 30 wpm in the callsign rush) and sending (a drill with a dit of 40 ms or less) | — | ✅ (2026-11-15; Adam: open it now the Radio Room has live operators) |
 
 - **Listener (my call):** the lore says "all 26 letters via Koch at ≥90%". In Koch order the last letter (X) is the 41st character, so the 26 letters finish with the whole course. The chapter V trial already tests all of them at 90%, so it is the gate, and no new trial is needed.

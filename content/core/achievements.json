@@ -428,6 +428,24 @@
         "title": "Keeper of the Table",
         "order": 24
       }
+    },
+    {
+      "id": "faster-than-thought",
+      "subject": "core",
+      "type": "achievement",
+      "data": {
+        "name": "Faster than Thought",
+        "text": "Copy at 90% on two days at 22 wpm, and open the 25 wpm rung of the speed ladder",
+        "condition": {
+          "kind": "events",
+          "subject": "morse",
+          "kinds": ["ladder-25"],
+          "n": 1
+        },
+        "gems": 3,
+        "title": "Ghost",
+        "order": 25
+      }
     }
   ]
 }
