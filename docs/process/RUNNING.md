@@ -16,6 +16,7 @@ Open an issue from the **Monthly check** template (GitHub → Issues → New iss
 1. **The keep-alive.** GitHub → Actions → **Keep alive**. The last runs should be green. If one is red, see [When the keep-alive fails](#when-the-keep-alive-fails). *Untested: the schedule only starts once v1.0.0 is on `main`.*
 2. **The usage pages.** Look at each, and note anything near its limit in the issue:
    - **Supabase:** each project → **Usage** (database size, storage, egress).
+   - **The data budget** (`waymark-prod` only): **SQL Editor** → paste [`supabase/reports/size-report.sql`](../../supabase/reports/size-report.sql) → **Run**. It only reads. Copy the whole-database line and the five growing tables (`review_log`, `rating_log`, `subject_events`, `saved_sessions`, `chat_lines`) into the issue. The free database holds 500 MB; anything past 300 MB, tell Claude, and we'll write the retention ADR (#516). *Untested on the real project: Claude can't reach it.*
    - **Vercel:** the team → **Usage**. Going over doesn't bill on Hobby; the feature stops until the 30 days are up ([DEPLOY](DEPLOY.md#free-plan-limits-checked-2026-11-02-on-vercelcomdocs)).
    - **GitHub Actions:** nothing to check. The repo is public, so its runs are free ([CI](CI.md#cost)).
    - **Groq:** console.groq.com → **Usage**. **Google AI Studio:** aistudio.google.com → your key's project → usage.
