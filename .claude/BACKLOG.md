@@ -12,8 +12,8 @@ Adam's `/away` is his go for these, except releases into `main`.
 3. **Phase 11, hearing the street** ([#496](https://github.com/Adamzvulun/Liron/issues/496), v1.9.0): 11.1 built dark. 11.2 and 11.3 wait for the sentence list (Blocked).
 4. **Phase 12, faster than thought** ([#497](https://github.com/Adamzvulun/Liron/issues/497), v1.10.0): 12.1 (#536) and 12.2–12.4 (#537) merged. 12.5 (release) waits for Adam.
 5. **Phase 13, true and lasting** ([#513](https://github.com/Adamzvulun/Liron/issues/513), v1.11.0): 13.1 merged (#538). 13.2: the size report is built, and the production numbers wait for Adam. 13.3 merged (#540). 13.4 (release v1.11.0) waits for Adam.
-6. **Phase 14, writing words** ([#514](https://github.com/Adamzvulun/Liron/issues/514), v1.12.0): 14.1 merged (#541); 14.2 built (the inn keyboard). 14.3 (release v1.12.0) waits for Adam.
-7. **Phase 15, songs** ([#522](https://github.com/Adamzvulun/Liron/issues/522), v1.13.0).
+6. **Phase 14, writing words** ([#514](https://github.com/Adamzvulun/Liron/issues/514), v1.12.0): 14.1 merged (#541); 14.2 merged (#542). 14.3 (release v1.12.0) waits for Adam.
+7. **Phase 15, songs** ([#522](https://github.com/Adamzvulun/Liron/issues/522), v1.13.0): 15.1 (the CSP) and 15.2 (the engine) built. 15.3 is blocked on Adam’s keys; 15.4 and 15.5 need 15.3.
 
 ## Blocked
 - **Phase 11's sentence list:** it needs the licensed deck, which is only on Adam's machine (HANDOFF 203).
