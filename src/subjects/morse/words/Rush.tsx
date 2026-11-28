@@ -1,6 +1,6 @@
 import { Xp } from '../../../core/player/Xp.tsx';
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { CHAR_WPM, unlockedChars, type MorseProgress } from '../lesson/progress.ts';
+import { unlockedChars, type MorseProgress } from '../lesson/progress.ts';
 import { MorsePlayer } from '../player.ts';
 import {
   makeCallsign,
@@ -176,11 +176,13 @@ export function RushSummaryCard({
   calls,
   best,
   isBest,
+  charWpm,
   onAgain,
   children,
 }: {
   calls: RushCall[];
   best: number;
+  charWpm: number;
   isBest: boolean;
   onAgain: () => void;
   /** What sits under the calls: the challenge offer (task 3.4). */
@@ -198,7 +200,7 @@ export function RushSummaryCard({
           {[
             isBest ? 'A new best!' : best > 0 ? `Your best: ${best}` : '',
             s.topWpm > 0
-              ? `fastest call copied: ${s.topWpm} wpm${s.topWpm > CHAR_WPM ? ' (above your lesson speed)' : ''}`
+              ? `fastest call copied: ${s.topWpm} wpm${s.topWpm > charWpm ? ' (above your lesson speed)' : ''}`
               : '',
           ]
             .filter(Boolean)

@@ -5,6 +5,9 @@ import { buildRun } from './build.ts';
 import {
   applyRun,
   applyTrial,
+  charWpmOf,
+  speedOf,
+  topSpeed,
   pendingTrial,
   isWarmup,
   NEW_PROGRESS,
@@ -32,6 +35,39 @@ describe('Morse progress', () => {
     expect(p.unlocked).toBe(2);
     expect(p.effWpm).toBe(12);
     expect(toMeet(p)).toEqual(['M']);
+  });
+
+  it('keeps a 35 wpm rung through a save and reload', () => {
+    const p = parseProgress({ rungs: [22, 25, 28, 30, 35], charWpm: 35, effWpm: 33 });
+    expect([p.charWpm, p.effWpm]).toEqual([35, 33]);
+  });
+
+  it('reads an old save as 20 wpm with no override and no rungs', () => {
+    const p = parseProgress({ unlocked: 5, effWpm: 12 });
+    expect([p.charWpm, p.override, p.rungs]).toEqual([20, null, []]);
+    expect(speedOf(p)).toEqual({ charWpm: 20, effWpm: 12 });
+  });
+
+  it('plays at the override, else the automatic speed, never past the ladder', () => {
+    const rung = { rungs: [22, 25], charWpm: 25 };
+    expect(topSpeed(parseProgress(rung))).toBe(25);
+    expect(charWpmOf(parseProgress(rung))).toBe(25);
+    expect(charWpmOf(parseProgress({ ...rung, override: 20 }))).toBe(20);
+    expect(charWpmOf(parseProgress({ ...rung, override: 18 }))).toBe(18);
+    // a speed the ladder hasn't opened (a hand-edited save) is not played
+    expect(charWpmOf(parseProgress({ override: 30 }))).toBe(20);
+    expect(charWpmOf(parseProgress({ charWpm: 99, override: 7 }))).toBe(20);
+  });
+
+  it('keeps Farnsworth spacing automatic and below the character speed', () => {
+    expect(speedOf(parseProgress({ override: 18, effWpm: 20 }))).toEqual({
+      charWpm: 18,
+      effWpm: 18,
+    });
+    expect(speedOf(parseProgress({ rungs: [22], charWpm: 22, effWpm: 21 }))).toEqual({
+      charWpm: 22,
+      effWpm: 21,
+    });
   });
 
   it('unlocks the next character after two runs in a row at 90%', () => {
@@ -93,6 +129,29 @@ describe('reportRun', () => {
           at,
         },
       ],
+    ]);
+  });
+
+  it('sends ladder-rung and the 25 and 30 events from the rungs held, with every report (#508)', async () => {
+    const saveSession = vi.fn<(report: { events?: { kind: string }[] }) => Promise<void>>(
+      async () => undefined,
+    );
+    const api = { saveSession } as unknown as SubjectApi;
+    const kinds = async (rungs: number[]) => {
+      saveSession.mockClear();
+      await reportRun(api, { ...NEW_PROGRESS, rungs }, run('KM', 'KM'), false, 60, at);
+      return saveSession.mock.calls[0]?.[0].events?.map((e) => e.kind);
+    };
+    expect(await kinds([])).toEqual(['run', 'run-90']);
+    expect(await kinds([22])).toEqual(['run', 'run-90', 'ladder-rung']);
+    // A report with no new rung still carries them, so a failed save never sticks the chain.
+    expect(await kinds([22, 25])).toEqual(['run', 'run-90', 'ladder-rung', 'ladder-25']);
+    expect(await kinds([22, 25, 28, 30])).toEqual([
+      'run',
+      'run-90',
+      'ladder-rung',
+      'ladder-25',
+      'trial-ladder-30',
     ]);
   });
 

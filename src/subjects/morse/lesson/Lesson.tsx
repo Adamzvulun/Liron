@@ -7,7 +7,7 @@ import { buildRun, GROUP_SIZE, RUN_SECONDS } from './build.ts';
 import {
   applyRun,
   pendingTrial,
-  CHAR_WPM,
+  speedOf,
   isWarmup,
   newestChar,
   nextChar,
@@ -18,6 +18,7 @@ import {
   weightsFor,
   type MorseProgress,
 } from './progress.ts';
+import { climb } from './ladder.ts';
 import { GATE_RUNS, scoreCopy, SKIP, type RunScore } from './score.ts';
 import './lesson.css';
 import { NextStep } from '../../../core/road/NextStep.tsx';
@@ -33,7 +34,7 @@ type Stage =
   | { kind: 'start' }
   | { kind: 'meet'; char: string; step: 'listen' | 'drill' }
   | { kind: 'run'; warmup: boolean }
-  | { kind: 'result'; score: RunScore; passed: boolean; warmup: boolean };
+  | { kind: 'result'; score: RunScore; passed: boolean; warmup: boolean; rung: number | null };
 
 /** `?run=short` makes a run 4 seconds instead of 2 minutes (for tests: enough for a few letters). */
 const runSeconds = () =>
@@ -79,7 +80,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
   const newest = newestChar(progress);
   const lessonNo = progress.unlocked - 1;
   const meeting = charsToMeet(progress);
-  const speed = { charWpm: CHAR_WPM, effWpm: progress.effWpm };
+  const speed = speedOf(progress);
 
   const save = (next: MorseProgress) => {
     setProgress(next);
@@ -105,9 +106,18 @@ export function KochLesson({ api }: { api: SubjectApi }) {
 
   const finishRun = (score: RunScore, warmup: boolean) => {
     const at = new Date();
-    const { next, unlockedNow } = applyRun(progress, score, at, warmup);
+    const run = applyRun(progress, score, at, warmup);
+    const { unlockedNow } = run;
+    const { next, rung } = climb(
+      progress,
+      run.next,
+      score,
+      at,
+      warmup,
+      runSeconds() === RUN_SECONDS ? undefined : 1, // a test's short run
+    );
     setProgress(next);
-    setStage({ kind: 'result', score, passed: unlockedNow, warmup });
+    setStage({ kind: 'result', score, passed: unlockedNow, warmup, rung });
     reportRun(api, next, score, unlockedNow, seconds, at).then(
       () => setSaveFailed(false),
       () => setSaveFailed(true),
@@ -127,7 +137,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           ))}
         </span>
         <span className="lesson__speed">
-          {CHAR_WPM} wpm letters · {progress.effWpm} wpm overall
+          {speed.charWpm} wpm letters · {speed.effWpm} wpm overall
         </span>
       </header>
       {saveFailed && (
@@ -154,6 +164,7 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           step={stage.step}
           known={unlocked.filter((c) => c !== stage.char)}
           player={player}
+          charWpm={speed.charWpm}
           onListened={() => setStage({ ...stage, step: 'drill' })}
           onDone={() => doneMeeting(stage.char)}
         />
@@ -174,10 +185,12 @@ export function KochLesson({ api }: { api: SubjectApi }) {
           score={stage.score}
           passed={stage.passed}
           warmup={stage.warmup}
+          rung={stage.rung}
           runsAtGate={stage.passed ? GATE_RUNS : trailingPasses(progress.recent)}
           trialName={pendingTrial(progress)?.trial.name}
           nextChar={stage.passed ? unlocked[unlocked.length - 1] : nextChar(progress)}
           player={player}
+          charWpm={speed.charWpm}
           onAgain={startRun}
           onUnlock={() => setStage({ kind: 'start' })}
         />
@@ -275,6 +288,7 @@ function Meet({
   step,
   known,
   player,
+  charWpm,
   onListened,
   onDone,
 }: {
@@ -282,12 +296,13 @@ function Meet({
   step: 'listen' | 'drill';
   known: string[];
   player: MorsePlayer;
+  charWpm: number;
   onListened: () => void;
   onDone: () => void;
 }) {
   const hear = useCallback(
-    (text: string) => player.play(text, { charWpm: CHAR_WPM, effWpm: 8 }),
-    [player],
+    (text: string) => player.play(text, { charWpm, effWpm: 8 }),
+    [player, charWpm],
   );
   useEffect(() => {
     if (step === 'listen') void hear(`${char} ${char} ${char}`);
@@ -538,21 +553,26 @@ function Result({
   score,
   passed,
   warmup,
+  rung,
   trialName,
   runsAtGate,
   nextChar,
   player,
+  charWpm,
   onAgain,
   onUnlock,
 }: {
   score: RunScore;
   passed: boolean;
   warmup: boolean;
+  /** The speed-ladder rung this run opened. */
+  rung: number | null;
   /** The chapter's trial, if it holds the gate now. */
   trialName?: string;
   runsAtGate: number;
   nextChar?: string;
   player: MorsePlayer;
+  charWpm: number;
   onAgain: () => void;
   onUnlock: () => void;
 }) {
@@ -560,7 +580,7 @@ function Result({
   const groups: RunScore['results'][] = [];
   for (let i = 0; i < score.results.length; i += GROUP_SIZE)
     groups.push(score.results.slice(i, i + GROUP_SIZE));
-  const hear = (c: string) => void player.play(c, { charWpm: CHAR_WPM });
+  const hear = (c: string) => void player.play(c, { charWpm });
   const letters = [...score.byChar.entries()].sort(
     (a, b) => KOCH.indexOf(a[0]) - KOCH.indexOf(b[0]),
   );
@@ -578,6 +598,12 @@ function Result({
             <span key={i} className={i < runsAtGate ? 'is-lit' : undefined} />
           ))}
         </div>
+        {rung && (
+          <p className="lesson__title" role="status">
+            A new rung opens: {rung} wpm! Your letters play at {rung} from now on, unless you chose
+            a speed on the dial.
+          </p>
+        )}
         {passed ? (
           <>
             <p className="lesson__title">

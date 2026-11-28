@@ -1,6 +1,7 @@
 import { PGlite } from '@electric-sql/pglite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { MY_TABLES, NOT_INCLUDED } from '../../src/core/account/account.ts';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 // Two players, one database (task 2.4, #325; fellowship-build.md §6, tests 1 and 2). Every list
@@ -37,6 +38,7 @@ const PLAYER_TABLES: Record<string, string> = {
   daily_chests: 'user_id',
   daily_contracts: 'user_id',
   chests: 'user_id',
+  milestone_checks: 'user_id',
   owned_items: 'user_id',
   player_achievements: 'user_id',
   speech_checks: 'user_id',
@@ -58,6 +60,8 @@ const PLAYER_TABLES: Record<string, string> = {
   homes: 'user_id',
   // A note has two players (task 8.1); the host reads theirs through my_notes() only.
   home_notes: 'visitor_id',
+  // The error log (task 10.1): written through report_error() only, read by nobody here.
+  error_log: 'player_id',
 };
 
 /**
@@ -104,6 +108,8 @@ const CALLABLE: Record<string, string> = {
   'make_invite()': 'only an inviter; 20 open links at most (ADR 0052)',
   'market_today()': 'the day’s wares and the caller’s purchases',
   'my_achievements()': 'the caller’s own achievements',
+  'save_milestone_check(p_subject text, p_answers integer[], p_probe integer)':
+    'the caller’s own check, one row a subject a day; one small chest, once (#517)',
   'open_chest(p_chest uuid)': 'only a chest the caller owns',
   'partner_replies_per_day()': 'a constant',
   'player_today()': 'the caller’s own day',
@@ -141,6 +147,9 @@ const CALLABLE: Record<string, string> = {
     'answers nothing about the code; 10 a day, 5 waiting, 20 friends (fellowship.test.ts)',
   'answer_friend(p_other uuid, p_accept boolean)': 'only a request sent to the caller',
   'remove_friend(p_other uuid)': 'only a pair the caller is in',
+  'report_error(p_message text, p_stack text, p_route text, p_version text, p_user_agent text)':
+    'writes one capped row under the caller’s own id',
+  'delete_my_account()': 'deletes the caller’s own login, and with it every row of theirs (#500)',
   'fellowship()': 'the caller’s card and accepted friends’ cards, with §3’s fields only',
   'fellowship_requests()': 'requests to the caller: name and look only',
   'fellowship_feed(p_before timestamp with time zone)':
@@ -225,6 +234,8 @@ async function seed(id: string) {
        values ($1, '2026-11-02', ${one('contract_templates', 'id')}, 1)`,
     `insert into chests (user_id, kind, source, source_key)
        values ($1, ${one('chest_drops', 'kind')}, 'trial', 'morse:1')`,
+    `insert into milestone_checks (user_id, subject_id, day, answers, probe)
+       values ($1, 'morse', '2026-11-02', '{2,1,0,2,1,0}', 60)`,
     `insert into owned_items (user_id, item_id, source) values ($1, ${one('items', 'id')}, 'market')`,
     `insert into player_achievements (user_id, achievement_id)
        values ($1, ${one('achievements', 'id')})`,
@@ -247,6 +258,8 @@ async function seed(id: string) {
     `insert into gifts (from_id, to_id, item_id, price) values ($1, '${T}', 'cloak', 180)`,
     `insert into homes (user_id, layout) values ($1, home_starter())`,
     `insert into home_notes (visitor_id, host_id, note) values ($1, '${T}', 'tea')`,
+    `insert into error_log (player_id, message, stack, route, version, user_agent)
+       values ($1, 'boom', '', '/', '1', '')`,
   ];
   for (const sql of statements) await db.query(sql, [id]);
 }
@@ -282,6 +295,18 @@ describe('two players, one database (task 2.4, #325)', () => {
     const names = (await tables()).map((t) => t.name);
     expect(names.filter((n) => !(n in PLAYER_TABLES) && !SHARED_TABLES.includes(n))).toEqual([]);
     expect(Object.keys(PLAYER_TABLES).filter((n) => !names.includes(n))).toEqual([]);
+  });
+
+  it('the data download covers every player table, or says why not (#500)', async () => {
+    const asked = [...MY_TABLES.map(([t]) => t), ...Object.keys(NOT_INCLUDED)];
+    expect(Object.keys(PLAYER_TABLES).filter((t) => !asked.includes(t))).toEqual([]);
+    const readable = (await rows(
+      `select relname from pg_class where relnamespace = 'public'::regnamespace
+         and has_table_privilege('authenticated', oid, 'select')`,
+    )) as { relname: string }[];
+    const names = readable.map((r) => r.relname);
+    expect(MY_TABLES.map(([t]) => t).filter((t) => !names.includes(t))).toEqual([]);
+    expect(Object.keys(NOT_INCLUDED).filter((t) => names.includes(t))).toEqual([]);
   });
 
   it('every table has row-level security, and logged-out visitors can touch none', async () => {

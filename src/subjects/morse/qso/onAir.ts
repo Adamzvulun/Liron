@@ -285,8 +285,8 @@ export function airResult(
 
 /** The Signal Master's QSO: logged at 25 wpm or faster, with no AGN, no QRS and no resend. */
 export const SIGNAL_MASTER_WPM = 25;
-export const isCleanFast = (c: Contact, res: AirResult, repeats: number) =>
-  res.logged && repeats === 0 && c.op.wpm >= SIGNAL_MASTER_WPM;
+export const isCleanFast = (c: Contact, res: AirResult, repeats: number, wpm = c.op.wpm) =>
+  res.logged && repeats === 0 && wpm >= SIGNAL_MASTER_WPM;
 
 /** The step where a ragchewing operator tells their news (E15). */
 export const NEWS_STEP = 4;
@@ -352,6 +352,11 @@ export async function reportRadio(
     at,
   });
 }
+
+/** An operator keys at their own speed, raised by how far your speed is over 20 (ADR 0009, #510). */
+// Capped at 35 wpm, the spec's audio ceiling (the ladder's top rung).
+export const opWpm = (op: Operator, charWpm: number) =>
+  Math.min(35, op.wpm + Math.max(0, charWpm - 20));
 
 /** QRS: this many wpm slower but never under the slowest, or null once there (Nils at 12 goes to 10). */
 export const slower = (wpm: number) =>

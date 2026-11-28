@@ -394,6 +394,13 @@ export const GEAR: readonly GearItem[] = [
     earn: 'Pass Forty Winters, the Signal Tower’s finale',
   },
   {
+    id: 'metronome',
+    slot: 'hand',
+    name: 'Brass metronome',
+    starter: false,
+    earn: 'Open the 30 wpm rung of the Signal Tower’s speed ladder',
+  },
+  {
     id: 'guest-book-pen',
     slot: 'hand',
     name: 'Innkeeper’s pen',

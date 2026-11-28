@@ -14,6 +14,7 @@ import { serviceLines, type ServicesSource } from '../services.ts';
 import { MIN_PASSWORD, passwordProblem } from '../auth/password.ts';
 import { PasswordField } from '../auth/PasswordField.tsx';
 import { InviteError, inviteLink, type InviteSource } from '../auth/invites.ts';
+import { DangerZone, type AccountSource } from '../account/DangerZone.tsx';
 import { setSound, useSoundSettings } from '../sound/sound.ts';
 import { useCountUp } from './useCountUp.ts';
 import './player.css';
@@ -40,6 +41,8 @@ export interface HudActions {
   services?: ServicesSource;
   /** Invite links (ADR 0052); shown only to a player who may make them. */
   invites?: InviteSource;
+  /** Downloading your data and deleting the account (#500); absent with no database. */
+  account?: AccountSource;
 }
 
 /**
@@ -456,6 +459,7 @@ function SettingsPanel({
   onPasswordChange,
   sharing,
   invites,
+  account,
 }: { state: PlayerState; onEditGoal: () => void } & HudActions) {
   return (
     <>
@@ -488,6 +492,7 @@ function SettingsPanel({
           Sign out
         </button>
       </section>
+      {account && <DangerZone source={account} />}
     </>
   );
 }

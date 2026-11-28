@@ -628,6 +628,21 @@
       }
     },
     {
+      "id": "metronome",
+      "subject": "core",
+      "type": "item",
+      "data": {
+        "kind": "gear",
+        "slot": "hand",
+        "rarity": "epic",
+        "price": 450,
+        "milestone": {
+          "kind": "trial",
+          "chapter": "ladder-30"
+        }
+      }
+    },
+    {
       "id": "guest-book-pen",
       "subject": "core",
       "type": "item",

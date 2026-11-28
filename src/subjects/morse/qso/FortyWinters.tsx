@@ -6,6 +6,7 @@ import { NextStep } from '../../../core/road/NextStep.tsx';
 import { parseProgress, type MorseProgress } from '../lesson/progress.ts';
 import { decode, START_DIT_MS } from '../send/decoder.ts';
 import { useDeskAudio, type Audio } from '../send/deskAudio.ts';
+import { Ask } from './Ask.tsx';
 import { Keying } from '../send/SendDrill.tsx';
 import {
   applyFinale,
@@ -230,58 +231,6 @@ function Hear({
         </button>
       </div>
     </div>
-  );
-}
-
-function Ask({
-  message,
-  choices,
-  onDone,
-}: {
-  message: FinaleMessage;
-  choices: string[][];
-  onDone: (answers: string[]) => void;
-}) {
-  const [answers, setAnswers] = useState<string[]>([]);
-  const filled = message.questions.every((_, i) => answers[i]);
-  return (
-    <form
-      className="lesson__card qso__card"
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (filled) onDone(answers);
-      }}
-    >
-      <p className="lesson__kicker">What did it say?</p>
-      {message.questions.map((q, i) => (
-        <fieldset key={q.ask} className="qso__choices">
-          <legend>{q.ask}</legend>
-          {(choices[i] ?? []).map((c) => (
-            <label key={c} className={answers[i] === c ? 'is-picked' : ''}>
-              <input
-                type="radio"
-                name={`q${i}`}
-                value={c}
-                checked={answers[i] === c}
-                onChange={() =>
-                  setAnswers((a) => {
-                    const next = [...a];
-                    next[i] = c;
-                    return next;
-                  })
-                }
-              />
-              {c}
-            </label>
-          ))}
-        </fieldset>
-      ))}
-      <div className="lesson__actions">
-        <button type="submit" className="lesson__go" disabled={!filled}>
-          Answer it
-        </button>
-      </div>
-    </form>
   );
 }
 

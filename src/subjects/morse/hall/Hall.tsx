@@ -5,7 +5,7 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { useStage } from '../../../core/city/useStage.ts';
 import type { SkillRating, SubjectApi } from '../../../core/subject.ts';
 import {
-  CHAR_WPM,
+  charWpmOf,
   parseProgress,
   pendingTrial,
   unlockedChars,
@@ -31,6 +31,7 @@ import {
   type Box,
   type StationId,
 } from './paintTower.ts';
+import { SpeedDial } from './SpeedDial.tsx';
 import './hall.css';
 
 // Inside the Signal Tower (#33): a painted room. The questline's stair climbs the back wall,
@@ -203,6 +204,7 @@ export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor
   const [progress, setProgress] = useState<MorseProgress | null>(null);
   const [ratings, setRatings] = useState<ReadonlyMap<string, SkillRating>>(new Map());
   const [failed, setFailed] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
 
   useEffect(() => {
     let live = true;
@@ -234,9 +236,24 @@ export function Hall({ api, onOpen }: { api: SubjectApi; onOpen: (door: HallDoor
     await api.saveSession({ state: next, events: fresh.map((r) => ({ kind: `rank-${r.id}` })) });
     setProgress(next);
   };
+  const setSpeed = (override: number | null) => {
+    const previous = progress.override;
+    const next = { ...progress, override };
+    setProgress(next);
+    setSaveFailed(false);
+    api.saveState(next).catch(() => {
+      setProgress((cur) => (cur ? { ...cur, override: previous } : cur)); // the dial snaps back
+      setSaveFailed(true);
+    });
+  };
   return (
     <>
-      <Room progress={progress} ratings={ratings} onOpen={onOpen} />
+      {saveFailed && (
+        <p className="lesson__warning" role="alert">
+          Your speed couldn’t be saved. Check your connection and try again.
+        </p>
+      )}
+      <Room progress={progress} ratings={ratings} onOpen={onOpen} onSpeed={setSpeed} />
       {fresh.length > 0 && (
         <RankUp guild="Guild of Signalers" rank={here.rank} after={here} onTake={take} />
       )}
@@ -248,10 +265,12 @@ function Room({
   progress,
   ratings,
   onOpen,
+  onSpeed,
 }: {
   progress: MorseProgress;
   ratings: ReadonlyMap<string, SkillRating>;
   onOpen: (door: HallDoor) => void;
+  onSpeed: (override: number | null) => void;
 }) {
   const [ref, { scale, x, y, pan }] = useStage(GATE.x, towerFit);
   const compact = pan || scale < READABLE_SCALE;
@@ -388,7 +407,8 @@ function Room({
       <div>
         <dt>Speed</dt>
         <dd>
-          {progress.effWpm} <small>wpm, letters at {CHAR_WPM}</small>
+          {Math.min(progress.effWpm, charWpmOf(progress))}{' '}
+          <small>wpm, letters at {charWpmOf(progress)}</small>
         </dd>
       </div>
     </dl>
@@ -444,6 +464,7 @@ function Room({
                 {rank.need}
               </p>
               {stats}
+              <SpeedDial progress={progress} onPick={onSpeed} />
             </aside>
           )}
 
@@ -557,6 +578,7 @@ function Room({
               </span>
             )}
             {stats}
+            <SpeedDial progress={progress} onPick={onSpeed} />
           </aside>
         </div>
       )}

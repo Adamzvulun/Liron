@@ -85,3 +85,33 @@ test.describe('the Koch gate: passing and failing (review item 7)', () => {
     expect(lastState(calls)?.unlocked).toBe(2);
   });
 });
+
+test('a second day at 90% opens the 22 wpm rung, which the next lessons play at (#508)', async ({
+  page,
+}) => {
+  test.setTimeout(90_000);
+  const calls: SubjectCall[] = [];
+  await listenForMorse(page);
+  await signedIn(page, [], calls, {
+    ...LESSON_1,
+    rankTrials: ['forty-winters'],
+    effWpm: 20,
+    ladderDays: ['2020-01-01'],
+  });
+  await page.goto('/signal-tower?open=koch&run=short');
+  await run(page, 'Begin', true);
+  await expect(page.getByText(/A new rung opens: 22 wpm!/)).toBeVisible();
+  await expect
+    .poll(
+      () =>
+        (
+          calls.filter((c) => c.rpc === 'save_subject_state').at(-1)?.args as {
+            p_state: { rungs: number[]; charWpm: number };
+          }
+        )?.p_state,
+    )
+    .toMatchObject({ rungs: [22], charWpm: 22 });
+  // The dial now offers 22, and the next run plays at it (a dah at 22 wpm is shorter than at 20).
+  await page.getByRole('button', { name: 'Next run' }).click();
+  await expect(page.getByText('22 wpm letters', { exact: false })).toBeVisible();
+});

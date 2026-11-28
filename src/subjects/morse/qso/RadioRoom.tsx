@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { SubjectApi } from '../../../core/subject.ts';
-import { parseProgress, type MorseProgress } from '../lesson/progress.ts';
+import { charWpmOf, parseProgress, type MorseProgress } from '../lesson/progress.ts';
 import { START_DIT_MS } from '../send/decoder.ts';
 import { useDeskAudio, type Audio } from '../send/deskAudio.ts';
 import { bandRoute } from './band.ts';
@@ -12,6 +12,7 @@ import {
   airRight,
   applyContact,
   isCleanFast,
+  opWpm,
   contactSteps,
   makeContact,
   memoryOf,
@@ -76,6 +77,7 @@ type Stage =
   | {
       kind: 'result';
       contact: Contact;
+      wpm: number;
       copies: Copies;
       reads: string[];
       result: AirResult;
@@ -133,7 +135,7 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
       kind: 'contact',
       contact,
       at: 0,
-      wpm: op.wpm,
+      wpm: opWpm(op, charWpmOf(progress)),
       repeats: 0,
       copies: {},
       reads: [],
@@ -194,7 +196,7 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
       return;
     }
     const result = airResult(s.contact, copies, reads);
-    const cleanFast = isCleanFast(s.contact, result, s.repeats);
+    const cleanFast = isCleanFast(s.contact, result, s.repeats, s.wpm);
     const radio = applyContact(
       progress.radio,
       s.contact.op.id,
@@ -206,7 +208,7 @@ export function RadioRoom({ api, onFar }: { api: SubjectApi; onFar: () => void }
     );
     const events = radioEvents(s.contact, result, cleanFast && !progress.radio.cleanFast);
     save({ ...progress, radio }, result, (performance.now() - s.started) / 1000, events);
-    setStage({ kind: 'result', contact: s.contact, copies, reads, result, cleanFast });
+    setStage({ kind: 'result', contact: s.contact, wpm: s.wpm, copies, reads, result, cleanFast });
   };
 
   return (
@@ -381,7 +383,8 @@ function Room({
                   <h3>{op.who}</h3>
                   <p>{op.about}</p>
                   <p className="qso__op-meta">
-                    {op.wpm} wpm · {n ? `worked ${n === 1 ? 'once' : `${n} times`}` : 'new to you'}
+                    {opWpm(op, charWpmOf(progress))} wpm ·{' '}
+                    {n ? `worked ${n === 1 ? 'once' : `${n} times`}` : 'new to you'}
                   </p>
                 </div>
                 <button
@@ -599,7 +602,7 @@ function Log({
       )}
       {stage.cleanFast && (
         <p className="lesson__note">
-          At {contact.op.wpm} wpm with no repeats: a Signal Master’s contact.
+          At {stage.wpm} wpm with no repeats: a Signal Master’s contact.
         </p>
       )}
       <p className="lesson__note">+{result.logged ? RADIO_XP.logged : RADIO_XP.try} XP</p>

@@ -36,12 +36,14 @@ export const GRADE: Record<Judgement, ReviewGrade> = {
 
 export const shadowIdOf = (deck: string) => `shadow:${deck}`;
 
-/** Words in a sentence, as written (punctuation doesn't count). */
-export const wordCount = (arabic: string) =>
+/** The words of a sentence, as written (punctuation doesn't count). */
+export const wordsOf = (arabic: string) =>
   arabic
     .replace(/[.,!?؟،:;"“”«»()-]/g, ' ')
     .split(/\s+/)
-    .filter(Boolean).length;
+    .filter(Boolean);
+
+export const wordCount = (arabic: string) => wordsOf(arabic).length;
 
 /**
  * The sentences you can shadow: those of the words you've met on the word path, each once, 3 to

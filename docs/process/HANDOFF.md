@@ -1,6 +1,7 @@
 # Handoff for the next Claude session
 
-- **Written:** 2026-11-03, during the overnight run; last updated 2026-11-15 at the end of a session (items 54–59) and in the next session (items 60–64); updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46; that night E12 and E11). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
+- **Latest:** 2026-11-28: item 204 (v1.7.0 live). Before it, 2026-11-26/27: items 201–203 (the agent factory, Phase 10–15 work on `dev`). Before it, 2026-11-23: items 193–200 (Phases 10–15 planned; v1.7.0 waits on Adam's go in #485). Start at item 200, then 201.
+- **Written:** 2026-11-03, during the overnight run; updated 2026-11-15 at the end of a session (items 54–59) and in the next session (items 60–64); updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46; that night E12 and E11). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 - **Starting prompt:** [next-session-prompt.md](next-session-prompt.md) is what Adam pastes to start the next session.
 
@@ -200,7 +201,7 @@
     - **Accessibility, first pass (scratch, report §4bf):** every main screen's accessibility tree has no unnamed control or image, desktop and phone; Tab walks the square in order and each building lights on `:focus-visible` (`city.css`).
     - **Groq's Arabic voice (`canopylabs/orpheus-arabic-saudi`):** the API answers `model_terms_required` until the account admin accepts its terms; it is Saudi, about 100 a day and 200 characters a request. Recommended against (report §4bf); nothing built.
     - **Load size (#137), measured again:** `index.js` is 167 kB gzipped (168 before). The square's tracker chunk (`ranks-*.js`, after first paint) is 84 kB, up from 80, because it carries all of `core-words.json` and `questline.json`; it grows about 1 kB a word chapter. Still left on purpose (§4aq); a slim build-time list would fix it if the path keeps growing.
-    - **`npm audit`:** 0 vulnerabilities in what ships (`--omit=dev`). The 9 moderate ones are `minimatch` under ESLint (a slow glob from patterns we write ourselves); the only fix is a forced ESLint major upgrade, so it waits.
+    - **`npm audit`:** 0 vulnerabilities in what ships (`--omit=dev`). The 9 moderate ones are `minimatch` under ESLint (a slow glob from patterns we write ourselves); the advisory is GHSA-g3hv-75wg-m249, and its fix (typescript-eslint ≥ 8.73.0) waits for the two-week rule: 8.73.0 passes it on 2026-11-30 (item 203).
     - **A free source for more words (research only, report §4be):** Maknuune (NYU Abu Dhabi), about 36,000 Palestinian entries with vowelled Arabic, transcription and English glosses, a 2 MB TSV, no audio, licensed CC BY-SA 4.0 (the download page's "License Notice"). ShareAlike would bind what we build from it, so it is Adam's decision; nothing is built.
     - **Scratchpad scripts, rebuilt this session (never commit):** `w/dump.mts` (deck to `deck.tsv`, run from the repo with `npx tsx`), `w/common.py` (marks stripped, taught ids from `core-words.json`, `lesson-words.json` and `phrases.json`), `w/left.py` (untaught items, DUP when the Arabic is taught), `w/fresh.py` (also drops items whose English matches a taught gloss), `w/newtok.py` (the Arabic words in an item that no taught item has; also the tokenizer, which must skip ، and ؟), `w/clash.py` (taught glosses sharing a key word with each pick), `w/g.py` (look a form up in the deck by English or Arabic), `w/check.py` (the sentence checker: not in the deck, not yet met, word missing; calibrated on chapters 108–109, which give one known flag), `w/overlap.py` (flags an own sentence sharing four words in a row with any deck sentence: deck text must not reach `content/`, ADR 0011; with no arguments it calibrates on the merged sentences, 7 chance runs in 2,995), `w/merge.py` (asserts chapter 109, appends chapters and sentences from `picks.txt` and `s110.tsv`–`s112.tsv`).
     - **Also in this PR:** `tests/e2e/login.spec.ts`'s sign-out test waits for the page load that sign-out starts (§4ay) before it reloads. It failed once locally with `ERR_ABORTED` (the two navigations raced). Repeated 8 times on both devices after the fix: all passed.
@@ -467,3 +468,171 @@
 190. **9.5, the regulars' tales (#491), folded into v1.7.0.** From LATER's "no decision needed" list (micro-stories). `content/arabic/tales.json` holds the tales (all 113 chapters, one per regular, `regular: road:N`), our own Arabic with Latin and English; `tales.ts` adds the Hebrew letters (`latinToHebrew`) and `talesEarned(trials)`. WordLessons.tsx: a **Tales · N** button at the table (stage `tales`), `TaleView` (English behind a toggle), and a "Salim’s tale" button on a passed trial's result. **Check words before adding a batch:** `npx vitest run tests/tales-deck.test.ts` with the deck in `sources/` (CI skips it); it strips il-, ha-l, w-, the person prefixes and the endings, and allows the regulars' names (`NAMES`). Adam spot-checks the Arabic (the v1.7.0 notes ask him). Next batch: chapters 31–40. The checker also allows the "I did" -t (with a hollow verb's ā put back: رحت from راح), -a written t before an ending, -āt plurals, the negative -š and a taught form without its ending (عند from كان عندو); a planted late word still fails it (checked 2026-11-23).
 191. **The release's timing check failed once on the same code that passed (2026-11-23).** `load-budget.spec.ts`, "back from a hall", read 2.7× and 3.0× (limit 2.6×) on release PR #485 at `01021948`, while #490's run of the same tree read 1.8×, with the same runner image and the same yardstick (about 380 ms). Locally, before and after #490: 1.6–2.3×. Only the walk back was slow: it is mostly layout and paint, which the CPU yardstick doesn't scale with. No code cause was found; the next push re-ran it. If it happens again on a release, look at the runner's paint speed before the code.
 192. **Tales for chapters 31–113 (#491), folded into v1.7.0.** The other 83 tales (Abu Fadi's house to Lama's two families): every regular has one, and LATER's "More of the regulars' tales" row is done; `tales-deck.test.ts` passes locally. Mind the checker's vocabulary: "this" is only taught as the prefix هالـ (no هاد), "back" is ضهر, and إشي and خلص aren't taught by chapter 40 (إشي comes in 45); مبارح isn't taught by 50. Words a tale needs but the checker can't yet see: a feminine of a taught masculine (صاحبة), two endings at once (سخّنْتها), and one-letter words (عَ). A planted late word still fails it (checked again for chapters 52 and 71). يا and a bare مسا (outside اليوم المسا) aren't taught either.
+193. **Phases 10–12 planned (2026-11-23), planning only.** Adam asked for research and a plan, no code. A gap audit compared the vision and the ADRs with the code ([next-work-2026-11-23.md](../research/next-work-2026-11-23.md)). It found four gaps: no error reporting at all; no way for a friend to take their data or leave; listening stops at single words (the deck has 536 recorded sentences, the path uses 241); and Morse fixed at 20 wpm, though ADR 0009 promises 25+ and an override. Planned as Phase 10 (#495: #499–#502, #498), Phase 11 (#496: #503–#506) and Phase 12 (#497: #507–#511). Specs: [arabic-listening.md](../game/arabic-listening.md), [morse-speed.md](../game/morse-speed.md). Adam answered the same day: our own log (ADR 0058, Accepted), a friend may delete their own account with the proper conventions, and the order 10 → 11 → 12. Version labels like `v1.8` don't exist in GitHub; recent phases use `plan:N` only.
+194. **Phases 13–14 planned (2026-11-23), planning only.** Adam answered Phase 10's questions (our own log; friends may delete their own account, with the proper conventions; order 10 → 11 → 12) and asked what's still unplanned. Part 2 of [next-work-2026-11-23.md](../research/next-work-2026-11-23.md) is a Socratic pass (the-fool) on "after Phase 12 it's complete". It found four unplanned gaps:
+   - no check that our Arabic and its Latin agree (two real errors, tales 33 and 41, fixed in Phase 10's PR);
+   - tables that grow forever against the 500 MB;
+   - no measure of learning against the vision's goals;
+   - no writing of words.
+
+   Phase 13 (#513: #515–#518) and Phase 14 (#514: #519–#521), with specs [milestone-check.md](../game/milestone-check.md) and [arabic-spelling.md](../game/arabic-spelling.md). Offline saving was checked and already holds (`subjectApi.ts`).
+195. **Phase 15 planned (2026-11-23), planning only: songs from YouTube (#522: #523–#528).** Adam asked for a way to paste a YouTube link and get a transcribed, translated and transliterated karaoke walkthrough. Research: [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Spec: [song-karaoke.md](../game/song-karaoke.md). [ADR 0059](../decisions/0059-songs-from-youtube.md) is Proposed.
+   - YouTube's developer policies forbid separating a video's audio, and its captions API serves only videos you can edit. So the song plays in YouTube's IFrame player, and the words come from LRCLIB or are pasted.
+   - LRCLIB was tested on 11 Arabic artists: mostly line-synced, word sync rare. It has no key and open CORS, and wants `Lrclib-Client` from browsers.
+   - Groq's free tier gives `gpt-oss-120b` 8K tokens a minute and 200K a day, shared with the inn. A song is about 10K, hence 2 new songs per player a day and a game-wide cap.
+   - The IFrame API loads its script from `www.youtube.com` only (checked). The CSP widening applies site-wide, because the app is one page.
+   - Never put real lyrics in `content/`, git or tests.
+   - Adam's four questions are in research §7: Groq or Gemini for lyrics, sharing explanations, "found, not extracted", and the order.
+196. **Phase 15 re-planned (2026-11-23): Gemini listens to the YouTube link.** Adam rejected "lyrics found or pasted": the player pastes the link and nothing else. He also said yes to sharing songs, put Phase 15 after Phase 14, and "figure out what's best" for the AI. Research Part 2 in [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md); ADR 0059 rewritten and Accepted; spec and issues #522–#527 updated.
+   - **The feature.** Gemini takes a public YouTube URL as `file_data.file_uri` and listens to it on Google's side. It's free in preview, with 8 hours of video a day.
+   - **Tested on Fairuz, *Habaytak bel sayf*.** About 4 lines in 5 exact alone. Near word-perfect with LRCLIB's plain lyrics as a hint (`gemini-3.6-flash`).
+   - **Ask for times as `MM:SS.s` text.** Asked in seconds, it writes 1:07 as `107`.
+   - **The free tier is often busy (503).** A 26-minute probe found at least one of `gemini-3.6-flash`, `gemini-3.5-flash-lite` and `gemini-flash-lite-latest` answering in every round. `gemini-3.8-flash` and `gemini-flash-latest` never did. Hence the model fallback, the *listening* state with automatic retries, and the shared `songs` table.
+   - **Download tools (yt-dlp) and transcript scrapers** are blocked from cloud servers, and yt-dlp would separate the audio against YouTube's policies.
+   - **Still to do in 15.3:** check the times by ear against the audio.
+   - **The test scripts** were scratch only; nothing is in the repo.
+197. **Phase 15: songs no one has written down, and Claude (2026-11-23).** Research Part 3.
+   - **Claude can't hear.** Its API takes text, images and PDFs. It becomes the song's *explainer*, and the *judge* between two listens.
+     - The model is `claude-opus-5-5` at low effort. It costs about $0.10–0.15 a song, once, since songs are shared; that's an estimate, measured in 15.3.
+     - Adam puts `ANTHROPIC_API_KEY` in Vercel and sets a monthly spend limit in the Claude Console.
+   - **With no lyrics,** `gemini-3.6-flash` got 36 of 39 Fairuz lines exact. Two listens settled by a text model got that to about 37 of 39.
+   - **Self-checks don't work.** "Correct your draft" and "list unsure words" did nothing on either model.
+   - **Players can fix a word** for everyone, with history and undo (`song_fixes`).
+   - **Niche tests:** يا ريتك مباركة (traditional) and a live wedding zajal were both heard coherently.
+198. **Phase 15 plan optimized and tested (2026-11-23).** Research Part 4 in [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Skills used: test-master, prompt-engineer, the-fool (red team) and claude-api.
+   - **Timing passes.** On *Kalamantina*, Gemini's 61 line starts were a median 0.16 s from LRCLIB's hand timing, with 96% within 1 s. Words: 11% lenient error (28% strict, mostly spelling variants).
+   - **`gemini-3.6-flash`'s free tier is 20 requests a day per project.** The benchmark stopped after 1 of 24 listens. The free-tier model order is now flash-lite first. Paid Gemini is recommended (about $0.03 a listen, with no training on our data), in the songs' own Google Cloud project, so the Radio Room's quota is safe.
+     - **Careful:** this environment's `GEMINI_API_KEY` may share a project with production. The tests made about 60 flash-lite and 25 3.6-flash requests on 2026-11-23.
+   - **Red-team fixes, now in the spec:**
+     - fixed lines are never sent to Gemini;
+     - the 10-minute clip (`video_metadata.end_offset` tested);
+     - the lease;
+     - one attempt per call;
+     - word-fix limits;
+     - a monthly Claude budget with an 80% stop;
+     - the Latin converter plus checker (13 bad strings fell to 2, out of 105).
+   - **Repeated lines:** 28–75% of a song's lines repeat, so each distinct line is explained once.
+   - **The full 8-song eval gates 15.3.** Pass marks are in research §L.
+199. **Paid Gemini for songs (Adam, 2026-11-23).** About $0.03 a listen on `gemini-3.6-flash`, in a Google Cloud project of the songs' own, with billing and a budget alert. The key goes in Vercel as `GEMINI_SONGS_API_KEY`. ADR 0059, the spec and #525 are updated. The free-tier model order stays only as a fallback if billing lapses. Adam sets up the project, both keys (`ANTHROPIC_API_KEY` too) and the spend limits when 15.3 starts.
+200. **End of session (2026-11-23): where things stand.**
+   - **v1.7.0** (release PR #485, `release/v1.7.0` into `main`) is clean and green and waits on Adam's go. After he says go: merge with a merge commit, check that the migrations ran on production, and curl the live site.
+   - **Phases 10–15** are planned in PLAN.md and the issues (#495–#497, #513, #514, #522 and their children), with the docs on PR #512 into `dev`. Nothing is built; each waits on Adam's go.
+   - **Phase 10's order:** 10.3 first, then 10.1 and 10.2 (the two tale fixes are done, 2026-11-26, item 202), then 10.4 and 10.5.
+   - **Phase 15 needs Adam before 15.3:** a Google Cloud project for songs with billing and a budget alert, `GEMINI_SONGS_API_KEY` and `ANTHROPIC_API_KEY` in Vercel, and a monthly spend limit in the Claude Console. Then run the full 8-song eval (research §J, pass marks in §L) before building on it.
+   - **Docs audited at the end of this session:** STATUS (ADR count, phases, PR rules, the paid songs exception, Gemini facts), ADR 0059 (no "free" claims left for Gemini), PLAN's Phase 15 goal, and this file.
+201. **The agent factory (2026-11-26).** Adam asked for a team of subagents with Claude as orchestrator. Built: 9 agents in `.claude/agents/` (`scout`, `researcher`, `builder`, `tester`, `reviewer`, `architect`, `scribe`, `cleanup`, `agent-architect`), [`ROSTER.md`](../../.claude/agents/ROSTER.md), [`BACKLOG.md`](../../.claude/BACKLOG.md), the commands `/task`, `/status`, `/plan`, `/review` and `/cleanup`, and the Orchestrator section in CLAUDE.md.
+   - **Budget:** Adam is on a small plan. Do small work inline; delegate only big, parallel or isolated work; opus agents sparingly. Each agent preloads ponytail plus at most one skill.
+   - **Ponytail** 5.3.3 is at its default, `full`. Its `SubagentStart` hook adds its rules to every subagent while the mode is on.
+   - **Not yet verified:** agent files load only in a new session, so the step 7 test run (a small non-Phase-10 task through scout, builder, tester and reviewer, with its own PR into `dev`) waits for the next session. Check there that `skills: ponytail:ponytail` loads; the docs don't say how to name a plugin skill there.
+
+202. **The agent team merged; first test run (2026-11-26).** PR #531 (agent factory) is squash-merged into `dev`. `.claude/settings.json` now sets `CLAUDE_CODE_AUTO_COMPACT_WINDOW=450000` (takes effect at the next session start).
+   - **Test run:** the two approved tale fixes (tale 33's btúgbuʂ→btúgbuɖ; tale 41's بْبْنيه→بَبْنيه) with a regression test in `src/subjects/arabic/core/tales.test.ts`. They belong to #495 (Phase 10); no issue closes. PLAN.md line 467 is updated. PR #532 into `dev`.
+   - **How it ran:** builder, tester and reviewer ran as general-purpose agents (sonnet; medium, medium, high) that followed their `.claude/agents/*.md` files, because agent files load only at session start. The real agent types hot-loaded afterwards; this scribe run was the first real one. Ponytail reached every subagent through the `SubagentStart` hook. Local checks green (vitest 1458, supabase 311, e2e 625+11). Reviewer PASS.
+   - **Preload verified:** the real `scribe` saw two copies of ponytail, its `skills:` preload (a skill header) and the SubagentStart hook's. Next session, run a real `builder` once to confirm the same on a sonnet coding agent.
+
+203. **Adam away (`/away`, 2026-11-26): Phase 10 on `dev`.** Adam approved `/away`: Claude works down the backlog without asking, logs each decision, and never merges into `main` (`.claude/commands/away.md`).
+   - **Done:** #532 (tale fixes, auto-compact, `/away`) merged into `dev`. 10.3, the dependency refresh, is PR #533.
+   - **Decisions while Adam was away:**
+     - *Playwright on 10.3's list?* Kept at 1.63.0, per STATUS's pre-installed-browser rule. Undo: bump it and change that rule.
+     - *pglite?* Kept at 0.5.10. 0.6 is a 0.x minor, which is breaking, and is under two weeks old. 0.5.16 is a safe patch for the next refresh.
+     - *Releases under two weeks old?* Not taken (vite 8.4, vitest 5.1.2, typescript-eslint 8.73+), per STATUS.
+     - *The dev-only minimatch advisory?* Left as is until typescript-eslint 8.73.0 passes the two-week rule (2026-11-30). `--omit=dev` is clean.
+     - *Merging #532 without a second review of the `/away` text?* Adam approved that text in chat. Its code had passed the reviewer.
+     - *The force push of the restarted branch was refused.* The old branch was merged with `-X ours` instead (the git rules for this case).
+   - **Agents:** the real `reviewer` got its `ponytail:ponytail-review` preload as well as the SubagentStart hook, so the preload works on a coding-agent type too.
+   - **10.1 and 10.2, in one PR (ADR 0057):** built by `builder`. The reviewer asked for changes twice, and passed after the second round of fixes. The page's errors go to `report_error()`, which blanks quoted text and throttles repeats. Settings has a danger area with **Download my data** (the player's own rows, paged by the whole key) and **Delete my account** (password, DELETE, `delete_my_account()`, a goodbye page).
+   - **More decisions while Adam was away:**
+     - *Can a stolen session delete an account without the password?* Yes. It's recorded as an accepted risk in FRIENDS.md, because the issue asks for the password in the browser only. Undo: have the RPC require a fresh session (it needs `auth.sessions`).
+     - *ADR 0058 says "never anything the player typed", but an error's own text can quote input.* Quoted spans are blanked in the message and the stack, and the ADR now says exactly that. Undo: reword it.
+     - *What's left out of the download?* Chat lines (the server keeps only a daily count), the crash log, and tables players can't read. Friendships come through `fellowship()`. The Guidebook says so.
+     - *The danger area's and the delete dialog's look* is **provisional**. It follows Settings' own style, with a dashed red-brown border and a red-brown delete button. Screenshots were checked at 375 px.
+   - **Not done on a real project:** `delete_my_account()` deleting `auth.users` was tested in PGlite only. Check it once on `waymark-dev` after the merge.
+   - **10.4 and 10.5 need Adam:** 10.4 is closing issues (PLAN: "Adam closes"), and 10.5 is the v1.8.0 release into `main`.
+   - **#534 (10.1 and 10.2) is merged into `dev`.**
+   - **Phase 11 needs the deck.** The Lingualism deck lives only on Adam's machine (`sources/` holds just READMEs), so the *Hear it* sentence list can't be built in the cloud.
+     - 11.1 (the pool, its reviews and the list builder) goes in its own PR. Its list is empty, so `hearOpen` is false and nothing changes for players.
+     - *Decision:* 11.1 ships dark, apart from 11.2 and 11.3, instead of waiting; 11.2 and 11.3 wait for the list. Undo: revert that PR.
+     - **For Adam:** put the deck back in `sources/arabic/lingualism/` on your machine, then run the script and the deck test:
+       ```
+       node scripts/content/hear-sentences.ts
+       npx vitest run tests/hear-sentences-deck.test.ts
+       ```
+       Read about 30 of the listed sentences, and commit the JSON. Or attach the deck in a session.
+     - *Open question for Adam:* does "taught" mean the current chapter (spec, as built), or only chapters already passed?
+   - **Git trap:** after `git checkout -B <branch> origin/dev`, the branch tracks `dev`, and a plain `git push -q` is silently refused. Set the upstream back, or push with `-u origin <branch>`.
+   - **#535 (11.1, dark) is merged into `dev`.**
+   - **12.1, the speed dial, goes in its own PR** (PLAN: "12.1 first"). More decisions while Adam was away:
+     - *No `rungs` field existed, so the dial couldn't offer anything above 20.* Added `rungs`, which 12.2 fills; until then the dial offers 18, 20 and Auto.
+     - *Night Watch:* plays at max(20, your speed), and is graded as before. Far Station and the Radio Room keep their fixed speeds until 12.4.
+     - *The banner's buttons* are 40 px, because seven at 44 px run off the painted cloth. That still meets WCAG 2.2 AA (24 px minimum); the phone card's buttons are 44 px. **Provisional look.**
+     - *A failed save of the speed* puts the dial back and shows "Your speed couldn’t be saved."
+   - **For Adam (12.2):** the spec gives the title **Ghost** at 25 wpm, but the tower's last rank is already "Ghost of the Ether", and every ladder climber has it. Keep it, or rename the title?
+   - **#536 (12.1) is merged into `dev`. 12.2, 12.3 and 12.4 go in one PR** (PLAN). More decisions while Adam was away:
+     - *12.2, the ladder:* a run counts only at the top open speed, with standard spacing, at least 30 characters, and in lesson runs only. Days are the player's local days. Every save resends the rung events, so a failed save can't stick the chain.
+     - *12.2:* `?run=short`, the e2e switch, still lets one-letter runs count. That only fools your own progress, the Koch gate has the same hole, and the server checks none of it. `shortcut:` limit to dev builds if friends ever compete on rungs.
+     - *12.3, The Long Copy:* lines of 9 or 11 words. Below 28 wpm you get three questions and one half-credit replay; from 28 you type one word behind. Grading uses the longest in-order match over the longer of the line and your copy, so extra words cost. It opens once all characters are learned, and `long-copy-round` requires `trial-1`.
+     - *12.4:* each operator keeps their personality offset and adds how far you are over 20, capped at 35 wpm, the spec's audio ceiling. Far Station and Forty Winters stay at 20 as set pieces, per the issue. Spec requirement 8 says rank trials follow your speed. **Adam: should Far Station follow your speed?**
+     - **Provisional looks:** the Long Copy screens and the metronome gear.
+   - **12.5 (release v1.10.0) and 10.5 (v1.8.0) wait for Adam,** after v1.7.0 (#485).
+   - **#537 (12.2–12.4) is merged into `dev`.**
+   - **13.1, our Arabic agrees with its Latin:** `npx vitest run tests/latin-agree.test.ts` compares the consonants of every own line (3,601) with its Latin, by sound class. The rules are in `tests/support/latinAgree.ts`, and the exceptions, each with a reason, in `content/arabic/latin-exceptions.json`. A listed line that starts agreeing fails, so the list can't go stale.
+     - **17 content typos fixed:**
+       - in own sentences: pcav:4118, 0255, 1132, 3790, 0507, 2127, 0232, 0561, 1916, 1932, 0290, 3520, 3888, 3075, 3076, 3730;
+       - in tales: road:17#4 and road:51#0;
+       - the frog in the chapter 50 grammar card.
+       Each is listed in the PR, before and after.
+     - **For Adam:**
+       - pcav:0189 and 0202: اتجوّز/idjáwwaz or اتزوّج/idzáwwaj? Answer once for these and the chapter 69 card.
+       - pcav:2370: the Arabic says الخَيال but the Latin says ilfantāzya.
+       - pcav:3888: the Arabic is now برتقالي, to match its Latin and the grammar card. If the deck says برتقاني, change it back.
+       - Run the deck tests on your machine once: `tales-deck` and `own-sentences-deck`.
+     - *Decision:* the check accepts q for ق (about 210 lines) and loan sounds in every word. Each loose rule has a `shortcut:` comment saying when to tighten it.
+
+   - **#538 (13.1) is merged into `dev`.** One e2e test was flaky once in the full run: `arabic-words.spec.ts:201`, "sentence-long choices stack on a phone…". It passed 8 of 8 on its own and in CI. Watch it.
+   - **13.2, the data budget (measure part):** `supabase/reports/size-report.sql` is a read-only query. It gives each table's size, its rows, and rows per player per active day for the five tables that only grow, and the whole database's size. `supabase/tests/size-report.test.ts` keeps it running as the schema changes. RUNNING.md's monthly check and the Monthly check issue template now include it.
+     - **For Adam:** run it once on `waymark-prod` (SQL Editor → paste → Run) and paste the result into #516. The forecast and the retention ADR come from those numbers; pruning deletes data, so that ADR is his.
+     - *Decision:* a 300 MB threshold to tell Claude, which is 60% of the free 500 MB. It's a line in RUNNING.md and easy to change.
+   - **#539 (13.2, the size report) is merged into `dev`.**
+   - **13.3, the milestone check:** a can-do form, with six statements per guild, and a short probe that saves nothing to your progress. Each check is a point on the ledger. The chest comes with your first check.
+     - Migration `20270128000000_milestone_check.sql` adds the table `milestone_checks` (RLS, own rows only), the RPC `save_milestone_check` and a `milestone` chest source.
+     - Morse's probe is a Long Copy line; Arabic's is Read words.
+     - **Decisions while Adam was away:**
+       - *When it's offered:* the compass offers the check once, then waits 7 days, even if you skip it. The skip is stored on the device only. The page is always open in the ledger.
+       - *Spec wording:* the spec says "since the first finished chapter", but chapter dates aren't stored. "Since your first day of practice" stands in.
+       - *Which guilds:* only those the compass counts as started, fixed when the check begins.
+       - *The chest:* granted inside `save_milestone_check`, once per player, rather than through a `milestone-check` event.
+       - *Saving:* each guild saves as its probe ends. Leaving a probe, or a load error, saves nothing for that guild. Failed and left guilds are named at the end. One check a guild a day is kept, and the page says so.
+       - *Arabic Hear it:* there's no Hear it probe yet. It joins when the Hear sentences exist (Phase 11).
+       - **Provisional look:** the check page and the ledger's points (circle for the can-do answers, square for the probe).
+   - **#540 (13.3) is merged into `dev`.** Phase 13's build is done. 13.4 (release v1.11.0) waits for Adam.
+   - **14.1, *Spell it* at the slate:** once every letter is met, the slate offers it beside the tracing. A round is 8 deck words you can read. You hear a word, see its meaning, and type it. After a wrong try, the letters are shown with yours marked; a second wrong try shows the whole word. Grading: right first time is Good (1), right on the second try is Hard (0.5), otherwise Again (0), in the `write` skill.
+     - Migration `20270129000000_spell_it.sql` adds the events `spell-round` and `spell-90` and the contract "Spell 2 rounds at the slate" (15 gold).
+     - The inn's on-screen keyboard is now a shared `ArabicKeys`. The reviewer caught a delete-key bug from that move; it's fixed, and inn-chat e2e now covers it.
+     - **Decisions while Adam was away:**
+       - *Normalizing:* reuses `normalizeArabic` (marks dropped, ة = ه, alef forms joined, ى = ي, and also ؤ and ئ = ء). Shadda is a mark, so the keyboard has no shadda key.
+       - *Friends without the deck get no words:* lesson words carry no Arabic text, so the slate shows the no-deck note. This differs from the spec's EARS 7. **Adam:** is that OK, or should the lesson words get Arabic?
+       - *Picking "new" words:* only the first 200 candidates are checked for a card, a `shortcut:`.
+       - *`spell-90`:* counts a word right on either try.
+       - *The contract:* it requires a `spell-round` on an earlier day, like the Long Copy's.
+       - **Provisional look:** the Spell it screen and the letter marking (dashed box, with a hidden "(wrong)" for screen readers).
+   - **#541 (14.1) is merged into `dev`.**
+   - **14.2, the inn opens on the Arabic keyboard once you can spell:** `chat.hebrew` is now `null` until you choose, and a new `spelled` count lives in the saved Arabic progress. A *Spell it* round at 80% or better adds one. `typesHebrew(p) = p.chat.hebrew ?? p.spelled < 3`, used by Sit and talk and the Stranger at the Gate.
+     - **Decisions while Adam was away:**
+       - *Hebrew letters for new players:* the inn already opened on the Arabic keyboard (`hebrew: false`), so the spec's rule would have changed nothing. Now a player who never chose starts on Hebrew letters, and switches to the Arabic keyboard after 3 passed rounds. Existing players have a saved `false`, so they stay on Arabic. **Provisional:** this is the spec's intent, but it changes what a new player first sees. Undo: make `typesHebrew` return `p.chat.hebrew ?? false`.
+       - *Counting rounds:* in the saved progress, not with a new event, because the client can't read events back. There's no migration. If only the count's save fails, the round is saved but not counted.
+   - **#542 (14.2) is merged into `dev`.** Phase 14's build is done. 14.3 (release v1.12.0) waits for Adam.
+   - **15.1, the CSP for YouTube's player:** `vercel.json` adds `script-src https://www.youtube.com`, `frame-src https://www.youtube-nocookie.com` and `img-src https://i.ytimg.com`, and nothing else. `tests/csp.test.ts` pins each directive's outside hosts.
+     - *Decision:* there is no privacy page in the app or the docs. The nearest is the guidebook's "Your data, and leaving". Its songs lines (YouTube sees what you play; links, titles and lyrics go to Gemini, Groq and LRCLIB; songs are shared) move to 15.4 as a guidebook page, so they appear when songs do. Saying so before songs exist would be untrue.
+   - **#543 (15.1) is merged into `dev`.**
+   - **15.2, the song engine:** pure modules in `src/subjects/arabic/song/`. All are unit-tested with made-up text only:
+     - `videoId`: the YouTube link forms, an exact host allowlist, the 11-character id;
+     - `parseTime`: `MM:SS.s` and `H:MM:SS.s`, refusing a bare "107";
+     - `parseLrc`;
+     - `parseSung`: refuses times that run backwards or past the video's length, and refuses a length that can't be read;
+     - `currentLine` and `currentWord`: the nudge is added to the player's clock;
+     - `markWords`: known, met or new, using `normalizeArabic`.
+     - *Decision:* `markWords` takes the known and met word sets as inputs. Deciding which words count as known or met is left to 15.4.
+     - The load-budget @timing test failed once in a full local run and passed 3 of 3 on rerun. The engine isn't imported by the app yet, so it was noise.
+   - **The /away run stops here.** Everything left needs Adam: the releases (v1.7.0 to v1.13.0), 13.2's production numbers, Phase 11's sentence list, and 15.3's keys. 15.4 and 15.5 need 15.3.
+204. **v1.7.0 released (2026-11-28).** Adam merged release PR #485 into `main` (`fe988c56`). The DB migrate run on `main` passed and applied `20270123000000_visiting_live.sql` to production. The live site answers 200 and its bundle carries 1.7.0; `/api/partner` answers 405 to a GET, as it should (POST only). `main` is now at v1.7.0, so the next release PR from `dev` starts from there.
+

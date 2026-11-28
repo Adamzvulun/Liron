@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import type { CompassLine } from './compass.ts';
 import { habitRows, type Ledger as LedgerData, type LedgerRow } from './ledger.ts';
+import { canDoPercent } from '../milestone/milestone.ts';
+import type { MilestoneRow } from '../progress/store.ts';
 import './ledger.css';
 
 /**
@@ -10,11 +12,14 @@ import './ledger.css';
 export function Ledger({
   onLoad,
   roads,
+  check,
 }: {
   /** Reads the ledger; rejects if it couldn't. */
   onLoad: () => Promise<LedgerData>;
   /** The compass's lines, for "Step 14 of 74". */
   roads: readonly CompassLine[];
+  /** The milestone check, shown as the last page. */
+  check?: ReactNode;
 }) {
   const [ledger, setLedger] = useState<LedgerData | null>(null);
   const [failed, setFailed] = useState(false);
@@ -65,6 +70,7 @@ export function Ledger({
                 ) : (
                   <p className="ledger__note">This guild’s numbers couldn’t be read.</p>
                 )}
+                <Checks rows={ledger.checks?.filter((c) => c.subject === b.subject) ?? []} />
               </section>
             );
           })}
@@ -76,6 +82,10 @@ export function Ledger({
               <p className="ledger__note">Your days couldn’t be read.</p>
             )}
           </section>
+          {ledger.checks === null && (
+            <p className="ledger__note">Your milestone checks couldn’t be read.</p>
+          )}
+          {check}
         </>
       )}
     </section>
@@ -98,5 +108,42 @@ function Rows({ rows }: { rows: readonly LedgerRow[] }) {
         </div>
       ))}
     </dl>
+  );
+}
+
+const shown = (day: string) =>
+  new Date(`${day}T00:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+/** A subject's milestone checks over time: a point for the can-do answers and one for the probe. */
+function Checks({ rows }: { rows: readonly MilestoneRow[] }) {
+  if (rows.length === 0) return null;
+  const x = (i: number) => (rows.length === 1 ? 100 : 10 + (180 * i) / (rows.length - 1));
+  const y = (pct: number) => 55 - pct * 0.5;
+  return (
+    <div className="milestone__checks">
+      <h4 className="milestone__guild">Milestone checks</h4>
+      <svg className="milestone__chart" viewBox="0 0 200 60" aria-hidden="true">
+        <line x1="0" y1="55" x2="200" y2="55" stroke="currentColor" strokeOpacity="0.35" />
+        {rows.map((r, i) => (
+          <g key={r.day}>
+            <circle cx={x(i)} cy={y(canDoPercent(r.answers))} r="4" fill="var(--ledger-guild)" />
+            {r.probe !== null && (
+              <rect x={x(i) - 3.5} y={y(r.probe) - 3.5} width="7" height="7" fill="var(--ink)" />
+            )}
+          </g>
+        ))}
+      </svg>
+      <p className="milestone__note">Circle: what you say you can do. Square: the probe.</p>
+      <ol className="milestone__list">
+        {rows.map((r) => (
+          <li key={r.day}>
+            {shown(r.day)}: {r.answers.filter((a) => a === 2).length} yes,{' '}
+            {r.answers.filter((a) => a === 1).length} with help,{' '}
+            {r.answers.filter((a) => a === 0).length} not yet
+            {r.probe === null ? '; no probe' : `; probe ${r.probe}%`}
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }

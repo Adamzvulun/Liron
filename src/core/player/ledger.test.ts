@@ -138,3 +138,30 @@ describe('loading', () => {
     expect(l.habit).toBeNull();
   });
 });
+
+describe('the milestone checks in the ledger', () => {
+  const none = {
+    loadState: async () => null,
+    due: async () => 0,
+    cards: async () => [],
+    reviewsSince: async () => [],
+    activity: async () => [],
+  };
+  const row = { subject: 'morse', day: '2026-11-02', answers: [2, 1, 0, 2, 1, 0], probe: 60 };
+
+  it('lists every saved check, or null when they couldn’t be read', async () => {
+    const ok = await loadLedger([], { ...none, milestones: async () => [row] }, '2026-11-27');
+    expect(ok.checks).toEqual([row]);
+    const bad = await loadLedger(
+      [],
+      {
+        ...none,
+        milestones: async () => {
+          throw new Error('down');
+        },
+      },
+      '2026-11-27',
+    );
+    expect(bad.checks).toBeNull();
+  });
+});

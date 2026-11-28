@@ -53,11 +53,7 @@ const ITEMS = [
 
 describe('the letters (#38, #39)', () => {
   it('reads a written word into letters, ignoring vowel marks; alif with hamza is alif', () => {
-    expect(lettersOf('بَيْت')?.map((l) => l.id)).toEqual([
-      'letter:beh',
-      'letter:yeh',
-      'letter:teh',
-    ]);
+    expect(lettersOf('بَيْت')?.map((l) => l.id)).toEqual(['letter:beh', 'letter:yeh', 'letter:teh']);
     expect(lettersOf('أنا')?.[0]?.id).toBe('letter:alef');
     expect(lettersOf('سؤال')?.[1]?.id).toBe('letter:hamza');
     expect(lettersOf('hello')).toBeNull();
@@ -264,9 +260,7 @@ describe('a session’s questions', () => {
     if (girl) {
       expect(girl.answer).toBe('בִּנְת'.normalize('NFC'));
       expect(
-        girl.choices.some(
-          (c) => c === 'בַּנְת'.normalize('NFC') || c === 'בֻּנְת'.normalize('NFC'),
-        ),
+        girl.choices.some((c) => c === 'בַּנְת'.normalize('NFC') || c === 'בֻּנְת'.normalize('NFC')),
       ).toBe(true);
       expect(girl.marks.map((m) => m.id)).toEqual(['mark:kasra', 'mark:sukun']);
     }

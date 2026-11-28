@@ -4,7 +4,7 @@ How the Signal Tower teaches you to hear Morse: the Koch lessons (#31) and how t
 
 ## The short version (for Adam)
 - **You only ever hear Morse and see letters.** No dot-dash charts, no "dah-di-dah" spelled out. That is Koch's core idea and the reason the method works (sound patterns, not counting).
-- **Characters always play at 20 wpm.** What slows down for a beginner is the *gap between* characters (Farnsworth). The gap closes by itself as you get better (ADR 0009).
+- **Characters play at 20 wpm to start; the dial in the Signal Tower sets 18–20 now, more as the ladder opens (12.2).** What slows down for a beginner is the *gap between* characters (Farnsworth). The gap closes by itself as you get better (ADR 0009).
 - **A lesson is a few short runs.** One run is 2 minutes of sound, in groups of 5 characters (about 100 characters at 10 wpm overall). You copy what you hear as it plays. A good Morse day is about 10 minutes (3–4 runs); research and practitioners agree that short daily sessions beat long rare ones.
 - **A new character unlocks after two runs in a row at 90% or better.** Two runs are about 4 minutes of copy, close to the 5 minutes of continuous copy that older Koch guides use as the test.
 - **When a character is new, you meet it first:** it plays three times with its letter shown big, then 10 quick "this one or that one?" choices against characters you already know. Then it joins the runs.
@@ -32,7 +32,7 @@ I checked; these points aren't settled by research I could find, so they're my c
 - **No going backwards.** A bad day never re-locks a character. Low accuracy slows the gaps instead (below).
 
 ## Speed (Farnsworth, ADR 0009)
-- Character speed: 20 wpm, fixed (you can raise it later in settings; it never drops below 18).
+- Character speed: 20 wpm to start; the dial in the Signal Tower sets 18–20 now, more as the ladder opens (12.2). It never drops below 18.
 - Effective speed starts at **10 wpm** and changes after each run:
   - ≥ 95%: up 1 wpm
   - 85–95%: unchanged

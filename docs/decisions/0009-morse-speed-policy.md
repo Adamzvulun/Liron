@@ -16,7 +16,7 @@ Adam asked how operator and lesson speed should be set for the best learning, an
 ## Decision
 | Setting | Behaviour |
 |---|---|
-| **Character speed** | Fixed at 20 wpm to start (user can raise it to 25+). It never drops below 18. |
+| **Character speed** | Fixed at 20 wpm to start (user can raise it to 25+). It never drops below 18. Dial built in 12.1 (Signal Tower). |
 | **Effective (Farnsworth) speed** | **Automatic**, adapting to keep copy accuracy around 90%. It speeds up after strong sessions and backs off after weak ones. |
 | **Operator speed (QSO)** | Each operator answers near **your sending speed**, as on real bands, adjusted by personality: the contester runs faster, the beginner slower. If you send QRS, they slow down (Farnsworth gaps only). |
 | **Overspeed drills** | Games like callsign rush run 2–5 wpm above your level on purpose. |

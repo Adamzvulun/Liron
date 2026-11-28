@@ -66,7 +66,7 @@ Dex keeps it short: no chatter or news turn, and `5NN` for the report (the conte
 - **Achievements (my call):**
   - **Worked All:** log a contact with all six operators. 3 gems and the title "of the Airwaves".
   - **Full Logbook:** log 50 contacts. 3 gems.
-- **Signal Master:** the rank asks for a QSO at 25 wpm with no repeats. Today only Dex sends that fast. The contact must be logged with no AGN, no QRS and no resend. It's kept in `radio.cleanFast`.
+- **Signal Master:** the rank asks for a QSO at 25 wpm with no repeats. Dex always sends that fast; other operators do once your own speed has lifted them there (12.4). The contact must be logged with no AGN, no QRS and no resend. It's kept in `radio.cleanFast`.
 - **AI slices built:** the operators' news (ADR 0036), and their answer to the news you key, with memory of it (ADR 0037).
 
 ## 6. Where it lives
