@@ -643,3 +643,27 @@
    - **Issues closed:** #502, #511, #518, #521 (the releases); #498 (tidy the backlog); #495, #497, #513, #514 (the epics); #447 (its last item shipped in v1.7.0). The task issues had closed already. #516 stays open: its retention ADR needs production numbers.
    - **Adam runs nothing.** The deck tests and the sentence list wait on the deck (his machine). The `delete_my_account` try on `waymark-dev` is covered by `supabase/tests/delete-account.test.ts`. 13.2's numbers come only if the database grows.
    - **Next:** wait for Adam. Then 15.3, whose keys he'll handle when we get there.
+206. **graphify becomes a permanent part of the setup (Adam, 2026-11-28).** Branch `claude/graphify-setup`. How it works, and how to remove it, is in [RUNNING.md](RUNNING.md#claudes-session-tools-graphify).
+   - **Version:** `graphifyy[sql]==0.9.108` (Apache 2.0). It is the newest release that's two weeks old. The `sql` extra adds the 94 migrations to the graph.
+   - **Build:** code-only, about 15 s from nothing, about 4,400 nodes. `graphify-out/` is gitignored and rebuilt each session. Committing it would add a 4 MB file that changes on every commit.
+   - **The docs and semantic pass** costs tokens, so it waits for Adam's OK.
+   - **Auto-compact:**
+     - `"autoCompactWindow": 450000` is in `.claude/settings.json`.
+     - The old `CLAUDE_CODE_AUTO_COMPACT_WINDOW` env entry is removed: the env var would win over the setting.
+     - The cloud environment sets no such variable, and there are no `modelSettings`.
+     - Opus, Sonnet and Haiku 5.5 all have a native 1M window, so 450K applies everywhere. The default trigger is about 967K.
+     - The long runners also carry the setting in their frontmatter: architect, agent-architect, reviewer, builder and tester.
+   - **Ponytail** reaches cloud sessions because it's synced from Adam's claude.ai account. The docs say a cloud session ignores the marketplaces a repo lists. The hook checks for it and says how to fix it if it's missing.
+   - **uv's own installer** downloads from GitHub releases, which this environment refuses (403). The hook falls back to `pip install uv`, from PyPI.
+   - graphify's install wrote a root `CLAUDE.md`. Its rules were merged into the Orchestrator section of `.claude/CLAUDE.md` and the root file was dropped. `scout` and `agent-architect` got Bash, for `graphify` only.
+   - **Proof in a fresh session** (a cloud session this one started, on the branch). These passed:
+     - the hook ran, and its status line printed;
+     - graphify 0.9.108 with all git hooks;
+     - the graph built at session start (4,402 nodes);
+     - `autoCompactWindow` 450000 from settings, with no env override. The session's own record shows `autocompact_state.source: settings`, an effective window of 430,000 (450,000 less the output reserve) and `max_tokens` 450,000.
+
+     Ponytail was **off** there: a session started by another session doesn't get Adam's synced plugins. So the six ponytail skills are now vendored in `.claude/skills/ponytail*` (MIT, v5.3.3). The agents preload those, and without the plugin the hook prints ponytail's rules into the session.
+   - **The real task** (`spell-90` had no test; commit `460d32a` on this branch):
+     - **Searches:** the orchestrator made 3 graph queries and 0 Grep/Glob calls, plus two greps in Bash for exact lines.
+     - **Agents:** builder took 10 tool calls (21.6k tokens) and reviewer 4 (16.9k), with `graphify affected` after `graphify update .`.
+     - **Where the graph fell short:** it holds symbols, not string literals, so `'spell-90'` still needed a grep. The default 2,000-token query was noisy (SQL migrations matched "events"). After edits it needs `graphify update .`.

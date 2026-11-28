@@ -3,7 +3,7 @@
 The orchestrator's short work list. **PLAN.md and the GitHub issues stay the source of truth** for the phases; this file points to them. "status" summarizes this file; "next" takes the top item of Next.
 
 ## In progress
-- Nothing. Waiting for Adam's next instruction.
+- **graphify, a permanent part of the setup** (branch `claude/graphify-setup`): the session-start hook, the code graph, the agents use it. Proof waits on a fresh session (HANDOFF 206).
 
 ## Next
 1. **Phase 15, songs** ([#522](https://github.com/Adamzvulun/Liron/issues/522), v1.13.0): 15.1 and 15.2 merged. Next is 15.3, which needs keys; Adam deals with those when we get there. 15.4 and 15.5 follow it.

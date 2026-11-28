@@ -20,3 +20,6 @@ sources/**
 
 # Claude Code agent worktrees (local only)
 .claude/worktrees/
+
+# graphify: rebuilt each session by .claude/hooks/session-start.sh (about 10 s)
+graphify-out/

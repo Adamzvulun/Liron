@@ -6,6 +6,7 @@ import {
   isSpelledRight,
   markLetters,
   pickSpellRound,
+  spellEvents,
   spellGrade,
   spellItemId,
   spellOpen,
@@ -108,5 +109,16 @@ describe('pickSpellRound', () => {
         99,
       ),
     ).toHaveLength(5);
+  });
+});
+
+describe('spellEvents (spell-90)', () => {
+  const kinds = (share: number) => spellEvents(share).map((e) => e.kind);
+  it('sends only spell-round below 0.9', () => {
+    expect(kinds(7 / 8)).toEqual(['spell-round']);
+  });
+  it('adds spell-90 at exactly 0.9 and at a full round', () => {
+    expect(kinds(0.9)).toEqual(['spell-round', 'spell-90']);
+    expect(kinds(1)).toEqual(['spell-round', 'spell-90']);
   });
 });

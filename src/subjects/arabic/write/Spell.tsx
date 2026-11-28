@@ -13,8 +13,8 @@ import {
   pickSpellRound,
   spellGrade,
   spellItemId,
+  spellEvents,
   spellScore,
-  SPELL_90,
   SPELL_PASS,
   XP_PER_WORD,
   type Cluster,
@@ -116,7 +116,7 @@ export function Spell({ api }: { api: SubjectApi }) {
         })),
         xp: all.filter((t) => t !== null).length * XP_PER_WORD,
         minutes: (Date.now() - started) / 60000,
-        events: [{ kind: 'spell-round' }, ...(share >= SPELL_90 ? [{ kind: 'spell-90' }] : [])],
+        events: spellEvents(share),
         at: new Date(),
       });
       // Three passed rounds open the inn on the Arabic keyboard (EARS 6). If only this write

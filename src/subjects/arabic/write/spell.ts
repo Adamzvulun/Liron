@@ -1,5 +1,5 @@
 // Spell it (#519, docs/game/arabic-spelling.md): type a taught word, checked on its letters only.
-import type { ReviewGrade } from '../../../core/subject.ts';
+import type { ReviewGrade, SessionEvent } from '../../../core/subject.ts';
 import { SLATE_IDS } from '../ranks.ts';
 import { normalizeArabic } from '../phrases/understood.ts';
 import { shuffle } from '../core/coreWords.ts';
@@ -11,6 +11,11 @@ export const SPELL_WORDS = 8;
 export const SPELL_90 = 0.9;
 /** The share of a round that counts as passed, for the inn's keyboard (EARS 6). */
 export const SPELL_PASS = 0.8;
+/** The events a finished round sends: `spell-90` only at a share of 0.9 or more. */
+export const spellEvents = (share: number): SessionEvent[] => [
+  { kind: 'spell-round' },
+  ...(share >= SPELL_90 ? [{ kind: 'spell-90' }] : []),
+];
 /** XP for each word spelled, on either try. */
 export const XP_PER_WORD = 4;
 

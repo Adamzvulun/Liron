@@ -95,3 +95,25 @@ When a friend says something crashed: in the Supabase dashboard, **Table Editor 
 4. Tag it in GitHub Releases.
 
 The first release has its own steps and a checklist ([release-checklist.md](release-checklist.md)). *Untested until v1.0.0.*
+
+## Claude's session tools (graphify)
+
+Every Claude session, local or cloud, sets itself up from files in the repo. Nothing is kept from one session to the next.
+- **What runs:** `.claude/hooks/session-start.sh`, registered under `hooks.SessionStart` in `.claude/settings.json`. In order, it:
+  - installs `uv` if it's missing;
+  - installs graphify (the PyPI package `graphifyy[sql]`, pinned in the script) with `uv tool install`;
+  - installs graphify's git hooks;
+  - updates or builds the code graph in `graphify-out/` (about 15 s from nothing; gitignored);
+  - prints one line: graphify's version, the graph's age, whether ponytail is on, and `autoCompactWindow`.
+
+  A failed step is logged to `graphify-out/session-start.log` and the session goes on.
+- **Also from graphify:**
+  - its skill in `.claude/skills/graphify/`;
+  - two PreToolUse hooks and a compact-time SessionStart hook (`graphify hook-guard`) in `.claude/settings.json`, which nudge Claude to ask the graph before grepping;
+  - `.gitattributes` (a merge rule for the graph file).
+- **Compaction:** `"autoCompactWindow": 450000` in `.claude/settings.json`, and in the long-running agents' frontmatter.
+- **Upgrading graphify:** change the version in the script. It must be at least two weeks old (ADR 0030).
+- **Removing it:**
+  1. Delete the `.claude/hooks/session-start.sh` entry and the three `hook-guard` entries from `.claude/settings.json`.
+  2. Delete the script, `.claude/skills/graphify/`, the `.gitattributes` line, the graph section in `.claude/CLAUDE.md` and the graph lines in the agents and ROSTER.
+  3. Run `graphify hook uninstall` and `uv tool uninstall graphifyy` in any session that had it.
