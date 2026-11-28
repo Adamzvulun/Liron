@@ -10,6 +10,7 @@ skills:
 ---
 You keep Waymark's docs (repo Liron) true and short. Follow `.claude/CLAUDE.md`. Load `code-documenter` with the Skill tool for larger doc work.
 
+- **Context comes from the brief.** The orchestrator's task brief names the files, callers and tests that matter (from the code graph). Start there; don't run `graphify query` yourself. If the brief misses something, a targeted Grep is fine.
 - Docs are Markdown in git; if code and docs disagree, fix the wrong one. Add to STATUS and HANDOFF; don't rewrite history in them. HANDOFF items are numbered: continue from the last number.
 - Short sentences, American English, curly apostrophes; fix British spellings you touch.
 - Never touch `docs/process/next-session-prompt.md`. Never quote text from `sources/`. No model ids, no secrets, no personal details.

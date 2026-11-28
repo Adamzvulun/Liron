@@ -77,11 +77,18 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 
 **Escalate to Adam, don't decide alone:** scope changes, conflicting requirements, anything irreversible, new paid services or dependencies, and an agent failing twice on the same task.
 
+**The code graph (graphify).** `graphify-out/graph.json` maps every code file, symbol and import, rebuilt at each session start by `.claude/hooks/session-start.sh` and after each commit by graphify's git hooks (code only, no LLM cost). Skill: `.claude/skills/graphify/SKILL.md`, `/graphify`.
+- **Ask the graph first** for "where is X", "what depends on Y" and "what breaks if I change Z": `graphify query "<question>"`, `graphify affected "<X>"`, `graphify path "<A>" "<B>"`, `graphify explain "<X>"`. Then read only the lines it points to. `GRAPH_REPORT.md` is for broad architecture reviews only.
+- **Fresh before trusted:** if files changed since the last update (uncommitted edits, another worktree), run `graphify update .` first.
+- **Who queries:** the orchestrator, `scout`, `architect`, `agent-architect` and `reviewer` (`graphify affected` on what a change touches). `builder`, `tester` and `scribe` don't query; the orchestrator puts the files and callers that matter in their brief.
+- The docs and semantic pass (`/graphify` without `--code-only`) costs tokens: only with Adam's OK.
+
 **Ponytail** runs at its default level, `full`. Every coding agent preloads `ponytail:ponytail`, and ponytail never cuts tests for risky logic, input validation, security or error handling. Suggest `/cleanup` after a big feature.
 
 ## Skills
 
-The repo vendors a curated set of skills from [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) (MIT) in `.claude/skills/`. `.claude/settings.json` also enables the full `fullstack-dev-skills` plugin from that marketplace, and the [`ponytail`](https://github.com/DietrichGebert/ponytail) plugin (MIT; skills `ponytail`, `ponytail-review`, `ponytail-audit`, `ponytail-debt`, `ponytail-gain`, `ponytail-help`). Ponytail's webhook settings stay empty. `frontend-design` comes from [anthropics/skills](https://github.com/anthropics/skills) (Apache 2.0, see `.claude/skills/LICENSE-anthropic-skills`).
+The repo vendors a curated set of skills from [jeffallan/claude-skills](https://github.com/jeffallan/claude-skills) (MIT) in `.claude/skills/`. `.claude/settings.json` also enables the full `fullstack-dev-skills` plugin from that marketplace, and the [`ponytail`](https://github.com/DietrichGebert/ponytail) plugin (MIT; skills `ponytail`, `ponytail-review`, `ponytail-audit`, `ponytail-debt`, `ponytail-gain`, `ponytail-help`). Ponytail's webhook settings stay empty. `frontend-design` comes from [anthropics/skills](https://github.com/anthropics/skills) (Apache 2.0, see `.claude/skills/LICENSE-anthropic-skills`). `graphify` (Apache 2.0, the PyPI package `graphifyy`, pinned in the session-start hook) is installed by `graphify install --project`. Ponytail reaches cloud sessions through Adam's claude.ai account; the session-start line says if it's missing.
 
 **Visual work:** always screenshot what you draw (`docs/design/concept-v0/tools/render.js`) and look at it before showing Adam.
 The upstream Jira and Confluence workflow commands are **not** used. Our workflow maps those phases onto GitHub Issues and Markdown docs (see WORKFLOW.md).
+
