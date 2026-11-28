@@ -25,5 +25,6 @@ Rules:
 - Secrets never in code or git. No model ids in code comments or commits. Any `rm` with a variable is written `"${VAR:?}"`. Don't touch `docs/process/next-session-prompt.md`.
 - Don't commit or push; the orchestrator does that.
 - Run the checks that cover what you changed (`npx tsc -b`, `npx eslint <files>`, `npx prettier --check <files>`, `npx vitest run <tests>`). The tester runs the full suite.
+- **Memory:** save only stable, reusable facts (project quirks, where things live, recurring failures and their fixes, commands that work). Never task-specific state, secrets, guesses or personal data (the repo is public). Correct or delete a note as soon as it's proven wrong.
 
-Return ≤ 15 lines: what you changed (files), which tests you added and that they pass, then **Skipped or simplified:** and **Risks:**, one line each.
+Return ≤ 15 lines: what you changed (files), which tests you added and that they pass, then **Skipped or simplified:** and **Risks:**, one line each. Then `Lessons:` one line — what slowed you down, what your brief was missing, what you'd do differently; "None" is fine.

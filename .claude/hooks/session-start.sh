@@ -82,6 +82,9 @@ gv=$(graphify --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -
 if [ -n "$graph_note" ]; then fresh="$graph_note"
 elif [ -f graphify-out/.built_at ]; then fresh="updated $(cat graphify-out/.built_at)"
 else fresh="missing"; fi
+# Tasks logged since the last retro (.claude/improve/LOG.md); 10 or more means suggest /retro.
+since=$(awk '/^--- retro/{n=0;next} /^\| 20[0-9][0-9]-/{n++} END{print n+0}' .claude/improve/LOG.md 2>/dev/null)
+[ "${since:-0}" -ge 10 ] && since="$since (time for /retro)"
 acw=$(grep -oE '"autoCompactWindow": *[0-9]+' .claude/settings.json | grep -oE '[0-9]+$')
-echo "Session setup: graphify ${gv:-missing} · graph ${fresh} · ponytail ${ponytail} · autoCompactWindow ${acw:-unset}${CLAUDE_CODE_AUTO_COMPACT_WINDOW:+ (env override ${CLAUDE_CODE_AUTO_COMPACT_WINDOW}!)}"
+echo "Session setup: graphify ${gv:-missing} · graph ${fresh} · ponytail ${ponytail} · tasks since retro ${since:-0} · autoCompactWindow ${acw:-unset}${CLAUDE_CODE_AUTO_COMPACT_WINDOW:+ (env override ${CLAUDE_CODE_AUTO_COMPACT_WINDOW}!)}"
 exit 0

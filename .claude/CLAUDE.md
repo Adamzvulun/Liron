@@ -73,7 +73,7 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 5. Nothing is done until `reviewer` (with ponytail-review) passes and the tests pass.
 6. Report briefly: what was done, what changed, the test results, what was skipped or simplified, open issues, and the suggested next step.
 
-**Backlog.** [`BACKLOG.md`](BACKLOG.md) has In progress, Next, Blocked (with the reason) and Done. Add every request and move it as work moves; keep it short. PLAN.md and the GitHub issues stay the source of truth for the phases; the backlog points to them. `/status` summarizes it, and "next" takes the top item of Next. Commands: `/task`, `/status`, `/plan`, `/review`, `/cleanup`, and `/away` when Adam is away: it is his go to work down the backlog in order, deciding as he would, logging every decision, and never crossing its hard limits (no `main`, no money, nothing irreversible).
+**Backlog.** [`BACKLOG.md`](BACKLOG.md) has In progress, Next, Blocked (with the reason) and Done. Add every request and move it as work moves; keep it short. PLAN.md and the GitHub issues stay the source of truth for the phases; the backlog points to them. `/status` summarizes it, and "next" takes the top item of Next. Commands: `/task`, `/status`, `/plan`, `/review`, `/cleanup`, `/retro`, `/improve <n>`, `/scoreboard`, and `/away` when Adam is away: it is his go to work down the backlog in order, deciding as he would, logging every decision, and never crossing its hard limits (no `main`, no money, nothing irreversible).
 
 **Escalate to Adam, don't decide alone:** scope changes, conflicting requirements, anything irreversible, new paid services or dependencies, and an agent failing twice on the same task.
 
@@ -82,6 +82,16 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 - **Fresh before trusted:** if files changed since the last update (uncommitted edits, another worktree), run `graphify update .` first.
 - **Who queries:** the orchestrator, `scout`, `architect`, `agent-architect` and `reviewer` (`graphify affected` on what a change touches). `builder`, `tester` and `scribe` don't query; the orchestrator puts the files and callers that matter in their brief.
 - The docs and semantic pass (`/graphify` without `--code-only`) costs tokens: only with Adam's OK.
+
+**Self-improvement (`.claude/improve/`; Adam, 2026-11-28).** The team learns from its own work, under Adam's control.
+- **Log every task:** after each one, add one row to `improve/LOG.md`: date, task, agents (model/effort), result (`first-pass`, `rework` or `failed`), the tokens and tool calls each agent call reported, and the lesson (from the agents' `Lessons:` lines). Memory agents keep stable facts in `.claude/agent-memory/<name>/`.
+- **Retro:** the session-start line counts tasks since the last retro. At 10 or more, or after a task that failed twice, suggest `/retro`. The `retro` agent only proposes (`improve/PROPOSALS.md`, at most 5) and writes nothing outside `improve/`.
+- **Applying a proposal** (`/improve <n>`):
+  - **Small** (clarify a prompt, add a project fact, adjust a description): apply via `agent-architect`, then tell Adam in one line. Allowed under `/away`.
+  - **Everything else needs Adam's OK first:** model or effort, adding or removing agents, tools or permissions, these orchestrator rules, hooks, settings, the ponytail or graphify setup. Adam typing `/improve <n>` for that proposal is his OK.
+  - Each applied change is its own commit, `improve: <what> (proposal #N)`, with a row in `improve/CHANGELOG.md` (date, proposal, the metric it should move). The next retro measures it: better, neutral (kept only if it simplifies) or worse (propose `git revert`).
+- **Hard limits, never changed by the loop, whatever the reason:** weakening tests or the review step; removing a safety or escalation rule; widening permissions; lowering the quality bar to make the metrics look better; changing these limits. `reviewer` fails any `improve:` commit that crosses one.
+- **Keep it lean:** prompts and this file must not just grow. Each retro looks for text to merge or delete. The team stays at 6 to 10 agents.
 
 **Ponytail** runs at its default level, `full`. Every coding agent preloads `ponytail` (the repo's copy in `.claude/skills/`), and ponytail never cuts tests for risky logic, input validation, security or error handling. Suggest `/cleanup` after a big feature.
 

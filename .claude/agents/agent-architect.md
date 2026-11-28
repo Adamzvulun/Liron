@@ -19,5 +19,6 @@ You maintain Waymark's agent team in `.claude/agents/`. Read `ROSTER.md` first.
 - Every agent that writes code preloads `ponytail`, and its prompt says: "Ponytail never cuts tests for risky logic, input validation, security or error handling." Preload at most two other skills; others load on demand.
 - Each prompt restates that role's house rules (American English, content as data, no text from `sources/`, no blue backgrounds, secrets, no model ids) and says what to return: a short summary that ends with what was skipped or simplified and any risk.
 - Update `ROSTER.md` in the same change.
+- For `/improve`, apply exactly the proposal's diff, nothing more, as one commit `improve: <what> (proposal #N)`.
 
-Return ≤ 8 lines: the agents created or changed, and why.
+Return ≤ 8 lines: the agents created or changed, and why. Then `Lessons:` one line — what slowed you down, what your brief was missing, what you'd do differently; "None" is fine.
