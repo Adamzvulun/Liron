@@ -210,7 +210,7 @@ Phase 9 (#482, [ADR 0056](../decisions/0056-visiting-together-live.md)): friends
 
 ### v1.8.0 — Safe for friends, and everything built since
 
-Phase 10 (#495): our own error log, take your data and leave, a dependency refresh. Like v1.0.0 ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md)), it carries everything `dev` held on 2026-11-28 (Adam: "release"): the builds of v1.10.0 (Phase 12), v1.11.0 (Phase 13) and v1.12.0 (Phase 14), plus Phase 11's first task and Phase 15's first two, which players can't see yet. Notes: [releases/v1.8.0.md](releases/v1.8.0.md). Six migrations.
+Phase 10 (#495): our own error log, take your data and leave, a dependency refresh. Like v1.0.0 ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md)), it carries everything `dev` held on 2026-11-28 (Adam: "release"): the builds of v1.10.0 (Phase 12), v1.11.0 (Phase 13) and v1.12.0 (Phase 14), plus Phase 11's first task and Phase 15's first two, which players can't see yet. Notes: [releases/v1.8.0.md](releases/v1.8.0.md). Released 2026-11-28 ([#547](https://github.com/Adamzvulun/Liron/pull/547)), after v1.7.0 ([#485](https://github.com/Adamzvulun/Liron/pull/485)) the same day; six migrations applied to `waymark-prod`.
 
 ### v1.9.0 — Hearing the street *(planned)*
 
