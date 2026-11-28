@@ -16,3 +16,6 @@ One entry per applied proposal, newest first. Each is its own commit `improve: <
 
 | Date | Proposal | Change | Commit | Metric expected to move | Verdict |
 |------|----------|--------|--------|-------------------------|---------|
+| 2026-11-28 | #3 | tester names the two known intermittent tests; a repeat failure becomes a root-cause task | 7278143 | first-time review pass rate and rework; a LOG row naming either test | pending |
+| 2026-11-28 | #2 | memory rule stated once in CLAUDE.md, removed from 7 agents | 2e5c02a | prompt lines (-7); no task state or personal data in agent memory | pending |
+| 2026-11-28 | #1 | scout and architect: the graph has no string literals, Grep ids directly; scout's two Grep lines merged | 677d369 | scout and architect tool calls per lookup; prompt lines (-1) | pending |

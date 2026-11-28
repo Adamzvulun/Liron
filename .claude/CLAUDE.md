@@ -84,7 +84,7 @@ See [`docs/process/WORKFLOW.md`](../docs/process/WORKFLOW.md). In short:
 - The docs and semantic pass (`/graphify` without `--code-only`) costs tokens: only with Adam's OK.
 
 **Self-improvement (`.claude/improve/`; Adam, 2026-11-28).** The team learns from its own work, under Adam's control.
-- **Log every task:** after each one, add one row to `improve/LOG.md`: date, task, agents (model/effort), result (`first-pass`, `rework` or `failed`), the tokens and tool calls each agent call reported, and the lesson (from the agents' `Lessons:` lines). Memory agents keep stable facts in `.claude/agent-memory/<name>/`.
+- **Log every task:** after each one, add one row to `improve/LOG.md`: date, task, agents (model/effort), result (`first-pass`, `rework` or `failed`), the tokens and tool calls each agent call reported, and the lesson (from the agents' `Lessons:` lines). Memory agents keep only stable, reusable facts in `.claude/agent-memory/<name>/` (quirks, where things live, recurring failures and their fixes, commands that work), never task state, secrets, guesses or personal data (the repo is public), and fix or delete a note once it's proven wrong.
 - **Retro:** the session-start line counts tasks since the last retro. At 10 or more, or after a task that failed twice, suggest `/retro`. The `retro` agent only proposes (`improve/PROPOSALS.md`, at most 5) and writes nothing outside `improve/`.
 - **Applying a proposal** (`/improve <n>`):
   - **Small** (clarify a prompt, add a project fact, adjust a description): apply via `agent-architect`, then tell Adam in one line. Allowed under `/away`.
