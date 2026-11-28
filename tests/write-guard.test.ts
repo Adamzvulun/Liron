@@ -40,6 +40,27 @@ describe('write guard', () => {
     expect(bash('graphify update .')).toBe(2);
   });
 
+  it('closes the known bypasses of read-only Bash', () => {
+    expect(bash('git log --output=x.md')).toBe(2);
+    expect(bash('git diff --ext-diff')).toBe(2);
+    expect(bash('git log\nrm -rf x')).toBe(2);
+    expect(bash('cat <(touch x)')).toBe(2);
+    expect(bash('cat $HOME/.ssh/id_rsa')).toBe(2);
+    expect(bash('sort -o x.md y')).toBe(2);
+    expect(bash('uniq a b')).toBe(2);
+    expect(bash('')).toBe(2);
+  });
+
+  it('fails closed when it cannot read the call', () => {
+    expect(run({ tool_input: { file_path: '.claude/CLAUDE.md' } })).toBe(2);
+    expect(
+      spawnSync(guard, ['.claude/improve'], {
+        input: 'not json',
+        env: { ...process.env, CLAUDE_PROJECT_DIR: root },
+      }).status,
+    ).toBe(2);
+  });
+
   it('leaves Bash alone without the flag, and other tools alone', () => {
     expect(run({ tool_name: 'Bash', tool_input: { command: 'npm test' } })).toBe(0);
     expect(run({ tool_name: 'Read', tool_input: { file_path: '/etc/hosts' } })).toBe(0);

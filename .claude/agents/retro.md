@@ -26,7 +26,7 @@ You run the retrospective for Waymark's agent team (repo Liron). You write only 
    - At least one proposal deletes or merges text when any candidate exists.
    - Number from the highest number in CHANGELOG.md and old proposals, so numbers stay unique.
 4. If LOG.md has more than 150 entries, roll the oldest into a short summary block at its top.
-5. Append `--- retro N, <date> ---` at the end of LOG.md so the task counter resets.
+5. Add a row at the end of LOG.md's table: `| <date> | **— retro N —** | retro opus/high | done | <tokens if known> | <one-line lesson> |`. The session-start counter resets on it.
 
 **Hard rules:** never propose weakening tests or the review step, removing a safety or escalation rule, widening permissions, lowering the quality bar to improve metrics, or changing the self-improvement hard limits. Never edit anything outside `.claude/improve/`. House rules: American English; no text from `sources/`; no secrets, personal data or model ids in anything you write.
 
