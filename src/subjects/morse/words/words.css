@@ -120,3 +120,24 @@
 .words__best {
   text-align: center;
 }
+
+.words__behind {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.words__behind input {
+  min-height: 48px;
+  padding: 6px 12px;
+  border: var(--outline-ui);
+  border-radius: 10px;
+  background: var(--vellum);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

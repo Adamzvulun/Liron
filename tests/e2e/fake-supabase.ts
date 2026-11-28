@@ -116,6 +116,11 @@ export interface Extras {
     week?: Record<string, string[]>;
     days?: { day: string; minutes: number }[];
   };
+  /** Saved milestone checks (#517); each save is pushed to `saved`, and the list shows it. */
+  milestone?: {
+    checks?: { subject_id: string; day: string; answers: number[]; probe: number | null }[];
+    saved?: { subject: string; answers: number[]; probe: number | null }[];
+  };
   /**
    * The Fellowship (task 3.1): the player's friends' cards and the requests waiting for them.
    * Each call to a Fellowship function is pushed to `calls`, and `refuse` makes one fail.
@@ -285,6 +290,28 @@ export async function fakeSupabase(
     }
     if (url.pathname === '/rest/v1/chests') {
       return route.fulfill({ json: (extras.chests ?? []).filter((c) => !opened.has(c.id)) });
+    }
+    if (url.pathname === '/rest/v1/milestone_checks') {
+      return route.fulfill({ json: extras.milestone?.checks ?? [] });
+    }
+    if (url.pathname === '/rest/v1/rpc/save_milestone_check') {
+      const a = route.request().postDataJSON() as {
+        p_subject: string;
+        p_answers: number[];
+        p_probe: number | null;
+      };
+      extras.milestone?.saved?.push({
+        subject: a.p_subject,
+        answers: a.p_answers,
+        probe: a.p_probe,
+      });
+      extras.milestone?.checks?.push({
+        subject_id: a.p_subject,
+        day: new Date().toISOString().slice(0, 10),
+        answers: a.p_answers,
+        probe: a.p_probe,
+      });
+      return route.fulfill({ json: null });
     }
     if (url.pathname === '/rest/v1/rpc/open_chest') {
       const { p_chest } = route.request().postDataJSON() as { p_chest: string };

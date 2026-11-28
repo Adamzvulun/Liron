@@ -16,6 +16,7 @@ Open an issue from the **Monthly check** template (GitHub → Issues → New iss
 1. **The keep-alive.** GitHub → Actions → **Keep alive**. The last runs should be green. If one is red, see [When the keep-alive fails](#when-the-keep-alive-fails). *Untested: the schedule only starts once v1.0.0 is on `main`.*
 2. **The usage pages.** Look at each, and note anything near its limit in the issue:
    - **Supabase:** each project → **Usage** (database size, storage, egress).
+   - **The data budget** (`waymark-prod` only): **SQL Editor** → paste [`supabase/reports/size-report.sql`](../../supabase/reports/size-report.sql) → **Run**. It only reads. Copy the whole-database line and the five growing tables (`review_log`, `rating_log`, `subject_events`, `saved_sessions`, `chat_lines`) into the issue. The free database holds 500 MB; anything past 300 MB, tell Claude, and we'll write the retention ADR (#516). *Untested on the real project: Claude can't reach it.*
    - **Vercel:** the team → **Usage**. Going over doesn't bill on Hobby; the feature stops until the 30 days are up ([DEPLOY](DEPLOY.md#free-plan-limits-checked-2026-11-02-on-vercelcomdocs)).
    - **GitHub Actions:** nothing to check. The repo is public, so its runs are free ([CI](CI.md#cost)).
    - **Groq:** console.groq.com → **Usage**. **Google AI Studio:** aistudio.google.com → your key's project → usage.
@@ -78,6 +79,11 @@ Waymark is invite-only: sign-ups are switched off in Supabase.
 - **To add a friend, or reset their password:** [FRIENDS.md](FRIENDS.md). Send an invite link from **Settings → Invite a friend** on the live site, and they make their own account ([ADR 0052](../decisions/0052-invite-links.md)). Making the account by hand and handing over a password is the fallback; they change it in **Settings → Change password**. Friends get the deck ([ADR 0050](../decisions/0050-friends-learn-from-the-deck.md)): since v1.1.0 every new account is a licensee by itself. *Untested.*
 - **Before friends key to each other on the wire (v2.4):** in the Supabase dashboard, for each project (dev and live), open **Realtime → Settings** and switch **Allow public access** off. It's free. Waymark always asks for a private channel, which only the two friends may join ([ADR 0046](../decisions/0046-the-wire.md)); this setting stops anyone from opening a public channel instead. *Untested.*
 - **To remove a friend:** the same page → their row → **Delete user**. Everything of theirs goes with the account: progress, wallet and reviews are deleted with it (`on delete cascade`). *Untested.*
+- **When a friend asks to leave or to have their data:** they do it themselves in **Settings → Danger area** (**Download my data**, **Delete my account**); see [FRIENDS.md](FRIENDS.md#a-friend-wants-to-leave). Nothing to do on your side, and no way to undo it. *Untested on a live project.*
+
+## Reading the error log
+
+When a friend says something crashed: in the Supabase dashboard, **Table Editor → `error_log`**, newest first. Each row has the message, the first 10 stack lines, the route, the app version, the browser and the time. No form or page content is read, and quoted text in an error is blanked out. A player writes at most 20 rows a day, the same message once a day, and the newest 2,000 rows are kept; no player can read the table ([ADR 0058](../decisions/0058-our-own-error-log.md)). *Untested on a live project.*
 
 ## Releasing
 

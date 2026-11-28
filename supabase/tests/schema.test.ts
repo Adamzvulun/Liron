@@ -1219,6 +1219,57 @@ describe('daily contracts (ADR 0032)', () => {
     expect(after.every((id) => id.startsWith('morse-words'))).toBe(true);
   });
 
+  it('counts a Long Copy and offers its contract only after one was played (#509)', async () => {
+    expect(
+      await rows(
+        `select t.gold, t.requires_kind, k.kind from contract_templates t
+           join subject_event_kinds k on k.subject_id = t.subject_id and k.kind = t.kind
+          where t.id = 'morse-long-copy'`,
+      ),
+    ).toEqual([{ gold: 20, requires_kind: 'long-copy-round', kind: 'long-copy-round' }]);
+  });
+
+  it('counts Spell it rounds and offers its contract only after one was played (#519)', async () => {
+    expect(
+      await rows(
+        `select t.gold, t.target, t.requires_kind, k.kind from contract_templates t
+           join subject_event_kinds k on k.subject_id = t.subject_id and k.kind = t.kind
+          where t.id = 'arabic-spell'`,
+      ),
+    ).toEqual([{ gold: 15, target: 2, requires_kind: 'spell-round', kind: 'spell-round' }]);
+    await save('arabic', [{ kind: 'spell-round' }, { kind: 'spell-90' }]);
+    const own = (await rows(
+      `select kind from subject_events where user_id = $1 and subject_id = 'arabic'
+          and kind like 'spell-%' order by kind`,
+      [ADAM],
+    )) as { kind: string }[];
+    expect(own.map((r) => r.kind)).toEqual(['spell-90', 'spell-round']);
+    await rows(
+      `delete from subject_events where user_id = $1 and subject_id = 'arabic'
+          and kind like 'spell-%'`,
+      [ADAM],
+    );
+  });
+
+  it('counts a Long Copy only once the Gatekeeper is passed (#509)', async () => {
+    const own = () =>
+      rows(
+        `select kind from subject_events where user_id = $1 and subject_id = 'morse'
+            and kind = 'long-copy-round'`,
+        [ADAM],
+      );
+    await save('morse', [{ kind: 'long-copy-round' }]);
+    expect(await own()).toEqual([]);
+    await save('morse', [{ kind: 'trial-1' }]);
+    await save('morse', [{ kind: 'long-copy-round' }]);
+    expect(await own()).toHaveLength(1);
+    await rows(
+      `delete from subject_events where user_id = $1 and subject_id = 'morse'
+          and kind in ('trial-1', 'long-copy-round')`,
+      [ADAM],
+    );
+  });
+
   it('gives a road’s master contracts from the day after its finale, always (task 4.1)', async () => {
     const day0 = await today(ADAM);
     const board = async (d: number) => {
@@ -2007,12 +2058,13 @@ describe('the Market (ADR 0033, #49)', () => {
   it('never sells, rolls or gives the finales’ gear, but still sells the breeches (review, 2026-11-19)', async () => {
     const earned = (await rows(
       `select id, is_rank_gear(milestone) as kept from items
-         where id in ('beacon-lens', 'guest-book-pen', 'breeches') order by id`,
+         where id in ('beacon-lens', 'guest-book-pen', 'metronome', 'breeches') order by id`,
     )) as { id: string; kept: boolean }[];
     expect(earned).toEqual([
       { id: 'beacon-lens', kept: true },
       { id: 'breeches', kept: false },
       { id: 'guest-book-pen', kept: true },
+      { id: 'metronome', kept: true },
     ]);
   });
 
@@ -2574,6 +2626,41 @@ describe('the rewards, hardened before friends join (2026-11-15, report §4au)',
     expect(await had('arabic')).toEqual(['rank-storyteller', 'trial-stranger-at-the-gate']);
   });
 
+  it('counts the speed ladder only after Forty Winters, and its rungs in order (#508)', async () => {
+    const rung = (...kinds: string[]) =>
+      save(
+        'morse',
+        kinds.map((kind) => ({ kind })),
+      );
+    await rung('ladder-rung', 'ladder-25', 'trial-ladder-30');
+    expect(await had('morse')).toEqual([]);
+    await rows(
+      `insert into subject_events (user_id, day, subject_id, kind, count)
+         values ($1, current_date - 1, 'morse', 'trial-forty-winters', 1)`,
+      [ADAM],
+    );
+    await rung('trial-ladder-30', 'ladder-25');
+    expect(await had('morse')).toEqual(['trial-forty-winters']);
+    await rung('ladder-rung');
+    await rung('ladder-25', 'trial-ladder-30');
+    expect(await had('morse')).toEqual([
+      'ladder-25',
+      'ladder-rung',
+      'trial-forty-winters',
+      'trial-ladder-30',
+    ]);
+    // 25 gives the achievement (and its title Ghost); 30 gives the metronome.
+    const owned = async (sql: string) => (await rows(sql, [ADAM])).length;
+    expect(
+      await owned(
+        `select 1 from player_achievements where user_id = $1 and achievement_id = 'faster-than-thought'`,
+      ),
+    ).toBe(1);
+    expect(
+      await owned(`select 1 from owned_items where user_id = $1 and item_id = 'metronome'`),
+    ).toBe(1);
+  });
+
   it('fills in a rank the saved progress holds, so its finale counts (third review)', async () => {
     await rows(
       `insert into subject_progress (user_id, subject_id, state) values ($1, 'morse', $2)
@@ -2699,5 +2786,63 @@ describe('the rewards, hardened before friends join (2026-11-15, report §4au)',
     );
     await as(ADAM, () => rows(`select set_time_zone('Pacific/Kiritimati')`));
     expect(await zone()).toBe('Pacific/Kiritimati');
+  });
+});
+
+describe('the milestone check (#517)', () => {
+  const save = (userId: string | null, subject: string, answers: number[], probe: number | null) =>
+    as(userId, () =>
+      rows(`select save_milestone_check($1, $2::integer[], $3)`, [subject, answers, probe]),
+    );
+  const mine = (userId: string) =>
+    as(userId, () => rows(`select subject_id, answers, probe from milestone_checks`));
+  const milestoneChests = () =>
+    rows(`select kind from chests where user_id = $1 and source = 'milestone'`, [ADAM]);
+
+  it('saves one row a subject, the player’s own, and nobody else’s', async () => {
+    await save(ADAM, 'morse', [2, 1, 0, 2, 1, 0], 60);
+    await save(ADAM, 'arabic', [0, 0, 0, 0, 0, 0], null);
+    expect(await mine(ADAM)).toEqual([
+      { subject_id: 'morse', answers: [2, 1, 0, 2, 1, 0], probe: 60 },
+      { subject_id: 'arabic', answers: [0, 0, 0, 0, 0, 0], probe: null },
+    ]);
+    expect(await mine(OTHER)).toEqual([]);
+  });
+
+  it('saving the same subject twice in a day changes nothing', async () => {
+    await save(ADAM, 'morse', [2, 2, 2, 2, 2, 2], 90);
+    await save(ADAM, 'morse', [0, 0, 0, 0, 0, 0], 10);
+    expect(await mine(ADAM)).toEqual([
+      { subject_id: 'morse', answers: [2, 2, 2, 2, 2, 2], probe: 90 },
+    ]);
+  });
+
+  it('gives one small chest, once, however many checks follow', async () => {
+    await save(ADAM, 'morse', [1, 1, 1, 1, 1, 1], 50);
+    await save(ADAM, 'arabic', [1, 1, 1, 1, 1, 1], 50);
+    expect(await milestoneChests()).toEqual([{ kind: 'wooden' }]);
+    await rows(`update milestone_checks set day = day - 30 where user_id = $1`, [ADAM]);
+    await save(ADAM, 'morse', [2, 2, 2, 2, 2, 2], 80);
+    expect(await milestoneChests()).toHaveLength(1);
+  });
+
+  it('refuses answers out of range, a probe over 100, an unknown subject and a visitor', async () => {
+    await expect(save(ADAM, 'morse', [3, 0, 0, 0, 0, 0], 50)).rejects.toThrow();
+    await expect(save(ADAM, 'morse', [0, 0, 0, 0, 0], 50)).rejects.toThrow();
+    await expect(save(ADAM, 'morse', [0, 0, 0, 0, 0, 0], 101)).rejects.toThrow();
+    await expect(save(ADAM, 'nope', [0, 0, 0, 0, 0, 0], 50)).rejects.toThrow(/unknown subject/);
+    await expect(save(null, 'morse', [0, 0, 0, 0, 0, 0], 50)).rejects.toThrow();
+    expect(await mine(ADAM)).toEqual([]);
+  });
+
+  it('can’t be written to directly', async () => {
+    await expect(
+      as(ADAM, () =>
+        rows(
+          `insert into milestone_checks (user_id, subject_id, day, answers) values ($1, 'morse', '2026-11-02', '{0,0,0,0,0,0}')`,
+          [ADAM],
+        ),
+      ),
+    ).rejects.toThrow(/permission denied/);
   });
 });

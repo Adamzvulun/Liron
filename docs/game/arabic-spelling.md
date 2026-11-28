@@ -1,6 +1,6 @@
 # Writing words: *Spell it* at the slate (Phase 14)
 
-- **Status:** Planned (2026-11-23), not built. Research: [next-work-2026-11-23.md](../research/next-work-2026-11-23.md), Part 2, A4.
+- **Status:** *Spell it* at the slate built (14.1, #519); the inn keyboard (EARS 6) built (14.2, #520). Planned 2026-11-23. Research: [next-work-2026-11-23.md](../research/next-work-2026-11-23.md), Part 2, A4.
 - **Epic:** Phase 14 in [PLAN.md](../process/PLAN.md).
 
 ## Why
@@ -38,7 +38,21 @@
 - **Given** 3 rounds passed at 80%, **when** the player next opens Sit and talk, **then** the Arabic keyboard is up.
 - **Tests:** unit tests for the normalizing and the marking; a browser test of a round on a phone-sized screen.
 
+## Built in 14.2
+
+- Until 3 rounds are passed at 80%, a player who never chose types in Hebrew letters at the inn; `chat.hebrew` is now `null` until chosen. Players who already chatted have a saved `false`, so they stay on Arabic and never get the Hebrew default. The passed rounds are counted in the saved progress (`spelled`), not as an event.
+
 ## Out of scope (kept, not dropped)
 
 - Handwriting whole words (the slate's check is per letter).
 - Grading the short vowels.
+
+## Built in 14.1 (choices where this spec was silent)
+
+- The check is `normalizeArabic` (phrases/understood.ts), shared with the speech check, so it also folds ؤ ئ to ء and drops punctuation.
+- Words are the deck's single words whose letters you have met (`wordsFrom`, the reviewed lesson words where a lesson was reviewed). Without the deck there are no words, so the slate shows the no-deck note.
+- "New" means no card yet, looked up for a sample of 200 words; items are `spell:<deck id>`.
+- Scores in the `write` skill: 1 right first time, 0.5 on the second try, 0 otherwise. XP: 4 a word spelled.
+- `spell-90` is 90% of a round spelled (on either try). The contract is offered once a round was played on an earlier day.
+- Wrong letters are marked by the longest run of letters shared with the other spelling, on both the right spelling and yours, boxed and dashed as well as red.
+- The round count that 14.2 needs (3 rounds at 80%) is not saved yet.

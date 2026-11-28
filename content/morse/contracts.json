@@ -90,6 +90,19 @@
       }
     },
     {
+      "id": "morse-long-copy",
+      "subject": "morse",
+      "type": "contract",
+      "data": {
+        "metric": "event",
+        "kind": "long-copy-round",
+        "target": 1,
+        "gold": 20,
+        "text": "A Long Copy at your speed",
+        "requires": "long-copy-round"
+      }
+    },
+    {
       "id": "morse-rush",
       "subject": "morse",
       "type": "contract",

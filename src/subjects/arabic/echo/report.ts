@@ -4,6 +4,7 @@
 import type { SubjectApi } from '../../../core/subject.ts';
 import type { ArabicProgress } from '../progress.ts';
 import { XP_PER_RIGHT, type PairQuestion, type SoundPair } from './pairs.ts';
+import { gradeHear, type HearSentence } from './hear.ts';
 import { GRADE, XP_PER_SENTENCE, type Judgement, type ShadowLine } from './shadow.ts';
 
 export interface PairAnswer {
@@ -53,6 +54,34 @@ export async function reportShadow(
     xp: judged.length * XP_PER_SENTENCE,
     minutes: seconds / 60,
     events: judged.length ? [{ kind: 'shadow-sentence', count: judged.length }] : [],
+    at,
+  });
+}
+
+/**
+ * A Hear it round (#503), in one save: a review per sentence (both parts right is Good, one is
+ * Hard, neither Again) and a `listen` result per part, on the sentence's item. Only sentences
+ * answered are sent; skipped ones aren't graded.
+ */
+export async function reportHear(
+  api: SubjectApi,
+  answers: readonly { sentence: HearSentence; meaning: boolean; order: boolean }[],
+  seconds: number,
+  at = new Date(),
+): Promise<void> {
+  await api.saveSession({
+    reviews: answers.map((a) => ({
+      itemId: a.sentence.itemId,
+      grade: gradeHear(a.meaning, a.order),
+    })),
+    results: answers.flatMap((a) =>
+      [a.meaning, a.order].map((right) => ({
+        skill: 'listen',
+        itemId: a.sentence.itemId,
+        score: right ? 1 : 0,
+      })),
+    ),
+    minutes: seconds / 60,
     at,
   });
 }

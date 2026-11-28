@@ -450,13 +450,13 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** before friends arrive (#332), we hear when the game breaks, a friend can take their data and leave, and the dependencies and backlog are current. Planned 2026-11-23 from a gap audit ([next-work-2026-11-23.md](../research/next-work-2026-11-23.md)). Not started: planning only, at Adam's word.
 
-### ☐ 10.1 (#499) · v1.8 · Our own error log
+### ☑ 10.1 (#499) · v1.8 · Our own error log
 - The page's errors go to a capped table in our own database. They never hold what the player typed, and only Adam reads them, in the dashboard. [ADR 0058](../decisions/0058-our-own-error-log.md), accepted: Adam chose our own log (2026-11-23).
 
-### ☐ 10.2 (#500) · v1.8 · Take your data, and leave
+### ☑ 10.2 (#500) · v1.8 · Take your data, and leave
 - Download my data (one JSON file, read under RLS). Leave Waymark, through an RPC, with the existing cascades removing the rest. Adam: yes, a friend may delete their own account, with the proper conventions: the password, a typed confirmation, and a download offered first (2026-11-23).
 
-### ☐ 10.3 (#501) · v1.8 · Dependency refresh (minor versions)
+### ☑ 10.3 (#501) · v1.8 · Dependency refresh (minor versions)
 - Vite, Vitest, Playwright, supabase-js and the lint tools. Not TypeScript 7 or `@types/node` 26.
 
 ### ☐ 10.4 (#498) · Tidy the backlog (Adam closes)
@@ -464,7 +464,7 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 ### ☐ 10.5 (#502) · v1.8 · Release v1.8.0
 
-**Order:** 10.3, then 10.1 and 10.2 in one PR (ADR 0057), then 10.4 and 10.5. That PR also fixes the two tale errors the Part 2 check found (tales 33 and 41; see 13.1).
+**Order:** 10.3, then 10.1 and 10.2 in one PR (ADR 0057), then 10.4 and 10.5. The two tale errors the Part 2 check found (tales 33 and 41; see 13.1) were fixed on 2026-11-26, as the agent team’s test run.
 
 ## Phase 11 — Hearing the street: sentence listening (#496)
 
@@ -481,10 +481,10 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** keep ADR 0009's promise of 25+ wpm and a manual override. Today everything plays at a fixed 20 wpm. Spec: [morse-speed.md](../game/morse-speed.md), after CW Academy's Intermediate and Advanced curricula.
 
-### ☐ 12.1 (#507) · v1.10 · Your speed: the model and the tower's speed dial
-### ☐ 12.2 (#508) · v1.10 · The speed ladder (22 → 35 wpm)
-### ☐ 12.3 (#509) · v1.10 · The Long Copy: head copy, then copy behind
-### ☐ 12.4 (#510) · v1.10 · The operators follow your speed
+### ☑ 12.1 (#507) · v1.10 · Your speed: the model and the tower's speed dial
+### ☑ 12.2 (#508) · v1.10 · The speed ladder (22 → 35 wpm)
+### ☑ 12.3 (#509) · v1.10 · The Long Copy: head copy, then copy behind
+### ☑ 12.4 (#510) · v1.10 · The operators follow your speed
 ### ☐ 12.5 (#511) · v1.10 · Release v1.10.0
 
 **Order:** 12.1 first, then 12.2–12.4 in one PR, then 12.5. Ordered last on purpose: the faster speeds open only after 90% at 20 wpm with standard spacing (pre-mortem, research note).
@@ -493,27 +493,27 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Goal:** check three things the game rests on but nothing checks: our own Arabic is right, the free database lasts, and the game shows learning toward the vision's goals. From [next-work-2026-11-23.md](../research/next-work-2026-11-23.md) Part 2 (the-fool, *expose my assumptions*).
 
-### ☐ 13.1 (#515) · v1.11 · Our Arabic agrees with its Latin (a CI check)
-### ☐ 13.2 (#516) · v1.11 · The data budget: measure, then a retention ADR
-### ☐ 13.3 (#517) · v1.11 · The milestone check ([milestone-check.md](../game/milestone-check.md))
+### ☑ 13.1 (#515) · v1.11 · Our Arabic agrees with its Latin (a CI check)
+### ☐ 13.2 (#516) · v1.11 · The data budget: measure, then a retention ADR (the size report is built; the numbers, forecast and ADR wait for Adam)
+### ☑ 13.3 (#517) · v1.11 · The milestone check ([milestone-check.md](../game/milestone-check.md))
 ### ☐ 13.4 (#518) · v1.11 · Release v1.11.0
 
 ## Phase 14 — Writing words (#514)
 
 **Goal:** the vision's "basic writing". *Spell it* at the slate, checked on the letters only, then the inn opens on the Arabic keyboard. Spec: [arabic-spelling.md](../game/arabic-spelling.md).
 
-### ☐ 14.1 (#519) · v1.12 · *Spell it* at the slate
-### ☐ 14.2 (#520) · v1.12 · The inn opens on the Arabic keyboard once you can spell
+### ☑ 14.1 (#519) · v1.12 · *Spell it* at the slate
+### ☑ 14.2 (#520) · v1.12 · The inn opens on the Arabic keyboard once you can spell
 ### ☐ 14.3 (#521) · v1.12 · Release v1.12.0
 
 ## Phase 15 — Songs: learn the words through music (#522)
 
 **Goal:** paste a YouTube link, and that's all. The song is heard, written down, timed, translated and transliterated by itself, and laid out as karaoke. Gemini (paid, about $0.03 a listen) hears the public link (Google's own feature, no download), with LRCLIB's lyrics as a hint, and Claude (paid) explains each line. It plays in YouTube's own player. Songs are shared between friends, so each is heard once. Kept lines become review cards that play from the video. Spec: [song-karaoke.md](../game/song-karaoke.md). Research: [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). [ADR 0059](../decisions/0059-songs-from-youtube.md), Accepted (Adam, 2026-11-23: link only, shared songs, after Phase 14, paid Gemini and Claude). Before 15.3, Adam sets up the songs' Google Cloud project with billing and the two keys in Vercel.
 
-### ☐ 15.1 (#523) · v1.13 · CSP and privacy for YouTube's player, Gemini and LRCLIB
-### ☐ 15.2 (#524) · v1.13 · The song engine: link, LRC, `MM:SS` times, timing, word marking
+### ☑ 15.1 (#523) · v1.13 · CSP and privacy for YouTube's player, Gemini and LRCLIB (the CSP; the privacy lines move to 15.4)
+### ☑ 15.2 (#524) · v1.13 · The song engine: link, LRC, `MM:SS` times, timing, word marking
 ### ☐ 15.3 (#525) · v1.13 · `api/song.ts`: lookup, Gemini listens, explain, shared songbook, limits
-### ☐ 15.4 (#526) · v1.13 · The singer's corner
+### ☐ 15.4 (#526) · v1.13 · The singer's corner (and 15.1's privacy lines, as a guidebook page)
 ### ☐ 15.5 (#527) · v1.13 · *Keep this line*: song review cards, events, contract
 ### ☐ 15.6 (#528) · v1.13 · Release v1.13.0
 

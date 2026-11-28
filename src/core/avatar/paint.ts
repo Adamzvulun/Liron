@@ -107,6 +107,7 @@ export const PAINTED_GEAR = [
   'tatreez-vest',
   'story-cloak',
   'beacon-lens',
+  'metronome',
   'guest-book-pen',
 ];
 
@@ -662,6 +663,23 @@ export function paintAvatar(
     body += `<circle cx="${hx + 6}" cy="${hy - 46}" r="30" fill="none" stroke="#F0C46A" stroke-width="5"/><circle cx="${hx + 6}" cy="${hy - 46}" r="33" fill="none" stroke="${INK}" stroke-width="2.4"/>`;
     for (const r of [10, 19])
       body += `<circle cx="${hx + 6}" cy="${hy - 46}" r="${r}" fill="none" stroke="#C88A2A" stroke-width="1.8" opacity=".7"/>`;
+  }
+  if (wear('hand') === 'metronome') {
+    // The 30 wpm rung: a brass metronome held up, its pendulum swung to one side.
+    const [x0, hy] = handR;
+    const hx = x0 + 14; // held out from the body
+    body += `<path d="M${hx - 20} ${hy + 20} L${hx - 8} ${hy - 40} H${hx + 8} L${hx + 20} ${hy + 20} Z" fill="${g.lin(
+      [
+        [0, '#FFF0B8'],
+        [0.5, '#E8A93A'],
+        [1, '#8A5A20'],
+      ],
+      0,
+      1,
+    )}" ${OUT(2.8)}/>`;
+    body += `<path d="M${hx} ${hy + 12} L${hx + 12} ${hy - 52}" stroke="${INK}" stroke-width="6" stroke-linecap="round"/><path d="M${hx} ${hy + 12} L${hx + 12} ${hy - 52}" stroke="#C0C0C8" stroke-width="2.6" stroke-linecap="round"/>`;
+    body += `<rect x="${hx + 2}" y="${hy - 34}" width="14" height="9" rx="2" fill="#5A3418" ${OUT(2.2)}/>`;
+    body += `<circle cx="${hx}" cy="${hy - 6}" r="4" fill="#2A1A14"/>`;
   }
   if (wear('hand') === 'guest-book-pen') {
     // Keeper of the Table (The Stranger at the Gate): the innkeeper's reed pen, held up, nib

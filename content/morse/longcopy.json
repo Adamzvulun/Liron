@@ -1,0 +1,27 @@
+{
+  "subject": "morse",
+  "source": "waymark",
+  "license": "Our own (written for Waymark)",
+  "items": [
+    {
+      "id": "long-copy:lines",
+      "subject": "morse",
+      "type": "long-copy",
+      "data": {
+        "templates": [
+          "{call} NAME {name} QTH {qth} WX {wx} RIG {rig}",
+          "CQ DE {call} NAME {name} QTH {qth} WX {wx} RIG {rig}"
+        ],
+        "weather": ["SUNNY", "RAIN", "WINDY", "SNOW", "FOG", "COLD"],
+        "rigs": ["5W", "10W", "50W", "100W", "200W"],
+        "asks": {
+          "name": "What’s the name?",
+          "qth": "Where is the station?",
+          "call": "What’s the callsign?",
+          "wx": "How’s the weather?",
+          "rig": "How many watts?"
+        }
+      }
+    }
+  ]
+}

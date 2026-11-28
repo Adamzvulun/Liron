@@ -37,6 +37,7 @@ export function chestReason(chest: Chest, subjects: readonly SubjectInfo[]): str
     const place = subjects.find((s) => s.id === subject)?.place ?? 'A';
     return `${place}: chapter ${chapter} trial passed`;
   }
+  if (chest.source === 'milestone') return 'For your first milestone check';
   const days = chest.sourceKey.split(':')[1];
   return `For a ${days}-day streak`;
 }

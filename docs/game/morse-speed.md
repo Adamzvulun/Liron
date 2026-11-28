@@ -1,6 +1,6 @@
 # Faster than thought: Morse past 20 wpm (Phase 12)
 
-- **Status:** Planned (2026-11-23), not built. Keeps [ADR 0009](../decisions/0009-morse-speed-policy.md)'s promise ("user can raise it to 25+", "manual override ... for all of the above"). Research: [next-work-2026-11-23.md](../research/next-work-2026-11-23.md) §1.
+- **Status:** Planned (2026-11-23). 12.1 built: the speed model and the tower's dial. 12.2 built: the speed ladder (two days at 90%, standard spacing, at the top open speed; the title Ghost at 25 and the brass metronome at 30; the dial and the ledger show it; `ladder-rung`, `ladder-25` and `trial-ladder-30` events). 12.3 built: The Long Copy, a third Codebook drill (`content/morse/longcopy.json`; opens with all characters learned; a line of 9 or 11 words from the open Radio Room operators; below 28 wpm one extra hearing for half credit; from 28 wpm once, typed copy graded on the words in order; a `long-copy` result per speed in the head-copy skill; event `long-copy-round` and the contract “A Long Copy at your speed”). 12.4 built: the Radio Room operators key at their own speed plus how far yours is over 20 (`opWpm`), the room list, the turn line and the Signal Master check show that speed; the Far Station and Forty Winters stay at their fixed 20, as set pieces; the timing test already covers 30 and 35 wpm. Keeps [ADR 0009](../decisions/0009-morse-speed-policy.md)'s promise ("user can raise it to 25+", "manual override ... for all of the above"). Research: [next-work-2026-11-23.md](../research/next-work-2026-11-23.md) §1.
 - **Epic:** Phase 12 in [PLAN.md](../process/PLAN.md).
 
 ## Why
@@ -24,7 +24,7 @@
    - then it asks 3 questions about it ("Where is he?", "His name?"), with 4 choices each;
    - from 28 wpm the line plays once only, and you type it as you go, one word behind: that's *copy behind*;
    - Head copy is graded on the answers, copy behind on the words.
-4. **The operators follow.** The Radio Room's operators, as ADR 0009 says, answer near your sending speed. The listening parts (their CQ, their news) now play at your character speed, not the fixed 20.
+4. **The operators follow.** The Radio Room's operators, as ADR 0009 says, answer near your sending speed. Every listening turn, and the reading speed of your keyed turns, now play at your character speed, not the fixed 20.
 
 ## Requirements (EARS)
 
@@ -35,7 +35,7 @@
 5. The ladder shall stay locked until Forty Winters is passed.
 6. When *The Long Copy* plays, the system shall show nothing until the line has finished. Then it shall ask 3 questions with 4 choices each.
 7. Where the player's speed is 28 wpm or more, *The Long Copy* shall play once only and take typed copy.
-8. The rank trials shall be graded as now. Only their speed follows the setting.
+8. The rank trials shall be graded as now. Only their speed follows the setting. Exception: the Far Station and Forty Winters are set pieces at 20 wpm (#510).
 9. The events `ladder-rung` and `long-copy-round` shall be sent, with one daily contract ("A Long Copy at your speed", 20 gold).
 10. Saved progress shall keep the speed and the rungs. An old save with neither shall read as 20 wpm with no rungs.
 

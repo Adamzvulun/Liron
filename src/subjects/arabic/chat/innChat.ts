@@ -18,6 +18,12 @@ export const CHAT_XP = 10;
 /** The regular's own goodbye after your last line: no call to the function. */
 export const GOODBYE = 'يلّا، لازم أروح هلّق. مع السلامة!';
 
+/** *Spell it* rounds passed at 80% that open the inn on the Arabic keyboard. */
+export const SPELLED_FOR_KEYBOARD = 3;
+
+/** Typing in Hebrew letters: your saved choice, else until you can spell (spelling doc, EARS 6). */
+export const typesHebrew = (p: ArabicProgress) => p.chat.hebrew ?? p.spelled < SPELLED_FOR_KEYBOARD;
+
 /** Who sits at the table: the regular of your road now, and every regular whose trial you've passed. */
 export function regularsToTalkTo(p: ArabicProgress): Regular[] {
   if (!p.guest) return [];

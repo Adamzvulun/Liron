@@ -1,0 +1,115 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own",
+  "items": [
+    {
+      "id": "latin-exception:own-sentence:pcav:1089",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:1089",
+        "reason": "Loan shokolāta: spelled with ط, said with a plain t."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:3464",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:3464",
+        "reason": "Loan shokolāta: spelled with ط, said with a plain t."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:1071",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:1071",
+        "reason": "Loan shokolāta: spelled with ط, said with a plain t."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:1090",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:1090",
+        "reason": "Loan shokolāta: spelled with ط, said with a plain t."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:0544",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:0544",
+        "reason": "Loan shorts: spelled with ط (شُرْط), said with a plain t."
+      }
+    },
+    {
+      "id": "latin-exception:tale:road:26.3",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "tale:road:26#3",
+        "reason": "Loan shorts: spelled with ط (شُرْط), said with a plain t."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:2030",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:2030",
+        "reason": "Loan asānsēr (lift): spelled with ص, said with a plain s."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:2040",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:2040",
+        "reason": "Loan asānsēr (lift): spelled with ص, said with a plain s."
+      }
+    },
+    {
+      "id": "latin-exception:tale:road:63.2",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "tale:road:63#2",
+        "reason": "Loan transit: spelled with ز, said with an s."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:2370",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:2370",
+        "reason": "The Arabic says al-xayāl (the imagination), the Latin ilfantāzya (fantasy): two words for one idea. Adam to choose."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:0189",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:0189",
+        "reason": "Latin idz-/idzáwwaj and Arabic اتجوّز disagree: either اتجوّز/idjáwwaz or اتزوّج/idzáwwaj is meant (the chapter 69 card uses idzáwwaj). Adam to pick one."
+      }
+    },
+    {
+      "id": "latin-exception:own-sentence:pcav:0202",
+      "subject": "arabic",
+      "type": "latin-exception",
+      "data": {
+        "line": "own-sentence:pcav:0202",
+        "reason": "Latin idz-/idzáwwaj and Arabic اتجوّز disagree: either اتجوّز/idjáwwaz or اتزوّج/idzáwwaj is meant (the chapter 69 card uses idzáwwaj). Adam to pick one."
+      }
+    }
+  ]
+}

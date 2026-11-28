@@ -1,11 +1,13 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { subjects } from '../subjects/index.ts';
 import {
+  GoodbyeScreen,
   JoinScreen,
   LoginScreen,
   NotConfiguredScreen,
   SetPasswordScreen,
 } from './auth/AuthScreens.tsx';
+import { GOODBYE_KEY, supabaseAccount } from './account/account.ts';
 import { inviteCode, supabaseInvites } from './auth/invites.ts';
 import { GateScene, WaymarkPost } from './auth/Scenes.tsx';
 import { missingConfig, supabase } from './auth/supabase.ts';
@@ -25,6 +27,12 @@ import { Hud, QuestTracker } from './player/Hud.tsx';
 import { LevelUp } from './player/LevelUp.tsx';
 import { createPlayer, usePlayer, type Player } from './player/player.ts';
 import { cityErrands, useCompass, type CompassSources } from './player/compass.ts';
+import {
+  milestoneDue,
+  milestoneErrand,
+  offeredOn,
+  rememberOffered,
+} from './milestone/milestone.ts';
 import { loadLedger, type LedgerSources } from './player/ledger.ts';
 import { firstPageClosed } from './player/firstPage.ts';
 import { GUIDEBOOK_PATH, GuideContext } from './guide/context.ts';
@@ -67,6 +75,7 @@ const Wardrobe = lazy(() => views().then((m) => ({ default: m.Wardrobe })));
 const AchievementWall = lazy(() => views().then((m) => ({ default: m.AchievementWall })));
 const Market = lazy(() => views().then((m) => ({ default: m.Market })));
 const Ledger = lazy(() => views().then((m) => ({ default: m.Ledger })));
+const MilestoneCheck = lazy(() => views().then((m) => ({ default: m.MilestoneCheck })));
 const Fellowship = lazy(() => views().then((m) => ({ default: m.Fellowship })));
 const FriendHouse = lazy(() => views().then((m) => ({ default: m.FriendHouse })));
 const PartyFeed = lazy(() => views().then((m) => ({ default: m.PartyFeed })));
@@ -191,6 +200,9 @@ const changePassword = async (password: string): Promise<string | null> => {
   }
 };
 
+/** Settings' danger area (#500): your data as a file, and deleting the account. */
+const account = supabase ? supabaseAccount(supabase) : undefined;
+
 /** Each subject's API, bound to its id and reporting awards to the player. */
 const apis = new Map(
   store && player
@@ -223,6 +235,7 @@ const ledgerSources: LedgerSources = {
   cards: (id) => store?.cardSummary(id) ?? Promise.resolve([]),
   reviewsSince: (id, since) => store?.reviewsSince(id, since) ?? Promise.resolve([]),
   activity: () => store?.activity() ?? Promise.resolve([]),
+  milestones: () => store?.milestoneChecks() ?? Promise.resolve([]),
 };
 
 /** What the compass asks about each subject (docs/game/the-road.md §6). */
@@ -240,6 +253,16 @@ export function App() {
 
 /** An invite link's code, read once as the page opens (ADR 0052). */
 const invite = inviteCode(window.location.pathname, window.location.hash);
+/** Set when an account was just deleted (#500): read once, so an invite link or a reload wins. */
+const goodbye = (() => {
+  try {
+    const seen = sessionStorage.getItem(GOODBYE_KEY) !== null;
+    sessionStorage.removeItem(GOODBYE_KEY);
+    return seen;
+  } catch {
+    return false; // storage blocked: no goodbye page, but the app still opens
+  }
+})();
 // Signed in already, the link leads to the square.
 const leaveJoin = () => {
   if (/^\/join\/?$/.test(window.location.pathname)) window.history.replaceState(null, '', '/');
@@ -272,8 +295,9 @@ function AuthGate() {
         </div>
       );
     case 'signedOut':
-      return invite && window.location.pathname !== '/' ? (
-        <JoinScreen code={invite} />
+      if (invite && window.location.pathname !== '/') return <JoinScreen code={invite} />;
+      return goodbye ? (
+        <GoodbyeScreen onDone={() => window.location.assign('/')} />
       ) : (
         <LoginScreen />
       );
@@ -325,10 +349,35 @@ function Lobby({ player }: { player: Player }) {
     moved.current = true;
   }, [player, path]);
   const today = state.today?.day;
+  // Bumped when a milestone check is saved, so the ledger reads its new point.
+  const [checked, setChecked] = useState(0);
   const readLedger = useCallback(
     () => loadLedger(subjects, ledgerSources, today ?? localDay()),
-    [today],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `checked` only asks for a new read
+    [today, checked],
   );
+  const saveCheck = useCallback(
+    async (subject: string, answers: number[], probe: number | null) => {
+      await store?.saveMilestoneCheck(subject, answers, probe);
+      setChecked((n) => n + 1);
+      void player.loadContracts(); // the first check gives a chest: bring the shelf up to date
+    },
+    [player],
+  );
+  // The compass offers the check once (then not for 7 days), 28 days after the last one.
+  const [offerCheck, setOfferCheck] = useState(false);
+  useEffect(() => {
+    if (!today || !store) return;
+    void Promise.all([store.milestoneChecks(), store.activity()]).then(
+      ([done, days]) => {
+        const anchor = done.at(-1)?.day ?? days[0]?.day ?? null;
+        if (!milestoneDue({ today, anchor, offeredOn: offeredOn() })) return;
+        rememberOffered(today);
+        setOfferCheck(true);
+      },
+      () => undefined,
+    );
+  }, [today]);
   const place = placeAt(path);
   // The world event on the player's day, if any (task 4.4).
   const event = eventOn(today);
@@ -367,6 +416,7 @@ function Lobby({ player }: { player: Player }) {
   const compass = [
     ...roads,
     ...(state.wallet && state.profile ? cityErrands({ chests: state.chests.length }) : []),
+    ...(offerCheck ? [milestoneErrand()] : []),
   ];
   // Back on the square after a step: that guild's building lights up, with a bell (task 4.6).
   const [lit, setLit] = useState<PlaceId[]>([]);
@@ -679,7 +729,24 @@ function Lobby({ player }: { player: Player }) {
                           onSave={player.setAvatar}
                         />
                       ),
-                      ledger: today && <Ledger onLoad={readLedger} roads={roads} />,
+                      ledger: today && (
+                        <Ledger
+                          onLoad={readLedger}
+                          roads={roads}
+                          check={
+                            <Suspense fallback={null}>
+                              <MilestoneCheck
+                                subjects={subjects.flatMap((info) => {
+                                  const api = apis.get(info.id);
+                                  const started = roads.find((r) => r.subject === info.id)?.started;
+                                  return info.milestone && api && started ? [{ info, api }] : [];
+                                })}
+                                onSave={saveCheck}
+                              />
+                            </Suspense>
+                          }
+                        />
+                      ),
                       trophies: (
                         <AchievementWall
                           mine={state.achievements}
@@ -756,6 +823,7 @@ function Lobby({ player }: { player: Player }) {
           onPasswordChange={changePassword}
           sharing={sharing}
           invites={invites}
+          account={account}
           onSignOut={() => {
             // AuthGate wipes the kept deck (#124) and starts the page afresh.
             void supabase?.auth.signOut({ scope: 'local' });

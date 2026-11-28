@@ -6,6 +6,8 @@ import { seeded } from '../lesson/questions.ts';
 import { dilate, FREE_PASS, gridFrom, scoreTrace, TRACE_PASS, type TraceScore } from './trace.ts';
 import { drawGlyph, FONT, GRID, glyphGrid, PAD } from './glyph.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
+import { Spell } from './Spell.tsx';
+import { spellOpen } from './spell.ts';
 
 /** Letters in a slate session; each is traced, then written from memory. */
 export const SLATE_LETTERS = 5;
@@ -51,6 +53,8 @@ export function Slate({ api }: { api: SubjectApi }) {
   const [score, setScore] = useState<TraceScore | null>(null);
   const [started] = useState(() => Date.now());
   const [saved, setSaved] = useState<'no' | 'yes' | 'failed'>('no');
+  /** Once every letter is met, the slate asks which practice; null until it's chosen. */
+  const [practice, setPractice] = useState<'trace' | 'spell' | null>(null);
 
   useEffect(() => {
     let live = true;
@@ -80,6 +84,25 @@ export function Slate({ api }: { api: SubjectApi }) {
       <p className="lesson__card">
         Meet your first letters at the scribe’s table, then come back to the slate.
       </p>
+    );
+
+  if (practice === 'spell') return <Spell api={api} />;
+  if (practice === null && spellOpen(progress.met))
+    return (
+      <section className="lesson arabic" aria-label="The slate">
+        <div className="lesson__card lesson__start">
+          <p className="lesson__kicker">The slate</p>
+          <h2 className="lesson__subtitle">What will you write?</h2>
+          <div className="lesson__actions">
+            <button type="button" className="lesson__go" onClick={() => setPractice('trace')}>
+              Trace the letters
+            </button>
+            <button type="button" className="lesson__go" onClick={() => setPractice('spell')}>
+              Spell it
+            </button>
+          </div>
+        </div>
+      </section>
     );
 
   const done = index >= letters.length;

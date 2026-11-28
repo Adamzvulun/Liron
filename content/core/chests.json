@@ -95,6 +95,15 @@
       }
     },
     {
+      "id": "milestone",
+      "subject": "core",
+      "type": "chest-source",
+      "data": {
+        "source": "milestone",
+        "chest": "wooden"
+      }
+    },
+    {
       "id": "contracts",
       "subject": "core",
       "type": "chest-source",

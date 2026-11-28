@@ -6,7 +6,7 @@ import { tipId } from '../../src/subjects/arabic/chat/innChat.ts';
 
 // Sit and talk at the innkeeper's table (E17, ADR 0038). The partner function is mocked: the
 // regular's lines here are ours, not a model's.
-const GUEST = { lesson: 8, done: true, guest: true, ranks: ['guest'] };
+const GUEST = { lesson: 8, done: true, guest: true, ranks: ['guest'], chat: { hebrew: false } };
 
 interface InnAsk {
   kind: string;
@@ -73,6 +73,11 @@ test.describe('Sit and talk at the inn (E17)', () => {
     for (const k of ['ط', 'ا', 'ل', 'ب'])
       await keys.getByRole('button', { name: k, exact: true }).click();
     await expect(line).toHaveValue('طالب');
+    // Delete takes one letter off, nothing else (review, 14.1).
+    await keys.getByRole('button', { name: 'Delete' }).click();
+    await expect(line).toHaveValue('طال');
+    await keys.getByRole('button', { name: 'ب', exact: true }).click();
+    await expect(line).toHaveValue('طالب');
     await page.getByRole('button', { name: 'Say it' }).click();
     await expect.poll(() => asked.length).toBe(3);
     await line.fill('شكرا');
@@ -135,7 +140,10 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await page.route('**/api/partner', (route) =>
       route.fulfill({ json: { text: `أهلا وسهلا، كيفك اليوم يا صاحبي؟ ${++n}`, left: 50 } }),
     );
-    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await signedIn(page, [], [], {
+      ...GUEST,
+      chat: { name: 'Adam', told: {}, chats: 0, hebrew: false },
+    });
     await page.goto('/caravanserai?open=chat');
     await page.getByRole('button', { name: /Salim the carter/ }).click();
     const line = page.getByLabel('Your line, in Arabic');
@@ -189,7 +197,13 @@ test.describe('Sit and talk at the inn (E17)', () => {
     });
     const today = pathWord(1, 'اليوم', 'the deck’s English');
     const gloss = ECHO_POOL.words.get(today.item_id)?.gloss ?? '';
-    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } }, [today]);
+    await signedIn(
+      page,
+      [],
+      [],
+      { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0, hebrew: false } },
+      [today],
+    );
     await page.goto('/caravanserai?open=chat');
     await page.getByRole('button', { name: /Salim the carter/ }).click();
     await page.getByRole('button', { name: /صباح الخير/ }).click();
@@ -211,7 +225,10 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await page.route('**/api/partner', (route) =>
       route.fulfill({ json: { text: 'أهلا! كيفك؟', left: left-- } }),
     );
-    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await signedIn(page, [], [], {
+      ...GUEST,
+      chat: { name: 'Adam', told: {}, chats: 0, hebrew: false },
+    });
     await page.goto('/caravanserai?open=chat');
     await page.getByRole('button', { name: /Salim the carter/ }).click();
     await expect(page.getByText('أهلا! كيفك؟')).toBeVisible();
@@ -225,7 +242,10 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await page.route('**/api/partner', (route) =>
       route.fulfill({ status: 503, json: { error: 'busy' } }),
     );
-    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await signedIn(page, [], [], {
+      ...GUEST,
+      chat: { name: 'Adam', told: {}, chats: 0, hebrew: false },
+    });
     await page.goto('/caravanserai?open=chat');
     await page.getByRole('button', { name: /Salim the carter/ }).click();
     await expect(
@@ -238,7 +258,10 @@ test.describe('Sit and talk at the inn (E17)', () => {
     await page.route('**/api/partner', (route) =>
       route.fulfill({ status: 429, json: { error: 'site-limit' } }),
     );
-    await signedIn(page, [], [], { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await signedIn(page, [], [], {
+      ...GUEST,
+      chat: { name: 'Adam', told: {}, chats: 0, hebrew: false },
+    });
     await page.goto('/caravanserai?open=chat');
     await page.getByRole('button', { name: /Salim the carter/ }).click();
     await expect(page.getByText('The inn is full tonight', { exact: false })).toBeVisible();
@@ -258,7 +281,10 @@ test.describe('Sit and talk at the inn (E17)', () => {
       await route.fulfill({ json: { text: 'أهلا وسهلا! كيفك اليوم؟', left: 50 } });
     });
     const calls: SubjectCall[] = [];
-    await signedIn(page, [], calls, { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await signedIn(page, [], calls, {
+      ...GUEST,
+      chat: { name: 'Adam', told: {}, chats: 0, hebrew: false },
+    });
     await page.goto('/caravanserai?open=chat');
     const salim = page.getByRole('button', { name: /Salim the carter/ });
     const line = page.getByLabel('Your line, in Arabic');
@@ -293,7 +319,10 @@ test.describe('Sit and talk at the inn (E17)', () => {
       await route.fulfill({ json: { text: 'أهلا! كيفك؟', left: 50 } });
     });
     const calls: SubjectCall[] = [];
-    await signedIn(page, [], calls, { ...GUEST, chat: { name: 'Adam', told: {}, chats: 0 } });
+    await signedIn(page, [], calls, {
+      ...GUEST,
+      chat: { name: 'Adam', told: {}, chats: 0, hebrew: false },
+    });
     await page.goto('/caravanserai?open=chat');
     await page.getByRole('button', { name: /Salim the carter/ }).click();
     await expect(page.getByText('أهلا! كيفك؟')).toBeVisible();
@@ -313,6 +342,26 @@ test.describe('Sit and talk at the inn (E17)', () => {
     };
     expect(saved.p_state.chat.hebrew).toBe(true);
   });
+
+  const CHAT = { name: 'Adam', told: {}, chats: 0 };
+  for (const [name, state, arabic] of [
+    ['Hebrew letters at first', { chat: CHAT }, false],
+    ['still Hebrew letters after 2 spelled rounds', { chat: CHAT, spelled: 2 }, false],
+    ['the Arabic keyboard after 3 spelled rounds', { chat: CHAT, spelled: 3 }, true],
+    ['a saved Hebrew choice wins', { chat: { ...CHAT, hebrew: true }, spelled: 3 }, false],
+  ] as const)
+    test(`the keyboard: ${name}`, async ({ page }) => {
+      await page.route('**/api/partner', (route) =>
+        route.fulfill({ json: { text: 'أهلا! كيفك؟', left: 50 } }),
+      );
+      await signedIn(page, [], [], { ...GUEST, ...state });
+      await page.goto('/caravanserai?open=chat');
+      await page.getByRole('button', { name: /Salim the carter/ }).click();
+      await expect(page.getByText('أهلا! كيفك؟')).toBeVisible();
+      await expect(page.getByRole('group', { name: 'Arabic keyboard' })).toHaveCount(
+        arabic ? 1 : 0,
+      );
+    });
 
   test('opens from the innkeeper’s table, only for guests', async ({ page }) => {
     const first = pack.items[0]?.data.words[0];

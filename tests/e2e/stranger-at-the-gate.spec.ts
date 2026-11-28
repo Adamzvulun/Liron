@@ -19,7 +19,7 @@ const storyteller = {
     // Every regular's trial faced, chapters 2 to 114.
     trials: Array.from({ length: 113 }, (_, i) => i + 2),
   },
-  chat: { name: 'Sami' },
+  chat: { name: 'Sami', hebrew: false },
 };
 const PASS = { understood: true, answered: true, keptGoing: true, why: 'A real story, told well.' };
 const SHORT = { ...PASS, keptGoing: false, why: 'Single words: the story never got going.' };

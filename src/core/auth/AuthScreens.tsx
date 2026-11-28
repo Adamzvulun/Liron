@@ -28,6 +28,21 @@ function Panel({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
+/** After an account is deleted (#500): a word of thanks, then the way back to the gates. */
+export function GoodbyeScreen({ onDone }: { onDone: () => void }) {
+  return (
+    <Panel title="Goodbye">
+      <p className="auth__text">
+        Your account and everything in it are gone. Thank you for the time you spent here, and safe
+        travels.
+      </p>
+      <button type="button" className="auth__button" onClick={onDone}>
+        Back to the gates
+      </button>
+    </Panel>
+  );
+}
+
 /** Login for invited people only: sign-ups are switched off in Supabase (docs/process/SUPABASE.md). */
 export function LoginScreen() {
   const [email, setEmail] = useState('');

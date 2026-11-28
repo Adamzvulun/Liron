@@ -1,0 +1,90 @@
+/* Settings' danger area (#500): set apart by a red rule, and a red button that says what it does. */
+.danger {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 12px;
+  border: 2px dashed #b5523b;
+  border-radius: 12px;
+}
+
+.danger__head {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  color: #f0a48f;
+}
+
+.danger__note,
+.danger__dialog p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.danger__final {
+  font-weight: 800;
+}
+
+.danger__keep {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+.danger__delete {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: #8f2f1c;
+  color: #fff4ec;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.danger__delete:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.danger__delete:focus-visible {
+  outline: 3px solid var(--lamplight);
+  outline-offset: 3px;
+}
+
+.danger__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  overflow-y: auto;
+  background: rgb(20 14 10 / 80%);
+}
+
+.danger__dialog {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(100%, 420px);
+  padding: 20px 18px;
+  border: 4px solid #b5523b;
+  border-radius: 16px;
+  background: linear-gradient(#4e3220, #2a170c);
+  color: #f6e7c4;
+}
+
+.danger__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 26px;
+}
+
+.danger__form input[type='text'] {
+  min-height: 44px;
+  box-sizing: border-box;
+}

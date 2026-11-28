@@ -9,7 +9,11 @@ import { radioSchema } from '../qso/radio.ts';
 import { CHAPTERS, type Chapter } from '../questline.ts';
 import { passesGate, nextEffectiveWpm, type RunScore } from './score.ts';
 
-export const CHAR_WPM = 20;
+/** The speeds the Signal Tower's dial offers (docs/game/morse-speed.md). Above 20 is the ladder's. */
+export const SPEEDS = [18, 20, 22, 25, 28, 30] as const;
+export const START_CHAR_WPM = 20;
+/** Rungs with an event of their own: the title at 25 and the gear at 30. */
+const RUNG_EVENTS: Record<number, string> = { 25: 'ladder-25', 30: 'trial-ladder-30' };
 export const START_EFF_WPM = 10;
 /** Away this long, and the first run is a warm-up that can't unlock anything. */
 export const WARMUP_AFTER_MS = 24 * 60 * 60 * 1000;
@@ -18,7 +22,18 @@ const KOCH = MORSE_CHARS.map((c) => c.char);
 const progressSchema = z.object({
   /** How many characters are unlocked, in Koch order (2 = K and M). */
   unlocked: z.number().int().min(2).max(KOCH.length).catch(2),
-  effWpm: z.number().min(6).max(CHAR_WPM).catch(START_EFF_WPM),
+  effWpm: z.number().min(6).max(35).catch(START_EFF_WPM),
+  /** Character speed the ladder has earned (18 to 35); an old save reads as 20. */
+  charWpm: z.number().int().min(18).max(35).catch(START_CHAR_WPM),
+  /** A speed the player chose on the tower's dial, which beats `charWpm`; null is automatic. */
+  override: z.number().int().min(18).max(30).nullable().catch(null),
+  /** Speed-ladder rungs opened (22, 25, 28, 30, 35 wpm), by ladder.ts. */
+  rungs: z.array(z.number().int().min(22).max(35)).catch([]),
+  /** The days (YYYY-MM-DD) of copy runs that count toward the next rung, since the last one opened. */
+  ladderDays: z
+    .array(z.string().regex(/^\d{4}-\d{2}-\d{2}$/))
+    .max(2)
+    .catch([]),
   /** Accuracy of the latest runs since the last unlock (0 to 1). */
   recent: z.array(z.number().min(0).max(1)).max(20).catch([]),
   /** Characters whose introduction you've done. */
@@ -87,6 +102,18 @@ export function parseProgress(raw: unknown): MorseProgress {
   return parsed.success ? parsed.data : NEW_PROGRESS;
 }
 
+/** The fastest speed the dial may offer: 20, or the highest rung opened. */
+export const topSpeed = (p: MorseProgress) => Math.max(START_CHAR_WPM, ...p.rungs);
+
+/** The character speed everything plays at: the override, else the automatic speed, never past the ladder. */
+export const charWpmOf = (p: MorseProgress) => Math.min(p.override ?? p.charWpm, topSpeed(p));
+
+/** The speed to play at: character speed as set, Farnsworth spacing automatic below it. */
+export const speedOf = (p: MorseProgress) => ({
+  charWpm: charWpmOf(p),
+  effWpm: Math.min(p.effWpm, charWpmOf(p)),
+});
+
 export const unlockedChars = (p: MorseProgress) => KOCH.slice(0, p.unlocked);
 /** The newest character, if it's new to the runs (not in lesson 1, where both are new). */
 export const newestChar = (p: MorseProgress) => (p.unlocked > 2 ? KOCH[p.unlocked - 1] : undefined);
@@ -148,7 +175,7 @@ export function applyRun(
     next: {
       ...p,
       unlocked: unlockedNow ? p.unlocked + 1 : p.unlocked,
-      effWpm: nextEffectiveWpm(p.effWpm, score.accuracy, CHAR_WPM),
+      effWpm: nextEffectiveWpm(p.effWpm, score.accuracy, charWpmOf(p)),
       recent: unlockedNow ? [] : recent,
       accuracy,
       lastRunAt: at.toISOString(),
@@ -211,6 +238,10 @@ export async function reportRun(
       { kind: 'run' },
       ...(score.accuracy >= 0.9 ? [{ kind: 'run-90' }] : []),
       ...next.trials.map((n) => ({ kind: `trial-${n}` })),
+      // The rungs opened (#508), resent every time like the trials so a failed save never sticks
+      // the chain; the database gives the title at 25 and the gear at 30 from their own kinds.
+      ...(next.rungs.length ? [{ kind: 'ladder-rung' }] : []),
+      ...next.rungs.flatMap((r) => (RUNG_EVENTS[r] ? [{ kind: RUNG_EVENTS[r] }] : [])),
     ],
     at,
   });

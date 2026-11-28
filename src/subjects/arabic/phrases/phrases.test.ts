@@ -83,12 +83,7 @@ describe('the coffee corner’s sets (#45)', () => {
 
   it('asks the meaning of each phrase, never offering the same meaning twice', () => {
     const items = PHRASE_SETS[1]?.items.map((id, i) =>
-      deckItem(
-        id,
-        'شُكْراً',
-        'šúkran',
-        ['Thank you.', 'Please.', 'yes', 'no', 'Sorry!'][i % 5] ?? '',
-      ),
+      deckItem(id, 'شُكْراً', 'šúkran', ['Thank you.', 'Please.', 'yes', 'no', 'Sorry!'][i % 5] ?? ''),
     );
     const set = PHRASE_SETS[1];
     if (!set || !items) throw new Error('no set');

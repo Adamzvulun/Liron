@@ -191,8 +191,8 @@ export function wordQuestions(
   words: readonly CoreWord[],
   pool: readonly CoreWord[],
   rand: Rand,
+  kinds: readonly WordQuestionKind[] = ['listen', 'read', 'recall'],
 ): WordQuestion[] {
-  const kinds: WordQuestionKind[] = ['listen', 'read', 'recall'];
   return words.map((word, i) => {
     const kind = kinds[i % kinds.length] ?? 'listen';
     const field = (w: CoreWord) => (kind === 'recall' ? w.arabic : w.meaning);

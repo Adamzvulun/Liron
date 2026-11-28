@@ -583,7 +583,7 @@
             "english": "But the phone is always busy, and the internet has problems."
           },
           {
-            "arabic": "والبريد؟ البريد دايْماً بوْصل.",
+            "arabic": "والبريد؟ البريد دايْماً بيوْصل.",
             "latin": "w ilbarīd? ilbarīd dāyman byūʂal.",
             "english": "And the mail? The mail always arrives."
           }
@@ -1146,7 +1146,7 @@
           },
           {
             "arabic": "الرّاتِب مْنيح، وبْتُقْبُض كُلّ شهِر.",
-            "latin": "irrātib mnīɧ, w btúgbuʂ kull šáhir.",
+            "latin": "irrātib mnīɧ, w btúgbuɖ kull šáhir.",
             "english": "The salary is good, and you get paid every month."
           },
           {
@@ -1391,7 +1391,7 @@
         "title": "Tariq’s tools",
         "lines": [
           {
-            "arabic": "السّور؟ بْبْنيه مِن خشب.",
+            "arabic": "السّور؟ بَبْنيه مِن خشب.",
             "latin": "issūr? bábnī min xášab.",
             "english": "The fence? I’ll build it out of wood."
           },
@@ -1712,7 +1712,7 @@
         "lines": [
           {
             "arabic": "ببّغاء بِالقفص، وسُلْحُفاة، وضُفْدع.",
-            "latin": "babbaɣā bilqáfaʂ, w sulɧufāh, w ɖúfda3.",
+            "latin": "babbaɣā bilqáfaʂ, w sulɧufā, w ɖúfda3.",
             "english": "A parrot in the cage, a turtle and a frog."
           },
           {

@@ -1,6 +1,6 @@
 // The ledger in Your House (docs/game/ledger.md): what you've learned, from data already saved.
 // Every number here is defined in that doc, and tested against it in ledger.test.ts.
-import type { CardSummary } from '../progress/store.ts';
+import type { CardSummary, MilestoneRow } from '../progress/store.ts';
 import { addDays } from '../progress/economy.ts';
 import type { SubjectInfo } from '../subject.ts';
 
@@ -118,6 +118,8 @@ export interface LedgerSources {
   cards(subjectId: string): Promise<readonly CardSummary[]>;
   reviewsSince(subjectId: string, since: Date): Promise<readonly string[]>;
   activity(): Promise<readonly { day: string; minutes: number }[]>;
+  /** Every saved milestone check (docs/game/milestone-check.md). */
+  milestones?(): Promise<readonly MilestoneRow[]>;
 }
 
 export interface LedgerBlock {
@@ -132,6 +134,8 @@ export interface Ledger {
   /** null when the days couldn't be read. */
   habit: Habit | null;
   blocks: LedgerBlock[];
+  /** null when the milestone checks couldn't be read. */
+  checks: readonly MilestoneRow[] | null;
 }
 
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -157,11 +161,12 @@ export async function loadLedger(
       return null;
     }
   };
-  const [habit, blocks] = await Promise.all([
+  const [habit, checks, blocks] = await Promise.all([
     sources.activity().then(
       (a) => habitOf(a, today),
       () => null,
     ),
+    (sources.milestones?.() ?? Promise.resolve([])).catch(() => null),
     Promise.all(
       subjects.flatMap((s) =>
         s.ledger
@@ -177,5 +182,5 @@ export async function loadLedger(
       ),
     ),
   ]);
-  return { habit, blocks };
+  return { habit, blocks, checks };
 }

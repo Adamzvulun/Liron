@@ -91,8 +91,8 @@ const Progress = z.object({
       best: z.number().int().min(0).max(99).catch(0),
       /** Chats with each regular, by road chapter number: their reputation (E17). */
       met: z.record(z.string(), z.number().int().min(0)).catch({}),
-      /** You type in Hebrew letters, read as Arabic (E17). */
-      hebrew: z.boolean().catch(false),
+      /** You type in Hebrew letters, read as Arabic (E17). `null`: never chosen (see `typesHebrew`). */
+      hebrew: z.boolean().nullable().catch(null),
       /** The Coach's tips you keep, newest last, each a spaced-repetition item (`tip:…`). */
       tips: z
         .array(
@@ -106,7 +106,9 @@ const Progress = z.object({
         .max(30)
         .catch([]),
     })
-    .catch({ name: '', told: {}, chats: 0, best: 0, met: {}, hebrew: false, tips: [] }),
+    .catch({ name: '', told: {}, chats: 0, best: 0, met: {}, hebrew: null, tips: [] }),
+  /** *Spell it* rounds passed at 80% or better (docs/game/arabic-spelling.md, EARS 6). */
+  spelled: z.number().int().min(0).catch(0),
 });
 export type ArabicProgress = z.infer<typeof Progress>;
 
@@ -136,7 +138,8 @@ export const NEW_PROGRESS: ArabicProgress = {
     trials: [],
   },
   echo: { heard: [], streak: 0, rounds: 0, shadowed: 0 },
-  chat: { name: '', told: {}, chats: 0, best: 0, met: {}, hebrew: false, tips: [] },
+  chat: { name: '', told: {}, chats: 0, best: 0, met: {}, hebrew: null, tips: [] },
+  spelled: 0,
 };
 
 /** Reads saved state forgivingly: anything missing or odd falls back to a fresh start. */

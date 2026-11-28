@@ -192,6 +192,18 @@ describe('The Silent Beacon as a road', () => {
     expect(lines.get('radio')).toBe('Tonight: the Radio Room. Somebody is calling.');
   });
 
+  it('after Forty Winters, the stair’s evening names the next rung (#508)', () => {
+    const p = upTo();
+    const lines = new Set<string>();
+    for (let d = 1; d <= 30; d++) {
+      const now = morseRoad(p, { ...ctx, today: `2027-03-${String(d).padStart(2, '0')}` }).now;
+      if (now.kind === 'meanwhile' && now.door === 'koch') lines.add(now.line);
+    }
+    expect([...lines]).toEqual([
+      'Tonight: a run on the stair at 20 wpm. Two days at 90% open the 22 wpm rung.',
+    ]);
+  });
+
   it('puts due reviews first, then a contract, when the road is done', () => {
     const p = upTo();
     expect(morseRoad(p, { ...ctx, due: 3 }).now).toMatchObject({

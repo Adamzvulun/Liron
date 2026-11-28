@@ -1,6 +1,6 @@
 # Songs: learn the words through music (Phase 15)
 
-- **Status:** Planned (2026-11-23), not built.
+- **Status:** Planned (2026-11-23). The engine (15.2: link, LRC, times, timing, word marking) is built in `src/subjects/arabic/song/`; the rest is not.
 - **Research:** [song-karaoke-2026-11-23.md](../research/song-karaoke-2026-11-23.md). Part 2 has the tests on real songs. Part 3 covers songs no one has written down, and Claude.
 - **Decision:** [ADR 0059](../decisions/0059-songs-from-youtube.md), Accepted.
 - **Epic:** Phase 15 in [PLAN.md](../process/PLAN.md), after Phase 14.
@@ -109,7 +109,7 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
 - **Privacy.**
   - Only the video's link, its lyrics and its title go to Gemini, Claude (and Groq as backup), never anything the player typed, except a word a player fixes, which is part of the song.
   - YouTube sees the video play, as on YouTube itself.
-  - Both facts go on the privacy page.
+  - Both facts go on the guidebook’s songs page (with 15.4; there is no separate privacy page).
 - **Speed.**
   - A song in the shared songbook opens at once.
   - A new song is heard in about 7 s on a good day (6.4 s for a 5-minute song in the tests).
@@ -170,8 +170,9 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
   - its Gemini key in Vercel as `GEMINI_SONGS_API_KEY`;
   - a Claude API key in Vercel as `ANTHROPIC_API_KEY`, with a monthly spend limit in the Claude Console.
 
-- [ ] CSP and privacy page updated; a test reads `vercel.json` and checks the CSP carries exactly the new hosts.
-- [ ] `src/subjects/arabic/song/`: link parser, LRC parser, `MM:SS.s` parser and order check, timing, word marking. All pure and unit-tested.
+- [x] CSP updated; a test reads `vercel.json` and checks the CSP carries exactly the new hosts (15.1).
+- [ ] The privacy lines, as the guidebook’s songs page (15.4).
+- [x] `src/subjects/arabic/song/`: link parser, LRC parser, `MM:SS.s` parser and order check, timing, word marking. All pure and unit-tested.
 - [ ] `api/song.ts`:
   - `lookup`: LRCLIB;
   - `listen`: Gemini with the YouTube link and LRCLIB's hint, with model fallback;
@@ -190,7 +191,7 @@ Gemini's free tier is sometimes busy: it answers "high demand" (503). Part 2 of 
   - the lines and word taps;
   - the nudge and the songbook.
 - [ ] *Keep this line*, the review card (`song:` items), the events and the contract.
-- [ ] Docs: `ARCHITECTURE.md`, `RUNNING.md` (the limits, and how to see songs stuck in *listening*), the privacy page and the guidebook page.
+- [ ] Docs: `ARCHITECTURE.md`, `RUNNING.md` (the limits, and how to see songs stuck in *listening*), and the guidebook’s songs page (which holds the privacy lines).
 
 ## Out of scope (kept, not dropped)
 
