@@ -1,6 +1,6 @@
 # Handoff for the next Claude session
 
-- **Latest:** 2026-11-26: item 201 (the agent factory). Before it, 2026-11-23: items 193–200 (Phases 10–15 planned; v1.7.0 waits on Adam's go in #485). Start at item 200, then 201.
+- **Latest:** 2026-11-28: item 204 (v1.7.0 live). Before it, 2026-11-26/27: items 201–203 (the agent factory, Phase 10–15 work on `dev`). Before it, 2026-11-23: items 193–200 (Phases 10–15 planned; v1.7.0 waits on Adam's go in #485). Start at item 200, then 201.
 - **Written:** 2026-11-03, during the overnight run; updated 2026-11-15 at the end of a session (items 54–59) and in the next session (items 60–64); updated 2026-11-04 (Arabic sprint, review fixes) and 2026-11-05 (the review's last items #120–#122; Adam's findings #123–#126, fixed in #128–#131), 2026-11-06 (the Groq check) and 2026-11-09 (E10: ADRs 0032–0034, #47, #46; that night E12 and E11). Adam told Claude to keep working through the plan, make the calls he'd make, research what needs researching, and keep working properly with git.
 - **Read first:** [STATUS](STATUS.md) for the full picture and the environment facts, then this file for what just happened and what's next.
 - **Starting prompt:** [next-session-prompt.md](next-session-prompt.md) is what Adam pastes to start the next session.
@@ -634,3 +634,5 @@
      - *Decision:* `markWords` takes the known and met word sets as inputs. Deciding which words count as known or met is left to 15.4.
      - The load-budget @timing test failed once in a full local run and passed 3 of 3 on rerun. The engine isn't imported by the app yet, so it was noise.
    - **The /away run stops here.** Everything left needs Adam: the releases (v1.7.0 to v1.13.0), 13.2's production numbers, Phase 11's sentence list, and 15.3's keys. 15.4 and 15.5 need 15.3.
+204. **v1.7.0 released (2026-11-28).** Adam merged release PR #485 into `main` (`fe988c56`). The DB migrate run on `main` passed and applied `20270123000000_visiting_live.sql` to production. The live site answers 200 and its bundle carries 1.7.0; `/api/partner` answers 405 to a GET, as it should (POST only). `main` is now at v1.7.0, so the next release PR from `dev` starts from there.
+
