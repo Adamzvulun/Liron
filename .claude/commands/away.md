@@ -20,9 +20,9 @@ Run each item through the orchestrator flow in `.claude/CLAUDE.md`: plan it, ask
 **After each item, log it** in `.claude/improve/LOG.md` (one row, from the agents' reported tokens and their `Lessons:` lines), in the same PR as the item.
 
 **Self-improvement while he's away**
-- When the session-start line or the log shows 10 or more tasks since the last retro, or a task failed twice, run the `retro` agent once (at most one retro per `/away` run: it's opus). Commit its `.claude/improve/` output as `improve: retro N` in its own PR.
+- When the session-start line or the log shows 10 or more tasks since the last retro, or a task failed twice, run the `retro` agent once (at most one retro per `/away` run: it's opus). Commit its `.claude/improve/` output as `improve: retro N` in its own PR; `reviewer` checks it like any other.
 - Apply only proposals you judge **small** by the list in `.claude/CLAUDE.md` (Self-improvement), not by retro's label, each through `/improve`'s steps. Put every other proposal under "Waiting for Adam".
-- Never cross the self-improvement hard limits, and never change `.claude/hooks/` or an agent's `tools`, `hooks`, `model` or `effort`.
+- Never cross the self-improvement hard limits.
 
 **Deciding as Adam would**
 1. Look for his answer first. Check `.claude/CLAUDE.md`, STATUS, HANDOFF, PLAN, the ADRs, the issue and its comments, and what he chose in similar cases before. A written answer of his wins.
@@ -48,7 +48,7 @@ Run each item through the orchestrator flow in `.claude/CLAUDE.md`: plan it, ask
 **Allowed:**
 - branches, commits, and PRs into `dev`;
 - squash-merging your own PR into `dev` once CI is green and `reviewer` passes. Use an explicit title and message and the full 40-character `expectedHeadSha`. `dev` is the staging site Adam checks before any release.
-  - A PR of `improve:` commits is merged with a merge commit instead, so each commit keeps the sha that CHANGELOG records and can be reverted alone.
+  - A PR of `improve:` commits is merged with a merge commit instead (`/improve`, step 6).
 
 **Keep going safely**
 - Full local checks before every push.
