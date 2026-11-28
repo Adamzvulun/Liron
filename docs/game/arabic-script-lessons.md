@@ -40,7 +40,7 @@
   - **Minimal pairs for the sounds Hebrew lacks:** ع against ا, ح against ه, ق against ك, ص against س, ض against د, ط against ت, ظ against ذ. They come up more until they're right (issue #38).
     - The deck has 13 exact word pairs across these contrasts, and none for ح/ه, ط/ت or ظ/ذ, so the twin is in the *options*, not in a second word. Exact pairs, where they exist, make a bonus round.
 - **Read** (concept card 3): see a word made only of letters you know, pick how it sounds.
-  - The options are in Hebrew letters with niqqud. That scaffolding fades: later the options are recordings (or Latin, if you choose), then disappear (type or say it).
+  - The options are in Hebrew letters with niqqud. That scaffolding fades: later the options are recordings (or Latin, if you choose), then disappear: you read it aloud and check yourself against the speaker (§5).
   - After answering, you hear it and see its meaning.
 - **Write** (#41, after Read): trace the letter with a finger or mouse, then draw it free, checked roughly against the stroke shape. No handwriting AI.
 
@@ -130,4 +130,6 @@ Code: `src/subjects/arabic/`. Each step below is the design above, made real.
   - **Latin is still there:** a checkbox on the scribe's table (from lesson 3) and the storyteller's start card, "Words you know well: show Latin letters instead of recordings". It's saved with your progress (`knownChoices`) and used by the Painted Sign too. Latin choices are the deck's own romanisation (bint, tīn, bēt).
   - **The key:** each Latin question shows a key for the deck's special letters in its choices, e.g. 3 = ع, ɧ = ح, ʂ = ص, and g = ق, the Gaza speaker's ق. Those letters carry a `latin` field in `letters.json`.
   - So new letters are read with the Hebrew bridge, and old ones without it.
-- **Not built yet (ordered, not dropped):** the last fade, to no choices at all: typing or saying the word. That needs the speech decision (#45, ADR 0014), so it comes with E9.
+- **The last fade: read it aloud** (task 9.3, 2026-11-23). Once every letter of a word was taught at least 4 lessons ago (`SAY_AFTER`), every other such Read question has **no choices**. "Read it aloud": you say the word, tap **Hear it** for the speaker (with its Hebrew letters, sound and meaning), then answer **I read it right** or **Not yet**. That counts for its letters like any answer.
+  - **Why self-checked:** no free speech service judges a word ([ADR 0013](../decisions/0013-speech-on-free-gemini.md)). Typing it from the recording can't be checked fairly: the deck's dialect leaves short vowels unwritten, and ة and ه sound alike. Anki ends the same way, and the Coffee Corner already asks "Did yours sound like the speaker?".
+  - **Not in rank trials:** the Painted Sign checks every answer itself (`readQuestions(…, aloud = false)`).

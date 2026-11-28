@@ -103,7 +103,7 @@ Today Your House is a painted picture with panels stacked over it: the wardrobe,
 ## 9. Later, in order, not cut
 
 1. **"Stopped by" in the party feed,** and a guestbook of one line per visit, friends only.
-2. **Visiting together, live.** Both avatars walk in the same room, in real time, over Supabase Realtime presence, which the wire already uses. It waits on the same Realtime setting as the wire ([walkable-home.md §4](../research/walkable-home.md#4-visiting-together-live-later)).
+2. **Visiting together, live.** Both avatars walk in the same room, in real time, over Supabase Realtime, which the wire already uses ([walkable-home.md §4](../research/walkable-home.md#4-visiting-together-live-later)). *Built in task 9.1 (#482), §17.*
 3. **Four facings** for pieces that need them.
 4. **A second room** (a study or a roof), bought with gems.
 5. **A coziness rating** that only ever rises, never punishing an empty room.
@@ -191,3 +191,15 @@ The first of §9's later items: "stopped by" and a guestbook, built as notes.
 - **In the database** (migration `20270122000000_roof.sql`): a row of `homes` per room (`room` is `home` or `roof`). `open_roof()` takes the gems and gives the empty roof in one transaction, once. `save_home`, `my_home` and `home_of` take the room (the house by default, so an old tab still works). `home_refusal` checks either room, and save_home takes a per-player lock so two rooms saved at once can't both hold a piece. The roof's shape, starter and price are constants, kept equal to `content/core/home.json` by `homes.test.ts`.
 - **Tests:** `layout.test.ts` and `layouts.fixture.ts` (the roof's cases, checked by both the browser and `save_home`); `homes.test.ts` (opening, the price, one room per piece, coziness, friends); `home.spec.ts` (the offer, the stairs, decorating the roof, a friend's roof); the axe suite.
 - **Known:** the stairs are buttons, not a painted stair in the room.
+
+## 17. Visiting together, live (task 9.1, #482)
+
+The last of §9's later items, on the wire's Realtime ([ADR 0056](../decisions/0056-visiting-together-live.md), built on [ADR 0046](../decisions/0046-the-wire.md)).
+
+- **What a player sees:** in a friend's house, when the friend is home too, they walk, sit and climb where they really are, instead of standing by the window. A line under the room says "Basma is home.", or "Basma is home, up on the roof." when they're in the other room. At home, a friend who comes by walks in your room, and a line says "Basma is here." (or "Basma is up on your roof."). Tapping a friend makes them wave. Nobody blocks anybody's way, and a friend on your cell stands half a step aside.
+- **A friend who isn't home** stands by the window, as before.
+- **How:** a private channel per friendship, `visit:<low id>:<high id>`. Only the two friends may join (`may_use_wire` takes the new name, migration `20270123000000_visiting_live.sql`). A guest opens the line to their host. At home, your house opens one to each friend (at most 40), so whoever comes by is seen.
+- **What goes over it:** whose house you're in, which room, the cell and the seat. You say it once as each line opens (and again 3 seconds later), then every 5 seconds and on every step only to a friend in the same house, and "bye" when you leave; a house nobody visits sends nothing more. Silence for 16 seconds means they've gone. Nothing is stored, and nothing is said while you're out of a house.
+- **What a friend learns:** that you're home, and where you stand, only while they're in a house too. FRIENDS.md says so.
+- **Known:** two guests in one house see the host but not each other. Decorating hides everyone but the room.
+- **Tests:** `liveLink.test.ts` (what is said and heard, who is in the house, the lines), `fellowship.test.ts` (who may join a `visit:` line), `visiting-live.spec.ts` (two pages over the fake Realtime: walking, the roof, leaving, a host who isn't home).

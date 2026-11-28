@@ -19,6 +19,7 @@ import {
   coreWordsFrom,
   loadOwnSentences,
   pickSession,
+  shapeMates,
   shuffle,
   WORD_CHAPTERS,
   wordQuestions,
@@ -37,11 +38,14 @@ import {
 import { reportWords, reportWordTrial, scoreOfWords, type WordAnswer } from './report.ts';
 import { NextStep } from '../../../core/road/NextStep.tsx';
 import { NoDeck } from '../NoDeck.tsx';
+import { BINYAN } from './verbShapes.ts';
+import { taleOf, talesEarned, type Tale } from './tales.ts';
 
 type Stage =
   | { kind: 'start' }
   | { kind: 'card'; card: GrammarCard; fresh: CoreWord[]; words: CoreWord[] }
   | { kind: 'book'; open: GrammarCard | null }
+  | { kind: 'tales'; open: Tale | null }
   | { kind: 'meet'; fresh: CoreWord[]; words: CoreWord[]; index: number }
   | {
       kind: 'ask';
@@ -225,6 +229,7 @@ export function WordLessons({
   const current = stage.kind === 'ask' ? stage.questions[stage.index] : undefined;
   const w = progress.words;
   const book = cardsRead(grammar, progress);
+  const tales = talesEarned(progress.words.trials);
   return (
     <section className="lesson arabic" aria-label="The innkeeper’s table">
       {saveFailed && (
@@ -305,6 +310,15 @@ export function WordLessons({
                 Grammar book · {book.length}
               </button>
             )}
+            {tales.length > 0 && (
+              <button
+                type="button"
+                className="lesson__plain"
+                onClick={() => setStage({ kind: 'tales', open: null })}
+              >
+                Tales · {tales.length}
+              </button>
+            )}
             {onChat && (
               <button type="button" className="lesson__plain" onClick={onChat}>
                 Sit and talk
@@ -367,6 +381,46 @@ export function WordLessons({
             </div>
           </div>
         ))}
+      {stage.kind === 'tales' &&
+        (stage.open ? (
+          <TaleView tale={stage.open}>
+            <button
+              type="button"
+              className="lesson__plain"
+              onClick={() => setStage({ kind: 'tales', open: null })}
+            >
+              Back to the tales
+            </button>
+          </TaleView>
+        ) : (
+          <div className="lesson__card lesson__start">
+            <p className="lesson__kicker">The innkeeper’s table · tales</p>
+            <h2 className="lesson__title">Tales at the table</h2>
+            <p>Each regular whose trial you’ve passed tells you a tale, in words you know.</p>
+            <ul className="arabic__book">
+              {tales.map((t) => (
+                <li key={t.id}>
+                  <button
+                    type="button"
+                    className="arabic__book-card"
+                    onClick={() => setStage({ kind: 'tales', open: t })}
+                  >
+                    <span className="arabic__book-chapter">Chapter {t.chapter}</span> {t.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="lesson__actions">
+              <button
+                type="button"
+                className="lesson__plain"
+                onClick={() => setStage({ kind: 'start' })}
+              >
+                Back to the table
+              </button>
+            </div>
+          </div>
+        ))}
       {stage.kind === 'meet' && stage.fresh[stage.index] && (
         <MeetWord
           key={stage.index}
@@ -374,6 +428,7 @@ export function WordLessons({
           index={stage.index}
           count={stage.fresh.length}
           play={play}
+          pool={pool}
           onNext={(now) =>
             stage.index + 1 < stage.fresh.length
               ? setStage({ ...stage, index: stage.index + 1 })
@@ -388,6 +443,7 @@ export function WordLessons({
           index={stage.index}
           count={stage.questions.length}
           play={play}
+          pool={pool}
           onAnswered={(right, now) => {
             const answers = [...stage.answers, { question: current, right }];
             if (stage.index + 1 < stage.questions.length)
@@ -419,6 +475,17 @@ export function WordLessons({
               (stage.passed ? stage.trial.trial.xp : 0)}{' '}
             XP
           </p>
+          {stage.passed && taleOf(stage.trial.number) && (
+            <button
+              type="button"
+              className="lesson__go"
+              onClick={() =>
+                setStage({ kind: 'tales', open: taleOf(stage.trial?.number ?? 0) ?? null })
+              }
+            >
+              {stage.trial.who.split(' ')[0]}’s tale
+            </button>
+          )}
           <NextStep />
           {!stage.passed && (
             <button
@@ -532,7 +599,15 @@ function GrammarCardView({
 }
 
 /** A word's card: the Arabic, how it sounds (Hebrew letters and the deck's Latin), its meaning. */
-function WordCard({ word, play }: { word: CoreWord; play: (path: string) => void }) {
+function WordCard({
+  word,
+  play,
+  pool,
+}: {
+  word: CoreWord;
+  play: (path: string) => void;
+  pool: readonly CoreWord[];
+}) {
   return (
     <div className="arabic__phrase">
       <button
@@ -564,6 +639,88 @@ function WordCard({ word, play }: { word: CoreWord; play: (path: string) => void
           {word.kin.note && ` (${word.kin.note})`}
         </span>
       )}
+      {word.shape && <ShapeBadge key={word.deck} word={word} pool={pool} />}
+    </div>
+  );
+}
+
+/**
+ * A verb whose shape matches a binyan (ADR 0002): the badge names it, and opens to how the Arabic
+ * shows it and the other verbs of that shape met so far.
+ */
+function ShapeBadge({ word, pool }: { word: CoreWord; pool: readonly CoreWord[] }) {
+  const [open, setOpen] = useState(false);
+  if (!word.shape) return null;
+  const b = BINYAN[word.shape];
+  const mates = shapeMates(word, pool);
+  return (
+    <>
+      <button
+        type="button"
+        className="arabic__kin arabic__shape"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+      >
+        Shaped like {b.name},{' '}
+        <bdi lang="he" dir="rtl">
+          {b.example}
+        </bdi>
+        <span className="arabic__shape-arrow" aria-hidden="true">
+          {open ? '▴' : '▾'}
+        </span>
+      </button>
+      {open && (
+        <div className="arabic__shape-more">
+          <p>{b.how}</p>
+          {mates.length > 0 && (
+            <>
+              <p>More verbs of this shape, from your chapters so far:</p>
+              <ul>
+                {mates.map((m) => (
+                  <li key={m.deck}>
+                    <bdi lang="ar" dir="rtl">
+                      {m.arabic.split('،')[0]}
+                    </bdi>{' '}
+                    {m.meaning}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
+/** A regular's tale (#491): our own lines, the English one tap away. */
+function TaleView({ tale, children }: { tale: Tale; children: ReactNode }) {
+  const [english, setEnglish] = useState(false);
+  return (
+    <div className="lesson__card arabic__question">
+      <p className="lesson__kicker">Chapter {tale.chapter} · a tale</p>
+      <h2 className="lesson__title">{tale.title}</h2>
+      <ol className="arabic__tale">
+        {tale.lines.map((l) => (
+          <li key={l.latin} className="arabic__sentence is-written">
+            <bdi lang="ar" dir="rtl" className="arabic__sentence-ar">
+              {l.arabic}
+            </bdi>
+            <bdi lang="he" dir="rtl" className="arabic__sentence-he">
+              {l.hebrew}
+            </bdi>
+            <span className="arabic__sentence-latin">{l.latin}</span>
+            {english && <span className="arabic__sentence-en">{l.english}</span>}
+          </li>
+        ))}
+      </ol>
+      <p className="arabic__sentence-note">Our own tale · no recording</p>
+      <div className="lesson__actions">
+        <button type="button" className="lesson__go" onClick={() => setEnglish((e) => !e)}>
+          {english ? 'Hide the English' : 'Show the English'}
+        </button>
+        {children}
+      </div>
     </div>
   );
 }
@@ -624,12 +781,14 @@ function MeetWord({
   index,
   count,
   play,
+  pool,
   onNext,
 }: {
   word: CoreWord;
   index: number;
   count: number;
   play: (path: string) => void;
+  pool: readonly CoreWord[];
   onNext: (now: number) => void;
 }) {
   useEffect(() => {
@@ -640,7 +799,7 @@ function MeetWord({
       <p className="lesson__kicker">
         New word · {index + 1} of {count}
       </p>
-      <WordCard word={word} play={play} />
+      <WordCard word={word} play={play} pool={pool} />
       <Sentence word={word} play={play} />
       <div className="lesson__actions">
         <button type="button" className="lesson__go" onClick={() => onNext(Date.now())} autoFocus>
@@ -662,12 +821,14 @@ function Ask({
   index,
   count,
   play,
+  pool,
   onAnswered,
 }: {
   question: WordQuestion;
   index: number;
   count: number;
   play: (path: string) => void;
+  pool: readonly CoreWord[];
   onAnswered: (right: boolean, now: number) => void;
 }) {
   const [picked, setPicked] = useState<string | null>(null);
@@ -738,7 +899,7 @@ function Ask({
               </>
             )}
           </p>
-          <WordCard word={word} play={play} />
+          <WordCard word={word} play={play} pool={pool} />
           <SayWord key={word.deck} word={word} play={play} />
           <button
             type="button"

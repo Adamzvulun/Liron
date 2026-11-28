@@ -37,6 +37,44 @@ test.describe('Arabic word lessons (#160)', () => {
     expect(Math.abs((card?.x ?? 0) * 2 + (card?.width ?? 0) - width)).toBeLessThan(4);
   });
 
+  test('a regular whose trial you passed tells you a tale (#491)', async ({ page }) => {
+    await signedIn(
+      page,
+      [],
+      [],
+      {
+        ...GUEST,
+        words: { chapter: 2, met: [], sessions: 2, cards: ['grammar:no-is'], trials: [2] },
+      },
+      ROWS,
+    );
+    await page.goto('/caravanserai?open=words');
+    await page.getByRole('button', { name: 'Tales · 1' }).click();
+    await page.getByRole('button', { name: /Salim at the gate/ }).click();
+    await expect(page.getByText('أنا بْخيْر، شُكْراً.')).toBeVisible();
+    await expect(page.getByText('I’m fine, thanks.')).toBeHidden();
+    await page.getByRole('button', { name: 'Show the English' }).click();
+    await expect(page.getByText('I’m fine, thanks.')).toBeVisible();
+    await page.getByRole('button', { name: 'Back to the tales' }).click();
+    await page.getByRole('button', { name: 'Back to the table' }).click();
+    await expect(page.getByRole('button', { name: 'Start a session' })).toBeVisible();
+  });
+
+  test('a verb shaped like a binyan says so, and opens to how (ADR 0002)', async ({ page }) => {
+    // pcav:0220 is chapter 1's "to be called" (it- and a doubled middle: hitpaʿel).
+    const CALLED = { ...deckWord(20, 'اِتْسمّى', 'to be called'), item_id: 'pcav:0220' };
+    await signedIn(page, [], [], GUEST, [CALLED, READY]);
+    await page.goto('/caravanserai?open=words&run=short');
+    await page.getByRole('button', { name: 'Start a session' }).click();
+    await page.getByRole('button', { name: 'Got it' }).click();
+    await expect(page.getByText('New word · 1 of 1')).toBeVisible();
+    const badge = page.getByRole('button', { name: /^Shaped like hitpaʿel/ });
+    await expect(badge).toHaveAttribute('aria-expanded', 'false');
+    await badge.click();
+    await expect(badge).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.getByText(/^it- in front and a doubled middle letter/)).toBeVisible();
+  });
+
   test('meet new words, practice them, and the session is saved', async ({ page }) => {
     const calls: SubjectCall[] = [];
     await signedIn(page, [], calls, GUEST, ROWS);

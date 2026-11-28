@@ -143,7 +143,7 @@ A version is **done** when everything in its list is true *and* the release step
 | 2.1 | Built (the feed, friends in the square); ships in 1.0.0, shows once a friend is invited |
 | 2.2 | Built (challenges, the Arena); ships in 1.0.0, shows once a friend is invited |
 | 2.3 | Built (Fellowship quests, gifts); ships in 1.0.0, shows once a friend is invited |
-| 2.4 | Built (the wire); ships in 1.0.0. Waits on Adam's Realtime setting (DEPLOY step 7) and a try on two devices |
+| 2.4 | Built (the wire); ships in 1.0.0. Adam's Realtime setting done (2026-11-18); waits on a try on two devices |
 | 3.0 | Built (both finales and capstones, the long evenings, the prepared account); ships in 1.0.0. Adam looks at one ending in the checklist (§6) |
 | 4.0 | Partly built: the guide (4.5's first half), LATER.md (5.2) and the last sweep (5.1). **The third hall is parked** (Adam, 2026-11-18: "third subject won't come soon"); it is in LATER.md |
 
@@ -200,6 +200,10 @@ Phase 7 (epic #435, [ADR 0055](../decisions/0055-a-walkable-home-drawn-in-the-pa
 
 Phase 8's first part (epic [#468](https://github.com/Adamzvulun/Liron/issues/468)): friends leave a note at your letterbox, a room's coziness only rises, and a chair turns four ways. Notes: [releases/v1.5.0.md](releases/v1.5.0.md). Released 2026-11-23 ([#478](https://github.com/Adamzvulun/Liron/pull/478)); its three migrations applied to `waymark-prod`.
 
-### Next: v1.6.0 — The roof
+### v1.6.0 — The roof
 
-A second room, the roof, opened with 15 gems (8.4, #472): its own layout, and friends can visit it too. Built on `dev`; notes: [releases/v1.6.0.md](releases/v1.6.0.md).
+A second room, the roof, opened with 15 gems (8.4, #472): its own layout, and friends can visit it too. Notes: [releases/v1.6.0.md](releases/v1.6.0.md). Released 2026-11-23 ([#480](https://github.com/Adamzvulun/Liron/pull/480)); its migration applied to `waymark-prod`.
+
+### v1.7.0 — Visiting together
+
+Phase 9 (#482, [ADR 0056](../decisions/0056-visiting-together-live.md)): friends in one house see each other walk, sit and climb, live; and the last fade in reading Arabic, words read aloud with no choices (#487); pattern badges, verbs shaped like a binyan (#489); and the regulars' tales (#491). Notes: [releases/v1.7.0.md](releases/v1.7.0.md). One migration.

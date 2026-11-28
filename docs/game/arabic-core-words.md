@@ -404,7 +404,7 @@ I built option 1 first. On 2026-11-10 Adam chose to add option 2 as well (#164),
   - Chapters 45–52 (#228): 217 more, 1,364 in all, with no flags left.
   - Chapters 35–44 (#226): 280 more, 1,147 in all. The checker's remaining flags are verb forms the deck doesn't spell out (*we went*, *throw!*, *it was canceled*) and the deck's own spelling of *noisy* (مُزْعِح, for مُزْعِج); each was looked at by hand.
 
-Micro-stories made only of words you know come in a later epic (vision, Arabic track).
+Micro-stories made only of words you know: **the regulars' tales (#491, 2026-11-23).** Once you pass a regular's trial, they tell you a tale of four or five lines at the innkeeper's table ("Tales · N", and a button on the trial's result). It uses only words from their chapter and the ones before, plus the grammar the cards teach. Each line is in Arabic, Hebrew letters and Latin, with the English one tap away. It's our own text, so there are no recordings. The tales live in `content/arabic/tales.json`. All 113 regulars have one; `tests/tales-deck.test.ts` (local, needs the deck) checks every word, and Adam spot-checks the Arabic, as with our own sentences. A new regular gets a tale the same way.
 
 ## 4. A word lesson (#160)
 - **Where:** a new station in the courtyard, the innkeeper's table (my choice): a low table under the left arcade with her open guest book, bread and a lamp. The slate moved a little toward the road to make room. It's locked until "The Painted Sign" is passed.
@@ -609,4 +609,5 @@ Micro-stories made only of words you know come in a later epic (vision, Arabic t
 - Words 301–1,000 (#163).
 - Speaking the word into the mic (E14, mic practice).
 - ~~Shared-root badges~~ **built (2026-11-11):** 311 taught words carry "Same root as …" with the Hebrew word that shares their Semitic root (בית for بيت, שמש for شمس, the numbers 1–10, much of the body), and its meaning when that differs (בת, *daughter*, for بنت, *girl*). Only true cognates with a meaning a learner can use; false friends (لحم *meat* / לחם *bread*, قمح *wheat* / קמח *flour*) are left out. The list is `content/arabic/shared-roots.json`.
-- Pattern badges (the Hebrew bridge's binyanim ↔ verb forms, ADR 0002) and a root explorer.
+- ~~Pattern badges~~ **built (2026-11-23, #489):** 124 taught verbs carry "Shaped like piʿel, דִּבֵּר" (or hitpaʿel, nifʿal, hifʿil). Tapping the badge says how the Arabic shows the shape and lists up to six other verbs of that shape from your chapters so far. Only the clean pairs are named: forms II, V, VII and IV ([research](../research/verb-shapes.md)). The list is `content/arabic/verb-shapes.json`.
+- A root explorer.

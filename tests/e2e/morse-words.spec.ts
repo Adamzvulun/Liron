@@ -11,6 +11,28 @@ test.describe('the Codebook in the Signal Tower (#154)', () => {
     await expect(page.getByRole('button', { name: /Codebook/ })).toHaveCount(0);
   });
 
+  test('a letter and Enter in the same moment still answer (found under load, 2026-11-23)', async ({
+    page,
+  }) => {
+    test.setTimeout(60_000);
+    await signedIn(page, [], [], { unlocked: 9, met: [...'KMURESNAP'], trials: [1] });
+    await page.goto('/signal-tower?run=short');
+    await page
+      .getByRole('button', { name: /Codebook/ })
+      .first()
+      .click();
+    await page.getByRole('button', { name: 'Start a round' }).click();
+    await expect(page.getByText('Word 1 of 3 · type what you heard')).toBeVisible({
+      timeout: 10_000,
+    });
+    // Both keys before React can draw again, as on a busy phone with a quick typist.
+    await page.evaluate(() => {
+      for (const key of ['a', 'Enter'])
+        window.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+    });
+    await expect(page.getByText(/^Right\.|You copied A\./)).toBeVisible();
+  });
+
   test('a short round: words play, you copy them, the round is saved', async ({ page }) => {
     test.setTimeout(60_000);
     const calls: SubjectCall[] = [];

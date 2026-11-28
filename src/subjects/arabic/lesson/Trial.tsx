@@ -70,6 +70,8 @@ export function Trial({ api }: { api: SubjectApi }) {
         seeded(Date.now()),
         trial.words,
         progress.knownChoices,
+        // A trial's every answer is checked: nothing read aloud and judged by yourself.
+        false,
       ),
       index: 0,
       answers: [],

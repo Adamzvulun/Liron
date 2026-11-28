@@ -20,7 +20,7 @@ Checked in Vercel's docs (2026-11-02), for the free Hobby plan:
 |---|---|---|
 | `main` | What users see. Only changes through a release PR from `dev`. | Vercel **Production** (the public site) |
 | `dev` | Integration and testing. Every feature lands here first. GitHub's **default branch**. | Vercel **Preview**, at the stable `…-git-dev-…` URL: the "live dev site" |
-| feature branches | One per issue, version or feature, created from `dev`. Claude's session branches (`claude/…`) count as feature branches. | Their own preview URL |
+| feature branches | One per issue, version or feature, created from `dev`. Claude's session branches (`claude/…`) count as feature branches. | Their own preview URL; none for `claude/…` since [ADR 0057](0057-fewer-deploys.md) |
 
 **Flow**
 1. Branch from `dev`, then open a PR into `dev` (`Closes #N`). CI must be green, and Adam merges. Squash merges are fine here.

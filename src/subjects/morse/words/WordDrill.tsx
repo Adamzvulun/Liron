@@ -338,7 +338,15 @@ function Copy({
   const keys = unlockedChars(progress).filter((c) => /^[A-Z0-9]$/.test(c));
   const [n, setN] = useState(0);
   const [step, setStep] = useState<Step>('listening');
-  const [typed, setTyped] = useState('');
+  const [typed, setTypedState] = useState('');
+  // What's typed, kept at once as well as in state: a letter and a quick Enter can both arrive
+  // before React re-renders, and the key handler would then answer with the copy before the
+  // letter (an empty one, ignored), losing the Enter (found under load, 2026-11-23).
+  const typedNow = useRef('');
+  const setTyped = useCallback((to: string | ((t: string) => string)) => {
+    typedNow.current = typeof to === 'function' ? to(typedNow.current) : to;
+    setTypedState(typedNow.current);
+  }, []);
   const [again, setAgain] = useState(false);
   const [attempts, setAttempts] = useState<WordAttempt[]>([]);
   const player = useRef<MorsePlayer | null>(null);
@@ -373,10 +381,11 @@ function Copy({
   }, []);
 
   const submit = useCallback(() => {
-    if (!word || step !== 'typing' || !typed) return;
-    setAttempts((a) => [...a, { word, typed, again }]);
+    const copy = typedNow.current;
+    if (!word || step !== 'typing' || !copy) return;
+    setAttempts((a) => [...a, { word, typed: copy, again }]);
     setStep('answered');
-  }, [word, step, typed, again]);
+  }, [word, step, again]);
 
   const next = useCallback(() => {
     if (n + 1 >= words.length) {
@@ -387,7 +396,7 @@ function Copy({
     setStep('listening');
     setTyped('');
     setAgain(false);
-  }, [n, words.length, attempts, onDone]);
+  }, [n, words.length, attempts, onDone, setTyped]);
 
   const repeat = useCallback(() => {
     if (!word || again || watch || step === 'answered') return;
@@ -395,7 +404,7 @@ function Copy({
     setTyped('');
     setStep('listening');
     void play(word);
-  }, [word, again, watch, step, play]);
+  }, [word, again, watch, step, play, setTyped]);
 
   const press = useCallback(
     (k: string) => {
@@ -408,7 +417,7 @@ function Copy({
       else if (k === '⌫') setTyped((t) => t.slice(0, -1));
       else if (keys.includes(k)) setTyped((t) => (t.length < 12 ? t + k : t));
     },
-    [step, next, submit, keys],
+    [step, next, submit, keys, setTyped],
   );
 
   useEffect(() => {

@@ -43,6 +43,7 @@ import { supabaseFellowship, type FriendCard } from './fellowship/fellowship.ts'
 import { supabaseChallenges } from './fellowship/challenges.ts';
 import { giftProblem, supabaseTogether } from './fellowship/together.ts';
 import { supabaseWire } from './fellowship/wire.ts';
+import { supabaseLive } from './home/liveLink.ts';
 import type { Giving } from './fellowship/GiftOffer.tsx';
 import type { Layout, RoomId } from './home/layout.ts';
 import { functionServices } from './services.ts';
@@ -140,6 +141,11 @@ const wire =
           .then((cards) => cards.filter((c) => !c.me).map((c) => ({ id: c.id, name: c.name }))),
       )
     : null;
+
+/** Visiting together, live (task 9.1): friends in one house see each other walk. */
+const live = supabase && fellowship ? supabaseLive(supabase) : undefined;
+/** You and your friends, for whoever comes by your house. */
+const company = fellowship ? () => fellowship.cards() : undefined;
 
 /** Fellowship quests and gifts (task 3.5): counted, paid and given by the database. */
 const together = supabase && fellowship ? supabaseTogether(supabase) : null;
@@ -529,6 +535,7 @@ function Lobby({ player }: { player: Player }) {
               source={fellowship}
               look={state.profile?.avatar}
               backdrop={<HouseBackdrop />}
+              live={live}
             />
           </Suspense>
         </PlaceBoundary>
@@ -659,6 +666,8 @@ function Lobby({ player }: { player: Player }) {
                     onHeld={readHeld}
                     gems={state.wallet?.gems ?? null}
                     onOpenRoof={store ? openRoof : undefined}
+                    live={live}
+                    company={company}
                     owned={state.profile.owned}
                     look={state.profile.avatar}
                     panels={{

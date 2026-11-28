@@ -426,6 +426,26 @@ Rules for the whole phase: what friends see is §3's list and nothing else, enfo
 
 **Order:** 8.1, 8.2, 8.3, then 8.5 (v1.5.0), then 8.4 (v1.6.0).
 
+**Done (2026-11-23):** v1.5.0 (#478) and v1.6.0 (#480) are live; the epic #468 is closed.
+
+## Phase 9 — Visiting together, live (#482)
+
+**Goal:** the last of #447. Friends in one house see each other walk, on the wire's Realtime ([ADR 0056](../decisions/0056-visiting-together-live.md)). Adam's Realtime setting was done on 2026-11-18 (HANDOFF 112).
+
+### ☑ 9.1 (#482) · v1.7 · Visiting together, live
+- A guest sees their host walk when the host is home. A host sees whoever comes by. Spec: [the-home.md](../game/the-home.md) §17. Merged ([#483](https://github.com/Adamzvulun/Liron/pull/483)).
+
+### ☐ 9.2 · v1.7 · Release v1.7.0
+
+### ☑ 9.3 (#487) · v1.7 · The last fade in reading Arabic: read it aloud
+- From LATER ("no decision needed"). Long-known words have no choices: read it aloud, hear the speaker, say how it went. Spec: [arabic-script-lessons.md](../game/arabic-script-lessons.md) §5.
+
+### ☑ 9.4 (#489) · v1.7 · Pattern badges: verbs shaped like a binyan
+- From LATER ("no decision needed"). A taught verb whose shape matches a binyan says so, and opens to how and to its fellow verbs. Research: [verb-shapes.md](../research/verb-shapes.md).
+
+### ☑ 9.5 (#491) · v1.7 · The regulars' tales
+- From LATER ("no decision needed"): micro-stories made only of words you know. Passing a regular's trial earns their tale. Built for all 113 chapters. Spec: [arabic-core-words.md](../game/arabic-core-words.md).
+
 ## Parked: ordered after everything above, each waiting on Adam
 
 | Item | Why it waits | What un-parks it |

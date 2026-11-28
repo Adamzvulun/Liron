@@ -1,0 +1,3753 @@
+{
+  "subject": "arabic",
+  "source": "waymark",
+  "license": "Our own: tales written by us from the words each chapter teaches, checked against the deck (ADR 0012)",
+  "items": [
+    {
+      "id": "tale:road:2",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 1,
+        "regular": "road:2",
+        "title": "Salim at the gate",
+        "lines": [
+          {
+            "arabic": "مرْحبا! صباح الخيْر!",
+            "latin": "márɧaba! ʂabāɧ ilxēr!",
+            "english": "Hi! Good morning!"
+          },
+          {
+            "arabic": "أنا سليم. أهْلا وسهْلا! وإنْتَ؟",
+            "latin": "ána salīm. áhla w sáhla! w ínta?",
+            "english": "I’m Salim. Welcome! And you?"
+          },
+          {
+            "arabic": "أنا بْخيْر، شُكْراً.",
+            "latin": "ána b-xēr, šúkran.",
+            "english": "I’m fine, thanks."
+          },
+          {
+            "arabic": "هالوَلد وهالبِنِت؟ طيِّب، أهْلا!",
+            "latin": "halwálad w halbínit? ʈáyyib, áhla!",
+            "english": "This boy and this girl? Okay, welcome!"
+          },
+          {
+            "arabic": "تْفضّل! … باي، باي!",
+            "latin": "tfáɖɖal! … bāy, bāy!",
+            "english": "Here you are! … Bye, bye!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:3",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 2,
+        "regular": "road:3",
+        "title": "Umm Khalil asks",
+        "lines": [
+          {
+            "arabic": "مين إنْتَ؟ ومِن ويْن؟",
+            "latin": "mīn ínta? w min wēn?",
+            "english": "Who are you? And where from?"
+          },
+          {
+            "arabic": "أنا أمّ خليل.",
+            "latin": "ána umm xalīl.",
+            "english": "I’m Umm Khalil."
+          },
+          {
+            "arabic": "خليل اِبْني، وهُوَّ مِتْجوِّز.",
+            "latin": "xalīl íbni, w húwwa midjáwwiz.",
+            "english": "Khalil is my son, and he’s married."
+          },
+          {
+            "arabic": "وبِنْتو هان، معي.",
+            "latin": "w bíntu hān, má3i.",
+            "english": "And his daughter is here, with me."
+          },
+          {
+            "arabic": "وإنْتَ؟ مِتْجوِّز؟ لا؟ ليْش؟!",
+            "latin": "w ínta? midjáwwiz? laʔ? lēš?!",
+            "english": "And you? Married? No? Why?!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:4",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 3,
+        "regular": "road:4",
+        "title": "Yusuf keeps time",
+        "lines": [
+          {
+            "arabic": "أنا يوسف. اليوْم الجُّمْعة.",
+            "latin": "ána yūsif. ilyōm ijjúm3a.",
+            "english": "I’m Yusuf. Today is Friday."
+          },
+          {
+            "arabic": "الصُّبِح، السّاعة سبْعة: واحد، تْنيْن، تلاتة…",
+            "latin": "iʂʂúbiɧ, issā3a sáb3a: wāɧad, tnēn, talāta…",
+            "english": "In the morning, at seven: one, two, three…"
+          },
+          {
+            "arabic": "المسا، السّاعة عشرة: ساعة ساعة، دْقيقة دْقيقة.",
+            "latin": "ilmása, issā3a 3ášara: sā3a sā3a, dgīga dgīga.",
+            "english": "In the evening, at ten: hour by hour, minute by minute."
+          },
+          {
+            "arabic": "بُكْرا السّبِت، وأنا هان مِن الصُّبِح.",
+            "latin": "búkra issábit, w ána hān min iʂʂúbiɧ.",
+            "english": "Tomorrow is Saturday, and I’m here from the morning."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:5",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 4,
+        "regular": "road:5",
+        "title": "Rana’s basket",
+        "lines": [
+          {
+            "arabic": "أنا جعان!",
+            "latin": "ána ja3ān!",
+            "english": "I’m hungry!"
+          },
+          {
+            "arabic": "تْفضّل: خُبِز وجِبْنة وبيْض.",
+            "latin": "tfáɖɖal: xúbiz w jíbna w bēɖ.",
+            "english": "Here you are: bread, cheese and eggs."
+          },
+          {
+            "arabic": "وقهْوة؟ لا، شاي مع حليب.",
+            "latin": "w gáhwa? laʔ, šāy ma3 ɧalīb.",
+            "english": "And coffee? No, tea with milk."
+          },
+          {
+            "arabic": "الخُبِز زاكي!",
+            "latin": "ilxúbiz zāki!",
+            "english": "The bread is delicious!"
+          },
+          {
+            "arabic": "الحْساب؟ لا لا، هالفْطور مِنّي.",
+            "latin": "ilɧsāb? laʔ laʔ, halfʈūr mínni.",
+            "english": "The bill? No, no, this breakfast is on me."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:6",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 5,
+        "regular": "road:6",
+        "title": "Abu Fadi’s drawing",
+        "lines": [
+          {
+            "arabic": "هالدّار دار فادي.",
+            "latin": "haddār dār fādi.",
+            "english": "This house is Fadi’s house."
+          },
+          {
+            "arabic": "فيها صالوْن ومطْبخ وحمّام.",
+            "latin": "fīha ʂālōn w máʈbax w ɧammām.",
+            "english": "It has a living room, a kitchen and a bathroom."
+          },
+          {
+            "arabic": "وفي غُرْفة فيها تخِت وشُبّاك.",
+            "latin": "w fi ɣúrfa fīha táxit w šubbāk.",
+            "english": "And there’s a room with a bed and a window."
+          },
+          {
+            "arabic": "فادي بِنام هان، وبِصْحى الصُّبِح.",
+            "latin": "fādi bnām hān, w biʂɧa iʂʂúbiɧ.",
+            "english": "Fadi sleeps here, and wakes up in the morning."
+          },
+          {
+            "arabic": "وأنا؟ أنا معي المُفْتاح.",
+            "latin": "w ána? ána má3i ilmuftāɧ.",
+            "english": "And me? I have the key."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:7",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 6,
+        "regular": "road:7",
+        "title": "Nasser shows the way",
+        "lines": [
+          {
+            "arabic": "بِدّك المطار؟",
+            "latin": "bíddak ilmaʈār?",
+            "english": "You want the airport?"
+          },
+          {
+            "arabic": "مِن هان: قُدّامك، شْمال، يَمين.",
+            "latin": "min hān: guddāmak, šmāl, yamīn.",
+            "english": "From here: straight on, left, right."
+          },
+          {
+            "arabic": "وَقْتيْش الطّيّارة؟ السّاعة تِسْعة؟",
+            "latin": "wagtēš iʈʈayyāra? issā3a tís3a?",
+            "english": "When’s the plane? At nine?"
+          },
+          {
+            "arabic": "طيِّب، تاكْسي.",
+            "latin": "ʈáyyib, tāksi.",
+            "english": "Okay, a taxi."
+          },
+          {
+            "arabic": "السّوّاق بِسوق، وإنْتَ بْتوصل.",
+            "latin": "issawwāg bisūg, w ínta btūʂal.",
+            "english": "The driver drives, and you arrive."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:8",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 7,
+        "regular": "road:8",
+        "title": "Leila paints you",
+        "lines": [
+          {
+            "arabic": "اِبْتسم!",
+            "latin": "ibtísim!",
+            "english": "Smile!"
+          },
+          {
+            "arabic": "عْيونك سود، وشعرك أسْوَد.",
+            "latin": "3yūnak sūd, w šá3rak áswad.",
+            "english": "Your eyes are black, and your hair is black."
+          },
+          {
+            "arabic": "وِجْهك طَويل؟ لا، حِلو!",
+            "latin": "wíjhak ʈawīl? laʔ, ɧílu!",
+            "english": "Your face long? No, handsome!"
+          },
+          {
+            "arabic": "شو بْتِشوف؟ أنا بْشوف أحْمر وأزْرق.",
+            "latin": "šū bitšūf? ána bašūf áɧmar w ázrag.",
+            "english": "What do you see? I see red and blue."
+          },
+          {
+            "arabic": "هالرّاس راسك، وهالقلْب قلْبك.",
+            "latin": "harrās rāsak, w halgalb gálbak.",
+            "english": "This head is your head, and this heart is your heart."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:9",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 8,
+        "regular": "road:9",
+        "title": "Hassan bargains",
+        "lines": [
+          {
+            "arabic": "هالكيس بِعشرة شيْكِل.",
+            "latin": "halkīs b-3ášara šēkil.",
+            "english": "This bag is ten shekels."
+          },
+          {
+            "arabic": "غالي؟ لا، رْخيص!",
+            "latin": "ɣāli? laʔ, rxīʂ!",
+            "english": "Expensive? No, cheap!"
+          },
+          {
+            "arabic": "قدّيْش بِدّك تِدْفع؟",
+            "latin": "gaddēš bíddak tídfa3?",
+            "english": "How much do you want to pay?"
+          },
+          {
+            "arabic": "خمْسة؟ لا، سبْعة.",
+            "latin": "xámsa? laʔ, sáb3a.",
+            "english": "Five? No, seven."
+          },
+          {
+            "arabic": "طيِّب، سِتّة، والشّاي مِنّي.",
+            "latin": "ʈáyyib, sítta, w iššāy mínni.",
+            "english": "Okay, six, and the tea is on me."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:10",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 9,
+        "regular": "road:10",
+        "title": "Miss Huda’s class",
+        "lines": [
+          {
+            "arabic": "أنا أُسْتاذة في المدْرسة.",
+            "latin": "ána ustāza fi lmádrasa.",
+            "english": "I’m a teacher at the school."
+          },
+          {
+            "arabic": "الدّرْس بِبْدا بدْري، السّاعة تمانْيَة.",
+            "latin": "iddars bíbda bádri, issā3a tamānya.",
+            "english": "The lesson begins early, at eight."
+          },
+          {
+            "arabic": "الطُّلّاب بْيِسْألوا، وأنا بْقول الجَواب.",
+            "latin": "iʈʈullāb byisʔalu, w ána bagūl ijjawāb.",
+            "english": "The students ask, and I give the answer."
+          },
+          {
+            "arabic": "الجَواب صحّ؟ غلط؟ بِنِتْعلّم.",
+            "latin": "ijjawāb ʂaɧɧ? ɣálaʈ? binit3állam.",
+            "english": "Is the answer right? Wrong? We learn."
+          },
+          {
+            "arabic": "وبعديْن بقْرا كْتاب.",
+            "latin": "w ba3dēn bágra ktāb.",
+            "english": "And later I read a book."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:11",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 10,
+        "regular": "road:11",
+        "title": "Jamil’s weather",
+        "lines": [
+          {
+            "arabic": "اليوْم الشّمِس حِلْوة.",
+            "latin": "ilyōm iššámis ɧílwa.",
+            "english": "Today the sun is nice."
+          },
+          {
+            "arabic": "بسّ الهَوا ساقِع، وفي غيْمة.",
+            "latin": "bass ilháwa sāgi3, w fi ɣēma.",
+            "english": "But the wind is cold, and there’s a cloud."
+          },
+          {
+            "arabic": "أنا تعْبان، بسّ مبْسوط.",
+            "latin": "ána ta3bān, bass mabsūʈ.",
+            "english": "I’m tired, but happy."
+          },
+          {
+            "arabic": "ليْش؟ عشان القلْب دايْماً بِحِبّ الشِّتا.",
+            "latin": "lēš? 3ašān ilgalb dāyman biɧíbb iššíta.",
+            "english": "Why? Because the heart always loves the rain."
+          },
+          {
+            "arabic": "اُقْعُد معي، واِسْمع.",
+            "latin": "úg3ud má3i, w ísma3.",
+            "english": "Sit with me, and listen."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:12",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 11,
+        "regular": "road:12",
+        "title": "Samira measures you",
+        "lines": [
+          {
+            "arabic": "هالبالْطو حِلو، بسّ وِسِخ.",
+            "latin": "halbālʈō ɧílu, bass wísix.",
+            "english": "This coat is nice, but dirty."
+          },
+          {
+            "arabic": "اِشْلح البالْطو! بغْسْلو اليوْم.",
+            "latin": "íšlaɧ ilbālʈō! baɣsílu ilyōm.",
+            "english": "Take off the coat! I’ll wash it today."
+          },
+          {
+            "arabic": "وهالقميص؟ لوْنو بِنّي غامِق.",
+            "latin": "w halgamīʂ? lōnu bínni ɣāmig.",
+            "english": "And this shirt? Its color is dark brown."
+          },
+          {
+            "arabic": "بِدّك واحد أزْرق فاتِح؟",
+            "latin": "bíddak wāɧad ázrag fātiɧ?",
+            "english": "Do you want a light blue one?"
+          },
+          {
+            "arabic": "مع لفْحة زهْري، إنْتَ مْرتّب كْتير!",
+            "latin": "ma3 láfɧa záhri, ínta mráttab ktīr!",
+            "english": "With a pink scarf, you look very sharp!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:13",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 12,
+        "regular": "road:13",
+        "title": "Abu Sami’s family",
+        "lines": [
+          {
+            "arabic": "هالشّابّ اِبْني، وهالمرا مرْتو.",
+            "latin": "haššabb íbni, w halmára mártu.",
+            "english": "This young man is my son, and this woman is his wife."
+          },
+          {
+            "arabic": "والرّضيع؟ هُوَّ اِبِن بِنْتي.",
+            "latin": "w irraɖī3? húwwa ibn bínti.",
+            "english": "And the baby? He’s my daughter’s son."
+          },
+          {
+            "arabic": "عمّو وخالْتو هِناك، مع الْوْلاد.",
+            "latin": "3ámmu w xáltu hināk, ma3 ilwlād.",
+            "english": "His uncle and his aunt are over there, with the kids."
+          },
+          {
+            "arabic": "أنا عجوز، وبنْسى الأسامي.",
+            "latin": "ána 3ajūz, w bánsa ilʔasāmi.",
+            "english": "I’m an old man, and I forget the names."
+          },
+          {
+            "arabic": "بسّ بتْزكّر كُلّ وِجِهْ.",
+            "latin": "bass badzákkar kull wíjih.",
+            "english": "But I remember every face."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:14",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 13,
+        "regular": "road:14",
+        "title": "Karim takes your order",
+        "lines": [
+          {
+            "arabic": "شو بِدّك تِفْطر؟",
+            "latin": "šū bíddak tífʈar?",
+            "english": "What do you want for breakfast?"
+          },
+          {
+            "arabic": "في خُبِز وزِبْدة ولبن وعصير بُرْتْقان.",
+            "latin": "fi xúbiz w zíbda w lában w 3aʂīr burtgān.",
+            "english": "There’s bread, butter, yogurt and orange juice."
+          },
+          {
+            "arabic": "وقهْوة؟ سادة، أوْ مع سُكّر؟",
+            "latin": "w gáhwa? sāda, aw ma3 súkkar?",
+            "english": "And coffee? Plain, or with sugar?"
+          },
+          {
+            "arabic": "طيِّب، بجيب القهْوة.",
+            "latin": "ʈáyyib, bajīb ilgáhwa.",
+            "english": "Okay, I’ll bring the coffee."
+          },
+          {
+            "arabic": "والعشا؟ معْكروْنة مع بنْدوْرة وبصل. لزيز!",
+            "latin": "w il3áša? ma3karōna ma3 bandōra w báʂal. lazīz!",
+            "english": "And dinner? Pasta with tomatoes and onions. Tasty!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:15",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 14,
+        "regular": "road:15",
+        "title": "Mona’s empty house",
+        "lines": [
+          {
+            "arabic": "هالبيْت فيه حيْطان وأرْض، وبسّ.",
+            "latin": "halbēt fī ɧēʈān w arɖ, w bass.",
+            "english": "This house has walls and a floor, and that’s all."
+          },
+          {
+            "arabic": "بِدّي لمْبة ومْرايَة ومْخدّة.",
+            "latin": "bíddi lámba w mrāya w mxádda.",
+            "english": "I want a lamp, a mirror and a pillow."
+          },
+          {
+            "arabic": "والصّورة؟ على الحيْط، فوْق الكنبة.",
+            "latin": "w iʂʂūra? 3ála lɧēʈ, fōg ilkánaba.",
+            "english": "And the picture? On the wall, over the sofa."
+          },
+          {
+            "arabic": "بفْتح الشُّبّاك، وبعمل قهْوة.",
+            "latin": "báftaɧ iššubbāk, w bá3mal gáhwa.",
+            "english": "I open the window, and make coffee."
+          },
+          {
+            "arabic": "واليوْم، هالبيْت بيْتي.",
+            "latin": "w ilyōm, halbēt bēti.",
+            "english": "And today, this house is my home."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:16",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 15,
+        "regular": "road:16",
+        "title": "Tariq studies",
+        "lines": [
+          {
+            "arabic": "بُكْرا عِنْدي اِمْتِحان.",
+            "latin": "búkra 3índi imtiɧān.",
+            "english": "Tomorrow I have a test."
+          },
+          {
+            "arabic": "بدْرُس إنْجْليزي وفرنْسي، وألْماني كمان.",
+            "latin": "bádrus inglīzi w faránsi, w almāni kamān.",
+            "english": "I study English and French, and German too."
+          },
+          {
+            "arabic": "بسّ العربي صِعِب!",
+            "latin": "bass il3árabi ʂí3ib!",
+            "english": "But Arabic is hard!"
+          },
+          {
+            "arabic": "بكْتِب كُلّ كِلْمة في الدّفْتر.",
+            "latin": "báktib kull kílma fi ddáftar.",
+            "english": "I write every word in the notebook."
+          },
+          {
+            "arabic": "إذا ما بفْهمْش، بسْأل الأُسْتاذ.",
+            "latin": "íza ma bafhámiš, basʔal ilʔustāz.",
+            "english": "If I don’t understand, I ask the teacher."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:17",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 16,
+        "regular": "road:17",
+        "title": "Dalia’s bag",
+        "lines": [
+          {
+            "arabic": "معي جرايِد ومجلّات وظْروف.",
+            "latin": "má3i jarāyid w majallāt w ʐrūf.",
+            "english": "I’ve got newspapers, magazines and envelopes."
+          },
+          {
+            "arabic": "شو عِنْوان هالظّرْف؟",
+            "latin": "šū 3inwān haʐʐarf?",
+            "english": "What’s the address on this envelope?"
+          },
+          {
+            "arabic": "اليوْم الكُلّ بِبْعت إيميْل.",
+            "latin": "ilyōm ilkull bíb3at īmēl.",
+            "english": "Today everyone sends an email."
+          },
+          {
+            "arabic": "بسّ الجوّال دايْماً مشْغول، والنِّت فيه مشاكِل.",
+            "latin": "bass ijjawwāl dāyman mašɣūl, w innit fī mašākil.",
+            "english": "But the phone is always busy, and the internet has problems."
+          },
+          {
+            "arabic": "والبريد؟ البريد دايْماً بوْصل.",
+            "latin": "w ilbarīd? ilbarīd dāyman byūʂal.",
+            "english": "And the mail? The mail always arrives."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:18",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 17,
+        "regular": "road:18",
+        "title": "Fares by the fire",
+        "lines": [
+          {
+            "arabic": "بِالعادة، المسا، بغنّي وبلْعب غيتار.",
+            "latin": "bi-l3āda, ilmása, baɣánni w bál3ab gītār.",
+            "english": "Usually, in the evening, I sing and play the guitar."
+          },
+          {
+            "arabic": "الشّباب بْيُرْقُصوا، والْوْلاد بْيِلْعبوا.",
+            "latin": "iššabāb byúrguʂu, w ilwlād byil3abu.",
+            "english": "The young men dance, and the kids play."
+          },
+          {
+            "arabic": "وإنْتَ؟ شو هِوايْتك؟",
+            "latin": "w ínta? šū hiwāytak?",
+            "english": "And you? What’s your hobby?"
+          },
+          {
+            "arabic": "كوْرة؟ تِنْس؟ بْتِسْبح؟",
+            "latin": "kōra? tins? btísbaɧ?",
+            "english": "Soccer? Tennis? Do you swim?"
+          },
+          {
+            "arabic": "بلِّش، غنّي معي!",
+            "latin": "bálliš, ɣánni má3i!",
+            "english": "Go on, sing with me!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:19",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 18,
+        "regular": "road:19",
+        "title": "Amal knows the way",
+        "lines": [
+          {
+            "arabic": "ويْن بِدّك تْروح؟",
+            "latin": "wēn bíddak trūɧ?",
+            "english": "Where do you want to go?"
+          },
+          {
+            "arabic": "عمّان؟ عاصِمة الأُرْدُن.",
+            "latin": "3ammān? 3āʂimt ilʔúrdun.",
+            "english": "Amman? The capital of Jordan."
+          },
+          {
+            "arabic": "الباص بِطْلع الصُّبِح، السّاعة سِتّة.",
+            "latin": "ilbāʂ bíʈla3 iʂʂúbiɧ, issā3a sítta.",
+            "english": "The bus sets off in the morning, at six."
+          },
+          {
+            "arabic": "بِدّك تِكِت؟ وفيزا؟",
+            "latin": "bíddak tíkit? w vīza?",
+            "english": "You need a ticket? And a visa?"
+          },
+          {
+            "arabic": "طيِّب، إجازة حِلْوة!",
+            "latin": "ʈáyyib, ijāza ɧílwa!",
+            "english": "Okay, have a nice vacation!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:20",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 19,
+        "regular": "road:20",
+        "title": "Ziad’s mountain",
+        "lines": [
+          {
+            "arabic": "بُكْرا الصُّبِح، بِنْروح على الجبل.",
+            "latin": "búkra iʂʂúbiɧ, binrūɧ 3ála ljábal.",
+            "english": "Tomorrow morning, we go up the mountain."
+          },
+          {
+            "arabic": "هِناك في عنْزة، وحْمار، وكلْب.",
+            "latin": "hināk fi 3ánza, w ɧmār, w kalb.",
+            "english": "Up there there’s a goat, a donkey and a dog."
+          },
+          {
+            "arabic": "الكلْب سريع، والحْمار بطيء.",
+            "latin": "ilkalb sarī3, w ilɧmār baʈīʔ.",
+            "english": "The dog is fast, and the donkey is slow."
+          },
+          {
+            "arabic": "وتحِت الجبل في بُحَيْرة وشجرة كْبيرة.",
+            "latin": "w táɧt ijjábal fi buɧēra w šájara kbīra.",
+            "english": "And under the mountain there’s a lake and a big tree."
+          },
+          {
+            "arabic": "المسا، بِنْشوف القمر والنِّجْمات.",
+            "latin": "ilmása, binšūf ilgámar w innijmāt.",
+            "english": "In the evening, we see the moon and the stars."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:21",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 20,
+        "regular": "road:21",
+        "title": "Abu Nabil’s sums",
+        "lines": [
+          {
+            "arabic": "عِنْدي ألْف كيس.",
+            "latin": "3índi alf kīs.",
+            "english": "I have a thousand sacks."
+          },
+          {
+            "arabic": "الأحد بِعْت خمْسين، والِاتْنيْن سِتّين.",
+            "latin": "ilʔáɧad bi3t xamsīn, w litnēn sittīn.",
+            "english": "On Sunday I sold fifty, and on Monday sixty."
+          },
+          {
+            "arabic": "التّلات؟ صِفِر!",
+            "latin": "ittalāt? ʂífir!",
+            "english": "Tuesday? Zero!"
+          },
+          {
+            "arabic": "قدّيْش عِنْدي اليوْم؟",
+            "latin": "gaddēš 3índi ilyōm?",
+            "english": "How many do I have today?"
+          },
+          {
+            "arabic": "تمن مية وتِسْعين! صحّ؟",
+            "latin": "táman míyya w tis3īn! ʂaɧɧ?",
+            "english": "Eight hundred and ninety! Right?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:22",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 21,
+        "regular": "road:22",
+        "title": "Khalid’s cousins",
+        "lines": [
+          {
+            "arabic": "أنا بسافِر كْتير.",
+            "latin": "ána bsāfir ktīr.",
+            "english": "I travel a lot."
+          },
+          {
+            "arabic": "اِبِن عمّي في سورِيا، وخالي في العِراق.",
+            "latin": "ibn 3ámmi fi sūriya, w xāli fi l3irāq.",
+            "english": "My cousin is in Syria, and my uncle is in Iraq."
+          },
+          {
+            "arabic": "ومرْتي مغْرِبية، مِن المغْرِب.",
+            "latin": "w márti maɣribíyya, min ilmáɣrib.",
+            "english": "And my wife is Moroccan, from Morocco."
+          },
+          {
+            "arabic": "الصّيْف في السُّعودية سُخُن كْتير.",
+            "latin": "iʂʂēf fi ssu3ūdíyya súxun ktīr.",
+            "english": "Summer in Saudi Arabia is very hot."
+          },
+          {
+            "arabic": "بسّ أنا بحِبّ اليَمن وعُمان.",
+            "latin": "bass ána baɧíbb ilyáman w 3umān.",
+            "english": "But I love Yemen and Oman."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:23",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 22,
+        "regular": "road:23",
+        "title": "Captain Elias’s ports",
+        "lines": [
+          {
+            "arabic": "أنا رُحِت على كُلّ أوْروْبّا.",
+            "latin": "ána rúɧit 3ála kull ōrōbba.",
+            "english": "I’ve been all over Europe."
+          },
+          {
+            "arabic": "فرنْسا، أسْبانْيا، إيطالْيا، وهوْلانْدا.",
+            "latin": "faránsa, asbānya, īʈālya, w hōlānda.",
+            "english": "France, Spain, Italy and the Netherlands."
+          },
+          {
+            "arabic": "في النّرْويج البحر ساقِع كْتير.",
+            "latin": "fi nnarwīj ilbáɧar sāgi3 ktīr.",
+            "english": "In Norway the sea is very cold."
+          },
+          {
+            "arabic": "وفي البُرْتُغال السّمك زاكي!",
+            "latin": "w fi lburtuɣāl issámak zāki!",
+            "english": "And in Portugal the fish is delicious!"
+          },
+          {
+            "arabic": "بسّ بيْتي هان، جنْب البحر.",
+            "latin": "bass bēti hān, jamb ilbáɧar.",
+            "english": "But my home is here, by the sea."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:24",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 23,
+        "regular": "road:24",
+        "title": "Mei’s markets",
+        "lines": [
+          {
+            "arabic": "أنا مِن تايْوان.",
+            "latin": "ána min tāywān.",
+            "english": "I’m from Taiwan."
+          },
+          {
+            "arabic": "شُفِت أسْواق في الهِنْد والصّين واليابان.",
+            "latin": "šúfit aswāg fi lhínd w iʂʂīn w ilyābān.",
+            "english": "I’ve seen markets in India, China and Japan."
+          },
+          {
+            "arabic": "وفي تُرْكْيا وإيران كمان.",
+            "latin": "w fi túrkya w īrān kamān.",
+            "english": "And in Turkey and Iran too."
+          },
+          {
+            "arabic": "بسّ العربي؟ بتْعلّمو هان، كِلْمة كِلْمة.",
+            "latin": "bass il3árabi? bat3allámu hān, kílma kílma.",
+            "english": "But Arabic? I’m learning it here, word by word."
+          },
+          {
+            "arabic": "والكاميرا دايْماً معي.",
+            "latin": "w ilkāmira dāyman má3i.",
+            "english": "And the camera is always with me."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:25",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 24,
+        "regular": "road:25",
+        "title": "Rami measures the road",
+        "lines": [
+          {
+            "arabic": "اليوْم مشيْت خمسْتلاف مِتِر.",
+            "latin": "ilyōm mašēt xamastalāf mitir.",
+            "english": "Today I walked five thousand meters."
+          },
+          {
+            "arabic": "خمِس كيْلوْمِتِر!",
+            "latin": "xámas kēlōmitir!",
+            "english": "Five kilometers!"
+          },
+          {
+            "arabic": "بُكْرا كمان سِتّلاف.",
+            "latin": "búkra kamān sittalāf.",
+            "english": "Tomorrow, six thousand more."
+          },
+          {
+            "arabic": "وفي آخِر أيْلول؟ أنا في البيْت مع الْوْلاد!",
+            "latin": "w fi āxir aylūl? ána fi lbēt ma3 ilwlād!",
+            "english": "And at the end of September? I’m home with the kids!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:26",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 25,
+        "regular": "road:26",
+        "title": "Nour’s cart",
+        "lines": [
+          {
+            "arabic": "هالجاكيْتّ: سْموْل، ميدْيَم، أوْ لارْج؟",
+            "latin": "haljākētt: smōl, mīdyam, aw lārj?",
+            "english": "This jacket: small, medium or large?"
+          },
+          {
+            "arabic": "سِعْرو؟ تلاتين شيْكِل بسّ.",
+            "latin": "sí3ru? talātīn šēkil bass.",
+            "english": "Its price? Just thirty shekels."
+          },
+          {
+            "arabic": "بِتِدْفع كاش، أوْ بِالبِطاقة؟",
+            "latin": "bitídfa3 kāš, aw bi-lbiʈāqa?",
+            "english": "Are you paying cash, or by card?"
+          },
+          {
+            "arabic": "والشُّرْط؟ صْغير عليك شْوَيّ.",
+            "latin": "w iššurt? ʂɣīr 3alēk šwayy.",
+            "english": "And the shorts? A bit small on you."
+          },
+          {
+            "arabic": "الكبوْي حِلو عليك!",
+            "latin": "ilkabōy ɧílu 3alēk!",
+            "english": "The jeans look good on you!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:27",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 26,
+        "regular": "road:27",
+        "title": "Doctor Nadia’s visit",
+        "lines": [
+          {
+            "arabic": "اِفْتح تِمّك!",
+            "latin": "íftaɧ tímmak!",
+            "english": "Open your mouth!"
+          },
+          {
+            "arabic": "راسك أجعك؟",
+            "latin": "rāsak ʔája3ak?",
+            "english": "Does your head hurt?"
+          },
+          {
+            "arabic": "إنْتَ مريض شْوَيّ.",
+            "latin": "ínta marīɖ šwayy.",
+            "english": "You’re a little sick."
+          },
+          {
+            "arabic": "بْتاخُد الدَّوا الصُّبِح والمسا.",
+            "latin": "btāxud iddáwa iʂʂúbiɧ w ilmása.",
+            "english": "You take the medicine morning and evening."
+          },
+          {
+            "arabic": "ونام كْتير، واِشْرب ميّة.",
+            "latin": "w nām ktīr, w íšrab máyya.",
+            "english": "And sleep a lot, and drink water."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:28",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 27,
+        "regular": "road:28",
+        "title": "Uncle Antoine comes home",
+        "lines": [
+          {
+            "arabic": "أنا بعيش في البرازيل مِن أرْبْعين سنة.",
+            "latin": "ána ba3īš fi lbarāzīl min arb3īn sána.",
+            "english": "I’ve lived in Brazil for forty years."
+          },
+          {
+            "arabic": "هِناك الموسيقى والرّقْصة في كُلّ شارِع.",
+            "latin": "hināk ilmūsīqa w irrágʂa fi kull šāri3.",
+            "english": "There, there’s music and dancing on every street."
+          },
+          {
+            "arabic": "بسّ بيْتي هان، في فلسْطين.",
+            "latin": "bass bēti hān, fi falasʈīn.",
+            "english": "But my home is here, in Palestine."
+          },
+          {
+            "arabic": "سِلْفي؟ اِبْتسم!",
+            "latin": "sílfi? ibtísim!",
+            "english": "A selfie? Smile!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:29",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 28,
+        "regular": "road:29",
+        "title": "Salim’s other words",
+        "lines": [
+          {
+            "arabic": "مرْحبا! كيْفك؟ كْوَيِّس؟",
+            "latin": "márɧaba! kēfak? kwáyyis?",
+            "english": "Hi! How are you? Good?"
+          },
+          {
+            "arabic": "أنا كمان تمام.",
+            "latin": "ána kamān tamām.",
+            "english": "I’m fine too."
+          },
+          {
+            "arabic": "في مصِر بِقولوا «ليْه»، وهِنا بِنْقول «ليْش».",
+            "latin": "fi máʂir bigūlu «lē», w hína bingūl «lēš».",
+            "english": "In Egypt they say “lē”, and here we say “lēš”."
+          },
+          {
+            "arabic": "وبِقولوا «كْوَيِّس»، وإحْنا بِنْقول «مْنيح».",
+            "latin": "w bigūlu «kwáyyis», w íɧna bingūl «mnīɧ».",
+            "english": "And they say “kwáyyis”, and we say “mnīɧ”."
+          },
+          {
+            "arabic": "أظُنّ إنّو الكُلّ بِفْهم الكُلّ.",
+            "latin": "aʐúnn ínnu ilkull bífham ilkull.",
+            "english": "I think everyone understands everyone."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:30",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 29,
+        "regular": "road:30",
+        "title": "Abu Hani’s chair",
+        "lines": [
+          {
+            "arabic": "اُقْعُد! بِدّك أحْلِق دقْنك؟",
+            "latin": "úg3ud! bíddak áɧlig dágnak?",
+            "english": "Sit! Want me to shave your beard?"
+          },
+          {
+            "arabic": "لا؟ طيِّب، بسّ الشّنب.",
+            "latin": "laʔ? ʈáyyib, bass iššánab.",
+            "english": "No? Okay, just the mustache."
+          },
+          {
+            "arabic": "إنْتَ نعْسان؟ اِتْنفّس، وغفّي شْوَيّ.",
+            "latin": "ínta na3sān? itnáffas, w ɣáffi šwayy.",
+            "english": "You’re sleepy? Breathe, and nap a little."
+          },
+          {
+            "arabic": "بعديْن بْتِصْحى حِلو!",
+            "latin": "ba3dēn btíʂɧa ɧílu!",
+            "english": "Then you wake up handsome!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:31",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 30,
+        "regular": "road:31",
+        "title": "Umm Ali’s soup",
+        "lines": [
+          {
+            "arabic": "دوق هالشّوْربة!",
+            "latin": "dūg haššōraba!",
+            "english": "Taste this soup!"
+          },
+          {
+            "arabic": "مالْحة؟ حرّاقة؟",
+            "latin": "mālɧa? ɧarrāga?",
+            "english": "Salty? Spicy?"
+          },
+          {
+            "arabic": "فيها توْمة وحُمُّص وشْوَيِّةْ خلّ.",
+            "latin": "fīha tōma w ɧúmmuʂ w šwáyyit xall.",
+            "english": "It has garlic, chickpeas and a little vinegar."
+          },
+          {
+            "arabic": "والفلافِل طازة ومقْلي.",
+            "latin": "w ilfalāfil ʈāza w mágli.",
+            "english": "And the falafel is fresh and fried."
+          },
+          {
+            "arabic": "كُل! إنْتَ جعان، وأنا مبْسوطة.",
+            "latin": "kul! ínta ja3ān, w ána mabsūʈa.",
+            "english": "Eat! You’re hungry, and I’m happy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:32",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 31,
+        "regular": "road:32",
+        "title": "Abu Fadi’s house",
+        "lines": [
+          {
+            "arabic": "هالبيْت فيه بُدْرُم، الأرْضي، وتلات طَوابِق.",
+            "latin": "halbēt fīh búdrum, ilʔárɖi, w tlat ʈawābiq.",
+            "english": "This house has a basement, the ground floor and three floors."
+          },
+          {
+            "arabic": "في أصانْصيْر، بسّ إبْني بِحِبّ الدّرج.",
+            "latin": "fī aʂanʂēr, bass íbni bíɧibb iddáraj.",
+            "english": "There’s an elevator, but my son loves the stairs."
+          },
+          {
+            "arabic": "وفوْق في سُطُح، وبْنِشْرب قهْوة هْناك.",
+            "latin": "w fōg fī súʈuɧ, w bníšrab gáhwa hnāk.",
+            "english": "And up top there’s a roof, and we drink coffee there."
+          },
+          {
+            "arabic": "الأجار؟ لا، بيْتْنا!",
+            "latin": "ilʔajār? laʔ, bétna!",
+            "english": "The rent? No, it’s our own house!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:33",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 32,
+        "regular": "road:33",
+        "title": "Wafa’s list",
+        "lines": [
+          {
+            "arabic": "شو وَظيفْتك؟ مُهنْدِس؟ ميْكانيكي؟",
+            "latin": "šu waʐíftak? muhándis? mekanīki?",
+            "english": "What’s your job? Engineer? Mechanic?"
+          },
+          {
+            "arabic": "الدَّوام طويل، بسّ في بْريْك.",
+            "latin": "iddawām ʈawīl, bass fī brēk.",
+            "english": "The hours are long, but there’s a break."
+          },
+          {
+            "arabic": "الرّاتِب مْنيح، وبْتُقْبُض كُلّ شهِر.",
+            "latin": "irrātib mnīɧ, w btúgbuʂ kull šáhir.",
+            "english": "The salary is good, and you get paid every month."
+          },
+          {
+            "arabic": "مُديرك؟ أنا! أهلا بالشِّرْكة.",
+            "latin": "mudīrak? ána! áhla biššírka.",
+            "english": "Your boss? Me! Welcome to the company."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:34",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 33,
+        "regular": "road:34",
+        "title": "Amal’s road",
+        "lines": [
+          {
+            "arabic": "اِرْكب، ما في زحْمة اليوْم.",
+            "latin": "írkab, ma fī záɧma ilyōm.",
+            "english": "Get on, there’s no traffic today."
+          },
+          {
+            "arabic": "شوف الجِسِر، وشوف الميدان.",
+            "latin": "šūf ijjísir, w šūf ilmaydān.",
+            "english": "Look at the bridge, and look at the square."
+          },
+          {
+            "arabic": "بعديْن الحْدود، والسّفينة، وبرّا!",
+            "latin": "ba3dēn ilɧdūd, w issafīna, w bárra!",
+            "english": "Then the border, the ship, and abroad!"
+          },
+          {
+            "arabic": "وإنْتَ؟ بْتِرْكب بْبلاش!",
+            "latin": "w ínta? btírkab bbalāš!",
+            "english": "And you? You ride for free!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:35",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 34,
+        "regular": "road:35",
+        "title": "The innkeeper’s story",
+        "lines": [
+          {
+            "arabic": "زمان، كُنْت خجولة كْتير.",
+            "latin": "zamān, kunt xajūla ktīr.",
+            "english": "Long ago, I was very shy."
+          },
+          {
+            "arabic": "بعديْن قرّرْت أشْتِغِل هِنا.",
+            "latin": "ba3dēn garrárt aštíɣil hína.",
+            "english": "Then I decided to work here."
+          },
+          {
+            "arabic": "الشُّغُل صعب، بسّ بسْتمْتِع فيه.",
+            "latin": "iššúɣul ʂa3b, bass bastámti3 fīh.",
+            "english": "The work is hard, but I enjoy it."
+          },
+          {
+            "arabic": "وإنْتَ؟ شو بِتْتمنّى؟",
+            "latin": "w ínta? šu btitmánna?",
+            "english": "And you? What do you hope for?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:36",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 35,
+        "regular": "road:36",
+        "title": "Hana’s wedding",
+        "lines": [
+          {
+            "arabic": "العُرُس بُكْرة! وأنا العروس.",
+            "latin": "il3úrus búkra! w ána il3arūs.",
+            "english": "The wedding is tomorrow! And I’m the bride."
+          },
+          {
+            "arabic": "العريس إسْمو فادي.",
+            "latin": "il3arīs ísmu fādi.",
+            "english": "The groom’s name is Fadi."
+          },
+          {
+            "arabic": "كُلّ القرايِب هِنا.",
+            "latin": "kull ilgarāyib hína.",
+            "english": "All the relatives are here."
+          },
+          {
+            "arabic": "شوف المحْبس! حِلو؟",
+            "latin": "šūf ilmáɧbas! ɧílu?",
+            "english": "Look at the ring! Pretty?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:37",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 36,
+        "regular": "road:37",
+        "title": "Samira’s trunk",
+        "lines": [
+          {
+            "arabic": "شوف! حرير، وقُطُن، وصوف.",
+            "latin": "šūf! ɧarīr, w gúʈun, w ʂūf.",
+            "english": "Look! Silk, cotton and wool."
+          },
+          {
+            "arabic": "البدْلة ضِيِّقة؟ لا، واسْعة شْوَيّ.",
+            "latin": "ilbádla ɖáyyga? laʔ, wás3a šwayy.",
+            "english": "Is the suit tight? No, a little loose."
+          },
+          {
+            "arabic": "وهالخاتِم دهب، وهالسِّنْسال فِضّة.",
+            "latin": "w halxātim dáhab, w hassinsāl fíɖɖa.",
+            "english": "And this ring is gold, and this necklace is silver."
+          },
+          {
+            "arabic": "اِلْبِس! إنْتَ حِلو.",
+            "latin": "ílbis! ínta ɧílu.",
+            "english": "Put it on! You look good."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:38",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 37,
+        "regular": "road:38",
+        "title": "Yousef’s pains",
+        "lines": [
+          {
+            "arabic": "آخ، ضهْري! وعِنْدي قحّة.",
+            "latin": "āx, ɖáhri! w 3índi gáɧɧa.",
+            "english": "Ouch, my back! And I have a cough."
+          },
+          {
+            "arabic": "وحرارْتي عالْيَة.",
+            "latin": "w ɧarárti 3álya.",
+            "english": "And I have a fever."
+          },
+          {
+            "arabic": "بدّي أسْبيرين، مِش رُجيم!",
+            "latin": "bíddi asbirīn, miš rujīm!",
+            "english": "I want aspirin, not a diet!"
+          },
+          {
+            "arabic": "بسّ صِحّتي مْنيحة!",
+            "latin": "bass ʂíɧɧti mnīɧa!",
+            "english": "But my health is good!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:39",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 38,
+        "regular": "road:39",
+        "title": "Lina’s trays",
+        "lines": [
+          {
+            "arabic": "جعان؟ خُد فْطيرة!",
+            "latin": "ja3ān? xud fʈīra!",
+            "english": "Hungry? Take a pie!"
+          },
+          {
+            "arabic": "والبسْكوْت بِالفانيلّا.",
+            "latin": "w ilbaskōt bilvanílla.",
+            "english": "And the cookies are vanilla."
+          },
+          {
+            "arabic": "في إسْبْرِسّو، وَسط.",
+            "latin": "fī esprésso, wásaʈ.",
+            "english": "There’s espresso, medium-sweet."
+          },
+          {
+            "arabic": "كُل! بعديْن بْتِشْبع.",
+            "latin": "kul! ba3dēn btíšba3.",
+            "english": "Eat! Then you’ll be full."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:40",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 39,
+        "regular": "road:40",
+        "title": "Abu Saleh’s cart",
+        "lines": [
+          {
+            "arabic": "كُلّو مِن مزْرعْتي: مِشْمِش، وكرز، وخوْخ.",
+            "latin": "kúllu min mazrá3ti: míšmiš, w káraz, w xōx.",
+            "english": "All from my farm: apricots, cherries and plums."
+          },
+          {
+            "arabic": "وفي الحقِل، قمِح ودُرة.",
+            "latin": "w fi ilɧáqil, gámiɧ w dúra.",
+            "english": "And in the field, wheat and corn."
+          },
+          {
+            "arabic": "والنّحِل تحت النّخْلة.",
+            "latin": "w innáɧil taɧt innáxla.",
+            "english": "And the bees are under the palm tree."
+          },
+          {
+            "arabic": "دوق! حِلو، مِش هيك؟",
+            "latin": "dūg! ɧílu, miš hēk?",
+            "english": "Taste! Sweet, isn’t it?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:41",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 40,
+        "regular": "road:41",
+        "title": "Tariq’s tools",
+        "lines": [
+          {
+            "arabic": "السّور؟ بْبْنيه مِن خشب.",
+            "latin": "issūr? bábnī min xášab.",
+            "english": "The fence? I’ll build it out of wood."
+          },
+          {
+            "arabic": "والشّبابيك؟ قْزاز جْديد.",
+            "latin": "w iššabābīk? gzāz jdīd.",
+            "english": "And the windows? New glass."
+          },
+          {
+            "arabic": "الشّمْعة حرقت الطّاوْلة!",
+            "latin": "iššám3a ɧárgat iʈʈāwla!",
+            "english": "The candle burned the table!"
+          },
+          {
+            "arabic": "جهّزْت كُلّو!",
+            "latin": "jahházt kúllu!",
+            "english": "I’ve got it all ready!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:42",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 41,
+        "regular": "road:42",
+        "title": "Miss Huda’s lesson",
+        "lines": [
+          {
+            "arabic": "اِرْفع إيدك!",
+            "latin": "írfa3 īdak!",
+            "english": "Raise your hand!"
+          },
+          {
+            "arabic": "هجّي، واُنْطُق كُلّ حرْف.",
+            "latin": "hájji, w únʈug kull ɧarf.",
+            "english": "Spell it, and pronounce every letter."
+          },
+          {
+            "arabic": "النّحو صعب؟ لا، بسّ بدّو تدْريب.",
+            "latin": "innáɧu ʂa3b? laʔ, bass bíddu tadrīb.",
+            "english": "Grammar is hard? No, it just needs practice."
+          },
+          {
+            "arabic": "مْنيح! علامْتك عشرة.",
+            "latin": "mnīɧ! 3alámtak 3ášara.",
+            "english": "Good! Your grade is ten."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:43",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 42,
+        "regular": "road:43",
+        "title": "Mei’s screen",
+        "lines": [
+          {
+            "arabic": "وين الملفّ؟",
+            "latin": "wēn ilmálaff?",
+            "english": "Where’s the file?"
+          },
+          {
+            "arabic": "لا، حِفِظْت كُلّو بِالمُجلّد.",
+            "latin": "laʔ, ɧifíʐt kúllu bilmujállad.",
+            "english": "Oh, no, I saved it all in the folder."
+          },
+          {
+            "arabic": "بدّي أطْبع، بسّ وين الطّابْعة؟",
+            "latin": "bíddi áʈba3, bass wēn iʈʈāb3a?",
+            "english": "I want to print, but where’s the printer?"
+          },
+          {
+            "arabic": "تعال، في كرْتون!",
+            "latin": "ta3āl, fī kartōn!",
+            "english": "Come on, there’s a cartoon!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:44",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 43,
+        "regular": "road:44",
+        "title": "Fares’s game",
+        "lines": [
+          {
+            "arabic": "بْتِلْعب شدّة؟ دوْرك!",
+            "latin": "btíl3ab šádde? dōrak!",
+            "english": "Do you play cards? Your turn!"
+          },
+          {
+            "arabic": "رِبِحْت! لا، خِسِرْت.",
+            "latin": "ribíɧt! laʔ, xisírt.",
+            "english": "I won! No, I lost."
+          },
+          {
+            "arabic": "بعديْن الفِرْقة بْتِعْزِف!",
+            "latin": "ba3dēn ilfírqa btí3zif!",
+            "english": "Then the band plays!"
+          },
+          {
+            "arabic": "وبُكْرة؟ جِم!",
+            "latin": "w búkra? jim!",
+            "english": "And tomorrow? The gym!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:45",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 44,
+        "regular": "road:45",
+        "title": "Hana’s trip",
+        "lines": [
+          {
+            "arabic": "حجزْنا كراسي، بسّ الطّيّارة اِلْتغت!",
+            "latin": "ɧajázna karāsi, bass iʈʈayyāra iltáɣat!",
+            "english": "We booked seats, but the plane was canceled!"
+          },
+          {
+            "arabic": "طيِّب، بْناخُد السّيّارة.",
+            "latin": "ʈáyyib, bnāxud issayyāra.",
+            "english": "Okay, we’ll take the car."
+          },
+          {
+            "arabic": "بْنِشوف التّلال، والوادي، والنّهِر.",
+            "latin": "binšūf ittlāl, w ilwādi, w innáhir.",
+            "english": "We’ll see the hills, the valley and the river."
+          },
+          {
+            "arabic": "وبْنِسْبح بِالمُحيط!",
+            "latin": "w bnísbaɧ bilmuɧīʈ!",
+            "english": "And we’ll swim in the ocean!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:46",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 45,
+        "regular": "road:46",
+        "title": "Nasser’s small words",
+        "lines": [
+          {
+            "arabic": "زمان، كان في حدا لحالو.",
+            "latin": "zamān, kān fī ɧáda laɧālu.",
+            "english": "Long ago, there was someone all alone."
+          },
+          {
+            "arabic": "حاوَل يْكمِّل، بسّ كان مُسْتحيل.",
+            "latin": "ɧāwal ykámmil, bass kān mustaɧīl.",
+            "english": "He tried to go on, but it was impossible."
+          },
+          {
+            "arabic": "لهيْك اِخْتار مكان مِخْتِلِف.",
+            "latin": "lahēk ixtār makān mixtílif.",
+            "english": "So he chose a different place."
+          },
+          {
+            "arabic": "وهلْقيْت؟ لِسّا هْناك!",
+            "latin": "w halgēt? líssa hnāk!",
+            "english": "And now? He’s still there!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:47",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 46,
+        "regular": "road:47",
+        "title": "Rami’s counter",
+        "lines": [
+          {
+            "arabic": "بدّك صْرافة؟ أنا بْفِكّ.",
+            "latin": "bíddak ʂrāfa? ána bfíkk.",
+            "english": "Need coins? I’ll make change."
+          },
+          {
+            "arabic": "وَقِّع هِنا.",
+            "latin": "wáqqi3 hína.",
+            "english": "Sign here."
+          },
+          {
+            "arabic": "حرامي؟ لا، أنا مِش حرامي!",
+            "latin": "ɧarāmi? laʔ, ána miš ɧarāmi!",
+            "english": "A thief? No, I’m not a thief!"
+          },
+          {
+            "arabic": "بسّ مرّة حدا سرق مسْطرْتي.",
+            "latin": "bass márra ɧáda sáraq masʈárti.",
+            "english": "But one day someone stole my ruler."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:48",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 47,
+        "regular": "road:48",
+        "title": "Yasmin on the roof",
+        "lines": [
+          {
+            "arabic": "شو الجوّ اليوْم؟",
+            "latin": "šu ijjáww ilyōm?",
+            "english": "What’s the weather today?"
+          },
+          {
+            "arabic": "في ضباب بِالوادي، وبعديْن شوْب.",
+            "latin": "fī ɖabāb bilwādi, w ba3dēn šōb.",
+            "english": "There’s fog in the valley, and then heat."
+          },
+          {
+            "arabic": "ما في عاصِفة اليوْم.",
+            "latin": "ma fī 3āʂife ilyōm.",
+            "english": "No storm today."
+          },
+          {
+            "arabic": "روح! بسّ اِرْجع قبِل اللّيْل.",
+            "latin": "rūɧ! bass írja3 gábil illēl.",
+            "english": "Go! But come back before night."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:49",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 48,
+        "regular": "road:49",
+        "title": "Master Karim’s sums",
+        "lines": [
+          {
+            "arabic": "خمسة زائِد خمسة؟",
+            "latin": "xámse zāyid xámse?",
+            "english": "Five plus five?"
+          },
+          {
+            "arabic": "بيطْلع عشرة! وعشرة ناقِص خمسة؟",
+            "latin": "bíʈla3 3ášara! w 3ášara nāqiʂ xámse?",
+            "english": "That makes ten! And ten minus five?"
+          },
+          {
+            "arabic": "اُكْتُب الجُمْلة، وحُطّ نُقْطة.",
+            "latin": "úktub ijjúmle, w ɧuʈʈ núqʈa.",
+            "english": "Write the sentence, and put a period."
+          },
+          {
+            "arabic": "مْنيح كْتير!",
+            "latin": "mnīɧ ktīr!",
+            "english": "Very good!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:50",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 49,
+        "regular": "road:50",
+        "title": "Elena’s languages",
+        "lines": [
+          {
+            "arabic": "بحْكي يوناني، وبُرْتُغالي، وشْوَيّ كوري.",
+            "latin": "báɧki yunāni, w burtuɣāli, w šwayy kōri.",
+            "english": "I speak Greek, Portuguese and a little Korean."
+          },
+          {
+            "arabic": "وعِبْري كمان، وشْوَيّ فارِسي.",
+            "latin": "w 3ibri kamān, w šwayy fārisi.",
+            "english": "And Hebrew too, and some Farsi."
+          },
+          {
+            "arabic": "بسّ بدّي الشّامي، مِش الفُصْحى.",
+            "latin": "bass bíddi iššāmi, miš ilfúʂɧa.",
+            "english": "But I want Levantine, not Standard Arabic."
+          },
+          {
+            "arabic": "بُكْرة القُدْس، وبعديْن حيْفا وعكّا!",
+            "latin": "búkra ilquds, w ba3dēn ɧēfa w 3ákka!",
+            "english": "Tomorrow Jerusalem, then Haifa and Akko!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:51",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 50,
+        "regular": "road:51",
+        "title": "Dr. Rana’s car",
+        "lines": [
+          {
+            "arabic": "ببّغاء بِالقفص، وسُلْحُفاة، وضُفْدع.",
+            "latin": "babbaɣā bilqáfaʂ, w sulɧufāh, w ɖúfda3.",
+            "english": "A parrot in the cage, a turtle and a frog."
+          },
+          {
+            "arabic": "الضُّفْدع بِنُطّ!",
+            "latin": "iɖɖúfda3 binúʈʈ!",
+            "english": "The frog jumps!"
+          },
+          {
+            "arabic": "والحيّة صْغيرة كْتير.",
+            "latin": "w ilɧáyye ʂɣīre ktīr.",
+            "english": "And the snake is very small."
+          },
+          {
+            "arabic": "والكلْب؟ بدّو طوْق جْديد.",
+            "latin": "w ilkalb? bíddu ʈōg jdīd.",
+            "english": "And the dog? He needs a new collar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:52",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 51,
+        "regular": "road:52",
+        "title": "The neighbors’ feast",
+        "lines": [
+          {
+            "arabic": "أنا بْروح الكنيسة، وهِيِّ بِتْصلّي بِالبيْت.",
+            "latin": "ána brūɧ ilkanīse, w híyye bitʂálli bilbēt.",
+            "english": "I go to church, and she prays at home."
+          },
+          {
+            "arabic": "بسّ العيد حِلو، وبْنُطْبُخ كْتير.",
+            "latin": "bass il3īd ɧílu, w bnúʈbux ktīr.",
+            "english": "But the holiday is lovely, and we cook a lot."
+          },
+          {
+            "arabic": "اِسْتقْبِل الضْيوف!",
+            "latin": "istáqbil iɖyūf!",
+            "english": "Welcome the guests!"
+          },
+          {
+            "arabic": "واُشْكُر الله.",
+            "latin": "w úškur alla.",
+            "english": "And thank God."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:53",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 52,
+        "regular": "road:53",
+        "title": "Sami’s nights",
+        "lines": [
+          {
+            "arabic": "مرّة، مُدخِّن طِلِع السُّطُح.",
+            "latin": "márra, mudáxxin ʈíli3 issúʈuɧ.",
+            "english": "One night, a smoker climbed onto the roof."
+          },
+          {
+            "arabic": "وواحد سكْران علّى الصّوْت!",
+            "latin": "w wāɧad sakrān 3álla iʂʂōt!",
+            "english": "And a drunk turned it up!"
+          },
+          {
+            "arabic": "وواحد هرّب سجايِر.",
+            "latin": "w wāɧad hárrab sajāyir.",
+            "english": "And someone smuggled cigarettes."
+          },
+          {
+            "arabic": "بسّ أنا مِش مِتْفاجِئ.",
+            "latin": "bass ána miš mitfāji.",
+            "english": "But I’m not surprised."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:54",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 53,
+        "regular": "road:54",
+        "title": "Bassam’s table",
+        "lines": [
+          {
+            "arabic": "قدّمْت على شُغُل؟ عِنْدك خِبْرة؟",
+            "latin": "gaddámt 3ala šúɣul? 3índak xíbra?",
+            "english": "Have you applied for work? Do you have experience?"
+          },
+          {
+            "arabic": "بدّي نجّار، وكهْربائي، وسبّاك.",
+            "latin": "bíddi najjār, w kahrabāʔi, w sabbāk.",
+            "english": "I need a carpenter, an electrician and a plumber."
+          },
+          {
+            "arabic": "في أوْفر تايْم، وحافِز كمان.",
+            "latin": "fī óvar tāym, w ɧāfiz kamān.",
+            "english": "There’s overtime, and a bonus too."
+          },
+          {
+            "arabic": "وبعِد سنة؟ ترْقِيَة!",
+            "latin": "w bá3id sane? targíye!",
+            "english": "And after a year? A promotion!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:55",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 54,
+        "regular": "road:55",
+        "title": "Samar’s clinic",
+        "lines": [
+          {
+            "arabic": "اِنْجرحْت؟ اُقْعُد هِنا.",
+            "latin": "injaráɧt? úg3ud hína.",
+            "english": "Hurt yourself? Sit here."
+          },
+          {
+            "arabic": "الجرِح صْغير، بسّ بدّك تِتْغرّز.",
+            "latin": "ijjáriɧ ʂɣīr, bass bíddak titɣárraz.",
+            "english": "The cut is small, but you need stitches."
+          },
+          {
+            "arabic": "دايِخ؟ اِشْرب ميّ.",
+            "latin": "dāyix? íšrab mayy.",
+            "english": "Dizzy? Drink some water."
+          },
+          {
+            "arabic": "وبُكْرة، فحِص دمّ.",
+            "latin": "w búkra, fáɧiʂ damm.",
+            "english": "And tomorrow, a blood test."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:56",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 55,
+        "regular": "road:56",
+        "title": "Abu Jamal’s tray",
+        "lines": [
+          {
+            "arabic": "السّاعة أربعة! كْنافة!",
+            "latin": "issā3a árba3a! knāfe!",
+            "english": "It’s four o’clock! Kunafeh!"
+          },
+          {
+            "arabic": "خُد لُقْمة!",
+            "latin": "xud lúgme!",
+            "english": "Take a bite!"
+          },
+          {
+            "arabic": "حِلْوَة؟ مِش ماسْخة؟",
+            "latin": "ɧílwe? miš māsxa?",
+            "english": "Sweet? Not bland?"
+          },
+          {
+            "arabic": "وبُكْرة بقْلاوَة وقْطايِف!",
+            "latin": "w búkra baglāwa w gʈāyif!",
+            "english": "And tomorrow, baklava and qatayef!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:57",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 56,
+        "regular": "road:57",
+        "title": "Widad’s toolbox",
+        "lines": [
+          {
+            "arabic": "الشّقّة مفْروشة، بسّ بدّي عِدّة.",
+            "latin": "iššáqqa mafrūše, bass bíddi 3ídde.",
+            "english": "The apartment is furnished, but I need tools."
+          },
+          {
+            "arabic": "شاكوش، ومسامير، ومفكّ.",
+            "latin": "šakūš, w masamīr, w mfakk.",
+            "english": "A hammer, nails and a screwdriver."
+          },
+          {
+            "arabic": "علّقْت صورة، ومسحْت الغبرة.",
+            "latin": "3allágt ʂūra, w masáɧt ilɣábara.",
+            "english": "I hung a picture, and I dusted."
+          },
+          {
+            "arabic": "وبُكْرة بْقُصّ الحشيش!",
+            "latin": "w búkra bguʂʂ ilɧašīš!",
+            "english": "And tomorrow I’ll mow the lawn!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:58",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 57,
+        "regular": "road:58",
+        "title": "Sitt Fatima’s night",
+        "lines": [
+          {
+            "arabic": "أنا ما بْنامِش.",
+            "latin": "ána ma bnāmiš.",
+            "english": "I don’t sleep."
+          },
+          {
+            "arabic": "عِنْدي أرق، مِن زمان.",
+            "latin": "3índi árag, min zamān.",
+            "english": "I’ve had insomnia for ages."
+          },
+          {
+            "arabic": "وإنْتَ؟ نوْمك تْقيل؟ بِتْشخِّر؟",
+            "latin": "w ínta? nōmak tgīl? bitšáxxir?",
+            "english": "And you? Are you a deep sleeper? Do you snore?"
+          },
+          {
+            "arabic": "اُقْعُد! بْنِسْهر طول اللّيْل.",
+            "latin": "úg3ud! bníshar ʈūl illēl.",
+            "english": "Sit! We’ll stay up all night."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:59",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 58,
+        "regular": "road:59",
+        "title": "Hiba’s folder",
+        "lines": [
+          {
+            "arabic": "القانون واضِح.",
+            "latin": "ilqanūn wāɖiɧ.",
+            "english": "The law is clear."
+          },
+          {
+            "arabic": "بسّ الحُكومة بدّها ضريبة.",
+            "latin": "bass ilɧukūme bíddha ɖarībe.",
+            "english": "But the government wants a tax."
+          },
+          {
+            "arabic": "أنا مُحامية، مِش قاضي.",
+            "latin": "ána muɧāmye, miš gāɖi.",
+            "english": "I’m a lawyer, not a judge."
+          },
+          {
+            "arabic": "بُكْرة بْنروح المحْكمة.",
+            "latin": "búkra bnrūɧ ilmáɧkame.",
+            "english": "Tomorrow we go to court."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:60",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 59,
+        "regular": "road:60",
+        "title": "Adel and Aya",
+        "lines": [
+          {
+            "arabic": "الجوّ حِلو! لا، بارِد!",
+            "latin": "ijjáww ɧílu! laʔ, bārid!",
+            "english": "The weather’s nice! No, it’s cold!"
+          },
+          {
+            "arabic": "أنا مِتْأكِّد. وأنا مِتْأكِّدة!",
+            "latin": "ána mitʔákkid. w ána mitʔákkide!",
+            "english": "I’m sure. And I’m sure!"
+          },
+          {
+            "arabic": "بْنِخْتِلِف على كُلّ إشي!",
+            "latin": "bnixtílif 3ala kull íši!",
+            "english": "We disagree about everything!"
+          },
+          {
+            "arabic": "بسّ إحْنا تَوْأم!",
+            "latin": "bass íɧna tawʔam!",
+            "english": "But we’re twins!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:61",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 60,
+        "regular": "road:61",
+        "title": "Omar’s opening night",
+        "lines": [
+          {
+            "arabic": "أنا بْنظِّم كُلّ إشي!",
+            "latin": "ána bnáʐʐim kull íši!",
+            "english": "I’m organizing everything!"
+          },
+          {
+            "arabic": "النّاس بْيِحْضروا. اِتْأدّبوا!",
+            "latin": "innās byiɧɖáru. itʔáddabu!",
+            "english": "People are coming. Behave!"
+          },
+          {
+            "arabic": "بْراهْنك: بْنِنْجح!",
+            "latin": "brāhnak: bnínjaɧ!",
+            "english": "I bet you: we’ll pull it off!"
+          },
+          {
+            "arabic": "شجِّعْني!",
+            "latin": "šajjí3ni!",
+            "english": "Cheer me on!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:62",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 61,
+        "regular": "road:62",
+        "title": "Fuad’s taxi",
+        "lines": [
+          {
+            "arabic": "حُطّ حْزام الأمان!",
+            "latin": "ɧuʈʈ ɧzām ilʔamān!",
+            "english": "Put on your seat belt!"
+          },
+          {
+            "arabic": "بتْجاوَز هالباص، وبغيِّر الخطّ.",
+            "latin": "batjāwaz halbāʂ, w baɣáyyir ilxaʈʈ.",
+            "english": "I’ll overtake this bus and change lanes."
+          },
+          {
+            "arabic": "بْريْك؟ لا، بسْرِع!",
+            "latin": "brēk? laʔ, básri3!",
+            "english": "Brake? No, I speed up!"
+          },
+          {
+            "arabic": "ما عملْت حادِث بِحَياتي.",
+            "latin": "ma 3amílt ɧādis biɧayāti.",
+            "english": "I’ve never had an accident in my life."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:63",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 62,
+        "regular": "road:63",
+        "title": "Dana’s desk",
+        "lines": [
+          {
+            "arabic": "عِنْدك فيزا؟ ساري؟",
+            "latin": "3índak vīza? sāri?",
+            "english": "Do you have a visa? Is it valid?"
+          },
+          {
+            "arabic": "الطّيّارة بْتِهْبُط بِاللّيْل.",
+            "latin": "iʈʈayyāra btíhbuʈ billēl.",
+            "english": "The plane lands at night."
+          },
+          {
+            "arabic": "وبعديْن تْرانْزيت، وجمارِك.",
+            "latin": "w ba3dēn transīt, w jamārik.",
+            "english": "Then you change planes, and there’s customs."
+          },
+          {
+            "arabic": "وحُطّ واقي شمِس!",
+            "latin": "w ɧuʈʈ wāgi šámis!",
+            "english": "And put on sunscreen!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:64",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 63,
+        "regular": "road:64",
+        "title": "Abu Rafiq’s troupe",
+        "lines": [
+          {
+            "arabic": "بِالمسْرح، أنا بمثِّل دوْر ملِك.",
+            "latin": "bilmásraɧ, ána bamássil dōr málik.",
+            "english": "At the theater, I play the part of a king."
+          },
+          {
+            "arabic": "العود نشاز! زبّطو!",
+            "latin": "il3ūd našāz! zabbíʈu!",
+            "english": "The oud is out of tune! Tune it!"
+          },
+          {
+            "arabic": "بعِد الاِسْتِراحة، الجُمْهور بِزقِّف.",
+            "latin": "bá3id ilistirāɧa, ijjumhūr bizáqqif.",
+            "english": "After the intermission, the audience claps."
+          },
+          {
+            "arabic": "وأنا؟ بطّلْت أدخِّن!",
+            "latin": "w ána? baʈʈált adáxxin!",
+            "english": "And me? I quit smoking!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:65",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 64,
+        "regular": "road:65",
+        "title": "Coach Majd",
+        "lines": [
+          {
+            "arabic": "اِلْعب ضِدّي!",
+            "latin": "íl3ab ɖíddi!",
+            "english": "Play against me!"
+          },
+          {
+            "arabic": "حركْتك؟ كِش!",
+            "latin": "ɧaráktak? kišš!",
+            "english": "Your move? Check!"
+          },
+          {
+            "arabic": "بطل؟ لا، بسّ عِنْدي لَياقة.",
+            "latin": "báʈal? laʔ, bass 3índi layāqa.",
+            "english": "A champion? No, I’m just fit."
+          },
+          {
+            "arabic": "بُكْرة: ضغِط، ومِعْدة، ونطّ حبِل!",
+            "latin": "búkra: ɖáɣiʈ, w mí3de, w naʈʈ ɧábil!",
+            "english": "Tomorrow: push-ups, sit-ups and jump rope!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:66",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 65,
+        "regular": "road:66",
+        "title": "Professor Salwa’s week",
+        "lines": [
+          {
+            "arabic": "المُحاضرة بُكْرة، بِالمُخْتبر.",
+            "latin": "ilmuɧāɖara búkra, bilmuxtábar.",
+            "english": "The lecture is tomorrow, in the lab."
+          },
+          {
+            "arabic": "تخصُّصك شو؟ كيمْيا؟ فلْسفة؟",
+            "latin": "taxaʂʂúʂak šu? kīmya? fálsafe?",
+            "english": "What’s your major? Chemistry? Philosophy?"
+          },
+          {
+            "arabic": "اِقْرا هالمقال، وهالقصيدة.",
+            "latin": "ígra halmaqāl, w halqaʂīde.",
+            "english": "Read this article, and this poem."
+          },
+          {
+            "arabic": "وبعديْن بْتِتْخرّج!",
+            "latin": "w ba3dēn btitxárraj!",
+            "english": "And then you’ll graduate!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:67",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 66,
+        "regular": "road:67",
+        "title": "Abu Saleh’s questions",
+        "lines": [
+          {
+            "arabic": "البغِل بِرْعى بِالبُسْتان.",
+            "latin": "ilbáɣil bír3a bilbustān.",
+            "english": "The mule grazes in the orchard."
+          },
+          {
+            "arabic": "والغنمة؟ بحْلِبْها.",
+            "latin": "w ilɣáname? baɧlíbha.",
+            "english": "And the ewe? I milk her."
+          },
+          {
+            "arabic": "والدّيك؟ ما بيْبيضْش!",
+            "latin": "w iddīk? ma bibīɖš!",
+            "english": "And the rooster? He doesn’t lay eggs!"
+          },
+          {
+            "arabic": "وإنْتَ؟ بْتُحْرُت؟ بْتُحْصُد؟",
+            "latin": "w ínta? btúɧrut? btúɧʂud?",
+            "english": "And you? Do you plow? Do you harvest?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:68",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 67,
+        "regular": "road:68",
+        "title": "Rami’s proposal",
+        "lines": [
+          {
+            "arabic": "عِنْدي تحْويشة، وبدّي أفْتح شُغْلي الخاصّ.",
+            "latin": "3índi taɧwīše, w bíddi áftaɧ šúɣli ilxāʂʂ.",
+            "english": "I have savings, and I want to start my own business."
+          },
+          {
+            "arabic": "شوف المُقْترح!",
+            "latin": "šūf ilmuqtáraɧ!",
+            "english": "Look at the proposal!"
+          },
+          {
+            "arabic": "بدْفع بِالأقْساط.",
+            "latin": "bádfa3 bilʔaqsāʈ.",
+            "english": "I’ll pay in installments."
+          },
+          {
+            "arabic": "مُمْكِن؟ ولّا بِتْأجِّل؟",
+            "latin": "múmkin? wálla bitʔájjil?",
+            "english": "Is it possible? Or will you put it off?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:69",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 68,
+        "regular": "road:69",
+        "title": "Yasmin’s compass",
+        "lines": [
+          {
+            "arabic": "شوف البوْصلة!",
+            "latin": "šūf ilbōʂle!",
+            "english": "Look at the compass!"
+          },
+          {
+            "arabic": "في رعِد وبرِق.",
+            "latin": "fī rá3id w báriq.",
+            "english": "There’s thunder and lightning."
+          },
+          {
+            "arabic": "وبرد كمان!",
+            "latin": "w bárad kamān!",
+            "english": "And hail too!"
+          },
+          {
+            "arabic": "ضلّ هِنا، مِش برّا!",
+            "latin": "ɖall hína, miš bárra!",
+            "english": "Stay here, not outside!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:70",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 69,
+        "regular": "road:70",
+        "title": "Umm Nabil’s list",
+        "lines": [
+          {
+            "arabic": "عُمْرك تلاتين؟ ولِسّا؟",
+            "latin": "3úmrak tlatīn? w líssa?",
+            "english": "You’re thirty? And still not?"
+          },
+          {
+            "arabic": "بدّك خطيبة حِلْوَة ومُؤدّبة.",
+            "latin": "bíddak xaʈībe ɧílwe w muʔáddabe.",
+            "english": "You need a pretty, well-behaved fiancée."
+          },
+          {
+            "arabic": "عِنْدي واحدة، وعيْلِتْها كْبيرة.",
+            "latin": "3índi wáɧde, w 3elítha kbīre.",
+            "english": "I have one, and her family is big."
+          },
+          {
+            "arabic": "بعِد الخُطْبة، العُرُس!",
+            "latin": "bá3id ilxúʈbe, il3úrus!",
+            "english": "After the engagement, the wedding!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:71",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 70,
+        "regular": "road:71",
+        "title": "Abu Hani’s mirror",
+        "lines": [
+          {
+            "arabic": "بدّك أزبِّط دقْنك؟",
+            "latin": "bíddak azábbiʈ dágnak?",
+            "english": "Want me to trim your beard?"
+          },
+          {
+            "arabic": "وشعْرك؟ بصْبُغو؟",
+            "latin": "w šá3rak? baʂbúɣu?",
+            "english": "And your hair? Shall I dye it?"
+          },
+          {
+            "arabic": "شكْلك حِلو، بسّ في نمش.",
+            "latin": "šáklak ɧílu, bass fī námaš.",
+            "english": "You look good, but you have freckles."
+          },
+          {
+            "arabic": "خلّيه! النّمش حِلو.",
+            "latin": "xallī! innámaš ɧílu.",
+            "english": "Leave them! Freckles are nice."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:72",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 71,
+        "regular": "road:72",
+        "title": "Hind’s iron",
+        "lines": [
+          {
+            "arabic": "قميصك مْجعْلك! وين المكْوى؟",
+            "latin": "gamīʂak mjá3lak! wēn ilmákwa?",
+            "english": "Your shirt is wrinkled! Where’s the iron?"
+          },
+          {
+            "arabic": "وهالزِّرّ؟ بخيِّطو.",
+            "latin": "w hazzírr? baxayyíʈu.",
+            "english": "And this button? I’ll sew it on."
+          },
+          {
+            "arabic": "سكّر الزْرار، وسكّر السّحّاب!",
+            "latin": "sákkir izzrār, w sákkir issaɧɧāb!",
+            "english": "Button up, and zip up!"
+          },
+          {
+            "arabic": "هلْقيْت إنْتَ حِلو.",
+            "latin": "halgēt ínta ɧílu.",
+            "english": "Now you look good."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:73",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 72,
+        "regular": "road:73",
+        "title": "Tamer’s stall",
+        "lines": [
+          {
+            "arabic": "السّمك طازة، مِش بايِت!",
+            "latin": "issámak ʈāza, miš bāyit!",
+            "english": "The fish is fresh, not stale!"
+          },
+          {
+            "arabic": "في محار، وحبّار، وأُخْطُبوط.",
+            "latin": "fī maɧār, w ɧabbār, w uxʈubūʈ.",
+            "english": "There are mussels, squid and octopus."
+          },
+          {
+            "arabic": "وهْناك؟ ريحان، وزنْجبيل، وكاري.",
+            "latin": "w hnāk? riɧān, w zanjabīl, w kāri.",
+            "english": "And over there? Basil, ginger and curry."
+          },
+          {
+            "arabic": "بقطِّع السّمكة بِالنُّصّ؟",
+            "latin": "bagáʈʈi3 issámake binnúʂʂ?",
+            "english": "Shall I cut the fish in half?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:74",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 73,
+        "regular": "road:74",
+        "title": "Mr. Kamal’s kings",
+        "lines": [
+          {
+            "arabic": "زمان، الملِك حكم ممْلكة كْبيرة.",
+            "latin": "zamān, ilmálik ɧákam mámlake kbīre.",
+            "english": "Long ago, the king ruled a big kingdom."
+          },
+          {
+            "arabic": "بعديْن صارت إمْبِراطورية.",
+            "latin": "ba3dēn ʂārat imbiraʈōríyye.",
+            "english": "Then it became an empire."
+          },
+          {
+            "arabic": "والنّاس اِتْظاهروا، وعملوا ثَوْرة.",
+            "latin": "w innās itʐāharu, w 3ámalu sáwra.",
+            "english": "And the people protested and made a revolution."
+          },
+          {
+            "arabic": "وهلْقيْت؟ جُمْهورية!",
+            "latin": "w halgēt? jumhūríyye!",
+            "english": "And now? A republic!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:75",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 74,
+        "regular": "road:75",
+        "title": "Abu Jaber’s table",
+        "lines": [
+          {
+            "arabic": "مِش حرْب، سلام!",
+            "latin": "miš ɧarb, salām!",
+            "english": "Not war: peace!"
+          },
+          {
+            "arabic": "اُقْعُدوا، وخلّينا نِحْكي.",
+            "latin": "ug3údu, w xallīna níɧki.",
+            "english": "Sit down, and let’s talk."
+          },
+          {
+            "arabic": "بدّنا اِتِّفاق، مِش اِنْتِقاد.",
+            "latin": "bíddna ittifāg, miš intigād.",
+            "english": "We need an agreement, not criticism."
+          },
+          {
+            "arabic": "شو نيِّتْكم؟",
+            "latin": "šu niyyítkum?",
+            "english": "What are your intentions?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:76",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 75,
+        "regular": "road:76",
+        "title": "The imam and the priest",
+        "lines": [
+          {
+            "arabic": "أنا إمام، وهُوَّ قسيس.",
+            "latin": "ána imām, w húwwe qissīs.",
+            "english": "I’m an imam, and he’s a priest."
+          },
+          {
+            "arabic": "هُوَّ بْيِسْمع الأدان، وأنا بسْمع الجَوْقة.",
+            "latin": "húwwe byísma3 ilʔadān, w ána básma3 ijjáwqa.",
+            "english": "He hears the call to prayer, and I hear the choir."
+          },
+          {
+            "arabic": "بسّ إحْنا صْحاب مِن زمان.",
+            "latin": "bass íɧna ʂɧāb min zamān.",
+            "english": "But we’ve been friends for ages."
+          },
+          {
+            "arabic": "وبِنْحِبّ القهْوة!",
+            "latin": "w binɧíbb ilgáhwa!",
+            "english": "And we both love coffee!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:77",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 76,
+        "regular": "road:77",
+        "title": "Dr. Salwa’s clinic",
+        "lines": [
+          {
+            "arabic": "أخدْت ماسْتر، وبعديْن صِرْت جرّاحة.",
+            "latin": "axádt master, w ba3dēn ʂirt jarrāɧa.",
+            "english": "I did a master’s, and then I became a surgeon."
+          },
+          {
+            "arabic": "البنْك موّل العِيادة.",
+            "latin": "ilbank máwwal il3iyāde.",
+            "english": "The bank financed the clinic."
+          },
+          {
+            "arabic": "وبدْفع تقْسيط كُلّ شهِر.",
+            "latin": "w bádfa3 tagsīʈ kull šáhir.",
+            "english": "And I pay an installment every month."
+          },
+          {
+            "arabic": "بدّك عملية؟ لا، بسّ فحِص!",
+            "latin": "bíddak 3amalíyye? laʔ, bass fáɧiʂ!",
+            "english": "You need an operation? No, just a check-up!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:78",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 77,
+        "regular": "road:78",
+        "title": "Rana’s stories",
+        "lines": [
+          {
+            "arabic": "في اِنْتِخابات، وفي محْكمة.",
+            "latin": "fī intixabāt, w fī máɧkame.",
+            "english": "There’s an election, and there’s a trial."
+          },
+          {
+            "arabic": "مين رشّح حالو؟",
+            "latin": "mīn ráššaɧ ɧālu?",
+            "english": "Who put himself forward?"
+          },
+          {
+            "arabic": "والتُّهْمة؟ هُوَّ بْيِنْكِر.",
+            "latin": "w ittúhme? húwwe byínkir.",
+            "english": "And the charge? He denies it."
+          },
+          {
+            "arabic": "بُكْرة بنْشُر المقال.",
+            "latin": "búkra bánšur ilmaqāl.",
+            "english": "Tomorrow I publish the article."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:79",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 78,
+        "regular": "road:79",
+        "title": "Dr. Nader’s chair",
+        "lines": [
+          {
+            "arabic": "اِفْتح تِمّك!",
+            "latin": "íftaɧ tímmak!",
+            "english": "Open your mouth!"
+          },
+          {
+            "arabic": "عِنْدك تسوُّس.",
+            "latin": "3índak tasáwwus.",
+            "english": "You have a cavity."
+          },
+          {
+            "arabic": "بْنِحْشي السِّنّ، ما بْنِخْلعو.",
+            "latin": "bníɧši issínn, ma bnixlá3u.",
+            "english": "We’ll fill the tooth, not pull it."
+          },
+          {
+            "arabic": "ونضِّف سْنانك بِالخيْط!",
+            "latin": "w náɖɖif snānak bilxēʈ!",
+            "english": "And floss your teeth!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:80",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 79,
+        "regular": "road:80",
+        "title": "Rami’s office",
+        "lines": [
+          {
+            "arabic": "سِبْت الشُّغُل بِالحُكومة.",
+            "latin": "sibt iššúɣul bilɧukūme.",
+            "english": "I quit my job in the public sector."
+          },
+          {
+            "arabic": "هلْقيْت عِنْدي مكْتب، وفاكْس، ودبّاسة!",
+            "latin": "halgēt 3índi máktab, w faks, w dabbāse!",
+            "english": "Now I have an office, a fax and a stapler!"
+          },
+          {
+            "arabic": "بعمل سْكان، وبدبِّس، وبساوِم.",
+            "latin": "bá3mal skan, w badábbis, w basāwim.",
+            "english": "I scan, I staple and I haggle."
+          },
+          {
+            "arabic": "شو رأيك؟",
+            "latin": "šu ráʔyak?",
+            "english": "What do you think?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:81",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 80,
+        "regular": "road:81",
+        "title": "Uncle Fawzi’s car",
+        "lines": [
+          {
+            "arabic": "السّيّارة عادي، مِش أوْتوْماتِك.",
+            "latin": "issayyāra 3ādi, miš otomātik.",
+            "english": "The car is a manual, not an automatic."
+          },
+          {
+            "arabic": "اِدْعس الكْلتْش، وبدِّل.",
+            "latin": "íd3as ilklatš, w báddil.",
+            "english": "Press the clutch, and change gears."
+          },
+          {
+            "arabic": "لافيْرْس؟ لا! قُدّام!",
+            "latin": "lavērs? laʔ! guddām!",
+            "english": "Reverse? No! Forward!"
+          },
+          {
+            "arabic": "وَسِّع! الباص إلو الأَوْلَوية.",
+            "latin": "wássi3! ilbāʂ ílu ilʔawlawíyye.",
+            "english": "Give way! The bus has the right of way."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:82",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 81,
+        "regular": "road:82",
+        "title": "Umm Yousef’s garden",
+        "lines": [
+          {
+            "arabic": "بعشِّب كُلّ إسْبوع.",
+            "latin": "ba3áššib kull isbū3.",
+            "english": "I weed every week."
+          },
+          {
+            "arabic": "شوف القْرُنْفُل، والخُزامى، والصّبّار.",
+            "latin": "šūf ilgrúnful, w ilxuzāma, w iʂʂabbār.",
+            "english": "Look at the carnations, the tulips and the cactus."
+          },
+          {
+            "arabic": "وعلى الكرْمة؟ دبّور!",
+            "latin": "w 3ala ilkárme? dabbūr!",
+            "english": "And on the vine? A wasp!"
+          },
+          {
+            "arabic": "بسّ الدّود مُفيد.",
+            "latin": "bass iddūd mufīd.",
+            "english": "But worms are useful."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:83",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 82,
+        "regular": "road:83",
+        "title": "Dr. Ingrid’s notebook",
+        "lines": [
+          {
+            "arabic": "بحْكي فُصْحى بْطلاقة.",
+            "latin": "báɧki fúʂɧa bʈalāqa.",
+            "english": "I speak Standard Arabic fluently."
+          },
+          {
+            "arabic": "بسّ العامّية؟ صعْبة!",
+            "latin": "bass il3ammíyye? ʂá3be!",
+            "english": "But colloquial? It’s hard!"
+          },
+          {
+            "arabic": "كُلّ مدينة بِتِحْكي لهْجة.",
+            "latin": "kull madīne bitíɧki láhje.",
+            "english": "Every town speaks its own dialect."
+          },
+          {
+            "arabic": "وأنا؟ عِنْدي لكْنة!",
+            "latin": "w ána? 3índi lákne!",
+            "english": "And me? I have an accent!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:84",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 83,
+        "regular": "road:84",
+        "title": "Elias’s colors",
+        "lines": [
+          {
+            "arabic": "بيْج؟ كُحْلي؟ تِرْكْواز؟",
+            "latin": "bēj? kúɧli? tirkwāz?",
+            "english": "Beige? Navy blue? Turquoise?"
+          },
+          {
+            "arabic": "في مية درجة مِن كُلّ لوْن.",
+            "latin": "fī míyye dáraje min kull lōn.",
+            "english": "There are a hundred shades of every color."
+          },
+          {
+            "arabic": "الحيْط خِشِن، بسّ مْلوّن.",
+            "latin": "ilɧēʈ xíšin, bass mláwwan.",
+            "english": "The wall is rough, but colorful."
+          },
+          {
+            "arabic": "وبعديْن، شُبّاك أخْضر!",
+            "latin": "w ba3dēn, šubbāk áxɖar!",
+            "english": "And then, a green window!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:85",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 84,
+        "regular": "road:85",
+        "title": "Abu Samir’s thimble",
+        "lines": [
+          {
+            "arabic": "عِنْدي مفكّ، وكشْتبان.",
+            "latin": "3índi mfakk, w kaštabān.",
+            "english": "I have a screwdriver and a thimble."
+          },
+          {
+            "arabic": "بصلِّح كُلّ إشي!",
+            "latin": "baʂálliɧ kull íši!",
+            "english": "I fix everything!"
+          },
+          {
+            "arabic": "اِعْمل إيدك بوْكْس، ومِدّ أصابيعك.",
+            "latin": "í3mal īdak boks, w midd aʂabī3ak.",
+            "english": "Make a fist, and stretch out your fingers."
+          },
+          {
+            "arabic": "مْنيح! إيدك مِش مكْسورة.",
+            "latin": "mnīɧ! īdak miš maksūra.",
+            "english": "Good! Your hand isn’t broken."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:86",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 85,
+        "regular": "road:86",
+        "title": "Miss Rula’s class",
+        "lines": [
+          {
+            "arabic": "اليوْم نحو: مُذكّر ومُؤنّث.",
+            "latin": "ilyōm naɧu: mudákkar w muʔánnas.",
+            "english": "Today, grammar: masculine and feminine."
+          },
+          {
+            "arabic": "ومُثنّى، ومُعرّف، ونكِرة.",
+            "latin": "w musánna, w mu3árraf, w nákira.",
+            "english": "And the dual, definite and indefinite."
+          },
+          {
+            "arabic": "ووين التّرْقيم؟ وين القوْس؟",
+            "latin": "w wēn ittargīm? wēn ilgōs?",
+            "english": "And where’s the punctuation? Where’s the bracket?"
+          },
+          {
+            "arabic": "بعِد الدّرس، برّا!",
+            "latin": "bá3id iddars, bárra!",
+            "english": "After the lesson, outside!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:87",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 86,
+        "regular": "road:87",
+        "title": "Abu Nabil’s second words",
+        "lines": [
+          {
+            "arabic": "أنا ناطور، يَعْني بوّاب.",
+            "latin": "ána naʈūr, yá3ni bawwāb.",
+            "english": "I’m a natour, I mean a doorman."
+          },
+          {
+            "arabic": "والشّيش؟ أنا بْقول أباجوْر.",
+            "latin": "w iššīš? ána bgūl abajōr.",
+            "english": "And shutters? I say abajour."
+          },
+          {
+            "arabic": "والتِّمْباك؟ يَعْني تِبِغ.",
+            "latin": "w ittimbāk? yá3ni tíbiɣ.",
+            "english": "And tumbak? It means tobacco."
+          },
+          {
+            "arabic": "الشّباب ما بْيِعْرِفوش!",
+            "latin": "iššabāb ma byi3rifūš!",
+            "english": "Young people don’t know!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:88",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 87,
+        "regular": "road:88",
+        "title": "Brother Antoun’s books",
+        "lines": [
+          {
+            "arabic": "أنا راهِب، مِش كاهِن.",
+            "latin": "ána rāhib, miš kāhin.",
+            "english": "I’m a monk, not a priest."
+          },
+          {
+            "arabic": "شوف السّنَوْنَو! رِجِع.",
+            "latin": "šūf issanúnu! ríji3.",
+            "english": "Look at the swallow! It’s back."
+          },
+          {
+            "arabic": "وهالكُتُب مِن عصِر قديم.",
+            "latin": "w halkútub min 3áʂir gadīm.",
+            "english": "And these books are from an old era."
+          },
+          {
+            "arabic": "والعتّال بِشيلْها.",
+            "latin": "w il3attāl bišílha.",
+            "english": "And the porter carries them."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:89",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 88,
+        "regular": "road:89",
+        "title": "Khalil’s signs",
+        "lines": [
+          {
+            "arabic": "بكْتُب الحْروف، مِش النُّقط.",
+            "latin": "báktub ilɧrūf, miš innúgaʈ.",
+            "english": "I paint the letters, not the dots."
+          },
+          {
+            "arabic": "بينْقرا! مِش هيك؟",
+            "latin": "bingára! miš hēk?",
+            "english": "You can read it! Can’t you?"
+          },
+          {
+            "arabic": "اليافْطة جاهْزة!",
+            "latin": "ilyāfʈa jāhze!",
+            "english": "The sign is ready!"
+          },
+          {
+            "arabic": "شو كتبْت؟ ما بعْرِفْش!",
+            "latin": "šu katábt? ma ba3rífš!",
+            "english": "What did I write? I don’t know!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:90",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 89,
+        "regular": "road:90",
+        "title": "The coffeehouse chess",
+        "lines": [
+          {
+            "arabic": "دوْرك، أبو فادي!",
+            "latin": "dōrak, abu fādi!",
+            "english": "Your turn, Abu Fadi!"
+          },
+          {
+            "arabic": "الحْصان؟ لا، الوَزير!",
+            "latin": "ilɧʂān? laʔ, ilwazīr!",
+            "english": "The knight? No, the queen!"
+          },
+          {
+            "arabic": "كِش! إنْتَ ضْعيف اليوْم.",
+            "latin": "kišš! ínta ɖ3īf ilyōm.",
+            "english": "Check! You’re weak today."
+          },
+          {
+            "arabic": "بُكْرة بِرْبح أنا!",
+            "latin": "búkra bárbaɧ ána!",
+            "english": "Tomorrow I win!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:91",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 90,
+        "regular": "road:91",
+        "title": "Umm Fares’s calendars",
+        "lines": [
+          {
+            "arabic": "وين كانون التّاني؟",
+            "latin": "wēn kanūn ittāni?",
+            "english": "Where’s January?"
+          },
+          {
+            "arabic": "وتِشْرين الأوّل، وتِشْرين التّاني، وكانون الأوّل؟",
+            "latin": "w tišrīn ilʔáwwal, w tišrīn ittāni, w kanūn ilʔáwwal?",
+            "english": "And October, November and December?"
+          },
+          {
+            "arabic": "الطّابْعة خِرْبِت!",
+            "latin": "iʈʈāb3a xírbit!",
+            "english": "The printer broke!"
+          },
+          {
+            "arabic": "بعِد بُكْرا بطْبع كُلّ إشي.",
+            "latin": "bá3id búkra báʈba3 kull íši.",
+            "english": "The day after tomorrow I’ll print everything."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:92",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 91,
+        "regular": "road:92",
+        "title": "Abu Jamil’s bus",
+        "lines": [
+          {
+            "arabic": "الباص بِروح بعْد الضُّهُر، وبِرْجع في اللّيْل.",
+            "latin": "ilbāʂ birūɧ ba3d iɖɖúhur, w bírja3 fi illēl.",
+            "english": "The bus leaves in the afternoon and comes back at night."
+          },
+          {
+            "arabic": "قدّيْش المسافة؟ ساعة.",
+            "latin": "qaddēš ilmasāfe? sā3a.",
+            "english": "How far? An hour."
+          },
+          {
+            "arabic": "كُلّ قدّيْش؟ كُلّ يوْم.",
+            "latin": "kull qaddēš? kull yōm.",
+            "english": "How often? Every day."
+          },
+          {
+            "arabic": "اِرْكب! كمان شْوَيّة بْنِمْشي.",
+            "latin": "írkab! kamān šwáyye bnímši.",
+            "english": "Get on! We leave in a bit."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:93",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 92,
+        "regular": "road:93",
+        "title": "Umm Khalil’s Eid",
+        "lines": [
+          {
+            "arabic": "اليوْم العيد! كُلّ واحد هِنا.",
+            "latin": "ilyōm il3īd! kull wāɧad hína.",
+            "english": "Today is Eid! Everyone is here."
+          },
+          {
+            "arabic": "وْلادي، والأحْفاد، وكُلّ العيْلة.",
+            "latin": "wlādi, w ilʔaɧfād, w kull il3ēle.",
+            "english": "My sons, the grandchildren, the whole family."
+          },
+          {
+            "arabic": "بِاسْمِ الله، كُلوا!",
+            "latin": "bísmilla, kúlu!",
+            "english": "In God’s name, eat!"
+          },
+          {
+            "arabic": "دايْمة!",
+            "latin": "dāyme!",
+            "english": "May there always be plenty!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:94",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 93,
+        "regular": "road:94",
+        "title": "Hanan’s phone shop",
+        "lines": [
+          {
+            "arabic": "الدِّنْيا بِتْمطِّر، والجّوّال مبْلول.",
+            "latin": "iddínya bitmáʈʈir, w ijjawwāl mablūl.",
+            "english": "It’s raining, and the phone is wet."
+          },
+          {
+            "arabic": "آلوْ؟ آلوْ؟ ما في صوْت.",
+            "latin": "ālo? ālo? ma fī ʂōt.",
+            "english": "Hello? Hello? There’s no sound."
+          },
+          {
+            "arabic": "حُطّو هِنا، وكمان شْوَيّة بِرِنّ.",
+            "latin": "ɧúʈʈu hína, w kamān šwáyye birínn.",
+            "english": "Put it here, and in a bit it’ll ring."
+          },
+          {
+            "arabic": "الجّوّال بيرِنّ!",
+            "latin": "ijjawwāl birínn!",
+            "english": "The phone’s ringing!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:95",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 94,
+        "regular": "road:95",
+        "title": "Abu Samir’s cousins",
+        "lines": [
+          {
+            "arabic": "اِبِن عمّي مِن عمّان، وبِنْت خالْتي مِن القُدْس.",
+            "latin": "íbin 3ámmi min 3ammān, w bint xálti min ilquds.",
+            "english": "One cousin is from Amman, and another from Jerusalem."
+          },
+          {
+            "arabic": "شو اِسْم العيْلة؟ نفْس الاِسِم!",
+            "latin": "šu ism il3ēle? nafs ilʔísim!",
+            "english": "What’s the last name? The same name!"
+          },
+          {
+            "arabic": "زاكِرْني؟ أنا اِبِن خالك!",
+            "latin": "zākírni? ána íbin xālak!",
+            "english": "Remember me? I’m your cousin!"
+          },
+          {
+            "arabic": "شو الأخْبار؟",
+            "latin": "šu ilʔaxbār?",
+            "english": "What’s new?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:96",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 95,
+        "regular": "road:96",
+        "title": "Nadia’s errands",
+        "lines": [
+          {
+            "arabic": "بدّي أروح مكْتب البريد، والسّوْبر مارْكِت.",
+            "latin": "bíddi arūɧ máktab ilbarīd, w issūbar mārkit.",
+            "english": "I need the post office and the supermarket."
+          },
+          {
+            "arabic": "ووين جَواز السّفر؟",
+            "latin": "w wēn jawāz issáfar?",
+            "english": "And where’s my passport?"
+          },
+          {
+            "arabic": "بِشنْطِةْ الإيد!",
+            "latin": "bišánʈit ilʔīd!",
+            "english": "In my handbag!"
+          },
+          {
+            "arabic": "ومحطِّةْ القِطار؟ وين؟",
+            "latin": "w maɧáʈʈit ilqiʈār? wēn?",
+            "english": "And the train station? Where?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:97",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 96,
+        "regular": "road:97",
+        "title": "Abu Rami’s jacket",
+        "lines": [
+          {
+            "arabic": "جاكيْتّ البدْلة كْبير شْوَيّة؟",
+            "latin": "jakētt ilbádle kbīr šwáyye?",
+            "english": "Is the suit jacket a bit big?"
+          },
+          {
+            "arabic": "ضِيِّق شْوَيّة؟ لا!",
+            "latin": "ɖáyyiq šwáyye? laʔ!",
+            "english": "A bit tight? No!"
+          },
+          {
+            "arabic": "أنا ما عملْت جاكيْتّ غلط، وَلا مرّة.",
+            "latin": "ána ma 3amílt jakētt ɣalaʈ, wala márra.",
+            "english": "I’ve never once made a jacket wrong."
+          },
+          {
+            "arabic": "اِلْبِس، وشوف!",
+            "latin": "ílbis, w šūf!",
+            "english": "Put it on, and see!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:98",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 97,
+        "regular": "road:98",
+        "title": "Rasha’s flat",
+        "lines": [
+          {
+            "arabic": "عِمارة سكنية، وأنا فوْق.",
+            "latin": "3imāra sakaníyye, w ána fōg.",
+            "english": "An apartment building, and I’m at the top."
+          },
+          {
+            "arabic": "بِجْلي الجّلي؟ برتِّب التّخِت؟",
+            "latin": "bájli ijjáli? baráttib ittáxit?",
+            "english": "Do I do the dishes? Make the bed?"
+          },
+          {
+            "arabic": "بنْشُر الغسيل؟ كيف؟",
+            "latin": "bánšur ilɣasīl? kīf?",
+            "english": "Hang out the laundry? How?"
+          },
+          {
+            "arabic": "بسّ بعرِف أكِل جاهِز!",
+            "latin": "bass bá3rif ákil jāhiz!",
+            "english": "But I know fast food!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:99",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 98,
+        "regular": "road:99",
+        "title": "Wissam’s Thursday",
+        "lines": [
+          {
+            "arabic": "النّتايِج يوْم الخميس.",
+            "latin": "innatāyij yōm ilxamīs.",
+            "english": "The results come out on Thursday."
+          },
+          {
+            "arabic": "نِجِحْت؟ ولّا سقطْت؟",
+            "latin": "nijíɧt? wálla saqáʈt?",
+            "english": "Did I pass? Or fail?"
+          },
+          {
+            "arabic": "حظّ بِشِع؟ لا، بدرُس يوْم بعِد يوْم.",
+            "latin": "ɧaʐʐ bíši3? laʔ, bádrus yōm bá3id yōm.",
+            "english": "Bad luck? No, I study every other day."
+          },
+          {
+            "arabic": "بسّ أنا مِتْشوِّق زْيادة عن اللُّزوم!",
+            "latin": "bass ána mitšáwwiq zyāde 3an illuzūm!",
+            "english": "But I’m too excited!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:100",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 99,
+        "regular": "road:100",
+        "title": "Ghassan’s coast",
+        "lines": [
+          {
+            "arabic": "أنا مُرْشِد سِياحي.",
+            "latin": "ána múršid siyāɧi.",
+            "english": "I’m a tour guide."
+          },
+          {
+            "arabic": "الخطّ السّريع، وبعديْن السّاحِل.",
+            "latin": "ilxaʈʈ issarī3, w ba3dēn issāɧil.",
+            "english": "The highway, then the coast."
+          },
+          {
+            "arabic": "عِنْدك رُخْصِةْ سْواقة؟",
+            "latin": "3índak rúxʂit swāqa?",
+            "english": "Do you have a driver’s license?"
+          },
+          {
+            "arabic": "جهّز شنْطْتك!",
+            "latin": "jáhhiz šánʈtak!",
+            "english": "Pack your suitcase!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:101",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 100,
+        "regular": "road:101",
+        "title": "Umm Hadi’s kitchen",
+        "lines": [
+          {
+            "arabic": "بيْض مقْلي؟ مسْلوق؟ مخْفوق؟",
+            "latin": "bēɖ mágli? maslūg? maxfūg?",
+            "english": "Fried eggs? Boiled? Scrambled?"
+          },
+          {
+            "arabic": "اِبْني بِتْجوّز بُكْرة!",
+            "latin": "íbni bitjáwwaz búkra!",
+            "english": "My son is getting married tomorrow!"
+          },
+          {
+            "arabic": "والمطبخ؟ مطبخي، تلات إيّام!",
+            "latin": "w ilmáʈbax? maʈbáxi, tlat iyyām!",
+            "english": "And the kitchen? It’s mine, for three days!"
+          },
+          {
+            "arabic": "غمّض عيْنيْك، وكُل!",
+            "latin": "ɣámmiɖ 3ēnēk, w kul!",
+            "english": "Close your eyes, and eat!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:102",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 101,
+        "regular": "road:102",
+        "title": "Layla’s night shift",
+        "lines": [
+          {
+            "arabic": "بِالنّهار عِلْم نفْس، وبِاللّيْل الشُّغُل.",
+            "latin": "binnahār 3ilm nafs, w billēl iššúɣul.",
+            "english": "By day psychology, and by night work."
+          },
+          {
+            "arabic": "عِنْدي اِمْتِحان شفَوي، واِمْتِحان كِتابي.",
+            "latin": "3índi imtiɧān šafáwi, w imtiɧān kitābi.",
+            "english": "I have an oral exam and a written exam."
+          },
+          {
+            "arabic": "ورُسوم الجّامْعة غالْيَة.",
+            "latin": "w rusūm ijjām3a ɣálye.",
+            "english": "And tuition is expensive."
+          },
+          {
+            "arabic": "نوْم؟ شو يَعْني نوْم؟",
+            "latin": "nōm? šu yá3ni nōm?",
+            "english": "Sleep? What’s sleep?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:103",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 102,
+        "regular": "road:103",
+        "title": "Shadi’s storms",
+        "lines": [
+          {
+            "arabic": "الجّوّ عَواصِف، وأنا طالِع.",
+            "latin": "ijjáww 3awāʂif, w ána ʈāli3.",
+            "english": "It’s stormy, and I’m heading out."
+          },
+          {
+            "arabic": "عِنْدي عجل سْبيْر بِشنْطِةْ السّيّارة.",
+            "latin": "3índi 3ájal spēr bišánʈit issayyāra.",
+            "english": "I have a spare tire in the trunk."
+          },
+          {
+            "arabic": "عاصِفة تُرابية؟ إعْصار؟ بروح!",
+            "latin": "3āʂife turābíyye? i3ʂār? barūɧ!",
+            "english": "A sandstorm? A tornado? I go!"
+          },
+          {
+            "arabic": "بِتْمطِّر برد! شوف!",
+            "latin": "bitmáʈʈir bárad! šūf!",
+            "english": "It’s hailing! Look!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:104",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 103,
+        "regular": "road:104",
+        "title": "Muna on the air",
+        "lines": [
+          {
+            "arabic": "اليوْم المسا: أهلا بِالبرْنامِج!",
+            "latin": "ilyōm ilmása: áhla bilbarnāmij!",
+            "english": "This evening: welcome to the show!"
+          },
+          {
+            "arabic": "أوّل إشي: أغاني شعْبية!",
+            "latin": "áwwal íši: aɣāni ša3bíyye!",
+            "english": "First up: folk music!"
+          },
+          {
+            "arabic": "وبعديْن قِصّة خَيالية.",
+            "latin": "w ba3dēn qíʂʂa xayālíyye.",
+            "english": "Then a fairy tale."
+          },
+          {
+            "arabic": "اِتّصلوا فينا!",
+            "latin": "ittáʂlu fīna!",
+            "english": "Call us!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:105",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 104,
+        "regular": "road:105",
+        "title": "Dr. Rawan’s rounds",
+        "lines": [
+          {
+            "arabic": "عِنْدك صُداع نِصْفي؟",
+            "latin": "3índak ʂudā3 níʂfi?",
+            "english": "Do you have a migraine?"
+          },
+          {
+            "arabic": "خُد مُضادّ حَيَوي، ولِزِق جْروح.",
+            "latin": "xud muɖādd ɧayáwi, w lízig jrūɧ.",
+            "english": "Take antibiotics, and a Band-Aid."
+          },
+          {
+            "arabic": "مرضك مُعْدي؟ لا.",
+            "latin": "maráɖak mú3di? laʔ.",
+            "english": "Are you contagious? No."
+          },
+          {
+            "arabic": "وأنا بعْرف كُلّ إشي عنْك!",
+            "latin": "w ána bá3rif kull íši 3ánnak!",
+            "english": "And I know everything about you!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:106",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 105,
+        "regular": "road:106",
+        "title": "Abu Basel’s rounds",
+        "lines": [
+          {
+            "arabic": "أنا صاحِب المكان.",
+            "latin": "ána ʂāɧib ilmakān.",
+            "english": "I’m the landlord."
+          },
+          {
+            "arabic": "قطْعت الكهْربا؟",
+            "latin": "gáʈ3at ilkahraba?",
+            "english": "The power went out?"
+          },
+          {
+            "arabic": "وين المُفْتاح الإنْجْليزي؟ بجيْبْتي!",
+            "latin": "wēn ilmuftāɧ ilinglīzi? bijébti!",
+            "english": "Where’s the wrench? In my pocket!"
+          },
+          {
+            "arabic": "وفرْشِةْ السْرير؟ جْديدة!",
+            "latin": "w faršit issrīr? jdīde!",
+            "english": "And the mattress? New!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:107",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 106,
+        "regular": "road:107",
+        "title": "Forty years married",
+        "lines": [
+          {
+            "arabic": "اليوْم عيد جَوازْنا، أربعين سنة!",
+            "latin": "ilyōm 3īd jawázna, arba3īn sane!",
+            "english": "Today is our wedding anniversary, forty years!"
+          },
+          {
+            "arabic": "إحْنا في السِّتّينات.",
+            "latin": "íɧna fi issittināt.",
+            "english": "We’re in our sixties."
+          },
+          {
+            "arabic": "كُلّ واحد مِن البلد هِنا!",
+            "latin": "kull wāɧad min ilbálad hína!",
+            "english": "Everyone from town is here!"
+          },
+          {
+            "arabic": "حبيبْتي!",
+            "latin": "ɧabíbti!",
+            "english": "My darling!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:108",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 107,
+        "regular": "road:108",
+        "title": "Abu Hatem’s counter",
+        "lines": [
+          {
+            "arabic": "جِبْنة حلّوم؟ رومي؟ شيدر؟",
+            "latin": "jíbne ɧallūm? rūmi? šēdar?",
+            "english": "Halloumi? Romy? Cheddar?"
+          },
+          {
+            "arabic": "وفي مُكسّرات مْشكّلة.",
+            "latin": "w fī mukassarāt mšákkale.",
+            "english": "And there are mixed nuts."
+          },
+          {
+            "arabic": "بسّ قبِل ما أفْتح، الجِم!",
+            "latin": "bass gábil ma áftaɧ, ijjim!",
+            "english": "But before I open, the gym!"
+          },
+          {
+            "arabic": "جِهاز إيليبْتيكال، وجِهاز حديد.",
+            "latin": "jihāz elíptikal, w jihāz ɧadīd.",
+            "english": "The elliptical, and the weights machine."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:109",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 108,
+        "regular": "road:109",
+        "title": "Marwan’s notebook",
+        "lines": [
+          {
+            "arabic": "بِالنّهار، فرس النّهِر.",
+            "latin": "binnahār, fáras innáhir.",
+            "english": "By day, the hippopotamus."
+          },
+          {
+            "arabic": "وبِاللّيْل، الموسيقى.",
+            "latin": "w billēl, ilmūsīqa.",
+            "english": "And by night, music."
+          },
+          {
+            "arabic": "وبكْتُب كُلّ إشي.",
+            "latin": "w báktub kull íši.",
+            "english": "And I write everything down."
+          },
+          {
+            "arabic": "بسّ ما حدا بْيِعْرِف اِسْمي!",
+            "latin": "bass ma ɧáda byí3rif ísmi!",
+            "english": "But nobody knows my name!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:110",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 109,
+        "regular": "road:110",
+        "title": "Basma’s forecast",
+        "lines": [
+          {
+            "arabic": "رام الله: السّما صافْيَة.",
+            "latin": "rāmalla: issáma ʂáfye.",
+            "english": "Ramallah: the sky is clear."
+          },
+          {
+            "arabic": "غزّة: بْنُصّ العِشْرين.",
+            "latin": "ɣázze: bnuʂʂ il3išrīn.",
+            "english": "Gaza: in the mid-twenties."
+          },
+          {
+            "arabic": "وبير السّبِع؟ شوْب!",
+            "latin": "w bīr issábi3? šōb!",
+            "english": "And Beersheba? Hot!"
+          },
+          {
+            "arabic": "يوْمكم سعيد!",
+            "latin": "yōmkum sa3īd!",
+            "english": "Have a nice day!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:111",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 110,
+        "regular": "road:111",
+        "title": "Nawal’s back room",
+        "lines": [
+          {
+            "arabic": "اُقْعُدي هِنا.",
+            "latin": "ug3údi hína.",
+            "english": "Sit here."
+          },
+          {
+            "arabic": "الشّوْربة بِالمايْكْروْويْف.",
+            "latin": "iššōraba bilmaykrowēv.",
+            "english": "The soup’s in the microwave."
+          },
+          {
+            "arabic": "أنا؟ نِمِت أربع ساعات بسّ.",
+            "latin": "ána? nímit árba3 sā3āt bass.",
+            "english": "Me? I slept only four hours."
+          },
+          {
+            "arabic": "شعْرك حِلو هلْقيْت!",
+            "latin": "šá3rik ɧílu halgēt!",
+            "english": "Your hair looks good now!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:112",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 111,
+        "regular": "road:112",
+        "title": "Bilal between flights",
+        "lines": [
+          {
+            "arabic": "الدِّنْيا زحْمة، وأنا تعْبان.",
+            "latin": "iddínya záɧme, w ána ta3bān.",
+            "english": "It’s crowded, and I’m tired."
+          },
+          {
+            "arabic": "نزِّلْني هِنا!",
+            "latin": "nazzílni hína!",
+            "english": "Let me out here!"
+          },
+          {
+            "arabic": "بُكْرة طيّارة تانْيَة.",
+            "latin": "búkra ʈayyāra tánye.",
+            "english": "Tomorrow, another flight."
+          },
+          {
+            "arabic": "نوْم؟ في الطّيّارة!",
+            "latin": "nōm? fi iʈʈayyāra!",
+            "english": "Sleep? On the plane!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:113",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 112,
+        "regular": "road:113",
+        "title": "Ruba on campus",
+        "lines": [
+          {
+            "arabic": "أنا عايْشة في سكن الجّامْعة.",
+            "latin": "ána 3áyše fi sákan ijjām3a.",
+            "english": "I live in student housing."
+          },
+          {
+            "arabic": "العربي؟ بمشّي حالي.",
+            "latin": "il3árabi? bamášši ɧāli.",
+            "english": "Arabic? I get by."
+          },
+          {
+            "arabic": "بسّ خطّي بِشِع!",
+            "latin": "bass xáʈʈi bíši3!",
+            "english": "But my handwriting is awful!"
+          },
+          {
+            "arabic": "وَلا حدا بِفْهم وَلا كِلْمة!",
+            "latin": "wala ɧáda bífham wala kílme!",
+            "english": "No one understands a word!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tale:road:114",
+      "subject": "arabic",
+      "type": "tale",
+      "data": {
+        "chapter": 113,
+        "regular": "road:114",
+        "title": "Lama’s two families",
+        "lines": [
+          {
+            "arabic": "عِنْدي أخو مِن الأبو، وأُخُت مِن الأمّ.",
+            "latin": "3índi axu min ilʔabu, w úxut min ilʔumm.",
+            "english": "I have a half-brother on my father’s side, and a half-sister on my mother’s."
+          },
+          {
+            "arabic": "ومرْت أبوي؟ حنونة!",
+            "latin": "w mart abūy? ɧanūne!",
+            "english": "And my stepmother? She’s kind!"
+          },
+          {
+            "arabic": "وأنا بِالنُّصّ!",
+            "latin": "w ána binnúʂʂ!",
+            "english": "And I’m in the middle!"
+          },
+          {
+            "arabic": "اليوْم كُلّنا هِنا!",
+            "latin": "ilyōm kullna hína!",
+            "english": "Today we’re all here!"
+          }
+        ]
+      }
+    }
+  ]
+}
