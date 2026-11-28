@@ -208,23 +208,23 @@ A second room, the roof, opened with 15 gems (8.4, #472): its own layout, and fr
 
 Phase 9 (#482, [ADR 0056](../decisions/0056-visiting-together-live.md)): friends in one house see each other walk, sit and climb, live; and the last fade in reading Arabic, words read aloud with no choices (#487); pattern badges, verbs shaped like a binyan (#489); and the regulars' tales (#491). Notes: [releases/v1.7.0.md](releases/v1.7.0.md). One migration.
 
-### v1.8.0 — Safe for friends *(planned)*
+### v1.8.0 — Safe for friends, and everything built since
 
-Phase 10 (#495): our own error log, take your data and leave, a dependency refresh and a tidy backlog.
+Phase 10 (#495): our own error log, take your data and leave, a dependency refresh. Like v1.0.0 ([ADR 0049](../decisions/0049-one-zero-ships-what-dev-holds.md)), it carries everything `dev` held on 2026-11-28 (Adam: "release"): the builds of v1.10.0 (Phase 12), v1.11.0 (Phase 13) and v1.12.0 (Phase 14), plus Phase 11's first task and Phase 15's first two, which players can't see yet. Notes: [releases/v1.8.0.md](releases/v1.8.0.md). Six migrations.
 
 ### v1.9.0 — Hearing the street *(planned)*
 
 Phase 11 (#496): **Hear it** in the echo well, sentence listening with a word bank ([arabic-listening.md](../game/arabic-listening.md)).
 
-### v1.10.0 — Faster than thought *(planned)*
+### v1.10.0 — Faster than thought *(shipped in v1.8.0)*
 
 Phase 12 (#497): Morse past 20 wpm. A speed dial, a ladder to 35 wpm, and The Long Copy ([morse-speed.md](../game/morse-speed.md)).
 
-### v1.11.0 — True and lasting *(planned)*
+### v1.11.0 — True and lasting *(shipped in v1.8.0)*
 
 Phase 13 (#513): our Arabic checked against its Latin in CI, the data budget, and the milestone check ([milestone-check.md](../game/milestone-check.md)).
 
-### v1.12.0 — Writing words *(planned)*
+### v1.12.0 — Writing words *(shipped in v1.8.0)*
 
 Phase 14 (#514): *Spell it* at the slate, and the inn on the Arabic keyboard ([arabic-spelling.md](../game/arabic-spelling.md)).
 
