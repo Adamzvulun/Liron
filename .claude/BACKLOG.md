@@ -3,7 +3,7 @@
 The orchestrator's short work list. **PLAN.md and the GitHub issues stay the source of truth** for the phases; this file points to them. "status" summarizes this file; "next" takes the top item of Next.
 
 ## In progress
-- **graphify, a permanent part of the setup** (branch `claude/graphify-setup`): the session-start hook, the code graph, the agents use it. Proof waits on a fresh session (HANDOFF 206).
+- **Self-improvement loops** (branch `claude/improve-loops`): the task log, agent memory, the `retro` agent, `/retro`, `/improve`, `/scoreboard`, the guardrails. First retro as the test.
 
 ## Next
 1. **Phase 15, songs** ([#522](https://github.com/Adamzvulun/Liron/issues/522), v1.13.0): 15.1 and 15.2 merged. Next is 15.3, which needs keys; Adam deals with those when we get there. 15.4 and 15.5 follow it.
@@ -15,6 +15,7 @@ The orchestrator's short work list. **PLAN.md and the GitHub issues stay the sou
 - **Parked by Adam** ([LATER.md](../docs/process/LATER.md)): the third subject (#337), the regulars' voices (#342), the Fellowship's release (#332), the square on his phone (#137).
 
 ## Done
+- **graphify, ponytail and auto-compact in every session** (#549, 2026-11-28): the session-start hook, the code graph, the agents query it (HANDOFF 206).
 - (Newest first. Trim to the last ~10.)
 - **v1.7.0 and v1.8.0 released** (#485, #547, 2026-11-28). v1.8.0 carries Phases 10 and 12–14. Built issues closed.
 - **/away run** (2026-11-26 to 2026-11-27): PRs #533–#544 into `dev` (HANDOFF 203).

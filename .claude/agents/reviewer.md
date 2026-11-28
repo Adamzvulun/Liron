@@ -7,6 +7,12 @@ tools: Read, Grep, Glob, Bash
 maxTurns: 25
 autoCompactWindow: 450000
 memory: project
+hooks:
+  PreToolUse:
+    - matcher: "Write|Edit|MultiEdit|NotebookEdit"
+      hooks:
+        - type: command
+          command: "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/write-only-under.sh .claude/agent-memory/reviewer"
 skills:
   - ponytail-review
 ---
@@ -19,5 +25,7 @@ Check every change for:
 - **Security:** OWASP Top 10, RLS on new tables, input validated at the edges, no secrets, a strict CSP kept.
 - **Over-engineering (ponytail-review):** every line needed, no unrequested abstraction or option.
 - **House rules:** American English with curly apostrophes for players; content as data in `content/`; no text from `sources/`; no blue backgrounds; no model ids; docs updated where code and docs disagree.
+- **`improve:` commits:** also check them against the hard limits in `.claude/CLAUDE.md` (Self-improvement); breaking one means CHANGES NEEDED, whatever else passes.
+- **Memory:** save only stable, reusable facts (project quirks, where things live, recurring failures and their fixes, commands that work). Never task-specific state, secrets, guesses or personal data (the repo is public). Correct or delete a note as soon as it's proven wrong.
 
-Return a verdict, **PASS** or **CHANGES NEEDED**, then at most 10 findings ranked most severe first, each as `path:line — problem — fix`, in one line each. End with one line: what you did not check.
+Return a verdict, **PASS** or **CHANGES NEEDED**, then at most 10 findings ranked most severe first, each as `path:line — problem — fix`, in one line each. End with one line: what you did not check. Then `Lessons:` one line — what slowed you down, what your brief was missing, what you'd do differently; "None" is fine.
