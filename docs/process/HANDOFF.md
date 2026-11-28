@@ -636,3 +636,10 @@
    - **The /away run stops here.** Everything left needs Adam: the releases (v1.7.0 to v1.13.0), 13.2's production numbers, Phase 11's sentence list, and 15.3's keys. 15.4 and 15.5 need 15.3.
 204. **v1.7.0 released (2026-11-28).** Adam merged release PR #485 into `main` (`fe988c56`). The DB migrate run on `main` passed and applied `20270123000000_visiting_live.sql` to production. The live site answers 200 and its bundle carries 1.7.0; `/api/partner` answers 405 to a GET, as it should (POST only). `main` is now at v1.7.0, so the next release PR from `dev` starts from there.
 
+205. **Releases (Adam, 2026-11-28: "release, close the built issues. I don't want to run anything myself. When we get to 15.3 we'll deal with the API keys").**
+   - **v1.7.0 is live** (#485, merge commit). DB migrate applied `20270123000000_visiting_live.sql` to `waymark-prod`.
+   - **v1.8.0 is live** (#547). Following ADR 0049, it carries everything on `dev`: Phase 10, the builds of v1.10–v1.12 (Phases 12–14), and 11.1 and 15.1–15.2, which players can't see yet. Its six migrations (`20270124…`–`20270129…`) were applied by DB migrate on `main`. VERSIONS.md marks v1.10–v1.12 as shipped in v1.8.0. v1.9.0 (Phase 11) and v1.13.0 (Phase 15) stay planned.
+   - **Tags:** none. The git proxy refuses tag pushes and there is no tool for GitHub Releases, so none were made. Adam has not asked for them.
+   - **Issues closed:** #502, #511, #518, #521 (the releases); #498 (tidy the backlog); #495, #497, #513, #514 (the epics); #447 (its last item shipped in v1.7.0). The task issues had closed already. #516 stays open: its retention ADR needs production numbers.
+   - **Adam runs nothing.** The deck tests and the sentence list wait on the deck (his machine). The `delete_my_account` try on `waymark-dev` is covered by `supabase/tests/delete-account.test.ts`. 13.2's numbers come only if the database grows.
+   - **Next:** wait for Adam. Then 15.3, whose keys he'll handle when we get there.
