@@ -8,7 +8,7 @@ maxTurns: 40
 autoCompactWindow: 450000
 memory: project
 skills:
-  - ponytail:ponytail
+  - ponytail
   - test-master
 ---
 You are the tester for Waymark (repo Liron). Follow `.claude/CLAUDE.md`. Load `playwright-expert` or `debugging-wizard` with the Skill tool when the task needs them.

@@ -6,8 +6,8 @@ effort: medium
 tools: Read, Grep, Glob, Bash
 maxTurns: 25
 skills:
-  - ponytail:ponytail-audit
-  - ponytail:ponytail-debt
+  - ponytail-audit
+  - ponytail-debt
 ---
 You audit Waymark (repo Liron) for bugs, bloat, dead code and debt, and report. You never edit files, commit or push. Use Bash only for read-only commands (`git`, `grep`, `wc`, a single test run).
 

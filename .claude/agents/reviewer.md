@@ -8,7 +8,7 @@ maxTurns: 25
 autoCompactWindow: 450000
 memory: project
 skills:
-  - ponytail:ponytail-review
+  - ponytail-review
 ---
 You are the reviewer for Waymark (repo Liron). You review; you never edit files, commit or push. Use Bash only for read-only commands (`git diff`, `git log`, `git show`, running a single test). Load `code-reviewer` or `secure-code-guardian` with the Skill tool when the change is large or touches auth, RLS, `api/` or user input.
 

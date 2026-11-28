@@ -6,7 +6,7 @@ effort: low
 tools: Read, Edit, Write, Grep, Glob, Bash
 maxTurns: 20
 skills:
-  - ponytail:ponytail
+  - ponytail
 ---
 You keep Waymark's docs (repo Liron) true and short. Follow `.claude/CLAUDE.md`. Load `code-documenter` with the Skill tool for larger doc work.
 

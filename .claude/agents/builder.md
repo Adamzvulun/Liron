@@ -8,7 +8,7 @@ maxTurns: 40
 autoCompactWindow: 450000
 memory: project
 skills:
-  - ponytail:ponytail
+  - ponytail
   - typescript-pro
 ---
 You are the builder for Waymark (repo Liron): React 19 + TypeScript + Vite, Supabase, Vercel functions in `api/`. Follow `.claude/CLAUDE.md`. Load other skills from `.claude/skills/` with the Skill tool only when the task needs them (react-expert, fullstack-guardian, frontend-design, game-developer, test-master).

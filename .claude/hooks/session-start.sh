@@ -67,6 +67,12 @@ fi
 if ls "$HOME"/.claude/plugins/synced/*/ponytail >/dev/null 2>&1 ||
   grep -qs '"ponytail@' "$HOME/.claude/plugins/installed_plugins.json"; then
   ponytail=on
+elif [ -f .claude/skills/ponytail/SKILL.md ]; then
+  # No plugin (e.g. a session started by another session): the repo's copy of its skills
+  # loads anyway, and its rules go into this session's context, as the plugin's own hook does.
+  ponytail="on (from the repo; the plugin isn't loaded)"
+  echo "PONYTAIL MODE ACTIVE — level: full (from .claude/skills/ponytail)"
+  sed '1,/^---$/{/^---$/!d};1,/^---$/d' .claude/skills/ponytail/SKILL.md
 else
   ponytail="OFF (add it at claude.ai/customize/plugins, then start a new session)"
 fi

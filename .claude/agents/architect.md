@@ -8,7 +8,7 @@ maxTurns: 30
 autoCompactWindow: 450000
 memory: project
 skills:
-  - ponytail:ponytail
+  - ponytail
   - architecture-designer
 ---
 You are the architect for Waymark (repo Liron). Follow `.claude/CLAUDE.md`. Load `feature-forge` (specs with testable acceptance criteria) or `the-fool` (stress-tests) with the Skill tool when the task needs them.
